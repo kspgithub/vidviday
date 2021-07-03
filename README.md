@@ -1,62 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# VIDVIDAY
+## Системные Требования
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- PHP версии 7.4 и выше
+- MYSQL версии 5.7 и выше
+- NodeJS версии 12 и выше
 
-## About Laravel
+## Установка
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Переименуйте файл `.env.examle`  в корне проекта в файл `.env`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Установите пакеты с помощью [composer](https://getcomposer.org/)
+вызвав команду `composer install` в консоли.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Установите пакеты с помощью [npm](https://www.npmjs.com/)
+вызвав команду `npm install` в консоли.
 
-## Learning Laravel
+Создайте свою базу данных на своем сервере и обновить в файле .env следующие строки:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Сгенерируйте ключ безопастности с помощью команды  
+`php artisan key:generate`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Запустите миграции базы данных с помощью команды  
+`php artisan migrate`
 
-## Laravel Sponsors
+Заполните базу данных:  
+`php artisan db:seed`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+После того, как ваш проект установлен, вы должны запустить команду, чтобы связать вашу общую папку хранилища для
+загрузки файлов:  
+`php artisan storage:link`
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+## Разработка
+Файлы стилей и скриптов создаются с использованием Laravel Mix, который является оболочкой для многих инструментов и
+работает с файлом webpack.mix.js в корне проекта.
 
-## Contributing
+Вы можете построить их с помощью команды:  
+`npm run <command>`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Доступные команды перечислены в верхней части файла package.json под ключом «scripts».
 
-## Code of Conduct
+## Панель администратора
+Находится по адресу *http://stitename.com/admin*
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Учетные данные администратора по умолчанию:  
+**Username:** admin@vidviday.org.ua  
+**Password:** secret12345
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Библиотеки и пакеты
 
-## License
+- PHP Фреймворк [Laravel 8](https://laravel.com/)
+- CSS Фреймворк [Bootstrap 5](https://getbootstrap.com/)
+- JS фреймворк [Vue.js](https://vuejs.org/)
+- Управление ролями и доступом [Laravel Permission](https://spatie.be/docs/laravel-permission/v4/introduction)
+- Связывание всевозможных файлов с моделями [Laravel Medialibrary](https://spatie.be/docs/laravel-medialibrary/v7/introduction)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+#### В админке также подключены
+- Фреймворк [Laravel Livewire](https://laravel-livewire.com/)
+- Иконки [Feather](https://feathericons.com/)
+- JS фреймворк [Alpine.js](https://github.com/alpinejs/alpine) (альтернатива vue.js)
+
+#### Рекомендуемые пакеты
+- В качестве альтернативы [Pusher](https://pusher.com/) можно использовать
+  [Laravel WebSockets](https://beyondco.de/docs/laravel-websockets/getting-started/introduction)
+
+### Fix Your Code
+Fix your code with Laravel Coding Standards.
+
+Syntax:
+```
+$ php artisan fixer:fix [options]
+```
+
+Example:
+```
+Usage:
+  fixer:fix [options] [--] [<path>...]
+
+Arguments:
+  path                               The path. Can be a list of space separated paths
+
+Options:
+      --path-mode=PATH-MODE          Specify path mode (can be override or intersection). [default: "override"]
+      --allow-risky=ALLOW-RISKY      Are risky fixers allowed (can be yes or no).
+      --config=CONFIG                The path to a .php-cs-fixer.php file.
+      --dry-run                      Only shows which files would have been modified.
+      --rules=RULES                  The rules.
+      --using-cache=USING-CACHE      Does cache should be used (can be yes or no).
+      --cache-file=CACHE-FILE        The path to the cache file.
+      --diff                         Also produce diff for each file.
+      --format=FORMAT                To output results in other formats.
+      --stop-on-violation            Stop execution on first violation.
+      --show-progress=SHOW-PROGRESS  Type of progress indicator (none, dots).
+  -h, --help                         Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                        Do not output any message
+  -V, --version                      Display this application version
+      --ansi                         Force ANSI output
+      --no-ansi                      Disable ANSI output
+  -n, --no-interaction               Do not ask any interactive question
+      --env[=ENV]                    The environment the command should run under
+  -v|vv|vvv, --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+  
+```

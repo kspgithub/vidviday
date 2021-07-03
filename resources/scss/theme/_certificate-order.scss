@@ -1,0 +1,157 @@
+/*///////////////////*/
+/* CERTIFECATE ORDER */
+/*///////////////////*/
+.certificate-order-page {
+	.tab-toggle {
+		border-bottom: none;
+	}
+	.tab-caption {
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+			&:after {
+				opacity: 0;
+			}
+		}
+		&:before {
+			top: 1px;
+			bottom: 0;
+			opacity: 0;
+			left: 35px;
+			right: auto;
+			height: auto;
+			bottom: auto;
+			color: $title;
+			font-weight: 500;
+			font-size: inherit;
+			line-height: inherit;
+			content: attr(data-text);
+			transform: none;
+			background-color: transparent;
+		}
+		&:after {
+			content: '';
+			height: 1px;
+			width: 110px;
+			margin-left: 10px;
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+			background-color: $border;
+		}
+		span {
+			width: 25px;
+			height: 25px;
+			font-weight: 700;
+			line-height: 25px;
+			text-align: center;
+			border-radius: 50%;
+			margin-right: 10px;
+			border: 1px solid $border;
+		}
+		&.active {
+			color: transparent;
+			&:before {
+				opacity: 1;
+			}
+			span {
+				color: #fff;
+				border-color: $blue;
+				background-color: $blue;
+			}
+		}
+	}
+	.tab-top-part {
+		align-items: center;
+	}
+	.radio {
+		margin-right: 30px;
+		margin-bottom: 10px;
+		&:last-of-type {
+			margin-right: 0;
+		}
+	}
+}
+/*///////*/
+/* HOVER */
+/*///////*/
+@media (min-width: 1200px) {
+
+	.certificate-order-page {
+		.tab-caption {
+			&:hover {
+				span {
+					color: #fff;
+					border-color: $blue;
+					background-color: $blue;
+				}
+			}
+		}
+	}
+}
+
+/*///////////////*/
+/* MEDIA QUERIES */
+/*///////////////*/
+@media (max-width: 1599px) {
+}
+
+@media (min-width: 1400px) {
+}
+
+@media (max-width: 1399px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 1199px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (max-width: 991px) {
+
+	.certificate-order-page {
+		.tab-caption {
+			&:after {
+				width: 50px;
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+}
+
+@media (max-width: 767px) {
+}
+
+@media (max-width: 575px) {
+
+	.certificate-order-page {
+		.tab-nav {
+			margin-right: -10px;
+		}
+		.tab-caption {
+			font-size: 12px;
+			white-space: nowrap;
+			&:last-child {
+				margin-right: 10px;
+			}
+			> span {
+				margin-right: 3px;
+			}
+			&:before {
+				left: 28px;
+			}
+			&:after {
+				display: none;
+			}
+		}
+	}
+}
+
+@media (max-width: 480px) {
+}

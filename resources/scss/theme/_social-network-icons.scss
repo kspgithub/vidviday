@@ -1,0 +1,185 @@
+/*######################*/
+/* SOCIAL NETWORK ICONS */
+/*######################*/
+.social {
+	font-size: 0;
+	a,
+	span {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	span {
+		margin-right: 20px;
+		&.text {
+			margin-right: 40px;
+		}
+		&:not(.text) {
+			color: $title;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 20px;
+		}
+	}
+	a:not(.download),
+	a:not(.download):before {
+		border-radius: 50%;
+	}
+	a:not(.download) {
+		width: 40px;
+		height: 40px;
+	}
+	a:not(.download) {
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+		}
+		&:before {
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			content: '';
+			position: absolute;
+			will-change: transform;
+			background-color: #fff;
+		}
+		svg,
+		img {
+			top: 50%;
+			left: 50%;
+			max-width: 20px;
+			max-height: 20px;
+			position: absolute;
+			transform: translate(-50%, -50%);
+		}
+	}
+	&.style-1 {
+		a:not(.download) {
+			&:before {
+				border: 1px solid $border;
+			}
+		}
+		.download {
+			margin-left: 40px;
+		}
+		&.dark {
+			a:not(.download) {
+				&:before {
+					border: none;
+					background-color: $socialDark;
+				}
+			}
+		}
+	}
+	&.style-2 {
+		a:not(.download) {
+			width: 46px;
+			height: 46px;
+			margin-right: 5px;
+			&:last-child {
+				margin-right: 0;
+			}
+			&:before {
+				opacity: 0;
+				transform: scale(0);
+			}
+			svg {
+				transform-origin: center;
+				transform: scale(1.6) translate(-30%, -30%);
+				max-width: 38px;
+				max-height: 38px;
+			}
+		}
+	}
+	&.vertical-margin {
+		margin: 15px 0;
+	}
+	.share {
+		margin-left: 0;
+	}
+	&.post-social {
+		.download {
+			margin-left: 50px;
+		}
+	}
+}
+/*#######*/
+/* HOVER */
+/*#######*/
+@media (min-width: 1200px) {
+
+	.social {
+		&.style-1 {
+			a:not(.download) {
+				&:hover {
+					&:before {
+						opacity: 0;
+						transform: scale(0);
+					}
+					path,
+					polygon,
+					square,
+					circle,
+					line {
+						fill: $blue;
+					}
+				}
+			}
+		}
+		&.style-2 {
+			a:not(.download) {
+				&:hover {
+					&:before {
+						opacity: 1;
+						transform: none;
+					}
+					path,
+					polygon,
+					square,
+					circle,
+					line {
+						fill: $blue;
+					}
+				}
+			}
+		}
+	}
+}
+/*###############*/
+/* MEDIA QUERIES */
+/*###############*/
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 1599px) {
+}
+
+@media (max-width: 1399px) {
+}
+
+@media (max-width: 1199px) {
+}
+
+@media (max-width: 991px) {
+}
+
+@media (max-width: 767px) {
+
+	.social {
+		&.post-social {
+			text-align: center;
+			.download {
+				margin-left: 0;
+				display: block;
+				margin-top: 15px;
+			}
+		}
+	}
+}
+
+@media (max-width: 575px) {
+}
+
+@media (max-width: 480px) {
+}

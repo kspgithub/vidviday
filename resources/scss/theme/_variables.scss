@@ -1,0 +1,65 @@
+$fb: #4064AD;
+$red: #CF2020;
+$doc: #c4c4c4;
+$box: #fafafa;
+$pink: #ffe4b8;
+$blue: #2ab0cd;
+$text: #626262;
+$grey: #929292;
+$title: #323232;
+$green: #7EBD3E;
+$olive: #d5ecbd;
+$google: #E44134;
+$orange: #FFB947;
+$border: #E9E9E9;
+$footer: #fafafa;
+$search: #fcfcfc;
+$discount: #F5F5F5;
+$checkbox: #dbdbdb;
+$socialDark: #f7f7f7;
+$mainFont: 'Roboto', sans-serif;
+
+@mixin dropdownArrow($borderColor) {
+	top: 50%;
+	width: 6px;
+	content: '';
+	height: 6px;
+	margin-top: -5px;
+	position: absolute;
+	transform: rotate(45deg);
+	border-right: 1px solid $borderColor;
+	border-bottom: 1px solid $borderColor;
+}
+
+@mixin dropdownArrowLeft($left) {
+	left: $left;
+}
+
+@mixin dropdownArrowRight($right) {
+	right: $right;
+}
+
+@mixin dropdownArrowActive($borderColor) {
+	border-color: $borderColor;
+	transform: rotate(225deg) translate3d(-4px, -2px, 0);
+}
+
+// Line clamp
+@mixin lineClamp($lineClamp) {
+	overflow: hidden;
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $lineClamp;
+}
+
+@mixin lineClampBasix() {
+	overflow: hidden;
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+}
+
+@mixin lineClampOnly($lineClamp) {
+	-webkit-line-clamp: $lineClamp;
+}

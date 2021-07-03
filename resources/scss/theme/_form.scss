@@ -1,0 +1,789 @@
+/*//////*/
+/* FORM */
+/*//////*/
+label i,
+input,
+textarea,
+input::placeholder,
+textarea::placeholder {
+	font-size: 14px;
+	line-height: 24px;
+}
+
+label,
+input,
+textarea {
+	border-radius: 5px;
+}
+
+input,
+textarea {
+	color: $title;
+}
+
+label i,
+input::placeholder,
+textarea::placeholder {
+	color: $text;
+}
+
+input[type=search]::-ms-clear,
+input[type=search]::-ms-reveal,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration,
+input::-ms-clear,
+select::-ms-expand {
+	width: 0;
+	height: 0;
+	display: none;
+}
+
+input,
+textarea,
+select {
+	width: 100%;
+	-webkit-appearance: none;
+}
+
+select,
+label,
+.timepicker-input,
+.datepicker-input {
+	margin-bottom: 20px;
+}
+
+label {
+	display: block;
+	position: relative;
+	background: #fff;
+	&:before,
+	&:after {
+		z-index: 3;
+		opacity: 0;
+		display: none;
+		position: absolute;
+		transform: scale(0);
+		pointer-events: none;
+		background-color: $red;
+	}
+	&:before {
+		content: '';
+		right: 18px;
+		width: 10px;
+		height: 10px;
+		transform: rotate(45deg);
+		bottom: calc(100% - 13px);
+	}
+	&:after {
+		z-index: 70;
+		color: #fff;
+		font-size: 12px;
+		padding: 4px 10px;
+		line-height: 22px;
+		border-radius: 3px;
+		white-space: nowrap;
+		left: calc(100% - 23px);
+		bottom: calc(100% - 8px);
+		content: attr(data-tooltip);
+		transform: translateX(-50%);
+	}
+	i {
+		top: 8px;
+		left: 10px;
+		padding: 5px;
+		position: absolute;
+		will-change: transform;
+		transform-origin: top left;
+		&:before {
+			left: 0;
+			right: 0;
+			height: 8px;
+			content: '';
+			z-index: -1;
+			position: absolute;
+			top: calc(50% - 4px);
+			background-color: #fff;
+		}
+	}
+	&:not(.active) {
+		i {
+			cursor: text;
+		}
+	}
+	&.active,
+	&.filled {
+		i {
+			transform: translate3d(2px, -20px, 0) scale(0.7);
+		}
+	}
+	&.invalid {
+		background: #fff calc(100% - 15px) 16px/16px 16px url(../icon/discount.svg) no-repeat;
+		&:before,
+		&:after {
+			display: block;
+		}
+		input,
+		textarea {
+			border-color: $red;
+		}
+	}
+	.smile {
+		right: 15px;
+		content: '';
+		width: 18px;
+		height: 18px;
+		bottom: 12px;
+		position: absolute;
+		pointer-events: none;
+		background: center / 94% url(../icon/smile.svg) no-repeat;
+	}
+	.tooltip-wrap {
+		&.light {
+			top: 50%;
+			right: 15px;
+			margin-top: -8px;
+			position: absolute;
+		}
+	}
+}
+
+input,
+textarea {
+	display: block;
+	padding: 12px 15px 10px;
+	border: 1px solid $border;
+}
+
+input {
+	&[type=number] {
+		-moz-appearance: textfield;
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			margin: 0;
+		}
+	}
+	&[type="submit"],
+	&[type="file"] {
+		top: 0;
+		left: 0;
+		z-index: 1;
+		opacity: 0;
+		width: 100%;
+		height: 100%;
+		font-size: 0;
+		border: none;
+		cursor: pointer;
+		position: absolute;
+	}
+}
+
+input {
+	z-index: 2;
+	height: 48px;
+}
+
+textarea {
+	resize: none;
+	height: 108px;
+	overflow: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	line-height: 25px;
+}
+
+.timepicker-input,
+.datepicker-input {
+	position: relative;
+	padding-left: 30px;
+	&:before {
+		left: 0;
+		top: 15px;
+		content: '';
+		width: 18px;
+		height: 18px;
+		position: absolute;
+		background: center / contain no-repeat;
+		background-image: url(../icon/clock.svg);
+	}
+}
+
+.tour-content .datepicker-input {
+	&:after {
+		@include dropdownArrow($text);
+		@include dropdownArrowRight(15px);
+		pointer-events: none;
+	}
+}
+
+.datepicker-input {
+	&:before,
+	&:after,
+	span {
+		z-index: 3;
+	}
+	&:before {
+		background-image: url(../icon/calendar.svg);
+	}
+	&.active {
+		z-index: 4;
+		&:after {
+			@include dropdownArrowActive($blue)
+		}
+		.datepicker-toggle {
+			opacity: 1;
+			transform: none;
+			visibility: visible;
+		}
+	}
+}
+
+.datepicker-placeholder {
+	height: 48px;
+	color: $text;
+	display: block;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 24px;
+	border-radius: 5px;
+	position: relative;
+	background-color: #fff;
+	padding: 12px 15px 10px;
+	border: 1px solid $border;
+}
+
+.datepicker-toggle {
+	top: -4px;
+	left: -4px;
+	right: -4px;
+	opacity: 0;
+	z-index: 2;
+	position: absolute;
+	visibility: hidden;
+	border-radius: 5px;
+	padding: 52px 4px 4px;
+	background-color: #fff;
+	will-change: transform;
+	transform: translate3d(0, 15px, 0);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+}
+
+.double-datepicker {
+	.datepicker-input {
+		padding-left: 0;
+		&:before {
+			left: 15px;
+			z-index: 4;
+		}
+		&.date-departure {
+			margin-bottom: 0;
+			&:before {
+				background-image: url(../icon/departure-date.svg);
+			}
+			.datepicker-placeholder {
+				border-radius: 5px 5px 0 0;
+				border-bottom-color: transparent;
+			}
+			&.active {
+				z-index: 5;
+				.datepicker-placeholder {
+					border-bottom-color: $border;
+				}
+			}
+		}
+		&.date-arrival {
+			&:before {
+				background-image: url(../icon/arrival-date.svg);
+			}
+			.datepicker-placeholder {
+				border-radius: 0 0 5px 5px;
+			}
+		}
+		&.active {
+			z-index: 71;
+		}
+	}
+	.datepicker-placeholder {
+		padding-left: 45px;
+	}
+}
+
+.range {
+	margin: 20px 0;
+	label {
+		width: 100%;
+		color: $title;
+		display: block;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 24px;
+		margin-bottom: 5px;
+		letter-spacing: .02em;
+	}
+	input {
+		width: 0;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		opacity: 0;
+		z-index: -1;
+		border: none;
+	}
+	.text {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		span {
+			color: $text;
+			margin-bottom: 0;
+		}
+	}
+}
+
+form,
+.form {
+	&.row {
+		margin: 0 -10px;
+		> div {
+			padding: 0 10px;
+		}
+	}
+}
+
+.download {
+	position: relative;
+	display: inline-block;
+	&:before {
+		content: '';
+		width: 26px;
+		height: 26px;
+		margin-right: 5px;
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		background: center / contain url(../icon/download.svg) no-repeat;
+	}
+	.text-md {
+		color: $title;
+		line-height: 20px;
+	}
+}
+
+.add-file {
+	position: relative;
+	display: inline-block;
+	&:before {
+		left: 0;
+		opacity: 1;
+		content: '';
+		right: auto;
+		width: 18px;
+		height: 18px;
+		transform: none;
+		margin-right: 5px;
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		background: center / contain url(../icon/staple.svg) no-repeat;
+	}
+	span {
+		color: $title;
+	}
+	input {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 0;
+		opacity: 0;
+	}
+}
+
+.number-input {
+	display: flex;
+	align-items: center;
+	.text-sm,
+	.number-input-btns,
+	button,
+	input {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	button,
+	input {
+		margin-top: -4px;
+	}
+	.text-sm {
+		color: $title;
+		margin-right: 15px;
+	}
+	.number-input-btns {
+		z-index: 2;
+		height: 48px;
+		margin-bottom: 0;
+		border-radius: 5px;
+		padding: 8px 5px 6px;
+		background-color: #fff;
+		border: 1px solid $border;
+	}
+	input {
+		padding: 0;
+		width: 28px;
+		height: auto;
+		border: none;
+		font-size: 14px;
+		line-height: 24px;
+		text-align: center;
+	}
+	button {
+		width: 36px;
+		height: 36px;
+		border: none;
+		cursor: pointer;
+		background: none;
+		position: relative;
+		transition: transform .1s ease-in-out;
+		&:before,
+		&:after {
+			top: 17px;
+			left: 13px;
+			width: 10px;
+			height: 2px;
+			content: '';
+			position: absolute;
+			background-color: $text;
+		}
+		&.increment {
+			&:after {
+				transform: rotate(90deg);
+			}
+		}
+		&:active {
+			transform: scale(.94);
+		}
+	}
+}
+
+.checkbox,
+.radio {
+	margin: 0;
+	cursor: pointer;
+	padding-left: 25px;
+	position: relative;
+	display: inline-block;
+	input {
+		width: 0;
+		height: 0;
+		opacity: 0;
+		padding: 0;
+		&:checked {
+			& + span {
+				color: $title;
+				&:before {
+					border-color: $blue;
+					background-color: $blue;
+				}
+				&:after {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	span {
+		color: $text;
+		position: relative;
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+		}
+		&:before {
+			left: -25px;
+			width: 14px;
+			height: 14px;
+			border-radius: 2px;
+			background-color: #fff;
+			border: 1px solid $checkbox;
+		}
+		&:after {
+			opacity: 0;
+			width: 10px;
+			height: 5px;
+			position: absolute;
+			transform: rotate(-45deg);
+			border-left: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+		}
+	}
+}
+
+.checkbox {
+	span {
+		font-size: 16px;
+		line-height: 20px;
+		&:before {
+			top: 3px;
+		}
+		&:after {
+			top: 6px;
+			left: -23px;
+		}
+	}
+	&.small {
+		span {
+			font-size: 14px;
+		}
+	}
+}
+
+.radio {
+	span {
+		font-size: 14px;
+		line-height: 24px;
+		&:before,
+		&:after {
+			border-radius: 50%;
+		}
+		&:before {
+			top: 2px;
+		}
+		&:after {
+			top: 6px;
+			left: -21px;
+			width: 6px;
+			height: 6px;
+			border: none;
+			background-color: #fff;
+		}
+	}
+}
+
+.img-input {
+	width: 48px;
+	height: 48px;
+	position: relative;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: #fff;
+	border: 1px solid $border;
+	&:after {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		content: '';
+		position: absolute;
+		pointer-events: none;
+		background: center / 60% url(../icon/camera.svg) no-repeat;
+	}
+	input {
+		width: 100%;
+		height: 100%;
+	}
+	.tooltip,
+	.tooltip:before {
+		background-color: #fff;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+	}
+	.tooltip {
+		bottom: calc(100% + 15px);
+
+		.text-medium {
+			color: $title;
+			display: inline-block;
+			margin-bottom: 5px;
+		}
+		.text {
+			ul {
+				li {
+					margin-bottom: 5px;
+					padding-left: 10px;
+					&:before {
+						background-color: $text;
+					}
+				}
+			}
+		}
+	}
+}
+
+.loaded-img {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	margin-left: 10px;
+	position: relative;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	img {
+		max-width: 100%;
+	}
+}
+
+.touch-screen {
+	label {
+		&.invalid {
+			&:after {
+				visibility: hidden;
+				display: none !important;
+			}
+		}
+	}
+}
+
+.checkbox-accordion {
+	.hidden-textarea {
+		display: none;
+	}
+}
+
+label {
+	&.invalid {
+		&:hover {
+			&:before,
+			&:after {
+				opacity: 1;
+			}
+			&:before {
+				transform: rotate(45deg) scale(1);
+			}
+			&:after {
+				transform: translateX(-50%) scale(1);
+			}
+		}
+	}
+}
+
+/*///////*/
+/* HOVER */
+/*///////*/
+@media(min-width: 1200px) {
+
+	/* label {
+		&.invalid {
+			&:hover {
+				&:before,
+				&:after {
+					opacity: 1;
+				}
+				&:before {
+					transform: rotate(45deg) scale(1);
+				}
+				&:after {
+					transform: translateX(-50%) scale(1);
+				}
+			}
+		}
+	} */
+
+	.datepicker-placeholder {
+		&:hover {
+			border-color: $blue;
+		}
+	}
+
+	.double-datepicker {
+		.date-departure,
+		.date-departure.active {
+			.datepicker-placeholder {
+				&:hover {
+					border-bottom-color: $blue;
+				}
+			}
+		}
+	}
+
+	.download {
+		&:hover {
+			.text-md {
+				color: $blue;
+			}
+		}
+	}
+
+	.number-input {
+		button {
+			&:hover {
+				&:before,
+				&:after {
+					background-color: $blue;
+				}
+			}
+		}
+	}
+
+	.checkbox {
+		&:hover {
+			input:checked + span,
+			span {
+				color: $blue;
+			}
+		}
+	}
+
+	.radio {
+		&:hover {
+			input:checked + span,
+			span {
+				color: $blue;
+			}
+		}
+	}
+
+	.add-file {
+		&:hover {
+			span {
+				color: $green;
+			}
+		}
+	}
+}
+/*///////////////*/
+/* MEDIA QUERIES */
+/*///////////////*/
+@media(max-width: 767px) {
+
+	.checkbox {
+		&.small {
+			span {
+				font-size: 12px;
+				line-height: 12px;
+				&:before {
+					top: 0;
+				}
+				&:after {
+					top: 3px;
+				}
+			}
+		}
+	}
+
+	select,
+	label,
+	.timepicker-input,
+	.datepicker-input {
+		margin-bottom: 10px;
+	}
+
+	.datepicker-input {
+		&:after {
+			right: 10px;
+		}
+	}
+
+	.datepicker-placeholder {
+		font-size: 12px;
+	}
+
+	textarea {
+		height: 82px;
+	}
+}

@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
+
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +13,39 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
+mix.js('resources/js/app.js', 'public/js/app.js')
+    .js('resources/js/admin/app.js', 'public/js/admin.js')
+    .sass('resources/scss/app.scss', 'public/css/app.css')
+    .sass('resources/scss/admin/app.scss', 'public/css/admin.css')
+    .vue()
+    .extract()
+    .disableNotifications();
+
+mix.webpackConfig ({
+    plugins: [
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+        }),
+    ],
+});
+
+
+if (mix.inProduction()) {
+
+
+    mix.minify([
+        'public/js/app.js',
+        'public/js/vendor.js',
+        'public/js/admin.js',
+        'public/css/app.js',
+        'public/css/admin.js',
     ]);
+
+    mix.version();
+
+} else {
+    // Uses source-maps on development
+    mix.sourceMaps(false, 'source-map');
+    // mix.browserSync(process.env.APP_URL);
+}

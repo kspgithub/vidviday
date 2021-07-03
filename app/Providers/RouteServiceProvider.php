@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -17,7 +18,16 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
+
+    /**
+     * The path to the "admin home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect admins after login.
+     *
+     * @var string
+     */
+    public const ADMIN_HOME = '/admin';
 
     /**
      * The controller namespace for the application.
@@ -46,6 +56,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::bind('deletedUser', function ($id) {
+            return User::onlyTrashed()->find($id);
         });
     }
 
