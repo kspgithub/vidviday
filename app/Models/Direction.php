@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Relationship\DirectionRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -17,6 +18,7 @@ class Direction extends Model
 {
     use HasTranslations;
     use UsePublishedScope;
+    use DirectionRelationship;
 
     public $translatable = [
         'title',

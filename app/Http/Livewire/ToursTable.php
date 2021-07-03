@@ -18,8 +18,6 @@ class ToursTable extends DataTableComponent
      */
     public $sortField = 'id';
 
-
-
     /**
      * @var array
      */
@@ -28,10 +26,8 @@ class ToursTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
-
     public function mount(): void
     {
-
     }
 
     /**
@@ -40,6 +36,7 @@ class ToursTable extends DataTableComponent
     public function query(): Builder
     {
         $query = Tour::query();
+
         return $query;
     }
 

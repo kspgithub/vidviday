@@ -13,6 +13,7 @@ class TourType extends Model
 {
     use HasFactory;
     use HasTranslations;
+    use Us;
 
     public $translatable = [
         'title',
@@ -38,8 +39,11 @@ class TourType extends Model
         'published' => 'boolean'
     ];
 
-    public function scopePublished($query)
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tours()
     {
-        return $query->where('published', 1);
+        return $this->belongsToMany(Tour::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,7 @@ class Tour extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UsePublishedScope;
+    use TourRelationship;
 
     public function registerMediaConversions(Media $media = null): void
     {
