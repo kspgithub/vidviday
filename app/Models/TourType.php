@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -13,7 +14,7 @@ class TourType extends Model
 {
     use HasFactory;
     use HasTranslations;
-    use Us;
+    use UsePublishedScope;
 
     public $translatable = [
         'title',

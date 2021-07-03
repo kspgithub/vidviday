@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tour\TourBasicRequest;
+use App\Models\Currency;
 use App\Models\Tour;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -29,9 +31,12 @@ class TourController extends Controller
     public function create()
     {
         $tour = new Tour();
+        $tour->currency = 'UAH';
+        $currencies = Currency::toSelectBox('iso', 'iso');
 
         return view('admin.tour.create', [
             'tour'=>$tour,
+            'currencies'=>$currencies,
         ]);
     }
 
@@ -42,14 +47,14 @@ class TourController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(TourBasicRequest $request)
     {
         //
         $tour = new Tour();
-        $tour->fill($request->all());
+        $tour->fill($request->validated());
+        $tour->published = 0;
         $tour->save();
-
-        return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Tour created.'));
+        return redirect()->route('admin.tour.picture.index', ['tour'=>$tour])->withFlashSuccess(__('Tour created.'));
     }
 
     /**
@@ -62,8 +67,10 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         //
+        $currencies = Currency::toSelectBox('iso', 'iso');
         return view('admin.tour.edit', [
             'tour'=>$tour,
+            'currencies'=>$currencies,
         ]);
     }
 
@@ -75,10 +82,10 @@ class TourController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(TourBasicRequest $request, Tour $tour)
     {
         //
-        $tour->fill($request->all());
+        $tour->fill($request->validated());
         $tour->save();
 
         return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Tour updated.'));

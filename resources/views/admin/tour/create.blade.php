@@ -12,14 +12,8 @@
     </div>
 
     <x-forms.post :action="route('admin.tour.store')" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.tour.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
+        @include('admin.tour.includes.form')
+        <button class="btn btn-primary" type="submit">@lang('Next')</button>
     </x-forms.post>
 
 

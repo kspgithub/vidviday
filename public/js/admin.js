@@ -8,20 +8,22 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/bootstrap */ "./resources/js/admin/modules/bootstrap.js");
-/* harmony import */ var _modules_sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sidebar */ "./resources/js/admin/modules/sidebar.js");
-/* harmony import */ var _modules_theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/theme */ "./resources/js/admin/modules/theme.js");
-/* harmony import */ var _modules_theme__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_modules_theme__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _modules_feather__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/feather */ "./resources/js/admin/modules/feather.js");
-/* harmony import */ var _modules_single_image_upload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/single-image-upload */ "./resources/js/admin/modules/single-image-upload.js");
-/* harmony import */ var _modules_single_image_upload__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_modules_single_image_upload__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _modules_media_library__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/media-library */ "./resources/js/admin/modules/media-library.js");
-/* harmony import */ var _modules_media_library__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_modules_media_library__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _modules_chartjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/chartjs */ "./resources/js/admin/modules/chartjs.js");
-/* harmony import */ var _modules_flatpickr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/flatpickr */ "./resources/js/admin/modules/flatpickr.js");
-/* harmony import */ var _modules_vector_maps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/vector-maps */ "./resources/js/admin/modules/vector-maps.js");
-__webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js"); // AdminKit (required)
+/* harmony import */ var _fancyapps_ui_dist_fancybox_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fancyapps/ui/dist/fancybox.esm */ "./node_modules/@fancyapps/ui/dist/fancybox.esm.js");
+/* harmony import */ var _modules_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/bootstrap */ "./resources/js/admin/modules/bootstrap.js");
+/* harmony import */ var _modules_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/sidebar */ "./resources/js/admin/modules/sidebar.js");
+/* harmony import */ var _modules_theme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/theme */ "./resources/js/admin/modules/theme.js");
+/* harmony import */ var _modules_theme__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_theme__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _modules_feather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/feather */ "./resources/js/admin/modules/feather.js");
+/* harmony import */ var _modules_single_image_upload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/single-image-upload */ "./resources/js/admin/modules/single-image-upload.js");
+/* harmony import */ var _modules_single_image_upload__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_modules_single_image_upload__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _modules_media_library__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/media-library */ "./resources/js/admin/modules/media-library.js");
+/* harmony import */ var _modules_media_library__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_modules_media_library__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _modules_chartjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/chartjs */ "./resources/js/admin/modules/chartjs.js");
+/* harmony import */ var _modules_flatpickr__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/flatpickr */ "./resources/js/admin/modules/flatpickr.js");
+/* harmony import */ var _modules_vector_maps__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/vector-maps */ "./resources/js/admin/modules/vector-maps.js");
+__webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
+ // AdminKit (required)
 
 
 
@@ -113,8 +115,9 @@ window.flatpickr = flatpickr__WEBPACK_IMPORTED_MODULE_0__.default;
 
 var MediaLibrary = function MediaLibrary(selector) {
   var wrapper = typeof selector === 'string' ? document.querySelector(selector) : selector;
-  var uploadUrl = wrapper.dataset.mediaUpload;
-  var destroyUrl = wrapper.dataset.mediaDestroy;
+  var storeUrl = wrapper.dataset.mediaStore || '#';
+  var destroyUrl = wrapper.dataset.mediaDestroy || '#';
+  var updateUrl = wrapper.dataset.mediaUpdate || '#';
   var mediaCollection = wrapper.dataset.mediaCollection || 'default';
   var mediaName = wrapper.dataset.mediaName || 'media_file';
   var fileElement = wrapper.querySelector('input[type="file"]');
@@ -133,19 +136,38 @@ var MediaLibrary = function MediaLibrary(selector) {
       return deleteMedia(evt);
     });
   });
+  wrapper.querySelectorAll('.edit-media-title').forEach(function (el) {
+    el.addEventListener('blur', function (evt) {
+      return updateMediaTitle(evt);
+    });
+  });
+
+  var updateMediaTitle = function updateMediaTitle(evt) {
+    var input = evt.currentTarget;
+    if (updateUrl === '#') return;
+    var mediaEl = input.parentElement;
+    var mediaId = mediaEl.id.replace('media-item-', '');
+    var title = input.value;
+    axios.patch(updateUrl.replace('0', mediaId), {
+      title: title
+    }).then(function (_ref) {
+      var data = _ref.data;
+      console.log(data);
+    })["catch"](function (error) {
+      console.log(error);
+      mediaEl.classList.add('error');
+      mediaEl.innerHTML += "<span class=\"error\">Update Error</span>";
+    });
+  };
 
   var deleteMedia = function deleteMedia(evt) {
     evt.preventDefault();
+    if (destroyUrl === '#') return;
     var btnEl = evt.currentTarget;
     var mediaEl = btnEl.parentElement;
-    console.log(mediaEl.id);
     var mediaId = mediaEl.id.replace('media-item-', '');
-    axios["delete"](destroyUrl.replace('0', mediaId), {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(function (_ref) {
-      var data = _ref.data;
+    axios["delete"](destroyUrl.replace('0', mediaId)).then(function (_ref2) {
+      var data = _ref2.data;
 
       if (data.result === 'success') {
         mediaEl.remove();
@@ -161,10 +183,13 @@ var MediaLibrary = function MediaLibrary(selector) {
     var divEl = document.createElement('div');
     divEl.classList.add('media-item', 'img-thumbnail');
     divEl.id = 'media-item-' + media.id;
-    divEl.innerHTML = "<img src=\"".concat(media.thumb, "\" alt=\"\"><a href=\"#\" class=\"delete-media-item\"><i class=\"fas fa-times\"></i></a>\n        <a href=\"").concat(media.url, "\" class=\"show-media-item\" target=\"_blank\" data-fancybox=\"").concat(mediaCollection, "\"><i class=\"fas fa-eye\"></i></a>");
+    divEl.innerHTML = "<img src=\"".concat(media.thumb, "\" alt=\"\"><a href=\"#\" class=\"delete-media-item\"><i class=\"fas fa-times\"></i></a>\n        <a href=\"").concat(media.url, "\" class=\"show-media-item\" target=\"_blank\" data-fancybox=\"").concat(mediaCollection, "\"><i class=\"fas fa-eye\"></i></a>\n        <input class=\"edit-media-title\" value=\"Change image title\" />");
     wrapper.replaceChild(divEl, tmpNode);
     divEl.querySelector('.delete-media-item').addEventListener('click', function (evt) {
       return deleteMedia(evt);
+    });
+    divEl.querySelector('.edit-media-title').addEventListener('blur', function (evt) {
+      return updateMediaTitle(evt);
     });
   };
 
@@ -180,15 +205,16 @@ var MediaLibrary = function MediaLibrary(selector) {
     };
 
     reader.readAsDataURL(file);
+    if (storeUrl === '#') return;
     var formData = new FormData();
     formData.append(mediaName, file);
     formData.append('collection', mediaCollection);
-    axios.post(uploadUrl, formData, {
+    axios.post(storeUrl, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then(function (_ref2) {
-      var data = _ref2.data;
+    }).then(function (_ref3) {
+      var data = _ref3.data;
 
       if (data.result === 'success') {
         addMedia(data.media, divEl);

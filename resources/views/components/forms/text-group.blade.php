@@ -6,8 +6,8 @@
     'type'=>'text',
     'readonly'=>false,
     'help'=>'',
-    'labelCol'=>'col-md-3',
-    'inputCol'=>'col-md-9',
+    'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
 ])
 
 <div class="form-group row mb-3">
@@ -16,7 +16,7 @@
     <div class="{{$inputCol}}">
         <input  name="{{$name}}"
                 id="{{$name}}"
-                placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
+                placeholder="{{ !empty($placeholder) ? $placeholder : '' }}"
                 value="{{ $value}}"
             {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
         />

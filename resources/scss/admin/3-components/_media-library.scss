@@ -63,5 +63,33 @@
             margin-left: -1rem;
             margin-top: -1rem;
         }
+
+        .edit-media-title{
+            position: absolute;
+            left: 5px;
+            bottom: 5px;
+            width: calc(100% - 10px);
+            display: block;
+            color: #fff;
+            text-align: center;
+            line-height: 1;
+            font-size: 12px;
+            padding: 10px;
+            border: 1px solid transparent;
+            background: rgba(0, 0, 0, .5);
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        .error{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: $danger;
+            text-shadow: 0 0 3px #fff;
+        }
     }
 }
