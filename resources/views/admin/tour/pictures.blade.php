@@ -27,7 +27,7 @@
 
         </x-slot>
         <x-slot name="footer">
-            <button class="btn btn-primary" type="submit">@lang('Next')</button>
+            <button class="btn btn-primary" type="submit">@lang('Save')</button>
         </x-slot>
     </x-bootstrap.card>
 

@@ -85,7 +85,7 @@ const MediaLibrary = function (selector){
         reader.readAsDataURL(file);
 
         if(storeUrl === '#') return;
-        
+
         const formData = new FormData();
         formData.append(mediaName, file);
         formData.append('collection', mediaCollection);

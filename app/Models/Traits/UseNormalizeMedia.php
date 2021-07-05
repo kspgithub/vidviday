@@ -16,21 +16,29 @@ trait UseNormalizeMedia
     /**
      * @param string|UploadedFile $file
      * @param string|null $collection
+     * @param array $options
      *
+     * @throws FileIsTooBig
      * @throws InvalidManipulation
      * @throws FileDoesNotExist
-     * @throws FileIsTooBig
      *
      * @return FileAdder|Media
      */
-    public function storeMedia($file, ?string $collection = 'default')
+    public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {
         $path = storage_path('tmp/uploads');
         $name = uniqid() . '.' . trim($file->getClientOriginalExtension());
         $file->move($path, $name);
-        Image::load($path . '/' . $name)->fit(Manipulations::FIT_MAX, 1920, 1920)->save();
+
+        $width = $options['width'] ?? 1920;
+        $height = $options['height'] ?? 1920;
+        $fitMethod = $options['fit'] ?? Manipulations::FIT_MAX;
+
+        Image::load($path . '/' . $name)->fit($fitMethod, $width, $height)->save();
+
         $media = $this->addMedia($path . '/' . $name)->toMediaCollection($collection);
         @unlink($path . '/' . $name);
+
         return $media;
     }
 }

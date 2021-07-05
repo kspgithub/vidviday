@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\TourAttribute;
 use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,6 +32,7 @@ class Tour extends Model implements HasMedia
     use UseNormalizeMedia;
     use UsePublishedScope;
     use TourRelationship;
+    use TourAttribute;
     use HasSlug;
 
     public static function boot()
@@ -69,11 +72,14 @@ class Tour extends Model implements HasMedia
     {
         $this->addMediaConversion('normal')
             ->width(840)
-            ->height(480);
+            ->height(480)
+            ->performOnCollections('main', 'pictures');
 
         $this->addMediaConversion('thumb')
             ->width(315)
-            ->height(180);
+            ->height(180)
+            ->performOnCollections('main', 'pictures');
+
     }
 
     public function getRouteKeyName()

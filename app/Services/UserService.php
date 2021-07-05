@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 /**
@@ -61,7 +62,7 @@ class UserService extends BaseService
             $user = $this->createUser($data);
         } catch (Exception $e) {
             DB::rollBack();
-
+            Log::error($e->getMessage(), $e->getTrace());
             throw new GeneralException(__('There was a problem creating your account.'));
         }
 
