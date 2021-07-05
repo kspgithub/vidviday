@@ -13,9 +13,13 @@
         <x-forms.text-group name="duration" :label="__('Duration, days')" :value="old('duration', $tour->duration)" type="number" required></x-forms.text-group>
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $tour->price)" type="number" required></x-forms.text-group>
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)" :options="$currencies" type="number"></x-forms.select-group>
-        <x-forms.switch-group name="new" :label="__('New')" :active="$tour->new === 1"></x-forms.switch-group>
-        <x-forms.switch-group name="bestseller" :label="__('Bestseller')" :active="$tour->new === 1"></x-forms.switch-group>
-
+        <x-forms.switch-group name="new" :label="__('New')" :active="$tour->new"></x-forms.switch-group>
+        <x-forms.switch-group name="bestseller" :label="__('Bestseller')" :active="$tour->bestseller"></x-forms.switch-group>
+        <x-forms.single-image-upload name="main_image" :value="$tour->main_image"  :label="__('Main Image')" />
+        <x-forms.single-image-upload name="mobile_image" :value="$tour->mobile_image"  :label="__('Mobile Image')"
+                                     help="320x320"
+                                     imgstyle="height: 200px; width: 200px; object-fit: cover;"
+        />
     </x-slot>
 </x-bootstrap.card>
 

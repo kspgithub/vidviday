@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -15,6 +16,7 @@ class TourSubject extends Model
     use HasFactory;
     use HasTranslations;
     use UsePublishedScope;
+    use UseSelectBox;
 
     public $translatable = [
         'title',

@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TourBasicRequest;
 use App\Models\Currency;
 use App\Models\Tour;
+use App\Services\TourService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TourController extends Controller
 {
+    protected $service;
+
+    public function __construct(TourService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,17 +51,16 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param TourBasicRequest $request
      *
      * @return Response
+     * @throws \App\Exceptions\GeneralException
      */
     public function store(TourBasicRequest $request)
     {
         //
-        $tour = new Tour();
-        $tour->fill($request->validated());
-        $tour->published = 0;
-        $tour->save();
+        $tour = $this->service->store($request->validated());
+
         return redirect()->route('admin.tour.picture.index', ['tour'=>$tour])->withFlashSuccess(__('Tour created.'));
     }
 
@@ -68,6 +75,7 @@ class TourController extends Controller
     {
         //
         $currencies = Currency::toSelectBox('iso', 'iso');
+
         return view('admin.tour.edit', [
             'tour'=>$tour,
             'currencies'=>$currencies,
@@ -85,8 +93,7 @@ class TourController extends Controller
     public function update(TourBasicRequest $request, Tour $tour)
     {
         //
-        $tour->fill($request->validated());
-        $tour->save();
+        $this->service->update($tour, $request->validated());
 
         return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Tour updated.'));
     }

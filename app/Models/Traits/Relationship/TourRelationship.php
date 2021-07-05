@@ -23,7 +23,7 @@ trait TourRelationship
      */
     public function directions()
     {
-        return $this->belongsToMany(Direction::class);
+        return $this->belongsToMany(Direction::class, 'tours_directions', 'tour_id', 'direction_id');
     }
 
     /**
@@ -31,7 +31,7 @@ trait TourRelationship
      */
     public function places()
     {
-        return $this->belongsToMany(Place::class);
+        return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id');
     }
 
     /**
@@ -39,7 +39,7 @@ trait TourRelationship
      */
     public function groups()
     {
-        return $this->belongsToMany(TourGroup::class);
+        return $this->belongsToMany(TourGroup::class, 'tours_tour_groups', 'tour_id', 'group_id');
     }
 
     /**
@@ -47,7 +47,7 @@ trait TourRelationship
      */
     public function types()
     {
-        return $this->belongsToMany(TourType::class);
+        return $this->belongsToMany(TourType::class, 'tours_tour_types', 'tour_id', 'type_id');
     }
 
     /**
@@ -55,7 +55,7 @@ trait TourRelationship
      */
     public function subjects()
     {
-        return $this->belongsToMany(TourSubject::class);
+        return $this->belongsToMany(TourSubject::class, 'tours_subjects', 'tour_id', 'subject_id');
     }
 
     /**

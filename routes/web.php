@@ -39,7 +39,7 @@ Route::group([
 ], function () {
     Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
-    require_once __DIR__.'/admin/auth.php';
+    require_once __DIR__.'/admin/upload.php';
     require_once __DIR__.'/admin/user.php';
     require_once __DIR__.'/admin/translation.php';
     require_once __DIR__.'/admin/page.php';

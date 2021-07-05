@@ -40,6 +40,10 @@ class TourBasicRequest extends FormRequest
             'currency'=>['required', Rule::in(Currency::isoNames())],
             'new'=>['nullable', Rule::in(['1', '0'])],
             'bestseller'=>['nullable', Rule::in(['1', '0'])],
+            'main_image'=>['nullable', 'string'],
+            'mobile_image'=>['nullable', 'string'],
+            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
     }
 }
