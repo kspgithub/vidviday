@@ -28,22 +28,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($tourSubjects as $tourSubject)
-                    <tr>
-                        <td>{{$tourSubject->title}}</td>
-                        <td>{{$tourSubject->slug}}</td>
-                        <td>{{app()->getLocale()}}</td>
-                        <td><a href="{{route('admin.tour-subjects.media.index', ['tourSubject'=>$tourSubject])}}" class="badge bg-info"><span>{{$tourSubject->media_count}}</span></a></td>
-                        <td class="table-action">
+                @if($tourSubjects)
+                    @foreach($tourSubjects as $tourSubject)
+                        <tr>
+                            <td>{{$tourSubject->title}}</td>
+                            <td>{{$tourSubject->slug}}</td>
+                            <td>{{app()->getLocale()}}</td>
+                            <td><a href="{{route('admin.tour-subjects.media.index', ['tourSubject'=>$tourSubject])}}" class="badge bg-info"><span>{{$tourSubject->media_count}}</span></a></td>
+                            <td class="table-action">
 
-                            <x-utils.view-button :href="route('admin.tour-subjects.show', ['tourSubject'=>$tourSubject])" text="" />
-                            <x-utils.edit-button :href="route('admin.tour-subjects.edit', ['tourSubject'=>$tourSubject])" text="" />
-                            @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.tour-subjects.destroy', $tourSubject)" text="" />
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
+                                <x-utils.view-button :href="route('admin.tour-subjects.show', ['tourSubject'=>$tourSubject])" text="" />
+                                <x-utils.edit-button :href="route('admin.tour-subjects.edit', ['tourSubject'=>$tourSubject])" text="" />
+                                @if(current_user()->isMasterAdmin())
+                                    <x-utils.delete-button :href="route('admin.tour-subjects.destroy', $tourSubject)" text="" />
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
                 </tbody>
             </table>
         </x-slot>

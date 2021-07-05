@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tour;
+namespace App\Http\Controllers\Admin\TourSubjects;
 
 use App\Http\Controllers\Controller;
 use App\Models\TourSubject;
@@ -51,7 +51,7 @@ class TourSubjectsController extends Controller
         $tourSubject->fill($request->all());
         $tourSubject->save();
 
-        return redirect()->route('admin.tour_subjects.index')->withFlashSuccess(__('Tour Subject created.'));
+        return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject created.'));
     }
 
     /**
@@ -81,7 +81,7 @@ class TourSubjectsController extends Controller
         $tourSubject->fill($request->all());
         $tourSubject->save();
 
-        return redirect()->route('admin.tour_subjects.index')->withFlashSuccess(__('Tour Subject updated.'));
+        return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject updated.'));
     }
 
     /**
@@ -96,7 +96,7 @@ class TourSubjectsController extends Controller
         //
         $tourSubject->delete();
 
-        return redirect()->route('admin.tour_subjects.index')->withFlashSuccess(__('Tour Subject deleted.'));
+        return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject deleted.'));
     }
 
     public function mediaIndex(TourSubject $tourSubject)

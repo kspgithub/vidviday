@@ -32,5 +32,3 @@ Route::group([
 });
 
 Route::resource('tour', TourController::class)->except('show');
-
-Route::resource('tour-subjects', TourSubjectsController::class);
