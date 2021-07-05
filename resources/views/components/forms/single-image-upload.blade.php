@@ -6,15 +6,16 @@
     'type'=>'text',
     'options'=>[],
     'storage'=>false,
+    'help'=>'',
     'imgstyle'=>'height: 200px;',
-    'labelColClass'=>'col-md-3',
-    'inputColClass'=>'col-md-9'
+    'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
 ])
 
 <div class="form-group row mb-3 image-upload-group">
-    <div class="{{$labelColClass}} col-form-label">@lang($label)</div>
+    <div class="{{$labelCol}} col-form-label">@lang($label)</div>
 
-    <div class="{{$inputColClass}}" for="{{$name}}">
+    <div class="{{$inputCol}}" for="{{$name}}">
         <label class="img-thumbnail-wrp"  for="{{$name}}">
             <img src="{{!empty($value) ? ($storage ? storage_url($value) : $value) : '/img/no-image.png'}}" alt="{{__($label)}}" style="{{$imgstyle}}" class="img-thumbnail mb-3">
             <a href="#" class="clear-image text-danger {{empty($value) ? 'd-none' : ''}}" title="@lang('Clear image')"><i data-feather="x"></i></a>
@@ -26,6 +27,9 @@
             {{$message}}
         </div>
         @enderror
+        @if(!empty($help))
+            <div class="form-text">{{$help}}</div>
+        @endif
 
     </div>
 </div><!--form-group-->

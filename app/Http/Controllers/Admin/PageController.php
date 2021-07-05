@@ -119,6 +119,19 @@ class PageController extends Controller
         return response()->json(['result'=>'error', 'message'=>'No file'], 400);
     }
 
+    public function mediaUpdate(Request $request, Page $page, Media $media)
+    {
+        if($request->has('title')) {
+            $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
+        }
+        if($request->has('alt')) {
+            $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
+        }
+        $media->save();
+        return response()->json(['result'=>'success', 'media'=>$media]);
+    }
+
+
     public function mediaRemove(Page $page, Media $media)
     {
         $page->deleteMedia($media);

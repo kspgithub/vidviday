@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -20,4 +21,12 @@ class IncludeType extends Model
         'title',
         'slug',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function tour_includes()
+    {
+        return $this->hasMany(TourInclude::class);
+    }
 }

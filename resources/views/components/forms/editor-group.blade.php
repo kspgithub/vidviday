@@ -5,18 +5,18 @@
     'placeholder' => '',
     'options'=>[],
     'help'=>'',
-    'labelCol'=>'col-md-3',
-    'inputCol'=>'col-md-9',
+    'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
 ])
 
 <div class="form-group row mb-3">
-    <label for="{{$name}}-editor" class="{{$labelCol}} col-form-label">@lang($label)</label>
+    <label for="{{$name}}-editor" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span class="text-danger">*</span>@endif</label>
 
     <div class="{{$inputCol}} ">
         <textarea id="{{$name}}-editor"
                   name="{{$name}}"
                   placeholder="{{$placeholder}}"
-                      {{ $attributes->merge(['class' => 'form-control text-editor']) }}
+                      {{ $attributes->except('required')->merge(['class' => 'form-control text-editor']) }}
         >{!! $value !!}</textarea>
 
         @error($name)

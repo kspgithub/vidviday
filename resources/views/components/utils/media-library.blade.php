@@ -1,12 +1,16 @@
 @props([
-    'uploadUrl'=>'#',
+    'storeUrl'=>'#',
+    'updateUrl'=>'#',
     'destroyUrl'=>'#',
     'items'=>[],
-    'collection'=>'default'
+    'collection'=>'default',
+    'accept'=>'image/jpeg,image/png'
 ])
 <div class="media-library"
+     data-media-upload
      data-media-collection="{{$collection}}"
-     data-media-upload="{{$uploadUrl}}"
+     data-media-store="{{$storeUrl}}"
+     data-media-update="{{$updateUrl}}"
      data-media-destroy="{{$destroyUrl}}"
 >
     @foreach($items as $media)
@@ -14,7 +18,7 @@
     @endforeach
 
     <label class="img-thumbnail add-media">
-        <input type="file">
+        <input type="file" multiple accept="{{$accept}}">
         <i class="fas fa-plus"></i>
     </label>
 </div>
