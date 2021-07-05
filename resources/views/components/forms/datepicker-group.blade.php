@@ -5,8 +5,8 @@
     'placeholder' => '',
     'type'=>'text',
     'options'=>[],
-     'labelCol'=>'col-md-3',
-    'inputCol'=>'col-md-9',
+     'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
 ])
 
 <div class="form-group row mb-3 date-picker-group" x-data="{date: '{{$value}}'}">

@@ -23,4 +23,12 @@ class FoodTime extends Model
         'slug',
         'published',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function foods()
+    {
+        return $this->hasMany(TourFood::class);
+    }
 }

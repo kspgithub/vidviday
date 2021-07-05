@@ -6,14 +6,16 @@
     'type'=>'text',
     'readonly'=>false,
     'help'=>'',
-    'options'=>[]
+    'options'=>[],
+    'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
 ])
 
 
 <div class="form-group row mb-3">
-    <label for="{{$name}}" class="col-md-3 col-form-label">@lang($label)@if(isset($attributes['required'])) <span class="text-danger">*</span>@endif</label>
+    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span class="text-danger">*</span>@endif</label>
 
-    <div class="col-md-9">
+    <div class="{{$inputCol}}">
 
         <select name="{{$name}}"
                 id="{{$name}}"

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -13,6 +14,7 @@ class TourSubject extends Model
 {
     use HasFactory;
     use HasTranslations;
+    use UsePublishedScope;
 
     public $translatable = [
         'title',
@@ -38,8 +40,11 @@ class TourSubject extends Model
         'published' => 'boolean'
     ];
 
-    public function scopePublished($query)
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tours()
     {
-        return $query->where('published', 1);
+        return $this->belongsToMany(Tour::class);
     }
 }

@@ -2,6 +2,8 @@
 
 require('../bootstrap');
 
+import '@fancyapps/ui/dist/fancybox.esm'
+
 // AdminKit (required)
 import "./modules/bootstrap";
 import "./modules/sidebar";

@@ -39,4 +39,12 @@ class TourGroup extends Model
     protected $casts = [
         'published' => 'boolean'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tours()
+    {
+        return $this->belongsToMany(Tour::class);
+    }
 }

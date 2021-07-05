@@ -29,7 +29,8 @@ trait UseNormalizeMedia
         $name = uniqid() . '.' . trim($file->getClientOriginalExtension());
         $file->move($path, $name);
         Image::load($path . '/' . $name)->fit(Manipulations::FIT_MAX, 1920, 1920)->save();
-
-        return $this->addMedia($path . '/' . $name)->toMediaCollection($collection);
+        $media = $this->addMedia($path . '/' . $name)->toMediaCollection($collection);
+        @unlink($path . '/' . $name);
+        return $media;
     }
 }
