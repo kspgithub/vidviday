@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -31,4 +32,20 @@ class TourInclude extends Model
     protected $casts = [
         'published' => 'boolean'
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function type()
+    {
+        return $this->belongsTo(IncludeType::class);
+    }
 }

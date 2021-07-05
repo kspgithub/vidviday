@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Relationship\PlaceRelationship;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,7 @@ class Place extends Model implements HasMedia
     use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use PlaceRelationship;
 
     public function registerMediaConversions(Media $media = null): void
     {

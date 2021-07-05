@@ -6,6 +6,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -51,4 +52,20 @@ class TourFood extends Model implements HasMedia
         'published',
         'position',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function time()
+    {
+        return $this->belongsTo(FoodTime::class);
+    }
 }
