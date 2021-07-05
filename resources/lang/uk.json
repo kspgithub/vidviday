@@ -197,6 +197,12 @@
     "click here to request another": "натисніть тут, щоб подати запит на інший",
     "Tours": "Тури",
     "Tours List": "Список Турів",
+    "Tour Subjects List": "Список Тем Турів",
+    "Create Tour": "Створити Тур",
+    "Create Tour Subject": "Створити Тему Туру",
+    "Tour Subject": "Тема Туру",
+    "Tour Subjects management": "Управління Темами Турів",
+    "Edit Tour Subject": "Редагувати Тему Туру",
     "Site pages": "Сторінки меню",
     "Super Admin": "Адміністратор",
     "Translations": "Переклади",
@@ -216,5 +222,14 @@
     "Showing": "Показано",
     "results": "результатів",
     "Choose File": "Вибрати файл",
-    "No file chosen": "Жодного файлу не обрано"
+    "No file chosen": "Жодного файлу не обрано",
+    "title": "Назва",
+    "Locale": "Мова",
+    "Media": "Картинки",
+    "Page created.": "Сторінка створена.",
+    "Page updated.": "Сторінка редагована.",
+    "Page deleted.": "Сторінка видалена.",
+    "Tour Subject created.": "Тема Тура створена.",
+    "Tour Subject updated.": "Тема Тура редагована.",
+    "Tour Subject deleted.": "Тема Тура видалена."
 }

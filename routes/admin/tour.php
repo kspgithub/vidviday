@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
+use App\Http\Controllers\Admin\Tour\TourSubjectsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -15,3 +16,5 @@ Route::group([
 });
 
 Route::resource('tour', TourController::class);
+
+Route::resource('tour-subjects', TourSubjectsController::class);
