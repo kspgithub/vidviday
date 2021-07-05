@@ -188,5 +188,6 @@
     "Your authorization code was invalid. Please try again.": "Ваш код авторизації був недійсним. Будь ласка спробуйте ще раз.",
     "Your password has expired.": "Термін дії вашого пароля минув",
     "Your password has expired. We require you to change your password every :days days for security purposes.": "Термін дії вашого пароля минув Ми вимагаємо, щоб ви міняли свій пароль кожні х1 днів з метою безпеки.",
-    "click here to request another": "натисніть тут, щоб подати запит на інший"
+    "click here to request another": "натисніть тут, щоб подати запит на інший",
+    "": ""
 }
