@@ -28,7 +28,7 @@
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Tours')</span>
                 </a>
                 <ul id="tours" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="/">Tours List</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/">@lang('Tours List')</a></li>
                 </ul>
             </li>
 
@@ -59,6 +59,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('log-viewer::logs.list')}}">@lang('Logs')</a></li>
                 </ul>
             </li>
+
 
 {{--            <li class="sidebar-item">--}}
 {{--                <a class="sidebar-link" href="pages-profile.html">--}}
