@@ -8,6 +8,7 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
@@ -19,7 +20,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperDirection
  */
-class Direction extends Model
+class Direction extends Model implements HasMedia
 {
     use InteractsWithMedia;
     use UseNormalizeMedia;

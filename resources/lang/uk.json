@@ -256,5 +256,17 @@
     "Tour Subject updated.": "Тема Тура редагована.",
     "Tour Subject deleted.": "Тема Тура видалена.",
     "Direction management": "Управління Напрямками",
-    "Create direction": "Створити напрямок"
+    "Create direction": "Створити напрямок",
+    "Direction created.": "Напрямок створена.",
+    "Direction updated.": "Напрямок редагована.",
+    "Direction deleted.": "Напрямок видалена.",
+    "Tour Types List": "Список Тип Турів",
+    "Tour Types": "Типи Турів",
+    "Create Tour Type": "Створити Тип Туру",
+    "Tour Type": "Тип Туру",
+    "Tour Types management": "Управління Типів Турів",
+    "Edit Tour Type": "Редагувати Тип Туру",
+    "Tour Type created.": "Тип Туру створена.",
+    "Tour Type updated.": "Тип Туру редагована.",
+    "Tour Type deleted.": "Тип Туру видалена."
 }

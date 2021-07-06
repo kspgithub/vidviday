@@ -36,7 +36,6 @@
                         <td><a href="{{route('admin.direction.media.index', ['direction'=>$direction])}}" class="badge bg-info"><span>{{$direction->media_count}}</span></a></td>
                         <td class="table-action">
 
-                            <x-utils.view-button :href="route('admin.direction.show', ['direction'=>$direction])" text="" />
                             <x-utils.edit-button :href="route('admin.direction.edit', ['direction'=>$direction])" text="" />
                             @if(current_user()->isMasterAdmin())
                                 <x-utils.delete-button :href="route('admin.direction.destroy', $direction)" text="" />

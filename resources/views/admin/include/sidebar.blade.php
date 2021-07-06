@@ -32,6 +32,7 @@
                     <li class="sidebar-item {{routeActiveClass('admin.tour-group.*')}}"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Tour Groups')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}"><a class="sidebar-link " href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Tour Directions')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.tour-type.*')}}"><a class="sidebar-link " href="{{route('admin.tour-type.index')}}">@lang('Tour Types')</a></li>
                 </ul>
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.place*')}}">
