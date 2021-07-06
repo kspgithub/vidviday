@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\SlugOptions;
 
 class TourSubjectsController extends Controller
 {
@@ -104,25 +105,28 @@ class TourSubjectsController extends Controller
         return view('admin.tour_subjects.media', ['tourSubject'=>$tourSubject]);
     }
 
-    public function mediaUpload(Request $request, TourSubject $tourSubject)
+
+    public function registerMediaConversions(Media $media = null): void
     {
-        if ($request->hasFile('media_file')) {
-            $media = $tourSubject->storeMedia($request->file('media_file'));
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
 
-            return response()->json(['result'=>'success', 'media'=>[
-                'id'=>$media->id,
-                'url'=>$media->getUrl(),
-                'thumb'=>$media->getUrl('thumb'),
-            ]]);
-        }
-
-        return response()->json(['result'=>'error', 'message'=>'No file'], 400);
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
     }
 
-    public function mediaRemove(TourSubject $tourSubject, Media $media)
+    public function getRouteKeyName()
     {
-        $tourSubject->deleteMedia($media);
+        return 'slug';
+    }
 
-        return response()->json(['result'=>'success', 'media'=>$media]);
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
     }
 }

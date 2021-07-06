@@ -38,7 +38,7 @@ class UpdateUserRequest extends FormRequest
             'middle_name' => ['string', 'max:100', 'nullable'],
             'mobile_phone' => ['max:100', 'phone:AUTO', 'nullable'],
             'work_phone' => ['max:100', 'phone:AUTO', 'nullable'],
-            'date_of_birth' => ['date', 'nullable'],
+            'birthday' => ['date', 'nullable'],
             'avatar' => ['string', 'max:255', 'nullable'],
             'viber' => ['string', 'max:255', 'nullable'],
             'company' => ['string', 'max:255', 'nullable'],

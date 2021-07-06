@@ -18,6 +18,8 @@ class PageSeeder extends Seeder
     public function run()
     {
         //
+        $this->truncate('pages');
+
         $pages = [
             [
                 'title'=>['en'=>'About Us', 'ru'=>'О нас', 'uk'=>'Про нас',  'pl'=>'O nas'],
@@ -43,12 +45,12 @@ class PageSeeder extends Seeder
                 'slug'=>'office-workers',
                 'published'=>1,
             ],
-            [
-                'title'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
-                'seo_h1'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
-                'slug'=>'news',
-                'published'=>1,
-            ],
+//            [
+//                'title'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
+//                'seo_h1'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
+//                'slug'=>'news',
+//                'published'=>1,
+//            ],
             [
                 'title'=>['en'=>'Charity', 'ru'=>'Благотворительность', 'uk'=>'Благодійність',  'pl'=>'Dobroczynność'],
                 'seo_h1'=>['en'=>'Charity', 'ru'=>'Благотворительность', 'uk'=>'Благодійність',  'pl'=>'Dobroczynność'],
@@ -73,22 +75,24 @@ class PageSeeder extends Seeder
                 'slug'=>'practice',
                 'published'=>1,
             ],
-            [
-                'title'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
-                'seo_h1'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
-                'slug'=>'reviews',
-                'published'=>1,
-            ],
-            [
-                'title'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
-                'seo_h1'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
-                'slug'=>'blog',
-                'published'=>1,
-            ],
+//            [
+//                'title'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
+//                'seo_h1'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
+//                'slug'=>'reviews',
+//                'published'=>1,
+//            ],
+//            [
+//                'title'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
+//                'seo_h1'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
+//                'slug'=>'blog',
+//                'published'=>1,
+//            ],
         ];
 
         foreach ($pages as $page) {
-            Page::create($page);
+
+            Page::factory()->createOne($page);
+
         }
     }
 }

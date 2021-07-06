@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,5 +47,9 @@ Route::group([
     require_once __DIR__.'/admin/tour.php';
     require_once __DIR__.'/admin/tour_subjects.php';
     require_once __DIR__.'/admin/tour-group.php';
-    require_once __DIR__.'/admin/direction.php';
+    require_once __DIR__.'/admin/place.php';
 });
+
+
+Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
+Route::get('{slug}', [PageController::class, 'show'])->name('page.show');

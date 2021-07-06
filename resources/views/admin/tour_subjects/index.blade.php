@@ -23,7 +23,7 @@
                     <th>@lang('title')</th>
                     <th>@lang('Url')</th>
                     <th>@lang('Locale')</th>
-                    <th>@lang('Media')</th>
+{{--                    <th>@lang('Media')</th>--}}
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -34,10 +34,9 @@
                             <td>{{$tourSubject->title}}</td>
                             <td>{{$tourSubject->slug}}</td>
                             <td>{{app()->getLocale()}}</td>
-                            <td><a href="{{route('admin.tour-subjects.media.index', ['tourSubject'=>$tourSubject])}}" class="badge bg-info"><span>{{$tourSubject->media_count}}</span></a></td>
+{{--                            <td><a href="{{route('admin.tour-subjects.media.index', ['tourSubject'=>$tourSubject])}}" class="badge bg-info"><span>{{$tourSubject->media_count}}</span></a></td>--}}
                             <td class="table-action">
 
-                                <x-utils.view-button :href="route('admin.tour-subjects.show', ['tour_subject'=>$tourSubject])" text="" />
                                 <x-utils.edit-button :href="route('admin.tour-subjects.edit', ['tour_subject'=>$tourSubject])" text="" />
                                 @if(current_user()->isMasterAdmin())
                                     <x-utils.delete-button :href="route('admin.tour-subjects.destroy', $tourSubject)" text="" />

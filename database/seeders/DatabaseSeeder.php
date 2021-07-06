@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(AuthSeeder::class);
-        //$this->call(PageSeeder::class);
+        $this->call(AuthSeeder::class);
+        $this->call(PageSeeder::class);
         $this->call(CurrencySeeder::class);
         //$this->call(TourDirectionsSeeder::class);
     }

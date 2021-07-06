@@ -61,6 +61,7 @@
 @import "3-components/stat";
 @import "3-components/tables";
 @import "3-components/type";
+@import "3-components/toast";
 @import "3-components/wrapper";
 @import "3-components/media-library";
 
@@ -76,6 +77,7 @@
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fancyapps/ui/dist/fancybox.css";
+@import "~sweetalert2/src/sweetalert2";
 
 // 3rd party plugin styles
 @import "5-vendor/flatpickr";

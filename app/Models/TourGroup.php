@@ -78,7 +78,7 @@ class TourGroup extends Model implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['id', 'title'])
+            ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }

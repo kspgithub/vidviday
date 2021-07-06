@@ -49,7 +49,7 @@ class TourGroupController extends Controller
         $tourGroup = new TourGroup();
         $tourGroup->fill($request->all());
         $tourGroup->save();
-        return redirect()->route('admin.tour-group.index')->withFlashSuccess('Record Created');
+        return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -78,7 +78,7 @@ class TourGroupController extends Controller
         //
         $tourGroup->fill($request->all());
         $tourGroup->save();
-        return redirect()->route('admin.tour-group.index')->withFlashSuccess('Record Updated');
+        return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -93,7 +93,7 @@ class TourGroupController extends Controller
         //
         $tourGroup->delete();
 
-        return redirect()->route('admin.tour-group.index')->withFlashSuccess('Record Deleted');
+        return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Deleted'));
     }
 
 
