@@ -44,5 +44,6 @@ Route::group([
     require_once __DIR__.'/admin/translation.php';
     require_once __DIR__.'/admin/page.php';
     require_once __DIR__.'/admin/tour.php';
+    require_once __DIR__.'/admin/tour_subjects.php';
     require_once __DIR__.'/admin/tour-group.php';
 });

@@ -31,6 +31,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Tour Groups')</a></li>
 {{--                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour.create')}}">@lang('Create Tour')</a></li>--}}
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects')</a></li>
                 </ul>
             </li>
 

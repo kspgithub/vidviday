@@ -230,5 +230,21 @@
     "Showing": "Показано",
     "results": "результатів",
     "Choose File": "Вибрати файл",
-    "No file chosen": "Жодного файлу не обрано"
+    "No file chosen": "Жодного файлу не обрано",
+    "Tour Subjects List": "Список Тем Турів",
+    "Tour Subjects": "Теми Турів",
+    "Create Tour": "Створити Тур",
+    "Create Tour Subject": "Створити Тему Туру",
+    "Tour Subject": "Тема Туру",
+    "Tour Subjects management": "Управління Темами Турів",
+    "Edit Tour Subject": "Редагувати Тему Туру",
+    "title": "Назва",
+    "Locale": "Мова",
+    "Media": "Картинки",
+    "Page created.": "Сторінка створена.",
+    "Page updated.": "Сторінка редагована.",
+    "Page deleted.": "Сторінка видалена.",
+    "Tour Subject created.": "Тема Тура створена.",
+    "Tour Subject updated.": "Тема Тура редагована.",
+    "Tour Subject deleted.": "Тема Тура видалена."
 }
