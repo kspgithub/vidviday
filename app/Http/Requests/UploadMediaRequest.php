@@ -7,8 +7,9 @@ use Illuminate\Http\UploadedFile;
 
 /**
  * Class UploadMediaRequest
- * @property int $id
- * @property string $class_name
+ * @property int $model_id
+ * @property string $model_type
+ * @property string $collection
  * @property string $title
  * @property string $alt
  * @property UploadedFile $media_file
@@ -23,7 +24,7 @@ class UploadMediaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->isAdmin();
     }
 
     /**
@@ -35,9 +36,10 @@ class UploadMediaRequest extends FormRequest
     {
         return [
             //
-            'class_name'=>['required', 'string'],
-            'id'=>['required', 'integer'],
+            'model_type'=>['required', 'string'],
+            'model_id'=>['required', 'integer'],
             'media_file'=>['required', 'file'],
+            'collection'=>['nullable', 'string'],
             'title'=>['nullable', 'string'],
             'alt'=>['nullable', 'string'],
         ];

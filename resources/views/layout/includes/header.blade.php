@@ -84,7 +84,49 @@
 
                 <span class="vertical-separator"></span>
 
-                <span class="log-in open-popup" data-rel="login-popup">Вхід</span>
+                @if(Auth::check())
+                    <div class="log-in log-inned dropdown">
+                        <a href="#favorites" class="log-inned-icon">
+                            <span>2</span>
+                        </a>
+                        <div class="img">
+                            <img src="{{asset('img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}" alt="user">
+                        </div>
+                        <span class="dropdown-btn"></span>
+                        <ul class="dropdown-toggle">
+                            <li>
+                                <a href="#">Особисті дані</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Історія замовлень</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Історія переглядів</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Улюблені <span>2</span></a>
+                            </li>
+
+                            <li>
+                                <a href="#">Інфо листи</a>
+                            </li>
+
+                            <li>
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();">Вихід</a>
+                                <form id="header-logout-form" action="{{ route('auth.logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                        <div class="full-size"></div>
+                    </div>
+                @else
+                    <span class="log-in open-popup" data-rel="login-popup">Вхід</span>
+                @endif
+
 
                 <span class="vertical-separator"></span>
 

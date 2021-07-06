@@ -28,9 +28,9 @@
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Tours')</span>
                 </a>
                 <ul id="tours" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours List')</a></li>
-{{--                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour.create')}}">@lang('Create Tour')</a></li>--}}
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects List')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Tour Groups')</a></li>
                 </ul>
             </li>
 
