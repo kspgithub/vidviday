@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -25,6 +27,7 @@ class Place extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use PlaceRelationship;
+    use HasSlug;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -57,5 +60,16 @@ class Place extends Model implements HasMedia
         'lat',
         'lng',
         'published',
+        'direction_id',
     ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
+    }
+
+
 }
