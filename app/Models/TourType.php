@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -17,6 +19,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class TourType extends Model implements HasMedia
 {
+    use HasSlug;
     use HasFactory;
     use HasTranslations;
     use InteractsWithMedia;
@@ -70,5 +73,13 @@ class TourType extends Model implements HasMedia
     public function tours()
     {
         return $this->belongsToMany(Tour::class);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
     }
 }

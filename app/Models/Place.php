@@ -61,6 +61,9 @@ class Place extends Model implements HasMedia
         'lng',
         'published',
         'direction_id',
+        'country_id',
+        'region_id',
+        'city_id',
     ];
 
     public function getSlugOptions(): SlugOptions
