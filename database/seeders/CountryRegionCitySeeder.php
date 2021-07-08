@@ -34,11 +34,11 @@ class CountryRegionCitySeeder extends Seeder
 
 
         /** 2. Add data from MySQL file **/
-//        $CountryRegionCity = file_get_contents(__DIR__ . "/CountryRegionCity.sql");
-//        $arrStatements = explode('/*---*/', $CountryRegionCity);
-//        foreach($arrStatements as $statement) {
-//            DB::statement($statement);
-//        }
+        $CountryRegionCity = file_get_contents(__DIR__ . "/CountryRegionCity.sql");
+        $arrStatements = explode('/*---*/', $CountryRegionCity);
+        foreach($arrStatements as $statement) {
+            DB::statement($statement);
+        }
 
 
         /** 3. Convert data from MySQL to "Region" and "City" models **/
@@ -82,10 +82,10 @@ class CountryRegionCitySeeder extends Seeder
 
 
         // 4. Delete secondary data from DB
-//        DB::statement('drop table located_area');
-//        DB::statement('drop table located_countrys');
-//        DB::statement('drop table located_region');
-//        DB::statement('drop table located_village');
+        DB::statement('drop table located_area');
+        DB::statement('drop table located_countrys');
+        DB::statement('drop table located_region');
+        DB::statement('drop table located_village');
 
 
         $this->enableForeignKeys();
