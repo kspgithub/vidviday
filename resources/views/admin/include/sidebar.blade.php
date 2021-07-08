@@ -43,6 +43,12 @@
                     <li class="sidebar-item {{routeActiveClass('admin.place.*')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
                 </ul>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.city')}}">
+                <a class="sidebar-link" href="{{route('admin.city.index')}}">
+                    <i class="align-middle" data-feather="compass"></i> <span class="align-middle">@lang('Cities')</span>
+                </a>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
