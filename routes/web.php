@@ -50,6 +50,7 @@ Route::group([
     require_once __DIR__.'/admin/direction.php';
     require_once __DIR__.'/admin/place.php';
     require_once __DIR__.'/admin/tour-type.php';
+    require_once __DIR__.'/admin/city.php';
 });
 
 

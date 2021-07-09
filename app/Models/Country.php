@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -10,6 +11,7 @@ class Country extends Model
 {
     use HasFactory;
     use HasTranslations;
+    use UseSelectBox;
 
     public function getRouteKeyName()
     {
@@ -28,11 +30,11 @@ class Country extends Model
 
     public function regions()
     {
-        $this->hasMany(Region::class);
+        return $this->hasMany(Region::class);
     }
 
     public function cities()
     {
-        $this->hasMany(City::class);
+        return $this->hasMany(City::class);
     }
 }
