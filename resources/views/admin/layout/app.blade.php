@@ -31,6 +31,9 @@
     <div class="main">
         @include('admin.include.nav')
         <main class="content">
+
+            @include('admin.include.breadcrumbs')
+
             <div class="container-fluid p-0">
                 @include('admin.include.messages')
 
