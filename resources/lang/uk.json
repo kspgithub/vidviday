@@ -313,5 +313,8 @@
     "Country deleted.": "Країну видалено.",
     "region": "Області",
     "Region management": "Управління областями",
-    "Create region": "Створити область"
+    "Create region": "Створити область",
+    "Region created.": "Область створено.",
+    "Region updated.": "Область редаговано.",
+    "Region deleted.": "Область видалено."
 }
