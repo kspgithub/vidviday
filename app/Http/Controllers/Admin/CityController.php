@@ -117,9 +117,4 @@ class CityController extends Controller
         return redirect()->route('admin.city.index')->withFlashSuccess(__('City deleted.'));
     }
 
-    public function mediaIndex(City $city)
-    {
-        return view('admin.city.media', ['city'=>$city]);
-    }
-
 }

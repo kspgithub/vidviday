@@ -25,6 +25,7 @@ class Country extends Model
     protected $fillable = [
         'title',
         'slug',
+        'iso'
     ];
 
 
