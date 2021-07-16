@@ -43,12 +43,18 @@
                     <li class="sidebar-item {{routeActiveClass('admin.place.*')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
                 </ul>
             </li>
-            <li class="sidebar-item {{routeActiveClass('admin.city')}}">
-                <a class="sidebar-link" href="{{route('admin.city.index')}}">
-                    <i class="align-middle" data-feather="compass"></i> <span class="align-middle">@lang('Cities')</span>
+            <!-- -------------------------------------------------------------------------------------------------- --->
+            <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
+                <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="compass"></i> <span class="align-middle">@lang('Locations')</span>
                 </a>
+                <ul id="location" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.location*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.country.index')}}"><a class="sidebar-link" href="{{route('admin.country.index')}}">@lang('Countries')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.region.index')}}"><a class="sidebar-link" href="{{route('admin.region.index')}}">@lang('Regions')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.city.index')}}"><a class="sidebar-link" href="{{route('admin.city.index')}}">@lang('Cities')</a></li>
+                </ul>
             </li>
-
+            <!-- -------------------------------------------------------------------------------------------------- --->
             <li class="sidebar-header">
                 @lang('Content')
             </li>

@@ -51,9 +51,11 @@ class CountryRegionCitySeeder extends Seeder
             'slug'=>'ukraine',
             'iso'=>'UA',
         ]);
+
         $located_region = collect(DB::select('select * from located_region'))->toArray();
         //$located_area = DB::select('select * from located_area');
         $located_village = collect(DB::select('select * from located_village'))->toArray();
+
         // regions
         foreach ($located_region as $region_data) {
             $region = Region::factory()->createOne([
@@ -64,6 +66,7 @@ class CountryRegionCitySeeder extends Seeder
                     'slug' => Str::slug($region_data->region)
                 ]);
         }
+
         // cities
         foreach ($located_village as $city_data) {
             $city = City::factory()->createOne([

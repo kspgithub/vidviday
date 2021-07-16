@@ -301,5 +301,20 @@
     "translation": "Переклади",
     "New Translation": "Створити переклад",
     "Group": "Група",
-    "city": "Населені пункти"
+    "city": "Населені пункти",
+    "Locations": "Місцезнаходження",
+    "Create country": "Створити країну",
+    "Country management": "Управління країнами",
+    "country": "Країни",
+    "Countries": "Країни",
+    "Regions": "Області",
+    "Country created.": "Країну створено.",
+    "Country updated.": "Країну редаговано.",
+    "Country deleted.": "Країну видалено.",
+    "region": "Області",
+    "Region management": "Управління областями",
+    "Create region": "Створити область",
+    "Region created.": "Область створено.",
+    "Region updated.": "Область редаговано.",
+    "Region deleted.": "Область видалено."
 }

@@ -31,6 +31,7 @@ class Country extends Model
     protected $fillable = [
         'title',
         'slug',
+        'iso'
     ];
 
     public function regions()
