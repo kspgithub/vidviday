@@ -23,6 +23,7 @@ class CountryFactory extends Factory
     public function definition()
     {
         $country = $this->faker->country;
+
         return [
             //
             'title'=>$country,

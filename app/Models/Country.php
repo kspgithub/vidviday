@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * Class Country
+ *
+ * @package App\Models
+ * @mixin IdeHelperCountry
+ */
 class Country extends Model
 {
     use HasFactory;
@@ -26,7 +32,6 @@ class Country extends Model
         'title',
         'slug',
     ];
-
 
     public function regions()
     {

@@ -14,6 +14,7 @@ class TourDirectionController extends Controller
     {
         $options = Direction::toSelectBox();
         $selected_ids = $tour->directions()->pluck('id')->toArray();
+
         return view('admin.tour.directions', [
             'tour'=>$tour,
             'options'=>$options,

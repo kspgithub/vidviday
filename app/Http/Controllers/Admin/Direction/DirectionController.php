@@ -99,7 +99,6 @@ class DirectionController extends Controller
         return redirect()->route('admin.direction.index')->withFlashSuccess(__('Direction deleted.'));
     }
 
-
     // Madia
 
     public function mediaIndex(Direction $direction)

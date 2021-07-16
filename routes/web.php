@@ -53,6 +53,5 @@ Route::group([
     require_once __DIR__.'/admin/city.php';
 });
 
-
 Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
 Route::get('{slug}', [PageController::class, 'show'])->name('page.show');

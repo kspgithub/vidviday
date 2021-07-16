@@ -34,5 +34,4 @@ trait PlaceRelationship
     {
         $this->belongsTo(City::class);
     }
-
 }

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * Class TourSchedule
+ *
+ * @package App\Models
  * @mixin IdeHelperTourSchedule
  */
 class TourSchedule extends Model

@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class PriceItem
+ *
+ * @package App\Models
  * @mixin IdeHelperPriceItem
  */
 class PriceItem extends Model

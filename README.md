@@ -63,7 +63,7 @@ DB_PASSWORD=
 - JS фреймворк [Vue.js](https://vuejs.org/)
 - Управление ролями и доступом [Laravel Permission](https://spatie.be/docs/laravel-permission/v4/introduction)
 - Связывание всевозможных файлов с моделями [Laravel Medialibrary](https://spatie.be/docs/laravel-medialibrary/v7/introduction)
-
+- Переводы моделей [Laravel Translatable](https://github.com/spatie/laravel-translatable)
 
 #### В админке также подключены
 - Фреймворк [Laravel Livewire](https://laravel-livewire.com/)
@@ -73,7 +73,7 @@ DB_PASSWORD=
 #### Рекомендуемые пакеты
 - В качестве альтернативы [Pusher](https://pusher.com/) можно использовать
   [Laravel WebSockets](https://beyondco.de/docs/laravel-websockets/getting-started/introduction)
-
+  
 ### Fix Your Code
 Fix your code with Laravel Coding Standards.
 

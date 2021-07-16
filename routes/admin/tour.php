@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'tour',
     'as' => 'tour.',
-], function() {
-
+], function () {
     Route::get('{tour}/pictures', [TourPictureController::class, 'index'])->name('picture.index');
     Route::post('{tour}/pictures', [TourPictureController::class, 'upload'])->name('picture.store');
     Route::patch('{tour}/pictures/{media}', [TourPictureController::class, 'update'])->name('picture.update');

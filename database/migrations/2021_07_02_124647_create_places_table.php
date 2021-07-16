@@ -16,11 +16,12 @@ class CreatePlacesTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->foreignId('direction_id')->constrained('directions')->cascadeOnDelete();
-            $table->string('title');
+            $table->text('title');
             $table->text('seo_h1')->nullable();
             $table->text('seo_title')->nullable();
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
+            $table->longText('short_text')->nullable();
             $table->longText('text')->nullable();
             $table->string('slug');
             $table->double('lat')->nullable();

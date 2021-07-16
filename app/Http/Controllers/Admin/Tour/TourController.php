@@ -53,8 +53,9 @@ class TourController extends Controller
      *
      * @param TourBasicRequest $request
      *
-     * @return Response
      * @throws \App\Exceptions\GeneralException
+     *
+     * @return Response
      */
     public function store(TourBasicRequest $request)
     {

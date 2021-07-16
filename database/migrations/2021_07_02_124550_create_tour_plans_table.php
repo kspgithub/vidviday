@@ -16,7 +16,7 @@ class CreateTourPlansTable extends Migration
         Schema::create('tour_plans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id')->constrained('tours')->cascadeOnDelete();
-            $table->string('title');
+            $table->text('title');
             $table->longText('text')->nullable();
             $table->string('slug');
             $table->double('lat')->nullable();

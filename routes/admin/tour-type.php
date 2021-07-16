@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Admin\TourType\TourTypeController;
 use Illuminate\Support\Facades\Route;
 

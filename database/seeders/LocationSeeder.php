@@ -63,7 +63,6 @@ class LocationSeeder extends Seeder
                     ]);
                 }
             }
-
         }
 
         $this->enableForeignKeys();

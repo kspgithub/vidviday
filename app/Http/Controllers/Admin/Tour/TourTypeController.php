@@ -14,6 +14,7 @@ class TourTypeController extends Controller
     {
         $options = TourType::toSelectBox();
         $selected_ids = $tour->types()->pluck('id')->toArray();
+
         return view('admin.tour.types', [
             'tour'=>$tour,
             'options'=>$options,

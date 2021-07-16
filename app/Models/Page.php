@@ -22,9 +22,9 @@ class Page extends Model implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
-    use UsePublishedScope;
 
     public function registerMediaConversions(Media $media = null): void
     {

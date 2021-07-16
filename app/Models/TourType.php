@@ -15,6 +15,9 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class TourType
+ *
+ * @package App\Models
  * @mixin IdeHelperTourType
  */
 class TourType extends Model implements HasMedia

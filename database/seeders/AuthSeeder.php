@@ -48,12 +48,18 @@ class AuthSeeder extends Seeder
 
         Role::create([
             'id' => 2,
-            'name' => 'tour-agent',
+            'name' => 'manager',
             'guard_name'=> 'web',
         ]);
 
         Role::create([
             'id' => 3,
+            'name' => 'tour-agent',
+            'guard_name'=> 'web',
+        ]);
+
+        Role::create([
+            'id' => 4,
             'name' => 'tourist',
             'guard_name'=> 'web',
         ]);

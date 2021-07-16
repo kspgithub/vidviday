@@ -15,6 +15,9 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class TourGroup
+ *
+ * @package App\Models
  * @mixin IdeHelperTourGroup
  */
 class TourGroup extends Model implements HasMedia
@@ -82,5 +85,4 @@ class TourGroup extends Model implements HasMedia
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
-
 }

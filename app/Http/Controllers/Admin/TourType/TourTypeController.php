@@ -49,6 +49,7 @@ class TourTypeController extends Controller
         $tourType = new TourType();
         $tourType->fill($request->all());
         $tourType->save();
+
         return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Created'));
     }
 
@@ -78,6 +79,7 @@ class TourTypeController extends Controller
         //
         $tourType->fill($request->all());
         $tourType->save();
+
         return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Updated'));
     }
 
@@ -95,7 +97,6 @@ class TourTypeController extends Controller
 
         return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 
     public function mediaIndex(TourType $tourType)
     {

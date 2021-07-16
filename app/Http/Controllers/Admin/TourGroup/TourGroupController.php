@@ -49,6 +49,7 @@ class TourGroupController extends Controller
         $tourGroup = new TourGroup();
         $tourGroup->fill($request->all());
         $tourGroup->save();
+
         return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Created'));
     }
 
@@ -78,6 +79,7 @@ class TourGroupController extends Controller
         //
         $tourGroup->fill($request->all());
         $tourGroup->save();
+
         return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Updated'));
     }
 
@@ -95,7 +97,6 @@ class TourGroupController extends Controller
 
         return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 
     public function mediaIndex(TourGroup $tourGroup)
     {

@@ -8,5 +8,3 @@ Route::post('page/{direction}/media', [DirectionController::class, 'mediaUpload'
 Route::delete('page/{direction}/media/{media}', [DirectionController::class, 'mediaRemove'])->name('direction.media.destroy');
 
 Route::resource('direction', DirectionController::class);
-
-

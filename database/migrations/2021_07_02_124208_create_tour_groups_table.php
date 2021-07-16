@@ -15,7 +15,7 @@ class CreateTourGroupsTable extends Migration
     {
         Schema::create('tour_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->text('title');
             $table->text('seo_h1')->nullable();
             $table->text('seo_title')->nullable();
             $table->text('seo_description')->nullable();

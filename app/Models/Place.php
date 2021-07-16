@@ -73,6 +73,4 @@ class Place extends Model implements HasMedia
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
-
-
 }

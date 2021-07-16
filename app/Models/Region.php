@@ -5,9 +5,14 @@ namespace App\Models;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * Class Region
+ *
+ * @package App\Models
+ * @mixin IdeHelperRegion
+ */
 class Region extends Model
 {
     use HasFactory;

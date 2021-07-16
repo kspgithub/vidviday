@@ -23,6 +23,7 @@ class RegionFactory extends Factory
     public function definition()
     {
         $region = $this->faker->region;
+
         return [
             //
             'title'=>$region,

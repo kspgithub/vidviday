@@ -8,5 +8,3 @@ Route::post('tour-subjects/{tourSubject}/media', [TourSubjectsController::class,
 Route::delete('tour-subjects/{tourSubject}/media/{media}', [TourSubjectsController::class, 'mediaRemove'])->name('tour-subjects.media.destroy');
 
 Route::resource('tour-subjects', TourSubjectsController::class)->except('show');
-
-

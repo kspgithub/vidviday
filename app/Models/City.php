@@ -8,6 +8,12 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * Class City
+ *
+ * @package App\Models
+ * @mixin IdeHelperCity
+ */
 class City extends Model
 {
     use HasSlug;

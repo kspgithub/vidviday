@@ -105,7 +105,6 @@ class TourSubjectsController extends Controller
         return view('admin.tour_subjects.media', ['tourSubject'=>$tourSubject]);
     }
 
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

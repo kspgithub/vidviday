@@ -28,8 +28,10 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Our Documents', 'ru'=>'Наши Документы', 'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
-                'seo_h1'=>['en'=>'Our Documents', 'ru'=>'Наши Документы', 'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
+                'title'=>['en'=>'Our Documents', 'ru'=>'Наши Документы',
+                    'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
+                'seo_h1'=>['en'=>'Our Documents', 'ru'=>'Наши Документы',
+                    'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
                 'slug'=>'our-documents',
                 'published'=>1,
             ],
@@ -40,17 +42,19 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Office workers', 'ru'=>'Офисные работники', 'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
-                'seo_h1'=>['en'=>'Office workers', 'ru'=>'Офисные работники', 'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
+                'title'=>['en'=>'Office workers', 'ru'=>'Офисные работники',
+                    'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
+                'seo_h1'=>['en'=>'Office workers', 'ru'=>'Офисные работники',
+                    'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
                 'slug'=>'office-workers',
                 'published'=>1,
             ],
-//            [
-//                'title'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
-//                'seo_h1'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
-//                'slug'=>'news',
-//                'published'=>1,
-//            ],
+            [
+                'title'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
+                'seo_h1'=>['en'=>'News', 'ru'=>'Новости', 'uk'=>'Новини',  'pl'=>'Aktualności'],
+                'slug'=>'news',
+                'published'=>1,
+            ],
             [
                 'title'=>['en'=>'Charity', 'ru'=>'Благотворительность', 'uk'=>'Благодійність',  'pl'=>'Dobroczynność'],
                 'seo_h1'=>['en'=>'Charity', 'ru'=>'Благотворительность', 'uk'=>'Благодійність',  'pl'=>'Dobroczynność'],
@@ -58,8 +62,10 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия', 'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
-                'seo_h1'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия', 'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
+                'title'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия',
+                    'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
+                'seo_h1'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия',
+                    'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
                 'slug'=>'awards-and-honors',
                 'published'=>1,
             ],
@@ -75,24 +81,22 @@ class PageSeeder extends Seeder
                 'slug'=>'practice',
                 'published'=>1,
             ],
-//            [
-//                'title'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
-//                'seo_h1'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
-//                'slug'=>'reviews',
-//                'published'=>1,
-//            ],
-//            [
-//                'title'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
-//                'seo_h1'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
-//                'slug'=>'blog',
-//                'published'=>1,
-//            ],
+            [
+                'title'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
+                'seo_h1'=>['en'=>'Reviews', 'ru'=>'Отзывы', 'uk'=>'Відгуки',  'pl'=>'Opinie'],
+                'slug'=>'reviews',
+                'published'=>1,
+            ],
+            [
+                'title'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
+                'seo_h1'=>['en'=>'Blog', 'ru'=>'Блог', 'uk'=>'Блог',  'pl'=>'Blog'],
+                'slug'=>'blog',
+                'published'=>1,
+            ],
         ];
 
         foreach ($pages as $page) {
-
             Page::factory()->createOne($page);
-
         }
     }
 }

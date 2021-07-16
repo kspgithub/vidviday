@@ -23,6 +23,7 @@ class CityFactory extends Factory
     public function definition()
     {
         $city = $this->faker->city;
+
         return [
             //
             'title'=>$city,

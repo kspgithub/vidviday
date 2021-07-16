@@ -9,7 +9,6 @@ use App\Models\Region;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CityController extends Controller
 {
@@ -121,5 +120,4 @@ class CityController extends Controller
     {
         return view('admin.city.media', ['city'=>$city]);
     }
-
 }

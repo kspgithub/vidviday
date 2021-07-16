@@ -13,6 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
+ * Class User
+ *
+ * @package App\Models
  * @mixin IdeHelperUser
  */
 class User extends Authenticatable

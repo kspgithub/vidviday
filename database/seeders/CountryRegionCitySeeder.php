@@ -24,7 +24,6 @@ class CountryRegionCitySeeder extends Seeder
         //
         $this->disableForeignKeys();
 
-
         $this->truncateMultiple(['cities', 'regions', 'countries']);
 
         /** 1. Empty 3 tables **/

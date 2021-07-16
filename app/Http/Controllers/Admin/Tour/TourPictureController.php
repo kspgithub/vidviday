@@ -32,13 +32,14 @@ class TourPictureController extends Controller
 
     public function update(Request $request, Tour $tour, Media $media)
     {
-        if($request->has('title')) {
+        if ($request->has('title')) {
             $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
         }
-        if($request->has('alt')) {
+        if ($request->has('alt')) {
             $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
         }
         $media->save();
+
         return response()->json(['result'=>'success', 'media'=>$media]);
     }
 
