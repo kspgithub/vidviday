@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -10,23 +9,32 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class Region
+ * Class Badge
  *
  * @package App\Models
- * @mixin IdeHelperRegion
+ * @mixin IdeHelperBadge
  */
-class Region extends Model
+class Badge extends Model
 {
-    use HasSlug;
     use HasFactory;
+    use HasSlug;
     use HasTranslations;
-    use UseSelectBox;
+
 
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
+    public $translatable = [
+        'title',
+    ];
+
+    protected $fillable = [
+        'title',
+        'color',
+        'slug',
+    ];
 
     public function getSlugOptions(): SlugOptions
     {
@@ -36,23 +44,8 @@ class Region extends Model
             ->saveSlugsTo('slug');
     }
 
-    public $translatable = [
-        'title',
-    ];
-
-    protected $fillable = [
-        'country_id',
-        'title',
-        'slug',
-    ];
-
-    public function cities()
+    public function tours()
     {
-        return $this->hasMany(City::class);
-    }
-
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
+        return $this->belongsToMany(Tour::class, 'tour_badges');
     }
 }

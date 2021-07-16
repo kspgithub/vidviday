@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Relationship;
 
 use App\Models\Accommodation;
+use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Place;
 use App\Models\PriceItem;
@@ -170,5 +171,15 @@ trait TourRelationship
     public function staff()
     {
         return $this->belongsToMany(Staff::class, 'tours_staff');
+    }
+
+    /**
+     * Бейджи
+     *
+     * @return BelongsToMany
+     */
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'tour_badges');
     }
 }
