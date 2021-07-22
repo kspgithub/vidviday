@@ -18,8 +18,20 @@ class CityController extends Controller
      *
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        if ($request->search) {
+
+            $citiesPrepeared = City::select(['id', 'title', 'country_id', 'region_id', 'slug'])
+            ->where('title', 'like', '%' .$request->search. '%');
+            $citiesPaginated = $citiesPrepeared->paginate(20);
+            $cities = $citiesPrepeared->get();
+
+            return view('admin.city.index', ['cities'=>$cities, 'citiesPaginated'=>$citiesPaginated]);
+        }
+
+
         $citiesPrepeared = City::query()->orderBy('region_id');
         $citiesPaginated = $citiesPrepeared->paginate(20);
         $cities = $citiesPrepeared->get();//->sortBy('region_id');
