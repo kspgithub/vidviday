@@ -15,12 +15,9 @@ class BadgeController extends Controller
      */
     public function index()
     {
-        $badgesPrepeared = Badge::query();
-        $badgesPaginated = $badgesPrepeared->paginate(20);
-        $badges = $badgesPrepeared->get();//->sortBy('region_id');
-
+        $badges = Badge::select(['id','title','color','slug'])->get();
         //
-        return view('admin.badge.index', ['badges'=>$badges, 'badgesPaginated'=>$badgesPaginated]);
+        return view('admin.badge.index', compact('badges'));
     }
 
     /**
@@ -92,45 +89,5 @@ class BadgeController extends Controller
         $badge->delete();
 
         return redirect()->route('admin.badge.index')->withFlashSuccess(__('Badge deleted.'));
-    }
-
-    public function mediaIndex(Badge $badge)
-    {
-        return view('admin.badge.media', ['badge'=>$badge]);
-    }
-
-    public function mediaUpload(Request $request, Badge $badge)
-    {
-        if ($request->hasFile('media_file')) {
-            $media = $badge->storeMedia($request->file('media_file'));
-
-            return response()->json(['result'=>'success', 'media'=>[
-                'id'=>$media->id,
-                'url'=>$media->getUrl(),
-                'thumb'=>$media->getUrl('thumb'),
-            ]]);
-        }
-
-        return response()->json(['result'=>'error', 'message'=>'No file'], 400);
-    }
-
-    public function mediaUpdate(Request $request, Badge $badge, Media $media)
-    {
-        if($request->has('title')) {
-            $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
-        }
-        if($request->has('alt')) {
-            $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
-        }
-        $media->save();
-        return response()->json(['result'=>'success', 'media'=>$media]);
-    }
-
-
-    public function mediaRemove(Badge $badge, Media $media)
-    {
-        $badge->deleteMedia($media);
-
-        return response()->json(['result'=>'success', 'media'=>$media]);
     }
 }
