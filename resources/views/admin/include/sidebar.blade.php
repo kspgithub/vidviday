@@ -43,6 +43,11 @@
                     <li class="sidebar-item {{routeActiveClass('admin.place.*')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
                 </ul>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('FAQ')</span>
+                </a>
+            </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
             <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
                 <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
