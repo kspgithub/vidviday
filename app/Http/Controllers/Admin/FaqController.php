@@ -16,7 +16,7 @@ class FaqController extends Controller
     public function index()
     {
         //
-        $faqitems = FaqItem::select(['id','section','question','answer', 'sort_order', 'published'])->get();
+        $faqitems = FaqItem::query()->get();
         return view('admin.faqitem.index', compact('faqitems'));
     }
 

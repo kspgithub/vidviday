@@ -53,19 +53,3 @@
         </x-slot>
     </x-bootstrap.card>
 @endsection
-
-@push('before-scripts')
-    <script>
-        /*** Fix Lara Paginator ***/
-        // p (calculate) style
-        let childDiv = document.querySelectorAll('[role="navigation"]')[0];
-        childDiv.getElementsByTagName('div')[1].firstElementChild.firstElementChild.style.marginTop = '15px';
-        // paginate View fix for arrows
-        if(document.querySelectorAll('[aria-label="&laquo; Назад"]')[0] !== undefined)
-            document.querySelectorAll('[aria-label="&laquo; Назад"]')[0].style.display = 'none';
-        if(document.querySelectorAll('[rel="next"]')[0] !== undefined)
-            document.querySelectorAll('[rel="next"]')[0].style.display = 'none';
-        if(document.querySelectorAll('[rel="prev"]')[0] !== undefined)
-            document.querySelectorAll('[rel="prev"]')[0].style.display = 'none';
-    </script>
-@endpush
