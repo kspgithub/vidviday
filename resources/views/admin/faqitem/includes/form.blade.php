@@ -9,11 +9,11 @@
             <label class="form-label col-md-2" for="Section">Section <span style="color: red">*</span></label>
             <div class="col-md-10">
             <select class="form-select" maxlength="100" class="form-control" name="section" value="old('section', $faqitem->section)">
-                <option>common</option>
-                <option>corporate</option>
-                <option>tourist</option>
-                <option>tour-agent</option>
-                <option>certificate</option>
+                <option>common (Загальні запитання)</option>
+                <option>corporate (Корпоративні запитання)</option>
+                <option>tourist (Туристичні запитання)</option>
+                <option>tour-agen (Запитання тур-аґенту)</option>
+                <option>certificate (Запит, щодо сертифікатів)</option>
             </select>
             </div>
             </div>
