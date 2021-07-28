@@ -38,6 +38,8 @@ DB_PASSWORD=
 загрузки файлов:  
 `php artisan storage:link`
 
+Публикация файлов Livewire:  
+`php artisan livewire:publish --assets`
 
 ## Разработка
 

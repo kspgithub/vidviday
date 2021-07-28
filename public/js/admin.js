@@ -23,7 +23,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_toast__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/toast */ "./resources/js/admin/modules/toast.js");
 /* harmony import */ var _modules_chartjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/chartjs */ "./resources/js/admin/modules/chartjs.js");
 /* harmony import */ var _modules_flatpickr__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/flatpickr */ "./resources/js/admin/modules/flatpickr.js");
-/* harmony import */ var _modules_vector_maps__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/vector-maps */ "./resources/js/admin/modules/vector-maps.js");
+/* harmony import */ var _modules_published_switch__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/published-switch */ "./resources/js/admin/modules/published-switch.js");
+/* harmony import */ var _modules_location_group__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/location-group */ "./resources/js/admin/modules/location-group.js");
+/* harmony import */ var _modules_vector_maps__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/vector-maps */ "./resources/js/admin/modules/vector-maps.js");
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
  // AdminKit (required)
@@ -39,6 +41,8 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
  // Charts
 
  // Forms
+
+
 
  // Maps
 
@@ -183,6 +187,194 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./resources/js/admin/modules/location-group.js":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/modules/location-group.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
+/* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! choices.js */ "./node_modules/choices.js/public/assets/scripts/choices.js");
+/* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(choices_js__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var googleMaps;
+var loader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__.Loader({
+  apiKey: "AIzaSyA2VrKbul0izeo7J6HmLCLr2AGX3IQa-K8",
+  version: "weekly",
+  libraries: ["places"],
+  language: 'uk'
+}); //48.736383466532274 31.460746106250006
+
+var DEFAULT_LAT_LNG = {
+  lat: 48.7363835,
+  lng: 31.46074611
+};
+
+var LocationGroup = function LocationGroup(wrapper) {
+  var latInput = wrapper.querySelector('[name="lat"]');
+  var lngInput = wrapper.querySelector('[name="lng"]');
+  var citySelect = wrapper.querySelector('[name="city_id"]');
+  var mapElement = wrapper.querySelector('.map');
+  var latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
+  var lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
+  var latLng = {
+    lat: latValue,
+    lng: lngValue
+  };
+  var map = new googleMaps.Map(mapElement, {
+    zoom: 6,
+    center: latLng
+  });
+  var marker = new googleMaps.Marker({
+    position: latLng,
+    map: map
+  });
+  map.addListener("drag", function () {
+    marker.setPosition(map.getCenter());
+  });
+  map.addListener("center_changed", function () {
+    marker.setPosition(map.getCenter());
+    latLng = {
+      lat: map.getCenter().lat(),
+      lng: map.getCenter().lng()
+    };
+    latInput.value = latLng.lat;
+    lngInput.value = latLng.lng;
+  }); // city search
+
+  var CancelToken = axios.CancelToken;
+  var cancel;
+  var citySearchText = '';
+  var cityChoices = new (choices_js__WEBPACK_IMPORTED_MODULE_2___default())(citySelect);
+
+  var searchCities = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(q) {
+      var items;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(q === citySearchText)) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 2:
+              citySearchText = q;
+
+              if (cancel !== undefined) {
+                cancel();
+              }
+
+              if (!(q.length > 0)) {
+                _context.next = 11;
+                break;
+              }
+
+              _context.next = 7;
+              return axios.get('/admin/city/search?q=' + q, {
+                cancelToken: new CancelToken(function executor(c) {
+                  cancel = c;
+                })
+              })["catch"](function (err) {
+                return console.log(err);
+              });
+
+            case 7:
+              items = _context.sent;
+              cityChoices.setChoices(items && items.data ? items.data : [], 'value', 'text', true);
+              _context.next = 12;
+              break;
+
+            case 11:
+              cityChoices.setChoices([], 'value', 'text', true);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function searchCities(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  cityChoices.passedElement.element.addEventListener('search', /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(event) {
+      var searchText;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              searchText = event.detail.value;
+              _context2.next = 3;
+              return searchCities(searchText);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }()); //change
+
+  cityChoices.passedElement.element.addEventListener('change', /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(event) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              cityChoices.setChoices([], 'value', 'text', true);
+
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+};
+
+window.LocationGroup = LocationGroup;
+loader.load().then(function (google) {
+  googleMaps = google.maps;
+  var groupElements = document.querySelectorAll('.location-group');
+  groupElements.forEach(function (elem) {
+    var gr = new LocationGroup(elem);
+  });
+})["catch"](function (e) {
+  // do something
+  console.log(e);
+});
+
+/***/ }),
+
 /***/ "./resources/js/admin/modules/media-library.js":
 /*!*****************************************************!*\
   !*** ./resources/js/admin/modules/media-library.js ***!
@@ -309,6 +501,71 @@ document.addEventListener('DOMContentLoaded', function () {
   var libraries = document.querySelectorAll('[data-media-upload]');
   libraries.forEach(function (el) {
     var lib = new MediaLibrary(el);
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/modules/published-switch.js":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/modules/published-switch.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var PublishedSwitch = function PublishedSwitch(wrapper) {
+  var checkboxEl = wrapper.querySelector('.form-check-input');
+  var updateUrl = wrapper.dataset.url;
+  checkboxEl.addEventListener('change', /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(evt) {
+      var checked;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              checked = evt.target.checked;
+              checkboxEl.disabled = true;
+              _context.next = 4;
+              return axios.patch(updateUrl, {
+                published: checked ? 1 : 0
+              });
+
+            case 4:
+              checkboxEl.disabled = false;
+
+              if (checked) {
+                toast.success('Запис опубліковано');
+              } else {
+                toast.success('Запис знятий з публікації');
+              }
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+  var uploaders = document.querySelectorAll('.published-switch');
+  uploaders.forEach(function (el) {
+    var switchItem = new PublishedSwitch(el);
   });
 });
 

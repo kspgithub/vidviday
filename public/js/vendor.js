@@ -1,5 +1,16 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["/js/vendor"],{
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/@fancyapps/ui/dist/fancybox.esm.js":
 /*!*********************************************************!*\
   !*** ./node_modules/@fancyapps/ui/dist/fancybox.esm.js ***!
@@ -15,6 +26,314 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // @fancyapps/ui/Fancybox v4.0.0-alpha.4
 const t=t=>"object"==typeof t&&null!==t&&t.constructor===Object&&"[object Object]"===Object.prototype.toString.call(t),e=(...i)=>{let s=!1;"boolean"==typeof i[0]&&(s=i.shift());let n=i[0];if(!n||"object"!=typeof n)throw new Error("extendee must be an object");const o=i.slice(1),a=o.length;for(let i=0;i<a;i++){const a=o[i];for(let i in a)if(a.hasOwnProperty(i)){const o=a[i];if(s&&(Array.isArray(o)||t(o))){const t=Array.isArray(o)?[]:{};n[i]=e(!0,n.hasOwnProperty(i)?n[i]:t,o)}else n[i]=o}}return n},i=(t,e=1e3)=>(t=parseFloat(t)||0,Math.round((t+Number.EPSILON)*e)/e),s="undefined"!=typeof window&&window.ResizeObserver||class{constructor(t){this.observables=[],this.boundCheck=this.check.bind(this),this.boundCheck(),this.callback=t}observe(t){if(this.observables.some((e=>e.el===t)))return;const e={el:t,size:{height:t.clientHeight,width:t.clientWidth}};this.observables.push(e)}unobserve(t){this.observables=this.observables.filter((e=>e.el!==t))}disconnect(){this.observables=[]}check(){const t=this.observables.filter((t=>{const e=t.el.clientHeight,i=t.el.clientWidth;if(t.size.height!==e||t.size.width!==i)return t.size.height=e,t.size.width=i,!0})).map((t=>t.el));t.length>0&&this.callback(t),window.requestAnimationFrame(this.boundCheck)}},n=function(t){return!(!t||t.classList.contains("carousel__track")||t===document.body)&&(function(t){const e=window.getComputedStyle(t)["overflow-y"],i=window.getComputedStyle(t)["overflow-x"],s=("scroll"===e||"auto"===e)&&Math.abs(t.scrollHeight-t.clientHeight)>1,n=("scroll"===i||"auto"===i)&&Math.abs(t.scrollWidth-t.clientWidth)>1;return s||n}(t)?t:n(t.parentNode))},o=t=>{let e=0;return t&&(e=t instanceof SVGElement?Math.min(t.getClientRects()[0].width,t.width.baseVal.value):Math.max(t.offsetWidth,t.scrollWidth)),e},a=t=>{let e=0;return t&&(e=t instanceof SVGElement?Math.min(t.getClientRects()[0].height,t.height.baseVal.value):Math.max(t.offsetHeight,t.scrollHeight)),e};class r{constructor(t={}){this.options=e(!0,{},t),this.plugins=[],this.events={};for(const t of["on","once"])for(const e of Object.entries(this.options[t]||{}))this[t](...e)}option(t,e){t=String(t);let i=(s=t,n=this.options,s.split(".").reduce((function(t,e){return t[e]}),n));var s,n;return"function"==typeof i&&(i=i.call(this,t)),void 0===i?e:i}localize(t,e=[]){return String(t).replace(/\{\{(\w+).?(\w+)?\}\}/g,((t,i,s)=>{let n=!1;if(n=s?this.option(`${i[0]+i.toLowerCase().substring(1)}.l10n.${s}`):this.option(`l10n.${i}`),!n)return i;for(let t=0;t<e.length;t++)n=n.split(e[t][0]).join(e[t][1]);return n}))}on(e,i){if(t(e)){for(const t of Object.entries(e))this.on(...t);return this}return String(e).split(" ").forEach((t=>{const e=this.events[t]=this.events[t]||[];-1==e.indexOf(i)&&e.push(i)})),this}once(e,i){if(t(e)){for(const t of Object.entries(e))this.once(...t);return this}return String(e).split(" ").forEach((t=>{const e=(...s)=>{this.off(t,e),i.call(this,this,...s)};e._=i,this.on(t,e)})),this}off(e,i){if(!t(e))return e.split(" ").forEach((t=>{const e=this.events[t];if(!e||!e.length)return this;let s=-1;for(let t=0,n=e.length;t<n;t++){const n=e[t];if(n&&(n===i||n._===i)){s=t;break}}-1!=s&&e.splice(s,1)})),this;for(const t of Object.entries(e))this.off(...t)}trigger(t,...e){for(const i of[...this.events[t]||[]].slice())if(i&&!1===i.call(this,this,...e))return!1;for(const i of[...this.events["*"]||[]].slice())if(i&&!1===i.call(this,t,this,...e))return!1;return!0}attachPlugins(t){const i={};for(const[s,n]of Object.entries(t||{}))!1!==this.options[s]&&(this.options[s]=e({},n.defaults||{},this.options[s]),i[s]=new n(this));for(const[t,e]of Object.entries(i))e.attach(this);return this.plugins=Object.assign({},this.plugins,i),this}detachPlugins(){for(const t in this.plugins){let e;(e=this.plugins[t])&&"function"==typeof e.detach&&e.detach(this)}return this.plugins={},this}}const l={panOnlyZoomed:!1,lockAxis:!1,friction:.72,decelFriction:.92,zoomFriction:.72,bounceForce:.1,baseScale:1,minScale:1,maxScale:2,step:.5,zoomInCentered:!0,pinchToZoom:!0,textSelection:!0,click:"toggleZoom",clickDelay:250,doubleClick:!1,wheel:"zoom",wheelFactor:30,wheelLimit:3,touch:!0,draggableClass:"is-draggable",draggingClass:"is-dragging"};class h extends r{constructor(t,i={}){if(super(i=e(!0,{},l,i)),!(t instanceof HTMLElement))throw new Error("Viewport not found");this.state="init",this.$viewport=t;for(const t of["onPointerDown","onPointerMove","onPointerUp","onWheel","onClick"])this[t]=this[t].bind(this);if(this.$content=this.option("content"),this.$content||(this.$content=this.$viewport.querySelector(".panzoom__content")),!this.$content)throw new Error("Content not found");if(!1===this.option("textSelection")&&this.$viewport.classList.add("not-selectable"),this.resetValues(),this.attachPlugins(h.Plugins),this.trigger("init"),this.handleContent(),this.attachEvents(),this.trigger("ready"),"init"===this.state){const t=this.option("baseScale");1===t?(this.state="ready",this.handleCursor()):this.panTo({scale:t,friction:0})}}handleContent(){if(this.$content instanceof HTMLImageElement){const t=()=>{const t=this.$content.naturalWidth;this.maxScale=this.option("maxScale"),this.options.maxScale=function(){const e=this.contentDim.width;return t>0&&e>0?t/e*this.maxScale:this.maxScale},this.updateMetrics(),this.trigger(t>0?"load":"error")};!0!==this.$content.complete?(this.$content.onload=()=>t(),this.$content.onerror=()=>t()):t()}else this.updateMetrics()}resetValues(){this.viewportDim={top:0,left:0,width:0,height:0},this.contentDim={width:0,height:0},this.friction=this.option("friction"),this.current={x:0,y:0,scale:1},this.velocity={x:0,y:0,scale:0},this.pan={x:0,y:0,scale:1},this.drag={startTime:null,firstPosition:null,startPosition:null,startPoint:null,startDistance:null,endPosition:null,endPoint:null,distance:0,distanceX:0,distanceY:0,elapsedTime:0},this.lockAxis=null,this.pendingAnimateUpdate=null,this.pendingResizeUpdate=null,this.pointers=[]}updateMetrics(){let{top:t,left:e,width:i,height:s}=this.$viewport.getBoundingClientRect();const n=window.getComputedStyle(this.$viewport);i-=parseFloat(n.paddingLeft)+parseFloat(n.paddingRight),s-=parseFloat(n.paddingTop)+parseFloat(n.paddingBottom),this.viewportDim={top:t,left:e,width:i,height:s},this.contentDim={width:this.option("width",o(this.$content)),height:this.option("hidth",a(this.$content))},this.trigger("updateMetrics"),this.updateBounds()}updateBounds(t){const e={from:0,to:0},s={from:0,to:0};if(t||(t=this.velocity.scale?this.pan.scale:this.current.scale),t<1)return[e,s];const n=this.contentDim,o=this.viewportDim,a=n.width*t,r=n.height*t;return e.to=i(.5*(a-n.width)),n.width>o.width?e.from=i(e.to+o.width-a):e.from=i(-1*e.to),s.to=i(.5*(r-n.height)),n.height>o.height?s.from=i(s.to+o.height-r):s.from=i(-1*s.to),this.boundX=e,this.boundY=s,this.trigger("updateBounds",t),[this.boundX,this.boundY]}zoomIn(t){this.zoomTo(this.current.scale+(t||this.option("step")))}zoomOut(t){this.zoomTo(this.current.scale-(t||this.option("step")))}toggleZoom(t={}){const e=this.option("maxScale"),i=this.option("baseScale");this.zoomTo(this.current.scale>i+.5*(e-i)?i:e,t)}zoomTo(t,e={}){let{x:i=null,y:s=null,friction:n=this.option("zoomFriction")}=e;t||(t=this.option("baseScale")),t=Math.max(Math.min(t,this.option("maxScale")),this.option("minScale"));const o=this.contentDim.width,a=this.contentDim.height,r=o*this.current.scale,l=a*this.current.scale,h=o*t,c=a*t;null===i&&(i=.5*r),null===s&&(s=.5*l),!1===this.option("zoomInCentered")&&(i<.5*r&&(i=r),i>r&&(i=0),s<0&&(s=l),s>l&&(s=0));let d=(h-r)*((r>0?i/r:0)-.5),u=(c-l)*((l>0?s/l:0)-.5);Math.abs(d)<1&&(d=0),Math.abs(u)<1&&(u=0),i=this.current.x-d,s=this.current.y-u,this.panTo({x:i,y:s,scale:t,friction:n})}panTo(t){let{x:e=0,y:i=0,scale:s=this.current.scale,friction:n=this.option("friction"),ignoreBounds:o=!1}=t;if(n||this.stopMoving(),!0!==o){const[t,n]=this.updateBounds(s);t&&(e=Math.max(Math.min(e,t.to),t.from)),n&&(i=Math.max(Math.min(i,n.to),n.from))}return n>0&&(Math.abs(e-this.current.x)>.1||Math.abs(i-this.current.y)>.1||Math.abs(s-this.current.scale)>.1)?(this.state="panning",this.friction=n,this.pan={x:e,y:i,scale:s},this.velocity={x:(1/this.friction-1)*(e-this.current.x),y:(1/this.friction-1)*(i-this.current.y),scale:(1/this.friction-1)*(s-this.current.scale)},this.animate(),this):(this.pendingAnimateUpdate&&(cancelAnimationFrame(this.pendingAnimateUpdate),this.pendingAnimateUpdate=null),this.state="ready",this.stopMoving(),this.current={x:e,y:i,scale:s},this.transform(),this.handleCursor(),this.trigger("afterAnimate",!0),this)}animate(){if(!this.pendingAnimateUpdate){if(this.applyBoundForce(),this.applyDragForce(),this.velocity.x*=this.friction,this.velocity.y*=this.friction,this.velocity.scale*=this.friction,this.current.x+=this.velocity.x,this.current.y+=this.velocity.y,this.current.scale+=this.velocity.scale,"dragging"==this.state||"pointerdown"==this.state||Math.abs(this.velocity.x)>.05||Math.abs(this.velocity.y)>.05||Math.abs(this.velocity.scale)>.05)return this.transform(),void(this.pendingAnimateUpdate=requestAnimationFrame((()=>{this.pendingAnimateUpdate=null,this.animate()})));this.current.x=i(this.current.x+this.velocity.x/(1/this.friction-1)),this.current.y=i(this.current.y+this.velocity.y/(1/this.friction-1)),Math.abs(this.current.x)<.5&&(this.current.x=0),Math.abs(this.current.y)<.5&&(this.current.y=0),this.current.scale=i(this.current.scale+this.velocity.scale/(1/this.friction-1),1e4),Math.abs(this.current.scale-1)<.01&&(this.current.scale=1),this.state="ready",this.stopMoving(),this.transform(),this.handleCursor(),this.trigger("afterAnimate")}}handleCursor(){const t=this.option("draggableClass");t&&this.option("touch")&&(this.contentDim.width<=this.viewportDim.width&&1==this.option("panOnlyZoomed")&&this.current.scale<=this.option("baseScale")?this.$viewport.classList.remove(t):this.$viewport.classList.add(t))}isMoved(){return 0!==this.current.x||0!==this.current.y||1!==this.current.scale||this.velocity.x>0||this.velocity.y>0||this.velocity.scale>0}stopMoving(){this.velocity={x:0,y:0,scale:0}}transform(){this.trigger("beforeTransform");const t=i(this.current.x,100),e=i(this.current.y,100),s=i(this.current.scale,1e4);Math.abs(t)<=.1&&Math.abs(e)<=.1&&Math.abs(s-1)<=.1?this.$content.style.transform="":this.$content.style.transform=`translate(${t}px, ${e}px) scale(${s})`,this.trigger("afterTransform")}applyBoundForce(){if("decel"!==this.state)return;const t={x:0,y:0},e=this.option("bounceForce"),i=this.boundX,s=this.boundY;let n,o,a,r;if(i&&(n=this.current.x<i.from,o=this.current.x>i.to),s&&(a=this.current.y<s.from,r=this.current.y>s.to),n||o){const s=(n?i.from:i.to)-this.current.x;let a=s*e;const r=this.current.x+(this.velocity.x+a)/(1/this.friction-1);n&&r<i.from||o&&r>i.to||(a=s*e-this.velocity.x),t.x=a}if(a||r){const i=(a?s.from:s.to)-this.current.y;let n=i*e;const o=this.current.y+(this.velocity.y+n)/(1/this.friction-1);a&&o<s.from||r&&o>s.to||(n=i*e-this.velocity.y),t.y=n}this.velocity.x+=t.x,this.velocity.y+=t.y}applyDragForce(){"dragging"===this.state&&(this.velocity={x:(1/this.friction-1)*(this.drag.endPosition.x-this.current.x),y:(1/this.friction-1)*(this.drag.endPosition.y-this.current.y),scale:(1/this.friction-1)*(this.drag.endPosition.scale-this.current.scale)})}attachEvents(){const t=this.$viewport;this.resizeObserver=this.resizeObserver||new s((t=>{this.pendingResizeUpdate=this.pendingResizeUpdate||setTimeout((()=>{let e=t&&t[0].contentRect;!e&&this.$viewport&&(e=this.$viewport.getBoundingClientRect()),e&&(Math.abs(e.width-this.viewportDim.width)>1||Math.abs(e.height-this.viewportDim.height)>1)&&this.updateMetrics(),this.pendingResizeUpdate=null}),this.option("updateRate",250))})),this.resizeObserver.observe(t),t.addEventListener("click",this.onClick,{passive:!1}),t.addEventListener("wheel",this.onWheel,{passive:!1}),this.option("touch")&&(window.PointerEvent?(t.addEventListener("pointerdown",this.onPointerDown,{passive:!1}),t.addEventListener("pointermove",this.onPointerMove,{passive:!1}),t.addEventListener("pointerup",this.onPointerUp),t.addEventListener("pointercancel",this.onPointerUp)):(t.addEventListener("touchstart",this.onPointerDown,{passive:!1}),t.addEventListener("touchmove",this.onPointerMove,{passive:!1}),t.addEventListener("touchend",this.onPointerUp),t.addEventListener("touchcancel",this.onPointerUp),t.addEventListener("mousedown",this.onPointerDown)))}detachEvents(){this.resizeObserver&&this.resizeObserver.disconnect(),this.resizeObserver=null,this.pendingResizeUpdate&&(clearTimeout(this.pendingResizeUpdate),this.pendingResizeUpdate=null);const t=this.$viewport;window.PointerEvent?(t.removeEventListener("pointerdown",this.onPointerDown,{passive:!1}),t.removeEventListener("pointermove",this.onPointerMove,{passive:!1}),t.removeEventListener("pointerup",this.onPointerUp),t.removeEventListener("pointercancel",this.onPointerUp)):(t.removeEventListener("touchstart",this.onPointerDown,{passive:!1}),t.removeEventListener("touchmove",this.onPointerMove,{passive:!1}),t.removeEventListener("touchend",this.onPointerUp),t.removeEventListener("touchcancel",this.onPointerUp),t.removeEventListener("mousedown",this.onPointerDown)),t.removeEventListener("click",this.onClick,{passive:!1}),t.removeEventListener("wheel",this.onWheel,{passive:!1})}copyPointer(t){return{pointerId:t.pointerId,clientX:t.clientX,clientY:t.clientY}}findPointerIndex(t){let e=this.pointers.length;for(;e--;)if(this.pointers[e].pointerId===t.pointerId)return e;return-1}addPointer(t){let e=0;if(t.touches&&t.touches.length)for(const i of t.touches)i.pointerId=e++,this.addPointer(i);else e=this.findPointerIndex(t),e>-1&&this.pointers.splice(e,1),this.pointers.push(t)}removePointer(t){if(t.touches){for(;this.pointers.length;)this.pointers.pop();return}const e=this.findPointerIndex(t);e>-1&&this.pointers.splice(e,1)}getMiddlePoint(){let t=[...this.pointers];t=t.sort(((t,e)=>e.pointerId-t.pointerId));const e=t.shift(),i=t.shift();return i?{clientX:.5*(e.clientX-i.clientX)+i.clientX,clientY:.5*(e.clientY-i.clientY)+i.clientY}:{clientX:e?e.clientX:0,clientY:e?e.clientY:0}}getDistance(t,e){if(!(t=(t=t||[...this.pointers]).slice())||t.length<2)return 0;const i=(t=t.sort(((t,e)=>e.pointerId-t.pointerId))).shift(),s=t.shift(),n=Math.abs(s.clientX-i.clientX);if("x"===e)return n;const o=Math.abs(s.clientY-i.clientY);return"y"===e?o:Math.sqrt(Math.pow(n,2)+Math.pow(o,2))}resetDragState(){const{left:t,top:i}=this.$content.getClientRects()[0],s=this.getMiddlePoint(),n={top:i,left:t,x:this.current.x,y:this.current.y,scale:this.current.scale};e(this.drag,{startPosition:e({},n),startPoint:e({},s),startDistance:this.getDistance(),endPosition:e({},n),endPoint:e({},s),distance:0,distanceX:0,distanceY:0}),"pointerdown"===this.state&&(this.lockAxis=null,this.drag.startTime=new Date,this.drag.firstPosition=Object.assign({},n)),this.stopMoving(),this.friction=this.option("friction")}onPointerDown(t){if(t&&!(t.button&&t.button>0))if(this.option("panOnlyZoomed")&&this.velocity.scale)t.preventDefault();else{if(this.resetDragState(),!this.pointers.length){if(-1!==["BUTTON","TEXTAREA","OPTION","INPUT","SELECT","VIDEO"].indexOf(t.target.nodeName))return;if(this.option("textSelection")&&((t,e,i)=>{const s=t.childNodes,n=document.createRange();for(let t=0;t<s.length;t++){const o=s[t];if(o.nodeType!==Node.TEXT_NODE)continue;n.selectNodeContents(o);const a=n.getBoundingClientRect();if(e>=a.left&&i>=a.top&&e<=a.right&&i<=a.bottom)return o}return!1})(t.target,t.clientX,t.clientY))return;if(n(t.target))return}if((()=>{const t=window.getSelection?window.getSelection():document.selection;t&&t.rangeCount&&t.getRangeAt(0).getClientRects().length&&(t.removeAllRanges?t.removeAllRanges():t.empty&&t.empty())})(),this.pointers.length>1||this.pointers.length&&this.lockAxis)t.preventDefault();else if(!1!==this.trigger("touchStart",t))if(t.preventDefault(),this.state="pointerdown",this.addPointer(this.copyPointer(t)),this.resetDragState(),window.PointerEvent)try{t.target.setPointerCapture(t.pointerId)}catch(t){}else document.addEventListener("mousemove",this.onPointerMove,{passive:!1}),document.addEventListener("mouseup",this.onPointerUp,{passive:!1})}}onPointerMove(t){if(t.targetTouches&&t.targetTouches.length>1)return;if("pointerdown"!==this.state&&"dragging"!==this.state)return;if(0==this.trigger("touchMove",t))return void t.preventDefault();if(this.addPointer(this.copyPointer(t)),this.pointers.length>1&&!1===this.option("pinchToZoom"))return;if(1==this.option("panOnlyZoomed")&&this.current.scale===this.option("baseScale")&&this.pointers.length<2)return void t.preventDefault();const e=this.getMiddlePoint(),i=[e,this.drag.startPoint];this.drag.distance=this.getDistance(i);const s=this.events.click&&this.events.click.length||this.events.doubleClick&&this.events.doubleClick.length||this.option.click||this.option.doubleClick;if(this.drag.distance<6&&(s||this.option("lockAxis")&&!this.lockAxis))return;if("pointerdown"==this.state&&(this.state="dragging"),"dragging"!==this.state)return;const n=this.option("lockAxis");if(!this.lockAxis&&n)if("xy"===n){const t=this.getDistance(i,"x"),e=this.getDistance(i,"y"),s=Math.abs(180*Math.atan2(e,t)/Math.PI);this.lockAxis=s>45&&s<135?"y":"x"}else this.lockAxis=n;t.preventDefault(),t.stopPropagation(),this.$viewport.classList.add(this.option("draggingClass")),this.animate();let o=this.current.scale,a=0,r=0;if(this.current.scale===this.option("baseScale")&&"y"===this.lockAxis||(a=e.clientX-this.drag.startPoint.clientX),this.current.scale===this.option("baseScale")&&"x"===this.lockAxis||(r=e.clientY-this.drag.startPoint.clientY),this.drag.endPosition.x=this.drag.startPosition.x+a,this.drag.endPosition.y=this.drag.startPosition.y+r,this.pointers.length>1){this.drag.middlePoint=e,o=this.drag.startPosition.scale*this.getDistance()/this.drag.startDistance,o=Math.max(Math.min(o,2*this.option("maxScale")),.5*this.option("minScale"));const t=this.$content.width,i=this.$content.height,s=t*this.drag.startPosition.scale,n=i*this.drag.startPosition.scale,a=i*o,r=(t*o-s)*((this.drag.startPoint.clientX-this.drag.startPosition.left)/s-.5),l=(a-n)*((this.drag.startPoint.clientY-this.drag.startPosition.top)/n-.5);this.drag.endPosition.x-=r,this.drag.endPosition.y-=l,this.drag.endPosition.scale=o,this.updateBounds(o)}this.applyDragResistance()}onPointerUp(t){if(this.removePointer(t),window.PointerEvent)try{t.target.releasePointerCapture(t.pointerId)}catch(t){}else document.removeEventListener("mousemove",this.onPointerMove,{passive:!1}),document.removeEventListener("mouseup",this.onPointerUp,{passive:!1});if(this.pointers.length>0)return t.preventDefault(),void this.resetDragState();if("pointerdown"!==this.state&&"dragging"!==this.state)return;this.$viewport.classList.remove(this.option("draggingClass"));const{top:i,left:s}=this.$content.getClientRects()[0],n=this.drag;if(e(!0,n,{elapsedTime:new Date-n.startTime,distanceX:n.endPosition.x-n.firstPosition.x,distanceY:n.endPosition.y-n.firstPosition.y,endPosition:{top:i,left:s}}),n.distance=Math.sqrt(Math.pow(n.distanceX,2)+Math.pow(n.distanceY,2)),this.state="decel",this.friction=this.option("decelFriction"),this.pan={x:this.current.x+this.velocity.x/(1/this.friction-1),y:this.current.y+this.velocity.y/(1/this.friction-1),scale:this.current.scale+this.velocity.scale/(1/this.friction-1)},!1===this.trigger("touchEnd",t))return;if("decel"!==this.state)return;const o=this.option("minScale");if(this.current.scale<o)return void this.zoomTo(o,{friction:.64});const a=this.option("maxScale");if(this.current.scale-a>.01){const t={friction:.64};n.middlePoint&&(t.x=n.middlePoint.clientX-s,t.y=n.middlePoint.clientY-i),this.zoomTo(a,t)}}applyDragResistance(){const t=this.boundX,e=this.boundY;let i,s,n,o;if(t&&(i=this.drag.endPosition.x<t.from,s=this.drag.endPosition.x>t.to),e&&(n=this.drag.endPosition.y<e.from,o=this.drag.endPosition.y>e.to),i||s){const e=i?t.from:t.to,s=this.drag.endPosition.x-e;this.drag.endPosition.x=e+.3*s}if(n||o){const t=n?e.from:e.to,i=this.drag.endPosition.y-t;this.drag.endPosition.y=t+.3*i}}onWheel(t){!1!==this.trigger("wheel",t)&&"zoom"==this.option("wheel",t)&&this.zoomWithWheel(t)}zoomWithWheel(t){void 0===this.changedDelta&&(this.changedDelta=0);let e=this.current.scale;const i=Math.max(-1,Math.min(1,-t.deltaY||-t.deltaX||t.wheelDelta||-t.detail));if(i<0&&e<=this.option("minScale")||i>0&&e>=this.option("maxScale")){if(this.changedDelta+=Math.abs(i),this.changedDelta>this.option("wheelLimit"))return}else this.changedDelta=0;e=e*(100+i*this.option("wheelFactor"))/100,t.preventDefault();const{top:s,left:n}=this.$content.getClientRects()[0],o=t.clientX-n,a=t.clientY-s;this.zoomTo(e,{x:o,y:a})}onClick(t){if(t.defaultPrevented)return;if(window.getSelection().toString().length)return t.stopPropagation(),void t.stopImmediatePropagation();if(this.drag.startPosition&&this.drag.endPosition&&(Math.abs(this.drag.endPosition.top-this.drag.startPosition.top)>1||Math.abs(this.drag.endPosition.left-this.drag.startPosition.left)>1))return t.stopPropagation(),void t.stopImmediatePropagation();if(this.drag.distance>(this.lockAxis?6:1))return t.preventDefault(),t.stopPropagation(),void t.stopImmediatePropagation();let e=null,i=null;void 0!==t.clientX&&void 0!==t.clientY&&(e=t.clientX-this.$content.getClientRects()[0].left,i=t.clientY-this.$content.getClientRects()[0].top);let s=this.options.doubleClick;if(!s&&this.events.doubleClick&&this.events.doubleClick.length&&(s=!0),s){if(!this.clickTimer)return this.lastClickEvent=t,void(this.clickTimer=setTimeout((()=>{this.clickTimer=null,!1!==this.trigger("click",t)&&"toggleZoom"===this.option("click")&&this.toggleZoom({x:e,y:i})}),this.option("clickDelay")));this.getDistance([t,this.lastClickEvent])>=6||(clearTimeout(this.clickTimer),this.clickTimer=null,!1!==this.trigger("doubleClick",t)&&"toggleZoom"===this.option("doubleClick")&&this.toggleZoom({x:e,y:i}))}else{if(!1===this.trigger("click",t))return;"toggleZoom"===this.option("click")&&this.toggleZoom({x:e,y:i})}}destroy(){"destroy"!==this.state&&(this.state="destroy",this.$viewport.classList.remove("not-selectable"),this.$content instanceof HTMLImageElement&&!this.$content.complete&&(this.$content.onload=null,this.$content.onerror=null),this.pendingAnimateUpdate&&(cancelAnimationFrame(this.pendingAnimateUpdate),this.pendingAnimateUpdate=null),this.clickTimer&&(clearTimeout(this.clickTimer),this.clickTimer=null),this.detachEvents(),this.pointers=[],this.resetValues(),this.$viewport=null,this.$content=null,this.options={},this.events={})}}h.version="4.0.0-alpha.4",h.Plugins={};const c=(t,e)=>{let i=0;return function(...s){const n=(new Date).getTime();if(!(n-i<e))return i=n,t(...s)}};class d{constructor(t){this.$container=null,this.$prev=null,this.$next=null,this.carousel=t,this.onRefresh=this.onRefresh.bind(this)}option(t){return this.carousel.option(`Navigation.${t}`)}createButton(t){const e=document.createElement("button");e.setAttribute("title",this.carousel.localize(`{{${t.toUpperCase()}}}`));const i=this.option("classNames.button")+" "+this.option(`classNames.${t}`);return e.classList.add(...i.split(" ")),e.setAttribute("tabindex","0"),e.innerHTML=this.carousel.localize(this.option(`${t}Tpl`)),e.addEventListener("click",(e=>{e.preventDefault(),e.stopPropagation(),this.carousel["slide"+("next"===t?"Next":"Prev")]()})),e}build(){this.$container||(this.$container=document.createElement("div"),this.$container.classList.add(this.option("classNames.main")),this.carousel.$element.appendChild(this.$container)),this.$next||(this.$next=this.createButton("next"),this.$container.appendChild(this.$next)),this.$prev||(this.$prev=this.createButton("prev"),this.$container.appendChild(this.$prev))}onRefresh(){const t=this.carousel.pages.length;t<=1||t>1&&this.carousel.elemDimWidth<this.carousel.wrapDimWidth&&!Number.isInteger(this.carousel.option("slidesPerPage"))?this.cleanup():(this.build(),this.$prev.removeAttribute("disabled"),this.$next.removeAttribute("disabled"),this.carousel.option("infiniteX",this.carousel.option("infinite"))||(this.carousel.page<=0&&this.$prev.setAttribute("disabled",""),this.carousel.page>=t-1&&this.$next.setAttribute("disabled","")))}cleanup(){this.$prev&&this.$prev.remove(),this.$prev=null,this.$next&&this.$next.remove(),this.$next=null,this.$container&&this.$container.remove(),this.$container=null}attach(){this.carousel.on("refresh change",this.onRefresh)}detach(){this.carousel.off("refresh change",this.onRefresh),this.cleanup()}}d.defaults={prevTpl:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M15 3l-9 9 9 9"/></svg>',nextTpl:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M9 3l9 9-9 9"/></svg>',classNames:{main:"carousel__nav",button:"carousel__button",next:"is-next",prev:"is-prev"}};class u{constructor(t){this.nav=t,this.selectedIndex=null,this.onNavReady=this.onNavReady.bind(this),this.onNavClick=this.onNavClick.bind(this),this.onNavCreateSlide=this.onNavCreateSlide.bind(this),this.onTargetChange=this.onTargetChange.bind(this)}onNavReady(){this.onTargetChange(!0),this.nav.on("createSlide",this.onNavCreateSlide),this.nav.on("Panzoom.updateMetrics",this.onTargetChange),this.nav.Panzoom.on("click",this.onNavClick),this.sync.on("change",this.onTargetChange)}onNavCreateSlide(t,e){e.index===this.selectedIndex&&this.markSelectedSlide(e.index)}onNavClick(t,e){const i=e.target.closest(".carousel__slide");if(!i)return;e.preventDefault();const s=parseInt(i.dataset.index,10),n=this.sync.getPageforSlide(s);this.sync.page!==n&&this.sync.slideTo(n,{friction:this.nav.option("Sync.friction")}),this.markSelectedSlide(s)}markSelectedSlide(t){this.selectedIndex=t,[...this.nav.slides].filter((t=>t.$el&&t.$el.classList.remove("is-nav-selected")));const e=this.nav.slides[t];e&&e.$el&&e.$el.classList.add("is-nav-selected")}onTargetChange(t){const e=this.sync.pages[this.sync.page].indexes[0],i=this.nav.getPageforSlide(e);null!==i&&(this.nav.slideTo(i,!0===t?{friction:0}:{}),this.markSelectedSlide(e))}attach(){const e=this.nav.options.Sync;e&&(t(e)&&"object"==typeof e.with&&(this.sync=e.with),this.sync&&this.nav.on("ready",this.onNavReady))}detach(){this.sync&&(this.nav.off("ready",this.onNavReady),this.nav.off("createSlide",this.onNavCreate),this.nav.on("Panzoom.updateMetrics",this.onTargetChange),this.sync.off("change",this.onTargetChange)),this.nav.Panzoom.off("click",this.onNavClick),this.sync=null,this.selectedIndex=null}}u.defaults={friction:.92};const p={Navigation:d,Dots:class{constructor(t){this.carousel=t,this.$list=null,this.events={change:this.onChange.bind(this),refresh:this.onRefresh.bind(this)}}buildList(){if(this.carousel.pages.length<2)return;const t=document.createElement("ol");return t.classList.add("carousel__dots"),t.addEventListener("click",(t=>{if(!("page"in t.target.dataset))return;t.preventDefault(),t.stopPropagation();const e=parseInt(t.target.dataset.page,10),i=this.carousel;e!==i.page&&(i.pages.length<3&&i.option("infinite")?i[0==e?"slidePrev":"slideNext"]():i.slideTo(e))})),this.$list=t,this.carousel.$element.appendChild(t),this.carousel.$element.classList.add("has-dots"),t}removeList(){this.$list&&(this.$list.parentNode.removeChild(this.$list),this.$list=null)}rebuildDots(){let t=this.$list;const e=!!t,i=this.carousel.pages.length;if(i<2)return void(e&&this.removeList());e||(t=this.buildList());const s=this.$list.children.length;if(s>i)for(let t=i;t<s;t++)this.$list.removeChild(this.$list.lastChild);else{for(let t=s;t<i;t++){const e=document.createElement("li");e.classList.add("carousel__dot"),e.dataset.page=t,e.setAttribute("role","button"),e.setAttribute("tabindex","0"),e.setAttribute("title",this.carousel.localize("{{GOTO}}",[["%d",t+1]])),e.addEventListener("keydown",(t=>{const i=t.code;let s;"Enter"===i||"NumpadEnter"===i?s=e:"ArrowRight"===i?s=e.nextSibling:"ArrowLeft"===i&&(s=e.previousSibling),s&&s.click()})),this.$list.appendChild(e)}this.setActiveDot()}}setActiveDot(){if(!this.$list)return;this.$list.childNodes.forEach((t=>{t.classList.remove("is-selected")}));const t=this.$list.childNodes[this.carousel.page];t&&t.classList.add("is-selected")}onChange(){this.setActiveDot()}onRefresh(){this.rebuildDots()}attach(){this.carousel.on(this.events)}detach(){this.removeList(),this.carousel.off(this.events),this.carousel=null}},Sync:u},g={slides:[],preload:0,slidesPerPage:"auto",initialPage:0,friction:.92,center:!0,infinite:!0,fill:!0,dragFree:!1,classNames:{viewport:"carousel__viewport",track:"carousel__track",slide:"carousel__slide",slideSelected:"is-selected"},l10n:{NEXT:"Next slide",PREV:"Previous slide",GOTO:"Go to slide %d"}};class m extends r{constructor(t,i={}){super(i=e(!0,{},g,i)),this.state="init",this.$element=t,t.Carousel=this,this.page=this.pageIndex=null,this.prevPage=this.prevPageIndex=null,this.slideNext=c(this.slideNext.bind(this),250),this.slidePrev=c(this.slidePrev.bind(this),250),this.attachPlugins(m.Plugins),this.trigger("init"),this.initLayout(),this.initSlides(),this.initPanzoom(),this.state="ready",this.trigger("ready")}initLayout(){if(!(this.$element instanceof HTMLElement))throw new Error("No root element provided");const t=this.option("classNames");this.$viewport=this.option("viewport")||this.$element.querySelector("."+t.viewport),this.$viewport||(this.$viewport=document.createElement("div"),this.$viewport.classList.add(t.viewport),this.$viewport.append(...this.$element.childNodes),this.$element.appendChild(this.$viewport)),this.$track=this.option("track")||this.$element.querySelector("."+t.track),this.$track||(this.$track=document.createElement("div"),this.$track.classList.add(t.track),this.$track.append(...this.$viewport.childNodes),this.$viewport.appendChild(this.$track))}initSlides(){this.slides=[];this.$viewport.querySelectorAll("."+this.option("classNames.slide")).forEach((t=>{const e={$el:t,isDom:!0};this.slides.push(e),this.trigger("createSlide",e,this.slides.length)})),Array.isArray(this.options.slides)&&(this.slides=e(!0,[...this.slides],this.options.slides))}updatePage(){let t=this.page;null===t&&(t=this.page=this.option("initialPage")),this.updateMetrics();const e=this.pages;e[t]||(t=e.length?e[e.length-1].index:0),this.slideTo(t,{friction:0})}updateBounds(){let t=this.Panzoom;const e=this.option("infinite"),i=this.option("infiniteX",e),s=this.option("infiniteY",e);i&&(t.boundX=null),s&&(t.boundY=null),i||s||(t.boundX={from:-1*this.pages[this.pages.length-1].left,to:-1*this.pages[0].left})}initPanzoom(){const t=e(!0,{},{content:this.$track,click:!1,doubleClick:!1,wheel:!1,pinchToZoom:!1,lockAxis:"x",textSelection:()=>this.option("textSelection",!1),panOnlyZoomed:()=>this.option("panOnlyZoomed",this.elemDimWidth<this.wrapDimWidth),on:{"*":(t,...e)=>this.trigger(`Panzoom.${t}`,...e),init:t=>this.Panzoom=t,updateMetrics:()=>{this.updatePage()},updateBounds:()=>{this.updateBounds()},beforeTransform:this.onBeforeTransform.bind(this),afterAnimate:this.onAfterAnimate.bind(this),touchEnd:this.onTouchEnd.bind(this)}},this.option("Panzoom"));new h(this.$viewport,t)}onBeforeTransform(){this.option("infiniteX",this.option("infinite"))&&this.manageInfiniteTrack(),this.manageSlideVisiblity()}onAfterAnimate(t,e){e||this.trigger("settle")}onTouchEnd(t){const e=this.option("dragFree");if(!e&&this.pages.length>1&&t.drag.elapsedTime<350&&Math.abs(t.drag.distanceY)<1&&Math.abs(t.drag.distanceX)>5)this[t.drag.distanceX<0?"slideNext":"slidePrev"]();else if(e){const[,t]=this.getPageFromPosition(-1*this.Panzoom.pan.x);this.setPage(t)}else this.slideToClosest()}manageInfiniteTrack(){if(!this.option("infiniteX",this.option("infinite"))||this.pages.length<2||this.elemDimWidth<this.wrapDimWidth)return;const t=this.Panzoom;let e=!1;return t.current.x<-1*(t.contentDim.width-t.viewportDim.width)&&(t.current.x+=t.contentDim.width,t.drag.firstPosition&&(t.drag.firstPosition.x+=t.contentDim.width),this.pageIndex=this.pageIndex-this.pages.length,e=!0),t.current.x>t.viewportDim.width&&(t.current.x-=t.contentDim.width,t.drag.firstPosition&&(t.drag.firstPosition.x-=t.contentDim.width),this.pageIndex=this.pageIndex+this.pages.length,e=!0),e&&"dragging"===t.state&&t.resetDragState(),e}manageSlideVisiblity(){const t=this.elemDimWidth,e=this.wrapDimWidth;let i=-1*this.Panzoom.current.x;Math.abs(i)<.1&&(i=0);const s=this.option("preload"),n=this.option("infiniteX",this.option("infinite")),o=parseFloat(window.getComputedStyle(this.$viewport,null).getPropertyValue("padding-left")),a=parseFloat(window.getComputedStyle(this.$viewport,null).getPropertyValue("padding-right"));this.slides.forEach((r=>{let l,h,c=0;l=i-o,h=i+e+a,l-=s*(e+o+a),h+=s*(e+o+a);const d=r.left+r.width>l&&r.left<h;l=i+t-o,h=i+t+e+a,l-=s*(e+o+a);const u=n&&r.left+r.width>l&&r.left<h;l=i-t-o,h=i-t+e+a,l-=s*(e+o+a);const p=n&&r.left+r.width>l&&r.left<h;u||d||p?(this.createSlideEl(r),d&&(c=0),u&&(c=-1),p&&(c=1),r.left+r.width>i&&r.left<=i+e+a&&(c=0)):this.removeSlideEl(r),r.hasDiff=c}));let r=0,l=0;this.slides.forEach(((e,i)=>{let s=0;e.$el?(i!==r||e.hasDiff?s=l+e.hasDiff*t:l=0,e.$el.style.left=Math.abs(s)>.1?`${l+e.hasDiff*t}px`:"",r++):l+=e.width})),this.Panzoom.viewportDim.height=this.Panzoom.$content.clientHeight,this.markSelectedSlides()}markSelectedSlides(){const t=this.option("classNames.slideSelected"),e="aria-hidden";this.slides.forEach(((i,s)=>{const n=i.$el;if(!n)return;const o=this.pages[this.page];o&&o.indexes&&o.indexes.indexOf(s)>-1?(t&&!n.classList.contains(t)&&(n.classList.add(t),this.trigger("selectSlide",i)),n.removeAttribute(e)):(t&&n.classList.contains(t)&&(n.classList.remove(t),this.trigger("unselectSlide",i)),n.setAttribute(e,!0))}))}createSlideEl(t){if(!t)return;if(t.$el){if(parseInt(t.$el.dataset.index,10)!==t.index){t.$el.dataset.index=t.index;let e;t.$el.querySelectorAll("[data-lazy-src]").forEach((t=>{let e=t.dataset.lazySrc;t instanceof HTMLImageElement?t.src=e:t.style.backgroundImage=`url('${e}')`})),(e=t.$el.dataset.lazySrc)&&(t.$el.style.backgroundImage=`url('${e}')`),t.state="ready"}return}const e=document.createElement("div");e.dataset.index=t.index,e.classList.add(this.option("classNames.slide")),t.customClass&&e.classList.add(...t.customClass.split(" ")),t.html&&(e.innerHTML=t.html);const i=[];this.slides.forEach(((t,e)=>{t.$el&&i.push(e)}));const s=t.index;let n=null;if(i.length){let t=i.reduce(((t,e)=>Math.abs(e-s)<Math.abs(t-s)?e:t));n=this.slides[t]}return this.$track.insertBefore(e,n&&n.$el?n.index<t.index?n.$el.nextSibling:n.$el:null),t.$el=e,this.trigger("createSlide",t,s),t}getSlideMetrics(t){if(!t){const e=this.slides[0];(t=document.createElement("div")).dataset.isTestEl=1,t.style.visibility="hidden",t.classList.add(this.option("classNames.slide")),e.customClass&&t.classList.add(...e.customClass.split(" ")),this.$track.prepend(t)}let e=i(t.getBoundingClientRect().width);const s=t.currentStyle||window.getComputedStyle(t);return e=e+(parseFloat(s.marginLeft)||0)+(parseFloat(s.marginRight)||0),window.visualViewport&&(e*=window.visualViewport.scale),t.dataset.isTestEl&&t.remove(),e}updateMetrics(){let t,e=0,s=[];this.slides.forEach(((i,n)=>{const o=i.$el,a=i.isDom||!t?this.getSlideMetrics(o):t;i.index=n,i.width=a,i.left=e,t=a,e+=a,s.push(n)})),this.elemDimWidth=i(e),this.Panzoom.contentDim.width=this.elemDimWidth,this.wrapDimWidth=i(this.$viewport.getBoundingClientRect().width);var n=window.getComputedStyle(this.$viewport),o=parseFloat(n.paddingLeft)+parseFloat(n.paddingRight);this.wrapDimWidth=this.wrapDimWidth-o,window.visualViewport&&(this.wrapDimWidth*=window.visualViewport.scale),this.Panzoom.viewportDim.width=this.wrapDimWidth;const a=[],r=this.option("slidesPerPage");if(Number.isInteger(r)&&this.elemDimWidth>this.wrapDimWidth)for(let t=0;t<this.slides.length;t+=r)a.push({indexes:s.slice(t,t+r),slides:this.slides.slice(t,t+r)});else{let t=0,e=0;for(let i=0;i<this.slides.length;i+=1){let s=this.slides[i];(!a.length||e+s.width>this.wrapDimWidth)&&(a.push({indexes:[],slides:[]}),t=a.length-1,e=0),e+=s.width,a[t].indexes.push(i),a[t].slides.push(s)}}const l=this.option("center"),h=this.option("fill");a.forEach(((t,e)=>{t.index=e,t.width=t.slides.reduce(((t,e)=>t+e.width),0),t.left=t.slides[0].left,l&&(t.left+=.5*(this.wrapDimWidth-t.width)*-1),h&&!this.option("infiniteX",this.option("infinite"))&&this.elemDimWidth>this.wrapDimWidth&&(t.left=Math.max(t.left,0),t.left=Math.min(t.left,this.elemDimWidth-this.wrapDimWidth))}));const c=[];let d;a.forEach((t=>{d&&t.left===d.left?(d.width+=t.width,d.slides=[...d.slides,...t.slides],d.indexes=[...d.indexes,...t.indexes]):(t.index=c.length,d=t,c.push(t))})),this.pages=c,this.manageSlideVisiblity(),this.trigger("refresh")}setPage(t,e){let i=0,s=parseInt(t,10)||0;const n=this.page,o=this.pageIndex,a=this.pages.length;if(t=(s%a+a)%a,this.option("infiniteX",this.option("infinite"))&&this.elemDimWidth>this.wrapDimWidth){const n=Math.floor(s/a)||0,o=this.elemDimWidth;if(i=this.pages[t].left+n*o,!0===e&&a>2){let t=-1*this.Panzoom.current.x;const e=i-o,n=i+o,r=Math.abs(t-i),l=Math.abs(t-e),h=Math.abs(t-n);h<r&&h<=l?(i=n,s+=a):l<r&&l<h&&(i=e,s-=a)}}else t=s=Math.max(0,Math.min(s,a-1)),i=this.pages[t].left;return this.page=t,this.pageIndex=s,null!==n&&t!==n&&(this.prevPage=n,this.prevPageIndex=o,this.trigger("change",t,n)),i}slideTo(t,e={}){const{friction:i=this.option("friction")}=e;this.Panzoom.panTo({x:-1*this.setPage(t,!0),y:0,friction:i})}slideToClosest(t={}){let[,e]=this.getPageFromPosition(-1*this.Panzoom.pan.x);this.slideTo(e,t)}slideNext(){this.slideTo(this.pageIndex+1)}slidePrev(){this.slideTo(this.pageIndex-1)}getPageforSlide(t){const e=this.pages.find((e=>e.indexes.indexOf(t)>-1));return e?e.index:null}getPageFromPosition(t){const e=this.pages.length;this.option("center")&&(t+=.5*this.wrapDimWidth);const i=Math.floor(t/this.elemDimWidth);t-=i*this.elemDimWidth;let s=this.slides.find((e=>e.left<t&&e.left+e.width>t));if(s){let t=this.getPageforSlide(s.index);return[t,t+i*e]}return[0,0]}removeSlideEl(t){t.$el&&!t.isDom&&(this.trigger("deleteSlide",t),t.$el.remove(),t.$el=null)}destroy(){this.state="destroy",this.slides.forEach((t=>{this.removeSlideEl(t)})),this.Panzoom.destroy(),this.options={},this.events={}}}m.version="4.0.0-alpha.4",m.Plugins=p;const f=!("undefined"==typeof window||!window.document||!window.document.createElement);class v{constructor(t){this.fancybox=t,this.$wrap=null,this.state="init";for(const t of["onReady","onClosing","onKeydown"])this[t]=this[t].bind(this);this.events={ready:this.onReady,closing:this.onClosing,keydown:this.onKeydown}}onReady(){!0===this.fancybox.option("Thumbs.autoStart")&&this.initLayout()}onClosing(){this.Carousel&&this.Carousel.Panzoom.detachEvents()}onKeydown(t,e){e===t.option("Thumbs.key")&&this.toggle()}initLayout(){if("init"!==this.state)return;const t=this.getSlides();if(t.length<this.fancybox.option("Thumbs.minSlideCount"))return!1;const i=document.createElement("div");i.classList.add("fancybox__thumbs"),this.fancybox.$container.appendChild(i),this.Carousel=new m(i,e(!0,{Dots:!1,Navigation:!1,Sync:{friction:0},infinite:!1,center:!0,fill:!0,dragFree:!0,slidesPerPage:1,preload:1},this.fancybox.option("Thumbs.Carousel"),{Sync:{with:this.fancybox.Carousel},slides:t})),this.Carousel.Panzoom.on("wheel",((t,e)=>{e.preventDefault(),this.fancybox[e.deltaY<0?"prev":"next"]()})),this.$wrap=i,this.state="ready"}getSlides(){const t=[];return this.fancybox.items.forEach((e=>{const i=e.thumb;i&&t.push({html:`<div class="fancybox__thumb" style="background-image:url(${i})"></div>`,customClass:`has-thumb has-${e.type||"image"}`})})),t}toggle(){return"ready"===this.state?(this.Carousel.Panzoom.detachEvents(),this.$wrap.style.display="none",void(this.state="hidden")):"hidden"===this.state?(this.$wrap.style.display="",this.Carousel.Panzoom.attachEvents(),void(this.state="ready")):void this.initLayout()}cleanup(){this.Carousel&&(this.Carousel.destroy(),this.Carousel=null),this.$wrap&&(this.$wrap.remove(),this.$wrap=null),this.state="init"}attach(){this.fancybox.on(this.events)}detach(){this.fancybox.off(this.events),this.cleanup()}}v.defaults={autoStart:!0,minSlideCount:3,key:"t"};const y=t=>Object.entries(t).map((t=>t.map(encodeURIComponent).join("="))).join("&"),b={video:{autoplay:!0,ratio:16/9},youtube:{autohide:1,fs:1,rel:0,hd:1,wmode:"transparent",enablejsapi:1,html5:1},vimeo:{hd:1,show_title:1,show_byline:1,show_portrait:0,fullscreen:1},html5video:{tpl:'<video class="fancybox__html5video" playsinline controls controlsList="nodownload" poster="{{poster}}">\n  <source src="{{src}}" type="{{format}}" />\n  Sorry, your browser doesn\'t support embedded videos, <a href="{{src}}">download</a> and watch with your favorite video player!\n</video>',format:""}};class x{constructor(t){this.fancybox=t;for(const t of["onPrepare","onCreateSlide","onDeleteSlide","onSelectSlide","onUnselectSlide","onRefresh","onMessage"])this[t]=this[t].bind(this);this.events={init:this.onPrepare,"Carousel.createSlide":this.onCreateSlide,"Carousel.deleteSlide":this.onDeleteSlide,"Carousel.selectSlide":this.onSelectSlide,"Carousel.unselectSlide":this.onUnselectSlide,"Carousel.refresh":this.onRefresh}}onPrepare(){this.fancybox.items.forEach((t=>{this.processType(t)}))}processType(t){if(t.html)return t.src=t.html,t.type="html",void delete t.html;const i=t.src||"";let s=t.type||this.fancybox.options.type,n=null;if(!i||"string"==typeof i){if(n=i.match(/(?:youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(?:watch\?(?:.*&)?v=|v\/|u\/|embed\/?)?(videoseries\?list=(?:.*)|[\w-]{11}|\?listType=(?:.*)&list=(?:.*))(?:.*)/i)){const e=y(this.fancybox.option("Html.youtube")),i=encodeURIComponent(n[1]);t.videoId=i,t.src=`https://www.youtube-nocookie.com/embed/${i}?${e}`,t.thumb=t.thumb||`https://i.ytimg.com/vi/${i}/mqdefault.jpg`,t.vendor="youtube",s="video"}else if(n=i.match(/^.+vimeo.com\/(?:\/)?([\d]+)(.*)?/)){const e=y(this.fancybox.option("Html.vimeo")),i=encodeURIComponent(n[1]);t.videoId=i,t.src=`https://player.vimeo.com/video/${i}?${e}`,t.vendor="vimeo",s="video"}else(n=i.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i))?(t.src=`//maps.google.${n[1]}/?ll=${(n[2]?n[2]+"&z="+Math.floor(n[3])+(n[4]?n[4].replace(/^\//,"&"):""):n[4]+"").replace(/\?/,"&")}&output=${n[4]&&n[4].indexOf("layer=c")>0?"svembed":"embed"}`,s="map"):(n=i.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i))&&(t.src=`//maps.google.${n[1]}/maps?q=${n[2].replace("query=","q=").replace("api=1","")}&output=embed`,s="map");s||("#"===i.charAt(0)?s="inline":(n=i.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i))?(s="html5video",t.format=t.format||"video/"+("ogv"===n[1]?"ogg":n[1])):i.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i)?s="image":i.match(/\.(pdf)((\?|#).*)?$/i)&&(s="pdf")),t.type=s||this.fancybox.option("defaultType","image"),"html5video"!==s&&"video"!==s||(t.video=e({},this.fancybox.option("Html.video"),t.video),t.width&&t.height?t.ratio=parseFloat(t.width)/parseFloat(t.height):t.ratio=t.ratio||t.video.ratio)}}loadInlineContent(t){let e;if(t.src instanceof HTMLElement)e=t.src;else if("string"==typeof t.src){const i=t.src.split("#",2),s=2===i.length&&""===i[0]?i[1]:i[0];e=document.getElementById(s)}if(e){if("clone"===t.type||e.$placeHolder){e=e.cloneNode(!0);let i=e.getAttribute("id");i=i?`${i}--clone`:`clone-${this.fancybox.id}-${t.index}`,e.setAttribute("id",i)}else{const t=document.createElement("div");t.classList.add("fancybox-placeholder"),e.parentNode.insertBefore(t,e),e.$placeHolder=t}this.fancybox.setContent(t,e)}else this.fancybox.setError(t,"{{ELEMENT_NOT_FOUND}}")}loadAjaxContent(t){const e=this.fancybox,i=new XMLHttpRequest;e.showLoading(t),i.onreadystatechange=function(){i.readyState===XMLHttpRequest.DONE&&"ready"===e.state&&(e.hideLoading(t),200===i.status?e.setContent(t,i.responseText):e.setError(t,404===i.status?"{{AJAX_NOT_FOUND}}":"{{AJAX_FORBIDDEN}}"))},i.open("GET",t.src),i.send(t.ajax||null),t.xhr=i}loadIframeContent(t){const e=this.fancybox,i=document.createElement("iframe");if(i.className="fancybox__iframe",i.setAttribute("id",`fancybox__iframe_${e.id}_${t.index}`),i.setAttribute("allow","autoplay; fullscreen"),i.setAttribute("scrolling","auto"),t.$iframe=i,"iframe"!==t.type||!1===t.preload)return i.setAttribute("src",t.src),void this.fancybox.setContent(t,i);e.showLoading(t);const s=document.createElement("div");s.style.visibility="hidden",this.fancybox.setContent(t,s),s.appendChild(i),i.onerror=()=>{e.setError(t,"{{IFRAME_ERROR}}")},i.onload=()=>{e.hideLoading(t);let s=!1;"yes"!==i.dataset.ready&&(i.dataset.ready="yes",s=!0),i.src.length&&(i.parentNode.style.visibility="",!1!==t.autoSize&&this.autoSizeIframe(i),s&&e.revealContent(t))},i.setAttribute("src",t.src)}setAspectRatio(t){let e=t.ratio;if(!e||!t.$content)return;t.$content.style.maxWidth="",t.$content.style.maxHeight="";let i=t.$content.offsetWidth,s=t.$content.offsetHeight,n=t.width,o=t.height;if(n&&o&&(i>n||s>o)){let t=Math.min(n/i,o/s);i*=t,s*=t}e<i/s?i=s*e:s=i/e,t.$content.style.maxWidth=`${i}px`,t.$content.style.maxHeight=`${s}px`}autoSizeIframe(t){if(!t.dataset||"yes"!==t.dataset.ready)return;let e=t.parentNode.style;e.flex="1 1 auto",e.width="",e.height="";try{const i=t.contentWindow.document,s=i.getElementsByTagName("html")[0],n=i.body,o=window.getComputedStyle(t.parentNode),a=parseFloat(o.paddingLeft)+parseFloat(o.paddingRight),r=parseFloat(o.paddingTop)+parseFloat(o.paddingBottom);n.style.overflow="hidden";const l=s.scrollWidth;e.width=`${l+a}px`,n.style.overflow="",e.flex="",e.flexShrink="0",e.height=`${n.scrollHeight}px`;const h=s.scrollHeight;e.height=`${h+r}px`}catch(t){e=""}}onRefresh(t,e){e.slides.forEach((t=>{t.$el&&(t.$iframe&&!1!==t.autoSize&&this.autoSizeIframe(t.$iframe),t.ratio&&this.setAspectRatio(t))}))}onCreateSlide(t,e,i){if(i&&!i.isDom){switch(i.type){case"html":this.fancybox.setContent(i,i.src);break;case"html5video":this.fancybox.setContent(i,this.fancybox.option("Html.html5video.tpl").replace(/\{\{src\}\}/gi,i.src).replace("{{format}}",i.format||i.html5video&&i.html5video.format||"").replace("{{poster}}",i.thumb||""));break;case"inline":case"clone":this.loadInlineContent(i);break;case"ajax":this.loadAjaxContent(i);break;case"iframe":case"pdf":case"video":case"map":this.loadIframeContent(i)}i.ratio&&this.setAspectRatio(i)}}onSelectSlide(t,e,i){if("html5video"===i.type&&i.$el.querySelector("video").play(),"video"!==i.type||!i.$iframe||!i.$iframe.contentWindow)return;const s=()=>{if("done"!==i.state||!i.$iframe.contentWindow)return;let t;if(i.$iframe.isReady)return i.video&&i.video.autoplay&&(t="youtube"==i.vendor?{event:"command",func:"playVideo"}:{method:"play",value:"true"}),void(t&&i.$iframe.contentWindow.postMessage(JSON.stringify(t),"*"));"youtube"===i.vendor&&(t={event:"listening",id:i.$iframe.getAttribute("id")},i.$iframe.contentWindow.postMessage(JSON.stringify(t),"*")),i.poller=setTimeout(s,250)};s()}onUnselectSlide(t,e,i){if("html5video"===i.type){try{i.$el.querySelector("video").pause()}catch(t){}return}let s=!1;"vimeo"==i.vendor?s={method:"pause",value:"true"}:"youtube"===i.vendor&&(s={event:"command",func:"pauseVideo"}),s&&i.$iframe&&i.$iframe.contentWindow&&i.$iframe.contentWindow.postMessage(JSON.stringify(s),"*"),clearTimeout(i.poller)}onDeleteSlide(t,e,i){i.xhr&&(i.xhr.abort(),i.xhr=null),i.$iframe&&(i.$iframe.onload=i.$iframe.onerror=null,i.$iframe.src="//about:blank",i.$iframe=null);const s=i.$content;"inline"===i.type&&s&&(s.classList.remove("fancybox__content"),"none"!==s.style.display&&(s.style.display="none"),i.$closeButton&&(i.$closeButton.remove(),i.$closeButton=null));const n=s&&s.$placeHolder;n&&(n.parentNode.insertBefore(s,n),n.remove(),s.$placeHolder=null)}onMessage(t){try{let e=JSON.parse(t.data);if("https://player.vimeo.com"===t.origin){if("ready"===e.event)for(let e of document.getElementsByClassName("fancybox__iframe"))e.contentWindow===t.source&&(e.isReady=1)}else"https://www.youtube-nocookie.com"===t.origin&&"onReady"===e.event&&(document.getElementById(e.id).isReady=1)}catch(t){}}attach(){this.fancybox.on(this.events),window.addEventListener("message",this.onMessage,!1)}detach(){this.fancybox.off(this.events),window.removeEventListener("message",this.onMessage,!1)}}x.defaults=b;const w=function(t){const e=t.naturalWidth,i=t.naturalHeight,s=t.width,n=t.height,o=e/i,a={width:s,height:n};return o>s/n?a.height=s/o:a.width=n*o,a.left=.5*(s-a.width),a.right=e+a.left,a};class ${constructor(t){this.fancybox=t;for(const t of["onReady","onClosing","onPageChange","onCreateSlide","onRemoveSlide","onRefresh","onImageStatusChange"])this[t]=this[t].bind(this);this.events={ready:this.onReady,closing:this.onClosing,"Carousel.change":this.onPageChange,"Carousel.createSlide":this.onCreateSlide,"Carousel.deleteSlide":this.onRemoveSlide,"Carousel.Panzoom.updateMetrics":this.onRefresh}}onReady(){const t=this.fancybox.getSlide();"ready"===t.state&&this.revealContent(t)}onCreateSlide(t,e,i){if(i.isDom||i.html||i.type&&"image"!==i.type)return;i.type="image",i.state="loading";const s=document.createElement("div");s.style.visibility="hidden";const n=document.createElement("img");n.onload=()=>this.onImageStatusChange(i),n.onerror=()=>this.onImageStatusChange(i),n.src=i.src,n.alt="",n.draggable=!1,n.classList.add("fancybox__image"),i.srcset&&n.setAttribute("srcset",i.srcset),i.sizes&&n.setAttribute("sizes",i.sizes),i.$image=n,s.appendChild(n),i.$el.dataset.imageFit=this.fancybox.option("Image.fit"),i.$el.style.display="none",i.$el.offsetHeight,i.$el.style.display="",this.fancybox.setContent(i,s),n.complete||n.error?(n.onload=n.onerror=null,this.onImageStatusChange(i)):n.complete||this.fancybox.showLoading(i)}initSlidePanzoom(t){t.Panzoom||(t.Panzoom=new h(t.$el,e(!0,this.fancybox.option("Image.Panzoom"),{content:t.$image,panOnlyZoomed:!0,click:null,doubleClick:null,wheel:null,on:{afterAnimate:e=>{"zoomIn"===t.state&&(e.attachEvents(),this.fancybox.done(t)),this.handleCursor(t)},updateMetrics:()=>{this.handleCursor(t)},touchMove:()=>{if(this.fancybox.Carousel.Panzoom.lockAxis)return!1}}})),this.fancybox.option("Image.wheel")&&t.Panzoom.on("wheel",((t,e)=>this.onWheel(t,e))),this.fancybox.option("Image.click")&&t.Panzoom.on("click",((t,e)=>this.onClick(t,e))),"toggleZoom"===this.fancybox.option("Image.doubleClick")&&t.Panzoom.on("doubleClick",((t,e)=>{if(!e.target.closest(".fancybox__content"))return;e.preventDefault(),e.stopPropagation();const i=e.clientX-t.$content.getClientRects()[0].left,s=e.clientY-t.$content.getClientRects()[0].top;t.toggleZoom({x:i,y:s})})))}onImageStatusChange(t){this.fancybox.hideLoading(t);const e=t.$image;e.complete&&e.width&&e.height?(t.state="ready",this.updateDimensions(t),this.initSlidePanzoom(t),this.revealContent(t)):this.fancybox.setError(t,"{{IMAGE_ERROR}}")}updateDimensions(t){if("cover"!==t.$el.dataset.imageFit){const e=t.$image,i=t.$content;i.style.maxWidth="";const s=e.offsetWidth-e.clientWidth;i.style.maxWidth=`${w(e).width+s}px`}this.handleCursor(t)}revealContent(t){this.updateDimensions(t),null===this.fancybox.Carousel.prevPage&&t.index===this.fancybox.options.startIndex&&this.canZoom(t)?this.zoomIn():this.fancybox.revealContent(t)}canZoom(t){const e=this.fancybox,i=e.$container;let s=!1;if(!e.option("Image.zoom"))return s;const n=t.$thumb;if(!n||"loading"===t.state)return s;i.style.pointerEvents="none";const o=n.getBoundingClientRect();if(this.fancybox.option("Image.ignoreCoveredThumbnail")){const t=document.elementFromPoint(o.left+1,o.top+1)===n,e=document.elementFromPoint(o.right-1,o.bottom-1)===n;s=t&&e}else s=document.elementFromPoint(o.left+.5*o.width,o.top+.5*o.height)===n;return i.style.pointerEvents="",s}getZoomInfo(t){const e=t.$thumb.getBoundingClientRect(),i=e.width,s=e.height,n=t.$content.getBoundingClientRect(),o=w(t.$image),a=o.width,r=o.height,l=n.top+.5*r-(e.top+.5*s),h=n.left+.5*a-(e.left+.5*i);let c=this.fancybox.option("Image.zoomOpacity");return"auto"===c&&(c=Math.abs(i/s-a/r)>.1),{top:l,left:h,scale:e.width/a,opacity:c}}zoomIn(){const t=this.fancybox;if("init"===t.Carousel.state)return;const e=t.getSlide(),i=e.Panzoom,{top:s,left:n,scale:o,opacity:a}=this.getZoomInfo(e);e.state="zoomIn",i.detachEvents(),t.trigger("reveal",e),i.panTo({x:-1*n,y:-1*s,scale:o,friction:0,ignoreBounds:!0}),e.$content.style.visibility="",!0===a&&i.on("afterTransform",(t=>{"zoomIn"!==e.state&&"zoomOut"!==e.state||(t.$content.style.opacity=Math.min(1,t.current.scale))})),i.panTo({x:0,y:0,scale:1,friction:this.fancybox.option("Image.zoomFriction")})}zoomOut(){const t=this.fancybox,e=t.getSlide(),i=e.Panzoom;if(!i)return;e.state="zoomOut",t.state="customClosing",e.$caption&&(e.$caption.style.visibility="hidden");let s=.75*this.fancybox.option("Image.zoomFriction");const n=()=>{const{top:t,left:n,scale:o}=this.getZoomInfo(e);i.panTo({x:-1*n,y:-1*t,scale:o,ignoreBounds:!0,friction:s}),s*=.98};window.addEventListener("scroll",n),i.on("afterAnimate",(()=>{window.removeEventListener("scroll",n),t.destroy()})),n()}handleCursor(t){const e=t.Panzoom,i=this.fancybox.option("Image.click"),s=t.$el.classList;if(e&&"toggleZoom"===i){s[e&&1===e.current.scale&&e.option("maxScale")-e.current.scale>.01?"add":"remove"](this.fancybox.option("Image.canZoomInClass"))}else"close"===i&&s.add(this.fancybox.option("Image.canZoomOutClass"))}onWheel(t,e){switch(this.fancybox.option("Image.wheel")){case"zoom":t.zoomWithWheel(e);break;case"close":this.fancybox.close();break;case"slide":this.fancybox[e.deltaY<0?"prev":"next"]()}e.preventDefault()}onClick(t,e){if(!(this.fancybox.Carousel.Panzoom.drag.distance>=6||this.fancybox.Carousel.Panzoom.lockAxis||"IMG"!=e.target.tagName&&!e.target.classList.contains("fancybox__content")))switch(e.preventDefault(),e.stopPropagation(),this.fancybox.option("Image.click")){case"toggleZoom":const i=e.clientX-t.$content.getClientRects()[0].left,s=e.clientY-t.$content.getClientRects()[0].top;t.toggleZoom({x:i,y:s});break;case"close":this.fancybox.close();break;case"next":this.fancybox.next();break;case"prev":this.fancybox.prev()}}onRefresh(t,e){e.slides.forEach((t=>{t.Panzoom&&this.updateDimensions(t)}))}onRemoveSlide(t,e,i){i.$image&&(i.$el.classList.remove(t.option("Image.canZoomInClass")),i.$image.onload=i.$image.onerror=null,i.$image.remove(),i.$image=null),i.Panzoom&&(i.Panzoom.destroy(),i.Panzoom=null),delete i.$el.dataset.imageFit}onClosing(t){t.Carousel.slides.forEach((t=>{t.$image&&(t.$image.onload=t.$image.onerror=null),t.Panzoom&&t.Panzoom.detachEvents()})),"closing"===this.fancybox.state&&this.canZoom(t.getSlide())&&this.zoomOut()}onPageChange(t,e){const i=t.getSlide();e.slides.forEach((t=>{t.Panzoom&&"done"===t.state&&(t.index!==i.index?t.Panzoom.panTo({x:0,y:0,scale:1,friction:.8}):0===e.Panzoom.velocity.x&&this.revealContent(t))}))}attach(){this.fancybox.on(this.events)}detach(){this.fancybox.off(this.events)}}$.defaults={Panzoom:{maxScale:1},canZoomInClass:"can-zoom_in",canZoomOutClass:"can-zoom_out",zoom:!0,zoomOpacity:"auto",zoomFriction:.8,ignoreCoveredThumbnail:!1,click:"toggleZoom",doubleClick:null,wheel:"zoom",fit:"contain"};const C=function(){const t=window.location.hash.substr(1),e=t.split("-"),i=e.length>1&&/^\+?\d+$/.test(e[e.length-1])&&parseInt(e.pop(-1),10)||null;return{hash:t,slug:e.join("-"),index:i}};class P{constructor(t){this.fancybox=t,this.events={closing:this.onClosing.bind(this),"Carousel.ready Carousel.change":this.onChange.bind(this)},this.hasCreatedHistory=!1,this.origHash="",this.timer=null}onChange(t,e){this.timer&&clearTimeout(this.timer);const i=null===e.prevPage,s=t.getSlide(),n=s.$trigger&&s.$trigger.dataset,o=window.location.hash.substr(1);let a=!1;if(s.slug)a=s.slug;else{let t=n&&n.fancybox;t&&t.length&&"true"!==t&&(a=t+(e.slides.length>1?"-"+(s.index+1):""))}i&&(this.origHash=o!==a?this.origHash:""),a&&o!==a&&(this.timer=setTimeout((()=>{try{window.history[i?"pushState":"replaceState"]({},document.title,window.location.pathname+window.location.search+"#"+a),i&&(this.hasCreatedHistory=!0)}catch(t){}}),300))}onClosing(){if(this.timer&&clearTimeout(this.timer),!0!==this.hasSilentClose){if(!this.hasCreatedHistory)try{return void window.history.replaceState({},document.title,window.location.pathname+window.location.search+(this.origHash?"#"+this.origHash:""))}catch(t){}window.history.back()}}attach(t){t.on(this.events)}detach(t){t.off(this.events)}static startFromUrl(){if(P.Fancybox.getInstance())return;const{hash:t,slug:e,index:i}=C();if(!e)return;let s=document.querySelector(`[data-slug="${t}"]`);if(s&&s.dispatchEvent(new CustomEvent("click",{bubbles:!0,cancelable:!0})),P.Fancybox.getInstance())return;const n=document.querySelectorAll(`[data-fancybox="${e}"]`);n.length&&(null===i&&1===n.length?s=n[0]:i&&(s=n[i-1]),s&&s.dispatchEvent(new CustomEvent("click",{bubbles:!0,cancelable:!0})))}static onHashChange(){const{slug:t,index:e}=C(),i=P.Fancybox.getInstance();if(i){if(t){const s=i.Carousel;for(let e of s.slides)if(e.slug&&e.slug===t)return s.slideTo(e.index);const n=i.getSlide(),o=n.$trigger&&n.$trigger.dataset;if(o&&o.fancybox===t)return s.slideTo(e-1)}i.plugins.Hash.hasSilentClose=!0,i.close()}P.startFromUrl()}static onReady(){window.addEventListener("hashchange",P.onHashChange,!1),P.startFromUrl()}static create(){f&&window.requestAnimationFrame((()=>{P.onReady()}))}static destroy(){window.removeEventListener("hashchange",P.onHashChange,!1)}}const S={ScrollLock:class{constructor(t){this.fancybox=t,this.viewport=null,this.pendingUpdate=null;for(const t of["onReady","onResize","onTouchstart","onTouchmove"])this[t]=this[t].bind(this)}onReady(){const t=window.visualViewport;t&&(this.viewport=t,this.startY=0,t.addEventListener("resize",this.onResize),this.updateViewport()),window.addEventListener("touchstart",this.onTouchstart,{passive:!1}),window.addEventListener("touchmove",this.onTouchmove,{passive:!1})}onResize(){this.updateViewport()}updateViewport(){const t=this.fancybox,e=this.viewport,i=e.scale,s=t.$container;if(!s)return;let n="",o="",a="";Math.abs(i-1)>.1&&(n=e.width*i+"px",o=e.height*i+"px",a=`translate3d(${e.offsetLeft}px, ${e.offsetTop}px, 0) scale(${1/i})`),s.style.width=n,s.style.height=o,s.style.transform=a}onTouchstart(t){this.startY=t.touches?t.touches[0].screenY:t.screenY}onTouchmove(t){const e=this.startY,i=window.innerWidth/window.document.documentElement.clientWidth;if(t.touches.length>1||1!==i)return;const s=t.target,o=n(s);if(!o)return void t.preventDefault();const a=window.getComputedStyle(o),r=parseInt(a.getPropertyValue("height"),10),l=t.touches?t.touches[0].screenY:t.screenY,h=e<=l&&0===o.scrollTop,c=e>=l&&o.scrollHeight-o.scrollTop===r;(h||c)&&t.preventDefault()}cleanup(){this.pendingUpdate&&(cancelAnimationFrame(this.pendingUpdate),this.pendingUpdate=null);const t=this.viewport;t&&(t.removeEventListener("resize",this.onResize),this.viewport=null),window.removeEventListener("touchstart",this.onTouchstart,!1),window.removeEventListener("touchmove",this.onTouchmove,!1)}attach(){this.fancybox.on("initLayout",this.onReady)}detach(){this.fancybox.off("initLayout",this.onReady),this.cleanup()}},Thumbs:v,Html:x,Image:$,Hash:P};let E=0,L=null;class T extends r{constructor(t,i={}){L=function(){let t=!1;return document.createElement("div").focus({get preventScroll(){return t=!0,!1}}),t}(),super(function(t,i){const s=e(!0,{},t[i.startIndex]||{});return t.forEach((t=>{const e=t.$trigger;if(e){const i=e.dataset||{};t.src=i.src||e.getAttribute("href")||t.src,t.type=i.type||t.type}})),e(!0,{},T.defaults,i,s)}(t,i)),this.state="init",this.items=t,this.bindHandlers(),this.attachPlugins(T.Plugins),this.trigger("init"),!0===this.option("hideScrollbar")&&this.hideScrollbar(),this.initLayout(),this.initCarousel(this.getSlides()),this.attachEvents(),this.state="ready",this.trigger("ready"),this.$container.setAttribute("aria-hidden","false")}bindHandlers(){for(const t of["onMousedown","onKeydown","onClick","onCreateSlide","onSettle","onTouchMove","onTouchEnd","onTransform"])this[t]=this[t].bind(this)}attachEvents(){document.addEventListener("mousedown",this.onMousedown),document.addEventListener("keydown",this.onKeydown),this.$container.addEventListener("click",this.onClick)}detachEvents(){document.removeEventListener("mousedown",this.onMousedown),document.removeEventListener("keydown",this.onKeydown),this.$container.removeEventListener("click",this.onClick)}initLayout(){this.$root=this.option("parentEl")||document.body;let t=this.option("template.main");t&&(this.$root.insertAdjacentHTML("beforeend",this.localize(t)),this.$container=this.$root.querySelector(".fancybox__container")),this.$container||(this.$container=document.createElement("div"),this.$root.appendChild(this.$container)),this.$container.onscroll=()=>(this.$container.scrollLeft=0,!1),Object.entries({class:"fancybox__container",role:"dialog","aria-modal":"true","aria-hidden":"true","aria-label":this.localize("{{MODAL}}")}).forEach((t=>this.$container.setAttribute(...t))),this.option("animated")&&this.$container.classList.add("is-animated"),this.$backdrop=this.$container.querySelector(".fancybox__backdrop"),this.$backdrop||(this.$backdrop=document.createElement("div"),this.$backdrop.classList.add("fancybox__backdrop"),this.$container.appendChild(this.$backdrop)),this.$carousel=this.$container.querySelector(".fancybox__carousel"),this.$carousel||(this.$carousel=document.createElement("div"),this.$carousel.classList.add("fancybox__carousel"),this.$container.appendChild(this.$carousel)),this.$container.Fancybox=this,this.id=this.$container.getAttribute("id"),this.id||(this.id=this.options.id||++E,this.$container.setAttribute("id","fancybox-"+this.id));const e=this.options.mainClass;return e&&this.$container.classList.add(...e.split(" ")),document.documentElement.classList.add("with-fancybox"),this.trigger("initLayout"),this}getSlides(){const t=[...this.items];return t.forEach((t=>{!t.src&&t.$trigger&&t.$trigger instanceof HTMLImageElement&&(t.src=t.$trigger.currentSrc||t.$trigger.src);let e=t.$thumb;const i=t.$trigger&&t.$trigger.origTarget;i&&(e=i instanceof HTMLImageElement?i:i.querySelector("img")),!e&&t.$trigger&&(e=t.$trigger instanceof HTMLImageElement?t.$trigger:t.$trigger.querySelector("img")),t.$thumb=e||null;let s=t.thumb;!s&&t.$thumb&&(s=e.currentSrc||e.src),s||t.type&&"image"!==t.type||(s=t.src),t.thumb=s||null})),t}initCarousel(t){return new m(this.$carousel,e(!0,{},{classNames:{viewport:"fancybox__viewport",track:"fancybox__track",slide:"fancybox__slide"},textSelection:!0,preload:this.option("preload"),friction:.88,slides:t,initialPage:this.options.startIndex,slidesPerPage:1,infiniteX:this.option("infinite"),infiniteY:!0,l10n:this.option("l10n"),Dots:!1,Navigation:{classNames:{main:"fancybox__nav",button:"carousel__button",next:"is-next",prev:"is-prev"}},Panzoom:{panOnlyZoomed:()=>this.Carousel.pages.length<2&&!this.options.dragToClose,lockAxis:()=>{let t=this.Carousel.pages.length>1?"x":"";return this.options.dragToClose&&(t+="y"),t}},on:{"*":(t,...e)=>this.trigger(`Carousel.${t}`,...e),init:t=>this.Carousel=t,createSlide:this.onCreateSlide,settle:this.onSettle}},this.option("Carousel"))),this.options.dragToClose&&this.Carousel.Panzoom.on({touchMove:this.onTouchMove,afterTransform:this.onTransform,touchEnd:this.onTouchEnd}),this.trigger("initCarousel"),this}onCreateSlide(t,e){const i=e.caption;if(i){const t=document.createElement("div"),s=`fancybox__caption_${this.id}_${e.index}`;t.className="fancybox__caption",t.innerHTML=i,t.setAttribute("id",s),e.$caption=e.$el.appendChild(t),e.$el.classList.add("has-caption"),e.$el.setAttribute("aria-labelledby",s)}}onSettle(){this.focus()}onClick(t){if(t.defaultPrevented)return;if(t.target.closest(".fancybox__content"))return;if(window.getSelection().toString().length)return;const e=this.option("click");if("function"==typeof e)return e.call(this);switch(e){case"close":this.close();break;case"next":this.next()}}onTouchMove(){const t=this.getSlide().Panzoom;return!t||1===t.current.scale}onTouchEnd(t){const e=t.drag.distanceY;(Math.abs(e)>=150||Math.abs(e)>=35&&t.drag.elapsedTime<350)&&(this.option("hideClass")&&(this.getSlide().hideClass="fancybox-throwOut"+(t.current.y<0?"Up":"Down")),this.close())}onTransform(t){if(this.$backdrop){const e=Math.abs(t.current.y),i=e<1?"":Math.max(0,Math.min(1,1-e/t.$content.clientHeight*1.5));this.$container.style.setProperty("--fancybox-ts",i?"0s":""),this.$container.style.setProperty("--fancybox-opacity",i)}}onMousedown(){document.body.classList.add("is-using-mouse")}onKeydown(t){if(T.getInstance().id!==this.id)return;document.body.classList.remove("is-using-mouse");const e=t.key;if("Tab"===e&&this.option("trapFocus"))return void this.focus(t);const i=this.option("keyboard");if(!i||t.ctrlKey||t.altKey||t.shiftKey)return;const s=document.activeElement&&document.activeElement.classList,n=s&&s.contains("carousel__button");if("Escape"!==e&&!n){if(t.target.isContentEditable||-1!==["BUTTON","TEXTAREA","OPTION","INPUT","SELECT","VIDEO"].indexOf(t.target.nodeName))return}if(!1===this.trigger("keydown",e))return;"Enter"!==e&&t.preventDefault();const o=i[e];"function"==typeof this[o]&&this[o]()}getSlide(){const t=this.Carousel;if(!t)return null;const e=null===t.page?t.option("initialPage"):t.page,i=t.pages||[];return i.length&&i[e]?i[e].slides[0]:null}focus(t){const e=t=>{t.setActive?t.setActive():L?t.focus({preventScroll:!0}):t.focus()};t&&t.preventDefault();const i=this.getSlide().$el;i.tabIndex=0;const s=[].slice.call(this.$container.querySelectorAll(["a[href]","area[href]",'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',"select:not([disabled]):not([aria-hidden])","textarea:not([disabled]):not([aria-hidden])","button:not([disabled]):not([aria-hidden])","iframe","object","embed","video","audio","[contenteditable]",'[tabindex]:not([tabindex^="-"]):not([disabled]):not([aria-hidden])'])),n=[];for(let t of s){if(t.classList&&t.classList.contains("fancybox__slide"))continue;const e=t.closest(".fancybox__slide");e?e===i&&n[t.hasAttribute("autofocus")?"unshift":"push"](t):n.push(t)}if(!n.length)return;this.Carousel.pages.length>1&&n.push(i);const o=n.indexOf(document.activeElement),a=t&&!t.shiftKey,r=t&&t.shiftKey;return a?o===n.length-1?e(n[0]):e(n[o+1]):r?e(0===o?n[n.length-1]:n[o-1]):o<0?e(n[0]):void 0}hideScrollbar(){if(!f)return;const t=window.innerWidth-document.documentElement.getBoundingClientRect().width,e="fancybox-style-noscroll";let i=document.getElementById(e);i||t&&(i=document.createElement("style"),i.id=e,i.type="text/css",i.innerHTML=`.compensate-for-scrollbar {padding-right: ${t}px;}`,document.getElementsByTagName("head")[0].appendChild(i),document.body.classList.add("compensate-for-scrollbar"))}revealScrollbar(){document.body.classList.remove("compensate-for-scrollbar");const t=document.getElementById("fancybox-style-noscroll");t&&t.remove()}clearContent(t){this.Carousel.trigger("deleteSlide",t),t.$content&&(t.$content.remove(),t.$content=null),t._className&&t.$el.classList.remove(t._className)}setContent(t,e,i={}){let s;const n=t.$el;if(e instanceof HTMLElement?["img","iframe","video","audio"].indexOf(e.nodeName.toLowerCase())>-1?(s=document.createElement("div"),s.appendChild(e)):s=e:(s=document.createElement("div"),s.innerHTML=e),!(s instanceof Element))throw new Error("Element expected");return t._className=`has-${i.suffix||t.type||"unknown"}`,n.classList.add(t._className),s.classList.add("fancybox__content"),"none"!==s.style.display&&"none"!==window.getComputedStyle(s).getPropertyValue("display")||(s.style.display="flex"),t.id&&s.setAttribute("id",t.id),t.$content=s,n.insertBefore(s,n.querySelector(".fancybox__caption")),this.manageCloseButton(t),"loading"!==t.state&&this.revealContent(t),s}manageCloseButton(t){const e=void 0===t.closeButton?this.option("closeButton"):t.closeButton;if(!e||this.$closeButton&&"inside"!==e)return;const i=document.createElement("button");i.classList.add("carousel__button","is-close"),i.setAttribute("title",this.options.l10n.CLOSE),i.innerHTML=this.option("template.closeButton"),i.addEventListener("click",(t=>this.close(t))),"inside"===e?(t.$closeButton&&t.$closeButton.remove(),t.$closeButton=t.$content.appendChild(i)):this.$closeButton=this.$container.insertBefore(i,this.$container.firstChild)}revealContent(t){this.trigger("reveal",t),t.$content.style.visibility="";let e=!1;"error"!==t.state&&"ready"!==t.state&&null===this.Carousel.prevPage&&t.index===this.options.startIndex&&(e=void 0===t.showClass?this.option("showClass"):t.showClass),e?(t.state="animating",this.animateCSS(t.$content,e,(()=>{this.done(t)}))):this.done(t)}animateCSS(t,e,i){if(t&&t.dispatchEvent(new CustomEvent("animationend",{bubbles:!0,cancelable:!0})),!t||!e)return void("function"==typeof i&&i());const s=function(n){n.currentTarget===this&&(t.classList.remove(e),t.removeEventListener("animationend",s),i&&i())};t.addEventListener("animationend",s),t.classList.add(e)}done(t){if("init"!==this.state&&"ready"!==this.state)return;t.state="done",this.trigger("done",t);const e=this.getSlide();e&&t.index===e.index&&this.option("autoFocus")&&this.focus()}setError(t,e){t.state="error",this.hideLoading(t),this.clearContent(t);const i=document.createElement("div");i.classList.add("fancybox-error"),i.innerHTML=this.localize(e||"<p>{{ERROR}}</p>"),this.setContent(t,i,{suffix:"error"})}showLoading(t){t.state="loading",this.trigger("load",t),t.$el.classList.add("is-loading");let e=t.$el.querySelector(".fancybox__spinner");e||(e=document.createElement("div"),e.classList.add("fancybox__spinner"),e.innerHTML=this.option("template.spinner"),e.addEventListener("click",(()=>{this.Carousel.Panzoom.velocity||this.close()})),t.$el.insertBefore(e,t.$el.firstChild))}hideLoading(t){const e=t.$el&&t.$el.querySelector(".fancybox__spinner");e&&(e.remove(),t.$el.classList.remove("is-loading")),"loading"===t.state&&(t.state="ready")}next(){const t=this.Carousel;t&&t.pages.length>1&&t.slideNext()}prev(){const t=this.Carousel;t&&t.pages.length>1&&t.slidePrev()}jumpTo(...t){this.Carousel&&this.Carousel.slideTo(...t)}close(t){if(t&&t.preventDefault(),["closing","customClosing","destroy"].indexOf(this.state)>-1)return;if(!1===this.trigger("shouldClose",t))return;if(this.state="closing",this.Carousel.Panzoom.destroy(),this.detachEvents(),this.trigger("closing",t),"destroy"===this.state)return;this.$container.setAttribute("aria-hidden","true"),this.$container.classList.add("is-closing");const e=this.getSlide();if(this.Carousel.slides.forEach((t=>{t.$content&&t.index!==e.index&&t.$content.remove()})),"closing"===this.state){const t=void 0===e.hideClass?this.option("hideClass"):e.hideClass;this.animateCSS(e.$content,t,(()=>{this.destroy()}))}}destroy(){this.state="destroy",this.trigger("destroy");const t=this.option("placeFocusBack")?this.getSlide().$trigger:null;if(this.Carousel.destroy(),this.detachPlugins(),this.Carousel=null,this.options={},this.events={},this.$container.remove(),this.$container=this.$backdrop=this.$carousel=null,t)if(L)t.focus({preventScroll:!0});else{const e=document.body.scrollTop;t.focus(),document.body.scrollTop=e}const e=T.getInstance();e?e.focus():(document.documentElement.classList.remove("with-fancybox"),document.body.classList.remove("is-using-mouse"),this.revealScrollbar())}static show(t,e={}){return new T(t,e)}static fromEvent(t,e={}){if(t.defaultPrevented)return;if(t.button&&0!==t.button)return;if(t.ctrlKey||t.metaKey||t.shiftKey)return;let i,s,n,o=!1,a=t.target;if((a.matches("[data-fancybox-trigger]")||(a=a.closest("[data-fancybox-trigger]")))&&(n=a&&a.dataset&&a.dataset.fancyboxTrigger),n){const t=document.querySelectorAll(`[data-fancybox="${n}"]`),e=parseInt(a.dataset.fancyboxIndex,10)||0;a=t.length?t[e]:a}a||(a=t.target),Array.from(T.openers.keys()).reverse().some((e=>{if(i=a,i.matches(e)||(i=i.closest(e)))return t.preventDefault(),s=e,!0})),s&&(e.target=i,i.origTarget=t.target,o=T.fromOpener(s,e));const r=T.getInstance();return r&&"ready"===r.state&&t.detail&&document.body.classList.add("is-using-mouse"),o}static fromOpener(t,i={}){let s=[],n=i.startIndex||0,o=(i=e({},i,T.openers.get(t))).groupAttr;void 0===o&&(o="data-fancybox");let a=i.target;if(o){if(a&&t&&t===`[${o}]`){const e=a.getAttribute(`${o}`);t=!(!e||!e.length||"true"===e)&&`[${o}='${e}']`}}else t=!1;if(t&&(s=[].slice.call(document.querySelectorAll(t))),!s.length&&a&&(s=[a]),!s.length)return!1;const r=T.getInstance();return!(r&&s.indexOf(r.options.$trigger)>-1)&&(n=a?s.indexOf(a):n,s=s.map((function(t){const e=["false","0","no","null"],i=["true","1","yes"],s=Object.assign({},t.dataset);for(let[t,n]of Object.entries(s))if("string"==typeof n||n instanceof String)if(e.indexOf(n)>-1)s[t]=!1;else if(i.indexOf(s[t])>-1)s[t]=!0;else try{s[t]=JSON.parse(n)}catch(e){s[t]=n}return delete s.fancybox,delete s.type,t instanceof Element&&(s.$trigger=t),s})),new T(s,e({},i,{startIndex:n,$trigger:a})))}static bind(t,e={}){if(f){if(!T.openers.size){document.body.addEventListener("click",T.fromEvent,!1);for(const[t,e]of Object.entries(T.Plugins||{}))e.Fancybox=this,"function"==typeof e.create&&e.create()}T.openers.set(t,e)}}static unbind(t){T.openers.delete(t),T.openers.size||T.destroy()}static destroy(){let t;for(;t=T.getInstance();)t.destroy();T.openers=new Map,document.body.removeEventListener("click",T.fromEvent,!1)}static getInstance(t){let e=[];e=t?[document.getElementById(`fancybox-${t}`)]:Array.from(document.querySelectorAll(".fancybox__container")).reverse();for(const t of e){const e=t&&t.Fancybox;if(e&&"closing"!==e.state&&"customClosing"!==e.state)return e}return null}static close(t=!0){let e=null;for(;e=T.getInstance();)if(e.close(),!t)return}}T.version="4.0.0-alpha.4",T.defaults={startIndex:0,preload:1,infinite:!0,showClass:"fancybox-zoomInUp",hideClass:"fancybox-fadeOut",animated:!0,hideScrollbar:!0,parentEl:null,mainClass:null,autoFocus:!0,trapFocus:!0,placeFocusBack:!0,click:"close",closeButton:"inside",dragToClose:!0,keyboard:{Escape:"close",Delete:"close",Backspace:"close",PageUp:"next",PageDown:"prev",ArrowUp:"next",ArrowDown:"prev",ArrowRight:"next",ArrowLeft:"prev"},template:{closeButton:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg>',spinner:'<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="25 25 50 50" tabindex="-1"><circle cx="50" cy="50" r="20"/></svg>',main:null},l10n:{CLOSE:"Close",NEXT:"Next",PREV:"Previous",MODAL:"You can close this modal content with the ESC key",ERROR:"Something Went Wrong, Please Try Again Later",IMAGE_ERROR:"Image Not Found",ELEMENT_NOT_FOUND:"HTML Element Not Found",AJAX_NOT_FOUND:"Error Loading AJAX : Not Found",AJAX_FORBIDDEN:"Error Loading AJAX : Forbidden",IFRAME_ERROR:"Error Loading Page"}},T.openers=new Map,T.Plugins=S,T.isMobile=()=>!!navigator&&/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),T.bind("[data-fancybox]");
+
+
+/***/ }),
+
+/***/ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@googlemaps/js-api-loader/dist/index.esm.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DEFAULT_ID": () => (/* binding */ DEFAULT_ID),
+/* harmony export */   "Loader": () => (/* binding */ Loader)
+/* harmony export */ });
+// do not edit .js files directly - edit src/index.jst
+
+
+
+var fastDeepEqual = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+/**
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at.
+ *
+ *      Http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const DEFAULT_ID = "__googleMapsScriptId";
+/**
+ * [[Loader]] makes it easier to add Google Maps JavaScript API to your application
+ * dynamically using
+ * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+ * It works by dynamically creating and appending a script node to the the
+ * document head and wrapping the callback function so as to return a promise.
+ *
+ * ```
+ * const loader = new Loader({
+ *   apiKey: "",
+ *   version: "weekly",
+ *   libraries: ["places"]
+ * });
+ *
+ * loader.load().then((google) => {
+ *   const map = new google.maps.Map(...)
+ * })
+ * ```
+ */
+class Loader {
+    /**
+     * Creates an instance of Loader using [[LoaderOptions]]. No defaults are set
+     * using this library, instead the defaults are set by the Google Maps
+     * JavaScript API server.
+     *
+     * ```
+     * const loader = Loader({apiKey, version: 'weekly', libraries: ['places']});
+     * ```
+     */
+    constructor({ apiKey, channel, client, id = DEFAULT_ID, libraries = [], language, region, version, mapIds, nonce, retries = 3, url = "https://maps.googleapis.com/maps/api/js", }) {
+        this.CALLBACK = "__googleMapsCallback";
+        this.callbacks = [];
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.version = version;
+        this.apiKey = apiKey;
+        this.channel = channel;
+        this.client = client;
+        this.id = id || DEFAULT_ID; // Do not allow empty string
+        this.libraries = libraries;
+        this.language = language;
+        this.region = region;
+        this.mapIds = mapIds;
+        this.nonce = nonce;
+        this.retries = retries;
+        this.url = url;
+        if (Loader.instance) {
+            if (!fastDeepEqual(this.options, Loader.instance.options)) {
+                throw new Error(`Loader must not be called again with different options. ${JSON.stringify(this.options)} !== ${JSON.stringify(Loader.instance.options)}`);
+            }
+            return Loader.instance;
+        }
+        Loader.instance = this;
+    }
+    get options() {
+        return {
+            version: this.version,
+            apiKey: this.apiKey,
+            channel: this.channel,
+            client: this.client,
+            id: this.id,
+            libraries: this.libraries,
+            language: this.language,
+            region: this.region,
+            mapIds: this.mapIds,
+            nonce: this.nonce,
+            url: this.url,
+        };
+    }
+    get failed() {
+        return this.done && !this.loading && this.errors.length >= this.retries + 1;
+    }
+    /**
+     * CreateUrl returns the Google Maps JavaScript API script url given the [[LoaderOptions]].
+     *
+     * @ignore
+     */
+    createUrl() {
+        let url = this.url;
+        url += `?callback=${this.CALLBACK}`;
+        if (this.apiKey) {
+            url += `&key=${this.apiKey}`;
+        }
+        if (this.channel) {
+            url += `&channel=${this.channel}`;
+        }
+        if (this.client) {
+            url += `&client=${this.client}`;
+        }
+        if (this.libraries.length > 0) {
+            url += `&libraries=${this.libraries.join(",")}`;
+        }
+        if (this.language) {
+            url += `&language=${this.language}`;
+        }
+        if (this.region) {
+            url += `&region=${this.region}`;
+        }
+        if (this.version) {
+            url += `&v=${this.version}`;
+        }
+        if (this.mapIds) {
+            url += `&map_ids=${this.mapIds.join(",")}`;
+        }
+        return url;
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     */
+    load() {
+        return this.loadPromise();
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     *
+     * @ignore
+     */
+    loadPromise() {
+        return new Promise((resolve, reject) => {
+            this.loadCallback((err) => {
+                if (!err) {
+                    resolve(window.google);
+                }
+                else {
+                    reject(err);
+                }
+            });
+        });
+    }
+    /**
+     * Load the Google Maps JavaScript API script with a callback.
+     */
+    loadCallback(fn) {
+        this.callbacks.push(fn);
+        this.execute();
+    }
+    /**
+     * Set the script on document.
+     */
+    setScript() {
+        if (document.getElementById(this.id)) {
+            // TODO wrap onerror callback for cases where the script was loaded elsewhere
+            this.callback();
+            return;
+        }
+        const url = this.createUrl();
+        const script = document.createElement("script");
+        script.id = this.id;
+        script.type = "text/javascript";
+        script.src = url;
+        script.onerror = this.loadErrorCallback.bind(this);
+        script.defer = true;
+        script.async = true;
+        if (this.nonce) {
+            script.nonce = this.nonce;
+        }
+        document.head.appendChild(script);
+    }
+    deleteScript() {
+        const script = document.getElementById(this.id);
+        if (script) {
+            script.remove();
+        }
+    }
+    /**
+     * Reset the loader state.
+     */
+    reset() {
+        this.deleteScript();
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.onerrorEvent = null;
+    }
+    resetIfRetryingFailed() {
+        if (this.failed) {
+            this.reset();
+        }
+    }
+    loadErrorCallback(e) {
+        this.errors.push(e);
+        if (this.errors.length <= this.retries) {
+            const delay = this.errors.length * Math.pow(2, this.errors.length);
+            console.log(`Failed to load Google Maps script, retrying in ${delay} ms.`);
+            setTimeout(() => {
+                this.deleteScript();
+                this.setScript();
+            }, delay);
+        }
+        else {
+            this.onerrorEvent = e;
+            this.callback();
+        }
+    }
+    setCallback() {
+        window.__googleMapsCallback = this.callback.bind(this);
+    }
+    callback() {
+        this.done = true;
+        this.loading = false;
+        this.callbacks.forEach((cb) => {
+            cb(this.onerrorEvent);
+        });
+        this.callbacks = [];
+    }
+    execute() {
+        this.resetIfRetryingFailed();
+        if (this.done) {
+            this.callback();
+        }
+        else {
+            // short circuit and warn if google.maps is already loaded
+            if (window.google && window.google.maps && window.google.maps.version) {
+                console.warn("Google Maps already loaded outside @googlemaps/js-api-loader." +
+                    "This may result in undesirable behavior as options and script parameters may not match.");
+                this.callback();
+                return;
+            }
+            if (this.loading) ;
+            else {
+                this.loading = true;
+                this.setCallback();
+                this.setScript();
+            }
+        }
+    }
+}
+
+
+//# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
@@ -27089,6 +27408,5613 @@ return src;
 
 })));
 
+
+/***/ }),
+
+/***/ "./node_modules/choices.js/public/assets/scripts/choices.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/choices.js/public/assets/scripts/choices.js ***!
+  \******************************************************************/
+/***/ ((module) => {
+
+/*! choices.js v9.0.1 | © 2019 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else {}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __nested_webpack_require_633__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_633__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__nested_webpack_require_633__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__nested_webpack_require_633__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__nested_webpack_require_633__.d = function(exports, name, getter) {
+/******/ 		if(!__nested_webpack_require_633__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__nested_webpack_require_633__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__nested_webpack_require_633__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __nested_webpack_require_633__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__nested_webpack_require_633__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __nested_webpack_require_633__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__nested_webpack_require_633__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__nested_webpack_require_633__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__nested_webpack_require_633__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__nested_webpack_require_633__.p = "/public/assets/scripts/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __nested_webpack_require_633__(__nested_webpack_require_633__.s = 4);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return target.propertyIsEnumerable(symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	try {
+		return (key in target) // Properties are safe to merge if they don't exist in the target yet,
+			&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+				&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+	} catch (unused) {
+		// Counterintuitively, it's safe to merge any property on a target that causes the `in` operator to throw.
+		// This happens when trying to copy an object in the source over a plain string in the target.
+		return false
+	}
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (!options.isMergeableObject(source[key]) || !target[key]) {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		} else {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __nested_webpack_require_8347__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_8347__(3);
+/* global window */
+
+
+var root;
+
+if (typeof self !== 'undefined') {
+  root = self;
+} else if (typeof window !== 'undefined') {
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else if (true) {
+  root = module;
+} else {}
+
+var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(root);
+/* harmony default export */ __webpack_exports__["a"] = (result);
+
+/* WEBPACK VAR INJECTION */}.call(this, __nested_webpack_require_8347__(5), __nested_webpack_require_8347__(6)(module)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * Fuse.js v3.4.5 - Lightweight fuzzy-search (http://fusejs.io)
+ * 
+ * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
+ * All Rights Reserved. Apache Software License 2.0
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+!function(e,t){  true?module.exports=t():0}(this,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=1)}([function(e,t){e.exports=function(e){return Array.isArray?Array.isArray(e):"[object Array]"===Object.prototype.toString.call(e)}},function(e,t,n){function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function o(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var i=n(2),a=n(8),s=n(0),c=function(){function e(t,n){var r=n.location,o=void 0===r?0:r,i=n.distance,s=void 0===i?100:i,c=n.threshold,h=void 0===c?.6:c,l=n.maxPatternLength,u=void 0===l?32:l,f=n.caseSensitive,d=void 0!==f&&f,v=n.tokenSeparator,p=void 0===v?/ +/g:v,g=n.findAllMatches,y=void 0!==g&&g,m=n.minMatchCharLength,k=void 0===m?1:m,S=n.id,x=void 0===S?null:S,b=n.keys,M=void 0===b?[]:b,_=n.shouldSort,L=void 0===_||_,w=n.getFn,A=void 0===w?a:w,C=n.sortFn,I=void 0===C?function(e,t){return e.score-t.score}:C,O=n.tokenize,j=void 0!==O&&O,P=n.matchAllTokens,F=void 0!==P&&P,T=n.includeMatches,z=void 0!==T&&T,E=n.includeScore,K=void 0!==E&&E,$=n.verbose,J=void 0!==$&&$;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:d,tokenSeparator:p,findAllMatches:y,minMatchCharLength:k,id:x,keys:M,includeMatches:z,includeScore:K,shouldSort:L,getFn:A,sortFn:I,verbose:J,tokenize:j,matchAllTokens:F},this.setCollection(t)}var t,n,c;return t=e,(n=[{key:"setCollection",value:function(e){return this.list=e,e}},{key:"search",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{limit:!1};this._log('---------\nSearch pattern: "'.concat(e,'"'));var n=this._prepareSearchers(e),r=n.tokenSearchers,o=n.fullSearcher,i=this._search(r,o),a=i.weights,s=i.results;return this._computeScore(a,s),this.options.shouldSort&&this._sort(s),t.limit&&"number"==typeof t.limit&&(s=s.slice(0,t.limit)),this._format(s)}},{key:"_prepareSearchers",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=[];if(this.options.tokenize)for(var n=e.split(this.options.tokenSeparator),r=0,o=n.length;r<o;r+=1)t.push(new i(n[r],this.options));return{tokenSearchers:t,fullSearcher:new i(e,this.options)}}},{key:"_search",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1?arguments[1]:void 0,n=this.list,r={},o=[];if("string"==typeof n[0]){for(var i=0,a=n.length;i<a;i+=1)this._analyze({key:"",value:n[i],record:i,index:i},{resultMap:r,results:o,tokenSearchers:e,fullSearcher:t});return{weights:null,results:o}}for(var s={},c=0,h=n.length;c<h;c+=1)for(var l=n[c],u=0,f=this.options.keys.length;u<f;u+=1){var d=this.options.keys[u];if("string"!=typeof d){if(s[d.name]={weight:1-d.weight||1},d.weight<=0||d.weight>1)throw new Error("Key weight has to be > 0 and <= 1");d=d.name}else s[d]={weight:1};this._analyze({key:d,value:this.options.getFn(l,d),record:l,index:c},{resultMap:r,results:o,tokenSearchers:e,fullSearcher:t})}return{weights:s,results:o}}},{key:"_analyze",value:function(e,t){var n=e.key,r=e.arrayIndex,o=void 0===r?-1:r,i=e.value,a=e.record,c=e.index,h=t.tokenSearchers,l=void 0===h?[]:h,u=t.fullSearcher,f=void 0===u?[]:u,d=t.resultMap,v=void 0===d?{}:d,p=t.results,g=void 0===p?[]:p;if(null!=i){var y=!1,m=-1,k=0;if("string"==typeof i){this._log("\nKey: ".concat(""===n?"-":n));var S=f.search(i);if(this._log('Full text: "'.concat(i,'", score: ').concat(S.score)),this.options.tokenize){for(var x=i.split(this.options.tokenSeparator),b=[],M=0;M<l.length;M+=1){var _=l[M];this._log('\nPattern: "'.concat(_.pattern,'"'));for(var L=!1,w=0;w<x.length;w+=1){var A=x[w],C=_.search(A),I={};C.isMatch?(I[A]=C.score,y=!0,L=!0,b.push(C.score)):(I[A]=1,this.options.matchAllTokens||b.push(1)),this._log('Token: "'.concat(A,'", score: ').concat(I[A]))}L&&(k+=1)}m=b[0];for(var O=b.length,j=1;j<O;j+=1)m+=b[j];m/=O,this._log("Token score average:",m)}var P=S.score;m>-1&&(P=(P+m)/2),this._log("Score average:",P);var F=!this.options.tokenize||!this.options.matchAllTokens||k>=l.length;if(this._log("\nCheck Matches: ".concat(F)),(y||S.isMatch)&&F){var T=v[c];T?T.output.push({key:n,arrayIndex:o,value:i,score:P,matchedIndices:S.matchedIndices}):(v[c]={item:a,output:[{key:n,arrayIndex:o,value:i,score:P,matchedIndices:S.matchedIndices}]},g.push(v[c]))}}else if(s(i))for(var z=0,E=i.length;z<E;z+=1)this._analyze({key:n,arrayIndex:z,value:i[z],record:a,index:c},{resultMap:v,results:g,tokenSearchers:l,fullSearcher:f})}}},{key:"_computeScore",value:function(e,t){this._log("\n\nComputing score:\n");for(var n=0,r=t.length;n<r;n+=1){for(var o=t[n].output,i=o.length,a=1,s=1,c=0;c<i;c+=1){var h=e?e[o[c].key].weight:1,l=(1===h?o[c].score:o[c].score||.001)*h;1!==h?s=Math.min(s,l):(o[c].nScore=l,a*=l)}t[n].score=1===s?a:s,this._log(t[n])}}},{key:"_sort",value:function(e){this._log("\n\nSorting...."),e.sort(this.options.sortFn)}},{key:"_format",value:function(e){var t=[];if(this.options.verbose){var n=[];this._log("\n\nOutput:\n\n",JSON.stringify(e,function(e,t){if("object"===r(t)&&null!==t){if(-1!==n.indexOf(t))return;n.push(t)}return t})),n=null}var o=[];this.options.includeMatches&&o.push(function(e,t){var n=e.output;t.matches=[];for(var r=0,o=n.length;r<o;r+=1){var i=n[r];if(0!==i.matchedIndices.length){var a={indices:i.matchedIndices,value:i.value};i.key&&(a.key=i.key),i.hasOwnProperty("arrayIndex")&&i.arrayIndex>-1&&(a.arrayIndex=i.arrayIndex),t.matches.push(a)}}}),this.options.includeScore&&o.push(function(e,t){t.score=e.score});for(var i=0,a=e.length;i<a;i+=1){var s=e[i];if(this.options.id&&(s.item=this.options.getFn(s.item,this.options.id)[0]),o.length){for(var c={item:s.item},h=0,l=o.length;h<l;h+=1)o[h](s,c);t.push(c)}else t.push(s.item)}return t}},{key:"_log",value:function(){var e;this.options.verbose&&(e=console).log.apply(e,arguments)}}])&&o(t.prototype,n),c&&o(t,c),e}();e.exports=c},function(e,t,n){function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=n(3),i=n(4),a=n(7),s=function(){function e(t,n){var r=n.location,o=void 0===r?0:r,i=n.distance,s=void 0===i?100:i,c=n.threshold,h=void 0===c?.6:c,l=n.maxPatternLength,u=void 0===l?32:l,f=n.isCaseSensitive,d=void 0!==f&&f,v=n.tokenSeparator,p=void 0===v?/ +/g:v,g=n.findAllMatches,y=void 0!==g&&g,m=n.minMatchCharLength,k=void 0===m?1:m;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:d,tokenSeparator:p,findAllMatches:y,minMatchCharLength:k},this.pattern=this.options.isCaseSensitive?t:t.toLowerCase(),this.pattern.length<=u&&(this.patternAlphabet=a(this.pattern))}var t,n,s;return t=e,(n=[{key:"search",value:function(e){if(this.options.isCaseSensitive||(e=e.toLowerCase()),this.pattern===e)return{isMatch:!0,score:0,matchedIndices:[[0,e.length-1]]};var t=this.options,n=t.maxPatternLength,r=t.tokenSeparator;if(this.pattern.length>n)return o(e,this.pattern,r);var a=this.options,s=a.location,c=a.distance,h=a.threshold,l=a.findAllMatches,u=a.minMatchCharLength;return i(e,this.pattern,this.patternAlphabet,{location:s,distance:c,threshold:h,findAllMatches:l,minMatchCharLength:u})}}])&&r(t.prototype,n),s&&r(t,s),e}();e.exports=s},function(e,t){var n=/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;e.exports=function(e,t){var r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:/ +/g,o=new RegExp(t.replace(n,"\\$&").replace(r,"|")),i=e.match(o),a=!!i,s=[];if(a)for(var c=0,h=i.length;c<h;c+=1){var l=i[c];s.push([e.indexOf(l),l.length-1])}return{score:a?.5:1,isMatch:a,matchedIndices:s}}},function(e,t,n){var r=n(5),o=n(6);e.exports=function(e,t,n,i){for(var a=i.location,s=void 0===a?0:a,c=i.distance,h=void 0===c?100:c,l=i.threshold,u=void 0===l?.6:l,f=i.findAllMatches,d=void 0!==f&&f,v=i.minMatchCharLength,p=void 0===v?1:v,g=s,y=e.length,m=u,k=e.indexOf(t,g),S=t.length,x=[],b=0;b<y;b+=1)x[b]=0;if(-1!==k){var M=r(t,{errors:0,currentLocation:k,expectedLocation:g,distance:h});if(m=Math.min(M,m),-1!==(k=e.lastIndexOf(t,g+S))){var _=r(t,{errors:0,currentLocation:k,expectedLocation:g,distance:h});m=Math.min(_,m)}}k=-1;for(var L=[],w=1,A=S+y,C=1<<S-1,I=0;I<S;I+=1){for(var O=0,j=A;O<j;){r(t,{errors:I,currentLocation:g+j,expectedLocation:g,distance:h})<=m?O=j:A=j,j=Math.floor((A-O)/2+O)}A=j;var P=Math.max(1,g-j+1),F=d?y:Math.min(g+j,y)+S,T=Array(F+2);T[F+1]=(1<<I)-1;for(var z=F;z>=P;z-=1){var E=z-1,K=n[e.charAt(E)];if(K&&(x[E]=1),T[z]=(T[z+1]<<1|1)&K,0!==I&&(T[z]|=(L[z+1]|L[z])<<1|1|L[z+1]),T[z]&C&&(w=r(t,{errors:I,currentLocation:E,expectedLocation:g,distance:h}))<=m){if(m=w,(k=E)<=g)break;P=Math.max(1,2*g-k)}}if(r(t,{errors:I+1,currentLocation:g,expectedLocation:g,distance:h})>m)break;L=T}return{isMatch:k>=0,score:0===w?.001:w,matchedIndices:o(x,p)}}},function(e,t){e.exports=function(e,t){var n=t.errors,r=void 0===n?0:n,o=t.currentLocation,i=void 0===o?0:o,a=t.expectedLocation,s=void 0===a?0:a,c=t.distance,h=void 0===c?100:c,l=r/e.length,u=Math.abs(s-i);return h?l+u/h:u?1:l}},function(e,t){e.exports=function(){for(var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,n=[],r=-1,o=-1,i=0,a=e.length;i<a;i+=1){var s=e[i];s&&-1===r?r=i:s||-1===r||((o=i-1)-r+1>=t&&n.push([r,o]),r=-1)}return e[i-1]&&i-r>=t&&n.push([r,i-1]),n}},function(e,t){e.exports=function(e){for(var t={},n=e.length,r=0;r<n;r+=1)t[e.charAt(r)]=0;for(var o=0;o<n;o+=1)t[e.charAt(o)]|=1<<n-o-1;return t}},function(e,t,n){var r=n(0);e.exports=function(e,t){return function e(t,n,o){if(n){var i=n.indexOf("."),a=n,s=null;-1!==i&&(a=n.slice(0,i),s=n.slice(i+1));var c=t[a];if(null!=c)if(s||"string"!=typeof c&&"number"!=typeof c)if(r(c))for(var h=0,l=c.length;h<l;h+=1)e(c[h],s,o);else s&&e(c,s,o);else o.push(c.toString())}else o.push(t);return o}(e,t,[])}}])});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __nested_webpack_require_20511__) {
+
+"use strict";
+/* harmony export (binding) */ __nested_webpack_require_20511__.d(__webpack_exports__, "a", function() { return symbolObservablePonyfill; });
+function symbolObservablePonyfill(root) {
+	var result;
+	var Symbol = root.Symbol;
+
+	if (typeof Symbol === 'function') {
+		if (Symbol.observable) {
+			result = Symbol.observable;
+		} else {
+			result = Symbol('observable');
+			Symbol.observable = result;
+		}
+	} else {
+		result = '@@observable';
+	}
+
+	return result;
+};
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __nested_webpack_require_21049__) {
+
+module.exports = __nested_webpack_require_21049__(7);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if (!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __nested_webpack_require_22336__) {
+
+"use strict";
+__nested_webpack_require_22336__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/fuse.js/dist/fuse.js
+var dist_fuse = __nested_webpack_require_22336__(2);
+var fuse_default = /*#__PURE__*/__nested_webpack_require_22336__.n(dist_fuse);
+
+// EXTERNAL MODULE: ./node_modules/deepmerge/dist/cjs.js
+var cjs = __nested_webpack_require_22336__(0);
+var cjs_default = /*#__PURE__*/__nested_webpack_require_22336__.n(cjs);
+
+// EXTERNAL MODULE: ./node_modules/symbol-observable/es/index.js
+var es = __nested_webpack_require_22336__(1);
+
+// CONCATENATED MODULE: ./node_modules/redux/es/redux.js
+
+
+/**
+ * These are private action types reserved by Redux.
+ * For any unknown actions, you must return the current state.
+ * If the current state is undefined, you must return the initial state.
+ * Do not reference these action types directly in your code.
+ */
+var randomString = function randomString() {
+  return Math.random().toString(36).substring(7).split('').join('.');
+};
+
+var ActionTypes = {
+  INIT: "@@redux/INIT" + randomString(),
+  REPLACE: "@@redux/REPLACE" + randomString(),
+  PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION() {
+    return "@@redux/PROBE_UNKNOWN_ACTION" + randomString();
+  }
+};
+
+/**
+ * @param {any} obj The object to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+function isPlainObject(obj) {
+  if (typeof obj !== 'object' || obj === null) return false;
+  var proto = obj;
+
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return Object.getPrototypeOf(obj) === proto;
+}
+
+/**
+ * Creates a Redux store that holds the state tree.
+ * The only way to change the data in the store is to call `dispatch()` on it.
+ *
+ * There should only be a single store in your app. To specify how different
+ * parts of the state tree respond to actions, you may combine several reducers
+ * into a single reducer function by using `combineReducers`.
+ *
+ * @param {Function} reducer A function that returns the next state tree, given
+ * the current state tree and the action to handle.
+ *
+ * @param {any} [preloadedState] The initial state. You may optionally specify it
+ * to hydrate the state from the server in universal apps, or to restore a
+ * previously serialized user session.
+ * If you use `combineReducers` to produce the root reducer function, this must be
+ * an object with the same shape as `combineReducers` keys.
+ *
+ * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+ * to enhance the store with third-party capabilities such as middleware,
+ * time travel, persistence, etc. The only store enhancer that ships with Redux
+ * is `applyMiddleware()`.
+ *
+ * @returns {Store} A Redux store that lets you read the state, dispatch actions
+ * and subscribe to changes.
+ */
+
+function createStore(reducer, preloadedState, enhancer) {
+  var _ref2;
+
+  if (typeof preloadedState === 'function' && typeof enhancer === 'function' || typeof enhancer === 'function' && typeof arguments[3] === 'function') {
+    throw new Error('It looks like you are passing several store enhancers to ' + 'createStore(). This is not supported. Instead, compose them ' + 'together to a single function.');
+  }
+
+  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+    enhancer = preloadedState;
+    preloadedState = undefined;
+  }
+
+  if (typeof enhancer !== 'undefined') {
+    if (typeof enhancer !== 'function') {
+      throw new Error('Expected the enhancer to be a function.');
+    }
+
+    return enhancer(createStore)(reducer, preloadedState);
+  }
+
+  if (typeof reducer !== 'function') {
+    throw new Error('Expected the reducer to be a function.');
+  }
+
+  var currentReducer = reducer;
+  var currentState = preloadedState;
+  var currentListeners = [];
+  var nextListeners = currentListeners;
+  var isDispatching = false;
+  /**
+   * This makes a shallow copy of currentListeners so we can use
+   * nextListeners as a temporary list while dispatching.
+   *
+   * This prevents any bugs around consumers calling
+   * subscribe/unsubscribe in the middle of a dispatch.
+   */
+
+  function ensureCanMutateNextListeners() {
+    if (nextListeners === currentListeners) {
+      nextListeners = currentListeners.slice();
+    }
+  }
+  /**
+   * Reads the state tree managed by the store.
+   *
+   * @returns {any} The current state tree of your application.
+   */
+
+
+  function getState() {
+    if (isDispatching) {
+      throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.');
+    }
+
+    return currentState;
+  }
+  /**
+   * Adds a change listener. It will be called any time an action is dispatched,
+   * and some part of the state tree may potentially have changed. You may then
+   * call `getState()` to read the current state tree inside the callback.
+   *
+   * You may call `dispatch()` from a change listener, with the following
+   * caveats:
+   *
+   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
+   * If you subscribe or unsubscribe while the listeners are being invoked, this
+   * will not have any effect on the `dispatch()` that is currently in progress.
+   * However, the next `dispatch()` call, whether nested or not, will use a more
+   * recent snapshot of the subscription list.
+   *
+   * 2. The listener should not expect to see all state changes, as the state
+   * might have been updated multiple times during a nested `dispatch()` before
+   * the listener is called. It is, however, guaranteed that all subscribers
+   * registered before the `dispatch()` started will be called with the latest
+   * state by the time it exits.
+   *
+   * @param {Function} listener A callback to be invoked on every dispatch.
+   * @returns {Function} A function to remove this change listener.
+   */
+
+
+  function subscribe(listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('Expected the listener to be a function.');
+    }
+
+    if (isDispatching) {
+      throw new Error('You may not call store.subscribe() while the reducer is executing. ' + 'If you would like to be notified after the store has been updated, subscribe from a ' + 'component and invoke store.getState() in the callback to access the latest state. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
+    }
+
+    var isSubscribed = true;
+    ensureCanMutateNextListeners();
+    nextListeners.push(listener);
+    return function unsubscribe() {
+      if (!isSubscribed) {
+        return;
+      }
+
+      if (isDispatching) {
+        throw new Error('You may not unsubscribe from a store listener while the reducer is executing. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
+      }
+
+      isSubscribed = false;
+      ensureCanMutateNextListeners();
+      var index = nextListeners.indexOf(listener);
+      nextListeners.splice(index, 1);
+    };
+  }
+  /**
+   * Dispatches an action. It is the only way to trigger a state change.
+   *
+   * The `reducer` function, used to create the store, will be called with the
+   * current state tree and the given `action`. Its return value will
+   * be considered the **next** state of the tree, and the change listeners
+   * will be notified.
+   *
+   * The base implementation only supports plain object actions. If you want to
+   * dispatch a Promise, an Observable, a thunk, or something else, you need to
+   * wrap your store creating function into the corresponding middleware. For
+   * example, see the documentation for the `redux-thunk` package. Even the
+   * middleware will eventually dispatch plain object actions using this method.
+   *
+   * @param {Object} action A plain object representing “what changed”. It is
+   * a good idea to keep actions serializable so you can record and replay user
+   * sessions, or use the time travelling `redux-devtools`. An action must have
+   * a `type` property which may not be `undefined`. It is a good idea to use
+   * string constants for action types.
+   *
+   * @returns {Object} For convenience, the same action object you dispatched.
+   *
+   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
+   * return something else (for example, a Promise you can await).
+   */
+
+
+  function dispatch(action) {
+    if (!isPlainObject(action)) {
+      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
+    }
+
+    if (typeof action.type === 'undefined') {
+      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
+    }
+
+    if (isDispatching) {
+      throw new Error('Reducers may not dispatch actions.');
+    }
+
+    try {
+      isDispatching = true;
+      currentState = currentReducer(currentState, action);
+    } finally {
+      isDispatching = false;
+    }
+
+    var listeners = currentListeners = nextListeners;
+
+    for (var i = 0; i < listeners.length; i++) {
+      var listener = listeners[i];
+      listener();
+    }
+
+    return action;
+  }
+  /**
+   * Replaces the reducer currently used by the store to calculate the state.
+   *
+   * You might need this if your app implements code splitting and you want to
+   * load some of the reducers dynamically. You might also need this if you
+   * implement a hot reloading mechanism for Redux.
+   *
+   * @param {Function} nextReducer The reducer for the store to use instead.
+   * @returns {void}
+   */
+
+
+  function replaceReducer(nextReducer) {
+    if (typeof nextReducer !== 'function') {
+      throw new Error('Expected the nextReducer to be a function.');
+    }
+
+    currentReducer = nextReducer; // This action has a similiar effect to ActionTypes.INIT.
+    // Any reducers that existed in both the new and old rootReducer
+    // will receive the previous state. This effectively populates
+    // the new state tree with any relevant data from the old one.
+
+    dispatch({
+      type: ActionTypes.REPLACE
+    });
+  }
+  /**
+   * Interoperability point for observable/reactive libraries.
+   * @returns {observable} A minimal observable of state changes.
+   * For more information, see the observable proposal:
+   * https://github.com/tc39/proposal-observable
+   */
+
+
+  function observable() {
+    var _ref;
+
+    var outerSubscribe = subscribe;
+    return _ref = {
+      /**
+       * The minimal observable subscription method.
+       * @param {Object} observer Any object that can be used as an observer.
+       * The observer object should have a `next` method.
+       * @returns {subscription} An object with an `unsubscribe` method that can
+       * be used to unsubscribe the observable from the store, and prevent further
+       * emission of values from the observable.
+       */
+      subscribe: function subscribe(observer) {
+        if (typeof observer !== 'object' || observer === null) {
+          throw new TypeError('Expected the observer to be an object.');
+        }
+
+        function observeState() {
+          if (observer.next) {
+            observer.next(getState());
+          }
+        }
+
+        observeState();
+        var unsubscribe = outerSubscribe(observeState);
+        return {
+          unsubscribe: unsubscribe
+        };
+      }
+    }, _ref[es["a" /* default */]] = function () {
+      return this;
+    }, _ref;
+  } // When a store is created, an "INIT" action is dispatched so that every
+  // reducer returns their initial state. This effectively populates
+  // the initial state tree.
+
+
+  dispatch({
+    type: ActionTypes.INIT
+  });
+  return _ref2 = {
+    dispatch: dispatch,
+    subscribe: subscribe,
+    getState: getState,
+    replaceReducer: replaceReducer
+  }, _ref2[es["a" /* default */]] = observable, _ref2;
+}
+
+/**
+ * Prints a warning in the console if it exists.
+ *
+ * @param {String} message The warning message.
+ * @returns {void}
+ */
+function warning(message) {
+  /* eslint-disable no-console */
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(message);
+  }
+  /* eslint-enable no-console */
+
+
+  try {
+    // This error was thrown as a convenience so that if you enable
+    // "break on all exceptions" in your console,
+    // it would pause the execution at this line.
+    throw new Error(message);
+  } catch (e) {} // eslint-disable-line no-empty
+
+}
+
+function getUndefinedStateErrorMessage(key, action) {
+  var actionType = action && action.type;
+  var actionDescription = actionType && "action \"" + String(actionType) + "\"" || 'an action';
+  return "Given " + actionDescription + ", reducer \"" + key + "\" returned undefined. " + "To ignore an action, you must explicitly return the previous state. " + "If you want this reducer to hold no value, you can return null instead of undefined.";
+}
+
+function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
+  var reducerKeys = Object.keys(reducers);
+  var argumentName = action && action.type === ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
+
+  if (reducerKeys.length === 0) {
+    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
+  }
+
+  if (!isPlainObject(inputState)) {
+    return "The " + argumentName + " has unexpected type of \"" + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + "\". Expected argument to be an object with the following " + ("keys: \"" + reducerKeys.join('", "') + "\"");
+  }
+
+  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
+    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+  });
+  unexpectedKeys.forEach(function (key) {
+    unexpectedKeyCache[key] = true;
+  });
+  if (action && action.type === ActionTypes.REPLACE) return;
+
+  if (unexpectedKeys.length > 0) {
+    return "Unexpected " + (unexpectedKeys.length > 1 ? 'keys' : 'key') + " " + ("\"" + unexpectedKeys.join('", "') + "\" found in " + argumentName + ". ") + "Expected to find one of the known reducer keys instead: " + ("\"" + reducerKeys.join('", "') + "\". Unexpected keys will be ignored.");
+  }
+}
+
+function assertReducerShape(reducers) {
+  Object.keys(reducers).forEach(function (key) {
+    var reducer = reducers[key];
+    var initialState = reducer(undefined, {
+      type: ActionTypes.INIT
+    });
+
+    if (typeof initialState === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined during initialization. " + "If the state passed to the reducer is undefined, you must " + "explicitly return the initial state. The initial state may " + "not be undefined. If you don't want to set a value for this reducer, " + "you can use null instead of undefined.");
+    }
+
+    if (typeof reducer(undefined, {
+      type: ActionTypes.PROBE_UNKNOWN_ACTION()
+    }) === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined when probed with a random type. " + ("Don't try to handle " + ActionTypes.INIT + " or other actions in \"redux/*\" ") + "namespace. They are considered private. Instead, you must return the " + "current state for any unknown actions, unless it is undefined, " + "in which case you must return the initial state, regardless of the " + "action type. The initial state may not be undefined, but can be null.");
+    }
+  });
+}
+/**
+ * Turns an object whose values are different reducer functions, into a single
+ * reducer function. It will call every child reducer, and gather their results
+ * into a single state object, whose keys correspond to the keys of the passed
+ * reducer functions.
+ *
+ * @param {Object} reducers An object whose values correspond to different
+ * reducer functions that need to be combined into one. One handy way to obtain
+ * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+ * undefined for any action. Instead, they should return their initial state
+ * if the state passed to them was undefined, and the current state for any
+ * unrecognized action.
+ *
+ * @returns {Function} A reducer function that invokes every reducer inside the
+ * passed object, and builds a state object with the same shape.
+ */
+
+
+function combineReducers(reducers) {
+  var reducerKeys = Object.keys(reducers);
+  var finalReducers = {};
+
+  for (var i = 0; i < reducerKeys.length; i++) {
+    var key = reducerKeys[i];
+
+    if (false) {}
+
+    if (typeof reducers[key] === 'function') {
+      finalReducers[key] = reducers[key];
+    }
+  }
+
+  var finalReducerKeys = Object.keys(finalReducers); // This is used to make sure we don't warn about the same
+  // keys multiple times.
+
+  var unexpectedKeyCache;
+
+  if (false) {}
+
+  var shapeAssertionError;
+
+  try {
+    assertReducerShape(finalReducers);
+  } catch (e) {
+    shapeAssertionError = e;
+  }
+
+  return function combination(state, action) {
+    if (state === void 0) {
+      state = {};
+    }
+
+    if (shapeAssertionError) {
+      throw shapeAssertionError;
+    }
+
+    if (false) { var warningMessage; }
+
+    var hasChanged = false;
+    var nextState = {};
+
+    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
+      var _key = finalReducerKeys[_i];
+      var reducer = finalReducers[_key];
+      var previousStateForKey = state[_key];
+      var nextStateForKey = reducer(previousStateForKey, action);
+
+      if (typeof nextStateForKey === 'undefined') {
+        var errorMessage = getUndefinedStateErrorMessage(_key, action);
+        throw new Error(errorMessage);
+      }
+
+      nextState[_key] = nextStateForKey;
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+    }
+
+    return hasChanged ? nextState : state;
+  };
+}
+
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(this, arguments));
+  };
+}
+/**
+ * Turns an object whose values are action creators, into an object with the
+ * same keys, but with every function wrapped into a `dispatch` call so they
+ * may be invoked directly. This is just a convenience method, as you can call
+ * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+ *
+ * For convenience, you can also pass an action creator as the first argument,
+ * and get a dispatch wrapped function in return.
+ *
+ * @param {Function|Object} actionCreators An object whose values are action
+ * creator functions. One handy way to obtain it is to use ES6 `import * as`
+ * syntax. You may also pass a single function.
+ *
+ * @param {Function} dispatch The `dispatch` function available on your Redux
+ * store.
+ *
+ * @returns {Function|Object} The object mimicking the original object, but with
+ * every action creator wrapped into the `dispatch` call. If you passed a
+ * function as `actionCreators`, the return value will also be a single
+ * function.
+ */
+
+
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === 'function') {
+    return bindActionCreator(actionCreators, dispatch);
+  }
+
+  if (typeof actionCreators !== 'object' || actionCreators === null) {
+    throw new Error("bindActionCreators expected an object or a function, instead received " + (actionCreators === null ? 'null' : typeof actionCreators) + ". " + "Did you write \"import ActionCreators from\" instead of \"import * as ActionCreators from\"?");
+  }
+
+  var boundActionCreators = {};
+
+  for (var key in actionCreators) {
+    var actionCreator = actionCreators[key];
+
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  }
+
+  return boundActionCreators;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+/**
+ * Composes single-argument functions from right to left. The rightmost
+ * function can take multiple arguments as it provides the signature for
+ * the resulting composite function.
+ *
+ * @param {...Function} funcs The functions to compose.
+ * @returns {Function} A function obtained by composing the argument functions
+ * from right to left. For example, compose(f, g, h) is identical to doing
+ * (...args) => f(g(h(...args))).
+ */
+function compose() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  if (funcs.length === 0) {
+    return function (arg) {
+      return arg;
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  });
+}
+
+/**
+ * Creates a store enhancer that applies middleware to the dispatch method
+ * of the Redux store. This is handy for a variety of tasks, such as expressing
+ * asynchronous actions in a concise manner, or logging every action payload.
+ *
+ * See `redux-thunk` package as an example of the Redux middleware.
+ *
+ * Because middleware is potentially asynchronous, this should be the first
+ * store enhancer in the composition chain.
+ *
+ * Note that each middleware will be given the `dispatch` and `getState` functions
+ * as named arguments.
+ *
+ * @param {...Function} middlewares The middleware chain to be applied.
+ * @returns {Function} A store enhancer applying the middleware.
+ */
+
+function applyMiddleware() {
+  for (var _len = arguments.length, middlewares = new Array(_len), _key = 0; _key < _len; _key++) {
+    middlewares[_key] = arguments[_key];
+  }
+
+  return function (createStore) {
+    return function () {
+      var store = createStore.apply(void 0, arguments);
+
+      var _dispatch = function dispatch() {
+        throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+      };
+
+      var middlewareAPI = {
+        getState: store.getState,
+        dispatch: function dispatch() {
+          return _dispatch.apply(void 0, arguments);
+        }
+      };
+      var chain = middlewares.map(function (middleware) {
+        return middleware(middlewareAPI);
+      });
+      _dispatch = compose.apply(void 0, chain)(store.dispatch);
+      return _objectSpread2({}, store, {
+        dispatch: _dispatch
+      });
+    };
+  };
+}
+
+/*
+ * This is a dummy function to check if the function name has been altered by minification.
+ * If the function has been minified and NODE_ENV !== 'production', warn the user.
+ */
+
+function isCrushed() {}
+
+if (false) {}
+
+
+
+// CONCATENATED MODULE: ./src/scripts/reducers/items.js
+var defaultState = [];
+function items_items(state, action) {
+  if (state === void 0) {
+    state = defaultState;
+  }
+
+  switch (action.type) {
+    case 'ADD_ITEM':
+      {
+        // Add object to items array
+        var newState = [].concat(state, [{
+          id: action.id,
+          choiceId: action.choiceId,
+          groupId: action.groupId,
+          value: action.value,
+          label: action.label,
+          active: true,
+          highlighted: false,
+          customProperties: action.customProperties,
+          placeholder: action.placeholder || false,
+          keyCode: null
+        }]);
+        return newState.map(function (obj) {
+          var item = obj;
+          item.highlighted = false;
+          return item;
+        });
+      }
+
+    case 'REMOVE_ITEM':
+      {
+        // Set item to inactive
+        return state.map(function (obj) {
+          var item = obj;
+
+          if (item.id === action.id) {
+            item.active = false;
+          }
+
+          return item;
+        });
+      }
+
+    case 'HIGHLIGHT_ITEM':
+      {
+        return state.map(function (obj) {
+          var item = obj;
+
+          if (item.id === action.id) {
+            item.highlighted = action.highlighted;
+          }
+
+          return item;
+        });
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+// CONCATENATED MODULE: ./src/scripts/reducers/groups.js
+var groups_defaultState = [];
+function groups(state, action) {
+  if (state === void 0) {
+    state = groups_defaultState;
+  }
+
+  switch (action.type) {
+    case 'ADD_GROUP':
+      {
+        return [].concat(state, [{
+          id: action.id,
+          value: action.value,
+          active: action.active,
+          disabled: action.disabled
+        }]);
+      }
+
+    case 'CLEAR_CHOICES':
+      {
+        return [];
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+// CONCATENATED MODULE: ./src/scripts/reducers/choices.js
+var choices_defaultState = [];
+function choices_choices(state, action) {
+  if (state === void 0) {
+    state = choices_defaultState;
+  }
+
+  switch (action.type) {
+    case 'ADD_CHOICE':
+      {
+        /*
+            A disabled choice appears in the choice dropdown but cannot be selected
+            A selected choice has been added to the passed input's value (added as an item)
+            An active choice appears within the choice dropdown
+         */
+        return [].concat(state, [{
+          id: action.id,
+          elementId: action.elementId,
+          groupId: action.groupId,
+          value: action.value,
+          label: action.label || action.value,
+          disabled: action.disabled || false,
+          selected: false,
+          active: true,
+          score: 9999,
+          customProperties: action.customProperties,
+          placeholder: action.placeholder || false,
+          keyCode: null
+        }]);
+      }
+
+    case 'ADD_ITEM':
+      {
+        // If all choices need to be activated
+        if (action.activateOptions) {
+          return state.map(function (obj) {
+            var choice = obj;
+            choice.active = action.active;
+            return choice;
+          });
+        } // When an item is added and it has an associated choice,
+        // we want to disable it so it can't be chosen again
+
+
+        if (action.choiceId > -1) {
+          return state.map(function (obj) {
+            var choice = obj;
+
+            if (choice.id === parseInt(action.choiceId, 10)) {
+              choice.selected = true;
+            }
+
+            return choice;
+          });
+        }
+
+        return state;
+      }
+
+    case 'REMOVE_ITEM':
+      {
+        // When an item is removed and it has an associated choice,
+        // we want to re-enable it so it can be chosen again
+        if (action.choiceId > -1) {
+          return state.map(function (obj) {
+            var choice = obj;
+
+            if (choice.id === parseInt(action.choiceId, 10)) {
+              choice.selected = false;
+            }
+
+            return choice;
+          });
+        }
+
+        return state;
+      }
+
+    case 'FILTER_CHOICES':
+      {
+        return state.map(function (obj) {
+          var choice = obj; // Set active state based on whether choice is
+          // within filtered results
+
+          choice.active = action.results.some(function (_ref) {
+            var item = _ref.item,
+                score = _ref.score;
+
+            if (item.id === choice.id) {
+              choice.score = score;
+              return true;
+            }
+
+            return false;
+          });
+          return choice;
+        });
+      }
+
+    case 'ACTIVATE_CHOICES':
+      {
+        return state.map(function (obj) {
+          var choice = obj;
+          choice.active = action.active;
+          return choice;
+        });
+      }
+
+    case 'CLEAR_CHOICES':
+      {
+        return choices_defaultState;
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+// CONCATENATED MODULE: ./src/scripts/reducers/general.js
+var general_defaultState = {
+  loading: false
+};
+
+var general = function general(state, action) {
+  if (state === void 0) {
+    state = general_defaultState;
+  }
+
+  switch (action.type) {
+    case 'SET_IS_LOADING':
+      {
+        return {
+          loading: action.isLoading
+        };
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+};
+
+/* harmony default export */ var reducers_general = (general);
+// CONCATENATED MODULE: ./src/scripts/lib/utils.js
+/**
+ * @param {number} min
+ * @param {number} max
+ * @returns {number}
+ */
+var getRandomNumber = function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+/**
+ * @param {number} length
+ * @returns {string}
+ */
+
+var generateChars = function generateChars(length) {
+  return Array.from({
+    length: length
+  }, function () {
+    return getRandomNumber(0, 36).toString(36);
+  }).join('');
+};
+/**
+ * @param {HTMLInputElement | HTMLSelectElement} element
+ * @param {string} prefix
+ * @returns {string}
+ */
+
+var generateId = function generateId(element, prefix) {
+  var id = element.id || element.name && element.name + "-" + generateChars(2) || generateChars(4);
+  id = id.replace(/(:|\.|\[|\]|,)/g, '');
+  id = prefix + "-" + id;
+  return id;
+};
+/**
+ * @param {any} obj
+ * @returns {string}
+ */
+
+var getType = function getType(obj) {
+  return Object.prototype.toString.call(obj).slice(8, -1);
+};
+/**
+ * @param {string} type
+ * @param {any} obj
+ * @returns {boolean}
+ */
+
+var isType = function isType(type, obj) {
+  return obj !== undefined && obj !== null && getType(obj) === type;
+};
+/**
+ * @param {HTMLElement} element
+ * @param {HTMLElement} [wrapper={HTMLDivElement}]
+ * @returns {HTMLElement}
+ */
+
+var utils_wrap = function wrap(element, wrapper) {
+  if (wrapper === void 0) {
+    wrapper = document.createElement('div');
+  }
+
+  if (element.nextSibling) {
+    element.parentNode.insertBefore(wrapper, element.nextSibling);
+  } else {
+    element.parentNode.appendChild(wrapper);
+  }
+
+  return wrapper.appendChild(element);
+};
+/**
+ * @param {Element} startEl
+ * @param {string} selector
+ * @param {1 | -1} direction
+ * @returns {Element | undefined}
+ */
+
+var getAdjacentEl = function getAdjacentEl(startEl, selector, direction) {
+  if (direction === void 0) {
+    direction = 1;
+  }
+
+  if (!(startEl instanceof Element) || typeof selector !== 'string') {
+    return undefined;
+  }
+
+  var prop = (direction > 0 ? 'next' : 'previous') + "ElementSibling";
+  var sibling = startEl[prop];
+
+  while (sibling) {
+    if (sibling.matches(selector)) {
+      return sibling;
+    }
+
+    sibling = sibling[prop];
+  }
+
+  return sibling;
+};
+/**
+ * @param {Element} element
+ * @param {Element} parent
+ * @param {-1 | 1} direction
+ * @returns {boolean}
+ */
+
+var isScrolledIntoView = function isScrolledIntoView(element, parent, direction) {
+  if (direction === void 0) {
+    direction = 1;
+  }
+
+  if (!element) {
+    return false;
+  }
+
+  var isVisible;
+
+  if (direction > 0) {
+    // In view from bottom
+    isVisible = parent.scrollTop + parent.offsetHeight >= element.offsetTop + element.offsetHeight;
+  } else {
+    // In view from top
+    isVisible = element.offsetTop >= parent.scrollTop;
+  }
+
+  return isVisible;
+};
+/**
+ * @param {any} value
+ * @returns {any}
+ */
+
+var sanitise = function sanitise(value) {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  return value.replace(/&/g, '&amp;').replace(/>/g, '&rt;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+};
+/**
+ * @returns {() => (str: string) => Element}
+ */
+
+var strToEl = function () {
+  var tmpEl = document.createElement('div');
+  return function (str) {
+    var cleanedInput = str.trim();
+    tmpEl.innerHTML = cleanedInput;
+    var firldChild = tmpEl.children[0];
+
+    while (tmpEl.firstChild) {
+      tmpEl.removeChild(tmpEl.firstChild);
+    }
+
+    return firldChild;
+  };
+}();
+/**
+ * @param {{ label?: string, value: string }} a
+ * @param {{ label?: string, value: string }} b
+ * @returns {number}
+ */
+
+var sortByAlpha = function sortByAlpha(_ref, _ref2) {
+  var value = _ref.value,
+      _ref$label = _ref.label,
+      label = _ref$label === void 0 ? value : _ref$label;
+  var value2 = _ref2.value,
+      _ref2$label = _ref2.label,
+      label2 = _ref2$label === void 0 ? value2 : _ref2$label;
+  return label.localeCompare(label2, [], {
+    sensitivity: 'base',
+    ignorePunctuation: true,
+    numeric: true
+  });
+};
+/**
+ * @param {{ score: number }} a
+ * @param {{ score: number }} b
+ */
+
+var sortByScore = function sortByScore(a, b) {
+  return a.score - b.score;
+};
+/**
+ * @param {HTMLElement} element
+ * @param {string} type
+ * @param {object} customArgs
+ */
+
+var dispatchEvent = function dispatchEvent(element, type, customArgs) {
+  if (customArgs === void 0) {
+    customArgs = null;
+  }
+
+  var event = new CustomEvent(type, {
+    detail: customArgs,
+    bubbles: true,
+    cancelable: true
+  });
+  return element.dispatchEvent(event);
+};
+/**
+ * @param {array} array
+ * @param {any} value
+ * @param {string} [key="value"]
+ * @returns {boolean}
+ */
+
+var existsInArray = function existsInArray(array, value, key) {
+  if (key === void 0) {
+    key = 'value';
+  }
+
+  return array.some(function (item) {
+    if (typeof value === 'string') {
+      return item[key] === value.trim();
+    }
+
+    return item[key] === value;
+  });
+};
+/**
+ * @param {any} obj
+ * @returns {any}
+ */
+
+var cloneObject = function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
+};
+/**
+ * Returns an array of keys present on the first but missing on the second object
+ * @param {object} a
+ * @param {object} b
+ * @returns {string[]}
+ */
+
+var diff = function diff(a, b) {
+  var aKeys = Object.keys(a).sort();
+  var bKeys = Object.keys(b).sort();
+  return aKeys.filter(function (i) {
+    return bKeys.indexOf(i) < 0;
+  });
+};
+// CONCATENATED MODULE: ./src/scripts/reducers/index.js
+
+
+
+
+
+
+var appReducer = combineReducers({
+  items: items_items,
+  groups: groups,
+  choices: choices_choices,
+  general: reducers_general
+});
+
+var reducers_rootReducer = function rootReducer(passedState, action) {
+  var state = passedState; // If we are clearing all items, groups and options we reassign
+  // state and then pass that state to our proper reducer. This isn't
+  // mutating our actual state
+  // See: http://stackoverflow.com/a/35641992
+
+  if (action.type === 'CLEAR_ALL') {
+    state = undefined;
+  } else if (action.type === 'RESET_TO') {
+    return cloneObject(action.state);
+  }
+
+  return appReducer(state, action);
+};
+
+/* harmony default export */ var reducers = (reducers_rootReducer);
+// CONCATENATED MODULE: ./src/scripts/store/store.js
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.Choice} Choice
+ * @typedef {import('../../../types/index').Choices.Group} Group
+ * @typedef {import('../../../types/index').Choices.Item} Item
+ */
+
+var store_Store =
+/*#__PURE__*/
+function () {
+  function Store() {
+    this._store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+  }
+  /**
+   * Subscribe store to function call (wrapped Redux method)
+   * @param  {Function} onChange Function to trigger when state changes
+   * @return
+   */
+
+
+  var _proto = Store.prototype;
+
+  _proto.subscribe = function subscribe(onChange) {
+    this._store.subscribe(onChange);
+  }
+  /**
+   * Dispatch event to store (wrapped Redux method)
+   * @param  {{ type: string, [x: string]: any }} action Action to trigger
+   * @return
+   */
+  ;
+
+  _proto.dispatch = function dispatch(action) {
+    this._store.dispatch(action);
+  }
+  /**
+   * Get store object (wrapping Redux method)
+   * @returns {object} State
+   */
+  ;
+
+  /**
+   * Get loading state from store
+   * @returns {boolean} Loading State
+   */
+  _proto.isLoading = function isLoading() {
+    return this.state.general.loading;
+  }
+  /**
+   * Get single choice by it's ID
+   * @param {string} id
+   * @returns {Choice | undefined} Found choice
+   */
+  ;
+
+  _proto.getChoiceById = function getChoiceById(id) {
+    return this.activeChoices.find(function (choice) {
+      return choice.id === parseInt(id, 10);
+    });
+  }
+  /**
+   * Get group by group id
+   * @param  {number} id Group ID
+   * @returns {Group | undefined} Group data
+   */
+  ;
+
+  _proto.getGroupById = function getGroupById(id) {
+    return this.groups.find(function (group) {
+      return group.id === id;
+    });
+  };
+
+  _createClass(Store, [{
+    key: "state",
+    get: function get() {
+      return this._store.getState();
+    }
+    /**
+     * Get items from store
+     * @returns {Item[]} Item objects
+     */
+
+  }, {
+    key: "items",
+    get: function get() {
+      return this.state.items;
+    }
+    /**
+     * Get active items from store
+     * @returns {Item[]} Item objects
+     */
+
+  }, {
+    key: "activeItems",
+    get: function get() {
+      return this.items.filter(function (item) {
+        return item.active === true;
+      });
+    }
+    /**
+     * Get highlighted items from store
+     * @returns {Item[]} Item objects
+     */
+
+  }, {
+    key: "highlightedActiveItems",
+    get: function get() {
+      return this.items.filter(function (item) {
+        return item.active && item.highlighted;
+      });
+    }
+    /**
+     * Get choices from store
+     * @returns {Choice[]} Option objects
+     */
+
+  }, {
+    key: "choices",
+    get: function get() {
+      return this.state.choices;
+    }
+    /**
+     * Get active choices from store
+     * @returns {Choice[]} Option objects
+     */
+
+  }, {
+    key: "activeChoices",
+    get: function get() {
+      return this.choices.filter(function (choice) {
+        return choice.active === true;
+      });
+    }
+    /**
+     * Get selectable choices from store
+     * @returns {Choice[]} Option objects
+     */
+
+  }, {
+    key: "selectableChoices",
+    get: function get() {
+      return this.choices.filter(function (choice) {
+        return choice.disabled !== true;
+      });
+    }
+    /**
+     * Get choices that can be searched (excluding placeholders)
+     * @returns {Choice[]} Option objects
+     */
+
+  }, {
+    key: "searchableChoices",
+    get: function get() {
+      return this.selectableChoices.filter(function (choice) {
+        return choice.placeholder !== true;
+      });
+    }
+    /**
+     * Get placeholder choice from store
+     * @returns {Choice | undefined} Found placeholder
+     */
+
+  }, {
+    key: "placeholderChoice",
+    get: function get() {
+      return [].concat(this.choices).reverse().find(function (choice) {
+        return choice.placeholder === true;
+      });
+    }
+    /**
+     * Get groups from store
+     * @returns {Group[]} Group objects
+     */
+
+  }, {
+    key: "groups",
+    get: function get() {
+      return this.state.groups;
+    }
+    /**
+     * Get active groups from store
+     * @returns {Group[]} Group objects
+     */
+
+  }, {
+    key: "activeGroups",
+    get: function get() {
+      var groups = this.groups,
+          choices = this.choices;
+      return groups.filter(function (group) {
+        var isActive = group.active === true && group.disabled === false;
+        var hasActiveOptions = choices.some(function (choice) {
+          return choice.active === true && choice.disabled === false;
+        });
+        return isActive && hasActiveOptions;
+      }, []);
+    }
+  }]);
+
+  return Store;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/components/dropdown.js
+function dropdown_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function dropdown_createClass(Constructor, protoProps, staticProps) { if (protoProps) dropdown_defineProperties(Constructor.prototype, protoProps); if (staticProps) dropdown_defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * @typedef {import('../../../types/index').Choices.passedElement} passedElement
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ */
+var Dropdown =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {{
+   *  element: HTMLElement,
+   *  type: passedElement['type'],
+   *  classNames: ClassNames,
+   * }} args
+   */
+  function Dropdown(_ref) {
+    var element = _ref.element,
+        type = _ref.type,
+        classNames = _ref.classNames;
+    this.element = element;
+    this.classNames = classNames;
+    this.type = type;
+    this.isActive = false;
+  }
+  /**
+   * Bottom position of dropdown in viewport coordinates
+   * @returns {number} Vertical position
+   */
+
+
+  var _proto = Dropdown.prototype;
+
+  /**
+   * Find element that matches passed selector
+   * @param {string} selector
+   * @returns {HTMLElement | null}
+   */
+  _proto.getChild = function getChild(selector) {
+    return this.element.querySelector(selector);
+  }
+  /**
+   * Show dropdown to user by adding active state class
+   * @returns {this}
+   */
+  ;
+
+  _proto.show = function show() {
+    this.element.classList.add(this.classNames.activeState);
+    this.element.setAttribute('aria-expanded', 'true');
+    this.isActive = true;
+    return this;
+  }
+  /**
+   * Hide dropdown from user
+   * @returns {this}
+   */
+  ;
+
+  _proto.hide = function hide() {
+    this.element.classList.remove(this.classNames.activeState);
+    this.element.setAttribute('aria-expanded', 'false');
+    this.isActive = false;
+    return this;
+  };
+
+  dropdown_createClass(Dropdown, [{
+    key: "distanceFromTopWindow",
+    get: function get() {
+      return this.element.getBoundingClientRect().bottom;
+    }
+  }]);
+
+  return Dropdown;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/constants.js
+
+/**
+ * @typedef {import('../../types/index').Choices.ClassNames} ClassNames
+ * @typedef {import('../../types/index').Choices.Options} Options
+ */
+
+/** @type {ClassNames} */
+
+var DEFAULT_CLASSNAMES = {
+  containerOuter: 'choices',
+  containerInner: 'choices__inner',
+  input: 'choices__input',
+  inputCloned: 'choices__input--cloned',
+  list: 'choices__list',
+  listItems: 'choices__list--multiple',
+  listSingle: 'choices__list--single',
+  listDropdown: 'choices__list--dropdown',
+  item: 'choices__item',
+  itemSelectable: 'choices__item--selectable',
+  itemDisabled: 'choices__item--disabled',
+  itemChoice: 'choices__item--choice',
+  placeholder: 'choices__placeholder',
+  group: 'choices__group',
+  groupHeading: 'choices__heading',
+  button: 'choices__button',
+  activeState: 'is-active',
+  focusState: 'is-focused',
+  openState: 'is-open',
+  disabledState: 'is-disabled',
+  highlightedState: 'is-highlighted',
+  selectedState: 'is-selected',
+  flippedState: 'is-flipped',
+  loadingState: 'is-loading',
+  noResults: 'has-no-results',
+  noChoices: 'has-no-choices'
+};
+/** @type {Options} */
+
+var DEFAULT_CONFIG = {
+  items: [],
+  choices: [],
+  silent: false,
+  renderChoiceLimit: -1,
+  maxItemCount: -1,
+  addItems: true,
+  addItemFilter: null,
+  removeItems: true,
+  removeItemButton: false,
+  editItems: false,
+  duplicateItemsAllowed: true,
+  delimiter: ',',
+  paste: true,
+  searchEnabled: true,
+  searchChoices: true,
+  searchFloor: 1,
+  searchResultLimit: 4,
+  searchFields: ['label', 'value'],
+  position: 'auto',
+  resetScrollPosition: true,
+  shouldSort: true,
+  shouldSortItems: false,
+  sorter: sortByAlpha,
+  placeholder: true,
+  placeholderValue: null,
+  searchPlaceholderValue: null,
+  prependValue: null,
+  appendValue: null,
+  renderSelectedChoices: 'auto',
+  loadingText: 'Loading...',
+  noResultsText: 'No results found',
+  noChoicesText: 'No choices to choose from',
+  itemSelectText: 'Press to select',
+  uniqueItemText: 'Only unique values can be added',
+  customAddItemText: 'Only values matching specific conditions can be added',
+  addItemText: function addItemText(value) {
+    return "Press Enter to add <b>\"" + sanitise(value) + "\"</b>";
+  },
+  maxItemText: function maxItemText(maxItemCount) {
+    return "Only " + maxItemCount + " values can be added";
+  },
+  valueComparer: function valueComparer(value1, value2) {
+    return value1 === value2;
+  },
+  fuseOptions: {
+    includeScore: true
+  },
+  callbackOnInit: null,
+  callbackOnCreateTemplates: null,
+  classNames: DEFAULT_CLASSNAMES
+};
+var EVENTS = {
+  showDropdown: 'showDropdown',
+  hideDropdown: 'hideDropdown',
+  change: 'change',
+  choice: 'choice',
+  search: 'search',
+  addItem: 'addItem',
+  removeItem: 'removeItem',
+  highlightItem: 'highlightItem',
+  highlightChoice: 'highlightChoice'
+};
+var ACTION_TYPES = {
+  ADD_CHOICE: 'ADD_CHOICE',
+  FILTER_CHOICES: 'FILTER_CHOICES',
+  ACTIVATE_CHOICES: 'ACTIVATE_CHOICES',
+  CLEAR_CHOICES: 'CLEAR_CHOICES',
+  ADD_GROUP: 'ADD_GROUP',
+  ADD_ITEM: 'ADD_ITEM',
+  REMOVE_ITEM: 'REMOVE_ITEM',
+  HIGHLIGHT_ITEM: 'HIGHLIGHT_ITEM',
+  CLEAR_ALL: 'CLEAR_ALL'
+};
+var KEY_CODES = {
+  BACK_KEY: 46,
+  DELETE_KEY: 8,
+  ENTER_KEY: 13,
+  A_KEY: 65,
+  ESC_KEY: 27,
+  UP_KEY: 38,
+  DOWN_KEY: 40,
+  PAGE_UP_KEY: 33,
+  PAGE_DOWN_KEY: 34
+};
+var TEXT_TYPE = 'text';
+var SELECT_ONE_TYPE = 'select-one';
+var SELECT_MULTIPLE_TYPE = 'select-multiple';
+var SCROLLING_SPEED = 4;
+// CONCATENATED MODULE: ./src/scripts/components/container.js
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.passedElement} passedElement
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ */
+
+var container_Container =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {{
+   *  element: HTMLElement,
+   *  type: passedElement['type'],
+   *  classNames: ClassNames,
+   *  position
+   * }} args
+   */
+  function Container(_ref) {
+    var element = _ref.element,
+        type = _ref.type,
+        classNames = _ref.classNames,
+        position = _ref.position;
+    this.element = element;
+    this.classNames = classNames;
+    this.type = type;
+    this.position = position;
+    this.isOpen = false;
+    this.isFlipped = false;
+    this.isFocussed = false;
+    this.isDisabled = false;
+    this.isLoading = false;
+    this._onFocus = this._onFocus.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+  }
+
+  var _proto = Container.prototype;
+
+  _proto.addEventListeners = function addEventListeners() {
+    this.element.addEventListener('focus', this._onFocus);
+    this.element.addEventListener('blur', this._onBlur);
+  };
+
+  _proto.removeEventListeners = function removeEventListeners() {
+    this.element.removeEventListener('focus', this._onFocus);
+    this.element.removeEventListener('blur', this._onBlur);
+  }
+  /**
+   * Determine whether container should be flipped based on passed
+   * dropdown position
+   * @param {number} dropdownPos
+   * @returns {boolean}
+   */
+  ;
+
+  _proto.shouldFlip = function shouldFlip(dropdownPos) {
+    if (typeof dropdownPos !== 'number') {
+      return false;
+    } // If flip is enabled and the dropdown bottom position is
+    // greater than the window height flip the dropdown.
+
+
+    var shouldFlip = false;
+
+    if (this.position === 'auto') {
+      shouldFlip = !window.matchMedia("(min-height: " + (dropdownPos + 1) + "px)").matches;
+    } else if (this.position === 'top') {
+      shouldFlip = true;
+    }
+
+    return shouldFlip;
+  }
+  /**
+   * @param {string} activeDescendantID
+   */
+  ;
+
+  _proto.setActiveDescendant = function setActiveDescendant(activeDescendantID) {
+    this.element.setAttribute('aria-activedescendant', activeDescendantID);
+  };
+
+  _proto.removeActiveDescendant = function removeActiveDescendant() {
+    this.element.removeAttribute('aria-activedescendant');
+  }
+  /**
+   * @param {number} dropdownPos
+   */
+  ;
+
+  _proto.open = function open(dropdownPos) {
+    this.element.classList.add(this.classNames.openState);
+    this.element.setAttribute('aria-expanded', 'true');
+    this.isOpen = true;
+
+    if (this.shouldFlip(dropdownPos)) {
+      this.element.classList.add(this.classNames.flippedState);
+      this.isFlipped = true;
+    }
+  };
+
+  _proto.close = function close() {
+    this.element.classList.remove(this.classNames.openState);
+    this.element.setAttribute('aria-expanded', 'false');
+    this.removeActiveDescendant();
+    this.isOpen = false; // A dropdown flips if it does not have space within the page
+
+    if (this.isFlipped) {
+      this.element.classList.remove(this.classNames.flippedState);
+      this.isFlipped = false;
+    }
+  };
+
+  _proto.focus = function focus() {
+    if (!this.isFocussed) {
+      this.element.focus();
+    }
+  };
+
+  _proto.addFocusState = function addFocusState() {
+    this.element.classList.add(this.classNames.focusState);
+  };
+
+  _proto.removeFocusState = function removeFocusState() {
+    this.element.classList.remove(this.classNames.focusState);
+  };
+
+  _proto.enable = function enable() {
+    this.element.classList.remove(this.classNames.disabledState);
+    this.element.removeAttribute('aria-disabled');
+
+    if (this.type === SELECT_ONE_TYPE) {
+      this.element.setAttribute('tabindex', '0');
+    }
+
+    this.isDisabled = false;
+  };
+
+  _proto.disable = function disable() {
+    this.element.classList.add(this.classNames.disabledState);
+    this.element.setAttribute('aria-disabled', 'true');
+
+    if (this.type === SELECT_ONE_TYPE) {
+      this.element.setAttribute('tabindex', '-1');
+    }
+
+    this.isDisabled = true;
+  }
+  /**
+   * @param {HTMLElement} element
+   */
+  ;
+
+  _proto.wrap = function wrap(element) {
+    utils_wrap(element, this.element);
+  }
+  /**
+   * @param {Element} element
+   */
+  ;
+
+  _proto.unwrap = function unwrap(element) {
+    // Move passed element outside this element
+    this.element.parentNode.insertBefore(element, this.element); // Remove this element
+
+    this.element.parentNode.removeChild(this.element);
+  };
+
+  _proto.addLoadingState = function addLoadingState() {
+    this.element.classList.add(this.classNames.loadingState);
+    this.element.setAttribute('aria-busy', 'true');
+    this.isLoading = true;
+  };
+
+  _proto.removeLoadingState = function removeLoadingState() {
+    this.element.classList.remove(this.classNames.loadingState);
+    this.element.removeAttribute('aria-busy');
+    this.isLoading = false;
+  };
+
+  _proto._onFocus = function _onFocus() {
+    this.isFocussed = true;
+  };
+
+  _proto._onBlur = function _onBlur() {
+    this.isFocussed = false;
+  };
+
+  return Container;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/components/input.js
+function input_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function input_createClass(Constructor, protoProps, staticProps) { if (protoProps) input_defineProperties(Constructor.prototype, protoProps); if (staticProps) input_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.passedElement} passedElement
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ */
+
+var input_Input =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {{
+   *  element: HTMLInputElement,
+   *  type: passedElement['type'],
+   *  classNames: ClassNames,
+   *  preventPaste: boolean
+   * }} args
+   */
+  function Input(_ref) {
+    var element = _ref.element,
+        type = _ref.type,
+        classNames = _ref.classNames,
+        preventPaste = _ref.preventPaste;
+    this.element = element;
+    this.type = type;
+    this.classNames = classNames;
+    this.preventPaste = preventPaste;
+    this.isFocussed = this.element === document.activeElement;
+    this.isDisabled = element.disabled;
+    this._onPaste = this._onPaste.bind(this);
+    this._onInput = this._onInput.bind(this);
+    this._onFocus = this._onFocus.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+  }
+  /**
+   * @param {string} placeholder
+   */
+
+
+  var _proto = Input.prototype;
+
+  _proto.addEventListeners = function addEventListeners() {
+    this.element.addEventListener('paste', this._onPaste);
+    this.element.addEventListener('input', this._onInput, {
+      passive: true
+    });
+    this.element.addEventListener('focus', this._onFocus, {
+      passive: true
+    });
+    this.element.addEventListener('blur', this._onBlur, {
+      passive: true
+    });
+  };
+
+  _proto.removeEventListeners = function removeEventListeners() {
+    this.element.removeEventListener('input', this._onInput, {
+      passive: true
+    });
+    this.element.removeEventListener('paste', this._onPaste);
+    this.element.removeEventListener('focus', this._onFocus, {
+      passive: true
+    });
+    this.element.removeEventListener('blur', this._onBlur, {
+      passive: true
+    });
+  };
+
+  _proto.enable = function enable() {
+    this.element.removeAttribute('disabled');
+    this.isDisabled = false;
+  };
+
+  _proto.disable = function disable() {
+    this.element.setAttribute('disabled', '');
+    this.isDisabled = true;
+  };
+
+  _proto.focus = function focus() {
+    if (!this.isFocussed) {
+      this.element.focus();
+    }
+  };
+
+  _proto.blur = function blur() {
+    if (this.isFocussed) {
+      this.element.blur();
+    }
+  }
+  /**
+   * Set value of input to blank
+   * @param {boolean} setWidth
+   * @returns {this}
+   */
+  ;
+
+  _proto.clear = function clear(setWidth) {
+    if (setWidth === void 0) {
+      setWidth = true;
+    }
+
+    if (this.element.value) {
+      this.element.value = '';
+    }
+
+    if (setWidth) {
+      this.setWidth();
+    }
+
+    return this;
+  }
+  /**
+   * Set the correct input width based on placeholder
+   * value or input value
+   */
+  ;
+
+  _proto.setWidth = function setWidth() {
+    // Resize input to contents or placeholder
+    var _this$element = this.element,
+        style = _this$element.style,
+        value = _this$element.value,
+        placeholder = _this$element.placeholder;
+    style.minWidth = placeholder.length + 1 + "ch";
+    style.width = value.length + 1 + "ch";
+  }
+  /**
+   * @param {string} activeDescendantID
+   */
+  ;
+
+  _proto.setActiveDescendant = function setActiveDescendant(activeDescendantID) {
+    this.element.setAttribute('aria-activedescendant', activeDescendantID);
+  };
+
+  _proto.removeActiveDescendant = function removeActiveDescendant() {
+    this.element.removeAttribute('aria-activedescendant');
+  };
+
+  _proto._onInput = function _onInput() {
+    if (this.type !== SELECT_ONE_TYPE) {
+      this.setWidth();
+    }
+  }
+  /**
+   * @param {Event} event
+   */
+  ;
+
+  _proto._onPaste = function _onPaste(event) {
+    if (this.preventPaste) {
+      event.preventDefault();
+    }
+  };
+
+  _proto._onFocus = function _onFocus() {
+    this.isFocussed = true;
+  };
+
+  _proto._onBlur = function _onBlur() {
+    this.isFocussed = false;
+  };
+
+  input_createClass(Input, [{
+    key: "placeholder",
+    set: function set(placeholder) {
+      this.element.placeholder = placeholder;
+    }
+    /**
+     * @returns {string}
+     */
+
+  }, {
+    key: "value",
+    get: function get() {
+      return sanitise(this.element.value);
+    }
+    /**
+     * @param {string} value
+     */
+    ,
+    set: function set(value) {
+      this.element.value = value;
+    }
+  }]);
+
+  return Input;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/components/list.js
+
+/**
+ * @typedef {import('../../../types/index').Choices.Choice} Choice
+ */
+
+var list_List =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {{ element: HTMLElement }} args
+   */
+  function List(_ref) {
+    var element = _ref.element;
+    this.element = element;
+    this.scrollPos = this.element.scrollTop;
+    this.height = this.element.offsetHeight;
+  }
+
+  var _proto = List.prototype;
+
+  _proto.clear = function clear() {
+    this.element.innerHTML = '';
+  }
+  /**
+   * @param {Element | DocumentFragment} node
+   */
+  ;
+
+  _proto.append = function append(node) {
+    this.element.appendChild(node);
+  }
+  /**
+   * @param {string} selector
+   * @returns {Element | null}
+   */
+  ;
+
+  _proto.getChild = function getChild(selector) {
+    return this.element.querySelector(selector);
+  }
+  /**
+   * @returns {boolean}
+   */
+  ;
+
+  _proto.hasChildren = function hasChildren() {
+    return this.element.hasChildNodes();
+  };
+
+  _proto.scrollToTop = function scrollToTop() {
+    this.element.scrollTop = 0;
+  }
+  /**
+   * @param {Element} element
+   * @param {1 | -1} direction
+   */
+  ;
+
+  _proto.scrollToChildElement = function scrollToChildElement(element, direction) {
+    var _this = this;
+
+    if (!element) {
+      return;
+    }
+
+    var listHeight = this.element.offsetHeight; // Scroll position of dropdown
+
+    var listScrollPosition = this.element.scrollTop + listHeight;
+    var elementHeight = element.offsetHeight; // Distance from bottom of element to top of parent
+
+    var elementPos = element.offsetTop + elementHeight; // Difference between the element and scroll position
+
+    var destination = direction > 0 ? this.element.scrollTop + elementPos - listScrollPosition : element.offsetTop;
+    requestAnimationFrame(function () {
+      _this._animateScroll(destination, direction);
+    });
+  }
+  /**
+   * @param {number} scrollPos
+   * @param {number} strength
+   * @param {number} destination
+   */
+  ;
+
+  _proto._scrollDown = function _scrollDown(scrollPos, strength, destination) {
+    var easing = (destination - scrollPos) / strength;
+    var distance = easing > 1 ? easing : 1;
+    this.element.scrollTop = scrollPos + distance;
+  }
+  /**
+   * @param {number} scrollPos
+   * @param {number} strength
+   * @param {number} destination
+   */
+  ;
+
+  _proto._scrollUp = function _scrollUp(scrollPos, strength, destination) {
+    var easing = (scrollPos - destination) / strength;
+    var distance = easing > 1 ? easing : 1;
+    this.element.scrollTop = scrollPos - distance;
+  }
+  /**
+   * @param {*} destination
+   * @param {*} direction
+   */
+  ;
+
+  _proto._animateScroll = function _animateScroll(destination, direction) {
+    var _this2 = this;
+
+    var strength = SCROLLING_SPEED;
+    var choiceListScrollTop = this.element.scrollTop;
+    var continueAnimation = false;
+
+    if (direction > 0) {
+      this._scrollDown(choiceListScrollTop, strength, destination);
+
+      if (choiceListScrollTop < destination) {
+        continueAnimation = true;
+      }
+    } else {
+      this._scrollUp(choiceListScrollTop, strength, destination);
+
+      if (choiceListScrollTop > destination) {
+        continueAnimation = true;
+      }
+    }
+
+    if (continueAnimation) {
+      requestAnimationFrame(function () {
+        _this2._animateScroll(destination, direction);
+      });
+    }
+  };
+
+  return List;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/components/wrapped-element.js
+function wrapped_element_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function wrapped_element_createClass(Constructor, protoProps, staticProps) { if (protoProps) wrapped_element_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_element_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.passedElement} passedElement
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ */
+
+var wrapped_element_WrappedElement =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {{
+   *  element: HTMLInputElement | HTMLSelectElement,
+   *  classNames: ClassNames,
+   * }} args
+   */
+  function WrappedElement(_ref) {
+    var element = _ref.element,
+        classNames = _ref.classNames;
+    this.element = element;
+    this.classNames = classNames;
+
+    if (!(element instanceof HTMLInputElement) && !(element instanceof HTMLSelectElement)) {
+      throw new TypeError('Invalid element passed');
+    }
+
+    this.isDisabled = false;
+  }
+
+  var _proto = WrappedElement.prototype;
+
+  _proto.conceal = function conceal() {
+    // Hide passed input
+    this.element.classList.add(this.classNames.input);
+    this.element.hidden = true; // Remove element from tab index
+
+    this.element.tabIndex = -1; // Backup original styles if any
+
+    var origStyle = this.element.getAttribute('style');
+
+    if (origStyle) {
+      this.element.setAttribute('data-choice-orig-style', origStyle);
+    }
+
+    this.element.setAttribute('data-choice', 'active');
+  };
+
+  _proto.reveal = function reveal() {
+    // Reinstate passed element
+    this.element.classList.remove(this.classNames.input);
+    this.element.hidden = false;
+    this.element.removeAttribute('tabindex'); // Recover original styles if any
+
+    var origStyle = this.element.getAttribute('data-choice-orig-style');
+
+    if (origStyle) {
+      this.element.removeAttribute('data-choice-orig-style');
+      this.element.setAttribute('style', origStyle);
+    } else {
+      this.element.removeAttribute('style');
+    }
+
+    this.element.removeAttribute('data-choice'); // Re-assign values - this is weird, I know
+    // @todo Figure out why we need to do this
+
+    this.element.value = this.element.value; // eslint-disable-line no-self-assign
+  };
+
+  _proto.enable = function enable() {
+    this.element.removeAttribute('disabled');
+    this.element.disabled = false;
+    this.isDisabled = false;
+  };
+
+  _proto.disable = function disable() {
+    this.element.setAttribute('disabled', '');
+    this.element.disabled = true;
+    this.isDisabled = true;
+  };
+
+  _proto.triggerEvent = function triggerEvent(eventType, data) {
+    dispatchEvent(this.element, eventType, data);
+  };
+
+  wrapped_element_createClass(WrappedElement, [{
+    key: "isActive",
+    get: function get() {
+      return this.element.dataset.choice === 'active';
+    }
+  }, {
+    key: "dir",
+    get: function get() {
+      return this.element.dir;
+    }
+  }, {
+    key: "value",
+    get: function get() {
+      return this.element.value;
+    },
+    set: function set(value) {
+      // you must define setter here otherwise it will be readonly property
+      this.element.value = value;
+    }
+  }]);
+
+  return WrappedElement;
+}();
+
+
+// CONCATENATED MODULE: ./src/scripts/components/wrapped-input.js
+function wrapped_input_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function wrapped_input_createClass(Constructor, protoProps, staticProps) { if (protoProps) wrapped_input_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_input_defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ * @typedef {import('../../../types/index').Choices.Item} Item
+ */
+
+var WrappedInput =
+/*#__PURE__*/
+function (_WrappedElement) {
+  _inheritsLoose(WrappedInput, _WrappedElement);
+
+  /**
+   * @param {{
+   *  element: HTMLInputElement,
+   *  classNames: ClassNames,
+   *  delimiter: string
+   * }} args
+   */
+  function WrappedInput(_ref) {
+    var _this;
+
+    var element = _ref.element,
+        classNames = _ref.classNames,
+        delimiter = _ref.delimiter;
+    _this = _WrappedElement.call(this, {
+      element: element,
+      classNames: classNames
+    }) || this;
+    _this.delimiter = delimiter;
+    return _this;
+  }
+  /**
+   * @returns {string}
+   */
+
+
+  wrapped_input_createClass(WrappedInput, [{
+    key: "value",
+    get: function get() {
+      return this.element.value;
+    }
+    /**
+     * @param {Item[]} items
+     */
+    ,
+    set: function set(items) {
+      var itemValues = items.map(function (_ref2) {
+        var value = _ref2.value;
+        return value;
+      });
+      var joinedValues = itemValues.join(this.delimiter);
+      this.element.setAttribute('value', joinedValues);
+      this.element.value = joinedValues;
+    }
+  }]);
+
+  return WrappedInput;
+}(wrapped_element_WrappedElement);
+
+
+// CONCATENATED MODULE: ./src/scripts/components/wrapped-select.js
+function wrapped_select_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function wrapped_select_createClass(Constructor, protoProps, staticProps) { if (protoProps) wrapped_select_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_select_defineProperties(Constructor, staticProps); return Constructor; }
+
+function wrapped_select_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+/**
+ * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
+ * @typedef {import('../../../types/index').Choices.Item} Item
+ * @typedef {import('../../../types/index').Choices.Choice} Choice
+ */
+
+var WrappedSelect =
+/*#__PURE__*/
+function (_WrappedElement) {
+  wrapped_select_inheritsLoose(WrappedSelect, _WrappedElement);
+
+  /**
+   * @param {{
+   *  element: HTMLSelectElement,
+   *  classNames: ClassNames,
+   *  delimiter: string
+   *  template: function
+   * }} args
+   */
+  function WrappedSelect(_ref) {
+    var _this;
+
+    var element = _ref.element,
+        classNames = _ref.classNames,
+        template = _ref.template;
+    _this = _WrappedElement.call(this, {
+      element: element,
+      classNames: classNames
+    }) || this;
+    _this.template = template;
+    return _this;
+  }
+
+  var _proto = WrappedSelect.prototype;
+
+  /**
+   * @param {DocumentFragment} fragment
+   */
+  _proto.appendDocFragment = function appendDocFragment(fragment) {
+    this.element.innerHTML = '';
+    this.element.appendChild(fragment);
+  };
+
+  wrapped_select_createClass(WrappedSelect, [{
+    key: "placeholderOption",
+    get: function get() {
+      return this.element.querySelector('option[value=""]') || // Backward compatibility layer for the non-standard placeholder attribute supported in older versions.
+      this.element.querySelector('option[placeholder]');
+    }
+    /**
+     * @returns {Element[]}
+     */
+
+  }, {
+    key: "optionGroups",
+    get: function get() {
+      return Array.from(this.element.getElementsByTagName('OPTGROUP'));
+    }
+    /**
+     * @returns {Item[] | Choice[]}
+     */
+
+  }, {
+    key: "options",
+    get: function get() {
+      return Array.from(this.element.options);
+    }
+    /**
+     * @param {Item[] | Choice[]} options
+     */
+    ,
+    set: function set(options) {
+      var _this2 = this;
+
+      var fragment = document.createDocumentFragment();
+
+      var addOptionToFragment = function addOptionToFragment(data) {
+        // Create a standard select option
+        var option = _this2.template(data); // Append it to fragment
+
+
+        fragment.appendChild(option);
+      }; // Add each list item to list
+
+
+      options.forEach(function (optionData) {
+        return addOptionToFragment(optionData);
+      });
+      this.appendDocFragment(fragment);
+    }
+  }]);
+
+  return WrappedSelect;
+}(wrapped_element_WrappedElement);
+
+
+// CONCATENATED MODULE: ./src/scripts/components/index.js
+
+
+
+
+
+
+
+// CONCATENATED MODULE: ./src/scripts/templates.js
+/**
+ * Helpers to create HTML elements used by Choices
+ * Can be overridden by providing `callbackOnCreateTemplates` option
+ * @typedef {import('../../types/index').Choices.Templates} Templates
+ * @typedef {import('../../types/index').Choices.ClassNames} ClassNames
+ * @typedef {import('../../types/index').Choices.Options} Options
+ * @typedef {import('../../types/index').Choices.Item} Item
+ * @typedef {import('../../types/index').Choices.Choice} Choice
+ * @typedef {import('../../types/index').Choices.Group} Group
+ */
+var TEMPLATES =
+/** @type {Templates} */
+{
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {"ltr" | "rtl" | "auto"} dir
+   * @param {boolean} isSelectElement
+   * @param {boolean} isSelectOneElement
+   * @param {boolean} searchEnabled
+   * @param {"select-one" | "select-multiple" | "text"} passedElementType
+   */
+  containerOuter: function containerOuter(_ref, dir, isSelectElement, isSelectOneElement, searchEnabled, passedElementType) {
+    var _containerOuter = _ref.containerOuter;
+    var div = Object.assign(document.createElement('div'), {
+      className: _containerOuter
+    });
+    div.dataset.type = passedElementType;
+
+    if (dir) {
+      div.dir = dir;
+    }
+
+    if (isSelectOneElement) {
+      div.tabIndex = 0;
+    }
+
+    if (isSelectElement) {
+      div.setAttribute('role', searchEnabled ? 'combobox' : 'listbox');
+
+      if (searchEnabled) {
+        div.setAttribute('aria-autocomplete', 'list');
+      }
+    }
+
+    div.setAttribute('aria-haspopup', 'true');
+    div.setAttribute('aria-expanded', 'false');
+    return div;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   */
+  containerInner: function containerInner(_ref2) {
+    var _containerInner = _ref2.containerInner;
+    return Object.assign(document.createElement('div'), {
+      className: _containerInner
+    });
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {boolean} isSelectOneElement
+   */
+  itemList: function itemList(_ref3, isSelectOneElement) {
+    var list = _ref3.list,
+        listSingle = _ref3.listSingle,
+        listItems = _ref3.listItems;
+    return Object.assign(document.createElement('div'), {
+      className: list + " " + (isSelectOneElement ? listSingle : listItems)
+    });
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {string} value
+   */
+  placeholder: function placeholder(_ref4, value) {
+    var _placeholder = _ref4.placeholder;
+    return Object.assign(document.createElement('div'), {
+      className: _placeholder,
+      innerHTML: value
+    });
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {Item} item
+   * @param {boolean} removeItemButton
+   */
+  item: function item(_ref5, _ref6, removeItemButton) {
+    var _item = _ref5.item,
+        button = _ref5.button,
+        highlightedState = _ref5.highlightedState,
+        itemSelectable = _ref5.itemSelectable,
+        placeholder = _ref5.placeholder;
+    var id = _ref6.id,
+        value = _ref6.value,
+        label = _ref6.label,
+        customProperties = _ref6.customProperties,
+        active = _ref6.active,
+        disabled = _ref6.disabled,
+        highlighted = _ref6.highlighted,
+        isPlaceholder = _ref6.placeholder;
+    var div = Object.assign(document.createElement('div'), {
+      className: _item,
+      innerHTML: label
+    });
+    Object.assign(div.dataset, {
+      item: '',
+      id: id,
+      value: value,
+      customProperties: customProperties
+    });
+
+    if (active) {
+      div.setAttribute('aria-selected', 'true');
+    }
+
+    if (disabled) {
+      div.setAttribute('aria-disabled', 'true');
+    }
+
+    if (isPlaceholder) {
+      div.classList.add(placeholder);
+    }
+
+    div.classList.add(highlighted ? highlightedState : itemSelectable);
+
+    if (removeItemButton) {
+      if (disabled) {
+        div.classList.remove(itemSelectable);
+      }
+
+      div.dataset.deletable = '';
+      /** @todo This MUST be localizable, not hardcoded! */
+
+      var REMOVE_ITEM_TEXT = 'Remove item';
+      var removeButton = Object.assign(document.createElement('button'), {
+        type: 'button',
+        className: button,
+        innerHTML: REMOVE_ITEM_TEXT
+      });
+      removeButton.setAttribute('aria-label', REMOVE_ITEM_TEXT + ": '" + value + "'");
+      removeButton.dataset.button = '';
+      div.appendChild(removeButton);
+    }
+
+    return div;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {boolean} isSelectOneElement
+   */
+  choiceList: function choiceList(_ref7, isSelectOneElement) {
+    var list = _ref7.list;
+    var div = Object.assign(document.createElement('div'), {
+      className: list
+    });
+
+    if (!isSelectOneElement) {
+      div.setAttribute('aria-multiselectable', 'true');
+    }
+
+    div.setAttribute('role', 'listbox');
+    return div;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {Group} group
+   */
+  choiceGroup: function choiceGroup(_ref8, _ref9) {
+    var group = _ref8.group,
+        groupHeading = _ref8.groupHeading,
+        itemDisabled = _ref8.itemDisabled;
+    var id = _ref9.id,
+        value = _ref9.value,
+        disabled = _ref9.disabled;
+    var div = Object.assign(document.createElement('div'), {
+      className: group + " " + (disabled ? itemDisabled : '')
+    });
+    div.setAttribute('role', 'group');
+    Object.assign(div.dataset, {
+      group: '',
+      id: id,
+      value: value
+    });
+
+    if (disabled) {
+      div.setAttribute('aria-disabled', 'true');
+    }
+
+    div.appendChild(Object.assign(document.createElement('div'), {
+      className: groupHeading,
+      innerHTML: value
+    }));
+    return div;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {Choice} choice
+   * @param {Options['itemSelectText']} selectText
+   */
+  choice: function choice(_ref10, _ref11, selectText) {
+    var item = _ref10.item,
+        itemChoice = _ref10.itemChoice,
+        itemSelectable = _ref10.itemSelectable,
+        selectedState = _ref10.selectedState,
+        itemDisabled = _ref10.itemDisabled,
+        placeholder = _ref10.placeholder;
+    var id = _ref11.id,
+        value = _ref11.value,
+        label = _ref11.label,
+        groupId = _ref11.groupId,
+        elementId = _ref11.elementId,
+        isDisabled = _ref11.disabled,
+        isSelected = _ref11.selected,
+        isPlaceholder = _ref11.placeholder;
+    var div = Object.assign(document.createElement('div'), {
+      id: elementId,
+      innerHTML: label,
+      className: item + " " + itemChoice
+    });
+
+    if (isSelected) {
+      div.classList.add(selectedState);
+    }
+
+    if (isPlaceholder) {
+      div.classList.add(placeholder);
+    }
+
+    div.setAttribute('role', groupId > 0 ? 'treeitem' : 'option');
+    Object.assign(div.dataset, {
+      choice: '',
+      id: id,
+      value: value,
+      selectText: selectText
+    });
+
+    if (isDisabled) {
+      div.classList.add(itemDisabled);
+      div.dataset.choiceDisabled = '';
+      div.setAttribute('aria-disabled', 'true');
+    } else {
+      div.classList.add(itemSelectable);
+      div.dataset.choiceSelectable = '';
+    }
+
+    return div;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   * @param {string} placeholderValue
+   */
+  input: function input(_ref12, placeholderValue) {
+    var _input = _ref12.input,
+        inputCloned = _ref12.inputCloned;
+    var inp = Object.assign(document.createElement('input'), {
+      type: 'text',
+      className: _input + " " + inputCloned,
+      autocomplete: 'off',
+      autocapitalize: 'off',
+      spellcheck: false
+    });
+    inp.setAttribute('role', 'textbox');
+    inp.setAttribute('aria-autocomplete', 'list');
+    inp.setAttribute('aria-label', placeholderValue);
+    return inp;
+  },
+
+  /**
+   * @param {Partial<ClassNames>} classNames
+   */
+  dropdown: function dropdown(_ref13) {
+    var list = _ref13.list,
+        listDropdown = _ref13.listDropdown;
+    var div = document.createElement('div');
+    div.classList.add(list, listDropdown);
+    div.setAttribute('aria-expanded', 'false');
+    return div;
+  },
+
+  /**
+   *
+   * @param {Partial<ClassNames>} classNames
+   * @param {string} innerHTML
+   * @param {"no-choices" | "no-results" | ""} type
+   */
+  notice: function notice(_ref14, innerHTML, type) {
+    var item = _ref14.item,
+        itemChoice = _ref14.itemChoice,
+        noResults = _ref14.noResults,
+        noChoices = _ref14.noChoices;
+
+    if (type === void 0) {
+      type = '';
+    }
+
+    var classes = [item, itemChoice];
+
+    if (type === 'no-choices') {
+      classes.push(noChoices);
+    } else if (type === 'no-results') {
+      classes.push(noResults);
+    }
+
+    return Object.assign(document.createElement('div'), {
+      innerHTML: innerHTML,
+      className: classes.join(' ')
+    });
+  },
+
+  /**
+   * @param {Item} option
+   */
+  option: function option(_ref15) {
+    var label = _ref15.label,
+        value = _ref15.value,
+        customProperties = _ref15.customProperties,
+        active = _ref15.active,
+        disabled = _ref15.disabled;
+    var opt = new Option(label, value, false, active);
+
+    if (customProperties) {
+      opt.dataset.customProperties = customProperties;
+    }
+
+    opt.disabled = disabled;
+    return opt;
+  }
+};
+/* harmony default export */ var templates = (TEMPLATES);
+// CONCATENATED MODULE: ./src/scripts/actions/choices.js
+/**
+ * @typedef {import('redux').Action} Action
+ * @typedef {import('../../../types/index').Choices.Choice} Choice
+ */
+
+/**
+ * @argument {Choice} choice
+ * @returns {Action & Choice}
+ */
+
+var choices_addChoice = function addChoice(_ref) {
+  var value = _ref.value,
+      label = _ref.label,
+      id = _ref.id,
+      groupId = _ref.groupId,
+      disabled = _ref.disabled,
+      elementId = _ref.elementId,
+      customProperties = _ref.customProperties,
+      placeholder = _ref.placeholder,
+      keyCode = _ref.keyCode;
+  return {
+    type: ACTION_TYPES.ADD_CHOICE,
+    value: value,
+    label: label,
+    id: id,
+    groupId: groupId,
+    disabled: disabled,
+    elementId: elementId,
+    customProperties: customProperties,
+    placeholder: placeholder,
+    keyCode: keyCode
+  };
+};
+/**
+ * @argument {Choice[]} results
+ * @returns {Action & { results: Choice[] }}
+ */
+
+var choices_filterChoices = function filterChoices(results) {
+  return {
+    type: ACTION_TYPES.FILTER_CHOICES,
+    results: results
+  };
+};
+/**
+ * @argument {boolean} active
+ * @returns {Action & { active: boolean }}
+ */
+
+var choices_activateChoices = function activateChoices(active) {
+  if (active === void 0) {
+    active = true;
+  }
+
+  return {
+    type: ACTION_TYPES.ACTIVATE_CHOICES,
+    active: active
+  };
+};
+/**
+ * @returns {Action}
+ */
+
+var choices_clearChoices = function clearChoices() {
+  return {
+    type: ACTION_TYPES.CLEAR_CHOICES
+  };
+};
+// CONCATENATED MODULE: ./src/scripts/actions/items.js
+
+/**
+ * @typedef {import('redux').Action} Action
+ * @typedef {import('../../../types/index').Choices.Item} Item
+ */
+
+/**
+ * @param {Item} item
+ * @returns {Action & Item}
+ */
+
+var items_addItem = function addItem(_ref) {
+  var value = _ref.value,
+      label = _ref.label,
+      id = _ref.id,
+      choiceId = _ref.choiceId,
+      groupId = _ref.groupId,
+      customProperties = _ref.customProperties,
+      placeholder = _ref.placeholder,
+      keyCode = _ref.keyCode;
+  return {
+    type: ACTION_TYPES.ADD_ITEM,
+    value: value,
+    label: label,
+    id: id,
+    choiceId: choiceId,
+    groupId: groupId,
+    customProperties: customProperties,
+    placeholder: placeholder,
+    keyCode: keyCode
+  };
+};
+/**
+ * @param {string} id
+ * @param {string} choiceId
+ * @returns {Action & { id: string, choiceId: string }}
+ */
+
+var items_removeItem = function removeItem(id, choiceId) {
+  return {
+    type: ACTION_TYPES.REMOVE_ITEM,
+    id: id,
+    choiceId: choiceId
+  };
+};
+/**
+ * @param {string} id
+ * @param {boolean} highlighted
+ * @returns {Action & { id: string, highlighted: boolean }}
+ */
+
+var items_highlightItem = function highlightItem(id, highlighted) {
+  return {
+    type: ACTION_TYPES.HIGHLIGHT_ITEM,
+    id: id,
+    highlighted: highlighted
+  };
+};
+// CONCATENATED MODULE: ./src/scripts/actions/groups.js
+
+/**
+ * @typedef {import('redux').Action} Action
+ * @typedef {import('../../../types/index').Choices.Group} Group
+ */
+
+/**
+ * @param {Group} group
+ * @returns {Action & Group}
+ */
+
+var groups_addGroup = function addGroup(_ref) {
+  var value = _ref.value,
+      id = _ref.id,
+      active = _ref.active,
+      disabled = _ref.disabled;
+  return {
+    type: ACTION_TYPES.ADD_GROUP,
+    value: value,
+    id: id,
+    active: active,
+    disabled: disabled
+  };
+};
+// CONCATENATED MODULE: ./src/scripts/actions/misc.js
+/**
+ * @typedef {import('redux').Action} Action
+ */
+
+/**
+ * @returns {Action}
+ */
+var clearAll = function clearAll() {
+  return {
+    type: 'CLEAR_ALL'
+  };
+};
+/**
+ * @param {any} state
+ * @returns {Action & { state: object }}
+ */
+
+var resetTo = function resetTo(state) {
+  return {
+    type: 'RESET_TO',
+    state: state
+  };
+};
+/**
+ * @param {boolean} isLoading
+ * @returns {Action & { isLoading: boolean }}
+ */
+
+var setIsLoading = function setIsLoading(isLoading) {
+  return {
+    type: 'SET_IS_LOADING',
+    isLoading: isLoading
+  };
+};
+// CONCATENATED MODULE: ./src/scripts/choices.js
+function choices_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function choices_createClass(Constructor, protoProps, staticProps) { if (protoProps) choices_defineProperties(Constructor.prototype, protoProps); if (staticProps) choices_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+
+
+
+
+
+
+
+/** @see {@link http://browserhacks.com/#hack-acea075d0ac6954f275a70023906050c} */
+
+var IS_IE11 = '-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style;
+/**
+ * @typedef {import('../../types/index').Choices.Choice} Choice
+ * @typedef {import('../../types/index').Choices.Item} Item
+ * @typedef {import('../../types/index').Choices.Group} Group
+ * @typedef {import('../../types/index').Choices.Options} Options
+ */
+
+/** @type {Partial<Options>} */
+
+var USER_DEFAULTS = {};
+/**
+ * Choices
+ * @author Josh Johnson<josh@joshuajohnson.co.uk>
+ */
+
+var choices_Choices =
+/*#__PURE__*/
+function () {
+  choices_createClass(Choices, null, [{
+    key: "defaults",
+    get: function get() {
+      return Object.preventExtensions({
+        get options() {
+          return USER_DEFAULTS;
+        },
+
+        get templates() {
+          return TEMPLATES;
+        }
+
+      });
+    }
+    /**
+     * @param {string | HTMLInputElement | HTMLSelectElement} element
+     * @param {Partial<Options>} userConfig
+     */
+
+  }]);
+
+  function Choices(element, userConfig) {
+    var _this = this;
+
+    if (element === void 0) {
+      element = '[data-choice]';
+    }
+
+    if (userConfig === void 0) {
+      userConfig = {};
+    }
+
+    /** @type {Partial<Options>} */
+    this.config = cjs_default.a.all([DEFAULT_CONFIG, Choices.defaults.options, userConfig], // When merging array configs, replace with a copy of the userConfig array,
+    // instead of concatenating with the default array
+    {
+      arrayMerge: function arrayMerge(_, sourceArray) {
+        return [].concat(sourceArray);
+      }
+    });
+    var invalidConfigOptions = diff(this.config, DEFAULT_CONFIG);
+
+    if (invalidConfigOptions.length) {
+      console.warn('Unknown config option(s) passed', invalidConfigOptions.join(', '));
+    }
+
+    var passedElement = typeof element === 'string' ? document.querySelector(element) : element;
+
+    if (!(passedElement instanceof HTMLInputElement || passedElement instanceof HTMLSelectElement)) {
+      throw TypeError('Expected one of the following types text|select-one|select-multiple');
+    }
+
+    this._isTextElement = passedElement.type === TEXT_TYPE;
+    this._isSelectOneElement = passedElement.type === SELECT_ONE_TYPE;
+    this._isSelectMultipleElement = passedElement.type === SELECT_MULTIPLE_TYPE;
+    this._isSelectElement = this._isSelectOneElement || this._isSelectMultipleElement;
+    this.config.searchEnabled = this._isSelectMultipleElement || this.config.searchEnabled;
+
+    if (!['auto', 'always'].includes(this.config.renderSelectedChoices)) {
+      this.config.renderSelectedChoices = 'auto';
+    }
+
+    if (userConfig.addItemFilter && typeof userConfig.addItemFilter !== 'function') {
+      var re = userConfig.addItemFilter instanceof RegExp ? userConfig.addItemFilter : new RegExp(userConfig.addItemFilter);
+      this.config.addItemFilter = re.test.bind(re);
+    }
+
+    if (this._isTextElement) {
+      this.passedElement = new WrappedInput({
+        element: passedElement,
+        classNames: this.config.classNames,
+        delimiter: this.config.delimiter
+      });
+    } else {
+      this.passedElement = new WrappedSelect({
+        element: passedElement,
+        classNames: this.config.classNames,
+        template: function template(data) {
+          return _this._templates.option(data);
+        }
+      });
+    }
+
+    this.initialised = false;
+    this._store = new store_Store();
+    this._initialState = {};
+    this._currentState = {};
+    this._prevState = {};
+    this._currentValue = '';
+    this._canSearch = this.config.searchEnabled;
+    this._isScrollingOnIe = false;
+    this._highlightPosition = 0;
+    this._wasTap = true;
+    this._placeholderValue = this._generatePlaceholderValue();
+    this._baseId = generateId(this.passedElement.element, 'choices-');
+    /**
+     * setting direction in cases where it's explicitly set on passedElement
+     * or when calculated direction is different from the document
+     * @type {HTMLElement['dir']}
+     */
+
+    this._direction = this.passedElement.dir;
+
+    if (!this._direction) {
+      var _window$getComputedSt = window.getComputedStyle(this.passedElement.element),
+          elementDirection = _window$getComputedSt.direction;
+
+      var _window$getComputedSt2 = window.getComputedStyle(document.documentElement),
+          documentDirection = _window$getComputedSt2.direction;
+
+      if (elementDirection !== documentDirection) {
+        this._direction = elementDirection;
+      }
+    }
+
+    this._idNames = {
+      itemChoice: 'item-choice'
+    }; // Assign preset groups from passed element
+
+    this._presetGroups = this.passedElement.optionGroups; // Assign preset options from passed element
+
+    this._presetOptions = this.passedElement.options; // Assign preset choices from passed object
+
+    this._presetChoices = this.config.choices; // Assign preset items from passed object first
+
+    this._presetItems = this.config.items; // Add any values passed from attribute
+
+    if (this.passedElement.value) {
+      this._presetItems = this._presetItems.concat(this.passedElement.value.split(this.config.delimiter));
+    } // Create array of choices from option elements
+
+
+    if (this.passedElement.options) {
+      this.passedElement.options.forEach(function (o) {
+        _this._presetChoices.push({
+          value: o.value,
+          label: o.innerHTML,
+          selected: o.selected,
+          disabled: o.disabled || o.parentNode.disabled,
+          placeholder: o.value === '' || o.hasAttribute('placeholder'),
+          customProperties: o.getAttribute('data-custom-properties')
+        });
+      });
+    }
+
+    this._render = this._render.bind(this);
+    this._onFocus = this._onFocus.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
+    this._onKeyDown = this._onKeyDown.bind(this);
+    this._onClick = this._onClick.bind(this);
+    this._onTouchMove = this._onTouchMove.bind(this);
+    this._onTouchEnd = this._onTouchEnd.bind(this);
+    this._onMouseDown = this._onMouseDown.bind(this);
+    this._onMouseOver = this._onMouseOver.bind(this);
+    this._onFormReset = this._onFormReset.bind(this);
+    this._onAKey = this._onAKey.bind(this);
+    this._onEnterKey = this._onEnterKey.bind(this);
+    this._onEscapeKey = this._onEscapeKey.bind(this);
+    this._onDirectionKey = this._onDirectionKey.bind(this);
+    this._onDeleteKey = this._onDeleteKey.bind(this); // If element has already been initialised with Choices, fail silently
+
+    if (this.passedElement.isActive) {
+      if (!this.config.silent) {
+        console.warn('Trying to initialise Choices on element already initialised');
+      }
+
+      this.initialised = true;
+      return;
+    } // Let's go
+
+
+    this.init();
+  }
+
+  var _proto = Choices.prototype;
+
+  _proto.init = function init() {
+    if (this.initialised) {
+      return;
+    }
+
+    this._createTemplates();
+
+    this._createElements();
+
+    this._createStructure(); // Set initial state (We need to clone the state because some reducers
+    // modify the inner objects properties in the state) 🤢
+
+
+    this._initialState = cloneObject(this._store.state);
+
+    this._store.subscribe(this._render);
+
+    this._render();
+
+    this._addEventListeners();
+
+    var shouldDisable = !this.config.addItems || this.passedElement.element.hasAttribute('disabled');
+
+    if (shouldDisable) {
+      this.disable();
+    }
+
+    this.initialised = true;
+    var callbackOnInit = this.config.callbackOnInit; // Run callback if it is a function
+
+    if (callbackOnInit && typeof callbackOnInit === 'function') {
+      callbackOnInit.call(this);
+    }
+  };
+
+  _proto.destroy = function destroy() {
+    if (!this.initialised) {
+      return;
+    }
+
+    this._removeEventListeners();
+
+    this.passedElement.reveal();
+    this.containerOuter.unwrap(this.passedElement.element);
+    this.clearStore();
+
+    if (this._isSelectElement) {
+      this.passedElement.options = this._presetOptions;
+    }
+
+    this._templates = null;
+    this.initialised = false;
+  };
+
+  _proto.enable = function enable() {
+    if (this.passedElement.isDisabled) {
+      this.passedElement.enable();
+    }
+
+    if (this.containerOuter.isDisabled) {
+      this._addEventListeners();
+
+      this.input.enable();
+      this.containerOuter.enable();
+    }
+
+    return this;
+  };
+
+  _proto.disable = function disable() {
+    if (!this.passedElement.isDisabled) {
+      this.passedElement.disable();
+    }
+
+    if (!this.containerOuter.isDisabled) {
+      this._removeEventListeners();
+
+      this.input.disable();
+      this.containerOuter.disable();
+    }
+
+    return this;
+  };
+
+  _proto.highlightItem = function highlightItem(item, runEvent) {
+    if (runEvent === void 0) {
+      runEvent = true;
+    }
+
+    if (!item) {
+      return this;
+    }
+
+    var id = item.id,
+        _item$groupId = item.groupId,
+        groupId = _item$groupId === void 0 ? -1 : _item$groupId,
+        _item$value = item.value,
+        value = _item$value === void 0 ? '' : _item$value,
+        _item$label = item.label,
+        label = _item$label === void 0 ? '' : _item$label;
+    var group = groupId >= 0 ? this._store.getGroupById(groupId) : null;
+
+    this._store.dispatch(items_highlightItem(id, true));
+
+    if (runEvent) {
+      this.passedElement.triggerEvent(EVENTS.highlightItem, {
+        id: id,
+        value: value,
+        label: label,
+        groupValue: group && group.value ? group.value : null
+      });
+    }
+
+    return this;
+  };
+
+  _proto.unhighlightItem = function unhighlightItem(item) {
+    if (!item) {
+      return this;
+    }
+
+    var id = item.id,
+        _item$groupId2 = item.groupId,
+        groupId = _item$groupId2 === void 0 ? -1 : _item$groupId2,
+        _item$value2 = item.value,
+        value = _item$value2 === void 0 ? '' : _item$value2,
+        _item$label2 = item.label,
+        label = _item$label2 === void 0 ? '' : _item$label2;
+    var group = groupId >= 0 ? this._store.getGroupById(groupId) : null;
+
+    this._store.dispatch(items_highlightItem(id, false));
+
+    this.passedElement.triggerEvent(EVENTS.highlightItem, {
+      id: id,
+      value: value,
+      label: label,
+      groupValue: group && group.value ? group.value : null
+    });
+    return this;
+  };
+
+  _proto.highlightAll = function highlightAll() {
+    var _this2 = this;
+
+    this._store.items.forEach(function (item) {
+      return _this2.highlightItem(item);
+    });
+
+    return this;
+  };
+
+  _proto.unhighlightAll = function unhighlightAll() {
+    var _this3 = this;
+
+    this._store.items.forEach(function (item) {
+      return _this3.unhighlightItem(item);
+    });
+
+    return this;
+  };
+
+  _proto.removeActiveItemsByValue = function removeActiveItemsByValue(value) {
+    var _this4 = this;
+
+    this._store.activeItems.filter(function (item) {
+      return item.value === value;
+    }).forEach(function (item) {
+      return _this4._removeItem(item);
+    });
+
+    return this;
+  };
+
+  _proto.removeActiveItems = function removeActiveItems(excludedId) {
+    var _this5 = this;
+
+    this._store.activeItems.filter(function (_ref) {
+      var id = _ref.id;
+      return id !== excludedId;
+    }).forEach(function (item) {
+      return _this5._removeItem(item);
+    });
+
+    return this;
+  };
+
+  _proto.removeHighlightedItems = function removeHighlightedItems(runEvent) {
+    var _this6 = this;
+
+    if (runEvent === void 0) {
+      runEvent = false;
+    }
+
+    this._store.highlightedActiveItems.forEach(function (item) {
+      _this6._removeItem(item); // If this action was performed by the user
+      // trigger the event
+
+
+      if (runEvent) {
+        _this6._triggerChange(item.value);
+      }
+    });
+
+    return this;
+  };
+
+  _proto.showDropdown = function showDropdown(preventInputFocus) {
+    var _this7 = this;
+
+    if (this.dropdown.isActive) {
+      return this;
+    }
+
+    requestAnimationFrame(function () {
+      _this7.dropdown.show();
+
+      _this7.containerOuter.open(_this7.dropdown.distanceFromTopWindow);
+
+      if (!preventInputFocus && _this7._canSearch) {
+        _this7.input.focus();
+      }
+
+      _this7.passedElement.triggerEvent(EVENTS.showDropdown, {});
+    });
+    return this;
+  };
+
+  _proto.hideDropdown = function hideDropdown(preventInputBlur) {
+    var _this8 = this;
+
+    if (!this.dropdown.isActive) {
+      return this;
+    }
+
+    requestAnimationFrame(function () {
+      _this8.dropdown.hide();
+
+      _this8.containerOuter.close();
+
+      if (!preventInputBlur && _this8._canSearch) {
+        _this8.input.removeActiveDescendant();
+
+        _this8.input.blur();
+      }
+
+      _this8.passedElement.triggerEvent(EVENTS.hideDropdown, {});
+    });
+    return this;
+  };
+
+  _proto.getValue = function getValue(valueOnly) {
+    if (valueOnly === void 0) {
+      valueOnly = false;
+    }
+
+    var values = this._store.activeItems.reduce(function (selectedItems, item) {
+      var itemValue = valueOnly ? item.value : item;
+      selectedItems.push(itemValue);
+      return selectedItems;
+    }, []);
+
+    return this._isSelectOneElement ? values[0] : values;
+  }
+  /**
+   * @param {string[] | import('../../types/index').Choices.Item[]} items
+   */
+  ;
+
+  _proto.setValue = function setValue(items) {
+    var _this9 = this;
+
+    if (!this.initialised) {
+      return this;
+    }
+
+    items.forEach(function (value) {
+      return _this9._setChoiceOrItem(value);
+    });
+    return this;
+  };
+
+  _proto.setChoiceByValue = function setChoiceByValue(value) {
+    var _this10 = this;
+
+    if (!this.initialised || this._isTextElement) {
+      return this;
+    } // If only one value has been passed, convert to array
+
+
+    var choiceValue = Array.isArray(value) ? value : [value]; // Loop through each value and
+
+    choiceValue.forEach(function (val) {
+      return _this10._findAndSelectChoiceByValue(val);
+    });
+    return this;
+  }
+  /**
+   * Set choices of select input via an array of objects (or function that returns array of object or promise of it),
+   * a value field name and a label field name.
+   * This behaves the same as passing items via the choices option but can be called after initialising Choices.
+   * This can also be used to add groups of choices (see example 2); Optionally pass a true `replaceChoices` value to remove any existing choices.
+   * Optionally pass a `customProperties` object to add additional data to your choices (useful when searching/filtering etc).
+   *
+   * **Input types affected:** select-one, select-multiple
+   *
+   * @template {Choice[] | ((instance: Choices) => object[] | Promise<object[]>)} T
+   * @param {T} [choicesArrayOrFetcher]
+   * @param {string} [value = 'value'] - name of `value` field
+   * @param {string} [label = 'label'] - name of 'label' field
+   * @param {boolean} [replaceChoices = false] - whether to replace of add choices
+   * @returns {this | Promise<this>}
+   *
+   * @example
+   * ```js
+   * const example = new Choices(element);
+   *
+   * example.setChoices([
+   *   {value: 'One', label: 'Label One', disabled: true},
+   *   {value: 'Two', label: 'Label Two', selected: true},
+   *   {value: 'Three', label: 'Label Three'},
+   * ], 'value', 'label', false);
+   * ```
+   *
+   * @example
+   * ```js
+   * const example = new Choices(element);
+   *
+   * example.setChoices(async () => {
+   *   try {
+   *      const items = await fetch('/items');
+   *      return items.json()
+   *   } catch(err) {
+   *      console.error(err)
+   *   }
+   * });
+   * ```
+   *
+   * @example
+   * ```js
+   * const example = new Choices(element);
+   *
+   * example.setChoices([{
+   *   label: 'Group one',
+   *   id: 1,
+   *   disabled: false,
+   *   choices: [
+   *     {value: 'Child One', label: 'Child One', selected: true},
+   *     {value: 'Child Two', label: 'Child Two',  disabled: true},
+   *     {value: 'Child Three', label: 'Child Three'},
+   *   ]
+   * },
+   * {
+   *   label: 'Group two',
+   *   id: 2,
+   *   disabled: false,
+   *   choices: [
+   *     {value: 'Child Four', label: 'Child Four', disabled: true},
+   *     {value: 'Child Five', label: 'Child Five'},
+   *     {value: 'Child Six', label: 'Child Six', customProperties: {
+   *       description: 'Custom description about child six',
+   *       random: 'Another random custom property'
+   *     }},
+   *   ]
+   * }], 'value', 'label', false);
+   * ```
+   */
+  ;
+
+  _proto.setChoices = function setChoices(choicesArrayOrFetcher, value, label, replaceChoices) {
+    var _this11 = this;
+
+    if (choicesArrayOrFetcher === void 0) {
+      choicesArrayOrFetcher = [];
+    }
+
+    if (value === void 0) {
+      value = 'value';
+    }
+
+    if (label === void 0) {
+      label = 'label';
+    }
+
+    if (replaceChoices === void 0) {
+      replaceChoices = false;
+    }
+
+    if (!this.initialised) {
+      throw new ReferenceError("setChoices was called on a non-initialized instance of Choices");
+    }
+
+    if (!this._isSelectElement) {
+      throw new TypeError("setChoices can't be used with INPUT based Choices");
+    }
+
+    if (typeof value !== 'string' || !value) {
+      throw new TypeError("value parameter must be a name of 'value' field in passed objects");
+    } // Clear choices if needed
+
+
+    if (replaceChoices) {
+      this.clearChoices();
+    }
+
+    if (typeof choicesArrayOrFetcher === 'function') {
+      // it's a choices fetcher function
+      var fetcher = choicesArrayOrFetcher(this);
+
+      if (typeof Promise === 'function' && fetcher instanceof Promise) {
+        // that's a promise
+        // eslint-disable-next-line compat/compat
+        return new Promise(function (resolve) {
+          return requestAnimationFrame(resolve);
+        }).then(function () {
+          return _this11._handleLoadingState(true);
+        }).then(function () {
+          return fetcher;
+        }).then(function (data) {
+          return _this11.setChoices(data, value, label, replaceChoices);
+        }).catch(function (err) {
+          if (!_this11.config.silent) {
+            console.error(err);
+          }
+        }).then(function () {
+          return _this11._handleLoadingState(false);
+        }).then(function () {
+          return _this11;
+        });
+      } // function returned something else than promise, let's check if it's an array of choices
+
+
+      if (!Array.isArray(fetcher)) {
+        throw new TypeError(".setChoices first argument function must return either array of choices or Promise, got: " + typeof fetcher);
+      } // recursion with results, it's sync and choices were cleared already
+
+
+      return this.setChoices(fetcher, value, label, false);
+    }
+
+    if (!Array.isArray(choicesArrayOrFetcher)) {
+      throw new TypeError(".setChoices must be called either with array of choices with a function resulting into Promise of array of choices");
+    }
+
+    this.containerOuter.removeLoadingState();
+
+    this._startLoading();
+
+    choicesArrayOrFetcher.forEach(function (groupOrChoice) {
+      if (groupOrChoice.choices) {
+        _this11._addGroup({
+          id: parseInt(groupOrChoice.id, 10) || null,
+          group: groupOrChoice,
+          valueKey: value,
+          labelKey: label
+        });
+      } else {
+        _this11._addChoice({
+          value: groupOrChoice[value],
+          label: groupOrChoice[label],
+          isSelected: groupOrChoice.selected,
+          isDisabled: groupOrChoice.disabled,
+          customProperties: groupOrChoice.customProperties,
+          placeholder: groupOrChoice.placeholder
+        });
+      }
+    });
+
+    this._stopLoading();
+
+    return this;
+  };
+
+  _proto.clearChoices = function clearChoices() {
+    this._store.dispatch(choices_clearChoices());
+
+    return this;
+  };
+
+  _proto.clearStore = function clearStore() {
+    this._store.dispatch(clearAll());
+
+    return this;
+  };
+
+  _proto.clearInput = function clearInput() {
+    var shouldSetInputWidth = !this._isSelectOneElement;
+    this.input.clear(shouldSetInputWidth);
+
+    if (!this._isTextElement && this._canSearch) {
+      this._isSearching = false;
+
+      this._store.dispatch(choices_activateChoices(true));
+    }
+
+    return this;
+  };
+
+  _proto._render = function _render() {
+    if (this._store.isLoading()) {
+      return;
+    }
+
+    this._currentState = this._store.state;
+    var stateChanged = this._currentState.choices !== this._prevState.choices || this._currentState.groups !== this._prevState.groups || this._currentState.items !== this._prevState.items;
+    var shouldRenderChoices = this._isSelectElement;
+    var shouldRenderItems = this._currentState.items !== this._prevState.items;
+
+    if (!stateChanged) {
+      return;
+    }
+
+    if (shouldRenderChoices) {
+      this._renderChoices();
+    }
+
+    if (shouldRenderItems) {
+      this._renderItems();
+    }
+
+    this._prevState = this._currentState;
+  };
+
+  _proto._renderChoices = function _renderChoices() {
+    var _this12 = this;
+
+    var _this$_store = this._store,
+        activeGroups = _this$_store.activeGroups,
+        activeChoices = _this$_store.activeChoices;
+    var choiceListFragment = document.createDocumentFragment();
+    this.choiceList.clear();
+
+    if (this.config.resetScrollPosition) {
+      requestAnimationFrame(function () {
+        return _this12.choiceList.scrollToTop();
+      });
+    } // If we have grouped options
+
+
+    if (activeGroups.length >= 1 && !this._isSearching) {
+      // If we have a placeholder choice along with groups
+      var activePlaceholders = activeChoices.filter(function (activeChoice) {
+        return activeChoice.placeholder === true && activeChoice.groupId === -1;
+      });
+
+      if (activePlaceholders.length >= 1) {
+        choiceListFragment = this._createChoicesFragment(activePlaceholders, choiceListFragment);
+      }
+
+      choiceListFragment = this._createGroupsFragment(activeGroups, activeChoices, choiceListFragment);
+    } else if (activeChoices.length >= 1) {
+      choiceListFragment = this._createChoicesFragment(activeChoices, choiceListFragment);
+    } // If we have choices to show
+
+
+    if (choiceListFragment.childNodes && choiceListFragment.childNodes.length > 0) {
+      var activeItems = this._store.activeItems;
+
+      var canAddItem = this._canAddItem(activeItems, this.input.value); // ...and we can select them
+
+
+      if (canAddItem.response) {
+        // ...append them and highlight the first choice
+        this.choiceList.append(choiceListFragment);
+
+        this._highlightChoice();
+      } else {
+        // ...otherwise show a notice
+        this.choiceList.append(this._getTemplate('notice', canAddItem.notice));
+      }
+    } else {
+      // Otherwise show a notice
+      var dropdownItem;
+      var notice;
+
+      if (this._isSearching) {
+        notice = typeof this.config.noResultsText === 'function' ? this.config.noResultsText() : this.config.noResultsText;
+        dropdownItem = this._getTemplate('notice', notice, 'no-results');
+      } else {
+        notice = typeof this.config.noChoicesText === 'function' ? this.config.noChoicesText() : this.config.noChoicesText;
+        dropdownItem = this._getTemplate('notice', notice, 'no-choices');
+      }
+
+      this.choiceList.append(dropdownItem);
+    }
+  };
+
+  _proto._renderItems = function _renderItems() {
+    var activeItems = this._store.activeItems || [];
+    this.itemList.clear(); // Create a fragment to store our list items
+    // (so we don't have to update the DOM for each item)
+
+    var itemListFragment = this._createItemsFragment(activeItems); // If we have items to add, append them
+
+
+    if (itemListFragment.childNodes) {
+      this.itemList.append(itemListFragment);
+    }
+  };
+
+  _proto._createGroupsFragment = function _createGroupsFragment(groups, choices, fragment) {
+    var _this13 = this;
+
+    if (fragment === void 0) {
+      fragment = document.createDocumentFragment();
+    }
+
+    var getGroupChoices = function getGroupChoices(group) {
+      return choices.filter(function (choice) {
+        if (_this13._isSelectOneElement) {
+          return choice.groupId === group.id;
+        }
+
+        return choice.groupId === group.id && (_this13.config.renderSelectedChoices === 'always' || !choice.selected);
+      });
+    }; // If sorting is enabled, filter groups
+
+
+    if (this.config.shouldSort) {
+      groups.sort(this.config.sorter);
+    }
+
+    groups.forEach(function (group) {
+      var groupChoices = getGroupChoices(group);
+
+      if (groupChoices.length >= 1) {
+        var dropdownGroup = _this13._getTemplate('choiceGroup', group);
+
+        fragment.appendChild(dropdownGroup);
+
+        _this13._createChoicesFragment(groupChoices, fragment, true);
+      }
+    });
+    return fragment;
+  };
+
+  _proto._createChoicesFragment = function _createChoicesFragment(choices, fragment, withinGroup) {
+    var _this14 = this;
+
+    if (fragment === void 0) {
+      fragment = document.createDocumentFragment();
+    }
+
+    if (withinGroup === void 0) {
+      withinGroup = false;
+    }
+
+    // Create a fragment to store our list items (so we don't have to update the DOM for each item)
+    var _this$config = this.config,
+        renderSelectedChoices = _this$config.renderSelectedChoices,
+        searchResultLimit = _this$config.searchResultLimit,
+        renderChoiceLimit = _this$config.renderChoiceLimit;
+    var filter = this._isSearching ? sortByScore : this.config.sorter;
+
+    var appendChoice = function appendChoice(choice) {
+      var shouldRender = renderSelectedChoices === 'auto' ? _this14._isSelectOneElement || !choice.selected : true;
+
+      if (shouldRender) {
+        var dropdownItem = _this14._getTemplate('choice', choice, _this14.config.itemSelectText);
+
+        fragment.appendChild(dropdownItem);
+      }
+    };
+
+    var rendererableChoices = choices;
+
+    if (renderSelectedChoices === 'auto' && !this._isSelectOneElement) {
+      rendererableChoices = choices.filter(function (choice) {
+        return !choice.selected;
+      });
+    } // Split array into placeholders and "normal" choices
+
+
+    var _rendererableChoices$ = rendererableChoices.reduce(function (acc, choice) {
+      if (choice.placeholder) {
+        acc.placeholderChoices.push(choice);
+      } else {
+        acc.normalChoices.push(choice);
+      }
+
+      return acc;
+    }, {
+      placeholderChoices: [],
+      normalChoices: []
+    }),
+        placeholderChoices = _rendererableChoices$.placeholderChoices,
+        normalChoices = _rendererableChoices$.normalChoices; // If sorting is enabled or the user is searching, filter choices
+
+
+    if (this.config.shouldSort || this._isSearching) {
+      normalChoices.sort(filter);
+    }
+
+    var choiceLimit = rendererableChoices.length; // Prepend placeholeder
+
+    var sortedChoices = this._isSelectOneElement ? [].concat(placeholderChoices, normalChoices) : normalChoices;
+
+    if (this._isSearching) {
+      choiceLimit = searchResultLimit;
+    } else if (renderChoiceLimit && renderChoiceLimit > 0 && !withinGroup) {
+      choiceLimit = renderChoiceLimit;
+    } // Add each choice to dropdown within range
+
+
+    for (var i = 0; i < choiceLimit; i += 1) {
+      if (sortedChoices[i]) {
+        appendChoice(sortedChoices[i]);
+      }
+    }
+
+    return fragment;
+  };
+
+  _proto._createItemsFragment = function _createItemsFragment(items, fragment) {
+    var _this15 = this;
+
+    if (fragment === void 0) {
+      fragment = document.createDocumentFragment();
+    }
+
+    // Create fragment to add elements to
+    var _this$config2 = this.config,
+        shouldSortItems = _this$config2.shouldSortItems,
+        sorter = _this$config2.sorter,
+        removeItemButton = _this$config2.removeItemButton; // If sorting is enabled, filter items
+
+    if (shouldSortItems && !this._isSelectOneElement) {
+      items.sort(sorter);
+    }
+
+    if (this._isTextElement) {
+      // Update the value of the hidden input
+      this.passedElement.value = items;
+    } else {
+      // Update the options of the hidden input
+      this.passedElement.options = items;
+    }
+
+    var addItemToFragment = function addItemToFragment(item) {
+      // Create new list element
+      var listItem = _this15._getTemplate('item', item, removeItemButton); // Append it to list
+
+
+      fragment.appendChild(listItem);
+    }; // Add each list item to list
+
+
+    items.forEach(addItemToFragment);
+    return fragment;
+  };
+
+  _proto._triggerChange = function _triggerChange(value) {
+    if (value === undefined || value === null) {
+      return;
+    }
+
+    this.passedElement.triggerEvent(EVENTS.change, {
+      value: value
+    });
+  };
+
+  _proto._selectPlaceholderChoice = function _selectPlaceholderChoice() {
+    var placeholderChoice = this._store.placeholderChoice;
+
+    if (placeholderChoice) {
+      this._addItem({
+        value: placeholderChoice.value,
+        label: placeholderChoice.label,
+        choiceId: placeholderChoice.id,
+        groupId: placeholderChoice.groupId,
+        placeholder: placeholderChoice.placeholder
+      });
+
+      this._triggerChange(placeholderChoice.value);
+    }
+  };
+
+  _proto._handleButtonAction = function _handleButtonAction(activeItems, element) {
+    if (!activeItems || !element || !this.config.removeItems || !this.config.removeItemButton) {
+      return;
+    }
+
+    var itemId = element.parentNode.getAttribute('data-id');
+    var itemToRemove = activeItems.find(function (item) {
+      return item.id === parseInt(itemId, 10);
+    }); // Remove item associated with button
+
+    this._removeItem(itemToRemove);
+
+    this._triggerChange(itemToRemove.value);
+
+    if (this._isSelectOneElement) {
+      this._selectPlaceholderChoice();
+    }
+  };
+
+  _proto._handleItemAction = function _handleItemAction(activeItems, element, hasShiftKey) {
+    var _this16 = this;
+
+    if (hasShiftKey === void 0) {
+      hasShiftKey = false;
+    }
+
+    if (!activeItems || !element || !this.config.removeItems || this._isSelectOneElement) {
+      return;
+    }
+
+    var passedId = element.getAttribute('data-id'); // We only want to select one item with a click
+    // so we deselect any items that aren't the target
+    // unless shift is being pressed
+
+    activeItems.forEach(function (item) {
+      if (item.id === parseInt(passedId, 10) && !item.highlighted) {
+        _this16.highlightItem(item);
+      } else if (!hasShiftKey && item.highlighted) {
+        _this16.unhighlightItem(item);
+      }
+    }); // Focus input as without focus, a user cannot do anything with a
+    // highlighted item
+
+    this.input.focus();
+  };
+
+  _proto._handleChoiceAction = function _handleChoiceAction(activeItems, element) {
+    if (!activeItems || !element) {
+      return;
+    } // If we are clicking on an option
+
+
+    var id = element.dataset.id;
+
+    var choice = this._store.getChoiceById(id);
+
+    if (!choice) {
+      return;
+    }
+
+    var passedKeyCode = activeItems[0] && activeItems[0].keyCode ? activeItems[0].keyCode : null;
+    var hasActiveDropdown = this.dropdown.isActive; // Update choice keyCode
+
+    choice.keyCode = passedKeyCode;
+    this.passedElement.triggerEvent(EVENTS.choice, {
+      choice: choice
+    });
+
+    if (!choice.selected && !choice.disabled) {
+      var canAddItem = this._canAddItem(activeItems, choice.value);
+
+      if (canAddItem.response) {
+        this._addItem({
+          value: choice.value,
+          label: choice.label,
+          choiceId: choice.id,
+          groupId: choice.groupId,
+          customProperties: choice.customProperties,
+          placeholder: choice.placeholder,
+          keyCode: choice.keyCode
+        });
+
+        this._triggerChange(choice.value);
+      }
+    }
+
+    this.clearInput(); // We want to close the dropdown if we are dealing with a single select box
+
+    if (hasActiveDropdown && this._isSelectOneElement) {
+      this.hideDropdown(true);
+      this.containerOuter.focus();
+    }
+  };
+
+  _proto._handleBackspace = function _handleBackspace(activeItems) {
+    if (!this.config.removeItems || !activeItems) {
+      return;
+    }
+
+    var lastItem = activeItems[activeItems.length - 1];
+    var hasHighlightedItems = activeItems.some(function (item) {
+      return item.highlighted;
+    }); // If editing the last item is allowed and there are not other selected items,
+    // we can edit the item value. Otherwise if we can remove items, remove all selected items
+
+    if (this.config.editItems && !hasHighlightedItems && lastItem) {
+      this.input.value = lastItem.value;
+      this.input.setWidth();
+
+      this._removeItem(lastItem);
+
+      this._triggerChange(lastItem.value);
+    } else {
+      if (!hasHighlightedItems) {
+        // Highlight last item if none already highlighted
+        this.highlightItem(lastItem, false);
+      }
+
+      this.removeHighlightedItems(true);
+    }
+  };
+
+  _proto._startLoading = function _startLoading() {
+    this._store.dispatch(setIsLoading(true));
+  };
+
+  _proto._stopLoading = function _stopLoading() {
+    this._store.dispatch(setIsLoading(false));
+  };
+
+  _proto._handleLoadingState = function _handleLoadingState(setLoading) {
+    if (setLoading === void 0) {
+      setLoading = true;
+    }
+
+    var placeholderItem = this.itemList.getChild("." + this.config.classNames.placeholder);
+
+    if (setLoading) {
+      this.disable();
+      this.containerOuter.addLoadingState();
+
+      if (this._isSelectOneElement) {
+        if (!placeholderItem) {
+          placeholderItem = this._getTemplate('placeholder', this.config.loadingText);
+          this.itemList.append(placeholderItem);
+        } else {
+          placeholderItem.innerHTML = this.config.loadingText;
+        }
+      } else {
+        this.input.placeholder = this.config.loadingText;
+      }
+    } else {
+      this.enable();
+      this.containerOuter.removeLoadingState();
+
+      if (this._isSelectOneElement) {
+        placeholderItem.innerHTML = this._placeholderValue || '';
+      } else {
+        this.input.placeholder = this._placeholderValue || '';
+      }
+    }
+  };
+
+  _proto._handleSearch = function _handleSearch(value) {
+    if (!value || !this.input.isFocussed) {
+      return;
+    }
+
+    var choices = this._store.choices;
+    var _this$config3 = this.config,
+        searchFloor = _this$config3.searchFloor,
+        searchChoices = _this$config3.searchChoices;
+    var hasUnactiveChoices = choices.some(function (option) {
+      return !option.active;
+    }); // Check that we have a value to search and the input was an alphanumeric character
+
+    if (value && value.length >= searchFloor) {
+      var resultCount = searchChoices ? this._searchChoices(value) : 0; // Trigger search event
+
+      this.passedElement.triggerEvent(EVENTS.search, {
+        value: value,
+        resultCount: resultCount
+      });
+    } else if (hasUnactiveChoices) {
+      // Otherwise reset choices to active
+      this._isSearching = false;
+
+      this._store.dispatch(choices_activateChoices(true));
+    }
+  };
+
+  _proto._canAddItem = function _canAddItem(activeItems, value) {
+    var canAddItem = true;
+    var notice = typeof this.config.addItemText === 'function' ? this.config.addItemText(value) : this.config.addItemText;
+
+    if (!this._isSelectOneElement) {
+      var isDuplicateValue = existsInArray(activeItems, value);
+
+      if (this.config.maxItemCount > 0 && this.config.maxItemCount <= activeItems.length) {
+        // If there is a max entry limit and we have reached that limit
+        // don't update
+        canAddItem = false;
+        notice = typeof this.config.maxItemText === 'function' ? this.config.maxItemText(this.config.maxItemCount) : this.config.maxItemText;
+      }
+
+      if (!this.config.duplicateItemsAllowed && isDuplicateValue && canAddItem) {
+        canAddItem = false;
+        notice = typeof this.config.uniqueItemText === 'function' ? this.config.uniqueItemText(value) : this.config.uniqueItemText;
+      }
+
+      if (this._isTextElement && this.config.addItems && canAddItem && typeof this.config.addItemFilter === 'function' && !this.config.addItemFilter(value)) {
+        canAddItem = false;
+        notice = typeof this.config.customAddItemText === 'function' ? this.config.customAddItemText(value) : this.config.customAddItemText;
+      }
+    }
+
+    return {
+      response: canAddItem,
+      notice: notice
+    };
+  };
+
+  _proto._searchChoices = function _searchChoices(value) {
+    var newValue = typeof value === 'string' ? value.trim() : value;
+    var currentValue = typeof this._currentValue === 'string' ? this._currentValue.trim() : this._currentValue;
+
+    if (newValue.length < 1 && newValue === currentValue + " ") {
+      return 0;
+    } // If new value matches the desired length and is not the same as the current value with a space
+
+
+    var haystack = this._store.searchableChoices;
+    var needle = newValue;
+    var keys = [].concat(this.config.searchFields);
+    var options = Object.assign(this.config.fuseOptions, {
+      keys: keys
+    });
+    var fuse = new fuse_default.a(haystack, options);
+    var results = fuse.search(needle);
+    this._currentValue = newValue;
+    this._highlightPosition = 0;
+    this._isSearching = true;
+
+    this._store.dispatch(choices_filterChoices(results));
+
+    return results.length;
+  };
+
+  _proto._addEventListeners = function _addEventListeners() {
+    var _document = document,
+        documentElement = _document.documentElement; // capture events - can cancel event processing or propagation
+
+    documentElement.addEventListener('touchend', this._onTouchEnd, true);
+    this.containerOuter.element.addEventListener('keydown', this._onKeyDown, true);
+    this.containerOuter.element.addEventListener('mousedown', this._onMouseDown, true); // passive events - doesn't call `preventDefault` or `stopPropagation`
+
+    documentElement.addEventListener('click', this._onClick, {
+      passive: true
+    });
+    documentElement.addEventListener('touchmove', this._onTouchMove, {
+      passive: true
+    });
+    this.dropdown.element.addEventListener('mouseover', this._onMouseOver, {
+      passive: true
+    });
+
+    if (this._isSelectOneElement) {
+      this.containerOuter.element.addEventListener('focus', this._onFocus, {
+        passive: true
+      });
+      this.containerOuter.element.addEventListener('blur', this._onBlur, {
+        passive: true
+      });
+    }
+
+    this.input.element.addEventListener('keyup', this._onKeyUp, {
+      passive: true
+    });
+    this.input.element.addEventListener('focus', this._onFocus, {
+      passive: true
+    });
+    this.input.element.addEventListener('blur', this._onBlur, {
+      passive: true
+    });
+
+    if (this.input.element.form) {
+      this.input.element.form.addEventListener('reset', this._onFormReset, {
+        passive: true
+      });
+    }
+
+    this.input.addEventListeners();
+  };
+
+  _proto._removeEventListeners = function _removeEventListeners() {
+    var _document2 = document,
+        documentElement = _document2.documentElement;
+    documentElement.removeEventListener('touchend', this._onTouchEnd, true);
+    this.containerOuter.element.removeEventListener('keydown', this._onKeyDown, true);
+    this.containerOuter.element.removeEventListener('mousedown', this._onMouseDown, true);
+    documentElement.removeEventListener('click', this._onClick);
+    documentElement.removeEventListener('touchmove', this._onTouchMove);
+    this.dropdown.element.removeEventListener('mouseover', this._onMouseOver);
+
+    if (this._isSelectOneElement) {
+      this.containerOuter.element.removeEventListener('focus', this._onFocus);
+      this.containerOuter.element.removeEventListener('blur', this._onBlur);
+    }
+
+    this.input.element.removeEventListener('keyup', this._onKeyUp);
+    this.input.element.removeEventListener('focus', this._onFocus);
+    this.input.element.removeEventListener('blur', this._onBlur);
+
+    if (this.input.element.form) {
+      this.input.element.form.removeEventListener('reset', this._onFormReset);
+    }
+
+    this.input.removeEventListeners();
+  }
+  /**
+   * @param {KeyboardEvent} event
+   */
+  ;
+
+  _proto._onKeyDown = function _onKeyDown(event) {
+    var _keyDownActions;
+
+    var target = event.target,
+        keyCode = event.keyCode,
+        ctrlKey = event.ctrlKey,
+        metaKey = event.metaKey;
+    var activeItems = this._store.activeItems;
+    var hasFocusedInput = this.input.isFocussed;
+    var hasActiveDropdown = this.dropdown.isActive;
+    var hasItems = this.itemList.hasChildren();
+    var keyString = String.fromCharCode(keyCode);
+    var BACK_KEY = KEY_CODES.BACK_KEY,
+        DELETE_KEY = KEY_CODES.DELETE_KEY,
+        ENTER_KEY = KEY_CODES.ENTER_KEY,
+        A_KEY = KEY_CODES.A_KEY,
+        ESC_KEY = KEY_CODES.ESC_KEY,
+        UP_KEY = KEY_CODES.UP_KEY,
+        DOWN_KEY = KEY_CODES.DOWN_KEY,
+        PAGE_UP_KEY = KEY_CODES.PAGE_UP_KEY,
+        PAGE_DOWN_KEY = KEY_CODES.PAGE_DOWN_KEY;
+    var hasCtrlDownKeyPressed = ctrlKey || metaKey; // If a user is typing and the dropdown is not active
+
+    if (!this._isTextElement && /[a-zA-Z0-9-_ ]/.test(keyString)) {
+      this.showDropdown();
+    } // Map keys to key actions
+
+
+    var keyDownActions = (_keyDownActions = {}, _keyDownActions[A_KEY] = this._onAKey, _keyDownActions[ENTER_KEY] = this._onEnterKey, _keyDownActions[ESC_KEY] = this._onEscapeKey, _keyDownActions[UP_KEY] = this._onDirectionKey, _keyDownActions[PAGE_UP_KEY] = this._onDirectionKey, _keyDownActions[DOWN_KEY] = this._onDirectionKey, _keyDownActions[PAGE_DOWN_KEY] = this._onDirectionKey, _keyDownActions[DELETE_KEY] = this._onDeleteKey, _keyDownActions[BACK_KEY] = this._onDeleteKey, _keyDownActions); // If keycode has a function, run it
+
+    if (keyDownActions[keyCode]) {
+      keyDownActions[keyCode]({
+        event: event,
+        target: target,
+        keyCode: keyCode,
+        metaKey: metaKey,
+        activeItems: activeItems,
+        hasFocusedInput: hasFocusedInput,
+        hasActiveDropdown: hasActiveDropdown,
+        hasItems: hasItems,
+        hasCtrlDownKeyPressed: hasCtrlDownKeyPressed
+      });
+    }
+  };
+
+  _proto._onKeyUp = function _onKeyUp(_ref2) {
+    var target = _ref2.target,
+        keyCode = _ref2.keyCode;
+    var value = this.input.value;
+    var activeItems = this._store.activeItems;
+
+    var canAddItem = this._canAddItem(activeItems, value);
+
+    var backKey = KEY_CODES.BACK_KEY,
+        deleteKey = KEY_CODES.DELETE_KEY; // We are typing into a text input and have a value, we want to show a dropdown
+    // notice. Otherwise hide the dropdown
+
+    if (this._isTextElement) {
+      var canShowDropdownNotice = canAddItem.notice && value;
+
+      if (canShowDropdownNotice) {
+        var dropdownItem = this._getTemplate('notice', canAddItem.notice);
+
+        this.dropdown.element.innerHTML = dropdownItem.outerHTML;
+        this.showDropdown(true);
+      } else {
+        this.hideDropdown(true);
+      }
+    } else {
+      var userHasRemovedValue = (keyCode === backKey || keyCode === deleteKey) && !target.value;
+      var canReactivateChoices = !this._isTextElement && this._isSearching;
+      var canSearch = this._canSearch && canAddItem.response;
+
+      if (userHasRemovedValue && canReactivateChoices) {
+        this._isSearching = false;
+
+        this._store.dispatch(choices_activateChoices(true));
+      } else if (canSearch) {
+        this._handleSearch(this.input.value);
+      }
+    }
+
+    this._canSearch = this.config.searchEnabled;
+  };
+
+  _proto._onAKey = function _onAKey(_ref3) {
+    var hasItems = _ref3.hasItems,
+        hasCtrlDownKeyPressed = _ref3.hasCtrlDownKeyPressed;
+
+    // If CTRL + A or CMD + A have been pressed and there are items to select
+    if (hasCtrlDownKeyPressed && hasItems) {
+      this._canSearch = false;
+      var shouldHightlightAll = this.config.removeItems && !this.input.value && this.input.element === document.activeElement;
+
+      if (shouldHightlightAll) {
+        this.highlightAll();
+      }
+    }
+  };
+
+  _proto._onEnterKey = function _onEnterKey(_ref4) {
+    var event = _ref4.event,
+        target = _ref4.target,
+        activeItems = _ref4.activeItems,
+        hasActiveDropdown = _ref4.hasActiveDropdown;
+    var enterKey = KEY_CODES.ENTER_KEY;
+    var targetWasButton = target.hasAttribute('data-button');
+
+    if (this._isTextElement && target.value) {
+      var value = this.input.value;
+
+      var canAddItem = this._canAddItem(activeItems, value);
+
+      if (canAddItem.response) {
+        this.hideDropdown(true);
+
+        this._addItem({
+          value: value
+        });
+
+        this._triggerChange(value);
+
+        this.clearInput();
+      }
+    }
+
+    if (targetWasButton) {
+      this._handleButtonAction(activeItems, target);
+
+      event.preventDefault();
+    }
+
+    if (hasActiveDropdown) {
+      var highlightedChoice = this.dropdown.getChild("." + this.config.classNames.highlightedState);
+
+      if (highlightedChoice) {
+        // add enter keyCode value
+        if (activeItems[0]) {
+          activeItems[0].keyCode = enterKey; // eslint-disable-line no-param-reassign
+        }
+
+        this._handleChoiceAction(activeItems, highlightedChoice);
+      }
+
+      event.preventDefault();
+    } else if (this._isSelectOneElement) {
+      this.showDropdown();
+      event.preventDefault();
+    }
+  };
+
+  _proto._onEscapeKey = function _onEscapeKey(_ref5) {
+    var hasActiveDropdown = _ref5.hasActiveDropdown;
+
+    if (hasActiveDropdown) {
+      this.hideDropdown(true);
+      this.containerOuter.focus();
+    }
+  };
+
+  _proto._onDirectionKey = function _onDirectionKey(_ref6) {
+    var event = _ref6.event,
+        hasActiveDropdown = _ref6.hasActiveDropdown,
+        keyCode = _ref6.keyCode,
+        metaKey = _ref6.metaKey;
+    var downKey = KEY_CODES.DOWN_KEY,
+        pageUpKey = KEY_CODES.PAGE_UP_KEY,
+        pageDownKey = KEY_CODES.PAGE_DOWN_KEY; // If up or down key is pressed, traverse through options
+
+    if (hasActiveDropdown || this._isSelectOneElement) {
+      this.showDropdown();
+      this._canSearch = false;
+      var directionInt = keyCode === downKey || keyCode === pageDownKey ? 1 : -1;
+      var skipKey = metaKey || keyCode === pageDownKey || keyCode === pageUpKey;
+      var selectableChoiceIdentifier = '[data-choice-selectable]';
+      var nextEl;
+
+      if (skipKey) {
+        if (directionInt > 0) {
+          nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier + ":last-of-type");
+        } else {
+          nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier);
+        }
+      } else {
+        var currentEl = this.dropdown.element.querySelector("." + this.config.classNames.highlightedState);
+
+        if (currentEl) {
+          nextEl = getAdjacentEl(currentEl, selectableChoiceIdentifier, directionInt);
+        } else {
+          nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier);
+        }
+      }
+
+      if (nextEl) {
+        // We prevent default to stop the cursor moving
+        // when pressing the arrow
+        if (!isScrolledIntoView(nextEl, this.choiceList.element, directionInt)) {
+          this.choiceList.scrollToChildElement(nextEl, directionInt);
+        }
+
+        this._highlightChoice(nextEl);
+      } // Prevent default to maintain cursor position whilst
+      // traversing dropdown options
+
+
+      event.preventDefault();
+    }
+  };
+
+  _proto._onDeleteKey = function _onDeleteKey(_ref7) {
+    var event = _ref7.event,
+        target = _ref7.target,
+        hasFocusedInput = _ref7.hasFocusedInput,
+        activeItems = _ref7.activeItems;
+
+    // If backspace or delete key is pressed and the input has no value
+    if (hasFocusedInput && !target.value && !this._isSelectOneElement) {
+      this._handleBackspace(activeItems);
+
+      event.preventDefault();
+    }
+  };
+
+  _proto._onTouchMove = function _onTouchMove() {
+    if (this._wasTap) {
+      this._wasTap = false;
+    }
+  };
+
+  _proto._onTouchEnd = function _onTouchEnd(event) {
+    var _ref8 = event || event.touches[0],
+        target = _ref8.target;
+
+    var touchWasWithinContainer = this._wasTap && this.containerOuter.element.contains(target);
+
+    if (touchWasWithinContainer) {
+      var containerWasExactTarget = target === this.containerOuter.element || target === this.containerInner.element;
+
+      if (containerWasExactTarget) {
+        if (this._isTextElement) {
+          this.input.focus();
+        } else if (this._isSelectMultipleElement) {
+          this.showDropdown();
+        }
+      } // Prevents focus event firing
+
+
+      event.stopPropagation();
+    }
+
+    this._wasTap = true;
+  }
+  /**
+   * Handles mousedown event in capture mode for containetOuter.element
+   * @param {MouseEvent} event
+   */
+  ;
+
+  _proto._onMouseDown = function _onMouseDown(event) {
+    var target = event.target;
+
+    if (!(target instanceof HTMLElement)) {
+      return;
+    } // If we have our mouse down on the scrollbar and are on IE11...
+
+
+    if (IS_IE11 && this.choiceList.element.contains(target)) {
+      // check if click was on a scrollbar area
+      var firstChoice =
+      /** @type {HTMLElement} */
+      this.choiceList.element.firstElementChild;
+      var isOnScrollbar = this._direction === 'ltr' ? event.offsetX >= firstChoice.offsetWidth : event.offsetX < firstChoice.offsetLeft;
+      this._isScrollingOnIe = isOnScrollbar;
+    }
+
+    if (target === this.input.element) {
+      return;
+    }
+
+    var item = target.closest('[data-button],[data-item],[data-choice]');
+
+    if (item instanceof HTMLElement) {
+      var hasShiftKey = event.shiftKey;
+      var activeItems = this._store.activeItems;
+      var dataset = item.dataset;
+
+      if ('button' in dataset) {
+        this._handleButtonAction(activeItems, item);
+      } else if ('item' in dataset) {
+        this._handleItemAction(activeItems, item, hasShiftKey);
+      } else if ('choice' in dataset) {
+        this._handleChoiceAction(activeItems, item);
+      }
+    }
+
+    event.preventDefault();
+  }
+  /**
+   * Handles mouseover event over this.dropdown
+   * @param {MouseEvent} event
+   */
+  ;
+
+  _proto._onMouseOver = function _onMouseOver(_ref9) {
+    var target = _ref9.target;
+
+    if (target instanceof HTMLElement && 'choice' in target.dataset) {
+      this._highlightChoice(target);
+    }
+  };
+
+  _proto._onClick = function _onClick(_ref10) {
+    var target = _ref10.target;
+    var clickWasWithinContainer = this.containerOuter.element.contains(target);
+
+    if (clickWasWithinContainer) {
+      if (!this.dropdown.isActive && !this.containerOuter.isDisabled) {
+        if (this._isTextElement) {
+          if (document.activeElement !== this.input.element) {
+            this.input.focus();
+          }
+        } else {
+          this.showDropdown();
+          this.containerOuter.focus();
+        }
+      } else if (this._isSelectOneElement && target !== this.input.element && !this.dropdown.element.contains(target)) {
+        this.hideDropdown();
+      }
+    } else {
+      var hasHighlightedItems = this._store.highlightedActiveItems.length > 0;
+
+      if (hasHighlightedItems) {
+        this.unhighlightAll();
+      }
+
+      this.containerOuter.removeFocusState();
+      this.hideDropdown(true);
+    }
+  };
+
+  _proto._onFocus = function _onFocus(_ref11) {
+    var _this17 = this,
+        _focusActions;
+
+    var target = _ref11.target;
+    var focusWasWithinContainer = this.containerOuter.element.contains(target);
+
+    if (!focusWasWithinContainer) {
+      return;
+    }
+
+    var focusActions = (_focusActions = {}, _focusActions[TEXT_TYPE] = function () {
+      if (target === _this17.input.element) {
+        _this17.containerOuter.addFocusState();
+      }
+    }, _focusActions[SELECT_ONE_TYPE] = function () {
+      _this17.containerOuter.addFocusState();
+
+      if (target === _this17.input.element) {
+        _this17.showDropdown(true);
+      }
+    }, _focusActions[SELECT_MULTIPLE_TYPE] = function () {
+      if (target === _this17.input.element) {
+        _this17.showDropdown(true); // If element is a select box, the focused element is the container and the dropdown
+        // isn't already open, focus and show dropdown
+
+
+        _this17.containerOuter.addFocusState();
+      }
+    }, _focusActions);
+    focusActions[this.passedElement.element.type]();
+  };
+
+  _proto._onBlur = function _onBlur(_ref12) {
+    var _this18 = this;
+
+    var target = _ref12.target;
+    var blurWasWithinContainer = this.containerOuter.element.contains(target);
+
+    if (blurWasWithinContainer && !this._isScrollingOnIe) {
+      var _blurActions;
+
+      var activeItems = this._store.activeItems;
+      var hasHighlightedItems = activeItems.some(function (item) {
+        return item.highlighted;
+      });
+      var blurActions = (_blurActions = {}, _blurActions[TEXT_TYPE] = function () {
+        if (target === _this18.input.element) {
+          _this18.containerOuter.removeFocusState();
+
+          if (hasHighlightedItems) {
+            _this18.unhighlightAll();
+          }
+
+          _this18.hideDropdown(true);
+        }
+      }, _blurActions[SELECT_ONE_TYPE] = function () {
+        _this18.containerOuter.removeFocusState();
+
+        if (target === _this18.input.element || target === _this18.containerOuter.element && !_this18._canSearch) {
+          _this18.hideDropdown(true);
+        }
+      }, _blurActions[SELECT_MULTIPLE_TYPE] = function () {
+        if (target === _this18.input.element) {
+          _this18.containerOuter.removeFocusState();
+
+          _this18.hideDropdown(true);
+
+          if (hasHighlightedItems) {
+            _this18.unhighlightAll();
+          }
+        }
+      }, _blurActions);
+      blurActions[this.passedElement.element.type]();
+    } else {
+      // On IE11, clicking the scollbar blurs our input and thus
+      // closes the dropdown. To stop this, we refocus our input
+      // if we know we are on IE *and* are scrolling.
+      this._isScrollingOnIe = false;
+      this.input.element.focus();
+    }
+  };
+
+  _proto._onFormReset = function _onFormReset() {
+    this._store.dispatch(resetTo(this._initialState));
+  };
+
+  _proto._highlightChoice = function _highlightChoice(el) {
+    var _this19 = this;
+
+    if (el === void 0) {
+      el = null;
+    }
+
+    var choices = Array.from(this.dropdown.element.querySelectorAll('[data-choice-selectable]'));
+
+    if (!choices.length) {
+      return;
+    }
+
+    var passedEl = el;
+    var highlightedChoices = Array.from(this.dropdown.element.querySelectorAll("." + this.config.classNames.highlightedState)); // Remove any highlighted choices
+
+    highlightedChoices.forEach(function (choice) {
+      choice.classList.remove(_this19.config.classNames.highlightedState);
+      choice.setAttribute('aria-selected', 'false');
+    });
+
+    if (passedEl) {
+      this._highlightPosition = choices.indexOf(passedEl);
+    } else {
+      // Highlight choice based on last known highlight location
+      if (choices.length > this._highlightPosition) {
+        // If we have an option to highlight
+        passedEl = choices[this._highlightPosition];
+      } else {
+        // Otherwise highlight the option before
+        passedEl = choices[choices.length - 1];
+      }
+
+      if (!passedEl) {
+        passedEl = choices[0];
+      }
+    }
+
+    passedEl.classList.add(this.config.classNames.highlightedState);
+    passedEl.setAttribute('aria-selected', 'true');
+    this.passedElement.triggerEvent(EVENTS.highlightChoice, {
+      el: passedEl
+    });
+
+    if (this.dropdown.isActive) {
+      // IE11 ignores aria-label and blocks virtual keyboard
+      // if aria-activedescendant is set without a dropdown
+      this.input.setActiveDescendant(passedEl.id);
+      this.containerOuter.setActiveDescendant(passedEl.id);
+    }
+  };
+
+  _proto._addItem = function _addItem(_ref13) {
+    var value = _ref13.value,
+        _ref13$label = _ref13.label,
+        label = _ref13$label === void 0 ? null : _ref13$label,
+        _ref13$choiceId = _ref13.choiceId,
+        choiceId = _ref13$choiceId === void 0 ? -1 : _ref13$choiceId,
+        _ref13$groupId = _ref13.groupId,
+        groupId = _ref13$groupId === void 0 ? -1 : _ref13$groupId,
+        _ref13$customProperti = _ref13.customProperties,
+        customProperties = _ref13$customProperti === void 0 ? null : _ref13$customProperti,
+        _ref13$placeholder = _ref13.placeholder,
+        placeholder = _ref13$placeholder === void 0 ? false : _ref13$placeholder,
+        _ref13$keyCode = _ref13.keyCode,
+        keyCode = _ref13$keyCode === void 0 ? null : _ref13$keyCode;
+    var passedValue = typeof value === 'string' ? value.trim() : value;
+    var passedKeyCode = keyCode;
+    var passedCustomProperties = customProperties;
+    var items = this._store.items;
+    var passedLabel = label || passedValue;
+    var passedOptionId = choiceId || -1;
+    var group = groupId >= 0 ? this._store.getGroupById(groupId) : null;
+    var id = items ? items.length + 1 : 1; // If a prepended value has been passed, prepend it
+
+    if (this.config.prependValue) {
+      passedValue = this.config.prependValue + passedValue.toString();
+    } // If an appended value has been passed, append it
+
+
+    if (this.config.appendValue) {
+      passedValue += this.config.appendValue.toString();
+    }
+
+    this._store.dispatch(items_addItem({
+      value: passedValue,
+      label: passedLabel,
+      id: id,
+      choiceId: passedOptionId,
+      groupId: groupId,
+      customProperties: customProperties,
+      placeholder: placeholder,
+      keyCode: passedKeyCode
+    }));
+
+    if (this._isSelectOneElement) {
+      this.removeActiveItems(id);
+    } // Trigger change event
+
+
+    this.passedElement.triggerEvent(EVENTS.addItem, {
+      id: id,
+      value: passedValue,
+      label: passedLabel,
+      customProperties: passedCustomProperties,
+      groupValue: group && group.value ? group.value : undefined,
+      keyCode: passedKeyCode
+    });
+    return this;
+  };
+
+  _proto._removeItem = function _removeItem(item) {
+    if (!item || !isType('Object', item)) {
+      return this;
+    }
+
+    var id = item.id,
+        value = item.value,
+        label = item.label,
+        choiceId = item.choiceId,
+        groupId = item.groupId;
+    var group = groupId >= 0 ? this._store.getGroupById(groupId) : null;
+
+    this._store.dispatch(items_removeItem(id, choiceId));
+
+    if (group && group.value) {
+      this.passedElement.triggerEvent(EVENTS.removeItem, {
+        id: id,
+        value: value,
+        label: label,
+        groupValue: group.value
+      });
+    } else {
+      this.passedElement.triggerEvent(EVENTS.removeItem, {
+        id: id,
+        value: value,
+        label: label
+      });
+    }
+
+    return this;
+  };
+
+  _proto._addChoice = function _addChoice(_ref14) {
+    var value = _ref14.value,
+        _ref14$label = _ref14.label,
+        label = _ref14$label === void 0 ? null : _ref14$label,
+        _ref14$isSelected = _ref14.isSelected,
+        isSelected = _ref14$isSelected === void 0 ? false : _ref14$isSelected,
+        _ref14$isDisabled = _ref14.isDisabled,
+        isDisabled = _ref14$isDisabled === void 0 ? false : _ref14$isDisabled,
+        _ref14$groupId = _ref14.groupId,
+        groupId = _ref14$groupId === void 0 ? -1 : _ref14$groupId,
+        _ref14$customProperti = _ref14.customProperties,
+        customProperties = _ref14$customProperti === void 0 ? null : _ref14$customProperti,
+        _ref14$placeholder = _ref14.placeholder,
+        placeholder = _ref14$placeholder === void 0 ? false : _ref14$placeholder,
+        _ref14$keyCode = _ref14.keyCode,
+        keyCode = _ref14$keyCode === void 0 ? null : _ref14$keyCode;
+
+    if (typeof value === 'undefined' || value === null) {
+      return;
+    } // Generate unique id
+
+
+    var choices = this._store.choices;
+    var choiceLabel = label || value;
+    var choiceId = choices ? choices.length + 1 : 1;
+    var choiceElementId = this._baseId + "-" + this._idNames.itemChoice + "-" + choiceId;
+
+    this._store.dispatch(choices_addChoice({
+      id: choiceId,
+      groupId: groupId,
+      elementId: choiceElementId,
+      value: value,
+      label: choiceLabel,
+      disabled: isDisabled,
+      customProperties: customProperties,
+      placeholder: placeholder,
+      keyCode: keyCode
+    }));
+
+    if (isSelected) {
+      this._addItem({
+        value: value,
+        label: choiceLabel,
+        choiceId: choiceId,
+        customProperties: customProperties,
+        placeholder: placeholder,
+        keyCode: keyCode
+      });
+    }
+  };
+
+  _proto._addGroup = function _addGroup(_ref15) {
+    var _this20 = this;
+
+    var group = _ref15.group,
+        id = _ref15.id,
+        _ref15$valueKey = _ref15.valueKey,
+        valueKey = _ref15$valueKey === void 0 ? 'value' : _ref15$valueKey,
+        _ref15$labelKey = _ref15.labelKey,
+        labelKey = _ref15$labelKey === void 0 ? 'label' : _ref15$labelKey;
+    var groupChoices = isType('Object', group) ? group.choices : Array.from(group.getElementsByTagName('OPTION'));
+    var groupId = id || Math.floor(new Date().valueOf() * Math.random());
+    var isDisabled = group.disabled ? group.disabled : false;
+
+    if (groupChoices) {
+      this._store.dispatch(groups_addGroup({
+        value: group.label,
+        id: groupId,
+        active: true,
+        disabled: isDisabled
+      }));
+
+      var addGroupChoices = function addGroupChoices(choice) {
+        var isOptDisabled = choice.disabled || choice.parentNode && choice.parentNode.disabled;
+
+        _this20._addChoice({
+          value: choice[valueKey],
+          label: isType('Object', choice) ? choice[labelKey] : choice.innerHTML,
+          isSelected: choice.selected,
+          isDisabled: isOptDisabled,
+          groupId: groupId,
+          customProperties: choice.customProperties,
+          placeholder: choice.placeholder
+        });
+      };
+
+      groupChoices.forEach(addGroupChoices);
+    } else {
+      this._store.dispatch(groups_addGroup({
+        value: group.label,
+        id: group.id,
+        active: false,
+        disabled: group.disabled
+      }));
+    }
+  };
+
+  _proto._getTemplate = function _getTemplate(template) {
+    var _this$_templates$temp;
+
+    if (!template) {
+      return null;
+    }
+
+    var classNames = this.config.classNames;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return (_this$_templates$temp = this._templates[template]).call.apply(_this$_templates$temp, [this, classNames].concat(args));
+  };
+
+  _proto._createTemplates = function _createTemplates() {
+    var callbackOnCreateTemplates = this.config.callbackOnCreateTemplates;
+    var userTemplates = {};
+
+    if (callbackOnCreateTemplates && typeof callbackOnCreateTemplates === 'function') {
+      userTemplates = callbackOnCreateTemplates.call(this, strToEl);
+    }
+
+    this._templates = cjs_default()(TEMPLATES, userTemplates);
+  };
+
+  _proto._createElements = function _createElements() {
+    this.containerOuter = new container_Container({
+      element: this._getTemplate('containerOuter', this._direction, this._isSelectElement, this._isSelectOneElement, this.config.searchEnabled, this.passedElement.element.type),
+      classNames: this.config.classNames,
+      type: this.passedElement.element.type,
+      position: this.config.position
+    });
+    this.containerInner = new container_Container({
+      element: this._getTemplate('containerInner'),
+      classNames: this.config.classNames,
+      type: this.passedElement.element.type,
+      position: this.config.position
+    });
+    this.input = new input_Input({
+      element: this._getTemplate('input', this._placeholderValue),
+      classNames: this.config.classNames,
+      type: this.passedElement.element.type,
+      preventPaste: !this.config.paste
+    });
+    this.choiceList = new list_List({
+      element: this._getTemplate('choiceList', this._isSelectOneElement)
+    });
+    this.itemList = new list_List({
+      element: this._getTemplate('itemList', this._isSelectOneElement)
+    });
+    this.dropdown = new Dropdown({
+      element: this._getTemplate('dropdown'),
+      classNames: this.config.classNames,
+      type: this.passedElement.element.type
+    });
+  };
+
+  _proto._createStructure = function _createStructure() {
+    // Hide original element
+    this.passedElement.conceal(); // Wrap input in container preserving DOM ordering
+
+    this.containerInner.wrap(this.passedElement.element); // Wrapper inner container with outer container
+
+    this.containerOuter.wrap(this.containerInner.element);
+
+    if (this._isSelectOneElement) {
+      this.input.placeholder = this.config.searchPlaceholderValue || '';
+    } else if (this._placeholderValue) {
+      this.input.placeholder = this._placeholderValue;
+      this.input.setWidth();
+    }
+
+    this.containerOuter.element.appendChild(this.containerInner.element);
+    this.containerOuter.element.appendChild(this.dropdown.element);
+    this.containerInner.element.appendChild(this.itemList.element);
+
+    if (!this._isTextElement) {
+      this.dropdown.element.appendChild(this.choiceList.element);
+    }
+
+    if (!this._isSelectOneElement) {
+      this.containerInner.element.appendChild(this.input.element);
+    } else if (this.config.searchEnabled) {
+      this.dropdown.element.insertBefore(this.input.element, this.dropdown.element.firstChild);
+    }
+
+    if (this._isSelectElement) {
+      this._highlightPosition = 0;
+      this._isSearching = false;
+
+      this._startLoading();
+
+      if (this._presetGroups.length) {
+        this._addPredefinedGroups(this._presetGroups);
+      } else {
+        this._addPredefinedChoices(this._presetChoices);
+      }
+
+      this._stopLoading();
+    }
+
+    if (this._isTextElement) {
+      this._addPredefinedItems(this._presetItems);
+    }
+  };
+
+  _proto._addPredefinedGroups = function _addPredefinedGroups(groups) {
+    var _this21 = this;
+
+    // If we have a placeholder option
+    var placeholderChoice = this.passedElement.placeholderOption;
+
+    if (placeholderChoice && placeholderChoice.parentNode.tagName === 'SELECT') {
+      this._addChoice({
+        value: placeholderChoice.value,
+        label: placeholderChoice.innerHTML,
+        isSelected: placeholderChoice.selected,
+        isDisabled: placeholderChoice.disabled,
+        placeholder: true
+      });
+    }
+
+    groups.forEach(function (group) {
+      return _this21._addGroup({
+        group: group,
+        id: group.id || null
+      });
+    });
+  };
+
+  _proto._addPredefinedChoices = function _addPredefinedChoices(choices) {
+    var _this22 = this;
+
+    // If sorting is enabled or the user is searching, filter choices
+    if (this.config.shouldSort) {
+      choices.sort(this.config.sorter);
+    }
+
+    var hasSelectedChoice = choices.some(function (choice) {
+      return choice.selected;
+    });
+    var firstEnabledChoiceIndex = choices.findIndex(function (choice) {
+      return choice.disabled === undefined || !choice.disabled;
+    });
+    choices.forEach(function (choice, index) {
+      var value = choice.value,
+          label = choice.label,
+          customProperties = choice.customProperties,
+          placeholder = choice.placeholder;
+
+      if (_this22._isSelectElement) {
+        // If the choice is actually a group
+        if (choice.choices) {
+          _this22._addGroup({
+            group: choice,
+            id: choice.id || null
+          });
+        } else {
+          /**
+           * If there is a selected choice already or the choice is not the first in
+           * the array, add each choice normally.
+           *
+           * Otherwise we pre-select the first enabled choice in the array ("select-one" only)
+           */
+          var shouldPreselect = _this22._isSelectOneElement && !hasSelectedChoice && index === firstEnabledChoiceIndex;
+          var isSelected = shouldPreselect ? true : choice.selected;
+          var isDisabled = choice.disabled;
+
+          _this22._addChoice({
+            value: value,
+            label: label,
+            isSelected: isSelected,
+            isDisabled: isDisabled,
+            customProperties: customProperties,
+            placeholder: placeholder
+          });
+        }
+      } else {
+        _this22._addChoice({
+          value: value,
+          label: label,
+          isSelected: choice.selected,
+          isDisabled: choice.disabled,
+          customProperties: customProperties,
+          placeholder: placeholder
+        });
+      }
+    });
+  }
+  /**
+   * @param {Item[]} items
+   */
+  ;
+
+  _proto._addPredefinedItems = function _addPredefinedItems(items) {
+    var _this23 = this;
+
+    items.forEach(function (item) {
+      if (typeof item === 'object' && item.value) {
+        _this23._addItem({
+          value: item.value,
+          label: item.label,
+          choiceId: item.id,
+          customProperties: item.customProperties,
+          placeholder: item.placeholder
+        });
+      }
+
+      if (typeof item === 'string') {
+        _this23._addItem({
+          value: item
+        });
+      }
+    });
+  };
+
+  _proto._setChoiceOrItem = function _setChoiceOrItem(item) {
+    var _this24 = this;
+
+    var itemType = getType(item).toLowerCase();
+    var handleType = {
+      object: function object() {
+        if (!item.value) {
+          return;
+        } // If we are dealing with a select input, we need to create an option first
+        // that is then selected. For text inputs we can just add items normally.
+
+
+        if (!_this24._isTextElement) {
+          _this24._addChoice({
+            value: item.value,
+            label: item.label,
+            isSelected: true,
+            isDisabled: false,
+            customProperties: item.customProperties,
+            placeholder: item.placeholder
+          });
+        } else {
+          _this24._addItem({
+            value: item.value,
+            label: item.label,
+            choiceId: item.id,
+            customProperties: item.customProperties,
+            placeholder: item.placeholder
+          });
+        }
+      },
+      string: function string() {
+        if (!_this24._isTextElement) {
+          _this24._addChoice({
+            value: item,
+            label: item,
+            isSelected: true,
+            isDisabled: false
+          });
+        } else {
+          _this24._addItem({
+            value: item
+          });
+        }
+      }
+    };
+    handleType[itemType]();
+  };
+
+  _proto._findAndSelectChoiceByValue = function _findAndSelectChoiceByValue(val) {
+    var _this25 = this;
+
+    var choices = this._store.choices; // Check 'value' property exists and the choice isn't already selected
+
+    var foundChoice = choices.find(function (choice) {
+      return _this25.config.valueComparer(choice.value, val);
+    });
+
+    if (foundChoice && !foundChoice.selected) {
+      this._addItem({
+        value: foundChoice.value,
+        label: foundChoice.label,
+        choiceId: foundChoice.id,
+        groupId: foundChoice.groupId,
+        customProperties: foundChoice.customProperties,
+        placeholder: foundChoice.placeholder,
+        keyCode: foundChoice.keyCode
+      });
+    }
+  };
+
+  _proto._generatePlaceholderValue = function _generatePlaceholderValue() {
+    if (this._isSelectElement) {
+      var placeholderOption = this.passedElement.placeholderOption;
+      return placeholderOption ? placeholderOption.text : false;
+    }
+
+    var _this$config4 = this.config,
+        placeholder = _this$config4.placeholder,
+        placeholderValue = _this$config4.placeholderValue;
+    var dataset = this.passedElement.element.dataset;
+
+    if (placeholder) {
+      if (placeholderValue) {
+        return placeholderValue;
+      }
+
+      if (dataset.placeholder) {
+        return dataset.placeholder;
+      }
+    }
+
+    return false;
+  };
+
+  return Choices;
+}();
+
+/* harmony default export */ var scripts_choices = __webpack_exports__["default"] = (choices_Choices);
+
+/***/ })
+/******/ ])["default"];
+});
 
 /***/ }),
 
@@ -86917,6 +92843,764 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
+
+
+/***/ }),
+
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : 0
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
 
 
 /***/ }),

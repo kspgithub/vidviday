@@ -29,6 +29,7 @@
                 </a>
                 <ul id="tours" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.tour*', 'show', '')}}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.tour.*')}}"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.badge.*')}}"><a class="sidebar-link " href="{{route('admin.badge.index')}}">@lang('Tour Badges')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.tour-group.*')}}"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Tour Groups')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}"><a class="sidebar-link " href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Tour Directions')</a></li>
@@ -40,7 +41,8 @@
                     <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">@lang('Places')</span>
                 </a>
                 <ul id="places" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.place*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.place.*')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.place.create')}}"><a class="sidebar-link" href="{{route('admin.place.create')}}">@lang('Create place')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.place.index')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
                 </ul>
             </li>
             <li class="sidebar-item">

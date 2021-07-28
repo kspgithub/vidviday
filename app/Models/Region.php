@@ -15,7 +15,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperRegion
  */
-class Region extends Model
+class Region extends TranslatableModel
 {
     use HasSlug;
     use HasFactory;

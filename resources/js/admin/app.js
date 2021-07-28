@@ -20,9 +20,12 @@ import "./modules/chartjs";
 
 // Forms
 import "./modules/flatpickr";
+import "./modules/published-switch";
+import "./modules/location-group";
 
 // Maps
 import "./modules/vector-maps";
+
 
 
 

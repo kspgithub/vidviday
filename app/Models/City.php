@@ -14,7 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperCity
  */
-class City extends Model
+class City extends TranslatableModel
 {
     use HasSlug;
     use HasFactory;
@@ -52,5 +52,20 @@ class City extends Model
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+
+    public function asChoose()
+    {
+        return [
+            'id'=>$this->id,
+            'region_id'=>$this->region_id,
+            'country_id'=>$this->region_id,
+            'title'=>$this->title,
+            'country_title'=>$this->country->title,
+            'region_title'=>$this->region->title,
+            'value'=>$this->id,
+            'text'=>$this->title.' ('.$this->region->title.')',
+        ];
     }
 }

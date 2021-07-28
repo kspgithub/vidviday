@@ -128,4 +128,20 @@ class CityController extends Controller
         return redirect()->route('admin.city.index')->withFlashSuccess(__('City deleted.'));
     }
 
+    public function search(Request $request)
+    {
+        $country_id = $request->input('country_id', Country::DEFAULT_COUNTRY_ID);
+        $cityQuery = City::query()->where('cities.country_id', $country_id)->with(['region', 'country']);
+
+        $q = $request->input('q', '');
+        $limit = $request->input('limit', 0);
+
+        if (!empty($q)) {
+            $cityQuery->where('cities.title', 'LIKE', '%'.$q.'%');
+        }
+
+
+        return $cityQuery->take(10)->get()->map->asChoose();
+
+    }
 }

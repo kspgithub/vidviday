@@ -18,6 +18,7 @@
                 id="{{$name}}"
                 placeholder="{{ !empty($placeholder) ? $placeholder : '' }}"
                 value="{{ $value}}"
+                {{$readonly ? 'readonly' : ''}}
             {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
         />
         @if(!empty($help))

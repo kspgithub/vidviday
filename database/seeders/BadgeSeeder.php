@@ -26,6 +26,7 @@ class BadgeSeeder extends Seeder
         $badges = [
             ['title' => ['ru' => 'Новинка', 'uk' => 'Новинка', 'en' => 'New', 'pl' => 'Nowy'], 'slug' => 'new', 'color' => '#7EBD3E'],
             ['title' => ['ru' => 'Акция', 'uk' => 'Акція', 'en' => 'Promo', 'pl' => 'Зromocja'], 'slug' => 'promo', 'color' => '#FFB947'],
+            ['title' => ['ru' => 'Бестселлер', 'uk' => 'Бестселер', 'en' => 'Bestseller', 'pl' => 'Bestseller'], 'slug' => 'bestseller', 'color' => '#FFB947'],
         ];
 
         foreach ($badges as $badge) {

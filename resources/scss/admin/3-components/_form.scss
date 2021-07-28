@@ -21,3 +21,50 @@ select{
         font-size: 24px;
     }
 }
+
+
+.location-group{
+    .map{
+        height: 400px;
+        border: 1px solid #ced4da;
+    }
+}
+
+
+.choices[data-type*=select-one]{
+
+    .choices{
+        &__inner{
+            min-height: 33px;
+            padding: 0.3rem  25px 0.3rem 0.85rem;
+            background: #fff;
+            font-size: 0.875rem;
+            font-weight: 400;
+            border-radius: 0.2rem;
+        }
+    }
+
+    &:after{
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-position-x: 100%;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        border: 0 none;
+        right: 1px;
+        margin-top: -10px;
+
+    }
+
+    &.is-open{
+        &:after{
+            margin-top: -10px;
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.choices__list--single{
+    padding: 0px 16px 0px 0px;
+}

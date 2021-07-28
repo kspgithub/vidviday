@@ -38,6 +38,20 @@
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/utilities/api";
 
+
+// 3rd party plugins
+@import "~jsvectormap/dist/css/jsvectormap";
+@import "~simplebar/dist/simplebar";
+@import "~flatpickr/dist/flatpickr";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fancyapps/ui/dist/fancybox.css";
+@import "~sweetalert2/src/sweetalert2";
+//@import "~choices.js/src/styles/base";
+@import "~choices.js/src/styles/choices";
+
+
 // Theme mixins
 @import "2-mixins/button";
 
@@ -68,16 +82,7 @@
 
 // Theme utilities
 @import "4-utilities/cursors";
-
-// 3rd party plugins
-@import "~jsvectormap/dist/css/jsvectormap";
-@import "~simplebar/dist/simplebar";
-@import "~flatpickr/dist/flatpickr";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fancyapps/ui/dist/fancybox.css";
-@import "~sweetalert2/src/sweetalert2";
+@import "4-utilities/helpers";
 
 // 3rd party plugin styles
 @import "5-vendor/flatpickr";

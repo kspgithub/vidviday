@@ -13,11 +13,13 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperCountry
  */
-class Country extends Model
+class Country extends TranslatableModel
 {
     use HasFactory;
-    use HasTranslations;
     use UseSelectBox;
+    use HasTranslations;
+
+    public const DEFAULT_COUNTRY_ID = 1;
 
     public function getRouteKeyName()
     {

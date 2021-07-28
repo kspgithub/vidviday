@@ -22,16 +22,16 @@ trait PlaceRelationship
 
     public function country()
     {
-        $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
     public function region()
     {
-        $this->belongsTo(Region::class);
+        return $this->belongsTo(Region::class);
     }
 
     public function city()
     {
-        $this->belongsTo(City::class);
+        return $this->belongsTo(City::class);
     }
 }

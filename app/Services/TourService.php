@@ -12,7 +12,7 @@ use Spatie\Image\Manipulations;
 class TourService extends BaseService
 {
     /**
-     * UserService constructor.
+     * TourService constructor.
      *
      * @param  Tour  $tour
      */

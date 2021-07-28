@@ -31,9 +31,14 @@ class CountryRegionCitySeeder extends Seeder
         DB::statement('truncate table regions');
         DB::statement('truncate table cities');
 
+        DB::statement('drop table if exists located_area');
+        DB::statement('drop table if exists located_countrys');
+        DB::statement('drop table if exists located_region');
+        DB::statement('drop table if exists located_village');
+
         /** 2. Add data from MySQL file **/
         $CountryRegionCity = file_get_contents(__DIR__ . "/CountryRegionCity.sql");
-        $arrStatements = explode('/*---*/', $CountryRegionCity);
+        $arrStatements = array_filter(explode('/*---*/', $CountryRegionCity));
         foreach ($arrStatements as $statement) {
             DB::statement($statement);
         }
@@ -42,6 +47,7 @@ class CountryRegionCitySeeder extends Seeder
         //$located_countrys = collect(DB::select('select * from located_countrys'))->toArray();
         // Create [1 => Україна]
         $country = Country::factory()->createOne([
+            'id'=> Country::DEFAULT_COUNTRY_ID,
             'title'=>[
                'uk'=>'Україна',
                'ru'=>'Украина',
@@ -52,32 +58,36 @@ class CountryRegionCitySeeder extends Seeder
             'iso'=>'UA',
         ]);
 
-        $located_region = collect(DB::select('select * from located_region'))->toArray();
+        $located_region = collect(DB::select('select * from located_region'))->map(function ($reg) {
+            return [
+                'country_id' => Country::DEFAULT_COUNTRY_ID,
+                'title'=> json_encode([
+                    'uk' => $reg->region,
+                ], JSON_UNESCAPED_UNICODE),
+                'slug' => Str::slug($reg->region)
+            ];
+        })->toArray();
+        Region::insert($located_region);
+
+
         //$located_area = DB::select('select * from located_area');
-        $located_village = collect(DB::select('select * from located_village'))->toArray();
-
-        // regions
-        foreach ($located_region as $region_data) {
-            $region = Region::factory()->createOne([
-                    'country_id' => $country->id,
-                    'title'=>[
-                        'uk' => $region_data->region,
-                    ],
-                    'slug' => Str::slug($region_data->region)
-                ]);
-        }
-
-        // cities
-        foreach ($located_village as $city_data) {
-            $city = City::factory()->createOne([
+        $located_village_chunks = collect(DB::select('select * from located_village'))->unique(function ($vil) {
+            return $vil->region.$vil->village;
+        })->map(function ($vil) {
+            return [
                 'country_id' => 1,
-                'region_id' => $city_data->region,
-                'title' => [
-                    'uk' => $city_data->village,
-                ],
-                'slug' => Str::slug($city_data->village)
-            ]);
+                'region_id' => $vil->region,
+                'title' => json_encode([
+                    'uk' => $vil->village,
+                ], JSON_UNESCAPED_UNICODE),
+                'slug' => $vil->region.'-'.Str::slug($vil->village)
+            ];
+        })->chunk(100);
+
+        foreach ($located_village_chunks as $village_chunk) {
+            City::insert($village_chunk->toArray());
         }
+
 
         // 4. Delete secondary data from DB
         DB::statement('drop table located_area');

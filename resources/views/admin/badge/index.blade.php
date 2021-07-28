@@ -22,8 +22,8 @@
                 <tr>
                     <th>@lang('title')</th>
                     <th>@lang('color')</th>
-                    <th>@lang('Url')</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @lang('Actions') </th>
+                    <th>@lang('Key')</th>
+                    <th>@lang('Actions') </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,15 +31,10 @@
                     <tr>
                         <td>{{$badge->title}}</td>
                         <td>
-                            <ul class="list-inline" style="margin-bottom:0 !important;">
-                                <li class="list-inline-item align-items-center" style="vertical-align: middle;">{{$badge->color}}</li>
-                                <li class="list-inline-item align-items-center" style="vertical-align: middle;padding:5px 0;float:right;margin-right:50%;"><div style="background-color: {{$badge->color}};width:50px;height:50px;"></div></li>
-                            </ul>
-                            </td>
-                        <td>{{$badge->slug}}</td>
+                            <div style="background-color: {{$badge->color}};width:50px;height:20px;"></div>
+                        </td>
                         <td>{{$badge->slug}}</td>
                         <td class="table-action">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <x-utils.edit-button :href="route('admin.badge.edit', ['badge'=>$badge])" text="" />
                             @if(current_user()->isMasterAdmin())
                                 <x-utils.delete-button :href="route('admin.badge.destroy', $badge)" text="" />

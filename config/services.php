@@ -32,4 +32,7 @@ return [
     'tinymce'=> [
         'key'=> env('TINYMCE_KEY', ''),
     ],
+    'google'=>[
+        'maps_key'=> env('GOOGLE_MAPS_KEY', ''),
+    ],
 ];
