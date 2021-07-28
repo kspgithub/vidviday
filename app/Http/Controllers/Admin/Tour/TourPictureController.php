@@ -12,7 +12,7 @@ class TourPictureController extends Controller
     //
     public function index(Tour $tour)
     {
-        return view('admin.tour.pictures', ['tour'=> $tour]);
+        return view('admin.tour.pictures', ['tour'=>$tour]);
     }
 
     public function upload(Request $request, Tour $tour)
