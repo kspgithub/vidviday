@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tour;
+namespace App\Http\Controllers\Admin\Article;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tour;
+use App\Models\Article;
+
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class TourPictureController extends Controller
+class ArticlePictureController extends Controller
 {
     //
-    public function index(Tour $tour)
+    public function index(Article $article)
     {
-        return view('admin.tour.pictures', ['tour'=> $tour]);
+        return view('admin.article.pictures', ['article'=>$article]);
     }
 
-    public function upload(Request $request, Tour $tour)
+    public function upload(Request $request, Article $article)
     {
         if ($request->hasFile('media_file')) {
-            $media = $tour->storeMedia($request->file('media_file'), 'pictures');
+            $media = $article->storeMedia($request->file('media_file'), 'pictures');
 
             return response()->json(['result'=>'success', 'media'=>[
                 'id'=>$media->id,
@@ -30,7 +31,7 @@ class TourPictureController extends Controller
         return response()->json(['result'=>'error', 'message'=>'No file'], 400);
     }
 
-    public function update(Request $request, Tour $tour, Media $media)
+    public function update(Request $request, Article $article, Media $media)
     {
         if($request->has('title')) {
             $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
@@ -42,9 +43,9 @@ class TourPictureController extends Controller
         return response()->json(['result'=>'success', 'media'=>$media]);
     }
 
-    public function delete(Tour $tour, Media $media)
+    public function delete(Article $article, Media $media)
     {
-        $tour->deleteMedia($media);
+        $article->deleteMedia($media);
 
         return response()->json(['result'=>'success', 'media'=>$media]);
     }
