@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 
@@ -45,5 +44,4 @@ Route::group([
     require_once __DIR__.'/admin/translation.php';
     require_once __DIR__.'/admin/page.php';
     require_once __DIR__.'/admin/tour.php';
-    require_once __DIR__.'/admin/article.php';
 });
