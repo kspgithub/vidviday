@@ -54,6 +54,7 @@ Route::group([
     require_once __DIR__.'/admin/region.php';
     require_once __DIR__.'/admin/city.php';
     require_once __DIR__.'/admin/faq.php';
+    require_once __DIR__.'/admin/staff.php';
 });
 
 Route::get('{slug}', [PageController::class, 'show'])->name('page.show');

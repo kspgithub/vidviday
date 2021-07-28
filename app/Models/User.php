@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBoxS;
 use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Methods\UserMethod;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
 
 /**
  * Class User
@@ -26,6 +28,7 @@ class User extends Authenticatable
     use UserScope;
     use HasAvatar;
     use SoftDeletes;
+    use UseSelectBoxS;
 
     public const STATUS_INACTIVE = 0;
     public const STATUS_ACTIVE = 1;
@@ -79,4 +82,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday' => 'date',
     ];
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
 }
