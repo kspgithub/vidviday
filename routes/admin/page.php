@@ -8,5 +8,3 @@ Route::post('page/{page}/media', [PageController::class, 'mediaUpload'])->name('
 Route::delete('page/{page}/media/{media}', [PageController::class, 'mediaRemove'])->name('page.media.destroy');
 
 Route::resource('page', PageController::class);
-
-

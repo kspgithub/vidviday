@@ -31,6 +31,9 @@
     <div class="main">
         @include('admin.include.nav')
         <main class="content">
+
+            @include('admin.include.breadcrumbs')
+
             <div class="container-fluid p-0">
                 @include('admin.include.messages')
 
@@ -50,6 +53,7 @@
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 <script src="{{ mix('js/admin.js') }}" defer></script>
+
 @stack('after-scripts', false)
 </body>
 </html>

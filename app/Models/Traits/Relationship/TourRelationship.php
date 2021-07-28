@@ -3,22 +3,29 @@
 namespace App\Models\Traits\Relationship;
 
 use App\Models\Accommodation;
+use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Place;
 use App\Models\PriceItem;
+use App\Models\Staff;
+use App\Models\Testimonial;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
 use App\Models\TourPlan;
+use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait TourRelationship
 {
     /**
+     * Направления
+     *
      * @return BelongsToMany
      */
     public function directions()
@@ -27,6 +34,8 @@ trait TourRelationship
     }
 
     /**
+     * Места
+     *
      * @return BelongsToMany
      */
     public function places()
@@ -35,6 +44,8 @@ trait TourRelationship
     }
 
     /**
+     * Группы
+     *
      * @return BelongsToMany
      */
     public function groups()
@@ -43,6 +54,8 @@ trait TourRelationship
     }
 
     /**
+     * Типы
+     *
      * @return BelongsToMany
      */
     public function types()
@@ -51,6 +64,8 @@ trait TourRelationship
     }
 
     /**
+     * Тематика
+     *
      * @return BelongsToMany
      */
     public function subjects()
@@ -59,38 +74,48 @@ trait TourRelationship
     }
 
     /**
+     * План
+     *
      * @return HasMany
      */
-    public function plan_items()
+    public function planItems()
     {
         return $this->hasMany(TourPlan::class);
     }
 
     /**
+     * Расписание
+     *
      * @return HasMany
      */
-    public function schedule_items()
+    public function scheduleItems()
     {
         return $this->hasMany(TourSchedule::class);
     }
 
     /**
+     * Финансы (Тур включает в себя, либо приобретается отдельно)
+     *
      * @return HasMany
      */
-    public function tour_includes()
+    public function tourIncludes()
     {
         return $this->hasMany(TourInclude::class);
     }
 
     /**
+     * Питание
+     *
      * @return HasMany
      */
-    public function food_items()
+    public function foodItems()
     {
         return $this->hasMany(TourFood::class);
     }
 
     /**
+     * Размещение
+     *
      * @return HasMany
      */
     public function accommodations()
@@ -99,10 +124,62 @@ trait TourRelationship
     }
 
     /**
+     * Доп фишки которые можно купить, используются также в калькуляторе
+     *
      * @return HasMany
      */
-    public function price_items()
+    public function priceItems()
     {
         return $this->hasMany(PriceItem::class);
+    }
+
+    /**
+     * Отзывы к туру
+     *
+     * @return MorphMany
+     */
+    public function testimonials()
+    {
+        return $this->morphMany(Testimonial::class, 'model');
+    }
+
+    /**
+     * Отзывы в которых упоминается тур, например в отзывах к местам, сотрудникам
+     *
+     * @return MorphMany
+     */
+    public function relatedTestimonials()
+    {
+        return $this->morphMany(Testimonial::class, 'related');
+    }
+
+    /**
+     * Вопросы к туру
+     *
+     * @return HasMany
+     */
+    public function questions()
+    {
+        return $this->hasMany(TourQuestion::class);
+    }
+
+    /**
+     * Менеджеры тура
+     *
+     * @return BelongsToMany
+     */
+    public function staff()
+    {
+        return $this->belongsToMany(Staff::class, 'tours_staff');
+    }
+
+    /**
+     * Бейджи
+     *
+     * @return BelongsToMany
+     */
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'tour_badges');
     }
 }

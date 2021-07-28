@@ -38,8 +38,16 @@ DB_PASSWORD=
 загрузки файлов:  
 `php artisan storage:link`
 
+Публикация файлов Livewire:  
+`php artisan livewire:publish --assets`
 
 ## Разработка
+
+Попередження:
+Після того як добавились нові "route":
+`php artisan cache:clear`
+`php artisan route:cache`
+
 Файлы стилей и скриптов создаются с использованием Laravel Mix, который является оболочкой для многих инструментов и
 работает с файлом webpack.mix.js в корне проекта.
 
@@ -63,7 +71,7 @@ DB_PASSWORD=
 - JS фреймворк [Vue.js](https://vuejs.org/)
 - Управление ролями и доступом [Laravel Permission](https://spatie.be/docs/laravel-permission/v4/introduction)
 - Связывание всевозможных файлов с моделями [Laravel Medialibrary](https://spatie.be/docs/laravel-medialibrary/v7/introduction)
-
+- Переводы моделей [Laravel Translatable](https://github.com/spatie/laravel-translatable)
 
 #### В админке также подключены
 - Фреймворк [Laravel Livewire](https://laravel-livewire.com/)
@@ -73,7 +81,7 @@ DB_PASSWORD=
 #### Рекомендуемые пакеты
 - В качестве альтернативы [Pusher](https://pusher.com/) можно использовать
   [Laravel WebSockets](https://beyondco.de/docs/laravel-websockets/getting-started/introduction)
-
+  
 ### Fix Your Code
 Fix your code with Laravel Coding Standards.
 

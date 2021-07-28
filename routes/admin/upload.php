@@ -8,4 +8,3 @@ Route::post('editor/upload', [UploadController::class, 'editor'])->name('editor.
 Route::post('media/upload', [UploadController::class, 'mediaStore'])->name('media.store');
 Route::patch('media/{media}', [UploadController::class, 'mediaUpdate'])->name('media.update');
 Route::delete('media/{media}', [UploadController::class, 'mediaDelete'])->name('media.destroy');
-

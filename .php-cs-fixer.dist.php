@@ -19,6 +19,7 @@ return (new PhpCsFixer\Config())
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
+        'no_spaces_inside_parenthesis' => false,
         'phpdoc_order' => true,
         'phpdoc_separation' => true,
         'phpdoc_single_line_var_spacing' => true,

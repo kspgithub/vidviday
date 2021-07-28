@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class Currency
+ *
+ * @package App\Models
  * @mixin IdeHelperCurrency
  */
 class Currency extends Model

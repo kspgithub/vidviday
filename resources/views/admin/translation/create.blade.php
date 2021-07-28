@@ -3,13 +3,13 @@
 @section('title', __('New Translation'))
 
 @section('content')
-    <div class="mb-2">
-        {!! breadcrumbs([
-            ['url'=>route('admin.dashboard'), 'title'=>__('Home')],
-            ['url'=>route('admin.translation.index'), 'title'=>__('Translations')],
-            ['url'=>route('admin.translation.create'), 'title'=>__('New Translation')],
-        ]) !!}
-    </div>
+{{--    <div class="mb-2">--}}
+{{--        {!! breadcrumbs([--}}
+{{--            ['url'=>route('admin.dashboard'), 'title'=>__('Home')],--}}
+{{--            ['url'=>route('admin.translation.index'), 'title'=>__('Translations')],--}}
+{{--            ['url'=>route('admin.translation.create'), 'title'=>__('New Translation')],--}}
+{{--        ]) !!}--}}
+{{--    </div>--}}
     <div class="d-flex justify-content-between">
         <h1>{{__('New Translation')}}</h1>
 

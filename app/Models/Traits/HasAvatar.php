@@ -16,7 +16,7 @@ trait HasAvatar
     {
         $avatar = $this->getAttributeValue('avatar');
 
-        return !empty($avatar) ? Storage::url($avatar): asset('/icon/avatar.svg');
+        return !empty($avatar) ? Storage::url($avatar): asset('/icon/login.svg');
     }
 
     /**

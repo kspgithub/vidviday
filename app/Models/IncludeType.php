@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class IncludeType
+ *
+ * @package App\Models
  * @mixin IdeHelperIncludeType
  */
 class IncludeType extends Model
@@ -25,7 +28,7 @@ class IncludeType extends Model
     /**
      * @return HasMany
      */
-    public function tour_includes()
+    public function tourIncludes()
     {
         return $this->hasMany(TourInclude::class);
     }

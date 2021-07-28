@@ -66,7 +66,7 @@ if (!function_exists('current_user')) {
     /**
      * Текущий авторизованный пользователь
      *
-     * @return \App\Models\Auth\User|Authenticatable|null
+     * @return \App\Models\User|Authenticatable|null
      */
     function current_user()
     {

@@ -14,8 +14,9 @@
     <x-bootstrap.card>
         <x-slot name="body">
             <x-utils.media-library
-                :upload-url="route('admin.page.media.upload', $page)"
-                :destroy-url="route('admin.page.media.destroy', [$page, 0])"
+                :store-url="route('admin.page.media.upload', $page)"
+                :destroy-url="route('admin.media.destroy', 0)"
+                :update-url="route('admin.media.update', 0)"
                 :items="$page->getMedia()"
             ></x-utils.media-library>
         </x-slot>

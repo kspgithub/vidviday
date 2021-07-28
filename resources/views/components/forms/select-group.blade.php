@@ -22,10 +22,10 @@
             {{$readonly ? 'readonly' : ''}}
             {{ $attributes->merge(['class' => 'form-control']) }}
         >
+            {{$slot}}
             @foreach($options as $option)
                 <option value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
             @endforeach
-
         </select>
 
         @if(!empty($help))

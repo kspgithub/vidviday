@@ -11,14 +11,23 @@ import "./modules/theme";
 import "./modules/feather";
 import "./modules/single-image-upload";
 import "./modules/media-library";
+import "./modules/sweetalert";
+import "./modules/copy-to-clipboard";
+import "./modules/toast";
 
 // Charts
 import "./modules/chartjs";
 
 // Forms
 import "./modules/flatpickr";
+import "./modules/published-switch";
+import "./modules/location-group";
 
 // Maps
 import "./modules/vector-maps";
+
+
+
+
 
 

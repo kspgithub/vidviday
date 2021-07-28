@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="text-center mt-4">
-        <h1 class="h2">@lang('Sign in')</h1>
+        <h1 class="h2">@lang('Login')</h1>
         <p class="lead">
             @lang('Sign in to your account to continue')
         </p>

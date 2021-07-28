@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * Class FoodTime
+ *
+ * @package App\Models
  * @mixin IdeHelperFoodTime
  */
 class FoodTime extends Model

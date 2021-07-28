@@ -18,6 +18,8 @@ class PageSeeder extends Seeder
     public function run()
     {
         //
+        $this->truncate('pages');
+
         $pages = [
             [
                 'title'=>['en'=>'About Us', 'ru'=>'О нас', 'uk'=>'Про нас',  'pl'=>'O nas'],
@@ -26,8 +28,10 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Our Documents', 'ru'=>'Наши Документы', 'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
-                'seo_h1'=>['en'=>'Our Documents', 'ru'=>'Наши Документы', 'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
+                'title'=>['en'=>'Our Documents', 'ru'=>'Наши Документы',
+                    'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
+                'seo_h1'=>['en'=>'Our Documents', 'ru'=>'Наши Документы',
+                    'uk'=>'Наші документи',  'pl'=>'Nasze dokumenty'],
                 'slug'=>'our-documents',
                 'published'=>1,
             ],
@@ -38,8 +42,10 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Office workers', 'ru'=>'Офисные работники', 'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
-                'seo_h1'=>['en'=>'Office workers', 'ru'=>'Офисные работники', 'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
+                'title'=>['en'=>'Office workers', 'ru'=>'Офисные работники',
+                    'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
+                'seo_h1'=>['en'=>'Office workers', 'ru'=>'Офисные работники',
+                    'uk'=>'Офісні працівники',  'pl'=>'Pracownicy biurowi'],
                 'slug'=>'office-workers',
                 'published'=>1,
             ],
@@ -56,8 +62,10 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
-                'title'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия', 'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
-                'seo_h1'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия', 'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
+                'title'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия',
+                    'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
+                'seo_h1'=>['en'=>'Awards and honors', 'ru'=>'Награды и отличия',
+                    'uk'=>'Нагороди та відзнаки',  'pl'=>'Nagrody i wyróżnienia'],
                 'slug'=>'awards-and-honors',
                 'published'=>1,
             ],
@@ -88,7 +96,7 @@ class PageSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
-            Page::create($page);
+            Page::factory()->createOne($page);
         }
     }
 }

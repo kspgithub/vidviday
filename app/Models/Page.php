@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -18,7 +20,9 @@ use Spatie\Translatable\HasTranslations;
  */
 class Page extends Model implements HasMedia
 {
+    use HasFactory;
     use HasTranslations;
+    use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
 

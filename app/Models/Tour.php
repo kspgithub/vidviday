@@ -9,7 +9,6 @@ use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -79,7 +78,6 @@ class Tour extends Model implements HasMedia
             ->width(315)
             ->height(180)
             ->performOnCollections('main', 'pictures');
-
     }
 
     public function getRouteKeyName()
