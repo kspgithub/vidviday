@@ -33,6 +33,16 @@
                 </ul>
             </li>
 
+            <li class="sidebar-item">
+                <a data-bs-target="#articles" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Articles')</span>
+                </a>
+                <ul id="articles" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.article.index')}}">@lang('Articles List')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{route('admin.article.create')}}">@lang('Create Article')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
