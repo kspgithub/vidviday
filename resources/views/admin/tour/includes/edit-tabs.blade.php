@@ -5,4 +5,5 @@
     <a class="btn btn-outline-primary {{routeActiveClass('admin.tour.subject.*')}}" href="{{route('admin.tour.subject.index', $tour)}}">@lang('Subjects')</a>
     <a class="btn btn-outline-primary {{routeActiveClass('admin.tour.type.*')}}" href="{{route('admin.tour.type.index', $tour)}}">@lang('Types')</a>
     <a class="btn btn-outline-primary {{routeActiveClass('admin.tour.direction.*')}}" href="{{route('admin.tour.direction.index', $tour)}}">@lang('Directions')</a>
+    <a class="btn btn-outline-primary {{routeActiveClass('admin.tour.schedule.*')}}" href="{{route('admin.tour.schedule.index', $tour)}}">@lang('Schedules')</a>
 </div>

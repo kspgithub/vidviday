@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
+use App\Http\Controllers\Admin\Tour\TourScheduleController;
 use App\Http\Controllers\Admin\Tour\TourSubjectController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,5 @@ Route::group([
     Route::patch('{tour}/directions', [TourDirectionController::class, 'update'])->name('direction.update');
 });
 
-Route::resource('tour', TourController::class)->except('show');
+Route::resource('tour', TourController::class);
+Route::resource('tour.schedule', TourScheduleController::class)->only('index');

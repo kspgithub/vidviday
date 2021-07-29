@@ -65,6 +65,10 @@ class TourController extends Controller
         return redirect()->route('admin.tour.picture.index', ['tour'=>$tour])->withFlashSuccess(__('Tour created.'));
     }
 
+    public function show(Tour $tour){
+        return redirect()->route('admin.tour.edit', $tour);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

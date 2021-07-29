@@ -2,7 +2,6 @@
 const PublishedSwitch = function (wrapper){
     const checkboxEl = wrapper.querySelector('.form-check-input');
     const updateUrl = wrapper.dataset.url;
-
     checkboxEl.addEventListener('change', async (evt)=> {
         const checked = evt.target.checked;
         checkboxEl.disabled = true;
