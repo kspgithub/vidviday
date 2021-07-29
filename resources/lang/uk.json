@@ -323,5 +323,8 @@
     "Create region": "Створити область",
     "Region created.": "Область створено.",
     "Region updated.": "Область редаговано.",
-    "Region deleted.": "Область видалено."
+    "Region deleted.": "Область видалено.",
+    "News": "Новини",
+    "News List" : "Список новин",
+    "Create News": "Створювати новини"
 }
