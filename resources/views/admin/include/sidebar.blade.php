@@ -58,7 +58,7 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
-                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('FAQ')</span>
+                    <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">@lang('FAQ')</span>
                 </a>
             </li>
 
