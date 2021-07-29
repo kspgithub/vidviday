@@ -187,5 +187,8 @@
     "You can not set a password that you have previously used within the last 3 times.": "Вы не можете установить пароль, который вы ранее использовали в течение последних 3 раз.",
     "These credentials do not match our records.": "Эти учетные данные не соответствуют нашим записям.",
     "Editing :role": "Редактирование :role",
-    "Home": "Домой"
+    "Home": "Домой",
+    "News": "Новости",
+    "News List" : "Новости Список",
+    "Create News": "Создать новость"
 }

@@ -56,8 +56,9 @@ Route::group([
     require_once __DIR__.'/admin/faq.php';
     require_once __DIR__.'/admin/transport.php';
     require_once __DIR__.'/admin/badge.php';
+    require_once __DIR__.'/admin/news.php';
 
 });
 
 Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
-Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
+
