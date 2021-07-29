@@ -29,11 +29,22 @@
                 </a>
                 <ul id="tours" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.tour*', 'show', '')}}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.tour.*')}}"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.badge.*')}}"><a class="sidebar-link " href="{{route('admin.badge.index')}}">@lang('Tour Badges')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.tour-group.*')}}"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Tour Groups')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}"><a class="sidebar-link " href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Tour Directions')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.tour-type.*')}}"><a class="sidebar-link " href="{{route('admin.tour-type.index')}}">@lang('Tour Types')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.badge.*')}}"><a class="sidebar-link " href="{{route('admin.badge.index')}}">@lang('Badges')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.tour-group.*')}}"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Groups')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}"><a class="sidebar-link " href="{{route('admin.tour-subjects.index')}}">@lang('Subjects')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Directions')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.tour-type.*')}}"><a class="sidebar-link " href="{{route('admin.tour-type.index')}}">@lang('Types')</a></li>
+                </ul>
+            </li>
+            <!-- -------------------------------------------------------------------------------------------------- --->
+            <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
+                <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="compass"></i> <span class="align-middle">@lang('Cities')</span>
+                </a>
+                <ul id="location" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.location*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.country.index')}}"><a class="sidebar-link" href="{{route('admin.country.index')}}">@lang('Countries')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.region.index')}}"><a class="sidebar-link" href="{{route('admin.region.index')}}">@lang('Regions')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.city.index')}}"><a class="sidebar-link" href="{{route('admin.city.index')}}">@lang('Cities')</a></li>
                 </ul>
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.place*')}}">
@@ -53,7 +64,7 @@
 
             <li class="sidebar-item {{routeActiveClass('admin.news*')}}">
                 <a data-bs-target="#news" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.news*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="news"></i> <span class="align-middle">@lang('News')</span>
+                    <i class="align-middle" data-feather="rss"></i> <span class="align-middle">@lang('News')</span>
                 </a>
                 <ul id="news" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.news*', 'show', '')}}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.news.index')}}"><a class="sidebar-link" href="{{route('admin.news.index')}}">@lang('News List')</a></li>
@@ -68,20 +79,10 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.staff.index')}}">
-                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('Staff')</span>
+                    <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">@lang('Staff')</span>
                 </a>
             </li>
-            <!-- -------------------------------------------------------------------------------------------------- --->
-            <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
-                <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="compass"></i> <span class="align-middle">@lang('Locations')</span>
-                </a>
-                <ul id="location" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.location*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.country.index')}}"><a class="sidebar-link" href="{{route('admin.country.index')}}">@lang('Countries')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.region.index')}}"><a class="sidebar-link" href="{{route('admin.region.index')}}">@lang('Regions')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.city.index')}}"><a class="sidebar-link" href="{{route('admin.city.index')}}">@lang('Cities')</a></li>
-                </ul>
-            </li>
+
             <!-- -------------------------------------------------------------------------------------------------- --->
             <li class="sidebar-header">
                 @lang('Content')
