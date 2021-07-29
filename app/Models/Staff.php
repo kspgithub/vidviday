@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\Models\Traits\UseSelectBox;
+
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,7 +25,6 @@ class Staff extends Model
     use SoftDeletes;
     use UsePublishedScope;
     use HasAvatar;
-    use UseSelectBox;
 
     public $translatable = [
         'first_name',
@@ -72,5 +71,14 @@ class Staff extends Model
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'user_id');
+    }
+
+
+    public static function toSelectBox()
+    {
+        return  self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value'=>$it->value, 'text'=>$it->text];
+            });
     }
 }

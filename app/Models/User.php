@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\UseSelectBox;
 use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Methods\UserMethod;
@@ -28,7 +27,6 @@ class User extends Authenticatable
     use UserScope;
     use HasAvatar;
     use SoftDeletes;
-    use UseSelectBox;
 
     public const STATUS_INACTIVE = 0;
     public const STATUS_ACTIVE = 1;

@@ -32,14 +32,13 @@ class StaffController extends Controller
      */
     public function create()
     {
-        $users = User::toSelectBox('last_name');
+        $users = User::toSelectBox();
         $staff = new Staff();
 
         return view('admin.staff.create', [
             'staff'=>$staff,
             'users'=>$users
         ]);
-
     }
 
     /**
@@ -65,12 +64,8 @@ class StaffController extends Controller
      */
     public function edit(Staff $staff)
     {
-        // $users = User::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")->gat()->map(function ($item) use ($value_field, $text_field){
-        //     return ['value' => $item->text, 'text' => $item->value];
-        // });
 
-        //
-        $users = User::toSelectBox('last_name');
+        $users = User::toSelectBox();
         return view('admin.staff.edit', [
             'staff' => $staff,
             'users' => $users
@@ -81,7 +76,7 @@ class StaffController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Region $staff
+     * @param Staff $staff
      *
      * @return Response
      */

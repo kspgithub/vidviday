@@ -47,4 +47,14 @@ trait UserMethod
     {
         return false;
     }
+
+
+    public static function toSelectBox()
+    {
+        return  self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value'=>$it->value, 'text'=>$it->text];
+            });
+    }
+
 }
