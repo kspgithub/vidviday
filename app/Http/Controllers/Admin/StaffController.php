@@ -18,13 +18,10 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffsPrepeared = Staff::query()->orderBy('id');
-        $staffsPaginated = $staffsPrepeared->paginate(20);
-        $staffs = $staffsPrepeared->get();
+        $staffs = Staff::query()->paginate(20);
 
         return view('admin.staff.index', [
-            'staffs'=>$staffs,
-            'staffsPaginated'=>$staffsPaginated
+            'staffs'=>$staffs
         ]);
     }
 
@@ -35,7 +32,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        $users = User::toSelectBoxS();
+        $users = User::toSelectBox('last_name');
         $staff = new Staff();
 
         return view('admin.staff.create', [
@@ -68,9 +65,12 @@ class StaffController extends Controller
      */
     public function edit(Staff $staff)
     {
-        $users = User::toSelectBoxS();
+        // $users = User::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")->gat()->map(function ($item) use ($value_field, $text_field){
+        //     return ['value' => $item->text, 'text' => $item->value];
+        // });
 
         //
+        $users = User::toSelectBox('last_name');
         return view('admin.staff.edit', [
             'staff' => $staff,
             'users' => $users
