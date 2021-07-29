@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Traits\UseSelectBoxS;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +25,7 @@ class Staff extends Model
     use SoftDeletes;
     use UsePublishedScope;
     use HasAvatar;
+    use UseSelectBoxS;
 
     public $translatable = [
         'first_name',

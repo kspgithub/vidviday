@@ -66,6 +66,11 @@
                     <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('Transport')</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.staff.index')}}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('Staff')</span>
+                </a>
+            </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
             <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
                 <a data-bs-target="#location" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
