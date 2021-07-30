@@ -2,13 +2,13 @@
 
 namespace App\Models\Traits\Relationship;
 
-use App\Models\Accommodation;
 use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
 use App\Models\Testimonial;
+use App\Models\TourAccommodation;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
@@ -120,7 +120,7 @@ trait TourRelationship
      */
     public function accommodations()
     {
-        return $this->hasMany(Accommodation::class);
+        return $this->hasMany(TourAccommodation::class);
     }
 
     /**

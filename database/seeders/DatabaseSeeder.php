@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TourDirectionsSeeder::class);
         $this->call(BadgeSeeder::class);
         $this->call(CountryRegionCitySeeder::class);
+        $this->call(FoodTimeSeeder::class);
     }
 }

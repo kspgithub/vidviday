@@ -56,6 +56,15 @@
                     <li class="sidebar-item {{routeActiveClass('admin.place.index')}}"><a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('Places List')</a></li>
                 </ul>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.accommodation*')}}">
+                <a data-bs-target="#accommodation" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.accommodation*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="home"></i> <span class="align-middle">@lang('Accommodation')</span>
+                </a>
+                <ul id="accommodation" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.accommodation*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.accommodation-type.*')}}"><a class="sidebar-link" href="{{route('admin.accommodation-type.index')}}">@lang('Accommodation Types')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.accommodation.*')}}"><a class="sidebar-link" href="{{route('admin.accommodation.index')}}">@lang('Accommodations')</a></li>
+                </ul>
+            </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
                     <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">@lang('FAQ')</span>

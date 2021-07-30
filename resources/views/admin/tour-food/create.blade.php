@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title', __('Tour').' '.$tour->title.' - '.__('Create Food')))
+@section('title', __('Tour').' '.$tour->title.' - '.__('Create Food'))
 
 @section('content')
     <div class="d-flex justify-content-between">
