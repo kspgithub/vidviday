@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\News;
+namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsBasicRequest;

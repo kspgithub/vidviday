@@ -1,8 +1,8 @@
 <?php
 
 
-use App\Http\Controllers\News\NewsController;
-use App\Http\Controllers\News\NewsPictureController;
+use App\Http\Controllers\Admin\News\NewsController;
+use App\Http\Controllers\Admin\News\NewsPictureController;
 
 Route::group([
     'prefix' => 'news',
