@@ -47,12 +47,17 @@
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
-                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('FAQ')</span>
+                    <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">@lang('FAQ')</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.transport.index')}}">
-                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('Transport')</span>
+                    <i class="align-middle" data-feather="truck"></i> <span class="align-middle">@lang('Transport')</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.vacancy.index')}}">
+                    <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">@lang('Vacancies')</span>
                 </a>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
 
@@ -26,6 +27,7 @@ class Staff extends Model
     use SoftDeletes;
     use UsePublishedScope;
     use HasAvatar;
+    use UseSelectBox;
 
     public $translatable = [
         'first_name',
@@ -72,5 +74,10 @@ class Staff extends Model
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'user_id');
+    }
+
+    public function vacansies()
+    {
+        return $this->hasMany(Vacancy::class);
     }
 }
