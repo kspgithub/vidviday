@@ -73,6 +73,11 @@ class Staff extends Model
         return $this->belongsToMany(Tour::class, 'user_id');
     }
 
+    public function vacansies()
+    {
+        return $this->hasMany(Vacancy::class);
+    }
+
 
     public static function toSelectBox()
     {
