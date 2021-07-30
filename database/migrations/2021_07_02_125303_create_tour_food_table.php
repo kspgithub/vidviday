@@ -18,8 +18,8 @@ class CreateTourFoodTable extends Migration
             $table->foreignId('tour_id')->constrained('tours')->cascadeOnDelete();
             $table->foreignId('time_id')->constrained('food_times')->cascadeOnDelete();
             $table->text('title');
-            $table->longText('text')->nullable();
             $table->string('slug');
+            $table->longText('text')->nullable();
             $table->integer('position');
             $table->boolean('published')->default(1);
             $table->timestamps();

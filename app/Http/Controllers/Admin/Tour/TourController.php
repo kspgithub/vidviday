@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\Tour;
 use App\Services\TourService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -116,5 +117,21 @@ class TourController extends Controller
         $tour->delete();
 
         return redirect()->route('admin.tour.index')->withFlashSuccess(__('Tour deleted.'));
+    }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Tour $tour
+     *
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Tour $tour)
+    {
+        $tour->published = (int)$request->input('published');
+        $tour->save();
+        return response()->json(['result'=>'Success']);
     }
 }

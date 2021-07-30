@@ -1,11 +1,4 @@
-@props([
-    'storeUrl'=>'#',
-    'updateUrl'=>'#',
-    'destroyUrl'=>'#',
-    'items'=>[],
-    'collection'=>'default',
-    'accept'=>'image/jpeg,image/png'
-])
+
 <div class="media-library"
      data-media-upload
      data-media-collection="{{$collection}}"

@@ -1,5 +1,5 @@
 <div class="mt-6">
-    <h3>@lang('Create Schedule')</h3>
+    <h3>@lang($schedule->id > 0 ? 'Edit Schedule' :'Create Schedule')</h3>
     <div class="row gx-2">
         <div class="col-12 col-xl-5 mb-2 ">
             <div class="d-flex">
@@ -23,6 +23,7 @@
         </div>
 
         <div class="col-12 col-xl-1 mb-2">
+            <label for="places" class="d-none">{{ __('Places')}}</label>
             <input  name="places"
                     type="text"
                     id="places"
@@ -33,6 +34,7 @@
             />
         </div>
         <div class="col-12 col-xl-2 mb-2">
+            <label for="price" class="d-none">{{ __('Price')}}</label>
             <input  name="price"
                     type="text"
                     id="price"
@@ -44,6 +46,7 @@
             />
         </div>
         <div class="col-12 col-xl-2 mb-2">
+            <label for="commission" class="d-none">{{ __('Commission')}}</label>
             <input  name="commission"
                     type="text"
                     id="commission"
@@ -54,6 +57,7 @@
             />
         </div>
         <div class="col-12 col-xl-1 mb-2">
+            <label for="currency" class="d-none">{{ __('Currency')}}</label>
             <select name="currency"
                     id="currency"
                     wire:model.defer="schedule.currency"

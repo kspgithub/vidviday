@@ -15,8 +15,6 @@
         <x-slot name="body">
             <x-utils.media-library
                 :store-url="route('admin.page.media.upload', $page)"
-                :destroy-url="route('admin.media.destroy', 0)"
-                :update-url="route('admin.media.update', 0)"
                 :items="$page->getMedia()"
             ></x-utils.media-library>
         </x-slot>

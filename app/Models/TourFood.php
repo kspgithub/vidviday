@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -19,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperTourFood
  */
-class TourFood extends Model implements HasMedia
+class TourFood extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
@@ -46,6 +45,7 @@ class TourFood extends Model implements HasMedia
     public $fillable = [
         'tour_id',
         'time_id',
+        'day',
         'title',
         'text',
         'slug',

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
+use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
 use App\Http\Controllers\Admin\Tour\TourScheduleController;
@@ -29,7 +30,13 @@ Route::group([
 
     Route::get('{tour}/directions', [TourDirectionController::class, 'index'])->name('direction.index');
     Route::patch('{tour}/directions', [TourDirectionController::class, 'update'])->name('direction.update');
+
+
+    Route::get('{tour}/schedule', [TourScheduleController::class, 'index'])->name('schedule.index');
+
+    Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
 });
 
 Route::resource('tour', TourController::class);
-Route::resource('tour.schedule', TourScheduleController::class)->only('index');
+
+Route::resource('tour.food', TourFoodController::class)->except('show');
