@@ -57,6 +57,7 @@ Route::group([
     require_once __DIR__.'/admin/transport.php';
     require_once __DIR__.'/admin/badge.php';
     require_once __DIR__.'/admin/news.php';
+    require_once __DIR__.'/admin/document.php';
 
 });
 
