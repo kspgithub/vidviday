@@ -59,6 +59,7 @@ Route::group([
     require_once __DIR__.'/admin/news.php';
     require_once __DIR__.'/admin/document.php';
     require_once __DIR__.'/admin/ticket.php';
+    require_once __DIR__.'/admin/html_block.php';
 
 });
 

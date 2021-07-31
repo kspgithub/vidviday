@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -14,7 +17,15 @@ use Spatie\Translatable\HasTranslations;
  */
 class HtmlBlock extends Model
 {
+    use HasFactory;
+    use HasSlug;
     use HasTranslations;
+
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public $translatable = [
         'title',
@@ -26,4 +37,12 @@ class HtmlBlock extends Model
         'text',
         'slug',
     ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
+    }
 }
