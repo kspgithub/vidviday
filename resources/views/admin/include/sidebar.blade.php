@@ -34,6 +34,17 @@
                     <li class="sidebar-item {{routeActiveClass('admin.user.create')}}"><a class="sidebar-link" href="{{route('admin.user.create')}}">@lang('Create User')</a></li>
                 </ul>
             </li>
+
+            <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
+                <a data-bs-target="#ticket" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.ticket*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="ticket"></i> <span class="align-middle">@lang('Tickets')</span>
+                </a>
+                <ul id="ticket" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.ticket*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('Tickets List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create Ticket')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-item {{routeActiveClass('admin.tour*')}}">
                 <a data-bs-target="#tours" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.tour*', '', 'collapsed')}}">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Tours')</span>
