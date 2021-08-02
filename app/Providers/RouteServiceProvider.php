@@ -48,14 +48,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
+            $this->mapApiRoutes();
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            $this->mapWebRoutes();
+
+            $this->mapAdminWebRoutes();
+
+            $this->mapProtectedAdminWebRoutes();
+
+            // Этот метод всегда последний
+            $this->mapSitePageRoute();
         });
 
         Route::bind('deletedUser', function ($id) {
@@ -73,5 +75,56 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    /**
+     *
+     */
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/frontend/auth.php'));
+    }
+
+
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+
+    protected function mapAdminWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->as('admin.')
+            ->prefix('admin')
+            ->group(base_path('routes/admin/auth.php'));
+    }
+
+    protected function mapProtectedAdminWebRoutes()
+    {
+        Route::middleware(['web', 'auth.admin'])
+            ->as('admin.')
+            ->prefix('admin')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
+    }
+
+
+
+    protected function mapSitePageRoute()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/frontend/page.php'));
     }
 }
