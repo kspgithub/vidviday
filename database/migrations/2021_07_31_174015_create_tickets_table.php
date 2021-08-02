@@ -15,8 +15,8 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("slug");
+            $table->text("title");
+            $table->text("slug");
             $table->string("priority")->nullable();
             $table->text("text");
             $table->text('seo_h1')->nullable();

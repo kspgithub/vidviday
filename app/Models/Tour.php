@@ -6,6 +6,7 @@ use App\Models\Traits\Attributes\TourAttribute;
 use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -33,6 +34,7 @@ class Tour extends Model implements HasMedia
     use TourRelationship;
     use TourAttribute;
     use HasSlug;
+    use UseSelectBox;
 
     public static function boot()
     {

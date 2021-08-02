@@ -15,9 +15,19 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{routeActiveClass('admin.discount*')}}">
+                <a data-bs-target="#discount" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.discount*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="discount"></i> <span class="align-middle">@lang('Discounts')</span>
+                </a>
+                <ul id="discount" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.discount*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.discount.index')}}"><a class="sidebar-link" href="{{route('admin.discount.index')}}">@lang('Discount List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.discount.create')}}"><a class="sidebar-link" href="{{route('admin.discount.create')}}">@lang('Create Discount')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
                 <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.document*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="document"></i> <span class="align-middle">@lang('Documents')</span>
+                    <i class="align-middle" data-feather="documdocumentent"></i> <span class="align-middle">@lang('Documents')</span>
                 </a>
                 <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Document List')</a></li>

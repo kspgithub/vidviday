@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsTable extends Migration
+class CreateDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->text('seo_h1')->nullable();
-            $table->text('seo_title')->nullable();
-            $table->text('seo_description')->nullable();
-            $table->text('seo_keywords')->nullable();
-            $table->longText('text')->nullable();
             $table->text('slug');
+            $table->decimal('price', 10, 2)->default(0);
+            $table->decimal('percentage', 10, 2)->default(0);
+            $table->integer('duration')->default(1);
             $table->boolean('published')->default(1);
+            $table->string('currency')->nullable()->default('UAH');
+
+            $table->unsignedBigInteger('model_nameable_id');
+            $table->string('model_nameable_type');
+
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('discounts');
     }
 }
