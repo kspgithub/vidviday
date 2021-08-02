@@ -60,6 +60,7 @@ Route::group([
     require_once __DIR__.'/admin/staff.php';
     require_once __DIR__.'/admin/vacancies.php';
     require_once __DIR__.'/admin/accommodation.php';
+    require_once __DIR__.'/admin/staff-type.php';
 
 });
 

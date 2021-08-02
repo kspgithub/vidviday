@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
+use App\Models\StaffType;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -33,11 +34,13 @@ class StaffController extends Controller
     public function create()
     {
         $users = User::toSelectBox();
+        $staffTypes =StaffType::toSelectBox('title');
         $staff = new Staff();
 
         return view('admin.staff.create', [
             'staff'=>$staff,
-            'users'=>$users
+            'users'=>$users,
+            'staffTypes'=>$staffTypes
         ]);
     }
 
@@ -66,9 +69,11 @@ class StaffController extends Controller
     {
 
         $users = User::toSelectBox();
+        $staffTypes =StaffType::toSelectBox('title');
         return view('admin.staff.edit', [
             'staff' => $staff,
-            'users' => $users
+            'users' => $users,
+            'staffTypes'=>$staffTypes
         ]);
     }
 
@@ -103,7 +108,7 @@ class StaffController extends Controller
 
         $staff->delete();
 
-        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Region deleted.'));
+        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff deleted.'));
     }
 
 }

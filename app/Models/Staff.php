@@ -64,6 +64,11 @@ class Staff extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function type()
+    {
+        return $this->belongsTo(StaffType::class);
+    }
+
 
     /**
      * @return BelongsToMany
@@ -72,6 +77,7 @@ class Staff extends Model
     {
         return $this->belongsToMany(Tour::class, 'user_id');
     }
+
 
     public function vacansies()
     {
