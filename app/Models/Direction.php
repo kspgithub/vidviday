@@ -22,7 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperDirection
  */
-class Direction extends Model implements HasMedia
+class Direction extends TranslatableModel implements HasMedia
 {
     use HasSlug;
     use InteractsWithMedia;

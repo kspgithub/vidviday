@@ -28,13 +28,19 @@ if (! function_exists('routeActiveClass')) {
      */
     function routeActiveClass($routeName, $activeClass = 'active', $inactiveClass = '')
     {
+        $match = false;
         $currentName = request()->route()->getName();
-        if (str_ends_with($routeName, '*')) {
-            return str_starts_with($currentName, rtrim($routeName, "*"))
-                ? $activeClass : $inactiveClass;
+        if (is_array($routeName)) {
+            foreach ($routeName as $route) {
+                $match = $currentName === $route || (str_ends_with($route, '*') && str_starts_with($currentName, rtrim($route, "*")));
+                if ($match) {
+                    return $activeClass;
+                }
+            }
+        } else {
+            $match = $currentName === $routeName || (str_ends_with($routeName, '*') && str_starts_with($currentName, rtrim($routeName, "*")));
         }
-
-        return ($currentName === $routeName) ? $activeClass : $inactiveClass;
+        return $match ? $activeClass : $inactiveClass;
     }
 }
 
@@ -54,8 +60,6 @@ if (! function_exists('svg')) {
      *
      * @param $icon
      * @param string $class
-     *
-     * @return false|string
      */
     function svg($icon, $class = '')
     {
@@ -95,6 +99,6 @@ if (! function_exists('breadcrumbs')) {
 if (! function_exists('html_block')) {
     function html_block($slug)
     {
-        return \App\Models\Content\HtmlBlock::getCachedBlock($slug);
+        return \App\Models\HtmlBlock::getCachedBlock($slug);
     }
 }

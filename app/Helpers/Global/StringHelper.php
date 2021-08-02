@@ -1,9 +1,5 @@
 <?php
 
-/*
-echo plural_form(42, array('арбуз', 'арбуза', 'арбузов'));
-*/
-
 if (!function_exists('plural_form')) {
     function plural_form($n, $forms)
     {
@@ -66,5 +62,13 @@ if (!function_exists('class_short_name')) {
     function class_short_name($class_name)
     {
         return substr(strrchr($class_name, "\\"), 1);
+    }
+}
+
+
+if (!function_exists('lipsum')) {
+    function lipsum($paragraphs = 3)
+    {
+        return file_get_contents("https://loripsum.net/api/{$paragraphs}/");
     }
 }

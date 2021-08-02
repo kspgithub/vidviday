@@ -49,7 +49,7 @@
                 <a data-bs-target="#tours" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.tour*', '', 'collapsed')}}">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Tours')</span>
                 </a>
-                <ul id="tours" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.tour*', 'show', '')}}" data-bs-parent="#sidebar">
+                <ul id="tours" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass(['admin.tour*', 'admin.badge*', 'admin.direction*'], 'show', '') }}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.tour.*')}}"><a class="sidebar-link" href="{{route('admin.tour.index')}}">@lang('Tours')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.badge.*')}}"><a class="sidebar-link " href="{{route('admin.badge.index')}}">@lang('Badges')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.tour-group.*')}}"><a class="sidebar-link" href="{{route('admin.tour-group.index')}}">@lang('Groups')</a></li>

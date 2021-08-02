@@ -16,10 +16,15 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(CurrencySeeder::class);
-        //$this->call(LocationSeeder::class);
-        $this->call(TourDirectionsSeeder::class);
-        $this->call(BadgeSeeder::class);
         $this->call(CountryRegionCitySeeder::class);
+
+        $this->call(TourDirectionsSeeder::class);
+        $this->call(TourGroupSeeder::class);
+        $this->call(TourTypeSeeder::class);
+        $this->call(TourSubjectSeeder::class);
+        $this->call(BadgeSeeder::class);
         $this->call(FoodTimeSeeder::class);
+        $this->call(PlaceSeeder::class);
+        $this->call(TourSeeder::class);
     }
 }

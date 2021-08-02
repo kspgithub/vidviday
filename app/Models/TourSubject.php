@@ -20,7 +20,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperTourSubject
  */
-class TourSubject extends Model implements HasMedia
+class TourSubject extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasSlug;
