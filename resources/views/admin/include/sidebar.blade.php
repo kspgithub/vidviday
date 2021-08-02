@@ -15,25 +15,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.discount*')}}">
-                <a data-bs-target="#discount" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.discount*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="discount"></i> <span class="align-middle">@lang('Discounts')</span>
-                </a>
-                <ul id="discount" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.discount*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.discount.index')}}"><a class="sidebar-link" href="{{route('admin.discount.index')}}">@lang('Discount List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.discount.create')}}"><a class="sidebar-link" href="{{route('admin.discount.create')}}">@lang('Create Discount')</a></li>
-                </ul>
-            </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
-                <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.document*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Documents')</span>
-                </a>
-                <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Document List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.document.create')}}"><a class="sidebar-link" href="{{route('admin.document.create')}}">@lang('Create Document')</a></li>
-                </ul>
-            </li>
 
             <li class="sidebar-item {{routeActiveClass('admin.user*')}}">
                 <a data-bs-target="#users" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.user*', '', 'collapsed')}}">
@@ -45,15 +27,6 @@
                 </ul>
             </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
-                <a data-bs-target="#ticket" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.ticket*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Tickets')</span>
-                </a>
-                <ul id="ticket" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.ticket*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create')</a></li>
-                </ul>
-            </li>
 
             <li class="sidebar-item {{routeActiveClass('admin.tour*')}}">
                 <a data-bs-target="#tours" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.tour*', '', 'collapsed')}}">
@@ -99,6 +72,16 @@
             </li>
 
 
+            <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
+                <a data-bs-target="#ticket" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.ticket*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Tickets')</span>
+                </a>
+                <ul id="ticket" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.ticket*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.transport.index')}}">
                     <i class="align-middle" data-feather="truck"></i> <span class="align-middle">@lang('Transport')</span>
@@ -114,6 +97,17 @@
                     <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">@lang('Staff')</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{routeActiveClass('admin.discount*')}}">
+                <a data-bs-target="#discount" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.discount*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="percent"></i> <span class="align-middle">@lang('Discounts')</span>
+                </a>
+                <ul id="discount" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.discount*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.discount.index')}}"><a class="sidebar-link" href="{{route('admin.discount.index')}}">@lang('Discount List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.discount.create')}}"><a class="sidebar-link" href="{{route('admin.discount.create')}}">@lang('Create Discount')</a></li>
+                </ul>
+            </li>
+
 
             <!-- -------------------------------------------------------------------------------------------------- --->
             <li class="sidebar-header">
@@ -164,6 +158,16 @@
                 <ul id="logs" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('log-viewer::dashboard')}}">@lang('Dashboard')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('log-viewer::logs.list')}}">@lang('Logs')</a></li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
+                <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.document*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Documents')</span>
+                </a>
+                <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Document List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.document.create')}}"><a class="sidebar-link" href="{{route('admin.document.create')}}">@lang('Create Document')</a></li>
                 </ul>
             </li>
 
