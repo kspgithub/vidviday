@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -14,11 +15,12 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperBadge
  */
-class Badge extends Model
+class Badge extends TranslatableModel
 {
     use HasFactory;
     use HasSlug;
     use HasTranslations;
+    use UseSelectBox;
 
 
     public function getRouteKeyName()

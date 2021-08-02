@@ -186,9 +186,11 @@ trait TourRelationship
 
     /**
      * Get all of the tour's discounts.
-     * @return mixed
+     *
+     * @return MorphMany
      */
-    public function discounts(){
+    public function discounts()
+    {
 
         return $this->morphMany(Discount::class, 'model_nameable');
     }
