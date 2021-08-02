@@ -41,7 +41,7 @@ class HtmlBlockService extends BaseService
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
 
-            throw new GeneralException(__('There was a problem updating article.'));
+            throw new GeneralException(__('There was a problem updating html block.'));
         }
         DB::commit();
 

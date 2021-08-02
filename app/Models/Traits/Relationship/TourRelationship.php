@@ -4,6 +4,7 @@ namespace App\Models\Traits\Relationship;
 
 use App\Models\Badge;
 use App\Models\Direction;
+use App\Models\Discount;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
@@ -181,5 +182,14 @@ trait TourRelationship
     public function badges()
     {
         return $this->belongsToMany(Badge::class, 'tour_badges');
+    }
+
+    /**
+     * Get all of the tour's discounts.
+     * @return mixed
+     */
+    public function discounts(){
+
+        return $this->morphMany(Discount::class, 'model_nameable');
     }
 }

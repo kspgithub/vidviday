@@ -41,7 +41,7 @@ class TicketService extends BaseService
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
 
-            throw new GeneralException(__('There was a problem updating article.'));
+            throw new GeneralException(__('There was a problem updating ticket.'));
         }
         DB::commit();
 
