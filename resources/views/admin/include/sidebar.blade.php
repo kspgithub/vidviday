@@ -17,7 +17,7 @@
 
             <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
                 <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.document*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="document"></i> <span class="align-middle">@lang('Documents')</span>
+                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Documents')</span>
                 </a>
                 <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Document List')</a></li>
@@ -37,11 +37,11 @@
 
             <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
                 <a data-bs-target="#ticket" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.ticket*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="ticket"></i> <span class="align-middle">@lang('Tickets')</span>
+                    <i class="align-middle" data-feather="file"></i> <span class="align-middle">@lang('Tickets')</span>
                 </a>
                 <ul id="ticket" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.ticket*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('Tickets List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create Ticket')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create')</a></li>
                 </ul>
             </li>
 
@@ -87,32 +87,7 @@
                     <li class="sidebar-item {{routeActiveClass('admin.accommodation.*')}}"><a class="sidebar-link" href="{{route('admin.accommodation.index')}}">@lang('Accommodations')</a></li>
                 </ul>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
-                    <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">@lang('FAQ')</span>
-                </a>
-            </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.html-block*')}}">
-                <a data-bs-target="#html-block" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.html-block*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="html-block"></i> <span class="align-middle">@lang('Html Block')</span>
-                </a>
-                <ul id="html-block" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.html-block*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.html-block.index')}}"><a class="sidebar-link" href="{{route('admin.html-block.index')}}">@lang('Html Blocks List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.html-block.create')}}"><a class="sidebar-link" href="{{route('admin.html-block.create')}}">@lang('Create Html Block')</a></li>
-                </ul>
-            </li>
-
-
-            <li class="sidebar-item {{routeActiveClass('admin.news*')}}">
-                <a data-bs-target="#news" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.news*', '', 'collapsed')}}">
-                    <i class="align-middle" data-feather="rss"></i> <span class="align-middle">@lang('News')</span>
-                </a>
-                <ul id="news" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.news*', 'show', '')}}" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.news.index')}}"><a class="sidebar-link" href="{{route('admin.news.index')}}">@lang('News List')</a></li>
-                    <li class="sidebar-item {{routeActiveClass('admin.news.create')}}"><a class="sidebar-link" href="{{route('admin.news.create')}}">@lang('Create News')</a></li>
-                </ul>
-            </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.transport.index')}}">
@@ -140,6 +115,29 @@
                 </a>
             </li>
 
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
+                    <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">@lang('FAQ')</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.news*')}}">
+                <a data-bs-target="#news" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.news*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="rss"></i> <span class="align-middle">@lang('News')</span>
+                </a>
+                <ul id="news" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.news*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.news.index')}}"><a class="sidebar-link" href="{{route('admin.news.index')}}">@lang('News List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.news.create')}}"><a class="sidebar-link" href="{{route('admin.news.create')}}">@lang('Create News')</a></li>
+                </ul>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.html-block*')}}">
+                <a data-bs-target="#html-block" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.html-block*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="code"></i> <span class="align-middle">@lang('Html Block')</span>
+                </a>
+                <ul id="html-block" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.html-block*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.html-block.index')}}"><a class="sidebar-link" href="{{route('admin.html-block.index')}}">@lang('Html Blocks List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.html-block.create')}}"><a class="sidebar-link" href="{{route('admin.html-block.create')}}">@lang('Create Html Block')</a></li>
+                </ul>
+            </li>
             <li class="sidebar-header">
                 @lang('System')
             </li>
