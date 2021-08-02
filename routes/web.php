@@ -60,7 +60,9 @@ Route::group([
     require_once __DIR__.'/admin/staff.php';
     require_once __DIR__.'/admin/vacancies.php';
     require_once __DIR__.'/admin/accommodation.php';
+    require_once __DIR__.'/admin/document.php';
 
 });
 
 Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
+

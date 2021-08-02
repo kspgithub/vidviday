@@ -14,6 +14,17 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">@lang('Dashboard')</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
+                <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.document*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="document"></i> <span class="align-middle">@lang('Documents')</span>
+                </a>
+                <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Document List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.document.create')}}"><a class="sidebar-link" href="{{route('admin.document.create')}}">@lang('Create Document')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-item {{routeActiveClass('admin.user*')}}">
                 <a data-bs-target="#users" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.user*', '', 'collapsed')}}">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">@lang('Users')</span>
