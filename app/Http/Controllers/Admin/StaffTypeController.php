@@ -74,12 +74,12 @@ class StaffTypeController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, StaffType $staffTypes)
+    public function update(Request $request, StaffType $staffType)
     {
 
         //
-        $staffTypes->fill($request->all());
-        $staffTypes->save();
+        $staffType->fill($request->all());
+        $staffType->save();
 
         return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('StaffType updated.'));
     }
@@ -91,11 +91,11 @@ class StaffTypeController extends Controller
      *
      * @return Response
      */
-    public function destroy(StaffType $staffTypes)
+    public function destroy(StaffType $staffType)
     {
         //
 
-        $staffTypes->delete();
+        $staffType->delete();
 
         return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('StaffType deleted.'));
     }
