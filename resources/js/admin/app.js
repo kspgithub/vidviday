@@ -20,6 +20,7 @@ import "./modules/chartjs";
 
 // Forms
 import "./modules/flatpickr";
+import "./modules/pikaday";
 import "./modules/published-switch";
 import "./modules/location-group";
 

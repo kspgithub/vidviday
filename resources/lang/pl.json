@@ -160,5 +160,8 @@
     "You can not set a password that you have previously used within the last 3 times.": "Nie możesz ustawić hasła, które zostało użyte w ciągu poprzednich 3 razy.",
     "These credentials do not match our records.": "Podane dane nie pasują.",
     "Editing :role": "Edytujesz :role",
-    "Home": "Strona główna"
+    "Home": "Strona główna",
+    "News": "Nowości",
+    "News List" : "Lista nowości",
+    "Create News": "Twórz wiadomości"
 }

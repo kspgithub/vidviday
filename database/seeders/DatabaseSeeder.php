@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(LocationSeeder::class);
         $this->call(TourDirectionsSeeder::class);
         $this->call(BadgeSeeder::class);
-        $this->call(CountryRegionCitySeeder::class);// about 35 min, depends on computer (29679 records in 'cities')
+        $this->call(CountryRegionCitySeeder::class);
+        $this->call(FoodTimeSeeder::class);
     }
 }

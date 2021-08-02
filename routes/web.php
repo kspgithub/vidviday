@@ -35,7 +35,7 @@ Route::post('/admin/logout', [LoginController::class, 'destroy'])->middleware('a
 
 Route::group([
     'prefix' => 'admin',
-    'as'=>'admin.',
+    'as' => 'admin.',
     'middleware' => 'auth.admin',
 ], function () {
     Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -56,6 +56,13 @@ Route::group([
     require_once __DIR__.'/admin/faq.php';
     require_once __DIR__.'/admin/transport.php';
     require_once __DIR__.'/admin/badge.php';
+    require_once __DIR__.'/admin/news.php';
+    require_once __DIR__.'/admin/staff.php';
+    require_once __DIR__.'/admin/vacancies.php';
+    require_once __DIR__.'/admin/accommodation.php';
+    require_once __DIR__.'/admin/document.php';
+    require_once __DIR__.'/admin/ticket.php';
+    require_once __DIR__.'/admin/html_block.php';
 
 });
 

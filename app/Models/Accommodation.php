@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Accommodation
- * Проживание тура
+ * Проживание
  *
  * @package App\Models
  * @mixin IdeHelperAccommodation
@@ -25,6 +27,7 @@ class Accommodation extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UsePublishedScope;
+    use HasSlug;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -43,11 +46,17 @@ class Accommodation extends Model implements HasMedia
     ];
 
     public $fillable = [
-        'tour_id',
-        'time_id',
         'title',
         'text',
         'slug',
         'published',
     ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
+    }
 }

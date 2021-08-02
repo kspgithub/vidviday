@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -72,5 +71,19 @@ class Staff extends Model
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'user_id');
+    }
+
+    public function vacansies()
+    {
+        return $this->hasMany(Vacancy::class);
+    }
+
+
+    public static function toSelectBox()
+    {
+        return  self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value'=>$it->value, 'text'=>$it->text];
+            });
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 /**
  * Class User
  *
@@ -79,4 +80,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday' => 'date',
     ];
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
 }
