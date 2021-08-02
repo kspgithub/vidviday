@@ -58,6 +58,7 @@ Route::group([
     require_once __DIR__.'/admin/badge.php';
     require_once __DIR__.'/admin/news.php';
     require_once __DIR__.'/admin/staff.php';
+    require_once __DIR__.'/admin/staff-type.php';
     require_once __DIR__.'/admin/vacancies.php';
     require_once __DIR__.'/admin/accommodation.php';
     require_once __DIR__.'/admin/document.php';
