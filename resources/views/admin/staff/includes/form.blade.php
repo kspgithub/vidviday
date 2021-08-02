@@ -29,7 +29,7 @@
                         type="email"
                         :label="__('Email')"
                         :placeholder="__('E-mail Address')"
-                        :value="old('email')"
+                        :value="old('email', $staff->email)"
                         maxlength="255"
                         required
                     ></x-forms.text-group>
