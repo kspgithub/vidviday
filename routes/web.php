@@ -61,6 +61,7 @@ Route::group([
     require_once __DIR__.'/admin/vacancies.php';
     require_once __DIR__.'/admin/accommodation.php';
     require_once __DIR__.'/admin/document.php';
+    require_once __DIR__.'/admin/ticket.php';
 
 });
 
