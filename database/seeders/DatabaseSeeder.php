@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BadgeSeeder::class);
         $this->call(CountryRegionCitySeeder::class);
         $this->call(FoodTimeSeeder::class);
+        $this->call(StaffTypeSeeder::class);
     }
 }
