@@ -5,7 +5,7 @@
         <a href="{{asset('documents/test-document.pdf')}}" download class="btn type-5 arrow-right only-desktop"><svg width="30" height="28" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.735.015a.638.638 0 01.53.121.602.602 0 01.235.477V2.44h11.875c.345 0 .625.273.625.609v21.91c0 .335-.28.608-.625.608H17.5v1.826a.623.623 0 01-.72.601L.53 25.558a.614.614 0 01-.53-.6V4.264a.612.612 0 01.485-.599L16.735.015zM28.75 6.09V3.656H22.5v2.435h6.25zM22.5 7.308h6.25v2.434H22.5V7.308zM21.25 6.09V3.656H17.5v2.435h3.75zM17.5 7.308h3.75v2.434H17.5V7.308zm11.25 3.652H22.5v2.434h6.25V10.96zm-7.5 0H17.5v2.434h3.75V10.96zm1.25 3.651h6.25v2.434H22.5v-2.434zm-5 0h3.75v2.434H17.5v-2.434zm11.25 3.652H22.5v2.434h6.25v-2.434zm-7.5 0H17.5v2.434h3.75v-2.434zm1.25 3.651h6.25v2.434H22.5v-2.434zm-5 0h3.75v2.434H17.5v-2.434zM5.001 18.87c0 .336.279.61.624.61a.629.629 0 00.531-.287L8.75 15.15l2.595 4.043a.638.638 0 00.86.194.6.6 0 00.2-.838l-2.918-4.547 2.92-4.548a.6.6 0 00-.206-.865.634.634 0 00-.855.221L8.75 12.856 6.155 8.812a.635.635 0 00-.889-.2.599.599 0 00-.171.844l2.919 4.548-2.918 4.545a.597.597 0 00-.095.321z"/></svg>Завантажити розклади турів</a>
         <div id="tour-selection-dropdown" class="sidebar-item selection-tour notice">
             <div class="top-part">
-                <div class="title h3 light title-icon"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/filter.svg')}}" alt="filter">Підбір туру</div>
+                <div class="title h3 light title-icon"><img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/filter.svg')}}" alt="filter">Підбір туру</div>
                 <div class="btn-close light">
                     <span></span>
                 </div>
@@ -90,21 +90,21 @@
 
         <div class="sidebar-item notice">
             <div class="top-part">
-                <div class="h3 light title-icon"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/info.svg')}}" alt="info">Оголошення</div>
+                <div class="h3 light title-icon"><img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/info.svg')}}" alt="info">Оголошення</div>
             </div>
             <div class="bottom-part">
                 <div class="text">
                     <p>В карточці туру ви можете дізнатись вільні дати, тривалість туру, а також потрібну кількість людей.</p>
                 </div>
-                <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/advertation.jpg')}}" alt="advert">
+                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/advertation.jpg')}}" alt="advert">
             </div>
         </div>
 
         <div class="sidebar-item overflow-hidden no-border">
             <div class="gift-certificate">
-                <div class="bg" data-bg-src="{{asset('img/gift-certificate.jpg')}}" style="background-image: url('{{asset('img/preloader.png')}}');"></div>
+                <div class="bg" data-bg-src="{{asset('/img/gift-certificate.jpg')}}" style="background-image: url('{{asset('/img/preloader.png')}}');"></div>
                 <div class="gift-icon">
-                    <img src="{{asset('icon/gift.svg')}}" alt="gift">
+                    <img src="{{asset('/icon/gift.svg')}}" alt="gift">
                 </div>
                 <div class="title h3 light">Подарунковий<br> сертифікат</div>
                 <a href="#" class="full-size"></a>
@@ -114,7 +114,7 @@
         <div class="sidebar-item only-desktop">
             <div class="top-part b-border">
                 <div class="title h3 title-icon">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/mailing.svg')}}" alt="mailing">
+                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}" alt="mailing">
                     <span>Новини</span>
                 </div>
             </div>
@@ -142,7 +142,7 @@
         <div class="sidebar-item">
             <div class="top-part b-border">
                 <div class="title h3 title-icon">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/reviews.svg')}}" alt="reviews">
+                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}" alt="reviews">
                     <span>Відгуки</span>
                 </div>
             </div>
@@ -150,7 +150,7 @@
                 <div class="review">
                     <div class="review-header">
                         <div class="review-img">
-                            <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/user.jpg')}}" alt="user">
+                            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/user.jpg')}}" alt="user">
                         </div>
                         <div class="review-title">
                             <span class="h4">Григоряш Вероніка</span>
@@ -201,7 +201,7 @@
         <div class="sidebar-item">
             <div class="top-part b-border">
                 <div class="title h3 title-icon">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/email.svg')}}" alt="mailing">
+                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/email.svg')}}" alt="mailing">
                     <span>Розсилка</span>
                 </div>
             </div>

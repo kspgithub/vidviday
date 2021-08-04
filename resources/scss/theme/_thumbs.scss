@@ -52,7 +52,7 @@
 	position: relative;
 	img {
 		width: 100%;
-		height: auto;
+		height: 100%;
 		display: block;
 		max-width: 100%;
 		backface-visibility: hidden;
@@ -79,6 +79,18 @@
 	&.hit-sales {
 		background: $orange;
 	}
+
+    &.label-1{
+        top: 50px;
+    }
+
+    &.label-2{
+        top: 80px;
+    }
+
+    &.label-3{
+        top: 110px;
+    }
 }
 
 .thumb .thumb-content,
@@ -159,13 +171,13 @@
 	}
 	&.active {
 		.select-icon {
-			background-image: url(../icon/star-icon.svg);
+			background-image: url(../../svg/star-icon.svg);
 			&.active {
 				& + .select-icon,
 				& + .select-icon + .select-icon,
 				& + .select-icon + .select-icon + .select-icon,
 				& + .select-icon + .select-icon + .select-icon + .select-icon {
-					background-image: url(../icon/star-empty-icon.svg);
+					background-image: url(../../svg/star-empty-icon.svg);
 				}
 			}
 		}
@@ -187,10 +199,10 @@
 		margin-right: 0;
 	}
 	&.icon-star {
-		background-image: url(../icon/star-icon.svg);
+		background-image: url(../../svg/star-icon.svg);
 	}
 	&.icon-star-empty {
-		background-image: url(../icon/star-empty-icon.svg);
+		background-image: url(../../svg/star-empty-icon.svg);
 	}
 }
 
@@ -223,7 +235,7 @@
 			padding-right: 20px;
 			border-right: 1px solid $border;
 			&:before {
-				background-image: url(../icon/clock.svg);
+				background-image: url(../../svg/clock.svg);
 			}
 			&:last-child {
 				border-right: none;
@@ -232,13 +244,13 @@
 		&.thumb-info-people {
 			padding-left: 20px;
 			&:before {
-				background-image: url(../icon/user.svg);
+				background-image: url(../../svg/user.svg);
 			}
 			&.no-people {
 				&:after {
 					content: '';
 					margin-left: 15px;
-					background-image: url(../icon/no-people.svg);
+					background-image: url(../../svg/no-people.svg);
 				}
 			}
 		}
@@ -303,7 +315,7 @@
 		width: 16px;
 		height: 16px;
 		margin-top: -8px;
-		background: center / contain url(../icon/discount.svg) no-repeat;
+		background: center / contain url(../../svg/discount.svg) no-repeat;
 	} */
 	&.margin-top {
 		margin-top: 5px;
@@ -367,6 +379,7 @@
 	.thumb-img {
 		width: 31%;
 		border-radius: 3px;
+        height: 190px;
 	}
 	> div {
 		&:nth-child(2) {
@@ -470,17 +483,17 @@
 	.rating-picker.active {
 		&:hover {
 			.select-icon {
-				background-image: url(../icon/star-icon.svg) !important;
+				background-image: url(../../svg/star-icon.svg) !important;
 			}
 		}
 		.select-icon {
 			&:hover {
-				background-image: url(../icon/star-icon.svg) !important;
+				background-image: url(../../svg/star-icon.svg) !important;
 				& + .select-icon,
 				& + .select-icon + .select-icon,
 				& + .select-icon + .select-icon + .select-icon,
 				& + .select-icon + .select-icon + .select-icon + .select-icon {
-					background-image: url(../icon/star-empty-icon.svg) !important;
+					background-image: url(../../svg/star-empty-icon.svg) !important;
 				}
 			}
 			&.active {
@@ -488,7 +501,7 @@
 				& + .select-icon + .select-icon:hover,
 				& + .select-icon + .select-icon + .select-icon:hover,
 				& + .select-icon + .select-icon + .select-icon + .select-icon:hover {
-					background-image: url(../icon/star-icon.svg) !important;
+					background-image: url(../../svg/star-icon.svg) !important;
 				}
 			}
 		}

@@ -16,6 +16,8 @@ const webpack = require('webpack');
 mix.js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/admin/app.js', 'public/js/admin.js')
     .sass('resources/scss/app.scss', 'public/css/app.css')
+    .sass('resources/scss/theme/main.scss', 'public/css/main.css')
+    .sass('resources/scss/theme/style.scss', 'public/css/style.css')
     .sass('resources/scss/admin/app.scss', 'public/css/admin.css')
     .vue()
     .extract()

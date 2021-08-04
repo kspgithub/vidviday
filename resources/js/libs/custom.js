@@ -4,7 +4,7 @@ var _functions = {},
 jQuery(function($) {
 
 	"use strict";
-	
+
 	/*///////////*/
 	/* VARIABLES */
 	/*///////////*/
@@ -30,8 +30,8 @@ jQuery(function($) {
 	lazyLoadBg();
 	lazyLoadVideo();
 	lazyLoadFrames();
-	
-	setTimeout(function() {	
+
+	setTimeout(function() {
 
 		$(".slider-range").each(function() {
 			var $range = $(this),
@@ -53,7 +53,7 @@ jQuery(function($) {
 
 		let img = document.querySelectorAll('[data-img-src]'),
 			observer = new IntersectionObserver((entries, observer) => {
-			
+
 								entries.forEach(entry => {
 
 									if (entry.isIntersecting) {
@@ -78,7 +78,7 @@ jQuery(function($) {
 
 		let bg = document.querySelectorAll('[data-bg-src]'),
 			observer = new IntersectionObserver((entries, observer) => {
-			
+
 								entries.forEach(entry => {
 
 									if (entry.isIntersecting) {
@@ -105,7 +105,7 @@ jQuery(function($) {
 		let video = document.querySelectorAll('[data-video-src]'),
 			videoMarkup,
 			observer = new IntersectionObserver((entries, observer) => {
-			
+
 								entries.forEach(entry => {
 
 									if (entry.isIntersecting) {
@@ -137,7 +137,7 @@ jQuery(function($) {
 		let frame = document.querySelectorAll('[data-frame-src]'),
 			frameMarkup,
 			observer = new IntersectionObserver((entries, observer) => {
-			
+
 								entries.forEach(entry => {
 
 									if (entry.isIntersecting) {
@@ -174,27 +174,27 @@ jQuery(function($) {
 	}
 
 	_functions.scrollCall();
-	
+
 	/*////////////////*/
 	/* SWIPER SLIDERS */
 	/*////////////////*/
 	_functions.getSwOptions = function(swiper) {
-		
+
 		let options = swiper.data('options');
 			options = (!options || typeof options !== 'object') ? {} : options;
 		let	$slider = swiper.closest('.swiper-entry'),
 			slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
-		
+
 		if (!options.pagination) options.pagination = {
 			el: $slider.find('.swiper-pagination')[0],
 			clickable: true
 		};
-		
+
 		if (!options.navigation) options.navigation = {
 			nextEl: $slider.find('.swiper-button-next')[0],
 			prevEl: $slider.find('.swiper-button-prev')[0]
 		};
-		
+
 		options.preloadImages = false;
 		options.lazy = {loadPrevNext: true};
 		options.observer = true;
@@ -210,13 +210,13 @@ jQuery(function($) {
 				}
 			}
 		};
-		
+
 		if (!options.speed) options.speed = 500;
-		
+
 		options.roundLengths = false;
-		
+
 		if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
-		
+
 		if (options.customFraction) {
 			$p.addClass('custom-fraction-swiper');
 			if (slidesLength > 1 && slidesLength < 10) {
@@ -227,16 +227,16 @@ jQuery(function($) {
 				$p.find('.custom-total').text(slidesLength);
 			}
 		}
-		
+
 		if (isTouchScreen) options.direction = "horizontal";
-		
+
 		return options;
 	};
 
 	_functions.initSwiper = function(el) {
 		var swiper = new Swiper(el[0], _functions.getSwOptions(el));
 	};
-		
+
 	$('.swiper-entry .swiper-container').each(function() {
 		_functions.initSwiper($(this));
 		swiperConfig($(this));
@@ -289,7 +289,7 @@ jQuery(function($) {
 	$(document).on('click', 'a[href*="#"]', function() {
 
 		let anchorLink = $(this).attr('href');
-		
+
 		$('html, body').animate({
 			scrollTop: $(anchorLink).offset().top - $('header').outerHeight()
 		}, 730);
@@ -363,7 +363,7 @@ jQuery(function($) {
 		/*dropdown.toggleClass('active');
 		dropdownToggle.slideToggle(330);*/
 
-		if ($(dropdown).hasClass('active')) {
+		if (dropdown.hasClass('active')) {
 			dropdown.removeClass('active');
 			dropdownToggle.slideUp(330);
 		} else {
@@ -395,7 +395,7 @@ jQuery(function($) {
 		$('nav ul .dropdown-toggle').slideUp(440);
 		$('.tel, .exchange, .lang').removeClass('active');
 	});
-	
+
 	$('#search-dropdown .btn-close').on('click', function() {
 		addScroll();
 		searchDropdownClose();
@@ -504,7 +504,7 @@ jQuery(function($) {
 	});
 	// Popup
 	var popupTop = 0;
-	
+
 	function removeScroll() {
 
 		if ($('html').css('position') != 'fixed') {
@@ -521,7 +521,7 @@ jQuery(function($) {
 	}
 
 	function addScroll() {
-		
+
 		$('html').css({
 			"position": "static"
 		});
@@ -577,7 +577,7 @@ jQuery(function($) {
 	});
 	//accordion
 	function pageScroll(current) {
-		
+
 		$('html, body').animate({
 			scrollTop: current.offset().top - ($('header').outerHeight() + 40)
 		}, 420);
@@ -601,7 +601,7 @@ jQuery(function($) {
 					$(this).addClass('active');
 					$(this).find('.accordion-inner').slideDown(440);
 				});
-				
+
 				pageScroll($(this));
 			} else {
 
@@ -615,7 +615,7 @@ jQuery(function($) {
 	});
 	//expand all accordion
 	$('.accordion-all-expand:not(.inner-not-expand) .expand-all').on('click', function() {
-		
+
 		let parentAccordion = $(this).closest('.accordion-all-expand'),
 			accordion = $(parentAccordion).find('.accordion-item');
 
@@ -745,12 +745,12 @@ jQuery(function($) {
 		});
 		$(el).closest('.calc').find('.calc-total-price').html(allSummProduct);
 	}*/
-	
+
 	//input mask tel
 	$('input[name="tel"]').on('focus', function() {
 		$(this).inputmask({
 			mask: "+38(0 x 9) 9 9 9 - 9 9 - 9 9",
-			clearMaskOnLostFocus: true,	
+			clearMaskOnLostFocus: true,
 			definitions: {
 				'x': {
 					validator: "[1-9]"
@@ -761,7 +761,7 @@ jQuery(function($) {
 			}
 		});
 	});
-	
+
 	// Input focus
 	$('input, textarea').on('focus', function() {
 		$(this).parent().addClass('active');
@@ -785,7 +785,7 @@ jQuery(function($) {
 	$('input[name="viber"]').on('focus', function() {
 		$(this).inputmask({
 			mask: "+38(0 x 9) 9 9 9 - 9 9 - 9 9",
-			clearMaskOnLostFocus: true,	
+			clearMaskOnLostFocus: true,
 			definitions: {
 				'x': {
 					validator: "[1-9]"
@@ -799,7 +799,7 @@ jQuery(function($) {
 	$('.dr').on('focus', function() {
 		$(this).inputmask({
 			mask: "99.99.9999",
-			clearMaskOnLostFocus: true,	
+			clearMaskOnLostFocus: true,
 			definitions: {
 				'x': {
 					validator: "[1-9]"
@@ -1006,7 +1006,7 @@ jQuery(function($) {
 			icon: 'img/preview_5.jpg'
 		}
 	];
-	
+
 
 	// if ($('.input-search').length) {
 	// 	$('.input-search').each(function() {
@@ -1039,7 +1039,7 @@ jQuery(function($) {
 $(function () {
     $('.scroll-top').on('scroll', function (e) {
         $('.scroll-bottom').scrollLeft($('.scroll-top').scrollLeft());
-    }); 
+    });
     $('.scroll-bottom').on('scroll', function (e) {
         $('.scroll-top').scrollLeft($('.scroll-bottom').scrollLeft());
     });

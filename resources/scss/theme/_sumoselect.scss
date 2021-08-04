@@ -45,8 +45,8 @@
 		padding: 12px 15px 10px;
 		border: 1px solid $border;
 		&:after {
-			@include dropdownArrow($text)
-			@include dropdownArrowRight(15px)
+			@include dropdownArrow($text);
+			@include dropdownArrowRight(15px);
 		}
 		> span {
 			color: $text;
@@ -205,7 +205,7 @@
 					}
 				}
 			}
-		} 
+		}
 		&.isFloating {
 			position: fixed;
 			top: 0;

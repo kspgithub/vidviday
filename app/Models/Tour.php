@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Attributes\TourAttribute;
 use App\Models\Traits\Relationship\TourRelationship;
+use App\Models\Traits\Scope\TourScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -33,6 +34,7 @@ class Tour extends TranslatableModel implements HasMedia
     use UsePublishedScope;
     use TourRelationship;
     use TourAttribute;
+    use TourScope;
     use HasSlug;
     use UseSelectBox;
 
@@ -108,18 +110,22 @@ class Tour extends TranslatableModel implements HasMedia
         'slug',
         'published',
         'duration',
+        'nights',
         'price',
         'currency',
-        'new',
-        'bestseller',
+        'rating',
     ];
 
     protected $casts = [
         'published' => 'bool',
-        'new' => 'bool',
-        'bestseller' => 'bool',
         'duration' => 'int',
         'price' => 'float',
+    ];
+
+    protected $appends = [
+        'main_image',
+        'mobile_image',
+        'url',
     ];
 
     public function getSlugOptions(): SlugOptions

@@ -35,7 +35,9 @@ class ToursTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = Tour::query();
+        $query = Tour::query()->withCount(['media' => function($q){
+            return $q->where('collection_name', 'pictures');
+        }]);
 
         return $query;
     }

@@ -251,13 +251,13 @@ nav li.dropdown > span {
 
 .tel {
 	&:before {
-		background: center / contain url(../icon/call.svg) no-repeat;
+		background: center / contain url(../../svg/call.svg) no-repeat;
 	}
 }
 
 .log-in {
 	&:before {
-		background: center / contain url(../icon/login.svg) no-repeat;
+		background: center / contain url(../../svg/login.svg) no-repeat;
 	}
 	&.log-inned {
 		padding-left: 0;
@@ -314,7 +314,7 @@ nav li.dropdown > span {
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
-	background: center / contain url(../icon/heart.svg) no-repeat;
+	background: center / contain url(../../svg/heart.svg) no-repeat;
 	span {
 		top: -6px;
 		right: -6px;
@@ -933,7 +933,7 @@ nav {
 		right: -10px;
 		z-index: 1;
 	}
-	
+
 	header .container .row > div > .vertical-separator,
 	.voice-search-btn.only-desktop {
 		display: none;

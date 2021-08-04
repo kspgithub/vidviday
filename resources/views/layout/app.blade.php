@@ -18,8 +18,8 @@
     <!-- Styles -->
     @stack('before-styles', false)
     @livewireStyles
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+
     @stack('after-styles', false)
 </head>
 <body class="{{$body_class ?? ''}}">
@@ -30,11 +30,9 @@
     <!-- HEADER -->
     <div id="header-layer-close"></div>
 
-    @include('layout.includes.header')
+    <x-site-header />
 
-    <main>
-        @yield('content')
-    </main>
+    @yield('content')
 
     @include('layout.includes.footer')
 
@@ -48,8 +46,8 @@
     @include('includes.video')
 </div>
 
-<link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
+<link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 @stack('before-scripts', false)
 @livewireScripts

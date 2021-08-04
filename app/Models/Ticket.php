@@ -11,7 +11,9 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Ticket
+ *
  * @package App\Models
+ * @mixin IdeHelperTicket
  */
 class Ticket extends Model
 {

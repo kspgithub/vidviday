@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/logo.png')}}" alt="logo">
+            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/logo.png')}}" alt="logo">
         </a>
         <div class="row">
             <div class="col-xl-6 col">
@@ -11,35 +11,35 @@
                         <ul>
                             <li>
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/preview_1.jpg')}}" alt="img">
+                                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/preview_1.jpg')}}" alt="img">
                                 </div>
                                 <span class="text">Сиро-Винний тур Закарпаттям</span>
                             </li>
 
                             <li>
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/preview_2.jpg')}}" alt="img">
+                                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/preview_2.jpg')}}" alt="img">
                                 </div>
                                 <span class="text">10 родзинок Закарпаття</span>
                             </li>
 
                             <li>
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/preview_3.jpg')}}" alt="img">
+                                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/preview_3.jpg')}}" alt="img">
                                 </div>
                                 <span class="text">Різдво у Карпатах</span>
                             </li>
 
                             <li>
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/preview_4.jpg')}}" alt="img">
+                                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/preview_4.jpg')}}" alt="img">
                                 </div>
                                 <span class="text">Озера Карпат</span>
                             </li>
 
                             <li>
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/preview_5.jpg')}}" alt="img">
+                                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/preview_5.jpg')}}" alt="img">
                                 </div>
                                 <span class="text">Несамовите озеро в Карпатах</span>
                             </li>
@@ -90,24 +90,29 @@
                             <span>2</span>
                         </a>
                         <div class="img">
-                            <img src="{{asset('img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}" alt="user">
+                            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}" alt="user">
                         </div>
                         <span class="dropdown-btn"></span>
                         <ul class="dropdown-toggle">
+                            @if(current_user()->isAdmin())
+                                <li>
+                                    <a href="{{route('admin.dashboard')}}">Адміністрування</a>
+                                </li>
+                            @endif
                             <li>
-                                <a href="#">Особисті дані</a>
+                                <a href="{{route('profile.index')}}">Особисті дані</a>
                             </li>
 
                             <li>
-                                <a href="#">Історія замовлень</a>
+                                <a href="{{route('profile.orders')}}">Історія замовлень</a>
                             </li>
 
                             <li>
-                                <a href="#">Історія переглядів</a>
+                                <a href="{{route('profile.history')}}">Історія переглядів</a>
                             </li>
 
                             <li>
-                                <a href="#">Улюблені <span>2</span></a>
+                                <a href="{{route('profile.favourites')}}">Улюблені <span>2</span></a>
                             </li>
 
                             <li>
@@ -130,49 +135,12 @@
 
                 <span class="vertical-separator"></span>
 
-                <div class="exchange dropdown only-desktop">
-                    <span>UAH - <span>₴</span></span>
-                    <span class="dropdown-btn"></span>
-                    <ul class="dropdown-toggle">
-                        <li>
-                            <a href="#">USD - $</a>
-                        </li>
-
-                        <li>
-                            <a href="#">EUR - €</a>
-                        </li>
-
-                        <li>
-                            <a href="#">GBP - £</a>
-                        </li>
-
-                        <li>
-                            <a href="#">PLN - zl</a>
-                        </li>
-                    </ul>
-                    <div class="full-size"></div>
-                </div>
+                <x-header.currency-dropdown class="only-desktop" />
 
                 <span class="vertical-separator"></span>
 
-                <div class="lang dropdown only-desktop">
-                    <span>UA</span>
-                    <span class="dropdown-btn"></span>
-                    <ul class="dropdown-toggle">
-                        <li>
-                            <a href="#">RU</a>
-                        </li>
+                <x-header.lang-dropdown class="only-desktop" />
 
-                        <li>
-                            <a href="#">EN</a>
-                        </li>
-
-                        <li>
-                            <a href="#">PL</a>
-                        </li>
-                    </ul>
-                    <div class="full-size"></div>
-                </div>
 
                 <div id="menu-btn">
                     <span></span>
@@ -184,47 +152,13 @@
             <div class="col">
                 <nav>
                     <div class="only-mobile">
-                        <div class="exchange dropdown">
-                            <span>UAH - <span>₴</span></span>
-                            <span class="dropdown-btn"></span>
-                            <ul class="dropdown-toggle">
-                                <li>
-                                    <a href="#">USD - $</a>
-                                </li>
 
-                                <li>
-                                    <a href="#">EUR - €</a>
-                                </li>
+                        <x-header.currency-dropdown />
 
-                                <li>
-                                    <a href="#">GBP - £</a>
-                                </li>
-
-                                <li>
-                                    <a href="#">PLN - zl</a>
-                                </li>
-                            </ul>
-                            <div class="full-size"></div>
-                        </div>
                         <span class="vertical-separator"></span>
-                        <div class="lang dropdown">
-                            <span>UA</span>
-                            <span class="dropdown-btn"></span>
-                            <ul class="dropdown-toggle">
-                                <li>
-                                    <a href="#">RU</a>
-                                </li>
 
-                                <li>
-                                    <a href="#">EN</a>
-                                </li>
+                        <x-header.lang-dropdown />
 
-                                <li>
-                                    <a href="#">PL</a>
-                                </li>
-                            </ul>
-                            <div class="full-size"></div>
-                        </div>
                         <div class="spacer-sm"></div>
                         <hr>
                         <div class="spacer-sm"></div>
@@ -240,45 +174,45 @@
                                     </li>
 
                                     <li>
-                                        <a href="documents.php">Наші документи</a>
+                                        <a href="/documents/">Наші документи</a>
                                     </li>
 
                                     <li>
-                                        <a href="tour-guides.php">Екскурсоводи</a>
+                                        <a href="/cuides/">Екскурсоводи</a>
                                     </li>
 
                                     <li>
-                                        <a href="office-workers.php">Офісні працівники</a>
+                                        <a href="/office-workers/">Офісні працівники</a>
                                     </li>
 
                                     <li>
-                                        <a href="blog.php">Новини</a>
+                                        <a href="/news/">Новини</a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Благодійність</a>
+                                        <a href="/benefit/">Благодійність</a>
                                     </li>
                                 </ul>
 
                                 <ul>
                                     <li>
-                                        <a href="#">Нагороди та відзнаки</a>
+                                        <a href="/awards/">Нагороди та відзнаки</a>
                                     </li>
 
                                     <li>
-                                        <a href="career.php">Вакансії</a>
+                                        <a href="/vacancies/">Вакансії</a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Практика</a>
+                                        <a href="/practice/">Практика</a>
                                     </li>
 
                                     <li>
-                                        <a href="testimonials.php">Відгуки</a>
+                                        <a href="/testimonials/">Відгуки</a>
                                     </li>
 
                                     <li>
-                                        <a href="blog.php">Блог</a>
+                                        <a href="/blog/">Блог</a>
                                     </li>
                                 </ul>
                             </div>
@@ -289,29 +223,11 @@
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
+                                    @foreach($tourGroups as $tourGroup)
                                     <li>
-                                        <a href="tours.php">Популярні тури</a>
+                                        <a href="{{route('tour.index', $tourGroup->slug)}}">{{$tourGroup->title}}</a>
                                     </li>
-
-                                    <li>
-                                        <a href="tours.php">Тури на Синевир</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="tours.php">Тури на Новий Рік</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="tours.php">Тури на Різдво</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="tours.php">Тури в Карпати</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="tours.php">На бринзу до Рахова</a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>

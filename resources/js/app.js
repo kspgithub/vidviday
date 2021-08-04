@@ -15,9 +15,14 @@ require('./libs/SmoothScroll');
 
 require('./libs/datepicker.min');
 
-require('./libs/full-calendar');
+//require('./libs/full-calendar');
+//require('./libs/full-calendar');
 
-require('./libs/global');
+// require('./libs/global');
+
+require('./libs/calendar');
+
+require('./libs/custom');
 
 
 

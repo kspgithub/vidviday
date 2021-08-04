@@ -189,7 +189,7 @@ html.overflow-menu body {
 			width: calc(50% - 8px);
 			&:first-child {
 				&:after {
-					background-image: url(../icon/location-target.svg);
+					background-image: url(../../svg/location-target.svg);
 				}
 				input {
 					padding-right: 40px;
@@ -198,7 +198,7 @@ html.overflow-menu body {
 			&:last-child {
 				margin-right: 0;
 				&:after {
-					background-image: url(../icon/location-placeholder.svg);
+					background-image: url(../../svg/location-placeholder.svg);
 				}
 			}
 			&:after {
@@ -228,7 +228,7 @@ html.overflow-menu body {
 		position: relative;
 		display: inline-block;
 		vertical-align: middle;
-		background: center / contain url(../icon/no-people.svg) no-repeat;
+		background: center / contain url(../../svg/no-people.svg) no-repeat;
 	}
 }
 
@@ -262,7 +262,7 @@ html.overflow-menu body {
 		margin-right: 15px;
 	}
 	.icon {
-		background: center / 15px url('../icon/share.svg') no-repeat;
+		background: center / 15px url('../../svg/share.svg') no-repeat;
 	}
 	.dropdown-btn {
 		top: 0;
@@ -359,7 +359,7 @@ html.overflow-menu body {
 			height: 460px;
 		}
 	}
-	
+
 	.section-top-170 {
 		margin-top: 140px;
 	}
@@ -419,17 +419,17 @@ html.overflow-menu body {
 			}
 		}
 	}
-	
+
 	.section-top-170 {
 		margin-top:120px;
 	}
-	
+
 	.banner-align {
 		.size-2 {
 			height:360px;
 		}
 	}
-	
+
 	.banner-info .title br {
 		display: none;
 	}
@@ -463,11 +463,11 @@ html.overflow-menu body {
 			margin-top: 40px;
 		}
 	}
-	
+
 	.section-top-170 {
 		margin-top: 90px;
 	}
-	
+
 	.banner-align {
 		&.size-2 {
 			height: 240px;

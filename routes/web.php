@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +23,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 
+Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('currency.change');
 
+require base_path('routes/frontend/profile.php');
+require base_path('routes/frontend/tour.php');
 
 // ADMIN ROUTES
 /*
