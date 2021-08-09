@@ -6,6 +6,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -27,6 +28,25 @@ class News extends Model implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+
+    public static function boot()
+    {
+        parent::boot();
+        /**
+         * генерируем короткий текст если он не было передан
+         */
+        self::creating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
+
+        self::updating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
