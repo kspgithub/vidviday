@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Region;
+use App\Models\Place;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,18 +19,8 @@ class CityController extends Controller
      *
      * @return View
      */
-    public function index(Request $request)
+    public function index()
     {
-
-        if ($request->search) {
-
-            $citiesPrepeared = City::select(['id', 'title', 'country_id', 'region_id', 'slug'])
-            ->where('title', 'like', '%' .$request->search. '%');
-            $citiesPaginated = $citiesPrepeared->paginate(20);
-            $cities = $citiesPrepeared->get();
-
-            return view('admin.city.index', ['cities'=>$cities, 'citiesPaginated'=>$citiesPaginated]);
-        }
 
 
         $citiesPrepeared = City::query()->orderBy('region_id');
@@ -49,12 +40,14 @@ class CityController extends Controller
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
+        $places = Place::toSelectBox();
         $city = new City();
 
         return view('admin.city.create', [
             'city'=>$city,
             'countries' => $countries,
-            'regions' => $regions
+            'regions' => $regions,
+            'places' => $places
         ]);
     }
 
@@ -86,12 +79,13 @@ class CityController extends Controller
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
-
+        $places = Place::toSelectBox();
         //
         return view('admin.city.edit', [
             'city' => $city,
             'countries' => $countries,
-            'regions' => $regions
+            'regions' => $regions,
+            'places' => $places
         ]);
     }
 
