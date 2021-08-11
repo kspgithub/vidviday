@@ -9,8 +9,11 @@
         :value="old('user_id', isset($staff->user()->pluck('id')[0])?$staff->user()->pluck('id')[0]:'')"
         :options="$users"
         required></x-forms.select-group>
-        <x-forms.text-group name="type" :label="__('Type')" :value="old('type', $staff->type)" maxlength="100" required ></x-forms.text-group>
-        <x-forms.text-group name="lirst_name" :label="__('First name')" :value="old('first_name', $staff->first_name)" maxlength="100" required></x-forms.text-group>
+        <x-forms.select-group  multiple="" name="type" :label="__('Type')"
+        :value="old('type', isset($staff->type()->pluck('id')[0])?$staff->type()->pluck('id')[0]:'')"
+        :options="$staffTypes"
+        required></x-forms.select-group>
+        <x-forms.text-group name="first_name" :label="__('First name')" :value="old('first_name', $staff->first_name)" maxlength="100" required></x-forms.text-group>
         <x-forms.text-group name="last_name" :label="__('Last name')" :value="old('last_name', $staff->last_name)" maxlength="100" required></x-forms.text-group>
         <x-forms.text-group name="position" :label="__('Position')" :value="old('position', $staff->position)" maxlength="100" ></x-forms.text-group>
         <x-forms.single-image-upload
@@ -26,7 +29,7 @@
                         type="email"
                         :label="__('Email')"
                         :placeholder="__('E-mail Address')"
-                        :value="old('email')"
+                        :value="old('email', $staff->email)"
                         maxlength="255"
                         required
                     ></x-forms.text-group>

@@ -118,7 +118,15 @@
                     <li class="sidebar-item {{routeActiveClass('admin.document.create')}}"><a class="sidebar-link" href="{{route('admin.document.create')}}">@lang('Create Document')</a></li>
                 </ul>
             </li>
-
+            <li class="sidebar-item {{routeActiveClass('admin.staff*')}}">
+                <a data-bs-target="#staff" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.staff*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">@lang('Staff')</span>
+                </a>
+                <ul id="staff" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.staff*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.staff.index')}}"><a class="sidebar-link" href="{{route('admin.staff.index')}}">@lang('Staff')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.staff-type.index')}}"><a class="sidebar-link" href="{{route('admin.staff-type.index')}}">@lang('Staff Types')</a></li>
+                </ul>
+            </li>
             <!-- CONTENT --------------------------------------------------------------------------------------- --->
             <li class="sidebar-header">
                 @lang('Content')
@@ -152,8 +160,6 @@
                     <li class="sidebar-item {{routeActiveClass('admin.html-block.create')}}"><a class="sidebar-link" href="{{route('admin.html-block.create')}}">@lang('Create Html Block')</a></li>
                 </ul>
             </li>
-
-            <!-- SYSTEM ------------------------------------------------------------------------------------------ --->
             <li class="sidebar-header">
                 @lang('System')
             </li>
@@ -172,7 +178,6 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{route('log-viewer::logs.list')}}">@lang('Logs')</a></li>
                 </ul>
             </li>
-
 
 
 {{--            <li class="sidebar-item">--}}

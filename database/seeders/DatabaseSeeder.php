@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodTimeSeeder::class);
         $this->call(PlaceSeeder::class);
         $this->call(TourSeeder::class);
+        $this->call(StaffTypeSeeder::class);
     }
 }

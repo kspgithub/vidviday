@@ -1,13 +1,13 @@
 @extends('admin.layout.app')
 
-@section('title', __('Staff management'))
+@section('title', __('StaffType management'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Staff management')</h1>
+        <h1>@lang('StaffType management')</h1>
 
         <div class="d-flex align-items-center">
-                <a href="{{route('admin.staff.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="plus"></i> @lang('Create staff')</a>
+                <a href="{{route('admin.staff-type.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="plus"></i> @lang('Create staff')</a>
         </div>
     </div>
 
@@ -17,24 +17,19 @@
             <table class="table table-responsive table-striped table-sm">
                 <thead>
                 <tr>
-
-                    <th>@lang('Type')</th>
-                    <th>@lang('First name')</th>
+                    <th>@lang('title')</th>
                     <th>@lang('Locale')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($staffs as $staff)
+                @foreach($staffTypes as $staffType)
                     <tr>
-                        <td>{{$staff->type}}</td>
-                        <td>{{$staff->first_name}}</td>
+                        <td>{{$staffType->title}}</td>
                         <td>{{app()->getLocale()}}</td>
                         <td class="table-action">
-
-                            <x-utils.edit-button :href="route('admin.staff.edit', ['staff'=>$staff])" text="" />
-                            <x-utils.delete-button :href="route('admin.staff.destroy', ['staff'=>$staff])" text="" />
-
+                            <x-utils.edit-button :href="route('admin.staff-type.edit', ['staff_type'=>$staffType])" text="" />
+                            <x-utils.delete-button :href="route('admin.staff-type.destroy', ['staff_type'=>$staffType])" text="" />
                         </td>
                     </tr>
                 @endforeach
@@ -42,8 +37,5 @@
             </table>
         </x-slot>
     </x-bootstrap.card>
-
-    {{ $staffs->links() }}
-
 @endsection
 
