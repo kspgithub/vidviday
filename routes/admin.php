@@ -39,5 +39,4 @@ require base_path('routes/admin/document.php');
 require base_path('routes/admin/ticket.php');
 require base_path('routes/admin/html_block.php');
 require base_path('routes/admin/discount.php');
-
-
+require base_path('routes/admin/staff-type.php');

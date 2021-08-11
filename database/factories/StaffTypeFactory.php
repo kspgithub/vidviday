@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\StaffType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class StaffTypeFactory extends Factory
 {
@@ -26,6 +27,7 @@ class StaffTypeFactory extends Factory
         return [
             //
            'title' => $title,
+           'slug' => Str::slug($title),
         ];
     }
 }

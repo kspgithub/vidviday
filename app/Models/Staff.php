@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
@@ -18,7 +19,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperStaff
  */
-class Staff extends Model
+class Staff extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
@@ -64,9 +65,13 @@ class Staff extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function type()
+
+    /**
+     * @return BelongsToMany
+     */
+    public function types()
     {
-        return $this->belongsTo(StaffType::class);
+        return $this->belongsToMany(StaffType::class, 'staffs_types', 'staff_id', 'type_id');
     }
 
 
@@ -75,10 +80,13 @@ class Staff extends Model
      */
     public function tours()
     {
-        return $this->belongsToMany(Tour::class, 'user_id');
+        return $this->belongsToMany(Tour::class, 'tours_staff', 'staff_id', 'tour_id');
     }
 
 
+    /**
+     * @return HasMany
+     */
     public function vacansies()
     {
         return $this->hasMany(Vacancy::class);

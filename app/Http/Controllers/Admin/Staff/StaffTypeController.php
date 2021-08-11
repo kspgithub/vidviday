@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\StaffType;
@@ -19,16 +19,16 @@ class StaffTypeController extends Controller
     public function index()
     {
         //
-        $staffTypes = StaffType::query()->get();
+        $staffTypes = StaffType::all();
 
         return view('admin.staff-type.index', compact('staffTypes'));
     }
 
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
-     */
+    /**
+    * Show the form for creating a new resource.
+    *
+    * @return View
+    */
     public function create()
     {
         $staffType = new StaffType();
@@ -46,10 +46,10 @@ class StaffTypeController extends Controller
     {
         //
         $staffType = new StaffType();
-        $staffType->fill($request->all());
+        $staffType->fill($request->only(['title', 'slug']));
         $staffType->save();
 
-        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('StaffType created.'));
+        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('Record Created'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -60,7 +60,6 @@ class StaffTypeController extends Controller
      */
     public function edit(StaffType $staffType)
     {
-
         return view('admin.staff-type.edit', [
             'staffType' => $staffType,
         ]);
@@ -78,10 +77,10 @@ class StaffTypeController extends Controller
     {
 
         //
-        $staffType->fill($request->all());
+        $staffType->fill($request->only(['title', 'slug']));
         $staffType->save();
 
-        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('StaffType updated.'));
+        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -97,6 +96,6 @@ class StaffTypeController extends Controller
 
         $staffType->delete();
 
-        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('StaffType deleted.'));
+        return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('Record Deleted'));
     }
 }
