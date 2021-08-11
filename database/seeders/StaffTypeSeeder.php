@@ -22,19 +22,19 @@ class StaffTypeSeeder extends Seeder
 
         $staff_types = [
             [
-                'title'=>['Керівник єкскурсійних груп'],
+                'title'=>['uk'=>'Керівник єкскурсійних груп', 'ru'=>'Руководитель экскурсионных групп', 'en'=>'Excursion groups leader', 'pl'=>'Kierownik grup wycieczkowych'],
             ],
             [
-                'title'=>['Офісний працівник'],
+                'title'=>['uk'=>'Офісний працівник', 'ru'=>'Офисный работник', 'en'=>'Office worker', 'pl'=>'Pracownik biurowy'],
             ],
             [
-                'title'=>['Спеціаліст з бронювання'],
+                'title'=>['uk'=>'Спеціаліст з бронювання', 'ru'=>'Специалист по бронированию', 'en'=>'Booking specialist', 'pl'=>'Specjalista rezerwacji'],
             ],
             [
-                'title'=>['Менеджер з персоналу'],
+                'title'=>['uk'=>'Менеджер з персоналу', 'ru'=>'Менеджер по персоналу', 'en'=>'HR Manager', 'pl'=>'Menedżer HR'],
             ],
             [
-                'title'=>['Менеджер з продажу подарункових сертифікатів'],
+                'title'=>['uk'=>'Менеджер з продажу подарункових сертифікатів', 'ru'=>'Менеджер по продажам подарочных сертификатов', 'en'=>'Gift Certificate Sales Manager', 'pl'=>'Menedżer sprzedaży bonów upominkowych'],
 
             ],
         ];
