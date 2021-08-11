@@ -22,24 +22,24 @@ class StaffTypeSeeder extends Seeder
 
         $staff_types = [
             [
-                'title'=>['uk'=>'Керівник єкскурсійних груп'],
-                'slug'=>'excursion-leader'
+                'title'=>['uk'=>'Керівник єкскурсійних груп', 'ru'=>'Руководитель экскурсионных групп', 'en'=>'Excursion groups leader', 'pl'=>'Kierownik grup wycieczkowych'],
+                'slug'=>'excursion-leader',
             ],
             [
-                'title'=>['uk'=>'Офісний працівник'],
+                'title'=>['uk'=>'Офісний працівник', 'ru'=>'Офисный работник', 'en'=>'Office worker', 'pl'=>'Pracownik biurowy'],
                 'slug'=>'official',
             ],
             [
-                'title'=>['uk'=>'Спеціаліст з бронювання'],
+                'title'=>['uk'=>'Спеціаліст з бронювання', 'ru'=>'Специалист по бронированию', 'en'=>'Booking specialist', 'pl'=>'Specjalista rezerwacji'],
                 'slug'=>'booking-manager',
             ],
             [
-                'title'=>['uk'=>'Менеджер з персоналу'],
+                'title'=>['uk'=>'Менеджер з персоналу', 'ru'=>'Менеджер по персоналу', 'en'=>'HR Manager', 'pl'=>'Menedżer HR'],
                 'slug'=>'hr-manager',
             ],
             [
-                'title'=>['uk'=>'Менеджер з продажу подарункових сертифікатів'],
-                'slug'=>'certificate-manager'
+                'title'=>['uk'=>'Менеджер з продажу подарункових сертифікатів', 'ru'=>'Менеджер по продажам подарочных сертификатов', 'en'=>'Gift Certificate Sales Manager', 'pl'=>'Menedżer sprzedaży bonów upominkowych'],
+                'slug'=>'certificate-manager',
             ],
         ];
 
