@@ -29,6 +29,7 @@ class NewsBasicRequest extends FormRequest
             //
             'title'=>['required', 'string'],
             'slug'=>['nullable', 'string'],
+            'published'=>['nullable', Rule::in(['1', '0'])],
             'seo_h1'=>['nullable', 'string'],
             'seo_title'=>['nullable', 'string'],
             'seo_description'=>['nullable', 'string'],

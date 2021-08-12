@@ -18,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * Class News
  *
  * @package App\Models
+ *
  * @mixin IdeHelperNews
  */
 class News extends Model implements HasMedia
@@ -29,24 +30,6 @@ class News extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
 
-    public static function boot()
-    {
-        parent::boot();
-        /**
-         * генерируем короткий текст если он не было передан
-         */
-        self::creating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
-
-        self::updating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
-    }
 
     public function registerMediaConversions(Media $media = null): void
     {

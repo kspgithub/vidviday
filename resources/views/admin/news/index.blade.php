@@ -8,7 +8,7 @@
         <h1>@lang('News management')</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.news.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create news')</a>
+            <a href="{{route('admin.news.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create record')</a>
         </div>
     </div>
 

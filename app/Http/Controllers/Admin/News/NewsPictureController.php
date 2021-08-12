@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class NewsPictureController extends Controller
 {
-    //
+
     public function index(News $news)
     {
         return view('admin.news.pictures', ['news'=>$news]);
@@ -32,10 +32,10 @@ class NewsPictureController extends Controller
 
     public function update(Request $request, News $news, Media $media)
     {
-        if($request->has('title')) {
+        if ($request->has('title')) {
             $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
         }
-        if($request->has('alt')) {
+        if ($request->has('alt')) {
             $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
         }
         $media->save();
