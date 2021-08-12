@@ -9,6 +9,7 @@ use App\Models\Document;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\File;
 
 class DocumentController extends Controller
 {
@@ -50,9 +51,10 @@ class DocumentController extends Controller
 
         $params = $request->all();
 
-        if (!is_null($request->get('image_upload'))) {
+        if (isset($params['image_upload'])) {
             $params["image"] = $document->storeFile($params["image_upload"], "documents");
         }
+
 
         $document->fill($params);
 
@@ -92,7 +94,8 @@ class DocumentController extends Controller
     {
         $params = $request->all();
 
-        if (!is_null($request->get('image_upload'))) {
+
+        if (isset($params['image_upload'])) {
             $params["image"] = $document->storeFile($params["image_upload"], "documents");
         }
 
@@ -112,6 +115,8 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
+        File::delete($document->image);
+
         $document->delete();
 
         return redirect()->route('admin.document.index')->withFlashSuccess(__('Record deleted.'));
