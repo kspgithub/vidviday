@@ -31,19 +31,11 @@ class Ticket extends Model
         'title',
         'text',
         "priority",
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
     ];
 
     protected $fillable = [
         'title',
         'priority',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
         'text',
         'slug',
         'published',

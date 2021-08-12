@@ -13,7 +13,7 @@
 
     <x-forms.post :action="route('admin.ticket.store')" enctype="multipart/form-data">
         @include('admin.ticket.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Next')</button>
+        <button class="btn btn-primary" type="submit">@lang('Save')</button>
     </x-forms.post>
 
 
