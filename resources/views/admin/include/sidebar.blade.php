@@ -72,6 +72,18 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.menu*')}}">
+                <a data-bs-target="#site-menu" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.menu*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Site Menu')</span>
+                </a>
+                <ul id="site-menu" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.menu*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.menu.*')}}"><a class="sidebar-link" href="{{route('admin.menu.index')}}">@lang('Menus')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.menu-item.*')}}"><a class="sidebar-link " href="{{route('admin.menu-item.index')}}">@lang('Menus Items')</a></li>
+
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
