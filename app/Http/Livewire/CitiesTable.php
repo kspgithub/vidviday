@@ -23,7 +23,6 @@ class CitiesTable extends DataTableComponent
     public $sortField = 'id';
 
 
-
     /**
      * @var array
      */
@@ -41,7 +40,21 @@ class CitiesTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = City::query();
+
+        $has_place = $this->getFilter('has_place');
+        $region_id = $this->getFilter('region_id');
+
+        $query = City::query()->withCount(['places'])
+            ->when(!empty($has_place), function (Builder $q) use ($has_place) {
+                if ($has_place === 'yes') {
+                    return $q->whereHas('places');
+                } else {
+                    return $q->doesntHave('places');
+                }
+            })
+            ->when($region_id > 0, function (Builder $q) use ($region_id) {
+                return $q->where('region_id', $region_id);
+            });
 
         return $query;
     }
@@ -54,28 +67,26 @@ class CitiesTable extends DataTableComponent
         return [
 
             Column::make(__('Country'), 'country_id')
-            ->format(function ($value, $column, $row) {
-                return optional($row->country)->title;
-            })
-            ->sortable(),
+                ->format(function ($value, $column, $row) {
+                    return optional($row->country)->title;
+                })
+                ->sortable(),
 
             Column::make(__('Title'), 'title')
                 ->searchable()
                 ->sortable(),
 
             Column::make(__('Region'), 'region_id')
-            ->format(function ($value, $column, $row) {
-                return optional($row->region)->title;
-            })
-            ->sortable(),
-
-            Column::make(__('Place'), 'place_id')
-                 ->format(function ($value, $column, $row) {
-                     return optional($row->place)->title;
-                 })
-                 ->sortable(),
-            Column::make(__('Url'), 'slug')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->region)->title;
+                })
                 ->sortable(),
+
+            Column::make(__('Places'), 'places_count')
+                ->sortable(),
+
+//            Column::make(__('Url'), 'slug')
+//                ->sortable(),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
@@ -83,18 +94,19 @@ class CitiesTable extends DataTableComponent
                 }),
         ];
     }
+
     public function filters(): array
     {
         return [
 
-            (__('City')) => Filter::make(__('Начеленні пункти'))
+            'has_place' => Filter::make(__('Начеленні пункти'))
                 ->select([
-                    '' => '',
+                    '' => 'Всі',
                     'yes' => 'З місцями',
                     'no' => 'Без місць',
-                ])
+                ]),
+            'region_id' => Filter::make(__('Начеленні пункти'))
+                ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
         ];
     }
-
-
 }

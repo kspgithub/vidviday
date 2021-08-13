@@ -19,21 +19,20 @@ class City extends TranslatableModel
     use HasFactory;
     use HasTranslations;
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     public $translatable = [
         'title',
     ];
-
     protected $fillable = [
         'region_id',
         'country_id',
         'title',
         'slug',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function country()
     {
@@ -43,6 +42,11 @@ class City extends TranslatableModel
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class, 'city_id');
     }
 
     public function getSlugOptions(): SlugOptions
@@ -57,14 +61,14 @@ class City extends TranslatableModel
     public function asChoose()
     {
         return [
-            'id'=>$this->id,
-            'region_id'=>$this->region_id,
-            'country_id'=>$this->region_id,
-            'title'=>$this->title,
-            'country_title'=>$this->country->title,
-            'region_title'=>$this->region->title,
-            'value'=>$this->id,
-            'text'=>$this->title.' ('.$this->region->title.')',
+            'id' => $this->id,
+            'region_id' => $this->region_id,
+            'country_id' => $this->region_id,
+            'title' => $this->title,
+            'country_title' => $this->country->title,
+            'region_title' => $this->region->title,
+            'value' => $this->id,
+            'text' => $this->title . ' (' . $this->region->title . ')',
         ];
     }
 }
