@@ -17,7 +17,6 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->foreignId('country_id')->nullable()->constrained('countries')->nullOnDelete();
             $table->foreignId('region_id')->nullable()->constrained('regions')->nullOnDelete();
-            $table->foreignId('place_id')->nullable()->constrained('places')->nullOnDelete();
             $table->text('title');
             $table->text('slug')->nullable();
             $table->timestamps();
