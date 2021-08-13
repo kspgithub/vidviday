@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\NewsAttribute;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,7 +30,30 @@ class News extends Model implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use NewsAttribute;
 
+
+    public $translatable = [
+        'title',
+        'text',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+    ];
+    protected $fillable = [
+        'title',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'text',
+        'slug',
+        'published',
+    ];
+    protected $casts = [
+        'published' => 'boolean'
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -56,30 +80,6 @@ class News extends Model implements HasMedia
     {
         return 'slug';
     }
-
-    public $translatable = [
-        'title',
-        'text',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-    ];
-
-    protected $fillable = [
-        'title',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-        'text',
-        'slug',
-        'published',
-    ];
-
-    protected $casts = [
-        'published' => 'boolean'
-    ];
 
     public function getSlugOptions(): SlugOptions
     {
