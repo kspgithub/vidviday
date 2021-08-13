@@ -8,7 +8,7 @@
         <h1>@lang('Document management')</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.document.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create document')</a>
+            <a href="{{route('admin.document.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create record')</a>
         </div>
     </div>
 
