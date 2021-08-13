@@ -50,6 +50,14 @@ class Staff extends TranslatableModel
         'published',
     ];
 
+    public static function toSelectBox()
+    {
+        return self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value' => $it->value, 'text' => $it->text];
+            });
+    }
+
     /**
      * @return MorphMany
      */
@@ -63,7 +71,7 @@ class Staff extends TranslatableModel
      */
     public function user()
     {
-        return $this->belongsToMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -74,7 +82,6 @@ class Staff extends TranslatableModel
         return $this->belongsToMany(StaffType::class, 'staffs_types', 'staff_id', 'type_id');
     }
 
-
     /**
      * @return BelongsToMany
      */
@@ -83,21 +90,11 @@ class Staff extends TranslatableModel
         return $this->belongsToMany(Tour::class, 'tours_staff', 'staff_id', 'tour_id');
     }
 
-
     /**
      * @return HasMany
      */
     public function vacansies()
     {
         return $this->hasMany(Vacancy::class);
-    }
-
-
-    public static function toSelectBox()
-    {
-        return  self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
-            ->get()->map(function ($it) {
-                return ['value'=>$it->value, 'text'=>$it->text];
-            });
     }
 }
