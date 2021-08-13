@@ -19,10 +19,6 @@ class CreateTicketsTable extends Migration
             $table->text("slug");
             $table->string("priority")->nullable();
             $table->text("text");
-            $table->text('seo_h1')->nullable();
-            $table->text('seo_title')->nullable();
-            $table->text('seo_description')->nullable();
-            $table->text('seo_keywords')->nullable();
             $table->boolean("published")->default(1);
             $table->timestamps();
         });

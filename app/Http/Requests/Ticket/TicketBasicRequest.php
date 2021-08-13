@@ -35,6 +35,7 @@ class TicketBasicRequest extends FormRequest
             'seo_title' => ['nullable', 'string'],
             'seo_description' => ['nullable', 'string'],
             'seo_keywords' => ['nullable', 'string'],
+            'published'=>['nullable', Rule::in(['1', '0'])],
 
         ];
     }
