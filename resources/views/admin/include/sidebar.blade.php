@@ -72,6 +72,17 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+            <li class="sidebar-item {{routeActiveClass('admin.news*')}}">
+                <a data-bs-target="#news" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.news*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="news"></i> <span class="align-middle">@lang('News')</span>
+                </a>
+                <ul id="news" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.news*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.news.index')}}"><a class="sidebar-link" href="{{route('admin.news.index')}}">@lang('News List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.news.create')}}"><a class="sidebar-link" href="{{route('admin.news.create')}}">@lang('Create News')</a></li>
+                </ul>
+            </li>
+
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
