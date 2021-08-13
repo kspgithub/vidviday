@@ -23,7 +23,7 @@ mix.js('resources/js/app.js', 'public/js/app.js')
     .extract()
     .disableNotifications();
 
-mix.webpackConfig ({
+mix.webpackConfig({
     plugins: [
         new webpack.DefinePlugin({
             __VUE_OPTIONS_API__: true,
@@ -34,8 +34,6 @@ mix.webpackConfig ({
 
 
 if (mix.inProduction()) {
-
-
     mix.minify([
         'public/js/app.js',
         'public/js/vendor.js',
@@ -45,7 +43,6 @@ if (mix.inProduction()) {
     ]);
 
     mix.version();
-
 } else {
     // Uses source-maps on development
     mix.sourceMaps(false, 'source-map');

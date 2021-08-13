@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 class LocationSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
+
     /**
      * Run the database seeds.
      *
@@ -25,15 +26,15 @@ class LocationSeeder extends Seeder
         $this->disableForeignKeys();
         $this->truncateMultiple(['cities', 'regions', 'countries']);
 
-        $country = Country::factory()->createOne([
-            'title'=>[
-               'uk'=>'Україна',
-               'ru'=>'Украина',
-               'en'=>'Ukraine',
-               'pl'=>'Ukraina',
+        $country = Country::create([
+            'title' => [
+                'uk' => 'Україна',
+                'ru' => 'Украина',
+                'en' => 'Ukraine',
+                'pl' => 'Ukraina',
             ],
-            'slug'=>'ukraine',
-            'iso'=>'UA',
+            'slug' => 'ukraine',
+            'iso' => 'UA',
         ]);
 
         $url = 'https://api.hh.ru/areas/5';
@@ -42,24 +43,24 @@ class LocationSeeder extends Seeder
         if ($response->getStatusCode() === 200) {
             $json = json_decode($response->getBody(), true);
             foreach ($json['areas'] as $region_data) {
-                $region = Region::factory()->createOne([
-                    'country_id'=>$country->id,
-                    'title'=>[
-                        'ru'=>$region_data['name'],
-                        'uk'=>$region_data['name'],
+                $region = Region::create([
+                    'country_id' => $country->id,
+                    'title' => [
+                        'ru' => $region_data['name'],
+                        'uk' => $region_data['name'],
                     ],
-                    'slug'=>Str::slug($region_data['name'])
+                    'slug' => Str::slug($region_data['name'])
                 ]);
 
                 foreach ($region_data['areas'] as $city_data) {
-                    $city = City::factory()->createOne([
-                        'country_id'=>$country->id,
-                        'region_id'=>$region->id,
-                        'title'=>[
-                            'ru'=>$city_data['name'],
-                            'uk'=>$city_data['name'],
+                    $city = City::create([
+                        'country_id' => $country->id,
+                        'region_id' => $region->id,
+                        'title' => [
+                            'ru' => $city_data['name'],
+                            'uk' => $city_data['name'],
                         ],
-                        'slug'=>Str::slug($city_data['name'])
+                        'slug' => Str::slug($city_data['name'])
                     ]);
                 }
             }

@@ -9,6 +9,9 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @mixin IdeHelperStaffType
+ */
 class StaffType extends TranslatableModel
 {
     use HasFactory;

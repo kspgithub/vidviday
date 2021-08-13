@@ -27,13 +27,13 @@ class DocumentBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'title' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
+            'seo_h1' => ['nullable', 'string'],
+            'seo_title' => ['nullable', 'string'],
+            'seo_description' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'string'],
+            'image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
 
         ];
     }

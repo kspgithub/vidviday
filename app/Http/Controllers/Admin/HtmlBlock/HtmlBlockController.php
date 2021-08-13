@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HtmlBlockController extends Controller
 {
@@ -36,7 +37,7 @@ class HtmlBlockController extends Controller
     {
         $htmlBlock = new HtmlBlock();
 
-        return view("admin.html-block.create",[
+        return view("admin.html-block.create", [
             "htmlBlock" => $htmlBlock
         ]);
     }
@@ -49,18 +50,17 @@ class HtmlBlockController extends Controller
     {
         $htmlBlock = $this->service->store($request->validated());
 
-        return redirect()->route('admin.html-block.index',["htmlBlock" => $htmlBlock])->withFlashSuccess(__('Html Block created.'));
+        return redirect()->route('admin.html-block.index', ["htmlBlock" => $htmlBlock])->withFlashSuccess(__('Record Created'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HtmlBlock  $htmlBlock
-     * @return \Illuminate\Http\Response
+     * @param HtmlBlock $htmlBlock
+     * @return Response
      */
     public function show(HtmlBlock $htmlBlock)
     {
-
     }
 
     /**
@@ -70,7 +70,7 @@ class HtmlBlockController extends Controller
     public function edit(HtmlBlock $htmlBlock)
     {
         return view('admin.html-block.edit', [
-            'htmlBlock'=> $htmlBlock
+            'htmlBlock' => $htmlBlock
         ]);
     }
 

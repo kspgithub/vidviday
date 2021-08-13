@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\News;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsBasicRequest;
 use App\Models\News;
@@ -25,7 +26,8 @@ class NewsController extends Controller
     /**
      * @return Application|Factory|View|JsonResponse
      */
-    public function index(){
+    public function index()
+    {
 
         return view("admin.news.index");
     }
@@ -33,11 +35,12 @@ class NewsController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function create(){
+    public function create()
+    {
 
         $news = new News();
 
-        return view("admin.news.create",[
+        return view("admin.news.create", [
             "news" => $news
         ]);
     }
@@ -46,11 +49,12 @@ class NewsController extends Controller
      * @param NewsBasicRequest $request
      * @return JsonResponse|RedirectResponse
      */
-    public function store(NewsBasicRequest $request){
+    public function store(NewsBasicRequest $request)
+    {
 
         $news = $this->service->store($request->validated());
 
-        return redirect()->route('admin.news.index',["news" => $news])->withFlashSuccess(__('News created.'));
+        return redirect()->route('admin.news.index', ["news" => $news])->withFlashSuccess(__('News created.'));
     }
 
 
@@ -61,7 +65,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         return view('admin.news.edit', [
-            'news'=> $news
+            'news' => $news
         ]);
     }
 
@@ -69,9 +73,11 @@ class NewsController extends Controller
      * @param NewsBasicRequest $request
      * @param News $news
      * @return mixed
-     * @throws \App\Exceptions\GeneralException
+     * @throws GeneralException
      */
-    public function update(NewsBasicRequest $request, News $news){
+    public function update(NewsBasicRequest $request, News $news)
+    {
+
 
         $this->service->update($news, $request->validated());
 
@@ -89,5 +95,4 @@ class NewsController extends Controller
 
         return redirect()->route('admin.news.index')->withFlashSuccess(__('News deleted.'));
     }
-
 }

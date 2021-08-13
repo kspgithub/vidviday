@@ -39,8 +39,8 @@ class NewsService extends BaseService
             $news->fill($params);
             $news->save();
 
-            if (array_key_exists('main_image', $params) && empty($params['main_image'])) {
 
+            if (array_key_exists('main_image', $params) && empty($params['main_image'])) {
                 $news->clearMediaCollection('main');
             }
             if (array_key_exists('mobile_image', $params) && empty($params['mobile_image'])) {
@@ -51,9 +51,9 @@ class NewsService extends BaseService
             }
             if (isset($params['mobile_image_upload'])) {
                 $news->storeMedia($params['mobile_image_upload'], 'mobile', [
-                    'width'=>320,
-                    'height'=>320,
-                    'fit'=>Manipulations::FIT_CROP,
+                    'width' => 320,
+                    'height' => 320,
+                    'fit' => Manipulations::FIT_CROP,
                 ]);
             }
         } catch (Exception $e) {

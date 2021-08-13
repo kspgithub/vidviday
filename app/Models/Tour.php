@@ -9,7 +9,6 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -37,6 +36,55 @@ class Tour extends TranslatableModel implements HasMedia
     use TourScope;
     use HasSlug;
     use UseSelectBox;
+
+    public $translatable = [
+        'title',
+        'text',
+        'short_text',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+    ];
+
+    protected $fillable = [
+        'title',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'text',
+        'short_text',
+        'slug',
+        'published',
+        'duration',
+        'nights',
+        'price',
+        'currency',
+        'rating',
+    ];
+
+    protected $casts = [
+        'published' => 'bool',
+        'duration' => 'int',
+        'price' => 'float',
+    ];
+
+    protected $appends = [
+        'main_image',
+        'mobile_image',
+        'url',
+    ];
+
+    protected $hidden = [
+        'text',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'media',
+    ];
+
 
     public static function boot()
     {
@@ -88,45 +136,6 @@ class Tour extends TranslatableModel implements HasMedia
     {
         return 'slug';
     }
-
-    public $translatable = [
-        'title',
-        'text',
-        'short_text',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-    ];
-
-    protected $fillable = [
-        'title',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-        'text',
-        'short_text',
-        'slug',
-        'published',
-        'duration',
-        'nights',
-        'price',
-        'currency',
-        'rating',
-    ];
-
-    protected $casts = [
-        'published' => 'bool',
-        'duration' => 'int',
-        'price' => 'float',
-    ];
-
-    protected $appends = [
-        'main_image',
-        'mobile_image',
-        'url',
-    ];
 
     public function getSlugOptions(): SlugOptions
     {

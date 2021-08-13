@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Tour;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TourBasicRequest;
 use App\Models\Badge;
@@ -57,9 +58,9 @@ class TourController extends Controller
      *
      * @param TourBasicRequest $request
      *
-     * @throws \App\Exceptions\GeneralException
-     *
      * @return Response
+     * @throws GeneralException
+     *
      */
     public function store(TourBasicRequest $request)
     {
@@ -135,7 +136,7 @@ class TourController extends Controller
      */
     public function updateStatus(Request $request, Tour $tour)
     {
-        $tour->published = (int) $request->input('published');
+        $tour->published = (int)$request->input('published');
         $tour->save();
         return response()->json(['result' => 'Success']);
     }

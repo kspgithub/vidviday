@@ -21,6 +21,7 @@ class DocumentController extends Controller
     {
         $this->service = $service;
     }
+
     /**
      * @return Application|Factory|View
      */
@@ -36,7 +37,7 @@ class DocumentController extends Controller
     {
         $document = new Document();
 
-        return view("admin.document.create",[
+        return view("admin.document.create", [
             "document" => $document
         ]);
     }
@@ -49,13 +50,13 @@ class DocumentController extends Controller
     {
         $document = $this->service->store($request->validated());
 
-        return redirect()->route('admin.document.index',["document" => $document])->withFlashSuccess(__('Document created.'));
+        return redirect()->route('admin.document.index', ["document" => $document])->withFlashSuccess(__('Document created.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Document  $document
+     * @param Document $document
      * @return Response
      */
     public function show(Document $document)
@@ -70,7 +71,7 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         return view('admin.document.edit', [
-            'document'=> $document
+            'document' => $document
         ]);
     }
 

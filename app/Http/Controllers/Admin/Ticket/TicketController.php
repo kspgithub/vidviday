@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TicketController extends Controller
 {
@@ -20,6 +21,7 @@ class TicketController extends Controller
     {
         $this->service = $service;
     }
+
     /**
      * @return Application|Factory|View
      */
@@ -35,7 +37,7 @@ class TicketController extends Controller
     {
         $ticket = new Ticket();
 
-        return view("admin.ticket.create",[
+        return view("admin.ticket.create", [
             "ticket" => $ticket
         ]);
     }
@@ -48,18 +50,7 @@ class TicketController extends Controller
     {
         $ticket = $this->service->store($request->validated());
 
-        return redirect()->route('admin.ticket.index',["ticket" => $ticket])->withFlashSuccess(__('Ticket created.'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
+        return redirect()->route('admin.ticket.index', ["ticket" => $ticket])->withFlashSuccess(__('Ticket created.'));
     }
 
     /**
@@ -69,7 +60,7 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         return view('admin.ticket.edit', [
-            'ticket'=> $ticket
+            'ticket' => $ticket
         ]);
     }
 

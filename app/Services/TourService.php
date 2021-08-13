@@ -3,8 +3,14 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
+use App\Models\Direction;
 use App\Models\Tour;
+use App\Models\TourSchedule;
+use App\Models\TourSubject;
+use App\Models\TourType;
+use Cache;
 use Exception;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Image\Manipulations;
@@ -14,11 +20,45 @@ class TourService extends BaseService
     /**
      * TourService constructor.
      *
-     * @param  Tour  $tour
+     * @param Tour $tour
      */
     public function __construct(Tour $tour)
     {
         $this->model = $tour;
+    }
+
+
+    public static function filterOptions()
+    {
+        $locale = app()->getLocale();
+
+        return Cache::remember('filter-options-' . $locale, 1, function () {
+            return [
+                'date_from' => Carbon::now()->format('d.m.Y'),
+                'date_to' => Carbon::now()->addYears(1)->format('d.m.Y'),
+                'duration_from' => 0,
+                'duration_to' => (int)Tour::query()->max('duration') ?? 14,
+                'price_from' => 0,
+                'price_to' => (int)Tour::query()->max('price') ?? 10000,
+                'directions' => [['value' => 0, 'text' => __('Direction')]] +
+                    Direction::published()->toSelectBox()->toArray(),
+                'types' => [['value' => 0, 'text' => __('Type')]] + TourType::published()->toSelectBox()->toArray(),
+                'subjects' => [['value' => 0, 'text' => __('Subjects')]] +
+                    TourSubject::published()->toSelectBox()->toArray(),
+
+                'sorting' => [
+                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
+                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
+                    ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
+                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                ],
+                'pagination' => [
+                    ['value' => 12, 'text' => '12'],
+                    ['value' => 24, 'text' => '12'],
+                    ['value' => 100, 'text' => __('tours-section.all-tours')],
+                ],
+            ];
+        });
     }
 
     public function store($params)
@@ -48,9 +88,9 @@ class TourService extends BaseService
             }
             if (isset($params['mobile_image_upload'])) {
                 $tour->storeMedia($params['mobile_image_upload'], 'mobile', [
-                    'width'=>320,
-                    'height'=>320,
-                    'fit'=>Manipulations::FIT_CROP,
+                    'width' => 320,
+                    'height' => 320,
+                    'fit' => Manipulations::FIT_CROP,
                 ]);
             }
         } catch (Exception $e) {

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
@@ -35,6 +36,8 @@ class TourSchedule extends Model
 
     protected $casts = [
         'published' => 'boolean',
+        'price' => 'float',
+        'commission' => 'float',
     ];
 
     protected $appends = [
@@ -61,11 +64,33 @@ class TourSchedule extends Model
     {
         if ($this->start_date->month === $this->end_date->month && $this->start_date->year === $this->end_date->year &&
             $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
-            return Str::ucfirst($this->start_date->translatedFormat('D')). ' - ' .
-                Str::ucfirst($this->end_date->translatedFormat('D')).
-                ', '.$this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
+            return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
+                Str::ucfirst($this->end_date->translatedFormat('D')) .
+                ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
         }
-        return $this->start_date->format('d.m.Y').' - '.$this->end_date->format('d.m.Y');
+        return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
+    }
+
+    public function asCalendarEvent($event_click)
+    {
+        $json = json_encode([
+            'id' => $this->id,
+            'title' => $this->title,
+            'places' => $this->places,
+            'price' => $this->price,
+            'commission' => $this->commission,
+        ]);
+
+        return [
+            'id' => $this->id,
+            'title' => $event_click === 'order' ? $this->getPriceTitleAttribute() : $this->tour->title,
+            'start' => $this->start_date->format('Y-m-d'),
+            'end' => $this->end_date->format('Y-m-d'),
+            'className' => $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
+            'url' => $event_click === 'order'
+                ? "javascript:selectTourEvent({$json})"
+                : $this->tour->url,
+        ];
     }
 
     public function getPriceTitleAttribute()
@@ -81,25 +106,75 @@ class TourSchedule extends Model
         return $title;
     }
 
-    public function asCalendarEvent($event_click)
-    {
-        $json = json_encode([
-            'id'=>$this->id,
-            'title'=>$this->title,
-            'places'=>$this->places,
-            'price'=>$this->price,
-            'commission'=>$this->commission,
-        ]);
 
-        return [
-            'id'=>$this->id,
-            'title'=> $event_click === 'order' ? $this->getPriceTitleAttribute() : $this->tour->title,
-            'start'=> $this->start_date->format('Y-m-d'),
-            'end'=> $this->end_date->format('Y-m-d'),
-            'className'=> $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
-            'url'=> $event_click === 'order'
-                ? "javascript:selectTourEvent({$json})"
-                : $this->tour->url,
-        ];
+    public function scopeBetween(Builder $query, $start, $end)
+    {
+        return $query->where(function ($sq) use ($start, $end) {
+            $sq->where(function ($q) use ($start, $end) {
+                return $q->whereDate('start_date', '>=', $start->toDateString())
+                    ->whereDate('start_date', '<=', $end->toDateString());
+            })
+                ->orWhere(function ($q) use ($start, $end) {
+                    return $q->whereDate('end_date', '>=', $start->toDateString())
+                        ->whereDate('end_date', '<=', $end->toDateString());
+                })
+                ->orWhere(function ($q) use ($start, $end) {
+                    return $q->whereDate('start_date', '<', $start->toDateString())
+                        ->whereDate('end_date', '>', $end->toDateString());
+                });
+        });
+    }
+
+    public function scopeFilter(Builder $query, $params = [])
+    {
+        $query
+            ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
+                return $q->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+            })
+            ->when(!empty($params['date_to']), function (Builder $q) use ($params) {
+                return $q->whereDate('end_date', '<=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+            })
+            ->when(!empty($params['duration_from']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->where('duration', '>=', $params['duration_from']);
+                });
+            })
+            ->when(!empty($params['duration_to']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->where('duration', '<=', $params['duration_to']);
+                });
+            })
+            ->when(!empty($params['price_from']), function (Builder $q) use ($params) {
+                return $q->where('price', '>=', $params['price_from']);
+            })
+            ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
+                return $q->where('price', '<=', $params['price_to']);
+            })
+            ->when(!empty($params['direction']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->whereHas('directions', function (Builder $ssq) use ($params) {
+                        $ids = array_filter(explode(',', $params['direction']));
+                        $ssq->whereIn('id', $ids);
+                    });
+                });
+            })
+            ->when(!empty($params['type']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->whereHas('types', function (Builder $ssq) use ($params) {
+                        $ids = array_filter(explode(',', $params['type']));
+                        $ssq->whereIn('id', $ids);
+                    });
+                });
+            })
+            ->when(!empty($params['subject']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->whereHas('subjects', function (Builder $ssq) use ($params) {
+                        $ids = array_filter(explode(',', $params['subject']));
+                        $ssq->whereIn('id', $ids);
+                    });
+                });
+            });
+
+        return $query;
     }
 }

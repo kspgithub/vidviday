@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
@@ -49,11 +50,39 @@ class DiscountController extends Controller
 
 
         return view('admin.discount.create', [
-            'discount'=> $discount,
-            'currencies'=> $currencies,
+            'discount' => $discount,
+            'currencies' => $currencies,
             "modelsNames" => $modelsNames,
             "model" => $model,
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    protected function modelsHaveDiscount()
+    {
+
+        return collect([
+            ['value' => "App\\Models\\Tour", 'text' => "Tour"],
+        ]);
+    }
+
+    /**
+     * @param string $model
+     * @return string
+     */
+    protected function modelHaveDiscount(string $model = "Tour"): string
+    {
+
+        $model = ucfirst($model);
+
+        foreach ($this->modelsHaveDiscount() as $modelsHaveDiscountName) {
+            if ($modelsHaveDiscountName["text"] === $model) {
+                return "\\App\\Models\\$model";
+            }
+        }
+        return "\\App\\Models\\Tour";
     }
 
     /**
@@ -65,14 +94,14 @@ class DiscountController extends Controller
 
         $discount = $this->service->store($request->validated());
 
-        return redirect()->route('admin.discount.index', ['discount'=> $discount])->withFlashSuccess(__('Discount created.'));
+        return redirect()->route('admin.discount.index', ['discount' => $discount])->withFlashSuccess(__('Discount created.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @param Discount $discount
+     * @return Response
      */
     public function show(Discount $discount)
     {
@@ -93,9 +122,9 @@ class DiscountController extends Controller
         $model = ($this->modelHaveDiscount("Tour"))::toSelectWithOthersOptionsBox('title', 'id', "price", "currency");
 
         return view('admin.discount.edit', [
-            'discount'=> $discount,
+            'discount' => $discount,
             "modelsNames" => $modelsNames,
-            'currencies'=>$currencies,
+            'currencies' => $currencies,
             "model" => $model,
         ]);
     }
@@ -127,35 +156,9 @@ class DiscountController extends Controller
     /**
      * @return Builder
      */
-    protected function query(){
+    protected function query()
+    {
 
-        return  Discount::query();
-    }
-
-    /**
-     * @param string $model
-     * @return string
-     */
-    protected function modelHaveDiscount(string $model = "Tour"):string{
-
-        $model = ucfirst($model);
-
-        foreach ($this->modelsHaveDiscount() as $modelsHaveDiscountName){
-
-            if ($modelsHaveDiscountName["text"] === $model)
-
-                return "\\App\\Models\\$model";
-        }
-        return "\\App\\Models\\Tour";
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    protected function modelsHaveDiscount(){
-
-        return collect([
-            ['value' => "App\\Models\\Tour", 'text'=> "Tour"],
-        ]);
+        return Discount::query();
     }
 }

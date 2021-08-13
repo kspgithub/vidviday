@@ -27,9 +27,9 @@ class HtmlBlockBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'text'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
+            'title' => ['required', 'string'],
+            'text' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
         ];
     }
 }

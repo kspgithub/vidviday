@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 require base_path('routes/api/calendar.php');
+require base_path('routes/api/tours.php');

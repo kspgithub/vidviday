@@ -35,15 +35,12 @@ class DocumentService extends BaseService
         DB::beginTransaction();
 
         try {
-
-            if (isset($params['image_upload'])){
-
+            if (isset($params['image_upload'])) {
                 $params["image"] = $document->storeFile($params["image_upload"], "documents");
             }
 
             $document->fill($params);
             $document->save();
-
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
@@ -55,6 +52,4 @@ class DocumentService extends BaseService
 
         return $document;
     }
-
-
 }

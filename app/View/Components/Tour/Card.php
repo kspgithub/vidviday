@@ -4,6 +4,8 @@ namespace App\View\Components\Tour;
 
 use App\Models\Tour;
 use App\Models\TourSchedule;
+use Closure;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Card extends Component
@@ -24,16 +26,21 @@ class Card extends Component
      */
     public $schedule;
 
+
+    public $vue = false;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Tour $tour, $mode = 'thumb')
+    public function __construct(Tour $tour, $mode = 'thumb', $vue = false)
     {
         $this->mode = $mode;
         //
         $this->tour = $tour;
+
+        $this->vue = $vue;
 
         $this->schedule = $tour->scheduleItems->first();
     }
@@ -41,7 +48,7 @@ class Card extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|Closure|string
      */
     public function render()
     {

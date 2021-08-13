@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\News;
 
-
 use Illuminate\Foundation\Http\FormRequest;
-
 
 class NewsBasicRequest extends FormRequest
 {
@@ -27,17 +25,17 @@ class NewsBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'text'=>['required', 'string'],
-            'main_image'=>['nullable', 'string'],
-            'mobile_image'=>['nullable', 'string'],
-            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'title' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
+            'seo_h1' => ['nullable', 'string'],
+            'seo_title' => ['nullable', 'string'],
+            'seo_description' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'string'],
+            'text' => ['required', 'string'],
+            'main_image' => ['nullable', 'string'],
+            'mobile_image' => ['nullable', 'string'],
+            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
     }
 }

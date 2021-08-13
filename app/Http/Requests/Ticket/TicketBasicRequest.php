@@ -27,14 +27,14 @@ class TicketBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'priority'=>['nullable', 'string'],
-            'text'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
+            'title' => ['required', 'string'],
+            'priority' => ['nullable', 'string'],
+            'text' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
+            'seo_h1' => ['nullable', 'string'],
+            'seo_title' => ['nullable', 'string'],
+            'seo_description' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'string'],
 
         ];
     }

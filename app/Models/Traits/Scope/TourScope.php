@@ -32,7 +32,58 @@ trait TourScope
                 return $sc->whereIn('collection_name', ['main', 'mobile']);
             },
             'badges'
-            ])
+        ])
             ->withCount(['testimonials']);
+    }
+
+
+    public function scopeFilter(Builder $query, $params)
+    {
+        $query
+            ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
+                return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
+                    return $sq->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+                });
+            })
+            ->when(!empty($params['date_to']), function (Builder $q) use ($params) {
+                return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
+                    return $sq->whereDate('end_date', '<=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+                });
+            })
+            ->when(!empty($params['duration_from']), function (Builder $q) use ($params) {
+                return $q->where('duration', '>=', $params['duration_from']);
+            })
+            ->when(!empty($params['duration_to']), function (Builder $q) use ($params) {
+                return $q->where('duration', '<=', $params['duration_to']);
+            })
+            ->when(!empty($params['price_from']), function (Builder $q) use ($params) {
+                return $q->where('price', '>=', $params['price_from']);
+            })
+            ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
+                return $q->where('price', '<=', $params['price_to']);
+            })
+            ->when(!empty($params['direction']), function (Builder $q) use ($params) {
+                return $q->whereHas('directions', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['direction']));
+                    $sq->whereIn('id', $ids);
+                });
+            })
+            ->when(!empty($params['type']), function (Builder $q) use ($params) {
+                return $q->whereHas('types', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['type']));
+                    $sq->whereIn('id', $ids);
+                });
+            })
+            ->when(!empty($params['subject']), function (Builder $q) use ($params) {
+                return $q->whereHas('subjects', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['subject']));
+                    $sq->whereIn('id', $ids);
+                });
+            });
+
+        $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';
+        $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
+
+        return $query->orderBy($sort_by, $sort_dir);
     }
 }

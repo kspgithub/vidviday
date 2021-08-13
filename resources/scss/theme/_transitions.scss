@@ -130,5 +130,16 @@ nav,
 #voice-search-btn svg,
 .search-toggle .text,
 .search-toggle-footer .text {
-	transition: all .44s ease-in-out;
+    transition: all .44s ease-in-out;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s linear;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }

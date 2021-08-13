@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
      *
      * @return View
      */
-    public function create() :View
+    public function create(): View
     {
         return view('auth.register');
     }
@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
     public function store(RegisterRequest $request)
     {
         $params = $request->validated();
-        $params['password'] =  Hash::make($request->password);
+        $params['password'] = Hash::make($request->password);
         $role = $request->role;
         /**
          * @var User $user
@@ -51,6 +51,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME)->withFlashSuccess(__('A confirmation link has been sent to your email address.'));
+        return redirect(RouteServiceProvider::HOME)
+            ->withFlashSuccess(__('A confirmation link has been sent to your email address.'));
     }
 }
