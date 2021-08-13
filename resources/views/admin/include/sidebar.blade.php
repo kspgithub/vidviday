@@ -72,6 +72,20 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.document*')}}">
+                <a data-bs-target="#document" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.user*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">@lang('Documents')</span>
+                </a>
+                <ul id="document" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.document*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.document.index')}}"><a class="sidebar-link" href="{{route('admin.document.index')}}">@lang('Documents List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.document.create')}}"><a class="sidebar-link" href="{{route('admin.document.create')}}">@lang('Create Docuemnt')</a></li>
+                </ul>
+            </li>
+
+
+
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
