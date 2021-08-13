@@ -6,6 +6,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * Class News
  *
  * @package App\Models
+ *
  * @mixin IdeHelperNews
  */
 class News extends Model implements HasMedia
@@ -27,6 +29,7 @@ class News extends Model implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+
 
     public function registerMediaConversions(Media $media = null): void
     {

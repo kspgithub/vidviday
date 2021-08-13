@@ -13,7 +13,7 @@ use Spatie\Image\Manipulations;
 class NewsService extends BaseService
 {
     /**
-     * UserService constructor.
+     * NewsService constructor.
      *
      * @param News $news
      */
@@ -24,9 +24,7 @@ class NewsService extends BaseService
 
     public function store($params)
     {
-        //dd($params);
         $news = new News();
-        $news->published = 0;
 
         return $this->update($news, $params);
     }
@@ -38,7 +36,6 @@ class NewsService extends BaseService
         try {
             $news->fill($params);
             $news->save();
-
 
             if (array_key_exists('main_image', $params) && empty($params['main_image'])) {
                 $news->clearMediaCollection('main');
@@ -60,7 +57,7 @@ class NewsService extends BaseService
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
 
-            throw new GeneralException(__('There was a problem updating news.'));
+            throw new GeneralException(__('There was a problem updating record.'));
         }
         DB::commit();
 

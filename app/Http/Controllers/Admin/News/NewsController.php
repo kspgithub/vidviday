@@ -46,7 +46,10 @@ class NewsController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
      * @param NewsBasicRequest $request
+     *
      * @return JsonResponse|RedirectResponse
      */
     public function store(NewsBasicRequest $request)
@@ -54,12 +57,15 @@ class NewsController extends Controller
 
         $news = $this->service->store($request->validated());
 
-        return redirect()->route('admin.news.index', ["news" => $news])->withFlashSuccess(__('News created.'));
+        return redirect()->route('admin.news.index', ["news" => $news])->withFlashSuccess(__('Record created.'));
     }
 
 
     /**
+     * Show the form for editing the specified resource.
+     *
      * @param News $news
+     *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(News $news)
@@ -70,29 +76,36 @@ class NewsController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
      * @param NewsBasicRequest $request
+     *
      * @param News $news
+     *
      * @return mixed
+     *
      * @throws GeneralException
      */
     public function update(NewsBasicRequest $request, News $news)
     {
 
-
         $this->service->update($news, $request->validated());
 
-        return redirect()->route('admin.news.index', $news)->withFlashSuccess(__('News updated.'));
+        return redirect()->route('admin.news.index', $news)->withFlashSuccess(__('Record updated.'));
     }
 
 
     /**
+     * Remove the specified resource from storage.
+     *
      * @param News $news
+     *
      * @return mixed
      */
     public function destroy(News $news)
     {
         $news->delete();
 
-        return redirect()->route('admin.news.index')->withFlashSuccess(__('News deleted.'));
+        return redirect()->route('admin.news.index')->withFlashSuccess(__('Record deleted.'));
     }
 }
