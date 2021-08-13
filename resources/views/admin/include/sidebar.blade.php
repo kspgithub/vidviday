@@ -72,6 +72,17 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
+                <a data-bs-target="#ticket" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.ticket*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="ticket"></i> <span class="align-middle">@lang('Tickets')</span>
+                </a>
+                <ul id="ticket" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.ticket*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.index')}}"><a class="sidebar-link" href="{{route('admin.ticket.index')}}">@lang('Tickets List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.ticket.create')}}"><a class="sidebar-link" href="{{route('admin.ticket.create')}}">@lang('Create Ticket')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
