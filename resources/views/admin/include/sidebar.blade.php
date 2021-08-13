@@ -72,6 +72,17 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.html-block*')}}">
+                <a data-bs-target="#html-block" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.html-block*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather=""></i> <span class="align-middle">@lang('Html Block')</span>
+                </a>
+                <ul id="html-block" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.html-block*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.html-block.index')}}"><a class="sidebar-link" href="{{route('admin.html-block.index')}}">@lang('Html Blocks List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.html-block.create')}}"><a class="sidebar-link" href="{{route('admin.html-block.create')}}">@lang('Create Html Block')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
