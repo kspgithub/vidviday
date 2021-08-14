@@ -35,7 +35,8 @@ class PriceItem extends Model
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
+        'price' => 'float'
     ];
 
     /**
