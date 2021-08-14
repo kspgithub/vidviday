@@ -37,6 +37,8 @@
                     <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}"><a class="sidebar-link " href="{{route('admin.tour-subjects.index')}}">@lang('Tour Subjects')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Tour Directions')</a></li>
                     <li class="sidebar-item {{routeActiveClass('admin.tour-type.*')}}"><a class="sidebar-link " href="{{route('admin.tour-type.index')}}">@lang('Tour Types')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.tour-include.*')}}"><a class="sidebar-link " href="{{route('admin.tour-include.index')}}">@lang('Tour Include')</a></li>
+
                 </ul>
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.place*')}}">
@@ -72,6 +74,19 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.include-type*')}}">
+                <a data-bs-target="#include-type" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.include-type*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="include-type"></i> <span class="align-middle">@lang('Include Types')</span>
+                </a>
+                <ul id="include-type" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.include-type*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.include-type.index')}}"><a class="sidebar-link" href="{{route('admin.include-type.index')}}">@lang('Include types List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.include-type.create')}}"><a class="sidebar-link" href="{{route('admin.include-type.create')}}">@lang('Create Include type')</a></li>
+                </ul>
+            </li>
+
+
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
