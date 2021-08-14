@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\EventAttribute;
+use App\Models\Traits\Relationship\EventRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -18,12 +17,11 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class EventGroup
- *
+ * Class Event
  * @package App\Models
- * @mixin IdeHelperEventGroup
+ * @mixin IdeHelperEvent
  */
-class EventGroup extends Model implements HasMedia
+class Event extends Model implements HasMedia
 {
     use HasFactory;
     use HasSlug;
@@ -31,47 +29,9 @@ class EventGroup extends Model implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
-    use UseSelectBox;
     use EventAttribute;
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    public $translatable = [
-        'title',
-        'text',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-    ];
-
-    protected $fillable = [
-        'title',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
-        'start_date',
-        'end_date',
-        'text',
-        'slug',
-        'published',
-    ];
-
-    protected $casts = [
-        'published' => 'boolean'
-    ];
-
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
-    }
+    use EventRelationship;
+    use UseSelectBox;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -90,21 +50,57 @@ class EventGroup extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png'])
             ->singleFile();
 
-        $this->addMediaCollection('mobile')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
-            ->singleFile();
-
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
 
-
-
-    /**
-     * @return BelongsToMany
-     */
-    public function events()
+    public function getRouteKeyName()
     {
-        return $this->belongsToMany(Event::class);
+        return 'slug';
+    }
+
+
+    public $translatable = [
+        'title',
+        'text',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+    ];
+
+    protected $fillable = [
+        'title',
+        'text',
+        'slug',
+        'seo_h1',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'published',
+        'indefinite',
+        'start_date',
+        'end_date',
+    ];
+
+
+    protected $casts = [
+        'published' => 'boolean',
+        'indefinite' => 'boolean',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'start_date',
+        'end_date',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug');
     }
 }
