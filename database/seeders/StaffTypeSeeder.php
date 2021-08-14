@@ -3,12 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\StaffType;
+use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Seeder;
 
 class StaffTypeSeeder extends Seeder
 {
-    use TruncateTable;
+    use TruncateTable, DisableForeignKeys;
 
     /**
      * Run the database seeds.
@@ -18,6 +19,7 @@ class StaffTypeSeeder extends Seeder
     public function run()
     {
         //
+        $this->disableForeignKeys();
         $this->truncate('staff_types');
 
         $staff_types = [
@@ -55,5 +57,7 @@ class StaffTypeSeeder extends Seeder
         foreach ($staff_types as $staff_type) {
             StaffType::create($staff_type);
         }
+
+        $this->enableForeignKeys();
     }
 }
