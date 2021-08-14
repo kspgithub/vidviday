@@ -26,13 +26,10 @@ class DocumentBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
             'title'=>['required', 'string'],
             'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
+            'published'=>['nullable', Rule::in(['1', '0'])],
             'image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
 
         ];
