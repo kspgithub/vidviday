@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Tour;
 use App\Models\TourPlan;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -12,6 +13,11 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class TourPlansTable extends DataTableComponent
 {
+
+    /**
+     * @var Tour
+     */
+    public $tour;
 
     /**
      * @var string
@@ -26,8 +32,9 @@ class TourPlansTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
-    public function mount(): void
+    public function mount(Tour $tour): void
     {
+        $this->tour = $tour;
     }
 
     /**
@@ -35,7 +42,7 @@ class TourPlansTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = TourPlan::query();
+        $query = TourPlan::query()->where('tour_id', $this->tour->id);
 
         return $query;
     }
@@ -56,10 +63,9 @@ class TourPlansTable extends DataTableComponent
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
-                    return view('admin.partials.published', ['model' => $row, 'updateUrl'=>route('admin.place.update', $row)]);
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.place.update', $row)]);
                 })
                 ->sortable(),
-
 
 
             Column::make(__('Actions'))

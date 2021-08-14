@@ -5,7 +5,7 @@
     method="delete"
     name="delete-item"
     :title="$title"
-    button-class="btn btn-outline-danger btn-sm"
+    button-class="btn btn-outline-danger btn-sm me-2"
     permission="{{ $permission }}"
     :onsubmit="$onsubmit"
 >

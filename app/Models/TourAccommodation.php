@@ -19,17 +19,16 @@ class TourAccommodation extends Model
     use HasTranslations;
 
     public $translatable = [
-        'description',
+        'text',
+        'title',
     ];
 
 
     protected $fillable = [
         'tour_id',
         'accommodation_id',
-        'type_id',
         'title',
         'text',
-        'slug',
     ];
 
 
@@ -43,8 +42,8 @@ class TourAccommodation extends Model
         return $this->belongsTo(Accommodation::class, 'accommodation_id');
     }
 
-    public function type()
+    public function types()
     {
-        return $this->belongsTo(AccommodationType::class, 'type_id');
+        return $this->belongsToMany(AccommodationType::class, 'tour_accomm_types', 'accomm_id', 'type_id');
     }
 }

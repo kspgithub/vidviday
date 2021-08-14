@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -20,7 +21,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperAccommodation
  */
-class Accommodation extends Model implements HasMedia
+class Accommodation extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
@@ -28,6 +29,20 @@ class Accommodation extends Model implements HasMedia
     use UseNormalizeMedia;
     use UsePublishedScope;
     use HasSlug;
+    use UseSelectBox;
+
+    public $translatable = [
+        'title',
+        'text',
+    ];
+
+
+    public $fillable = [
+        'title',
+        'text',
+        'slug',
+        'published',
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -39,18 +54,6 @@ class Accommodation extends Model implements HasMedia
             ->width(315)
             ->height(180);
     }
-
-    public $translatable = [
-        'title',
-        'text',
-    ];
-
-    public $fillable = [
-        'title',
-        'text',
-        'slug',
-        'published',
-    ];
 
     public function getSlugOptions(): SlugOptions
     {

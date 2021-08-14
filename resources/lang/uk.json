@@ -367,6 +367,12 @@
     "Region updated.": "Область редаговано.",
     "Region deleted.": "Область видалено.",
     "News": "Новини",
-    "News List" : "Список новин",
-    "Create News": "Створювати новини"
+    "News List": "Список новин",
+    "Create News": "Створювати новини",
+    "Discounts": "Знижки",
+    "Discount": "Знижка",
+    "Event": "Подія",
+    "Events": "Події",
+    "Event Groups": "Групи подій",
+    "Html Blocks": "Html блоки"
 }

@@ -52,34 +52,4 @@ trait UseSelectBox
             return [$value_key => $item->{$value_field}, $text_key => $item->{$text_field}];
         });
     }
-
-    public static function toSelectWithOthersOptionsBox(
-        $text_field = 'title',
-        $value_field = 'id',
-        $price_filed = "price",
-        $currency_filed = "currency"
-    ) {
-        $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
-
-        $fields[] = $price_filed;
-        $fields[] = $currency_filed;
-
-        return self::query()->get($fields)->map(function ($item) use ($value_field, $text_field, $price_filed, $currency_filed) {
-
-            return ['value' => $item->{$value_field},
-                'text'=> "{$item->{$text_field}}({$item->{$price_filed ?? ""}} {$item->{$currency_filed ?? ""}})"];
-        });
-    }
-
-    public static function toSelectWithOthersOptionsBox($text_field = 'title', $value_field = 'id', $price_filed = "price", $currency_filed = "currency")
-    {
-        $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
-
-        $fields[] = $price_filed;
-        $fields[] = $currency_filed;
-
-        return self::query()->get($fields)->map(function ($item) use ($value_field, $text_field, $price_filed, $currency_filed) {
-            return ['value' => $item->{$value_field}, 'text'=> "{$item->{$text_field}}({$item->{$price_filed ?? ""}} {$item->{$currency_filed ?? ""}})"];
-        });
-    }
 }

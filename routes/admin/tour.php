@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
@@ -40,3 +41,5 @@ Route::group([
 Route::resource('tour', TourController::class);
 
 Route::resource('tour.food', TourFoodController::class)->except('show');
+
+Route::resource('tour.accomm', TourAccommController::class)->except('show');
