@@ -72,6 +72,18 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+            <li class="sidebar-item {{routeActiveClass('admin.event*')}}">
+                <a data-bs-target="#events" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.event*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Events')</span>
+                </a>
+                <ul id="events" class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.event*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.event.*')}}"><a class="sidebar-link" href="{{route('admin.event.index')}}">@lang('Events')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.event-group.*')}}"><a class="sidebar-link" href="{{route('admin.event-group.index')}}">@lang('Event Groups')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}"><a class="sidebar-link " href="{{route('admin.direction.index')}}">@lang('Event Directions')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.event-item.*')}}"><a class="sidebar-link " href="{{route('admin.event-item.index')}}">@lang('Event Items')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\EventAttribute;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,8 @@ class EventItem extends Model implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use EventAttribute;
+
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -38,6 +41,20 @@ class EventItem extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(315)
             ->height(180);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('main')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
+        $this->addMediaCollection('mobile')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
+        $this->addMediaCollection('pictures')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
 
     public function getRouteKeyName()
@@ -64,6 +81,8 @@ class EventItem extends Model implements HasMedia
         'seo_keywords',
         'text',
         'slug',
+        'start_date',
+        'end_date',
         'published',
     ];
 

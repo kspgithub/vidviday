@@ -103,6 +103,7 @@ class DirectionController extends Controller
 
     public function mediaIndex(Direction $direction)
     {
+
         return view('admin.direction.media', ['direction'=>$direction]);
     }
 
