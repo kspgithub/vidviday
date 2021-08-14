@@ -72,6 +72,19 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.price-item*')}}">
+                <a data-bs-target="#price-item" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.price-item*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="price-item"></i> <span class="align-middle">@lang('Price Items')</span>
+                </a>
+                <ul id="price-item" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.price-item*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.price-item.index')}}"><a class="sidebar-link" href="{{route('admin.price-item.index')}}">@lang('Price Items List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.price-item.create')}}"><a class="sidebar-link" href="{{route('admin.price-item.create')}}">@lang('Create Price Item')</a></li>
+                </ul>
+            </li>
+
+
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
