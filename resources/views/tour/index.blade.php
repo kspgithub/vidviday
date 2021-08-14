@@ -1,109 +1,95 @@
 @extends('layout.app')
 
-@section('title', $group ? $group->seo_title : 'Пошук турів')
-
 @section('content')
     <main>
         <div class="container">
-            <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">Головна</a>
-                <span>—</span>
-                <span>{{$group ? $group->title :  'Пошук турів'}}</span>
-            </div>
-            <!-- BREAD CRUMBS END -->
-            <div class="row mobile-reverse-content">
+            <div class="row short-distance mobile-reverse-content">
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <!-- SIDEBAR -->
-                        @include('includes.sidebar')
-                    <!-- SIDEBAR END -->
+                @include('includes.sidebar')
+                <!-- SIDEBAR END -->
                 </div>
 
                 <div class="col-xl-9 col-12">
-                    <!-- BANNER/INFO -->
-                    <div class="section">
-                        <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("/img/banner-img_3.jpg")}}" height="500" alt="banner img 3">
-                        </div>
-                        <div class="spacer-xs"></div>
-                        <div class="row">
-                            <div class="col-xl-8 col-12">
-                                <h1 class="h1 title">{{$group ? $group->seo_h1 : __('Tours')}}</h1>
-                                <div class="spacer-xs"></div>
-                                <div class="only-pad-mobile">
-                                    @include('tour.includes.social-share')
-                                    <div class="spacer-xs"></div>
-                                </div>
-                                @if($group)
-                                <div class="seo-text load-more-wrapp">
-                                    <div class="text text-md">
-                                        <p>{{str_limit(strip_tags($group->text ), 300)}}</p>
-                                    </div>
-                                    <div class="more-info">
-                                        <div class="text text-md">
-                                            {!! $group->text !!}
-                                        </div>
-                                    </div>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-right">
-                                        <div class="show-more">
-                                            <span>Читати більше</span>
-                                            <span>Сховати текст</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="spacer-xs"></div>
-                                <div class="only-desktop only">
-                                    <hr>
-                                    <div class="spacer-xs"></div>
+
+                    <div v-is="'tour-search'" show-title>
+                    @if($tours->count() > 0)
+                        <!-- MOBILE BUTTONS BAR -->
+                        @include('includes.mobile-btns-bar')
+                        <!-- MOBILE BUTTONS BAR END -->
+                            <div class="text text-lg" v-is="'tour-request-title'">
+                                <p>
+                                    @lang('tours-section.found')
+                                    <b class="text-bold">
+                                        {{$tours->total()}} {{plural_form($tours->total(), [
+                                     __('tours-section.one_tour'),
+                                     __('tours-section.two_tours'),
+                                     __('tours-section.many_tours')
+                                    ])}}
+                                    </b>
+                                    @if(!empty($request_title))
+                                        @lang('tours-section.on_request')
+                                        <b class="text-bold">{{$request_title}}</b>
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="spacer-xs"></div>
+                            <hr>
+                            <div class="spacer-xs"></div>
+
+
+                            <div class="tabs">
+
+                                @include('home.includes.tab-nav')
+                                <div class="tabs-wrap">
+                                    <!-- TAB #1 -->
+                                @include('home.includes.tab-gallery')
+                                <!-- TAB #1 END -->
+
+                                    <!-- TAB #2 -->
+                                @include('home.includes.tab-list')
+                                <!-- TAB #2 END -->
+
+                                    <!-- TAB #3 -->
+                                @include('home.includes.tab-calendar')
+                                <!-- TAB #3 END -->
                                 </div>
                             </div>
-
-                            <div class="col-xl-4 col-12">
-                                <div class="bordered-box">
-                                    <div class="thumb-price text-center-sm">
-                                        <span class="text"><b>Ціна:</b> від <span>{{ceil($min_price)}}</span> до <span>{{ceil($max_price)}}</span><sup>грн</sup></span>
-                                    </div>
-                                    <div class="only-desktop only">
-                                        <hr>
-                                        @include('tour.includes.social-share')
-                                    </div>
-                                </div>
+                        @else
+                            <div class="only-pad-mobile">
+                            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
+                                <img src="{{asset('/img/preloader.png')}}"
+                                     data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
+                                @lang('tours-section.search-btn')
+                            </span>
+                                <div class="spacer-xs"></div>
                             </div>
-                        </div>
-                        <div class="only-pad-mobile">
-                            <div class="spacer-xs"></div>
-                            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img {{asset("/img/preloader.png")}} data-img-{{asset("icon/filter-dark.svg")}} alt="filter-dark">Підбір туру</span>
-                            <div class="spacer-xs"></div>
-                        </div>
-                    </div>
-                    <!-- BANNER/INFO END -->
-
-                    <div class="tabs">
-                        @include('tour.includes.tab-nav')
-                        <div class="spacer-xs"></div>
-                        <div class="tabs-wrap">
-                            <!-- TAB #1 -->
-                            @include('tour.includes.tab-gallery')
-                            <!-- TAB #1 END -->
-
-                            <!-- TAB #2 -->
-                            @include('tour.includes.tab-list')
-                            <!-- TAB #2 END -->
-
-                            <!-- TAB #3 -->
-                            @include('tour.includes.tab-calendar')
-                            <!-- TAB #3 END -->
-                        </div>
+                            <div class="section text-center">
+                                <div class="spacer-xs"></div>
+                                <h1 class="h1 title">@lang('tours-section.empty-results')</h1>
+                                <div class="text text-md">
+                                    <p>@lang('tours-section.empty-proposal')</p>
+                                </div>
+                                <div class="spacer-xs"></div>
+                                <a href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</a>
+                                <div class="spacer-lg"></div>
+                                <hr>
+                                <div class="spacer-xs"></div>
+                            </div>
+                            <x-tour.popular/>
+                        @endif
                     </div>
                 </div>
+
             </div>
-            <div class="spacer-lg"></div>
+            <div class="spacer-xs"></div>
         </div>
 
+
         <!-- SEO TEXT -->
-    @include('includes.regulations')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
     </main>
+
 @endsection
+

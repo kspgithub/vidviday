@@ -12,52 +12,28 @@
 
                 <div class="col-xl-9 col-12">
 
-                    <!-- BANNER CAROUSEL -->
-                @include('home.includes.banner')
-                <!-- BANNER CAROUSEL END -->
+                    @include('home.includes.banner')
 
-                    <!-- MOBILE BUTTONS BAR -->
-                    <div class="only-pad-mobile">
-                        <div class="row short-distance">
-                            <div class="col-md-4 col-12 only-pad">
-                                <span class="btn type-4 arrow-right text-left flex"><img
-                                        src="{{asset('img/preloader.png')}}"
-                                        data-img-src="{{asset('icon/placeholder-light.svg')}}" alt="placeholder light">Замовити тур</span>
-                            </div>
-
-                            <div class="col-md-4 col-12 only-pad">
-                                <a href="{{asset('documents/test-document.pdf')}}" download
-                                   class="btn type-5 arrow-right text-left flex"><img
-                                        src="{{asset('img/preloader.png')}}"
-                                        data-img-src="{{asset('icon/tours-scedule-dark.svg')}}"
-                                        alt="tours scedule dark">Завантажити розклади турів</a>
-                            </div>
-
-                            <div class="col-md-4 col-12">
-                                <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                        src="{{asset('img/preloader.png')}}"
-                                        data-img-src="{{asset('icon/filter-dark.svg')}}"
-                                        alt="filter-dark">Підбір туру</span>
-                            </div>
-                        </div>
-                        <div class="spacer-sm"></div>
-                    </div>
+                    <div v-is="'tour-search'">
+                        <!-- MOBILE BUTTONS BAR -->
+                    @include('includes.mobile-btns-bar')
                     <!-- MOBILE BUTTONS BAR END -->
 
-                    <div class="tabs" v-is="'tour-search'">
-                        @include('home.includes.tab-nav')
-                        <div class="tabs-wrap">
-                            <!-- TAB #1 -->
-                        @include('home.includes.tab-gallery')
-                        <!-- TAB #1 END -->
+                        <div class="tabs">
+                            @include('home.includes.tab-nav')
+                            <div class="tabs-wrap">
+                                <!-- TAB #1 -->
+                            @include('home.includes.tab-gallery')
+                            <!-- TAB #1 END -->
 
-                            <!-- TAB #2 -->
-                        @include('home.includes.tab-list')
-                        <!-- TAB #2 END -->
+                                <!-- TAB #2 -->
+                            @include('home.includes.tab-list')
+                            <!-- TAB #2 END -->
 
-                            <!-- TAB #3 -->
-                        @include('home.includes.tab-calendar')
-                        <!-- TAB #3 END -->
+                                <!-- TAB #3 -->
+                            @include('home.includes.tab-calendar')
+                            <!-- TAB #3 END -->
+                            </div>
                         </div>
                     </div>
                 </div>

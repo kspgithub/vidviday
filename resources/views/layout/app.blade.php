@@ -14,8 +14,8 @@
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
 
-    @include('layout.includes.grid')
-    <!-- Styles -->
+@include('layout.includes.grid')
+<!-- Styles -->
     @stack('before-styles', false)
     @livewireStyles
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
@@ -30,20 +30,22 @@
     <!-- HEADER -->
     <div id="header-layer-close"></div>
 
-    <x-site-header />
+    <x-site-header/>
 
-    @yield('content')
+@yield('content')
 
-    @include('layout.includes.footer')
+@include('layout.includes.footer')
 
-    @include('includes.search-dropdown')
+@include('includes.search-dropdown')
 
-    <!-- BUTTON SCROLL TO TOP -->
+<!-- BUTTON SCROLL TO TOP -->
     <div class="btn-to-top"></div>
 
     @include('includes.popups')
 
     @include('includes.video')
+
+    <div class="toast-container"></div>
 </div>
 
 <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">

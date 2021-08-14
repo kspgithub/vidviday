@@ -10,6 +10,7 @@ use App\Models\TourSubject;
 use App\Models\TourType;
 use Cache;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,8 @@ use Spatie\Image\Manipulations;
 
 class TourService extends BaseService
 {
+
+
     /**
      * TourService constructor.
      *
@@ -59,6 +62,36 @@ class TourService extends BaseService
                 ],
             ];
         });
+    }
+
+    public static function searchRequestTitle($params)
+    {
+        $title = [];
+
+        if (!empty($params['q'])) {
+            $title[] = $params['q'];
+        }
+        if (!empty($params['direction'])) {
+            $direction = Direction::where('id', $params['direction'])->select('title')->first();
+            $title[] = $direction->title;
+        }
+        if (!empty($params['type'])) {
+            $direction = TourType::where('id', $params['type'])->select('title')->first();
+            $title[] = $direction->title;
+        }
+        if (!empty($params['subject'])) {
+            $direction = TourSubject::where('id', $params['subject'])->select('title')->first();
+            $title[] = $direction->title;
+        }
+        return implode(', ', $title);
+    }
+
+    public static function popularTours($count = 12)
+    {
+        return Tour::search()
+            ->whereHas('badges', function (Builder $q) {
+                return $q->where('slug', 'bestseller');
+            })->take($count)->get();
     }
 
     public function store($params)

@@ -8,4 +8,5 @@ Route::group([
     'prefix' => 'tours',
 ], function () {
     Route::get('', [ToursController::class, 'index'])->name('index');
+    Route::get('popular', [ToursController::class, 'popular'])->name('popular');
 });

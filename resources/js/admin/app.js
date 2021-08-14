@@ -1,5 +1,3 @@
-
-
 require('../bootstrap');
 
 import '@fancyapps/ui/dist/fancybox.esm'
@@ -13,7 +11,7 @@ import "./modules/single-image-upload";
 import "./modules/media-library";
 import "./modules/sweetalert";
 import "./modules/copy-to-clipboard";
-import "./modules/toast";
+import "../libs/toast";
 
 // Charts
 import "./modules/chartjs";

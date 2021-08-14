@@ -1,12 +1,10 @@
-
-
 export const parseQuery = function () {
     let query = document.location.search.replace('?', '');
-    let queryParts =  query.split('&') || [];
+    let queryParts = query.split('&') || [];
     let params = {};
     queryParts.forEach(function (item) {
         let itemParts = item.split('=');
-        if(itemParts[0].length){
+        if (itemParts[0].length) {
             params[itemParts[0]] = itemParts[1];
         }
     });
@@ -18,20 +16,20 @@ export const getQueryParam = function (name, defaultValue = null) {
     return params[name] || defaultValue;
 }
 
-export const serialize = function(obj, prefix) {
+export const serialize = function (obj, prefix) {
     let str = [],
         p;
     for (p in obj) {
         if (obj.hasOwnProperty(p)) {
             let k = prefix ? prefix + "[" + p + "]" : p,
                 v = obj[p];
-            if((v !== null && typeof v === "object")){
+            if ((v !== null && typeof v === "object")) {
                 let ser = serialize(v, k);
-                if(ser.length){
+                if (ser.length) {
                     str.push(ser);
                 }
-            }else{
-                str.push( encodeURIComponent(k) + "=" + encodeURIComponent(v));
+            } else {
+                str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
             }
 
         }
@@ -39,21 +37,33 @@ export const serialize = function(obj, prefix) {
     return str.join("&");
 }
 
-export const currentUrl = function (){
+export const filterParams = (params = {}, etalon = {}) => {
+    const filtered = {};
+    for (let key in params) {
+        if (params[key]) {
+            if (etalon.hasOwnProperty(key) && etalon[key] === params[key]) continue;
+
+            filtered[key] = params[key];
+        }
+    }
+    return filtered;
+}
+
+export const currentUrl = function () {
     return document.location.pathname + document.location.search;
 }
 
-export const makeUrl = function (path, params = {}){
+export const makeUrl = function (path, params = {}) {
     let searchQuery = serialize(params);
-    if(searchQuery.length > 0){
-        path += '?'+searchQuery;
+    if (searchQuery.length > 0) {
+        path += '?' + searchQuery;
     }
     return path;
 }
 
-export const  updateQuery = function (path, params = {}, checkChange = false){
+export const updateQuery = function (path, params = {}, checkChange = false) {
     const url = makeUrl(path, params);
-    if(checkChange && url === currentUrl()){
+    if (checkChange && url === currentUrl()) {
         return false;
     }
     window.history.pushState(null, null, url);

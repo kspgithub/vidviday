@@ -58,11 +58,12 @@
 
 <script>
 import FormDoublePicker from "../form/FormDoublePicker";
-import {useFormData, useFormDataProperty} from "../../store/composables/useFormData";
+import {useFormDataProperty} from "../../store/composables/useFormData";
 import {useStore} from "vuex";
 import {computed} from "vue";
 import FormRange from "../form/FormRange";
 import FormSelect from "../form/FormSelect";
+import * as urlUtils from "../../utils/url";
 
 export default {
     name: "SidebarFilter",
@@ -89,6 +90,7 @@ export default {
         const store = useStore();
 
         store.commit('tourFilter/SET_OPTIONS', options);
+        store.dispatch('tourFilter/initFilter');
 
         const dateFrom = useFormDataProperty('tourFilter', 'date_from');
         const dateTo = useFormDataProperty('tourFilter', 'date_to');
@@ -98,10 +100,20 @@ export default {
         const type = useFormDataProperty('tourFilter', 'type');
         const subject = useFormDataProperty('tourFilter', 'subject');
 
+
         const params = computed(() => store.getters['tourFilter/formData']);
+        const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
 
         const submit = async () => {
-            await store.dispatch('tourFilter/fetchTours', params.value);
+            const path = document.location.pathname;
+            const query = urlUtils.filterParams(params.value, defaultParams.value);
+            if (path === '/') {
+                document.location.href = urlUtils.makeUrl('/tours', query);
+            } else {
+                urlUtils.updateQuery(path, query, true);
+                await store.dispatch('tourFilter/fetchTours', query);
+            }
+
         }
 
         const clear = async () => {

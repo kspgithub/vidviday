@@ -32,6 +32,22 @@ export const fetchTours = async (params = {}) => {
     return null;
 }
 
+export const fetchPopularTours = async (count = 12) => {
+    const response = await apiClient.get('/tours/popular', {
+        params: {count: count},
+    }).catch(error => {
+        if (!axios.isCancel(error)) {
+            const message = getError(error);
+            toast.error(message);
+        }
+    })
+    if (response) {
+        return response.data;
+    }
+    return [];
+}
+
 export default {
     fetchTours,
+    fetchPopularTours,
 }

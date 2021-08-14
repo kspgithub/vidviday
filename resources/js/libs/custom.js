@@ -1,6 +1,9 @@
 var _functions = {},
     winWidth;
 
+window._functions = _functions;
+
+
 jQuery(function ($) {
 
     "use strict";
@@ -241,8 +244,11 @@ jQuery(function ($) {
     };
 
     $('.swiper-entry .swiper-container').each(function () {
-        _functions.initSwiper($(this));
-        swiperConfig($(this));
+        if (!$(this).hasClass('swiper-vue')) {
+            _functions.initSwiper($(this));
+            swiperConfig($(this));
+        }
+
     });
 
     function swiperConfig(el) {
@@ -252,6 +258,8 @@ jQuery(function ($) {
             $(el).parent().addClass('no-swipe');
         }
     }
+
+    _functions.swiperConfig = swiperConfig;
 
     $('.swiper-thumbs').each(function () {
         var top = $(this).find('.swiper-container.swiper-thumbs-top')[0].swiper,

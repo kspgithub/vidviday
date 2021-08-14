@@ -10,6 +10,7 @@ export default {
         app.component('tour-card', require('./tour/TourCard').default);
 
         app.component('tour-search', require('./tour/TourSearch').default);
+        app.component('tour-request-title', require('./tour/TourRequestTitle').default);
 
     }
 }
