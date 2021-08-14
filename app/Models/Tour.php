@@ -36,7 +36,6 @@ class Tour extends TranslatableModel implements HasMedia
     use TourScope;
     use HasSlug;
     use UseSelectBox;
-    use UseSelectBox;
 
     public $translatable = [
         'title',
