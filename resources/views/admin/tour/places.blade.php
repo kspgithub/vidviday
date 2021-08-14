@@ -1,12 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit tour') .'-'.__('Groups'))
+@section('title', __('Edit tour') .'-'.__('Places'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Edit tour') - @lang('Groups')
-            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
-        </h1>
+        <h1>@lang('Edit tour') - @lang('Places')</h1>
 
         <div class="d-flex align-items-center">
             <a href="{{route('admin.tour.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
@@ -15,12 +13,13 @@
 
     @include('admin.tour.includes.edit-tabs')
 
-    <x-forms.patch :action="route('admin.tour.group.update', $tour)">
+    <x-forms.patch :action="route('admin.tour.places.update', $tour)">
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2>@lang('Groups')</h2>
+                <h2>@lang('Places')</h2>
 
-                <x-forms.checkbox-group name="groups[]"
+                
+                <x-forms.checkbox-group name="places[]"
                                         :options="$options"
                                         :value="$selected_ids"
                                         label-col="d-none"

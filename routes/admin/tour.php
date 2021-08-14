@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Tour\TourDirectionController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
+use App\Http\Controllers\Admin\Tour\TourPlacesController;
 use App\Http\Controllers\Admin\Tour\TourScheduleController;
 use App\Http\Controllers\Admin\Tour\TourSubjectController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
@@ -23,6 +24,9 @@ Route::group([
     Route::get('{tour}/groups', [TourGroupController::class, 'index'])->name('group.index');
     Route::patch('{tour}/groups', [TourGroupController::class, 'update'])->name('group.update');
 
+    Route::get('{tour}/places', [TourPlacesController::class, 'index'])->name('places.index');
+    Route::patch('{tour}/places', [TourPlacesController::class, 'update'])->name('places.update');
+    
     Route::get('{tour}/subjects', [TourSubjectController::class, 'index'])->name('subject.index');
     Route::patch('{tour}/subjects', [TourSubjectController::class, 'update'])->name('subject.update');
 

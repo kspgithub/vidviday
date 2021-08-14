@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Relationship\PlaceRelationship;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -28,17 +29,7 @@ class Place extends Model implements HasMedia
     use UseNormalizeMedia;
     use PlaceRelationship;
     use HasSlug;
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('normal')
-            ->width(840)
-            ->height(480);
-
-        $this->addMediaConversion('thumb')
-            ->width(315)
-            ->height(180);
-    }
+    use UseSelectBox;
 
     public $translatable = [
         'title',
@@ -48,7 +39,6 @@ class Place extends Model implements HasMedia
         'seo_description',
         'seo_keywords',
     ];
-
     protected $fillable = [
         'title',
         'text',
@@ -65,6 +55,17 @@ class Place extends Model implements HasMedia
         'region_id',
         'city_id',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
     public function getSlugOptions(): SlugOptions
     {
