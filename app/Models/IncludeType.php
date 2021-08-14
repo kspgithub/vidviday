@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
@@ -15,6 +16,7 @@ use Spatie\Translatable\HasTranslations;
 class IncludeType extends Model
 {
     use HasTranslations;
+    use UseSelectBox;
 
     public $translatable = [
         'title',
