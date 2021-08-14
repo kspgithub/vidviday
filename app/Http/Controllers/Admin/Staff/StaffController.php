@@ -22,7 +22,7 @@ class StaffController extends Controller
         $staffs = Staff::query()->paginate(20);
 
         return view('admin.staff.index', [
-            'staffs'=>$staffs
+            'staffs' => $staffs
         ]);
     }
 
@@ -34,13 +34,13 @@ class StaffController extends Controller
     public function create()
     {
         $users = User::toSelectBox();
-        $staffTypes =StaffType::toSelectBox('title');
+        $staffTypes = StaffType::toSelectBox();
         $staff = new Staff();
 
         return view('admin.staff.create', [
-            'staff'=>$staff,
-            'users'=>$users,
-            'staffTypes'=>$staffTypes
+            'staff' => $staff,
+            'users' => $users,
+            'staffTypes' => $staffTypes
         ]);
     }
 
@@ -55,9 +55,10 @@ class StaffController extends Controller
         $staff = new Staff();
         $staff->fill($request->all());
         $staff->save();
-
+        $staff->types()->sync($request->input('types', []));
         return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff created.'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -69,11 +70,12 @@ class StaffController extends Controller
     {
 
         $users = User::toSelectBox();
-        $staffTypes =StaffType::toSelectBox('title');
+        $staffTypes = StaffType::toSelectBox();
+
         return view('admin.staff.edit', [
             'staff' => $staff,
             'users' => $users,
-            'staffTypes'=>$staffTypes
+            'staffTypes' => $staffTypes
         ]);
     }
 
@@ -87,11 +89,10 @@ class StaffController extends Controller
      */
     public function update(Request $request, Staff $staff)
     {
-
         //
         $staff->fill($request->all());
         $staff->save();
-
+        $staff->types()->sync($request->input('types', []));
         return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff updated.'));
     }
 
@@ -110,5 +111,4 @@ class StaffController extends Controller
 
         return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff deleted.'));
     }
-
 }
