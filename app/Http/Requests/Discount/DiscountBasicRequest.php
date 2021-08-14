@@ -26,12 +26,12 @@ class DiscountBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'duration' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
-            'model_nameable_id' => ['required', 'integer'],
-            'model_nameable_type' => ['required', 'string'],
-            'currency' => ['required', Rule::in(Currency::isoNames())],
+            'title'=>['required', 'string'],
+            'duration'=>['required', 'integer'],
+            'price'=>['required', 'integer'],
+            'model_nameable_id'=>['required', 'integer'],
+            'model_nameable_type'=>['required', 'string'],
+            'currency'=>['required', Rule::in(Currency::isoNames())],
         ];
     }
 }

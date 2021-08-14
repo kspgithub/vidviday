@@ -7,25 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Discount\DiscountBasicRequest;
 use App\Models\Currency;
 use App\Models\Discount;
-use App\Models\Tour;
-use App\Services\DiscountService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
-    protected $service;
-
-    public function __construct(DiscountService $service)
-    {
-        $this->service = $service;
-    }
 
     /**
+     * Display a listing of the resource.
+     *
      * @return Application|Factory|View
      */
     public function index()
@@ -34,6 +27,8 @@ class DiscountController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
      * @return Application|Factory|View
      */
     public function create()
@@ -50,29 +45,98 @@ class DiscountController extends Controller
 
 
         return view('admin.discount.create', [
-            'discount' => $discount,
-            'currencies' => $currencies,
+            'discount'=> $discount,
+            'currencies'=> $currencies,
             "modelsNames" => $modelsNames,
             "model" => $model,
         ]);
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * Store a newly created resource in storage.
+     *
+     * @param DiscountBasicRequest $request
+     *
+     * @return mixed
      */
-    protected function modelsHaveDiscount()
+    public function store(DiscountBasicRequest $request)
+    {
+        $discount = new Discount();
+
+        $discount->fill($request->all());
+        $discount->save();
+
+        return redirect()->route('admin.discount.index', ['discount'=> $discount])
+                         ->withFlashSuccess(__('Discount created.'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Discount $discount
+     *
+     * @return Application|Factory|View
+     */
+    public function edit(Discount $discount)
     {
 
-        return collect([
-            ['value' => "App\\Models\\Tour", 'text' => "Tour"],
+        $currencies = Currency::toSelectBox('iso', 'iso');
+
+        $modelsNames = $this->modelsHaveDiscount();
+
+        $model = ($this->modelHaveDiscount("Tour"))::toSelectWithOthersOptionsBox('title', 'id', "price", "currency");
+
+        return view('admin.discount.edit', [
+            'discount'=> $discount,
+            "modelsNames" => $modelsNames,
+            'currencies'=>$currencies,
+            "model" => $model,
         ]);
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param DiscountBasicRequest $request
+     *
+     * @param Discount $discount
+     *
+     * @return mixed
+     *
+     * @throws GeneralException
+     */
+    public function update(DiscountBasicRequest $request, Discount $discount)
+    {
+        $discount->fill($request->all());
+        $discount->save();
+
+        return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Record updated.'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Discount $discount
+     *
+     * @return mixed
+     */
+    public function destroy(Discount $discount)
+    {
+        $discount->delete();
+
+        return redirect()->route('admin.discount.index')->withFlashSuccess(__('Record deleted.'));
+    }
+
+
+
+    /**
+     * Return the model chosen otherwise by default Tour
+     *
      * @param string $model
+     *
      * @return string
      */
-    protected function modelHaveDiscount(string $model = "Tour"): string
+    protected function modelHaveDiscount(string $model = "Tour"):string
     {
 
         $model = ucfirst($model);
@@ -86,79 +150,15 @@ class DiscountController extends Controller
     }
 
     /**
-     * @param DiscountBasicRequest $request
-     * @return mixed
-     */
-    public function store(DiscountBasicRequest $request)
-    {
-
-        $discount = $this->service->store($request->validated());
-
-        return redirect()->route('admin.discount.index', ['discount' => $discount])->withFlashSuccess(__('Discount created.'));
-    }
-
-    /**
-     * Display the specified resource.
+     * Return all the models that have a price field to which you apply the discount
      *
-     * @param Discount $discount
-     * @return Response
+     * @return \Illuminate\Support\Collection
      */
-    public function show(Discount $discount)
-    {
-        //
-    }
-
-    /**
-     * @param Discount $discount
-     * @return Application|Factory|View
-     */
-    public function edit(Discount $discount)
+    protected function modelsHaveDiscount()
     {
 
-        $currencies = Currency::toSelectBox('iso', 'iso');
-
-        $modelsNames = $this->modelsHaveDiscount();
-
-        $model = ($this->modelHaveDiscount("Tour"))::toSelectWithOthersOptionsBox('title', 'id', "price", "currency");
-
-        return view('admin.discount.edit', [
-            'discount' => $discount,
-            "modelsNames" => $modelsNames,
-            'currencies' => $currencies,
-            "model" => $model,
+        return collect([
+            ['value' => "App\\Models\\Tour", 'text'=> "Tour"],
         ]);
-    }
-
-    /**
-     * @param DiscountBasicRequest $request
-     * @param Discount $discount
-     * @return mixed
-     * @throws GeneralException
-     */
-    public function update(DiscountBasicRequest $request, Discount $discount)
-    {
-        $this->service->update($discount, $request->validated());
-
-        return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Discount updated.'));
-    }
-
-    /**
-     * @param Discount $discount
-     * @return mixed
-     */
-    public function destroy(Discount $discount)
-    {
-        $discount->delete();
-
-        return redirect()->route('admin.discount.index')->withFlashSuccess(__('Discount deleted.'));
-    }
-
-    /**
-     * @return Builder
-     */
-    protected function query()
-    {
-
-        return Discount::query();
     }
 }
