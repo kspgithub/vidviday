@@ -182,4 +182,6 @@ trait TourRelationship
     {
         return $this->belongsToMany(Badge::class, 'tour_badges');
     }
+
+
 }
