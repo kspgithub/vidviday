@@ -72,6 +72,17 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
+
+            <li class="sidebar-item {{routeActiveClass('admin.home-page-banner*')}}">
+                <a data-bs-target="#home-page-banner" data-bs-toggle="collapse" class="sidebar-link {{routeActiveClass('admin.home-page-banner*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="home-page-banner"></i> <span class="align-middle">@lang('Home page banner')</span>
+                </a>
+                <ul id="home-page-banner" class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.home-page-banner*', 'show', '')}}" data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.home-page-banner.index')}}"><a class="sidebar-link" href="{{route('admin.home-page-banner.index')}}">@lang('Home page banners List')</a></li>
+                    <li class="sidebar-item {{routeActiveClass('admin.home-page-banner.create')}}"><a class="sidebar-link" href="{{route('admin.home-page-banner.create')}}">@lang('Create Home page banner')</a></li>
+                </ul>
+            </li>
+
             <li class="sidebar-header">
                 @lang('Content')
             </li>
