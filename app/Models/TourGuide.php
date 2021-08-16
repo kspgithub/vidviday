@@ -29,6 +29,7 @@ class TourGuide extends Model
         'first_name',
         'last_name',
         'title',
+        'image',
         'position',
         'text',
         'seo_title',
