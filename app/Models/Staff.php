@@ -44,6 +44,7 @@ class Staff extends TranslatableModel
         'avatar',
         'email',
         'phone',
+        'skype',
         'viber',
         'telegram',
         'whatsapp',

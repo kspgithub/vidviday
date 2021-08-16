@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PageController;
@@ -30,6 +29,8 @@ Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('
 
 require base_path('routes/frontend/profile.php');
 require base_path('routes/frontend/tour.php');
+require base_path('routes/frontend/staff.php');
+require base_path('routes/frontend/tour-guide.php');
 
 // ADMIN ROUTES
 /*

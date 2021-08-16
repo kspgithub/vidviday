@@ -32,8 +32,7 @@
             class="image-uploader"
             imgstyle="height: 200px; width: 200px; object-fit: cover;">
         </x-forms.single-image-upload>
-        <x-forms.text-group name="text" :label="__('Text')" :value="old('text', $staff->text)"
-                            maxlength="100"></x-forms.text-group>
+        <x-forms.textarea-group name="text" :label="__('Text')" :value="old('text', $staff->text)"></x-forms.textarea-group>
         <x-forms.text-group
             name="email"
             type="email"
@@ -43,8 +42,10 @@
             maxlength="255"
             required
         ></x-forms.text-group>
-        <x-forms.text-group name="Phone" :label="__('Phone')" :value="old('phone', $staff->phone)"
+        <x-forms.text-group name="phone" :label="__('Phone')" :value="old('phone', $staff->phone)"
                             maxlength="100"></x-forms.text-group>
+        <x-forms.text-group name="skype" :label="__('Skype')" :value="old('skype', $staff->skype)"
+                                maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="viber" :label="__('Viber')" :value="old('viber', $staff->viber)"
                             maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="telegram" :label="__('Telegram')" :value="old('telegram', $staff->telegram)"
