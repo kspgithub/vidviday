@@ -5,7 +5,7 @@
 
             <x-tour.order-form
                 :tour="$tour"
-                :nearest_event="$nearest_event"
+                :nearest-event="$nearest_event"
             />
         </div>
 

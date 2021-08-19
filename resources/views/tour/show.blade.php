@@ -47,7 +47,7 @@
                                 <div class="right-sidebar">
                                     <div class="right-sidebar-inner only-mobile">
                                         <x-tour.order-form :tour="$tour"
-                                                           :nearest_event="$nearest_event"
+                                                           :nearest-event="$nearest_event"
                                                            :shareClass="'only-desktop'"
                                                            :spacerClass="'spacer-xs only-desktop'"
                                         />
