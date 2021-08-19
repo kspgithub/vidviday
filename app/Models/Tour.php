@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\TourAttribute;
+use App\Models\Traits\Methods\TourMethods;
 use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\TourScope;
 use App\Models\Traits\Scope\UsePublishedScope;
@@ -14,6 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -33,12 +35,14 @@ class Tour extends TranslatableModel implements HasMedia
     use UsePublishedScope;
     use TourRelationship;
     use TourAttribute;
+    use TourMethods;
     use TourScope;
-    use HasSlug;
+    use HasTranslatableSlug;
     use UseSelectBox;
 
     public $translatable = [
         'title',
+        'slug',
         'text',
         'short_text',
         'seo_h1',
@@ -132,15 +136,11 @@ class Tour extends TranslatableModel implements HasMedia
             ->performOnCollections('main', 'pictures');
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['id', 'title'])
+            ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }

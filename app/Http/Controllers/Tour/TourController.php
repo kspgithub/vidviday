@@ -43,16 +43,31 @@ class TourController extends Controller
     }
 
 
-    public function show(Tour $tour)
+    public function show(string $slug)
     {
+        $tour = Tour::findBySlugOrFail($slug);
+
+        $tour->loadMissing([
+            'directions',
+            'subjects',
+            'types',
+            'media',
+            'places',
+            'places.media',
+        ]);
+
         $future_events = $tour->scheduleItems()
             ->whereDate('start_date', '>=', Carbon::now())->orderBy('start_date')->get();
+
         $nearest_event = $future_events->first();
+
+        $similar_tours = $tour->getSimilarTours(12);
 
         return view('tour.show', [
             'tour' => $tour,
             'future_events' => $future_events,
             'nearest_event' => $nearest_event,
+            'similar_tours' => $similar_tours,
         ]);
     }
 

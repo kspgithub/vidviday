@@ -16,7 +16,7 @@ trait TourAttribute
         $media = $this->getFirstMedia('main');
 
         // TODO: Заменить на no image
-        return $media === null ? asset('img/tour_1.jpg') : $media->getUrl('thumb');
+        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
 
 
@@ -25,8 +25,6 @@ trait TourAttribute
         $media = $this->getFirstMedia('mobile');
 
         // TODO: Заменить на no image
-        return $media === null ? asset('img/tour_1.jpg') : $media->getUrl('thumb');
+        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
-
-
 }
