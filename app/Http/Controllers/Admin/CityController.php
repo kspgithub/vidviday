@@ -28,7 +28,7 @@ class CityController extends Controller
         $cities = $citiesPrepeared->get();//->sortBy('region_id');
 
         //
-        return view('admin.city.index', ['cities'=>$cities, 'citiesPaginated'=>$citiesPaginated]);
+        return view('admin.city.index', ['cities' => $cities, 'citiesPaginated' => $citiesPaginated]);
     }
 
     /**
@@ -44,7 +44,7 @@ class CityController extends Controller
         $city = new City();
 
         return view('admin.city.create', [
-            'city'=>$city,
+            'city' => $city,
             'countries' => $countries,
             'regions' => $regions,
             'places' => $places
@@ -131,11 +131,10 @@ class CityController extends Controller
         $limit = $request->input('limit', 0);
 
         if (!empty($q)) {
-            $cityQuery->where('cities.title', 'LIKE', '%'.$q.'%');
+            $cityQuery->where('cities.title', 'LIKE', '%"' . $q . '%');
         }
 
 
         return $cityQuery->take(10)->get()->map->asChoose();
-
     }
 }

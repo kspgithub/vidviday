@@ -13,13 +13,8 @@ class TourPlacesController extends Controller
 
     public function index(Tour $tour)
     {
-        $options = Place::orderBy('title')->toSelectBox();
-        $selected_ids = $tour->places()->pluck('id')->toArray();
-
         return view('admin.tour.places', [
             'tour' => $tour,
-            'options' => $options,
-            'selected_ids' => $selected_ids,
         ]);
     }
 
@@ -28,5 +23,15 @@ class TourPlacesController extends Controller
         $tour->places()->sync($request->input('places', []));
 
         return redirect()->back()->withFlashSuccess(__('Tour places updated.'));
+    }
+
+    public function attach(Tour $tour, $id)
+    {
+        $tour->places()->attach($id, ['position' => $tour->places()->count() + 1]);
+    }
+
+    public function detach(Tour $tour, $id)
+    {
+        $tour->places()->detach($id);
     }
 }

@@ -1,6 +1,9 @@
 require('../bootstrap');
 
+require('livewire-sortable');
+
 import '@fancyapps/ui/dist/fancybox.esm'
+
 
 // AdminKit (required)
 import "./modules/bootstrap";
@@ -12,6 +15,9 @@ import "./modules/media-library";
 import "./modules/sweetalert";
 import "./modules/copy-to-clipboard";
 import "../libs/toast";
+
+// Charts
+import "./modules/Sortable";
 
 // Charts
 import "./modules/chartjs";

@@ -16,7 +16,7 @@ trait UseSelectBox
 
         return self::query()->get($fields)
             ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
-                return [$value_key => $item->{$value_field}, 'text' => $item->{$text_field}];
+                return [$value_key => $item->{$value_field}, $text_key => $item->{$text_field}];
             });
     }
 

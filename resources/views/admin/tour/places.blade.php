@@ -2,6 +2,8 @@
 
 @section('title', __('Edit tour') .'-'.__('Places'))
 
+
+
 @section('content')
     <div class="d-flex justify-content-between">
         <h1>@lang('Edit tour') - @lang('Places')</h1>
@@ -16,21 +18,12 @@
     <x-forms.patch :action="route('admin.tour.places.update', $tour)">
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2>@lang('Places')</h2>
-
-                
-                <x-forms.checkbox-group name="places[]"
-                                        :options="$options"
-                                        :value="$selected_ids"
-                                        label-col="d-none"
-                                        input-col="col-12"
-                ></x-forms.checkbox-group>
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
+                <h2 class="mb-5">@lang('Places')</h2>
+                <livewire:tour-places :tour="$tour"/>
             </x-slot>
         </x-bootstrap.card>
     </x-forms.patch>
 
 
 @endsection
+

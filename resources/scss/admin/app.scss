@@ -40,7 +40,6 @@
 @import "~bootstrap/scss/utilities/api";
 @import "~bootstrap/scss/pagination";
 
-
 // 3rd party plugins
 @import "~jsvectormap/dist/css/jsvectormap";
 @import "~simplebar/dist/simplebar";
@@ -53,7 +52,6 @@
 //@import "~choices.js/src/styles/base";
 @import "~choices.js/src/styles/choices";
 @import "~pikaday/scss/pikaday";
-
 
 // Theme mixins
 @import "2-mixins/button";
@@ -81,7 +79,7 @@
 @import "3-components/toast";
 @import "3-components/wrapper";
 @import "3-components/media-library";
-
+@import "3-components/draggable";
 
 // Theme utilities
 @import "4-utilities/cursors";
