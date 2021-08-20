@@ -28,7 +28,8 @@ class TourPlaces extends Component
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
-        $this->options = Place::orderBy('title')->toSelectBox();
+
+        $this->options = Place::with(['region', 'city'])->orderBy('region_id')->orderBy('title')->get();
     }
 
     public function detachItem($id)
@@ -38,7 +39,7 @@ class TourPlaces extends Component
 
     public function query()
     {
-        return $this->tour->places();
+        return $this->tour->places()->with(['region', 'city']);
     }
 
     public function attachItem()

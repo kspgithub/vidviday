@@ -6,9 +6,10 @@
                 wire:sortable.item="{{ $item->id }}"
                 wire:key="place-{{ $item->id }}">
                 <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
-                <span class="me-3">{{$item->title}}</span>
-                <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})"><i
-                        class="fa fa-times"></i></a>
+                <span class="me-3">{{$item->title}} ({{$item->region->title}})</span>
+                <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">
+                    <i class="fa fa-times"></i>
+                </a>
             </li>
         @endforeach
     </ul>
@@ -17,7 +18,9 @@
             <label for="place_id">@lang('Place')</label>
             <select name="place_id" id="place_id" class="form-control" wire:model.defer="item_id" style="width: 500px;">
                 @foreach($options as $option)
-                    <option value="{{$option['value']}}">{{$option['text']}}</option>
+                    <option value="{{$option->id}}">
+                        {{$option->title}} ({{$option->region->title}})
+                    </option>
                 @endforeach
             </select>
         </div>
