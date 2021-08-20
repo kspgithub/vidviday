@@ -17,7 +17,7 @@ import "./modules/copy-to-clipboard";
 import "../libs/toast";
 
 // Charts
-import "./modules/Sortable";
+import "./modules/sortable";
 
 // Charts
 import "./modules/chartjs";
