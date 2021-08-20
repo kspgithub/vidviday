@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TourBasicRequest;
 use App\Models\Badge;
 use App\Models\Currency;
+use App\Models\Staff;
 use App\Models\Tour;
 use App\Services\TourService;
 use Illuminate\Contracts\View\View;
@@ -45,11 +46,15 @@ class TourController extends Controller
         $tour->currency = 'UAH';
         $currencies = Currency::toSelectBox('iso', 'iso');
         $badges = Badge::all();
+        $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
+        $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
 
         return view('admin.tour.create', [
             'tour' => $tour,
             'currencies' => $currencies,
             'badges' => $badges,
+            'guides' => $guides,
+            'managers' => $managers,
         ]);
     }
 
@@ -87,10 +92,15 @@ class TourController extends Controller
         //
         $currencies = Currency::toSelectBox('iso', 'iso');
         $badges = Badge::all();
+        $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
+        $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
+
         return view('admin.tour.edit', [
             'tour' => $tour,
             'currencies' => $currencies,
             'badges' => $badges,
+            'guides' => $guides,
+            'managers' => $managers,
         ]);
     }
 

@@ -18,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Event
+ *
  * @package App\Models
  * @mixin IdeHelperEvent
  */

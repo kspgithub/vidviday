@@ -20,6 +20,9 @@
                             type="number" required></x-forms.text-group>
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $tour->price)" type="number"
                             required></x-forms.text-group>
+        <x-forms.text-group name="commission" :label="__('Commission')"
+                            :value="old('commission', $tour->commission)" type="number"
+        ></x-forms.text-group>
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
         <x-forms.single-image-upload name="main_image"
@@ -52,6 +55,27 @@
 
 
         @endforeach
+    </x-slot>
+</x-bootstrap.card>
+
+<x-bootstrap.card>
+    <x-slot name="header">
+        <h3>@lang('Staff')</h3>
+    </x-slot>
+    <x-slot name="body">
+        <x-forms.select-group name="staff[]"
+                              :label="__('Tour Manager')"
+                              :value="old('staff', $tour->tour_manager ?  $tour->tour_manager->id : 0)"
+                              :options="$managers">
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+
+        <x-forms.tag-group name="staff[]"
+                           :label="__('Guides')"
+                           :value="$tour->tour_guides ?  $tour->tour_guides->pluck('id')->toArray() : []"
+                           :options="$guides">
+        </x-forms.tag-group>
+
     </x-slot>
 </x-bootstrap.card>
 

@@ -25,9 +25,12 @@ class DatabaseSeeder extends Seeder
         $this->call(BadgeSeeder::class);
         $this->call(FoodTimeSeeder::class);
         $this->call(PlaceSeeder::class);
-        $this->call(TourSeeder::class);
         $this->call(StaffTypeSeeder::class);
+        $this->call(StaffSeeder::class);
         $this->call(AccommodationTypeSeeder::class);
         $this->call(AccommodationsSeeder::class);
+
+        // Last
+        $this->call(TourSeeder::class);
     }
 }

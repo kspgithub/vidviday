@@ -126,6 +126,16 @@ class TourService extends BaseService
                     'fit' => Manipulations::FIT_CROP,
                 ]);
             }
+
+            if (array_key_exists('staff', $params)) {
+                $staff = array_filter($params['staff']);
+                $tour->staff()->sync($staff);
+            }
+
+            if (array_key_exists('badges', $params)) {
+                $badges = array_filter($params['badges']);
+                $tour->badges()->sync($badges);
+            }
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());

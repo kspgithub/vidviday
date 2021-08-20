@@ -1,14 +1,14 @@
 @extends('admin.layout.app')
 
-@section('title', __('Staff management'))
+@section('title', __('Staff'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Staff management')</h1>
+        <h1>@lang('Staff')</h1>
 
         <div class="d-flex align-items-center">
             <a href="{{route('admin.staff.create')}}" class="btn btn-sm btn-outline-info"><i
-                    data-feather="plus"></i> @lang('Create staff')</a>
+                    data-feather="plus"></i> @lang('Create')</a>
         </div>
     </div>
 
@@ -18,9 +18,8 @@
             <table class="table table-responsive table-striped table-sm">
                 <thead>
                 <tr>
-
+                    <th>@lang('First Name')</th>
                     <th>@lang('Type')</th>
-                    <th>@lang('First name')</th>
                     <th>@lang('Locale')</th>
                     <th>@lang('Actions')</th>
                 </tr>
@@ -28,8 +27,8 @@
                 <tbody>
                 @foreach($staffs as $staff)
                     <tr>
-                        <td>{!! $staff->types->implode('title', '<br>') !!}</td>
                         <td>{{$staff->last_name}} {{$staff->first_name}}</td>
+                        <td>{!! $staff->types->implode('title', '<br>') !!}</td>
                         <td>{{app()->getLocale()}}</td>
                         <td class="table-action">
 

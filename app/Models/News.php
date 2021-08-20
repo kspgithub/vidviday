@@ -19,7 +19,6 @@ use Spatie\Translatable\HasTranslations;
  * Class News
  *
  * @package App\Models
- *
  * @mixin IdeHelperNews
  */
 class News extends Model implements HasMedia

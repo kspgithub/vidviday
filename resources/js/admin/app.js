@@ -14,6 +14,7 @@ import "./modules/single-image-upload";
 import "./modules/media-library";
 import "./modules/sweetalert";
 import "./modules/copy-to-clipboard";
+import "./modules/select-choices";
 import "../libs/toast";
 
 // Charts

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -97,5 +98,28 @@ class Staff extends TranslatableModel
     public function vacansies()
     {
         return $this->hasMany(Vacancy::class);
+    }
+
+
+    public function scopeOnlyExcursionLeaders(Builder $query)
+    {
+        return $query->whereHas('types', function (Builder $q) {
+            return $q->where('slug', 'excursion-leader');
+        });
+    }
+
+    public function scopeOnlyTourManagers(Builder $query)
+    {
+        return $query->whereHas('types', function (Builder $q) {
+            return $q->where('slug', 'tour-manager');
+        });
+    }
+
+    public function asSelectBox()
+    {
+        return [
+            'value' => $this->id,
+            'text' => $this->last_name . ' ' . $this->first_name,
+        ];
     }
 }

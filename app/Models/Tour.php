@@ -64,6 +64,7 @@ class Tour extends TranslatableModel implements HasMedia
         'duration',
         'nights',
         'price',
+        'commission',
         'currency',
         'rating',
     ];
@@ -72,6 +73,7 @@ class Tour extends TranslatableModel implements HasMedia
         'published' => 'bool',
         'duration' => 'int',
         'price' => 'float',
+        'commission' => 'float',
     ];
 
     protected $appends = [

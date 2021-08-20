@@ -19,7 +19,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs = Staff::query()->paginate(20);
+        $staffs = Staff::query()->with('types')->orderBy('last_name')->orderBy('first_name')->paginate(20);
 
         return view('admin.staff.index', [
             'staffs' => $staffs

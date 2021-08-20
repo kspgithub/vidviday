@@ -8,6 +8,9 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @mixin IdeHelperTourGuide
+ */
 class TourGuide extends Model
 {
     use HasFactory;

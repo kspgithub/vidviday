@@ -24,6 +24,11 @@ class StaffTypeSeeder extends Seeder
 
         $staff_types = [
             [
+                'title' => ['uk' => 'Менеджер туру', 'ru' => 'Менеджер тура',
+                    'en' => 'Tour manager', 'pl' => 'Kierownik wycieczki'],
+                'slug' => 'tour-manager',
+            ],
+            [
                 'title' => ['uk' => 'Керівник єкскурсійних груп', 'ru' => 'Руководитель экскурсионных групп',
                     'en' => 'Excursion groups leader', 'pl' => 'Kierownik grup wycieczkowych'],
                 'slug' => 'excursion-leader',

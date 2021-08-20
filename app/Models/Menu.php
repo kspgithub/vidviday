@@ -12,6 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * Class SiteMenu
+ *
  * @package App\Models
  * @mixin IdeHelperMenu
  */
