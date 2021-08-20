@@ -61,8 +61,8 @@ class PlaceController extends Controller
     public function store(Request $request)
     {
         //
-        $this->service->store($request->all());
-        return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Created'));
+        $place = $this->service->store($request->all());
+        return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -96,7 +96,7 @@ class PlaceController extends Controller
         $this->service->update($place, $request->all());
 
         if ($request->ajax()) {
-            return  response()->json(['result'=>'success', 'model'=>$place]);
+            return response()->json(['result' => 'success', 'model' => $place]);
         }
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Updated'));
     }
@@ -121,6 +121,6 @@ class PlaceController extends Controller
      */
     public function mediaIndex(Place $place)
     {
-        return view('admin.place.media', ['place'=>$place]);
+        return view('admin.place.media', ['place' => $place]);
     }
 }
