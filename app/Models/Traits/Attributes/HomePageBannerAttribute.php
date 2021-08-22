@@ -11,10 +11,4 @@ trait HomePageBannerAttribute
         return $media === null ? '' : $media->getUrl();
     }
 
-    public function getMobileImageAttribute()
-    {
-        $media = $this->getFirstMedia('mobile');
-
-        return $media === null ? '' : $media->getUrl();
-    }
 }

@@ -19,6 +19,7 @@ use Spatie\Translatable\HasTranslations;
  * Class HomePageBanner
  *
  * @package App\Models
+ *
  * @mixin IdeHelperHomePageBanner
  */
 class HomePageBanner extends Model implements HasMedia
@@ -29,7 +30,6 @@ class HomePageBanner extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use HomePageBannerAttribute;
-    use HasSlug;
 
     public static function boot()
     {
@@ -75,27 +75,15 @@ class HomePageBanner extends Model implements HasMedia
             ->height(180);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public $translatable = [
         'title',
         'text',
         'short_text',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
     ];
 
     protected $fillable = [
         'title',
-        'seo_h1',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
         'text',
         'price',
         'short_text',
@@ -108,11 +96,5 @@ class HomePageBanner extends Model implements HasMedia
         'price' => 'float'
     ];
 
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
-    }
+
 }
