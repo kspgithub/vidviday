@@ -54,4 +54,9 @@ class Region extends TranslatableModel
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

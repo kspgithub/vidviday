@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Ticket;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\TicketBasicRequest;
+use App\Models\Currency;
+use App\Models\Region;
 use App\Models\Ticket;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -32,8 +34,15 @@ class TicketController extends Controller
     {
         $ticket = new Ticket();
 
+        $ticket->currency = 'UAH';
+
+        $currencies = Currency::toSelectBox('iso', 'iso');
+        $regions    = Region::toSelectBox('title', 'id');
+
         return view("admin.ticket.create", [
-            "ticket" => $ticket
+            "ticket" => $ticket,
+            "currencies" => $currencies,
+            "regions" => $regions,
         ]);
     }
 
@@ -64,8 +73,13 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        $currencies = Currency::toSelectBox('iso', 'iso');
+        $regions    = Region::toSelectBox('title', 'id');
+
         return view('admin.ticket.edit', [
-            'ticket'=> $ticket
+            'ticket' => $ticket,
+            "currencies" => $currencies,
+            "regions" => $regions,
         ]);
     }
 
