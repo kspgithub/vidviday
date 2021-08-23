@@ -27,11 +27,13 @@ class DiscountBasicRequest extends FormRequest
     {
         return [
             'title'=>['required', 'string'],
-            'duration'=>['required', 'integer'],
+            'slug'=>['nullable', 'string'],
+            'percentage'=>['nullable', 'integer'],
             'price'=>['required', 'integer'],
-            'model_nameable_id'=>['required', 'integer'],
-            'model_nameable_type'=>['required', 'string'],
+            'start_date'=>['nullable', 'date_format:Y-m-d'],
+            'end_date'=>['nullable', 'date_format:Y-m-d'],
             'currency'=>['required', Rule::in(Currency::isoNames())],
+            'published'=>['nullable', Rule::in(['1', '0'])],
         ];
     }
 }
