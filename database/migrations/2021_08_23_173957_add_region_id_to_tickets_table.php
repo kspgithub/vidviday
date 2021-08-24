@@ -26,7 +26,7 @@ class AddRegionIdToTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            //
+           $table->dropColumn("region_id");
         });
     }
 }
