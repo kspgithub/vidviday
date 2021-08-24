@@ -26,7 +26,7 @@ class AddStartDateToDiscountsTable extends Migration
     public function down()
     {
         Schema::table('discounts', function (Blueprint $table) {
-            //
+            $table->dropColumn("start_date");
         });
     }
 }
