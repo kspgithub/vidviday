@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -13,7 +14,6 @@ use Spatie\Translatable\HasTranslations;
  * Class Ticket
  *
  * @package App\Models
- * @mixin IdeHelperTicket
  */
 class Ticket extends Model
 {
@@ -32,16 +32,23 @@ class Ticket extends Model
     public $translatable = [
         'title',
         'text',
-        "priority",
     ];
 
     protected $fillable = [
         'title',
-        'priority',
+        'price',
+        'region_id',
+        'currency',
         'text',
         'slug',
         'published',
     ];
+
+    protected $casts = [
+        'published' => 'boolean',
+        'price' => 'float'
+    ];
+
 
 
     public function getSlugOptions(): SlugOptions
@@ -50,5 +57,10 @@ class Ticket extends Model
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }
