@@ -2,23 +2,20 @@
 
 namespace App\Models;
 
-
-use App\Models\Traits\Attributes\DiscountAttribute;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperDiscount
- */
 class Discount extends Model
 {
     use HasFactory;
     use HasTranslations;
     use HasSlug;
-    use DiscountAttribute;
+    use UseSelectBox;
 
 
 
@@ -34,29 +31,39 @@ class Discount extends Model
 
     protected $fillable = [
         "title",
+        "slug",
         'price',
         'percentage',
         'currency',
-        'duration',
-        'model_nameable_id',
-        'model_nameable_type',
+        'start_date',
+        'end_date',
         'published',
     ];
 
     protected $casts = [
         'published' => 'boolean',
-        'duration' => 'int',
         'price' => 'float',
+        'percentage' => 'float',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'start_date',
+        'end_date',
     ];
 
 
     /**
-     * Get the parent model_nameable model (tour or ....).
+     * Tours
+     *
+     * @return BelongsToMany
      */
-    public function model_nameable()
+    public function tours()
     {
-        return $this->morphTo();
+        return $this->belongsToMany(Tour::class, 'discounts_tours', 'tour_id', 'discount_id');
     }
+
 
     public function getSlugOptions(): SlugOptions
     {

@@ -186,13 +186,12 @@ trait TourRelationship
     }
 
     /**
-     * Get all of the tour's discounts.
+     * Discounts
      *
-     * @return MorphMany
+     * @return BelongsToMany
      */
     public function discounts()
     {
-
-        return $this->morphMany(Discount::class, 'model_nameable');
+        return $this->belongsToMany(Discount::class, 'discounts_tours', 'tour_id', 'discount_id');
     }
 }

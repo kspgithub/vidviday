@@ -28,5 +28,8 @@
 
     <a class="btn btn-outline-primary {{routeActiveClass('admin.accomm.*')}}"
        href="{{route('admin.tour.accomm.index', $tour)}}">@lang('Accommodation')</a>
-    
+
+    <a class="btn btn-outline-primary {{routeActiveClass('admin.tour.discount.*')}}"
+       href="{{route('admin.tour.discount.index', $tour)}}">@lang('Discounts')</a>
+
 </div>

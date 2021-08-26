@@ -57,10 +57,14 @@ class DiscountsTable extends DataTableComponent
             Column::make(__('Price'), 'price')
                 ->sortable(),
 
-            Column::make(__('Published'), 'published')
+            Column::make(__('Currency'), 'currency')
                 ->sortable(),
 
-           Column::make(__('Model'), 'model'),
+            Column::make(__('Percentage'), 'percentage')
+                ->sortable(),
+
+            Column::make(__('Published'), 'published')
+                ->sortable(),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {

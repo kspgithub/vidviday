@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
+use App\Http\Controllers\Admin\Tour\TourDiscountController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
@@ -26,7 +27,7 @@ Route::group([
 
     Route::get('{tour}/places', [TourPlacesController::class, 'index'])->name('places.index');
     Route::patch('{tour}/places', [TourPlacesController::class, 'update'])->name('places.update');
-    
+
     Route::get('{tour}/subjects', [TourSubjectController::class, 'index'])->name('subject.index');
     Route::patch('{tour}/subjects', [TourSubjectController::class, 'update'])->name('subject.update');
 
@@ -40,6 +41,10 @@ Route::group([
     Route::get('{tour}/schedule', [TourScheduleController::class, 'index'])->name('schedule.index');
 
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
+
+    Route::get('{tour}/discounts', [TourDiscountController::class, 'index'])->name('discount.index');
+    Route::patch('{tour}/discounts', [TourDiscountController::class, 'update'])->name('discount.update');
+
 });
 
 Route::resource('tour', TourController::class);
