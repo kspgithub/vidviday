@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusTable extends Migration
+class AddRegionIdToTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->text('slug');
-            $table->string('description')->nullable();
-            $table->timestamps();
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->foreignId('region_id')->after("id")->nullable()->constrained('regions')->nullOnDelete();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::table('tickets', function (Blueprint $table) {
+           $table->dropColumn("region_id");
+        });
     }
 }

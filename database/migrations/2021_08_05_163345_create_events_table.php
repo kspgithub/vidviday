@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->text('title');
             $table->longText('text')->nullable();
             $table->longText('short_text')->nullable();
-            $table->string('slug');
+            $table->text('slug');
 
             $table->text('seo_h1')->nullable();
             $table->text('seo_title')->nullable();

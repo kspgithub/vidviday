@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusTable extends Migration
+class CreateDiscountsToursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->text('slug');
-            $table->string('description')->nullable();
+        Schema::create('discounts_tours', function (Blueprint $table) {
+            $table->foreignId('tour_id')->constrained('tours')->cascadeOnDelete();
+            $table->foreignId('discount_id')->constrained('discounts')->cascadeOnDelete();
+            $table->primary(['tour_id', 'discount_id']);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('discounts_tours');
     }
 }

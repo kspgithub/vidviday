@@ -21,7 +21,7 @@ class CreateNewsTable extends Migration
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
             $table->longText('text')->nullable();
-            $table->string('slug');
+            $table->text('slug');
             $table->boolean('published')->default(1);
             $table->timestamps();
         });
