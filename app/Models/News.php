@@ -35,6 +35,7 @@ class News extends Model implements HasMedia
     public $translatable = [
         'title',
         'text',
+        'short_text',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -47,12 +48,32 @@ class News extends Model implements HasMedia
         'seo_description',
         'seo_keywords',
         'text',
+        'short_text',
         'slug',
         'published',
     ];
     protected $casts = [
         'published' => 'boolean'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        /**
+         * генерируем короткий текст если он не было передан
+         */
+        self::creating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
+
+        self::updating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {

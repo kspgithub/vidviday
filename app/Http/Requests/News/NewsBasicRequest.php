@@ -35,6 +35,7 @@ class NewsBasicRequest extends FormRequest
             'seo_description'=>['nullable', 'string'],
             'seo_keywords'=>['nullable', 'string'],
             'text'=>['required', 'string'],
+            'short_text'=>['nullable', 'string'],
             'main_image'=>['nullable', 'string'],
             'mobile_image'=>['nullable', 'string'],
             'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
