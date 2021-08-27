@@ -32,6 +32,7 @@ require base_path('routes/frontend/profile.php');
 require base_path('routes/frontend/tour.php');
 require base_path('routes/frontend/staff.php');
 require base_path('routes/frontend/tour-guide.php');
+require base_path('routes/frontend/news.php');
 
 // ADMIN ROUTES
 /*
