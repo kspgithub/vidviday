@@ -16,7 +16,7 @@ class CreateDiscountsTable extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->text('slug');
+            $table->string('slug');
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('percentage', 10, 2)->default(0);
             $table->integer('duration')->default(1);

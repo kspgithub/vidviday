@@ -24,6 +24,7 @@ class CreateStaffTable extends Migration
             $table->text('text')->nullable();
             $table->string('email')->nullable();
             $table->text('phone')->nullable();
+            $table->text('skype')->nullable();
             $table->string('viber')->nullable();
             $table->string('telegram')->nullable();
             $table->string('whatsapp')->nullable();
