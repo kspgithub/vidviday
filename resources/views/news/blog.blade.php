@@ -8,11 +8,9 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="{{ route("home") }}">{{ __("Головна") }}</a>
-                <span>—</span>
-                <span>{{ __("Новини") }}</span>
-            </div>
+
+              @include("news.includes.bread_crumbs")
+
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
@@ -40,7 +38,7 @@
                         @foreach($blog as $post)
                             <div class="item post">
                                 <div class="thumb-img">
-                                    <img src="img/preloader.png" data-img-src="img/img_25.jpg" alt="img 25">
+                                    <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/news/'.$post->media->get(0)->id.'/'.$post->media->get(0)->file_name) }}" alt="img 25">
                                     <a href="{{ route("post", ["slug" => $post->slug]) }}" class="full-size"></a>
                                 </div>
                                 <div class="thumb-content">
@@ -49,7 +47,7 @@
                                     </div>
                                     <span class="text text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
                                     <div class="text">
-                                        <p>{!! $post->text !!}</p>
+                                        <p>{{ $post->short_text }}</p>
                                         <a href="{{ route("post", ["slug" => $post->slug]) }}" class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
                                     </div>
                                 </div>
@@ -59,19 +57,7 @@
                     </div>
                     <div class="spacer-xs"></div>
 
-                    <div class="pagination">
-                        <a href="post.php" class="btn btn-read-more left-arrow text-bold">Назад</a>
-                        <div>
-                            <a href="blog.php" class="text">1</a>
-                            <span class="text">...</span>
-                            <a href="blog.php" class="text">7</a>
-                            <a href="blog.php" class="text active">8</a>
-                            <a href="blog.php" class="text">9</a>
-                            <span class="text">...</span>
-                            <a href="blog.php" class="text">12</a>
-                        </div>
-                        <a href="post.php" class="btn btn-read-more text-bold">Вперед</a>
-                    </div>
+                    {{ $blog->links('paginate.vendor.pagination.newsCustom') }}
 
                 </div>
             </div>

@@ -8,19 +8,32 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function blog(){
+    public function blog()
+    {
 
-        $blog = News::wherePublished(true)->latest()->paginate();
+        $blog = $this->query()->latest()
+                              ->paginate(9);
 
-        return view("news.blog",[
-            "blog" => $blog
+
+        return view("news.blog", [
+            "blog" => $blog,
         ]);
     }
 
-    public function post(){
+    public function post($slug)
+    {
 
-        return view("news.post",[
+        $post = $this->query()->whereSlug($slug)
+                              ->firstOrFail();
 
+        return view("news.post", [
+            "post" => $post,
         ]);
+    }
+
+    protected function query()
+    {
+
+        return News::query()->wherePublished(true);
     }
 }
