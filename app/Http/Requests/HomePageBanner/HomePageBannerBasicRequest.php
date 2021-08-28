@@ -26,20 +26,14 @@ class HomePageBannerBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'text'=>['required', 'string'],
-            'short_text'=>['nullable', 'string'],
-            'price'=>['nullable', 'integer'],
-            'currency'=>['required', Rule::in(Currency::isoNames())],
-            'main_image'=>['nullable', 'string'],
-            'mobile_image'=>['nullable', 'string'],
-            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'title' => ['required', 'string'],
+            'slug' => ['required', 'string'],
+            'text' => ['required', 'string'],
+            'short_text' => ['nullable', 'string'],
+            'price' => ['nullable', 'integer'],
+            'currency' => ['required', Rule::in(Currency::isoNames())],
+            'main_image' => ['nullable', 'string'],
+            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
     }
 }
