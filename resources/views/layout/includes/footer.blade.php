@@ -58,7 +58,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text">Транспорт</a>
+                                    <a href="{{ route('transport')}}" class="text">Транспорт</a>
                                 </li>
 
                                 <li>

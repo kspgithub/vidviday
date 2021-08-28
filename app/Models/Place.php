@@ -11,7 +11,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -22,14 +21,14 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperPlace
  */
-class Place extends TranslatableModel implements HasMedia
+class Place extends Model implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use PlaceRelationship;
-    use HasTranslatableSlug;
+    use HasSlug;
     use UseSelectBox;
 
     public $translatable = [
@@ -39,9 +38,7 @@ class Place extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
-        'slug',
     ];
-
     protected $fillable = [
         'title',
         'text',
@@ -73,7 +70,17 @@ class Place extends TranslatableModel implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

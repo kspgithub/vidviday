@@ -14,8 +14,8 @@
 
     <x-bootstrap.card>
         <x-slot name="body">
-
-            <table class="table table-responsive table-striped table-sm">
+            <livewire:staffs-table />
+            {{-- <table class="table table-responsive table-striped table-sm">
                 <thead>
                 <tr>
                     <th>@lang('First Name')</th>
@@ -39,7 +39,7 @@
                     </tr>
                 @endforeach
                 </tbody>
-            </table>
+            </table> --}}
         </x-slot>
     </x-bootstrap.card>
 

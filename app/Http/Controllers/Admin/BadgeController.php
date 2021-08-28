@@ -17,8 +17,8 @@ class BadgeController extends Controller
      */
     public function index()
     {
-        $badges = Badge::select(['id','title','color','slug'])->get();
         //
+        $badges = Badge::all();
         return view('admin.badge.index', compact('badges'));
     }
 

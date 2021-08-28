@@ -178,7 +178,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/cuides/">Екскурсоводи</a>
+                                        <a href="/guides/">Екскурсоводи</a>
                                     </li>
 
                                     <li>
@@ -237,11 +237,11 @@
                         </li>
 
                         <li>
-                            <a href="places.php">Місця</a>
+                            <a href="{{route('places')}}">Місця</a>
                         </li>
 
                         <li>
-                            <a href="events.php">Події</a>
+                            <a href="{{route('events')}}">Події</a>
                         </li>
 
                         <li class="dropdown">
@@ -266,7 +266,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="transport.php">Транспорт</a>
+                                        <a href="{{ route('transport')}}">Транспорт</a>
                                     </li>
 
                                     <li>

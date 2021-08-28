@@ -23,7 +23,7 @@ class CreatePlacesTable extends Migration
             $table->text('seo_keywords')->nullable();
             $table->longText('short_text')->nullable();
             $table->longText('text')->nullable();
-            $table->text('slug');
+            $table->string('slug');
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
             $table->boolean('published')->default(1);

@@ -24,7 +24,7 @@
                                         <div class="spacer-xs"></div>
                                         <div class="img-input-wrap">
                                             <div class="img">
-                                                <img src="img/preloader.png" data-img-src="img/avatar.jpg" alt="avatar.jpg">
+                                                <img src="{{asset('img/preloader.png')}}" data-img-src="img/avatar.jpg" alt="avatar.jpg">
                                             </div>
                                             <label class="img-input btn type-2">Змінити фото<input type="file" class="full-size"></label>
                                         </div>

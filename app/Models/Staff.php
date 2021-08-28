@@ -75,7 +75,6 @@ class Staff extends TranslatableModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
     /**
      * @return BelongsToMany
      */
