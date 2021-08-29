@@ -12,7 +12,7 @@
                 <option value="common">Загальні запитання</option>
                 <option value="corporate">Корпоративні запитання</option>
                 <option value="tourist">Туристичні запитання</option>
-                <option value="tour-agen">Запитання тур-аґенту</option>
+                <option value="tour-agent">Запитання тур-аґенту</option>
                 <option value="certificate">Запит, щодо сертифікатів</option>
             </select>
             </div>
