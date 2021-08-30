@@ -135,7 +135,7 @@
                                         @foreach(faqBySection("tourist") as $item)
 
                                             <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestion($loop->iteration, "common") > 9 ? countQuestion($loop->iteration, "common") : "0".countQuestion($loop->iteration, "common")  }}.</b>{{ $item->question }}<i></i></div>
+                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common")  }}.</b>{{ $item->question }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     <div class="text text-md">
                                                         <p>{{ $item->answer }}</p>
@@ -164,7 +164,7 @@
                                         @foreach(faqBySection("tour-agent") as $item)
 
                                             <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestion($loop->iteration, "common", "tourist") > 9 ? countQuestion($loop->iteration, "common", "tourist") : "0".countQuestion($loop->iteration, "common","tourist")  }}.</b>{{ $item->question }}<i></i></div>
+                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common", "tourist")   }}.</b>{{ $item->question }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     <div class="text text-md">
                                                         <p>{{ $item->answer }}</p>
@@ -193,7 +193,7 @@
                                         @foreach(faqBySection("corporate") as $item)
 
                                             <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestion($loop->iteration, "common","tourist", "tour-agent") > 9 ? countQuestion($loop->iteration, "common","tourist", "tour-agent") : "0".countQuestion($loop->iteration, "common","tourist", "tour-agent")  }}.</b>{{ $item->question }}<i></i></div>
+                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common","tourist", "tour-agent")  }}.</b>{{ $item->question }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     <div class="text text-md">
                                                         <p>{{ $item->answer }}</p>
@@ -222,7 +222,7 @@
                                         @foreach(faqBySection("certificate") as $item)
 
                                             <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestion($loop->iteration, "common", "corporate", "tourist", "tour-agent") > 9 ? countQuestion($loop->iteration, "common", "corporate", "tourist", "tour-agent") : "0".countQuestion($loop->iteration, "common", "corporate", "tourist", "tour-agent")  }}.</b>{{ $item->question }}<i></i></div>
+                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common", "corporate", "tourist", "tour-agent") }}.</b>{{ $item->question }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     <div class="text text-md">
                                                         <p>{{ $item->answer }}</p>

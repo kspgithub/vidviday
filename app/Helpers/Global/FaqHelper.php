@@ -3,9 +3,9 @@
 
 use App\Models\FaqItem;
 
-if (!function_exists("countQuestion")) {
+if (!function_exists("countQuestions")) {
 
-    function countQuestion(int $loop, ...$sections)
+    function countQuestions(int $loop, ...$sections)
     {
         $count = 0;
 
@@ -13,7 +13,9 @@ if (!function_exists("countQuestion")) {
             $count += count(faqBySection($section));
         }
 
-        return $count + $loop;
+        $number = $count + $loop;
+
+        return ($number > 9 ? $number : "0{$number}");
     }
 }
 
