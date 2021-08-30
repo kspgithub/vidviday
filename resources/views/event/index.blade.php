@@ -77,10 +77,10 @@
             <div class="spacer-lg"></div>
         </div>
 
-        <!-- SEO TEXT -->
-    @include('place.includes.seo-text')
+    <!-- SEO TEXT -->
+        @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
-        <!-- MOBILE BUTTONS BAR -->
+    <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')
     <!-- MOBILE BUTTONS BAR END -->
     </main>

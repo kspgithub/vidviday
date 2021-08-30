@@ -21,7 +21,7 @@
                             <h1 class="h1 title">{{$transport->title}}</h1>
                             <div class="spacer-xs only-desktop-9"></div>
                             <div class="only-pad-mobile">
-                                @include('transport.includes.social-share')
+                                @include('staff.includes.social-share')
                                 <div class="spacer-xs"></div>
                                 <span class="btn type-1 btn-block">Замовити автобус</span>
                                 <div class="spacer-xs"></div>
@@ -73,7 +73,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('transport.includes.seo-text')
+        @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
     </main>
 

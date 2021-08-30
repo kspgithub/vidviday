@@ -1,8 +1,7 @@
 @extends('layout.app')
-@foreach ($pageContent as $item)
-@section('title', !empty($item->seo_title) ? $item->seo_title : $item->title)
-@section('seo_description', !empty($item->seo_description) ? $item->seo_description : $item->title)
-@section('seo_keywords', !empty($item->seo_keywords) ? $item->seo_keywords : $item->title)
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
 @section('content')
 <main>
     <div class="container">
@@ -10,9 +9,8 @@
         <div class="bread-crumbs">
             <a href="{{('/')}}">Головна</a>
             <span>—</span>
-            <span>{{$item->title}}</span>
+            <span>{{$pageContent->title}}</span>
         </div>
-@endforeach
         <!-- BREAD CRUMBS END -->
         <div class="row">
             <div class="col-xl-8 col-12">
@@ -20,16 +18,14 @@
                 <div class="spacer-xs"></div>
                 <!-- CORPORATE CONTENT -->
                 <div class="tour-content">
-                @foreach ($pageContent as $pageContent)
                     <h1 class="h1 title autoheight">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
-                @include('corporate.includes.social-share')
+                @include('staff.includes.social-share')
                     </div>
                     <div class="text text-md">
                         <p>{!! $pageContent->text !!}</p>
                     </div>
-                @endforeach
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
                         <span class="btn type-1 btn-block btn-book-size open-popup calendar-init" data-rel="calendar-popup">Замовити корпоратив</span>
@@ -64,25 +60,31 @@
                 <div class="spacer-xs only-pad-mobile"></div>
                 <span class="btn font-lg type-1 btn-block btn-book-size open-popup calendar-init only-pad-mobile" data-rel="calendar-popup">Замовити корпоратив</span>
             </div>
-
             <div class="col-xl-4 col-12">
+                <!-- THUMBS CAROUSEL -->
+                <div class="section only-pad-mobile">
                 @include('corporate.includes.carousel')
-                @include('corporate.includes.right-sidebar')
+                <!-- THUMBS CAROUSEL END -->
+                </div>
+                @include('transport.includes.right-sidebar')
             </div>
         </div>
+         <!-- THUMBS CAROUSEL -->
+		 <div class="section only-desktop only">
+            @include('corporate.includes.carousel')
+        </div>
+        <!-- THUMBS CAROUSEL END -->
         <div class="spacer-lg"></div>
     </div>
 
-    <!-- THUMBS CAROUSEL -->
-    @include('corporate.includes.popular')
-    <!-- THUMBS CAROUSEL END -->
+
 
     <!-- OUR CLIENTS -->
-    @include('corporate.includes.clients')
+    @include('home.includes.partners')
     <!-- OUR CLIENTS END -->
 
     <!-- SEO TEXT -->
-    @include('corporate.includes.seo-text')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
 </main>
 @endsection
