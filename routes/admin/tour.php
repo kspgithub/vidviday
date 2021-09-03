@@ -8,9 +8,13 @@ use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
 use App\Http\Controllers\Admin\Tour\TourPlacesController;
+use App\Http\Controllers\Admin\Tour\TourPlanController;
+use App\Http\Controllers\Admin\Tour\TourQuestionsController;
 use App\Http\Controllers\Admin\Tour\TourScheduleController;
 use App\Http\Controllers\Admin\Tour\TourSubjectController;
+use App\Http\Controllers\Admin\Tour\TourTicketController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
+use App\Http\Controllers\Admin\Tour\TourIncludeController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -43,12 +47,16 @@ Route::group([
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
 
     Route::get('{tour}/discounts', [TourDiscountController::class, 'index'])->name('discount.index');
-    Route::patch('{tour}/discounts', [TourDiscountController::class, 'update'])->name('discount.update');
-
+    Route::get('{tour}/plan', [TourPlanController::class, 'index'])->name('plan.index');
+    Route::get('{tour}/finance', [TourIncludeController::class, 'index'])->name('include.index');
+    Route::get('{tour}/food', [TourFoodController::class, 'index'])->name('food.index');
+    Route::get('{tour}/ticket', [TourTicketController::class, 'index'])->name('ticket.index');
+    Route::get('{tour}/faq', [TourQuestionsController::class, 'faq'])->name('faq');
+    Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
+    Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
 });
 
 Route::resource('tour', TourController::class);
 
-Route::resource('tour.food', TourFoodController::class)->except('show');
 
 Route::resource('tour.accomm', TourAccommController::class)->except('show');

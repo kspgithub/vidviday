@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Tour;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tour\TourQuestionRequest;
+use App\Models\FaqItem;
+use App\Models\IncludeType;
 use App\Models\Tour;
 use App\Models\TourGroup;
+use App\Models\TourQuestion;
 use App\Services\TourService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
@@ -45,6 +49,9 @@ class TourController extends Controller
 
     public function show(string $slug)
     {
+        /**
+         * @var Tour $tour
+         */
         $tour = Tour::findBySlugOrFail($slug);
 
         $tour->loadMissing([
@@ -54,6 +61,20 @@ class TourController extends Controller
             'media',
             'places',
             'places.media',
+            'tourIncludes',
+            'planItems',
+            'foodItems',
+            'foodItems.time',
+            'accommodations',
+            'accommodations.media',
+            'tickets',
+            'discounts',
+            'testimonials' => function ($q) {
+                return $q->withDepth();
+            },
+            'questions' => function ($q) {
+                return $q->withDepth();
+            },
         ]);
 
         $future_events = $tour->scheduleItems()
@@ -63,11 +84,15 @@ class TourController extends Controller
 
         $similar_tours = $tour->getSimilarTours(12);
 
+
+        $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOUR)->get();
+
         return view('tour.show', [
             'tour' => $tour,
             'future_events' => $future_events,
             'nearest_event' => $nearest_event,
             'similar_tours' => $similar_tours,
+            'faq_items' => $faq_items,
         ]);
     }
 
@@ -75,5 +100,32 @@ class TourController extends Controller
     public function order(Request $request, Tour $tour)
     {
         return view('tour.order', ['tour' => $tour]);
+    }
+
+
+    public function question(TourQuestionRequest $request, Tour $tour)
+    {
+        $question = new TourQuestion();
+        $question->fill($request->validated());
+        $question->name = $request->last_name . ' ' . $request->first_name;
+        $question->tour_id = $tour->id;
+        $user = current_user();
+        if ($user) {
+            $question->user_id = $user->id;
+            if (!empty($user->avatar)) {
+                $question->avatar = $user->avatar;
+            }
+        }
+        $question->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'result' => 'success',
+                'message' => __('Thank you for your question!'),
+                'question' => $question
+            ]);
+        }
+
+        return redirect()->route('tour.show', $tour->slug)->withFlashSuccess(__('Thank you for your question!'));
     }
 }

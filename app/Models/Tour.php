@@ -67,6 +67,7 @@ class Tour extends TranslatableModel implements HasMedia
         'commission',
         'currency',
         'rating',
+        'video',
     ];
 
     protected $casts = [

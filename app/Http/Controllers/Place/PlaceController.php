@@ -9,13 +9,14 @@ use App\Models\City;
 use App\Models\Tour;
 use App\Models\Badge;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PlaceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,7 +34,7 @@ class PlaceController extends Controller
     public function more($slug)
     {
         $tours = Tour::search()->paginate(12);
-        $places = Place::all()->where('slug',$slug)->first();
+        $places = Place::query()->where('slug', 'LIKE', '%"' . $slug . '"%')->firstOrFail();
         return view('place.place', [
             'places' => $places,
             'tours' => $tours

@@ -25,14 +25,24 @@
                             maxlength="100" required></x-forms.text-group>
         <x-forms.text-group name="position" :label="__('Position')" :value="old('position', $staff->position)"
                             maxlength="100"></x-forms.text-group>
+
         <x-forms.single-image-upload
             name="avatar"
             :label="__('Avatar')"
             accept=".jpg,.png"
             class="image-uploader"
+            :value="$staff->avatar"
+            :storage="true"
             imgstyle="height: 200px; width: 200px; object-fit: cover;">
         </x-forms.single-image-upload>
-        <x-forms.textarea-group name="text" :label="__('Text')" :value="old('text', $staff->text)"></x-forms.textarea-group>
+        <x-forms.text-group name="video"
+                            type="url"
+                            :label="__('Youtube Video')"
+                            :value="old('video', $staff->video)"
+        ></x-forms.text-group>
+
+        <x-forms.editor-group name="text" :label="__('Text')"
+                              :value="old('text', $staff->text)"></x-forms.editor-group>
         <x-forms.text-group
             name="email"
             type="email"
@@ -45,7 +55,7 @@
         <x-forms.text-group name="phone" :label="__('Phone')" :value="old('phone', $staff->phone)"
                             maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="skype" :label="__('Skype')" :value="old('skype', $staff->skype)"
-                                maxlength="100"></x-forms.text-group>
+                            maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="viber" :label="__('Viber')" :value="old('viber', $staff->viber)"
                             maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="telegram" :label="__('Telegram')" :value="old('telegram', $staff->telegram)"
@@ -70,3 +80,18 @@
 
 </x-bootstrap.card>
 
+@if($staff->id > 0)
+    <x-bootstrap.card>
+        <x-slot name="header">
+            <h3>@lang('Photos')</h3>
+        </x-slot>
+        <x-slot name="body">
+            <x-utils.media-library
+                :store-url="route('admin.media.store', ['model_type'=>get_class($staff), 'model_id'=>$staff->id])"
+                :destroy-url="route('admin.media.destroy', 0)"
+                :update-url="route('admin.media.update', 0)"
+                :items="$staff->getMedia()"
+            ></x-utils.media-library>
+        </x-slot>
+    </x-bootstrap.card>
+@endif

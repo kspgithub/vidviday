@@ -22,6 +22,17 @@ class FaqItem extends Model
     public const SECTION_TOURIST = 'tourist';
     public const SECTION_TOUR_AGENT = 'tour-agent';
     public const SECTION_CERTIFICATE = 'certificate';
+    public const SECTION_TOUR = 'tour';
+
+
+    public static $sections = [
+        self::SECTION_COMMON => 'Загальні питання',
+        self::SECTION_CORPORATE => 'Корпоративи',
+        self::SECTION_TOURIST => 'Туристу',
+        self::SECTION_TOUR_AGENT => 'Турагенту',
+        self::SECTION_CERTIFICATE => 'Сертифікат',
+        self::SECTION_TOUR => 'Тур',
+    ];
 
     public $translatable = [
         'question',

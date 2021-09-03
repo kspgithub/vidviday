@@ -1,7 +1,7 @@
 @props([
     'rating'=> 0,
     'trigger'=>false,
-    'trigger_target'=>'#reviews-accordion',
+    'triggerTarget'=>'#reviews-accordion',
     'count'=>0,
 ])
 <span {{$attributes->merge(['class'=>'stars select-stars stars-selected'])}}>
@@ -10,7 +10,7 @@
     @endfor
     @if($count> 0)
         @if($trigger)
-            <a href="{{$trigger_target}}" class="text accordion-open-trigger">
+            <a href="{{$triggerTarget}}" class="text accordion-open-trigger">
                 {{$count}} {{plural_form($count, ['відгук', 'відгука', 'відгуків'])}}
             </a>
         @else

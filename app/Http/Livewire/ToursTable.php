@@ -35,9 +35,9 @@ class ToursTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = Tour::query()->withCount(['media' => function($q){
+        $query = Tour::query()->withCount(['media' => function ($q) {
             return $q->where('collection_name', 'pictures');
-        }]);
+        }, 'questions', 'testimonials']);
 
         return $query;
     }
@@ -58,7 +58,7 @@ class ToursTable extends DataTableComponent
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
-                    return view('admin.partials.published', ['model' => $row, 'updateUrl'=>route('admin.tour.update-status', $row)]);
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.tour.update-status', $row)]);
                 })
                 ->sortable(),
 

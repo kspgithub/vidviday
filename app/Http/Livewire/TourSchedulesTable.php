@@ -104,9 +104,15 @@ class TourSchedulesTable extends DataTableComponent
         return [
 
             Column::make(__('Start Date'), 'start_date')
+                ->format(function ($value, $column, $row) {
+                    return $row->start_date ? $row->start_date->format('d.m.Y') : '-';
+                })
                 ->sortable(),
 
             Column::make(__('End Date'), 'end_date')
+                ->format(function ($value, $column, $row) {
+                    return $row->end_date ? $row->end_date->format('d.m.Y') : '-';
+                })
                 ->sortable(),
 
             Column::make(__('Places'), 'places')

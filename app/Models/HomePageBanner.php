@@ -19,7 +19,6 @@ use Spatie\Translatable\HasTranslations;
  * Class HomePageBanner
  *
  * @package App\Models
- *
  * @mixin IdeHelperHomePageBanner
  */
 class HomePageBanner extends Model implements HasMedia

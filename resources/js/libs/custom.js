@@ -616,6 +616,7 @@ jQuery(function ($) {
                 $(innerAccordion).each(function () {
 
                     $(this).addClass('active');
+                    $(this).find('.accordion-item').addClass('active');
                     $(this).find('.accordion-inner').slideDown(440);
                 });
 
@@ -625,6 +626,7 @@ jQuery(function ($) {
                 $(innerAccordion).each(function () {
 
                     $(this).removeClass('active');
+                    $(this).find('.accordion-item').removeClass('active');
                     $(this).find('.accordion-inner').slideUp(440);
                 });
             }

@@ -72,6 +72,7 @@
                                 <div class="expand-all close">@lang('tours-section.collapse-all')</div>
                             </div>
                             <div class="accordion type-1">
+                                {{--                                //@dd($tour->accommodations)--}}
                                 @include('tour.includes.tour-plan')
                                 @include('tour.includes.tour-places')
                                 @include('tour.includes.tour-schedule')

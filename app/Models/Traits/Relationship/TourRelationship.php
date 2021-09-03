@@ -9,7 +9,10 @@ use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
 use App\Models\Testimonial;
+use App\Models\Ticket;
+use App\Models\Tour;
 use App\Models\TourAccommodation;
+use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
@@ -112,7 +115,7 @@ trait TourRelationship
      */
     public function foodItems()
     {
-        return $this->hasMany(TourFood::class);
+        return $this->hasMany(TourFood::class)->orderBy('day')->orderBy('time_id');
     }
 
     /**
@@ -142,7 +145,7 @@ trait TourRelationship
      */
     public function testimonials()
     {
-        return $this->morphMany(Testimonial::class, 'model');
+        return $this->morphMany(Testimonial::class, 'model')->withDepth()->reversed();
     }
 
     /**
@@ -162,7 +165,7 @@ trait TourRelationship
      */
     public function questions()
     {
-        return $this->hasMany(TourQuestion::class);
+        return $this->hasMany(TourQuestion::class)->withDepth()->reversed();
     }
 
     /**
@@ -192,6 +195,26 @@ trait TourRelationship
      */
     public function discounts()
     {
-        return $this->belongsToMany(Discount::class, 'discounts_tours', 'tour_id', 'discount_id');
+        return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id');
+    }
+
+    /**
+     * Входные билеты
+     *
+     * @return BelongsToMany
+     */
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
+    }
+
+    /**
+     * Вопросы к туру
+     *
+     * @return HasMany
+     */
+    public function faq()
+    {
+        return $this->hasMany(TourFaq::class, 'tour_id');
     }
 }

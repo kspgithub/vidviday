@@ -1,10 +1,12 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit tour') .'-'.__('Subjects'))
+@section('title', __('Editing tour') .'-'.__('Subjects'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Edit tour') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+        <h1>@lang('Editing tour')
+            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
+        </h1>
 
         <div class="d-flex align-items-center">
             <a href="{{route('admin.tour.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
@@ -13,7 +15,7 @@
 
     @include('admin.tour.includes.edit-tabs')
 
-    <x-forms.patch  :action="route('admin.tour.subject.update', $tour)">
+    <x-forms.patch :action="route('admin.tour.subject.update', $tour)">
         <x-bootstrap.card>
             <x-slot name="body">
                 <h2>@lang('Subjects')</h2>

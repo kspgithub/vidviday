@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -20,13 +24,15 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperStaff
  */
-class Staff extends TranslatableModel
+class Staff extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
     use SoftDeletes;
     use UsePublishedScope;
     use HasAvatar;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
 
     public $translatable = [
         'first_name',
@@ -42,6 +48,7 @@ class Staff extends TranslatableModel
         'last_name',
         'position',
         'text',
+        'video',
         'avatar',
         'email',
         'phone',
@@ -54,10 +61,31 @@ class Staff extends TranslatableModel
 
     public static function toSelectBox()
     {
-        return self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+        return self::query()->selectRaw("last_name, first_name, id")
             ->get()->map(function ($it) {
-                return ['value' => $it->value, 'text' => $it->text];
-            });
+                return ['value' => $it->id, 'text' => $it->last_name . ' ' . $it->first_name];
+            })->toArray();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('main')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
+        $this->addMediaCollection('pictures')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
 
     /**
@@ -75,6 +103,7 @@ class Staff extends TranslatableModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     /**
      * @return BelongsToMany
      */

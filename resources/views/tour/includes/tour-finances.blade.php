@@ -4,49 +4,22 @@
                                             alt="wallet"></span>Фінанси<i></i></div>
     <div class="accordion-inner">
         <div class="accordion type-2">
-            <div class="accordion-item">
-                <div class="accordion-title">У вартість туру входить<i></i></div>
-                <div class="accordion-inner">
-                    <div class="text text-md">
-                        <ul>
-                            <li>проїзд автобусом туристичного класу,</li>
-                            <li>проживання,</li>
-                            <li>супровід гіда-екскурсовода,</li>
-                            <li>екскурсійне обслуговування в туристичних об’єктах,</li>
-                            <li>страхування на час подорожі.</li>
-                        </ul>
+            @foreach($tour->group_tour_includes as $idx => $type)
+                @if($type->items->count() > 0)
+                    <div class="accordion-item active">
+                        <div class="accordion-title">{{$type->title}}<i></i></div>
+                        <div class="accordion-inner">
+                            <div class="text text-md pb-1">
+                                <ul>
+                                    @foreach($type->items as $tour_include)
+                                        <li>{{$tour_include->title}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-title">У вартість не входять і додатково
-                    оплачуються<i></i></div>
-                <div class="accordion-inner">
-                    <div class="text text-md">
-                        <ul>
-                            <li>супровід гіда-екскурсовода,</li>
-                            <li>екскурсійне обслуговування в туристичних об’єктах,</li>
-                            <li>страхування на час подорожі.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-title">Знижки<i></i></div>
-                <div class="accordion-inner">
-                    <div class="text text-md">
-                        <ul>
-                            <li>супровід гіда-екскурсовода,</li>
-                            <li>екскурсійне обслуговування в туристичних об’єктах,</li>
-                            <li>супровід гіда-екскурсовода,</li>
-                            <li>екскурсійне обслуговування в туристичних об’єктах,</li>
-                            <li>страхування на час подорожі.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </div>

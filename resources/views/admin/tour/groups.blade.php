@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit tour') .'-'.__('Groups'))
+@section('title', __('Editing tour') .'-'.__('Groups'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Edit tour') - @lang('Groups')
+        <h1>@lang('Editing tour') - @lang('Groups')
             <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
         </h1>
 

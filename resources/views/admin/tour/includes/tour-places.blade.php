@@ -16,7 +16,7 @@
     <div class="row align-items-end">
         <div class="col-12 col-xl-auto">
             <label for="place_id">@lang('Place')</label>
-            <select name="place_id" id="place_id" class="form-control" wire:model.defer="item_id" style="width: 500px;">
+            <select name="place_id" id="place_id" class="form-control" wire:model="item_id" style="width: 500px;">
                 <option value="0">Оберіть місце</option>
                 @foreach($options as $option)
                     <option value="{{$option->id}}">

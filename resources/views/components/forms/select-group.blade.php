@@ -9,11 +9,13 @@
     'options'=>[],
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
+    'rowClass'=>'row mb-3',
 ])
 
 
-<div class="form-group row mb-3">
-    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span class="text-danger">*</span>@endif</label>
+<div class="form-group {{$rowClass}}">
+    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
+            class="text-danger">*</span>@endif</label>
 
     <div class="{{$inputCol}}">
 
@@ -24,7 +26,8 @@
         >
             {{$slot}}
             @foreach($options as $option)
-                <option value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
+                <option
+                    value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
             @endforeach
         </select>
 

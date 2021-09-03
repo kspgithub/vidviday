@@ -26,18 +26,16 @@ class TourFactory extends Factory
         $duration = $this->faker->randomElement([1, 3, 5, 7, 10]);
         return [
             //
-            'title'=>['uk'=> $this->faker->text(30)],
+            'title' => ['uk' => $this->faker->text(30)],
             'duration' => $duration,
             'nights' => $this->faker->randomElement([$duration - 1, $duration]),
-            'short_text'=>$this->faker->text(250),
-            'text'=>$this->faker->text(1000),
-            'published'=>1,
-            'price'=> $this->faker->randomElement([1000, 2000, 3000, 5000, 10000]),
-            'currency'=> 'UAH',
+            'short_text' => $this->faker->text(250),
+            'text' => $this->faker->text(1000),
+            'published' => 1,
+            'price' => $this->faker->randomElement([1000, 2000, 3000, 5000, 10000]),
+            'currency' => 'UAH',
             'rating' => $this->faker->randomElement([0, 3, 4, 5]),
+            'video' => 'https://www.youtube.com/watch?v=aH8CEhbJJes',
         ];
     }
-
-
-
 }

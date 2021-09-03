@@ -38,7 +38,7 @@ trait TourMethods
     {
         return Tour::query()->where('slug', 'like', '%"' . $slug . '"%')->first();
     }
-    
+
     public static function findBySlugOrFail(string $slug)
     {
         return Tour::query()->where('slug', 'like', '%"' . $slug . '"%')->firstOrFail();

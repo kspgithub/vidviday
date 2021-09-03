@@ -21,29 +21,7 @@ class TourDiscountController extends Controller
      */
     public function index(Tour $tour)
     {
-        $options = Discount::toSelectBox();
-        $selected_ids = $tour->discounts()->pluck('id')->toArray();
 
-        return view('admin.tour.discounts', [
-            'tour'=>$tour,
-            'options'=>$options,
-            'selected_ids'=>$selected_ids,
-        ]);
-    }
-
-    /**
-     * Allows you to attach discounts to a tour.
-     *
-     * @param Request $request
-     *
-     * @param Tour $tour
-     *
-     * @return mixed
-     */
-    public function update(Request $request, Tour $tour)
-    {
-        $tour->discounts()->sync($request->input('discounts', []));
-
-        return redirect()->back()->withFlashSuccess(__('Tour discount updated.'));
+        return view('admin.tour.discounts', ['tour' => $tour]);
     }
 }
