@@ -26,6 +26,9 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.discount.*')}}"
        href="{{route('admin.tour.discount.index', $tour)}}">@lang('Discounts')</a>
 
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.calc')}}"
+       href="{{route('admin.tour.calc', $tour)}}">@lang('Calculator')</a>
+
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.ticket.*')}}"
        href="{{route('admin.tour.ticket.index', $tour)}}">@lang('Tickets')</a>
 
@@ -34,6 +37,7 @@
 
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.questions')}}"
        href="{{route('admin.tour.questions', $tour)}}">@lang('Users questions')</a>
+
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.testimonials')}}"
        href="{{route('admin.tour.testimonials', $tour)}}">@lang('Testimonials')</a>
 </div>

@@ -2,14 +2,14 @@
     @if(!$edit)
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour Food')</h2>
+                <h2 class="mb-2">@lang('Tour food')</h2>
                 <table class="table table-sm mb-3">
                     <thead>
                     <tr>
                         <th class="text-nowrap">@lang('Day')</th>
                         <th class="text-nowrap">@lang('Time')</th>
                         <th class="text-nowrap">@lang('Text')</th>
-                        <th class="text-nowrap">@lang('Pictures Count')</th>
+                        <th class="text-nowrap">@lang('Pictures')</th>
                         <th>@lang('Actions')</th>
                     </tr>
                     </thead>
@@ -44,7 +44,7 @@
     @else
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour Food')</h2>
+                <h2 class="mb-2">@lang('Tour food')</h2>
                 <div>
                     <form method="post" wire:submit.prevent="saveItem()">
 

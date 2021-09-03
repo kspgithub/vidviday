@@ -1,10 +1,11 @@
 @extends('admin.layout.app')
 
-@section('title', __('Editing tour') .'-'.__('Discounts'))
+@section('title', __('Editing tour') .'-'.__('Calculator'))
+
+
 
 @section('content')
-    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Discounts')</h1>
-
+    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Calculator')</h1>
 
     <div class="row">
         <div class="col-12 col-md-3 col-xl-2">
@@ -13,14 +14,13 @@
         <div class="col-12 col-md-9 col-xl-10">
             <x-bootstrap.card>
                 <x-slot name="body">
-                    <h2>@lang('Discounts')</h2>
-
-                    <livewire:tour-discounts-table :tour="$tour"/>
+                    <livewire:tour-calc :tour="$tour"/>
                 </x-slot>
             </x-bootstrap.card>
+
         </div>
     </div>
 
 
-
 @endsection
+

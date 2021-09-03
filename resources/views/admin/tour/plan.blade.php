@@ -5,13 +5,7 @@
 
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Editing tour') "{{$tour->title}}" - @lang('Plan')</h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.tour.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
+    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Plan')</h1>
     <div class="row">
         <div class="col-12 col-md-3 col-xl-2">
             @include('admin.tour.includes.edit-tabs')

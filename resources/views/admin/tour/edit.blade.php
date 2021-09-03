@@ -3,15 +3,7 @@
 @section('title', __('Editing tour'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Editing tour')
-            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
-        </h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.tour.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
+    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Basic information')</h1>
 
     <x-forms.patch :action="route('admin.tour.update', $tour)" enctype="multipart/form-data">
         <div class="row">

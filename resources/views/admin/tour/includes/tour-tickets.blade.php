@@ -20,7 +20,7 @@
                 <option value="0">Оберіть квиток</option>
                 @foreach($options as $option)
                     <option value="{{$option->id}}">
-                        {{$option->title}} ({{$option->region->title}})
+                        {{$option->title}} ({{$option->region ? $option->region->title : '-'}})
                     </option>
                 @endforeach
             </select>

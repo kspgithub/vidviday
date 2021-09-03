@@ -2,7 +2,7 @@
     @if(!$edit)
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour Plan')</h2>
+                <h2 class="mb-2">@lang('Tour plan')</h2>
                 <table class="table table-sm mb-3">
                     <thead>
                     <tr>

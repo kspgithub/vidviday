@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Tour\CalcController;
 use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
@@ -54,6 +55,7 @@ Route::group([
     Route::get('{tour}/faq', [TourQuestionsController::class, 'faq'])->name('faq');
     Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
     Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
+    Route::get('{tour}/calc', [CalcController::class, 'index'])->name('calc');
 });
 
 Route::resource('tour', TourController::class);
