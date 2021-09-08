@@ -11,8 +11,10 @@
         </div>
         <div class="calc">
             <div class="calc-header">
-                <label class="checkbox">
-                    <input type="checkbox" name="all-inclusive">
+                <label class="checkbox" :class="{active: selected.length === items.length}">
+                    <input type="checkbox" name="all-inclusive"
+                           :checked="selected.length === items.length"
+                           @change.prevent="toggleAll()">
                     <span>Все включено</span>
                 </label>
             </div>
@@ -93,6 +95,14 @@ export default {
 
         const items = ref([nearestPrice.value, ...priceItems]);
 
+        const toggleAll = () => {
+            if (selected.value.length === items.value.length) {
+                selected.value = [];
+            } else {
+                selected.value = items.value.map(it => it.id);
+            }
+        }
+
         const changeItem = (id) => {
             if (selected.value.indexOf(id) === -1) {
                 selected.value.push(id);
@@ -131,6 +141,7 @@ export default {
             eventOptions,
             items,
             selected,
+            toggleAll,
             changeItem,
             changeQuantity,
             total,

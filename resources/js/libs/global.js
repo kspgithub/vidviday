@@ -509,34 +509,34 @@ jQuery(function ($) {
         $('.tab-top-part[data-tab="' + index + '"]').addClass('active');
     });
     // Calculator clicks
-    $('.calc-row .checkbox input').on('change', function () {
-        if ($(this).parents('.vue-calc').length > 0) return;
+    // $('.calc-row .checkbox input').on('change', function () {
+    //     if ($(this).parents('.vue-calc').length > 0) return;
+    //
+    //     if ($(this).parent().parent().hasClass('checked')) {
+    //         $(this).parent().parent().removeClass('checked');
+    //     } else {
+    //         $(this).parent().parent().addClass('checked');
+    //     }
+    //     calcTotalPrice($(this));
+    // });
 
-        if ($(this).parent().parent().hasClass('checked')) {
-            $(this).parent().parent().removeClass('checked');
-        } else {
-            $(this).parent().parent().addClass('checked');
-        }
-        calcTotalPrice($(this));
-    });
+    // $('.calc-row .number-input button').on('click', function () {
+    //     if ($(this).parents('.vue-calc').length > 0) return;
+    //     var amountProduct = parseInt($(this).closest('.calc-row').find('.number-input input').val()),
+    //         productPrice = parseInt($(this).closest('.calc-row').find('.calc-item-price').attr('data-price'));
+    //     $(this).closest('.calc-row').find('.calc-item-price').html(amountProduct * productPrice);
+    //     calcTotalPrice($(this));
+    // });
 
-    $('.calc-row .number-input button').on('click', function () {
-        if ($(this).parents('.vue-calc').length > 0) return;
-        var amountProduct = parseInt($(this).closest('.calc-row').find('.number-input input').val()),
-            productPrice = parseInt($(this).closest('.calc-row').find('.calc-item-price').attr('data-price'));
-        $(this).closest('.calc-row').find('.calc-item-price').html(amountProduct * productPrice);
-        calcTotalPrice($(this));
-    });
-
-    function calcTotalPrice(el) {
-        var eachItem = $(el).closest('.calc-rows-wrap').find('.calc-row.checked'),
-            allSummProduct = 0;
-        $(eachItem).each(function () {
-            allSummProduct += +$(this).find('.calc-item-price').html();
-        });
-        console.log(allSummProduct);
-        $(el).closest('.calc').find('.calc-total-price').html(allSummProduct);
-    }
+    // function calcTotalPrice(el) {
+    //     var eachItem = $(el).closest('.calc-rows-wrap').find('.calc-row.checked'),
+    //         allSummProduct = 0;
+    //     $(eachItem).each(function () {
+    //         allSummProduct += +$(this).find('.calc-item-price').html();
+    //     });
+    //     console.log(allSummProduct);
+    //     $(el).closest('.calc').find('.calc-total-price').html(allSummProduct);
+    // }
 
     // Input focus
     $('input, textarea').on('focus', function () {
