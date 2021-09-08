@@ -7,6 +7,7 @@
                      data-img-src="{{asset('/icon/photo.svg')}}"
                      alt="placeholder light">Фото
             </li>
+
             <li class="tab-caption">
                 <img src="{{asset('/img/preloader.png')}}"
                      data-img-src="{{asset('/icon/placeholder-light.svg')}}"
@@ -15,7 +16,8 @@
 
             <li class="tab-caption">
                 <img src="{{asset('/img/preloader.png')}}"
-                     data-img-src="{{asset('/icon/video.svg')}}" alt="video">Відео
+                     data-img-src="{{asset('/icon/video.svg')}}"
+                     alt="video">Відео
             </li>
         </ul>
     </div>
@@ -31,21 +33,10 @@
         <!-- TAB #2 -->
         <div class="tab">
             <div class="banner-tab-map">
-
                 <div class="map-wrapper hidden-map full-size"
                      v-is="'tour-map'"
                      :tour='@json($tour)'
                 ></div>
-
-                {{--                <div id="map-canvas-1" class="map-wrapper hidden-map full-size" data-lat="49.822385"--}}
-                {{--                     data-lng="24.023855" data-zoom="15" data-img-cluster="{{asset('img/cluster.png')}}"></div>--}}
-
-                {{--                @foreach($tour->places as $place)--}}
-                {{--                    <a class="marker" data-rel="map-canvas-1" data-lat="{{$place->lat}}" data-lng="{{$place->lng}}"--}}
-                {{--                       data-image="{{asset('img/marker.png')}}"--}}
-                {{--                       data-string="<h5>{{$place->title}}</h5>"></a>--}}
-
-                {{--                @endforeach--}}
             </div>
         </div>
         <!-- TAB #2 END -->

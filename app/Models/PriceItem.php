@@ -37,7 +37,13 @@ class PriceItem extends TranslatableModel
     protected $casts = [
         'limited' => 'boolean',
         'published' => 'boolean',
-        'price' => 'float'
+        'price' => 'integer'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'published',
     ];
 
     /**

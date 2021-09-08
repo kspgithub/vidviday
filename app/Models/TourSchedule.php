@@ -36,8 +36,8 @@ class TourSchedule extends Model
 
     protected $casts = [
         'published' => 'boolean',
-        'price' => 'float',
-        'commission' => 'float',
+        'price' => 'integer',
+        'commission' => 'integer',
     ];
 
     protected $appends = [
@@ -47,6 +47,12 @@ class TourSchedule extends Model
     protected $dates = [
         'start_date',
         'end_date',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'published',
     ];
 
     /**

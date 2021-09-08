@@ -43,4 +43,22 @@ trait TourMethods
     {
         return Tour::query()->where('slug', 'like', '%"' . $slug . '"%')->firstOrFail();
     }
+
+
+    public function shortInfo()
+    {
+        return (object)[
+            'id' => $this->id,
+            'title' => $this->title,
+            'price' => $this->price,
+            'commission' => $this->commission,
+            'currency' => $this->currency,
+            'rating' => $this->rating,
+            'duration' => $this->duration,
+            'nights' => $this->nights,
+            'main_image' => $this->main_image,
+            'slug' => $this->slug,
+            'url' => $this->url,
+        ];
+    }
 }

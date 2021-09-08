@@ -344,11 +344,13 @@ jQuery(function ($) {
     });
     // Decrement
     $(document).delegate('.number-input .decrement', 'click', function () {
+
         var $input = $(this).siblings('input'),
             val = parseInt($input.val()),
             min = parseInt($input.attr('min')),
             step = parseInt($input.attr('step')),
             temp = val - step;
+        if ($input.parents('.vue-calc').length > 0) return;
         $input.val(temp >= min ? temp : min);
     });
     // Increment
@@ -358,6 +360,7 @@ jQuery(function ($) {
             max = parseInt($input.attr('max')),
             step = parseInt($input.attr('step')),
             temp = val + step;
+        if ($input.parents('.vue-calc').length > 0) return;
         $input.val(temp <= max ? temp : max);
     });
     // Popup
@@ -507,6 +510,8 @@ jQuery(function ($) {
     });
     // Calculator clicks
     $('.calc-row .checkbox input').on('change', function () {
+        if ($(this).parents('.vue-calc').length > 0) return;
+
         if ($(this).parent().parent().hasClass('checked')) {
             $(this).parent().parent().removeClass('checked');
         } else {
@@ -516,6 +521,7 @@ jQuery(function ($) {
     });
 
     $('.calc-row .number-input button').on('click', function () {
+        if ($(this).parents('.vue-calc').length > 0) return;
         var amountProduct = parseInt($(this).closest('.calc-row').find('.number-input input').val()),
             productPrice = parseInt($(this).closest('.calc-row').find('.calc-item-price').attr('data-price'));
         $(this).closest('.calc-row').find('.calc-item-price').html(amountProduct * productPrice);
@@ -528,6 +534,7 @@ jQuery(function ($) {
         $(eachItem).each(function () {
             allSummProduct += +$(this).find('.calc-item-price').html();
         });
+        console.log(allSummProduct);
         $(el).closest('.calc').find('.calc-total-price').html(allSummProduct);
     }
 

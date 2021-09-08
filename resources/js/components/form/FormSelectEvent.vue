@@ -1,28 +1,24 @@
 <template>
-    <div v-click-outside="close" :class="{open: open}" class="SumoSelect">
+    <div class="datepicker-input" v-click-outside="close" :class="{open: open}">
         <input :name="name" :value="modelValue" type="hidden">
-        <p :title="current.text" class="CaptionCont SelectBox" @click="open = !open">
-            <span>{{ current.text }}</span>
-            <label><i></i></label>
-        </p>
-        <div class="optWrapper">
-            <ul class="options">
-                <li v-for="option in options"
-                    :class="{selected: option.value === modelValue}"
-                    class="opt"
-                    @click="change(option)"><label>{{ option.value === 0 ? 'Не вибрано' : option.text }}</label>
-                </li>
-            </ul>
-        </div>
+        <span :title="current.text" class="datepicker-placeholder" @click="open = !open">
+                {{ current.text }}
+            </span>
+        <ul class="datepicker-options">
+            <li v-for="option in options"
+                :class="{selected: option.value === modelValue}"
+                class="opt"
+                @click="change(option)"><label>{{ option.value === 0 ? 'Не вибрано' : option.text }}</label>
+            </li>
+        </ul>
     </div>
-
 </template>
 
 <script>
 import {computed, ref} from "vue";
 
 export default {
-    name: "FormSelect",
+    name: "FormSelectEvent",
     props: {
         name: String,
         modelValue: {

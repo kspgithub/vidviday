@@ -92,12 +92,15 @@ class TourController extends Controller
 
         $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOUR)->get();
 
+        $price_items = $tour->priceItems()->published()->get();
+
         return view('tour.show', [
             'tour' => $tour,
             'future_events' => $future_events,
             'nearest_event' => $nearest_event,
             'similar_tours' => $similar_tours,
             'faq_items' => $faq_items,
+            'price_items' => $price_items,
         ]);
     }
 
