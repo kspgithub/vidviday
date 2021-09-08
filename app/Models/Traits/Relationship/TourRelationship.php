@@ -169,13 +169,37 @@ trait TourRelationship
     }
 
     /**
-     * Менеджеры тура
+     * Сотрудники тура
      *
      * @return BelongsToMany
      */
     public function staff()
     {
         return $this->belongsToMany(Staff::class, 'tours_staff');
+    }
+
+    /**
+     * Гиды тура
+     *
+     * @return BelongsToMany
+     */
+    public function guides()
+    {
+        return $this->staff()->whereHas('types', function ($q) {
+            return $q->where('slug', 'excursion-leader');
+        });
+    }
+
+    /**
+     * Менеджер тура
+     *
+     * @return BelongsToMany
+     */
+    public function manager()
+    {
+        return $this->staff()->whereHas('types', function ($q) {
+            return $q->where('slug', 'tour-manager');
+        });
     }
 
     /**

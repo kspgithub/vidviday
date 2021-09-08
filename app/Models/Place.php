@@ -59,6 +59,11 @@ class Place extends TranslatableModel implements HasMedia
         'city_id',
     ];
 
+    protected $casts = [
+        'lat' => 'float',
+        'lng' => 'float',
+    ];
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

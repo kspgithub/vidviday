@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasAvatar;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,7 @@ class Testimonial extends Model implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use NodeTrait;
+    use HasAvatar;
 
     public const STATUS_NEW = 0;
     public const STATUS_PUBLISHED = 1;

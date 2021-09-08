@@ -1,5 +1,6 @@
 @props([
-    'testimonial'=>new \App\Models\Testimonial()
+    'testimonial'=>new \App\Models\Testimonial(),
+    'short'=> false
 ])
 <div class="review-item">
     <div class="spacer-xs"></div>
@@ -20,7 +21,10 @@
                 @if(!$testimonial->parent_id)
                     <x-tour.star-rating :rating="$testimonial->rating"/>
                 @endif
-                <span class="text">Відповісти</span>
+                @if(!$short)
+                    <span class="text open-popup" data-rel="testimonial-popup"
+                          data-parent="{{$testimonial->id}}">Відповісти</span>
+                @endif
             </div>
         </div>
         <div class="text text-md">
@@ -29,7 +33,7 @@
             </p>
         </div>
     </div>
-    @if(!$testimonial->parent_id && $testimonial->children->count() > 0)
+    @if(!$short && !$testimonial->parent_id && $testimonial->children->count() > 0)
         <div class="load-more-wrapp">
             <div class="show-more active">
                 <span>Приховати відповіді</span>
@@ -41,7 +45,7 @@
                 @endforeach
             </div>
         </div>
-    @elseif($testimonial->children->count() > 0)
+    @elseif(!$short && $testimonial->children->count() > 0)
         @foreach($testimonial->children as $child)
             <x-tour.question :question="$child"/>
         @endforeach

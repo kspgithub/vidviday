@@ -569,6 +569,10 @@ jQuery(function ($) {
         menuBtnClose();
         tourSelectionClose();
         $('.dropdown').removeClass('active');
+        const rel = $(this).data('rel');
+        if (rel === 'testimonial-popup' && $(this).data('parent')) {
+            $('.popup-content[data-rel="' + rel + '"]').attr('data-parent', $(this).data('parent'));
+        }
         _functions.openPopup('.popup-content[data-rel="' + $(this).data('rel') + '"]');
     });
 
@@ -832,6 +836,7 @@ jQuery(function ($) {
     // Upload image
     $('.img-input:not(.btn) input').on('change', function (e) {
         var $t = $(this);
+        if ($t.hasClass('vue-action')) return;
         if (this.files && this.files[0]) {
             var upload = new FileReader();
             upload.onload = function (e) {

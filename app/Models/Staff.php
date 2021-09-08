@@ -59,6 +59,19 @@ class Staff extends TranslatableModel implements HasMedia
         'published',
     ];
 
+    protected $appends = [
+        'name',
+        'avatar_url',
+    ];
+
+    protected $hidden = [
+        'pivot',
+        'avatar',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public static function toSelectBox()
     {
         return self::query()->selectRaw("last_name, first_name, id")
@@ -86,6 +99,16 @@ class Staff extends TranslatableModel implements HasMedia
 
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+    }
+
+    public function getNameAttribute()
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    public function getPhonesAttribute()
+    {
+        return collect(array_filter(explode(', ', $this->phone)));
     }
 
     /**

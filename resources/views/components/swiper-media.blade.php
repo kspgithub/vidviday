@@ -12,7 +12,8 @@
                 @foreach($slides as $slide)
                     <div class="swiper-slide">
                         <div class="img zoom">
-                            <img src="{{$slide->getFullUrl()}}" alt="{{$slide->getCustomProperty('alt')}}"
+                            <img src="{{$slide->getFullUrl()}}"
+                                 alt="{{$slide->getCustomProperty('alt')}}"
                                  title="{{$slide->getCustomProperty('title')}}">
                             <div class="full-size open-popup" data-rel="gallery-popup"></div>
                         </div>

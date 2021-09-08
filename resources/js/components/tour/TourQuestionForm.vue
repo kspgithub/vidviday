@@ -67,8 +67,7 @@ export default {
                     toast.error(message);
                 });
 
-            console.log(response);
-            
+
             if (response.result === 'success') {
                 if (window._functions) {
                     window._functions.showPopup('thanks-popup');

@@ -15,7 +15,7 @@
             <div class="spacer-xs"></div>
             <hr>
             <div class="spacer-xs"></div>
-            <span class="btn btn-block-sm type-1 open-popup" data-rel="testimonial-popup">Залишити відгук</span>
+            <span class="btn btn-block-sm type-1 open-popup" data-rel="testimonial-popup" data-parent="0">Залишити відгук</span>
         @endif
     </div>
 </div>

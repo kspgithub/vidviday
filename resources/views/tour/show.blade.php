@@ -133,4 +133,15 @@
             </div>
         </div>
     </div>
+
+    <div v-is="'tour-testimonial-form'"
+         :tour='@json($tour)'
+         :user='@json(current_user())'
+         action='{{route('tour.testimonial', $tour)}}'
+         :data-parent="0"
+    >
+        @csrf
+    </div>
+    {{--    @include('includes.popups.testimonial-popup')--}}
 @endpush
+

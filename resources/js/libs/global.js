@@ -412,7 +412,13 @@ jQuery(function ($) {
         menuBtnClose();
         tourSelectionClose();
         $('.dropdown').removeClass('active');
-        _functions.openPopup('.popup-content[data-rel="' + $(this).data('rel') + '"]');
+        const rel = $(this).data('rel');
+        console.log(rel);
+        if (rel === 'testimonial-popup' && $(this).data('parent')) {
+            console.log($(this).data('parent'));
+            $('.popup-content[data-rel="' + rel + '"]').attr('data-parent', $(this).data('parent'));
+        }
+        _functions.openPopup('.popup-content[data-rel="' + rel + '"]');
     });
 
     $(document).on('click', '.close-popup, .popup-wrap .btn-close:not(.btn-delete), .popup-wrap .layer-close', function (e) {
@@ -527,10 +533,12 @@ jQuery(function ($) {
 
     // Input focus
     $('input, textarea').on('focus', function () {
+        if ($(this).hasClass('vue-input')) return;
         $(this).parent().addClass('active');
     });
     // Input blur
     $('input, textarea').on('blur', function () {
+        if ($(this).hasClass('vue-input')) return;
         if ($(this).val()) {
             $(this).parent().addClass('active');
         } else {
@@ -550,6 +558,7 @@ jQuery(function ($) {
     // Upload image
     $('.img-input:not(.btn) input').on('change', function (e) {
         var $t = $(this);
+        if ($t.hasClass('vue-action')) return;
         if (this.files && this.files[0]) {
             var upload = new FileReader();
             upload.onload = function (e) {

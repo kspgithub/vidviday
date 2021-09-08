@@ -22,6 +22,8 @@ import globalComponents from "./components";
 app.use(globalComponents);
 
 
+require('./validation/rules');
+
 const vm = app.mount('#app');
 
 window.vm = vm;

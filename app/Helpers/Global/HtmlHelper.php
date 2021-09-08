@@ -108,3 +108,14 @@ if (!function_exists('html_block')) {
         return HtmlBlock::getCachedBlock($slug);
     }
 }
+
+if (!function_exists('youtube_embed')) {
+    function youtube_embed($link)
+    {
+        if (preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $link, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+        return '';
+    }
+
+}
