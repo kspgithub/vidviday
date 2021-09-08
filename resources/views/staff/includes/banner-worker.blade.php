@@ -1,14 +1,18 @@
 					<!-- BANNER/INFO -->
 					<div class="section">
 						<!-- BANNER TABS -->
+                        @if ( !empty($staff->avatar))
 						<div class="banner-tabs tabs">
 							<div class="tabs-nav">
 								<span class="tab-title"></span>
 								<ul class="tab-toggle">
+                                    @if ( !empty($staff->media))
 									<li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/photo.svg" alt="placeholder light">Фото</li>
-
+                                    @endif
+                                    @if ( !empty($staff->video))
 									<li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg" alt="video">Відео</li>
-								</ul>
+                                    @endif
+                                </ul>
 							</div>
 							<div class="tabs-wrap">
 								<!-- TAB #1 -->
@@ -32,23 +36,7 @@
 													</div>
 
 													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{ $staff->avatar ?? asset('img/no-image.png') }}" alt="{{$staff->first_name}} {{$staff->last_name}}" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>{{$staff->first_name}} {{$staff->last_name}}</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{ $staff->avatar ?? asset('img/no-image.png') }}" alt="{{$staff->first_name}} {{$staff->last_name}}" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>{{$staff->first_name}} {{$staff->last_name}}</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{ $staff->avatar ?? asset('img/no-image.png') }}" alt="{{$staff->first_name}} {{$staff->last_name}}" data-swiper-parallax="30%" class="swiper-lazy">
+														<img src="{{asset('img/preloader.png')}}" data-src="{{ $staff->media ?? asset('img/no-image.png') }}" alt="{{$staff->first_name}} {{$staff->last_name}}" data-swiper-parallax="30%" class="swiper-lazy">
 														<div class="swiper-lazy-preloader"></div>
 														<div class="full-size">
 															<span>{{$staff->first_name}} {{$staff->last_name}}</span>
@@ -61,7 +49,6 @@
 									</div>
 								</div>
 								<!-- TAB #1 END -->
-
 								<!-- TAB #2 -->
 								<div class="tab">
 									<div class="video" data-frame-src="https://www.youtube.com/embed/BMQQQynlrn4"></div>
@@ -69,5 +56,6 @@
 								<!-- TAB #2 END -->
 							</div>
 						</div>
+                        @endIf
 						<!-- BANNER TABS END -->
 					<!-- BANNER/INFO END -->

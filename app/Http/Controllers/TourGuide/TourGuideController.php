@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\TourGuide;
 
 use App\Http\Controllers\Controller;
-use App\Models\TourGuide;
+use App\Models\Staff;
 use App\Models\Page;
 
 class TourGuideController extends Controller
@@ -12,18 +12,20 @@ class TourGuideController extends Controller
     public function index()
     {
         //
-        $tourGuides = TourGuide::all();
-        $pageContent = Page::select()->where('id', 3)->get();
+        $specialists = Staff::whereHas('types', function ($q) {
+            return $q->where('slug', 'excursion-leader');
+        })->get();
+        $pageContent = Page::select()->where('slug', 'guides')->first();
 
         return view('tour-guide.index',
         [
-        'tourGuides' => $tourGuides,
+        'specialists' => $specialists,
         'pageContent'=>$pageContent
         ]);
     }
-    public function more($slug)
+    public function more($id)
     {
-        $tourGuides = TourGuide::all()->where('slug', $slug)->first();
-        return view('tour-guide.tour-guide',  ['tourGuides' => $tourGuides]);
+        $staff = Staff::all()->where('id', $id)->first();
+        return view('staff.worker', ['staff' => $staff]);
     }
 }

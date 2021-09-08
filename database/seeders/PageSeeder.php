@@ -93,6 +93,18 @@ class PageSeeder extends Seeder
                 'slug'=>'blog',
                 'published'=>1,
             ],
+            [
+                'title'=>['en'=>'Corporates', 'ru'=>'Корпоративы', 'uk'=>'Корпоративи',  'pl'=>'Korporatyvy'],
+                'seo_h1'=>['en'=>'Corporates', 'ru'=>'Корпоративы', 'uk'=>'Корпоративи',  'pl'=>'Korporatyvy'],
+                'slug'=>'corporates',
+                'published'=>1,
+            ],
+            [
+                'title'=>['en'=>'Contacts', 'ru'=>'Контакты', 'uk'=>'Контакти',  'pl'=>'Kontacty'],
+                'seo_h1'=>['en'=>'Contacts', 'ru'=>'Контакты', 'uk'=>'Контакти',  'pl'=>'Kontacty'],
+                'slug'=>'our-contacts',
+                'published'=>1,
+            ],
         ];
 
         foreach ($pages as $page) {

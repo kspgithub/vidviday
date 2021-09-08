@@ -1,6 +1,5 @@
 <!-- BANNER/INFO -->
 <div class="section">
-@foreach ($pageContent as $pageContent)
     <!-- BANNER TABS -->
         <div class="banner-tabs tabs">
             <div class="tabs-nav">
@@ -50,7 +49,9 @@
 
                 <!-- TAB #2 -->
                 <div class="tab">
-                    <div class="video" data-frame-src="https://www.youtube.com/embed/BMQQQynlrn4"></div>
+                    @foreach ($staff as $video)
+                    <div class="video" data-frame-src="{{$video->video}}"></div>
+                    @endforeach
                 </div>
                 <!-- TAB #2 END -->
             </div>
@@ -62,7 +63,6 @@
             <p> {!! $pageContent->text !!}</p>
         </div>
         <div class="spacer-xs"></div>
-    @endforeach
 </div>
 <!-- BANNER/INFO END -->
 

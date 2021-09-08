@@ -1,9 +1,7 @@
 @extends('layout.app')
-@foreach ($pageContent as $item)
-@section('title', !empty($item->seo_title) ? $item->seo_title : $item->title)
-@section('seo_description', !empty($item->seo_description) ? $item->seo_description : $item->title)
-@section('seo_keywords', !empty($item->seo_keywords) ? $item->seo_keywords : $item->title)
-@endforeach
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
 @section('content')
     <main>
         <div class="container">
@@ -25,26 +23,25 @@
                     @include('tour-guide.includes.banner')
                     <div class="section">
                         <div class="thumb-wrap row">
-                            @foreach ($tourGuides as $tourGuide)
+                            @foreach ($specialists as $specialist)
                                 <div class="col-lg-4 col-md-6 col-12">
                                     <div class="img img-border img-caption style-2">
                                         <div class="zoom centered">
                                             <img src="{{asset('img/preloader.png')}}"
-                                                 data-img-src="{{ $tourGuide->image ?? asset('img/no-image.png') }}"
-                                                 alt="{{$tourGuide->first_name}} {{$tourGuide->last_name}}">
-                                            <a href="{{ route('guides', $tourGuide->slug)}}" class="full-size"></a>
+                                                 data-img-src="{{ $specialist->image ?? asset('img/no-image.png') }}"
+                                                 alt="{{$specialist->first_name}} {{$specialist->last_name}}">
+                                            <a href="{{ route('guides', $specialist->slug)}}" class="full-size"></a>
                                         </div>
                                         <div class="img-caption-info">
                                             <div class="guide-name">
 											<span class="h3">
-												<a href="{{ route('guides', $tourGuide->slug)}}">{{$tourGuide->first_name}} {{$tourGuide->last_name}}</a>
+												<a href="{{ route('guides', $specialist->slug)}}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
 											</span>
                                                 <span class="text">14 відгуків</span>
                                             </div>
                                             <span class="text">Проводить <b>20 турів</b></span>
-
-                                            <a href="{{ route('tour-guide', $tourGuide->slug)}}"
-                                               class="btn type-1 btn-block">Дізнатись більше</a>
+                                            <a href="{{ route('guide', ['id'=>$specialist->id])}}"
+                                                class="btn type-1 btn-block">Дізнатись більше</a>
                                         </div>
                                     </div>
                                 </div>

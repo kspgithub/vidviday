@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthSeeder::class);
         $this->call(HtmlBlockSeeder::class);
         $this->call(PageSeeder::class);
+        $this->call(ContactSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(CountryRegionCitySeeder::class);
 

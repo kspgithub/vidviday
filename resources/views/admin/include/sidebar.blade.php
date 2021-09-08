@@ -226,6 +226,12 @@
                         class="align-middle">@lang('Site pages')</span>
                 </a>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.contact.*')}}">
+                <a class="sidebar-link" href="{{('admin/contact/1/edit')}}">
+                    <i class="align-middle" data-feather="at-sign"></i> <span
+                        class="align-middle">@lang('Contact')</span>
+                </a>
+            </li>
             <li class="sidebar-item {{routeActiveClass('admin.home-page-banner*')}}">
                 <a class="sidebar-link" href="{{route('admin.home-page-banner.index')}}">
                     <i class="align-middle" data-feather="image"></i> <span

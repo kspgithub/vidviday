@@ -49,3 +49,4 @@ require_once base_path('routes/admin/price_item.php');
 require_once base_path('routes/admin/include_type.php');
 require_once base_path('routes/admin/tour_include.php');
 require_once base_path('routes/admin/tour_plan.php');
+require_once base_path('routes/admin/contact.php');

@@ -1,9 +1,8 @@
 @extends('layout.app')
-@foreach ($pageContent as $item)
-    @section('title', !empty($item->seo_title) ? $item->seo_title : $item->title)
-@section('seo_description', !empty($item->seo_description) ? $item->seo_description : $item->title)
-@section('seo_keywords', !empty($item->seo_keywords) ? $item->seo_keywords : $item->title)
-@endforeach
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
+
 @section('content')
     <main>
         <div class="container">
@@ -20,7 +19,6 @@
                 @include('includes.sidebar')
                 <!-- SIDEBAR END -->
                 </div>
-
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     @include('staff.includes.banner')
                     <div class="section">
@@ -29,8 +27,7 @@
                                 <div class="col-lg-4 col-md-6 col-12">
                                     <div class="img img-border img-caption style-2">
                                         <div class="top-part text-center">
-                                            <span
-                                                class="h3 light text-bold">{!! $staff->types->implode('title', '<br>') !!}</span>
+                                            <span class="h3 light text-bold">{!! $staff->types->implode('title', '<br>') !!}</span>
                                         </div>
                                         <div class="zoom centered">
                                             <img src="{{asset('img/preloader.png')}}"
