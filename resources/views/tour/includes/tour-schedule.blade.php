@@ -17,7 +17,7 @@
             </div>
 
             @foreach($future_events as $event_key=>$future_event)
-                <div class="schedule-row still-have {{$event_key > 2 ? 'd-none' : ''}}">
+                <div class="schedule-row still-have {{$event_key > 1 ? 'd-none' : ''}}">
                     <span class="text">{{$future_event->title}}</span>
                     <div>
                         <span class="text text-medium">{{$future_event->price}} грн.</span>
@@ -33,10 +33,11 @@
             @endforeach
 
         </div>
-        @if($future_events->count() > 3)
+        @if($future_events->count() > 2)
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <span class="btn type-2">@lang('tours-section.show-more')</span>
+                <span class="btn type-2 show-more-events">@lang('tours-section.show-more')</span>
+                <span class="btn type-2 hide-more-events d-none">@lang('tours-section.hide-more')</span>
             </div>
         @endif
     </div>

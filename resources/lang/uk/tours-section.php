@@ -41,6 +41,7 @@ return [
     'nights-letter' => 'н',
     'similar-tours' => 'Схожі тури',
     'show-more' => 'Показати ще',
+    'hide-more' => 'Сховати',
     'schedule' => 'Розклад',
     'seats' => 'місць',
     'no-seats' => 'Немає місць',

@@ -17,14 +17,17 @@
                             </div>
                             <div class="spacer-xs"></div>
                         @endif
+
                         <div class="load-more-wrapp">
 
-                            <div class="text text-md">
-                                {{str_limit(strip_tags($place->text), 500, '')}}
+                            <div class="less-info">
+                                <div class="text text-md">
+                                    {{str_limit(strip_tags($place->text), 300, '...')}}
+                                </div>
                             </div>
                             <div class="more-info">
                                 <div class="text text-md">
-                                    {{substr(strip_tags($place->text), 500)}}
+                                    {!! $place->text !!}
                                 </div>
                             </div>
                             <div class="text-right">

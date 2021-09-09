@@ -134,8 +134,6 @@
         </div>
     </div>
 
-
-    {{--    @include('includes.popups.testimonial-popup')--}}
 @endpush
 
 @push('after-popups')
