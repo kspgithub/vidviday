@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\Media\MediaPathGenerator;
+
 return [
 
     /*
@@ -28,7 +30,7 @@ return [
     /*
      * The fully qualified class name of the media model.
      */
-    'media_model' => Spatie\MediaLibrary\MediaCollections\Models\Media::class,
+    'media_model' => App\Models\Media::class,
 
     /*
      * The fully qualified class name of the model used for temporary uploads.
@@ -57,7 +59,7 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-    'path_generator' => \App\Helpers\Media\MediaPathGenerator::class,
+    'path_generator' => MediaPathGenerator::class,
     //'path_generator' => \App\Helpers\Media\MediaPathGenerator::class,
     /*
      * When urls to files get generated, this class will be called. Use the default

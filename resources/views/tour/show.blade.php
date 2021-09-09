@@ -134,6 +134,11 @@
         </div>
     </div>
 
+
+    {{--    @include('includes.popups.testimonial-popup')--}}
+@endpush
+
+@push('after-popups')
     <div v-is="'tour-testimonial-form'"
          :tour='@json($tour)'
          :user='@json(current_user())'
@@ -142,6 +147,4 @@
     >
         @csrf
     </div>
-    {{--    @include('includes.popups.testimonial-popup')--}}
 @endpush
-

@@ -118,6 +118,18 @@ hr {
     }
 }
 
+.full-info {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 100px;
+    transition: height linear 440ms;
+
+    &.active {
+        height: auto;
+    }
+
+}
+
 .filter-result-bar,
 .filter-result-bar label {
     display: flex;

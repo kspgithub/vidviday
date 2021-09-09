@@ -9,7 +9,7 @@
             <div class="review-img">
                 @if(!empty($testimonial->avatar))
                     <img src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{$testimonial->user->avatar_url}}" alt="user">
+                         data-img-src="{{$testimonial->avatar_url}}" alt="user">
                 @else
                     <span class="full-size h4">{{$testimonial->initials}}</span>
                 @endif
@@ -22,8 +22,8 @@
                     <x-tour.star-rating :rating="$testimonial->rating"/>
                 @endif
                 @if(!$short)
-                    <span class="text open-popup" data-rel="testimonial-popup"
-                          data-parent="{{$testimonial->id}}">Відповісти</span>
+                    <span class="text" v-is="'open-testimonial-form'"
+                          :parent="{{$testimonial->id}}">Відповісти</span>
                 @endif
             </div>
         </div>

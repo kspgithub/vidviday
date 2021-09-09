@@ -7,6 +7,10 @@ export default {
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
 
+        app.component('swiper-slider', require('./common/SwiperSlider').default);
+        app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
+        app.component('popup-gallery', require('./popup/PopupGallery').default);
+
         app.component('tour-card', require('./tour/TourCard').default);
 
         app.component('tour-search', require('./tour/TourSearch').default);

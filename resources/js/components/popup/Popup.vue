@@ -1,34 +1,57 @@
 <template>
-    <div class="popup-content vue-popup" :class="{active: visible}">
-        <div class="layer-close" @click.stop="hide()"></div>
+    <div class="popup-wrap" :class="{active: visible}">
+        <div class="bg-layer"></div>
+        <div class="popup-content vue-popup" :class="{active: visible}" ref="popupRef">
+            <div class="layer-close" @click.stop="hide()"></div>
 
-        <div class="popup-container" :class="size">
+            <div class="popup-container" :class="size">
 
-            <slot/>
+                <slot/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import {ref, computed} from "vue";
+import {ref, watch} from "vue";
 
 export default {
     name: "Popup",
     props: {
-        active: Boolean,
+        active: {
+            type: Boolean,
+            default: false,
+        },
         size: {
             type: String,
             default: ''
         }
     },
-    setup(props, {slots, emit}) {
+    emits: ['hide'],
+    setup(props, {emit}) {
+
+        const popupRef = ref(null);
         const visible = ref(props.active);
 
         const hide = () => {
             visible.value = false;
+            emit('hide');
         }
 
+        watch(() => props.active, () => {
+            if (props.active !== visible.value) {
+                visible.value = props.active;
+            }
+            if (props.active) {
+                window.removeScroll();
+
+            } else {
+                window.addScroll();
+            }
+        })
+
         return {
+            popupRef,
             hide,
             visible,
         }

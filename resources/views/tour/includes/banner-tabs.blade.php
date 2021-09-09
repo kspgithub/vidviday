@@ -13,12 +13,13 @@
                      data-img-src="{{asset('/icon/placeholder-light.svg')}}"
                      alt="placeholder light">Мапа
             </li>
-
-            <li class="tab-caption">
-                <img src="{{asset('/img/preloader.png')}}"
-                     data-img-src="{{asset('/icon/video.svg')}}"
-                     alt="video">Відео
-            </li>
+            @if(!empty($tour->video))
+                <li class="tab-caption">
+                    <img src="{{asset('/img/preloader.png')}}"
+                         data-img-src="{{asset('/icon/video.svg')}}"
+                         alt="video">Відео
+                </li>
+            @endif
         </ul>
     </div>
     <div class="tabs-wrap">

@@ -26,16 +26,19 @@
             <div class="accordion-item">
                 <div class="accordion-title">Питання щодо туру<i></i></div>
                 <div class="accordion-inner">
-                    @foreach($tour->faq as $faq_item)
-                        <div class="accordion-item">
-                            <div class="accordion-title">{{$faq_item->question}}<i></i></div>
-                            <div class="accordion-inner">
-                                <div class="text">
-                                    <p>{{$faq_item->answer}}</p>
+                    <div class="accordion type-3">
+                        @foreach($tour->faq as $faq_item)
+                            <div class="accordion-item">
+                                <div class="accordion-title">{{$faq_item->question}}<i></i></div>
+                                <div class="accordion-inner">
+                                    <div class="text">
+                                        <p>{{$faq_item->answer}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+
                 </div>
             </div>
 

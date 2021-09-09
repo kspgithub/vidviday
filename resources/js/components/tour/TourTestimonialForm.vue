@@ -1,5 +1,5 @@
 <template>
-    <popup data-rel="testimonial-popup" size="size-1">
+    <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-header" v-if="showForm">
             <div class="text-center">
                 <span class="h2 title text-medium">Написати відгук про тур</span>
@@ -122,7 +122,7 @@
                     <span class="text-sm">* обов’язкове для заповнення поле</span>
                 </div>
             </div>
-            <div class="btn-close">
+            <div class="btn-close" @click="closePopup()">
                 <span></span>
             </div>
         </form>
@@ -136,9 +136,9 @@
                 <span class="h2 title text-medium">Дякуємо за ваш відгук</span>
                 <br>
                 <div class="spacer-xs"></div>
-                <span class="btn type-1 close-popup" @click="closePopup()">Повернутись на сайт</span>
+                <span class="btn type-1" @click="closePopup()">Повернутись на сайт</span>
             </div>
-            <div class="btn-close">
+            <div class="btn-close" @click="closePopup()">
                 <span></span>
             </div>
         </div>
@@ -157,6 +157,7 @@ import {getError} from "../../services/api";
 import toast from "../../libs/toast";
 import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
+import {useStore} from "vuex";
 
 export default {
     name: "TourTestimonialForm",
@@ -168,7 +169,10 @@ export default {
         dataParent: Number,
     },
     setup(props) {
-        //console.log(props.dataParent);
+        const store = useStore();
+        const popupOpen = computed(() => store.state.testimonials.popupOpen);
+        const parentId = computed(() => store.state.testimonials.parentId);
+
         const avatarRef = ref(null);
         const imagesRef = ref(null);
 
@@ -187,7 +191,6 @@ export default {
             email: props.user && props.user.email ? props.user.email : '',
             rating: 0,
             guide_id: 0,
-            parent_id: 0,
             text: '',
         });
 
@@ -272,6 +275,10 @@ export default {
                     formData.append(key, data[key]);
                 }
 
+                if (parentId.value > 0) {
+                    formData.append("parent_id", parentId.value);
+                }
+
                 if (selectedAvatar.value && selectedAvatar.value.file) {
                     formData.append("avatar_upload", selectedAvatar.value.file);
                 }
@@ -310,6 +317,7 @@ export default {
         }
 
         const closePopup = () => {
+            store.commit('testimonials/SET_POPUP_OPEN', false);
             showForm.value = true;
             showThanks.value = false;
         }
@@ -334,6 +342,7 @@ export default {
             showForm,
             showThanks,
             closePopup,
+            popupOpen,
         }
     }
 }

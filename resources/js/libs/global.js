@@ -1,7 +1,38 @@
 var _functions = {},
+    popupTop = 0,
     winWidth;
 
 window._functions = _functions;
+
+function removeScroll() {
+
+    if ($('html').css('position') != 'fixed') {
+        popupTop = $(window).scrollTop();
+    }
+
+    $('.parallax').addClass('transition');
+
+    $('html').css({
+        "position": "fixed",
+        "top": -popupTop,
+        "width": "100%"
+    });
+
+    setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+    }, 200)
+}
+
+window.removeScroll = removeScroll;
+
+function addScroll() {
+    $('html').css({
+        "position": "static"
+    });
+    window.scroll(0, popupTop);
+}
+
+window.addScroll = addScroll;
 
 jQuery(function ($) {
 
@@ -14,7 +45,9 @@ jQuery(function ($) {
         winWidth = $(window).width(),
         winHeight = $(window).height(),
         is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
+        is_Edge = /Edge\/\d+/.test(navigator.userAgent),
         is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
+
         is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
         isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
 
@@ -24,56 +57,151 @@ jQuery(function ($) {
     if (isTouchScreen) $('html').addClass('touch-screen');
     if (is_Mac) $('html').addClass('mac');
     if (is_IE) $('html').addClass('ie');
+    if (is_Edge) $('html').addClass('edge');
     if (is_Chrome) $('html').addClass('chrome');
 
     headerScrolled();
     goUpButtonScrolled();
 
+
     setTimeout(function () {
         lazyLoadImg();
         lazyLoadBg();
         lazyLoadVideo();
-
+        lazyLoadFrames();
 
         $(".slider-range").each(function () {
-            var $range = $(this),
-                $input = $(this).parent().find('input');
-            $(this).slider({
-                range: true,
-                min: $(this).data('min'),
-                max: $(this).data('max'),
-                values: $(this).data('values'),
-                slide: function (event, ui) {
-                    $(this).parent().find('.range-min').text(ui.values[0]);
-                    $(this).parent().find('.range-max').text(ui.values[1]);
-                }
-            });
+            if (!$(this).hasClass('vue-range')) {
+                var $range = $(this),
+                    $input = $(this).parent().find('input');
+                $(this).slider({
+                    range: true,
+                    min: $(this).data('min'),
+                    max: $(this).data('max'),
+                    values: $(this).data('values'),
+                    slide: function (event, ui) {
+                        $(this).parent().find('.range-min').text(ui.values[0]);
+                        $(this).parent().find('.range-max').text(ui.values[1]);
+                    }
+                });
+            }
         });
     }, 200);
 
     // Lazy loadings for images, backgrounds adn videos
     function lazyLoadImg() {
-        $('img[data-img-src]').each(function (i, el) {
-            $(el).attr('src', $(el).data('img-src'));
-        });
+
+        let img = document.querySelectorAll('[data-img-src]'),
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        let lazyImg = entry.target
+
+                        lazyImg.src = lazyImg.dataset.imgSrc;
+                        observer.unobserve(lazyImg)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        img.forEach(i => {
+            observer.observe(i)
+        })
     }
 
     function lazyLoadBg() {
-        $('[data-bg-src]').each(function (i, el) {
-            $(el).css('background-image', 'url(' + $(el).data('bg-src') + ')');
-        });
+
+        let bg = document.querySelectorAll('[data-bg-src]'),
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        let lazyBg = entry.target,
+                            lazyBgSrc = 'url("' + lazyBg.dataset.bgSrc + '")';
+
+                        lazyBg.style.backgroundImage = lazyBgSrc;
+                        observer.unobserve(lazyBg)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        bg.forEach(i => {
+            observer.observe(i)
+        })
     }
 
     function lazyLoadVideo() {
-        $('.video').each(function () {
-            var video = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted playsinline><source src="' + $(this).data('video-src') + '" type="video/mp4"></video>';
-            $(this).prepend(video);
-        });
+
+        let video = document.querySelectorAll('[data-video-src]'),
+            videoMarkup,
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        let lazyVideo = entry.target,
+                            videoSrc = lazyVideo.dataset.videoSrc;
+
+                        if (lazyVideo.classList.contains('autoplay')) {
+                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted autoplay inline loop><source src="' + videoSrc + '" type="video/mp4"></video>';
+                        } else {
+                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' controls inline><source src="' + videoSrc + '" type="video/mp4"></video>';
+                        }
+
+                        lazyVideo.innerHTML = videoMarkup;
+                        observer.unobserve(lazyVideo)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        video.forEach(i => {
+            observer.observe(i)
+        })
     }
 
-    /*############################*/
-    /* 03 FUNCTION ON PAGE SCROLL */
-    /*############################*/
+    function lazyLoadFrames() {
+
+        let frame = document.querySelectorAll('[data-frame-src]'),
+            frameMarkup,
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        let lazyFrame = entry.target,
+                            frameSrc = lazyFrame.dataset.frameSrc;
+
+                        frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
+                        lazyFrame.innerHTML = frameMarkup;
+                        observer.unobserve(lazyFrame)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        frame.forEach(i => {
+            observer.observe(i)
+        })
+    }
+
+    /*/////////////////////////*/
+    /* FUNCTION ON PAGE SCROLL */
+    /*/////////////////////////*/
     $(window).scroll(function () {
         _functions.scrollCall();
     });
@@ -93,25 +221,41 @@ jQuery(function ($) {
     _functions.getSwOptions = function (swiper) {
         var options = swiper.data('options');
         options = (!options || typeof options !== 'object') ? {} : options;
-        var $p = swiper.closest('.swiper-entry'),
+        let $slider = swiper.closest('.swiper-entry'),
             slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
+
         if (!options.pagination) options.pagination = {
-            el: $p.find('.swiper-pagination')[0],
+            el: $slider.find('.swiper-pagination')[0],
             clickable: true
         };
+
         if (!options.navigation) options.navigation = {
-            nextEl: $p.find('.swiper-button-next')[0],
-            prevEl: $p.find('.swiper-button-prev')[0]
+            nextEl: $slider.find('.swiper-button-next')[0],
+            prevEl: $slider.find('.swiper-button-prev')[0]
         };
+
         options.preloadImages = false;
         options.lazy = {loadPrevNext: true};
         options.observer = true;
         options.observeParents = true;
         options.watchOverflow = true;
         options.watchSlidesVisibility = true;
+        options.on = {
+            slideChangeTransitionStart: function () {
+                if ($slider.hasClass('popup-gallery-slider')) {
+                    let customFraction = $slider.closest('.popup-align').find('.pagination-fraction .text-bold'),
+                        activeSlideIndex = $slider.find('.swiper-slide-active').index();
+                    $(customFraction).html(activeSlideIndex + 1);
+                }
+            }
+        };
+
         if (!options.speed) options.speed = 500;
+
         options.roundLengths = false;
+
         if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
+
         if (options.customFraction) {
             $p.addClass('custom-fraction-swiper');
             if (slidesLength > 1 && slidesLength < 10) {
@@ -131,8 +275,10 @@ jQuery(function ($) {
     };
 
     $('.swiper-entry .swiper-container').each(function () {
-        _functions.initSwiper($(this));
-        swiperConfig($(this));
+        if (!$(this).hasClass('swiper-vue')) {
+            _functions.initSwiper($(this));
+            swiperConfig($(this));
+        }
     });
 
     function swiperConfig(el) {
@@ -143,6 +289,7 @@ jQuery(function ($) {
         }
     }
 
+    _functions.swiperConfig = swiperConfig;
 
     $('.swiper-thumbs').each(function () {
         var top = $(this).find('.swiper-container.swiper-thumbs-top')[0].swiper,
@@ -176,10 +323,21 @@ jQuery(function ($) {
         });
     });
 
-    /*##################################*/
-    /* 06 BUTTONS, CLICKS, HOVER, FOCUS */
+    /*///////////////////////////////*/
+    /* BUTTONS, CLICKS, HOVER, FOCUS */
+    /*///////////////////////////////*/
+    // Anchor link smooth scroll
+    $(document).on('click', 'a[href*="#"]', function () {
 
-    /*##################################*/
+        let anchorLink = $(this).attr('href');
+
+        $('html, body').animate({
+            scrollTop: $(anchorLink).offset().top - $('header').outerHeight()
+        }, 730);
+
+        return false;
+    });
+
     function headerLayerClose() {
         $('#header-layer-close').removeClass('active');
     }
@@ -222,7 +380,7 @@ jQuery(function ($) {
 
     // Mobile menu button
     $('#menu-btn').on('click', function () {
-        $('nav ul .dropdown-toggle').slideUp(330);
+        $('nav ul .dropdown-toggle').slideUp(440);
         $('.tel, .exchange, .lang, .log-inned').removeClass('active');
         tourSelectionClose();
 
@@ -239,10 +397,24 @@ jQuery(function ($) {
         }
     });
     // Mobile menu dropdown
-    $('nav li.dropdown > span').on('click', function () {
-        $('nav .only-mobile .dropdown').removeClass('active');
-        $(this).parent().toggleClass('active');
-        $(this).next().slideToggle(330);
+    $('.dropdown-btn').on('click', function () {
+
+        let dropdown = $(this).closest('.dropdown'),
+            dropdownToggle = $(dropdown).find('.dropdown-toggle');
+
+        /*dropdown.toggleClass('active');
+        dropdownToggle.slideToggle(330);*/
+
+        if (dropdown.hasClass('active')) {
+            dropdown.removeClass('active');
+            dropdownToggle.slideUp(330);
+        } else {
+            $('header .dropdown').each(function () {
+                $(this).removeClass('active');
+            });
+            dropdown.addClass('active');
+            dropdownToggle.slideDown(330);
+        }
     });
     // Mobile menu layer close
     $('#header-layer-close').on('click', function () {
@@ -251,7 +423,7 @@ jQuery(function ($) {
         mobileMenuClose();
         menuBtnClose();
         tourSelectionClose();
-        $('nav ul .dropdown-toggle').slideUp(330);
+        $('nav ul .dropdown-toggle').slideUp(440);
         $('.tel, .exchange, .lang, .log-inned').removeClass('active');
     });
     // Mobile search dropdown open/close
@@ -262,7 +434,7 @@ jQuery(function ($) {
         menuBtnClose();
         searchDropdownOpen();
         tourSelectionClose();
-        $('nav ul .dropdown-toggle').slideUp(330);
+        $('nav ul .dropdown-toggle').slideUp(440);
         $('.tel, .exchange, .lang').removeClass('active');
     });
 
@@ -270,14 +442,14 @@ jQuery(function ($) {
         addScroll();
         searchDropdownClose();
     });
-    // Header dropsowns
+    // Header dropdowns
     $('header .row > div > .tel > .full-size, header .row > div > .exchange > .full-size, header .row > div > .lang > .full-size, header .row > div > .log-inned > .full-size').on('click', function () {
         var dropdown = $(this).parent();
         mobileMenuClose();
         menuBtnClose();
         searchDropdownClose();
         tourSelectionClose();
-        $('nav ul .dropdown-toggle').slideUp(330);
+        $('nav ul .dropdown-toggle').slideUp(440);
         if ($(dropdown).hasClass('active')) {
             addScroll();
             headerLayerClose();
@@ -292,13 +464,25 @@ jQuery(function ($) {
     // Mobile menu dropdowns
     $('nav .exchange > .full-size, nav .lang > .full-size').on('click', function () {
         var dropdown = $(this).parent();
-        $('nav ul .dropdown-toggle').slideUp(330);
+        $('nav ul .dropdown-toggle').slideUp(440);
         if ($(dropdown).hasClass('active')) {
             $('.dropdown').removeClass('active');
         } else {
             $('.dropdown').removeClass('active');
             $(dropdown).addClass('active');
         }
+    });
+    // Search clear
+    $('.header-search .btn-close').on('click', function () {
+        $(this).closest('.header-search').find('input').val('');
+    });
+
+    $('.header-search').on('mouseleave', function () {
+        $(this).removeClass('active');
+    });
+    // Tooltip
+    $('.tooltip-wrap.red, .tooltip-wrap.black, .tooltip-wrap.light').on('click', function () {
+        $(this).toggleClass('active');
     });
     // Tour selection dropdown
     $('#tour-selection-btn').on('click', function () {
@@ -314,6 +498,8 @@ jQuery(function ($) {
     });
     // Datepicker events
     $('.single-datepicker .datepicker-input > span').on('click', function () {
+        if ($(this).parent().hasClass('vue-datepicker')) return;
+
         if ($(this).parent().hasClass('active')) {
             $(this).parent().removeClass('active');
         } else {
@@ -322,10 +508,12 @@ jQuery(function ($) {
     });
 
     $('.double-datepicker .datepicker-input > span').on('click', function () {
+        if ($(this).parent().hasClass('vue-datepicker')) return;
         $($(this).parent()).toggleClass('active').siblings().removeClass('active');
     });
 
     $('.single-datepicker, .double-datepicker').on('mouseleave', function () {
+        if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
         $(this).find('.datepicker-input').removeClass('active');
     });
 
@@ -364,32 +552,16 @@ jQuery(function ($) {
         $input.val(temp <= max ? temp : max);
     });
     // Popup
-    var popupTop = 0;
 
-    function removeScroll() {
-        popupTop = $(window).scrollTop();
-        $('html').css({
-            "position": "fixed",
-            "top": -$(window).scrollTop(),
-            "width": "100%"
-        });
-    }
-
-    function addScroll() {
-        $('html').css({
-            "position": "static"
-        });
-        window.scroll(0, popupTop);
-    }
 
     _functions.openPopup = function (popup) {
         $('.popup-content').removeClass('active');
-        $(popup + ', .popup-wrap').addClass('active');
+        $(popup + ', #popup-wrap').addClass('active');
         removeScroll();
     };
 
     _functions.closePopup = function () {
-        $('.popup-wrap, .popup-content').removeClass('active');
+        $('#popup-wrap, .popup-content').removeClass('active');
         addScroll();
     };
 
@@ -416,15 +588,13 @@ jQuery(function ($) {
         tourSelectionClose();
         $('.dropdown').removeClass('active');
         const rel = $(this).data('rel');
-        console.log(rel);
         if (rel === 'testimonial-popup' && $(this).data('parent')) {
-            console.log($(this).data('parent'));
             $('.popup-content[data-rel="' + rel + '"]').attr('data-parent', $(this).data('parent'));
         }
-        _functions.openPopup('.popup-content[data-rel="' + rel + '"]');
+        _functions.openPopup('.popup-content[data-rel="' + $(this).data('rel') + '"]');
     });
 
-    $(document).on('click', '.close-popup, .popup-wrap .btn-close:not(.btn-delete), .popup-wrap .layer-close', function (e) {
+    $(document).on('click', '.close-popup, #popup-wrap .btn-close:not(.btn-delete), #popup-wrap .layer-close', function (e) {
         e.preventDefault();
         _functions.closePopup();
     });
@@ -446,9 +616,12 @@ jQuery(function ($) {
 
     //accordion
     function pageScroll(current) {
+
         $('html, body').animate({
-            scrollTop: current.offset().top - $('header').outerHeight()
+            scrollTop: current.offset().top - ($('header').outerHeight() + 40)
         }, 420);
+
+        return false;
     }
 
     $(document).on('click', '.accordion-title', function (e) {
@@ -507,6 +680,19 @@ jQuery(function ($) {
         var index = $('.tab.active').index() + 1;
         $('.tab-top-part').removeClass('active');
         $('.tab-top-part[data-tab="' + index + '"]').addClass('active');
+        $('html, body').animate({scrollTop: 0}, '300');
+    });
+
+    $('.cabinet-page .tab-caption a').on('click', function () {
+        $($(this).parent()).click();
+    });
+
+    $('#voice-search-btn').on('click', function () {
+        $('.voice-search-dropdown').toggleClass('active');
+    });
+
+    $('#search-dropdown input').on('focus', function () {
+        $('.voice-search-dropdown').removeClass('active');
     });
     // Calculator clicks
     // $('.calc-row .checkbox input').on('change', function () {
@@ -592,8 +778,11 @@ jQuery(function ($) {
     });
     // Show more info
     $('.show-more').on('click', function () {
+        var $container = $(this).parents('.load-more-wrapp');
         $(this).toggleClass('active');
-        $(this).parents('.load-more-wrapp').find('.more-info').slideToggle(300);
+        $container.find('.more-info').slideToggle(440);
+        $container.find('.full-info').toggleClass('active');
+
     });
     // Remove participant
     $('.participant .btn-delete').on('click', function () {
@@ -601,6 +790,24 @@ jQuery(function ($) {
         $('.participant').each(function () {
             $(this).find('.h4 span').html($(this).index() + 1);
         });
+    });
+    // participant datepicker
+    $('.participant .datepicker-input input').on('blur', function () {
+        if ($(this).closest('.datepicker-input').hasClass('vue-datepicker')) return;
+        if ($(this).val()) {
+            $(this).closest('.datepicker-input').addClass('filled');
+        } else {
+            $(this).closest('.datepicker-input').removeClass('filled');
+        }
+    });
+
+    $('.participant .single-datepicker').on('mouseleave', function () {
+        if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
+        if ($(this).find('input').val()) {
+            $(this).find('.datepicker-input').addClass('filled');
+        } else {
+            $(this).find('.datepicker-input').removeClass('filled');
+        }
     });
     // Apartment form
     $(document).on('click', '.apartment-option .number-input button', function () {
@@ -615,14 +822,81 @@ jQuery(function ($) {
     $('.radio-accordion').on('change', function () {
         var radioAccordion = $(this).siblings(),
             radioAccordionToggle = $(radioAccordion).find('.radio-accordion-toggle');
-        $(radioAccordionToggle).slideUp(300);
-        $(this).find('.radio-accordion-toggle').slideDown(300);
+        $(radioAccordionToggle).slideUp(440);
+        $(this).find('.radio-accordion-toggle').slideDown(440);
+    });
+    // Order page radio buttons datepicker switch
+    $('.radio-datepicker-switch .radio').on('click', function () {
+        $(this).closest('.radio-datepickers-wrap').find('.radio-datepicker').eq($(this).index()).addClass('active').siblings().removeClass('active');
+        $(this).closest('.radio-datepickers-wrap').find('.radio-additional-tab').eq($(this).index()).addClass('active').siblings().removeClass('active');
     });
 
-    /*###############*/
-    /* 07 ANIMATIONS */
+    $('.radio-datepicker-switch-inner .radio').on('click', function () {
+        $(this).closest('.radio-datepickers-wrap-inner').find('.radio-datepicker-inner').eq($(this).index()).addClass('active').siblings().removeClass('active');
+        $(this).closest('.radio-datepickers-wrap-inner').find('.radio-additional-tab-inner').eq($(this).index()).addClass('active').siblings().removeClass('active');
+    });
+    // Checkbox hidden field
+    $('.checkbox-accordion .checkbox input').on('change', function () {
+        $(this).closest('.checkbox-accordion').find('.hidden-textarea').slideToggle(440);
+    });
+    // Participant mobile accordions
+    $('.participant .h4').on('click', function () {
+        $(this).toggleClass('active');
+        $(this).next().slideToggle(440);
+    });
+    // Participant filled inputs
+    $('.participant input').on('change', function () {
 
-    /*###############*/
+        let participant = $(this).closest('.participant'),
+            participantInput = $(participant).find('label input'),
+            datepicker = $(participant).find('.datepicker-here'),
+            checkIcon = $(participant).find('.h4 i');
+
+        $(participantInput).each(function () {
+
+            if ($(this).val()) {
+                $(datepicker).addClass('filled');
+            } else {
+                $(datepicker).removeClass('filled');
+            }
+        });
+
+        if (datepicker.hasClass('filled') && datepicker.hasClass('picked')) {
+            checkIcon.addClass('active');
+        } else {
+            checkIcon.removeClass('active');
+        }
+    });
+    // Add note
+    $('.add-note-btn').on('click', function () {
+        $(this).closest('.add-note').find('.add-note-toggle').slideDown(440);
+        $(this).slideUp(440);
+    });
+
+    $('.add-note-btn-cancel').on('click', function () {
+        $(this).closest('.add-note').find('.add-note-toggle').slideUp(440);
+        $('.add-note-btn').slideDown(440);
+    });
+
+    $('.log-inned-icon').on('click', function () {
+        $($(this).attr('href')).addClass('active').siblings().removeClass('active');
+        $('.tab-caption').eq($($(this).attr('href')).index()).addClass('active').siblings().removeClass('active');
+    });
+
+    $('.add-to-like').on('click', function () {
+        $(this).toggleClass('active');
+    });
+    // Open acordion
+    $('.accordion-open-trigger').on('click', function () {
+        let link = $(this).attr('href'),
+            accordion = $(link).find('.accordion-title');
+        $(accordion).click();
+    });
+
+    /*////////////*/
+    /* ANIMATIONS */
+
+    /*////////////*/
     function headerScrolled() {
         if (winScr >= $('header').outerHeight()) {
             $('header').addClass('scrolled');
@@ -645,9 +919,9 @@ jQuery(function ($) {
         }
     }
 
-    /*#################*/
-    /* 08 AUTOCOMPLETE */
-    /*#################*/
+    /*//////////////*/
+    /* AUTOCOMPLETE */
+    /*//////////////*/
     var availableTags = [
         'Манява — Драгобрат — полонина Перці',
         'Тур-відпустка «6 днів у замових Карпатах»',
@@ -707,3 +981,38 @@ jQuery(function ($) {
     });
 });
 
+$(function () {
+    $('.scroll-top').on('scroll', function (e) {
+        $('.scroll-bottom').scrollLeft($('.scroll-top').scrollLeft());
+    });
+    $('.scroll-bottom').on('scroll', function (e) {
+        $('.scroll-top').scrollLeft($('.scroll-bottom').scrollLeft());
+    });
+});
+$(window).on('load', function (e) {
+    $('.scroll-div-1').width($('table').width());
+    $('.scroll-div-2').width($('table').width());
+});
+
+$('.scroll-div-1').width($('table').width());
+$('.scroll-div-2').width($('table').width());
+
+
+$('input[name="certificate-format"]').click(function () {
+    var target = $('#block-' + $(this).val());
+    $('.cert-upak').not(target).hide(0);
+    target.fadeIn(500);
+});
+
+
+$('input[name="certificate-upak"]').click(function () {
+    var target = $('#block-' + $(this).val());
+    $('.upak-variant').not(target).hide(0);
+    target.fadeIn(500);
+});
+
+$('input[name="certificate-detail"]').click(function () {
+    var target = $('#block-' + $(this).val());
+    $('.det-n').not(target).hide(0);
+    target.fadeIn(500);
+});

@@ -20,10 +20,14 @@ if (process.env.NODE_ENV !== 'production') {
 // plugins.push(psState);
 
 import tourFilter from './modules/tour-filter';
+import popupGallery from './modules/popup-gallery';
+import testimonials from './modules/testimonials';
 
 const store = createStore({
     modules: {
         tourFilter,
+        popupGallery,
+        testimonials,
     },
     plugins: plugins,
 });
