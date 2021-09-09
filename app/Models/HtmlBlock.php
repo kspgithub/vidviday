@@ -15,28 +15,27 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperHtmlBlock
  */
-class HtmlBlock extends Model
+class HtmlBlock extends TranslatableModel
 {
     use HasFactory;
     use HasSlug;
     use HasTranslations;
 
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     public $translatable = [
         'title',
         'text',
     ];
-
     protected $fillable = [
         'title',
         'text',
         'slug',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function getSlugOptions(): SlugOptions
     {

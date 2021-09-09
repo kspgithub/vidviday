@@ -500,24 +500,7 @@ jQuery(function ($) {
     $('.like').on('click', function () {
         $(this).toggleClass('active');
     });
-    // Decrement
-    $(document).delegate('.number-input .decrement', 'click', function () {
-        var $input = $(this).siblings('input'),
-            val = parseInt($input.val()),
-            min = parseInt($input.attr('min')),
-            step = parseInt($input.attr('step')),
-            temp = val - step;
-        $input.val(temp >= min ? temp : min);
-    });
-    // Increment
-    $(document).delegate('.number-input .increment', 'click', function () {
-        var $input = $(this).siblings('input'),
-            val = parseInt($input.val()),
-            max = parseInt($input.attr('max')),
-            step = parseInt($input.attr('step')),
-            temp = val + step;
-        $input.val(temp <= max ? temp : max);
-    });
+
     // Popup
     var popupTop = 0;
 
@@ -569,6 +552,10 @@ jQuery(function ($) {
         menuBtnClose();
         tourSelectionClose();
         $('.dropdown').removeClass('active');
+        const rel = $(this).data('rel');
+        if (rel === 'testimonial-popup' && $(this).data('parent')) {
+            $('.popup-content[data-rel="' + rel + '"]').attr('data-parent', $(this).data('parent'));
+        }
         _functions.openPopup('.popup-content[data-rel="' + $(this).data('rel') + '"]');
     });
 
@@ -616,6 +603,7 @@ jQuery(function ($) {
                 $(innerAccordion).each(function () {
 
                     $(this).addClass('active');
+                    $(this).find('.accordion-item').addClass('active');
                     $(this).find('.accordion-inner').slideDown(440);
                 });
 
@@ -625,6 +613,7 @@ jQuery(function ($) {
                 $(innerAccordion).each(function () {
 
                     $(this).removeClass('active');
+                    $(this).find('.accordion-item').removeClass('active');
                     $(this).find('.accordion-inner').slideUp(440);
                 });
             }
@@ -723,15 +712,6 @@ jQuery(function ($) {
     $('.cabinet-page .tab-caption a').on('click', function () {
         $($(this).parent()).click();
     });
-    // Calculator clicks
-    $('.calc-row .checkbox input').on('change', function () {
-        if ($(this).parent().parent().hasClass('checked')) {
-            $(this).parent().parent().removeClass('checked');
-        } else {
-            $(this).parent().parent().addClass('checked');
-        }
-        calcTotalPrice($(this));
-    });
 
     $('#voice-search-btn').on('click', function () {
         $('.voice-search-dropdown').toggleClass('active');
@@ -747,21 +727,6 @@ jQuery(function ($) {
         $('.voice-search-dropdown').removeClass('active');
     });
 
-    /*$('.calc-row .number-input button').on('click', function() {
-        var amountProduct = parseInt($(this).closest('.calc-row').find('.number-input input').val()),
-            productPrice = parseInt($(this).closest('.calc-row').find('.calc-item-price').attr('data-price'));
-        $(this).closest('.calc-row').find('.calc-item-price').html(amountProduct * productPrice);
-        calcTotalPrice($(this));
-    });*/
-
-    /*function calcTotalPrice(el) {
-        var eachItem = $(el).closest('.calc-rows-wrap').find('.calc-row.checked'),
-            allSummProduct = 0;
-        $(eachItem).each(function() {
-            allSummProduct += +$(this).find('.calc-item-price').html();
-        });
-        $(el).closest('.calc').find('.calc-total-price').html(allSummProduct);
-    }*/
 
     //input mask tel
     $('input[name="tel"]').on('focus', function () {
@@ -830,6 +795,7 @@ jQuery(function ($) {
     // Upload image
     $('.img-input:not(.btn) input').on('change', function (e) {
         var $t = $(this);
+        if ($t.hasClass('vue-action')) return;
         if (this.files && this.files[0]) {
             var upload = new FileReader();
             upload.onload = function (e) {

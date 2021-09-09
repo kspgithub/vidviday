@@ -11,6 +11,10 @@ export default {
 
         app.component('tour-search', require('./tour/TourSearch').default);
         app.component('tour-request-title', require('./tour/TourRequestTitle').default);
+        app.component('tour-question-form', require('./tour/TourQuestionForm').default);
+        app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
+        app.component('tour-map', require('./tour/TourMap').default);
+        app.component('tour-calc', require('./tour/TourCalc').default);
 
     }
 }

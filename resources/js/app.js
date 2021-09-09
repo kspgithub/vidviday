@@ -19,4 +19,8 @@ require('./libs/calendar');
 
 require('./libs/custom');
 
+require('./libs/markerclusterer');
+require('./libs/infobox');
+require('./libs/map');
+
 require('./vue-app');

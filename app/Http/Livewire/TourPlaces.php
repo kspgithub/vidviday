@@ -36,7 +36,7 @@ class TourPlaces extends Component
     {
         $this->query()->detach([$id]);
     }
-
+    
     public function query()
     {
         return $this->tour->places()->with(['region', 'city']);

@@ -14,6 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * Class Ticket
  *
  * @package App\Models
+ * @mixin IdeHelperTicket
  */
 class Ticket extends Model
 {
@@ -50,7 +51,6 @@ class Ticket extends Model
     ];
 
 
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -62,5 +62,24 @@ class Ticket extends Model
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+
+    public function tours()
+    {
+        return $this->belongsToMany(Tour::class, 'tours_tickets', 'ticket_id', 'tour_id');
+    }
+
+    public static function toSelectBox()
+    {
+        return self::query()->with('region')
+            ->orderBy('region_id')
+            ->orderBy('slug')
+            ->get()->map(function (Ticket $item) {
+                return [
+                    'value' => $item->id,
+                    'text' => $item->title . ' (' . $item->region->title . ')',
+                ];
+            });
     }
 }

@@ -26,14 +26,14 @@ class DiscountBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'percentage'=>['nullable', 'integer'],
-            'price'=>['required', 'integer'],
-            'start_date'=>['nullable', 'date_format:Y-m-d'],
-            'end_date'=>['nullable', 'date_format:Y-m-d'],
-            'currency'=>['required', Rule::in(Currency::isoNames())],
-            'published'=>['nullable', Rule::in(['1', '0'])],
+            'title' => [Rule::requiredIf(is_null($this->published)), 'string'],
+            'slug' => ['nullable', 'string'],
+            'type' => ['nullable', 'integer'],
+            'price' => [Rule::requiredIf(is_null($this->published)), 'integer'],
+            'start_date' => ['nullable', 'date_format:Y-m-d'],
+            'end_date' => ['nullable', 'date_format:Y-m-d'],
+            'currency' => [Rule::requiredIf(is_null($this->published)), Rule::in(Currency::isoNames())],
+            'published' => ['nullable', Rule::in(['1', '0'])],
         ];
     }
 }

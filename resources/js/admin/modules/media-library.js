@@ -83,7 +83,9 @@ const MediaLibrary = function (selector) {
         divEl.id = 'media-item-' + media.id;
         divEl.innerHTML = `<img src="${media.thumb}" alt=""><a href="#" class="delete-media-item"><i class="fas fa-times"></i></a>
         <a href="${media.url}" class="show-media-item" target="_blank" data-fancybox="${mediaCollection}"><i class="fas fa-eye"></i></a>
-        <input class="edit-media-title" value="Change image title" />`;
+        <input class="edit-media-title" value="Change image title" />
+        <input class="edit-media-alt" value="Change image alt" />`;
+
         wrapper.replaceChild(divEl, tmpNode);
         divEl.querySelector('.delete-media-item').addEventListener('click', (evt) => deleteMedia(evt));
         divEl.querySelector('.edit-media-title').addEventListener('blur', (evt) => updateMediaTitle(evt));

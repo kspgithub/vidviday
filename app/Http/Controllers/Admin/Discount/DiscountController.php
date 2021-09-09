@@ -40,11 +40,9 @@ class DiscountController extends Controller
         $currencies = Currency::toSelectBox('iso', 'iso');
 
 
-
-
         return view('admin.discount.create', [
-            'discount'=> $discount,
-            'currencies'=> $currencies,
+            'discount' => $discount,
+            'currencies' => $currencies,
         ]);
     }
 
@@ -62,7 +60,7 @@ class DiscountController extends Controller
         $discount->fill($request->all());
         $discount->save();
 
-        return redirect()->route('admin.discount.index', ['discount'=> $discount])
+        return redirect()->route('admin.discount.index', ['discount' => $discount])
             ->withFlashSuccess(__('Discount created.'));
     }
 
@@ -79,8 +77,8 @@ class DiscountController extends Controller
         $currencies = Currency::toSelectBox('iso', 'iso');
 
         return view('admin.discount.edit', [
-            'discount'=> $discount,
-            'currencies'=>$currencies,
+            'discount' => $discount,
+            'currencies' => $currencies,
 
         ]);
     }
@@ -101,6 +99,9 @@ class DiscountController extends Controller
         $discount->fill($request->all());
         $discount->save();
 
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success']);
+        }
         return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Record updated.'));
     }
 
@@ -117,8 +118,4 @@ class DiscountController extends Controller
 
         return redirect()->route('admin.discount.index')->withFlashSuccess(__('Record deleted.'));
     }
-
-
-
-
 }

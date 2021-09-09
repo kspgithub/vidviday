@@ -8,7 +8,7 @@
         <div class="optWrapper">
             <ul class="options">
                 <li v-for="option in options"
-                    :class="{selected: option.id === modelValue}"
+                    :class="{selected: option.value === modelValue}"
                     class="opt"
                     @click="change(option)"><label>{{ option.value === 0 ? 'Не вибрано' : option.text }}</label>
                 </li>

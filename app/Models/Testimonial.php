@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasAvatar;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -23,6 +27,8 @@ class Testimonial extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use NodeTrait;
+    use HasAvatar;
 
     public const STATUS_NEW = 0;
     public const STATUS_PUBLISHED = 1;
@@ -56,6 +62,11 @@ class Testimonial extends Model implements HasMedia
         'related_id',
     ];
 
+    protected $appends = [
+        'initials',
+        'avatar_url',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -64,21 +75,6 @@ class Testimonial extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo(Testimonial::class, 'parent_id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(Testimonial::class, 'parent_id');
-    }
 
     /**
      * @return MorphTo
@@ -94,5 +90,28 @@ class Testimonial extends Model implements HasMedia
     public function related()
     {
         return $this->morphTo();
+    }
+
+    public function getInitialsAttribute()
+    {
+        $name_parts = explode(' ', $this->name);
+        $initials = '';
+        if (count($name_parts) > 0) {
+            $initials .= Str::upper(Str::substr($name_parts[0], 0, 1));
+        }
+        if (count($name_parts) > 1) {
+            $initials .= Str::upper(Str::substr($name_parts[1], 0, 1));
+        }
+        return !empty($initials) ? $initials : 'N/A';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        $avatar = $this->getAttributeValue('avatar');
+
+        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
     }
 }

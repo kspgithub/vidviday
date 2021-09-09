@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Vacancy;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vacancy;
 use App\Models\Staff;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class VacancyController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return View
@@ -19,7 +22,7 @@ class VacancyController extends Controller
         $vacancies = Vacancy::query()->paginate(20);
 
         return view('admin.vacancy.index', [
-            'vacancies'=>$vacancies
+            'vacancies' => $vacancies
         ]);
     }
 
@@ -30,12 +33,12 @@ class VacancyController extends Controller
      */
     public function create()
     {
-        $staffs = Staff::toSelectBox('last_name');
+        $staffs = Staff::toSelectBox();
         $vacancy = new Vacancy();
 
         return view('admin.vacancy.create', [
-            'vacancy'=>$vacancy,
-            'staffs'=>$staffs
+            'vacancy' => $vacancy,
+            'staffs' => $staffs
         ]);
     }
 
@@ -53,6 +56,7 @@ class VacancyController extends Controller
 
         return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Vacancy created.'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -76,7 +80,7 @@ class VacancyController extends Controller
      * @param Request $request
      * @param Vacancy $vacancy
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, Vacancy $vacancy)
     {
@@ -84,6 +88,9 @@ class VacancyController extends Controller
         //
         $vacancy->fill($request->all());
         $vacancy->save();
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success']);
+        }
 
         return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Vacancy updated.'));
     }
@@ -103,5 +110,4 @@ class VacancyController extends Controller
 
         return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Region deleted.'));
     }
-
 }

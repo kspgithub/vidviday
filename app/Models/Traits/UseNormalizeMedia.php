@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use Livewire\TemporaryUploadedFile;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
@@ -14,21 +15,26 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait UseNormalizeMedia
 {
     /**
-     * @param string|UploadedFile $file
+     * @param string|UploadedFile|TemporaryUploadedFile $file
      * @param string|null $collection
      * @param array $options
      *
-     * @throws FileIsTooBig
+     * @return FileAdder|Media
      * @throws InvalidManipulation
      * @throws FileDoesNotExist
      *
-     * @return FileAdder|Media
+     * @throws FileIsTooBig
      */
     public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {
-        $path = storage_path('tmp/uploads');
+        $path = storage_path('app/tmp/uploads');
         $name = uniqid() . '.' . trim($file->getClientOriginalExtension());
-        $file->move($path, $name);
+        if ($file instanceof TemporaryUploadedFile) {
+            $file->storeAs('tmp/uploads', $name);
+        } else {
+            $file->move($path, $name);
+        }
+
 
         $width = $options['width'] ?? 1920;
         $height = $options['height'] ?? 1920;

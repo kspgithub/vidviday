@@ -84,7 +84,7 @@ if (!function_exists('breadcrumbs')) {
      */
     function breadcrumbs($items = [])
     {
-        $result = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
+        $result = '<nav aria-label="breadcrumb" class="breadcrumbs-wrapper"><ol class="breadcrumb">';
         $lastItemKey = count($items) - 1;
         foreach ($items as $key => $item) {
             $activeClass = $key === $lastItemKey ? ' active' : '';
@@ -107,4 +107,15 @@ if (!function_exists('html_block')) {
     {
         return HtmlBlock::getCachedBlock($slug);
     }
+}
+
+if (!function_exists('youtube_embed')) {
+    function youtube_embed($link)
+    {
+        if (preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $link, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+        return '';
+    }
+
 }

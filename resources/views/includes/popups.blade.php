@@ -10,7 +10,7 @@
     @include('includes.popups.password-recovery-popup')
     @include('includes.popups.gallery-popup')
     @include('includes.popups.one-click-popup')
-    @include('includes.popups.testimonial-popup')
+
     @include('includes.popups.place-testimonial-popup')
     @include('includes.popups.guide-testimonial-popup')
     @include('includes.popups.manager-testimonial-popup')

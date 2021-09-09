@@ -6,13 +6,19 @@
     <div class="d-flex justify-content-between">
         <h1>@lang('Tour') "{{$tour->title}}" - @lang('Food')</h1>
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.tour.food.create', $tour)}}" class="btn btn-sm btn-outline-info"><i data-feather="plus"></i> @lang('Create')</a>
+
         </div>
     </div>
-    <x-bootstrap.card>
-        <x-slot name="body">
-            <livewire:tour-food-table :tour="$tour" />
-        </x-slot>
-    </x-bootstrap.card>
+
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2">
+            @include('admin.tour.includes.edit-tabs')
+        </div>
+        <div class="col-12 col-md-9 col-xl-10">
+            <livewire:tour-food-table :tour="$tour"/>
+
+        </div>
+    </div>
+
 
 @endsection

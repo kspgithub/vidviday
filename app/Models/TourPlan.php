@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,16 +24,11 @@ class TourPlan extends Model
     use UsePublishedScope;
     use HasSlug;
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     public $translatable = [
         'title',
         'text',
     ];
-
+    
     protected $fillable = [
         'tour_id',
         'title',
@@ -42,10 +38,14 @@ class TourPlan extends Model
         'lng',
         'published',
     ];
-
     protected $casts = [
         'published' => 'boolean'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * @return BelongsTo

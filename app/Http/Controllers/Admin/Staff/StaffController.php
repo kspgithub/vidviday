@@ -56,7 +56,10 @@ class StaffController extends Controller
         $staff->fill($request->all());
         $staff->save();
         $staff->types()->sync($request->input('types', []));
-        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff created.'));
+        if ($request->hasFile('avatar_upload')) {
+            $staff->uploadAvatar($request->file('avatar_upload'));
+        }
+        return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Staff created.'));
     }
 
     /**
@@ -93,6 +96,9 @@ class StaffController extends Controller
         $staff->fill($request->all());
         $staff->save();
         $staff->types()->sync($request->input('types', []));
+        if ($request->hasFile('avatar_upload')) {
+            $staff->uploadAvatar($request->file('avatar_upload'));
+        }
         return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff updated.'));
     }
 
