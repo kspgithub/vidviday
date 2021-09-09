@@ -1025,7 +1025,7 @@ $(function () {
         var $container = $btn.parents('.accordion-inner').eq(0);
         var $items = $container.find('.schedule-row');
         $items.each(function (idx, el) {
-            if (idx > 1) {
+            if (idx > 2) {
                 $(this).addClass('d-none');
             }
         });

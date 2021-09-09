@@ -17,7 +17,7 @@
             </div>
 
             @foreach($future_events as $event_key=>$future_event)
-                <div class="schedule-row still-have {{$event_key > 1 ? 'd-none' : ''}}">
+                <div class="schedule-row still-have {{$event_key > 2 ? 'd-none' : ''}}">
                     <span class="text">{{$future_event->title}}</span>
                     <div>
                         <span class="text text-medium">{{$future_event->price}} грн.</span>
@@ -27,13 +27,13 @@
                                         class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
                         @endif
                     </div>
-                    <a href="{{route('tour.order', ['slug'=>$tour->slug, 'schedule'=>$future_event->id])}}"
+                    <a href="{{route('tour.order', ['slug'=>$tour->id, 'schedule'=>$future_event->id])}}"
                        class="btn type-1">@lang('tours-section.order')</a>
                 </div>
             @endforeach
 
         </div>
-        @if($future_events->count() > 2)
+        @if($future_events->count() > 3)
             <div class="spacer-xs"></div>
             <div class="text-center">
                 <span class="btn type-2 show-more-events">@lang('tours-section.show-more')</span>
