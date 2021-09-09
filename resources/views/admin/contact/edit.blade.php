@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <x-forms.patch :action="route('admin.contact.update')" enctype="multipart/form-data">
+    <x-forms.post :action="route('admin.contact.update')" enctype="multipart/form-data">
         <x-bootstrap.card>
             <x-slot name="body">
                 @include('admin.contact.includes.form')
@@ -14,6 +14,6 @@
                 <button class="btn btn-primary" type="submit">@lang('Save')</button>
             </x-slot>
         </x-bootstrap.card>
-    </x-forms.patch>
+    </x-forms.post>
 
 @endsection
