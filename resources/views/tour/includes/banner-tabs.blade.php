@@ -50,9 +50,3 @@
         @endif
     </div>
 </div>
-
-
-@push('before-scripts')
-    <!-- MAP SCRIPTS -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}"></script>
-@endpush
