@@ -100,6 +100,12 @@ class PageSeeder extends Seeder
                 'published'=>1,
             ],
             [
+                'title'=>['en'=>'Places', 'ru'=>'Места', 'uk'=>'Місця',  'pl'=>'Miejsca'],
+                'seo_h1'=>['en'=>'Places', 'ru'=>'Места', 'uk'=>'Місця',  'pl'=>'Miejsca'],
+                'slug'=>'places',
+                'published'=>1,
+            ],
+            [
                 'title'=>['en'=>'Contacts', 'ru'=>'Контакты', 'uk'=>'Контакти',  'pl'=>'Kontacty'],
                 'seo_h1'=>['en'=>'Contacts', 'ru'=>'Контакты', 'uk'=>'Контакти',  'pl'=>'Kontacty'],
                 'slug'=>'our-contacts',

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <x-forms.patch :action="route('admin.contact.update', $contact)" enctype="multipart/form-data">
+    <x-forms.patch :action="route('admin.contact.update')" enctype="multipart/form-data">
         <x-bootstrap.card>
             <x-slot name="body">
                 @include('admin.contact.includes.form')

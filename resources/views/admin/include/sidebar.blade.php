@@ -227,7 +227,7 @@
                 </a>
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.contact.*')}}">
-                <a class="sidebar-link" href="{{('admin/contact/1/edit')}}">
+                <a class="sidebar-link" href="{{route('admin.contact.edit')}}">
                     <i class="align-middle" data-feather="at-sign"></i> <span
                         class="align-middle">@lang('Contact')</span>
                 </a>

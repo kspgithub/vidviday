@@ -20,7 +20,7 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <!-- BANNER/INFO -->
-                @include('place.includes.banner')
+                @include('place.includes.banner-place')
                 <!-- BANNER/INFO END -->
                     <div class="only-pad-mobile">
                         <div class="spacer-xs"></div>
@@ -68,13 +68,13 @@
                             <!-- TAB #1 -->
 
                             <!-- TAB #1 END -->
-                        @include('place.includes.tab-gallery')
+                        @include('home.includes.tab-gallery')
                         <!-- TAB #2 -->
-                        @include('place.includes.tab-calendar')
+                        @include('home.includes.tab-calendar')
                         <!-- TAB #2 END -->
 
                             <!-- TAB #3 -->
-                        @include('place.includes.tab-list')
+                        @include('home.includes.tab-list')
                         <!-- TAB #3 END -->
                         </div>
                     </div>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('place.includes.seo-text')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')

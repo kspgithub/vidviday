@@ -15,10 +15,13 @@ class ContactController extends Controller
      *
      * @return View
      */
-    public function edit(Contact  $contact)
+    public function edit()
     {
         //
+        $contact = Contact::first();
 
+        if($contact === null)
+        {$contact = new Contact();}
         return view('admin.contact.edit', ['contact'=>$contact]);
     }
 
@@ -30,13 +33,17 @@ class ContactController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request)
     {
         //
+        $contact = Contact::first();
+
+        if($contact === null)
+        {$contact = new Contact();}
         $contact->fill($request->all());
         $contact->save();
 
-        return view('admin.contact.edit', ['contact'=>$contact])->withFlashSuccess(__('Contact updated.'));
+        return redirect()->route('admin.contact.edit')->withFlashSuccess(__('Contact updated.'));
     }
 
 }
