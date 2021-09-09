@@ -10,13 +10,19 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Discount extends Model
+/**
+ * @mixin IdeHelperDiscount
+ */
+class Discount extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
     use HasSlug;
     use UseSelectBox;
 
+
+    public const TYPE_VALUE = 0;
+    public const TYPE_PERCENT = 1;
 
 
     public function getRouteKeyName()
@@ -31,9 +37,9 @@ class Discount extends Model
 
     protected $fillable = [
         "title",
+        "type",
         "slug",
         'price',
-        'percentage',
         'currency',
         'start_date',
         'end_date',
@@ -43,7 +49,6 @@ class Discount extends Model
     protected $casts = [
         'published' => 'boolean',
         'price' => 'float',
-        'percentage' => 'float',
     ];
 
     protected $dates = [
@@ -61,7 +66,7 @@ class Discount extends Model
      */
     public function tours()
     {
-        return $this->belongsToMany(Tour::class, 'discounts_tours', 'tour_id', 'discount_id');
+        return $this->belongsToMany(Tour::class, 'tours_discounts', 'tour_id', 'discount_id');
     }
 
 

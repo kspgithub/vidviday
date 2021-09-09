@@ -99,13 +99,13 @@ class CitiesTable extends DataTableComponent
     {
         return [
 
-            'has_place' => Filter::make(__('Начеленні пункти'))
+            'has_place' => Filter::make(__('Населенні пункти'))
                 ->select([
                     '' => 'Всі',
                     'yes' => 'З місцями',
                     'no' => 'Без місць',
                 ]),
-            'region_id' => Filter::make(__('Начеленні пункти'))
+            'region_id' => Filter::make(__('Населенні пункти'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
         ];
     }

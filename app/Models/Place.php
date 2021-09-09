@@ -59,6 +59,11 @@ class Place extends TranslatableModel implements HasMedia
         'city_id',
     ];
 
+    protected $casts = [
+        'lat' => 'float',
+        'lng' => 'float',
+    ];
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -73,7 +78,18 @@ class Place extends TranslatableModel implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom(['title'])
+            //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

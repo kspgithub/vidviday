@@ -54,6 +54,7 @@
 
 @stack('before-scripts', false)
 @livewireScripts
+<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}"></script>
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 

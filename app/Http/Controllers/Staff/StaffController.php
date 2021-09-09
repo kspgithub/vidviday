@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\StaffType;
+use App\Models\Page;
 
 
 class StaffController extends Controller
@@ -13,10 +14,12 @@ class StaffController extends Controller
     public function index()
     {
         //
-        $staff = Staff::all();
+        $staff = Staff::query()->published()->get();
+        $pageContent = Page::select()->where('id', 4)->get();
 
         return view('staff.index', [
-            'staff' => $staff
+            'staff' => $staff,
+            'pageContent'=>$pageContent
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\HtmlBlock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AuthSeeder::class);
+        $this->call(HtmlBlockSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(CountryRegionCitySeeder::class);
@@ -29,6 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call(StaffSeeder::class);
         $this->call(AccommodationTypeSeeder::class);
         $this->call(AccommodationsSeeder::class);
+        $this->call(IncludeTypeSeeder::class);
+        $this->call(DiscountsSeeder::class);
 
         // Last
         $this->call(TourSeeder::class);

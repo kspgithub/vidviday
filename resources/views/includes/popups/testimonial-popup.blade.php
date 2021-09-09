@@ -1,4 +1,3 @@
-
 <!-- TESTIMONIAL POPUP -->
 <div class="popup-content" data-rel="testimonial-popup">
     <div class="layer-close"></div>
@@ -10,8 +9,8 @@
         </div>
         <div class="popup-align">
             <div class="have-an-account text-center">
-                <span class="text">Уже є аккаунт? <span class="open-popup" data-rel="login-popup">Вхід</span></span>
 
+                <span class="text">Уже є аккаунт? <span class="open-popup" data-rel="login-popup">Вхід</span></span>
                 <div class="img-input-wrap">
                     <div class="img-input">
                         <input type="file">

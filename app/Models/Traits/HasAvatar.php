@@ -16,7 +16,7 @@ trait HasAvatar
     {
         $avatar = $this->getAttributeValue('avatar');
 
-        return !empty($avatar) ? Storage::url($avatar): asset('/icon/login.svg');
+        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
     }
 
     /**
@@ -26,9 +26,9 @@ trait HasAvatar
      */
     public function uploadAvatar(UploadedFile $fileImage)
     {
-        $path = 'public/'.$fileImage->store("/user/{$this->id}/avatar", 'public');
+        $path = 'public/' . $fileImage->store("/user/{$this->id}/avatar", 'public');
         $image_path = Storage::path($path);
-        Image::load($image_path)->width(300)->height(300)->save();
+        Image::load($image_path)->width(200)->height(200)->save();
         $this->avatar = $path;
         $this->save();
     }

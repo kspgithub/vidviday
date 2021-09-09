@@ -2,122 +2,164 @@
 /* CALCULATOR */
 /*############*/
 .calc-form {
-	> .text-sm {
-		color: $title;
-		font-weight: 500;
-		margin-bottom: 10px;
-	}
-	.single-datepicker {
-		& + .text {
-			margin-bottom: 15px;
-		}
-	}
-	.datepicker-input {
-		width: 36%;
-		margin-bottom: 10px;
-	}
+    > .text-sm {
+        color: $title;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .single-datepicker {
+        & + .text {
+            margin-bottom: 15px;
+        }
+
+
+    }
+
+    .datepicker-input {
+        width: 36%;
+        margin-bottom: 10px;
+        position: relative;
+
+        .datepicker-options {
+            position: absolute;
+            display: none;
+            width: calc(100% - 30px);
+            left: 30px;
+            top: 48px;
+            color: #626262;
+            font-size: 14px;
+            line-height: 24px;
+            border-radius: 5px;
+            background-color: #fff;
+            padding: 12px 15px 10px;
+            border: 1px solid #E9E9E9;
+            z-index: 1000;
+        }
+
+        &.open {
+            .datepicker-options {
+                display: block;
+            }
+        }
+    }
+
+
 }
 
 .calc {
-	border-radius: 5px;
-	border: 1px solid $border;
+    border-radius: 5px;
+    border: 1px solid $border;
 }
 
 .calc-header,
 .calc-footer {
-	padding: 12px 20px;
+    padding: 12px 20px;
 }
 
 .calc-header {
-	background-color: $discount;
+    background-color: $discount;
 }
 
 .calc-footer {
-	text-align: right;
-	border-top: 1px solid $border;
-	.text-sm {
-		color: $title;
-		span {
-			color: $orange;
-			font-size: 20px;
-			font-weight: 700;
-			margin-left: 15px;
-		}
-		sup {
-			top: -5px;
-			font-size: 14px;
-			position: relative;
-		}
-	}
+    text-align: right;
+    border-top: 1px solid $border;
+
+    .text-sm {
+        color: $title;
+
+        span {
+            color: $orange;
+            font-size: 20px;
+            font-weight: 700;
+            margin-left: 15px;
+        }
+
+        sup {
+            top: -5px;
+            font-size: 14px;
+            position: relative;
+        }
+    }
 }
 
 .calc-rows-wrap {
-	padding: 20px;
+    padding: 20px;
 }
 
 .calc-row {
-	display: flex;
-	padding: 10px 0;
-	align-items: center;
-	border-bottom: 1px solid $border;
-	&:last-child {
-		border-bottom: none;
-	}
-	.checkbox {
-		margin-right: auto;
-	}
-	.number-input {
-		.number-input-btns {
-			position: relative;
-			&:after {
-				top: 50%;
-				left: 50%;
-				content: '0';
-				font-size: 14px;
-				line-height: 24px;
-				text-align: center;
-				position: absolute;
-				transform: translate(-50%, -50%);
-			}
-		}
-	}
-	.text-md {
-		width: 120px;
-		text-align: right;
-	}
-	&:not(.checked) {
-		.number-input {
-			pointer-events: none;
-			input {
-				color: transparent;
-			}
-		}
-	}
-	&.checked {
-		.number-input {
-			.number-input-btns {
-				&:after {
-					opacity: 0;
-				}
-			}
-		}
-	}
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: 1px solid $border;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .checkbox {
+        margin-right: auto;
+    }
+
+    .number-input {
+        .number-input-btns {
+            position: relative;
+
+            &:after {
+                top: 50%;
+                left: 50%;
+                content: '0';
+                font-size: 14px;
+                line-height: 24px;
+                text-align: center;
+                position: absolute;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    .text-md {
+        width: 120px;
+        text-align: right;
+    }
+
+    &:not(.checked) {
+        .number-input {
+            pointer-events: none;
+
+            input {
+                color: transparent;
+            }
+        }
+    }
+
+    &.checked {
+        .number-input {
+            .number-input-btns {
+                &:after {
+                    opacity: 0;
+                }
+            }
+        }
+    }
 }
+
 /*#######*/
 /* HOVER */
 /*#######*/
 @media (min-width: 1200px) {
 
-	.calc-header {
-		.checkbox {
-			&:hover {
-				span {
-					color: $blue;
-				}
-			}
-		}
-	}
+    .calc-header {
+        .checkbox {
+            &:hover {
+                span {
+                    color: $blue;
+                }
+            }
+        }
+    }
 }
+
 /*###############*/
 /* MEDIA QUERIES */
 /*###############*/

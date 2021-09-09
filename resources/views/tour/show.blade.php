@@ -72,6 +72,7 @@
                                 <div class="expand-all close">@lang('tours-section.collapse-all')</div>
                             </div>
                             <div class="accordion type-1">
+                                {{--                                //@dd($tour->accommodations)--}}
                                 @include('tour.includes.tour-plan')
                                 @include('tour.includes.tour-places')
                                 @include('tour.includes.tour-schedule')
@@ -132,4 +133,15 @@
             </div>
         </div>
     </div>
+
+    <div v-is="'tour-testimonial-form'"
+         :tour='@json($tour)'
+         :user='@json(current_user())'
+         action='{{route('tour.testimonial', $tour)}}'
+         :data-parent="0"
+    >
+        @csrf
+    </div>
+    {{--    @include('includes.popups.testimonial-popup')--}}
 @endpush
+

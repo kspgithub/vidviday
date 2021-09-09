@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_1.jpg" alt="tour 1">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_1.jpg" alt="tour 1">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_2.jpg" alt="tour 2">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_2.jpg" alt="tour 2">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label hit-sales">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_3.jpg" alt="tour 3">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_3.jpg" alt="tour 3">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_1.jpg" alt="tour 1">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_1.jpg" alt="tour 1">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">
@@ -207,7 +207,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_2.jpg" alt="tour 2">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_2.jpg" alt="tour 2">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">
@@ -252,7 +252,7 @@
                                     </div>
                                     <div class="thumb-img">
                                         <div class="label hit-sales">новинка</div>
-                                        <img src="img/preloader.png" data-img-src="img/tour_3.jpg" alt="tour 3">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="img/tour_3.jpg" alt="tour 3">
                                         <a href="tour.php" class="full-size"></a>
                                     </div>
                                     <div class="thumb-content">

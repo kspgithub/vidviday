@@ -1,13 +1,14 @@
 @extends('admin.layout.app')
 
-@section('title', __('Vacancy management'))
+@section('title', __('Vacancies'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Vacancy management')</h1>
+        <h1>@lang('Vacancies')</h1>
 
         <div class="d-flex align-items-center">
-                <a href="{{route('admin.vacancy.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="plus"></i> @lang('Create vacancy')</a>
+            <a href="{{route('admin.vacancy.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="plus"></i> @lang('Create')</a>
         </div>
     </div>
 
@@ -18,7 +19,7 @@
                 <thead>
                 <tr>
                     <th>@lang('title')</th>
-                    <th>@lang('Pablished')</th>
+                    <th>@lang('Published')</th>
                     <th>@lang('Locale')</th>
                     <th>@lang('Actions')</th>
                 </tr>
@@ -27,12 +28,13 @@
                 @foreach($vacancies as $vacancy)
                     <tr>
                         <td>{{$vacancy->title}}</td>
-                        <td>{{$vacancy->published}}</td>
+                        <td>@include('admin.partials.published', ['model'=>$vacancy, 'updateUrl'=>route('admin.vacancy.update', $vacancy)])</td>
                         <td>{{app()->getLocale()}}</td>
                         <td class="table-action">
 
-                            <x-utils.edit-button :href="route('admin.vacancy.edit', ['vacancy'=>$vacancy])" text="" />
-                            <x-utils.delete-button :href="route('admin.vacancy.destroy', ['vacancy'=>$vacancy])" text="" />
+                            <x-utils.edit-button :href="route('admin.vacancy.edit', ['vacancy'=>$vacancy])" text=""/>
+                            <x-utils.delete-button :href="route('admin.vacancy.destroy', ['vacancy'=>$vacancy])"
+                                                   text=""/>
 
                         </td>
                     </tr>

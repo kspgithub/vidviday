@@ -54,16 +54,26 @@ class DiscountsTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make(__('Price'), 'price')
+            Column::make(__('Type'), 'type')
+                ->format(function ($value, $column, $row) {
+                    return $row->type === Discount::TYPE_PERCENT ? '%' : __('sum');
+                })
+                ->sortable(),
+
+            Column::make(__('Значення'), 'price')
                 ->sortable(),
 
             Column::make(__('Currency'), 'currency')
+                ->format(function ($value, $column, $row) {
+                    return $row->type === Discount::TYPE_PERCENT ? '' : $row->currency;
+                })
                 ->sortable(),
 
-            Column::make(__('Percentage'), 'percentage')
-                ->sortable(),
 
             Column::make(__('Published'), 'published')
+                ->format(function ($value, $column, $row) {
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.discount.update', $row)]);
+                })
                 ->sortable(),
 
             Column::make(__('Actions'))

@@ -7,8 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TourBasicRequest;
 use App\Models\Badge;
 use App\Models\Currency;
+use App\Models\Direction;
 use App\Models\Staff;
 use App\Models\Tour;
+use App\Models\TourGroup;
+use App\Models\TourSubject;
+use App\Models\TourType;
 use App\Services\TourService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -48,6 +52,10 @@ class TourController extends Controller
         $badges = Badge::all();
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
+        $groups = TourGroup::toSelectBox();
+        $types = TourType::toSelectBox();
+        $subjects = TourSubject::toSelectBox();
+        $directions = Direction::toSelectBox();
 
         return view('admin.tour.create', [
             'tour' => $tour,
@@ -55,6 +63,10 @@ class TourController extends Controller
             'badges' => $badges,
             'guides' => $guides,
             'managers' => $managers,
+            'groups' => $groups,
+            'types' => $types,
+            'subjects' => $subjects,
+            'directions' => $directions,
         ]);
     }
 
@@ -94,6 +106,10 @@ class TourController extends Controller
         $badges = Badge::all();
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
+        $groups = TourGroup::toSelectBox();
+        $types = TourType::toSelectBox();
+        $subjects = TourSubject::toSelectBox();
+        $directions = Direction::toSelectBox();
 
         return view('admin.tour.edit', [
             'tour' => $tour,
@@ -101,6 +117,10 @@ class TourController extends Controller
             'badges' => $badges,
             'guides' => $guides,
             'managers' => $managers,
+            'groups' => $groups,
+            'types' => $types,
+            'subjects' => $subjects,
+            'directions' => $directions,
         ]);
     }
 

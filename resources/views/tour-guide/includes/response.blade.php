@@ -8,7 +8,7 @@
         <div class="review">
             <div class="review-header">
                 <div class="review-img">
-                    <img src="img/preloader.png" data-img-src="img/user.jpg" alt="user">
+                    <img src="{{asset('img/preloader.png')}}" data-img-src="img/user.jpg" alt="user">
                 </div>
                 <div class="review-title">
                     <span class="h4">Григоряш Вероніка</span>
@@ -53,7 +53,7 @@
         <div class="review">
             <div class="review-header">
                 <div class="review-img">
-                    <img src="img/preloader.png" data-img-src="img/user.jpg" alt="user">
+                    <img src="{{asset('img/preloader.png')}}" data-img-src="img/user.jpg" alt="user">
                 </div>
                 <div class="review-title">
                     <span class="h4">Григоряш Вероніка</span>

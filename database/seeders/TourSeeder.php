@@ -8,11 +8,13 @@ use App\Models\Place;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourGroup;
+use App\Models\TourPlan;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
+use Faker\Factory as FakerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -37,6 +39,7 @@ class TourSeeder extends Seeder
             'tours_subjects',
             'tours_tour_types',
             'tours_places',
+            'tour_plans',
             'tours_staff',
             'tour_schedules',
             'tours',
@@ -61,7 +64,7 @@ class TourSeeder extends Seeder
             $dates->add($i);
         }
 
-
+        $faker = FakerFactory::create('uk_UA');
         Tour::factory()->count(100)
             ->create()->each(function (Tour $item) use (
                 $directions,
@@ -72,7 +75,8 @@ class TourSeeder extends Seeder
                 $places,
                 $dates,
                 $managers,
-                $leaders
+                $leaders,
+                $faker
             ) {
                 $item->directions()->attach($directions->random(2)->pluck('id')->toArray());
                 $item->badges()->attach($badges->random(random_int(1, 2))->pluck('id')->toArray());
@@ -82,6 +86,14 @@ class TourSeeder extends Seeder
                 $item->places()->attach($places->random(4)->pluck('id')->toArray());
                 $item->staff()->attach($managers->random(1)->pluck('id')->toArray());
                 $item->staff()->attach($leaders->random(2)->pluck('id')->toArray());
+
+                for ($day = 1; $day <= $item->duration; $day++) {
+                    $planItem = new TourPlan();
+                    $planItem->tour_id = $item->id;
+                    $planItem->title = $day . ' день';
+                    $planItem->text = $faker->realText();
+                    $planItem->save();
+                }
 
                 $itemDates = $dates->random(3);
                 foreach ($itemDates as $date) {

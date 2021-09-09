@@ -136,6 +136,20 @@ class TourService extends BaseService
                 $badges = array_filter($params['badges']);
                 $tour->badges()->sync($badges);
             }
+            if (array_key_exists('groups', $params)) {
+                $groups = array_filter($params['groups']);
+                $tour->groups()->sync($groups);
+            }
+
+            if (array_key_exists('types', $params)) {
+                $types = array_filter($params['types']);
+                $tour->types()->sync($types);
+            }
+
+            if (array_key_exists('subjects', $params)) {
+                $types = array_filter($params['subjects']);
+                $tour->subjects()->sync($types);
+            }
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());

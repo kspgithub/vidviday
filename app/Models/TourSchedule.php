@@ -36,8 +36,8 @@ class TourSchedule extends Model
 
     protected $casts = [
         'published' => 'boolean',
-        'price' => 'float',
-        'commission' => 'float',
+        'price' => 'integer',
+        'commission' => 'integer',
     ];
 
     protected $appends = [
@@ -47,6 +47,12 @@ class TourSchedule extends Model
     protected $dates = [
         'start_date',
         'end_date',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'published',
     ];
 
     /**
@@ -62,13 +68,16 @@ class TourSchedule extends Model
 
     public function getTitleAttribute()
     {
-        if ($this->start_date->month === $this->end_date->month && $this->start_date->year === $this->end_date->year &&
-            $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
-            return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
-                Str::ucfirst($this->end_date->translatedFormat('D')) .
-                ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
+        if ($this->start_date && $this->end_date) {
+            if ($this->start_date->month === $this->end_date->month && $this->start_date->year === $this->end_date->year &&
+                $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
+                return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
+                    Str::ucfirst($this->end_date->translatedFormat('D')) .
+                    ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
+            }
+            return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
         }
-        return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
+        return '';
     }
 
     public function asCalendarEvent($event_click)
