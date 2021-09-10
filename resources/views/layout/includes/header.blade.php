@@ -279,7 +279,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="corporates.php">Корпоративи</a>
+                                        <a href="{{route('corporates')}}">Корпоративи</a>
                                     </li>
 
                                     <li>
@@ -287,7 +287,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{ route('transport')}}">Транспорт</a>
+                                        <a href="{{route('transport')}}">Транспорт</a>
                                     </li>
 
                                     <li>
