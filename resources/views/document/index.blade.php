@@ -12,47 +12,47 @@
                 <span>{{$pageContent->seo_h1 ?? $pageContent->title}}</span>
             </div>
             <!-- BREAD CRUMBS END -->
-			<div class="row">
-				<div class="col-xl-8 col-12">
-
-					<!-- DOCUMENTS CONTENT -->
-					<h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
-					<div class="spacer-xs"></div>
-					<div class="only-pad-mobile">
+            <div class="row">
+                <div class="col-xl-8 col-12">
+                    <!-- DOCUMENTS CONTENT -->
+                    <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
+                    <div class="spacer-xs"></div>
+                    <div class="only-pad-mobile">
                         @include('staff.includes.social-share')
-						<div class="spacer-xs"></div>
-					</div>
-					<div class="text text-md">
-						<p>{{$pageContent->text}}</p>
-					</div>
-					<div class="spacer-xs"></div>
-					<div class="thumb-wrap row">
+                        <div class="spacer-xs"></div>
+                    </div>
+                    <div class="text text-md">
+                        <p>{{$pageContent->text}}</p>
+                    </div>
+                    <div class="spacer-xs"></div>
+                    <div class="thumb-wrap row">
                         @foreach ($documents as $document)
-						<div class="col-lg-4 col-md-6 col-12">
-							<div class="bordered-box doc">
-								<div class="img open-popup" data-rel="gallery-popup">
-									<img src="{{asset('img/preloader.png')}}" data-img-src="{{$document->image}}" alt="{{$document->title}}">
-								</div>
-								<span class="text text-medium">{{$document->title}}</span>
-							</div>
-						</div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="bordered-box doc">
+                                    <div class="img open-popup" data-rel="gallery-popup">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="{{$document->image}}"
+                                             alt="{{$document->title}}">
+                                    </div>
+                                    <span class="text text-medium">{{$document->title}}</span>
+                                </div>
+                            </div>
                         @endforeach
-					</div>
-					<!-- DOCUMENTS CONTENT END -->
-				</div>
+                    </div>
+                    <!-- DOCUMENTS CONTENT END -->
+                </div>
 
-				<div class="col-xl-4 col-12">
-					<!-- SIDEBAR -->
-                    @include('transport.includes.right-sidebar')
-					<!-- SIDEBAR END -->
-				</div>
-			</div>
-			<div class="spacer-lg"></div>
-		</div>
+                <div class="col-xl-4 col-12">
+                    <!-- SIDEBAR -->
+                @include('transport.includes.right-sidebar')
+                <!-- SIDEBAR END -->
+                </div>
+            </div>
+            <div class="spacer-lg"></div>
+        </div>
         </div>
 
         <!-- SEO TEXT -->
-        @include('home.includes.seo-text')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
     </main>
 

@@ -15,10 +15,10 @@ class DocumentController extends Controller
         $documents = Document::all();
         $pageContent = Page::select()->where('slug', 'our-documents')->first();
         return view('document.index',
-        [
-            'documents' => $documents,
-            'pageContent' => $pageContent
-        ]);
+            [
+                'documents' => $documents,
+                'pageContent' => $pageContent
+            ]);
     }
 
 }
