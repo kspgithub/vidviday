@@ -18,13 +18,15 @@ class PlaceController extends Controller
         //
 
         $regions = Region::whereHas('places')->with(['places'])->get();
-        $cities = City::whereHas('places')->with(['places'])->get();
+        $cities = City::first();
+        $places = Place::first();
         $pageContent = Page::select()->where('slug', 'places')->first();
         $badges = Badge::all();
 
         return view('place.index', [
             'regions' => $regions,
             'cities' => $cities,
+            'places' => $places,
             'pageContent' => $pageContent,
             'badges' => $badges
         ]);

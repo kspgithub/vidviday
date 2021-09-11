@@ -58,28 +58,24 @@
                                     <div class="accordion-inner">
                                         <div class="accordion type-2">
                                             <div class="accordion-item">
-                                                @foreach($cities as $city)
-                                                <div class="accordion-title">{{ $city->title}}<i></i></div>
+                                                <div class="accordion-title">{{ $cities->title }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     @include('place.includes.city-carousel')
                                                     <div class="spacer-xs"></div>
                                                     <div class="text text-md">
                                                     </div>
                                                 </div>
-                                                @endforeach
                                             </div>
                                             <div class="accordion-item">
-                                                @foreach($places as $place)
-                                                <div class="accordion-title">{{ $place->title }}<i></i></div>
+                                                <div class="accordion-title">{{ $places->title }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     @include('place.includes.place-carousel')
                                                     <div class="spacer-xs"></div>
                                                     <div class="text text-md">
-                                                        {!! $place->text !!}
-                                                        <a href="{{route('place', $place->slug)}}"
+                                                        {!! $places->text !!}
+                                                        <a href="{{route('place', $places->slug)}}"
                                                            class="btn btn-read-more text-bold">Більше</a></div>
                                                 </div>
-                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
