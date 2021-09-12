@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="bottom-part">
-            @foreach($tour->testimonials->take(2) as $testimonial)
+            @foreach($tour->testimonials->where('parent_id', null)->take(2) as $testimonial)
                 <x-tour.testimonial :testimonial="$testimonial" :short="true"/>
             @endforeach
             <a href="#reviews-accordion" class="btn type-2 btn-block">Показати всі відгуки</a>

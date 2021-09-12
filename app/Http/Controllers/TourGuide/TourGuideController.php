@@ -13,7 +13,7 @@ class TourGuideController extends Controller
     {
         //
         $tourGuides = TourGuide::all();
-        $pageContent = Page::select()->where('id', 3)->get();
+        $pageContent = Page::select()->where('slug', 'guides')->first();
 
         return view('tour-guide.index',
         [

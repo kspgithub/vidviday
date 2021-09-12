@@ -6,7 +6,7 @@
         <div class="accordion type-2">
             @foreach($tour->group_tour_includes as $idx => $type)
                 @if($type->items->count() > 0)
-                    <div class="accordion-item active">
+                    <div class="accordion-item">
                         <div class="accordion-title">{{$type->title}}<i></i></div>
                         <div class="accordion-inner">
                             <div class="text text-md pb-1">

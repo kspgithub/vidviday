@@ -71,7 +71,6 @@ export default {
         }
 
         onMounted(() => {
-            console.log(minDate.value);
             $(pickerEl.value).datepicker({
                 inline: true,
                 language: locale.value,

@@ -27,7 +27,7 @@
                                         class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
                         @endif
                     </div>
-                    <a href="{{route('tour.order', ['slug'=>$tour->slug, 'schedule'=>$future_event->id])}}"
+                    <a href="{{route('tour.order', ['slug'=>$tour->id, 'schedule'=>$future_event->id])}}"
                        class="btn type-1">@lang('tours-section.order')</a>
                 </div>
             @endforeach
@@ -36,7 +36,8 @@
         @if($future_events->count() > 3)
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <span class="btn type-2">@lang('tours-section.show-more')</span>
+                <span class="btn type-2 show-more-events">@lang('tours-section.show-more')</span>
+                <span class="btn type-2 hide-more-events d-none">@lang('tours-section.hide-more')</span>
             </div>
         @endif
     </div>

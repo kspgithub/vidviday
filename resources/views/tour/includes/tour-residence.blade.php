@@ -5,7 +5,7 @@
     <div class="accordion-inner">
         <div class="accordion type-2">
             @foreach($tour->accommodations as $residence)
-                <div class="accordion-item active">
+                <div class="accordion-item">
                     <div class="accordion-title">{{$residence->title}} <i></i></div>
                     <div class="accordion-inner">
                         <x-swiper-media :slides="$residence->media"/>

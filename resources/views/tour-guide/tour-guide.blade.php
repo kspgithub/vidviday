@@ -37,7 +37,7 @@
 
 
                             <div class="col">
-                                @include('tour-guide.includes.social-share')
+                                @include('staff.includes.social-share')
                             </div>
                         </div>
 

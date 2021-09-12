@@ -4,18 +4,20 @@
                                             alt="rating"></span>Відгуки ({{$tour->testimonials->count()}})<i></i>
     </div>
     <div class="accordion-inner">
-        <span class="btn btn-block-sm type-1 open-popup" data-rel="testimonial-popup">Залишити відгук</span>
+        <div></div>
+        <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'" :parent='0'>Залишити відгук</span>
         <div class="spacer-xs"></div>
         @if($tour->testimonials->count() > 0)
             <hr>
             <div class="spacer-xs"></div>
-            @foreach($tour->testimonials as $testimonial)
+
+            @foreach($tour->testimonials->toTree() as $testimonial)
                 <x-tour.testimonial :testimonial="$testimonial"/>
             @endforeach
             <div class="spacer-xs"></div>
             <hr>
             <div class="spacer-xs"></div>
-            <span class="btn btn-block-sm type-1 open-popup" data-rel="testimonial-popup" data-parent="0">Залишити відгук</span>
+            <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'" :parent='0'>Залишити відгук</span>
         @endif
     </div>
 </div>

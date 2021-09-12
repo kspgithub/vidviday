@@ -1,9 +1,7 @@
 @extends('layout.app')
-@foreach ($pageContent as $item)
-    @section('title', !empty($item->seo_title) ? $item->seo_title : $item->title)
-@section('seo_description', !empty($item->seo_description) ? $item->seo_description : $item->title)
-@section('seo_keywords', !empty($item->seo_keywords) ? $item->seo_keywords : $item->title)
-@endforeach
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
 @section('content')
     <main>
         <div class="container">
@@ -141,7 +139,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('staff.includes.seo-text')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
     </main>
 

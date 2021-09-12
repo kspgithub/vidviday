@@ -1,16 +1,15 @@
 					<!-- BANNER/INFO -->
 					<div class="section">
-                       @foreach ($pageContent as $pageContent)
 						<!-- BANNER TABS -->
 						<div class="banner-tabs tabs">
-							<div class="tabs-nav">
-								<span class="tab-title"></span>
-								<ul class="tab-toggle">
-									<li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="{{$pageContent->seo_h1 ?? $pageContent->title}}">Фото</li>
+                    <div class="tabs-nav">
+                        <span class="tab-title"></span>
+                        <ul class="tab-toggle">
+                            <li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
 
-									<li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="{{$pageContent->seo_h1 ?? $pageContent->title}}">Відео</li>
-								</ul>
-							</div>
+                            <li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
+                        </ul>
+                    </div>
 							<div class="tabs-wrap">
 								<!-- TAB #1 -->
 								<div class="tab active">
@@ -52,7 +51,6 @@
 							<p> {!! $pageContent->text !!}</p>
 						</div>
 						<div class="spacer-xs"></div>
-                        @endforeach
 					</div>
 					<!-- BANNER/INFO END -->
 

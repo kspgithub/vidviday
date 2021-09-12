@@ -7,42 +7,23 @@
     <div class="accordion-inner">
         <div class="accordion type-2">
             @foreach($tour->places as $place)
-                <div class="accordion-item active">
+                <div class="accordion-item">
                     <div class="accordion-title">{{$place->title}}<i></i></div>
                     <div class="accordion-inner">
                         @if($place->hasMedia())
-                            <div class="swiper-entry">
-                                <div class="swiper-button-prev">
-                                    <i></i>
-                                </div>
-                                <div class="swiper-button-next">
-                                    <i></i>
-                                </div>
-                                <div class="swiper-container"
-                                     data-options='{"lazy": true, "slidesPerView": 3, "spaceBetween": 15, "breakpoints": {"992": {"slidesPerView": 4, "spaceBetween": 22}}}'>
-                                    <div class="swiper-wrapper lightbox-wrap">
-                                        @foreach($place->getMedia() as $media)
-                                            <div class="swiper-slide">
-                                                <div class="img zoom">
-                                                    <img src="{{asset('/img/preloader.png')}}"
-                                                         data-src="{{$media->getUrl()}}"
-                                                         title="{{$media->getCustomProperty('title_'.app()->getLocale()) ?? $place->title}}"
-                                                         alt="{{$media->getCustomProperty('alt_'.app()->getLocale()) ?? $place->title}}"
-                                                         class="swiper-lazy">
-                                                    <div class="swiper-lazy-preloader"></div>
-                                                    <div class="full-size open-popup" data-rel="gallery-popup"></div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="only-mobile swiper-pagination"></div>
+                            <div class="swiper-entry" v-is="'swiper-slider'"
+                                 :media='@json($place->getMedia()->map->toSwiperSlide())'
+                            >
                             </div>
                             <div class="spacer-xs"></div>
                         @endif
+
                         <div class="load-more-wrapp">
-                            <div class="text text-md">
-                                {{str_limit(strip_tags($place->text), 500)}}
+
+                            <div class="less-info">
+                                <div class="text text-md">
+                                    {{str_limit(strip_tags($place->text), 300, '...')}}
+                                </div>
                             </div>
                             <div class="more-info">
                                 <div class="text text-md">

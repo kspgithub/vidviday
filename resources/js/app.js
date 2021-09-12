@@ -17,7 +17,7 @@ require('./libs/datepicker.min');
 
 require('./libs/calendar');
 
-require('./libs/custom');
+require('./libs/global');
 
 require('./libs/markerclusterer');
 require('./libs/infobox');
