@@ -36,6 +36,7 @@ require base_path('routes/frontend/event.php');
 require base_path('routes/frontend/places.php');
 require base_path('routes/frontend/transport.php');
 require base_path('routes/frontend/corporate.php');
+require base_path('routes/frontend/blog.php');
 
 // ADMIN ROUTES
 /*
