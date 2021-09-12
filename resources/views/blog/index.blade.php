@@ -36,11 +36,11 @@
 
                             <div class="item post">
                                 <div class="thumb-img">
-                                    @foreach($blog$blog->media as $media)
+                                    @foreach($blog->media as $media)
 
                                         @if($media->collection_name === "main")
-                                            <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}" alt="img 25">
-                                            <a href="{{ route("news.single", ["slug" => $blog->slug]) }}" class="full-size"></a>
+                                            <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="img 25">
+                                            <a href="{{ route("post", ["slug" => $blog->slug]) }}" class="full-size"></a>
                                         @endif
 
                                     @endforeach
@@ -62,7 +62,7 @@
                     </div>
                     <div class="spacer-xs"></div>
 
-                    {{ $blogs->links('paginate.vendor.pagination.newsCustom') }}
+                    {{ $blogs->links('paginate.vendor.pagination.blogCustom') }}
 
                 </div>
             </div>
