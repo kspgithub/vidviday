@@ -35,20 +35,28 @@
 
                     <div>
 
-                        @foreach($blog as $post)
+                        @foreach($news as $post)
+
+
                             <div class="item post">
                                 <div class="thumb-img">
-                                    <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/news/'.$post->media->get(0)->id.'/'.$post->media->get(0)->file_name) }}" alt="img 25">
-                                    <a href="{{ route("post", ["slug" => $post->slug]) }}" class="full-size"></a>
+                                    @foreach($post->media as $media)
+
+                                        @if($media->collection_name === "main")
+                                            <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}" alt="img 25">
+                                            <a href="{{ route("news.single", ["slug" => $post->slug]) }}" class="full-size"></a>
+                                        @endif
+
+                                    @endforeach
                                 </div>
                                 <div class="thumb-content">
                                     <div class="title h3">
-                                        <a href="{{ route("post", ["slug" => $post->slug]) }}">{{ $post->title }}</a>
+                                        <a href="{{ route("news.single", ["slug" => $post->slug]) }}">{{ $post->title }}</a>
                                     </div>
                                     <span class="text text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <a href="{{ route("post", ["slug" => $post->slug]) }}" class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
+                                        <a href="{{ route("news.single", ["slug" => $post->slug]) }}" class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +65,7 @@
                     </div>
                     <div class="spacer-xs"></div>
 
-                    {{ $blog->links('paginate.vendor.pagination.newsCustom') }}
+                    {{ $news->links('paginate.vendor.pagination.newsCustom') }}
 
                 </div>
             </div>

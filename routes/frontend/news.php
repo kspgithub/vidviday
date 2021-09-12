@@ -3,5 +3,5 @@
 
 use App\Http\Controllers\News\NewsController;
 
-Route::get("/blog", [NewsController::class, "blog"])->name("blog");
-Route::get("/post/{slug}", [NewsController::class, "post"])->name("post");
+Route::get("/news", [NewsController::class, "index"])->name("news");
+Route::get("/single/{slug}", [NewsController::class, "single"])->name("news.single");

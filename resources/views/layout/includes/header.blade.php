@@ -207,7 +207,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/news/">Новини</a>
+                                        <a href="{{ route("news") }}">{{ __("Новини") }}</a>
                                     </li>
 
                                     <li>
@@ -233,7 +233,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{ route("blog") }}">Блог</a>
+                                        <a href="">Блог</a>
                                     </li>
                                 </ul>
                             </div>

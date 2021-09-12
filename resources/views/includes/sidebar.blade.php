@@ -53,14 +53,14 @@
                     @foreach(latestNews() as $post)
 
                         <div class="news-item">
-                            <a href="{{ route("post", ["slug" => $post->slug]) }}" class="title">{{ $post->title }}</a>
+                            <a href="{{ route("news.single", ["slug" => $post->slug]) }}" class="title">{{ $post->title }}</a>
                             <div class="news-date">{{ $post->created_at->format("d.m.Y") }}</div>
                         </div>
 
                     @endforeach
 
                 </div>
-                <a href="{{ route("blog") }}" class="btn type-2">{{ __("Показати всі новини") }}</a>
+                <a href="{{ route("news") }}" class="btn type-2">{{ __("Показати всі новини") }}</a>
             </div>
         </div>
 
