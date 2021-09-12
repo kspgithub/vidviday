@@ -16,3 +16,4 @@ Route::group([
 });
 
 Route::resource("blog", BlogController::class)->except('show');
+
