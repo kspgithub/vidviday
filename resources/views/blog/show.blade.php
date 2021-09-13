@@ -58,7 +58,7 @@
                                                         <img src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="img 28" data-swiper-parallax="30%">
                                                     </div>
                                                     <div class="text-center">
-                                                        <span class="text-sm">Гора Високий Верх біля м. Славськ</span>
+                                                        <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
                                                     </div>
                                                 </div>
                                             @endif
