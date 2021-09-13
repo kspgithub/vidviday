@@ -22,15 +22,11 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <!-- BANNER/INFO -->
                     <div class="banner-map">
-                        @foreach($badges as $badge)
-                            <span
-                                style="position: absolute;top:30%;left:50%;background-color:{{$badge->color}};width:20px;height:20px;"></span>
                             <div id="map-canvas" class="map-wrapper full-size" data-lat="49.822385" data-lng="24.023855"
                                  data-zoom="15" data-img-cluster="{{asset('img/cluster.png')}}"></div>
                             <a class="marker" data-rel="map-canvas-1" data-lat="49.822385" data-lng="24.023855"
                                data-image="{{asset('img/marker.png')}}"
                                data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"></a>
-                        @endforeach
                     </div>
                     <div class="spacer-xs"></div>
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
@@ -57,15 +53,6 @@
                                     <div class="accordion-title">{{$region->title}}<i></i></div>
                                     <div class="accordion-inner">
                                         <div class="accordion type-2">
-                                            <div class="accordion-item">
-                                                <div class="accordion-title">{{ $cities->title }}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    @include('place.includes.city-carousel')
-                                                    <div class="spacer-xs"></div>
-                                                    <div class="text text-md">
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="accordion-item">
                                                 <div class="accordion-title">{{ $places->title }}<i></i></div>
                                                 <div class="accordion-inner">
