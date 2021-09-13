@@ -14,7 +14,7 @@ class ContactController extends Controller
     {
         //
         $contacts = Contact::all();
-        $pageContent = Page::select()->where('slug', 'our-contacts')->first();
+        $pageContent = Page::query()->where('slug', 'our-contacts')->first();
         $specialists = Staff::whereHas('types', function ($q) {
             return $q->where('slug', 'booking-manager');
         })->get();
