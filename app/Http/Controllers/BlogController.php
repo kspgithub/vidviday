@@ -27,7 +27,7 @@ class BlogController extends Controller
      * @param $slug
      * @return Application|Factory|View
      */
-    public function show($slug)
+    public function single($slug)
     {
         $post = $this->query()->whereSlug($slug)
                               ->firstOrFail();
