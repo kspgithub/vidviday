@@ -6,6 +6,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -27,11 +28,13 @@ class TourPlan extends Model
     public $translatable = [
         'title',
         'text',
+        'short_text',
     ];
-    
+
     protected $fillable = [
         'tour_id',
         'title',
+        'short_text',
         'text',
         'slug',
         'lat',
@@ -45,6 +48,25 @@ class TourPlan extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        /**
+         * генерируем короткий текст если он не было передан
+         */
+        self::creating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
+
+        self::updating(function ($model) {
+            if (empty($model->short_text)) {
+                $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+        });
     }
 
     /**
