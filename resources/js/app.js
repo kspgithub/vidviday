@@ -22,5 +22,6 @@ require('./libs/global');
 require('./libs/markerclusterer');
 require('./libs/infobox');
 require('./libs/map');
+require('./libs/map-route');
 
 require('./vue-app');
