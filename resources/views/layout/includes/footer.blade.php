@@ -54,11 +54,11 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" class="text">Корпоративи</a>
+                                    <a href="{{route('corporates')}}" class="text">Корпоративи</a>
                                 </li>
 
                                 <li>
-                                    <a href="{{ route('transport')}}" class="text">Транспорт</a>
+                                    <a href="{{route('transport')}}" class="text">Транспорт</a>
                                 </li>
 
                                 <li>

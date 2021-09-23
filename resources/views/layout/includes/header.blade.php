@@ -207,7 +207,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/news/">Новини</a>
+                                        <a href="{{ route("news") }}">{{ __("Новини") }}</a>
                                     </li>
 
                                     <li>
@@ -233,7 +233,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/blog/">Блог</a>
+                                        <a href="">Блог</a>
                                     </li>
                                 </ul>
                             </div>
@@ -279,7 +279,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="corporates.php">Корпоративи</a>
+                                        <a href="{{route('corporates')}}">Корпоративи</a>
                                     </li>
 
                                     <li>
@@ -287,7 +287,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{ route('transport')}}">Транспорт</a>
+                                        <a href="{{route('transport')}}">Транспорт</a>
                                     </li>
 
                                     <li>

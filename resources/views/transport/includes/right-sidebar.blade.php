@@ -12,7 +12,7 @@
             <div class="spacer-xs"></div>
             <hr>
             <div class="spacer-xs"></div>
-            @include('transport.includes.social-share')
+            @include('staff.includes.social-share')
         </div>
     </div>
 
