@@ -83,22 +83,22 @@
             <div class="col-xl-6 col-10">
                 <div class="tel dropdown">
                     @foreach($contacts as $phone)
-                    <a href="tel:{{$phone->work_phone}}" class="only-desktop">{{$phone->work_phone}}</a>
-                    <span class="dropdown-btn"></span>
-                    <ul class="dropdown-toggle">
-                        <li>
-                            <a href="tel:{{$phone->phone_1}}">{{$phone->phone_1}}</a>
-                        </li>
+                        <a href="tel:{{$phone->work_phone}}" class="only-desktop">{{$phone->work_phone}}</a>
+                        <span class="dropdown-btn"></span>
+                        <ul class="dropdown-toggle">
+                            <li>
+                                <a href="tel:{{$phone->phone_1}}">{{$phone->phone_1}}</a>
+                            </li>
 
-                        <li>
-                            <a href="tel:{{$phone->phone_2}}">{{$phone->phone_2}}</a>
-                        </li>
+                            <li>
+                                <a href="tel:{{$phone->phone_2}}">{{$phone->phone_2}}</a>
+                            </li>
 
-                        <li>
-                            <a href="tel:{{$phone->phone_3}}">{{$phone->phone_3}}</a>
-                        </li>
-                    </ul>
-                    <div class="full-size"></div>
+                            <li>
+                                <a href="tel:{{$phone->phone_3}}">{{$phone->phone_3}}</a>
+                            </li>
+                        </ul>
+                        <div class="full-size"></div>
                     @endforeach
                 </div>
 
@@ -188,24 +188,24 @@
                     </div>
                     <ul>
                         <li class="dropdown">
-                            <a href="#">Чому відвідай</a>
+                            <a href="/about">Чому відвідай</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
                                     <li>
-                                        <a href="#">Про нас</a>
+                                        <a href="/about">Про нас</a>
                                     </li>
 
                                     <li>
-                                        <a href="/documents/">Наші документи</a>
+                                        <a href="/documents">Наші документи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/guides/">Екскурсоводи</a>
+                                        <a href="/guides">Екскурсоводи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/office-workers/">Офісні працівники</a>
+                                        <a href="/office-workers">Офісні працівники</a>
                                     </li>
 
                                     <li>
@@ -213,7 +213,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/benefit/">Благодійність</a>
+                                        <a href="/benefit">Благодійність</a>
                                     </li>
                                 </ul>
 
