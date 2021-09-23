@@ -101,3 +101,4 @@ class Blog extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 }
+

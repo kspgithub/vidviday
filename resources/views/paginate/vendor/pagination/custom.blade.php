@@ -1,53 +1,58 @@
 
-
 @if ($paginator->hasPages())
 
-    <div class="post-pagination">
+    <div class="news_pagination">
+        <ul>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            @if ($paginator->onFirstPage())
+                <li class="disabled">
+                    <a class="left_side-navigation__button"><img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt=""></a>
+                </li>
+            @else
+                <li>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="left_side-navigation__button">
+                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                    </a>
+                </li>
+            @endif
 
-                @if ($paginator->onFirstPage())
 
-                    <a  class="btn btn-read-more left-arrow text-bold">{{ __("Назад") }}</a>
 
-                @else
-                    <a href="{{ $paginator->previousPageUrl() }}" class="btn btn-read-more left-arrow text-bold">{{ __("Назад") }}</a>
+            @foreach ($elements as $element)
+
+                @if (is_string($element))
+                    <li class="disabled"><span>{{ $element }}</span></li>
                 @endif
 
 
-                    @foreach ($elements as $element)
 
-                        @if (is_string($element))
-                            <li class="text disabled"><span>{{ $element }}</span></li>
-                        @endif
-
-
-
-                        @if (is_array($element))
-                            @foreach ($element as $page => $url)
-
-                                @if ($page == $paginator->currentPage())
-
-                                    <li class="active text"><span>{{ $page }}</span></li>
-                                @else
-                                    @if($loop->first)<span class="text">...</span>@endif
-                                    <a class="text" href="{{ $url }}" >{{ $page }}</a>
-                                    <a class="text" href="{{ $url }}" >{{ $page }}</a>
-                                @endif
-                            @endforeach
+                @if (is_array($element))
+                    @foreach ($element as $page => $url)
+                        @if ($page == $paginator->currentPage())
+                            <li class="active my-active"><span>{{ $page }}</span></li>
+                        @else
+                            <li><a href="{{ $url }}">{{ $page }}</a></li>
                         @endif
                     @endforeach
-
-
-                @if ($paginator->hasMorePages())
-
-                   <a href="{{ $paginator->nextPageUrl() }}" class="btn btn-read-more text-bold">{{ __("Вперед") }}</a>
-
-                @else
-                   <a  class="btn btn-read-more text-bold">{{ __("Вперед") }}</a>
                 @endif
-            </ul>
-        </nav>
+            @endforeach
+
+
+
+            @if ($paginator->hasMorePages())
+                <li>
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next"  class="left_side-navigation__button">
+                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                    </a>
+                </li>
+            @else
+                <li class="disabled">
+
+                    <a class="disabled left_side-navigation__button">
+                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                    </a>
+                </li>
+            @endif
+        </ul>
     </div>
 @endif

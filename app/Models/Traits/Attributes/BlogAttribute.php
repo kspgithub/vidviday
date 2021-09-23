@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models\Traits\Attributes;
 
 trait BlogAttribute
@@ -18,3 +19,4 @@ trait BlogAttribute
         return $media === null ? '' : $media->getUrl();
     }
 }
+

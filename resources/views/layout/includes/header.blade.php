@@ -235,7 +235,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="">Блог</a>
+                                        <a href="{{ route("blogs") }}">Блог</a>
                                     </li>
                                 </ul>
                             </div>
