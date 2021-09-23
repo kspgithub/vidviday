@@ -177,6 +177,14 @@ class TourSchedule extends Model
             ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
                 return $q->where('price', '<=', $params['price_to']);
             })
+            ->when(!empty($params['place_id']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->whereHas('places', function (Builder $ssq) use ($params) {
+                        $ids = array_filter(explode(',', $params['place_id']));
+                        $ssq->whereIn('id', $ids);
+                    });
+                });
+            })
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
                 return $q->whereHas('tour', function ($sq) use ($params) {
                     return $sq->whereHas('directions', function (Builder $ssq) use ($params) {

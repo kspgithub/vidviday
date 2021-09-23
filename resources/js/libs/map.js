@@ -1,4 +1,6 @@
-﻿jQuery(function ($) {
+﻿import MarkerClusterer from '@googlemaps/markerclustererplus';
+
+jQuery(function ($) {
 
     var winWidth = $(window).width();
 
@@ -80,8 +82,14 @@
             "elementType": "labels.text.fill",
             "stylers": [{"lightness": "-49"}, {"saturation": "-53"}, {"gamma": "0.79"}]
         }],
-        img_cluster = $('#map-canvas').attr("data-img-cluster"),
-        ibOptions = {
+
+        ibOptions = $('.places-map').length ? {
+            alignBottom: true,
+            content: 'text',
+            pixelOffset: new google.maps.Size(0, -40),
+            closeBoxMargin: "0px 55px -10px 5px",
+            //closeBoxURL: 'icon/icon-close.png'
+        } : {
             alignBottom: true,
             content: 'text',
             //pixelOffset: new google.maps.Size(50, 0),
@@ -90,7 +98,7 @@
                 width: ($(window).width() < 1200) ? "270px" : "408px"
             },
             closeBoxMargin: "5px 5px 5px 5px",
-            closeBoxURL: 'icon/icon-close.png'
+            //closeBoxURL: 'icon/icon-close.png'
         },
         ib = new InfoBox(ibOptions);
 
@@ -102,7 +110,7 @@
     }
 
     function addMarker(mapId, location, index, string, image, markerFilter) {
-        maps[mapId].markers[index] = new google.maps.Marker({
+        const newMarker = new google.maps.Marker({
             position: location,
             map: maps[mapId].map,
             icon: {
@@ -113,9 +121,10 @@
             filter: markerFilter
         });
 
+
         var content = '<div class="info-box">' + string + '</div>';
 
-        google.maps.event.addListener(maps[mapId].markers[index], 'click', function () {
+        google.maps.event.addListener(newMarker, 'click', function () {
             ib.setContent(content);
             ib.setPosition(location);
             ib.open(maps[mapId].map);
@@ -130,12 +139,16 @@
             maps[mapId].map.setCenter(location);
             //maps[mapId].map.setZoom(15);
         });
+        maps[mapId].markers[index] = newMarker;
+
+        return newMarker;
     }
 
     function initialize(mapInst) {
 
         var lat = mapInst.attr("data-lat"),
             lng = mapInst.attr("data-lng"),
+            clusterImage = mapInst.attr("data-img-cluster"),
             myLatlng = new google.maps.LatLng(lat, lng),
             setZoom = parseInt(mapInst.attr("data-zoom")),
             mapId = mapInst.attr('id');
@@ -159,9 +172,11 @@
         };
 
         maps[mapId] = new Map(mapId, mapOptions);
+        maps[mapId].bounds = new google.maps.LatLngBounds();
+
         //maps[mapId].bounds = new google.maps.LatLngBounds();
         $('.marker[data-rel="' + mapId + '"]').each(function (i, el) {
-            addMarker(
+            const marker = addMarker(
                 mapId,
                 new google.maps.LatLng(
                     $(this).attr('data-lat'),
@@ -172,7 +187,9 @@
                 $(this).attr('data-image'),
                 $(this).attr('data-filter')
             );
+            maps[mapId].bounds.extend(marker.getPosition());
         });
+
         /* maps[mapId].markers.forEach(function(marker, index) {
             maps[mapId].bounds.extend(marker.getPosition());
         });
@@ -201,12 +218,17 @@
           console.log(e.latLng.lat(), e.latLng.lng());
         }); */
 
-        if ($('.project-map').length) {
-            markerClusters = new MarkerClusterer(
+
+        if ($('.project-map').length || $('.places-map').length) {
+
+            maps[mapId].mapmarkerClusterer = new MarkerClusterer(
                 maps[mapId].map,
                 maps[mapId].markers,
-                {imagePath: img_cluster, gridSize: 60, minimumClusterSize: 2}
+                {imagePath: clusterImage, gridSize: 60, minimumClusterSize: 2}
             );
+
+
+            maps[mapId].map.fitBounds(maps[mapId].bounds);
         }
 
         if ((winWidth < 768) && ($('.contact-map').length)) {

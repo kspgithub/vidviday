@@ -44,6 +44,7 @@ class SearchEventsRequest extends FormRequest
             'type' => ['nullable', 'string'],
             'subject' => ['nullable', 'string'],
             'tour_id' => ['nullable', 'integer'],
+            'place_id' => ['nullable', 'integer'],
             'event_click' => ['nullable', 'string'],
         ];
     }

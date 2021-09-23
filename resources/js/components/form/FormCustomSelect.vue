@@ -47,13 +47,13 @@ export default {
                 emit('update:modelValue', event.target.value);
             })
             inputRef.value.addEventListener('sumo:opened', (event) => {
-                console.log('sumo:opened');
+                //console.log('sumo:opened');
             })
         })
 
         const update = () => {
             $(inputRef.value)[0].sumo.reload();
-            console.log($(inputRef.value)[0].sumo);
+            //console.log($(inputRef.value)[0].sumo);
         }
 
         return {

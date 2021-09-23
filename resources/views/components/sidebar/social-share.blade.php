@@ -1,4 +1,7 @@
-<div class="social">
+@props([
+
+])
+<div {{$attributes->merge(['class'=>'social'])}}>
     <span>Поділитись:</span>
     <div class="share dropdown">
         <div class="icon">

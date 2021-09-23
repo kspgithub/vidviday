@@ -25,5 +25,7 @@ export default {
 
         app.component('order-form', require('./order/OrderForm').default);
 
+        app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
+
     }
 }

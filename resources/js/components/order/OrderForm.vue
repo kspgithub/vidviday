@@ -251,7 +251,7 @@ export default {
             if (result.valid) {
 
             } else {
-                console.log(result);
+                console.log(errors.value);
                 event.preventDefault();
             }
         }
