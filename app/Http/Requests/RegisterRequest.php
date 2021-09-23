@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class RegisterRequest
@@ -34,9 +35,13 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email',
-            'password' => 'required|string|confirmed',
-            'agree' => ['required'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'mobile_phone' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed'],
+            'role' => ['required', Rule::in(['tourist', 'tour-agent'])],
+            'company' => [Rule::requiredIf($this->role === 'tour-agent')],
         ];
     }
 

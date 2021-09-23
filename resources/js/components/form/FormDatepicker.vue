@@ -1,7 +1,7 @@
 <template>
     <div :class="{active: open, disabled: disabled, invalid: errorMessage}"
          class="datepicker-input vue-datepicker"
-         v-click-outside="close"
+         ref="pickerRef"
     >
         <div class="datepicker-placeholder"
              :data-tooltip="errorMessage"
@@ -54,12 +54,14 @@ export default {
             type: [String, Object],
             default: ''
         },
+
     },
     emits: ['update:modelValue', 'onSelect'],
     setup(props, {emit}) {
         const {locale} = useI18nLocal();
         const field = useFormField(props, emit);
 
+        const pickerRef = ref(null);
         const pickerEl = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
@@ -89,6 +91,14 @@ export default {
             open.value = !open.value;
         }
 
+        const clickOutside = (event) => {
+            const $target = $(event.target);
+
+            if (!$target.closest($(pickerRef.value)).length) {
+                close(event);
+            }
+        }
+
         onMounted(() => {
             $(pickerEl.value).datepicker({
                 inline: true,
@@ -106,7 +116,12 @@ export default {
 
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
+            document.addEventListener('click', clickOutside);
         });
+
+        onUnmounted(() => {
+            document.removeEventListener('click', clickOutside);
+        })
 
         watch(startDate, () => {
             if (datepicker.value) {
@@ -133,6 +148,7 @@ export default {
 
 
         return {
+            pickerRef,
             pickerEl,
             filled,
             displayLabel,

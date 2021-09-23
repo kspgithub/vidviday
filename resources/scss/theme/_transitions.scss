@@ -146,3 +146,11 @@ nav,
 .fade-leave-to {
     opacity: 0;
 }
+
+.tabs-fade {
+    position: relative;
+
+    .fade-leave-to {
+        position: absolute;
+    }
+}

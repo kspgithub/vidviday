@@ -3,6 +3,8 @@
 
 export default {
     install: (app, options) => {
+        app.component('sign-up-form', require('./auth/SignUpForm').default);
+
         app.component('lang-dropdown', require('./header/LangDropdown').default);
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);

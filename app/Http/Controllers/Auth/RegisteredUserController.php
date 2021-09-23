@@ -51,7 +51,11 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME)
-            ->withFlashSuccess(__('A confirmation link has been sent to your email address.'));
+        return redirect()->route('auth.register.success');
+    }
+
+    public function success()
+    {
+        return view('auth.success');
     }
 }

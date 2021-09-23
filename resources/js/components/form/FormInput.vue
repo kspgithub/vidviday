@@ -7,7 +7,8 @@
                @blur="onBlur"
                :placeholder="placeholder"
                :type="type" v-model="innerValue" :name="name" :id="id || name"
-               :required="required">
+        >
+        <slot/>
     </label>
 </template>
 
