@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
 /**
  * @mixin IdeHelperBlog
  */
-class Blog extends Model implements HasMedia
+class Blog extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasSlug;
@@ -104,4 +104,3 @@ class Blog extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 }
-

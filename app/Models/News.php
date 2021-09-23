@@ -22,7 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperNews
  */
-class News extends Model implements HasMedia
+class News extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasSlug;

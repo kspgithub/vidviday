@@ -4,6 +4,7 @@ namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -11,11 +12,11 @@ class NewsController extends Controller
     public function index()
     {
 
-        $news = $this->query()->latest()
-                              ->paginate(9);
-
+        $news = $this->query()->latest()->paginate(9);
+        $pageContent = Page::whereSlug('news')->first();
 
         return view("news.index", [
+            "pageContent" => $pageContent,
             "news" => $news,
         ]);
     }
@@ -24,7 +25,7 @@ class NewsController extends Controller
     {
 
         $newsSingle = $this->query()->whereSlug($slug)
-                              ->firstOrFail();
+            ->firstOrFail();
 
         return view("news.single", [
             "newsSingle" => $newsSingle,
