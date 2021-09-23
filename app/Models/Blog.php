@@ -15,6 +15,9 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @mixin IdeHelperBlog
+ */
 class Blog extends Model implements HasMedia
 {
     use HasFactory;
