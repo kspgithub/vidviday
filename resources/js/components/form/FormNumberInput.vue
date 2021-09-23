@@ -1,8 +1,10 @@
 <template>
-    <div class="number-input">
+    <div class="number-input vue-number-input">
+        <span class="text-sm text-medium title inline" v-if="title">{{ title }}</span>
         <div class="number-input-btns">
             <button type="button" class="decrement" :disabled="disabled" @click.prevent="decrement()"></button>
-            <input type="number" :value="disabled ? 0 : modelValue" readonly required>
+            <input type="number" :name="name" :value="disabled || !modelValue ? 0 : modelValue" readonly
+                   :required="required">
             <button type="button" class="increment" :disabled="disabled" @click.prevent="increment()"></button>
         </div>
     </div>
@@ -10,11 +12,14 @@
 
 <script>
 import {computed} from "vue";
+import useFormField from "./composables/useFormField";
 
 export default {
     name: "FormNumberInput",
     props: {
         modelValue: Number,
+        name: String,
+        title: String,
         min: {
             type: Number,
             default: 0,
@@ -28,10 +33,14 @@ export default {
             default: 1,
         },
         disabled: Boolean,
+        rules: {
+            type: [String, Object],
+            default: ''
+        },
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {
-
+        const field = useFormField(props, emit);
 
         const decrement = () => {
             if (props.modelValue > props.min) {
@@ -48,6 +57,7 @@ export default {
         return {
             decrement,
             increment,
+            ...field
         }
     }
 }

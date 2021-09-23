@@ -138,10 +138,18 @@
 
 @push('after-popups')
     <div v-is="'tour-testimonial-form'"
-         :tour='@json($tour)'
+         :tour='@json($tour->shortInfo())'
          :user='@json(current_user())'
          action='{{route('tour.testimonial', $tour)}}'
          :data-parent="0"
+    >
+        @csrf
+    </div>
+
+    <div v-is="'tour-one-click-popup'"
+         :tour='@json($tour->shortInfo())'
+         :schedules='@json($future_events)'
+         action='{{route('tour.order-confirm', $tour)}}'
     >
         @csrf
     </div>

@@ -25,9 +25,7 @@ export default {
     name: "FormSelect",
     props: {
         name: String,
-        modelValue: {
-            type: [String, Number, Array, null]
-        },
+        modelValue: null,
         options: Array,
     },
     emits: ['update:modelValue'],

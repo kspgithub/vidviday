@@ -1,9 +1,15 @@
 <template>
-    <div :class="{active: open}" class="datepicker-input vue-datepicker">
-        <span class="datepicker-placeholder" @click="open = !open">{{ displayLabel }}</span>
+    <div :class="{active: open, disabled: disabled, invalid: errorMessage}"
+         class="datepicker-input vue-datepicker"
+         v-click-outside="close"
+    >
+        <div class="datepicker-placeholder"
+             :data-tooltip="errorMessage"
+             @click="toggle()">{{ displayLabel }}
+        </div>
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}">
-                <input :name="name" :value="modelValue" type="hidden">
+                <input :name="name" v-model="modelValue" type="hidden">
             </div>
         </div>
     </div>
@@ -13,6 +19,7 @@
 import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
+import useFormField from "./composables/useFormField";
 
 export default {
     name: "FormDatepicker",
@@ -39,14 +46,19 @@ export default {
             type: String,
             default: ''
         },
-        participant: {
+        disabled: {
             type: Boolean,
             default: false,
-        }
+        },
+        rules: {
+            type: [String, Object],
+            default: ''
+        },
     },
     emits: ['update:modelValue', 'onSelect'],
     setup(props, {emit}) {
         const {locale} = useI18nLocal();
+        const field = useFormField(props, emit);
 
         const pickerEl = ref(null);
         const datepicker = ref(null);
@@ -59,15 +71,22 @@ export default {
         });
 
 
-        const filled = computed(() => props.participant && props.modelValue);
+        const filled = computed(() => !!props.modelValue);
 
         const startDate = computed(() => props.modelValue ? moment(props.modelValue, props.valueFormat.toUpperCase()).toDate() : '');
         const minDate = computed(() => props.minDate ? moment(props.minDate, props.valueFormat.toUpperCase()).toDate() : '');
         const maxDate = computed(() => props.maxDate ? moment(props.maxDate, props.valueFormat.toUpperCase()).toDate() : '');
 
-        const close = () => {
+        const close = (event) => {
+            event.stopPropagation();
+            if (open.value) {
+                open.value = false;
+            }
+        }
 
-            open.value = false;
+        const toggle = () => {
+            if (props.disabled) return;
+            open.value = !open.value;
         }
 
         onMounted(() => {
@@ -108,6 +127,7 @@ export default {
         });
 
         onBeforeUnmount(() => {
+            //document.removeEventListener('click', onDocumentClick);
             datepicker.value.destroy();
         })
 
@@ -118,7 +138,9 @@ export default {
             displayLabel,
             locale,
             open,
+            toggle,
             close,
+            ...field,
         }
     }
 }

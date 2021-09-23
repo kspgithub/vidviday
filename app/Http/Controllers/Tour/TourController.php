@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Tour;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
+use App\Http\Requests\TourOrderRequest;
+use App\Models\AccommodationType;
 use App\Models\FaqItem;
 use App\Models\IncludeType;
+use App\Models\Order;
+use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
+use App\Services\OrderService;
 use App\Services\TourService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
@@ -82,6 +87,10 @@ class TourController extends Controller
             },
         ]);
 
+        $tour->loadCount([
+            'testimonials'
+        ]);
+
         $future_events = $tour->scheduleItems()
             ->whereDate('start_date', '>=', Carbon::now())->orderBy('start_date')->get();
 
@@ -102,13 +111,6 @@ class TourController extends Controller
             'faq_items' => $faq_items,
             'price_items' => $price_items,
         ]);
-    }
-
-
-    public function order(Request $request, string $slug)
-    {
-        $tour = Tour::findBySlugOrFail($slug);
-        return view('tour.order', ['tour' => $tour]);
     }
 
 
@@ -179,5 +181,43 @@ class TourController extends Controller
         }
 
         return redirect()->route('tour.show', $tour->slug)->withFlashSuccess(__('Thanks for your feedback!'));
+    }
+
+    public function order(Request $request, Tour $tour)
+    {
+        $schedules = $tour->scheduleItems()->inFuture()->get();
+        $discounts = $tour->discounts()->available()->get();
+        $room_types = AccommodationType::all();
+        $payment_types = PaymentType::published()->toSelectBox();
+
+
+        return view('tour.order', [
+            'tour' => $tour,
+            'schedules' => $schedules,
+            'discounts' => $discounts,
+            'room_types' => $room_types,
+            'payment_types' => $payment_types,
+            'confirmation_types' => Order::confirmationSelectBox(),
+        ]);
+    }
+
+    public function orderConfirm(TourOrderRequest $request, Tour $tour)
+    {
+        $params = $request->validated();
+        $params['tour_id'] = $tour->id;
+        $params['user_id'] = current_user() ? current_user()->id : null;
+        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
+        $order = OrderService::createOrder($params);
+        if ($order === false) {
+            if ($request->ajax()) {
+                return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);
+            }
+            return back()->withFlashError('Помилка при замовлені туру');
+        } else {
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
+            }
+            return redirect()->route('order.success', $order);
+        }
     }
 }

@@ -64,6 +64,7 @@ import {computed} from "vue";
 import FormRange from "../form/FormRange";
 import FormSelect from "../form/FormSelect";
 import * as urlUtils from "../../utils/url";
+import {updateUrl} from "../../utils/url";
 
 export default {
     name: "SidebarFilter",
@@ -110,7 +111,7 @@ export default {
             if (path === '/') {
                 document.location.href = urlUtils.makeUrl('/tours', query);
             } else {
-                urlUtils.updateQuery(path, query, true);
+                urlUtils.updateUrl(path, query, true);
                 await store.dispatch('tourFilter/fetchTours', query);
             }
 

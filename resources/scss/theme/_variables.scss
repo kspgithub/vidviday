@@ -19,47 +19,55 @@ $checkbox: #dbdbdb;
 $socialDark: #f7f7f7;
 $mainFont: 'Roboto', sans-serif;
 
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
 @mixin dropdownArrow($borderColor) {
-	top: 50%;
-	width: 6px;
-	content: '';
-	height: 6px;
-	margin-top: -5px;
-	position: absolute;
-	transform: rotate(45deg);
-	border-right: 1px solid $borderColor;
-	border-bottom: 1px solid $borderColor;
+    top: 50%;
+    width: 6px;
+    content: '';
+    height: 6px;
+    margin-top: -5px;
+    position: absolute;
+    transform: rotate(45deg);
+    border-right: 1px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
 }
 
 @mixin dropdownArrowLeft($left) {
-	left: $left;
+    left: $left;
 }
 
 @mixin dropdownArrowRight($right) {
-	right: $right;
+    right: $right;
 }
 
 @mixin dropdownArrowActive($borderColor) {
-	border-color: $borderColor;
-	transform: rotate(225deg) translate3d(-4px, -2px, 0);
+    border-color: $borderColor;
+    transform: rotate(225deg) translate3d(-4px, -2px, 0);
 }
 
 // Line clamp
 @mixin lineClamp($lineClamp) {
-	overflow: hidden;
-	display: -webkit-box;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: $lineClamp;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lineClamp;
 }
 
 @mixin lineClampBasix() {
-	overflow: hidden;
-	display: -webkit-box;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
 }
 
 @mixin lineClampOnly($lineClamp) {
-	-webkit-line-clamp: $lineClamp;
+    -webkit-line-clamp: $lineClamp;
 }

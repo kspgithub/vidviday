@@ -2,17 +2,40 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\OrderAttribute;
 use App\Models\Traits\Relationship\OrderRelationship;
+use App\Models\Traits\UseOrderConstants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * @mixin IdeHelperOrder
  */
-class Order extends Model
+class Order extends TranslatableModel
 {
     use HasFactory;
     use OrderRelationship;
+    use OrderAttribute;
+    use UseOrderConstants;
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($model) {
+            $model->order_number = Str::padLeft($model->id, 5, '0');
+            $model->save();
+        });
+    }
+
+    public const CONFIRMATION_EMAIL = 1;
+    public const CONFIRMATION_VIBER = 2;
+    public const CONFIRMATION_PHONE = 3;
+
+    public const GROUP_TEAM = 0;
+    public const GROUP_CORPORATE = 0;
+
 
     protected $fillable = [
         'user_id',
@@ -31,6 +54,8 @@ class Order extends Model
         'currency',
         'discounts',
         'children',
+        'children_young',
+        'children_older',
         'tour_title',
         'first_name',
         'last_name',
@@ -62,7 +87,11 @@ class Order extends Model
         'participants' => 'array',
         'accommodation' => 'array',
         'abolition' => 'array',
+        'price_include' => 'array',
         'children' => 'boolean',
+        'children_older' => 'integer',
+        'children_young' => 'integer',
+        'places' => 'integer',
         'price' => 'integer',
         'commission' => 'integer',
         'discount' => 'integer',

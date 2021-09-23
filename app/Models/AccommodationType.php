@@ -29,6 +29,10 @@ class AccommodationType extends TranslatableModel
         'description',
     ];
 
+    protected $appends = [
+        'slug_key',
+    ];
+
 
     public function getSlugOptions(): SlugOptions
     {
@@ -36,5 +40,11 @@ class AccommodationType extends TranslatableModel
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+
+    public function getSlugKeyAttribute()
+    {
+        return str_replace('-', '_', $this->slug);
     }
 }

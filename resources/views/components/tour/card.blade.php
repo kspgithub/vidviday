@@ -90,7 +90,7 @@
                                 class="tooltip text text-sm light">Комісія агента</span></span></span>
                 @endif
             </div>
-            <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</a>
+            <a href="{{route('tour.order', $tour->id)}}" class="btn type-1 btn-block">Замовити Тур</a>
         </div>
     @endif
 </div>

@@ -225,6 +225,68 @@ textarea {
         background: center / contain no-repeat;
         background-image: url(../../svg/clock.svg);
     }
+
+    .datepicker-placeholder {
+        z-index: 3;
+
+        &:before,
+        &:after {
+            z-index: 4;
+            opacity: 0;
+            display: none;
+            position: absolute;
+            transform: scale(0);
+            pointer-events: none;
+            background-color: $red;
+        }
+
+        &:before {
+            content: '';
+            right: 18px;
+            width: 10px;
+            height: 10px;
+            transform: rotate(45deg);
+            bottom: calc(100% - 13px);
+        }
+
+        &:after {
+            z-index: 70;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 10px;
+            line-height: 22px;
+            border-radius: 3px;
+            white-space: nowrap;
+            left: calc(100% - 23px);
+            bottom: calc(100% - 8px);
+            content: attr(data-tooltip);
+            transform: translateX(-50%);
+        }
+    }
+
+    &.invalid {
+        .datepicker-placeholder {
+            border-color: $red;
+            position: relative;
+
+            &:before,
+            &:after {
+                display: block;
+            }
+        }
+
+    }
+
+    &.disabled {
+        .datepicker-placeholder,
+        .datepicker-placeholder:hover {
+            opacity: 0.75;
+            border: 1px solid $border !important;
+            cursor: default !important;
+        }
+    }
+
+
 }
 
 .tour-content .datepicker-input {
@@ -259,6 +321,37 @@ textarea {
             visibility: visible;
         }
     }
+
+    .datepicker-options {
+        position: absolute;
+        display: none;
+        width: calc(100% - 30px);
+        left: 30px;
+        top: 48px;
+        color: #626262;
+        font-size: 14px;
+        line-height: 24px;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 7px 0;
+        border: 1px solid #E9E9E9;
+        z-index: 1000;
+
+        label {
+            margin-bottom: 0;
+            padding: 0px 15px;
+            background: transparent;
+        }
+
+        .opt {
+            padding: 7px 0;
+
+            &.selected {
+                background: #E9E9E9;
+            }
+        }
+    }
+
 }
 
 .datepicker-placeholder {
@@ -273,6 +366,37 @@ textarea {
     background-color: #fff;
     padding: 12px 15px 10px;
     border: 1px solid $border;
+}
+
+.datepicker-dropdown {
+    .datepicker-placeholder {
+        &:after {
+            top: 50%;
+            width: 6px;
+            content: "";
+            height: 6px;
+            margin-top: -5px;
+            position: absolute;
+            transform: rotate(45deg);
+            border-right: 1px solid #626262;
+            border-bottom: 1px solid #626262;
+            right: 15px;
+            transition: rotate ease-in 300ms;
+        }
+    }
+
+    &.open {
+        .datepicker-options {
+            display: block;
+        }
+
+        .datepicker-placeholder {
+            &:after {
+                transform: rotate(-135deg);
+                margin-top: -2px;
+            }
+        }
+    }
 }
 
 .datepicker-toggle {
@@ -755,6 +879,12 @@ label {
 
             &:after {
                 transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .SumoSelect {
+            > .CaptionCont {
+                border-color: $red;
             }
         }
     }

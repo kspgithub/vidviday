@@ -1,9 +1,10 @@
 <template>
-    <div class="datepicker-input" v-click-outside="close" :class="{open: open}">
-        <input :name="name" :value="modelValue" type="hidden">
-        <span :title="current.text" class="datepicker-placeholder" @click="open = !open">
-                {{ current.text }}
-            </span>
+    <div class="datepicker-input datepicker-dropdown" v-click-outside="close" :class="{open: open}"
+         :data-tooltip="errorMessage">
+        <input :name="name" v-model="modelValue" type="hidden">
+        <span :title="current ? current.text : ''" class="datepicker-placeholder" @click="open = !open">
+            {{ current ? current.text : label }}
+        </span>
         <ul class="datepicker-options">
             <li v-for="option in options"
                 :class="{selected: option.value === modelValue}"
@@ -16,24 +17,36 @@
 
 <script>
 import {computed, ref} from "vue";
+import useFormField from "./composables/useFormField";
 
 export default {
     name: "FormSelectEvent",
     props: {
         name: String,
-        modelValue: {
-            type: [String, Number, Array, null]
+        label: {
+            type: String,
+            default: ''
         },
+        modelValue: null,
         options: Array,
+        rules: {
+            type: [String, Object],
+            default: ''
+        },
+        preselect: {
+            type: Boolean,
+            default: true
+        },
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {
+        const field = useFormField(props, emit);
 
         const open = ref(false);
 
         const current = computed(() => {
             const option = props.options.find(o => o.value === props.modelValue);
-            return option || props.options[0];
+            return option ? option : (props.preselect ? props.options[0] : null);
         })
 
         const change = (option) => {
@@ -51,6 +64,7 @@ export default {
             change,
             close,
             open,
+            ...field,
         }
     }
 }

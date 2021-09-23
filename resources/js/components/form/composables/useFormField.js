@@ -8,7 +8,7 @@ const useFormField = (props, emit) => {
 
     const {value: innerValue, errorMessage} = useField(props.name, props.rules, {
         initialValue: props.modelValue,
-        validateOnMount: false
+        validateOnMount: false,
     });
 
 

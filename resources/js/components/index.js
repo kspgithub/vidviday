@@ -19,6 +19,11 @@ export default {
         app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
         app.component('tour-map', require('./tour/TourMap').default);
         app.component('tour-calc', require('./tour/TourCalc').default);
+        app.component('tour-order', require('./tour/TourOrder').default);
+        app.component('tour-one-click-popup', require('./tour/TourOneClickPopup').default);
+
+
+        app.component('order-form', require('./order/OrderForm').default);
 
     }
 }

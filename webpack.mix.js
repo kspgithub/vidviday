@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
-
+require('laravel-vue-lang/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -20,6 +20,7 @@ mix.js('resources/js/app.js', 'public/js/app.js')
     .sass('resources/scss/theme/style.scss', 'public/css/style.css')
     .sass('resources/scss/admin/app.scss', 'public/css/admin.css')
     .vue()
+    .lang()
     .extract()
     .disableNotifications();
 

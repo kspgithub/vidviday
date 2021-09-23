@@ -1,7 +1,9 @@
 <div class="left-sidebar">
 
     <div class="left-sidebar-inner">
-        <span class="btn type-4 arrow-right only-desktop">{{svg('sidebar-tour')}} Замовити тур</span>
+
+        <a href="{{route('order.index')}}" class="btn type-4 arrow-right only-desktop">
+            {{svg('sidebar-tour')}} Замовити тур</a>
 
         <a href="{{asset('documents/test-document.pdf')}}" download class="btn type-5 arrow-right only-desktop">
             {{svg('excel')}} Завантажити розклади турів</a>

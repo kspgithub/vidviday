@@ -21,27 +21,7 @@
         margin-bottom: 10px;
         position: relative;
 
-        .datepicker-options {
-            position: absolute;
-            display: none;
-            width: calc(100% - 30px);
-            left: 30px;
-            top: 48px;
-            color: #626262;
-            font-size: 14px;
-            line-height: 24px;
-            border-radius: 5px;
-            background-color: #fff;
-            padding: 12px 15px 10px;
-            border: 1px solid #E9E9E9;
-            z-index: 1000;
-        }
 
-        &.open {
-            .datepicker-options {
-                display: block;
-            }
-        }
     }
 
 

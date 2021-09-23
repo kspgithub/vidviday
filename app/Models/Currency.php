@@ -13,11 +13,13 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperCurrency
  */
-class Currency extends Model
+class Currency extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
     use UseSelectBox;
+
+    protected static $currencies = null;
 
     protected static $iso_names = null;
 
@@ -40,5 +42,24 @@ class Currency extends Model
         }
 
         return self::$iso_names;
+    }
+
+    public static function allCached()
+    {
+        if (self::$currencies === null) {
+            $currencies = self::query()->get();
+            $array = [];
+            foreach ($currencies as $currency) {
+                $array[$currency->iso] = $currency;
+            }
+            self::$currencies = $array;
+        }
+        return self::$currencies;
+    }
+
+    public static function currencyTitle($iso)
+    {
+        $currencies = self::allCached();
+        return array_key_exists($iso, $currencies) ? $currencies[$iso]->title : $iso;
     }
 }

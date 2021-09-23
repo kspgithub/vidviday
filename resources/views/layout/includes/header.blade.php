@@ -240,7 +240,7 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="tours.php">Тури</a>
+                            <a href="/tours">Тури</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
