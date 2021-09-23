@@ -251,6 +251,14 @@
                         class="align-middle">@lang('News')</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{routeActiveClass('admin.blog.*')}}">
+                <a class="sidebar-link" href="{{route('admin.blog.index')}}">
+                    <i class="align-middle" data-feather="rss"></i> <span
+                        class="align-middle">@lang('Blogs')</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{routeActiveClass('admin.html-block.*')}}">
                 <a class="sidebar-link" href="{{route('admin.html-block.index')}}">
                     <i class="align-middle" data-feather="code"></i> <span
