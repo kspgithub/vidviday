@@ -39,6 +39,7 @@ require base_path('routes/frontend/transport.php');
 require base_path('routes/frontend/corporate.php');
 require base_path('routes/frontend/order.php');
 require base_path('routes/frontend/faq.php');
+require base_path('routes/frontend/contact.php');
 
 // ADMIN ROUTES
 /*

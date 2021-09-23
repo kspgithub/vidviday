@@ -30,6 +30,4 @@ class StaffController extends Controller
         $tours = Tour::all();
         return view('staff.worker', ['staff' => $staff, 'tours' => $tours]);
     }
-
-
 }

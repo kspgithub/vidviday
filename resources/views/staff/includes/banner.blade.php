@@ -46,7 +46,9 @@
 
                 <!-- TAB #2 -->
                 <div class="tab">
-                    <div class="video" data-frame-src="https://www.youtube.com/embed/BMQQQynlrn4"></div>
+                    @foreach ($staff as $video)
+                    <div class="video" data-frame-src="{{$video->video}}"></div>
+                    @endforeach
                 </div>
                 <!-- TAB #2 END -->
             </div>

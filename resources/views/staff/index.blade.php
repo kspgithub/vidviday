@@ -2,6 +2,7 @@
 @section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
 @section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
 @section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
+
 @section('content')
     <main>
         <div class="container">
@@ -18,86 +19,85 @@
                 @include('includes.sidebar')
                 <!-- SIDEBAR END -->
                 </div>
-
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     @include('staff.includes.banner')
                     <div class="section">
                         <div class="thumb-wrap row">
-                            @foreach ($staff as $staff)
+                            @foreach ($staff as $staff_item)
                                 <div class="col-lg-4 col-md-6 col-12">
                                     <div class="img img-border img-caption style-2">
                                         <div class="top-part text-center">
                                             <span
-                                                class="h3 light text-bold">{!! $staff->types->implode('title', '<br>') !!}</span>
+                                                class="h3 light text-bold">{!! $staff_item->types->implode('title', '<br>') !!}</span>
                                         </div>
                                         <div class="zoom centered">
                                             <img src="{{asset('img/preloader.png')}}"
-                                                 data-img-src="{{ $staff->avatar ?? asset('img/no-image.png') }}"
-                                                 alt="{{$staff->first_name}} {{$staff->last_name}}">
-                                            <a href="{{ route('office-worker', ['id'=>$staff->id])}}"
+                                                 data-img-src="{{ $staff_item->avatar ?? asset('img/no-image.png') }}"
+                                                 alt="{{$staff_item->first_name}} {{$staff_item->last_name}}">
+                                            <a href="{{ route('office-worker', ['id'=>$staff_item->id])}}"
                                                class="full-size"></a>
                                         </div>
                                         <div class="img-caption-info">
                                             <div class="guide-name">
 											<span class="h3">
-												<a href="{{ route('office-worker', ['id'=>$staff->id])}}">{{$staff->first_name}} {{$staff->last_name}}</a>
+												<a href="{{ route('office-worker', ['id'=>$staff_item->id])}}">{{$staff_item->first_name}} {{$staff_item->last_name}}</a>
 											</span>
-                                                <span class="text">{{$staff->position}}</span>
+                                                <span class="text">{{$staff_item->position}}</span>
                                             </div>
                                             <hr>
                                             <div class="contact">
-                                                <a href="tel:{{$staff->phone}}">{{$staff->phone}}</a>
+                                                <a href="tel:{{$staff_item->phone}}">{{$staff_item->phone}}</a>
                                                 <br>
                                             </div>
 
                                             <div class="contact">
-                                                <a href="mailto:{{$staff->email}}">{{$staff->email}}</a>
+                                                <a href="mailto:{{$staff_item->email}}">{{$staff_item->email}}</a>
                                             </div>
 
                                             <div class="contact">
-                                                @if ( !empty($staff->skype))
+                                                @if ( !empty($staff_item->skype))
                                                     <div class="img">
                                                         <img src="{{asset('img/preloader.png')}}"
                                                              data-img-src="{{asset('icon/skype.svg')}}"
-                                                             alt="{{$staff->skype}}">
+                                                             alt="{{$staff_item->skype}}">
                                                     </div>
-                                                    <a href="skype:{{$staff->skype}}?call">{{$staff->skype}}</a>
+                                                    <a href="skype:{{$staff_item->skype}}?call">{{$staff_item->skype}}</a>
                                                 @endIf
                                             </div>
                                             <div class="contact">
-                                                @if ( !empty($staff->viber))
+                                                @if ( !empty($staff_item->viber))
                                                     <div class="img">
                                                         <img src="{{asset('img/preloader.png')}}"
                                                              data-img-src="{{ asset('icon/viber.svg') }}"
-                                                             alt="{{$staff->viber}}">
+                                                             alt="{{$staff_item->viber}}">
                                                     </div>
-                                                    <a href="viber:{{$staff->viber}}">{{$staff->viber}}</a>
+                                                    <a href="viber:{{$staff_item->viber}}">{{$staff_item->viber}}</a>
                                                 @endIf
                                             </div>
 
                                             <div class="contact">
-                                                @if ( !empty($staff->whatsapp))
+                                                @if ( !empty($staff_item->whatsapp))
                                                     <div class="img">
                                                         <img src="{{asset('img/preloader.png')}}"
                                                              data-img-src="{{asset('icon/whatsapp.svg')}}"
-                                                             alt="{{$staff->whatsapp}}">
+                                                             alt="{{$staff_item->whatsapp}}">
                                                     </div>
-                                                    <a href="whatsapp:{{$staff->whatsapp}}">{{$staff->whatsapp}}</a>
+                                                    <a href="whatsapp:{{$staff_item->whatsapp}}">{{$staff_item->whatsapp}}</a>
                                                 @endIf
                                             </div>
 
                                             <div class="contact">
-                                                @if ( !empty($staff->telegram))
+                                                @if ( !empty($staff_item->telegram))
                                                     <div class="img">
                                                         <img src="{{asset('img/preloader.png')}}"
                                                              data-img-src="{{asset('icon/telegram.svg')}}"
-                                                             alt="{{$staff->telegram}}">
+                                                             alt="{{$staff_item->telegram}}">
                                                     </div>
-                                                    <a href="telegram:{{$staff->telegram}}">{{$staff->telegram}}</a>
+                                                    <a href="telegram:{{$staff_item->telegram}}">{{$staff_item->telegram}}</a>
                                                 @endIf
                                             </div>
                                             <div class="spacer-xs"></div>
-                                            <a href="{{ route('office-worker', ['id'=>$staff->id])}}"
+                                            <a href="{{ route('office-worker', ['id'=>$staff_item->id])}}"
                                                class="btn type-1 btn-block">Дізнатись більше</a>
 
                                         </div>

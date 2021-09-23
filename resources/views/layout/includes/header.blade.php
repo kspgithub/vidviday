@@ -82,22 +82,24 @@
 
             <div class="col-xl-6 col-10">
                 <div class="tel dropdown">
-                    <a href="tel:+380322553655" class="only-desktop">+38 (032) 255 36 55</a>
+                    @foreach($contacts as $phone)
+                    <a href="tel:{{$phone->work_phone}}" class="only-desktop">{{$phone->work_phone}}</a>
                     <span class="dropdown-btn"></span>
                     <ul class="dropdown-toggle">
                         <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
+                            <a href="tel:{{$phone->phone_1}}">{{$phone->phone_1}}</a>
                         </li>
 
                         <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
+                            <a href="tel:{{$phone->phone_2}}">{{$phone->phone_2}}</a>
                         </li>
 
                         <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
+                            <a href="tel:{{$phone->phone_3}}">{{$phone->phone_3}}</a>
                         </li>
                     </ul>
                     <div class="full-size"></div>
+                    @endforeach
                 </div>
 
                 <span class="vertical-separator"></span>
@@ -306,7 +308,7 @@
                         </li>
 
                         <li>
-                            <a href="contacts.php">Контакти</a>
+                            <a href="/contacts/">Контакти</a>
                         </li>
                     </ul>
                 </nav>

@@ -30,12 +30,12 @@
 
     <!-- HEADER -->
     <div id="header-layer-close"></div>
-
     <x-site-header/>
 
 @yield('content')
-
-@include('layout.includes.footer')
+    <!-- FOOTER -->
+    <div id="footer-layer-close"></div>
+    <x-site-footer/>
 
 @include('includes.search-dropdown')
 

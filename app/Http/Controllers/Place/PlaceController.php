@@ -8,26 +8,23 @@ use App\Models\Region;
 use App\Models\City;
 use App\Models\Tour;
 use App\Models\Badge;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\Page;
 
 class PlaceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+
     public function index()
     {
         //
 
-        $places = Place::with('region', 'city')->get();
-        $badges = Badge::all();
+        $regions = Region::whereHas('places')->with(['places'])->get();
+        $places = Place::first();
+        $pageContent = Page::select()->where('slug', 'places')->first();
 
         return view('place.index', [
+            'regions' => $regions,
             'places' => $places,
-            'badges' => $badges
+            'pageContent' => $pageContent
         ]);
     }
 

@@ -2,15 +2,12 @@
 
 namespace App\View\Components;
 
-use App\Models\Currency;
-use App\Models\TourGroup;
 use App\Models\Contact;
 use Illuminate\View\Component;
 
-class SiteHeader extends Component
+class SiteFooter extends Component
 {
 
-    public $tourGroups = [];
     public $contacts = [];
 
     /**
@@ -21,8 +18,7 @@ class SiteHeader extends Component
     public function __construct()
     {
         // TODO: Кеширование
-        $this->tourGroups = TourGroup::published()->get();
-        $this->contacts = Contact::get();
+        $this->contacts = Contact::all();
     }
 
 
@@ -33,6 +29,6 @@ class SiteHeader extends Component
      */
     public function render()
     {
-        return view('layout.includes.header');
+        return view('layout.includes.footer');
     }
 }

@@ -1,5 +1,7 @@
 @extends('layout.app')
-@section('title')
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
 @section('content')
     <main>
         <div class="container">
@@ -20,23 +22,16 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <!-- BANNER/INFO -->
                     <div class="banner-map">
-                        @foreach($badges as $badge)
-                            <span
-                                style="position: absolute;top:30%;left:50%;background-color:{{$badge->color}};width:20px;height:20px;"></span>
                             <div id="map-canvas" class="map-wrapper full-size" data-lat="49.822385" data-lng="24.023855"
                                  data-zoom="15" data-img-cluster="{{asset('img/cluster.png')}}"></div>
                             <a class="marker" data-rel="map-canvas-1" data-lat="49.822385" data-lng="24.023855"
                                data-image="{{asset('img/marker.png')}}"
                                data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"></a>
-                        @endforeach
                     </div>
                     <div class="spacer-xs"></div>
-                    <h1 class="h1 title">Місця</h1>
+                    <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                     <div class="text text-md">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tempore nesciunt deleniti.
-                            Nisi explicabo provident ipsum sapiente, temporibus sed error!Lorem ipsum dolor sit amet,
-                            consectetur adipisicing elit. Repudiandae repellendus nam eum quia explicabo
-                            perspiciatis!</p>
+                        <p>{!! $pageContent->text !!}</p>
                     </div>
                     <!-- BANNER/INFO END -->
                     <div class="spacer-xs"></div>
@@ -53,36 +48,26 @@
                             <div class="expand-all close">Згорнути все</div>
                         </div>
                         <div class="accordion type-4 accordions-inner-wrap">
-
+                            @foreach($regions as $region)
                             <div class="accordion-item">
-                                @foreach($places as $place)
-                                    <div class="accordion-title">{{$place->region->title}}<i></i></div>
+                                    <div class="accordion-title">{{$region->title}}<i></i></div>
                                     <div class="accordion-inner">
                                         <div class="accordion type-2">
                                             <div class="accordion-item">
-                                                <div class="accordion-title">{{$place->city->title}}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    @include('place.includes.city-carousel')
-                                                    <div class="spacer-xs"></div>
-                                                    <div class="text text-md">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="accordion-item">
-                                                <div class="accordion-title">{{ $place->title }}<i></i></div>
+                                                <div class="accordion-title">{{ $places->title }}<i></i></div>
                                                 <div class="accordion-inner">
                                                     @include('place.includes.place-carousel')
                                                     <div class="spacer-xs"></div>
                                                     <div class="text text-md">
-                                                        {!! $place->text !!}
-                                                        <a href="{{route('place', $place->slug)}}"
+                                                        {!! $places->text !!}
+                                                        <a href="{{route('place', $places->slug)}}"
                                                            class="btn btn-read-more text-bold">Більше</a></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
                             </div>
+                            @endforeach
                         </div>
                         <div class="expand-all-button">
                             <div class="expand-all open">Розгорнути все</div>
@@ -96,7 +81,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('place.includes.seo-text')
+    @include('home.includes.seo-text')
     <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')
