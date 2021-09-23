@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\BlogBasicRequest;
 use App\Models\Blog;
@@ -86,7 +87,7 @@ class BlogController extends Controller
      *
      * @return mixed
      *
-     * @throws \App\Exceptions\GeneralException
+     * @throws GeneralException
      */
     public function update(BlogBasicRequest $request, Blog $blog)
     {
