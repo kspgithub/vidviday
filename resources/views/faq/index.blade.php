@@ -1,6 +1,6 @@
 @extends("layout.app")
 
-@section("title") {{ __("Vidviday | Faq") }} @endsection
+@section("title", !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
 
 
 @section("content")
@@ -11,17 +11,18 @@
             <div class="bread-crumbs">
                 <a href="{{ route("home") }}">{{ __("Головна") }}</a>
                 <span>—</span>
-                <span>{{ __("Є питання?") }}</span>
+                <span>{{ $pageContent->title }}</span>
             </div>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-12 only-pad-mobile">
-                    <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img src="{{ __("img/preloader.png") }}" data-img-src="icon/filter-dark.svg" alt="filter-dark">{{ __("Підбір туру") }}</span>
+                    <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
+                            src="{{ __("img/preloader.png") }}" data-img-src="icon/filter-dark.svg" alt="filter-dark">{{ __("Підбір туру") }}</span>
                     <div class="spacer-xs"></div>
                 </div>
                 <div class="col-xl-8 col-12">
                     <!-- FAQ CONTENT -->
-                    <h1 class="h1 title">{{ __("20 основних питань і відповідей щодо успішної співпраці ТО «Відвідай» з партнерами (турагентами)") }}</h1>
+                    <h1 class="h1 title">{{ !empty($pageContent->seo_h1) ? $pageContent->seo_h1 : $pageContent->title }}</h1>
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
                         <div class="social">
@@ -46,7 +47,7 @@
                         <div class="spacer-xs"></div>
                     </div>
                     <div class="text text-md">
-                        <p>{{ __("Якщо Вам сподобалися наші тури, то Ви із задоволенням можете продавати їх Вашим туристам. Співпраця з нами дуже проста. Нижче наводимо відповіді на найпопулярніші питання.") }}</p>
+                        {!! $pageContent->text !!}
                     </div>
                     <div class="spacer-xs"></div>
                     <hr>
@@ -55,189 +56,50 @@
                     <div class="tabs faqs">
                         <div class="tab-nav faq-tab-nav">
                             <ul class="tab-toggle">
-
-                                <li class="tab-caption active">
-                                    <span>{{ __("Загальні запитання") }}</span>
-                                </li>
-
-                                <li class="tab-caption">
-                                    <span>{{ __("Туристичні запитання") }}</span>
-                                </li>
-
-                                <li class="tab-caption">
-                                    <span>{{ __("Запитання тур-аґенту") }}</span>
-                                </li>
-
-                                <li class="tab-caption">
-                                    <span>{{ __("Корпоративні запитання") }}</span>
-                                </li>
-
-                                <li class="tab-caption">
-                                    <span>{{ __("Запит, щодо сертифікатів") }}</span>
-                                </li>
+                                @foreach($faqGroups as $faqGroup)
+                                    <li class="tab-caption {{$loop->first ? 'active' : ''}}">
+                                        <span>{{ $faqGroup->title }}</span>
+                                    </li>
+                                @endforeach
 
                             </ul>
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="tabs-wrap">
+                            @foreach($faqGroups as $key=>$faqGroup)
+                                <div class="tab {{$key === 0 ? 'active' : ''}}">
+                                    <div class="accordion-all-expand">
+                                        <div class="expand-all-button">
+                                            <div class="expand-all open">{{ __("Розгорнути все") }}</div>
+                                            <div class="expand-all close">{{ __("Згорнути все") }}</div>
+                                        </div>
 
-                            <!-- TAB #1 -->
-                            <div class="tab active">
-                                <div class="accordion-all-expand">
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
+                                        <div class="accordion type-5">
 
-                                    <div class="accordion type-5">
-
-                                        @foreach(faqBySection("common") as $item)
-
-                                            @if($loop->first)
-                                                <div class="accordion-item active">
-                                                    <div class="accordion-title"><b>{{ $loop->iteration > 9 ? $loop->iteration : "0".$loop->iteration }}.</b>{{ $item->question }}<i></i></div>
-                                                    <div class="accordion-inner" style="display: block;">
-                                                        <div class="text text-md">
-                                                            <p>{{ $item->answer }}</p>
-                                                        </div>
+                                            @foreach($faqGroup->items as $skey=>$item)
+                                                <div class="accordion-item {{$loop->iteration == 1 ? 'active' : ''}}">
+                                                    <div class="accordion-title">
+                                                        <b>{{ $loop->iteration > 9 ? $loop->iteration : "0".$loop->iteration }}
+                                                            .</b>
+                                                        {{ $item->question }}<i></i>
                                                     </div>
-                                                </div>
-                                            @else
-
-                                                <div class="accordion-item">
-                                                    <div class="accordion-title"><b>{{ $loop->iteration > 9 ? $loop->iteration : "0".$loop->iteration }}.</b>{{ $item->question }}<i></i></div>
-                                                    <div class="accordion-inner">
+                                                    <div class="accordion-inner"
+                                                        {!! $loop->iteration == 1 ? 'style="display: block;"' : '' !!}>
                                                         <div class="text text-md">
                                                             <p> {{ $item->answer }} </p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- TAB #1 END -->
-
-                            <!-- TAB #2 -->
-                            <div class="tab">
-                                <div class="accordion-all-expand">
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                    <div class="accordion type-5">
-
-                                        @foreach(faqBySection("tourist") as $item)
-
-                                            <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common")  }}.</b>{{ $item->question }}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    <div class="text text-md">
-                                                        <p>{{ $item->answer }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="expand-all-button">
-                                        <div class="expand-all">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all up">{{ __("Згорнути все") }}</div>
+                                            @endforeach
+                                        </div>
+                                        <div class="expand-all-button">
+                                            <div class="expand-all open">{{ __("Розгорнути все") }}</div>
+                                            <div class="expand-all close">{{ __("Згорнути все") }}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- TAB #2 END -->
-
-                            <!-- TAB #3 -->
-                            <div class="tab">
-                                <div class="accordion-all-expand">
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                    <div class="accordion type-5">
-
-                                        @foreach(faqBySection("tour-agent") as $item)
-
-                                            <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common", "tourist")   }}.</b>{{ $item->question }}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    <div class="text text-md">
-                                                        <p>{{ $item->answer }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="expand-all-button">
-                                        <div class="expand-all">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all up">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- TAB #3 END -->
-
-                            <!-- TAB #4 -->
-                            <div class="tab">
-                                <div class="accordion-all-expand">
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                    <div class="accordion type-5">
-
-                                        @foreach(faqBySection("corporate") as $item)
-
-                                            <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common","tourist", "tour-agent")  }}.</b>{{ $item->question }}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    <div class="text text-md">
-                                                        <p>{{ $item->answer }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="expand-all-button">
-                                        <div class="expand-all">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all up">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- TAB #5 END -->
-
-                            <!-- TAB #5 -->
-                            <div class="tab">
-                                <div class="accordion-all-expand">
-                                    <div class="expand-all-button">
-                                        <div class="expand-all open">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all close">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                    <div class="accordion type-5">
-
-                                        @foreach(faqBySection("certificate") as $item)
-
-                                            <div class="accordion-item">
-                                                <div class="accordion-title"><b>{{ countQuestions($loop->iteration, "common", "corporate", "tourist", "tour-agent") }}.</b>{{ $item->question }}<i></i></div>
-                                                <div class="accordion-inner">
-                                                    <div class="text text-md">
-                                                        <p>{{ $item->answer }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="expand-all-button">
-                                        <div class="expand-all">{{ __("Розгорнути все") }}</div>
-                                        <div class="expand-all up">{{ __("Згорнути все") }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- TAB #5 END -->
+                                <!-- TAB #1 END -->
+                            @endforeach
 
                         </div>
                     </div>
@@ -246,98 +108,18 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                      @include("faq.includes.sidebar")
-                    <!-- SIDEBAR END -->
+                @include("page.includes.right-sidebar")
+                <!-- SIDEBAR END -->
                 </div>
             </div>
             <div class="spacer-lg"></div>
 
-            <div id="tour-selection-dropdown" class="sidebar-item selection-tour notice only-pad-mobile">
-                <div class="top-part">
-                    <div class="title h3 light title-icon"><img src="img/preloader.png" data-img-src="icon/filter.svg" alt="filter">Підбір туру</div>
-                    <div class="btn-close light">
-                        <span></span>
-                    </div>
-                </div>
-                <div class="bottom-part">
-                    <form action="/">
-                        <div class="double-datepicker">
-                            <div class="datepicker-input date-departure">
-                                <span class="datepicker-placeholder">Дата виїзду</span>
-                                <div class="datepicker-toggle">
-                                    <div class="datepicker-here" data-language="uk"></div>
-                                </div>
-                            </div>
+            <x-sidebar.filter class="only-pad-mobile"/>
 
-                            <div class="datepicker-input date-arrival">
-                                <span class="datepicker-placeholder">Дата Приїзду</span>
-                                <div class="datepicker-toggle">
-                                    <div class="datepicker-here" data-language="uk"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="range">
-                            <label for="days-amount">Тривалість днів</label>
-                            <input type="text" id="days-amount" readonly>
-                            <div class="slider-range" data-min="1" data-max="14" data-values="[1, 14]"></div>
-                            <div class="text">
-                                <span>від <span class="range-min">1</span></span>
-                                <span>до <span class="range-max">14</span></span>
-                            </div>
-                        </div>
-
-                        <div class="range">
-                            <label for="price">Вартість, грн</label>
-                            <input type="text" id="price" readonly>
-                            <div class="slider-range" data-min="0" data-max="3000" data-values="[0, 3000]"></div>
-                            <div class="text">
-                                <span>від <span class="range-min">0</span></span>
-                                <span>до <span class="range-max">3000</span></span>
-                            </div>
-                        </div>
-
-                        <select name="direction">
-                            <option value="location_0" selected disabled>Напрямок</option>
-                            <option value="location_1">Напрямок 1</option>
-                            <option value="location_2">Напрямок 2</option>
-                            <option value="location_3">Напрямок 3</option>
-                            <option value="location_4">Напрямок 4</option>
-                            <option value="location_5">Напрямок 5</option>
-                            <option value="location_6">Напрямок 6</option>
-                            <option value="location_7">Напрямок 7</option>
-                            <option value="location_8">Напрямок 8</option>
-                        </select>
-
-                        <select name="type">
-                            <option value="type_0" selected disabled>Тип</option>
-                            <option value="type_1">Тип 1</option>
-                            <option value="type_2">Тип 2</option>
-                            <option value="type_3">Тип 3</option>
-                            <option value="type_4">Тип 4</option>
-                            <option value="type_5">Тип 5</option>
-                            <option value="type_6">Тип 6</option>
-                        </select>
-
-                        <select name="topic">
-                            <option value="0" selected disabled>Тематика</option>
-                            <option value="topic_1">Тематика 1</option>
-                            <option value="topic_2">Тематика 2</option>
-                            <option value="topic_3">Тематика 3</option>
-                            <option value="topic_4">Тематика 4</option>
-                            <option value="topic_5">Тематика 5</option>
-                            <option value="topic_6">Тематика 6</option>
-                            <option value="topic_7">Тематика 7</option>
-                        </select>
-                        <span class="btn type-3">Очистити</span>
-                        <span class="btn type-1">Підібрати</span>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <!-- SEO TEXT -->
-           @include("faq.includes.seo-text")
+    @include("home.includes.seo-text")
         <!-- SEO TEXT END -->
     </main>
 

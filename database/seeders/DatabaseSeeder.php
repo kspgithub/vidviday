@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PageSeeder::class);
         $this->call(BlogSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(FaqSeeder::class);
         $this->call(ContactSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(PaymentTypeSeeder::class);

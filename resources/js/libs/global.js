@@ -637,19 +637,60 @@ jQuery(function ($) {
             pageScroll(current);
         }
     });
+
     //expand all accordion
-    $(document).on('click', '.expand-all', function () {
-        var headerHeight = $('header').outerHeight() + 40,
-            current = $(this),
-            topAccordion = $(this).parents('.accordion-all-expand');
-        if (current.hasClass('up')) {
-            current.parents('.accordion-all-expand').find('.accordion-item').removeClass('active').find('.accordion-inner').slideUp();
-        } else {
-            current.parents('.accordion-all-expand').find('.accordion-item').addClass('active').find('.accordion-inner').slideDown(function () {
-                pageScroll(topAccordion, headerHeight);
+    $('.accordion-all-expand:not(.inner-not-expand) .expand-all').on('click', function () {
+
+        let parentAccordion = $(this).closest('.accordion-all-expand'),
+            accordion = $(parentAccordion).find('.accordion-item');
+
+        if ($(this).hasClass('open')) {
+
+            $(accordion).each(function () {
+
+                $(this).addClass('active');
+                $(this).find('.accordion-inner').slideDown(440);
+            });
+
+            pageScroll(parentAccordion);
+        }
+
+        if ($(this).hasClass('close')) {
+
+            $(accordion).each(function () {
+                $(this).removeClass('active');
+                $(this).find('.accordion-inner').slideUp(440);
             });
         }
     });
+
+    $('.accordion-all-expand.inner-not-expand .expand-all').on('click', function () {
+
+        let parentAccordion = $(this).closest('.accordion-all-expand'),
+            accordion = $(parentAccordion).find('.accordions-inner-wrap > .accordion-item');
+
+        if ($(this).hasClass('open')) {
+
+            $(accordion).each(function () {
+
+                $(this).addClass('active');
+                $(this).find('> .accordion-inner').slideDown(440);
+            });
+
+            pageScroll(parentAccordion);
+        }
+
+        if ($(this).hasClass('close')) {
+
+            $(accordion).each(function () {
+
+                $(this).removeClass('active');
+                $(this).find('> .accordion-inner').slideUp(440);
+            });
+        }
+    });
+
+
     //tabs
     $(document).on('click', '.tab-title', function () {
         if ($(this).parents('.vue-tabs').length > 0) return;

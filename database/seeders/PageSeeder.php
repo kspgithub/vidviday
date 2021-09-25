@@ -123,6 +123,30 @@ class PageSeeder extends Seeder
                 'slug' => 'our-contacts',
                 'published' => 1,
             ],
+            [
+                'title' => [
+                    'uk' => 'Є питання?',
+                    'ru' => 'Есть вопросы?',
+                    'en' => 'Have a question?',
+                    'pl' => 'Mam pytanie?'
+                ],
+                'seo_h1' => [
+                    'uk' => '20 основних питань і відповідей щодо успішної співпраці ТО «Відвідай» з партнерами (турагентами)',
+                    'ru' => '20 основных вопросов и ответов по успешного сотрудничества ТО «Відвідай» с партнерами (турагентами)',
+                    'en' => '20 main questions and answers about the successful cooperation of TO "Vidviday" with partners (travel agents)',
+                    'pl' => '20 głównych pytań i odpowiedzi na temat udanej współpracy TO „Vidviday” z partnerami (biurami podróży)'
+                ],
+                'text' => [
+                    'uk' => 'Якщо Вам сподобалися наші тури, то Ви із задоволенням можете продавати їх Вашим туристам. Співпраця з нами дуже проста. Нижче наводимо відповіді на найпопулярніші питання.',
+                    'ru' => 'Если Вам понравились наши туры, то Вы с удовольствием можете продавать их Вашим туристам. Сотрудничество с нами очень простая. Ниже приводим ответы на самые популярные вопросы.',
+                    'en' => 'If you liked our tours, you can gladly sell them to your tourists. Cooperation with us is very simple. Below are the answers to the most popular questions.',
+                    'pl' => 'Jeśli podobały Ci się nasze wycieczki, chętnie sprzedasz je swoim turystom. Współpraca z nami jest bardzo prosta. Poniżej znajdują się odpowiedzi na najpopularniejsze pytania.',
+                ],
+                'slug' => 'faq',
+                'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials']
+            ],
         ];
 
         foreach ($pages as $page) {
