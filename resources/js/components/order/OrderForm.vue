@@ -9,7 +9,8 @@
             <span v-if="tour">Замовлення корпоративу:</span>
             {{ tour ? tour.title : 'Замовлення корпоративу' }}
         </h1>
-        <h1 class="h1" v-if="!tourSelected">Замовлення туру</h1>
+        <h1 class="h1" v-if="!tourSelected && !orderCorporate">Замовлення туру</h1>
+        <h1 class="h1" v-if="!tourSelected && orderCorporate">Замовлення корпоративу</h1>
         <div class="spacer-xs"></div>
         <form :action="action" class="tabs vue-tabs" method="post">
             <slot/>

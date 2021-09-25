@@ -16,12 +16,22 @@ class OrderController extends Controller
     public function index()
     {
         return view('order.index', [
+            'corporate' => false,
             'room_types' => AccommodationType::all(),
             'payment_types' => PaymentType::published()->toSelectBox(),
             'confirmation_types' => Order::confirmationSelectBox(),
         ]);
     }
 
+    public function corporate()
+    {
+        return view('order.index', [
+            'corporate' => true,
+            'room_types' => AccommodationType::all(),
+            'payment_types' => PaymentType::published()->toSelectBox(),
+            'confirmation_types' => Order::confirmationSelectBox(),
+        ]);
+    }
 
     public function store(TourOrderRequest $request)
     {

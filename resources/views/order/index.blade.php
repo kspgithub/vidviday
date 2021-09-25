@@ -10,6 +10,7 @@
              :tour-selected='false'
              :schedules='[]'
              :discounts='[]'
+             :order-corporate='{{$corporate ? 'true' : 'false'}}'
              :user='@json(auth()->check() ? current_user()->basicInfo() : null)'
              :rooms='@json($room_types)'
              :payment-types='@json($payment_types)'

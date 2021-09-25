@@ -110,6 +110,8 @@ class PageSeeder extends Seeder
                 'seo_h1' => ['en' => 'Corporates', 'ru' => 'Корпоративы', 'uk' => 'Корпоративи', 'pl' => 'Korporatyvy'],
                 'slug' => 'corporates',
                 'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials']
             ],
             [
                 'title' => ['en' => 'Places', 'ru' => 'Места', 'uk' => 'Місця', 'pl' => 'Miejsca'],
