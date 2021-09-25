@@ -219,19 +219,19 @@
 
                                 <ul>
                                     <li>
-                                        <a href="/awards/">Нагороди та відзнаки</a>
+                                        <a href="/awards">Нагороди та відзнаки</a>
                                     </li>
 
                                     <li>
-                                        <a href="/vacancies/">Вакансії</a>
+                                        <a href="/vacancies">Вакансії</a>
                                     </li>
 
                                     <li>
-                                        <a href="/practice/">Практика</a>
+                                        <a href="/practice">Практика</a>
                                     </li>
 
                                     <li>
-                                        <a href="/testimonials/">Відгуки</a>
+                                        <a href="/testimonials">Відгуки</a>
                                     </li>
 
                                     <li>
@@ -256,7 +256,7 @@
                         </li>
 
                         <li class="only-pad-mobile">
-                            <a href="order-client-1.php">Замовити тур</a>
+                            <a href="/order">Замовити тур</a>
                         </li>
 
                         <li>
@@ -285,7 +285,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="certificate.php">Подарунковий сертифікат</a>
+                                        <a href="/certificate">Подарунковий сертифікат</a>
                                     </li>
 
                                     <li>
@@ -304,11 +304,11 @@
                         </li>
 
                         <li>
-                            <a href="faq.php">Є питання?</a>
+                            <a href="/faq">Є питання?</a>
                         </li>
 
                         <li>
-                            <a href="/contacts/">Контакти</a>
+                            <a href="/contacts">Контакти</a>
                         </li>
                     </ul>
                 </nav>
