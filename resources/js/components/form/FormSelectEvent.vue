@@ -1,5 +1,5 @@
 <template>
-    <div class="datepicker-input datepicker-dropdown" v-click-outside="close" :class="{open: open}"
+    <div class="datepicker-input datepicker-dropdown" :class="{open: open}"
          :data-tooltip="errorMessage">
         <input :name="name" v-model="modelValue" type="hidden">
         <span :title="current ? current.text : ''" class="datepicker-placeholder" @click="open = !open">
