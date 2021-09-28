@@ -28,6 +28,9 @@ class Document extends Model
     protected $fillable = [
         'title',
         'image',
+        "file",
+        "url",
+        "mime_type",
         'published',
     ];
 

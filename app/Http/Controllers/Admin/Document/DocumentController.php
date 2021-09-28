@@ -38,7 +38,7 @@ class DocumentController extends Controller
         $document = new Document();
 
         return view("admin.document.create", [
-            "document" => $document
+            "document" => $document,
         ]);
     }
 
@@ -72,7 +72,7 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         return view('admin.document.edit', [
-            'document' => $document
+            'document' => $document,
         ]);
     }
 

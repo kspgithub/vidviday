@@ -27,11 +27,10 @@ class DocumentBasicRequest extends FormRequest
     {
         return [
 
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'published'=>['nullable', Rule::in(['1', '0'])],
-            'image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-
+            'title' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
+            'published' => ['nullable', Rule::in(['1', '0'])],
+            'file_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif,pdf,doc,docx', 'max:10000'],
         ];
     }
 }

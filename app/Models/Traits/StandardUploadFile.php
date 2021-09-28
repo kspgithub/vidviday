@@ -11,8 +11,8 @@ trait StandardUploadFile
      * @param string $folderStorage
      * @return string
      */
-    public function storeFile($file, string $folderStorage){
+    public function storeFile($file, string $file_name, string $folderStorage){
 
-        return $file->store($folderStorage, "public");
+        return $file->storeAs($folderStorage, $file_name);
     }
 }
