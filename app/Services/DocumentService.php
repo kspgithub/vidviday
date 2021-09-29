@@ -26,8 +26,6 @@ class DocumentService extends BaseService
     public function store($params)
     {
         $document = new Document();
-        $document->published = 1;
-
         return $this->update($document, $params);
     }
 
@@ -35,15 +33,13 @@ class DocumentService extends BaseService
     {
         try {
             if (isset($params['file_upload'])) {
-                $params["mime_type"] = $params['file_upload']->getMimeType();
+                $extension = $params['file_upload']->getClientOriginalExtension();
 
-                $baseName = Str::random();
-
-                $fileName = $baseName.'.'.$params["file_upload"]->getClientOriginalExtension();
-
-                $params["file"] = $fileName;
-
-                $params["url"] = $document->storeFile($params["file_upload"], $fileName, "documents");
+                if (!in_array($extension, ['png', 'gif', 'jpeg', 'jpg'])) {
+                    $params["file"] = $document->storeFile($params["file_upload"], "documents");
+                } else {
+                    $params["image"] = $document->storeFile($params["file_upload"], "documents");
+                }
             }
 
             $document->fill($params);

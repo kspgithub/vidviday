@@ -99,4 +99,19 @@ class DocumentController extends Controller
 
         return redirect()->route('admin.document.index')->withFlashSuccess(__('Document deleted.'));
     }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Document $document
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Document $document)
+    {
+        $document->published = (int) $request->input('published');
+        $document->save();
+        return response()->json(['result' => 'Success']);
+    }
 }

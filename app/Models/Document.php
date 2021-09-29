@@ -29,8 +29,6 @@ class Document extends Model
         'title',
         'image',
         "file",
-        "url",
-        "mime_type",
         'published',
     ];
 
