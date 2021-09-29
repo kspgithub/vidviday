@@ -1,7 +1,12 @@
 <template>
     <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage}">
         <i>{{ label }} <span v-if="required">*</span></i>
-        <textarea v-model="innerValue" :name="name" :id="id || name" :required="required"></textarea>
+        <textarea v-model="innerValue"
+                  :name="name"
+                  :id="id || name"
+                  :required="required"
+                  :placeholder="placeholder"
+        ></textarea>
     </label>
 </template>
 
@@ -20,6 +25,10 @@ export default {
             default: '',
         },
         name: {
+            type: String,
+            default: '',
+        },
+        placeholder: {
             type: String,
             default: '',
         },

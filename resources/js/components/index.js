@@ -3,6 +3,8 @@
 
 export default {
     install: (app, options) => {
+        app.component('sign-up-form', require('./auth/SignUpForm').default);
+
         app.component('lang-dropdown', require('./header/LangDropdown').default);
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
@@ -19,6 +21,13 @@ export default {
         app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
         app.component('tour-map', require('./tour/TourMap').default);
         app.component('tour-calc', require('./tour/TourCalc').default);
+        app.component('tour-order', require('./tour/TourOrder').default);
+        app.component('tour-one-click-popup', require('./tour/TourOneClickPopup').default);
+
+
+        app.component('order-form', require('./order/OrderForm').default);
+
+        app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
 
     }
 }

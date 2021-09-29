@@ -12,14 +12,14 @@ class CorporateController extends Controller
     public function index()
     {
         //
-    $pageContent = Page::select()->where('slug', 'corporates')->first();
-    $faqItems = FaqItem::all();
-    $tours = Tour::search()->paginate(12);
+        $pageContent = Page::select()->where('slug', 'corporates')->first();
+        $faqItems = FaqItem::where('section', FaqItem::SECTION_CORPORATE)->orderBy('sort_order')->get();
+        $tours = Tour::search()->paginate(12);
 
         return view('corporate.index', [
-            'pageContent'=>$pageContent,
-            'faqItems'=>$faqItems,
-            'tours'=>$tours
+            'pageContent' => $pageContent,
+            'faqItems' => $faqItems,
+            'tours' => $tours
         ]);
 
     }

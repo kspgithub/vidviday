@@ -4,12 +4,14 @@ namespace App\View\Components;
 
 use App\Models\Currency;
 use App\Models\TourGroup;
+use App\Models\Contact;
 use Illuminate\View\Component;
 
 class SiteHeader extends Component
 {
 
     public $tourGroups = [];
+    public $contacts = [];
 
     /**
      * Create a new component instance.
@@ -20,6 +22,7 @@ class SiteHeader extends Component
     {
         // TODO: Кеширование
         $this->tourGroups = TourGroup::published()->get();
+        $this->contacts = Contact::get();
     }
 
 

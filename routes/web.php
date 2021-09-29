@@ -31,11 +31,17 @@ Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('
 require base_path('routes/frontend/profile.php');
 require base_path('routes/frontend/tour.php');
 require base_path('routes/frontend/staff.php');
+require base_path('routes/frontend/news.php');
 require base_path('routes/frontend/guide.php');
 require base_path('routes/frontend/event.php');
 require base_path('routes/frontend/places.php');
 require base_path('routes/frontend/transport.php');
 require base_path('routes/frontend/corporate.php');
+require base_path('routes/frontend/order.php');
+require base_path('routes/frontend/faq.php');
+require base_path('routes/frontend/contact.php');
+require base_path('routes/frontend/document.php');
+require base_path('routes/frontend/blog.php');
 
 // ADMIN ROUTES
 /*

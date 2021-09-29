@@ -5,7 +5,7 @@
         <i :class="rating >= 3 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
         <i :class="rating >= 4 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
         <i :class="rating >= 5 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
-        <span v-if="count > 0" class="text">{{ title }}</span>
+        <span v-if="count > 0 || forceCount" class="text">{{ title }}</span>
     </span>
 </template>
 
@@ -22,7 +22,8 @@ export default {
         count: {
             type: Number,
             default: 0
-        }
+        },
+        forceCount: Boolean
     },
     setup(props) {
         const title = pluralizeValue(props.count, 'відгук', 'відгука', 'відгуків');

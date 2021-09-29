@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="popup-footer">
-            <span class="text">Немає аккаунту? <span class="open-popup open-popup-link" data-rel="login-popup">Реєстрація</span></span>
+            <span class="text">Немає аккаунту? <a href="{{route('auth.register')}}">Реєстрація</a></span>
         </div>
     </div>
 </div>

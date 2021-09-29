@@ -26,9 +26,10 @@
                 </span>
                 <span class="thumb-info-people text">
                     {{ currentSchedule.places > 10 ? '10+' : currentSchedule.places }}
-                    <span v-if="!currentSchedule || currentSchedule.places === 0" class="tooltip-wrap black">
-                        <span class="tooltip text text-sm light">{{ t('peoples', currentSchedule.places) }}</span>
-                    </span>
+                    <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
+                        На обрану Вами дату немає вільних місць ви можете замовити тур
+                        і якщо місця з'являться, ми повідомимо Вас про це.
+                    </tooltip>
                 </span>
 
             </div>
@@ -44,7 +45,9 @@
                 </span>
             </div>
 
-            <a :href="tour.url + '/order?schedule='+scheduleId" class="btn type-1 btn-block">{{ t("order") }}</a>
+            <a :href="'/tour/'+tour.id + '/order?schedule='+scheduleId" class="btn type-1 btn-block">
+                {{ t("order") }}
+            </a>
         </div>
 
         <div class="thumb-desc text">
@@ -61,10 +64,11 @@ import TourRating from "./TourRating";
 import TourBadge from "./TourBadge";
 import FormSelect from "../form/FormSelect";
 import {useTourCard} from "./useTourCard";
+import Tooltip from "../common/Tooltip";
 
 export default {
     name: "TourCard",
-    components: {FormSelect, TourBadge, TourRating},
+    components: {Tooltip, FormSelect, TourBadge, TourRating},
     props: {
         tour: {
             type: Object,

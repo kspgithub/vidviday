@@ -1,7 +1,9 @@
 <div class="left-sidebar">
 
     <div class="left-sidebar-inner">
-        <span class="btn type-4 arrow-right only-desktop">{{svg('sidebar-tour')}} Замовити тур</span>
+
+        <a href="{{route('order.index')}}" class="btn type-4 arrow-right only-desktop">
+            {{svg('sidebar-tour')}} Замовити тур</a>
 
         <a href="{{asset('documents/test-document.pdf')}}" download class="btn type-5 arrow-right only-desktop">
             {{svg('excel')}} Завантажити розклади турів</a>
@@ -44,27 +46,23 @@
                 <div class="title h3 title-icon">
                     <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}"
                          alt="mailing">
-                    <span>Новини</span>
+                    <span>{{ __("Новини") }}</span>
                 </div>
             </div>
             <div class="bottom-part">
                 <div class="news-links">
-                    <div class="news-item">
-                        <a href="#" class="title">Додано нову подорож «Шафран-тур на Драгобрат»</a>
-                        <div class="news-date">22.11.2019</div>
-                    </div>
 
-                    <div class="news-item">
-                        <a href="#" class="title">Оновлення дизайну сайту</a>
-                        <div class="news-date">22.11.2019</div>
-                    </div>
+                    @foreach(latestNews() as $post)
 
-                    <div class="news-item">
-                        <a href="#" class="title">Показ весільних суконь на Балу св. Валентина</a>
-                        <div class="news-date">22.01.2020</div>
-                    </div>
+                        <div class="news-item">
+                            <a href="{{ route("news.single", ["slug" => $post->slug]) }}" class="title">{{ $post->title }}</a>
+                            <div class="news-date">{{ $post->created_at->format("d.m.Y") }}</div>
+                        </div>
+
+                    @endforeach
+
                 </div>
-                <a href="#" class="btn type-2">Показати всі новини</a>
+                <a href="{{ route("news") }}" class="btn type-2">{{ __("Показати всі новини") }}</a>
             </div>
         </div>
 

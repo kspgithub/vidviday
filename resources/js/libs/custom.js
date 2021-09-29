@@ -619,58 +619,6 @@ jQuery(function ($) {
             }
         }
     });
-    //expand all accordion
-    $('.accordion-all-expand:not(.inner-not-expand) .expand-all').on('click', function () {
-
-        let parentAccordion = $(this).closest('.accordion-all-expand'),
-            accordion = $(parentAccordion).find('.accordion-item');
-
-        if ($(this).hasClass('open')) {
-
-            $(accordion).each(function () {
-
-                $(this).addClass('active');
-                $(this).find('.accordion-inner').slideDown(440);
-            });
-
-            pageScroll(parentAccordion);
-        }
-
-        if ($(this).hasClass('close')) {
-
-            $(accordion).each(function () {
-
-                $(this).removeClass('active');
-                $(this).find('.accordion-inner').slideUp(440);
-            });
-        }
-    });
-
-    $('.accordion-all-expand.inner-not-expand .expand-all').on('click', function () {
-
-        let parentAccordion = $(this).closest('.accordion-all-expand'),
-            accordion = $(parentAccordion).find('.accordions-inner-wrap > .accordion-item');
-
-        if ($(this).hasClass('open')) {
-
-            $(accordion).each(function () {
-
-                $(this).addClass('active');
-                $(this).find('> .accordion-inner').slideDown(440);
-            });
-
-            pageScroll(parentAccordion);
-        }
-
-        if ($(this).hasClass('close')) {
-
-            $(accordion).each(function () {
-
-                $(this).removeClass('active');
-                $(this).find('> .accordion-inner').slideUp(440);
-            });
-        }
-    });
 
     $('.inner-not-expand .accordion-title').on('click', function () {
         $(this).closest('.accordion-item').toggleClass('active');

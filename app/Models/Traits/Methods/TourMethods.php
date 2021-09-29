@@ -54,11 +54,30 @@ trait TourMethods
             'commission' => $this->commission,
             'currency' => $this->currency,
             'rating' => $this->rating,
+            'testimonials_count' => $this->testimonials_count,
             'duration' => $this->duration,
             'nights' => $this->nights,
             'main_image' => $this->main_image,
             'slug' => $this->slug,
             'url' => $this->url,
         ];
+    }
+
+    public function isChildrenFree()
+    {
+        $discount = $this->discounts->where('children')->first();
+        return $discount && $discount->type === 1 && (int)$discount->price === 100;
+    }
+
+    public function isYoungChildrenFree()
+    {
+        $discount = $this->discounts->where('category', '=', 'children_young')->first();
+        return $discount && $discount->type === 1 && (int)$discount->price === 100;
+    }
+
+    public function isOlderChildrenFree()
+    {
+        $discount = $this->discounts->where('category', '=', 'children_older')->first();
+        return $discount && $discount->type === 1 && (int)$discount->price === 100;
     }
 }

@@ -51,10 +51,24 @@ trait UserMethod
 
     public static function toSelectBox()
     {
-        return  self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+        return self::query()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
             ->get()->map(function ($it) {
-                return ['value'=>$it->value, 'text'=>$it->text];
+                return ['value' => $it->value, 'text' => $it->text];
             });
     }
 
+    public function basicInfo()
+    {
+        return (object)[
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'name' => $this->name,
+            'email' => $this->email,
+            'mobile_phone' => $this->mobile_phone,
+            'company' => $this->company,
+            'role' => $this->role,
+            'avatar_url' => $this->avatar_url,
+        ];
+    }
 }

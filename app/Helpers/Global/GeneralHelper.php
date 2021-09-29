@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Currency;
+use App\Models\SiteOption;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 
-if (! function_exists('appName')) {
+if (!function_exists('appName')) {
     /**
      * Helper to grab the application name.
      *
@@ -17,15 +19,15 @@ if (! function_exists('appName')) {
     }
 }
 
-if (! function_exists('carbon')) {
+if (!function_exists('carbon')) {
     /**
      * Create a new Carbon instance from a time.
      *
      * @param $time
      *
+     * @return Carbon
      * @throws Exception
      *
-     * @return Carbon
      */
     function carbon($time)
     {
@@ -33,7 +35,7 @@ if (! function_exists('carbon')) {
     }
 }
 
-if (! function_exists('homeRoute')) {
+if (!function_exists('homeRoute')) {
     /**
      * Return the route to the "home" page depending on authentication/authorization status.
      *
@@ -130,10 +132,10 @@ if (!function_exists('validation_errors')) {
     function validation_errors($clear = true)
     {
         if ($clear) {
-            return  request()->session()->pull('errors') ?: new  ViewErrorBag;
+            return request()->session()->pull('errors') ?: new  ViewErrorBag;
         }
 
-        return  request()->session()->get('errors') ?: new  ViewErrorBag;
+        return request()->session()->get('errors') ?: new  ViewErrorBag;
     }
 }
 
@@ -145,7 +147,7 @@ if (!function_exists('site_option')) {
      */
     function site_option($key, $default = null)
     {
-        return \App\Models\Common\SiteOption::getValue($key, $default);
+        return SiteOption::getValue($key, $default);
     }
 }
 
@@ -190,5 +192,13 @@ if (!function_exists('pusherEvent')) {
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
         }
+    }
+}
+
+
+if (!function_exists('currency_title')) {
+    function currency_title($iso)
+    {
+        return Currency::currencyTitle($iso);
     }
 }

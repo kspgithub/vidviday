@@ -23,49 +23,23 @@
 											<div class="swiper-button-next">
 												<i></i>
 											</div>
-											<div class="swiper-container" data-options='{"autoHeight": true, "parallax": true, "speed": 900, "lazy": true}'>
-												<div class="swiper-wrapper lightbox-wrap">
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img_5.jpg')}}" alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>Синагога «Ейхаль-Аарон»</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img_5.jpg')}}" alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>Синагога «Ейхаль-Аарон»</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img_5.jpg')}}" alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>Синагога «Ейхаль-Аарон»</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img_5.jpg')}}" alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>Синагога «Ейхаль-Аарон»</span>
-														</div>
-													</div>
-
-													<div class="swiper-slide">
-														<img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img_5.jpg')}}" alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
-														<div class="swiper-lazy-preloader"></div>
-														<div class="full-size">
-															<span>Синагога «Ейхаль-Аарон»</span>
-														</div>
-													</div>
-												</div>
-											</div>
+                                            <div class="swiper-container"
+                                            data-options='{"autoHeight": true, "parallax": true, "speed": 900}'>
+                                           <div class="swiper-wrapper lightbox-wrap">
+                                               <div class="swiper-slide">
+                                                   @if ( !empty($pageContent->media))
+                                                       <img src="{{ $pageContent->media ?? asset('img/no-image.png') }}"
+                                                            alt="{{$pageContent->seo_h1 ?? $pageContent->title}}"
+                                                            data-swiper-parallax="30%">
+                                                       <a href="{{ $pageContent->media ?? asset('img/no-image.png') }}"
+                                                          class="lightbox full-size"
+                                                          data-caption="{{$pageContent->seo_h1 ?? $pageContent->title}}">
+                                                           @endif
+                                                           <span>{{$pageContent->seo_h1 ?? $pageContent->title}}</span>
+                                                       </a>
+                                               </div>
+                                           </div>
+                                       </div>
 											<div class="swiper-pagination light"></div>
 										</div>
 									</div>
@@ -76,7 +50,7 @@
 								<div class="tab">
 									<div class="banner-tab-map">
 										<div id="map-canvas" class="map-wrapper hidden-map full-size" data-lat="49.822385" data-lng="24.023855" data-zoom="15" data-img-cluster="img/cluster.png"></div>
-										<a class="marker" data-rel="map-canvas-1" data-lat="49.822385" data-lng="24.023855" data-image="img/marker.png" data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"></a>
+										<a class="marker" data-rel="map-canvas-1" data-lat="49.822385" data-lng="24.023855" data-image="{{asset('img/marker.png')}}" data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"></a>
 									</div>
 								</div>
 								<!-- TAB #2 END -->

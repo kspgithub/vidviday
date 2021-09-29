@@ -19,7 +19,10 @@
             <div class="row">
                 <div class="col-xl-8 col-12">
                     <!-- BANNER TABS -->
-                @include('tour.includes.banner-tabs')
+                @include('tour.includes.banner-tabs', [
+                    'tour'=>$tour,
+                    'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('pictures') : $tour->getMedia('main'))
+                ])
                 <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
                     <!-- TOUR CONTENT -->
@@ -138,10 +141,18 @@
 
 @push('after-popups')
     <div v-is="'tour-testimonial-form'"
-         :tour='@json($tour)'
+         :tour='@json($tour->shortInfo())'
          :user='@json(current_user())'
          action='{{route('tour.testimonial', $tour)}}'
          :data-parent="0"
+    >
+        @csrf
+    </div>
+
+    <div v-is="'tour-one-click-popup'"
+         :tour='@json($tour->shortInfo())'
+         :schedules='@json($future_events)'
+         action='{{route('tour.order-confirm', $tour)}}'
     >
         @csrf
     </div>

@@ -60,7 +60,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/Global/FaqHelper.php",
+            "app/Helpers/Global/NewsHelper.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

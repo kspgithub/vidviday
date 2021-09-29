@@ -23,6 +23,7 @@ class TourSchedule extends Model
     use HasFactory;
     use UsePublishedScope;
 
+
     protected $fillable = [
         'tour_id',
         'start_date',
@@ -38,10 +39,13 @@ class TourSchedule extends Model
         'published' => 'boolean',
         'price' => 'integer',
         'commission' => 'integer',
+        'start_date' => 'date:d.m.Y',
+        'end_date' => 'date:d.m.Y',
     ];
 
     protected $appends = [
         'title',
+        'start_title',
     ];
 
     protected $dates = [
@@ -65,6 +69,14 @@ class TourSchedule extends Model
         return $this->belongsTo(Tour::class);
     }
 
+    public function getStartTitleAttribute()
+    {
+        if ($this->start_date) {
+            return $this->start_date->translatedFormat('D') . ', ' . $this->start_date->format('d.m.Y');
+        }
+        return '';
+    }
+
 
     public function getTitleAttribute()
     {
@@ -84,6 +96,7 @@ class TourSchedule extends Model
     {
         $json = json_encode([
             'id' => $this->id,
+            'start_title' => $this->start_title,
             'title' => $this->title,
             'places' => $this->places,
             'price' => $this->price,
@@ -113,6 +126,11 @@ class TourSchedule extends Model
             $title .= " | {$commission} грн.";
         }
         return $title;
+    }
+
+    public function scopeInFuture(Builder $query)
+    {
+        return $query->published()->whereDate('start_date', '>=', Carbon::now()->addDays(1))->orderBy('start_date');
     }
 
 
@@ -158,6 +176,14 @@ class TourSchedule extends Model
             })
             ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
                 return $q->where('price', '<=', $params['price_to']);
+            })
+            ->when(!empty($params['place_id']), function (Builder $q) use ($params) {
+                return $q->whereHas('tour', function ($sq) use ($params) {
+                    return $sq->whereHas('places', function (Builder $ssq) use ($params) {
+                        $ids = array_filter(explode(',', $params['place_id']));
+                        $ssq->whereIn('id', $ids);
+                    });
+                });
             })
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
                 return $q->whereHas('tour', function ($sq) use ($params) {

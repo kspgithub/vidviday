@@ -27,7 +27,7 @@
                                         class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
                         @endif
                     </div>
-                    <a href="{{route('tour.order', ['slug'=>$tour->id, 'schedule'=>$future_event->id])}}"
+                    <a href="{{route('tour.order', ['tour'=>$tour->id, 'schedule'=>$future_event->id])}}"
                        class="btn type-1">@lang('tours-section.order')</a>
                 </div>
             @endforeach

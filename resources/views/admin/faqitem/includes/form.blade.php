@@ -14,9 +14,11 @@
                         :value="old('question', $faqitem->question)"
                         required></x-forms.textarea-group>
 
+
 <x-forms.textarea-group name="answer" :label="__('Answer')"
                         :value="old('answer', $faqitem->answer)"
                         required></x-forms.textarea-group>
+
 
 <x-forms.switch-group
     name="published" :label="__('Published')"

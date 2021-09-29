@@ -532,23 +532,23 @@ jQuery(function ($) {
     });
     // Decrement
     $(document).delegate('.number-input .decrement', 'click', function () {
-
+        if ($(this).parents('.vue-number-input').length > 0) return;
         var $input = $(this).siblings('input'),
             val = parseInt($input.val()),
             min = parseInt($input.attr('min')),
             step = parseInt($input.attr('step')),
             temp = val - step;
-        if ($input.parents('.vue-calc').length > 0) return;
         $input.val(temp >= min ? temp : min);
     });
     // Increment
     $(document).delegate('.number-input .increment', 'click', function () {
+        if ($(this).parents('.vue-number-input').length > 0) return;
         var $input = $(this).siblings('input'),
             val = parseInt($input.val()),
             max = parseInt($input.attr('max')),
             step = parseInt($input.attr('step')),
             temp = val + step;
-        if ($input.parents('.vue-calc').length > 0) return;
+
         $input.val(temp <= max ? temp : max);
     });
     // Popup
@@ -637,25 +637,68 @@ jQuery(function ($) {
             pageScroll(current);
         }
     });
+
     //expand all accordion
-    $(document).on('click', '.expand-all', function () {
-        var headerHeight = $('header').outerHeight() + 40,
-            current = $(this),
-            topAccordion = $(this).parents('.accordion-all-expand');
-        if (current.hasClass('up')) {
-            current.parents('.accordion-all-expand').find('.accordion-item').removeClass('active').find('.accordion-inner').slideUp();
-        } else {
-            current.parents('.accordion-all-expand').find('.accordion-item').addClass('active').find('.accordion-inner').slideDown(function () {
-                pageScroll(topAccordion, headerHeight);
+    $('.accordion-all-expand:not(.inner-not-expand) .expand-all').on('click', function () {
+
+        let parentAccordion = $(this).closest('.accordion-all-expand'),
+            accordion = $(parentAccordion).find('.accordion-item');
+
+        if ($(this).hasClass('open')) {
+
+            $(accordion).each(function () {
+
+                $(this).addClass('active');
+                $(this).find('.accordion-inner').slideDown(440);
+            });
+
+            pageScroll(parentAccordion);
+        }
+
+        if ($(this).hasClass('close')) {
+
+            $(accordion).each(function () {
+                $(this).removeClass('active');
+                $(this).find('.accordion-inner').slideUp(440);
             });
         }
     });
+
+    $('.accordion-all-expand.inner-not-expand .expand-all').on('click', function () {
+
+        let parentAccordion = $(this).closest('.accordion-all-expand'),
+            accordion = $(parentAccordion).find('.accordions-inner-wrap > .accordion-item');
+
+        if ($(this).hasClass('open')) {
+
+            $(accordion).each(function () {
+
+                $(this).addClass('active');
+                $(this).find('> .accordion-inner').slideDown(440);
+            });
+
+            pageScroll(parentAccordion);
+        }
+
+        if ($(this).hasClass('close')) {
+
+            $(accordion).each(function () {
+
+                $(this).removeClass('active');
+                $(this).find('> .accordion-inner').slideUp(440);
+            });
+        }
+    });
+
+
     //tabs
     $(document).on('click', '.tab-title', function () {
+        if ($(this).parents('.vue-tabs').length > 0) return;
         $(this).parent().toggleClass('active');
     });
 
     $(document).on('click', '.tab-toggle .tab-caption', function () {
+        if ($(this).parents('.vue-tabs').length > 0) return;
         var tab = $(this).closest('.tabs').find('.tab'),
             tabIndex = $(this).index(),
             topTabIndex = tabIndex + 1;
@@ -667,6 +710,7 @@ jQuery(function ($) {
     });
 
     $(document).on('click', '.tab-prev', function () {
+        if ($(this).parents('.vue-tabs').length > 0) return;
         $(this).closest('.tabs').find('.tab.active').removeClass('active').prev().addClass('active');
         $(this).closest('.tabs').find('.tab-caption.active').removeClass('active').prev().addClass('active');
         var index = $('.tab.active').index() + 1;
@@ -675,6 +719,7 @@ jQuery(function ($) {
     });
 
     $(document).on('click', '.tab-next', function () {
+        if ($(this).parents('.vue-tabs').length > 0) return;
         $(this).closest('.tabs').find('.tab.active').removeClass('active').next().addClass('active');
         $(this).closest('.tabs').find('.tab-caption.active').removeClass('active').next().addClass('active');
         var index = $('.tab.active').index() + 1;
@@ -684,6 +729,7 @@ jQuery(function ($) {
     });
 
     $('.cabinet-page .tab-caption a').on('click', function () {
+        if ($(this).parents('.vue-tabs').length > 0) return;
         $($(this).parent()).click();
     });
 
@@ -779,36 +825,38 @@ jQuery(function ($) {
     // Show more info
     $('.show-more').on('click', function () {
         var $container = $(this).parents('.load-more-wrapp');
+        if ($container.hasClass('vue-load-more')) return;
         $(this).toggleClass('active');
         $container.find('.more-info').slideToggle(440);
         $container.find('.less-info').slideToggle(440);
 
     });
-    // Remove participant
-    $('.participant .btn-delete').on('click', function () {
-        $(this).closest('.participant').remove();
-        $('.participant').each(function () {
-            $(this).find('.h4 span').html($(this).index() + 1);
-        });
-    });
-    // participant datepicker
-    $('.participant .datepicker-input input').on('blur', function () {
-        if ($(this).closest('.datepicker-input').hasClass('vue-datepicker')) return;
-        if ($(this).val()) {
-            $(this).closest('.datepicker-input').addClass('filled');
-        } else {
-            $(this).closest('.datepicker-input').removeClass('filled');
-        }
-    });
 
-    $('.participant .single-datepicker').on('mouseleave', function () {
-        if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
-        if ($(this).find('input').val()) {
-            $(this).find('.datepicker-input').addClass('filled');
-        } else {
-            $(this).find('.datepicker-input').removeClass('filled');
-        }
-    });
+    // Remove participant
+    // $('.participant .btn-delete').on('click', function () {
+    //     $(this).closest('.participant').remove();
+    //     $('.participant').each(function () {
+    //         $(this).find('.h4 span').html($(this).index() + 1);
+    //     });
+    // });
+    // participant datepicker
+    // $('.participant .datepicker-input input').on('blur', function () {
+    //     if ($(this).closest('.datepicker-input').hasClass('vue-datepicker')) return;
+    //     if ($(this).val()) {
+    //         $(this).closest('.datepicker-input').addClass('filled');
+    //     } else {
+    //         $(this).closest('.datepicker-input').removeClass('filled');
+    //     }
+    // });
+
+    // $('.participant .single-datepicker').on('mouseleave', function () {
+    //     if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
+    //     if ($(this).find('input').val()) {
+    //         $(this).find('.datepicker-input').addClass('filled');
+    //     } else {
+    //         $(this).find('.datepicker-input').removeClass('filled');
+    //     }
+    // });
     // Apartment form
     $(document).on('click', '.apartment-option .number-input button', function () {
         var val = parseInt($(this).parent().find('input').val());
@@ -837,6 +885,7 @@ jQuery(function ($) {
     });
     // Checkbox hidden field
     $('.checkbox-accordion .checkbox input').on('change', function () {
+        if ($(this).parent().hasClass('vue-checkbox')) return;
         $(this).closest('.checkbox-accordion').find('.hidden-textarea').slideToggle(440);
     });
     // Participant mobile accordions
