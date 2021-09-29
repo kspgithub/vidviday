@@ -4,6 +4,7 @@ namespace App\Models\Traits\Scope;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 trait TourScope
 {
@@ -21,6 +22,35 @@ trait TourScope
         });
     }
 
+
+    public function scopeAutocomplete(Builder $query, $search = '')
+    {
+        $query = $query->published()->with([
+            'media' => function ($sc) {
+                return $sc->whereIn('collection_name', ['main', 'mobile']);
+            },
+        ])->where('title', 'LIKE', "%$search%")
+            ->select([
+                'id',
+                'title',
+                'price',
+                'commission',
+                'currency',
+                'rating',
+                'duration',
+                'nights',
+                'slug',
+            ]);
+
+        if (!empty($search)) {
+            $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
+                ->orderBy('relevant');
+        } else {
+            $query->orderBy('title');
+        }
+
+        return $query;
+    }
 
     public function scopeSearch(Builder $query)
     {

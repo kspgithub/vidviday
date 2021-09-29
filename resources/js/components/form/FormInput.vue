@@ -1,12 +1,14 @@
 <template>
     <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage}">
-        <i>{{ label }} <span v-if="required">*</span></i>
+        <i v-if="label">{{ label }} <span v-if="required">*</span></i>
         <input ref="inputRef"
                class="vue-input"
                @focus="onFocus"
                @blur="onBlur"
+               :placeholder="placeholder"
                :type="type" v-model="innerValue" :name="name" :id="id || name"
-               :required="required">
+        >
+        <slot/>
     </label>
 </template>
 
@@ -16,9 +18,7 @@ import useFormField from "./composables/useFormField";
 export default {
     name: "FormInput",
     props: {
-        modelValue: {
-            type: [Number, String, null]
-        },
+        modelValue: null,
         name: {
             type: String,
             default: '',
@@ -27,11 +27,11 @@ export default {
             type: String,
             default: '',
         },
-
-        id: {
+        placeholder: {
             type: String,
-            default: null,
+            default: '',
         },
+        id: null,
         type: {
             type: String,
             default: "text",

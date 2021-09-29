@@ -59,4 +59,9 @@ class Region extends TranslatableModel
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
+    }
 }

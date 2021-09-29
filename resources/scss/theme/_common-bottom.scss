@@ -71,14 +71,14 @@ html.overflow-menu body {
 
 .schedule-row {
     height: 61px;
-    transition: opacity linear .3s, height linear .3s;
+    transition: all linear .3s;
 
     &.d-none {
         display: flex !important;
         opacity: 0;
         height: 0;
+        padding: 0px 20px;
         overflow: hidden;
-        transition: opacity linear .3s, height linear .3s;
     }
 }
 

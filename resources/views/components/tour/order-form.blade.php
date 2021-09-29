@@ -1,11 +1,16 @@
 @props([
     'tour'=> new \App\Models\Tour(),
+    'schedules'=> [],
     'nearestEvent'=> null,
     'shareClass'=> '',
     'spacerClass'=> 'spacer-xs',
 ])
 
-<form action="{{route('tour.order', $tour)}}">
+<form action="{{route('tour.order', $tour)}}"
+      v-is="'tour-order'"
+      :tour='@json($tour->shortInfo())'
+      :schedules='@json($schedules)'
+>
     <div class="thumb-price">
         <span
             class="text">@lang('tours-section.price')<span>{{$nearestEvent ? $nearestEvent->price : $tour->price}}</span><i>грн</i></span>

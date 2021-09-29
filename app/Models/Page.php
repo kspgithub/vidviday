@@ -18,11 +18,11 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperPage
  */
-class Page extends Model implements HasMedia
+class Page extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasTranslations;
     use UsePublishedScope;
+    use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
 
@@ -60,9 +60,19 @@ class Page extends Model implements HasMedia
         'text',
         'slug',
         'published',
+        'sidebar',
+        'sidebar_items',
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
+        'sidebar' => 'boolean',
+        'sidebar_items' => 'array',
     ];
+
+
+    public function sections()
+    {
+        return $this->hasMany(PageSection::class, 'page_id')->orderBy('position');
+    }
 }

@@ -82,22 +82,24 @@
 
             <div class="col-xl-6 col-10">
                 <div class="tel dropdown">
-                    <a href="tel:+380322553655" class="only-desktop">+38 (032) 255 36 55</a>
-                    <span class="dropdown-btn"></span>
-                    <ul class="dropdown-toggle">
-                        <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
-                        </li>
+                    @foreach($contacts as $phone)
+                        <a href="tel:{{$phone->work_phone}}" class="only-desktop">{{$phone->work_phone}}</a>
+                        <span class="dropdown-btn"></span>
+                        <ul class="dropdown-toggle">
+                            <li>
+                                <a href="tel:{{$phone->phone_1}}">{{$phone->phone_1}}</a>
+                            </li>
 
-                        <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
-                        </li>
+                            <li>
+                                <a href="tel:{{$phone->phone_2}}">{{$phone->phone_2}}</a>
+                            </li>
 
-                        <li>
-                            <a href="tel:+380322553655">+38 (032) 255 36 55</a>
-                        </li>
-                    </ul>
-                    <div class="full-size"></div>
+                            <li>
+                                <a href="tel:{{$phone->phone_3}}">{{$phone->phone_3}}</a>
+                            </li>
+                        </ul>
+                        <div class="full-size"></div>
+                    @endforeach
                 </div>
 
                 <span class="vertical-separator"></span>
@@ -186,61 +188,61 @@
                     </div>
                     <ul>
                         <li class="dropdown">
-                            <a href="#">Чому відвідай</a>
+                            <a href="/about">Чому відвідай</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
                                     <li>
-                                        <a href="#">Про нас</a>
+                                        <a href="/about">Про нас</a>
                                     </li>
 
                                     <li>
-                                        <a href="/documents/">Наші документи</a>
+                                        <a href="/documents">Наші документи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/guides/">Екскурсоводи</a>
+                                        <a href="/guides">Екскурсоводи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/office-workers/">Офісні працівники</a>
+                                        <a href="/office-workers">Офісні працівники</a>
                                     </li>
 
                                     <li>
-                                        <a href="/news/">Новини</a>
+                                        <a href="{{ route("news") }}">{{ __("Новини") }}</a>
                                     </li>
 
                                     <li>
-                                        <a href="/benefit/">Благодійність</a>
+                                        <a href="/benefit">Благодійність</a>
                                     </li>
                                 </ul>
 
                                 <ul>
                                     <li>
-                                        <a href="/awards/">Нагороди та відзнаки</a>
+                                        <a href="/awards">Нагороди та відзнаки</a>
                                     </li>
 
                                     <li>
-                                        <a href="/vacancies/">Вакансії</a>
+                                        <a href="/vacancies">Вакансії</a>
                                     </li>
 
                                     <li>
-                                        <a href="/practice/">Практика</a>
+                                        <a href="/practice">Практика</a>
                                     </li>
 
                                     <li>
-                                        <a href="/testimonials/">Відгуки</a>
+                                        <a href="/testimonials">Відгуки</a>
                                     </li>
 
                                     <li>
-                                        <a href="/blog/">Блог</a>
+                                        <a href="{{ route("blogs") }}">Блог</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
                         <li class="dropdown">
-                            <a href="tours.php">Тури</a>
+                            <a href="/tours">Тури</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
@@ -254,7 +256,7 @@
                         </li>
 
                         <li class="only-pad-mobile">
-                            <a href="order-client-1.php">Замовити тур</a>
+                            <a href="/order">Замовити тур</a>
                         </li>
 
                         <li>
@@ -283,7 +285,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="certificate.php">Подарунковий сертифікат</a>
+                                        <a href="/certificate">Подарунковий сертифікат</a>
                                     </li>
 
                                     <li>
@@ -302,11 +304,11 @@
                         </li>
 
                         <li>
-                            <a href="faq.php">Є питання?</a>
+                            <a href="/faq">Є питання?</a>
                         </li>
 
                         <li>
-                            <a href="contacts.php">Контакти</a>
+                            <a href="/contacts">Контакти</a>
                         </li>
                     </ul>
                 </nav>

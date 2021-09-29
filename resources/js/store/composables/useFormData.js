@@ -24,3 +24,13 @@ export const useFormDataProperty = (namespace, property) => {
         }
     });
 }
+
+export const useDebounceFormDataProperty = (namespace, property, wait = 300) => {
+    const store = useStore();
+    return computed({
+        get: () => store.state[namespace].formData[property],
+        set: _.debounce(value => {
+            store.commit(namespace + '/UPDATE_FORM_DATA', {[property]: value});
+        }, wait)
+    });
+}

@@ -58,7 +58,7 @@ export const useTourCard = (tour) => {
     const imageSrc = ref('/img/preloader.png');
 
     const changeSchedule = (evt) => {
-        console.log(evt);
+        //console.log(evt);
     }
 
     const schedules = computed(() => {

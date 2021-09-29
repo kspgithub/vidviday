@@ -92,7 +92,7 @@ export const assignOnly = (...args) => {
 
     for (let i = 1, len = args.length; i < len; i++) {
         const obj2 = args[i];
-        Object.keys(obj2).forEach(function(key) {
+        Object.keys(obj2).forEach(function (key) {
             if (key in obj1) { // or obj1.hasOwnProperty(key)
                 obj1[key] = obj2[key];
             }
@@ -127,3 +127,16 @@ export const scrollToElement = function (event) {
     })
 }
 
+export const scrollToEl = (selector, offset = 0) => {
+    const el = document.querySelector(selector);
+    if (el) {
+        if (offset !== 0) {
+            const y = el.getBoundingClientRect().top + window.pageYOffset + offset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        } else {
+            el.scrollIntoView({
+                behavior: 'smooth',
+            })
+        }
+    }
+}

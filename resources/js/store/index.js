@@ -10,24 +10,26 @@ if (process.env.NODE_ENV !== 'production') {
     plugins.push(logger);
 }
 
-// import createPersistedState from "vuex-persistedstate";
-//
-//
-// const psState = createPersistedState({
-//     paths: []
-// });
-//
-// plugins.push(psState);
+import createPersistedState from "vuex-persistedstate";
+
+
+const psState = createPersistedState({
+    paths: ['orderTour']
+});
+
+plugins.push(psState);
 
 import tourFilter from './modules/tour-filter';
 import popupGallery from './modules/popup-gallery';
 import testimonials from './modules/testimonials';
+import orderTour from './modules/order-tour';
 
 const store = createStore({
     modules: {
         tourFilter,
         popupGallery,
         testimonials,
+        orderTour,
     },
     plugins: plugins,
 });

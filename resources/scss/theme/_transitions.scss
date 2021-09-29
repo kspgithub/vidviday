@@ -44,6 +44,7 @@ nav,
 .btn-read-more.left-arrow:before,
 .btn-read-more:after,
 .show-more,
+.show-more-btn,
 .btn-fb path,
 .btn-google path,
 .btn-to-top,
@@ -70,7 +71,9 @@ nav,
 .text-sm.open-popup,
 .text-md.open-popup,
 .show-more:before,
+.show-more-btn:before,
 .show-more:after,
+.show-more-btn:after,
 .expand-all:before,
 .expand-all:after,
 .tab-title:after,
@@ -142,4 +145,12 @@ nav,
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+.tabs-fade {
+    position: relative;
+
+    .fade-leave-to {
+        position: absolute;
+    }
 }

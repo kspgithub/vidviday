@@ -32,8 +32,8 @@ class SearchEventsRequest extends FormRequest
     {
         return [
             'q' => ['nullable', 'string'],
-            'start' => ['required', 'date'],
-            'end' => ['required', 'date'],
+            'start' => ['nullable', 'date'],
+            'end' => ['nullable', 'date'],
             'date_from' => ['nullable', 'date_format:d.m.Y'],
             'date_to' => ['nullable', 'date_format:d.m.Y'],
             'duration_from' => ['nullable', 'integer', 'min:0'],
@@ -44,6 +44,7 @@ class SearchEventsRequest extends FormRequest
             'type' => ['nullable', 'string'],
             'subject' => ['nullable', 'string'],
             'tour_id' => ['nullable', 'integer'],
+            'place_id' => ['nullable', 'integer'],
             'event_click' => ['nullable', 'string'],
         ];
     }

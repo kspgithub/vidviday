@@ -17,7 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthSeeder::class);
         $this->call(HtmlBlockSeeder::class);
         $this->call(PageSeeder::class);
+        $this->call(BlogSeeder::class);
+        $this->call(NewsSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(ContactSeeder::class);
         $this->call(CurrencySeeder::class);
+        $this->call(PaymentTypeSeeder::class);
         $this->call(CountryRegionCitySeeder::class);
 
         $this->call(TourDirectionsSeeder::class);
@@ -33,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AccommodationsSeeder::class);
         $this->call(IncludeTypeSeeder::class);
         $this->call(DiscountsSeeder::class);
+
 
         // Last
         $this->call(TourSeeder::class);

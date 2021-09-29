@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Relationship\PlaceRelationship;
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,7 @@ use Spatie\Translatable\HasTranslations;
 class Place extends TranslatableModel implements HasMedia
 {
     use HasFactory;
+    use UsePublishedScope;
     use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
@@ -64,6 +66,10 @@ class Place extends TranslatableModel implements HasMedia
         'lng' => 'float',
     ];
 
+    protected $appends = [
+        'url',
+    ];
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -91,5 +97,34 @@ class Place extends TranslatableModel implements HasMedia
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function getUrlAttribute()
+    {
+        return !empty($this->slug) ? route('place.show', $this->slug) : '';
+    }
+
+
+    public function asMapMarker()
+    {
+        return (object)[
+            'title' => $this->title,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'url' => $this->url,
+        ];
+    }
+
+    public function shortInfo()
+    {
+        return (object)[
+            'id' => $this->id,
+            'title' => $this->title,
+            'rating' => $this->rating,
+            'testimonials_count' => $this->testimonials_count,
+            'main_image' => $this->main_image,
+            'slug' => $this->slug,
+            'url' => $this->url,
+        ];
     }
 }

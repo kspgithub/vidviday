@@ -119,3 +119,14 @@ if (!function_exists('youtube_embed')) {
     }
 
 }
+
+
+if (!function_exists('date_title')) {
+    function date_title($date)
+    {
+        if ($date) {
+            return $date->translatedFormat('D') . ', ' . $date->format('d.m.Y');
+        }
+        return '';
+    }
+}

@@ -16,9 +16,7 @@ import {onMounted} from "vue";
 export default {
     name: "FormCustomSelect",
     props: {
-        modelValue: {
-            type: [Number, String, null]
-        },
+        modelValue: null,
         name: {
             type: String,
             default: '',
@@ -48,10 +46,19 @@ export default {
             inputRef.value.addEventListener('sumo:change', (event) => {
                 emit('update:modelValue', event.target.value);
             })
+            inputRef.value.addEventListener('sumo:opened', (event) => {
+                //console.log('sumo:opened');
+            })
         })
+
+        const update = () => {
+            $(inputRef.value)[0].sumo.reload();
+            //console.log($(inputRef.value)[0].sumo);
+        }
 
         return {
             ...field,
+            update,
         }
     }
 }

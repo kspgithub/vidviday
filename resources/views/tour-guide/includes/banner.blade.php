@@ -2,14 +2,17 @@
 					<div class="section">
 						<!-- BANNER TABS -->
 						<div class="banner-tabs tabs">
-                    <div class="tabs-nav">
-                        <span class="tab-title"></span>
-                        <ul class="tab-toggle">
-                            <li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
-
-                            <li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
-                        </ul>
-                    </div>
+							<div class="tabs-nav">
+								<span class="tab-title"></span>
+								<ul class="tab-toggle">
+                                    @if ( !empty($staff->media))
+									<li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/photo.svg" alt="placeholder light">Фото</li>
+                                    @endif
+                                    @if ( !empty($staff->video))
+									<li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg" alt="video">Відео</li>
+                                    @endif
+                                </ul>
+							</div>
 							<div class="tabs-wrap">
 								<!-- TAB #1 -->
 								<div class="tab active">

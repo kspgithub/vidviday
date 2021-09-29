@@ -8,7 +8,7 @@ trait NewsAttribute
     {
         $media = $this->getFirstMedia('main');
 
-        return $media === null ? '' : $media->getUrl();
+        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
 
     public function getMobileImageAttribute()
