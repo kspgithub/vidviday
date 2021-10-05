@@ -33,16 +33,17 @@ class Accommodation extends TranslatableModel implements HasMedia
 
     public $translatable = [
         'title',
+        'title_where',
         'text',
     ];
 
 
     public $fillable = [
         'title',
+        'title_where',
         'text',
         'region_id',
-        'populated_area',
-        'place',
+        'city_id',
         'slug',
         'published',
     ];
@@ -69,5 +70,10 @@ class Accommodation extends TranslatableModel implements HasMedia
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

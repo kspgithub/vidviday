@@ -128,13 +128,13 @@ class CityController extends Controller
         $cityQuery = City::query()->where('cities.country_id', $country_id)->with(['region', 'country']);
 
         $q = $request->input('q', '');
-        $limit = $request->input('limit', 0);
+        $limit = $request->input('limit', 20);
 
         if (!empty($q)) {
             $cityQuery->where('cities.title', 'LIKE', '%"' . $q . '%');
         }
 
 
-        return $cityQuery->take(10)->get()->map->asChoose();
+        return $cityQuery->take($limit)->get()->map->asChoose();
     }
 }

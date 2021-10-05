@@ -39,7 +39,7 @@ class AccommodationsTable extends DataTableComponent
     public function query(): Builder
     {
 
-        $region_id = $this->getFilter('region_id');
+        $region_id = (int)$this->getFilter('region_id');
 
         $query = Accommodation::query()
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
@@ -82,7 +82,7 @@ class AccommodationsTable extends DataTableComponent
     public function filters(): array
     {
         return [
-            'region_id' => Filter::make(__('Начеленні пункти'))
+            'region_id' => Filter::make(__('Regions'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
         ];
     }

@@ -51,10 +51,10 @@ class AccommodationController extends Controller
 
         $request->validate([
             'title' => ['required', 'max:100'],
-            'text' => ['required', 'max:500'],
+            'title_where' => ['required', 'max:100'],
+            'text' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
-            'populated_area' => ['nullable', 'max:225'],
-            'place' => ['nullable', 'max:500'],
+            'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
 
@@ -91,10 +91,10 @@ class AccommodationController extends Controller
     {
         $request->validate([
             'title' => ['required', 'max:100'],
-            'text' => ['required', 'max:500'],
+            'title_where' => ['required', 'max:100'],
+            'text' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
-            'populated_area' => ['nullable', 'max:225'],
-            'place' => ['nullable', 'max:500'],
+            'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
 

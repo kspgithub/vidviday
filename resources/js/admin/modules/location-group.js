@@ -15,40 +15,44 @@ const loader = new Loader({
 const DEFAULT_LAT_LNG =  { lat: 48.7363835, lng: 31.46074611 };
 
 const LocationGroup = function (wrapper) {
-
-    const latInput = wrapper.querySelector('[name="lat"]');
-    const lngInput = wrapper.querySelector('[name="lng"]');
+    const noMap = wrapper.classList.contains('no-map');
     const citySelect = wrapper.querySelector('[name="city_id"]');
 
-    const mapElement = wrapper.querySelector('.map');
+
+    if (!noMap) {
+        const latInput = wrapper.querySelector('[name="lat"]');
+        const lngInput = wrapper.querySelector('[name="lng"]');
+        const mapElement = wrapper.querySelector('.map');
 
 
-    let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
-    let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
+        let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
+        let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
 
-    let latLng = {lat: latValue, lng: lngValue };
+        let latLng = {lat: latValue, lng: lngValue};
 
 
-    const map = new googleMaps.Map(mapElement, {
-        zoom: 6,
-        center: latLng,
-    });
+        const map = new googleMaps.Map(mapElement, {
+            zoom: 6,
+            center: latLng,
+        });
 
-    const marker = new googleMaps.Marker({
-        position: latLng,
-        map: map,
-    });
+        const marker = new googleMaps.Marker({
+            position: latLng,
+            map: map,
+        });
 
-    map.addListener("drag", () => {
-        marker.setPosition(map.getCenter());
-    });
+        map.addListener("drag", () => {
+            marker.setPosition(map.getCenter());
+        });
 
-    map.addListener("center_changed", () => {
-        marker.setPosition(map.getCenter());
-        latLng = { lat: map.getCenter().lat(), lng: map.getCenter().lng() };
-        latInput.value = latLng.lat;
-        lngInput.value = latLng.lng;
-    });
+        map.addListener("center_changed", () => {
+            marker.setPosition(map.getCenter());
+            latLng = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+            latInput.value = latLng.lat;
+            lngInput.value = latLng.lng;
+        });
+    }
+
 
     // city search
 
