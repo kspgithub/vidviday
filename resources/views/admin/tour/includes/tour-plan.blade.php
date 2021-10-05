@@ -6,7 +6,7 @@
                 <table class="table table-sm mb-3">
                     <thead>
                     <tr>
-                        <th class="text-nowrap">@lang('Title') {{strtoupper(app()->getLocale())}}</th>
+                        <th class="text-nowrap d-none">@lang('Title') {{strtoupper(app()->getLocale())}}</th>
                         <th class="text-nowrap">@lang('Text') {{strtoupper(app()->getLocale())}}</th>
                         <th>@lang('Actions')</th>
                     </tr>
@@ -14,8 +14,8 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr>
-                            <td class="text-nowrap">{{$item->title}}</td>
-                            <td>{{$item->text}}</td>
+                            <td class="text-nowrap d-none">{{$item->title}}</td>
+                            <td>{{$item->short_text}}</td>
                             <td style="width: 150px">
 
                                 <a href="#" wire:click.prevent="editItem({{$item->id}})" class="btn btn-success m-2"><i
@@ -30,9 +30,11 @@
                     </tbody>
                 </table>
 
-                <a href="#" wire:click.prevent="addItem()" class="btn btn-primary m-2">
-                    @lang('Create Record')
-                </a>
+               @if($countTourPlan == 0)
+                    <a href="#" wire:click.prevent="addItem()" class="btn btn-primary m-2">
+                        @lang('Create Record')
+                    </a>
+               @endif
             </x-slot>
         </x-bootstrap.card>
 
@@ -43,24 +45,16 @@
                 <h2 class="mb-2">@lang('Tour Plan')</h2>
                 <div style="max-width: 768px">
                     <form method="post" wire:submit.prevent="saveItem()">
-                        @foreach($locales as  $locale)
-
-                            <x-forms.text-group wire:model.defer="title_{{$locale}}"
-                                                required
-                                                name="title_{{$locale}}"
-                                                label="Title {{strtoupper($locale)}}"
-                            />
-                        @endforeach
 
 
                         @foreach($locales as  $locale)
+                            <x-forms.editor-group wire:model.defer="text_{{$locale}}"
+                                                  name="text_{{ $locale }}"
+                                                  label="Text {{strtoupper($locale)}}"
+                                                  required>
 
-                            <x-forms.textarea-group wire:model.defer="text_{{$locale}}"
-                                                    required
-                                                    rows="5"
-                                                    name="text_{{$locale}}"
-                                                    label="Text {{strtoupper($locale)}}"
-                            />
+                            </x-forms.editor-group>
+
                         @endforeach
 
 

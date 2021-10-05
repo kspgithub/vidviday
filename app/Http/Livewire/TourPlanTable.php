@@ -25,10 +25,14 @@ class TourPlanTable extends Component
 
     public $day = 1;
 
+
+
+    /**
     public $title_uk = '';
     public $title_ru = '';
     public $title_en = '';
     public $title_pl = '';
+     */
 
 
     public $text_uk = '';
@@ -38,10 +42,10 @@ class TourPlanTable extends Component
 
 
     protected $rules = [
-        'title_uk' => 'required',
-        'title_ru' => 'nullable',
-        'title_en' => 'nullable',
-        'title_pl' => 'nullable',
+        //'title_uk' => 'required',
+        //'title_ru' => 'nullable',
+        //'title_en' => 'nullable',
+        //'title_pl' => 'nullable',
 
         'text_uk' => 'required',
         'text_ru' => 'nullable',
@@ -55,9 +59,13 @@ class TourPlanTable extends Component
         $this->locales = $this->getLocales();
     }
 
+
     public function render()
     {
-        return view('admin.tour.includes.tour-plan', ['items' => $this->query()->get()]);
+        return view('admin.tour.includes.tour-plan', [
+            'items' => $this->query()->get(),
+            "countTourPlan" => $this->existTourPlan()
+        ]);
     }
 
     /**
@@ -72,14 +80,14 @@ class TourPlanTable extends Component
 
     public function afterModelInit()
     {
-        $this->getTranslations('title');
+        //$this->getTranslations('title');
         $this->getTranslations('text');
     }
 
     public function beforeSaveItem()
     {
         $this->model->tour_id = $this->tour->id;
-        $this->setTranslations('title');
+        //$this->setTranslations('title');
         $this->setTranslations('text');
     }
 
@@ -87,5 +95,10 @@ class TourPlanTable extends Component
     public function editRecordClass(): string
     {
         return TourPlan::class;
+    }
+
+    public function existTourPlan()
+    {
+        return $this->query()->count();
     }
 }
