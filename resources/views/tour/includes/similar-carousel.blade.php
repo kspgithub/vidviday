@@ -1,3 +1,4 @@
+@if($similar_tours->count() > 0)
 <section class="section">
     <div class="container">
         <h2 class="h1 title text-center">@lang('tours-section.similar-tours')</h2>
@@ -42,3 +43,4 @@
         <div class="spacer-xs only-tab-mobile"></div>
     </div>
 </section>
+@endif

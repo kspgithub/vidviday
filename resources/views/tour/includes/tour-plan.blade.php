@@ -5,10 +5,10 @@
                alt="plan"></span>План туру<i></i></div>
     <div class="accordion-inner" style="display: block;">
         <div class="text text-md">
-            @foreach($tour->planItems as $planItem)
-                <h4>{{$planItem->title}}</h4>
-                <p>{{$planItem->text}}</p>
-            @endforeach
+            @if($tour->planItems->count() > 0)
+                {!! $tour->planItems->first()->text !!}
+            @endif
+
         </div>
     </div>
 
