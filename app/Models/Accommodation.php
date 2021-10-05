@@ -40,6 +40,9 @@ class Accommodation extends TranslatableModel implements HasMedia
     public $fillable = [
         'title',
         'text',
+        'region_id',
+        'populated_area',
+        'place',
         'slug',
         'published',
     ];
@@ -61,5 +64,10 @@ class Accommodation extends TranslatableModel implements HasMedia
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }
