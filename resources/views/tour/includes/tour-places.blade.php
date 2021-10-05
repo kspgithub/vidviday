@@ -12,6 +12,7 @@
                     <div class="accordion-inner" style="display: block">
                         @if($place->hasMedia())
                             <div class="swiper-entry" v-is="'swiper-slider'"
+                                 key="swiper-place-{{$place->id}}"
                                  :media='@json($place->getMedia()->map->toSwiperSlide())'
                             >
                             </div>

@@ -73,7 +73,7 @@ export default {
 
         onMounted(() => {
             swiper.value = new window.Swiper(swiperRef.value, {
-                loop: true,
+                loop: false,
                 lazy: {loadPrevNext: true},
                 preloadImages: false,
                 roundLengths: false,
