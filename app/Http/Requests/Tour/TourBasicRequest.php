@@ -35,6 +35,7 @@ class TourBasicRequest extends FormRequest
             'seo_keywords' => ['nullable', 'string'],
             'text' => ['required', 'string'],
             'short_text' => ['nullable', 'string'],
+            'video' => ['nullable', 'string'],
             'duration' => ['required', 'integer'],
             'nights' => ['required', 'integer'],
             'price' => ['required', 'integer'],
@@ -46,6 +47,10 @@ class TourBasicRequest extends FormRequest
             'badges' => ['nullable', 'array'],
             'staff' => ['nullable', 'array'],
             'mobile_image' => ['nullable', 'string'],
+            'directions' => ['nullable', 'array'],
+            'groups' => ['nullable', 'array'],
+            'types' => ['nullable', 'array'],
+            'subjects' => ['nullable', 'array'],
             'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
