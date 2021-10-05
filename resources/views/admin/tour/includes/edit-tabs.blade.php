@@ -40,4 +40,10 @@
 
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.testimonials')}}"
        href="{{route('admin.tour.testimonials', $tour)}}">@lang('Testimonials')</a>
+
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.hutsul-fun.*')}}"
+       href="{{route('admin.tour.hutsul-fun.index', $tour)}}">@lang('Hutsul Fun')</a>
+
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.similar.*')}}"
+       href="{{route('admin.tour.similar.index', $tour)}}">@lang('Similar Tours')</a>
 </div>

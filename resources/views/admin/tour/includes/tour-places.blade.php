@@ -14,16 +14,23 @@
         @endforeach
     </ul>
     <div class="row align-items-end">
-        <div class="col-12 col-xl-auto">
+        {{--        <div class="col-12 col-xl-4">--}}
+        {{--            <label for="region_id">@lang('Region')</label>--}}
+        {{--            <select name="region_id" id="region_id" wire:model="region_id" class="form-control">--}}
+        {{--                <option value="0">Оберіть область</option>--}}
+        {{--                @foreach($regions as $region)--}}
+        {{--                    <option value="{{$region->id}}">{{$region->title}}</option>--}}
+        {{--                @endforeach--}}
+        {{--            </select>--}}
+
+        {{--        </div>--}}
+        <div class="col-12 col-xl-6">
             <label for="place_id">@lang('Place')</label>
-            <select name="place_id" id="place_id" class="form-control" wire:model="item_id" style="width: 500px;">
+            <x-input.select2 name="place_id" wire:model="item_id"
+                             url="/api/places/select-box">
                 <option value="0">Оберіть місце</option>
-                @foreach($options as $option)
-                    <option value="{{$option->id}}">
-                        {{$option->title}} ({{$option->region->title}})
-                    </option>
-                @endforeach
-            </select>
+            </x-input.select2>
+
         </div>
         <div class="col-12 col-xl-auto">
             <button type="button" class="btn btn-primary" wire:click.prevent="attachItem()">@lang('Add Place')</button>

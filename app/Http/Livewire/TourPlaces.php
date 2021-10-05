@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Place;
+use App\Models\Region;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,12 @@ class TourPlaces extends Component
     /**
      * @var array
      */
-    public $options = [];
+    public $regions = [];
+
+    /**
+     * @var int
+     */
+    public $region_id = 0;
 
     /**
      * @var int
@@ -29,14 +35,14 @@ class TourPlaces extends Component
     {
         $this->tour = $tour;
 
-        $this->options = Place::with(['region', 'city'])->orderBy('region_id')->orderBy('title')->get();
+        $this->regions = Region::query()->orderBy('title')->get();
     }
 
     public function detachItem($id)
     {
         $this->query()->detach([$id]);
     }
-    
+
     public function query()
     {
         return $this->tour->places()->with(['region', 'city']);

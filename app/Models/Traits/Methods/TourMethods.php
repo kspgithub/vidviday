@@ -16,21 +16,17 @@ trait TourMethods
      */
     public function getSimilarTours(int $count = 4)
     {
-        $direction_ids = $this->directions->pluck('id')->toArray();
-        $subjects_ids = $this->subjects->pluck('id')->toArray();
-        $types_ids = $this->types->pluck('id')->toArray();
 
-        return Tour::search()
-            ->whereHas('directions', function (Builder $q) use ($direction_ids) {
-                $q->whereIn('id', $direction_ids);
-            })
-            ->whereHas('subjects', function (Builder $q) use ($subjects_ids) {
-                $q->whereIn('id', $subjects_ids);
-            })
-            ->whereHas('types', function (Builder $q) use ($types_ids) {
-                $q->whereIn('id', $types_ids);
-            })
-            ->take($count)->get();
+        if (!empty($this->similar)) {
+            $similar = implode(', ', $this->similar);
+            $query = Tour::search()->whereIn('id', $this->similar)->orderByRaw("FIELD(id,  $similar)");
+            if ($count > 0) {
+                $query->take($count);
+            }
+
+            return $query->get();
+        }
+        return collect([]);
     }
 
 

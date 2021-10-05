@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\Tour\CalcController;
+use App\Http\Controllers\Admin\Tour\HutsulFunController;
+use App\Http\Controllers\Admin\Tour\SimilarToursController;
 use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
@@ -48,7 +50,14 @@ Route::group([
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
 
     Route::get('{tour}/discounts', [TourDiscountController::class, 'index'])->name('discount.index');
+
     Route::get('{tour}/plan', [TourPlanController::class, 'index'])->name('plan.index');
+    Route::patch('{tour}/plan', [TourPlanController::class, 'update'])->name('plan.update');
+
+    Route::get('{tour}/hutsul-fun', [HutsulFunController::class, 'index'])->name('hutsul-fun.index');
+    Route::patch('{tour}/hutsul-fun', [HutsulFunController::class, 'update'])->name('hutsul-fun.update');
+
+    Route::get('{tour}/similar', [SimilarToursController::class, 'index'])->name('similar.index');
     Route::get('{tour}/finance', [TourIncludeController::class, 'index'])->name('include.index');
     Route::get('{tour}/food', [TourFoodController::class, 'index'])->name('food.index');
     Route::get('{tour}/ticket', [TourTicketController::class, 'index'])->name('ticket.index');

@@ -1,69 +1,27 @@
 <div>
-    @if(!$edit)
-        <x-bootstrap.card>
-            <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour plan')</h2>
-                <table class="table table-sm mb-3">
-                    <thead>
-                    <tr>
-                        <th class="text-nowrap d-none">@lang('Title') {{strtoupper(app()->getLocale())}}</th>
-                        <th class="text-nowrap">@lang('Text') {{strtoupper(app()->getLocale())}}</th>
-                        <th>@lang('Actions')</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($items as $item)
-                        <tr>
-                            <td class="text-nowrap d-none">{{$item->title}}</td>
-                            <td>{{$item->short_text}}</td>
-                            <td style="width: 150px">
+    <x-bootstrap.card>
+        <x-slot name="body">
+            <h2 class="mb-2">@lang('Tour Plan')</h2>
+            <div style="max-width: 768px">
+                <form method="post" wire:submit.prevent="saveItem()">
 
-                                <a href="#" wire:click.prevent="editItem({{$item->id}})" class="btn btn-success m-2"><i
-                                        class="fas fa-file-alt"></i></a>
-                                <a href="#deleteModal" wire:click="deleteId({{$item->id}})" data-bs-toggle="modal"
-                                   class="btn btn-danger m-2"><i
-                                        class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
+
+                    @foreach($locales as  $locale)
+                        <x-forms.editor-group wire:model.defer="text_{{$locale}}"
+                                              name="model.text_{{ $locale }}"
+                                              id="text_{{ $locale }}"
+                                              label="Text {{strtoupper($locale)}}"
+                                              required
+                        >
+
+                        </x-forms.editor-group>
 
                     @endforeach
-                    </tbody>
-                </table>
-
-               @if($countTourPlan == 0)
-                    <a href="#" wire:click.prevent="addItem()" class="btn btn-primary m-2">
-                        @lang('Create Record')
-                    </a>
-               @endif
-            </x-slot>
-        </x-bootstrap.card>
-
-        @include('livewire-tables::bootstrap-5.includes.delete-modal')
-    @else
-        <x-bootstrap.card>
-            <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour Plan')</h2>
-                <div style="max-width: 768px">
-                    <form method="post" wire:submit.prevent="saveItem()">
 
 
-                        @foreach($locales as  $locale)
-                            <x-forms.editor-group wire:model.defer="text_{{$locale}}"
-                                                  name="text_{{ $locale }}"
-                                                  label="Text {{strtoupper($locale)}}"
-                                                  required>
-
-                            </x-forms.editor-group>
-
-                        @endforeach
-
-
-                        <button type="submit" class="btn btn-primary me-3">@lang('Save')</button>
-                        <button type="button" wire:click.prevent="cancelEdit()"
-                                class="btn btn-outline-secondary">@lang('Cancel')</button>
-                    </form>
-                </div>
-            </x-slot>
-        </x-bootstrap.card>
-    @endif
+                    <button type="submit" class="btn btn-primary me-3">@lang('Save')</button>
+                </form>
+            </div>
+        </x-slot>
+    </x-bootstrap.card>
 </div>

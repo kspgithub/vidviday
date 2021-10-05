@@ -1,14 +1,13 @@
 @props([
     'name' => '',
     'placeholder' => '',
-    'url'=>''
+    'url'=>'',
 ])
 
 <div wire:ignore>
     <div
         x-data="{
             value: @entangle($attributes->wire('model')),
-
         }"
         x-on:change="value = $event.target.value"
         x-init="
@@ -28,7 +27,6 @@
                 });
                 jQuery($refs.input).on('select2:select', (e)=> {
                     value = e.params.data.id;
-
                 })
 "
     >

@@ -1,11 +1,11 @@
 @extends('admin.layout.app')
 
-@section('title', __('Editing tour') .'-'.__('Plan'))
+@section('title', __('Editing tour') .'-'.__('Hutsul Fun'))
 
 
 
 @section('content')
-    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Plan')</h1>
+    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Hutsul Fun')</h1>
     <div class="row">
         <div class="col-12 col-md-3 col-xl-2">
             @include('admin.tour.includes.edit-tabs')
@@ -13,14 +13,18 @@
         <div class="col-12 col-md-9 col-xl-10">
             <x-bootstrap.card>
                 <x-slot name="body">
-                    <h2 class="mb-2">@lang('Tour Plan')</h2>
+
                     <div>
-                        <form method="post" action="{{route('admin.tour.plan.update', $tour)}}">
+                        <form method="post" action="{{route('admin.tour.hutsul-fun.update', $tour)}}">
                             @csrf
                             @method('PATCH')
+
+                            <x-forms.switch-group name="hutsul_fun_on" :label="__('Active')"
+                                                  :active="$tour->hutsul_fun_on === 1"/>
+
                             @foreach($locales as $locale)
-                                <x-forms.editor-group name="text[{{$locale}}]"
-                                                      id="text_{{ $locale }}"
+                                <x-forms.editor-group name="hutsul_fun_text[{{$locale}}]"
+                                                      id="hutsul_fun_text_{{ $locale }}"
                                                       label="Text {{strtoupper($locale)}}"
                                                       :value=" array_key_exists($locale, $translations) ? $translations[$locale] : ''"
                                                       required

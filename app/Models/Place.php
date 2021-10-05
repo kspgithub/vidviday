@@ -6,8 +6,10 @@ use App\Models\Traits\Relationship\PlaceRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -125,6 +127,34 @@ class Place extends TranslatableModel implements HasMedia
             'main_image' => $this->main_image,
             'slug' => $this->slug,
             'url' => $this->url,
+        ];
+    }
+
+    public function scopeAutocomplete(Builder $query, $search = '')
+    {
+        $query = $query->published()->with(['region'])->where('title', 'LIKE', "%$search%")
+            ->select([
+                'id',
+                'region_id',
+                'title',
+                'slug',
+            ]);
+
+        if (!empty($search)) {
+            $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
+                ->orderBy('relevant');
+        } else {
+            $query->orderBy('title');
+        }
+        return $query;
+    }
+
+
+    public function asSelectBox()
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
         ];
     }
 }

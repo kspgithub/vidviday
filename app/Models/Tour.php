@@ -45,6 +45,7 @@ class Tour extends TranslatableModel implements HasMedia
         'slug',
         'text',
         'short_text',
+        'hutsul_fun_text',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -68,6 +69,9 @@ class Tour extends TranslatableModel implements HasMedia
         'currency',
         'rating',
         'video',
+        'similar',
+        'hutsul_fun_on',
+        'hutsul_fun_text',
     ];
 
     protected $casts = [
@@ -75,6 +79,7 @@ class Tour extends TranslatableModel implements HasMedia
         'duration' => 'int',
         'price' => 'float',
         'commission' => 'float',
+        'similar' => 'array',
     ];
 
     protected $appends = [

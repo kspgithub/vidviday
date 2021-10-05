@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperTourPlan
  */
-class TourPlan extends Model
+class TourPlan extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
@@ -26,47 +26,21 @@ class TourPlan extends Model
     use HasSlug;
 
     public $translatable = [
-        'title',
         'text',
-        'short_text',
     ];
 
     protected $fillable = [
         'tour_id',
-        'title',
-        'short_text',
         'text',
-        'slug',
-        'lat',
-        'lng',
-        'published',
     ];
     protected $casts = [
         'published' => 'boolean'
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public static function boot()
     {
         parent::boot();
-        /**
-         * генерируем короткий текст если он не было передан
-         */
-        self::creating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
-
-        self::updating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
     }
 
     /**

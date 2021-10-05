@@ -1,5 +1,6 @@
 @props([
     'name' => '',
+    'id' => null,
     'value' => '',
     'label'=>'',
     'placeholder' => '',
@@ -7,20 +8,25 @@
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
+    'rows'=>5
 ])
 
-<div class="form-group row mb-3">
-    <label for="{{$name}}-editor" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span class="text-danger">*</span>@endif</label>
+<div class="form-group row mb-3" wire:ignore>
+    <label for="{{$id ?? $name}}-editor"
+           class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
+            class="text-danger">*</span>@endif</label>
 
     <div class="{{$inputCol}} ">
-        <textarea id="{{$name}}-editor"
-                  name="{{$name}}"
-                  placeholder="{{$placeholder}}"
+             <textarea id="{{$id ?? $name}}-editor"
+                       name="{{$name}}"
+                       placeholder="{{$placeholder}}"
+                       rows="{{$rows}}"
                       {{ $attributes->except('required')->merge(['class' => 'form-control text-editor']) }}
         >{!! $value !!}</textarea>
 
+
         @error($name)
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
             {{$message}}
         </div>
         @enderror
@@ -31,7 +37,7 @@
 @push('after-scripts')
     <script>
         tinymce.init({
-            selector: '#{{$name}}-editor',
+            selector: '#{{$id ?? $name}}-editor',
             language: '{{app()->getLocale()}}',
             plugins: [
                 'advlist autolink link image lists charmap print preview hr anchor pagebreak',
