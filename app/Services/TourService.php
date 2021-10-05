@@ -150,6 +150,11 @@ class TourService extends BaseService
                 $types = array_filter($params['subjects']);
                 $tour->subjects()->sync($types);
             }
+
+            if (array_key_exists('directions', $params)) {
+                $directions = array_filter($params['directions']);
+                $tour->directions()->sync($directions);
+            }
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
