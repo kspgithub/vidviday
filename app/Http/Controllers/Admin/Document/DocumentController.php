@@ -38,7 +38,7 @@ class DocumentController extends Controller
         $document = new Document();
 
         return view("admin.document.create", [
-            "document" => $document
+            "document" => $document,
         ]);
     }
 
@@ -72,7 +72,7 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         return view('admin.document.edit', [
-            'document' => $document
+            'document' => $document,
         ]);
     }
 
@@ -98,5 +98,20 @@ class DocumentController extends Controller
         $document->delete();
 
         return redirect()->route('admin.document.index')->withFlashSuccess(__('Document deleted.'));
+    }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Document $document
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Document $document)
+    {
+        $document->published = (int) $request->input('published');
+        $document->save();
+        return response()->json(['result' => 'Success']);
     }
 }

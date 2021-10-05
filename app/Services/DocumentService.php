@@ -8,6 +8,7 @@ use App\Models\Document;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 
 class DocumentService extends BaseService
@@ -25,36 +26,28 @@ class DocumentService extends BaseService
     public function store($params)
     {
         $document = new Document();
-        $document->published = 0;
-
         return $this->update($document, $params);
     }
 
     public function update(Document $document, array $params = [])
     {
-        DB::beginTransaction();
-
         try {
+            if (isset($params['file_upload'])) {
+                $extension = $params['file_upload']->getClientOriginalExtension();
 
-            if (isset($params['image_upload'])){
-
-                $params["image"] = $document->storeFile($params["image_upload"], "documents");
+                if (!in_array($extension, ['png', 'gif', 'jpeg', 'jpg'])) {
+                    $params["file"] = $document->storeFile($params["file_upload"], "documents");
+                } else {
+                    $params["image"] = $document->storeFile($params["file_upload"], "documents");
+                }
             }
 
             $document->fill($params);
             $document->save();
-
         } catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage(), $e->getTrace());
-
             throw new GeneralException(__('There was a problem updating document.'));
         }
 
-        DB::commit();
-
         return $document;
     }
-
-
 }

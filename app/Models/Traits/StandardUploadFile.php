@@ -3,7 +3,6 @@
 
 namespace App\Models\Traits;
 
-
 trait StandardUploadFile
 {
     /**
@@ -11,7 +10,8 @@ trait StandardUploadFile
      * @param string $folderStorage
      * @return string
      */
-    public function storeFile($file, string $folderStorage){
+    public function storeFile($file, string $folderStorage)
+    {
 
         return $file->store($folderStorage, "public");
     }

@@ -21,7 +21,7 @@
             <a href="#" class="clear-image text-danger {{empty($value) ? 'd-none' : ''}}" title="@lang('Clear image')"><i data-feather="x"></i></a>
         </label>
         <input type="hidden" name="{{$name}}" class="old-file" value="{{!empty($value) ? $value : ''}}">
-        <input accept=".jpg,.png,.gif" type="file" id="{{$name}}" name="{{$name.'_upload'}}" {{ $attributes->merge(['class' => 'form-control']) }}>
+        <input accept=".jpg,.png,.gif,.pdf,.doc,.docx" type="file" id="{{$name}}" name="{{$name.'_upload'}}" {{ $attributes->merge(['class' => 'form-control']) }}>
         @error($name)
         <div class="invalid-feedback">
             {{$message}}
