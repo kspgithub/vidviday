@@ -7,9 +7,9 @@
     <div class="accordion-inner">
         <div class="accordion type-2">
             @foreach($tour->places as $place)
-                <div class="accordion-item">
+                <div class="accordion-item active">
                     <div class="accordion-title">{{$place->title}}<i></i></div>
-                    <div class="accordion-inner">
+                    <div class="accordion-inner" style="display: block">
                         @if($place->hasMedia())
                             <div class="swiper-entry" v-is="'swiper-slider'"
                                  :media='@json($place->getMedia()->map->toSwiperSlide())'
