@@ -51,3 +51,4 @@ require_once base_path('routes/admin/tour_include.php');
 require_once base_path('routes/admin/tour_plan.php');
 require_once base_path('routes/admin/contact.php');
 require_once base_path('routes/admin/blog.php');
+require_once base_path('routes/admin/order.php');

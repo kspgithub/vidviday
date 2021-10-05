@@ -5,14 +5,16 @@ import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 window.flatpickr = flatpickr;
 
 
-const DatePickerComponent = function (){
-    this.init = function (){
-        const pickerElements = document.querySelectorAll('.date-picker-group');
 
-        pickerElements.forEach((element)=>{
+const DatePickerComponent = function () {
+    this.init = function () {
+        const pickerElements = document.querySelectorAll('.date-picker-group');
+        pickerElements.forEach((element) => {
+            const dateFormat = element.dataset.dateFormat || 'Y-m-d';
             const input = element.querySelector('.flatpicker');
             flatpickr(input, {
-                wrap: true
+                wrap: true,
+                dateFormat: dateFormat
             });
         });
 
@@ -26,11 +28,13 @@ const RangePickerComponent = function (){
         pickerElements.forEach((element)=>{
             const startInput = element.querySelector('.flatpicker-start');
             const endInput = element.querySelector('.flatpicker-end');
+            const dateFormat = startInput.dataset.dateFormat || 'Y-m-d';
 
             const picker = flatpickr(startInput, {
                 minDate: Date.now(),
-                plugins: [new rangePlugin({ input: endInput})],
-                onChange: function(selectedDates, dateStr, instance) {
+                dateFormat: dateFormat,
+                plugins: [new rangePlugin({input: endInput})],
+                onChange: function (selectedDates, dateStr, instance) {
                     console.log(startInput)
                 },
             });

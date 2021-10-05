@@ -21,13 +21,13 @@
                placeholder="{{ !empty($placeholder) ? $placeholder : '' }}"
                value="{{ $value}}"
             {{$readonly ? 'readonly' : ''}}
-            {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
+            {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control', 'type'=>$type]) }}
         />
         @if(!empty($help))
             <div class="form-text">{{$help}}</div>
         @endif
         @error($name)
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
             {{$message}}
         </div>
         @enderror

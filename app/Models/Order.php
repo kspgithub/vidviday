@@ -29,12 +29,26 @@ class Order extends TranslatableModel
         });
     }
 
+    public const STATUS_NEW = 0;
+    public const STATUS_PROCESSING = 1;
+    public const STATUS_PENDING_PAYMENT = 2;
+    public const STATUS_PAYED = 3;
+    public const STATUS_COMPLETED = 4;
+    public const STATUS_MAINTENANCE = 5;
+    public const STATUS_PENDING_REJECT = 6;
+    public const STATUS_REJECTED = 7;
+
+
     public const CONFIRMATION_EMAIL = 1;
     public const CONFIRMATION_VIBER = 2;
     public const CONFIRMATION_PHONE = 3;
 
     public const GROUP_TEAM = 0;
-    public const GROUP_CORPORATE = 0;
+    public const GROUP_CORPORATE = 1;
+
+    public const PAYMENT_PENDING = 0;
+    public const PAYMENT_COMPLETE = 1;
+    public const PAYMENT_RETURNED = 2;
 
 
     protected $fillable = [
@@ -95,6 +109,9 @@ class Order extends TranslatableModel
         'price' => 'integer',
         'commission' => 'integer',
         'discount' => 'integer',
+        'start_date' => 'date:d.m.Y',
+        'end_date' => 'date:d.m.Y',
+        'offer_date' => 'date:d.m.Y',
     ];
 
     protected $dates = [

@@ -45,6 +45,8 @@
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.35.1",
         "sass-loader": "^12.1.0",
+        "select2": "^4.1.0-rc.0",
+        "select2-bootstrap-5-theme": "^1.1.1",
         "selectize": "^0.12.6",
         "simplebar": "^5.3.4",
         "sortablejs": "^1.14.0",

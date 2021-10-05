@@ -9,7 +9,7 @@
                             required></x-forms.text-group>
         <x-forms.textarea-group name="address" :label="__('Address')"
                                 :value="old('address', $contact->address)"></x-forms.textarea-group>
-        <x-forms.textarea-group name="address_coment" :label="__('Address Coment')"
+        <x-forms.textarea-group name="address_coment" :label="__('Address Comment')"
                                 :value="old('address_coment', $contact->address_coment)"></x-forms.textarea-group>
         <x-forms.text-group name="email" :label="__('Email')" :value="old('email', $contact->email)"
                             maxlength="100"></x-forms.text-group>

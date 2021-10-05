@@ -22,7 +22,7 @@
         <select name="{{$name}}"
                 id="{{$name}}"
             {{$readonly ? 'readonly' : ''}}
-            {{ $attributes->merge(['class' => 'form-control']) }}
+            {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
         >
             {{$slot}}
             @foreach($options as $option)

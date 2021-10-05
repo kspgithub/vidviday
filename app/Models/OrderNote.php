@@ -11,4 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 class OrderNote extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'text'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
 }

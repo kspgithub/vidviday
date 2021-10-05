@@ -2,7 +2,11 @@ require('../bootstrap');
 
 require('livewire-sortable');
 
+window.$ = window.jQuery = require('jquery');
+
 import '@fancyapps/ui/dist/fancybox.esm'
+import 'select2/dist/js/select2.full'
+import 'select2/src/js/select2/i18n/uk'
 
 
 // AdminKit (required)
@@ -28,6 +32,7 @@ import "./modules/flatpickr";
 import "./modules/pikaday";
 import "./modules/published-switch";
 import "./modules/location-group";
+import "./modules/custom-inputs";
 
 // Maps
 import "./modules/vector-maps";

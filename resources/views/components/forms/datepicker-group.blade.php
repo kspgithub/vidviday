@@ -3,6 +3,7 @@
     'value' => '',
     'label'=>'',
     'placeholder' => '',
+    'format' => 'Y-m-d',
     'type'=>'text',
     'options'=>[],
     'labelCol'=>'col-md-2',
@@ -15,13 +16,14 @@
 
     <div class="{{$inputCol}}">
         <div class="input-group flatpicker">
-            <span class="input-group-text" ><i class="fa fa-calendar-alt"></i></span>
-            <input  name="{{$name}}"
-                    data-input
-                    id="{{$name}}"
-                    placeholder="{{ __(!empty($placeholder) ? $placeholder : $label) }}"
-                    value="{{ $value}}"
-                    x-on:change="date = $event.target.value"
+            <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
+            <input name="{{$name}}"
+                   data-input
+                   data-date-format="{{$format}}"
+                   id="{{$name}}"
+                   placeholder="{{ __(!empty($placeholder) ? $placeholder : $label) }}"
+                   value="{{ $value}}"
+                   x-on:change="date = $event.target.value"
                 {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }} />
             <span x-show="date" class="input-group-text" data-clear><i class="fa fa-times"></i></span>
         </div>

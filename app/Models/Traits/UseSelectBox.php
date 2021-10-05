@@ -52,4 +52,15 @@ trait UseSelectBox
             return [$value_key => $item->{$value_field}, $text_key => $item->{$text_field}];
         });
     }
+
+    public static function toSelectArray($text_field = 'title', $value_field = 'id')
+    {
+        $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
+        $result = [];
+        $items = self::query()->get($fields);
+        foreach ($items as $item) {
+            $result[$item->{$value_field}] = $item->{$text_field};
+        }
+        return $result;
+    }
 }

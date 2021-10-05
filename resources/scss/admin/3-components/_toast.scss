@@ -1,3 +1,123 @@
-.toast{
-    color: #fff;
+// Toasts
+
+$toast-max-width: 350px !default;
+$toast-padding-x: .75rem !default;
+$toast-padding-y: .25rem !default;
+$toast-font-size: .875rem !default;
+$toast-color: null !default;
+$toast-background-color: rgba(#fff, .85) !default;
+$toast-border-width: 1px !default;
+$toast-border-color: rgba(0, 0, 0, .1) !default;
+$toast-border-radius: .25rem !default;
+$toast-box-shadow: 0 .25rem .75rem rgba(#000, .1) !default;
+
+$toast-header-color: #6c757d !default;
+$toast-header-background-color: rgba(#fff, .85) !default;
+$toast-header-border-color: rgba(0, 0, 0, .05) !default;
+
+
+.toast-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 110;
+}
+
+
+.toast {
+    max-width: $toast-max-width;
+    overflow: hidden; // cheap rounded corners on nested items
+    font-size: $toast-font-size;
+    color: $toast-color;
+    background-color: $toast-background-color;
+    background-clip: padding-box;
+    border: $toast-border-width solid $toast-border-color;
+    box-shadow: $toast-box-shadow;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    border-radius: $toast-border-radius;
+
+    &:not(:last-child) {
+        margin-bottom: $toast-padding-x;
+    }
+
+    &.showing {
+        opacity: 1;
+    }
+
+    &.show {
+        display: block;
+        opacity: 1;
+    }
+
+    &.hide {
+        display: none;
+    }
+
+    &.bg-danger {
+        background-color: #9C1818;
+        color: #fff;
+    }
+
+    &.bg-success {
+        background-color: #7EBD3E;
+        color: #fff;
+    }
+
+    &.bg-warning {
+        background-color: #FFB947;
+        color: #fff;
+    }
+
+    &.bg-info {
+        background-color: #2ab0cd;
+        color: #fff;
+    }
+
+    .btn-close {
+
+        margin: auto .5rem auto auto;
+        box-sizing: content-box;
+        width: 1em;
+        height: 1em;
+        padding: .25em .25em;
+        color: #000;
+        border: 0;
+        border-radius: .25rem;
+        opacity: .5;
+        background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+        transition: opacity linear .3s;
+        transform: none;
+
+        &:before {
+            display: none !important;
+        }
+
+        &:hover {
+            opacity: 1;
+
+            &:before {
+                display: none !important;
+            }
+        }
+
+        &.btn-close-white {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+    }
+}
+
+.toast-header {
+    display: flex;
+    align-items: center;
+    padding: $toast-padding-y $toast-padding-x;
+    color: $toast-header-color;
+    background-color: $toast-header-background-color;
+    background-clip: padding-box;
+    border-bottom: $toast-border-width solid $toast-header-border-color;
+}
+
+.toast-body {
+    padding: $toast-padding-x; // apply to both vertical and horizontal
 }

@@ -63,6 +63,14 @@ trait TourMethods
         ];
     }
 
+    public function asSelectBox()
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->title . ', ' . $this->price . ' ' . $this->currency,
+        ];
+    }
+
     public function isChildrenFree()
     {
         $discount = $this->discounts->where('children')->first();

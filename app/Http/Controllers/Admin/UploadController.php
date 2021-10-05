@@ -32,8 +32,8 @@ class UploadController extends Controller
          */
         $model = app()->make($request->input('model_type', ['id' => $request->input('model_id')]));
         $model = $model->newQuery()->findOrFail($request->input('model_id'));
-
-        $media = $model->storeMedia($request->media_file);
+        $collection = $request->input('collection', 'default');
+        $media = $model->storeMedia($request->media_file, $collection);
         $media->save();
 
         return response()->json(['result' => 'success', 'media' => [

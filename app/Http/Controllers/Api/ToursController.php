@@ -59,4 +59,27 @@ class ToursController extends Controller
     {
         return $tour->scheduleItems()->inFuture()->filter($request->validated())->orderBy('start_date')->get();
     }
+
+
+    /**
+     * Поиск туров по названию (selectbox)
+     * @param Request $request
+     * @return mixed
+     */
+    public function selectBox(Request $request)
+    {
+        $q = $request->input('q', '');
+        $paginator = Tour::autocomplete($q)->paginate($request->input('limit', 10));
+        $items = [];
+        foreach ($paginator->items() as $item) {
+            $items[] = $item->asSelectBox();
+        }
+
+        return [
+            'results' => $items,
+            'pagination' => [
+                'more' => $paginator->hasMorePages()
+            ]
+        ];
+    }
 }
