@@ -7,6 +7,7 @@ use App\Models\Accommodation;
 use App\Models\Region;
 use App\Models\Tour;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 /**
@@ -35,11 +36,11 @@ class TourAccommodation extends Component
     public function rules()
     {
         return [
-            'accommodation_id'=>['required'],
-            'title_uk'=>['required'],
-            'title_ru'=>['nullable'],
-            'title_en'=>['nullable'],
-            'title_pl'=>['nullable'],
+            'accommodation_id' => ['required', Rule::exists('accommodations', 'id')],
+            'title_uk' => ['required'],
+            'title_ru' => ['nullable'],
+            'title_en' => ['nullable'],
+            'title_pl' => ['nullable'],
         ];
     }
 
@@ -68,6 +69,8 @@ class TourAccommodation extends Component
 
     public function beforeSaveItem()
     {
+        $this->validate();
+        
         $this->model->tour_id = $this->tour->id;
         $this->model->accommodation_id = (int)$this->accommodation_id;
         $this->model->type_id = 0;

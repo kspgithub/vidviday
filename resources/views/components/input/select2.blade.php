@@ -4,18 +4,19 @@
     'url'=> false,
 ])
 
-<div wire:ignore>
-    <div
-        x-data="{
+<div>
+    <div wire:ignore>
+        <div
+            x-data="{
             value: @entangle($attributes->wire('model')),
         }"
-        x-on:change="value = $event.target.value"
-        x-init="
+            x-on:change="value = $event.target.value"
+            x-init="
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
                     @if($url !== false)
-                    ajax: {
-                        url: '{{$url}}',
+                ajax: {
+                    url: '{{$url}}',
                         dataType: 'json',
                         data: function (params) {
                             return {
@@ -31,18 +32,20 @@
                     value = e.params.data.id;
                 })
 "
-    >
-        <select name="{{$name}}" id="{{$name}}"
-                {{ $attributes->whereDoesntStartWith('wire:model')->merge(['class'=>'form-control']) }}
-                x-ref="input"
-                x-bind:value="value"
         >
-            {{$slot}}
-        </select>
+            <select name="{{$name}}" id="{{$name}}"
+                    {{ $attributes->whereDoesntStartWith('wire:model')->merge(['class'=>'form-control']) }}
+                    x-ref="input"
+                    x-bind:value="value"
+            >
+                {{$slot}}
+            </select>
+        </div>
     </div>
 
+
     @error($name)
-    <div class="invalid-feedback">
+    <div class="invalid-feedback d-block">
         {{$message}}
     </div>
     @enderror

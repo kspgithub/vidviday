@@ -22,19 +22,21 @@
         </ul>
         <button type="button" wire:click.prevent="addItem()" class="btn btn-primary">@lang('Add')</button>
     @else
-       <h4 class="mb-3">@if($selectedId > 0)
-               @lang('Editing Record')
-           @else
-               @lang('Creating Record')
-           @endif</h4>
+        <h4 class="mb-3">@if($selectedId > 0)
+                @lang('Editing Record')
+            @else
+                @lang('Creating Record')
+            @endif</h4>
         <form wire:submit.prevent="saveItem()">
             <div class="row mb-3">
-                <label class="col-md-2" for="accommodation_id">@lang('Accommodation')</label>
+                <label class="col-md-2" for="accommodation_id">@lang('Accommodation') <span class="text-danger">*</span></label>
                 <div class="col-md-10">
-                    <x-input.select2 name="accommodation_id" id="accommodation_id" wire:model="accommodation_id">
+                    <x-input.select2 name="accommodation_id" id="accommodation_id" wire:model="accommodation_id"
+                                     required>
                         <option value="0">Оберіть садибу</option>
                         @foreach($options as $value=>$text)
-                            <option value="{{$value}}" {{$value === $accommodation_id ? 'selected' : ''}}>{{$text}}</option>
+                            <option
+                                value="{{$value}}" {{$value === $accommodation_id ? 'selected' : ''}}>{{$text}}</option>
                         @endforeach
                     </x-input.select2>
                 </div>
