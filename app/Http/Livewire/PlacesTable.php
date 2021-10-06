@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Builder;
@@ -94,12 +95,16 @@ class PlacesTable extends DataTableComponent
                 }),
         ];
     }
-
+    
     public function filters(): array
     {
         return [
             'region_id' => Filter::make(__('Regions'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
+            'district_id' => Filter::make(__('Districts'))
+                ->select(array_merge([0 => 'Всі'], District::toSelectArray())),
         ];
+
+
     }
 }

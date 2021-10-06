@@ -75,15 +75,28 @@ class District extends TranslatableModel
 
     public static function scopeToSelectBox(
         Builder $query,
-        $text_field = 'title',
-        $value_field = 'id',
-        $value_key = 'value',
-        $text_key = 'text'
+                $text_field = 'title',
+                $value_field = 'id',
+                $value_key = 'value',
+                $text_key = 'text'
     )
     {
         return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
             ->map(function ($item) use ($value_key, $text_key) {
-                return [$value_key => $item->id, $text_key =>  $item->title.' ('.$item->region->title.')'];
+                return [$value_key => $item->id, $text_key => $item->title . ' (' . $item->region->title . ')'];
             });
+    }
+
+    public static function toSelectArray($text_field = 'title', $value_field = 'id')
+    {
+        $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
+        $fields[] = 'region_id';
+        $result = [];
+        $query = self::query();
+        $items = $query->with(['region'])->get($fields);
+        foreach ($items as $item) {
+            $result[$item->{$value_field}] = $item->title . ' (' . $item->region->title . ')';
+        }
+        return $result;
     }
 }
