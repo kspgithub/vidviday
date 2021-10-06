@@ -21,13 +21,14 @@ class TourInclude extends Model
     use UsePublishedScope;
 
     public $translatable = [
-        'title',
+        'text',
     ];
 
     protected $fillable = [
         'tour_id',
         'type_id',
-        'title',
+        'finance_id',
+        'text',
         'slug',
         'published',
     ];
@@ -41,7 +42,7 @@ class TourInclude extends Model
      */
     public function tour()
     {
-        return $this->belongsTo(Tour::class);
+        return $this->belongsTo(Tour::class, 'tour_id');
     }
 
     /**
@@ -49,6 +50,14 @@ class TourInclude extends Model
      */
     public function type()
     {
-        return $this->belongsTo(IncludeType::class);
+        return $this->belongsTo(IncludeType::class, 'type_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function finance()
+    {
+        return $this->belongsTo(Finance::class, 'finance_id');
     }
 }

@@ -4,6 +4,7 @@
         <span class="form-check-label">{{$label}}</span>
     </div>
     <div class="m-0 col-md-9">
+        {{$slot}}
         @foreach($options as $option)
             @php
             $option_value = is_string($option) ? $option : $option['value'];

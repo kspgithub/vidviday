@@ -18,6 +18,34 @@ if (!function_exists('activeClass')) {
     }
 }
 
+if (!function_exists('routeActive')) {
+    /**
+     * Get the active class if the condition is not falsy.
+     *
+     * @param        $condition
+     *
+     * @return boolean
+     */
+    function routeActive($routeName)
+    {
+        $match = false;
+        $currentName = request()->route()->getName();
+        if (is_array($routeName)) {
+            foreach ($routeName as $route) {
+                $match = $currentName === $route ||
+                    (str_ends_with($route, '*') && str_starts_with($currentName, rtrim($route, "*")));
+                if ($match) {
+                    return true;
+                }
+            }
+        } else {
+            $match = $currentName === $routeName ||
+                (str_ends_with($routeName, '*') && str_starts_with($currentName, rtrim($routeName, "*")));
+        }
+        return $match;
+    }
+}
+
 if (!function_exists('routeActiveClass')) {
     /**
      * Get the active class if the condition is not falsy.
@@ -30,21 +58,7 @@ if (!function_exists('routeActiveClass')) {
      */
     function routeActiveClass($routeName, $activeClass = 'active', $inactiveClass = '')
     {
-        $match = false;
-        $currentName = request()->route()->getName();
-        if (is_array($routeName)) {
-            foreach ($routeName as $route) {
-                $match = $currentName === $route ||
-                    (str_ends_with($route, '*') && str_starts_with($currentName, rtrim($route, "*")));
-                if ($match) {
-                    return $activeClass;
-                }
-            }
-        } else {
-            $match = $currentName === $routeName ||
-                (str_ends_with($routeName, '*') && str_starts_with($currentName, rtrim($routeName, "*")));
-        }
-        return $match ? $activeClass : $inactiveClass;
+        return routeActive($routeName) ? $activeClass : $inactiveClass;
     }
 }
 

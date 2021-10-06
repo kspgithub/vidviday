@@ -22,6 +22,7 @@ class UserQuestion extends Model
 
     public const TYPE_CALL = 0;
     public const TYPE_EMAIL = 1;
+    public const TYPE_QUESTION = 2;
 
     protected $fillable = [
         'type',

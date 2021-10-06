@@ -44,6 +44,7 @@ class TourFood extends TranslatableModel implements HasMedia
 
     public $fillable = [
         'tour_id',
+        'food_id',
         'time_id',
         'day',
         'title',
@@ -59,6 +60,14 @@ class TourFood extends TranslatableModel implements HasMedia
     public function tour()
     {
         return $this->belongsTo(Tour::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function food()
+    {
+        return $this->belongsTo(Food::class);
     }
 
     /**

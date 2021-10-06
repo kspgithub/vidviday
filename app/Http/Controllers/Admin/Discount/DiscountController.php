@@ -38,11 +38,16 @@ class DiscountController extends Controller
         $discount->currency = 'UAH';
 
         $currencies = Currency::toSelectBox('iso', 'iso');
-
+        $types = arrayToSelectBox(Discount::$types);
+        $categories = arrayToSelectBox(Discount::$categories);
+        $durations = arrayToSelectBox(Discount::$durations);
 
         return view('admin.discount.create', [
             'discount' => $discount,
             'currencies' => $currencies,
+            'types' => $types,
+            'categories' => $categories,
+            'durations' => $durations,
         ]);
     }
 
@@ -75,11 +80,15 @@ class DiscountController extends Controller
     {
 
         $currencies = Currency::toSelectBox('iso', 'iso');
-
+        $types = arrayToSelectBox(Discount::$types);
+        $categories = arrayToSelectBox(Discount::$categories);
+        $durations = arrayToSelectBox(Discount::$durations);
         return view('admin.discount.edit', [
             'discount' => $discount,
             'currencies' => $currencies,
-
+            'types' => $types,
+            'categories' => $categories,
+            'durations' => $durations,
         ]);
     }
 

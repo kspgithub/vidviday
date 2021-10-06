@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Http\Livewire\Traits\EditRecordTrait;
+use App\Models\Food;
 use App\Models\FoodTime;
 use App\Models\Tour;
 use App\Models\TourFood;
@@ -29,30 +30,25 @@ class TourFoodTable extends Component
 
     public $locales = [];
 
+    public $foodItems = [];
+
     public $foodTimes = [];
 
     public $pictures = [];
 
     public $day = 1;
 
-    public $time_id = 1;
+    public $food_id = 0;
 
-    public $text_uk = '';
-    public $text_ru = '';
-    public $text_en = '';
-    public $text_pl = '';
+    public $time_id = 1;
 
 
     protected function getRules()
     {
         return [
-            'text_uk' => ['required'],
-            'text_ru' => ['nullable'],
-            'text_en' => ['nullable'],
-            'text_pl' => ['nullable'],
             'day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
+            'food_id' => ['required', 'integer', Rule::exists('food', 'id')],
             'time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
-            'pictures.*' => ['image', 'max:2048'],
         ];
     }
 
@@ -62,6 +58,7 @@ class TourFoodTable extends Component
         $this->tour = $tour;
         $this->locales = $this->getLocales();
         $this->foodTimes = FoodTime::toSelectBox();
+        $this->foodItems = Food::toSelectBox();
         $this->day = 1;
         $this->time_id = 1;
     }
@@ -77,15 +74,15 @@ class TourFoodTable extends Component
     public function query(): Builder
     {
         return TourFood::query()->where('tour_id', $this->tour->id)
-            ->with(['time', 'media'])
-            ->withCount(['media'])->orderBy('day')->orderBy('time_id');
+            ->with(['time', 'food'])
+            ->orderBy('day')->orderBy('time_id');
     }
 
     public function afterModelInit()
     {
         $this->day = $this->model->day ?? 1;
+        $this->food_id = $this->model->food_id ?? 0;
         $this->time_id = $this->model->time_id ?? 1;
-        $this->getTranslations('text');
     }
 
     public function beforeSaveItem()
@@ -93,16 +90,7 @@ class TourFoodTable extends Component
         $this->model->tour_id = $this->tour->id;
         $this->model->day = $this->day;
         $this->model->time_id = $this->time_id;
-        $this->setTranslations('text');
-    }
-
-    public function afterSaveItem()
-    {
-        if (!empty($this->pictures)) {
-            foreach ($this->pictures as $picture) {
-                $this->model->storeMedia($picture);
-            }
-        }
+        $this->model->food_id = $this->food_id;
     }
 
     public function editRecordClass(): string

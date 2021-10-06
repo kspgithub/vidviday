@@ -47,9 +47,9 @@ class Discount extends TranslatableModel
     public static $categories = [
         self::CATEGORY_ALL => 'всі',
         self::CATEGORY_ADULT => 'дорослі',
-        self::CATEGORY_CHILDREN => 'діти до 12 років',
-        self::CATEGORY_CHILDREN_YOUNG => 'діти до 6 років',
-        self::CATEGORY_CHILDREN_OLDER => 'діти від 6 до 12 років',
+        self::CATEGORY_CHILDREN => 'всі діти',
+        self::CATEGORY_CHILDREN_YOUNG => 'діти молодшого віку',
+        self::CATEGORY_CHILDREN_OLDER => 'діти старшого віку',
     ];
 
     public static $durations = [
@@ -75,6 +75,9 @@ class Discount extends TranslatableModel
         "type",
         "category",
         "duration",
+        "age_limit",
+        "age_start",
+        "age_end",
         "slug",
         'price',
         'currency',
@@ -87,6 +90,7 @@ class Discount extends TranslatableModel
         'type' => 'integer',
         'price' => 'integer',
         'published' => 'boolean',
+        'age_limit' => 'boolean',
     ];
 
     protected $dates = [

@@ -12,6 +12,8 @@
 */
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Finance\FinanceController;
+use App\Http\Controllers\Admin\Food\FoodController;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -51,3 +53,6 @@ require_once base_path('routes/admin/tour_include.php');
 require_once base_path('routes/admin/contact.php');
 require_once base_path('routes/admin/blog.php');
 require_once base_path('routes/admin/order.php');
+
+Route::resource("food", FoodController::class)->except('show');
+Route::resource("finance", FinanceController::class)->except('show');

@@ -8,8 +8,7 @@
                     <tr>
                         <th class="text-nowrap">@lang('Day')</th>
                         <th class="text-nowrap">@lang('Time')</th>
-                        <th class="text-nowrap">@lang('Text')</th>
-                        <th class="text-nowrap">@lang('Pictures')</th>
+                        <th class="text-nowrap">@lang('Food')</th>
                         <th>@lang('Actions')</th>
                     </tr>
                     </thead>
@@ -18,9 +17,7 @@
                         <tr>
                             <td class="text-nowrap">{{$item->day}}-й день</td>
                             <td class="text-nowrap">{{$item->time->title}}</td>
-                            <td>{{$item->text}}</td>
-                            <td>{{$item->media_count}}</td>
-
+                            <td class="text-nowrap">{{$item->food ? $item->food->title : 'не вибрано'}}</td>
                             <td style="width: 150px">
                                 <a href="#" wire:click.prevent="editItem({{$item->id}})" class="btn btn-success m-2"><i
                                         class="fas fa-file-alt"></i></a>
@@ -44,7 +41,7 @@
     @else
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour food')</h2>
+                <h2 class="mb-2">@lang('Tour Food')</h2>
                 <div>
                     <form method="post" wire:submit.prevent="saveItem()">
 
@@ -55,46 +52,16 @@
                         </x-forms.select-group>
 
                         <x-forms.select-group wire:model="time_id" name="time_id" :label="__('Time')"
-                                              :options="$foodTimes"/>
+                                              :options="$foodTimes">
+                            <option value="0">Не вибрано</option>
+                        </x-forms.select-group>
+
+                        <x-forms.select-group wire:model="food_id" name="food_id" :label="__('Food')"
+                                              :options="$foodItems">
+                            <option value="0">Не вибрано</option>
+                        </x-forms.select-group>
 
 
-                        @foreach($locales as  $locale)
-
-                            <x-forms.textarea-group wire:model.defer="text_{{$locale}}"
-                                                    required
-                                                    rows="5"
-                                                    name="text_{{$locale}}"
-                                                    label="{{__('Text')}} {{strtoupper($locale)}}"
-                            />
-                        @endforeach
-
-                        @if($selectedId > 0)
-                            <div class="form-group row mb-3">
-                                <div class="col-md-2 col-form-label">@lang('Pictures')</div>
-                                <div class="col-md-10">
-                                    <x-utils.media-library
-                                        :model="$model"
-                                    ></x-utils.media-library>
-                                </div>
-                            </div>
-
-                            <script>
-                                const library = document.querySelector('[data-media-upload]');
-                                if (library) {
-                                    const lib = new MediaLibrary(library);
-                                }
-
-                            </script>
-                        @else
-                            <div class="form-group row mb-3">
-                                <div class="col-md-2 col-form-label">@lang('Pictures')</div>
-                                <div class="col-md-10">
-                                    <input type="file" class="form-control" accept=".jpg,.jpeg,.png"
-                                           wire:model.defer="pictures" multiple>
-                                    @error('pictures.*') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-                        @endif
                         <button type="submit" class="btn btn-primary me-3"
                                 wire:loading.class="disabled">@lang('Save')</button>
                         <button type="button" wire:click.prevent="cancelEdit()"

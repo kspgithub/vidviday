@@ -9,6 +9,3 @@
 <x-forms.textarea-group :label="__('Text')" name="text"
                         :value="old('text', $accomm->text)" maxlength="100"
                         required></x-forms.textarea-group>
-
-<x-forms.checkbox-group label="Типи кімнат" name="types[]" :value="$accomm->types->pluck('id')->toArray()"
-                        :options="$types"/>

@@ -202,3 +202,15 @@ if (!function_exists('currency_title')) {
         return Currency::currencyTitle($iso);
     }
 }
+
+
+if (!function_exists('arrayToSelectBox')) {
+    function arrayToSelectBox($array = [])
+    {
+        $result = [];
+        foreach ($array as $value => $text) {
+            $result[] = ['value' => $value, 'text' => $text];
+        }
+        return $result;
+    }
+}

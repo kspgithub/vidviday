@@ -31,12 +31,14 @@ class DatabaseSeeder extends Seeder
         $this->call(TourSubjectSeeder::class);
         $this->call(BadgeSeeder::class);
         $this->call(FoodTimeSeeder::class);
+        $this->call(FoodSeeder::class);
         $this->call(PlaceSeeder::class);
         $this->call(StaffTypeSeeder::class);
         $this->call(StaffSeeder::class);
         $this->call(AccommodationTypeSeeder::class);
         $this->call(AccommodationsSeeder::class);
         $this->call(IncludeTypeSeeder::class);
+        $this->call(FinanceSeeder::class);
         $this->call(DiscountsSeeder::class);
 
 

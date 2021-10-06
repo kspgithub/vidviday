@@ -124,13 +124,11 @@
                 <ul id="places"
                     class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.place*', 'show', '')}}"
                     data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.place.create')}}">
-                        <a class="sidebar-link"
-                           href="{{route('admin.place.create')}}">@lang('Create place')</a>
-                    </li>
                     <li class="sidebar-item {{routeActiveClass('admin.place.index')}}">
-                        <a class="sidebar-link"
-                           href="{{route('admin.place.index')}}">@lang('Places List')</a>
+                        <a class="sidebar-link" href="{{route('admin.place.index')}}">@lang('List')</a>
+                    </li>
+                    <li class="sidebar-item {{routeActiveClass('admin.place.create')}}">
+                        <a class="sidebar-link" href="{{route('admin.place.create')}}">@lang('Create')</a>
                     </li>
                 </ul>
             </li>
@@ -145,7 +143,7 @@
                     data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.accommodation-type.*')}}">
                         <a class="sidebar-link"
-                           href="{{route('admin.accommodation-type.index')}}">@lang('Accommodation Types')</a>
+                           href="{{route('admin.accommodation-type.index')}}">@lang('Room Types')</a>
                     </li>
                     <li class="sidebar-item {{routeActiveClass('admin.accommodation.*')}}">
                         <a class="sidebar-link"
@@ -153,26 +151,61 @@
                     </li>
                 </ul>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.food*')}}">
+                <a data-bs-target="#food" data-bs-toggle="collapse"
+                   class="sidebar-link {{routeActiveClass('admin.food*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="coffee"></i> <span
+                        class="align-middle">@lang('Food')</span>
+                </a>
+                <ul id="food"
+                    class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.food*', 'show', '')}}"
+                    data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.food.index')}}">
+                        <a class="sidebar-link" href="{{route('admin.food.index')}}">@lang('List')</a>
+                    </li>
+                    <li class="sidebar-item {{routeActiveClass('admin.food.create')}}">
+                        <a class="sidebar-link" href="{{route('admin.food.create')}}">@lang('Create')</a>
+                    </li>
+                </ul>
+            </li>
 
-            <li class="sidebar-item" {{routeActiveClass('admin.ticket*')}}>
+            <li class="sidebar-item {{routeActiveClass('admin.ticket*')}}">
                 <a class="sidebar-link" href="{{route('admin.ticket.index')}}">
                     <i class="align-middle" data-feather="file"></i> <span
                         class="align-middle">@lang('Tickets')</span>
                 </a>
             </li>
-            <li class="sidebar-item" {{routeActiveClass('admin.transport*')}}>
+            <li class="sidebar-item {{routeActiveClass('admin.transport*')}}">
                 <a class="sidebar-link" href="{{route('admin.transport.index')}}">
                     <i class="align-middle" data-feather="truck"></i> <span
                         class="align-middle">@lang('Transport')</span>
                 </a>
             </li>
-            <li class="sidebar-item" {{routeActiveClass('admin.vacancy*')}}>
+            <li class="sidebar-item {{routeActiveClass('admin.vacancy*')}}">
                 <a class="sidebar-link" href="{{route('admin.vacancy.index')}}">
                     <i class="align-middle" data-feather="user-check"></i> <span
                         class="align-middle">@lang('Vacancies')</span>
                 </a>
             </li>
-
+            <li class="sidebar-item {{routeActiveClass('admin.finance*')}}">
+                <a data-bs-target="#finance" data-bs-toggle="collapse"
+                   class="sidebar-link {{routeActiveClass('admin.finance*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="dollar-sign"></i> <span
+                        class="align-middle">@lang('Finances')</span>
+                </a>
+                <ul id="finance"
+                    class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.finance*', 'show', '')}}"
+                    data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{activeClass(routeActive('admin.finance.index') && (int)request()->input('type_id', 1) === 1)}}">
+                        <a class="sidebar-link" href="{{route('admin.finance.index', ['type_id'=>1])}}">У вартість
+                            входять</a>
+                    </li>
+                    <li class="sidebar-item {{activeClass(routeActive('admin.finance.index') && (int)request()->input('type_id', 1) === 2)}}">
+                        <a class="sidebar-link" href="{{route('admin.finance.index', ['type_id'=>2])}}">У вартість не
+                            входять</a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="sidebar-item {{routeActiveClass('admin.discount*')}}">
                 <a class="sidebar-link" href="{{route('admin.discount.index')}}">

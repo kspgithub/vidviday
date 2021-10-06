@@ -12,7 +12,6 @@
     </div>
 
     <x-forms.patch :action="route('admin.discount.update', $discount)" enctype="multipart/form-data">
-        @include('admin.discount.includes.edit-tabs')
         @include('admin.discount.includes.form')
         <button class="btn btn-primary" type="submit">@lang('Save')</button>
     </x-forms.patch>

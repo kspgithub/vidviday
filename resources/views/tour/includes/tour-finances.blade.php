@@ -10,16 +10,33 @@
                         <div class="accordion-title">{{$type->title}}<i></i></div>
                         <div class="accordion-inner" style="display: block">
                             <div class="text text-md pb-1">
-                                <ul>
-                                    @foreach($type->items as $tour_include)
-                                        <li>{{$tour_include->title}}</li>
-                                    @endforeach
-                                </ul>
+                                @foreach($type->items as $tour_include)
+                                    @if($tour_include->finance)
+                                        {!! $tour_include->finance->text !!}
+                                    @else
+                                        {!! $tour_include->text !!}
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 @endif
             @endforeach
+
+            @if($tour->discounts->count() > 0)
+                <div class="accordion-item active">
+                    <div class="accordion-title">{{__('Discounts')}}<i></i></div>
+                    <div class="accordion-inner" style="display: block">
+                        <div class="text text-md pb-1">
+                            <ul>
+                                @foreach($tour->discounts as $discount)
+                                    <li>{!! $discount->title !!}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

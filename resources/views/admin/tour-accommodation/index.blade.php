@@ -29,8 +29,6 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th scope="col">Садиба</th>
-                                <th scope="col">Типи кімнат</th>
                                 <th scope="col">Заголовок</th>
                                 <th scope="col">Підпис</th>
                                 <th scope="col"></th>
@@ -40,8 +38,6 @@
                             @foreach($items as $item)
                                 <tr>
                                     <th scope="row"><span class="handler"></span></th>
-                                    <td>{{$item->accommodation->title}}</td>
-                                    <td class="text-nowrap">{!! $item->types->implode('title', '<br>') !!}</td>
                                     <td>{{$item->title}}</td>
                                     <td>{{$item->text}}</td>
                                     <td>
@@ -62,10 +58,7 @@
 
             </x-bootstrap.card>
 
-
         </div>
     </div>
-
-
 
 @endsection
