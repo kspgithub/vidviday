@@ -28,9 +28,6 @@ require_once base_path('routes/admin/tour-group.php');
 require_once base_path('routes/admin/direction.php');
 require_once base_path('routes/admin/place.php');
 require_once base_path('routes/admin/tour-type.php');
-require_once base_path('routes/admin/country.php');
-require_once base_path('routes/admin/region.php');
-require_once base_path('routes/admin/city.php');
 require_once base_path('routes/admin/faq.php');
 require_once base_path('routes/admin/transport.php');
 require_once base_path('routes/admin/badge.php');
@@ -53,6 +50,7 @@ require_once base_path('routes/admin/tour_include.php');
 require_once base_path('routes/admin/contact.php');
 require_once base_path('routes/admin/blog.php');
 require_once base_path('routes/admin/order.php');
+require_once base_path('routes/admin/location.php');
 
 Route::resource("food", FoodController::class)->except('show');
 Route::resource("finance", FinanceController::class)->except('show');

@@ -61,6 +61,7 @@ class Place extends TranslatableModel implements HasMedia
         'country_id',
         'region_id',
         'city_id',
+        'district_id',
     ];
 
     protected $casts = [
@@ -91,15 +92,7 @@ class Place extends TranslatableModel implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    public function region()
-    {
-        return $this->belongsTo(Region::class);
-    }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
 
     public function getUrlAttribute()
     {

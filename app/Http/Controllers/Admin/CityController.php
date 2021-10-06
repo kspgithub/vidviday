@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\District;
 use App\Models\Region;
 use App\Models\Place;
 use Illuminate\Contracts\View\View;
@@ -22,13 +23,8 @@ class CityController extends Controller
     public function index()
     {
 
-
-        $citiesPrepeared = City::query()->orderBy('region_id');
-        $citiesPaginated = $citiesPrepeared->paginate(20);
-        $cities = $citiesPrepeared->get();//->sortBy('region_id');
-
         //
-        return view('admin.city.index', ['cities' => $cities, 'citiesPaginated' => $citiesPaginated]);
+        return view('admin.city.index');
     }
 
     /**
@@ -40,14 +36,15 @@ class CityController extends Controller
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
-        $places = Place::toSelectBox();
+        $districts = District::toSelectBox();
         $city = new City();
 
         return view('admin.city.create', [
             'city' => $city,
             'countries' => $countries,
             'regions' => $regions,
-            'places' => $places
+            'districts' => $districts,
+
         ]);
     }
 
@@ -79,13 +76,14 @@ class CityController extends Controller
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
-        $places = Place::toSelectBox();
+        $districts = District::toSelectBox();
+
         //
         return view('admin.city.edit', [
             'city' => $city,
             'countries' => $countries,
             'regions' => $regions,
-            'places' => $places
+            'districts' => $districts,
         ]);
     }
 
@@ -127,6 +125,16 @@ class CityController extends Controller
         $country_id = $request->input('country_id', Country::DEFAULT_COUNTRY_ID);
         $cityQuery = City::query()->where('cities.country_id', $country_id)->with(['region', 'country']);
 
+        $region_id = (int)$request->input('region_id', 0);
+        if ($region_id > 0) {
+            $cityQuery->where('cities.region_id', $region_id);
+        }
+
+        $district_id = (int)$request->input('district_id', 0);
+        if ($district_id > 0) {
+            $cityQuery->where('cities.district_id', $district_id);
+        }
+        
         $q = $request->input('q', '');
         $limit = $request->input('limit', 20);
 

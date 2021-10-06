@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class City
- *
- * @package App\Models
- * @mixin IdeHelperCity
+ * @mixin IdeHelperDistrict
  */
-class City extends TranslatableModel
+class District extends TranslatableModel
 {
     use HasSlug;
     use HasFactory;
     use HasTranslations;
+    use UseSelectBox;
 
     public $translatable = [
         'title',
@@ -25,7 +26,6 @@ class City extends TranslatableModel
     protected $fillable = [
         'region_id',
         'country_id',
-        'district_id',
         'title',
         'slug',
     ];
@@ -43,11 +43,6 @@ class City extends TranslatableModel
     public function region()
     {
         return $this->belongsTo(Region::class);
-    }
-
-    public function district()
-    {
-        return $this->belongsTo(District::class);
     }
 
     public function places()
@@ -70,13 +65,25 @@ class City extends TranslatableModel
             'id' => $this->id,
             'region_id' => $this->region_id,
             'country_id' => $this->region_id,
-            'district_id' => $this->district_id,
             'title' => $this->title,
             'country_title' => $this->country->title,
             'region_title' => $this->region->title,
-            'district_title' => $this->district->title,
             'value' => $this->id,
-            'text' => $this->title . ' (' . $this->region->title . ', ' . $this->district->title . ' р-н)',
+            'text' => $this->title . ' (' . $this->region->title . ')',
         ];
+    }
+
+    public static function scopeToSelectBox(
+        Builder $query,
+        $text_field = 'title',
+        $value_field = 'id',
+        $value_key = 'value',
+        $text_key = 'text'
+    )
+    {
+        return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
+            ->map(function ($item) use ($value_key, $text_key) {
+                return [$value_key => $item->id, $text_key =>  $item->title.' ('.$item->region->title.')'];
+            });
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\Place;
+use App\Models\Region;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 /**
  * Class UsersTable.
@@ -28,6 +30,7 @@ class PlacesTable extends DataTableComponent
 
     public function mount(): void
     {
+
     }
 
     /**
@@ -35,7 +38,12 @@ class PlacesTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = Place::query()->withCount('media');
+        $region_id = (int)$this->getFilter('region_id');
+
+        $query = Place::query()->withCount('media')
+            ->when($region_id > 0, function (Builder $q) use ($region_id) {
+                return $q->where('region_id', $region_id);
+            });
 
         return $query;
     }
@@ -50,13 +58,25 @@ class PlacesTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
+
             Column::make(__('Title'), 'title')
                 ->searchable()
                 ->sortable(),
 
+            Column::make(__('Region'), 'region_id')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->region)->title;
+                })
+                ->sortable(),
+            Column::make(__('District'), 'district_id')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->district)->title;
+                })
+                ->sortable(),
+
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
-                    return view('admin.partials.published', ['model' => $row, 'updateUrl'=>route('admin.place.update', $row)]);
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.place.update', $row)]);
                 })
                 ->sortable(),
 
@@ -64,7 +84,7 @@ class PlacesTable extends DataTableComponent
                 ->format(function ($value, $column, $row) {
                     return view('admin.partials.media-link', [
                         'url' => route('admin.place.media.index', $row),
-                        'count'=>$row->media_count,
+                        'count' => $row->media_count,
                     ]);
                 }),
 
@@ -72,6 +92,14 @@ class PlacesTable extends DataTableComponent
                 ->format(function ($value, $column, $row) {
                     return view('admin.place.includes.actions', ['place' => $row]);
                 }),
+        ];
+    }
+
+    public function filters(): array
+    {
+        return [
+            'region_id' => Filter::make(__('Regions'))
+                ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
         ];
     }
 }

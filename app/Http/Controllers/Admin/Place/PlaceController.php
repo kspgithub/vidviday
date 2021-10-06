@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Direction;
+use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use App\Services\PlaceService;
@@ -47,8 +48,9 @@ class PlaceController extends Controller
         $directions = Direction::toSelectBox();
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
+        $districts = District::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
 
-        return view('admin.place.create', compact('place', 'directions', 'countries', 'regions'));
+        return view('admin.place.create', compact('place', 'directions', 'countries', 'regions', 'districts'));
     }
 
     /**
@@ -78,8 +80,8 @@ class PlaceController extends Controller
         $directions = Direction::toSelectBox();
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
-
-        return view('admin.place.edit', compact('place', 'directions', 'countries', 'regions'));
+        $districts = District::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
+        return view('admin.place.edit', compact('place', 'directions', 'countries', 'regions', 'districts'));
     }
 
     /**

@@ -1,5 +1,6 @@
 @props([
     'name' => '',
+    'id' => null,
     'value' => '',
     'label'=>'',
     'placeholder' => '',
@@ -10,27 +11,40 @@
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
     'rowClass'=>'row mb-3',
+    'select2'=>false
 ])
 
 
 <div class="form-group {{$rowClass}}">
-    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
-            class="text-danger">*</span>@endif</label>
+    <div class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
+            class="text-danger">*</span>@endif</div>
 
     <div class="{{$inputCol}}">
-
-        <select name="{{$name}}"
-                id="{{$name}}"
-            {{$readonly ? 'readonly' : ''}}
-            {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
+        <div
+            @if($select2)
+            x-data="{value: ''}"
+            x-init="
+                jQuery($refs.input).select2({
+                    theme: 'bootstrap-5',
+                });
+             "
+            @endif
         >
-            {{$slot}}
-            @foreach($options as $option)
-                <option
-                    value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
-            @endforeach
-        </select>
-
+            <select name="{{$name}}"
+                    id="{{$id ?? $name}}"
+                    {{$readonly ? 'readonly' : ''}}
+                    {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
+                    @if($select2)
+                    x-ref="input"
+                @endif
+            >
+                {{$slot}}
+                @foreach($options as $option)
+                    <option
+                        value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
+                @endforeach
+            </select>
+        </div>
         @if(!empty($help))
             <div class="form-text">{{$help}}</div>
         @endif

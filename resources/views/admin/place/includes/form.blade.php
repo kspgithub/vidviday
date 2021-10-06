@@ -22,6 +22,9 @@
             :region-id="$place->region_id"
             :region="$place->region"
             :regions="$regions"
+            :district-id="$place->district_id"
+            :district="$place->district"
+            :districts="$districts"
             :lat="old('lat', $place->lat)"
             :lng="old('lng', $place->lng)"
         ></x-forms.location-group>
