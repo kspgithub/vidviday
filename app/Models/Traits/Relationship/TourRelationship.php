@@ -125,7 +125,7 @@ trait TourRelationship
      */
     public function accommodations()
     {
-        return $this->hasMany(TourAccommodation::class);
+        return $this->hasMany(TourAccommodation::class)->orderBy('position');
     }
 
     /**

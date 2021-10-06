@@ -65,9 +65,7 @@ Route::group([
     Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
     Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
     Route::get('{tour}/calc', [CalcController::class, 'index'])->name('calc');
+    Route::get('{tour}/accomm', [TourAccommController::class, 'index'])->name('accomm.index');
 });
 
 Route::resource('tour', TourController::class);
-
-
-Route::resource('tour.accomm', TourAccommController::class)->except('show');

@@ -1,7 +1,7 @@
 @props([
     'name' => '',
     'placeholder' => '',
-    'url'=>'',
+    'url'=> false,
 ])
 
 <div wire:ignore>
@@ -13,6 +13,7 @@
         x-init="
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
+                    @if($url !== false)
                     ajax: {
                         url: '{{$url}}',
                         dataType: 'json',
@@ -24,6 +25,7 @@
                             };
                         },
                     }
+                    @endif
                 });
                 jQuery($refs.input).on('select2:select', (e)=> {
                     value = e.params.data.id;
