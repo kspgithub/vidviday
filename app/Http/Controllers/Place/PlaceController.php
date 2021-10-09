@@ -69,6 +69,9 @@ class PlaceController extends Controller
                 $testimonial->avatar = $user->avatar;
             }
         }
+        if (site_option('moderate_testimonials', true) === false) {
+            $testimonial->status = Testimonial::STATUS_PUBLISHED;
+        }
         $testimonial->save();
         if ($request->hasFile('avatar_upload')) {
             $testimonial->uploadAvatar($request->file('avatar_upload'));

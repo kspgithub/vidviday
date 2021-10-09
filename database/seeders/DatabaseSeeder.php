@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AuthSeeder::class);
+        $this->call(SiteOptionsSeeder::class);
         $this->call(HtmlBlockSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(BlogSeeder::class);

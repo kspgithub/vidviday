@@ -14,6 +14,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\Food\FoodController;
+use App\Http\Controllers\Admin\SiteOptionsController;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -54,3 +55,6 @@ require_once base_path('routes/admin/location.php');
 
 Route::resource("food", FoodController::class)->except('show');
 Route::resource("finance", FinanceController::class)->except('show');
+
+Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');
+Route::patch('site-options', [SiteOptionsController::class, 'update'])->name('site-options.update');

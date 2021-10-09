@@ -83,10 +83,10 @@ class TourController extends Controller
             'guides',
             'manager',
             'testimonials' => function ($q) {
-                return $q->withDepth();
+                return $q->withDepth()->whereIn('status', site_option('moderate_testimonials', false) === true ? [1] : [0, 1]);
             },
             'questions' => function ($q) {
-                return $q->withDepth();
+                return $q->withDepth()->whereIn('status', site_option('moderate_questions', false) === true ? [1] : [0, 1]);
             },
         ]);
 
@@ -130,6 +130,9 @@ class TourController extends Controller
                 $question->avatar = $user->avatar;
             }
         }
+        if (site_option('moderate_questions', true) === false) {
+            $question->status = TourQuestion::STATUS_PUBLISHED;
+        }
         $question->save();
 
         if ($request->ajax()) {
@@ -163,6 +166,9 @@ class TourController extends Controller
             if (!empty($user->avatar)) {
                 $testimonial->avatar = $user->avatar;
             }
+        }
+        if (site_option('moderate_testimonials', true) === false) {
+            $testimonial->status = Testimonial::STATUS_PUBLISHED;
         }
         $testimonial->save();
         if ($request->hasFile('avatar_upload')) {

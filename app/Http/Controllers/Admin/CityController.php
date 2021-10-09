@@ -22,7 +22,6 @@ class CityController extends Controller
      */
     public function index()
     {
-
         //
         return view('admin.city.index');
     }
@@ -61,8 +60,7 @@ class CityController extends Controller
         $city = new City();
         $city->fill($request->all());
         $city->save();
-
-        return redirect()->route('admin.city.index')->withFlashSuccess(__('City created.'));
+        return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -102,7 +100,7 @@ class CityController extends Controller
         $city->fill($request->all());
         $city->save();
 
-        return redirect()->route('admin.city.index')->withFlashSuccess(__('City updated.'));
+        return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -116,10 +114,13 @@ class CityController extends Controller
     {
         //
         $city->delete();
-
-        return redirect()->route('admin.city.index')->withFlashSuccess(__('City deleted.'));
+        return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Deleted'));
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function search(Request $request)
     {
         $country_id = $request->input('country_id', Country::DEFAULT_COUNTRY_ID);
@@ -134,7 +135,7 @@ class CityController extends Controller
         if ($district_id > 0) {
             $cityQuery->where('cities.district_id', $district_id);
         }
-        
+
         $q = $request->input('q', '');
         $limit = $request->input('limit', 20);
 

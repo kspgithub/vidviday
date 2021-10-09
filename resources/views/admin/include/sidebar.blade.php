@@ -308,6 +308,12 @@
                 @lang('System')
             </li>
 
+            <li class="sidebar-item {{routeActiveClass('admin.site-options*')}}">
+                <a class="sidebar-link" href="{{route('admin.site-options.index')}}">
+                    <i class="align-middle" data-feather="settings"></i>
+                    <span class="align-middle">@lang('Global settings')</span>
+                </a>
+            </li>
             <li class="sidebar-item {{routeActiveClass('admin.translation*')}}">
                 <a class="sidebar-link" href="{{route('admin.translation.index')}}">
                     <i class="align-middle" data-feather="feather"></i>
