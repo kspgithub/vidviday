@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use App\Models\Tour;
@@ -17,14 +18,24 @@ class TourPlaces extends Component
     public $tour;
 
     /**
-     * @var array
+     * @var array|Collection
      */
     public $regions = [];
+
+    /**
+     * @var array|Collection
+     */
+    public $districts = [];
 
     /**
      * @var int
      */
     public $region_id = 0;
+
+    /**
+     * @var int
+     */
+    public $district_id = 0;
 
     /**
      * @var int
@@ -36,6 +47,7 @@ class TourPlaces extends Component
         $this->tour = $tour;
 
         $this->regions = Region::query()->orderBy('title')->get();
+        $this->districts = District::query()->orderBy('title')->get();
     }
 
     public function detachItem($id)
@@ -45,7 +57,7 @@ class TourPlaces extends Component
 
     public function query()
     {
-        return $this->tour->places()->with(['region', 'city']);
+        return $this->tour->places()->with(['region', 'district', 'city']);
     }
 
     public function attachItem()
@@ -67,5 +79,14 @@ class TourPlaces extends Component
     public function render()
     {
         return view('admin.tour.includes.tour-places', ['items' => $this->query()->get()]);
+    }
+
+
+    public function getFilteredDistrictsProperty()
+    {
+        if ((int)$this->region_id > 0) {
+            return $this->districts->where('region_id', (int)$this->region_id)->all();
+        }
+        return [];
     }
 }

@@ -147,7 +147,7 @@ class Place extends TranslatableModel implements HasMedia
     {
         return [
             'id' => $this->id,
-            'text' => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
+            'text' => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
         ];
     }
 }
