@@ -6,5 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('editor/upload', [UploadController::class, 'editor'])->name('editor.upload');
 
 Route::post('media/upload', [UploadController::class, 'mediaStore'])->name('media.store');
+Route::post('media/order', [UploadController::class, 'mediaOrder'])->name('media.order');
 Route::patch('media/{media}', [UploadController::class, 'mediaUpdate'])->name('media.update');
 Route::delete('media/{media}', [UploadController::class, 'mediaDelete'])->name('media.destroy');

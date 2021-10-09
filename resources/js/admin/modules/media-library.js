@@ -1,12 +1,15 @@
 const MediaLibrary = function (selector) {
     const wrapper = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const sortableEl = wrapper.querySelector('.media-sortable');
     const storeUrl = wrapper.dataset.mediaStore || '#';
     const destroyUrl = wrapper.dataset.mediaDestroy || '#';
     const updateUrl = wrapper.dataset.mediaUpdate || '#';
+    const orderUrl = wrapper.dataset.mediaOrder || '#';
     const mediaCollection = wrapper.dataset.mediaCollection || 'default';
     const mediaName = wrapper.dataset.mediaName || 'media_file';
     const fileElement = wrapper.querySelector('input[type="file"]');
     const addMediaBtn = wrapper.querySelector('.add-media');
+    let sortable = null;
 
     fileElement.addEventListener('change', (evt) => {
         const files = evt.target.files;
@@ -28,6 +31,22 @@ const MediaLibrary = function (selector) {
     wrapper.querySelectorAll('.edit-media-alt').forEach(el => {
         el.addEventListener('blur', (evt) => updateMediaAlt(evt));
     })
+
+
+    const initSortable = () => {
+        sortable = Sortable.create(sortableEl, {
+            handle: '.handler',
+            animation: 150,
+            onUpdate: function (/**Event*/evt) {
+                const order = sortable.toArray();
+                axios.post(orderUrl, {order: order}).catch((error) => {
+                    console.log(error);
+                })
+
+                // same properties as onEnd
+            },
+        });
+    }
 
     const updateMedia = (mediaEl, data = {}) => {
         const mediaId = mediaEl.id.replace('media-item-', '');
@@ -81,12 +100,15 @@ const MediaLibrary = function (selector) {
         const divEl = document.createElement('div');
         divEl.classList.add('media-item', 'img-thumbnail');
         divEl.id = 'media-item-' + media.id;
+        divEl.dataset.id = media.id;
+        divEl.setAttribute('data-id', media.id);
         divEl.innerHTML = `<img src="${media.thumb}" alt=""><a href="#" class="delete-media-item"><i class="fas fa-times"></i></a>
         <a href="${media.url}" class="show-media-item" target="_blank" data-fancybox="${mediaCollection}"><i class="fas fa-eye"></i></a>
+        <span class="handler fas fa-bars"></span>
         <input class="edit-media-title" value="Change image title" />
         <input class="edit-media-alt" value="Change image alt" />`;
 
-        wrapper.replaceChild(divEl, tmpNode);
+        sortableEl.replaceChild(divEl, tmpNode);
         divEl.querySelector('.delete-media-item').addEventListener('click', (evt) => deleteMedia(evt));
         divEl.querySelector('.edit-media-title').addEventListener('blur', (evt) => updateMediaTitle(evt));
         divEl.querySelector('.edit-media-alt').addEventListener('blur', (evt) => updateMediaAlt(evt));
@@ -100,7 +122,7 @@ const MediaLibrary = function (selector) {
         reader.onload = (pe) => {
             const src = pe.target.result;
             divEl.innerHTML = `<img src="${src}" alt=""><div class="spinner-border text-warning" role="status"></div>`;
-            wrapper.insertBefore(divEl, addMediaBtn);
+            sortableEl.appendChild(divEl);
         }
         reader.readAsDataURL(file);
 
@@ -124,6 +146,8 @@ const MediaLibrary = function (selector) {
             divEl.innerHTML += `<span class="error">Upload Error</span>`;
         })
     }
+
+    initSortable();
 }
 
 

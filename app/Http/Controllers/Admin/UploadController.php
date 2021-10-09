@@ -62,4 +62,11 @@ class UploadController extends Controller
 
         return response()->json(['result' => 'success', 'media' => $media]);
     }
+
+    public function mediaOrder(Request $request)
+    {
+        $order = $request->input('order', []);
+        Media::setNewOrder($order);
+        return response()->json(['result' => 'success', 'media' => $order]);
+    }
 }

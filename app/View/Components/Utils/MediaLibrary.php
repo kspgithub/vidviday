@@ -33,6 +33,8 @@ class MediaLibrary extends Component
 
     public string $destroyUrl;
 
+    public string $orderUrl;
+
     public string $accept;
 
     /**
@@ -46,22 +48,22 @@ class MediaLibrary extends Component
         $storeUrl = null,
         $updateUrl = null,
         $destroyUrl = null,
+        $orderUrl = null,
         $collection = 'default',
         $accept = 'image/jpeg,image/png'
-    )
-    {
+    ) {
         $this->model = $model;
         $this->collection = $collection;
         $this->items = $items ?: [];
         $this->storeUrl = $storeUrl ?: '#';
         $this->destroyUrl = $destroyUrl ?: route('admin.media.destroy', 0);
         $this->updateUrl = $updateUrl ?: route('admin.media.update', 0);
+        $this->orderUrl = $orderUrl ?: route('admin.media.order');
         $this->accept = $accept;
 
 
         if ($model !== null && $items === null) {
             $this->items = $model->getMedia($collection);
-
         }
 
         if ($model !== null && empty($storeUrl)) {

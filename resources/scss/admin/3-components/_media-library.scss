@@ -105,3 +105,26 @@
         }
     }
 }
+
+.media-sortable {
+    width: 100%;
+    position: relative;
+
+    .media-item {
+        display: inline-block;
+    }
+
+    .handler {
+        display: block;
+        border: 1px solid #efefef;
+        border-radius: 3px;
+        background: #fff;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        line-height: 1;
+        font-size: 14px;
+        padding: 3px 6px;
+        cursor: move;
+    }
+}
