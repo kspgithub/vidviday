@@ -19,11 +19,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs = Staff::query()->with('types')->orderBy('last_name')->orderBy('first_name')->paginate(20);
-
-        return view('admin.staff.index', [
-            'staffs' => $staffs
-        ]);
+        return view('admin.staff.index');
     }
 
     /**
@@ -59,7 +55,7 @@ class StaffController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
-        return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Staff created.'));
+        return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -99,7 +95,7 @@ class StaffController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
-        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff updated.'));
+        return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -115,6 +111,6 @@ class StaffController extends Controller
 
         $staff->delete();
 
-        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Staff deleted.'));
+        return redirect()->route('admin.staff.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

@@ -11,8 +11,10 @@
 ])
 
 <div class="form-group row mb-3">
-    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
-            class="text-danger">*</span>@endif</label>
+    <label for="{{$name}}" class="{{$labelCol}} col-form-label">
+        {{$label}}
+        @if(isset($attributes['required'])) <span class="text-danger">*</span>@endif
+    </label>
 
     <div class="{{$inputCol}}">
         @foreach(siteLocales() as $lang)
@@ -21,12 +23,13 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ strtoupper($lang) }}</span>
                 </div>
-                <textarea name="{{$name}}[{{$lang}}]"
-                          id="{{$name}}-{{$lang}}"
-                          placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
+                <input name="{{$name}}[{{$lang}}]"
+                       id="{{$name}}-{{$lang}}"
+                       placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
+                       value="{{ $value[$lang] ?? '' }}"
                     {{$readonly ? 'readonly' : ''}}
                     {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
-                >{!! $value[$lang] ?? '' !!}</textarea>
+                />
             </div>
         @endforeach
         @if(!empty($help))

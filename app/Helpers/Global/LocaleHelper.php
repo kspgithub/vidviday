@@ -93,3 +93,11 @@ if (!function_exists('trans')) {
         return Lang::get($key, $replace);
     }
 }
+
+
+if (!function_exists('siteLocales')) {
+    function siteLocales()
+    {
+        return array_keys(config('site-settings.locale.languages'));
+    }
+}
