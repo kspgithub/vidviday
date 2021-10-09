@@ -28,7 +28,7 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                     {{$readonly ? 'readonly' : ''}}
-                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
+                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except( $lang === 'uk' ? [] :['required']) }}
                 />
             </div>
         @endforeach

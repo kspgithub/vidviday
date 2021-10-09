@@ -1,6 +1,6 @@
 @props([
     'name' => '',
-    'value' => '',
+    'value' => [],
     'label'=>'',
     'placeholder' => '',
     'options'=>[],
@@ -26,7 +26,7 @@
                 <textarea name="{{$name}}[{{$lang}}]"
                           id="{{$name}}-{{$lang}}-editor"
                           placeholder="{{ !empty($placeholder) ? $placeholder : $label}}"
-                                    {{ $attributes->merge(['class' => 'form-control']) }}
+                                    {{ $attributes->merge(['class' => 'form-control'])->except( $lang === 'uk' ? [] :['required']) }}
                         >{!! $value[$lang] ?? '' !!}</textarea>
             </div>
         @endforeach

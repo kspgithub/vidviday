@@ -6,7 +6,7 @@
     <div class="col-md-10">
         <div class="d-flex align-items-center">
             @foreach(siteLocales() as $lang)
-                <a href="#" @click="trans_locale = '{{ $lang }}'"
+                <a href="#" x-on:click.prevent="trans_locale = '{{ $lang }}'"
                    :class="{['btn-primary']: trans_locale === '{{ $lang }}'}"
                    :disabled="trans_locale === '{{ $lang }}'"
                    class="btn btn-md btn-default">{{strtoupper($lang)}}</a>

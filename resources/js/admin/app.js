@@ -8,6 +8,7 @@ import '@fancyapps/ui/dist/fancybox.esm'
 import 'select2/dist/js/select2.full'
 import 'select2/src/js/select2/i18n/uk'
 
+require('./alpine');
 
 // AdminKit (required)
 import "./modules/bootstrap";

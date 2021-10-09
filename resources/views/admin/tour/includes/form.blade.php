@@ -3,19 +3,25 @@
         <h3>@lang('Basic Information')</h3>
     </x-slot>
     <x-slot name="body">
-        <x-forms.text-group name="title" :label="__('Title')" :value="old('title', $tour->title)" maxlength="100"
-                            required></x-forms.text-group>
-        <x-forms.text-group name="slug" :label="__('Url')" :value="old('slug', $tour->slug)" maxlength="100"
-                            :help="__('Leave blank for automatic generation')"></x-forms.text-group>
-        
-        <x-forms.textarea-group name="short_text" :label="__('Short Text')"
-                                :value="old('short_text', $tour->short_text)"
-                                :help="__('Leave blank for automatic generation')"
-                                rows="5"
-        ></x-forms.textarea-group>
+        <x-forms.translation-switch/>
 
-        <x-forms.editor-group name="text" :label="__('Full Text')" :value="old('text', $tour->text)"
-                              required></x-forms.editor-group>
+        <x-forms.text-loc-group name="title" :label="__('Title')"
+                                :value="old('title', $tour->getTranslations('title'))"
+                                maxlength="100"
+                                required></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="slug" :label="__('Url')" :value="old('slug', $tour->getTranslations('slug'))"
+                                maxlength="100"
+                                :help="__('Leave blank for automatic generation')"></x-forms.text-loc-group>
+
+        <x-forms.textarea-loc-group name="short_text" :label="__('Short Text')"
+                                    :value="old('short_text', $tour->getTranslations('short_text'))"
+                                    :help="__('Leave blank for automatic generation')"
+                                    rows="5"
+        ></x-forms.textarea-loc-group>
+
+        <x-forms.editor-loc-group name="text" :label="__('Full Text')"
+                                  :value="old('text', $tour->getTranslations('text'))"
+                                  required></x-forms.editor-loc-group>
 
         <x-forms.text-group name="duration" :label="__('Days')" :value="old('duration', $tour->duration)"
                             type="number" required></x-forms.text-group>
@@ -51,14 +57,16 @@
         <h3>@lang('Seo Information')</h3>
     </x-slot>
     <x-slot name="body">
-        <x-forms.text-group name="seo_h1" :label="__('SEO H1')"
-                            :value="old('seo_h1', $tour->seo_h1)"></x-forms.text-group>
-        <x-forms.text-group name="seo_title" :label="__('SEO Title')"
-                            :value="old('seo_title', $tour->seo_title)"></x-forms.text-group>
-        <x-forms.text-group name="seo_description" :label="__('SEO Description')"
-                            :value="old('seo_description', $tour->seo_description)"></x-forms.text-group>
-        <x-forms.text-group name="seo_keywords" :label="__('SEO Keywords')"
-                            :value="old('seo_keywords', $tour->seo_keywords)"></x-forms.text-group>
+        <x-forms.translation-switch/>
+
+        <x-forms.text-loc-group name="seo_h1" :label="__('SEO H1')"
+                                :value="old('seo_h1', $tour->getTranslations('seo_h1'))"></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="seo_title" :label="__('SEO Title')"
+                                :value="old('seo_title',  $tour->getTranslations('seo_title'))"></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="seo_description" :label="__('SEO Description')"
+                                :value="old('seo_description', $tour->getTranslations('seo_description'))"></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="seo_keywords" :label="__('SEO Keywords')"
+                                :value="old('seo_keywords', $tour->getTranslations('seo_keywords'))"></x-forms.text-loc-group>
     </x-slot>
 </x-bootstrap.card>
 
@@ -136,8 +144,4 @@
 
     </x-slot>
 </x-bootstrap.card>
-
-
-
-
 

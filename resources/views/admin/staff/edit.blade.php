@@ -12,9 +12,14 @@
             <a href="{{route('admin.staff.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
         </div>
     </div>
-    <x-forms.patch :action="route('admin.staff.update', $staff)" enctype="multipart/form-data">
-        @include('admin.staff.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Save')</button>
-    </x-forms.patch>
+    <div x-data="transletable()">
+        <x-forms.patch :action="route('admin.staff.update', $staff)" x-ref="form" enctype="multipart/form-data">
+            <div x-data="transletable()">
+                @include('admin.staff.includes.form')
+                <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+            </div>
+        </x-forms.patch>
+    </div>
+
 
 @endsection

@@ -12,11 +12,11 @@
             <a href="{{route('admin.staff.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
         </div>
     </div>
-
-    <x-forms.post :action="route('admin.staff.store')" enctype="multipart/form-data">
-        @include('admin.staff.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Save')</button>
-
-    </x-forms.post>
+    <div x-data="transletable()">
+        <x-forms.post :action="route('admin.staff.store')" enctype="multipart/form-data" x-ref="form">
+            @include('admin.staff.includes.form')
+            <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+        </x-forms.post>
+    </div>
 
 @endsection
