@@ -11,9 +11,21 @@
                 <i></i>
             </div>
             <swiper
+                :resize-observer="swiperOptions.resizeObserver"
+                :update-on-window-resize="swiperOptions.updateOnWindowResize"
+                :observe-parents="swiperOptions.observeParents"
+                :watch-overflow="swiperOptions.watchOverflow"
+                :round-lengths="swiperOptions.roundLengths"
+                :watch-slides-visibility="swiperOptions.watchSlidesVisibility"
+                :watch-slides-progress="swiperOptions.watchSlidesProgress"
+                :center-insufficient-slides="swiperOptions.centerInsufficientSlides"
+                :speed="swiperOptions.speed"
+                :preload-images="swiperOptions.preloadImages"
+                :update-on-images-ready="swiperOptions.updateOnImagesReady"
                 :breakpoints="swiperOptions.breakpoints"
                 :pagination="swiperOptions.pagination"
                 :slides-per-view="swiperOptions.slidesPerView"
+                :slides-per-group="swiperOptions.slidesPerGroup"
                 :space-between="swiperOptions.spaceBetween"
                 @swiper="setController"
 
@@ -56,25 +68,36 @@ export default {
         const swiperOptions = ref(Object.assign({
             loop: true,
             lazy: {loadPrevNext: true},
-            preloadImages: false,
-            roundLengths: false,
+            preloadImages: true,
+            updateOnImagesReady: true,
+            roundLengths: true,
+            updateOnWindowResize: true,
+            resizeObserver: true,
             observer: true,
             observeParents: true,
             watchOverflow: true,
             watchSlidesVisibility: true,
+            watchSlidesProgress: true,
             centerInsufficientSlides: false,
             speed: 900,
             slidesPerView: 1,
+            slidesPerGroup: 1,
             spaceBetween: 20,
             breakpoints: {
                 1200: {
-                    slidesPerView: 3
+                    slidesPerGroup: 3,
+                    slidesPerView: 3,
+                    spaceBetween: 20,
                 },
                 992: {
-                    slidesPerView: 3
+                    slidesPerGroup: 3,
+                    slidesPerView: 3,
+                    spaceBetween: 20,
                 },
                 768: {
-                    slidesPerView: 2
+                    slidesPerGroup: 2,
+                    slidesPerView: 2,
+                    spaceBetween: 20,
                 }
             },
             pagination: {
