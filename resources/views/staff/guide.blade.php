@@ -7,11 +7,11 @@
         <div class="container">
             <!-- BREAD CRUMBS -->
             <div class="bread-crumbs">
-                <a href="index.php">Головна</a>
+                <a href="/">Головна</a>
                 <span>—</span>
-                <a href="tour-guides.php">Екскурсоводи</a>
+                <a href="{{pageUrlByKey('guides')}}">Екскурсоводи</a>
                 <span>—</span>
-                <span>Христина Чорній (Дмитришин)</span>
+                <span>{{$staff->first_name}} {{$staff->last_name}}</span>
             </div>
             <!-- BREAD CRUMBS END -->
             <div class="row">
