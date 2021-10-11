@@ -38,51 +38,60 @@
                     <span class="text-sm">{{ $newsSingle->created_at->format("d.m.Y") }}</span>
                     <div class="spacer-xxs"></div>
                     <div class="text text-md">
-                        <p>{!! $newsSingle->short_text !!}</p>
+                        {!! $newsSingle->short_text !!}
                     </div>
                     <!-- BANNER/INFO END -->
-                    <div class="spacer-xs"></div>
-
-                    <!-- SLIDER -->
-                    <div class="row">
-                        <div class="col-lg-10 offset-lg-1 col-12">
-                            <div class="default-slider swiper-entry">
-                                <div class="swiper-container" data-options='{"loop": true, "autoHeight": true, "parallax": true, "spaceBetween": 20}'>
-                                    <div class="swiper-wrapper">
-
-                                        @foreach($newsSingle->media as $media)
 
 
-                                            @if($media->collection_name === "pictures")
-                                                <div class="swiper-slide">
-                                                    <div class="img img-border">
-                                                        <img src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}" alt="img 28" data-swiper-parallax="30%">
+                    @if($newsSingle->getMedia()->count() > 0)
+                        <div class="spacer-xs"></div>
+                        <!-- SLIDER -->
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1 col-12">
+                                <div class="default-slider swiper-entry">
+                                    <div class="swiper-container"
+                                         data-options='{"loop": true, "autoHeight": true, "parallax": true, "spaceBetween": 20}'>
+                                        <div class="swiper-wrapper">
+
+                                            @foreach($newsSingle->media as $media)
+
+
+                                                @if($media->collection_name === "pictures")
+                                                    <div class="swiper-slide">
+                                                        <div class="img img-border">
+                                                            <img
+                                                                src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}"
+                                                                alt="img 28" data-swiper-parallax="30%">
+                                                        </div>
+                                                        <div class="text-center">
+
+                                                            <span
+                                                                class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="text-center">
+                                                @endif
+                                            @endforeach
 
-                                                        <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
-
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-button-prev outside bottom-sm">
-                                    <i></i>
-                                </div>
-                                <div class="swiper-pagination only-pad-mobile relative"></div>
-                                <div class="swiper-button-next outside bottom-sm">
-                                    <i></i>
+                                    <div class="swiper-button-prev outside bottom-sm">
+                                        <i></i>
+                                    </div>
+                                    <div class="swiper-pagination only-pad-mobile relative"></div>
+                                    <div class="swiper-button-next outside bottom-sm">
+                                        <i></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- SLIDER END -->
+                        <div class="spacer-xs"></div>
+                @endif
+                <!-- POST CONTENT -->
+                    <div class="text text-md">
+                        {!!  $newsSingle->text !!}
                     </div>
-                    <!-- SLIDER END -->
 
-                    <div class="spacer-xs"></div>
-                    <!-- POST CONTENT -->
-                       {!!  $newsSingle->text !!}
                     <!-- POST CONTENT END -->
                 </div>
             </div>

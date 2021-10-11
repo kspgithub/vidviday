@@ -1,13 +1,13 @@
 <template>
     <div class="seo-text load-more-wrapp vue-load-more">
-        <slide-up-down v-model="isActive" :duration="300" :min-height="125" class="more-info active">
+        <slide-up-down v-model="isActive" :duration="500" :min-height="minHeight" class="more-info active">
             <div class="text text-md">
                 <slot/>
             </div>
         </slide-up-down>
         <div class="spacer-xs"></div>
         <div class="text-right">
-            <div class="show-more-btn" @click.prevent.stop="toggle()">
+            <div class="show-more-btn" :class="{active: isActive}" @click.prevent.stop="toggle()">
                 <span v-if="!isActive">{{ __('Read more') }}</span>
                 <span v-if="isActive">{{ __('Hide text') }}</span>
 
@@ -25,6 +25,10 @@ export default {
     components: {SlideUpDown},
     props: {
         active: Boolean,
+        minHeight: {
+            type: Number,
+            default: 125
+        }
     },
     setup(props) {
         const isActive = ref(!!props.active);

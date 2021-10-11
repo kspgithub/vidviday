@@ -38,9 +38,11 @@
                     <span class="text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
                     <div class="spacer-xxs"></div>
                     <div class="text text-md">
-                        <p>{!! $post->short_text !!}</p>
+                        {!! $post->short_text !!}
                     </div>
+
                     <!-- BANNER/INFO END -->
+                    @if($post->getMedia()->count() > 0)
                     <div class="spacer-xs"></div>
 
                     <!-- SLIDER -->
@@ -76,12 +78,13 @@
                             </div>
                         </div>
                     </div>
-                    <!-- SLIDER END -->
+                        <!-- SLIDER END -->
 
-                    <div class="spacer-xs"></div>
-                    <!-- POST CONTENT -->
-                {!!  $post->text !!}
-                <!-- POST CONTENT END -->
+                        <div class="spacer-xs"></div>
+                    @endif
+                    <div class="text text-md">
+                        {!! $post->text !!}
+                    </div>
                 </div>
             </div>
             <div class="spacer-lg"></div>
