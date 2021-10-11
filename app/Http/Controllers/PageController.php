@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
 use App\Models\Page;
@@ -35,6 +36,8 @@ class PageController extends Controller
         switch ($pageContent->key) {
             case 'guides':
                 return (new TourGuideController())->index();
+            case 'office-workers':
+                return (new StaffController())->index();
             default:
                 return view('page.show', ['pageContent' => $pageContent]);
         }

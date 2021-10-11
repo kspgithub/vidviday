@@ -58,7 +58,7 @@ class PlaceController extends Controller
         $testimonial->name = $request->last_name . ' ' . $request->first_name;
         $user = current_user();
 
-        if ((int)$request->guide_id > 0) {
+        if ((int)$request->tour_id > 0) {
             $testimonial->related_type = Tour::class;
             $testimonial->related_id = (int)$request->tour_id;
         }

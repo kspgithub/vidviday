@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Place\TestimonialRequest;
 use App\Models\Staff;
 use App\Models\StaffType;
 use App\Models\Page;
+use App\Models\Testimonial;
 use App\Models\Tour;
 
 
@@ -20,14 +22,61 @@ class StaffController extends Controller
 
         return view('staff.index', [
             'staff' => $staff,
-            'pageContent'=>$pageContent
+            'pageContent' => $pageContent
         ]);
     }
 
-    public function more($id)
+    public function show($id)
     {
         $staff = Staff::all()->where('id', $id)->first();
         $tours = Tour::all();
         return view('staff.worker', ['staff' => $staff, 'tours' => $tours]);
     }
+
+
+    public function testimonial(TestimonialRequest $request, Staff $staff)
+    {
+        $testimonial = new Testimonial();
+        $testimonial->model_type = Staff::class;
+        $testimonial->model_id = $staff->id;
+        $testimonial->fill($request->validated());
+        $testimonial->name = $request->last_name . ' ' . $request->first_name;
+        $user = current_user();
+
+        if ((int)$request->tour_id > 0) {
+            $testimonial->related_type = Tour::class;
+            $testimonial->related_id = (int)$request->tour_id;
+        }
+
+        if ($user) {
+            $testimonial->user_id = $user->id;
+            if (!empty($user->avatar)) {
+                $testimonial->avatar = $user->avatar;
+            }
+        }
+        if (site_option('moderate_testimonials', true) === false) {
+            $testimonial->status = Testimonial::STATUS_PUBLISHED;
+        }
+        $testimonial->save();
+        if ($request->hasFile('avatar_upload')) {
+            $testimonial->uploadAvatar($request->file('avatar_upload'));
+        }
+
+        if ($request->hasFile('images_upload')) {
+            foreach ($request->file('images_upload') as $file) {
+                $testimonial->storeMedia($file);
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'result' => 'success',
+                'message' => __('Thanks for your feedback!'),
+                'question' => $testimonial
+            ]);
+        }
+
+        return redirect()->back()->withFlashSuccess(__('Thanks for your feedback!'));
+    }
+
 }
