@@ -16,7 +16,7 @@ class StaffController extends Controller
     {
         //
         $staff = Staff::query()->published()->get();
-        $pageContent = Page::select()->where('slug', 'office-workers')->first();
+        $pageContent = Page::select()->where('key', 'office-workers')->first();
 
         return view('staff.index', [
             'staff' => $staff,

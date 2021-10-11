@@ -115,6 +115,10 @@ hr {
 .seo-text {
     .more-info {
         display: none;
+
+        &.active {
+            display: block;
+        }
     }
 }
 

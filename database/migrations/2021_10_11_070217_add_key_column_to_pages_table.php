@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeSlugToToursTable extends Migration
+class AddKeyColumnToPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class ChangeSlugToToursTable extends Migration
      */
     public function up()
     {
-        Schema::table('tours', function (Blueprint $table) {
-            $table->json('slug')->nullable()->change();
+        Schema::table('pages', function (Blueprint $table) {
+            //
+            $table->string('key')->nullable()->after('text');
+
         });
+        DB::table('pages')->update(['key'=>Db::raw('slug')]);
     }
 
     /**
@@ -25,9 +28,9 @@ class ChangeSlugToToursTable extends Migration
      */
     public function down()
     {
-        Schema::table('tours', function (Blueprint $table) {
+        Schema::table('pages', function (Blueprint $table) {
             //
-            $table->text('slug')->nullable()->change();
+            $table->dropColumn('key');
         });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,7 +24,8 @@ use Spatie\Translatable\HasTranslations;
 class TourGroup extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
+    use HasJsonSlug;
     use HasTranslations;
     use UsePublishedScope;
     use InteractsWithMedia;
@@ -32,6 +34,7 @@ class TourGroup extends TranslatableModel implements HasMedia
 
     public $translatable = [
         'title',
+        'slug',
         'text',
         'seo_h1',
         'seo_title',
@@ -48,6 +51,10 @@ class TourGroup extends TranslatableModel implements HasMedia
         'text',
         'slug',
         'published',
+    ];
+
+    protected $appends = [
+        'url',
     ];
 
     protected $casts = [
@@ -73,11 +80,6 @@ class TourGroup extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -85,4 +87,10 @@ class TourGroup extends TranslatableModel implements HasMedia
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
+
+    public function getUrlAttribute()
+    {
+        return !empty($this->slug) ? '/' . $this->slug : '';
+    }
+
 }

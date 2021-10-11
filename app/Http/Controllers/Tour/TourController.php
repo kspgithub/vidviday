@@ -19,6 +19,7 @@ use App\Models\TourQuestion;
 use App\Services\OrderService;
 use App\Services\TourService;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -26,7 +27,11 @@ class TourController extends Controller
 {
     //
 
-
+    /**
+     * @param Request $request
+     * @param TourGroup|null|mixed $group
+     * @return View
+     */
     public function index(Request $request, TourGroup $group = null)
     {
         $toursQuery = Tour::search();
@@ -57,6 +62,7 @@ class TourController extends Controller
 
     public function show(string $slug)
     {
+
         /**
          * @var Tour $tour
          */
@@ -143,7 +149,7 @@ class TourController extends Controller
             ]);
         }
 
-        return redirect()->route('tour.show', $tour->slug)->withFlashSuccess(__('Thank you for your question!'));
+        return redirect($tour->url)->withFlashSuccess(__('Thank you for your question!'));
     }
 
 
@@ -189,7 +195,7 @@ class TourController extends Controller
             ]);
         }
 
-        return redirect()->route('tour.show', $tour->slug)->withFlashSuccess(__('Thanks for your feedback!'));
+        return redirect($tour->url)->withFlashSuccess(__('Thanks for your feedback!'));
     }
 
     public function order(Request $request, Tour $tour)

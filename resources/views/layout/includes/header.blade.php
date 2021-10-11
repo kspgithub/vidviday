@@ -188,50 +188,49 @@
                     </div>
                     <ul>
                         <li class="dropdown">
-                            <a href="/about">Чому відвідай</a>
+                            <a href="{{pageUrlByKey('about')}}">Чому відвідай</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
                                     <li>
-                                        <a href="/about">Про нас</a>
+                                        <a href="{{pageUrlByKey('about')}}">Про нас</a>
                                     </li>
 
                                     <li>
-                                        <a href="/documents">Наші документи</a>
+                                        <a href="{{pageUrlByKey('documents')}}">Наші документи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/guides">Екскурсоводи</a>
+                                        <a href="{{pageUrlByKey('guides')}}">Екскурсоводи</a>
                                     </li>
 
                                     <li>
-                                        <a href="/office-workers">Офісні працівники</a>
+                                        <a href="{{pageUrlByKey('office-workers')}}">Офісні працівники</a>
                                     </li>
 
                                     <li>
                                         <a href="{{ route("news") }}">{{ __("Новини") }}</a>
                                     </li>
-
                                     <li>
-                                        <a href="/benefit">Благодійність</a>
+                                        <a href="{{pageUrlByKey('benefit')}}">Благодійність</a>
                                     </li>
                                 </ul>
 
                                 <ul>
                                     <li>
-                                        <a href="/awards">Нагороди та відзнаки</a>
+                                        <a href="{{pageUrlByKey('awards')}}">Нагороди та відзнаки</a>
                                     </li>
 
                                     <li>
-                                        <a href="/vacancies">Вакансії</a>
+                                        <a href="{{pageUrlByKey('vacancies')}}">Вакансії</a>
                                     </li>
 
                                     <li>
-                                        <a href="/practice">Практика</a>
+                                        <a href="{{pageUrlByKey('practice')}}">Практика</a>
                                     </li>
 
                                     <li>
-                                        <a href="/testimonials">Відгуки</a>
+                                        <a href="{{pageUrlByKey('testimonials')}}">Відгуки</a>
                                     </li>
 
                                     <li>
@@ -242,13 +241,13 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="/tours">Тури</a>
+                            <a href="{{pageUrlByKey('tours')}}">Тури</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
                                     @foreach($tourGroups as $tourGroup)
                                         <li>
-                                            <a href="{{route('tour.index', $tourGroup->slug)}}">{{$tourGroup->title}}</a>
+                                            <a href="{{$tourGroup->url}}">{{$tourGroup->title}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -256,7 +255,7 @@
                         </li>
 
                         <li class="only-pad-mobile">
-                            <a href="/order">Замовити тур</a>
+                            <a href="{{pageUrlByKey('order')}}">Замовити тур</a>
                         </li>
 
                         <li>
@@ -273,11 +272,11 @@
                             <div class="dropdown-toggle">
                                 <ul>
                                     <li>
-                                        <a href="#">Турагентам</a>
+                                        <a href="{{pageUrlByKey('for-travel-agents')}}">Турагентам</a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Школам</a>
+                                        <a href="{{pageUrlByKey('schools')}}">Школам</a>
                                     </li>
 
                                     <li>
@@ -285,7 +284,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="/certificate">Подарунковий сертифікат</a>
+                                        <a href="{{pageUrlByKey('certificate')}}">Подарунковий сертифікат</a>
                                     </li>
 
                                     <li>
@@ -293,11 +292,11 @@
                                     </li>
 
                                     <li>
-                                        <a href="#">Курси екскурсоводів</a>
+                                        <a href="{{pageUrlByKey('guides-courses')}}">Курси екскурсоводів</a>
                                     </li>
 
                                     <li>
-                                        <a href="#">Проживанняs</a>
+                                        <a href="{{pageUrlByKey('accommodation')}}">Проживанняs</a>
                                     </li>
                                 </ul>
                             </div>

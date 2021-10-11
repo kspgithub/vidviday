@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = $this->query()->latest()->paginate(9);
-        $pageContent = Page::whereSlug('news')->first();
+        $pageContent = Page::whereKey('news')->first();
 
         return view("blog.index", [
             "pageContent" => $pageContent,

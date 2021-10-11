@@ -15,7 +15,7 @@ class TourGuideController extends Controller
         $specialists = Staff::whereHas('types', function ($q) {
             return $q->where('slug', 'excursion-leader');
         })->get();
-        $pageContent = Page::select()->where('slug', 'guides')->first();
+        $pageContent = Page::select()->where('key', 'guides')->first();
 
         return view('tour-guide.index',
         [

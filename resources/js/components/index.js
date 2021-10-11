@@ -10,6 +10,8 @@ export default {
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
 
         app.component('swiper-slider', require('./common/SwiperSlider').default);
+        app.component('slide-more', require('./common/SlideMore').default);
+        app.component('show-more-text', require('./common/ShowMoreText').default);
         app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
         app.component('popup-gallery', require('./popup/PopupGallery').default);
 

@@ -293,7 +293,7 @@
             <li class="sidebar-item {{routeActiveClass('admin.blog.*')}}">
                 <a class="sidebar-link" href="{{route('admin.blog.index')}}">
                     <i class="align-middle" data-feather="rss"></i> <span
-                        class="align-middle">@lang('Blogs')</span>
+                        class="align-middle">@lang('Blog')</span>
                 </a>
             </li>
 

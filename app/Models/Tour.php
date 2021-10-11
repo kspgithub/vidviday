@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\TourAttribute;
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Methods\TourMethods;
 use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\TourScope;
@@ -30,6 +31,7 @@ class Tour extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use HasJsonSlug;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UsePublishedScope;

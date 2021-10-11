@@ -1,4 +1,4 @@
-<x-utils.link-button target="_blank" :href="route('tour.show', $tour->slug)" :text="__('Show')"/>
+<x-utils.link-button target="_blank" :href="$tour->url" :text="__('Show')"/>
 
 <x-utils.link-button :href="route('admin.tour.picture.index', $tour)"
                      :text="__('Pictures').' ('.$tour->media_count.')'"/>

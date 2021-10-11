@@ -22,7 +22,7 @@ class PlaceController extends Controller
         $regions = Region::whereHas('places', fn($q) => $q->published())
             ->with(['places' => fn($q) => $q->published()])->get();
 
-        $pageContent = Page::select()->where('slug', 'places')->first();
+        $pageContent = Page::select()->where('key', 'places')->first();
 
         $markers = Place::query()->published()->get()->map->asMapMarker();
 

@@ -30,15 +30,6 @@ trait TourMethods
     }
 
 
-    public static function findBySlug(string $slug)
-    {
-        return Tour::query()->where('slug', 'like', '%"' . $slug . '"%')->first();
-    }
-
-    public static function findBySlugOrFail(string $slug)
-    {
-        return Tour::query()->where('slug', 'like', '%"' . $slug . '"%')->firstOrFail();
-    }
 
 
     public function shortInfo()

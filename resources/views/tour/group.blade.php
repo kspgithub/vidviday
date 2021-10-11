@@ -15,43 +15,30 @@
             <div class="row mobile-reverse-content">
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <!-- SIDEBAR -->
-                        @include('includes.sidebar')
-                    <!-- SIDEBAR END -->
+                @include('includes.sidebar')
+                <!-- SIDEBAR END -->
                 </div>
 
                 <div class="col-xl-9 col-12">
                     <!-- BANNER/INFO -->
                     <div class="section">
                         <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("/img/banner-img_3.jpg")}}" height="500" alt="banner img 3">
+                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("/img/banner-img_3.jpg")}}"
+                                 height="500" alt="banner img 3">
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="row">
                             <div class="col-xl-8 col-12">
-                                <h1 class="h1 title">{{$group ? $group->seo_h1 : __('Tours')}}</h1>
+                                <h1 class="h1 title">{{$group ? (!empty($group->seo_h1) ? $group->seo_h1 : $group->title) : __('Tours')}}</h1>
                                 <div class="spacer-xs"></div>
                                 <div class="only-pad-mobile">
                                     @include('tour.includes.social-share')
                                     <div class="spacer-xs"></div>
                                 </div>
                                 @if($group)
-                                <div class="seo-text load-more-wrapp">
-                                    <div class="text text-md">
-                                        <p>{{str_limit(strip_tags($group->text ), 300)}}</p>
+                                    <div v-is="'show-more-text'">
+                                        {!! $group->text !!}
                                     </div>
-                                    <div class="more-info">
-                                        <div class="text text-md">
-                                            {!! $group->text !!}
-                                        </div>
-                                    </div>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-right">
-                                        <div class="show-more">
-                                            <span>Читати більше</span>
-                                            <span>Сховати текст</span>
-                                        </div>
-                                    </div>
-                                </div>
                                 @endif
                                 <div class="spacer-xs"></div>
                                 <div class="only-desktop only">

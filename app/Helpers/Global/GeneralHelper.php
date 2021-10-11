@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Currency;
+use App\Models\Page;
 use App\Models\SiteOption;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -212,5 +213,13 @@ if (!function_exists('arrayToSelectBox')) {
             $result[] = ['value' => $value, 'text' => $text];
         }
         return $result;
+    }
+}
+
+
+if (!function_exists('pageUrlByKey')) {
+    function pageUrlByKey($key)
+    {
+        return Page::urlByKey($key);
     }
 }

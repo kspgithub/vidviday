@@ -770,6 +770,7 @@ jQuery(function ($) {
     });
     // Show more info
     $('.show-more').on('click', function () {
+
         $(this).toggleClass('active');
         $(this).parents('.load-more-wrapp').find('.more-info').slideToggle(440);
     });

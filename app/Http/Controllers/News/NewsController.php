@@ -13,7 +13,7 @@ class NewsController extends Controller
     {
 
         $news = $this->query()->latest()->paginate(9);
-        $pageContent = Page::whereSlug('news')->first();
+        $pageContent = Page::whereKey('news')->first();
 
         return view("news.index", [
             "pageContent" => $pageContent,

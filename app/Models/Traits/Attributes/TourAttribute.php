@@ -14,7 +14,7 @@ trait TourAttribute
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? route('tour.show', $this->slug) : '';
+        return !empty($this->slug) ? '/' . $this->slug : '';
     }
 
 

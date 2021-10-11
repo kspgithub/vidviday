@@ -94,6 +94,13 @@ if (!function_exists('trans')) {
     }
 }
 
+if (!function_exists('getLocale')) {
+    function getLocale()
+    {
+        return app()->getLocale();
+    }
+}
+
 
 if (!function_exists('siteLocales')) {
     function siteLocales()

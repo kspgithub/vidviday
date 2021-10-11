@@ -11,7 +11,7 @@ class FaqController extends Controller
 {
     public function index()
     {
-        $pageContent = Page::query()->where('slug', 'faq')->first();
+        $pageContent = Page::query()->where('key', 'faq')->first();
         $faqGroups = FaqItem::getBySections([FaqItem::SECTION_COMMON, FaqItem::SECTION_TOURIST, FaqItem::SECTION_TOUR_AGENT]);
 
 

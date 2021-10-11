@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\PlaceRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
@@ -28,6 +29,7 @@ use Spatie\Translatable\HasTranslations;
 class Place extends TranslatableModel implements HasMedia
 {
     use HasFactory;
+    use HasJsonSlug;
     use UsePublishedScope;
     use HasTranslations;
     use InteractsWithMedia;
@@ -93,10 +95,9 @@ class Place extends TranslatableModel implements HasMedia
     }
 
 
-
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? route('place.show', $this->slug) : '';
+        return !empty($this->slug) ? '/' . $this->slug : '';
     }
 
 

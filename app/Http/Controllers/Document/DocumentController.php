@@ -13,7 +13,7 @@ class DocumentController extends Controller
     {
         //
         $documents = Document::all();
-        $pageContent = Page::select()->where('slug', 'our-documents')->first();
+        $pageContent = Page::select()->where('key', 'our-documents')->first();
         return view('document.index',
             [
                 'documents' => $documents,
