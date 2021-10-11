@@ -12,20 +12,26 @@ class TourGuideController extends Controller
     public function index()
     {
         //
-        $specialists = Staff::whereHas('types', function ($q) {
+        $specialists = Staff::published()->whereHas('types', function ($q) {
             return $q->where('slug', 'excursion-leader');
-        })->get();
+        })->withCount(['testimonials', 'tours'])->get();
+
         $pageContent = Page::select()->where('key', 'guides')->first();
 
         return view('tour-guide.index',
-        [
-        'specialists' => $specialists,
-        'pageContent'=>$pageContent
-        ]);
+            [
+                'specialists' => $specialists,
+                'pageContent' => $pageContent
+            ]);
     }
-    public function more($id)
+
+    public function show($id)
     {
-        $staff = Staff::all()->where('id', $id)->first();
-        return view('staff.worker', ['staff' => $staff]);
+        $staff = Staff::query()->where('id', $id)->first();
+        $staff->loadMissing('testimonials');
+        $tours = $staff->tours()->with('scheduleItems', function ($q) {
+            return $q->inFuture();
+        })->get();
+        return view('staff.guide', ['staff' => $staff, 'tours' => $tours]);
     }
 }

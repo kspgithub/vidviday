@@ -17,7 +17,7 @@
             <tour-rating :count="tour.testimonials_count" :rating="tour.rating"/>
 
 
-            <div class="datepicker-input">
+            <div class="datepicker-input" v-if="schedules.length">
                 <form-select v-model="scheduleId" :options="schedules"></form-select>
             </div>
             <div class="thumb-info">
@@ -25,7 +25,9 @@
                     {{ tour.duration + t('days') }} / {{ tour.nights + t('nights') }}
                 </span>
                 <span class="thumb-info-people text">
-                    {{ currentSchedule.places > 10 ? '10+' : currentSchedule.places }}
+                    {{
+                        currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
+                    }}
                     <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
                         На обрану Вами дату немає вільних місць ви можете замовити тур
                         і якщо місця з'являться, ми повідомимо Вас про це.

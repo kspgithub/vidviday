@@ -77,7 +77,7 @@
                                                         @endif
                                                         <div class="text text-md">
                                                             {!! $place->text !!}
-                                                            <a href="{{route('place.show', $place->slug)}}"
+                                                            <a href="{{ $place->url}}"
                                                                class="btn btn-read-more text-bold">Більше</a>
                                                         </div>
                                                     </div>

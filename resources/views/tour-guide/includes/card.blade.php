@@ -1,0 +1,18 @@
+<div class="img img-border img-caption style-2">
+    <div class="zoom centered">
+        <img src="{{asset('img/preloader.png')}}"
+             data-img-src="{{ $specialist->image ?? asset('img/no-image.png') }}"
+             alt="{{$specialist->first_name}} {{$specialist->last_name}}">
+        <a href="{{ route('guide', $specialist->id)}}" class="full-size"></a>
+    </div>
+    <div class="img-caption-info">
+        <div class="guide-name">
+            <span class="h3">
+                <a href="{{ route('guide', $specialist->id)}}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
+            </span>
+            <span class="text">{{$specialist->testimonials_count}} відгуків</span>
+        </div>
+        <span class="text">Проводить <b>{{$specialist->tours_count}} турів</b></span>
+        <a href="{{ route('guide', ['id'=>$specialist->id])}}" class="btn type-1 btn-block">Дізнатись більше</a>
+    </div>
+</div>
