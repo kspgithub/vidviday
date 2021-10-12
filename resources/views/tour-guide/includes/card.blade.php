@@ -8,7 +8,7 @@
     <div class="img-caption-info">
         <div class="guide-name">
             <span class="h3">
-                <a href="{{ route('guide', $specialist->id)}}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
+                <a href="{{ route('guide.show', $specialist->id)}}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
             </span>
             <span class="text">{{$specialist->testimonials_count}} відгуків</span>
         </div>

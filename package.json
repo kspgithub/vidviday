@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@fancyapps/ui": "^4.0.0-alpha.4",
-        "@fortawesome/fontawesome-free": "^5.15.3",
+        "@fortawesome/fontawesome-free": "^5.15.4",
         "@fullcalendar/core": "^5.9.0",
         "@fullcalendar/daygrid": "^5.9.0",
         "@fullcalendar/list": "^5.9.0",
