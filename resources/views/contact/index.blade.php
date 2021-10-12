@@ -105,7 +105,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="spacer-xs"></div>
-                                                        <a href="{{ route('office-worker', ['id'=>$specialist->id])}}"
+                                                        <a href="{{ route('staff.show', ['id'=>$specialist->id])}}"
                                                            class="btn type-1 btn-block">Дізнатись більше</a>
                                                     </div>
                                                 </div>
@@ -148,26 +148,29 @@
                                                         <a href="mailto:{{$spec->email}}">{{$spec->email}}</a>
                                                     </div>
 
-                                                    <div class="contact">
-                                                        @if ( !empty($spec->skype))
-                                                        <div class="img">
-                                                            <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/skype.svg')}}" alt="skype">
+                                                        <div class="contact">
+                                                            @if ( !empty($spec->skype))
+                                                                <div class="img">
+                                                                    <img src="{{asset('img/preloader.png')}}"
+                                                                         data-img-src="{{asset('icon/skype.svg')}}"
+                                                                         alt="skype">
+                                                                </div>
+                                                                <a href="skype:{{$spec->skype}}?call">{{$spec->skype}}</a>
+                                                            @endif
                                                         </div>
-                                                        <a href="skype:{{$spec->skype}}?call">{{$spec->skype}}</a>
-                                                        @endif
+                                                        <div class="spacer-xs"></div>
+                                                        <a href="{{ route('staff.show', ['id'=>$spec->id])}}"
+                                                           class="btn type-1 btn-block">Дізнатись більше</a>
                                                     </div>
-                                                    <div class="spacer-xs"></div>
-                                                    <a href="{{ route('office-worker', ['id'=>$spec->id])}}" class="btn type-1 btn-block">Дізнатись більше</a>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="expand-all-button">
-							<div class="expand-all open">Розгорнути все</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expand-all-button">
+                            <div class="expand-all open">Розгорнути все</div>
 							<div class="expand-all close">Згорнути все</div>
 						</div>
 					</div>

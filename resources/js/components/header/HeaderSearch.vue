@@ -1,5 +1,5 @@
 <template>
-    <form action="/tours" class="header-search" :class="{active: active}" ref="formRef">
+    <form action="/tours" class="header-search" :class="{active: active}" ref="formRef" @mouseleave="active = false">
         <input type="text" name="q" v-model="searchText" :placeholder="__('Find tour...')" class="input-search"
                @input="debounce(() => searchTours())"
                autocomplete="off">
@@ -65,7 +65,10 @@ export default {
         const store = useStore();
         const formRef = ref(null);
         const request = computed(() => store.state.headerSearch.request);
-        const active = computed(() => store.state.headerSearch.active);
+        const active = computed({
+            get: () => store.state.headerSearch.active,
+            set: (val) => store.commit('headerSearch/SET_ACTIVE', val)
+        });
         const searchText = computed({
             get: () => store.state.headerSearch.searchText,
             set: (val) => store.commit('headerSearch/SET_SEARCH_TEXT', val)

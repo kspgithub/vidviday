@@ -330,10 +330,12 @@ jQuery(function ($) {
     $(document).on('click', 'a[href*="#"]', function () {
 
         let anchorLink = $(this).attr('href');
+        if (anchorLink !== '#') {
+            $('html, body').animate({
+                scrollTop: $(anchorLink).offset().top - $('header').outerHeight()
+            }, 730);
+        }
 
-        $('html, body').animate({
-            scrollTop: $(anchorLink).offset().top - $('header').outerHeight()
-        }, 730);
 
         return false;
     });
@@ -969,51 +971,6 @@ jQuery(function ($) {
     }
 
 
-    var availableTags = [
-        {
-            value: 'Сиро-Винний тур Закарпаттям',
-            icon: 'img/preview_1.jpg'
-        },
-        {
-            value: 'Тур 10 родзинок Закарпаття',
-            icon: 'img/preview_2.jpg'
-        },
-        {
-            value: 'Тур Різдво у Карпатах',
-            icon: 'img/preview_3.jpg'
-        },
-        {
-            value: 'Тур Озера Карпат',
-            icon: 'img/preview_4.jpg'
-        },
-        {
-            value: 'Тур Несамовите озеро в Карпатах',
-            icon: 'img/preview_5.jpg'
-        }
-    ];
-
-
-    // if ($('.input-search').length) {
-    //     $('.input-search').each(function () {
-    //         $(this).autocomplete({
-    //             source: availableTags,
-    //             open: function (event, ui) {
-    //                 $(this).parent().addClass('active-autocomplete');
-    //                 $('.ui-menu').append('<li class="ui-menu-item-all">Всі результати пошуку</li>');
-    //                 if ($(this).parent().hasClass('search-dropdown-form')) {
-    //                     $('.ui-menu').addClass('no-shadow');
-    //                 }
-    //             },
-    //             close: function (event, ui) {
-    //                 $(this).parent().removeClass('active-autocomplete');
-    //             }
-    //         }).autocomplete('instance')._renderItem = function (ul, item) {
-    //             return $('<li>')
-    //                 .append('<div><img src="' + item.icon + '" alt="preview image"/>' + '<span>' + item.value + '</span></div>')
-    //                 .appendTo(ul);
-    //         };
-    //     });
-    // }
     // 09 Comments stars rank
     $('.rating-picker .select-icon').on('click', function () {
         $(this).addClass('active').siblings().removeClass('active');
