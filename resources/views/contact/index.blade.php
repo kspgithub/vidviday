@@ -105,7 +105,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="spacer-xs"></div>
-                                                        <a href="{{ route('staff.show', ['id'=>$specialist->id])}}"
+                                                        <a href="{{ route('staff.show', ['staff'=>$specialist->id])}}"
                                                            class="btn type-1 btn-block">Дізнатись більше</a>
                                                     </div>
                                                 </div>
@@ -159,7 +159,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="spacer-xs"></div>
-                                                        <a href="{{ route('staff.show', ['id'=>$spec->id])}}"
+                                                        <a href="{{ route('staff.show', ['staff'=>$spec->id])}}"
                                                            class="btn type-1 btn-block">Дізнатись більше</a>
                                                     </div>
                                                 </div>
