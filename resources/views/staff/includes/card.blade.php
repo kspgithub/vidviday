@@ -19,7 +19,7 @@
         <hr>
         @if(!empty($specialist->phone))
             <div class="contact">
-                @foreach($staff->phones as $phone)
+                @foreach($specialist->phones as $phone)
                     @if($loop->index > 0)<br>@endif
                     <a href="tel:+{{clear_phone($phone)}}">{{$phone}}</a>
                 @endforeach
