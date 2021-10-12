@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -11,6 +12,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -28,13 +30,15 @@ class Accommodation extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UsePublishedScope;
-    use HasSlug;
+    use HasTranslatableSlug;
+    use HasJsonSlug;
     use UseSelectBox;
 
     public $translatable = [
         'title',
         'title_where',
         'text',
+        'slug',
     ];
 
 

@@ -158,8 +158,8 @@ class MenuItemSeeder extends Seeder
             ],
             [
                 "menu_id" => 5,
-                'title' => ['en' => 'Accommodation', 'ru' => 'Проживанняs', 'uk' => 'Проживанняs', 'pl' => 'Zakwaterowanie'],
-                'slug' => str::slug("Проживанняs"),
+                'title' => ['en' => 'Accommodation', 'ru' => 'Проживання', 'uk' => 'Проживання', 'pl' => 'Zakwaterowanie'],
+                'slug' => str::slug("Проживання"),
             ],
 
         ];
