@@ -110,8 +110,8 @@ trait TourScope
                     $sq->whereIn('id', $ids);
                 });
             })
-            ->when(!empty($params['search']), function (Builder $q) use ($params) {
-                $search = $params['search'];
+            ->when(!empty($params['q']), function (Builder $q) use ($params) {
+                $search = trim($params['q']);
                 return $q->where('title', 'LIKE', "%$search%");
             });
 

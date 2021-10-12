@@ -1,6 +1,6 @@
 <template>
     <form action="/tours" class="header-search" :class="{active: active}" ref="formRef">
-        <input type="text" name="search" v-model="searchText" :placeholder="__('Find tour...')" class="input-search"
+        <input type="text" name="q" v-model="searchText" :placeholder="__('Find tour...')" class="input-search"
                @input="debounce(() => searchTours())"
                autocomplete="off">
         <div class="search-toggle">
