@@ -7,7 +7,7 @@
     'readonly'=>false,
     'help'=>'',
     'labelCol'=>'col-md-2',
-    'inputCol'=>'col-md-10 mb-3',
+    'inputCol'=>'col-md-10',
 ])
 
 <div class="form-group row mb-3">
@@ -18,7 +18,7 @@
 
     <div class="{{$inputCol}}">
         @foreach(siteLocales() as $lang)
-            <div class="input-group multilingual" data-lang="{{$lang}}"
+            <div class="input-group multilingual mb-2" data-lang="{{$lang}}"
                  x-show="trans_locale == '{{ $lang }}'">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ strtoupper($lang) }}</span>

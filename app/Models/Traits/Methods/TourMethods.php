@@ -75,4 +75,50 @@ trait TourMethods
         $discount = $this->discounts->where('category', '=', 'children_older')->first();
         return $discount && $discount->type === 1 && (int)$discount->price === 100;
     }
+
+
+    public function calcItems()
+    {
+        $items = [];
+
+        $foodItems = $this->foodItems()->whereHas('food')->get();
+
+        foreach ($this->priceItems as $priceItem) {
+
+            $items[] = [
+                'id' => 'pi_' . $priceItem->id,
+                'title' => $priceItem->title,
+                'price' => (int)$priceItem->price,
+                'currency' => $priceItem->currency,
+                'limited' => $priceItem->limited,
+                'places' => $priceItem->places,
+            ];
+
+        }
+
+
+        foreach ($this->tickets as $ticket) {
+            $items[] = [
+                'id' => 't_' . $ticket->id,
+                'title' => $ticket->title,
+                'price' => (int)$ticket->price,
+                'currency' => $ticket->currency,
+                'limited' => false,
+                'places' => 0,
+            ];
+        }
+
+        foreach ($foodItems as $foodItem) {
+            $items[] = [
+                'id' => 'f_' . $foodItem->id,
+                'title' => $foodItem->calc_title,
+                'price' => (int)$foodItem->food->price,
+                'currency' => $foodItem->currency,
+                'limited' => false,
+                'places' => 0,
+            ];
+        }
+
+        return $items;
+    }
 }

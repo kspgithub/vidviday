@@ -36,6 +36,8 @@ class Food extends TranslatableModel implements HasMedia
     protected $fillable = [
         'title',
         'text',
+        'price',
+        'currency',
         'slug',
         'published',
     ];
@@ -62,5 +64,18 @@ class Food extends TranslatableModel implements HasMedia
         return SlugOptions::create()
             ->generateSlugsFrom(['title'])
             ->saveSlugsTo('slug');
+    }
+
+    public static function toSelectBox(
+        $text_field = 'title',
+        $value_field = 'id',
+        $value_key = 'value',
+        $text_key = 'text'
+    )
+    {
+        return self::query()->get(['id', 'title', 'price', 'currency'])
+            ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
+                return [$value_key => $item->{$value_field}, $text_key => $item->title . ', ' . $item->price . $item->currency];
+            });
     }
 }

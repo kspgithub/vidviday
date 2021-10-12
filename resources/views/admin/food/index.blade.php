@@ -22,6 +22,7 @@
 
                     <th>@lang('Title')</th>
                     <th>@lang('Description')</th>
+                    <th>@lang('Price')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -30,7 +31,8 @@
                     <tr>
                         <td>{{$item->title}}</td>
                         <td>{{ strip_tags($item->text) }}</td>
-                        <td class="table-action">
+                        <td class="text-nowrap">{{ $item->price }} {{ $item->currency }}</td>
+                        <td class="table-action text-nowrap">
                             <x-utils.edit-button :href="route('admin.food.edit', $item)" text=""/>
                             <x-utils.delete-button :href="route('admin.food.destroy', $item)" text=""/>
                         </td>

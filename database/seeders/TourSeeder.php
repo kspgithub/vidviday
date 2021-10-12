@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Badge;
 use App\Models\Direction;
+use App\Models\Food;
 use App\Models\Place;
 use App\Models\Staff;
+use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Models\TourPlan;
@@ -45,12 +47,15 @@ class TourSeeder extends Seeder
             'tours',
         ]);
 
-        $directions = Direction::all();
-        $badges = Badge::all();
-        $groups = TourGroup::all();
-        $subjects = TourSubject::all();
-        $types = TourType::all();
-        $places = Place::all();
+        $directions = Direction::select('id')->get();
+        $badges = Badge::select('id')->get();
+        $groups = TourGroup::select('id')->get();
+        $subjects = TourSubject::select('id')->get();
+        $types = TourType::select('id')->get();
+        $places = Place::select('id')->get();
+        $foods = Food::select('id')->get();
+        $tickets = Ticket::select('id')->get();
+
         $managers = Staff::query()->whereHas('types', function (Builder $q) {
             return $q->where('slug', 'tour-manager');
         })->get();
@@ -76,6 +81,8 @@ class TourSeeder extends Seeder
                 $dates,
                 $managers,
                 $leaders,
+                $foods,
+                $tickets,
                 $faker
             ) {
                 $item->directions()->attach($directions->random(2)->pluck('id')->toArray());
@@ -87,13 +94,16 @@ class TourSeeder extends Seeder
                 $item->staff()->attach($managers->random(1)->pluck('id')->toArray());
                 $item->staff()->attach($leaders->random(2)->pluck('id')->toArray());
 
+                $plan_text = '<ul>';
                 for ($day = 1; $day <= $item->duration; $day++) {
-                    $planItem = new TourPlan();
-                    $planItem->tour_id = $item->id;
-                    $planItem->title = $day . ' день';
-                    $planItem->text = $faker->realText();
-                    $planItem->save();
+                    $text = $faker->realText();
+                    $plan_text .= "<li><strong>$day день</strong><div>$text</div></li>";
                 }
+                $plan_text = '</ul>';
+                $planItem = new TourPlan();
+                $planItem->tour_id = $item->id;
+                $planItem->text = $plan_text;
+                $planItem->save();
 
                 $itemDates = $dates->random(3);
                 foreach ($itemDates as $date) {

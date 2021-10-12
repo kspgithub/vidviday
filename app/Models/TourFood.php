@@ -54,6 +54,10 @@ class TourFood extends TranslatableModel implements HasMedia
         'position',
     ];
 
+    protected $appends = [
+        'calc_title',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -76,5 +80,10 @@ class TourFood extends TranslatableModel implements HasMedia
     public function time()
     {
         return $this->belongsTo(FoodTime::class);
+    }
+
+    public function getCalcTitleAttribute()
+    {
+        return $this->time->title . ' у ' . $this->day . '-й день';
     }
 }

@@ -69,6 +69,12 @@ class TicketsTable extends DataTableComponent
                 })
                 ->sortable(),
 
+            Column::make(__('Price'), 'price')
+                ->format(function ($value, $column, $row) {
+                    return $row->price . ' ' . $row->currency;
+                })
+                ->sortable(),
+
             Column::make(__('Published'), 'published')
                 ->sortable(),
 
@@ -82,7 +88,7 @@ class TicketsTable extends DataTableComponent
     public function filters(): array
     {
         return [
-            'region_id' => Filter::make(__('Начеленні пункти'))
+            'region_id' => Filter::make(__('Regions'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
         ];
     }

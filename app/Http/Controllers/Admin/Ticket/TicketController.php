@@ -37,7 +37,7 @@ class TicketController extends Controller
         $ticket->currency = 'UAH';
 
         $currencies = Currency::toSelectBox('iso', 'iso');
-        $regions    = Region::toSelectBox('title', 'id');
+        $regions = Region::toSelectBox();
 
         return view("admin.ticket.create", [
             "ticket" => $ticket,

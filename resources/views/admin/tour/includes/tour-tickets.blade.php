@@ -6,7 +6,8 @@
                 wire:sortable.item="{{ $item->id }}"
                 wire:key="place-{{ $item->id }}">
                 <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
-                <span class="me-3">{{$item->title}} ({{$item->region->title}})</span>
+                <span
+                    class="me-3">{{$item->title}}, {{$item->price}}{{$item->currency}} ({{$item->region->title}})</span>
                 <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">
                     <i class="fa fa-times"></i>
                 </a>

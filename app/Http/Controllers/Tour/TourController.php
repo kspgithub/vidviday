@@ -112,7 +112,7 @@ class TourController extends Controller
 
         $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOUR)->get();
 
-        $price_items = $tour->priceItems()->published()->get();
+        $price_items = $tour->calcItems();
 
         return view('tour.show', [
             'tour' => $tour,

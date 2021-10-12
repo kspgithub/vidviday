@@ -84,7 +84,7 @@ export default {
         const priceItems = props.priceItems.map(it => {
             return {
                 id: 'price_' + it.id,
-                title: it.title[locale] || it.title['uk'],
+                title: it.title,
                 price: it.price,
                 commission: 0,
                 currency: it.currency,

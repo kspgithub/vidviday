@@ -17,7 +17,7 @@
                         <tr>
                             <td class="text-nowrap">{{$item->day}}-й день</td>
                             <td class="text-nowrap">{{$item->time->title}}</td>
-                            <td class="text-nowrap">{{$item->food ? $item->food->title : 'не вибрано'}}</td>
+                            <td class="text-nowrap">{{$item->food ? $item->food->title.', '.$item->food->price.$item->food->currency : 'не вибрано'}}</td>
                             <td style="width: 150px">
                                 <a href="#" wire:click.prevent="editItem({{$item->id}})" class="btn btn-success m-2"><i
                                         class="fas fa-file-alt"></i></a>

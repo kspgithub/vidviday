@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Food;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use App\Models\Food;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -33,9 +34,11 @@ class FoodController extends Controller
     {
         //
         $food = new Food();
-
+        $food->currency = 'UAH';
+        $currencies = Currency::toSelectBox('iso', 'iso');
         return view('admin.food.create', [
             'model' => $food,
+            'currencies' => $currencies,
         ]);
     }
 
@@ -69,8 +72,10 @@ class FoodController extends Controller
     public function edit(Food $food)
     {
         //
+        $currencies = Currency::toSelectBox('iso', 'iso');
         return view('admin.food.edit', [
             'model' => $food,
+            'currencies' => $currencies,
         ]);
     }
 

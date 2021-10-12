@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BadgeSeeder::class);
         $this->call(FoodTimeSeeder::class);
         $this->call(FoodSeeder::class);
+        $this->call(TicketsSeeder::class);
         $this->call(PlaceSeeder::class);
         $this->call(StaffTypeSeeder::class);
         $this->call(StaffSeeder::class);
