@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\UseNormalizeMedia;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -99,5 +100,22 @@ class TourQuestion extends Model implements HasMedia
         $avatar = $this->getAttributeValue('avatar');
 
         return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
+    }
+
+    public function getOnModerationAttribute()
+    {
+        return site_option('moderate_questions', false) === true && $this->status === 0;
+    }
+
+
+    public function scopeModerated(Builder $query)
+    {
+        return $query->withDepth()->where(function ($q) {
+            $q->whereIn('status', site_option('moderate_questions', false) === true ? [1] : [0, 1]);
+            if (current_user() !== null) {
+                $q->orWhere('user_id', current_user()->id);
+            }
+            return $q;
+        });
     }
 }

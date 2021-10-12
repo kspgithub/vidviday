@@ -36,10 +36,18 @@ class PlaceController extends Controller
     public function show($slug)
     {
 
-        $place = Place::query()->where('slug', 'LIKE', '%"' . $slug . '"%')->firstOrFail();
+        $place = Place::findBySlugOrFail($slug);
+        $place->loadMissing([
+            'media',
+            'testimonials' => function ($q) {
+                return $q->moderated();
+            },
+        ]);
+
         $tours = $place->tours()->published()->paginate(6);
         $price_from = $place->tours()->published()->min('price');
         $price_to = $place->tours()->published()->max('price');
+
         return view('place.show', [
             'place' => $place,
             'tours' => $tours,

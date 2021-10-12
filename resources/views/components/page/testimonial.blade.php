@@ -18,12 +18,16 @@
                 <span class="h4">{{$testimonial->name}}</span>
                 <span class="text text-sm">{{$testimonial->created_at->format('d.m.Y')}}</span>
                 <span class="text text-sm">{{$testimonial->created_at->format('H:i')}}</span>
-                @if(!$testimonial->parent_id)
-                    <x-tour.star-rating :rating="$testimonial->rating"/>
-                @endif
-                @if(!$short)
-                    <span class="text" v-is="'open-testimonial-form'"
-                          :parent="{{$testimonial->id}}">Відповісти</span>
+                @if($testimonial->on_moderation)
+                    <span class="text text-sm">На модерації</span>
+                @else
+                    @if(!$testimonial->parent_id)
+                        <x-tour.star-rating :rating="$testimonial->rating"/>
+                    @endif
+                    @if(!$short)
+                        <span class="text" v-is="'open-testimonial-form'"
+                              :parent="{{$testimonial->id}}">Відповісти</span>
+                    @endif
                 @endif
             </div>
         </div>

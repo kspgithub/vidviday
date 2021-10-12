@@ -30,7 +30,11 @@ class StaffController extends Controller
 
     public function show(Staff $staff)
     {
-        $staff->loadMissing('testimonials');
+        $staff->loadMissing([
+            'testimonials' => function ($q) {
+                return $q->moderated();
+            },
+        ]);
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
         })->get();

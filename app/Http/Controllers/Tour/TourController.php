@@ -89,15 +89,17 @@ class TourController extends Controller
             'guides',
             'manager',
             'testimonials' => function ($q) {
-                return $q->withDepth()->whereIn('status', site_option('moderate_testimonials', false) === true ? [1] : [0, 1]);
+                return $q->moderated();
             },
             'questions' => function ($q) {
-                return $q->withDepth()->whereIn('status', site_option('moderate_questions', false) === true ? [1] : [0, 1]);
+                return $q->moderated();
             },
         ]);
 
         $tour->loadCount([
-            'testimonials'
+            'testimonials' => function ($q) {
+                return $q->moderated();
+            }
         ]);
 
         $future_events = $tour->scheduleItems()
