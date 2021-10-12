@@ -38,6 +38,7 @@ class Staff extends TranslatableModel implements HasMedia
         'first_name',
         'last_name',
         'position',
+        'label',
         'text',
     ];
 
@@ -47,6 +48,7 @@ class Staff extends TranslatableModel implements HasMedia
         'first_name',
         'last_name',
         'position',
+        'label',
         'text',
         'video',
         'avatar',
@@ -91,15 +93,6 @@ class Staff extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('main')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
-            ->singleFile();
-
-        $this->addMediaCollection('pictures')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
-    }
 
     public function getNameAttribute()
     {

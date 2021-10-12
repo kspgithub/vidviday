@@ -17,11 +17,11 @@
                     <div class="swiper-slide">
                         <img src="{{asset('/img/preloader.png')}}"
                              data-src="{{$slide->getFullUrl()}}"
-                             alt="{{$slide->getCustomProperty('alt_'.app()->getLocale())}}" data-swiper-parallax="30%"
+                             alt="{{$slide->alt}}" data-swiper-parallax="30%"
                              class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>
                         <div class="full-size">
-                            <span>{{$slide->getCustomProperty('title_'.app()->getLocale())}}</span>
+                            <span>{{$slide->title}}</span>
                         </div>
                     </div>
                 @endforeach

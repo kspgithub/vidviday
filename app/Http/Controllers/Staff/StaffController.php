@@ -17,19 +17,23 @@ class StaffController extends Controller
     public function index()
     {
         //
-        $staff = Staff::query()->published()->get();
+        $specialists = Staff::published()->whereHas('types', function ($q) {
+            return $q->where('slug', 'official');
+        })->withCount(['testimonials', 'tours'])->get();
         $pageContent = Page::select()->where('key', 'office-workers')->first();
 
         return view('staff.index', [
-            'staff' => $staff,
+            'specialists' => $specialists,
             'pageContent' => $pageContent
         ]);
     }
 
-    public function show($id)
+    public function show(Staff $staff)
     {
-        $staff = Staff::all()->where('id', $id)->first();
-        $tours = Tour::all();
+        $staff->loadMissing('testimonials');
+        $tours = $staff->tours()->with('scheduleItems', function ($q) {
+            return $q->inFuture();
+        })->get();
         return view('staff.worker', ['staff' => $staff, 'tours' => $tours]);
     }
 

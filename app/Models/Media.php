@@ -13,7 +13,7 @@ class Media extends SpatieMedia
     {
         return self::asSwiperSlide($this);
     }
-    
+
     public static function asSwiperSlide(SpatieMedia $media)
     {
         $locale = app()->getLocale();
@@ -29,5 +29,20 @@ class Media extends SpatieMedia
         }
 
         return (object)$item;
+    }
+
+    protected $appends = [
+        'title',
+        'alt',
+    ];
+
+    public function getTitleAttribute()
+    {
+        return $this->getCustomProperty('alt_' . app()->getLocale()) ?? $this->getCustomProperty('alt_uk');
+    }
+
+    public function getAltAttribute()
+    {
+        return $this->getCustomProperty('title_' . app()->getLocale()) ?? $this->getCustomProperty('title_uk');
     }
 }

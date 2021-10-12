@@ -41,7 +41,15 @@
 
 
                     <!-- ACCORDIONS CONTENT -->
-                    <x-page.testimonials-accordion :testimonials="$staff->testimonials"></x-page.testimonials-accordion>
+                    <div class="accordion type-4">
+                        <hr>
+                        <x-page.testimonials-accordion
+                            :testimonials="$staff->testimonials"></x-page.testimonials-accordion>
+                        <div class="spacer-sm"></div>
+                    </div>
+                    <!-- ACCORDIONS CONTENT END -->
+
+
                     <!-- ACCORDIONS CONTENT END -->
 
                     <!-- THUMBS CAROUSEL -->

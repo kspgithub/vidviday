@@ -493,6 +493,10 @@
     }
 }
 
+.staff-label {
+    cursor: default !important;
+}
+
 /*///////*/
 /* HOVER */
 /*///////*/
@@ -509,9 +513,12 @@
 
         &.type-1,
         &.type-4 {
-            &:hover {
-                background: transparent;
+            &:not(.staff-label) {
+                &:hover {
+                    background: transparent;
+                }
             }
+
         }
 
         &.type-2,
@@ -555,25 +562,28 @@
         }
 
         &.type-4 {
-            &:hover {
-                color: $title;
+            &:not(.staff-label) {
+                &:hover {
+                    color: $title;
 
-                path {
-                    &:not(.only-stroke) {
-                        fill: $orange;
+                    path {
+                        &:not(.only-stroke) {
+                            fill: $orange;
+                        }
+
+                        &.only-stroke {
+                            stroke: $orange;
+                        }
                     }
 
-                    &.only-stroke {
-                        stroke: $orange;
-                    }
-                }
-
-                &.arrow-right {
-                    &:after {
-                        border-color: $title;
+                    &.arrow-right {
+                        &:after {
+                            border-color: $title;
+                        }
                     }
                 }
             }
+
         }
 
         &.type-5 {

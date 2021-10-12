@@ -332,6 +332,24 @@ html.overflow-menu body {
             left: 30px;
         }
     }
+
+
+}
+
+.social {
+    &.drop-right {
+        .share {
+            .dropdown-toggle {
+                right: 0;
+                left: auto;
+
+                &:before {
+                    left: auto;
+                    right: 14px;
+                }
+            }
+        }
+    }
 }
 
 .lightbox-wrap {

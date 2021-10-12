@@ -25,9 +25,8 @@ class TourGuideController extends Controller
             ]);
     }
 
-    public function show($id)
+    public function show(Staff $staff)
     {
-        $staff = Staff::query()->where('id', $id)->first();
         $staff->loadMissing('testimonials');
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();

@@ -71,7 +71,7 @@ class StaffsTable extends DataTableComponent
 
             Column::make(__('Type'), 'type')
                 ->format(function ($value, $column, $row) {
-                    return $row->types->implode('title');
+                    return $row->types->implode('title', ', ');
                 })
                 ->sortable()
                 ->searchable(),

@@ -54,8 +54,8 @@ class MediaLibrary extends Component
     ) {
         $this->model = $model;
         $this->collection = $collection;
-        $this->items = $items ?: [];
-        $this->storeUrl = $storeUrl ?: '#';
+        $this->items = $items ?: $model->getMedia($collection);
+        $this->storeUrl = $storeUrl ?: route('admin.media.store', ['model_type' => get_class($model), 'model_id' => $model->id]);
         $this->destroyUrl = $destroyUrl ?: route('admin.media.destroy', 0);
         $this->updateUrl = $updateUrl ?: route('admin.media.update', 0);
         $this->orderUrl = $orderUrl ?: route('admin.media.order');

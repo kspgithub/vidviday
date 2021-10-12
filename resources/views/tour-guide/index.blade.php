@@ -38,7 +38,7 @@
                         <div class="thumb-wrap row">
                             @foreach ($specialists as $specialist)
                                 <div class="col-lg-4 col-md-6 col-12">
-                                    @include('tour-guide.includes.card', ['$specialist'=>$specialist])
+                                    @include('tour-guide.includes.card', ['specialist'=>$specialist])
                                 </div>
                             @endforeach
                         </div>
