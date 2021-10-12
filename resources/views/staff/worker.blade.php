@@ -89,3 +89,16 @@
         </div>
     </main>
 @endsection
+
+@push('after-popups')
+    <div v-is="'staff-testimonial-form'"
+         :staff='@json($staff)'
+         :user='@json(current_user())'
+         action='{{route('staff.testimonial', $staff->id)}}'
+         :data-parent="0"
+         :tours='@json($tours->map->shortInfo())'
+    >
+        @csrf
+    </div>
+
+@endpush
