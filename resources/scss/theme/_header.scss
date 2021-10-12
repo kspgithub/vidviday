@@ -96,7 +96,17 @@ nav > ul > li {
 
 .log-in,
 .header-search button {
-	cursor: pointer;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+
+        &:hover {
+            path {
+                fill: #2ab0cd;
+            }
+        }
+    }
 }
 
 .header-search {

@@ -16,11 +16,11 @@
     @include('includes.popups.guide-testimonial-popup')
     @include('includes.popups.manager-testimonial-popup')
     @include('includes.popups.tour-cancel-popup')
-    @include('includes.popups.voice-search-popup')
 
     @stack('popups', false)
 
 </div>
 <div v-is="'popup-gallery'"></div>
+<div v-is="'header-voice-popup'"></div>
 @stack('after-popups', false)
 

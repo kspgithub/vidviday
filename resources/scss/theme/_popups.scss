@@ -756,8 +756,20 @@
 
     .search-toggle-footer {
         &:hover {
+            &:not(.disabled) {
+                .text {
+                    color: $blue;
+                }
+            }
+
+
+        }
+
+        &.disabled {
+            cursor: default !important;
+
             .text {
-                color: $blue;
+                color: $text !important;
             }
         }
     }

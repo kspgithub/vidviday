@@ -23,6 +23,7 @@ import tourFilter from './modules/tour-filter';
 import popupGallery from './modules/popup-gallery';
 import testimonials from './modules/testimonials';
 import orderTour from './modules/order-tour';
+import headerSearch from './modules/header-search';
 
 const store = createStore({
     modules: {
@@ -30,6 +31,7 @@ const store = createStore({
         popupGallery,
         testimonials,
         orderTour,
+        headerSearch,
     },
     plugins: plugins,
 });

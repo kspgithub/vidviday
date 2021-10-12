@@ -6,6 +6,8 @@ export default {
         app.component('sign-up-form', require('./auth/SignUpForm').default);
 
         app.component('lang-dropdown', require('./header/LangDropdown').default);
+        app.component('header-search', require('./header/HeaderSearch').default);
+        app.component('header-voice-popup', require('./header/HeaderVoicePopup').default);
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
 
@@ -31,7 +33,7 @@ export default {
         app.component('order-form', require('./order/OrderForm').default);
 
         app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
-        
+
         app.component('staff-testimonial-form', require('./staff/StaffTestimonialForm').default);
 
     }

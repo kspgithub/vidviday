@@ -473,13 +473,13 @@ jQuery(function ($) {
         }
     });
     // Search clear
-    $('.header-search .btn-close').on('click', function () {
-        $(this).closest('.header-search').find('input').val('');
-    });
+    // $('.header-search .btn-close').on('click', function () {
+    //     $(this).closest('.header-search').find('input').val('');
+    // });
 
-    $('.header-search').on('mouseleave', function () {
-        $(this).removeClass('active');
-    });
+    // $('.header-search').on('mouseleave', function () {
+    //     $(this).removeClass('active');
+    // });
     // Tooltip
     $('.tooltip-wrap.red, .tooltip-wrap.black, .tooltip-wrap.light').on('click', function () {
         $(this).toggleClass('active');
@@ -968,15 +968,6 @@ jQuery(function ($) {
         }
     }
 
-    /*//////////////*/
-    /* AUTOCOMPLETE */
-    /*//////////////*/
-    var availableTags = [
-        'Манява — Драгобрат — полонина Перці',
-        'Тур-відпустка «6 днів у замових Карпатах»',
-        'Сиро-винний тур Закарпатським та Прикарпатським краями',
-        'Сиро-Винний тур Закарпаттям',
-    ];
 
     var availableTags = [
         {
@@ -1002,27 +993,27 @@ jQuery(function ($) {
     ];
 
 
-    if ($('.input-search').length) {
-        $('.input-search').each(function () {
-            $(this).autocomplete({
-                source: availableTags,
-                open: function (event, ui) {
-                    $(this).parent().addClass('active-autocomplete');
-                    $('.ui-menu').append('<li class="ui-menu-item-all">Всі результати пошуку</li>');
-                    if ($(this).parent().hasClass('search-dropdown-form')) {
-                        $('.ui-menu').addClass('no-shadow');
-                    }
-                },
-                close: function (event, ui) {
-                    $(this).parent().removeClass('active-autocomplete');
-                }
-            }).autocomplete('instance')._renderItem = function (ul, item) {
-                return $('<li>')
-                    .append('<div><img src="' + item.icon + '" alt="preview image"/>' + '<span>' + item.value + '</span></div>')
-                    .appendTo(ul);
-            };
-        });
-    }
+    // if ($('.input-search').length) {
+    //     $('.input-search').each(function () {
+    //         $(this).autocomplete({
+    //             source: availableTags,
+    //             open: function (event, ui) {
+    //                 $(this).parent().addClass('active-autocomplete');
+    //                 $('.ui-menu').append('<li class="ui-menu-item-all">Всі результати пошуку</li>');
+    //                 if ($(this).parent().hasClass('search-dropdown-form')) {
+    //                     $('.ui-menu').addClass('no-shadow');
+    //                 }
+    //             },
+    //             close: function (event, ui) {
+    //                 $(this).parent().removeClass('active-autocomplete');
+    //             }
+    //         }).autocomplete('instance')._renderItem = function (ul, item) {
+    //             return $('<li>')
+    //                 .append('<div><img src="' + item.icon + '" alt="preview image"/>' + '<span>' + item.value + '</span></div>')
+    //                 .appendTo(ul);
+    //         };
+    //     });
+    // }
     // 09 Comments stars rank
     $('.rating-picker .select-icon').on('click', function () {
         $(this).addClass('active').siblings().removeClass('active');

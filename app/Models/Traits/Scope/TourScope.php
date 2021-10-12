@@ -109,6 +109,10 @@ trait TourScope
                     $ids = array_filter(explode(',', $params['subject']));
                     $sq->whereIn('id', $ids);
                 });
+            })
+            ->when(!empty($params['search']), function (Builder $q) use ($params) {
+                $search = $params['search'];
+                return $q->where('title', 'LIKE', "%$search%");
             });
 
         $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';
