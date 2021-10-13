@@ -37,7 +37,7 @@
                     <a href="tel:{{clear_phone($contact->phone_3)}}">{{$contact->phone_3}}</a>
                 </div>
 
-                <span class="btn type-2 open-popup" data-rel="call-back-popup">Замовити дзвінок</span>
+                <span class="btn type-2" v-is="'popup-call-btn'">Замовити дзвінок</span>
             </div>
 
             <div class="contacts-block">

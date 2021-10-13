@@ -129,20 +129,20 @@
                                 @endif
                             </div>
 
-                            <span class="btn type-1 open-popup" data-rel="call-back-popup">Замовити дзвінок</span>
+                            <span class="btn type-1" v-is="'popup-call-btn'">Замовити дзвінок</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
-                    <div class="accordion-item">
-                        <div class="accordion-title">
-                            <span class="text-md">Адреса</span>
-                        </div>
-                        <div class="accordion-inner">
-                            <div class="contact">
-                                <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/placeholder.svg')}}" alt="placeholder">
+                    <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
+                        <div class="accordion-item">
+                            <div class="accordion-title">
+                                <span class="text-md">Адреса</span>
+                            </div>
+                            <div class="accordion-inner">
+                                <div class="contact">
+                                    <div class="img">
+                                        <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/placeholder.svg')}}" alt="placeholder">
                                 </div>
                                 <span>{{$contact->address}}</span>
                             </div>
@@ -164,12 +164,13 @@
                         </div>
                         <div class="accordion-inner">
                             <div class="img">
-                                <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/user.jpg')}}" alt="user">
+                                <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/user.jpg')}}"
+                                     alt="user">
                             </div>
-                            <span class="btn type-2 open-popup" data-rel="write-message-popup">Написати</span>
+                            <span class="btn type-2" v-is="'popup-email-btn'">Написати</span>
                         </div>
                     </div>
-                </div>
+                    </div>
                 @endforeach
             </div>
         </div>

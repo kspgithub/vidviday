@@ -2,8 +2,8 @@
     <div class="bg-layer"></div>
 
 
-    @include('includes.popups.call-back-popup')
-    @include('includes.popups.write-message-popup')
+    {{--    @include('includes.popups.call-back-popup')--}}
+    {{--    @include('includes.popups.write-message-popup')--}}
     @include('includes.popups.tourists-mailing-popup')
     @include('includes.popups.agents-mailing-popup')
     @include('includes.popups.thanks-popup')
@@ -21,6 +21,9 @@
 
 </div>
 <div v-is="'popup-gallery'"></div>
+<div v-is="'popup-call'"></div>
+<div v-is="'popup-email'"></div>
+<div v-is="'popup-thanks'"></div>
 <div v-is="'header-voice-popup'"></div>
 @stack('after-popups', false)
 

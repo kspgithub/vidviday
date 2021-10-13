@@ -6,6 +6,7 @@
                @focus="onFocus"
                @blur="onBlur"
                :placeholder="placeholder"
+               :autocomplete="!!mask ? 'off' : name"
                :type="type" v-model="innerValue" :name="name" :id="id || name"
         >
         <slot/>

@@ -251,6 +251,11 @@
     &.btn-big {
         padding: 12px 20px;
     }
+
+    &:disabled {
+        cursor: default !important;
+        opacity: .7;
+    }
 }
 
 .btn-lg {
@@ -503,126 +508,129 @@
 @media (min-width: 1200px) {
 
     .btn {
-        &.type-1,
-        &.type-3 {
-            &:hover {
-                color: $green;
-
-            }
-        }
-
-        &.type-1,
-        &.type-4 {
-            &:not(.staff-label) {
+        &:not(:disabled) {
+            &.type-1,
+            &.type-3 {
                 &:hover {
-                    background: transparent;
+                    color: $green;
+
                 }
             }
 
-        }
+            &.type-1,
+            &.type-4 {
+                &:not(.staff-label) {
+                    &:hover {
+                        background: transparent;
+                    }
+                }
 
-        &.type-2,
-        &.type-5 {
-            &:hover {
-                background-color: $green;
-                color: #fff;
             }
-        }
 
-        &.type-1 {
-            &.btn-fb {
+            &.type-2,
+            &.type-5 {
                 &:hover {
-                    color: $fb !important;
+                    background-color: $green;
+                    color: #fff;
+                }
+            }
 
-                    path {
-                        fill: $fb;
+            &.type-1 {
+                &.btn-fb {
+                    &:hover {
+                        color: $fb !important;
+
+                        path {
+                            fill: $fb;
+                        }
+                    }
+                }
+
+                &.btn-google {
+                    &:hover {
+                        color: $google !important;
+
+                        path {
+                            fill: $google;
+                        }
                     }
                 }
             }
 
-            &.btn-google {
-                &:hover {
-                    color: $google !important;
-
-                    path {
-                        fill: $google;
+            &.type-3 {
+                &.btn-more {
+                    &:hover {
+                        &:after {
+                            border-color: $green;
+                        }
                     }
                 }
             }
-        }
 
-        &.type-3 {
-            &.btn-more {
-                &:hover {
-                    &:after {
-                        border-color: $green;
+            &.type-4 {
+                &:not(.staff-label) {
+                    &:hover {
+                        color: $title;
+
+                        path {
+                            &:not(.only-stroke) {
+                                fill: $orange;
+                            }
+
+                            &.only-stroke {
+                                stroke: $orange;
+                            }
+                        }
+
+                        &.arrow-right {
+                            &:after {
+                                border-color: $title;
+                            }
+                        }
                     }
                 }
+
             }
-        }
 
-        &.type-4 {
-            &:not(.staff-label) {
+            &.type-5 {
                 &:hover {
-                    color: $title;
-
                     path {
                         &:not(.only-stroke) {
-                            fill: $orange;
+                            fill: #fff;
                         }
 
                         &.only-stroke {
-                            stroke: $orange;
+                            stroke: #fff;
                         }
                     }
 
                     &.arrow-right {
                         &:after {
-                            border-color: $title;
+                            border-color: #fff;
                         }
                     }
                 }
             }
 
-        }
-
-        &.type-5 {
-            &:hover {
-                path {
-                    &:not(.only-stroke) {
-                        fill: #fff;
-                    }
-
-                    &.only-stroke {
-                        stroke: #fff;
-                    }
-                }
-
-                &.arrow-right {
-                    &:after {
-                        border-color: #fff;
-                    }
-                }
-            }
-        }
-
-        &.btn-read-more {
-            &:hover {
-                color: $green;
-
-                &:after {
-                    border-color: $green;
-                }
-            }
-
-            &.left-arrow {
+            &.btn-read-more {
                 &:hover {
-                    &:before {
+                    color: $green;
+
+                    &:after {
                         border-color: $green;
                     }
                 }
+
+                &.left-arrow {
+                    &:hover {
+                        &:before {
+                            border-color: $green;
+                        }
+                    }
+                }
             }
         }
+
     }
 
     .btn-link {

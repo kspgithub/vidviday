@@ -3,7 +3,6 @@ import {createStore, createLogger} from "vuex";
 
 const plugins = [];
 
-console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV !== 'production') {
     const logger = createLogger();
@@ -24,6 +23,7 @@ import popupGallery from './modules/popup-gallery';
 import testimonials from './modules/testimonials';
 import orderTour from './modules/order-tour';
 import headerSearch from './modules/header-search';
+import userQuestion from './modules/user-question';
 
 const store = createStore({
     modules: {
@@ -32,6 +32,7 @@ const store = createStore({
         testimonials,
         orderTour,
         headerSearch,
+        userQuestion,
     },
     plugins: plugins,
 });

@@ -33,6 +33,7 @@ class UserQuestion extends Model
         'question_type',
         'comment',
         'call_date',
+        'call_time',
     ];
 
     protected $dates = [
