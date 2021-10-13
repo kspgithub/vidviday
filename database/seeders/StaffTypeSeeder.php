@@ -57,6 +57,24 @@ class StaffTypeSeeder extends Seeder
                 ],
                 'slug' => 'certificate-manager',
             ],
+            [
+                'title' => [
+                    'uk' => 'Корпоративні замовлення',
+                    'ru' => 'Корпоративные заказы',
+                    'en' => 'Corporate orders',
+                    'pl' => 'Zlecenia korporacyjne'
+                ],
+                'slug' => 'corporate-order',
+            ],
+            [
+                'title' => [
+                    'uk' => 'Співпраця з туристичними агенціями',
+                    'ru' => 'Сотрудничество с туристическими агентствами',
+                    'en' => 'Cooperation with travel agencies',
+                    'pl' => 'Współpraca z biurami podróży'
+                ],
+                'slug' => 'travel-agencies',
+            ],
         ];
 
         foreach ($staff_types as $staff_type) {

@@ -65,50 +65,10 @@
                                 <div class="accordion-title">Корпоративні замовлення<i></i></div>
                                 <div class="accordion-inner" style="display: block;">
                                     <div class="thumb-wrap row">
-                                        @foreach ($specialists as $specialist)
+                                        @foreach ($specCorporate as $specialist)
                                             <div class="col-lg-4 col-md-6 col-12">
-                                                <div class="img img-border img-caption style-2">
-                                                    <div class="zoom">
-                                                        <img src="{{asset('img/preloader.png')}}"
-                                                             data-img-src="{{$specialist->avatar}}"
-                                                             alt="{{$specialist->first_name}}{{$specialist->last_name}}">
-                                                        <a href="tour-guide.php" class="full-size"></a>
-                                                    </div>
-                                                    <div class="img-caption-info">
-                                                        <div class="guide-name">
-														<span class="h3">
-															<a href="office-worker.php">{{$specialist->first_name}} {{$specialist->last_name}}</a>
-														</span>
-                                                            <span
-                                                                class="text">{!! $specialist->types->implode('title') !!}</span>
-                                                            <br>
-                                                            <span class="text">14 відгуків</span>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="contact">
-                                                            <a href="tel:{{$specialist->phone}}">{{$specialist->phone}}</a>
-                                                            <br>
-                                                        </div>
+                                                <x-staff.card :specialist="$specialist" :label="false"/>
 
-                                                        <div class="contact">
-                                                            <a href="mailto:{{$specialist->email}}">{{$specialist->email}}</a>
-                                                        </div>
-
-                                                        <div class="contact">
-                                                            @if ( !empty($specialist->skype))
-                                                                <div class="img">
-                                                                    <img src="{{asset('img/preloader.png')}}"
-                                                                         data-img-src="{{asset('icon/skype.svg')}}"
-                                                                         alt="skype">
-                                                                </div>
-                                                                <a href="skype:{{$specialist->skype}}?call">{{$specialist->skype}}</a>
-                                                            @endif
-                                                        </div>
-                                                        <div class="spacer-xs"></div>
-                                                        <a href="{{ route('staff.show', ['staff'=>$specialist->id])}}"
-                                                           class="btn type-1 btn-block">Дізнатись більше</a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         @endforeach
                                     </div>
@@ -119,50 +79,9 @@
                                 <div class="accordion-title">Співпраця з туристичними агенціями<i></i></div>
                                 <div class="accordion-inner">
                                     <div class="thumb-wrap row">
-                                        @foreach ($specs as $spec)
+                                        @foreach ($specAgencies as $specialist)
                                             <div class="col-lg-4 col-md-6 col-12">
-                                                <div class="img img-border img-caption style-2">
-                                                    <div class="zoom">
-                                                        <img src="{{asset('img/preloader.png')}}"
-                                                             data-img-src="{{$spec->avatar}}"
-                                                             alt="{{$spec->first_name}}{{$spec->last_name}}">
-                                                        <a href="tour-guide.php" class="full-size"></a>
-                                                    </div>
-                                                    <div class="img-caption-info">
-                                                        <div class="guide-name">
-                                                        <span class="h3">
-                                                            <a href="office-worker.php">{{$spec->first_name}} {{$spec->last_name}}</a>
-                                                        </span>
-                                                            <span
-                                                                class="text">{!! $spec->types->implode('title') !!}</span>
-                                                            <br>
-                                                            <span class="text">14 відгуків</span>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="contact">
-                                                        <a href="tel:{{$spec->phone}}">{{$spec->phone}}</a>
-                                                        <br>
-                                                    </div>
-
-                                                    <div class="contact">
-                                                        <a href="mailto:{{$spec->email}}">{{$spec->email}}</a>
-                                                    </div>
-
-                                                        <div class="contact">
-                                                            @if ( !empty($spec->skype))
-                                                                <div class="img">
-                                                                    <img src="{{asset('img/preloader.png')}}"
-                                                                         data-img-src="{{asset('icon/skype.svg')}}"
-                                                                         alt="skype">
-                                                                </div>
-                                                                <a href="skype:{{$spec->skype}}?call">{{$spec->skype}}</a>
-                                                            @endif
-                                                        </div>
-                                                        <div class="spacer-xs"></div>
-                                                        <a href="{{ route('staff.show', ['staff'=>$spec->id])}}"
-                                                           class="btn type-1 btn-block">Дізнатись більше</a>
-                                                    </div>
-                                                </div>
+                                                <x-staff.card :specialist="$specialist" :label="false"/>
                                             </div>
                                         @endforeach
                                     </div>

@@ -1,8 +1,12 @@
+@props([
+   'specialist'=> new \App\Models\Staff(),
+   'label'=>true
+])
 <div class="img img-border img-caption style-2">
-    @if($specialist->label)
-    <div class="top-part text-center">
-        <span class="h3 light text-bold">{{$specialist->label}}</span>
-    </div>
+    @if($specialist->label && $label)
+        <div class="top-part text-center">
+            <span class="h3 light text-bold">{{$specialist->label}}</span>
+        </div>
     @endif
     <div class="zoom centered">
         <img src="{{asset('img/preloader.png')}}"
@@ -70,3 +74,4 @@
         <a href="{{ route('staff.show', $specialist->id)}}" class="btn type-1 btn-block">Дізнатись більше</a>
     </div>
 </div>
+
