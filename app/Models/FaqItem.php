@@ -88,6 +88,17 @@ class FaqItem extends TranslatableModel
         'published',
     ];
 
+    public static function getSection($section)
+    {
+        $locale = app()->getLocale();
+        $items = self::query()->published()->where('section', $section)->orderBy('sort_order')->get();
+        return (object)[
+            'slug' => $section,
+            'title' => self::$sectionTitles[$section][$locale],
+            'items' => $items->where("section", $section)
+        ];
+    }
+
     public static function getBySections($sections = [])
     {
         $items = self::query()->published()->whereIn('section', $sections)->orderBy('sort_order')->get();

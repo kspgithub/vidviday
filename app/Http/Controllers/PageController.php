@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Certificate\CertificateController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Tour\TourController;
@@ -38,6 +39,8 @@ class PageController extends Controller
                 return (new TourGuideController())->index();
             case 'office-workers':
                 return (new StaffController())->index();
+            case 'certificate':
+                return (new CertificateController())->index();
             default:
                 return view('page.show', ['pageContent' => $pageContent]);
         }

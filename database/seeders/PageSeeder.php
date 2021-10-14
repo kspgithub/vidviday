@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Page;
+use App\Models\Staff;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Seeder;
@@ -29,7 +30,8 @@ class PageSeeder extends Seeder
                 'key' => 'about',
                 'published' => 1,
                 'sidebar' => 1,
-                'sidebar_items' => ['share', 'contacts', 'testimonials']
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Our Documents', 'ru' => 'Наши Документы',
@@ -113,7 +115,8 @@ class PageSeeder extends Seeder
                 'key' => 'corporates',
                 'published' => 1,
                 'sidebar' => 1,
-                'sidebar_items' => ['share', 'contacts', 'testimonials']
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'corporate-order'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Places', 'ru' => 'Места', 'uk' => 'Місця', 'pl' => 'Miejsca'],
@@ -149,13 +152,39 @@ class PageSeeder extends Seeder
                 'key' => 'faq',
                 'published' => 1,
                 'sidebar' => 1,
-                'sidebar_items' => ['share', 'contacts', 'testimonials']
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'travel-agencies'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
                 'seo_h1' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
                 'key' => 'testimonials',
                 'published' => 1,
+            ],
+            [
+                'title' => [
+                    'en' => 'Gift certificate',
+                    'ru' => 'Подарочный сертификат',
+                    'uk' => 'Подарунковий сертифікат',
+                    'pl' => 'Bon upominkowy'
+                ],
+                'seo_h1' => [
+                    'en' => 'Gift certificate',
+                    'ru' => 'Подарочный сертификат',
+                    'uk' => 'Подарунковий сертифікат',
+                    'pl' => 'Bon upominkowy'
+                ],
+                'text' => [
+                    'en' => '<p>A gift certificate is a document that you can buy from us if you need to give a loved one a good trip to Ukraine and make it beautiful.</p>',
+                    'ru' => '<p>Подарочный сертификат, это документ, который Вы можете приобрести у нас, если нужно подарить дорогому человеку хорошую путешествие по Украине и красиво это оформить.</p>',
+                    'uk' => '<p>Подарунковий сертифікат, це документ, який Ви можете придбати в нас, якщо потрібно подарувати дорогій людині гарну подорож Україною та красиво це оформити.</p>',
+                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
+                ],
+                'key' => 'certificate',
+                'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'certificate-manager'))->first()->id ?? 2,
             ],
         ];
 

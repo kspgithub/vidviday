@@ -42,6 +42,7 @@ require base_path('routes/frontend/faq.php');
 require base_path('routes/frontend/testimonial.php');
 require base_path('routes/frontend/document.php');
 require base_path('routes/frontend/blog.php');
+require base_path('routes/frontend/certificate.php');
 
 // ADMIN ROUTES
 /*

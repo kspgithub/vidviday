@@ -4,20 +4,43 @@ namespace App\View\Components\Sidebar;
 
 use App\Models\Testimonial;
 use App\Models\Tour;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class LatestTestimonials extends Component
 {
+    public $title = '';
+    public $btnText = '';
+    public $type = '';
+
+
     public $testimonials = [];
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title = 'Відгуки', $btnText = 'Показати всі відгуки', $type = 'tour')
     {
         //
-        $this->testimonials =  Testimonial::moderated()->where('model_type', Tour::class)->latest()->take(2)->get();
+        $this->title = $title;
+        $this->btnText = $btnText;
+        $this->type = $type;
+
+
+        switch ($type) {
+            default:
+                $class = Tour::class;
+                break;
+        }
+
+
+        $this->testimonials = Cache::remember(
+            'latest__testimonials_' . $type,
+            60,
+            fn() => Testimonial::moderated()->where('model_type', $class)->latest()->take(2)->get()
+        );
     }
 
     /**

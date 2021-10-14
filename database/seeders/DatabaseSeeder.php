@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthSeeder::class);
         $this->call(SiteOptionsSeeder::class);
         $this->call(HtmlBlockSeeder::class);
+        
+        $this->call(StaffTypeSeeder::class);
+        $this->call(StaffSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(BlogSeeder::class);
         $this->call(NewsSeeder::class);
@@ -35,8 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodSeeder::class);
         $this->call(TicketsSeeder::class);
         $this->call(PlaceSeeder::class);
-        $this->call(StaffTypeSeeder::class);
-        $this->call(StaffSeeder::class);
+
         $this->call(AccommodationTypeSeeder::class);
         $this->call(AccommodationsSeeder::class);
         $this->call(IncludeTypeSeeder::class);

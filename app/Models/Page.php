@@ -83,6 +83,7 @@ class Page extends TranslatableModel implements HasMedia
         'published',
         'sidebar',
         'sidebar_items',
+        'staff_id',
     ];
 
     protected $casts = [
@@ -97,6 +98,11 @@ class Page extends TranslatableModel implements HasMedia
         return $this->hasMany(PageSection::class, 'page_id')->orderBy('position');
     }
 
+    public function contact()
+    {
+        return $this->belongsTo(Staff::class, 'staff_id');
+    }
+
     public static function urlByKey($key)
     {
         $page = Page::where('key', $key)->first(['id', 'title', 'slug', 'key']);
@@ -105,4 +111,6 @@ class Page extends TranslatableModel implements HasMedia
         }
         return '/' . $key;
     }
+
+
 }

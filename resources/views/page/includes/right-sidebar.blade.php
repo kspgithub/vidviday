@@ -12,11 +12,11 @@
                 <x-sidebar.social-share/>
             </div>
         @endif
-        @if(in_array('contacts', $pageContent->sidebar_items ?? []))
-            <x-sidebar.contact/>
+        @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
+            <x-sidebar.contact :staff="$pageContent->contact"/>
         @endif
         @if(in_array('testimonials', $pageContent->sidebar_items ?? []))
-            <x-sidebar.testimonials/>
+            <x-sidebar.latest-testimonials title="Нас рекомендують" btn-text="Показати ще"/>
         @endif
     </div>
 </div>

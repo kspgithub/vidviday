@@ -3,22 +3,22 @@
         <a class="btn type-1 btn-block btn-big font-lg" href="#buss">Замовити автобус</a>
     </div>
     <div class="spacer-xs only-desktop only"></div>
-<div class="right-sidebar-inner">
-    <div class="sidebar-item">
-        <a href="document/document.pdf" download class="download only-desktop only">
-            <span class="text-md text-medium">Завантажити для друку</span>
-        </a>
-        <div class="only-desktop">
-            <div class="spacer-xs"></div>
-            <hr>
-            <div class="spacer-xs"></div>
-            @include('staff.includes.social-share')
+    <div class="right-sidebar-inner">
+        <div class="sidebar-item">
+            <a href="document/document.pdf" download class="download only-desktop only">
+                <span class="text-md text-medium">Завантажити для друку</span>
+            </a>
+            <div class="only-desktop">
+                <div class="spacer-xs"></div>
+                <hr>
+                <div class="spacer-xs"></div>
+                <x-page.social-share/>
+            </div>
         </div>
-    </div>
 
-    <div class="sidebar-item notice">
-        <div class="top-part">
-            <div class="title h3 light title-icon"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/ring.svg" alt="ring">Контакти</div>
+        <div class="sidebar-item notice">
+            <div class="top-part">
+                <div class="title h3 light title-icon"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/ring.svg" alt="ring">Контакти</div>
         </div>
         <div class="bottom-part">
             <span class="text-md text-medium">Христина Чорній</span>
