@@ -17,7 +17,7 @@ class UploadController extends Controller
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $location = $file->store("/uploads/editor", 'public');
+            $location = $file->store("/public/uploads/editor");
 
             return response()->json(['result' => 'OK', 'location' => Storage::url($location)]);
         }
