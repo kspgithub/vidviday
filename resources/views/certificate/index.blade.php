@@ -51,7 +51,7 @@
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
                 @include('page.includes.right-sidebar', [
-                    'button'=>['title'=>'>Замовити сертифікат', 'url'=>route('certificate.order')],
+                    'button'=>['title'=>'Замовити сертифікат', 'url'=>route('certificate.order')],
                     'pageContent'=>$pageContent
                 ])
                 <!-- SIDEBAR END -->
