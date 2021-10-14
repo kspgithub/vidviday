@@ -1,6 +1,6 @@
 <template>
     <div class="calendar-wrapper">
-        <full-calendar ref="calendarEl" :options="calendarOptions"/>
+
         <div class="calendar-header-center" v-if="header">
             <span class="text-sm">10+ {{ t('places') }}</span>
             <span class="text-sm">2 — 10 {{ t('places') }}</span>
@@ -8,6 +8,7 @@
             <span v-if="viewChange" class="text">{{ t('view') }}</span>
             <form-select v-if="viewChange" v-model="viewType" :options="viewTypes" class="view-change"/>
         </div>
+        <full-calendar ref="calendarEl" :options="calendarOptions"/>
         <div class="calendar-footer-center" v-if="footer">
             <span class="text-sm">10+ {{ t('places') }}</span>
             <span class="text-sm">2 — 10 {{ t('places') }}</span>

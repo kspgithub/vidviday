@@ -1946,6 +1946,8 @@ a {
             table-layout: fixed;
         }
     }
+
+
 }
 
 @media (max-width: 767px) {
@@ -2050,6 +2052,37 @@ a {
 
         .fc-unthemed thead {
             border-left-color: transparent !important;
+        }
+    }
+
+    .popup-calendar {
+        .fc .fc-toolbar {
+            min-height: 40px;
+            margin: 15px 0;
+            padding: 0 10px;
+        }
+
+        .calendar-header-center {
+            right: auto;
+            left: auto;
+            top: 0;
+            margin-top: 20px;
+            position: relative;
+            justify-content: center;
+
+            span {
+                &.text-sm {
+                    bottom: 0;
+                }
+            }
+        }
+
+        .fc-daygrid-day-events {
+            height: auto;
+        }
+
+        .fc-header-toolbar {
+            justify-content: center;
         }
     }
 }

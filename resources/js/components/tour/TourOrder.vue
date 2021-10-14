@@ -20,7 +20,7 @@
 
         <div class="sidebar-item">
             <div class="single-datepicker" v-if="!corporate">
-                <input name="schedule" v-model="schedule_id" type="hidden">
+                <input name="schedule" :value="schedule_id" type="hidden">
                 <div class="datepicker-input datepicker-dropdown">
                      <span class="datepicker-placeholder" @click.stop="showCalendar()">
                         {{ selectedSchedule ? selectedSchedule.title : __('tour-section.date-title') }}
