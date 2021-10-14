@@ -29,11 +29,11 @@
                         @foreach ($documents as $document)
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="bordered-box doc">
-                                    <div class="img open-popup" data-rel="gallery-popup">
+                                    <a class="img d-block" href="{{$document->file}}" target="_blank">
                                         <img src="{{asset('img/preloader.png')}}"
                                              data-img-src="{{$document->image ?? asset('img/no-image.png')}}"
                                              alt="{{$document->title}}">
-                                    </div>
+                                    </a>
                                     <span class="text text-medium">{{$document->title}}</span>
                                 </div>
                             </div>

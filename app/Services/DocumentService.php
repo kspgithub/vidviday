@@ -8,6 +8,7 @@ use App\Models\Document;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 
@@ -33,15 +34,11 @@ class DocumentService extends BaseService
     {
         try {
             if (isset($params['file_upload'])) {
-                $extension = $params['file_upload']->getClientOriginalExtension();
-
-                if (!in_array($extension, ['png', 'gif', 'jpeg', 'jpg'])) {
-                    $params["file"] = $document->storeFile($params["file_upload"], "documents");
-                } else {
-                    $params["image"] = $document->storeFile($params["file_upload"], "documents");
-                }
+                $params["file"] = Storage::url($document->storeFile($params["file_upload"], "uploads/files"));
             }
-
+            if (isset($params['image_upload'])) {
+                $params['image'] = Storage::url($document->storeFile($params["image_upload"], "uploads/files"));
+            }
             $document->fill($params);
             $document->save();
         } catch (Exception $e) {

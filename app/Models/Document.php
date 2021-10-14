@@ -14,7 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperDocument
  */
-class Document extends Model
+class Document extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
@@ -28,7 +28,7 @@ class Document extends Model
     protected $fillable = [
         'title',
         'image',
-        "file",
+        'file',
         'published',
     ];
 

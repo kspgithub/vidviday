@@ -31,7 +31,8 @@
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-translatable": "^4.6",
-        "spatie/laravel-translation-loader": "^2.7"
+        "spatie/laravel-translation-loader": "^2.7",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

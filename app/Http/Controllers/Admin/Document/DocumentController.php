@@ -10,6 +10,7 @@ use App\Services\DocumentService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -51,7 +52,7 @@ class DocumentController extends Controller
         $document = $this->service->store($request->validated());
 
         return redirect()->route('admin.document.index', ["document" => $document])
-            ->withFlashSuccess(__('Document created.'));
+            ->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -86,7 +87,7 @@ class DocumentController extends Controller
     {
         $this->service->update($document, $request->validated());
 
-        return redirect()->route('admin.document.index', $document)->withFlashSuccess(__('Document updated.'));
+        return redirect()->route('admin.document.index', $document)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -97,7 +98,7 @@ class DocumentController extends Controller
     {
         $document->delete();
 
-        return redirect()->route('admin.document.index')->withFlashSuccess(__('Document deleted.'));
+        return redirect()->route('admin.document.index')->withFlashSuccess(__('Record Deleted'));
     }
 
 
