@@ -13,7 +13,7 @@ import createPersistedState from "vuex-persistedstate";
 
 
 const psState = createPersistedState({
-    paths: ['orderTour']
+    paths: ['orderTour', 'user']
 });
 
 plugins.push(psState);
@@ -24,6 +24,7 @@ import testimonials from './modules/testimonials';
 import orderTour from './modules/order-tour';
 import headerSearch from './modules/header-search';
 import userQuestion from './modules/user-question';
+import user from './modules/user';
 
 const store = createStore({
     modules: {
@@ -33,6 +34,7 @@ const store = createStore({
         orderTour,
         headerSearch,
         userQuestion,
+        user,
     },
     plugins: plugins,
 });

@@ -137,7 +137,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{ route("news") }}">{{ __("Новини") }}</a>
+                                        <a href="{{ route('news.index') }}">{{ __("Новини") }}</a>
                                     </li>
                                     <li>
                                         <a href="{{pageUrlByKey('benefit')}}">Благодійність</a>

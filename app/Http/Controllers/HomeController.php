@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
+use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Support\Carbon;
 
@@ -13,6 +15,8 @@ class HomeController extends Controller
     {
         $tours = Tour::search()->paginate(12);
 
-        return view('home.index', ['tours' => $tours]);
+        return view('home.index', [
+            'tours' => $tours,
+        ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\SearchEventsRequest;
 use App\Http\Requests\Tour\SearchToursRequest;
+use App\Models\Staff;
 use App\Models\Tour;
 use App\Services\TourService;
 use Illuminate\Database\Eloquent\Collection;
@@ -81,5 +82,16 @@ class ToursController extends Controller
                 'more' => $paginator->hasMorePages()
             ]
         ];
+    }
+
+
+    public function guides(Request $request)
+    {
+        $guidesQuery = Staff::onlyExcursionLeaders();
+        $tour_id = $request->input('tour_id', 0);
+        if ($tour_id > 0) {
+            $guidesQuery->whereHas('tours', fn($q) => $q->where('id', $tour_id));
+        }
+        return $guidesQuery->orderBy('last_name')->get(['id', 'first_name', 'last_name', 'phone', 'email', 'avatar']);
     }
 }

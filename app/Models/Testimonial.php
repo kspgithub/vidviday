@@ -67,6 +67,18 @@ class Testimonial extends Model implements HasMedia
         'initials',
         'on_moderation',
         'avatar_url',
+        'date',
+        'time',
+        'gallery',
+        'tour',
+        'place',
+        'guide',
+        'type',
+    ];
+
+    protected $hidden = [
+        'media',
+        'model',
     ];
 
     /**
@@ -117,6 +129,63 @@ class Testimonial extends Model implements HasMedia
         return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
     }
 
+    public function getTypeAttribute()
+    {
+
+        switch ($this->model_type) {
+            case Tour::class:
+                $type = 'tour';
+                break;
+            case Staff::class:
+                $type = 'staff';
+                break;
+            case Place::class:
+                $type = 'place';
+                break;
+            default:
+                $type = 'other';
+                break;
+        }
+        return $type;
+    }
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    public function getTimeAttribute()
+    {
+        return $this->created_at->format('H:i');
+    }
+
+    public function getTourAttribute()
+    {
+        if ($this->model_type == Tour::class) {
+            return $this->model->shortInfo();
+        }
+        if ($this->related_type == Tour::class) {
+            return $this->related->shortInfo();
+        }
+        return null;
+    }
+
+    public function getPlaceAttribute()
+    {
+        return $this->model_type == Place::class ? $this->model->shortInfo() : null;
+    }
+
+    public function getGuideAttribute()
+    {
+        if ($this->model_type == Staff::class) {
+            return $this->model->shortInfo();
+        }
+        if ($this->related_type == Staff::class) {
+            return $this->related->shortInfo();
+        }
+        return null;
+    }
+
     public function getOnModerationAttribute()
     {
         return site_option('moderate_testimonials', false) === true && $this->status === 0;
@@ -132,5 +201,15 @@ class Testimonial extends Model implements HasMedia
             }
             return $q;
         });
+    }
+
+    public function scopeTourTestimonials(Builder $query)
+    {
+        return $query->where('model_type', Tour::class);
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->media->map->toSwiperSlide();
     }
 }

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Contact;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TestimonialAnswerRequest;
+use App\Http\Requests\Tour\TestimonialRequest;
 use App\Models\Contact;
 use App\Models\Staff;
 use App\Models\Page;
+use App\Models\Testimonial;
+use App\Models\Tour;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-
     public function index()
     {
         //

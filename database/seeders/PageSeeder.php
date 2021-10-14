@@ -151,6 +151,12 @@ class PageSeeder extends Seeder
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials']
             ],
+            [
+                'title' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
+                'seo_h1' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
+                'key' => 'testimonials',
+                'published' => 1,
+            ],
         ];
 
         foreach ($pages as $page) {

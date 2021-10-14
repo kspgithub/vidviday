@@ -34,6 +34,7 @@ class TestimonialRequest extends FormRequest
             'phone' => ['nullable'],
             'text' => ['required', 'max:1000'],
             'parent_id' => ['nullable', 'integer'],
+            'tour_id' => ['nullable', 'integer'],
             'guide_id' => ['nullable', 'integer'],
             'rating' => ['nullable', 'integer'],
             'avatar_upload' => ['nullable', 'image', 'max:3000'],

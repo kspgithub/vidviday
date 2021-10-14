@@ -31,6 +31,7 @@ class Media extends SpatieMedia
         return (object)$item;
     }
 
+
     protected $appends = [
         'title',
         'alt',

@@ -29,6 +29,14 @@ export default {
         placeholder: {
             default: '',
         },
+        idField: {
+            type: String,
+            default: 'id',
+        },
+        titleField: {
+            type: String,
+            default: 'title',
+        },
         rules: {
             type: [String, Object],
             default: ''
@@ -67,7 +75,7 @@ export default {
             if (sumo.value) {
                 sumo.value.removeAll();
                 items.forEach(it => {
-                    sumo.value.add(it.id, it.title);
+                    sumo.value.add(it[props.idField], it[props.titleField]);
                 })
             }
         }

@@ -1,10 +1,11 @@
 @props([
     'testimonial'=>new \App\Models\Testimonial(),
+    'subclass'=>'',
     'short'=> false
 ])
 <div class="review-item">
     <div class="spacer-xs"></div>
-    <div class="review">
+    <div class="review {{$subclass}}">
         <div class="review-header">
             <div class="review-img">
                 @if(!empty($testimonial->avatar))
@@ -37,13 +38,27 @@
             </p>
         </div>
     </div>
+    <form action="/" class="new-review d-none">
+        <input type="hidden" name="parent_id" value="{{$testimonial->id}}">
+        <div class="review-img">
+            <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/user.jpg')}}" alt="user">
+        </div>
+        <label>
+            <i>Залиште коментар</i>
+            <textarea name="review"></textarea>
+        </label>
+        <div class="text-right">
+            <span class="btn type-3">Відмінити</span>
+            <span class="btn type-1 open-popup" data-rel="thanks-popup">Відповісти</span>
+        </div>
+    </form>
     @if(!$short && !$testimonial->parent_id && $testimonial->children->count() > 0)
         <div class="load-more-wrapp">
-            <div class="show-more active">
-                <span>Приховати відповіді</span>
+            <div class="show-more">
                 <span>Показати відповіді</span>
+                <span>Приховати відповіді</span>
             </div>
-            <div class="more-info">
+            <div class="more-info" style="display: none;">
                 @foreach($testimonial->children as $child)
                     <x-tour.testimonial :testimonial="$child"/>
                 @endforeach

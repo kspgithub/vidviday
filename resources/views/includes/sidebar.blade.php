@@ -40,92 +40,9 @@
                 <a href="#" class="full-size"></a>
             </div>
         </div>
+        <x-sidebar.latest-news/>
+        <x-sidebar.latest-testimonials/>
 
-        <div class="sidebar-item only-desktop">
-            <div class="top-part b-border">
-                <div class="title h3 title-icon">
-                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}"
-                         alt="mailing">
-                    <span>{{ __("Новини") }}</span>
-                </div>
-            </div>
-            <div class="bottom-part">
-                <div class="news-links">
-
-                    @foreach(latestNews() as $post)
-
-                        <div class="news-item">
-                            <a href="{{ route("news.single", ["slug" => $post->slug]) }}" class="title">{{ $post->title }}</a>
-                            <div class="news-date">{{ $post->created_at->format("d.m.Y") }}</div>
-                        </div>
-
-                    @endforeach
-
-                </div>
-                <a href="{{ route("news") }}" class="btn type-2">{{ __("Показати всі новини") }}</a>
-            </div>
-        </div>
-
-        <div class="sidebar-item">
-            <div class="top-part b-border">
-                <div class="title h3 title-icon">
-                    <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
-                         alt="reviews">
-                    <span>Відгуки</span>
-                </div>
-            </div>
-            <div class="bottom-part">
-                <div class="review">
-                    <div class="review-header">
-                        <div class="review-img">
-                            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/user.jpg')}}"
-                                 alt="user">
-                        </div>
-                        <div class="review-title">
-                            <span class="h4">Григоряш Вероніка</span>
-                            <span class="text text-sm">22.11.2019</span>
-                            <span class="text text-sm">22:10</span>
-                            <span class="stars select-stars stars-selected">
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star-empty"></i>
-						</span>
-                        </div>
-                    </div>
-                    <div class="text">
-                        <p>Тур: <a href="#">Сиро-Винний тур Закарпатським та Прикарпатськими замками</a></p>
-                        <p>Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще!</p>
-                    </div>
-                </div>
-
-                <div class="review">
-                    <div class="review-header">
-                        <div class="review-img">
-                            <span class="h4 full-size">КП</span>
-                        </div>
-                        <div class="review-title">
-                            <span class="h4">Корнієнко Петро</span>
-                            <span class="text text-sm">22.11.2019</span>
-                            <span class="text text-sm">14:09</span>
-                            <span class="stars select-stars stars-selected">
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star"></i>
-							<i class="select-icon icon-star-empty"></i>
-						</span>
-                        </div>
-                    </div>
-                    <div class="text">
-                        <p>Тур: <a href="#">10 родзинок Закарпаття</a></p>
-                        <p>Від туру залишились тільки позитивні емоції. Дякую організаторам!</p>
-                    </div>
-                </div>
-                <a href="#" class="btn type-2 btn-block">Показати всі відгуки</a>
-            </div>
-        </div>
 
         <div class="sidebar-item">
             <div class="top-part b-border">

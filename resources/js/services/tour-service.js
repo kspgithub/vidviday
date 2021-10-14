@@ -73,6 +73,23 @@ export const autocompleteTours = async (q = '') => {
     return null;
 }
 
+export const fetchGuides = async (tour_id = 0) => {
+    const response = await apiClient.get('/tours/guides', {
+        params: {tour_id: tour_id},
+    }).catch(error => {
+        if (!axios.isCancel(error)) {
+            const message = getError(error);
+            toast.error(message);
+        }
+    })
+
+    if (response) {
+        return response.data;
+    }
+
+    return null;
+}
+
 /**
  * Расписание тура
  * @param tourId

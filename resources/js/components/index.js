@@ -17,6 +17,9 @@ export default {
         app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
         app.component('feedback-form', require('./common/FeedbackForm').default);
 
+        app.component('testimonial-list', require('./testimonial/TestimonialList').default);
+        app.component('testimonial-popup-form', require('./testimonial/TestimonialPopupForm').default);
+
 
         app.component('popup-gallery', require('./popup/PopupGallery').default);
         app.component('popup-call-btn', require('./popup/PopupCallBtn').default);

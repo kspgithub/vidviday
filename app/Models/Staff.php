@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
@@ -33,6 +34,7 @@ class Staff extends TranslatableModel implements HasMedia
     use HasAvatar;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use UserAttributes;
 
     public $translatable = [
         'first_name',
@@ -93,11 +95,6 @@ class Staff extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-
-    public function getNameAttribute()
-    {
-        return trim($this->first_name . ' ' . $this->last_name);
-    }
 
     public function getPhonesAttribute()
     {
@@ -164,6 +161,20 @@ class Staff extends TranslatableModel implements HasMedia
         return [
             'value' => $this->id,
             'text' => $this->last_name . ' ' . $this->first_name,
+        ];
+    }
+
+    public function shortInfo()
+    {
+        return (object)[
+            'id' => $this->id,
+            'name' => $this->name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'avatar' => $this->avatar,
+            'initials' => $this->initials,
+            'avatar_url' => $this->avatar_url,
+            'label' => $this->label
         ];
     }
 }

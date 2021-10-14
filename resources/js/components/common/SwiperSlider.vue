@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="swiper-button-prev" ref="prevRef" @click="prevSlide()">
+        <div class="swiper-button-prev" v-if="buttons" ref="prevRef" @click="prevSlide()">
             <i></i>
         </div>
-        <div class="swiper-button-next" ref="nextRef" @click="nextSlide()">
+        <div class="swiper-button-next" v-if="buttons" ref="nextRef" @click="nextSlide()">
             <i></i>
         </div>
         <div class="swiper-container swiper-vue" ref="swiperRef">
@@ -38,6 +38,10 @@ export default {
             default() {
                 return {}
             }
+        },
+        buttons: {
+            type: Boolean,
+            default: false,
         }
     },
     setup(props) {
@@ -48,6 +52,43 @@ export default {
         const nextRef = ref(null);
         const prevRef = ref(null);
 
+        const options = ref(Object.assign({
+            loop: false,
+            lazy: true,
+            preloadImages: false,
+            roundLengths: false,
+            observer: true,
+            observeParents: true,
+            watchOverflow: true,
+            watchSlidesVisibility: true,
+            centerInsufficientSlides: false,
+            speed: 900,
+            slidesPerView: 4,
+            spaceBetween: 0,
+            breakpoints: {
+                1200: {
+                    slidesPerView: 4,
+                    spaceBetween: 22,
+                },
+                992: {
+                    slidesPerView: 4,
+                    spaceBetween: 22,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 15,
+                }
+            },
+            pagination: {
+                clickable: true,
+                el: paginationRef.value,
+            },
+            navigation: {
+                nextEl: nextRef.value,
+                prevRef: prevRef.value,
+            },
+
+        }, props.options));
 
         const setController = (instance) => {
             swiper.value = instance;
@@ -71,44 +112,9 @@ export default {
             store.commit('popupGallery/SET_ACTIVE', true);
         }
 
-        onMounted(() => {
-            swiper.value = new window.Swiper(swiperRef.value, {
-                loop: false,
-                lazy: {loadPrevNext: true},
-                preloadImages: false,
-                roundLengths: false,
-                observer: true,
-                observeParents: true,
-                watchOverflow: true,
-                watchSlidesVisibility: true,
-                centerInsufficientSlides: false,
-                speed: 900,
-                slidesPerView: 4,
-                spaceBetween: 0,
-                breakpoints: {
-                    1200: {
-                        slidesPerView: 4,
-                        spaceBetween: 22,
-                    },
-                    992: {
-                        slidesPerView: 4,
-                        spaceBetween: 22,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 15,
-                    }
-                },
-                pagination: {
-                    clickable: true,
-                    el: paginationRef.value,
-                },
-                navigation: {
-                    nextEl: nextRef.value,
-                    prevRef: prevRef.value,
-                },
 
-            });
+        onMounted(() => {
+            swiper.value = new window.Swiper(swiperRef.value, options.value);
         });
 
         return {
