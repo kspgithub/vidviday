@@ -4,7 +4,7 @@
 
 @section('content')
     <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Basic information')</h1>
-    <div x-data="transletable()">
+    <div x-data="translatable()">
         <x-forms.patch :action="route('admin.tour.update', $tour)" enctype="multipart/form-data" x-ref="form"
         >
             <div class="row">

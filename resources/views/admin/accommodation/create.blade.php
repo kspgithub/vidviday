@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div x-data="transletable()">
+    <div x-data="translatable()">
         <x-forms.post :action="route('admin.accommodation.store')" enctype="multipart/form-data" x-ref="form">
             <x-bootstrap.card>
                 <x-slot name="body">

@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div x-data="transletable()">
+    <div x-data="translatable()">
         <x-forms.patch :action="route('admin.accommodation.update', $accommodation)" enctype="multipart/form-data">
             <x-bootstrap.card>
                 <x-slot name="body">
