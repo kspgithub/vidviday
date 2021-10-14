@@ -25,9 +25,6 @@ Route::group([
     'as' => 'tour.',
 ], function () {
     Route::get('{tour}/pictures', [TourPictureController::class, 'index'])->name('picture.index');
-    Route::post('{tour}/pictures', [TourPictureController::class, 'upload'])->name('picture.store');
-    Route::patch('{tour}/pictures/{media}', [TourPictureController::class, 'update'])->name('picture.update');
-    Route::delete('{tour}/pictures/{media}', [TourPictureController::class, 'delete'])->name('picture.destroy');
 
     Route::get('{tour}/groups', [TourGroupController::class, 'index'])->name('group.index');
     Route::patch('{tour}/groups', [TourGroupController::class, 'update'])->name('group.update');
