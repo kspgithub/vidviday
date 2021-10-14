@@ -50,7 +50,7 @@
 
                 <div class="col-12">
 
-                    <form-textarea v-model="comment" name="comment" label="Коментар до замовлення"/>
+                    <form-textarea v-model="comment" name="comment" id="order-comment" label="Коментар до замовлення"/>
 
                     <div class="text-center">
                         <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">

@@ -1,19 +1,19 @@
 <template>
     <div class="calendar-wrapper">
         <full-calendar ref="calendarEl" :options="calendarOptions"/>
-        <div class="calendar-header-center">
+        <div class="calendar-header-center" v-if="header">
             <span class="text-sm">10+ {{ t('places') }}</span>
             <span class="text-sm">2 — 10 {{ t('places') }}</span>
             <span class="text-sm">{{ t('noPlaces') }}</span>
             <span v-if="viewChange" class="text">{{ t('view') }}</span>
-            <form-select v-model="viewType" :options="viewTypes" class="view-change"/>
+            <form-select v-if="viewChange" v-model="viewType" :options="viewTypes" class="view-change"/>
         </div>
-        <div class="calendar-footer-center">
+        <div class="calendar-footer-center" v-if="footer">
             <span class="text-sm">10+ {{ t('places') }}</span>
             <span class="text-sm">2 — 10 {{ t('places') }}</span>
             <span class="text-sm">{{ t('noPlaces') }}</span>
             <span v-if="viewChange" class="text">{{ t('view') }}</span>
-            <form-select v-model="viewType" :options="viewTypes" class="view-change"/>
+            <form-select v-if="viewChange" v-model="viewType" :options="viewTypes" class="view-change"/>
         </div>
     </div>
 </template>
@@ -37,6 +37,14 @@ export default {
             type: Boolean,
             default: true,
         },
+        footer: {
+            type: Boolean,
+            default: true,
+        },
+        header: {
+            type: Boolean,
+            default: true,
+        },
         initialView: {
             type: String,
             default: 'dayGridMonth'
@@ -45,32 +53,20 @@ export default {
             type: String,
             default: '/api/calendar/events',
         },
+        events: {
+            type: Array,
+            default: undefined
+        },
+
         options: {
             type: Object,
             default() {
-                return {
-                    plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
-                    headerToolbar: {
-                        left: 'prev title next today',
-                        center: '',
-                        right: '',
-                    },
-                    footerToolbar: {
-                        left: 'prev title next today',
-                        center: '',
-                        right: '',
-                    },
-                    firstDay: 1,
-                    contentHeight: "auto",
-                    aspectRatio: 2,
-                    fixedWeekCount: false,
-                    navLinks: true,
-                    editable: false,
-                }
+                return {}
             }
         }
     },
-    setup(props) {
+    emits: ['event-click'],
+    setup(props, {emit}) {
         const calendarEl = ref(null);
 
         const viewType = ref(props.initialView);
@@ -127,8 +123,26 @@ export default {
             }
         });
 
+
         const calendarOptions = ref(
-            Object.assign({}, props.options, {
+            Object.assign({
+                plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+                headerToolbar: props.header ? {
+                    left: 'prev title next today',
+                    center: '',
+                    right: '',
+                } : false,
+                footerToolbar: props.footer ? {
+                    left: 'prev title next today',
+                    center: '',
+                    right: '',
+                } : false,
+                firstDay: 1,
+                contentHeight: "auto",
+                aspectRatio: 2,
+                fixedWeekCount: false,
+                navLinks: true,
+                editable: false,
                 buttonText: {
                     today: t('today'),
                     month: t('month'),
@@ -138,11 +152,18 @@ export default {
                 },
                 initialView: viewType.value,
                 locale: locale.value,
-                events: {
+                events: props.events || {
                     url: props.url,
                     extraParams: props.filter
                 },
-            })
+                eventClick: (info) => {
+                    emit('event-click', {
+                        id: parseInt(info.event.id),
+                        title: info.event.title,
+                        url: info.event.url,
+                    });
+                },
+            }, props.options)
         );
 
 
@@ -154,6 +175,7 @@ export default {
         watch(() => props.filter, _.debounce(function () {
             calendarOptions.value.events.extraParams = props.filter;
         }, 500));
+
 
         return {
             t,

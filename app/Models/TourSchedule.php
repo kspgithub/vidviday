@@ -92,7 +92,7 @@ class TourSchedule extends Model
         return '';
     }
 
-    public function asCalendarEvent($event_click)
+    public function asCalendarEvent($event_click = 'url')
     {
         $json = json_encode([
             'id' => $this->id,
@@ -103,16 +103,21 @@ class TourSchedule extends Model
             'commission' => $this->commission,
         ]);
 
-        return [
+
+        $data = [
             'id' => $this->id,
-            'title' => $event_click === 'order' ? $this->getPriceTitleAttribute() : $this->tour->title,
+            'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->title,
             'start' => $this->start_date->format('Y-m-d'),
             'end' => $this->end_date->format('Y-m-d'),
             'className' => $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
-            'url' => $event_click === 'order'
-                ? "javascript:selectTourEvent({$json})"
-                : $this->tour->url,
         ];
+
+        if ($event_click !== false) {
+            $data['url'] = $event_click === 'order'
+                ? "javascript:selectTourEvent({$json})"
+                : $this->tour->url;
+        }
+        return $data;
     }
 
     public function getPriceTitleAttribute()

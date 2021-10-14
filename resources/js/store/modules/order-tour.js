@@ -5,6 +5,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            calendarOpen: false,
             popupOpen: false,
             currentStep: 1,
             additional: 1,
@@ -93,6 +94,9 @@ export default {
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;
+        },
+        SET_CALENDAR_OPEN(state, value) {
+            state.calendarOpen = value;
         },
     },
     getters: {

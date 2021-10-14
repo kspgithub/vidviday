@@ -102,8 +102,7 @@ class TourController extends Controller
             }
         ]);
 
-        $future_events = $tour->scheduleItems()
-            ->whereDate('start_date', '>=', Carbon::now())->orderBy('start_date')->get();
+        $future_events = $tour->scheduleItems()->whereDate('start_date', '>=', Carbon::now())->orderBy('start_date')->get();
 
         $nearest_event = $future_events->first();
 

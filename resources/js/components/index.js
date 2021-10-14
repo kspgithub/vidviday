@@ -39,6 +39,7 @@ export default {
         app.component('tour-carousel', require('./tour/TourCarousel').default);
         app.component('tour-order', require('./tour/TourOrder').default);
         app.component('tour-one-click-popup', require('./tour/TourOneClickPopup').default);
+        app.component('tour-calendar-popup', require('./tour/TourCalendarPopup').default);
 
 
         app.component('order-form', require('./order/OrderForm').default);

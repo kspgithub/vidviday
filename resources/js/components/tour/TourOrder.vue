@@ -20,7 +20,13 @@
 
         <div class="sidebar-item">
             <div class="single-datepicker" v-if="!corporate">
-                <form-select-event name="schedule" v-model="schedule_id" :options="departureOptions"/>
+                <input name="schedule" v-model="schedule_id" type="hidden">
+                <div class="datepicker-input datepicker-dropdown">
+                     <span class="datepicker-placeholder" @click.stop="showCalendar()">
+                        {{ selectedSchedule ? selectedSchedule.title : __('tour-section.date-title') }}
+                    </span>
+                </div>
+
             </div>
             <div class="thumb-info">
                 <span class="thumb-info-time text">{{ tour.duration }}д / {{ tour.nights }}н</span>
@@ -85,6 +91,10 @@ export default {
             store.commit('orderTour/SET_POPUP_OPEN', true);
         }
 
+        const showCalendar = () => {
+            store.commit('orderTour/SET_CALENDAR_OPEN', true);
+        }
+
         return {
             schedule_id,
             departureOptions,
@@ -94,6 +104,7 @@ export default {
             places,
             action,
             showPopup,
+            showCalendar,
         }
     }
 }

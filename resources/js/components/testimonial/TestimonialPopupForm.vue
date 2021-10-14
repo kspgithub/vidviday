@@ -208,6 +208,15 @@ export default {
             }
         })
 
+        const onSubmit = async () => {
+            const result = await validate();
+            if (result.valid) {
+                formRef.value.submit();
+            } else {
+                console.log(errors.value);
+            }
+        }
+
         const searchTours = async (q = '') => {
             const items = await autocompleteTours(q);
             tours.value = items || [];
@@ -226,14 +235,6 @@ export default {
 
         searchGuides();
 
-        const onSubmit = async () => {
-            const result = await validate();
-            if (result.valid) {
-                formRef.value.submit();
-            } else {
-                console.log(errors.value);
-            }
-        }
 
         return {
             ...useTestimonialForm(data, props.action),

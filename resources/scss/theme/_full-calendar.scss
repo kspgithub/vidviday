@@ -1712,6 +1712,24 @@ a {
     }
 }
 
+.popup-calendar {
+    .fc .fc-toolbar {
+        min-height: 40px;
+        margin: 15px 0;
+        padding: 0 40px;
+    }
+
+    .calendar-header-center {
+        right: 40px;
+        top: 27px;
+        left: auto;
+    }
+
+    .fc-daygrid-day-events {
+        height: 37px;
+    }
+}
+
 /*///////*/
 /* HOVER */
 /*///////*/

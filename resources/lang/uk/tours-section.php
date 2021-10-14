@@ -33,6 +33,7 @@ return [
     'order-corporate' => 'Замовити корпоратив',
     'download-tour' => 'Завантажити для друку',
     'popup-date-title' => 'Оберіть дату проведення туру',
+    'date-title' => 'Оберіть дату',
     'price' => 'Ціна:',
     'places' => 'Місця',
     'cost' => 'Вартість',

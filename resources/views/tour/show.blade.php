@@ -122,25 +122,13 @@
 @endsection
 
 
-@push('popups')
-    <div class="popup-content" data-rel="calendar-popup">
-        <div class="layer-close"></div>
-        <div class="popup-container size-1 calendar-popup">
-            <div class="popup-header">
-                <span class="h2 title text-medium">@lang('tours-section.popup-date-title')</span>
-            </div>
-            <div class="popup-align">
-                <x-tour.calendar :filter="['tour_id'=>$tour->id, 'event_click'=>'order']" :viewChange="false"/>
-                <div class="btn-close">
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@endpush
-
 @push('after-popups')
+    <div v-is="'tour-calendar-popup'"
+         :tour='@json($tour->shortInfo())'
+         :events='@json($future_events->map->asCalendarEvent(false))'
+         :nearest-event='@json($nearest_event->asCalendarEvent(false))'
+    >
+    </div>
     <div v-is="'tour-testimonial-form'"
          :tour='@json($tour->shortInfo())'
          :user='@json(current_user())'
