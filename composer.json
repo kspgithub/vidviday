@@ -9,13 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-curl": "*",
         "ext-dom": "*",
         "ext-json": "*",
         "albertcht/invisible-recaptcha": "^1.9",
         "arcanedev/log-viewer": "^8.1",
         "fideloper/proxy": "^4.4",
+        "flamix/b24-lead": "^1.5",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.3",
         "jamesmills/laravel-timezone": "^1.9",
         "kalnoy/nestedset": "^6.0",
         "kyslik/column-sortable": "^6.4",
@@ -31,8 +33,7 @@
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-translatable": "^4.6",
-        "spatie/laravel-translation-loader": "^2.7",
-        "ext-curl": "*"
+        "spatie/laravel-translation-loader": "^2.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

@@ -29,10 +29,14 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'tinymce'=> [
-        'key'=> env('TINYMCE_KEY', ''),
+    'tinymce' => [
+        'key' => env('TINYMCE_KEY', ''),
     ],
-    'google'=>[
-        'maps_key'=> env('GOOGLE_MAPS_KEY', ''),
+    'google' => [
+        'maps_key' => env('GOOGLE_MAPS_KEY', ''),
+    ],
+    'bitrix24' => [
+        'domain' => env('BITRIX24_DOMAIN', ''),
+        'token' => env('BITRIX24_TOKEN', ''),
     ],
 ];
