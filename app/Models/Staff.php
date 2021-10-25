@@ -61,6 +61,7 @@ class Staff extends TranslatableModel implements HasMedia
         'telegram',
         'whatsapp',
         'published',
+        'bitrix_id',
     ];
 
     protected $appends = [
@@ -74,6 +75,7 @@ class Staff extends TranslatableModel implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
+        'bitrix_id',
     ];
 
     public static function toSelectBox()

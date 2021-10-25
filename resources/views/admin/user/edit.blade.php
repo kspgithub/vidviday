@@ -64,19 +64,35 @@
                         <div>
                             <x-forms.text-group name="company" :label="__('Company')" :value="old('company') ?? $user->company" ></x-forms.text-group>
                             <x-forms.text-group name="address" :label="__('Address')" :value="old('address') ?? $user->address" ></x-forms.text-group>
-                            <x-forms.text-group name="position" :label="__('Position')" :value="old('position') ?? $user->position" ></x-forms.text-group>
-                            <x-forms.text-group name="website" :label="__('Website')" :value="old('website') ?? $user->website" ></x-forms.text-group>
-                            <x-forms.text-group name="work_phone" :label="__('Work Phone')" :value="old('work_phone') ?? $user->work_phone"></x-forms.text-group>
-                            <x-forms.text-group name="work_email" :label="__('Work Email')" :value="old('work_email') ?? $user->work_email"></x-forms.text-group>
+                            <x-forms.text-group name="position" :label="__('Position')"
+                                                :value="old('position') ?? $user->position"></x-forms.text-group>
+                            <x-forms.text-group name="website" :label="__('Website')"
+                                                :value="old('website') ?? $user->website"></x-forms.text-group>
+                            <x-forms.text-group name="work_phone" :label="__('Work Phone')"
+                                                :value="old('work_phone') ?? $user->work_phone"></x-forms.text-group>
+                            <x-forms.text-group name="work_email" :label="__('Work Email')"
+                                                :value="old('work_email') ?? $user->work_email"></x-forms.text-group>
                         </div>
                     </template>
 
                 </div>
             </x-slot>
+        </x-bootstrap.card>
 
-            <x-slot name="footer">
-                <button class="btn btn-primary float-right" type="submit">@lang('Update User')</button>
+
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Bitrix 24')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-forms.text-group name="bitrix_id" :label="__('Bitrix ID')"
+                                    :value="old('bitrix_id', $user->bitrix_id)"
+                                    maxlength="100"></x-forms.text-group>
+
+
             </x-slot>
         </x-bootstrap.card>
+
+        <button class="btn btn-primary float-right" type="submit">@lang('Update User')</button>
     </x-forms.patch>
 @endsection

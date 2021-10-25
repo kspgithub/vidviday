@@ -11,6 +11,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -29,6 +30,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class Tour extends TranslatableModel implements HasMedia
 {
+    use SoftDeletes;
     use HasFactory;
     use HasTranslations;
     use HasJsonSlug;
@@ -55,6 +57,8 @@ class Tour extends TranslatableModel implements HasMedia
     ];
 
     protected $fillable = [
+        'bitrix_id',
+        'bitrix_manager_id',
         'title',
         'seo_h1',
         'seo_title',
@@ -97,6 +101,8 @@ class Tour extends TranslatableModel implements HasMedia
         'seo_description',
         'seo_keywords',
         'media',
+        'bitrix_id',
+        'bitrix_manager_id',
     ];
 
 

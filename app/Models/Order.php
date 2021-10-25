@@ -51,6 +51,9 @@ class Order extends TranslatableModel
     public const PAYMENT_RETURNED = 2;
 
 
+    public const PROGRAM_EXISTS = 0;
+    public const PROGRAM_CUSTOM = 1;
+
     protected $fillable = [
         'user_id',
         'tour_id',
@@ -94,6 +97,7 @@ class Order extends TranslatableModel
         'act',
         'invoice',
         'info_sheet',
+        'additional',
     ];
 
     protected $casts = [
@@ -103,6 +107,7 @@ class Order extends TranslatableModel
         'abolition' => 'array',
         'price_include' => 'array',
         'children' => 'boolean',
+        'additional' => 'boolean',
         'children_older' => 'integer',
         'children_young' => 'integer',
         'places' => 'integer',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourOrderRequest;
+use App\Lib\Bitrix24\CRM\Deal\DealOrder;
 use App\Models\AccommodationType;
 use App\Models\Order;
 use App\Models\PaymentType;
@@ -39,6 +40,9 @@ class OrderController extends Controller
         $params['user_id'] = current_user() ? current_user()->id : null;
         $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
         $order = OrderService::createOrder($params);
+        if ($order !== false) {
+            DealOrder::createOrder($order);
+        }
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);

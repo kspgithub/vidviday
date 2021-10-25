@@ -33,6 +33,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'max:255', 'email', Rule::unique('users')->ignore($this->user->id)],
+            'bitrix_id' => ['string', 'max:100', 'nullable'],
             'first_name' => ['string', 'max:100', 'nullable'],
             'last_name' => ['string', 'max:100', 'nullable'],
             'middle_name' => ['string', 'max:100', 'nullable'],

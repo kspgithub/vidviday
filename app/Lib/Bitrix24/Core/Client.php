@@ -2,6 +2,7 @@
 
 namespace App\Lib\Bitrix24\Core;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class Client
@@ -10,14 +11,18 @@ class Client
 
     private $url;
 
-    private $token;
-
+    /**
+     * @var Response
+     */
     private $response;
 
     public function __construct()
     {
-        $this->url = config('services.bitrix24.domain') . '/rest';
-        $this->token = config('services.bitrix24.token');
+        $url = rtrim(config('services.bitrix24.domain'), "/") . '/rest';
+        $user = config('services.bitrix24.user');
+        $token = config('services.bitrix24.token');
+
+        $this->url = $url . '/' . $user . '/' . $token;
     }
 
     public static function getInstance()
@@ -28,38 +33,44 @@ class Client
         return self::$instance;
     }
 
-    public function getUrl($bitrixMethod, $params = [])
+    private function getUrl($bitrixMethod)
     {
-        return $this->url . '/' . $bitrixMethod . '?auth=' . $this->token;
+        return $this->url . '/' . $bitrixMethod;
     }
 
 
-    public function request($bitrixMethod, $params = [], $httpMethod = 'GET')
+    private function request($bitrixMethod, $params = [], $httpMethod = 'GET')
     {
-        $url = $this->getUrl($bitrixMethod, $params);
+        $url = $this->getUrl($bitrixMethod);
         if (strtoupper($httpMethod) === 'POST') {
             $this->response = Http::post($url, $params);
         } else {
-            $this->response = Http::get($url, $params);
+
+            $this->response = Http::get($url, http_build_query($params));
         }
     }
 
-    public function getResponse()
+    public function getJson()
     {
-        return $this->response;
+        $status = $this->response->status();
+        if ($status === 200) {
+            return $this->response->json();
+        }
+        return null;
     }
 
     public static function get($bitrixMethod, $params = [])
     {
         $instance = self::getInstance();
         $instance->request($bitrixMethod, $params);
-        return $instance->getResponse();
+        return $instance->getJson();
     }
 
     public static function post($bitrixMethod, $params = [])
     {
         $instance = self::getInstance();
         $instance->request($bitrixMethod, $params, 'POST');
-        return $instance->getResponse();
+        return $instance->getJson();
     }
+
 }

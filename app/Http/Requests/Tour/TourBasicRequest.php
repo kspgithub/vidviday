@@ -29,6 +29,8 @@ class TourBasicRequest extends FormRequest
             //
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'string'],
+            'bitrix_id' => ['nullable', 'string'],
+            'bitrix_manager_id' => ['nullable', 'string'],
             'slug' => ['nullable', 'array'],
             'seo_h1' => ['nullable', 'array'],
             'seo_title' => ['nullable', 'array'],

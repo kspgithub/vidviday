@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
 use App\Http\Requests\TourOrderRequest;
+use App\Lib\Bitrix24\CRM\Deal\DealOrder;
 use App\Models\AccommodationType;
 use App\Models\FaqItem;
 use App\Models\IncludeType;
@@ -224,6 +225,8 @@ class TourController extends Controller
         $params['user_id'] = current_user() ? current_user()->id : null;
         $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
         $order = OrderService::createOrder($params);
+        DealOrder::createOrder($order);
+
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);

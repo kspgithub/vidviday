@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Food;
+use App\Models\Media;
 use App\Models\Place;
 use App\Models\Staff;
+use App\Models\Testimonial;
 use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourGroup;
@@ -44,8 +46,12 @@ class TourSeeder extends Seeder
             'tour_plans',
             'tours_staff',
             'tour_schedules',
+            'tour_questions',
             'tours',
         ]);
+
+        Media::where('model_type', Tour::class)->delete();
+        Testimonial::where('model_type', Tour::class)->orWhere('related_type', Tour::class)->delete();
 
         $directions = Direction::select('id')->get();
         $badges = Badge::select('id')->get();
@@ -59,6 +65,7 @@ class TourSeeder extends Seeder
         $managers = Staff::query()->whereHas('types', function (Builder $q) {
             return $q->where('slug', 'tour-manager');
         })->get();
+
         $leaders = Staff::query()->whereHas('types', function (Builder $q) {
             return $q->where('slug', 'excursion-leader');
         })->get();

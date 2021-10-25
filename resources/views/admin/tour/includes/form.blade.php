@@ -145,3 +145,20 @@
     </x-slot>
 </x-bootstrap.card>
 
+<x-bootstrap.card>
+    <x-slot name="header">
+        <h3>@lang('Bitrix 24')</h3>
+    </x-slot>
+    <x-slot name="body">
+        <x-forms.text-group name="bitrix_id" :label="__('Bitrix ID')"
+                            :value="old('bitrix_id', $tour->bitrix_id)"
+                            maxlength="100"></x-forms.text-group>
+
+        <x-forms.text-group name="bitrix_id" :label="__('Bitrix Manager ID')"
+                            :value="old('bitrix_manager_id', $tour->bitrix_manager_id)"
+                            maxlength="100"></x-forms.text-group>
+
+    </x-slot>
+</x-bootstrap.card>
+
+

@@ -52,6 +52,7 @@ class User extends Authenticatable
         'address',
         'position',
         'website',
+        'bitrix_id',
     ];
 
     /**
@@ -64,6 +65,7 @@ class User extends Authenticatable
         'remember_token',
         'avatar',
         'name',
+        'bitrix_id',
     ];
 
     protected $appends = [

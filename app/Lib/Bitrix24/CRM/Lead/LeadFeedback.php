@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib\Bitrix24\CRM;
+namespace App\Lib\Bitrix24\CRM\Lead;
 
 class LeadFeedback
 {
@@ -21,6 +21,6 @@ class LeadFeedback
 
     public static function create($params = [])
     {
-        
+
     }
 }
