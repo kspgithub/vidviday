@@ -14,10 +14,14 @@ class DealOrder
     // Отмечаем если тестируем
     public const FIELD_TEST = 'UF_CRM_60C0BF12E5B07';
 
+    public const FIELD_CATEGORY_ID = 'CATEGORY_ID';
     public const FIELD_ID = 'ID';
     public const FIELD_TITLE = 'TITLE';
     public const FIELD_CONTACT_ID = 'CONTACT_ID';
     public const FIELD_COMMENTS = 'COMMENTS';
+
+    public const FIELD_PRICE = 'OPPORTUNITY';
+    public const FIELD_CURRENCY = 'CURRENCY_ID';
 
     /**
      * [ТУР]: Тип групи
@@ -35,9 +39,9 @@ class DealOrder
     public const FIELD_TOUR_NAME = 'UF_CRM_60D5C28B954D7';
 
     /**
-     * [ТУР]: Назва туру (ID в crm)
+     * [ТУР]: Назва туру (ID в crm) массив
      */
-    public const FIELD_TOUR_ID = 'UF_CRM_60EE865DE0C35';
+    public const FIELD_TOUR_ID = 'UF_CRM_6173337A7927C';
 
 
     /**
@@ -69,7 +73,12 @@ class DealOrder
     /**
      * [ТУР]: Діти від 6 до 12 років
      */
-    public const FIELD_CHILDREN_OLDER = 'UF_CRM_60E467EC632A4';
+    public const FIELD_CHILDREN_OLDER = 'UF_CRM_60D5C28C517FB';
+
+    /**
+     * [ТУР]: Участники туру
+     */
+    public const FIELD_PARTICIPANTS = 'UF_CRM_60D5C28BC7792';
 
 
     // [ТУР] Як ви бажаєте отримати підтвердження?
@@ -99,7 +108,7 @@ class DealOrder
         '2р_1о_trpl' => 'UF_CRM_60D5C28CB1677', // '[ПОСЕЛЕННЯ]: 2р+1о / TRPL',
         '4о_qdpl' => 'UF_CRM_60D5C28CBD992', // '[ПОСЕЛЕННЯ]: 4о / QDPL',
         '2р_2р_qdpl' => 'UF_CRM_60D5C28CCC155', // '[ПОСЕЛЕННЯ]: 2р+2р / QDPL',
-        'other' => '', // Другое, еще не добавили,
+        'other' => 'UF_CRM_1635146128', // Другое, еще не добавили,
     ];
 
     /**
@@ -149,7 +158,12 @@ class DealOrder
         $tour = $order->tour_id > 0 ? Tour::withTrashed()->where('id', $order->tour_id)->first() : null;
         $tour->setLocale('uk');
 
+        $data[self::FIELD_CATEGORY_ID] = 5;
         $data[self::FIELD_TITLE] = 'Замовлення туру: ' . (!empty($tour) > 0 ? $tour->title : 'Корпоратив') . ', ID ' . $order->id;
+        if (!empty($tour) && (int)$tour->bitrix_id > 0) {
+            $data[self::FIELD_TOUR_ID] = [$tour->bitrix_id];
+        }
+
         $data[self::FIELD_GROUP_TYPE] = self::FIELD_GROUP_TYPE_VALUES[$order->group_type];
         $data[self::FIELD_START_DATE] = $order->start_date->format('d.m.Y');
         $data[self::FIELD_PLACES] = $order->places;
@@ -159,6 +173,16 @@ class DealOrder
         }
 
         $data[self::FIELD_CHILDREN] = $order->children ? true : false;
+
+        if ($order->children) {
+            $data[self::FIELD_CHILDREN_YOUNG] = $order->children_young;
+            $data[self::FIELD_CHILDREN_OLDER] = $order->children_older;
+        }
+
+        if ($order->price > 0) {
+            $data[self::FIELD_PRICE] = $order->price;
+            $data[self::FIELD_CURRENCY] = $order->currency;
+        }
 
         $comment = '';
 
@@ -170,11 +194,15 @@ class DealOrder
                         $data[self::ACCOMMODATION_FIELDS_COMPARISON[trim($key)]] = (int)$quantity;
                     }
                 }
+                if (!empty($order->accommodation['other']) && (int)$order->accommodation['other'] === 1 && !empty($order->accommodation['other_text'])) {
+                    $data[self::ACCOMMODATION_FIELDS_COMPARISON['other']] = $order->accommodation['other_text'];
+                }
 
-                $comment .= self::getParticipantsComment($order->participants);
+                $participants = self::getParticipantsComment($order->participants);
+                if (!empty($participants)) {
+                    $data[self::FIELD_PARTICIPANTS] = $participants;
+                }
 
-                $comment .= !empty($order->accommodation['other']) && (int)$order->accommodation['other'] === 1 && !empty($order->accommodation['other_text'])
-                    ? self::getAccommodationOther($order->accommodation['other_text']) : '';
             }
         }
 
@@ -182,15 +210,6 @@ class DealOrder
             $aboutCorporate = "<br /><div><strong>Інформація про корпоратив:</strong></div><br />";
             $aboutCorporate .= "<div><strong>Місце виїзду:</strong> $order->start_place</div>";
             $aboutCorporate .= "<div><strong>Місце повернення:</strong> $order->end_place</div>";
-
-            if ($order->program_type === Order::PROGRAM_EXISTS) {
-                if (!empty($tour) && (int)$tour->bitrix_id > 0) {
-                    $data[self::FIELD_TOUR_ID] = $tour->bitrix_id;
-                }
-                if (!empty($tour)) {
-                    $data[self::FIELD_TOUR_NAME] = $tour->title ?? '';
-                }
-            }
 
             if ($order->program_type === Order::PROGRAM_CUSTOM) {
                 $aboutCorporate .= "<br /><div><strong>План туру:</strong> $order->tour_plan</div>";
@@ -233,6 +252,7 @@ class DealOrder
 
         $data[self::FIELD_COMMENTS] = $comment;
 
+
         $response = DealService::add($data, ['REGISTER_SONET_EVENT' => $is_test ? 'N' : 'Y']);
         if ($response['result']) {
             $order->bitrix_id = $response['result'];
@@ -245,22 +265,21 @@ class DealOrder
     {
         $comment = '';
         if (!empty($data['items'])) {
-            $comment .= '<br /><div><strong>Інформація про учасників туру:</strong></div>';
             foreach ($data['items'] as $item) {
                 $part = trim($item['last_name'] . ' ' . $item['first_name'] . ' ' . $item['middle_name'] . ' ' . $item['birthday']);
                 if (!empty($part)) {
-                    $comment .= "<div>$part</div>";
+                    $comment .= "$part\n";
                 }
             }
-            $comment .= '<br />';
+            $comment .= "\n";
         }
 
         if (!empty($data['participant_phone'])) {
             $phone = $data['participant_phone'];
 
-            $comment .= "<br /><div><strong>Телефон одного з учасників:</strong> $phone</div>";
+            $comment .= "Телефон одного з учасників: $phone\n";
         }
-        return $comment;
+        return trim($comment);
     }
 
     public static function getAccommodationOther($text)

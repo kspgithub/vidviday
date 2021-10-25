@@ -225,7 +225,9 @@ class TourController extends Controller
         $params['user_id'] = current_user() ? current_user()->id : null;
         $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
         $order = OrderService::createOrder($params);
-        DealOrder::createOrder($order);
+        if ($order !== false && config('services.bitrix24.integration')) {
+            DealOrder::createOrder($order);
+        }
 
         if ($order === false) {
             if ($request->ajax()) {

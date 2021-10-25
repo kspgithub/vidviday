@@ -42,5 +42,6 @@ return [
         'user' => env('BITRIX24_USER', ''),
         'log-enable' => env('BITRIX24_LOG_ENABLE', false),
         'test' => env('BITRIX24_TEST', true),
+        'integration' => env('BITRIX24_INTEGRATION', false),
     ],
 ];

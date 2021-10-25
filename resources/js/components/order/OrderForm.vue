@@ -71,7 +71,8 @@
                         <span class="text">
                             <a href="/" target="_blank">&nbsp;Правил бронювання</a>
                         </span>
-                        <button type="submit" @click="submit($event)" class="btn type-1  ms-30">Оформити замовлення
+                        <button type="submit" @click="submit($event)" class="btn type-1  ms-30">
+                            Оформити замовлення
                         </button>
                     </div>
                 </div>
