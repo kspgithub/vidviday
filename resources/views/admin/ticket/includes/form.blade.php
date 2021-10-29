@@ -12,6 +12,7 @@
         <x-forms.editor-loc-group name="text" :label="__('Text')" :value="old('text', $ticket->getTranslations('text'))"
                                   required></x-forms.editor-loc-group>
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $ticket->price)"
+                            required
                             type="number"></x-forms.text-group>
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $ticket->currency)"
                               :options="$currencies" type="text"></x-forms.select-group>
