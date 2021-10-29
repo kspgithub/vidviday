@@ -49,7 +49,7 @@ trait UseNormalizeMedia
                 $image->fit($fitMethod, $width, $height);
                 $image->save();
                 $media = $this->addMedia($file_name)->toMediaCollection($collection);
-                //@unlink($file_name);
+                @unlink($file_name);
                 return $media;
             } catch (Exception $e) {
                 Log::error($e->getMessage());
