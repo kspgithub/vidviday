@@ -54,12 +54,15 @@ class ContactService implements StaticServiceInterface
             return $contact->bitrix_id;
         } else {
             $contact = new ContactItem([
-                'name' => $data['name'],
-                'last_name' => $data['last_name'],
+                'name' => $data['name'] ?? '',
+                'last_name' => $data['last_name'] ?? '',
             ]);
-
-            $contact->addPhone($data['phone']);
-            $contact->addEmail($data['email']);
+            if (!empty($data['phone'])) {
+                $contact->addPhone($data['phone']);
+            }
+            if (!empty($data['email'])) {
+                $contact->addEmail($data['email']);
+            }
             if (!empty($data['viber'])) {
                 $contact->addIm($data['viber']);
             }
