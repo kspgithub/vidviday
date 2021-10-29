@@ -14,7 +14,7 @@ class BitrixTourSync extends Command
      *
      * @var string
      */
-    protected $signature = 'bitrix:contact-sync';
+    protected $signature = 'bitrix:tour-sync';
 
     /**
      * The console command description.
