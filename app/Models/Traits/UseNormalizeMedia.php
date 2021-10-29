@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use Exception;
 use Illuminate\Support\Facades\File;
 use Livewire\TemporaryUploadedFile;
 use Spatie\Image\Exceptions\InvalidManipulation;
@@ -35,18 +36,24 @@ trait UseNormalizeMedia
         } else {
             $file->move($path, $name);
         }
-
+        $file_name = $path . '/' . $name;
 
         $width = $options['width'] ?? 1920;
         $height = $options['height'] ?? 1920;
         $fitMethod = $options['fit'] ?? Manipulations::FIT_MAX;
 
-        if (File::exists($path . '/' . $name)) {
-            Image::load($path . '/' . $name)->fit($fitMethod, $width, $height)->save();
-            sleep(1);
-            $media = $this->addMedia($path . '/' . $name)->toMediaCollection($collection);
-            @unlink($path . '/' . $name);
-            return $media;
+        if (File::exists($file_name)) {
+            try {
+                $image = Image::load($file_name);
+                $image->fit($fitMethod, $width, $height);
+                $image->save();
+                $media = $this->addMedia($file_name)->toMediaCollection($collection);
+                //@unlink($file_name);
+                return $media;
+            } catch (Exception $e) {
+
+            }
+
         }
 
 
