@@ -64,6 +64,7 @@ class TourPlaces extends Component
     {
         if ($this->item_id > 0 && $this->query()->where('id', $this->item_id)->count() === 0) {
             $this->query()->attach($this->item_id, ['position' => $this->query()->count() + 1]);
+            $this->item_id = 0;
         }
     }
 
