@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\DeleteRecordTrait;
-use App\Models\Testimonial;
-use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
@@ -12,7 +10,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
 
-class TourTestimonials extends DataTableComponent
+class QuestionsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
@@ -24,11 +22,6 @@ class TourTestimonials extends DataTableComponent
         'bootstrap.container' => false,
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
-
-    /**
-     * @var Tour
-     */
-    public $tour;
 
 
     public $parent_id = 0;
@@ -51,23 +44,24 @@ class TourTestimonials extends DataTableComponent
     ];
 
 
-    public function mount(Tour $tour)
+    public function mount()
     {
-        $this->tour = $tour;
+
         $this->name = current_user()->name;
         $this->email = current_user()->email;
-        Testimonial::fixTree();
+        TourQuestion::fixTree();
     }
 
     public function query()
     {
         $status = $this->getFilter('status');
 
-        return $this->tour->testimonials()
-            ->with(['user'])
+        return TourQuestion::query()
+            ->with(['tour', 'user'])
             ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
-            })->orderBy('created_at', 'desc');
+            })
+            ->orderBy('created_at', 'desc');
     }
 
 
@@ -77,14 +71,17 @@ class TourTestimonials extends DataTableComponent
             Column::make(__('ID'), 'id'),
 
             Column::make(__('PID'), 'parent_id'),
-
+            Column::make(__('Tour'), 'tour.title')
+                ->format(function ($value, $column, $row) {
+                    return $row->tour->title;
+                })
+                ->asHtml(),
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
                     return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
                 })
                 ->asHtml(),
-
             Column::make(__('Text'), 'text')
                 ->format(function ($value, $column, $row) {
                     return nl2br($row->text);
@@ -101,30 +98,30 @@ class TourTestimonials extends DataTableComponent
 
             Column::make(__('Status'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-status', ['tour' => $this->tour, 'model' => $row]);
+                    return view('admin.testimonial.includes.questions-status', ['model' => $row]);
                 }),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-actions', ['tour' => $this->tour, 'model' => $row]);
+                    return view('admin.testimonial.includes.questions-actions', ['model' => $row]);
                 }),
         ];
     }
 
     public function publishItem($id)
     {
-        $item = $this->tour->testimonials()->find($id);
+        $item = TourQuestion::query()->find($id);
         if ($item) {
-            $item->status = Testimonial::STATUS_PUBLISHED;
+            $item->status = TourQuestion::STATUS_PUBLISHED;
             $item->save();
         }
     }
 
     public function blockItem($id)
     {
-        $item = $this->tour->testimonials()->find($id);
+        $item = TourQuestion::query()->find($id);
         if ($item) {
-            $item->status = Testimonial::STATUS_BLOCKED;
+            $item->status = TourQuestion::STATUS_BLOCKED;
             $item->save();
         }
     }
@@ -139,16 +136,19 @@ class TourTestimonials extends DataTableComponent
     public function saveItem()
     {
 
-        $this->validate();
-        $item = new Testimonial();
-        $item->model_type = Tour::class;
-        $item->model_id = $this->tour->id;
-        $item->name = $this->name;
-        $item->email = $this->email;
-        $item->text = $this->text;
-        $item->parent_id = $this->parent_id;
-        $item->avatar = current_user()->avatar;
-        $item->save();
+        $model = TourQuestion::query()->find($this->parent_id);
+        if ($model) {
+            $this->validate();
+            $item = new TourQuestion();
+            $item->tour_id = $model->id;
+            $item->name = $this->name;
+            $item->email = $this->email;
+            $item->text = $this->text;
+            $item->parent_id = $this->parent_id;
+            $item->avatar = current_user()->avatar;
+            $item->save();
+        }
+
 
         $this->parent_id = 0;
         $this->text = '';

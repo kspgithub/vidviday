@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\Food\FoodController;
 use App\Http\Controllers\Admin\SiteOptionsController;
+use App\Http\Controllers\Admin\Testimonial\TestimonialController;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -58,3 +59,6 @@ Route::resource("finance", FinanceController::class)->except('show');
 
 Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');
 Route::patch('site-options', [SiteOptionsController::class, 'update'])->name('site-options.update');
+
+Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial.index');
+Route::get('questions', [TestimonialController::class, 'questions'])->name('testimonial.questions');

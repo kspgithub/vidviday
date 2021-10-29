@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\DeleteRecordTrait;
+use App\Models\Place;
+use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourQuestion;
@@ -12,7 +14,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
 
-class TourTestimonials extends DataTableComponent
+class TestimonialsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
@@ -25,17 +27,10 @@ class TourTestimonials extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
-    /**
-     * @var Tour
-     */
-    public $tour;
-
 
     public $parent_id = 0;
 
-
     public $edit = false;
-
 
     public $name = '';
 
@@ -51,9 +46,8 @@ class TourTestimonials extends DataTableComponent
     ];
 
 
-    public function mount(Tour $tour)
+    public function mount()
     {
-        $this->tour = $tour;
         $this->name = current_user()->name;
         $this->email = current_user()->email;
         Testimonial::fixTree();
@@ -62,9 +56,19 @@ class TourTestimonials extends DataTableComponent
     public function query()
     {
         $status = $this->getFilter('status');
+        $type = $this->getFilter('type');
 
-        return $this->tour->testimonials()
-            ->with(['user'])
+        return Testimonial::query()
+            ->with(['model', 'user'])
+            ->when(!empty($type) && $type === 'tour', function ($query) use ($status) {
+                return $query->where('model_type', Tour::class);
+            })
+            ->when(!empty($type) && $type === 'staff', function ($query) use ($status) {
+                return $query->where('model_type', Staff::class);
+            })
+            ->when(!empty($type) && $type === 'place', function ($query) use ($status) {
+                return $query->where('model_type', Place::class);
+            })
             ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
             })->orderBy('created_at', 'desc');
@@ -77,6 +81,19 @@ class TourTestimonials extends DataTableComponent
             Column::make(__('ID'), 'id'),
 
             Column::make(__('PID'), 'parent_id'),
+
+            Column::make(__('Type'), 'model_type')
+                ->format(function ($value, $column, $row) {
+                    $html = "<div>" . Testimonial::TYPES[$row->model_type] ?? 'Інше' . "</div>";
+                    if ($row->model_type === Tour::class || $row->model_type === Place::class) {
+                        $html .= "<div>{$row->model->title}</div>";
+                    }
+                    if ($row->model_type === Staff::class) {
+                        $html .= "<div>{$row->model->name}</div>";
+                    }
+                    return $html;
+                })
+                ->asHtml(),
 
             Column::make(__('User'), 'name')
                 ->searchable()
@@ -101,19 +118,19 @@ class TourTestimonials extends DataTableComponent
 
             Column::make(__('Status'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-status', ['tour' => $this->tour, 'model' => $row]);
+                    return view('admin.tour.includes.questions-status', ['model' => $row]);
                 }),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-actions', ['tour' => $this->tour, 'model' => $row]);
+                    return view('admin.tour.includes.questions-actions', ['model' => $row]);
                 }),
         ];
     }
 
     public function publishItem($id)
     {
-        $item = $this->tour->testimonials()->find($id);
+        $item = Testimonial::query()->find($id);
         if ($item) {
             $item->status = Testimonial::STATUS_PUBLISHED;
             $item->save();
@@ -122,7 +139,7 @@ class TourTestimonials extends DataTableComponent
 
     public function blockItem($id)
     {
-        $item = $this->tour->testimonials()->find($id);
+        $item = Testimonial::query()->find($id);
         if ($item) {
             $item->status = Testimonial::STATUS_BLOCKED;
             $item->save();
@@ -138,17 +155,20 @@ class TourTestimonials extends DataTableComponent
 
     public function saveItem()
     {
+        $model = Testimonial::query()->where('id', $this->parent_id)->first();
+        if ($model) {
+            $this->validate();
+            $item = new Testimonial();
+            $item->model_type = $model->model_type;
+            $item->model_id = $model->model_id; //TODO
+            $item->name = $this->name;
+            $item->email = $this->email;
+            $item->text = $this->text;
+            $item->parent_id = $this->parent_id;
+            $item->avatar = current_user()->avatar;
+            $item->save();
+        }
 
-        $this->validate();
-        $item = new Testimonial();
-        $item->model_type = Tour::class;
-        $item->model_id = $this->tour->id;
-        $item->name = $this->name;
-        $item->email = $this->email;
-        $item->text = $this->text;
-        $item->parent_id = $this->parent_id;
-        $item->avatar = current_user()->avatar;
-        $item->save();
 
         $this->parent_id = 0;
         $this->text = '';
@@ -185,6 +205,13 @@ class TourTestimonials extends DataTableComponent
     public function filters(): array
     {
         return [
+            'type' => Filter::make(__('Type'))
+                ->select([
+                    '' => __('Any'),
+                    'tour' => __('Tour'),
+                    'staff' => __('Staff'),
+                    'place' => __('Place'),
+                ]),
             'status' => Filter::make(__('Status'))
                 ->select([
                     '' => __('Any'),

@@ -35,6 +35,13 @@ class Testimonial extends Model implements HasMedia
     public const STATUS_PUBLISHED = 1;
     public const STATUS_BLOCKED = 2;
 
+
+    public const TYPES = [
+        Tour::class => 'Тур',
+        Staff::class => 'Персонал',
+        Place::class => 'Місце',
+    ];
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

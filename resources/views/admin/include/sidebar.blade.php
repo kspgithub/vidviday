@@ -258,6 +258,25 @@
             <li class="sidebar-header">
                 @lang('Content')
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.testimonial*')}}">
+                <a data-bs-target="#events" data-bs-toggle="collapse"
+                   class="sidebar-link {{routeActiveClass('admin.testimonial*', '', 'collapsed')}}">
+                    <i class="align-middle" data-feather="message-square"></i> <span
+                        class="align-middle">@lang('Testimonials')</span>
+                </a>
+                <ul id="testimonials"
+                    class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.testimonial*', 'show', '')}}"
+                    data-bs-parent="#sidebar">
+                    <li class="sidebar-item {{routeActiveClass('admin.testimonial.index')}}">
+                        <a class="sidebar-link"
+                           href="{{route('admin.testimonial.index')}}">@lang('Testimonials')</a>
+                    </li>
+                    <li class="sidebar-item {{routeActiveClass('admin.testimonial.questions')}}">
+                        <a class="sidebar-link"
+                           href="{{route('admin.testimonial.questions')}}">@lang('Questions')</a>
+                    </li>
+                </ul>
+            </li>
             <li class="sidebar-item {{routeActiveClass('admin.page*')}}">
                 <a class="sidebar-link" href="{{route('admin.page.index')}}">
                     <i class="align-middle" data-feather="file-text"></i> <span
