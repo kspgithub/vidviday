@@ -259,7 +259,7 @@
                 @lang('Content')
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.testimonial*')}}">
-                <a data-bs-target="#events" data-bs-toggle="collapse"
+                <a data-bs-target="#testimonials" data-bs-toggle="collapse"
                    class="sidebar-link {{routeActiveClass('admin.testimonial*', '', 'collapsed')}}">
                     <i class="align-middle" data-feather="message-square"></i> <span
                         class="align-middle">@lang('Testimonials')</span>
