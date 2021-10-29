@@ -41,38 +41,15 @@
             <label for="place_id">@lang('Place')</label>
             <div wire:ignore>
                 <div
-                    x-data="{
-                        value: '0',
-                    }"
-                    x-on:change="value = $event.target.value"
-                    x-init="
-jQuery($refs.input).select2({
-    theme: 'bootstrap-5',
-    ajax: {
-        url: '/api/places/select-box',
-        dataType: 'json',
-        data: function (params) {
-            return {
-                region_id: jQuery('#region_id').val(),
-                district_id: jQuery('#district_id').val(),
-                q: params.term,
-                page: params.page || 1,
-                limit: 20
-            };
-        },
-    }
+                    x-data="tourPlaces({value: @entangle('item_id')})"
 
-});
-jQuery($refs.input).on('select2:select', (e)=> {
-    value = e.params.data.id;
-})
-"
                 >
                     <select name="place_id" id="place_id"
                             class="form-control"
                             x-ref="input"
                             x-bind:value="value"
                             wire:model="item_id"
+                            x-change="onChange"
                     >
                         <option value="0">Оберіть місце</option>
                     </select>
