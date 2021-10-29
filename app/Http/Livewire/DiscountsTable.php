@@ -50,7 +50,10 @@ class DiscountsTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make(__('Title'), 'title')
+            Column::make(__('Title'), 'admin_title')
+                ->format(function ($value, $column, $row) {
+                    return !empty($row->admin_title) ? $row->admin_title : $row->title;
+                })
                 ->searchable()
                 ->sortable(),
 

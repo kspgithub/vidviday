@@ -3,8 +3,15 @@
         <h3>@lang('Basic Information')</h3>
     </x-slot>
     <x-slot name="body">
-        <x-forms.text-group name="title" :label="__('Title')" :value="old('title', $discount->title)" maxlength="255"
+        <x-forms.translation-switch/>
+        <x-forms.text-group name="admin_title" :label="__('Admin Title')"
+                            :value="old('admin_title', $discount->admin_title)"
+                            maxlength="255"
                             required></x-forms.text-group>
+
+        <x-forms.text-loc-group name="title" :label="__('Title')"
+                                :value="old('title', $discount->getTranslations('title'))" maxlength="255"
+                                required></x-forms.text-loc-group>
         <x-forms.text-group name="slug" :label="__('Url')" :value="old('slug', $discount->slug)" maxlength="100"
                             :help="__('Leave blank for automatic generation')"></x-forms.text-group>
 
