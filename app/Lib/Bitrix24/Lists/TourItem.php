@@ -26,10 +26,26 @@ class TourItem
     public const PROPERTY_PRICE = 'PROPERTY_164';
 
     /**
+     * Комісія агента
+     * сумма|валюта
+     */
+    public const PROPERTY_COMMISSION = 'PROPERTY_174';
+
+    /**
      * Менеджер туру
      * ID в CRM
      */
     public const PROPERTY_MANAGER_ID = 'PROPERTY_116';
+
+    /**
+     * План туру
+     */
+    public const PROPERTY_PLAN = 'PROPERTY_166';
+
+    /**
+     * Примітки
+     */
+    public const PROPERTY_COMMENT = 'PROPERTY_168';
 
 
     public $id;
@@ -40,9 +56,15 @@ class TourItem
 
     public $price;
 
+    public $commission;
+
     public $currency;
 
     public $manager_id;
+
+    public $plan;
+
+    public $comment;
 
 
     public static function fromJsonData($json_data)
@@ -51,12 +73,28 @@ class TourItem
         $tour->id = (int)$json_data[self::PROPERTY_ID];
         $tour->name = $json_data[self::PROPERTY_NAME];
         $tour->duration = (int)array_values($json_data[self::PROPERTY_DURATION])[0];
+
         if (array_key_exists(self::PROPERTY_PRICE, $json_data)) {
             $price_parts = explode('|', array_values($json_data[self::PROPERTY_PRICE])[0]);
             $tour->price = (int)$price_parts[0] ?? 0;
             $tour->currency = $price_parts[1] ?? 'UAH';
         }
+
+        if (array_key_exists(self::PROPERTY_COMMISSION, $json_data)) {
+            $price_parts = explode('|', array_values($json_data[self::PROPERTY_COMMISSION])[0]);
+            $tour->commission = (int)$price_parts[0] ?? 0;
+        }
+
+        if (array_key_exists(self::PROPERTY_PLAN, $json_data)) {
+            $tour->plan = array_values($json_data[self::PROPERTY_PLAN])[0]['TEXT'];
+        }
+
+        if (array_key_exists(self::PROPERTY_COMMENT, $json_data)) {
+            $tour->comment = array_values($json_data[self::PROPERTY_COMMENT])[0]['TEXT'];
+        }
+
         $tour->manager_id = (int)array_values($json_data[self::PROPERTY_MANAGER_ID])[0];
+
         return $tour;
     }
 

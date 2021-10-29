@@ -26,14 +26,19 @@ class FeedbackRequest extends FormRequest
     {
         return [
             //
-            'type'=>['required', 'numeric', Rule::in([0,1,2])],
-            'name'=>['required', 'string'],
-            'call_date'=>['nullable', 'date_format:d.m.Y'],
-            'call_time'=>['nullable'],
-            'question_type'=>['nullable'],
-            'phone'=>[ Rule::requiredIf((int)$this->type === 0)],
-            'email'=>[ Rule::requiredIf((int)$this->type > 0)],
-            'comment'=>[ Rule::requiredIf((int)$this->type > 2)],
+            'type' => ['required', 'numeric', Rule::in([0, 1, 2])],
+            'name' => ['required', 'string'],
+            'call_date' => ['nullable', 'date_format:d.m.Y'],
+            'call_time' => ['nullable'],
+            'question_type' => ['nullable'],
+            'phone' => [Rule::requiredIf((int)$this->type === 0)],
+            'email' => [Rule::requiredIf((int)$this->type > 0)],
+            'comment' => [Rule::requiredIf((int)$this->type > 2)],
+            'utm_campaign' => ['nullable'],
+            'utm_content' => ['nullable'],
+            'utm_medium' => ['nullable'],
+            'utm_source' => ['nullable'],
+            'utm_term' => ['nullable'],
         ];
     }
 }

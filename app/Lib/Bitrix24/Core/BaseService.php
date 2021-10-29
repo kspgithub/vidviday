@@ -14,7 +14,7 @@ class BaseService
     /**
      * Возвращает описание полей, в том числе пользовательских
      *
-     * @return mixed
+     * @return BitrixResponse
      */
     public function fields()
     {
@@ -28,9 +28,9 @@ class BaseService
      * @param array $select Список возвращаемых полей
      * @param array $filter Фильтр
      * @param array $order Сортировка
-     * @return mixed
+     * @return BitrixResponse
      */
-    public function list($select = ['*', 'UF_'], $filter = [], $order = [], $start = null)
+    public function list($select = ['*', 'UF_*'], $filter = [], $order = [], $start = null)
     {
         $params = ['select' => $select];
         if (!empty($filter)) {
@@ -52,7 +52,7 @@ class BaseService
      *
      * @param array $fields Набор полей - массив вида array("поле"=>"значение"[, ...]), содержащий значения полей сущности.
      * @param array $params Набор параметров. REGISTER_SONET_EVENT => Y  - произвести регистрацию события добавления сущности в живой ленте.
-     * @return mixed
+     * @return BitrixResponse
      */
     public function add($fields, $params = [])
     {
@@ -66,7 +66,7 @@ class BaseService
      * Возвращает сущность по идентификатору.
      *
      * @param string $id Идентификатор сущности.
-     * @return mixed
+     * @return BitrixResponse
      */
     public function get($id)
     {
@@ -80,7 +80,7 @@ class BaseService
      * @param string $id Идентификатор сущности.
      * @param array $fields Набор полей - массив вида array("поле"=>"значение"[, ...]), содержащий значения полей сущности.
      * @param array $params Набор параметров. REGISTER_SONET_EVENT => Y - произвести регистрацию события добавления лида в живой сущности.
-     * @return mixed
+     * @return BitrixResponse
      */
     public function update($id, $fields, $params = [])
     {

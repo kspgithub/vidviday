@@ -16,9 +16,22 @@ class BitrixAuth
      */
     public function handle(Request $request, Closure $next)
     {
+        $request->headers->set('Accept', 'application/json');
         $bitrixAuth = $request->input('auth', false);
-        if ($bitrixAuth === false || $bitrixAuth['application_token'] !== config('services.bitrix24.incoming-token')) {
-            abort(401, 'Unauthorized');
+        $route_name = $request->route()->getName();
+        switch ($route_name) {
+            case 'crm.contact.update':
+                $token = config('services.bitrix24.contact-token');
+                break;
+            case 'crm.deal.update':
+                $token = config('services.bitrix24.deal-token');
+                break;
+            default:
+                return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        if ($bitrixAuth === false || empty($bitrixAuth['application_token']) || $bitrixAuth['application_token'] !== $token) {
+            return response()->json(['result' => 'ERROR', 'message' => 'Unauthorized'], 401);
         }
 
         return $next($request);

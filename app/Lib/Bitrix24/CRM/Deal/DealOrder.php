@@ -2,136 +2,148 @@
 
 namespace App\Lib\Bitrix24\CRM\Deal;
 
+use App\Lib\Bitrix24\Core\HasPrice;
 use App\Lib\Bitrix24\CRM\Contact\ContactItem;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
 use App\Lib\Bitrix24\CRM\Contact\ContactValue;
 use App\Models\BitrixContact;
 use App\Models\Order;
 use App\Models\Tour;
+use App\Models\TourSchedule;
 
 class DealOrder
 {
-    // Отмечаем если тестируем
-    public const FIELD_TEST = 'UF_CRM_60C0BF12E5B07';
+    use HasPrice;
 
-    public const FIELD_CATEGORY_ID = 'CATEGORY_ID';
-    public const FIELD_ID = 'ID';
-    public const FIELD_TITLE = 'TITLE';
-    public const FIELD_CONTACT_ID = 'CONTACT_ID';
-    public const FIELD_COMMENTS = 'COMMENTS';
+    // Продаж туру
+    public const CATEGORY_ID = 5;
 
-    public const FIELD_PRICE = 'OPPORTUNITY';
-    public const FIELD_CURRENCY = 'CURRENCY_ID';
+    protected const FIELDS_MAP = [
+        DealFields::FIELD_ID => 'bitrix_id',
+        DealFields::FIELD_CONTACT_ID => 'bitrix_contact_id',
+        DealFields::FIELD_TITLE => 'title',
+        DealFields::FIELD_TOUR_ID => 'tour_id',
+        DealFields::FIELD_SCHEDULE_ID => 'bitrix_schedule_id',
+        DealFields::FIELD_STAGE_ID => 'status',
+        DealFields::FIELD_GROUP_TYPE => 'group_type',
+        DealFields::FIELD_CURRENCY => 'currency',
+        DealFields::FIELD_TOTAL_AMOUNT => 'total',
+        DealFields::FIELD_PRICE => 'price',
+        DealFields::FIELD_COMMISSION => 'commission',
+        DealFields::FIELD_DISCOUNT => 'discount',
+        DealFields::FIELD_PAYMENT_COMMENT => 'payment_comment',
 
-    /**
-     * [ТУР]: Тип групи
-     */
-    public const FIELD_GROUP_TYPE = 'UF_CRM_60D5C28BF143C';
+        DealFields::FIELD_START_DATE => 'start_date',
+        DealFields::FIELD_END_DATE => 'end_date',
 
-    public const FIELD_GROUP_TYPE_VALUES = [
-        Order::GROUP_TEAM => '249', // Збірна група
-        Order::GROUP_CORPORATE => '251', // Корпоративна група
+        DealFields::FIELD_CHILDREN => 'children',
+        DealFields::FIELD_CHILDREN_YOUNG => 'children_young',
+        DealFields::FIELD_CHILDREN_OLDER => 'children_older',
+        DealFields::FIELD_PARTICIPANTS_COMMENT => 'participants_comment',
+
+        DealFields::FIELD_COMMENTS => 'comment',
     ];
 
-    /**
-     * [ТУР]: Назва туру (строка)
-     */
-    public const FIELD_TOUR_NAME = 'UF_CRM_60D5C28B954D7';
 
-    /**
-     * [ТУР]: Назва туру (ID в crm) массив
-     */
-    public const FIELD_TOUR_ID = 'UF_CRM_6173337A7927C';
-
-
-    /**
-     * [ТУР]: Дата отправления
-     */
-    public const FIELD_START_DATE = 'UF_CRM_60D5C28C0F9D2';
-
-    /**
-     * [ТУР]: Дата возвращения
-     */
-    public const FIELD_END_DATE = 'UF_CRM_60D5C28C1CBF5';
-
-    /**
-     * [ТУР]: Кількість осіб
-     */
-    public const FIELD_PLACES = 'UF_CRM_60D5C28C29237';
-
-    /**
-     * [ТУР]: Плануєте взяти дітей
-     */
-    public const FIELD_CHILDREN = 'UF_CRM_60D5C28C374B7';
-
-
-    /**
-     * [ТУР]: Діти до 6 років
-     */
-    public const FIELD_CHILDREN_YOUNG = 'UF_CRM_60D5C28C43A3F';
-
-    /**
-     * [ТУР]: Діти від 6 до 12 років
-     */
-    public const FIELD_CHILDREN_OLDER = 'UF_CRM_60D5C28C517FB';
-
-    /**
-     * [ТУР]: Участники туру
-     */
-    public const FIELD_PARTICIPANTS = 'UF_CRM_60D5C28BC7792';
-
-
-    // [ТУР] Як ви бажаєте отримати підтвердження?
-    public const FIELD_CONFIRMATION_TYPE = 'UF_CRM_60D5C28B77EFA';
-
-    public const FIELD_CONFIRMATION_VALUES = [
-        Order::CONFIRMATION_EMAIL => '219', // Email
-        Order::CONFIRMATION_VIBER => '221', // Viber
-        Order::CONFIRMATION_PHONE => '223', // PHONE
+    protected const STATUSES_MAP = [
+        'C5:NEW' => Order::STATUS_NEW, // Нова
+        'C5:14' => Order::STATUS_PROCESSING, // В обробці
+        'C5:PREPARATION' => Order::STATUS_PROCESSING, // Отримати рішення
+        'C5:PREPAYMENT_INVOICE' => Order::STATUS_PENDING_PAYMENT, // ВІДПРАВИТИ РАХУНОК
+        'C5:EXECUTING' => Order::STATUS_PENDING_PAYMENT, // ОТРИМАТИ ОПЛАТУ
+        'C5:FINAL_INVOICE' => Order::STATUS_PENDING_REJECT, // РАХУНОК ПРОСРОЧЕНО
+        'C5:13' => Order::STATUS_MAINTENANCE, // ТУР ТРИВАЄ
+        'C5:2' => Order::STATUS_PROCESSING, // Отримати післяоплату/Акт
+        'C5:WON' => Order::STATUS_COMPLETED, // Успішне Виконання
+        'C5:LOSE' => Order::STATUS_REJECTED, // Не отримали оплату
+        'C5:7' => Order::STATUS_REJECTED, // Передумав
+        'C5:8' => Order::STATUS_REJECTED, // Купив у конкурента
+        'C5:9' => Order::STATUS_REJECTED, // ДОРОГО
+        'C5:10' => Order::STATUS_REJECTED, // НЕ ГОТОВИЙ
+        'C5:11' => Order::STATUS_REJECTED, // НЕАДЕКВАТНИЙ
+        'C5:12' => Order::STATUS_REJECTED, // ЗНИК
     ];
 
-    public const FIELD_CONFIRMATION_NAMES = [
-        Order::CONFIRMATION_EMAIL => 'Email', // Email
-        Order::CONFIRMATION_VIBER => 'Viber', // Viber
-        Order::CONFIRMATION_PHONE => 'Телефон', // PHONE
-    ];
+    public static function createOrUpdate($bitrix_id, $data)
+    {
+        $order = Order::whereBitrixId($bitrix_id)->first();
+        if ($order === null) {
+            $order = new Order();
+            $order->bitrix_id = $bitrix_id;
+        }
 
-    /**
-     * Передаем число
-     */
-    public const ACCOMMODATION_FIELDS_COMPARISON = [
-        '1о_plus' => 'UF_CRM_60D5C28C603C7', // '[ПОСЕЛЕННЯ]: 1о+',
-        '1о_sgl' => 'UF_CRM_60D5C28C6D8B7', // '[ПОСЕЛЕННЯ]: 1o / SGL',
-        '2о_twn' => 'UF_CRM_60D5C28C78E96', // '[ПОСЕЛЕННЯ]: 2o / TWN',
-        '2p_dbl' => 'UF_CRM_60D5C28C8732D', // '[ПОСЕЛЕННЯ]: 2p / DBL',
-        '3о_trpl' => 'UF_CRM_60D5C28C97952', // '[ПОСЕЛЕННЯ]: 3о / TRPL',
-        '2р_1о_trpl' => 'UF_CRM_60D5C28CB1677', // '[ПОСЕЛЕННЯ]: 2р+1о / TRPL',
-        '4о_qdpl' => 'UF_CRM_60D5C28CBD992', // '[ПОСЕЛЕННЯ]: 4о / QDPL',
-        '2р_2р_qdpl' => 'UF_CRM_60D5C28CCC155', // '[ПОСЕЛЕННЯ]: 2р+2р / QDPL',
-        'other' => 'UF_CRM_1635146128', // Другое, еще не добавили,
-    ];
+        if ($order->user_id === null) {
+            $bitrixContact = BitrixContact::whereBitrixId($data[DealFields::FIELD_CONTACT_ID])->first();
+            if ($bitrixContact && $bitrixContact->user_id > 0) {
+                $order->user_id = $bitrixContact->user_id;
+            }
+        }
 
-    /**
-     *
-     */
-    public const FIELD_PAYMENT_TYPE = 'UF_CRM_60D5C28CE2CC8';
+        $order->status = self::STATUSES_MAP[$data[DealFields::FIELD_STAGE_ID]];
 
-    public const FIELD_PAYMENT_TYPE_VALUES = [
-        1 => "253", // За банківськими реквізитами (для звичайних фізичних осіб)
-        2 => "255", // За банківськими реквізитами (для ФОП та юридичних осіб, які є платниками єдиного податку)
-        3 => "257", // За банківськими реквізитами (для ФОП та юридичних осіб, які не є платниками єдиного податку)
-        4 => "259", // Оплата в офісі
-        5 => "261", // Онлайн-оплата (LiqPay)
-    ];
+        if (!empty($data[DealFields::FIELD_GROUP_TYPE])) {
+            $order->group_type = (int)array_flip(DealFields::GROUP_TYPE_VALUES)[$data[DealFields::FIELD_GROUP_TYPE]];
+        }
 
-    public const FIELD_ACT = 'UF_CRM_60FE739D97FD6'; // [ОПЛАТА]: Чи потрібен АКТ?
+        if (!empty($data[DealFields::FIELD_START_DATE])) {
+            $order->start_date = $data[DealFields::FIELD_START_DATE];
+        }
 
-    public const ACT_VALUES_COMPARISON = [
-        0 => '716', // ні
-        1 => '714', // так
-    ];
+        if (!empty($data[DealFields::FIELD_END_DATE])) {
+            $order->end_date = $data[DealFields::FIELD_END_DATE];
+        }
 
-    public static function createOrder(Order $order)
+
+        $order->currency = $data[DealFields::FIELD_CURRENCY] ?? 'UAH';
+        if (!empty($data[DealFields::FIELD_PRICE])) {
+            $order->price = (int)$data[DealFields::FIELD_PRICE];
+        }
+        if (!empty($data[DealFields::FIELD_COMMISSION])) {
+            $order->commission = self::extractPrice($data[DealFields::FIELD_COMMISSION]);
+        }
+        if (!empty($data[DealFields::FIELD_DISCOUNT])) {
+            $order->discount = self::extractPrice($data[DealFields::FIELD_DISCOUNT]);
+        }
+        $order->payment_comment = $data[DealFields::FIELD_PAYMENT_COMMENT] ?? '';
+
+
+        if (!empty($data[DealFields::FIELD_SCHEDULE_ID])) {
+            $schedule = TourSchedule::whereBitrixId($data[DealFields::FIELD_SCHEDULE_ID])->first();
+            if ($schedule) {
+                $order->schedule_id = $schedule->id;
+                $order->tour_id = $schedule->tour_id;
+            }
+        } elseif (!empty($data[DealFields::FIELD_TOUR_ID])) {
+            $tour = Tour::whereBitrixId($data[DealFields::FIELD_TOUR_ID][0])->first();
+            if ($tour !== null) {
+                $order->tour_id = $tour->id;
+            }
+        }
+
+        if (!empty($data[DealFields::FIELD_CHILDREN])) {
+            $order->children = (bool)$data[DealFields::FIELD_CHILDREN];
+            if ($order->children) {
+                $order->children_young = (int)$data[DealFields::FIELD_CHILDREN_YOUNG];
+                $order->children_older = (int)$data[DealFields::FIELD_CHILDREN_OLDER];
+            }
+        }
+        $order->participants_comment = $data[DealFields::FIELD_PARTICIPANTS_COMMENT] ?? '';
+        $accommodation = [];
+        foreach (DealFields::ACCOMMODATION_FIELDS_COMPARISON as $key => $field) {
+            if ($key !== 'other') {
+                $accommodation[$key] = !empty($data[$field]) ? (int)$data[$field] : 0;
+            }
+            if ($key === 'other' ?? !empty(trim($data[$field]))) {
+                $accommodation['other'] = 1;
+                $accommodation['other_text'] = trim($data[$field]);
+            }
+        }
+        $order->accommodation = $accommodation;
+
+        $order->save();
+    }
+
+    public static function createCrmDeal(Order $order)
     {
         $is_test = config('services.bitrix24.test');
 
@@ -149,39 +161,51 @@ class DealOrder
         $data = [];
 
         if ($is_test) {
-            $data[self::FIELD_TEST] = true;
+            $data[DealFields::FIELD_TEST] = true;
         }
 
         if (!empty($contactId)) {
-            $data[self::FIELD_CONTACT_ID] = $contactId;
+            $data[DealFields::FIELD_CONTACT_ID] = $contactId;
         }
         $tour = $order->tour_id > 0 ? Tour::withTrashed()->where('id', $order->tour_id)->first() : null;
         $tour->setLocale('uk');
 
-        $data[self::FIELD_CATEGORY_ID] = 5;
-        $data[self::FIELD_TITLE] = 'Замовлення туру: ' . (!empty($tour) > 0 ? $tour->title : 'Корпоратив') . ', ID ' . $order->id;
+        $data[DealFields::FIELD_CATEGORY_ID] = self::CATEGORY_ID;
+        //$data[DealFields::FIELD_TITLE] = 'Замовлення туру: ' . (!empty($tour) > 0 ? $tour->title : 'Корпоратив') . ', ID ' . $order->id;
+
         if (!empty($tour) && (int)$tour->bitrix_id > 0) {
-            $data[self::FIELD_TOUR_ID] = [$tour->bitrix_id];
+            $data[DealFields::FIELD_TOUR_ID] = [$tour->bitrix_id];
         }
 
-        $data[self::FIELD_GROUP_TYPE] = self::FIELD_GROUP_TYPE_VALUES[$order->group_type];
-        $data[self::FIELD_START_DATE] = $order->start_date->format('d.m.Y');
-        $data[self::FIELD_PLACES] = $order->places;
+        $data[DealFields::FIELD_GROUP_TYPE] = DealFields::GROUP_TYPE_VALUES[$order->group_type];
+        $data[DealFields::FIELD_START_DATE] = $order->start_date->format('d.m.Y');
+        $data[DealFields::FIELD_PLACES] = $order->places;
 
         if (!empty($order->end_date)) {
-            $data[self::FIELD_END_DATE] = $order->end_date->format('d.m.Y');
+            $data[DealFields::FIELD_END_DATE] = $order->end_date->format('d.m.Y');
         }
 
-        $data[self::FIELD_CHILDREN] = $order->children ? true : false;
+        $data[DealFields::FIELD_CHILDREN] = (bool)$order->children;
 
         if ($order->children) {
-            $data[self::FIELD_CHILDREN_YOUNG] = $order->children_young;
-            $data[self::FIELD_CHILDREN_OLDER] = $order->children_older;
+            $data[DealFields::FIELD_CHILDREN_YOUNG] = $order->children_young;
+            $data[DealFields::FIELD_CHILDREN_OLDER] = $order->children_older;
         }
 
         if ($order->price > 0) {
-            $data[self::FIELD_PRICE] = $order->price;
-            $data[self::FIELD_CURRENCY] = $order->currency;
+            $data[DealFields::FIELD_PRICE] = $order->price;
+            $data[DealFields::FIELD_CURRENCY] = $order->currency;
+            $data[DealFields::FIELD_DISCOUNT] = $order->discount;
+            $data[DealFields::FIELD_COMMISSION] = $order->commission;
+            $data[DealFields::FIELD_TOTAL_AMOUNT] = $order->total_price;
+
+            if (!empty($order->discounts)) {
+                $discountComment = '';
+                foreach ($order->discounts as $discount) {
+                    $discountComment .= "$discount->title - $discount->value $order->currency\n";
+                }
+                $data[DealFields::FIELD_PAYMENT_COMMENT] = $discountComment;
+            }
         }
 
         $comment = '';
@@ -191,16 +215,16 @@ class DealOrder
             if ($order->additional) {
                 foreach ($order->accommodation as $key => $quantity) {
                     if ($key !== 'other' && $key !== 'other_text' && (int)$quantity > 0) {
-                        $data[self::ACCOMMODATION_FIELDS_COMPARISON[trim($key)]] = (int)$quantity;
+                        $data[DealFields::ACCOMMODATION_FIELDS_COMPARISON[trim($key)]] = (int)$quantity;
                     }
                 }
                 if (!empty($order->accommodation['other']) && (int)$order->accommodation['other'] === 1 && !empty($order->accommodation['other_text'])) {
-                    $data[self::ACCOMMODATION_FIELDS_COMPARISON['other']] = $order->accommodation['other_text'];
+                    $data[DealFields::ACCOMMODATION_FIELDS_COMPARISON['other']] = $order->accommodation['other_text'];
                 }
 
-                $participants = self::getParticipantsComment($order->participants);
-                if (!empty($participants)) {
-                    $data[self::FIELD_PARTICIPANTS] = $participants;
+                $participants_comment = $order->getParticipantsComment();
+                if (!empty($participants_comment)) {
+                    $data[DealFields::FIELD_PARTICIPANTS_COMMENT] = $participants_comment;
                 }
 
             }
@@ -215,8 +239,8 @@ class DealOrder
                 $aboutCorporate .= "<br /><div><strong>План туру:</strong> $order->tour_plan</div>";
             }
 
-            $data[self::FIELD_START_DATE] = $order->start_date;
-            $data[self::FIELD_END_DATE] = $order->end_date;
+            $data[DealFields::FIELD_START_DATE] = $order->start_date;
+            $data[DealFields::FIELD_END_DATE] = $order->end_date;
 
             $aboutCorporate .= "<br /><div><strong>Особливості групи:</strong> $order->group_comment</div>";
             $aboutCorporate .= "<br /><div><strong>Побажання та умови:</strong> $order->program_comment</div>";
@@ -235,12 +259,12 @@ class DealOrder
 
 
         if ($order->payment_type > 0) {
-            $data[self::FIELD_PAYMENT_TYPE] = self::FIELD_PAYMENT_TYPE_VALUES[$order->payment_type];
+            $data[DealFields::FIELD_PAYMENT_TYPE] = DealFields::PAYMENT_TYPE_VALUES[$order->payment_type];
         }
 
         if ($order->confirmation_type > 0) {
-            $data[self::FIELD_CONFIRMATION_TYPE] = self::FIELD_CONFIRMATION_VALUES[$order->confirmation_type];
-            $confirmation_name = self::FIELD_CONFIRMATION_NAMES[$order->confirmation_type];
+            $data[DealFields::FIELD_CONFIRMATION_TYPE] = DealFields::CONFIRMATION_VALUES[$order->confirmation_type];
+            $confirmation_name = DealFields::CONFIRMATION_NAMES[$order->confirmation_type];
             $comment .= "<br /><div><strong>Підтвердити на $confirmation_name:</strong> $order->confirmation_contact</div>";
         }
 
@@ -250,37 +274,16 @@ class DealOrder
             $comment .= "<br />";
         }
 
-        $data[self::FIELD_COMMENTS] = $comment;
+        $data[DealFields::FIELD_COMMENTS] = $comment;
 
 
         $response = DealService::add($data, ['REGISTER_SONET_EVENT' => $is_test ? 'N' : 'Y']);
-        if ($response['result']) {
-            $order->bitrix_id = $response['result'];
+        if (!$response->error) {
+            $order->bitrix_id = $response->result;
             $order->save();
         }
     }
 
-
-    public static function getParticipantsComment($data)
-    {
-        $comment = '';
-        if (!empty($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $part = trim($item['last_name'] . ' ' . $item['first_name'] . ' ' . $item['middle_name'] . ' ' . $item['birthday']);
-                if (!empty($part)) {
-                    $comment .= "$part\n";
-                }
-            }
-            $comment .= "\n";
-        }
-
-        if (!empty($data['participant_phone'])) {
-            $phone = $data['participant_phone'];
-
-            $comment .= "Телефон одного з учасників: $phone\n";
-        }
-        return trim($comment);
-    }
 
     public static function getAccommodationOther($text)
     {

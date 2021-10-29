@@ -9,6 +9,8 @@
             <form-textarea name="comment" id="comment_feedback" v-model="data.comment"
                            label="Ваше питання, скарга чи пропозиція"
                            rules="required"/>
+
+            <utm-fields/>
             <button type="submit" class="btn type-2 btn-block" :disabled="request">Надіслати повідомлення</button>
         </form>
     </div>
@@ -21,10 +23,11 @@ import {useStore} from "vuex";
 import {computed, reactive, ref} from "vue";
 import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
+import UtmFields from "./UtmFields";
 
 export default {
     name: "FeedbackForm",
-    components: {FormTextarea, FormInput},
+    components: {UtmFields, FormTextarea, FormInput},
     props: {
         user: Object,
     },

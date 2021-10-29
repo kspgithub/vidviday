@@ -24,6 +24,12 @@ class UserQuestion extends Model
     public const TYPE_EMAIL = 1;
     public const TYPE_QUESTION = 2;
 
+    public const QUESTION_TYPES = [
+        'tour' => 'Запитання що до туру',
+        'certificate' => 'Запитання що до сертифікату',
+        'other' => 'Інше питання',
+    ];
+
     protected $fillable = [
         'type',
         'status',
@@ -34,6 +40,13 @@ class UserQuestion extends Model
         'comment',
         'call_date',
         'call_time',
+        'bitrix_id',
+        'bitrix_contact_id',
+        'utm_campaign',
+        'utm_content',
+        'utm_medium',
+        'utm_source',
+        'utm_term',
     ];
 
     protected $dates = [

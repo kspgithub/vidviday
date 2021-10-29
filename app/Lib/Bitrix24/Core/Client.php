@@ -50,27 +50,36 @@ class Client
         }
     }
 
-    public function getJson()
+    /**
+     * @return BitrixResponse
+     */
+    public function getResponse()
     {
-        $status = $this->response->status();
-        if ($status === 200) {
-            return $this->response->json();
-        }
-        return null;
+        return new BitrixResponse($this->response->status(), $this->response->json());
     }
 
+    /**
+     * @param string $bitrixMethod
+     * @param array $params
+     * @return BitrixResponse
+     */
     public static function get($bitrixMethod, $params = [])
     {
         $instance = self::getInstance();
         $instance->request($bitrixMethod, $params);
-        return $instance->getJson();
+        return $instance->getResponse();
     }
 
+    /**
+     * @param string $bitrixMethod
+     * @param array $params
+     * @return BitrixResponse
+     */
     public static function post($bitrixMethod, $params = [])
     {
         $instance = self::getInstance();
         $instance->request($bitrixMethod, $params, 'POST');
-        return $instance->getJson();
+        return $instance->getResponse();
     }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBitrixIdToOrdersTable extends Migration
+class AddPaymentCommentToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,8 @@ class AddBitrixIdToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->string('bitrix_id')->nullable()->after('id');
+            $table->text('participants_comment')->nullable()->after('participants');
+            $table->text('payment_comment')->nullable()->after('payment_status');
         });
     }
 
@@ -28,7 +29,8 @@ class AddBitrixIdToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->dropColumn('bitrix_id');
+            $table->dropColumn('participants_comment');
+            $table->dropColumn('payment_comment');
         });
     }
 }

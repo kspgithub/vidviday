@@ -1,6 +1,7 @@
 import axios from "axios";
 import {getError} from "../../services/api";
 import toast from "../../libs/toast";
+import analitycs from "./analytics";
 
 export default {
     namespaced: true,
@@ -38,8 +39,9 @@ export default {
         },
     },
     actions: {
-        async send({commit}, data) {
+        async send({commit, rootState}, data) {
             commit('SET_REQUEST', true);
+            data = {...data, ...rootState.analytics.utm};
             const response = await axios.post('/api/user/feedback', data).catch(error => {
                 if (!axios.isCancel(error)) {
                     const message = getError(error);

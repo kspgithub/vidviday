@@ -34,7 +34,7 @@ trait UseStaticService
     /**
      * Возвращает описание полей сущности, в том числе пользовательских
      *
-     * @return mixed
+     * @return BitrixResponse
      */
     public static function fields()
     {
@@ -48,9 +48,9 @@ trait UseStaticService
      * @param array $select Список возвращаемых полей
      * @param array $filter Фильтр
      * @param array $order Сортировка
-     * @return mixed
+     * @return BitrixResponse
      */
-    public static function list(array $select = ['*', 'UF_'], array $filter = [], array $order = [], $start = null)
+    public static function list(array $select = ['*', 'UF_*'], array $filter = [], array $order = [], $start = null)
     {
         return self::instance()->service->list($select, $filter, $order, $start);
     }
@@ -59,7 +59,7 @@ trait UseStaticService
      * Возвращает сущность по идентификатору.
      *
      * @param string|int $id Идентификатор сущности.
-     * @return mixed
+     * @return BitrixResponse
      */
     public static function get($id)
     {
@@ -72,7 +72,7 @@ trait UseStaticService
      *
      * @param array $fields Набор полей - массив вида array("поле"=>"значение"[, ...]), содержащий значения полей лида.
      * @param array $params Набор параметров. REGISTER_SONET_EVENT =>Y - произвести регистрацию события добавления лида в живой ленте.
-     * @return mixed
+     * @return BitrixResponse
      */
     public static function add(array $fields, array $params = [])
     {
@@ -86,7 +86,7 @@ trait UseStaticService
      * @param string $id Идентификатор сущности.
      * @param array $fields Набор полей - массив вида array("поле"=>"значение"[, ...]), содержащий значения полей лида.
      * @param array $params Набор параметров.
-     * @return mixed
+     * @return BitrixResponse
      */
     public static function update($id, $fields, $params = [])
     {

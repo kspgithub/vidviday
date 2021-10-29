@@ -126,4 +126,27 @@ class Order extends TranslatableModel
         'created_at',
         'updated_at',
     ];
+
+
+    public function getParticipantsComment()
+    {
+        $data = $this->participants;
+        $comment = '';
+        if (!empty($data['items'])) {
+            foreach ($data['items'] as $item) {
+                $part = trim($item['last_name'] . ' ' . $item['first_name'] . ' ' . $item['middle_name'] . ' ' . $item['birthday']);
+                if (!empty($part)) {
+                    $comment .= "$part\n";
+                }
+            }
+            $comment .= "\n";
+        }
+
+        if (!empty($data['participant_phone'])) {
+            $phone = $data['participant_phone'];
+
+            $comment .= "Телефон одного з учасників: $phone\n";
+        }
+        return trim($comment);
+    }
 }

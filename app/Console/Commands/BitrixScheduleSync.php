@@ -2,19 +2,18 @@
 
 namespace App\Console\Commands;
 
-use App\Lib\Bitrix24\CRM\Contact\ContactService;
-use App\Models\BitrixContact;
+use App\Lib\Bitrix24\CRM\Deal\DealSchedule;
+use App\Lib\Bitrix24\CRM\Deal\DealService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
-class BitrixContactSync extends Command
+class BitrixScheduleSync extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'bitrix:contact-sync';
+    protected $signature = 'bitrix:schedule-sync';
 
     /**
      * The console command description.
@@ -40,29 +39,28 @@ class BitrixContactSync extends Command
      */
     public function handle()
     {
-        $fields = ['ID', 'NAME', 'LAST_NAME', 'EMAIL', 'PHONE'];
+
+        $lastID = 0;
+        $finish = false;
+        $select = ['*', 'UF_*'];
         $order = ['ID' => 'ASC'];
 
-        $contactID = 0;
-        $finish = false;
-
         while (!$finish) {
-            $filter = ['>ID' => $contactID];
-            $response = ContactService::list($fields, $filter, $order, -1);
+            $filter =  ['>ID' => $lastID];
+
+            $response = DealService::getByCategory(DealSchedule::CATEGORY_ID, $select, $filter, $order, -1);
+
             if (!$response->error && count($response->result) > 0) {
 
-                foreach ($response->result as $contactData) {
-                    $contactID = $contactData['ID'];
-                    BitrixContact::createOrUpdate($contactID, $contactData);
+                foreach ($response->result as $scheduleData) {
+                    $lastID = $scheduleData['ID'];
+                    DealSchedule::createOrUpdate($lastID, $scheduleData);
                 }
 
             } else {
                 $finish = true;
             }
         }
-
-
-
         return 0;
     }
 }

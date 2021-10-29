@@ -41,7 +41,7 @@ class OrderController extends Controller
         $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
         $order = OrderService::createOrder($params);
         if ($order !== false && config('services.bitrix24.integration')) {
-            DealOrder::createOrder($order);
+            DealOrder::createCrmDeal($order);
         }
         if ($order === false) {
             if ($request->ajax()) {

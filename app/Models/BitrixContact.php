@@ -60,4 +60,9 @@ class BitrixContact extends Model
         $bitrixContact->email = array_filter(array_unique($emails));
         $bitrixContact->save();
     }
+
+    public static function findByPhone($phone)
+    {
+        
+    }
 }

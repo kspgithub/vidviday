@@ -37,6 +37,7 @@
                 </div>
 
                 <div class="col-12">
+                    <utm-fields/>
                     <form-textarea name="comment" id="comment_mail" v-model="data.comment" label="Текст повідомлення"
                                    rules="required"/>
                     <div class="text text-sm">* обов’язкове для заповнення поле</div>
@@ -65,10 +66,11 @@ import FormDatepicker from "../form/FormDatepicker";
 import FormTextarea from "../form/FormTextarea";
 import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
+import UtmFields from "../common/UtmFields";
 
 export default {
     name: "PopupEmail",
-    components: {FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
+    components: {UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
         user: Object,
     },

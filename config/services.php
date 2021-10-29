@@ -38,7 +38,8 @@ return [
     'bitrix24' => [
         'domain' => env('BITRIX24_DOMAIN', ''),
         'token' => env('BITRIX24_TOKEN', ''),
-        'incoming-token' => env('BITRIX24_INCOMING_TOKEN', ''),
+        'contact-token' => env('BITRIX24_CONTACT_TOKEN', ''),
+        'deal-token' => env('BITRIX24_DEAL_TOKEN', ''),
         'user' => env('BITRIX24_USER', ''),
         'log-enable' => env('BITRIX24_LOG_ENABLE', false),
         'test' => env('BITRIX24_TEST', true),
