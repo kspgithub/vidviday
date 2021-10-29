@@ -38,14 +38,7 @@ class IncludeTypeSeeder extends Seeder
                     'pl' => 'Cena nie obejmuje i jest dodatkowo płatna',
                 ]
             ],
-            [
-                'title' => [
-                    'uk' => 'Знижки',
-                    'ru' => 'Cкидки',
-                    'en' => 'Discounts',
-                    'pl' => 'Rabaty',
-                ]
-            ],
+           
         ];
         foreach ($items as $item) {
             IncludeType::create($item);
