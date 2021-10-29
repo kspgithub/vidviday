@@ -45,15 +45,15 @@ class BitrixTourSync extends Command
             if (Tour::whereBitrixId($item_data->id)->count() === 0) {
                 $data = [
                     'title' => $item_data->name,
-                    'bitrix_id'=>$item_data->id,
-                    'bitrix_manager_id'=>$item_data->manager_id,
+                    'bitrix_id' => $item_data->id,
+                    'bitrix_manager_id' => $item_data->manager_id,
                     'duration' => $item_data->duration,
                     'nights' => $item_data->duration,
-                    'text'=>'',
-                    'short_text'=>'',
-                    'price'=> $item_data->price,
-                    'currency'=> $item_data->currency,
-                    'commission'=> $item_data->commission,
+                    'text' => '',
+                    'short_text' => '',
+                    'price' => $item_data->price ?? 0,
+                    'currency' => $item_data->currency ?? 'UAH',
+                    'commission' => $item_data->commission ?? 0,
                 ];
 
                 $tour = new Tour();
