@@ -70,8 +70,8 @@ class ContactService implements StaticServiceInterface
             $contact_data = $contact->toArray();
 
             $response = self::add($contact_data, ['REGISTER_SONET_EVENT' => 'N']);
-            if ($response['result']) {
-                return $response['result'];
+            if (!empty($response->result)) {
+                return $response->result;
             }
             return null;
         }
