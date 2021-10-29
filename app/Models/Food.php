@@ -44,6 +44,7 @@ class Food extends TranslatableModel implements HasMedia
 
     protected $casts = [
         'published' => 'boolean',
+        'price' => 'float',
     ];
 
 

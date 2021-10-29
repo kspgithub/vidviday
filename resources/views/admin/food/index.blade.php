@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{$item->title}}</td>
                         <td>{{ strip_tags($item->text) }}</td>
-                        <td class="text-nowrap">{{ $item->price }} {{ $item->currency }}</td>
+                        <td class="text-nowrap">{{ $item->price ?? '0' }} {{ $item->currency }}</td>
                         <td class="table-action text-nowrap">
                             <x-utils.edit-button :href="route('admin.food.edit', $item)" text=""/>
                             <x-utils.delete-button :href="route('admin.food.destroy', $item)" text=""/>

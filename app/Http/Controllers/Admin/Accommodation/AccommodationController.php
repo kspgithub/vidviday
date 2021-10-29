@@ -50,9 +50,13 @@ class AccommodationController extends Controller
     {
 
         $request->validate([
-            'title' => ['required', 'max:100'],
-            'title_where' => ['required', 'max:100'],
-            'text' => ['nullable', 'max:500'],
+
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'max:100'],
+            'title_where' => ['required', 'array'],
+            'title_where.uk' => ['required', 'max:100'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
             'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
@@ -90,9 +94,12 @@ class AccommodationController extends Controller
     public function update(Request $request, Accommodation $accommodation)
     {
         $request->validate([
-            'title' => ['required', 'max:100'],
-            'title_where' => ['required', 'max:100'],
-            'text' => ['nullable', 'max:500'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'max:100'],
+            'title_where' => ['required', 'array'],
+            'title_where.uk' => ['required', 'max:100'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
             'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],

@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 
-@section('title', __('Create ticket'))
+@section('title', __('Create Ticket'))
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h1>@lang('Create ticket')
+        <h1>@lang('Create Ticket')
             <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
         </h1>
 
