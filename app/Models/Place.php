@@ -126,10 +126,13 @@ class Place extends TranslatableModel implements HasMedia
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {
-        $query = $query->published()->with(['region'])->where('title', 'LIKE', "%$search%")
+        $query = $query->published()->with(['region'])->where('title->uk', 'LIKE', "%$search%")
+            ->orWhere('title->en', 'LIKE', "%$search%")
             ->select([
                 'id',
+                'district_id',
                 'region_id',
+                'city_id',
                 'title',
                 'slug',
             ]);
@@ -138,7 +141,7 @@ class Place extends TranslatableModel implements HasMedia
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
                 ->orderBy('relevant');
         } else {
-            $query->orderBy('title');
+            $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
         }
         return $query;
     }
