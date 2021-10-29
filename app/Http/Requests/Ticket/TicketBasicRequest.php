@@ -28,7 +28,8 @@ class TicketBasicRequest extends FormRequest
         return [
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'string'],
-            'text' => ['required', 'string'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['required', 'string'],
             'slug' => ['nullable', 'string'],
             'price' => ['nullable', 'integer'],
             'region_id' => ['required', 'integer'],
