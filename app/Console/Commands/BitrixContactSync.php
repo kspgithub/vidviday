@@ -49,7 +49,7 @@ class BitrixContactSync extends Command
         while (!$finish) {
             $filter = ['>ID' => $contactID];
             $response = ContactService::list($fields, $filter, $order, -1);
-            if (!$response->error && count($response->result) > 0) {
+            if (!$response->error && !empty($response->result) > 0) {
 
                 foreach ($response->result as $contactData) {
                     $contactID = $contactData['ID'];

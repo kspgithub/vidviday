@@ -50,7 +50,7 @@ class BitrixScheduleSync extends Command
 
             $response = DealService::getByCategory(DealSchedule::CATEGORY_ID, $select, $filter, $order, -1);
 
-            if (!$response->error && count($response->result) > 0) {
+            if (!$response->error && !empty($response->result) > 0) {
 
                 foreach ($response->result as $scheduleData) {
                     $lastID = $scheduleData['ID'];
