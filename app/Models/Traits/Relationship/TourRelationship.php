@@ -219,7 +219,8 @@ trait TourRelationship
      */
     public function discounts()
     {
-        return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id');
+        return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id')
+            ->orderByPivot('position');
     }
 
     /**

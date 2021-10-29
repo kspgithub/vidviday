@@ -50,6 +50,15 @@ class TourDiscountsTable extends Component
         }
     }
 
+    public function updateOrder($items)
+    {
+        foreach ($items as $item) {
+            DB::table('tours_discounts')
+                ->where([['tour_id', $this->tour->id], ['discount_id', $item['value']]])
+                ->update(['position' => $item['order']]);
+        }
+    }
+
     public function render()
     {
         return view('admin.tour.includes.tour-discounts', ['items' => $this->query()->get()]);

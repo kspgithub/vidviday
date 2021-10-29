@@ -1,9 +1,11 @@
 <div>
-    <ul class="list-group mb-5" style="width: 500px;">
+    <ul wire:sortable="updateOrder" class="list-group draggable-container mb-5" style="width: 500px;">
         @foreach($items as $item)
             <li class="list-group-item draggable d-flex align-items-center"
                 style="width: 500px;"
-                wire:key="place-{{ $item->id }}">
+                wire:sortable.item="{{ $item->id }}"
+                wire:key="item-{{ $item->id }}">
+                <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                 <span
                     class="me-3">{{$item->price . ($item->type === 1 ? '%' : $item->currency).', '.$item->title}}</span>
                 <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">

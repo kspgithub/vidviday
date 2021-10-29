@@ -26,11 +26,12 @@ class TicketBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'string'],
             'text' => ['required', 'string'],
             'slug' => ['nullable', 'string'],
             'price' => ['nullable', 'integer'],
-            'region_id'=>['required', 'integer'],
+            'region_id' => ['required', 'integer'],
             'currency' => ['required', Rule::in(Currency::isoNames())],
             'published' => ['nullable', Rule::in(['1', '0'])],
 

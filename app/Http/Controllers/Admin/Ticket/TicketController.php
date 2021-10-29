@@ -11,6 +11,8 @@ use App\Models\Ticket;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -114,5 +116,20 @@ class TicketController extends Controller
         $ticket->delete();
 
         return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Record deleted.'));
+    }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Ticket $ticket
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Ticket $ticket)
+    {
+        $ticket->published = (int)$request->input('published');
+        $ticket->save();
+        return response()->json(['result' => 'Success']);
     }
 }

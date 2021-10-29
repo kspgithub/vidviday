@@ -16,7 +16,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperTicket
  */
-class Ticket extends Model
+class Ticket extends TranslatableModel
 {
 
     use HasFactory;
