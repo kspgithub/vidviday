@@ -15,7 +15,8 @@
     </div>
 
     <div x-data="translatable()">
-        <x-forms.patch :action="route('admin.accommodation.update', $accommodation)" enctype="multipart/form-data">
+        <x-forms.patch :action="route('admin.accommodation.update', $accommodation)" enctype="multipart/form-data"
+                       x-ref="form">
             <x-bootstrap.card>
                 <x-slot name="body">
                     @include('admin.accommodation.includes.form')
