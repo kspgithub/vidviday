@@ -4,6 +4,7 @@ namespace App\Models\Traits;
 
 use Exception;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Livewire\TemporaryUploadedFile;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
@@ -51,7 +52,7 @@ trait UseNormalizeMedia
                 //@unlink($file_name);
                 return $media;
             } catch (Exception $e) {
-
+                Log::error($e->getMessage());
             }
 
         }
