@@ -14,9 +14,11 @@ const MediaLibrary = function (selector) {
     fileElement.addEventListener('change', (evt) => {
         const files = evt.target.files;
         if (files.length > 0) {
-            files.forEach(file => {
-                uploadMedia(file);
+            files.forEach(async (file) => {
+                await uploadMedia(file);
             })
+
+            fileElement.value = null;
         }
     })
 
@@ -48,9 +50,9 @@ const MediaLibrary = function (selector) {
         });
     }
 
-    const updateMedia = (mediaEl, data = {}) => {
+    const updateMedia = async (mediaEl, data = {}) => {
         const mediaId = mediaEl.id.replace('media-item-', '');
-        axios.patch(updateUrl.replace('0', mediaId), data).then(({data}) => {
+        await axios.patch(updateUrl.replace('0', mediaId), data).then(({data}) => {
             if (data.result === 'success') {
                 //toast.success('Image updated');
             }
@@ -61,25 +63,25 @@ const MediaLibrary = function (selector) {
         })
     }
 
-    const updateMediaTitle = (evt) => {
+    const updateMediaTitle = async (evt) => {
         const input = evt.currentTarget;
         if (updateUrl === '#') return;
         const mediaEl = input.parentElement;
         const title = input.value;
-        updateMedia(mediaEl, {title: title});
+        await updateMedia(mediaEl, {title: title});
 
     }
 
-    const updateMediaAlt = (evt) => {
+    const updateMediaAlt = async (evt) => {
         const input = evt.currentTarget;
         if (updateUrl === '#') return;
         const mediaEl = input.parentElement;
         const alt = input.value;
-        updateMedia(mediaEl, {alt: alt});
+        await updateMedia(mediaEl, {alt: alt});
 
     }
 
-    const deleteMedia = (evt) => {
+    const deleteMedia = async (evt) => {
         evt.preventDefault();
         if (destroyUrl === '#') return;
         const btnEl = evt.currentTarget;
@@ -114,7 +116,7 @@ const MediaLibrary = function (selector) {
         divEl.querySelector('.edit-media-alt').addEventListener('blur', (evt) => updateMediaAlt(evt));
     }
 
-    const uploadMedia = (file) => {
+    const uploadMedia = async (file) => {
         const reader = new FileReader();
         const divEl = document.createElement('div');
         divEl.classList.add('media-item', 'media-tmp', 'img-thumbnail');
@@ -131,7 +133,7 @@ const MediaLibrary = function (selector) {
         const formData = new FormData();
         formData.append(mediaName, file);
         formData.append('collection', mediaCollection);
-        axios.post(storeUrl, formData, {
+        await axios.post(storeUrl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
