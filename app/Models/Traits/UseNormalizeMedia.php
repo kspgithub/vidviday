@@ -30,7 +30,7 @@ trait UseNormalizeMedia
     public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {
         $path = storage_path('app/tmp/uploads');
-        $name = uniqid() . '.' . trim($file->getClientOriginalExtension());
+        $name = md5(uniqid() . rand(0, 100)) . '.' . trim($file->getClientOriginalExtension());
         if ($file instanceof TemporaryUploadedFile) {
             $file->storeAs('tmp/uploads', $name);
         } else {
