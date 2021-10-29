@@ -43,7 +43,7 @@
                     <tr>
                         <td>{{$item->type ? $item->type->title : '-'}}</td>
                         <td>{{$item->title}}</td>
-                        <td>{{$item->published}}</td>
+                        <td>@include('admin.partials.published', ['model'=>$item, 'updateUrl'=>route('admin.finance.update', $item)])</td>
                         <td class="table-action">
                             <x-utils.edit-button :href="route('admin.finance.edit', $item)" text=""/>
                             <x-utils.delete-button :href="route('admin.finance.destroy', $item)" text=""/>

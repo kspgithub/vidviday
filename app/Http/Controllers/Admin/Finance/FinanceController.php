@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Finance;
 use App\Models\IncludeType;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -88,13 +89,16 @@ class FinanceController extends Controller
      *
      * @param Request $request
      * @param Finance $finance
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, Finance $finance)
     {
         //
         $finance->fill($request->all());
         $finance->save();
+        if ($request->ajax()) {
+            return response()->json(['result' => 'OK']);
+        }
         return redirect()->route('admin.finance.index')->withFlashSuccess(__('Record Updated'));
     }
 
