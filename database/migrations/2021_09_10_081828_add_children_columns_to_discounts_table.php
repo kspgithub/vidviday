@@ -18,8 +18,8 @@ class AddChildrenColumnsToDiscountsTable extends Migration
             $table->string('category')->after('type')->default('all');
             $table->string('duration')->after('type')->default('order');
             $table->boolean('age_limit')->default(0);
-            $table->integer('age_start')->nullable(0);
-            $table->integer('age_end')->nullable(0);
+            $table->integer('age_start')->nullable();
+            $table->integer('age_end')->nullable();
         });
     }
 
