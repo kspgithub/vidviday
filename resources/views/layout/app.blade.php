@@ -46,7 +46,7 @@
 
     @include('includes.video')
 
-    <div class="toast-container"></div>
+    @include('layout.includes.toast-notifications')
 </div>
 
 <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
@@ -54,12 +54,18 @@
 
 @stack('before-scripts', false)
 @livewireScripts
+
+<script type="text/javascript">
+    window.toastsData = @json(toastData($errors));
+</script>
 <script
     src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 
 <script src="{{ mix('js/app.js') }}" defer></script>
+
+
 @stack('after-scripts', false)
 
 </body>

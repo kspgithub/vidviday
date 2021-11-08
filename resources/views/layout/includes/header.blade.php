@@ -34,8 +34,8 @@
 
                 @if(Auth::check())
                     <div class="log-in log-inned dropdown">
-                        <a href="#favorites" class="log-inned-icon">
-                            <span>2</span>
+                        <a href="{{route('profile.favourites')}}" class="log-inned-icon">
+                            <span v-is="'profile-in-favourites'"></span>
                         </a>
                         <div class="img">
                             <img src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}"
@@ -61,7 +61,7 @@
                             </li>
 
                             <li>
-                                <a href="{{route('profile.favourites')}}">Улюблені <span>2</span></a>
+                                <a href="{{route('profile.favourites')}}" v-is="'profile-favourite-link'">Улюблені</a>
                             </li>
 
                             <li>

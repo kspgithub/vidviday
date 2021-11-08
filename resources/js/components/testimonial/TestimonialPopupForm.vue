@@ -9,9 +9,9 @@
               ref="formRef">
             <slot/>
             <div class="have-an-account text-center">
-                    <span class="text" v-if="!user">Уже є аккаунт?
-                        <span class="open-popup" data-rel="login-popup">Вхід</span>
-                    </span>
+                <span class="text" v-if="!user">Уже є аккаунт?
+                    <span class="open-popup" data-rel="login-popup">Вхід</span>
+                </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
                          :class="{uploaded: !!selectedAvatar}"
@@ -82,6 +82,9 @@
                         rules="required"
                     >
                         <option :value="0" :selected="data.tour_id === 0" disabled>Оберіть зі списку</option>
+                        <option v-if="tour" :value="tour.id" :selected="data.tour_id === tour.id">
+                            {{ tour.title }}
+                        </option>
                         <option v-for="option in tours" :value="option.id">{{ option.title }}</option>
                     </form-autocomplete>
 
@@ -152,12 +155,10 @@
             </div>
         </form>
     </popup>
-
-
 </template>
 
 <script>
-import {computed, reactive, ref} from "vue";
+import {computed, nextTick, reactive, ref, watch} from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -181,11 +182,13 @@ export default {
         dataParent: Number,
     },
     setup(props) {
+        const store = useStore();
         const formRef = ref(null);
         const tourSelectRef = ref(null);
         const guideSelectRef = ref(null);
         const tours = ref([]);
         const guides = ref([]);
+        const tour = computed(() => store.state.testimonials.tour);
 
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
@@ -193,7 +196,7 @@ export default {
             phone: props.user && props.user.phone ? props.user.phone : '',
             email: props.user && props.user.email ? props.user.email : '',
             rating: 5,
-            tour_id: 0,
+            tour_id: tour.value ? tour.value.id : 0,
             guide_id: 0,
             text: '',
         });
@@ -219,11 +222,28 @@ export default {
 
         const searchTours = async (q = '') => {
             const items = await autocompleteTours(q);
-            tours.value = items || [];
-            tourSelectRef.value.update(tours.value);
+            let tourItems = items || [];
+            if (tour.value) {
+                tourItems = [tour.value, ...tourItems];
+            }
+            tours.value = tourItems;
+            await nextTick(() => {
+                tourSelectRef.value.update(tours.value);
+            })
         }
 
         searchTours();
+
+        watch(tour, () => {
+            if (tour.value) {
+                tours.value = [tour.value, ...tours.value];
+                data.tour_id = tour.value.id;
+                nextTick(() => {
+                    tourSelectRef.value.update(tours.value);
+                })
+
+            }
+        })
 
         const searchGuides = async (q = '') => {
             if (guides.value.length === 0) {
@@ -242,6 +262,7 @@ export default {
             data,
             formRef,
             guides,
+            tour,
             tours,
             tourSelectRef,
             searchTours,

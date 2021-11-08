@@ -10,5 +10,6 @@ Route::group([
 ], function () {
     Route::post('/contact-update', [CrmController::class, 'contactUpdate'])->name('contact.update');
     Route::post('/deal-update', [CrmController::class, 'dealUpdate'])->name('deal.update');
+    Route::post('/app-handler', [CrmController::class, 'appHandler'])->name('app.handler');
 });
 

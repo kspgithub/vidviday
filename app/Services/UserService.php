@@ -357,4 +357,40 @@ class UserService extends BaseService
             'active' => $data['active'] ?? true,
         ]);
     }
+
+    public function deleteAccount(int $id)
+    {
+        DB::beginTransaction();
+        $user = $this->model->find($id);
+        try {
+
+            $user->email = 'deleted_' . $id . '@vidviday.ua';
+            $user->first_name = 'User';
+            $user->last_name = 'Deleted';
+            $user->middle_name = '';
+            $user->mobile_phone = null;
+            $user->birthday = null;
+            $user->viber = null;
+            $user->avatar = null;
+            $user->company = null;
+            $user->address = null;
+            $user->position = null;
+            $user->work_phone = null;
+            $user->work_email = null;
+            $user->website = null;
+
+            $user->deleteAvatar();
+            $user->save();
+            $user->delete();
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage(), $e->getTrace());
+            return false;
+        }
+        DB::commit();
+        event(new UserDeleted($user));
+        return true;
+
+    }
 }

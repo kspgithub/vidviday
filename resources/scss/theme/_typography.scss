@@ -46,33 +46,39 @@ ol {
 }
 
 .text-lg {
-	font-size: 18px;
-	line-height: 26px;
+    font-size: 18px;
+    line-height: 26px;
 }
 
 .text-md {
-	font-size: 16px;
-	line-height: 26px;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.text-normal {
+    font-size: 14px;
+    line-height: 22px;
 }
 
 .text-sm {
-	font-size: 12px;
-	line-height: 16px;
+    font-size: 12px;
+    line-height: 16px;
 }
 
 .text,
 .text-sm,
 .text-md {
-	&.light {
-		color: rgba(255, 255, 255, .7);
-		ul {
-			li {
-				&:before {
-					background-color: $border;
-				}
-			}
-		}
-	}
+    &.light {
+        color: rgba(255, 255, 255, .7);
+
+        ul {
+            li {
+                &:before {
+                    background-color: $border;
+                }
+            }
+        }
+    }
 }
 
 .text {
@@ -432,17 +438,17 @@ h6,
 /*///////////////*/
 @media (min-width: 1200px) {
 
-	.text-xl-left {
-		text-align: left;
-	}
-	
-	.text-xl-center {
-		text-align: center;
-	}
-	
-	.text-xl-right {
-		text-align: right;
-	}
+    .text-xl-left {
+        text-align: left;
+    }
+
+    .text-xl-center {
+        text-align: center;
+    }
+
+    .text-xl-right {
+        text-align: right;
+    }
 }
 
 @media(max-width: 1199px) {

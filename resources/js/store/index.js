@@ -26,6 +26,7 @@ import headerSearch from './modules/header-search';
 import userQuestion from './modules/user-question';
 import user from './modules/user';
 import analytics from './modules/analytics';
+import profileOrders from './modules/profile-orders';
 
 const store = createStore({
     modules: {
@@ -37,6 +38,7 @@ const store = createStore({
         userQuestion,
         user,
         analytics,
+        profileOrders,
     },
     plugins: plugins,
 });

@@ -26,6 +26,6 @@ trait OrderRelationship
 
     public function notes()
     {
-        return $this->belongsTo(OrderNote::class, 'order_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(OrderNote::class, 'order_id')->orderBy('created_at', 'desc');
     }
 }

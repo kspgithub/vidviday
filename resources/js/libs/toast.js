@@ -72,6 +72,13 @@ class ToastNotification {
     }
 }
 
+document.addEventListener('DOMContentLoaded', evt => {
+
+    window.toastsData.forEach(it => {
+        ToastNotification.show(it);
+    })
+})
+
 window.toast = ToastNotification;
 
 export default ToastNotification;

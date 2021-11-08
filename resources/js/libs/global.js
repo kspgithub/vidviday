@@ -811,6 +811,7 @@ jQuery(function ($) {
 
     $('.img-input.btn input').on('change', function (e) {
         var $t = $(this);
+        if ($t.hasClass('vue-input')) return;
         if (this.files && this.files[0]) {
             var upload = new FileReader();
             upload.onload = function (e) {
@@ -919,15 +920,15 @@ jQuery(function ($) {
         }
     });
     // Add note
-    $('.add-note-btn').on('click', function () {
-        $(this).closest('.add-note').find('.add-note-toggle').slideDown(440);
-        $(this).slideUp(440);
-    });
-
-    $('.add-note-btn-cancel').on('click', function () {
-        $(this).closest('.add-note').find('.add-note-toggle').slideUp(440);
-        $('.add-note-btn').slideDown(440);
-    });
+    // $('.add-note-btn').on('click', function () {
+    //     $(this).closest('.add-note').find('.add-note-toggle').slideDown(440);
+    //     $(this).slideUp(440);
+    // });
+    //
+    // $('.add-note-btn-cancel').on('click', function () {
+    //     $(this).closest('.add-note').find('.add-note-toggle').slideUp(440);
+    //     $('.add-note-btn').slideDown(440);
+    // });
 
     $('.log-inned-icon').on('click', function () {
         $($(this).attr('href')).addClass('active').siblings().removeClass('active');

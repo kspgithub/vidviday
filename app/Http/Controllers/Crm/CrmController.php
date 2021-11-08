@@ -116,4 +116,12 @@ class CrmController extends Controller
             return response()->json(['result' => 'ERROR', 'message' => $e->getMessage()]);
         }
     }
+
+
+    public function appHandler(Request $request)
+    {
+        Log::info('App Handler', $request->all());
+        
+        return response()->json(['result' => 'OK']);
+    }
 }

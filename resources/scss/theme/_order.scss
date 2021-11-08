@@ -545,7 +545,7 @@
                 display: none;
                 margin-left: 15px;
                 vertical-align: middle;
-                background: center / contain url(../../svg/check.svg) no-repeat;
+                background: center / contain url('../../svg/check.svg') no-repeat;
 
                 &.active {
                     display: inline-block;
@@ -729,7 +729,7 @@
                 display: none;
                 margin-left: 15px;
                 vertical-align: middle;
-                background: center / contain url(../../svg/check.svg) no-repeat;
+                background: center / contain url('../../svg/check.svg') no-repeat;
 
                 &.active {
                     display: inline-block;

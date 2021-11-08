@@ -6,6 +6,7 @@
                   :id="id || name"
                   :required="required"
                   :placeholder="placeholder"
+                  :rows="rows || 3"
         ></textarea>
     </label>
 </template>
@@ -40,6 +41,7 @@ export default {
             type: [String, Object],
             default: ''
         },
+        rows: [String, Number]
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {

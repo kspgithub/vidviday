@@ -29,18 +29,23 @@ class Card extends Component
 
     public $vue = false;
 
+
+    public $history = false;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Tour $tour, $mode = 'thumb', $vue = false)
+    public function __construct(Tour $tour, $mode = 'thumb', $vue = false, $history = false)
     {
         $this->mode = $mode;
         //
         $this->tour = $tour;
 
         $this->vue = $vue;
+        
+        $this->history = $history;
 
         $this->schedule = $tour->scheduleItems->first();
     }

@@ -71,4 +71,16 @@ trait UserMethod
             'avatar_url' => $this->avatar_url,
         ];
     }
+
+    public function viewTour($id)
+    {
+        if ($this->tourHistory()->whereId($id)->count() > 0) {
+            $this->tourHistory()->detach([$id]);
+        }
+        $this->tourHistory()->attach([$id]);
+        if ($this->tourHistory()->count() > 36) {
+            $detach_ids = array_values($this->tourHistory()->skip(36)->get(['id'])->pluck('id')->toArray());
+            $this->tourHistory()->detach($detach_ids);
+        }
+    }
 }

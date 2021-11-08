@@ -11,9 +11,12 @@ export default {
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
 
+        app.component('svg-icon', require('./svg/SvgIcon').default);
+
         app.component('swiper-slider', require('./common/SwiperSlider').default);
         app.component('slide-more', require('./common/SlideMore').default);
         app.component('show-more-text', require('./common/ShowMoreText').default);
+        app.component('more-text', require('./common/MoreText').default);
         app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
         app.component('feedback-form', require('./common/FeedbackForm').default);
 
@@ -43,11 +46,20 @@ export default {
 
 
         app.component('order-form', require('./order/OrderForm').default);
+        app.component('order-testimonial-btn', require('./order/OrderTestimonialBtn').default);
+        app.component('order-cancel-btn', require('./order/OrderCancelBtn').default);
+        app.component('order-cancel-popup', require('./order/OrderCancelPopup').default);
+        app.component('order-notes', require('./order/OrderNotes').default);
 
         app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
 
         app.component('staff-testimonial-form', require('./staff/StaffTestimonialForm').default);
 
-
+        app.component('profile-info-form', require('./profile/ProfileInfoForm').default);
+        app.component('profile-history', require('./profile/ProfileHistory').default);
+        app.component('profile-history', require('./profile/ProfileHistory').default);
+        app.component('profile-favourite-link', require('./profile/ProfileFavouriteLink').default);
+        app.component('profile-favourites', require('./profile/ProfileFavourites').default);
+        app.component('profile-in-favourites', require('./profile/ProfileInFavourites').default);
     }
 }

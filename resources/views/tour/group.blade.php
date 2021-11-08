@@ -36,7 +36,7 @@
                                     <div class="spacer-xs"></div>
                                 </div>
                                 @if($group)
-                                    <div v-is="'show-more-text'">
+                                    <div v-is="'more-text'">
                                         {!! $group->text !!}
                                     </div>
                                 @endif

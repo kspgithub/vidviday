@@ -32,4 +32,24 @@ class UserController extends Controller
 
         return response()->json(['result' => 'success', 'message' => __('Thanks for your feedback!')]);
     }
+
+
+    public function favourites()
+    {
+        $user = current_user();
+        if ($user) {
+            return array_values($user->tourFavourites()->get(['id'])->pluck('id')->toArray());
+        }
+        return [];
+    }
+
+    public function favouritesToggle($id)
+    {
+        $user = current_user();
+        if ($user) {
+            $user->tourFavourites()->toggle($id);
+            return array_values($user->tourFavourites()->get(['id'])->pluck('id')->toArray());
+        }
+        return [];
+    }
 }

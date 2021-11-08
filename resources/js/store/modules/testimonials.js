@@ -7,6 +7,7 @@ export default {
             items: [],
             popupOpen: false,
             parentId: 0,
+            tour: null,
             currentPage: 1,
             lastPage: 1,
         }
@@ -26,6 +27,9 @@ export default {
         },
         SET_PARENT_ID(state, value) {
             state.parentId = value;
+        },
+        SET_TOUR(state, value) {
+            state.tour = value;
         },
         SET_CURRENT_PAGE(state, value) {
             state.currentPage = value;

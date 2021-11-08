@@ -13,11 +13,18 @@ class OrderNote extends Model
     use HasFactory;
 
     protected $fillable = [
-        'text'
+        'text',
+        'order_id'
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
+
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }

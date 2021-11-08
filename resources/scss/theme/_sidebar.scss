@@ -267,14 +267,14 @@
 			position: relative;
 			padding-left: 36px;
 			&:before {
-				top: 0;
-				left: 0;
-				content: '';
-				width: 26px;
-				height: 26px;
-				position: absolute;
-				background: center / contain url(../../svg/resume.svg) no-repeat;
-			}
+                top: 0;
+                left: 0;
+                content: '';
+                width: 26px;
+                height: 26px;
+                position: absolute;
+                background: center / contain url('../../svg/resume.svg') no-repeat;
+            }
 		}
 		.btn {
 			width: 100%;

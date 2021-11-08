@@ -284,13 +284,9 @@ class DealOrder
         }
     }
 
-
-    public static function getAccommodationOther($text)
+    public static function cancelDeal(Order $order)
     {
-        $comment = '<br /><div><strong>Поселення інше:</strong></div>';
-        $comment .= "<div>$text</div>";
-        $comment .= '<br />';
-        return $comment;
+        //TODO: Необходимо реализовать
     }
 
 

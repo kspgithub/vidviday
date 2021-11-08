@@ -10,4 +10,5 @@ Route::group([
     Route::post('order', [OrderController::class, 'store'])->name('store');
     Route::get('order/corporate', [OrderController::class, 'corporate'])->name('corporate');
     Route::get('order/{order}/success', [OrderController::class, 'success'])->name('success');
+    Route::post('order/{id}/cancel', [OrderController::class, 'cancel'])->name('cancel');
 });

@@ -114,6 +114,11 @@ class TourController extends Controller
 
         $price_items = $tour->calcItems();
 
+        $user = current_user();
+        if ($user !== null) {
+            $user->viewTour($tour->id);
+        }
+
         return view('tour.show', [
             'tour' => $tour,
             'future_events' => $future_events,

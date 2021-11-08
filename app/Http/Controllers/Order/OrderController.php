@@ -61,4 +61,17 @@ class OrderController extends Controller
 
         return view('order.success', ['order' => $order]);
     }
+
+
+    public function cancel(Request $request, $id)
+    {
+        $user = current_user();
+        $order = $user->orders()->findOrFail($id);
+        $order->cancel($request->only(['cause', 'comment']));
+        DealOrder::cancelDeal($order);
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'order' => $order]);
+        }
+        return redirect()->back()->withFlashSuccess(__('Request Sent'));
+    }
 }

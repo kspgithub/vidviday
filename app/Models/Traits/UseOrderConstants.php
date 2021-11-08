@@ -55,6 +55,20 @@ trait UseOrderConstants
         ];
     }
 
+    public static function status_classes()
+    {
+        return [
+            self::STATUS_NEW => 'waiting',
+            self::STATUS_PROCESSING => 'waiting',
+            self::STATUS_PENDING_PAYMENT => 'waiting',
+            self::STATUS_PAYED => 'paid',
+            self::STATUS_COMPLETED => 'paid',
+            self::STATUS_MAINTENANCE => 'waiting',
+            self::STATUS_PENDING_REJECT => 'waiting',
+            self::STATUS_REJECTED => 'canceled',
+        ];
+    }
+
     public static function includes()
     {
         return [
@@ -80,6 +94,16 @@ trait UseOrderConstants
         return $this->confirmation_type > 0 ? self::$confirmations[$this->confirmation_type][$locale] : '';
     }
 
+
+    public function getStatusTextAttribute()
+    {
+        return self::statuses()[$this->status] ?? '';
+    }
+
+    public function getStatusClassAttribute()
+    {
+        return self::status_classes()[$this->status] ?? 'waiting';
+    }
 
     public static $paymentStatuses = [
         self::PAYMENT_PENDING => 'Очікує на оплату',

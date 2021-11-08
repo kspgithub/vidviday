@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Methods\UserMethod;
+use App\Models\Traits\Relationship\UserRelationship;
 use App\Models\Traits\Scope\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,7 @@ class User extends Authenticatable
     use UserMethod;
     use UserAttributes;
     use UserScope;
+    use UserRelationship;
     use HasAvatar;
     use SoftDeletes;
 
@@ -81,7 +83,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'birthday' => 'date',
+        'birthday' => 'date:d.m.Y',
     ];
 
     public function staffs()

@@ -116,7 +116,7 @@ export default {
 
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
-            document.addEventListener('click', clickOutside);
+            //document.addEventListener('click', clickOutside);
         });
 
         onUnmounted(() => {

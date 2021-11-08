@@ -149,4 +149,11 @@ class Order extends TranslatableModel
         }
         return trim($comment);
     }
+
+    public function cancel($data)
+    {
+        $this->abolition = $data;
+        $this->status = self::STATUS_PENDING_REJECT;
+        $this->save();
+    }
 }

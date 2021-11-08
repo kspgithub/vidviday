@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 require('laravel-vue-lang/mix');
+require('laravel-mix-svg-vue');
 
 /*
  |--------------------------------------------------------------------------

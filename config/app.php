@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Currency;
 
 return [
 
@@ -231,8 +230,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Currency' => Currency::class,
-
+        'Currency' => \App\Models\Currency::class,
+        'Order' => \App\Models\Order::class,
     ],
 
 ];

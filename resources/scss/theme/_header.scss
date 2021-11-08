@@ -261,14 +261,14 @@ nav li.dropdown > span {
 
 .tel {
 	&:before {
-		background: center / contain url(../../svg/call.svg) no-repeat;
-	}
+        background: center / contain url('../../svg/call.svg') no-repeat;
+    }
 }
 
 .log-in {
 	&:before {
-		background: center / contain url(../../svg/login.svg) no-repeat;
-	}
+        background: center / contain url('../../svg/login.svg') no-repeat;
+    }
 	&.log-inned {
 		padding-left: 0;
 		font-weight: 400;
@@ -277,14 +277,20 @@ nav li.dropdown > span {
 			display: none;
 		}
 		.img {
-			width: 40px;
-			height: 40px;
-			overflow: hidden;
-			border-radius: 50%;
-			position: relative;
-			display: inline-block;
-			vertical-align: middle;
-		}
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
 		.dropdown-toggle {
 			&:before {
 				left: auto;
@@ -317,28 +323,29 @@ nav li.dropdown > span {
 }
 
 .log-inned-icon {
-	width: 30px;
-	height: 30px;
-	z-index: 1;
-	margin-right: 15px;
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	background: center / contain url(../../svg/heart.svg) no-repeat;
-	span {
-		top: -6px;
-		right: -6px;
-		color: #fff;
-		width: 18px;
-		height: 18px;
-		font-size: 12px;
-		font-weight: 500;
-		line-height: 18px;
-		position: absolute;
-		text-align: center;
-		border-radius: 50%;
-		background-color: $blue;
-	}
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    margin-right: 15px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: center / contain url('../../svg/heart.svg') no-repeat;
+
+    span {
+        top: -6px;
+        right: -6px;
+        color: #fff;
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        position: absolute;
+        text-align: center;
+        border-radius: 50%;
+        background-color: $blue;
+    }
 }
 
 .exchange {

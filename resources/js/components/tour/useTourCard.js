@@ -1,6 +1,7 @@
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import {useLocalizedProperty} from "../../composables/useLocalizedProperty";
 import {computed, onMounted, ref} from "vue";
+import {useStore} from "vuex";
 
 
 export const useTourCard = (tour) => {
@@ -46,6 +47,8 @@ export const useTourCard = (tour) => {
         }
     })
 
+    const store = useStore();
+
     const tourTitle = useLocalizedProperty(tour, 'title');
     const shortText = useLocalizedProperty(tour, 'short_text');
 
@@ -61,6 +64,10 @@ export const useTourCard = (tour) => {
         //console.log(evt);
     }
 
+    const toggleFavourite = async () => {
+        await store.dispatch('user/toggleFavourite', tour.id);
+    }
+
     const schedules = computed(() => {
         return tour.schedule_items.map((it) => {
             return {
@@ -69,6 +76,8 @@ export const useTourCard = (tour) => {
             }
         })
     });
+
+    const inFavourites = computed(() => store.getters['user/inFavourites'](tour.id));
 
     onMounted(() => {
         imageSrc.value = tour.main_image;
@@ -80,8 +89,10 @@ export const useTourCard = (tour) => {
         scheduleId,
         currentSchedule,
         changeSchedule,
+        toggleFavourite,
         schedules,
         t,
         imageSrc,
+        inFavourites,
     }
 }

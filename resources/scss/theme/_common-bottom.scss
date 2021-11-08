@@ -225,7 +225,7 @@ html.overflow-menu body {
 
             &:first-child {
                 &:after {
-                    background-image: url(../../svg/location-target.svg);
+                    background-image: url('../../svg/location-target.svg');
                 }
 
                 input {
@@ -237,7 +237,7 @@ html.overflow-menu body {
                 margin-right: 0;
 
                 &:after {
-                    background-image: url(../../svg/location-placeholder.svg);
+                    background-image: url('../../svg/location-placeholder.svg');
                 }
             }
 
@@ -269,7 +269,7 @@ html.overflow-menu body {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        background: center / contain url(../../svg/no-people.svg) no-repeat;
+        background: center / contain url('../../svg/no-people.svg') no-repeat;
     }
 }
 

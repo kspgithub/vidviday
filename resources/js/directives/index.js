@@ -6,6 +6,7 @@ export default {
 
         app.use(require('./click-outside').default);
         app.use(require('./only-number').default);
+        app.use(require('./observe-visibility').default);
 
     }
 }

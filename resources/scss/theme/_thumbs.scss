@@ -199,14 +199,14 @@
 
     &.active {
         .select-icon {
-            background-image: url(../../svg/star-icon.svg);
+            background-image: url('../../svg/star-icon.svg');
 
             &.active {
                 & + .select-icon,
                 & + .select-icon + .select-icon,
                 & + .select-icon + .select-icon + .select-icon,
                 & + .select-icon + .select-icon + .select-icon + .select-icon {
-                    background-image: url(../../svg/star-empty-icon.svg);
+                    background-image: url('../../svg/star-empty-icon.svg');
                 }
             }
         }
@@ -231,11 +231,11 @@
     }
 
     &.icon-star {
-        background-image: url(../../svg/star-icon.svg);
+        background-image: url('../../svg/star-icon.svg');
     }
 
     &.icon-star-empty {
-        background-image: url(../../svg/star-empty-icon.svg);
+        background-image: url('../../svg/star-empty-icon.svg');
     }
 }
 
@@ -274,7 +274,7 @@
             border-right: 1px solid $border;
 
             &:before {
-                background-image: url(../../svg/clock.svg);
+                background-image: url('../../svg/clock.svg');
             }
 
             &:last-child {
@@ -286,14 +286,14 @@
             padding-left: 20px;
 
             &:before {
-                background-image: url(../../svg/bus.png);
+                background-image: url('../../img/bus.png');
             }
 
             &.no-people {
                 &:after {
                     content: '';
                     margin-left: 15px;
-                    background-image: url(../../svg/no-people.svg);
+                    background-image: url('../../svg/no-people.svg');
                 }
             }
         }
@@ -303,10 +303,11 @@
 .thumb-price {
     display: flex;
     padding-top: 15px;
-    margin-bottom: 15px;
+
     align-items: center;
     border-top: 1px solid $border;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     i,
     > span {
@@ -318,6 +319,7 @@
         font-size: 14px;
         font-weight: 400;
         line-height: 24px;
+        margin-bottom: 15px;
 
         > * {
             margin-bottom: 0;
@@ -344,6 +346,10 @@
             vertical-align: top;
         }
     }
+
+    > .discount {
+        margin-bottom: 15px;
+    }
 }
 
 .discount {
@@ -364,7 +370,7 @@
         width: 16px;
         height: 16px;
         margin-top: -8px;
-        background: center / contain url(../../svg/discount.svg) no-repeat;
+        background: center / contain url('../../svg/discount.svg') no-repeat;
     } */
     &.margin-top {
         margin-top: 5px;
@@ -571,19 +577,19 @@
     .rating-picker.active {
         &:hover {
             .select-icon {
-                background-image: url(../../svg/star-icon.svg) !important;
+                background-image: url('../../svg/star-icon.svg') !important;
             }
         }
 
         .select-icon {
             &:hover {
-                background-image: url(../../svg/star-icon.svg) !important;
+                background-image: url('../../svg/star-icon.svg') !important;
 
                 & + .select-icon,
                 & + .select-icon + .select-icon,
                 & + .select-icon + .select-icon + .select-icon,
                 & + .select-icon + .select-icon + .select-icon + .select-icon {
-                    background-image: url(../../svg/star-empty-icon.svg) !important;
+                    background-image: url('../../svg/star-empty-icon.svg') !important;
                 }
             }
 
@@ -592,7 +598,7 @@
                 & + .select-icon + .select-icon:hover,
                 & + .select-icon + .select-icon + .select-icon:hover,
                 & + .select-icon + .select-icon + .select-icon + .select-icon:hover {
-                    background-image: url(../../svg/star-icon.svg) !important;
+                    background-image: url('../../svg/star-icon.svg') !important;
                 }
             }
         }
