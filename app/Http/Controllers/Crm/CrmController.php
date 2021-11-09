@@ -130,7 +130,7 @@ class CrmController extends Controller
 
     public function appInstall(Request $request)
     {
-        Log::info('App Handler', $request->all());
+        Log::info('App Install', $request->all());
 
         $result = CRest::installApp($request->all());
         if ($result['install']) {
