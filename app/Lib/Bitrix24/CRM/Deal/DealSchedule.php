@@ -85,6 +85,10 @@ class DealSchedule
                 }
             }
 
+            if (empty($fillData['places'])) {
+                $fillData['places'] = 0;
+            }
+
             $schedule->fill($fillData);
             $schedule->save();
         }
