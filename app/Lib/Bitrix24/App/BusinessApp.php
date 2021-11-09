@@ -55,7 +55,6 @@ class BusinessApp
     public static function addActivity($params = [])
     {
         $params = array_merge([
-            'HANDLER' => self::defaultHandler(),
             'AUTH_USER_ID' => config('services.bitrix24.user'),
             'USE_SUBSCRIPTION' => 'N',
         ], $params);
