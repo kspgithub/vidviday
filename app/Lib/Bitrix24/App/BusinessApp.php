@@ -29,7 +29,6 @@ class BusinessApp
                 'Default' => null
             ],
         ],
-        'DOCUMENT_TYPE' => ['Bitrix\Crm\Model\Dynamic\Type'],
     ];
 
     /**
