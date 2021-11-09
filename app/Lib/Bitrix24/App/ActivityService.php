@@ -3,11 +3,11 @@
 namespace App\Lib\Bitrix24\App;
 
 use App\Lib\Bitrix24\Core\StaticServiceInterface;
-use App\Lib\Bitrix24\Core\UseStaticService;
+use App\Lib\Bitrix24\Core\UseCRestService;
 
 class ActivityService implements StaticServiceInterface
 {
-    use UseStaticService;
+    use UseCRestService;
 
     public static function apiBaseMethod(): string
     {
