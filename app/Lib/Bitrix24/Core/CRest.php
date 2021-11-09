@@ -345,11 +345,13 @@ class CRest
 
     protected static function getSettingData()
     {
-        return [
-            'C_REST_CLIENT_ID' => config('services.bitrix24.client_id'),
-            'C_REST_CLIENT_SECRET' => config('services.bitrix24.client_secret'),
-            'C_REST_WEB_HOOK_URL' => config('services.bitrix24.client_webhook'),
-        ];
+        $return = [];
+        if (Storage::exists('bitrix/settings.json')) {
+            $return = static::expandData(file_get_contents(Storage::path('bitrix/settings.json')));
+            $return['C_REST_CLIENT_ID'] = config('services.bitrix24.client_id');
+            $return['C_REST_CLIENT_SECRET'] = config('services.bitrix24.client_secret');
+        }
+        return $return;
     }
 
 
