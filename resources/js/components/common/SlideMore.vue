@@ -15,7 +15,7 @@
 
 <script>
 import {computed, ref, watch} from "vue";
-import SlideUpDown from 'vue3-slide-up-down';
+import SlideUpDown from './SlideUpDown';
 
 export default {
     name: "SlideMore",

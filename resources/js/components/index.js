@@ -57,9 +57,10 @@ export default {
 
         app.component('profile-info-form', require('./profile/ProfileInfoForm').default);
         app.component('profile-history', require('./profile/ProfileHistory').default);
-        app.component('profile-history', require('./profile/ProfileHistory').default);
         app.component('profile-favourite-link', require('./profile/ProfileFavouriteLink').default);
         app.component('profile-favourites', require('./profile/ProfileFavourites').default);
         app.component('profile-in-favourites', require('./profile/ProfileInFavourites').default);
+
+        app.component('certificate-order-form', require('./certificate/CertificateOrderForm').default);
     }
 }

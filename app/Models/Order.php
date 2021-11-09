@@ -6,6 +6,7 @@ use App\Models\Traits\Attributes\OrderAttribute;
 use App\Models\Traits\Relationship\OrderRelationship;
 use App\Models\Traits\UseOrderConstants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
@@ -17,6 +18,7 @@ class Order extends TranslatableModel
     use OrderRelationship;
     use OrderAttribute;
     use UseOrderConstants;
+    use SoftDeletes;
 
 
     protected static function boot()
@@ -125,6 +127,7 @@ class Order extends TranslatableModel
         'offer_date',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
 

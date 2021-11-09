@@ -186,6 +186,28 @@ class PageSeeder extends Seeder
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
                 'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'certificate-manager'))->first()->id ?? 2,
             ],
+            [
+                'title' => [
+                    'uk' => 'Замовлення сертифікату',
+                    'en' => 'Order a certificate',
+                    'ru' => 'Заказ сертификата',
+                    'pl' => 'Zamów certyfikat'
+                ],
+                'seo_h1' => [
+                    'uk' => 'Замовлення сертифікату',
+                    'en' => 'Order a certificate',
+                    'ru' => 'Заказ сертификата',
+                    'pl' => 'Zamów certyfikat'
+                ],
+                'text' => [
+                    'en' => '<p>A gift certificate is a document that you can buy from us if you need to give a loved one a good trip to Ukraine and make it beautiful.</p>',
+                    'ru' => '<p>Подарочный сертификат, это документ, который Вы можете приобрести у нас, если нужно подарить дорогому человеку хорошую путешествие по Украине и красиво это оформить.</p>',
+                    'uk' => '<p>Подарунковий сертифікат, це документ, який Ви можете придбати в нас, якщо потрібно подарувати дорогій людині гарну подорож Україною та красиво це оформити.</p>',
+                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
+                ],
+                'key' => 'certificate-order',
+                'published' => 1,
+            ],
         ];
 
         foreach ($pages as $page) {

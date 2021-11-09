@@ -26,6 +26,10 @@ class BitrixAuth
             case 'crm.deal.update':
                 $token = config('services.bitrix24.deal-token');
                 break;
+            case 'crm.app.install':
+            case 'crm.app.check-server':
+                return $next($request);
+                break;
             default:
                 return response()->json(['message' => 'Unauthorized'], 401);
         }

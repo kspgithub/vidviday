@@ -987,25 +987,6 @@ $(function () {
         $('.scroll-top').scrollLeft($('.scroll-bottom').scrollLeft());
     });
 
-    $('input[name="certificate-format"]').click(function () {
-        var target = $('#block-' + $(this).val());
-        $('.cert-upak').not(target).hide(0);
-        target.fadeIn(500);
-    });
-
-
-    $('input[name="certificate-upak"]').click(function () {
-        var target = $('#block-' + $(this).val());
-        $('.upak-variant').not(target).hide(0);
-        target.fadeIn(500);
-    });
-
-    $('input[name="certificate-detail"]').click(function () {
-        var target = $('#block-' + $(this).val());
-        $('.det-n').not(target).hide(0);
-        target.fadeIn(500);
-    });
-
 
     $(document).on('click', '.show-more-events', function (e) {
         var $btn = $(e.currentTarget);

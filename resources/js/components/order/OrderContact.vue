@@ -12,7 +12,8 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Номер телефону" name="phone" v-model="phone" rules="required|tel"/>
+                <form-input label="Номер телефону" name="phone" v-model="phone" mask="+38 (099) 999-99-99"
+                            rules="required|tel"/>
             </div>
 
             <div class="col-md-6 col-12">

@@ -129,7 +129,7 @@ const directive = {
 };
 
 const mixin = {
-    directives: {ClickOutside: directive},
+    directives: {ObserveVisibility: directive},
 };
 
 export {

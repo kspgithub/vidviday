@@ -123,8 +123,9 @@
         &:hover {
             &:not(:disabled),
             &:not(.disabled) {
-                background-color: $red;
-                border-color: $red;
+                background-color: #fff;
+                color: $google;
+                border-color: $google;
             }
         }
     }

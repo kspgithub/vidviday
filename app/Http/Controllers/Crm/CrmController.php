@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Crm;
 
 use App\Http\Controllers\Controller;
+use App\Lib\Bitrix24\App\BusinessApp;
+use App\Lib\Bitrix24\Core\CRest;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
 use App\Lib\Bitrix24\CRM\Deal\DealFields;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
@@ -121,7 +123,25 @@ class CrmController extends Controller
     public function appHandler(Request $request)
     {
         Log::info('App Handler', $request->all());
-        
+
         return response()->json(['result' => 'OK']);
+    }
+
+
+    public function appInstall(Request $request)
+    {
+        Log::info('App Handler', $request->all());
+
+        $result = CRest::installApp($request->all());
+        if ($result['install']) {
+            BusinessApp::registerActivity();
+        }
+
+        return response()->json($result);
+    }
+
+    public function appCheckServer(Request $request)
+    {
+        return response()->json(CRest::checkServer());
     }
 }

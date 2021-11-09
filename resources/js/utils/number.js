@@ -1,15 +1,15 @@
-export const toCurrency = function (value, currency){
+export const toCurrency = function (value, currency = 'UAH', locale = 'uk-UA') {
     value = parseFloat(value);
-    return value.toLocaleString('ru-RU', {
+    return value.toLocaleString(locale, {
         style: 'currency',
         currency: currency,
         maximumFractionDigits: 0
     }).replace('KZT', '₸');
 }
 
-export const toAmount = function (value, decimal = 0){
+export const toAmount = function (value, decimal = 0, locale = 'uk-UA') {
     value = parseFloat(value);
-    return value.toLocaleString('ru-RU', {
+    return value.toLocaleString(locale, {
         style: 'decimal',
         maximumFractionDigits: decimal
     });

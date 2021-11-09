@@ -3,7 +3,7 @@
         <div class="spacer-xs"></div>
         <slide-more v-if="isVisible" title="Примітки" sub-title="Додаткові побажання або запитання щодо туру"
                     :open="true">
-            <form-textarea v-model="comment" name="comment" label="Текст примітки"/>
+            <form-textarea v-model="comment" name="comment" id="certificate-comment" label="Текст примітки"/>
         </slide-more>
     </div>
 
@@ -16,7 +16,7 @@ import FormTextarea from "../form/FormTextarea";
 import {ref} from "vue";
 
 export default {
-    name: "OrderComment",
+    name: "CertificateComment",
     components: {FormTextarea, SlideMore},
     setup() {
         const isVisible = ref(false);
@@ -25,10 +25,11 @@ export default {
             isVisible.value = visible;
         }
 
+
         return {
             isVisible,
             visibilityChanged,
-            comment: useDebounceFormDataProperty('orderTour', 'comment'),
+            comment: useDebounceFormDataProperty('orderCertificate', 'comment'),
         }
     }
 }

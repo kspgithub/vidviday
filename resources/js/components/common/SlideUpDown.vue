@@ -77,6 +77,9 @@ export default {
         const transitionDuration = computed(() => {
             return typeof props.duration === "number" ? `${props.duration}ms` : props.duration;
         });
+
+        const isVisible = ref(false);
+
         /**
          * Wait until the synchronous loop is cleared before executing action
          *
@@ -196,6 +199,7 @@ export default {
                     onTransitionend: transitionEnd,
                     ...generatedBaseAttributes.value,
                     ref: containerRef,
+                    vObserveVisibility: resizeCallback
                 },
                 slots.default()
             );
