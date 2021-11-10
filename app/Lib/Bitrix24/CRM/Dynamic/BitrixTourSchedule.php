@@ -106,7 +106,7 @@ class BitrixTourSchedule
                     $schedule->bitrix_id = $bitrixID;
                 }
 
-                if ($schedule !== null && $schedule->price > 0 && !empty($schedule->start_date) && !empty($schedule->end_date)) {
+                if ($schedule !== null && (int)$scheduleData->price > 0 && !empty($scheduleData->start_date) && !empty($scheduleData->end_date)) {
                     $data = (array)$scheduleData;
                     $schedule->fill($data);
                     $schedule->saveOrFail();
