@@ -103,6 +103,7 @@ class BitrixTourSchedule
                 if ($schedule === null && $tour !== null) {
                     $schedule = new TourSchedule();
                     $schedule->tour_id = $tour->id;
+                    $schedule->bitrix_id = $bitrixID;
                 }
 
                 if ($schedule !== null && $schedule->price > 0 && !empty($schedule->start_date) && !empty($schedule->end_date)) {
