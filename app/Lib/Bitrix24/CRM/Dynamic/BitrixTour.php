@@ -73,7 +73,7 @@ class BitrixTour
 
     public static function createOrUpdate($bitrixID, object $item_data)
     {
-        $tour = Tour::whereBitrixId($bitrixID);
+        $tour = Tour::whereBitrixId($bitrixID)->first();
         if ($tour === null) {
             $tour = new Tour();
             $tour->bitrix_id = $bitrixID;
