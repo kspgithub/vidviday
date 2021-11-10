@@ -3,6 +3,7 @@
 namespace App\Lib\Bitrix24\CRM\Dynamic;
 
 use App\Models\Tour;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 class BitrixTour
@@ -74,23 +75,28 @@ class BitrixTour
     public static function createOrUpdate($bitrixID, object $item_data)
     {
         $tour = Tour::whereBitrixId($bitrixID)->first();
-        if ($tour === null) {
-            $tour = new Tour();
-            $tour->bitrix_id = $bitrixID;
-            $tour->text = '';
-            $tour->short_text = '';
-            $tour->published = 0;
+        try {
+            if ($tour === null) {
+                $tour = new Tour();
+                $tour->bitrix_id = $bitrixID;
+                $tour->text = '';
+                $tour->short_text = '';
+                $tour->published = 0;
+            }
+            $data = [
+                'title' => ['uk' => $item_data->title],
+                'duration' => $item_data->duration,
+                'nights' => $item_data->duration,
+                'price' => $item_data->price ?? 0,
+                'currency' => $item_data->currency ?? 'UAH',
+                'commission' => $item_data->commission ?? 0,
+            ];
+            $tour->fill($data);
+            $tour->saveOrFail();
+        } catch (Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
         }
-        $data = [
-            'title' => ['uk' => $item_data->title],
-            'duration' => $item_data->duration,
-            'nights' => $item_data->duration,
-            'price' => $item_data->price ?? 0,
-            'currency' => $item_data->currency ?? 'UAH',
-            'commission' => $item_data->commission ?? 0,
-        ];
-        $tour->fill($data);
-        $tour->save();
+
         return $tour;
     }
 }

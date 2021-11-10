@@ -4,6 +4,7 @@ namespace App\Lib\Bitrix24\CRM\Dynamic;
 
 use App\Models\Tour;
 use App\Models\TourSchedule;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 class BitrixTourSchedule
@@ -96,18 +97,23 @@ class BitrixTourSchedule
         $schedule = TourSchedule::whereBitrixId($bitrixID)->first();
 
         if ($scheduleData->places > 0 && $scheduleData->price > 0) {
-            $tour = Tour::whereBitrixId($scheduleData->tour_id)->select(['id'])->first();
+            try {
+                $tour = Tour::whereBitrixId($scheduleData->tour_id)->select(['id'])->first();
 
-            if ($schedule === null && $tour !== null) {
-                $schedule = new TourSchedule();
-                $schedule->tour_id = $tour->id;
+                if ($schedule === null && $tour !== null) {
+                    $schedule = new TourSchedule();
+                    $schedule->tour_id = $tour->id;
+                }
+
+                if ($schedule !== null && $schedule->price > 0 && !empty($schedule->start_date) && !empty($schedule->end_date)) {
+                    $data = (array)$scheduleData;
+                    $schedule->fill($data);
+                    $schedule->saveOrFail();
+                }
+            } catch (Exception $e) {
+                Log::error($e->getMessage(), $e->getTrace());
             }
 
-            if ($schedule !== null && $schedule->price > 0 && !empty($schedule->start_date) && !empty($schedule->end_date)) {
-                $data = (array)$scheduleData;
-                $schedule->fill($data);
-                $schedule->save();
-            }
         }
 
         return $schedule;

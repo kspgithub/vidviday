@@ -147,6 +147,8 @@ class CrmController extends Controller
                         }
                         break;
                 }
+            } else {
+                Log::error('Invalid Properties', $properties);
             }
 
         }
