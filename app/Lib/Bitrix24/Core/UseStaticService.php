@@ -18,15 +18,15 @@ trait UseStaticService
     public $service;
 
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl, $additionalParams = [])
     {
-        $this->service = new BaseService($baseUrl);
+        $this->service = new BaseService($baseUrl, $additionalParams);
     }
 
     public static function instance()
     {
         if (!self::$instance) {
-            self::$instance = new self(self::apiBaseMethod());
+            self::$instance = new self(static::apiBaseMethod(), static::additionalParams());
         }
         return self::$instance;
     }
@@ -36,9 +36,9 @@ trait UseStaticService
      *
      * @return BitrixResponse
      */
-    public static function fields()
+    public static function fields($params = [])
     {
-        return self::instance()->service->fields();
+        return self::instance()->service->fields($params);
     }
 
 
@@ -61,9 +61,9 @@ trait UseStaticService
      * @param string|int $id Идентификатор сущности.
      * @return BitrixResponse
      */
-    public static function get($id)
+    public static function get($id, array $params = [])
     {
-        return self::instance()->service->get($id);
+        return self::instance()->service->get($id, $params);
     }
 
 
@@ -92,4 +92,15 @@ trait UseStaticService
     {
         return self::instance()->service->update($id, $fields, $params);
     }
+
+
+    /**
+     * Дополнительные параметры передаваемые на сервер
+     * @return array
+     */
+    public static function additionalParams(): array
+    {
+        return [];
+    }
+
 }

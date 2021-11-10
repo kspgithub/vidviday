@@ -3,8 +3,6 @@
 namespace App\Lib\Bitrix24\App;
 
 use App\Lib\Bitrix24\Core\CRest;
-use App\Lib\Bitrix24\Core\StaticServiceInterface;
-use App\Lib\Bitrix24\Core\UseCRestService;
 
 class ActivityService
 {

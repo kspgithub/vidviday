@@ -11,6 +11,7 @@ class Client
 
     private $url;
 
+
     /**
      * @var Response
      */
@@ -39,15 +40,9 @@ class Client
     }
 
 
-    private function request($bitrixMethod, $params = [], $httpMethod = 'GET')
+    private function request($bitrixMethod, $params = [])
     {
-        $url = $this->getUrl($bitrixMethod);
-        if (strtoupper($httpMethod) === 'POST') {
-            $this->response = Http::post($url, $params);
-        } else {
-
-            $this->response = Http::get($url, http_build_query($params));
-        }
+        $this->response = CRest::call($bitrixMethod, $params);
     }
 
     /**
@@ -55,7 +50,7 @@ class Client
      */
     public function getResponse()
     {
-        return new BitrixResponse($this->response->status(), $this->response->json());
+        return new BitrixResponse($this->response);
     }
 
     /**
@@ -63,22 +58,10 @@ class Client
      * @param array $params
      * @return BitrixResponse
      */
-    public static function get($bitrixMethod, $params = [])
+    public static function call($bitrixMethod, $params = [])
     {
         $instance = self::getInstance();
         $instance->request($bitrixMethod, $params);
-        return $instance->getResponse();
-    }
-
-    /**
-     * @param string $bitrixMethod
-     * @param array $params
-     * @return BitrixResponse
-     */
-    public static function post($bitrixMethod, $params = [])
-    {
-        $instance = self::getInstance();
-        $instance->request($bitrixMethod, $params, 'POST');
         return $instance->getResponse();
     }
 

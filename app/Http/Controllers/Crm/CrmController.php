@@ -8,11 +8,12 @@ use App\Lib\Bitrix24\Core\CRest;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
 use App\Lib\Bitrix24\CRM\Deal\DealFields;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
-use App\Lib\Bitrix24\CRM\Deal\DealSchedule;
 use App\Lib\Bitrix24\CRM\Deal\DealService;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTour;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourSchedule;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourService;
 use App\Models\BitrixContact;
 use App\Models\Order;
-use App\Models\TourSchedule;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,9 +43,11 @@ class CrmController extends Controller
                 case 'ONCRMCONTACTUPDATE':
                     $bitrix_id = $data['FIELDS']['ID'];
                     $response = ContactService::get($bitrix_id);
-                    if (!$response->error) {
-                        BitrixContact::createOrUpdate($bitrix_id, $response->result);
-                    }
+                if (!$response->error) {
+                    BitrixContact::createOrUpdate($bitrix_id, $response->result);
+                } else {
+                    Log::error($response->error_description, (array)$response);
+                }
                     break;
                 case 'ONCRMCONTACTDELETE':
                     $bitrix_id = $data['FIELDS']['ID'];
@@ -82,16 +85,15 @@ class CrmController extends Controller
                 case 'ONCRMDEALUPDATE':
                     $bitrix_id = $data['FIELDS']['ID'];
                     $response = DealService::get($bitrix_id);
-                    if (!$response->error) {
-                        switch ((int)$response->result[DealFields::FIELD_CATEGORY_ID]) {
-                            case DealOrder::CATEGORY_ID:
-                                DealOrder::createOrUpdate($bitrix_id, $response->result);
-                                break;
-                            case DealSchedule::CATEGORY_ID:
-                                DealSchedule::createOrUpdate($bitrix_id, $response->result);
-                                break;
-                        }
+                if (!$response->error) {
+                    switch ((int)$response->result[DealFields::FIELD_CATEGORY_ID]) {
+                        case DealOrder::CATEGORY_ID:
+                            DealOrder::createOrUpdate($bitrix_id, $response->result);
+                            break;
                     }
+                } else {
+                    Log::error($response->error_description, (array)$response);
+                }
 
                     break;
                 case 'ONCRMDEALDELETE':
@@ -102,10 +104,9 @@ class CrmController extends Controller
                             case DealOrder::CATEGORY_ID:
                                 Order::whereBitrixId($bitrix_id)->delete();
                                 break;
-                            case DealSchedule::CATEGORY_ID:
-                                TourSchedule::whereBitrixId($bitrix_id)->delete();
-                                break;
                         }
+                    } else {
+                        Log::error($response->error_description, (array)$response);
                     }
                     break;
                 default:
@@ -122,8 +123,33 @@ class CrmController extends Controller
 
     public function appHandler(Request $request)
     {
-        Log::info('App Handler', $request->all());
+        if (config('services.bitrix24.log-enable')) {
+            Log::info('App Handler', $request->all());
+        }
 
+        $code = $request->input('code', '');
+
+        if (!empty($code)) {
+            $properties = $request->input('properties', []);
+            $itemId = $properties['id'] ?? 0;
+            if ($itemId > 0) {
+                switch ($code) {
+                    case 'TOUR_UPDATE':
+                        $data = BitrixTour::get($itemId);
+                        if (!empty($data)) {
+                            BitrixTour::createOrUpdate($itemId, $data);
+                        }
+                        break;
+                    case 'TOUR_DEPARTURE_UPDATE':
+                        $data = BitrixTourSchedule::get($itemId);
+                        if (!empty($data)) {
+                            BitrixTourSchedule::createOrUpdate($itemId, $data);
+                        }
+                        break;
+                }
+            }
+
+        }
         return response()->json(['result' => 'OK']);
     }
 

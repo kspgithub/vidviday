@@ -2,6 +2,7 @@
 
 namespace App\Lib\Bitrix24\Core;
 
+use App\Models\BitrixAppSettings;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -63,10 +64,11 @@ class CRest
         if (!function_exists('curl_init')) {
             return [
                 'error' => 'error_php_lib_curl',
-                'error_information' => 'need install curl lib'
+                'error_description' => 'need install curl lib'
             ];
         }
         $arSettings = static::getAppSettings();
+
         if ($arSettings !== false) {
             if (isset($arParams['this_auth']) && $arParams['this_auth'] == 'Y') {
                 $url = 'https://oauth.bitrix.info/oauth/token/';
@@ -126,13 +128,13 @@ class CRest
                             'INTERNAL_SERVER_ERROR' => 'Server down, try later'
                         ];
                         if (!empty($arErrorInform[$result['error']])) {
-                            $result['error_information'] = $arErrorInform[$result['error']];
+                            $result['error_description'] = $arErrorInform[$result['error']];
                         }
                     }
                 }
                 if (!empty($info['curl_error'])) {
                     $result['error'] = 'curl_error';
-                    $result['error_information'] = $info['curl_error'];
+                    $result['error_description'] = $info['curl_error'];
                 }
 
                 static::setLog(
@@ -160,7 +162,7 @@ class CRest
                 return [
                     'error' => 'exception',
                     'error_exception_code' => $e->getCode(),
-                    'error_information' => $e->getMessage(),
+                    'error_description' => $e->getMessage(),
                 ];
             }
         } else {
@@ -174,7 +176,7 @@ class CRest
 
         return [
             'error' => 'no_install_app',
-            'error_information' => 'error install app, pls install local application '
+            'error_description' => 'error install app, pls install local application '
         ];
     }
 
@@ -345,9 +347,10 @@ class CRest
 
     protected static function getSettingData()
     {
+        $settings = BitrixAppSettings::query()->first();
         $return = [];
-        if (Storage::exists('bitrix/settings.json')) {
-            $return = static::expandData(file_get_contents(Storage::path('bitrix/settings.json')));
+        if ($settings !== null) {
+            $return = $settings->toArray();
             $return['C_REST_CLIENT_ID'] = config('services.bitrix24.client_id');
             $return['C_REST_CLIENT_SECRET'] = config('services.bitrix24.client_secret');
         }
@@ -397,7 +400,12 @@ class CRest
 
     protected static function setSettingData($arSettings)
     {
-        return Storage::put('bitrix/settings.json', static::wrapData($arSettings));
+        $settings = BitrixAppSettings::query()->first();
+        if ($settings === null) {
+            $settings = new BitrixAppSettings();
+        }
+        $settings->fill($arSettings);
+        return $settings->save();
     }
 
     /**

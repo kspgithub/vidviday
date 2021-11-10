@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Lib\Bitrix24\Lists\TourLists;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTour;
 use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Food;
@@ -79,20 +79,21 @@ class TourBitrixSeeder extends Seeder
 
         $faker = FakerFactory::create('uk_UA');
 
-        $items = TourLists::getAll();
+        $items = BitrixTour::getAll();
 
         foreach ($items as $item_data) {
             /**
              * @var Tour $tour
              */
             $item = Tour::factory()->createOne([
-                'title' => $item_data->name,
-                'bitrix_id'=>$item_data->id,
-                'bitrix_manager_id'=>$item_data->manager_id,
+                'title' => ['uk' => $item_data->title],
+                'bitrix_id' => $item_data->bitrix_id,
                 'duration' => $item_data->duration,
                 'nights' => $item_data->duration,
-                'text'=>$faker->realText(1500),
-                'short_text'=>$faker->realText(500),
+                'price' => $item_data->price,
+                'commission' => $item_data->commission,
+                'text' => $faker->realText(1500),
+                'short_text' => $faker->realText(500),
             ]);
 
             $item->directions()->attach($directions->random(2)->pluck('id')->toArray());

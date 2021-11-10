@@ -6,9 +6,13 @@ class BaseService
 {
     protected $baseMethod;
 
-    public function __construct($baseMethod)
+    protected $additionalParams = [];
+
+
+    public function __construct($baseMethod, $additionalParams = [])
     {
         $this->baseMethod = rtrim($baseMethod, ".");
+        $this->additionalParams = $additionalParams;
     }
 
     /**
@@ -16,9 +20,10 @@ class BaseService
      *
      * @return BitrixResponse
      */
-    public function fields()
+    public function fields($params = [])
     {
-        return Client::get($this->baseMethod . '.fields');
+        $params = array_merge($this->getAdditionalParams(), $params);
+        return Client::call($this->baseMethod . '.fields', $params);
     }
 
 
@@ -44,7 +49,8 @@ class BaseService
             $params['start'] = $start;
         }
 
-        return Client::get($this->baseMethod . '.list', $params);
+        $params = array_merge($this->getAdditionalParams(), $params);
+        return Client::call($this->baseMethod . '.list', $params);
     }
 
     /**
@@ -56,10 +62,12 @@ class BaseService
      */
     public function add($fields, $params = [])
     {
-        return Client::post($this->baseMethod . '.add', [
+        $data = array_merge($this->getAdditionalParams(), [
             'fields' => $fields,
             'params' => $params,
         ]);
+
+        return Client::call($this->baseMethod . '.add', $data);
     }
 
     /**
@@ -68,9 +76,10 @@ class BaseService
      * @param string $id Идентификатор сущности.
      * @return BitrixResponse
      */
-    public function get($id)
+    public function get($id, $params = [])
     {
-        return Client::get($this->baseMethod . '.get', ['id' => $id]);
+        $params = array_merge($this->getAdditionalParams(), $params, ['id' => $id]);
+        return Client::call($this->baseMethod . '.get', $params);
     }
 
 
@@ -84,10 +93,29 @@ class BaseService
      */
     public function update($id, $fields, $params = [])
     {
-        return Client::post($this->baseMethod . '.update', [
+        $data = array_merge($this->getAdditionalParams(), [
             'id' => $id,
             'fields' => $fields,
             'params' => $params,
         ]);
+
+        return Client::call($this->baseMethod . '.update', $data);
+    }
+
+    /**
+     * Дополнительные параметры передаваемые на сервер
+     * @return array
+     */
+    public function getAdditionalParams()
+    {
+        return $this->additionalParams ?? [];
+    }
+
+    /**
+     * Дополнительные параметры передаваемые на сервер
+     */
+    public function setAdditionalParams($params = [])
+    {
+        $this->additionalParams = $params;
     }
 }

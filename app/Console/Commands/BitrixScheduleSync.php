@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Lib\Bitrix24\CRM\Deal\DealSchedule;
-use App\Lib\Bitrix24\CRM\Deal\DealService;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourSchedule;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourScheduleService;
 use Illuminate\Console\Command;
 
 class BitrixScheduleSync extends Command
@@ -43,18 +43,18 @@ class BitrixScheduleSync extends Command
         $lastID = 0;
         $finish = false;
         $select = ['*', 'UF_*'];
-        $order = ['ID' => 'ASC'];
+        $order = ['id' => 'ASC'];
 
         while (!$finish) {
-            $filter =  ['>ID' => $lastID];
+            $filter = ['>id' => $lastID];
 
-            $response = DealService::getByCategory(DealSchedule::CATEGORY_ID, $select, $filter, $order, -1);
+            $response = BitrixTourScheduleService::list($select, $filter, $order, -1);
 
-            if (!$response->error && !empty($response->result) > 0) {
+            if (!$response->error && !empty($response->result['items']) > 0) {
 
-                foreach ($response->result as $scheduleData) {
-                    $lastID = $scheduleData['ID'];
-                    DealSchedule::createOrUpdate($lastID, $scheduleData);
+                foreach ($response->result['items'] as $scheduleData) {
+                    $lastID = $scheduleData['id'];
+                    BitrixTourSchedule::createOrUpdate($lastID, BitrixTourSchedule::createFromData($scheduleData));
                 }
 
             } else {

@@ -29,6 +29,11 @@ class TourSchedule extends Model
     use TourScheduleAttribute;
     use TourScheduleScope;
 
+    const STATUS_PLANNED = 0;
+    const STATUS_WAITING = 1;
+    const STATUS_PERFORMED = 2;
+    const STATUS_SUCCESS = 3;
+    const STATUS_FAIL = 4;
 
     protected $fillable = [
         'status',

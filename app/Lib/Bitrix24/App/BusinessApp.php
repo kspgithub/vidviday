@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class BusinessApp
 {
-    public const ACTIVITY_TEST = [
-        'CODE' => 'APP_TEST_ACTIVITY',
-        'NAME' => 'Тестова дія',
-        'DESCRIPTION' => 'Тестова дія смарт процесу',
+    public const TOUR_UPDATE = [
+        'CODE' => 'TOUR_UPDATE',
+        'NAME' => 'Створення/Оновлення Туру',
+        'DESCRIPTION' => 'ПОДІЯ Створення/Оновлення Туру',
         'PROPERTIES' => [
             'id' => [
                 'Name' => 'ID',
@@ -21,15 +21,35 @@ class BusinessApp
                 'Multiple' => 'N',
                 'Default' => null
             ],
-            'event' => [
-                'Name' => 'EVENT',
-                'Description' => 'Подія',
+        ],
+        'DOCUMENT_TYPE' => [
+            "crm",
+            "Bitrix\Crm\Integration\BizProc\Document\Dynamic",
+            "DYNAMIC_167"
+        ]
+
+    ];
+
+    public const TOUR_SCHEDULE_UPDATE = [
+        'CODE' => 'TOUR_SCHEDULE_UPDATE',
+        'NAME' => 'Створення/Оновлення Виїзду',
+        'DESCRIPTION' => 'ПОДІЯ Створення/Оновлення Виїзду',
+        'PROPERTIES' => [
+            'id' => [
+                'Name' => 'ID',
+                'Description' => 'ID запису',
                 'Type' => 'string',
                 'Multiple' => 'N',
                 'Default' => null
             ],
         ],
+        'DOCUMENT_TYPE' => [
+            "crm",
+            "Bitrix\Crm\Integration\BizProc\Document\Dynamic",
+            "DYNAMIC_168"
+        ]
     ];
+
 
     /**
      * @var BusinessApp
@@ -48,14 +68,21 @@ class BusinessApp
 
     public static function registerActivity()
     {
+        $activities = [
+            self::TOUR_UPDATE,
+            self::TOUR_SCHEDULE_UPDATE,
+        ];
+
         $response = ActivityService::list();
 
         $installedActivity = $response['result'] ?? [];
 
-        if (in_array(self::ACTIVITY_TEST['CODE'], $installedActivity)) {
-            self::updateActivity(self::ACTIVITY_TEST);
-        } else {
-            self::addActivity(self::ACTIVITY_TEST);
+        foreach ($activities as $activity) {
+            if (in_array($activity['CODE'], $installedActivity)) {
+                self::updateActivity($activity);
+            } else {
+                self::addActivity($activity);
+            }
         }
 
     }

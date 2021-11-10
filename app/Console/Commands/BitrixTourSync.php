@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Lib\Bitrix24\Lists\TourLists;
-use App\Models\Tour;
-use App\Models\TourPlan;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTour;
+use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourService;
 use Illuminate\Console\Command;
 
 class BitrixTourSync extends Command
@@ -40,37 +39,29 @@ class BitrixTourSync extends Command
      */
     public function handle()
     {
-        $items = TourLists::getAll();
-        foreach ($items as $item_data) {
-            if (Tour::whereBitrixId($item_data->id)->count() === 0) {
-                $data = [
-                    'title' => $item_data->name,
-                    'bitrix_id' => $item_data->id,
-                    'bitrix_manager_id' => $item_data->manager_id,
-                    'duration' => $item_data->duration,
-                    'nights' => $item_data->duration,
-                    'text' => '',
-                    'short_text' => '',
-                    'price' => $item_data->price ?? 0,
-                    'currency' => $item_data->currency ?? 'UAH',
-                    'commission' => $item_data->commission ?? 0,
-                ];
 
-                $tour = new Tour();
-                $tour->fill($data);
-                $tour->published = 0;
-                $tour->save();
-                if (!empty($item_data->plan)) {
-                    $tourPlan = new TourPlan();
-                    $tourPlan->setLocale('uk');
-                    $tourPlan->tour_id = $tour->id;
-                    $tourPlan->text = $item_data->plan;
-                    $tourPlan->save();
+        $lastID = 0;
+        $finish = false;
+        $select = ['*', 'UF_*'];
+        $order = ['id' => 'ASC'];
+
+        while (!$finish) {
+            $filter = ['>id' => $lastID];
+
+            $response = BitrixTourService::list($select, $filter, $order, -1);
+
+            if (!$response->error && !empty($response->result['items']) > 0) {
+
+                foreach ($response->result['items'] as $scheduleData) {
+                    $lastID = $scheduleData['id'];
+                    BitrixTour::createOrUpdate($lastID, BitrixTour::createFromData($scheduleData));
                 }
+
+            } else {
+                $finish = true;
             }
-
         }
-
         return 0;
+
     }
 }
