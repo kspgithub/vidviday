@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Lib\Bitrix24\App\ActivityService;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
 use App\Lib\Bitrix24\CRM\Deal\DealService;
@@ -55,8 +56,11 @@ class BitrixDebug extends Command
 //            DealOrder::createOrUpdate($bitrixId, $data);
 //        }
 
-        $question = UserQuestion::find(1);
-        LeadFeedback::createCrmLead($question);
+        // $question = UserQuestion::find(1);
+        // LeadFeedback::createCrmLead($question);
+
+        $response = ActivityService::list();
+        
         return 0;
     }
 }

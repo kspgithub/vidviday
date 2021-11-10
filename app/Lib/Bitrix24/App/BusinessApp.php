@@ -48,20 +48,42 @@ class BusinessApp
 
     public static function registerActivity()
     {
-        self::addActivity(self::ACTIVITY_TEST);
+        $response = ActivityService::list();
+
+        $installedActivity = $response['result'] ?? [];
+
+        if (in_array(self::ACTIVITY_TEST['CODE'], $installedActivity)) {
+            self::updateActivity(self::ACTIVITY_TEST);
+        } else {
+            self::addActivity(self::ACTIVITY_TEST);
+        }
+
     }
 
 
     public static function addActivity($params = [])
     {
-        $params = array_merge([
+        $params = self::prepareParams($params);
+        Log::info('Add Activity params', $params);
+        $response = ActivityService::add($params);
+        Log::info('Add Activity result', (array)$response);
+    }
+
+    public static function updateActivity($params = [])
+    {
+        $params = self::prepareParams($params);
+        Log::info('Update Activity params', $params);
+        $response = ActivityService::update($params);
+        Log::info('Update Activity result', (array)$response);
+    }
+
+    public static function prepareParams($params = [])
+    {
+        return array_merge([
             'HANDLER' => self::defaultHandler(),
             'AUTH_USER_ID' => config('services.bitrix24.user'),
             'USE_SUBSCRIPTION' => 'N',
         ], $params);
-
-        $response = ActivityService::add($params);
-        Log::info('Add Activity result', (array)$response);
     }
 
     public static function defaultHandler()
