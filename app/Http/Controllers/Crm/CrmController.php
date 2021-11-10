@@ -140,7 +140,7 @@ class CrmController extends Controller
                             BitrixTour::createOrUpdate($itemId, $data);
                         }
                         break;
-                    case 'TOUR_DEPARTURE_UPDATE':
+                    case 'TOUR_SCHEDULE_UPDATE':
                         $data = BitrixTourSchedule::get($itemId);
                         if (!empty($data)) {
                             BitrixTourSchedule::createOrUpdate($itemId, $data);
