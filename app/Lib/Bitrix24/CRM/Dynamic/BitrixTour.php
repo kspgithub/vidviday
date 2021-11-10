@@ -89,7 +89,6 @@ class BitrixTour
             'currency' => $item_data->currency ?? 'UAH',
             'commission' => $item_data->commission ?? 0,
         ];
-        $tour = new Tour();
         $tour->fill($data);
         $tour->save();
         return $tour;
