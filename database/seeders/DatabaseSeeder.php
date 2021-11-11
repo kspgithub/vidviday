@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthSeeder::class);
         $this->call(SiteOptionsSeeder::class);
         $this->call(HtmlBlockSeeder::class);
-        
+
         $this->call(StaffTypeSeeder::class);
         $this->call(StaffSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(BlogSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(BannerSeeder::class);
+        $this->call(AdsSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(ContactSeeder::class);
         $this->call(CurrencySeeder::class);

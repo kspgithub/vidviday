@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
@@ -57,6 +58,7 @@ require_once base_path('routes/admin/location.php');
 Route::resource('food', FoodController::class)->except('show');
 Route::resource('finance', FinanceController::class)->except('show');
 Route::resource('banner', BannerController::class)->except('show');
+Route::resource('advertisement', AdvertisementController::class)->except('show');
 
 Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');
 Route::patch('site-options', [SiteOptionsController::class, 'update'])->name('site-options.update');

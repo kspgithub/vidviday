@@ -301,7 +301,12 @@
                         class="align-middle">@lang('Banners')</span>
                 </a>
             </li>
-
+            <li class="sidebar-item {{routeActiveClass('admin.advertisement*')}}">
+                <a class="sidebar-link" href="{{route('admin.advertisement.index')}}">
+                    <i class="align-middle" data-feather="rss"></i> <span
+                        class="align-middle">@lang('Advertisements')</span>
+                </a>
+            </li>
             <li class="sidebar-item {{routeActiveClass('admin.faqitem.*')}}">
                 <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
                     <i class="align-middle" data-feather="help-circle"></i> <span
