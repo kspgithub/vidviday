@@ -250,8 +250,14 @@
             </li>
             <li class="sidebar-item {{routeActiveClass('admin.order*')}}">
                 <a class="sidebar-link" href="{{route('admin.order.index')}}">
-                    <i class="align-middle" data-feather="shopping-cart"></i> <span
-                        class="align-middle">@lang('Orders')</span>
+                    <i class="align-middle" data-feather="shopping-cart"></i>
+                    <span class="align-middle">@lang('Orders')</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
+                <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
+                    <i class="align-middle" data-feather="shopping-cart"></i>
+                    <span class="align-middle">@lang('Certificates')</span>
                 </a>
             </li>
             <!-- CONTENT --------------------------------------------------------------------------------------- --->

@@ -33,6 +33,10 @@ class OrderCertificate extends Model
     public const DESIGN_CLASSIC = 'classic';
     public const DESIGN_HEART = 'heart';
 
+    public const PAYMENT_PENDING = 0;
+    public const PAYMENT_COMPLETE = 1;
+    public const PAYMENT_RETURNED = 2;
+
     protected static function boot()
     {
         parent::boot();
@@ -41,6 +45,44 @@ class OrderCertificate extends Model
             $model->order_number = Str::padLeft($model->id, 5, '0');
             $model->save();
         });
+    }
+
+    public static function statuses()
+    {
+        return [
+            self::STATUS_NEW => __('New'),
+            self::STATUS_PROCESSING => __('Processing'),
+            self::STATUS_PENDING_PAYMENT => __('Pending Payment'),
+            self::STATUS_PAYED => __('Payed'),
+            self::STATUS_COMPLETED => __('Completed'),
+            self::STATUS_MAINTENANCE => __('Maintenance'),
+            self::STATUS_PENDING_REJECT => __('Pending Reject'),
+            self::STATUS_REJECTED => __('Rejected'),
+        ];
+    }
+
+    public static function types()
+    {
+        return [
+            self::TYPE_SUM => 'Сума',
+            self::TYPE_TOUR => 'Мандрівка',
+        ];
+    }
+
+    public static function formats()
+    {
+        return [
+            self::FORMAT_PRINTED => 'Друкований',
+            self::FORMAT_ELECTRONIC => 'Електронний',
+        ];
+    }
+
+    public static function designs()
+    {
+        return [
+            self::DESIGN_CLASSIC => 'Класичний',
+            self::DESIGN_HEART => 'Серце',
+        ];
     }
 
     protected $fillable = [
@@ -73,6 +115,7 @@ class OrderCertificate extends Model
         'places' => 'integer',
         'price' => 'integer',
         'sum' => 'integer',
+        'packing' => 'boolean',
     ];
 
     protected $dates = [

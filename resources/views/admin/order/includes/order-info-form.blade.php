@@ -55,15 +55,15 @@
             <div class="form-group row mb-3">
                 <label for="tour_id" class="col-md-2 col-form-label">Тур</label>
                 <div class="col-md-10">
-                    <x-input.select2 name="order.tour_id" wire:model="order.tour_id"
-                                     url="/api/tours/select-box"
+                    <x-input.select2wire name="order.tour_id" wire:model="order.tour_id"
+                                         url="/api/tours/select-box"
                     >
                         @if($this->tour)
                             <option value="{{$this->tour->id}}" selected>
                                 {{$this->tour->title}} - {{$this->tour->price}} {{$this->tour->currency}}
                             </option>
                         @endif
-                    </x-input.select2>
+                    </x-input.select2wire>
                 </div>
             </div><!--form-group-->
 

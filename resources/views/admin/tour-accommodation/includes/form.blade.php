@@ -31,14 +31,14 @@
             <div class="row mb-3">
                 <label class="col-md-2" for="accommodation_id">@lang('Accommodation') <span class="text-danger">*</span></label>
                 <div class="col-md-10">
-                    <x-input.select2 name="accommodation_id" id="accommodation_id" wire:model="accommodation_id"
-                                     required>
+                    <x-input.select2wire name="accommodation_id" id="accommodation_id" wire:model="accommodation_id"
+                                         required>
                         <option value="0">Оберіть садибу</option>
                         @foreach($options as $value=>$text)
                             <option
                                 value="{{$value}}" {{$value === $accommodation_id ? 'selected' : ''}}>{{$text}}</option>
                         @endforeach
-                    </x-input.select2>
+                    </x-input.select2wire>
                 </div>
             </div>
             @foreach($locales as  $locale)

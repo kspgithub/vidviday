@@ -1,9 +1,9 @@
 @props([
-    'name' => '',
+    'name' => 'tour_id',
     'id' => null,
     'value' => null,
-    'item' => null,
-    'label'=>'',
+    'tour' => null,
+    'label'=>'Тур',
     'placeholder' => '',
     'type'=>'text',
     'readonly'=>false,
@@ -12,11 +12,10 @@
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
     'rowClass'=>'row mb-3',
-    'url'=>'',
 ])
 
 <div class="form-group {{$rowClass}}">
-    <label :for="{{$name}}" class="{{$labelCol}} col-form-label">
+    <label for="tour_id" class="{{$labelCol}} col-form-label">
         {{$label}}
         @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
             <span class="text-danger">*</span>
@@ -25,11 +24,11 @@
     <div class="{{$inputCol}}">
         <x-input.select2 name="{{$name}}"
                          :value="$value"
-                         url="{{$url}}"
+                         url="/api/tours/select-box"
         >
-            @if($item)
-                <option value="{{$item['value']}}" selected>
-                    {{$item['text']}}
+            @if($tour)
+                <option value="{{$tour->id}}" selected>
+                    {{$tour->title}} - {{$tour->price}} {{$tour->currency}}
                 </option>
             @endif
         </x-input.select2>

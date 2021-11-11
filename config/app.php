@@ -232,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Currency' => \App\Models\Currency::class,
         'Order' => \App\Models\Order::class,
+        'OrderCertificate' => App\Models\OrderCertificate::class,
     ],
 
 ];

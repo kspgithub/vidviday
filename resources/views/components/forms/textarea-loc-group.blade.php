@@ -13,7 +13,9 @@
 <div class="form-group row mb-3">
     <div class="{{$labelCol}} col-form-label">
         {{$label}}
-        @if(isset($attributes['required'])) <span class="text-danger">*</span>@endif
+        @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
+            <span class="text-danger">*</span>
+        @endif
     </div>
 
     <div class="{{$inputCol}}">

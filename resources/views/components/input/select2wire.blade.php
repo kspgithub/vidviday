@@ -1,15 +1,14 @@
 @props([
     'name' => '',
     'placeholder' => '',
-    'value' => null,
     'url'=> false,
 ])
 
 <div>
-    <div>
+    <div wire:ignore>
         <div
             x-data="{
-            value: {{is_string($value) ? "'$value'" : (string)$value}},
+            value: @entangle($attributes->wire('model')),
         }"
             x-on:change="value = $event.target.value"
             x-init="
@@ -35,7 +34,7 @@
 "
         >
             <select name="{{$name}}" id="{{$name}}"
-                    {{ $attributes->merge(['class'=>'form-control']) }}
+                    {{ $attributes->whereDoesntStartWith('wire:model')->merge(['class'=>'form-control']) }}
                     x-ref="input"
                     x-bind:value="value"
             >

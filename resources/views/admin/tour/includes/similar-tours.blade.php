@@ -17,10 +17,10 @@
     <div class="row align-items-end">
         <div class="col-12 col-xl-6">
             <label for="place_id">@lang('Place')</label>
-            <x-input.select2 name="tour_id" wire:model="tourId"
-                             url="/api/tours/select-box">
+            <x-input.select2wire name="tour_id" wire:model="tourId"
+                                 url="/api/tours/select-box">
                 <option value="0">Оберіть тур</option>
-            </x-input.select2>
+            </x-input.select2wire>
         </div>
         <div class="col-12 col-xl-auto">
             <button type="button" class="btn btn-primary" wire:click.prevent="attachItem()">@lang('Add')</button>

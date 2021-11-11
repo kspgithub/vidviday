@@ -16,8 +16,12 @@
 
 
 <div class="form-group {{$rowClass}}">
-    <div class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
-            class="text-danger">*</span>@endif</div>
+    <div class="{{$labelCol}} col-form-label">
+        @lang($label)
+        @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
+            <span class="text-danger">*</span>
+        @endif
+    </div>
 
     <div class="{{$inputCol}}">
         <div
@@ -49,7 +53,7 @@
             <div class="form-text">{{$help}}</div>
         @endif
         @error($name)
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
             {{$message}}
         </div>
         @enderror
