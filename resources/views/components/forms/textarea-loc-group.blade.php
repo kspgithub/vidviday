@@ -25,7 +25,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ strtoupper($lang) }}</span>
                 </div>
-                <textarea name="{{$name}}[$lang]"
+                <textarea name="{{$name}}[{{$lang}}]"
                           id="{{$name}}-{{$lang}}"
                           {{$readonly ? 'readonly' : ''}}
                           placeholder="{{ !empty($placeholder) ? $placeholder : ''}}"

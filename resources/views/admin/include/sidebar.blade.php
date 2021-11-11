@@ -295,8 +295,8 @@
                         class="align-middle">@lang('Contact')</span>
                 </a>
             </li>
-            <li class="sidebar-item {{routeActiveClass('admin.home-page-banner*')}}">
-                <a class="sidebar-link" href="{{route('admin.home-page-banner.index')}}">
+            <li class="sidebar-item {{routeActiveClass('admin.banner*')}}">
+                <a class="sidebar-link" href="{{route('admin.banner.index')}}">
                     <i class="align-middle" data-feather="image"></i> <span
                         class="align-middle">@lang('Banners')</span>
                 </a>

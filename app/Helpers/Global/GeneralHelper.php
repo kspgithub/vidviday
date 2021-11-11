@@ -240,3 +240,10 @@ if (!function_exists('toastData')) {
         return $data;
     }
 }
+
+if (!function_exists('currency_options')) {
+    function currency_options()
+    {
+        return Currency::toSelectBox('iso', 'iso');
+    }
+}

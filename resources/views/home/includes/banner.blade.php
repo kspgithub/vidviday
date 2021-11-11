@@ -1,4 +1,4 @@
-
+@if($banners->count() > 0)
 <section class="section">
     <div class="tab-top-part active" data-tab="1">
         <div class="banner-carousel">
@@ -33,94 +33,44 @@
 										}
 									}'>
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img.jpg')}}" alt="banner img" data-swiper-parallax="30%" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                            <span class="label hit-sales">Хіт продажів</span>
-                            <div class="full-size">
-                                <div>
-                                    <h2 class="h1 title light">
-                                        <a href="#">Сиро-винний тур Закарпатським та Прикарпатським краями</a>
-                                    </h2>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-md light">
-                                        <span>палац Шенборна, Мукачівський замок, басейн і вино в Берегово, Селиська сироварня, озеро Синевир, водоспад Шипіт</span>
-                                        <a href="#" class="btn type-3 btn-more light">Більше</a>
+                        @foreach($banners as $banner)
+                            <div class="swiper-slide">
+                                <img src="{{asset('img/preloader.png')}}" data-src="{{$banner->image_url}}"
+                                     title="{{$banner->image_title ?? $banner->title}}"
+                                     alt="{{$banner->image_alt ?? $banner->title}}"
+                                     data-swiper-parallax="30%"
+                                     class="swiper-lazy">
+                                <div class="swiper-lazy-preloader"></div>
+                                @if(!empty($banner->label))
+                                    <span class="label"
+                                          style="background-color: {{$banner->color}}">{{$banner->label}}</span>
+                                @endif
+                                <div class="full-size">
+                                    <div>
+                                        <h2 class="h1 title light">
+                                            <a href="{{$banner->url}}">{{$banner->title}}</a>
+                                        </h2>
+                                        <div class="spacer-xs"></div>
+                                        <div class="text-md light">
+                                            <span>{{str_limit($banner->text, 300)}}</span>
+                                            <a href="{{$banner->url}}"
+                                               class="btn type-3 btn-more light">@lang('More')</a>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        @if($banner->show_price)
+                                            <span class="h1">{{$banner->price}}
+                                                <span class="text light">/ {{currency_title($banner->currency)}}</span>
+                                            </span>
+                                            <span class="text-sm light">{{$banner->price_comment}}</span>
+                                        @endif
                                     </div>
                                 </div>
-
-                                <div>
-                                    <span class="h1">745 <span class="text light">/ грн</span></span>
-                                    <span class="text-sm light">вартість з 1 особи</span>
-                                </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <div class="swiper-slide">
-                            <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img.jpg')}}" alt="banner img" data-swiper-parallax="30%" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                            <div class="full-size">
-                                <div>
-                                    <h2 class="h1 title light">
-                                        <a href="#">Сиро-винний тур Закарпатським та Прикарпатським краями</a>
-                                    </h2>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-md light">
-                                        <span>палац Шенборна, Мукачівський замок, басейн і вино в Берегово, Селиська сироварня, озеро Синевир, водоспад Шипіт</span>
-                                        <a href="#" class="btn type-3 btn-more light">Більше</a>
-                                    </div>
-                                </div>
 
-                                <div>
-                                    <span class="h1">745 <span class="text light">/ грн</span></span>
-                                    <span class="text-sm light">вартість з 1 особи</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img.jpg')}}" alt="banner img" data-swiper-parallax="30%" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                            <div class="full-size">
-                                <div>
-                                    <h2 class="h1 title light">
-                                        <a href="#">Сиро-винний тур Закарпатським та Прикарпатським краями</a>
-                                    </h2>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-md light">
-                                        <span>палац Шенборна, Мукачівський замок, басейн і вино в Берегово, Селиська сироварня, озеро Синевир, водоспад Шипіт</span>
-                                        <a href="#" class="btn type-3 btn-more light">Більше</a>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <span class="h1">745 <span class="text light">/ грн</span></span>
-                                    <span class="text-sm light">вартість з 1 особи</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/banner-img.jpg')}}" alt="banner img" data-swiper-parallax="30%" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                            <div class="full-size">
-                                <div>
-                                    <h2 class="h1 title light">
-                                        <a href="#">Сиро-винний тур Закарпатським та Прикарпатським краями</a>
-                                    </h2>
-                                    <div class="spacer-xs"></div>
-                                    <div class="text-md light">
-                                        <span>палац Шенборна, Мукачівський замок, басейн і вино в Берегово, Селиська сироварня, озеро Синевир, водоспад Шипіт</span>
-                                        <a href="#" class="btn type-3 btn-more light">Більше</a>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <span class="h1">745 <span class="text light">/ грн</span></span>
-                                    <span class="text-sm light">вартість з 1 особи</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -129,3 +79,4 @@
     </div>
 </section>
 
+@endif

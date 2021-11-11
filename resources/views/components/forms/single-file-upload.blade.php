@@ -31,7 +31,7 @@
             {{ $attributes->merge(['class' => 'form-control']) }}
         >
         @error($name)
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
             {{$message}}
         </div>
         @enderror

@@ -36,9 +36,10 @@ trait HasImage
     public function uploadImage(UploadedFile $fileImage)
     {
         $date = date('Ymd');
-        $path = 'public/'.$fileImage->store("/upload/{$date}", 'public');
+        $path = 'public/' . $fileImage->store("/upload/{$date}", 'public');
         $image_path = Storage::path($path);
-        Image::load($image_path)->width(300)->height(300)->save();
+        $size = $this->imageSize();
+        Image::load($image_path)->width($size['width'])->height($size['height'])->save();
         $this->image = $path;
         $this->save();
     }
@@ -51,5 +52,13 @@ trait HasImage
         if (!empty($this->image)) {
             Storage::delete($this->image);
         }
+    }
+
+    public function imageSize()
+    {
+        return [
+            'width' => 300,
+            'height' => 300,
+        ];
     }
 }
