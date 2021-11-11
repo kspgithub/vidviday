@@ -37,7 +37,7 @@
                 <path d="M14 12.999l-1 1 4 4 1-1-4-4z"/>
             </svg>
         </button>
-        <div class="voice-search-btn only-desktop" @click="openVoiceSearch()">
+        <div class="voice-search-btn only-desktop" @click="openVoiceSearch()" v-if="voiceSupport">
             <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M6 1c-.569 0-1.114.23-1.515.64-.402.41-.628.966-.628 1.546v5.828c0 .58.226 1.136.628 1.546.401.41.946.64 1.515.64.568 0 1.113-.23 1.515-.64.402-.41.628-.966.628-1.546V3.186c0-.58-.226-1.136-.628-1.546A2.122 2.122 0 006 1v0z"
@@ -47,14 +47,14 @@
                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
-        <span class="vertical-separator"></span>
+        <span class="vertical-separator" v-if="voiceSupport"></span>
         <div id="search-btn" class="full-size"></div>
         <div class="btn-close" @click="searchText = ''"><span></span></div>
     </form>
 </template>
 
 <script>
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {autocompleteTours} from "../../services/tour-service";
 import {useStore} from "vuex";
 
@@ -65,6 +65,11 @@ export default {
         const store = useStore();
         const formRef = ref(null);
         const request = computed(() => store.state.headerSearch.request);
+        const voiceSupport = computed(() => store.getters['headerSearch/voiceSupport']);
+        const recording = computed({
+            get: () => store.state.headerSearch.recording,
+            set: (val) => store.commit('headerSearch/SET_RECORDING', val)
+        });
         const active = computed({
             get: () => store.state.headerSearch.active,
             set: (val) => store.commit('headerSearch/SET_ACTIVE', val)
@@ -91,7 +96,9 @@ export default {
         }
 
         const openVoiceSearch = () => {
+            searchText.value = '';
             store.commit('headerSearch/SET_POPUP_OPEN', true);
+            store.dispatch('headerSearch/startVoice');
         }
 
         const submit = async () => {
@@ -100,10 +107,18 @@ export default {
             }
         }
 
+        watch(recording, async (newValue, oldValue) => {
+            if (newValue === false && oldValue === true) {
+                store.commit('headerSearch/SET_POPUP_OPEN', false);
+                await submit();
+            }
+        })
+
         return {
             formRef,
             active,
             searchText,
+            voiceSupport,
             tours,
             debounce: createDebounce(),
             searchTours,

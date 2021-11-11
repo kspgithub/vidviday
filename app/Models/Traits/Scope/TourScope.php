@@ -29,7 +29,13 @@ trait TourScope
             'media' => function ($sc) {
                 return $sc->whereIn('collection_name', ['main', 'mobile']);
             },
-        ])->where('title', 'LIKE', "%$search%")
+        ])->where(function ($q) use ($search) {
+            $search = urldecode(trim($search));
+            return $q->where('title->uk', 'LIKE', "%$search%")
+                ->orWhere('title->ru', 'LIKE', "%$search%")
+                ->orWhere('title->en', 'LIKE', "%$search%")
+                ->orWhere('title->pl', 'LIKE', "%$search%");
+        })
             ->select([
                 'id',
                 'title',
@@ -111,8 +117,11 @@ trait TourScope
                 });
             })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
-                $search = trim($params['q']);
-                return $q->where('title', 'LIKE', "%$search%");
+                $search = urldecode(trim($params['q']));
+                return $q->where('title->uk', 'LIKE', "%$search%")
+                    ->orWhere('title->ru', 'LIKE', "%$search%")
+                    ->orWhere('title->en', 'LIKE', "%$search%")
+                    ->orWhere('title->pl', 'LIKE', "%$search%");
             });
 
         $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';

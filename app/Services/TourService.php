@@ -69,7 +69,7 @@ class TourService extends BaseService
         $title = [];
 
         if (!empty($params['q'])) {
-            $title[] = $params['q'];
+            $title[] = urldecode($params['q']);
         }
         if (!empty($params['direction'])) {
             $direction = Direction::where('id', $params['direction'])->select('title')->first();

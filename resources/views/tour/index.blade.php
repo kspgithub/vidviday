@@ -29,7 +29,7 @@
                                     </b>
                                     @if(!empty($request_title))
                                         @lang('tours-section.on_request')
-                                        <b class="text-bold">{{$request_title}}</b>
+                                        <b class="text-bold">{{urldecode($request_title)}}</b>
                                     @endif
                                 </p>
                             </div>
