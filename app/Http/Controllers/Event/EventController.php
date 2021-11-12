@@ -26,4 +26,13 @@ class EventController extends Controller
         ]);
     }
 
+
+    public function show(string $slug)
+    {
+        $event = EventItem::findBySlugOrFail($slug);
+        
+        return view('event.show', [
+            'event' => $event,
+        ]);
+    }
 }

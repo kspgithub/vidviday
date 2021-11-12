@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\EventAttribute;
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\EventRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
@@ -34,6 +35,7 @@ class EventItem extends TranslatableModel implements HasMedia
     use EventAttribute;
     use EventRelationship;
     use UseSelectBox;
+    use HasJsonSlug;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -83,6 +85,9 @@ class EventItem extends TranslatableModel implements HasMedia
         'end_date',
     ];
 
+    protected $appends = [
+        'url',
+    ];
 
     protected $casts = [
         'published' => 'boolean',
@@ -104,5 +109,9 @@ class EventItem extends TranslatableModel implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-
+    public function getUrlAttribute()
+    {
+        $slug = $this->slug;
+        return !empty($slug) ? route('events.show', $slug) : '';
+    }
 }

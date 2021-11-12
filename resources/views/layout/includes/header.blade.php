@@ -191,7 +191,7 @@
                         </li>
 
                         <li>
-                            <a href="{{route('events')}}">Події</a>
+                            <a href="{{route('events.index')}}">Події</a>
                         </li>
 
                         <li class="dropdown">
