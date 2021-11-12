@@ -1,28 +1,15 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit page'))
+@section('title', __('Edit page').': '.$page->title)
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Edit page') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+    <x-page.edit :title=" __('Edit page').': '.$page->title"
+                 :backUrl="route('admin.page.index')"
+                 :updateUrl="route('admin.page.update', $page)"
+                 :edit="true"
+    >
+        @include('admin.page.includes.form')
+    </x-page.edit>
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.page.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-    <div x-data="translatable()">
-        <x-forms.patch :action="route('admin.page.update', $page)" enctype="multipart/form-data" x-ref="form">
-            <x-bootstrap.card>
-                <x-slot name="body">
-                    @include('admin.page.includes.form')
-
-                </x-slot>
-                <x-slot name="footer">
-                    <button class="btn btn-primary" type="submit"
-                            x-on:click.prevent="submit($event)">@lang('Save')</button>
-                </x-slot>
-            </x-bootstrap.card>
-        </x-forms.patch>
-    </div>
 
 @endsection

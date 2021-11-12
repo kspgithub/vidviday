@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Event;
+use App\Models\Direction;
+use App\Models\EventGroup;
+use App\Models\EventItem;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 /**
  * Class UsersTable.
@@ -16,7 +19,12 @@ class EventsTable extends DataTableComponent
     /**
      * @var string
      */
-    public $sortField = 'id';
+    public string $defaultSortColumn = 'start_date';
+
+    /**
+     * @var string
+     */
+    public string $defaultSortDirection = 'desc';
 
     /**
      * @var array
@@ -35,7 +43,13 @@ class EventsTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = Event::query();
+        $direction_id = (int)$this->getFilter('direction');
+        $group_id = (int)$this->getFilter('group');
+
+        $query = EventItem::query()->with(['directions', 'groups'])
+            ->when($direction_id > 0, fn($q) => $q->whereHas('directions', fn($sq) => $sq->where('id', $direction_id)))
+            ->when($group_id > 0, fn($q) => $q->whereHas('groups', fn($sq) => $sq->where('id', $group_id)));
+
 
         return $query;
     }
@@ -54,7 +68,19 @@ class EventsTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
+            Column::make(__('Directions'))
+                ->format(function ($value, $column, $row) {
+                    return $row->directions->implode('title', ', ');
+                }),
+
+            Column::make(__('Groups'))
+                ->format(function ($value, $column, $row) {
+                    return $row->groups->implode('title', ', ');
+                }),
             Column::make(__('Published'), 'published')
+                ->format(function ($value, $column, $row) {
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.event.update-status', $row)]);
+                })
                 ->sortable(),
 
             Column::make(__('Actions'))
@@ -62,5 +88,17 @@ class EventsTable extends DataTableComponent
                     return view('admin.event.includes.actions', ['event' => $row]);
                 }),
         ];
+    }
+
+    public function filters(): array
+    {
+        return [
+            'direction' => Filter::make(__('Direction'))
+                ->select(array_merge([0 => 'Всі'], Direction::toSelectArray())),
+            'group' => Filter::make(__('Group'))
+                ->select(array_merge([0 => 'Всі'], EventGroup::toSelectArray())),
+        ];
+
+
     }
 }

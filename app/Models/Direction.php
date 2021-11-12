@@ -80,4 +80,6 @@ class Direction extends TranslatableModel implements HasMedia
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
+
+
 }

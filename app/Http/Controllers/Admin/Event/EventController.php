@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin\Event;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\EventBasicRequest;
-use App\Models\Event;
+use App\Models\Direction;
+use App\Models\EventGroup;
+use App\Models\EventItem;
 use App\Services\EventService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -37,10 +40,14 @@ class EventController extends Controller
      */
     public function create()
     {
-        $event = new Event();
+        $event = new EventItem();
+        $directions = Direction::toSelectBox();
+        $groups = EventGroup::toSelectBox();
 
         return view('admin.event.create', [
             'event' => $event,
+            'directions' => $directions,
+            'groups' => $groups,
         ]);
     }
 
@@ -54,24 +61,26 @@ class EventController extends Controller
     public function store(EventBasicRequest $request)
     {
         $event = $this->service->store($request->validated());
-
-        return redirect()->route('admin.event.picture.index', ['event'=> $event])
-                         ->withFlashSuccess(__('Record created.'));
+        return redirect()->route('admin.event.edit', $event)->withFlashSuccess(__('Record Created'));
     }
 
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Event $event
+     * @param EventItem $event
      *
      * @return Application|Factory|View
      */
-    public function edit(Event $event)
+    public function edit(EventItem $event)
     {
+        $directions = Direction::toSelectBox();
+        $groups = EventGroup::toSelectBox();
 
         return view('admin.event.edit', [
             'event' => $event,
+            'directions' => $directions,
+            'groups' => $groups,
         ]);
     }
 
@@ -80,30 +89,41 @@ class EventController extends Controller
      *
      * @param EventBasicRequest $request
      *
-     * @param Event $event
+     * @param EventItem $event
      *
      * @return mixed
      *
      * @throws GeneralException
      */
-    public function update(EventBasicRequest $request, Event $event)
+    public function update(EventBasicRequest $request, EventItem $event)
     {
         $this->service->update($event, $request->validated());
-
-        return redirect()->route('admin.event.edit', $event)->withFlashSuccess(__('Record updated.'));
+        return redirect()->route('admin.event.edit', $event)->withFlashSuccess(__('Record Updated'));
     }
+
+
+    public function updateStatus(Request $request, EventItem $event)
+    {
+        if ($request->has('published')) {
+            $event->published = $request->published;
+            $event->save();
+            return response()->json(['result' => 'success']);
+        }
+        return response()->json(['result' => 'error']);
+    }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Event $event
+     * @param EventItem $event
      *
      * @return mixed
      */
-    public function destroy(Event $event)
+    public function destroy(EventItem $event)
     {
         $event->delete();
 
-        return redirect()->route('admin.event.index')->withFlashSuccess(__('Record deleted.'));
+        return redirect()->route('admin.event.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

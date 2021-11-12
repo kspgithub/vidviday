@@ -45,8 +45,6 @@ require_once base_path('routes/admin/html_block.php');
 require_once base_path('routes/admin/discount.php');
 require_once base_path('routes/admin/staff-type.php');
 require_once base_path('routes/admin/event.php');
-require_once base_path('routes/admin/event_group.php');
-require_once base_path('routes/admin/event_item.php');
 require_once base_path('routes/admin/price_item.php');
 require_once base_path('routes/admin/include_type.php');
 require_once base_path('routes/admin/tour_include.php');

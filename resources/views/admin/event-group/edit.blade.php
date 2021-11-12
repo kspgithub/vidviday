@@ -3,25 +3,19 @@
 @section('title', __('Event Group').' - '.__('Editing'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1><span> @lang('Event Group') - @lang('Editing')</span> <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.event-group.index'), 'title'=>__('Event groups')],
+['url'=>route('admin.event-group.edit', $eventGroup), 'title'=>$eventGroup->title],
+]) !!}
+    <x-page.edit :title="__('Edit Event group')"
+                 :backUrl="route('admin.event-group.index')"
+                 :updateUrl="route('admin.event-group.update', $eventGroup)"
+    >
+        @include('admin.event-group.includes.form')
+    </x-page.edit>
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.event-group.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
 
-    <x-forms.patch :action="route('admin.event-group.update', $eventGroup)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.event-group.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
 
 
 @endsection

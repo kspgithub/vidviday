@@ -25,22 +25,22 @@ class EventBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'text'=>['required', 'string'],
-            'short_text'=>['nullable', 'string'],
-            'published'=>['nullable', Rule::in(['1', '0'])],
-            'indefinite'=>['nullable', Rule::in(['1', '0'])],
-            'start_date'=>['nullable', 'date_format:Y-m-d'],
-            'end_date'=>['nullable', 'date_format:Y-m-d'],
-            'main_image'=>['nullable', 'string'],
-            'mobile_image'=>['nullable', 'string'],
-            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'string'],
+            'slug' => ['nullable', 'array'],
+            'seo_h1' => ['nullable', 'array'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_description' => ['nullable', 'array'],
+            'seo_keywords' => ['nullable', 'array'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['required', 'string'],
+            'short_text' => ['nullable', 'array'],
+            'groups' => ['required', 'array'],
+            'directions' => ['required', 'array'],
+            'published' => ['nullable', Rule::in(['1', '0'])],
+            'indefinite' => ['nullable', Rule::in(['1', '0'])],
+            'start_date' => ['nullable', 'date_format:Y-m-d'],
+            'end_date' => ['nullable', 'date_format:Y-m-d'],
         ];
     }
 }

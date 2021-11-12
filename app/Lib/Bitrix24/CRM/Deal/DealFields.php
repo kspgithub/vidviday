@@ -6,7 +6,7 @@ use App\Models\Order;
 
 class DealFields
 {
-    // Отмечаем если тестируем
+    // [ТЕХПОЛЕ]: Тест (відміть якщо тестуєш)
     public const FIELD_TEST = 'UF_CRM_60C0BF12E5B07';
 
     // ID
@@ -39,7 +39,10 @@ class DealFields
     // Дата завершення
     public const FIELD_CLOSE_DATE = 'CLOSEDATE';
 
-    // [ТУР]: Тип групи
+    // WhatsApp
+    public const FIELD_WHATS_APP = 'UF_CRM_60FE6465C4232';
+
+    // [АРХІВ] [ТУР]: Тип групи
     public const FIELD_GROUP_TYPE = 'UF_CRM_60D5C28BF143C';
 
     public const GROUP_TYPE_VALUES = [
@@ -53,8 +56,8 @@ class DealFields
     // [ТУР]: Напрямок туру для виїзду (ID тура в CRM)
     public const FIELD_SCHEDULE_TOUR_ID = 'UF_CRM_60EE865DE0C35';
 
-    // [ТУР] Обраний по датам виїзд туру
-    public const FIELD_SCHEDULE_ID = 'UF_CRM_1634979354';
+    // [ТЕХПОЛЕ] ID виїзду у смарт-процесах
+    public const FIELD_SCHEDULE_ID = 'UF_CRM_1634801894';
 
     // [ТУР] Комиссия агента
     public const FIELD_COMMISSION = 'UF_CRM_1635318476';
@@ -71,28 +74,28 @@ class DealFields
     // [ТУР] Тривалість днів
     public const FIELD_DURATION = 'UF_CRM_60D5C28BA1902';
 
-    // [ТУР]: Кількість осіб (заказ)
+    // [ТУР] Кількість осіб
     public const FIELD_PLACES = 'UF_CRM_60D5C28C29237';
 
     // [ТУР] Місць вільних (расписание)
     public const FIELD_SCHEDULE_PLACES = 'UF_CRM_1635016202';
 
-    // [ТУР]: Кількість осіб (расписание)
+    // [ТУР] Кількість осіб (расписание)
     public const FIELD_PLACES_BOOKED = 'UF_CRM_60D5C28C29237';
 
     // [ТУР] Примітки
     public const FIELD_SCHEDULE_COMMENT = 'UF_CRM_60D5C28BBBD28';
 
-    // [ТУР]: Плануєте взяти дітей
+    // [ТУР] Плануєте взяти дітей
     public const FIELD_CHILDREN = 'UF_CRM_60D5C28C374B7';
 
-    // [ТУР]: Діти до 6 років
+    // [ТУР] Діти до 6 років
     public const FIELD_CHILDREN_YOUNG = 'UF_CRM_60D5C28C43A3F';
 
-    // [ТУР]: Діти від 6 до 12 років
+    // [ТУР] Діти від 6 до 12 років
     public const FIELD_CHILDREN_OLDER = 'UF_CRM_60D5C28C517FB';
 
-    // [ТУР]: Участники туру
+    // [ТУР] Учасники туру
     public const FIELD_PARTICIPANTS_COMMENT = 'UF_CRM_60D5C28BC7792';
 
     // [ТУР] Як ви бажаєте отримати підтвердження?

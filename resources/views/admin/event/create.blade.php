@@ -3,18 +3,17 @@
 @section('title', __('Create event'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Create event') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.event.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-
-    <x-forms.post :action="route('admin.event.store')" enctype="multipart/form-data">
+    {!! breadcrumbs([
+     ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+     ['url'=>route('admin.event.index'), 'title'=>__('Events')],
+     ['url'=>route('admin.event.create'), 'title'=>__('Create event')],
+ ]) !!}
+    <x-page.edit :title="__('Create event')"
+                 :backUrl="route('admin.event.index')"
+                 :updateUrl="route('admin.event.store')"
+    >
         @include('admin.event.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Next')</button>
-    </x-forms.post>
+    </x-page.edit>
 
 
 @endsection

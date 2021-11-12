@@ -25,14 +25,14 @@ class EventGroupBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'text'=>['nullable', 'string'],
-            'published'=>['nullable', Rule::in(['1', '0'])],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'string'],
+            'slug' => ['nullable', 'array'],
+            'seo_h1' => ['nullable', 'array'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_description' => ['nullable', 'array'],
+            'seo_keywords' => ['nullable', 'array'],
+            'text' => ['nullable', 'array'],
         ];
     }
 }

@@ -208,6 +208,18 @@ class PageSeeder extends Seeder
                 'key' => 'certificate-order',
                 'published' => 1,
             ],
+            [
+                'title' => ['uk' => 'Наші події', 'ru' => 'Наши события', 'en' => 'Our events', 'pl' => 'Nasze wydarzenia'],
+                'seo_h1' => ['uk' => 'Наші події', 'ru' => 'Наши события', 'en' => 'Our events', 'pl' => 'Nasze wydarzenia'],
+                'key' => 'events',
+                'published' => 1,
+                'text' => [
+                    'en' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'ru' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'uk' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'pl' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                ],
+            ],
         ];
 
         foreach ($pages as $page) {

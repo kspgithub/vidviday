@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit').' '.__('Event Group'))
+@section('title', __('Edit').' '.__('Event group'))
 
 @section('content')
     <div class="d-flex justify-content-between">

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
-use App\Models\EventGroup;
+use App\Models\Direction;
 use App\Models\EventItem;
+use App\Models\Page;
 
 
 class EventController extends Controller
@@ -12,10 +13,16 @@ class EventController extends Controller
     public function index()
     {
         //
-        $eventsItems = EventItem::with('group')->get();
+        $pageContent = Page::where('key', 'events')->first();
+
+        $directions = Direction::whereHas('events', function ($q) {
+            return $q->published();
+        })->with(['events', 'events.groups', 'events.media'])->get();
+
 
         return view('event.index', [
-            'eventsItems' => $eventsItems
+            'directions' => $directions,
+            'pageContent' => $pageContent,
         ]);
     }
 

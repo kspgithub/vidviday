@@ -3,48 +3,98 @@
 namespace App\Http\Controllers\Admin\Event;
 
 use App\Http\Controllers\Controller;
-use App\Models\Event;
+use App\Http\Requests\Event\EventGroupBasicRequest;
 use App\Models\EventGroup;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class EventGroupController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @param Event $event
+     * @return Application|Factory|View
+     */
+    public function index()
+    {
+        $eventGroups = EventGroup::all();
+
+        return view('admin.event-group.index', compact('eventGroups'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
      */
-    public function index(Event $event)
+    public function create()
     {
-        $options = EventGroup::toSelectBox();
 
-        $selected_ids = $event->groups()->pluck('id')->toArray();
+        $eventGroup = new EventGroup();
 
-        return view('admin.event.groups', [
-            'event'=>$event,
-            'options'=>$options,
-            'selected_ids'=>$selected_ids,
-        ]);
+        return view('admin.event-group.create', compact('eventGroup'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param EventGroupBasicRequest $request
+     *
+     * @return mixed
+     */
+    public function store(EventGroupBasicRequest $request)
+    {
+        $eventGroup = new EventGroup();
+
+        $eventGroup->fill($request->all());
+        $eventGroup->save();
+
+        return redirect()->route('admin.event-group.edit', $eventGroup)->withFlashSuccess(__('Record Created'));
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param EventGroup $eventGroup
+     *
+     * @return Application|Factory|View
+     */
+    public function edit(EventGroup $eventGroup)
+    {
+        return view('admin.event-group.edit', compact('eventGroup'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EventGroupBasicRequest $request
      *
-     * @param Event $event
+     * @param EventGroup $eventGroup
      *
      * @return mixed
      */
-    public function update(Request $request, Event $event)
+    public function update(EventGroupBasicRequest $request, EventGroup $eventGroup)
     {
-        $event->groups()->sync($request->input('groups', []));
+        $eventGroup->fill($request->all());
+        $eventGroup->save();
 
-        return redirect()->back()->withFlashSuccess(__('Record updated.'));
+        return redirect()->route('admin.event-group.edit', $eventGroup)->withFlashSuccess(__('Record Updated'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param EventGroup $eventGroup
+     *
+     * @return mixed
+     */
+    public function destroy(EventGroup $eventGroup)
+    {
+        $eventGroup->delete();
+
+        return redirect()->route('admin.event-group.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

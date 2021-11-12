@@ -3,34 +3,37 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\EventAttribute;
+use App\Models\Traits\Relationship\EventRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class EventItem
+ * Class Event
  *
  * @package App\Models
  * @mixin IdeHelperEventItem
  */
-class EventItem extends Model implements HasMedia
+class EventItem extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use EventAttribute;
-
+    use EventRelationship;
+    use UseSelectBox;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -49,22 +52,16 @@ class EventItem extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png'])
             ->singleFile();
 
-        $this->addMediaCollection('mobile')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
-            ->singleFile();
-
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public $translatable = [
         'title',
         'text',
+        'short_text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -72,19 +69,20 @@ class EventItem extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'group_id',
-        'direction_id',
         'title',
+        'text',
+        'short_text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
         'seo_keywords',
-        'text',
-        'slug',
+        'published',
+        'indefinite',
         'start_date',
         'end_date',
-        'published',
     ];
+
 
     protected $casts = [
         'published' => 'boolean',
@@ -106,19 +104,5 @@ class EventItem extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function group()
-    {
-        return $this->belongsTo(EventGroup::class, 'group_id');
-    }
 
-    /**
-     * @return BelongsTo
-     */
-    public function direction()
-    {
-        return $this->belongsTo(Direction::class, 'direction_id');
-    }
 }

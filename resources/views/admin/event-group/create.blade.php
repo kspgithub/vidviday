@@ -3,24 +3,16 @@
 @section('title', __('Create').' '.__('Event Group'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Create') @lang('Event Group')<div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.event-group.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-
-    <x-forms.post :action="route('admin.event-group.store')" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.event-group.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.post>
-
+    {!! breadcrumbs([
+ ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+ ['url'=>route('admin.event-group.index'), 'title'=>__('Event groups')],
+ ['url'=>route('admin.event-group.create'), 'title'=>__('Create')],
+]) !!}
+    <x-page.edit :title="__('Create Event group')"
+                 :backUrl="route('admin.event-group.index')"
+                 :updateUrl="route('admin.event-group.store')"
+    >
+        @include('admin.event-group.includes.form')
+    </x-page.edit>
 
 @endsection

@@ -20,6 +20,7 @@ trait EventRelationship
     {
         return $this->belongsToMany(Direction::class, 'events_directions', 'event_id', 'direction_id');
     }
+
     /**
      * Группы
      *
@@ -27,15 +28,7 @@ trait EventRelationship
      */
     public function groups()
     {
-        return $this->belongsToMany(EventGroup::class, 'events_event_groups', 'event_id', 'group_id');
+        return $this->belongsToMany(EventGroup::class, 'events_groups', 'event_id', 'group_id');
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function items()
-    {
-        return $this->hasMany(EventItem::class);
-    }
 }

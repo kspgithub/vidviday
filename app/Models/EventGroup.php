@@ -14,6 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,25 +24,22 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperEventGroup
  */
-class EventGroup extends Model implements HasMedia
+class EventGroup extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
     use EventAttribute;
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    
 
     public $translatable = [
         'title',
         'text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -105,6 +103,6 @@ class EventGroup extends Model implements HasMedia
      */
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(EventItem::class, 'events_groups', 'group_id', 'event_id');
     }
 }
