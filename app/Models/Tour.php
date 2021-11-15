@@ -54,6 +54,7 @@ class Tour extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'contact',
     ];
 
     protected $fillable = [
@@ -78,6 +79,7 @@ class Tour extends TranslatableModel implements HasMedia
         'similar',
         'hutsul_fun_on',
         'hutsul_fun_text',
+        'contact',
     ];
 
     protected $casts = [

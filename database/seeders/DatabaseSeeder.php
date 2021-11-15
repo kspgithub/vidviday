@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BannerSeeder::class);
         $this->call(AdsSeeder::class);
         $this->call(FaqSeeder::class);
+        $this->call(EventsSeeder::class);
         $this->call(ContactSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(PaymentTypeSeeder::class);

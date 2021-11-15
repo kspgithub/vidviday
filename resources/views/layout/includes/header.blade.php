@@ -191,7 +191,7 @@
                         </li>
 
                         <li>
-                            <a href="{{route('events.index')}}">Події</a>
+                            <a href="{{pageUrlByKey('events')}}">Події</a>
                         </li>
 
                         <li class="dropdown">
@@ -224,7 +224,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="{{pageUrlByKey('accommodation')}}">Проживанняs</a>
+                                        <a href="{{pageUrlByKey('accommodation')}}">Проживання</a>
                                     </li>
                                 </ul>
                             </div>

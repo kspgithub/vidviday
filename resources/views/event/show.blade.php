@@ -9,7 +9,7 @@
             <div class="bread-crumbs">
                 <a href="/">@lang('Home')</a>
                 <span>—</span>
-                <span><a href="{{route('events.index')}}">@lang('Events')</a></span>
+                <span><a href="{{pageUrlByKey('events')}}">@lang('Events')</a></span>
                 <span>—</span>
                 <span>{{$event->title}}</span>
             </div>

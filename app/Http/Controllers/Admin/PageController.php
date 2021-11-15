@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\Staff;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +20,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::query()->withCount(['media'])->orderBy('key')->get();
+        $pages = Page::query()->withCount(['media'])->orderBy('title->uk')->get();
         //
         return view('admin.page.index', ['pages'=>$pages]);
     }
@@ -33,8 +34,8 @@ class PageController extends Controller
     {
         //
         $page = new Page();
-
-        return view('admin.page.create', ['page'=>$page]);
+        $managers = Staff::all()->map->asSelectBox();
+        return view('admin.page.create', ['page' => $page, 'managers' => $managers]);
     }
 
     /**
@@ -64,7 +65,8 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         //
-        return view('admin.page.edit', ['page'=>$page]);
+        $managers = Staff::all()->map->asSelectBox();
+        return view('admin.page.edit', ['page' => $page, 'managers' => $managers]);
     }
 
     /**

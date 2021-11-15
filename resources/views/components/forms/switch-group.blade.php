@@ -19,7 +19,9 @@
     </div>
     <div class="m-0 {{$inputCol}}">
         <div class="form-check form-switch ms-0">
+            @if($inactive_value !== null)
             <input type="hidden" name="{{$name}}" value="{{$inactive_value}}">
+            @endif
             <input
                 {{$active ? 'checked' : ''}} name="{{$name}}" value="{{$active_value}}" type="checkbox" id="{{$name}}"
                 {{ $attributes->merge(['class' => 'form-check-input']) }}

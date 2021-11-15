@@ -136,6 +136,9 @@
             <option value="">Не вибрано</option>
         </x-forms.select-group>
 
+        <x-forms.editor-loc-group name="contact" :label="__('Additional contacts')"
+                                  :value="old('contact', $tour->getTranslations('contact'))"></x-forms.editor-loc-group>
+
         <x-forms.tag-group name="staff[]"
                            :label="__('Guides')"
                            :value="$tour->tour_guides ?  $tour->tour_guides->pluck('id')->toArray() : []"

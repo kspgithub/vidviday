@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Certificate\CertificateController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
+use App\Http\Controllers\TravelAgent\TravelAgentController;
 use App\Models\Page;
 use App\Models\Place;
 use App\Models\Tour;
@@ -41,6 +43,10 @@ class PageController extends Controller
                 return (new StaffController())->index();
             case 'certificate':
                 return (new CertificateController())->index();
+            case 'events':
+                return (new EventController())->index();
+            case 'for-travel-agents':
+                return (new TravelAgentController())->index();
             default:
                 return view('page.show', ['pageContent' => $pageContent]);
         }

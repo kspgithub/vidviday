@@ -98,12 +98,6 @@ class PageSeeder extends Seeder
                 'published' => 1,
             ],
             [
-                'title' => ['en' => 'Reviews', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Opinie'],
-                'seo_h1' => ['en' => 'Reviews', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Opinie'],
-                'key' => 'reviews',
-                'published' => 1,
-            ],
-            [
                 'title' => ['en' => 'Blog', 'ru' => 'Блог', 'uk' => 'Блог', 'pl' => 'Blog'],
                 'seo_h1' => ['en' => 'Blog', 'ru' => 'Блог', 'uk' => 'Блог', 'pl' => 'Blog'],
                 'key' => 'blog',
@@ -219,6 +213,21 @@ class PageSeeder extends Seeder
                     'uk' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
                     'pl' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
                 ],
+            ],
+            [
+                'title' => ['uk' => 'Турагентам', 'ru' => 'Турагентам', 'en' => 'For travel agents', 'pl' => 'Dla biur podróży'],
+                'seo_h1' => ['uk' => 'Турагентам', 'ru' => 'Турагентам', 'en' => 'For travel agents', 'pl' => 'Dla biur podróży'],
+                'key' => 'for-travel-agents',
+                'published' => 1,
+                'text' => [
+                    'en' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'ru' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'uk' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'pl' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                ],
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
         ];
 

@@ -42,9 +42,10 @@
                     <a href="tg://resolve?domain={{clear_phone($tour->tour_manager->telegram)}}">{{$tour->tour_manager->telegram}}</a>
                 </div>
             @endif
-            @if($tour->tour_manager->avatar)
-                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{$tour->tour_manager->avatar_url}}"
-                     alt="manager">
+            @if(!empty($tour->contact))
+                <div>
+                    {!! $tour->contact !!}
+                </div>
             @endif
         </div>
     </div>
