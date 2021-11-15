@@ -30,6 +30,9 @@ export default {
         app.component('popup-email-btn', require('./popup/PopupEmailBtn').default);
         app.component('popup-email', require('./popup/PopupEmail').default);
         app.component('popup-thanks', require('./popup/PopupThanks').default);
+        app.component('popup-sub-btn', require('./popup/PopupSubBtn').default);
+        app.component('popup-user-sub', require('./popup/PopupUserSubscription').default);
+        app.component('popup-agent-sub', require('./popup/PopupAgentSubscription').default);
 
         app.component('tour-card', require('./tour/TourCard').default);
 

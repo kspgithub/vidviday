@@ -22,5 +22,12 @@ class UserSubscription extends Model
         'status',
         'name',
         'email',
+        'bitrix_id',
+        'bitrix_contact_id',
+        'utm_campaign',
+        'utm_content',
+        'utm_medium',
+        'utm_source',
+        'utm_term',
     ];
 }

@@ -4,8 +4,8 @@
 
     {{--    @include('includes.popups.call-back-popup')--}}
     {{--    @include('includes.popups.write-message-popup')--}}
-    @include('includes.popups.tourists-mailing-popup')
-    @include('includes.popups.agents-mailing-popup')
+    {{--    @include('includes.popups.tourists-mailing-popup')--}}
+    {{--    @include('includes.popups.agents-mailing-popup')--}}
     @include('includes.popups.thanks-popup')
     @include('includes.popups.login-popup')
     @include('includes.popups.password-recovery-popup')
@@ -21,6 +21,8 @@
 
 </div>
 <div v-is="'popup-gallery'"></div>
+<div v-is="'popup-user-sub'"></div>
+<div v-is="'popup-agent-sub'"></div>
 <div v-is="'popup-call'"></div>
 <div v-is="'popup-email'"></div>
 <div v-is="'popup-thanks'"></div>

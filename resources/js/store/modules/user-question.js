@@ -12,6 +12,8 @@ export default {
             popupThanksOpen: false,
             popupCallOpen: false,
             popupMailOpen: false,
+            popupUserSubOpen: false,
+            popupAgentSubOpen: false,
             thanksData: {
                 title: 'Дякуємо за повідомлення',
                 message: 'Ми передзвонимо у обраний Вами час',
@@ -30,6 +32,12 @@ export default {
         },
         SET_POPUP_CALL_OPEN(state, value) {
             state.popupCallOpen = value;
+        },
+        SET_POPUP_USER_SUB_OPEN(state, value) {
+            state.popupUserSubOpen = value;
+        },
+        SET_POPUP_AGENT_SUB_OPEN(state, value) {
+            state.popupAgentSubOpen = value;
         },
         SET_POPUP_THANKS_OPEN(state, value) {
             state.popupThanksOpen = value;

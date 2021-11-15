@@ -13,6 +13,7 @@ class LeadFields
     public const FIELD_LAST_NAME = 'LAST_NAME'; // string Фамилия, обязательное
     public const FIELD_EMAIL = 'EMAIL'; // crm_multifield Множественное, передавать как массив
     public const FIELD_PHONE = 'PHONE'; // crm_multifield Множественное, передавать как массив
+    public const FIELD_WHATS_APP = 'UF_CRM_1626881622';
     public const FIELD_COMMENTS = 'COMMENTS'; // string Комментарии
     public const FIELD_CONTACT_ID = 'CONTACT_ID'; // Привязка лида к контакту
 

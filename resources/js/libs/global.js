@@ -399,7 +399,8 @@ jQuery(function ($) {
         }
     });
     // Mobile menu dropdown
-    $('.dropdown-btn').on('click', function () {
+    $('.dropdown-btn, .dropdown-title').on('click', function (e) {
+        e.preventDefault();
 
         let dropdown = $(this).closest('.dropdown'),
             dropdownToggle = $(dropdown).find('.dropdown-toggle');
@@ -412,7 +413,7 @@ jQuery(function ($) {
             dropdownToggle.slideUp(330);
         } else {
             $('header .dropdown').each(function () {
-                $(this).removeClass('active');
+                $(dropdown).find('.dropdown-btn').removeClass('active');
             });
             dropdown.addClass('active');
             dropdownToggle.slideDown(330);

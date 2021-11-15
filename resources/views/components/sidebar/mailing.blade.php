@@ -8,8 +8,8 @@
     </div>
     <div class="bottom-part">
         <div class="subscribe-block">
-            <span class="btn type-2 open-popup" data-rel="tourists-mailing-popup">Я — турист</span>
-            <span class="btn type-2 open-popup" data-rel="agents-mailing-popup">Я — турагент</span>
+            <a href="#" class="btn type-2" v-is="'popup-sub-btn'" type="tourist">Я — турист</a>
+            <a href="#" class="btn type-2" v-is="'popup-sub-btn'" type="tour-agent">Я — турагент</a>
         </div>
     </div>
 </div>

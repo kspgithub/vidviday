@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FeedbackRequest;
 use App\Lib\Bitrix24\CRM\Lead\LeadFeedback;
+use App\Models\AgencySubscription;
 use App\Models\UserQuestion;
+use App\Models\UserSubscription;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -51,5 +53,51 @@ class UserController extends Controller
             return array_values($user->tourFavourites()->get(['id'])->pluck('id')->toArray());
         }
         return [];
+    }
+
+
+    public function subscription(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $subscription = UserSubscription::whereEmail($request->email)->first();
+        if ($subscription == null) {
+            $subscription = new UserSubscription();
+        }
+        $subscription->fill($request->all());
+        $subscription->status = UserSubscription::STATUS_ACTIVE;
+        $subscription->save();
+        try {
+            LeadFeedback::createCrmLead($subscription);
+        } catch (Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
+        }
+        return response()->json(['result' => 'success', 'message' => __('Thanks for subscribing!')]);
+    }
+
+    public function agentSubscription(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $subscription = AgencySubscription::whereEmail($request->email)->first();
+        if ($subscription == null) {
+            $subscription = new AgencySubscription();
+        }
+        $subscription->fill($request->all());
+        $subscription->status = UserSubscription::STATUS_ACTIVE;
+        $subscription->save();
+
+        try {
+            LeadFeedback::createCrmLead($subscription);
+        } catch (Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
+        }
+        return response()->json(['result' => 'success', 'message' => __('Thanks for subscribing!')]);
     }
 }

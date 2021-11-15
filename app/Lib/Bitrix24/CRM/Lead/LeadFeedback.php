@@ -3,14 +3,18 @@
 namespace App\Lib\Bitrix24\CRM\Lead;
 
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
+use App\Models\AgencySubscription;
 use App\Models\BitrixContact;
 use App\Models\UserQuestion;
+use App\Models\UserSubscription;
 
 class LeadFeedback
 {
 
-
-    public static function createCrmLead(UserQuestion $question)
+    /**
+     * @param UserQuestion|UserSubscription|AgencySubscription $question
+     */
+    public static function createCrmLead($question)
     {
         $is_test = config('services.bitrix24.test');
 
@@ -39,33 +43,48 @@ class LeadFeedback
             $contactData['email'] = $question->email;
             $data[LeadFields::FIELD_EMAIL] = [$question->email];
         }
-
+        if (!empty($question->viber)) {
+            $contactData['viber'] = $question->viber;
+            $data[LeadFields::FIELD_WHATS_APP] = $question->viber;
+        }
         $contactId = ContactService::getContactId($contactData);
         $data[LeadFields::FIELD_CONTACT_ID] = $contactId;
 
         $comment = '';
-        switch ($question->type) {
-            case UserQuestion::TYPE_CALL:
-                $data[LeadFields::FIELD_TITLE] = 'Замовлення дзвінка';
-                $date = $question->call_date->format('d.m.Y');
-                $comment .= "<div><b>Замовлення дзвінка</b></div>";
-                $comment .= "<div><b>Дата:</b> $date</div>";
-                $comment .= "<div><b>Час:</b> $question->call_time</div>";
-                $comment .= "<div><b>Коментар:</b> $question->comment</div>";
-                break;
-            case UserQuestion::TYPE_QUESTION:
-                $data[LeadFields::FIELD_TITLE] = 'Нове питання';
-                $type = UserQuestion::QUESTION_TYPES[$question->question_type ?? 'other'];
-                $comment .= "<div><b>Нове питання</b></div>";
-                $comment .= "<div><b>Тип:</b> $type</div>";
-                $comment .= "<div><b>Питання:</b> $question->comment</div>";
-                break;
-            default:
-                $data[LeadFields::FIELD_TITLE] = 'Нове повідомлення';
-                $comment .= "<div><b>Нове повідомлення</b></div>";
-                $comment .= "<div><b>Коментар:</b> $question->comment</div>";
-                break;
+        if ($question instanceof UserQuestion) {
+            switch ($question->type) {
+                case UserQuestion::TYPE_CALL:
+                    $data[LeadFields::FIELD_TITLE] = 'Замовлення дзвінка';
+                    $date = $question->call_date->format('d.m.Y');
+                    $comment .= "<div><b>Замовлення дзвінка</b></div>";
+                    $comment .= "<div><b>Дата:</b> $date</div>";
+                    $comment .= "<div><b>Час:</b> $question->call_time</div>";
+                    $comment .= "<div><b>Коментар:</b> $question->comment</div>";
+                    break;
+                case UserQuestion::TYPE_QUESTION:
+                    $data[LeadFields::FIELD_TITLE] = 'Нове питання';
+                    $type = UserQuestion::QUESTION_TYPES[$question->question_type ?? 'other'];
+                    $comment .= "<div><b>Нове питання</b></div>";
+                    $comment .= "<div><b>Тип:</b> $type</div>";
+                    $comment .= "<div><b>Питання:</b> $question->comment</div>";
+                    break;
+                default:
+                    $data[LeadFields::FIELD_TITLE] = 'Нове повідомлення';
+                    $comment .= "<div><b>Нове повідомлення</b></div>";
+                    $comment .= "<div><b>Коментар:</b> $question->comment</div>";
+                    break;
+            }
         }
+
+        if ($question instanceof UserSubscription) {
+            $data[LeadFields::FIELD_TITLE] = 'Турист підписався на розсилку';
+        }
+
+        if ($question instanceof AgencySubscription) {
+            $data[LeadFields::FIELD_TITLE] = 'Турагент підписався на розсилку';
+            $comment .= "<div><b>Компанія:</b> $question->company</div>";
+        }
+
         if ($is_test) {
             $comment .= "<div><b>Тестування</b></div>";
         }

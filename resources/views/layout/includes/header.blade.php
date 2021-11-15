@@ -116,7 +116,7 @@
                     </div>
                     <ul>
                         <li class="dropdown">
-                            <a href="{{pageUrlByKey('about')}}">Чому відвідай</a>
+                            <a href="{{pageUrlByKey('about')}}" class="dropdown-title">Чому відвідай</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
@@ -169,7 +169,7 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="{{pageUrlByKey('tours')}}">Тури</a>
+                            <a href="{{pageUrlByKey('tours')}}" class="dropdown-title">Тури</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
@@ -195,7 +195,7 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#">Пропозиції</a>
+                            <a href="#" class="dropdown-title">Пропозиції</a>
                             <span class="dropdown-btn"></span>
                             <div class="dropdown-toggle">
                                 <ul>
