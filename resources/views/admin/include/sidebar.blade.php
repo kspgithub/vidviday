@@ -241,7 +241,7 @@
                         class="align-middle">@lang('Documents')</span>
                 </a>
             </li>
-            
+
             <li class="sidebar-item {{routeActiveClass('admin.order*')}}">
                 <a class="sidebar-link" href="{{route('admin.order.index')}}">
                     <i class="align-middle" data-feather="shopping-cart"></i>
@@ -327,7 +327,18 @@
                         class="align-middle">@lang('Html Blocks')</span>
                 </a>
             </li>
-
+            <li class="sidebar-item {{routeActiveClass('admin.our-client.*')}}">
+                <a class="sidebar-link" href="{{route('admin.our-client.index')}}">
+                    <i class="align-middle" data-feather="smile"></i> <span
+                        class="align-middle">@lang('Our Clients')</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.achievement.*')}}">
+                <a class="sidebar-link" href="{{route('admin.achievement.index')}}">
+                    <i class="align-middle" data-feather="award"></i> <span
+                        class="align-middle">@lang('Achievements')</span>
+                </a>
+            </li>
             <li class="sidebar-header">
                 @lang('System')
             </li>

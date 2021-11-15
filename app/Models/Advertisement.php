@@ -11,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
 /**
  * @mixin IdeHelperAdvertisement
  */
-class Advertisement extends Model
+class Advertisement extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;

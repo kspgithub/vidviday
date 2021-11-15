@@ -1,3 +1,4 @@
+@if($clients->count() > 0)
 <section class="partners-slider section">
     <div class="container">
         <hr class="only-desktop">
@@ -33,61 +34,14 @@
 						}
 					}'>
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_1.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
+                    @foreach($clients as $client)
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <img src="{{$client->image_url}}" alt="{{$client->title}}" class="swiper-lazy">
+                                <div class="swiper-lazy-preloader"></div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_2.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_3.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_4.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_5.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_6.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_3.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="partner-item">
-                            <img src="{{asset('img/logo_4.png')}}" alt="partner logo" class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="swiper-button-prev"><i></i></div>
@@ -97,3 +51,4 @@
     </div>
     <div class="spacer spacer-xs"></div>
 </section>
+@endif

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\HtmlBlock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BlogSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(BannerSeeder::class);
+        $this->call(AchievementSeeder::class);
         $this->call(AdsSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(EventsSeeder::class);

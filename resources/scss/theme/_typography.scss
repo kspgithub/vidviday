@@ -166,25 +166,36 @@ ol {
 		}
 	}
 	i {
-		font-weight: 300;
-		color: $green;
-	}
-	span {
-		color: $green;
-	}
-	b {
-		color: $title;
-		font-weight: 500;
-	}
-	> div,
-	img,
-	blockquote {
-		margin: 30px 0;
-	}
-	> div {
-		overflow: hidden;
-		position: relative;
-		padding-top: 56.72%;
+        font-weight: 300;
+        color: $green;
+    }
+
+    span {
+        color: $green;
+    }
+
+    b {
+        color: $title;
+        font-weight: 500;
+    }
+
+    &.text-bold {
+        b {
+            color: $green;
+            font-weight: 500;
+        }
+    }
+
+    > div,
+    img,
+    blockquote {
+        margin: 30px 0;
+    }
+
+    > div {
+        overflow: hidden;
+        position: relative;
+        padding-top: 56.72%;
 		border-radius: 10px;
 		iframe {
 			top: 0;

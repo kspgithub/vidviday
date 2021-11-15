@@ -38,8 +38,10 @@ trait HasImage
         $date = date('Ymd');
         $path = 'public/' . $fileImage->store("/upload/{$date}", 'public');
         $image_path = Storage::path($path);
-        $size = $this->imageSize();
-        Image::load($image_path)->width($size['width'])->height($size['height'])->save();
+        if (!$fileImage->getClientMimeType() === 'image/svg') {
+            $size = $this->imageSize();
+            Image::load($image_path)->width($size['width'])->height($size['height'])->save();
+        }
         $this->image = $path;
         $this->save();
     }
