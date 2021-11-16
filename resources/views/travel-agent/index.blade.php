@@ -63,8 +63,8 @@
 
 
         <!-- OUR CLIENTS -->
-    @include('home.includes.partners')
-    <!-- OUR CLIENTS END -->
+        <x-page.clients/>
+        <!-- OUR CLIENTS END -->
 
         <!-- SEO TEXT -->
     @include('home.includes.seo-text')

@@ -16,18 +16,12 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperMenu
  */
-class Menu extends Model
+class Menu extends TranslatableModel
 {
     use HasFactory;
-    use HasSlug;
     use HasTranslations;
     use MenuAttribute;
     use UseSelectBox;
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public $translatable = [
         'title',
@@ -41,17 +35,9 @@ class Menu extends Model
     ];
 
 
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
-    }
-
     public function items()
     {
-        return $this->hasMany(MenuItem::class, 'menu_id');
+        return $this->hasMany(MenuItem::class, 'menu_id')->orderBy('position');
     }
 
 }

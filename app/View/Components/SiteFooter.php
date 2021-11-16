@@ -3,12 +3,14 @@
 namespace App\View\Components;
 
 use App\Models\Contact;
+use App\Models\Menu;
 use Illuminate\View\Component;
 
 class SiteFooter extends Component
 {
 
     public $contacts = [];
+    public $menu = [];
 
     /**
      * Create a new component instance.
@@ -19,6 +21,7 @@ class SiteFooter extends Component
     {
         // TODO: Кеширование
         $this->contacts = Contact::all();
+        $this->menu = Menu::whereSlug('footer')->with(['items' => fn($q) => $q->where('parent_id', 0), 'items.children'])->first();
     }
 
 

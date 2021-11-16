@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\MenuItemAttribute;
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,22 +17,20 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperMenuItem
  */
-class MenuItem extends Model
+class MenuItem extends TranslatableModel
 {
+    use UsePublishedScope;
     use HasFactory;
-    use HasSlug;
     use HasTranslations;
-    use HasSlug;
     use MenuItemAttribute;
     use UseSelectBox;
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    public const SIDE_LEFT = 'left';
+    public const SIDE_RIGHT = 'right';
 
     public $translatable = [
         'title',
+        'slug',
     ];
 
 
@@ -41,21 +40,15 @@ class MenuItem extends Model
         'parent_id',
         'menu_id',
         'position',
-        'active',
+        'side',
+        'published',
+        'class_name',
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'published' => 'boolean',
     ];
 
-
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
-    }
 
     public function menu()
     {

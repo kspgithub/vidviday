@@ -3,101 +3,61 @@
     <div class="footer-top">
         <div class="container">
             <div class="row">
-                <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
-                    <div class="accordion-item">
-                        <div class="accordion-title">
-                            <span class="text-md">Тури</span>
+                @foreach($menu->items as  $menuItem)
+                    <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
+                        <div class="accordion-item">
+                            <div class="accordion-title">
+                                <span class="text-md">{{$menuItem->title}}</span>
+                            </div>
+                            <div class="accordion-inner">
+                                <ul>
+                                    @foreach($menuItem->children as  $menuChildren)
+                                        <li>
+                                            <a href="{{$menuChildren->slug}}" class="text">{{$menuChildren->title}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                        <div class="accordion-inner">
-                            <ul>
-                                <li>
-                                    <a href="#" class="text">Популярні тури</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Тури на Синевир</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Тури на Новий Рік</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Тури на Різдво</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Тури в Карпати</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">На бринзу до Рахова</a>
-                                </li>
-                            </ul>
-                        </div>
+                        @if($loop->last)
+                            <a href="{{pageUrlByKey('blog')}}" class="btn type-3 btn-more text-md">{{__('Blog')}}</a>
+                        @endif
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
-                    <div class="accordion-item">
-                        <div class="accordion-title">
-                            <span class="text-md">Пропозиції</span>
-                        </div>
-                        <div class="accordion-inner">
-                            <ul>
-                                <li>
-                                    <a href="#" class="text">Турагентам</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Школам</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Корпоративи</a>
-                                </li>
-
-                                <li>
-                                    <a href="/transport" class="text">Транспорт</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="text">Відгуки</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <a href="#" class="btn type-3 btn-more text-md">Блог</a>
-                </div>
                 @foreach ($contacts as $contact)
-                <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
-                    <div class="accordion-item">
-                        <div class="accordion-title">
-                            <a href="{{route('contacts')}}" class="btn type-3 btn-more text-md">{{$contact->title}}</a>
-                        </div>
-                        <div class="accordion-inner">
-                            <div class="contact">
-                                <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/tel.svg')}}" alt="tel">
-                                </div>
-                                <a href="tel:{{$contact->work_phone}}">{{$contact->work_phone}}</a>
+                    <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
+                        <div class="accordion-item">
+                            <div class="accordion-title">
+                                <a href="{{route('contacts')}}"
+                                   class="btn type-3 btn-more text-md">{{$contact->title}}</a>
                             </div>
-
-                            <div class="contact">
-                                <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/smartphone.svg')}}" alt="smartphone">
+                            <div class="accordion-inner">
+                                <div class="contact">
+                                    <div class="img">
+                                        <img src="{{asset('img/preloader.png')}}"
+                                             data-img-src="{{asset('icon/tel.svg')}}" alt="tel">
+                                    </div>
+                                    <a href="tel:{{$contact->work_phone}}">{{$contact->work_phone}}</a>
                                 </div>
-                                <a href="tel:{{$contact->phone_1}}">{{$contact->phone_1}}</a>
-                                <br>
-                                <a href="tel:{{$contact->phone_2}}">{{$contact->phone_2}}</a>
-                                <br>
-                                <a href="tel:{{$contact->phone_3}}">{{$contact->phone_3}}</a>
-                            </div>
 
-                            <div class="contact">
-                                <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/mail.svg')}}" alt="mail">
+                                <div class="contact">
+                                    <div class="img">
+                                        <img src="{{asset('img/preloader.png')}}"
+                                             data-img-src="{{asset('icon/smartphone.svg')}}" alt="smartphone">
+                                    </div>
+                                    <a href="tel:{{$contact->phone_1}}">{{$contact->phone_1}}</a>
+                                    <br>
+                                    <a href="tel:{{$contact->phone_2}}">{{$contact->phone_2}}</a>
+                                    <br>
+                                    <a href="tel:{{$contact->phone_3}}">{{$contact->phone_3}}</a>
                                 </div>
+
+                                <div class="contact">
+                                    <div class="img">
+                                        <img src="{{asset('img/preloader.png')}}"
+                                             data-img-src="{{asset('icon/mail.svg')}}" alt="mail">
+                                    </div>
                                 <a href="mailto:{{$contact->email}}">{{$contact->email}}</a>
                             </div>
 

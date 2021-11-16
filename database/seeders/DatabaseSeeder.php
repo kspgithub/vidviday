@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StaffTypeSeeder::class);
         $this->call(StaffSeeder::class);
         $this->call(PageSeeder::class);
+        $this->call(MenuSeeder::class);
         $this->call(BlogSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(BannerSeeder::class);

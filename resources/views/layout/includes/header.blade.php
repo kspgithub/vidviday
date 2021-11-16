@@ -115,128 +115,38 @@
                         <div class="spacer-sm"></div>
                     </div>
                     <ul>
-                        <li class="dropdown">
-                            <a href="{{pageUrlByKey('about')}}" class="dropdown-title">Чому відвідай</a>
-                            <span class="dropdown-btn"></span>
-                            <div class="dropdown-toggle">
-                                <ul>
-                                    <li>
-                                        <a href="{{pageUrlByKey('about')}}">Про нас</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('documents')}}">Наші документи</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('guides')}}">Екскурсоводи</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('office-workers')}}">Офісні працівники</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('news.index') }}">{{ __("Новини") }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{pageUrlByKey('benefit')}}">Благодійність</a>
-                                    </li>
-                                </ul>
-
-                                <ul>
-                                    <li>
-                                        <a href="{{pageUrlByKey('awards')}}">Нагороди та відзнаки</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('vacancies')}}">Вакансії</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('practice')}}">Практика</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('testimonials')}}">Відгуки</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route("blogs") }}">Блог</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="{{pageUrlByKey('tours')}}" class="dropdown-title">Тури</a>
-                            <span class="dropdown-btn"></span>
-                            <div class="dropdown-toggle">
-                                <ul>
-                                    @foreach($tourGroups as $tourGroup)
-                                        <li>
-                                            <a href="{{$tourGroup->url}}">{{$tourGroup->title}}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="only-pad-mobile">
-                            <a href="{{pageUrlByKey('order')}}">Замовити тур</a>
-                        </li>
-
-                        <li>
-                            <a href="{{route('places')}}">Місця</a>
-                        </li>
-
-                        <li>
-                            <a href="{{pageUrlByKey('events')}}">Події</a>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-title">Пропозиції</a>
-                            <span class="dropdown-btn"></span>
-                            <div class="dropdown-toggle">
-                                <ul>
-                                    <li>
-                                        <a href="{{pageUrlByKey('for-travel-agents')}}">Турагентам</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('schools')}}">Школам</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{route('corporates')}}">Корпоративи</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('certificate')}}">Подарунковий сертифікат</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{route('transport')}}">Транспорт</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('guides-courses')}}">Курси екскурсоводів</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{pageUrlByKey('accommodation')}}">Проживання</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li>
-                            <a href="/faq">Є питання?</a>
-                        </li>
-
-                        <li>
-                            <a href="/contacts">Контакти</a>
-                        </li>
+                        @foreach($menu->items as $menuItem)
+                            @if($menuItem->children->count() > 0)
+                                <li class="dropdown {{$menuItem->class_name ?? ''}}">
+                                    <a href="{{$menuItem->slug}}" class="dropdown-title">{{$menuItem->title}}</a>
+                                    <span class="dropdown-btn"></span>
+                                    <div class="dropdown-toggle">
+                                        @if($menuItem->children->where('side', '=', 'left')->count() > 0 )
+                                            <ul>
+                                                @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)
+                                                    <li class="{{$menuChildren->class_name ?? ''}}">
+                                                        <a href="{{$menuChildren->slug}}">{{$menuChildren->title}}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                        @if($menuItem->children->where('side', '=', 'right')->count() > 0 )
+                                            <ul>
+                                                @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)
+                                                    <li class="{{$menuChildren->class_name ?? ''}}">
+                                                        <a href="{{$menuChildren->slug}}">{{$menuChildren->title}}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </div>
+                                </li>
+                            @else
+                                <li class="{{$menuItem->class_name ?? ''}}">
+                                    <a href="{{$menuItem->slug}}">{{$menuItem->title}}</a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </nav>
             </div>

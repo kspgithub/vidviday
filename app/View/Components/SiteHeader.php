@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use App\Models\Currency;
+use App\Models\Menu;
+use App\Models\MenuItem;
 use App\Models\TourGroup;
 use App\Models\Contact;
 use Illuminate\View\Component;
@@ -12,6 +14,7 @@ class SiteHeader extends Component
 
     public $tourGroups = [];
     public $contacts = [];
+    public $menu = [];
 
     /**
      * Create a new component instance.
@@ -23,6 +26,9 @@ class SiteHeader extends Component
         // TODO: Кеширование
         $this->tourGroups = TourGroup::published()->get();
         $this->contacts = Contact::get();
+        $this->menu = Menu::whereSlug('header')
+            ->with(['items' => fn($q) => $q->where('parent_id', 0), 'items.children'])->first();
+
     }
 
 

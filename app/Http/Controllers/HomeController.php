@@ -19,13 +19,11 @@ class HomeController extends Controller
         $tours = Tour::search()->paginate(12);
         $banners = Banner::published()->get();
         $achievements = Achievement::published()->get();
-        $clients = OurClient::published()->get();
 
         return view('home.index', [
             'tours' => $tours,
             'banners' => $banners,
             'achievements' => $achievements,
-            'clients' => $clients,
         ]);
     }
 }
