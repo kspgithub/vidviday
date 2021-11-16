@@ -53,6 +53,7 @@ export default {
         app.component('order-cancel-btn', require('./order/OrderCancelBtn').default);
         app.component('order-cancel-popup', require('./order/OrderCancelPopup').default);
         app.component('order-notes', require('./order/OrderNotes').default);
+        app.component('order-transport-form', require('./order/OrderTransportForm').default);
 
         app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
 

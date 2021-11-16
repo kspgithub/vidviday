@@ -7,6 +7,7 @@
     'type'=>'text',
     'options'=>[],
     'help'=>'',
+    'required'=>false,
     'imgstyle'=>'height: 200px;',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
@@ -14,7 +15,12 @@
 ])
 
 <div class="form-group row mb-3 image-upload-group">
-    <div class="{{$labelCol}} col-form-label">@lang($label)</div>
+    <div class="{{$labelCol}} col-form-label">
+        {{$label}}
+        @if($required || isset($attributes['x-bind:required']))
+            <span class="text-danger">*</span>
+        @endif
+    </div>
 
     <div class="{{$inputCol}}" for="{{$name}}">
         <label class="img-thumbnail-wrp" for="{{$name}}">
@@ -25,6 +31,7 @@
         </label>
         <input type="hidden" name="{{$name}}" class="old-file" value="{{!empty($value) ? $value : ''}}">
         <input accept="{{$accept}}" type="file" id="{{$name}}"
+               {{$required ? 'required' : ''}}
                name="{{$name.'_upload'}}" {{ $attributes->merge(['class' => 'form-control']) }}>
         @error($name)
         <div class="invalid-feedback d-block">

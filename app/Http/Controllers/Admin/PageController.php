@@ -52,7 +52,7 @@ class PageController extends Controller
         $page->fill($request->all());
         $page->save();
 
-        return redirect()->route('admin.page.index')->withFlashSuccess(__('Page created.'));
+        return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -83,7 +83,7 @@ class PageController extends Controller
         $page->fill($request->all());
         $page->save();
 
-        return redirect()->route('admin.page.index')->withFlashSuccess(__('Page updated.'));
+        return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -98,46 +98,11 @@ class PageController extends Controller
         //
         $page->delete();
 
-        return redirect()->route('admin.page.index')->withFlashSuccess(__('Page deleted.'));
+        return redirect()->route('admin.page.index')->withFlashSuccess(__('Record Deleted'));
     }
 
     public function mediaIndex(Page $page)
     {
         return view('admin.page.media', ['page'=>$page]);
-    }
-
-    public function mediaUpload(Request $request, Page $page)
-    {
-        if ($request->hasFile('media_file')) {
-            $media = $page->storeMedia($request->file('media_file'));
-
-            return response()->json(['result'=>'success', 'media'=>[
-                'id'=>$media->id,
-                'url'=>$media->getUrl(),
-                'thumb'=>$media->getUrl('thumb'),
-            ]]);
-        }
-
-        return response()->json(['result'=>'error', 'message'=>'No file'], 400);
-    }
-
-    public function mediaUpdate(Request $request, Page $page, Media $media)
-    {
-        if ($request->has('title')) {
-            $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
-        }
-        if ($request->has('alt')) {
-            $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
-        }
-        $media->save();
-
-        return response()->json(['result'=>'success', 'media'=>$media]);
-    }
-
-    public function mediaRemove(Page $page, Media $media)
-    {
-        $page->deleteMedia($media);
-
-        return response()->json(['result'=>'success', 'media'=>$media]);
     }
 }

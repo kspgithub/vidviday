@@ -14,6 +14,10 @@
             <x-forms.editor-loc-group name="text" :label="__('Text')"
                                       :value="old('text', $page->getTranslations('text'))"></x-forms.editor-loc-group>
 
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $page->video)"></x-forms.text-group>
+
+
         </x-slot>
 
     </x-bootstrap.card>

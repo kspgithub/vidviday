@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transport;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TransportController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return View
      */
     public function index()
     {
-        $transports = Transport::query()->withCount(['media'])->get();
+        $transports = Transport::query()->get();
         return view('admin.transport.index', ['transports'=>$transports]);
     }
 
@@ -42,8 +45,10 @@ class TransportController extends Controller
         $transport = new Transport();
         $transport->fill($request->all());
         $transport->save();
-
-        return redirect()->route('admin.transport.index')->withFlashSuccess(__('Transport created.'));
+        if ($request->hasFile('image_upload')) {
+            $transport->uploadImage($request->file('image_upload'));
+        }
+        return redirect()->route('admin.transport.edit', $transport)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -62,17 +67,24 @@ class TransportController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Transport  $transport
+     * @param Transport $transport
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, Transport $transport)
     {
         //
         $transport->fill($request->all());
         $transport->save();
+        if ($request->hasFile('image_upload')) {
+            $transport->deleteImage();
+            $transport->uploadImage($request->file('image_upload'));
+        }
 
-        return redirect()->route('admin.transport.index')->withFlashSuccess(__('Transport updated.'));
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
+        return redirect()->route('admin.transport.edit', $transport)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -86,47 +98,7 @@ class TransportController extends Controller
     {
         //
         $transport->delete();
-
-        return redirect()->route('admin.transport.index')->withFlashSuccess(__('Transport deleted.'));
+        return redirect()->route('admin.transport.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-    public function mediaIndex(Transport $transport)
-    {
-        return view('admin.transport.media', ['transport'=>$transport]);
-    }
-
-    public function mediaUpload(Request $request, Transport $transport)
-    {
-        if ($request->hasFile('media_file')) {
-            $media = $transport->storeMedia($request->file('media_file'));
-
-            return response()->json(['result'=>'success', 'media'=>[
-                'id'=>$media->id,
-                'url'=>$media->getUrl(),
-                'thumb'=>$media->getUrl('thumb'),
-            ]]);
-        }
-
-        return response()->json(['result'=>'error', 'message'=>'No file'], 400);
-    }
-
-    public function mediaUpdate(Request $request, Transport $transport, Media $media)
-    {
-        if($request->has('title')) {
-            $media->setCustomProperty('title_'.app()->getLocale(), $request->input('title', ''));
-        }
-        if($request->has('alt')) {
-            $media->setCustomProperty('alt_'.app()->getLocale(), $request->input('alt', ''));
-        }
-        $media->save();
-        return response()->json(['result'=>'success', 'media'=>$media]);
-    }
-
-
-    public function mediaRemove(Transport $transport, Media $media)
-    {
-        $transport->deleteMedia($media);
-
-        return response()->json(['result'=>'success', 'media'=>$media]);
-    }
 }

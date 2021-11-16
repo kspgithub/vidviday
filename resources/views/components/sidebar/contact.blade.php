@@ -15,7 +15,9 @@
         <div>
             @foreach($staff->phones as $phone)
                 <a href="tel:{{clear_phone($phone)}}" class="text">{{$phone}}</a>
-                <br>
+                @if(!$loop->last)
+                    <br>
+                @endif
             @endforeach
 
             @if($staff->email)

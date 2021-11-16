@@ -3,12 +3,19 @@
 @section('title', __('Page management'))
 
 @section('content')
+    {!! breadcrumbs([
+      ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+      ['url'=>route('admin.page.index'), 'title'=>__('Site pages')],
+  ]) !!}
+
+
     <div class="d-flex justify-content-between">
         <h1>@lang('Page management')</h1>
 
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create page')</a>
+                <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i
+                        data-feather="user-plus"></i> @lang('Create page')</a>
             @endif
         </div>
     </div>
@@ -34,7 +41,7 @@
                         <td>{{$page->title}}</td>
                         <td>{{strtoupper(app()->getLocale())}}</td>
                         <td>{{$page->key}}</td>
-                        <td>{{$page->slug}}</td>
+                        <td>/{{$page->slug}}</td>
 
                         <td><a href="{{route('admin.page.media.index', ['page'=>$page])}}"
                                class="badge bg-info"><span>{{$page->media_count}}</span></a></td>

@@ -1,9 +1,17 @@
-<x-forms.text-group name="title" :label="__('Title')" :value="old('title', $transport->title)" maxlength="100" required ></x-forms.text-group>
-<x-forms.text-group name="slug" :label="__('Url')" :value="old('slug', $transport->slug)" maxlength="100" required ></x-forms.text-group>
+<x-bootstrap.card>
+    <x-slot name="body">
+        <x-forms.translation-switch/>
+        <x-forms.text-loc-group name="title" :label="__('Title')"
+                                :value="old('title', $transport->getTranslations('title'))" maxlength="100"
+                                required></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="text" :label="__('Text')"
+                                :value="old('text',  $transport->getTranslations('text'))"
+                                required></x-forms.text-loc-group>
+        <x-forms.single-image-upload name="image" :label="__('Image')"
+                                     :required="empty($transport->image)"
+                                     :value="$transport->image"
+                                     :preview="$transport->image ? $transport->image_url : ''"/>
 
-<x-forms.editor-group name="text" :label="__('Text')" :value="old('text', $transport->text)" ></x-forms.editor-group>
-
-<x-forms.text-group name="seo_h1" :label="__('SEO H1')" :value="old('seo_h1', $transport->seo_h1)"></x-forms.text-group>
-<x-forms.text-group name="seo_title" :label="__('SEO Title')" :value="old('seo_title', $transport->seo_title)"></x-forms.text-group>
-<x-forms.text-group name="seo_description" :label="__('SEO Description')" :value="old('seo_description', $transport->seo_description)"></x-forms.text-group>
-<x-forms.text-group name="seo_keywords" :label="__('SEO Keywords')" :value="old('seo_keywords', $transport->seo_keywords)"></x-forms.text-group>
+        <x-forms.switch-group name="published" :label="__('Published')" :active="$transport->published"/>
+    </x-slot>
+</x-bootstrap.card>

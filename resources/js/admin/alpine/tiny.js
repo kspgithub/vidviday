@@ -38,6 +38,7 @@ export default (options) => ({
         const locale = document.documentElement.lang || 'uk';
 
         this.editor = tinymce.init({
+            content_css: '/css/editor.css',
             selector: selector,
             language: locale,
             plugins: [

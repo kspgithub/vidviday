@@ -3,25 +3,17 @@
 @section('title', __('Edit transport'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Edit transport') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.transport.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-
-    <x-forms.patch :action="route('admin.transport.update', $transport)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.transport.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.transport.index'), 'title'=>__('Transport')],
+    ['url'=>route('admin.transport.edit', $transport), 'title'=>$transport->title],
+]) !!}
+    <x-page.edit :update-url="route('admin.transport.update', $transport)"
+                 :back-url="route('admin.transport.index')" :edit="true"
+                 :title="__('Edit').' '.$transport->title"
+    >
+        @include('admin.transport.includes.form')
+    </x-page.edit>
 
 
 @endsection

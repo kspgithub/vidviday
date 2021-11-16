@@ -229,6 +229,18 @@ class PageSeeder extends Seeder
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
                 'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
+            [
+                'title' => ['uk' => 'Транспорт'],
+                'seo_h1' => ['uk' => 'Оренда автобуса у Львові'],
+                'key' => 'transport',
+                'published' => 1,
+                'text' => [
+                    'uk' => '<p></p>',
+                ],
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+            ],
         ];
 
         foreach ($pages as $page) {

@@ -38,6 +38,7 @@
     <script>
         tinymce.init({
             selector: '#{{$id ?? $name}}-editor',
+            content_css: '/css/editor.css',
             language: '{{app()->getLocale()}}',
             plugins: [
                 'advlist autolink link image lists charmap print preview hr anchor pagebreak',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Transport;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\Transport;
 
 class TransportController extends Controller
@@ -11,10 +12,13 @@ class TransportController extends Controller
     public function index()
     {
         //
-        $transports = Transport::all();
+        $pageContent = Page::where('key', 'transport')->first();
+
+        $transports = Transport::published()->get();
 
         return view('transport.index', [
-            'transports' => $transports
+            'pageContent' => $pageContent,
+            'transports' => $transports,
         ]);
     }
 

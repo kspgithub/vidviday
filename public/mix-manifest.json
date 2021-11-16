@@ -2,8 +2,9 @@
     "/js/app.js": "/js/app.js",
     "/js/admin.js": "/js/admin.js",
     "/js/manifest.js": "/js/manifest.js",
-    "/css/admin.css": "/css/admin.css",
+    "/css/editor.css": "/css/editor.css",
     "/css/main.css": "/css/main.css",
+    "/css/admin.css": "/css/admin.css",
     "/css/style.css": "/css/style.css",
     "/css/app.css": "/css/app.css",
     "/js/vendor.js": "/js/vendor.js"
