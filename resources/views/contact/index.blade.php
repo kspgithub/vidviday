@@ -39,7 +39,7 @@
                         <div class="addresses-block">
                             <a data-lat="{{$contact->lat}}" data-lng="{{$contact->lng}}"
                                data-marker="{{asset('img/marker.png')}}"
-                               data-string="<div class='map-informer-content'><p>{{$contact->address}}{{$contact->address_coment}}</p></div>"></a>
+                               data-string="<div class='map-informer-content'><p>{{$contact->address}}{{$contact->address_comment}}</p></div>"></a>
                         </div>
                         <form action="/" class="build-route">
                             <label>

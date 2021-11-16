@@ -1,16 +1,18 @@
 <x-bootstrap.card>
-
-    <x-slot name="header">
-        <h3>@lang('Contact')</h3>
-    </x-slot>
-
     <x-slot name="body">
-        <x-forms.text-group name="title" :label="__('Title')" :value="old('title', $contact->title)" maxlength="100"
-                            required></x-forms.text-group>
-        <x-forms.textarea-group name="address" :label="__('Address')"
-                                :value="old('address', $contact->address)"></x-forms.textarea-group>
-        <x-forms.textarea-group name="address_coment" :label="__('Address Comment')"
-                                :value="old('address_coment', $contact->address_coment)"></x-forms.textarea-group>
+        <x-forms.translation-switch/>
+
+        <x-forms.text-loc-group name="title" :label="__('Title')"
+                                :value="old('title', $contact->getTranslations('title'))" maxlength="100"
+                                required></x-forms.text-loc-group>
+        <x-forms.textarea-loc-group name="address" :label="__('Address')"
+                                    :value="old('address', $contact->getTranslations('address'))"></x-forms.textarea-loc-group>
+        <x-forms.textarea-loc-group name="address_comment" :label="__('Address Comment')"
+                                    :value="old('address_comment', $contact->getTranslations('address_comment'))"></x-forms.textarea-loc-group>
+
+        <x-forms.textarea-loc-group name="opening_hours" :label="__('Work Hours')"
+                                    :value="old('opening_hours', $contact->getTranslations('opening_hours'))"></x-forms.textarea-loc-group>
+
         <x-forms.text-group name="email" :label="__('Email')" :value="old('email', $contact->email)"
                             maxlength="100"></x-forms.text-group>
         <x-forms.text-group name="work_phone" :label="__('Work Phone')" :value="old('work_phone', $contact->work_phone)"

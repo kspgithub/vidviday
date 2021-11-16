@@ -7,6 +7,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
@@ -25,8 +26,25 @@ class MenuItem extends TranslatableModel
     use MenuItemAttribute;
     use UseSelectBox;
 
+    protected static function boot()
+    {
+        parent::boot();
+        self::saved(function ($model) {
+            Cache::forget('header-menu');
+        });
+        //'header-menu';
+    }
+
     public const SIDE_LEFT = 'left';
     public const SIDE_RIGHT = 'right';
+
+    public static function sides()
+    {
+        return [
+            self::SIDE_LEFT => 'Перша колонка',
+            self::SIDE_RIGHT => 'Друга колонка',
+        ];
+    }
 
     public $translatable = [
         'title',
@@ -57,7 +75,7 @@ class MenuItem extends TranslatableModel
 
     public function children()
     {
-        return $this->hasMany(MenuItem::class, 'parent_id');
+        return $this->hasMany(MenuItem::class, 'parent_id')->orderBy('side')->orderBy('position');
     }
 
     public function parent()

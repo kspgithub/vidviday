@@ -122,7 +122,7 @@
                              alt="placeholder">
                     </div>
                     <span class="text-md">{{$contact->address}}</span>
-                    <span class="text-sm">{{$contact->address_coment}}</span>
+                    <span class="text-sm">{{$contact->address_comment}}</span>
                 </div>
 
                 <div class="contact">

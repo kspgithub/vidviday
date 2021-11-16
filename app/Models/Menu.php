@@ -23,6 +23,11 @@ class Menu extends TranslatableModel
     use MenuAttribute;
     use UseSelectBox;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public $translatable = [
         'title',
         'description',

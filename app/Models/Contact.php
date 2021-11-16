@@ -16,14 +16,14 @@ class Contact extends TranslatableModel
     public $translatable = [
         'title',
         'address',
-        'address_coment',
+        'address_comment',
         'opening_hours',
     ];
 
     protected $fillable = [
         'title',
         'address',
-        'address_coment',
+        'address_comment',
         'opening_hours',
         'lat',
         'lng',

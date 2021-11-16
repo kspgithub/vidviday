@@ -1,19 +1,20 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit contact'))
+@section('title', __('Contacts'))
 
 @section('content')
 
-    <x-forms.post :action="route('admin.contact.update')" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.contact.includes.form')
 
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.post>
+    {!! breadcrumbs([
+        ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+        ['url'=>route('admin.contact.edit'), 'title'=>__('Contacts')],
+    ]) !!}
+    <x-page.edit :update-url="route('admin.contact.update')"
+                 :back-url="route('admin.contact.edit')" :edit="true"
+                 :title="__('Edit').': '.__('Contacts')"
+    >
+        @include('admin.contact.includes.form')
+    </x-page.edit>
+
 
 @endsection

@@ -283,6 +283,12 @@
                         class="align-middle">@lang('Site pages')</span>
                 </a>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.site-menu*')}}">
+                <a class="sidebar-link" href="{{route('admin.site-menu.index')}}">
+                    <i class="align-middle" data-feather="file-text"></i> <span
+                        class="align-middle">@lang('Site menu')</span>
+                </a>
+            </li>
             <li class="sidebar-item {{routeActiveClass('admin.contact.*')}}">
                 <a class="sidebar-link" href="{{route('admin.contact.edit')}}">
                     <i class="align-middle" data-feather="at-sign"></i> <span

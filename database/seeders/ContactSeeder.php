@@ -29,7 +29,7 @@ class ContactSeeder extends Seeder
                     'uk' => 'Львів, вул. Замарстинівська, 34',
                     'pl' => 'Lwów, ulica Zamarstyniwska, 34',
                 ],
-                'address_coment' => [
+                'address_comment' => [
                     'en' => '* located on the corner of st. Tatar',
                     'ru' => '* расположен на углу с ул. татарском',
                     'uk' => '*розташований на розі із вул. Татарською',

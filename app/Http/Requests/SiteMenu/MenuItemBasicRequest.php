@@ -27,12 +27,13 @@ class MenuItemBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'menu_id'=>['required', 'integer'],
-            'parent_id'=>['nullable', 'integer'],
-            'slug'=>['nullable', 'string'],
-            'active'=>['nullable', Rule::in(['1', '0'])],
-            'position'=>['nullable', 'integer'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'string'],
+            'slug' => ['required', 'array'],
+            'slug.uk' => ['required', 'string'],
+            'active' => ['nullable', Rule::in(['1', '0'])],
+            'parent_id' => ['nullable', 'numeric'],
+            'side' => ['nullable', Rule::in([MenuItem::SIDE_LEFT, MenuItem::SIDE_RIGHT])],
         ];
     }
 }

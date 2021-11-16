@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\TourGroup;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class SiteHeader extends Component
@@ -26,8 +27,13 @@ class SiteHeader extends Component
         // TODO: Кеширование
         $this->tourGroups = TourGroup::published()->get();
         $this->contacts = Contact::get();
-        $this->menu = Menu::whereSlug('header')
-            ->with(['items' => fn($q) => $q->where('parent_id', 0), 'items.children'])->first();
+        $this->menu = Cache::rememberForever('header-menu', function () {
+            return Menu::whereSlug('header')
+                ->with([
+                    'items' => fn($q) => $q->published()->where('parent_id', 0),
+                    'items.children' => fn($q) => $q->published()
+                ])->first();
+        });
 
     }
 
