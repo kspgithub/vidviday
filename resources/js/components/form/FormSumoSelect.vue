@@ -1,7 +1,6 @@
 <template>
     <label class="form-label" :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
         <select ref="selectRef" :name="name" :multiple="multiple" v-model="value ? value : (multiple ? [] : '')">
-            <option value="" :selected="!modelValue" disabled>{{ label }}<span v-if="required ">*</span></option>
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
             <slot/>
         </select>
