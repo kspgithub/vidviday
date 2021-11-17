@@ -1,6 +1,6 @@
 <template>
     <label class="form-label" :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
-        <select ref="selectRef" :name="name" :multiple="multiple" v-model="value ? value : (multiple ? [] : '')">
+        <select ref="selectRef" :name="name" :multiple="multiple" v-model="value">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
             <slot/>
         </select>
@@ -37,7 +37,10 @@ export default {
         let sumoSelect = null;
         const {required} = useRequiredFormGroup(props);
 
-        const {value, errorMessage} = useField(props.name, props.rules);
+        const {value, errorMessage} = useField(props.name, props.rules, {
+            initialValue: props.modelValue ? props.modelValue : (multiple ? [] : '')
+        });
+
 
         onMounted(() => {
             $(selectRef.value).SumoSelect({
