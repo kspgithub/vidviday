@@ -254,6 +254,12 @@
                     <span class="align-middle">@lang('Certificates')</span>
                 </a>
             </li>
+            <li class="sidebar-item {{routeActiveClass('admin.order-transport*')}}">
+                <a class="sidebar-link" href="{{route('admin.order-transport.index')}}">
+                    <i class="align-middle" data-feather="truck"></i>
+                    <span class="align-middle">@lang('Transport Rental')</span>
+                </a>
+            </li>
             <!-- CONTENT --------------------------------------------------------------------------------------- --->
             <li class="sidebar-header">
                 @lang('Content')
