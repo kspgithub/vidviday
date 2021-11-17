@@ -516,6 +516,7 @@ jQuery(function ($) {
     });
 
     $('.single-datepicker, .double-datepicker').on('mouseleave', function () {
+
         if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
         $(this).find('.datepicker-input').removeClass('active');
     });

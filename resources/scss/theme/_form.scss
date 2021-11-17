@@ -113,6 +113,14 @@ label {
         }
     }
 
+    .optWrapper {
+        i {
+            &:before {
+                background-color: transparent;
+            }
+        }
+    }
+
     &:not(.active) {
         i {
             cursor: text;
@@ -138,6 +146,11 @@ label {
         textarea {
             border-color: $red;
         }
+
+        .CaptionCont {
+            transition: background-position linear 0ms;
+            background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
+        }
     }
 
     .smile {
@@ -160,6 +173,7 @@ label {
         }
     }
 }
+
 
 input,
 textarea {
@@ -226,56 +240,6 @@ textarea {
         background-image: url('../../svg/clock.svg');
     }
 
-    .datepicker-placeholder {
-        z-index: 3;
-
-        &:before,
-        &:after {
-            z-index: 4;
-            opacity: 0;
-            display: none;
-            position: absolute;
-            transform: scale(0);
-            pointer-events: none;
-            background-color: $red;
-        }
-
-        &:before {
-            content: '';
-            right: 18px;
-            width: 10px;
-            height: 10px;
-            transform: rotate(45deg);
-            bottom: calc(100% - 13px);
-        }
-
-        &:after {
-            z-index: 70;
-            color: #fff;
-            font-size: 12px;
-            padding: 4px 10px;
-            line-height: 22px;
-            border-radius: 3px;
-            white-space: nowrap;
-            left: calc(100% - 23px);
-            bottom: calc(100% - 8px);
-            content: attr(data-tooltip);
-            transform: translateX(-50%);
-        }
-    }
-
-    &.invalid {
-        .datepicker-placeholder {
-            border-color: $red;
-            position: relative;
-
-            &:before,
-            &:after {
-                display: block;
-            }
-        }
-
-    }
 
     &.disabled {
         .datepicker-placeholder,
@@ -974,6 +938,76 @@ label {
         }
     }
 }
+
+
+.timepicker-input,
+.datepicker-input {
+
+    .datepicker-placeholder {
+        transition: background-position linear 0ms;
+        position: relative;
+        z-index: 3;
+
+        &:before,
+        &:after {
+            z-index: 4;
+            opacity: 0;
+            display: none;
+            position: absolute;
+            transform: scale(0);
+            pointer-events: none;
+            background-color: $red;
+        }
+
+        &:before {
+            content: '';
+            right: 18px;
+            width: 10px;
+            height: 10px;
+            transform: rotate(45deg);
+            bottom: calc(100% - 13px);
+        }
+
+        &:after {
+            z-index: 70;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 10px;
+            line-height: 22px;
+            border-radius: 3px;
+            white-space: nowrap;
+            left: calc(100% - 23px);
+            bottom: calc(100% - 8px);
+            content: attr(data-tooltip);
+            transform: translateX(-50%);
+        }
+
+
+    }
+
+    &.invalid {
+        .datepicker-placeholder {
+
+            background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
+
+            &:before,
+            &:after {
+                display: block;
+            }
+
+            border-color: $red;
+
+            &:hover {
+                &:before,
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+    }
+}
+
 
 /*///////////////*/
 /* MEDIA QUERIES */

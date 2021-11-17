@@ -2,6 +2,6 @@
 
 use App\Http\Controllers\Transport\TransportController;
 
-Route::get('/transport', [TransportController::class, 'index'])->name('transport');
+Route::post('/transport', [TransportController::class, 'order'])->name('transport.order');
 
 
