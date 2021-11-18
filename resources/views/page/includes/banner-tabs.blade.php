@@ -33,7 +33,7 @@
             <!-- TAB #2 -->
                 <div class="tab {{$pictures->count() === 0 ? 'active' : ''}}">
                     <div class="video"
-                         data-frame-src="{{youtube_embed($tour->video)}}"></div>
+                         data-frame-src="{{youtube_embed($video)}}"></div>
                 </div>
                 <!-- TAB #2 END -->
             @endif

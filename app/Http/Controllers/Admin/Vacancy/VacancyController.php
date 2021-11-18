@@ -34,11 +34,13 @@ class VacancyController extends Controller
     public function create()
     {
         $staffs = Staff::toSelectBox();
+        $vacancies = Vacancy::toSelectBox();
         $vacancy = new Vacancy();
 
         return view('admin.vacancy.create', [
             'vacancy' => $vacancy,
-            'staffs' => $staffs
+            'staffs' => $staffs,
+            'vacancies' => $vacancies,
         ]);
     }
 
@@ -54,7 +56,7 @@ class VacancyController extends Controller
         $vacancy->fill($request->all());
         $vacancy->save();
 
-        return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Vacancy created.'));
+        return redirect()->route('admin.vacancy.edit', $vacancy)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -67,10 +69,12 @@ class VacancyController extends Controller
     public function edit(Vacancy $vacancy)
     {
 
-        $staffs = Staff::toSelectBox('last_name');
+        $staffs = Staff::toSelectBox();
+        $vacancies = Vacancy::where('id', '<>', $vacancy->id)->toSelectBox();
         return view('admin.vacancy.edit', [
             'vacancy' => $vacancy,
-            'staffs' => $staffs
+            'staffs' => $staffs,
+            'vacancies' => $vacancies,
         ]);
     }
 
@@ -92,7 +96,7 @@ class VacancyController extends Controller
             return response()->json(['result' => 'success']);
         }
 
-        return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Vacancy updated.'));
+        return redirect()->route('admin.vacancy.edit', $vacancy)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -108,6 +112,6 @@ class VacancyController extends Controller
 
         $vacancy->delete();
 
-        return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Region deleted.'));
+        return redirect()->route('admin.vacancy.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

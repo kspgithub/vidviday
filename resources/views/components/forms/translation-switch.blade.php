@@ -1,9 +1,14 @@
-<div class="form-group row mb-3">
-    <label for="name" class="col-md-2 col-form-label">
+@props([
+    'rowClass'=>'row mb-3',
+    'labelCol'=>'col-md-2',
+    'inputCol'=>'col-md-10',
+])
+<div class="form-group {{$rowClass}}">
+    <div class="col-form-label {{$labelCol }}">
         @lang('Translations')
-    </label>
+    </div>
 
-    <div class="col-md-10">
+    <div class="{{$inputCol}}">
         <div class="d-flex align-items-center">
             @foreach(siteLocales() as $lang)
                 <a href="#" x-on:click.prevent="trans_locale = '{{ $lang }}'"

@@ -88,8 +88,16 @@ class PageSeeder extends Seeder
             [
                 'title' => ['en' => 'Vacancies', 'ru' => 'Bакансии', 'uk' => 'Вакансії', 'pl' => 'Wakaty'],
                 'seo_h1' => ['en' => 'Vacancies', 'ru' => 'Bакансии', 'uk' => 'Вакансії', 'pl' => 'Wakaty'],
+                'text' => [
+                    'uk' => 'Ми робимо файні тури Україною. Нас об\'єднує бажання відкривати принади нашої країни для всіх, хто хоче її пізнати. Ми постійно ставимо перед собою нові цілі та запрошуємо досягати їх разом з нами!',
+                ],
+                'video' => 'https://www.youtube.com/embed/BMQQQynlrn4',
                 'key' => 'vacancies',
+                'images' => [url('/img/banner-img_14.jpg')],
                 'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Practice', 'ru' => 'Практика', 'uk' => 'Практика', 'pl' => 'Ćwiczyć'],
@@ -244,12 +252,23 @@ class PageSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
+            $images = $page['images'] ?? [];
+            unset($page['images']);
+
             if (Page::where('key', $page['key'])->count() === 0) {
                 $page['slug'] = ['en' => $page['key'], 'uk' => $page['key'], 'ru' => $page['key'], 'pl' => $page['key']];
-                Page::factory()->createOne($page);
+                $pageModel = Page::factory()->createOne($page);
             } else {
                 $page['slug'] = ['en' => $page['key'], 'uk' => $page['key'], 'ru' => $page['key'], 'pl' => $page['key']];
-                Page::where('key', $page['key'])->update($page);
+                $pageModel = Page::where('key', $page['key'])->first();
+                $pageModel->fill($page);
+                $pageModel->save();
+            }
+
+            if (!empty($images)) {
+                foreach ($images as $image) {
+                    $pageModel->addMediaFromUrl($image);
+                }
             }
         }
 

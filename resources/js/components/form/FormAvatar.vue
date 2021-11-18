@@ -5,7 +5,8 @@
         </div>
         <label class="img-input btn type-2">
             Змінити фото
-            <input type="file" class="full-size" :name="name" ref="inputRef" @change="onChange">
+            <input type="file" class="full-size" accept=".png,.jpg,.jpeg" :name="name" ref="inputRef"
+                   @change="onChange">
         </label>
     </div>
 </template>

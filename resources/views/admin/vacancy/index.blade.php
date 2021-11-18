@@ -3,6 +3,11 @@
 @section('title', __('Vacancies'))
 
 @section('content')
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.vacancy.index'), 'title'=>__('Vacancies')],
+    ]) !!}
+
     <div class="d-flex justify-content-between">
         <h1>@lang('Vacancies')</h1>
 
@@ -20,7 +25,6 @@
                 <tr>
                     <th>@lang('title')</th>
                     <th>@lang('Published')</th>
-                    <th>@lang('Locale')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -29,7 +33,6 @@
                     <tr>
                         <td>{{$vacancy->title}}</td>
                         <td>@include('admin.partials.published', ['model'=>$vacancy, 'updateUrl'=>route('admin.vacancy.update', $vacancy)])</td>
-                        <td>{{app()->getLocale()}}</td>
                         <td class="table-action">
 
                             <x-utils.edit-button :href="route('admin.vacancy.edit', ['vacancy'=>$vacancy])" text=""/>

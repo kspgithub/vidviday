@@ -25,6 +25,12 @@ class UserController extends Controller
     {
         $question = new  UserQuestion();
         $question->fill($request->validated());
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $file_name = md5(time() . rand(0, 1000)) . '.' . $file->getClientOriginalExtension();
+            $question->attachment_name = $file->getClientOriginalName();
+            $question->attachment = $file->storeAs('public/uploads/user', $file_name);
+        }
         $question->save();
         try {
             LeadFeedback::createCrmLead($question);

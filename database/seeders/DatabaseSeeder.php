@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(IncludeTypeSeeder::class);
         $this->call(FinanceSeeder::class);
         $this->call(DiscountsSeeder::class);
+        $this->call(VacancySeeder::class);
 
 
         // Last

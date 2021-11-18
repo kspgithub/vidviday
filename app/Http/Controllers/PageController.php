@@ -10,6 +10,7 @@ use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
 use App\Http\Controllers\Transport\TransportController;
 use App\Http\Controllers\TravelAgent\TravelAgentController;
+use App\Http\Controllers\Vacancy\VacancyController;
 use App\Models\Page;
 use App\Models\Place;
 use App\Models\Tour;
@@ -50,6 +51,8 @@ class PageController extends Controller
                 return (new TransportController())->index();
             case 'for-travel-agents':
                 return (new TravelAgentController())->index();
+            case 'vacancies':
+                return (new VacancyController())->index();
             default:
                 return view('page.show', ['pageContent' => $pageContent]);
         }

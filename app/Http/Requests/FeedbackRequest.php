@@ -26,12 +26,13 @@ class FeedbackRequest extends FormRequest
     {
         return [
             //
-            'type' => ['required', 'numeric', Rule::in([0, 1, 2])],
+            'type' => ['required', 'numeric', Rule::in([0, 1, 2, 3])],
             'name' => ['required', 'string'],
             'call_date' => ['nullable', 'date_format:d.m.Y'],
             'call_time' => ['nullable'],
             'question_type' => ['nullable'],
-            'phone' => [Rule::requiredIf((int)$this->type === 0)],
+            'attachment' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:1024'],
+            'phone' => [Rule::requiredIf((int)$this->type === 0 || (int)$this->type === 3)],
             'email' => [Rule::requiredIf((int)$this->type > 0)],
             'comment' => [Rule::requiredIf((int)$this->type > 2)],
             'utm_campaign' => ['nullable'],

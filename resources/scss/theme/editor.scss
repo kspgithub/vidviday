@@ -168,3 +168,21 @@ hr {
     width: 60px;
     margin: 0 auto;
 }
+
+
+ul li {
+    position: relative;;
+    padding-left: 20px;
+    margin-bottom: 10px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #2ab0cd;
+    }
+}

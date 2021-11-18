@@ -68,6 +68,14 @@ class LeadFeedback
                     $comment .= "<div><b>Тип:</b> $type</div>";
                     $comment .= "<div><b>Питання:</b> $question->comment</div>";
                     break;
+                case UserQuestion::TYPE_VACANCY:
+                    $data[LeadFields::FIELD_TITLE] = 'Новий запит вакансії';
+                    $comment .= "<div><b>Коментар:</b> $question->comment</div>";
+                    if (!empty($question->attachment)) {
+                        $comment .= "<div><b>Резюме:</b> <a href='$question->attachment_url' target='_blank'>$question->attachment_name</a></div>";
+                    }
+
+                    break;
                 default:
                     $data[LeadFields::FIELD_TITLE] = 'Нове повідомлення';
                     $comment .= "<div><b>Нове повідомлення</b></div>";

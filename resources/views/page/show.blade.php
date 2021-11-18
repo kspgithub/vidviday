@@ -15,11 +15,12 @@
             </div>
             <div class="row">
                 <div class="col-12 {{$pageContent->sidebar ? 'col-xl-8' : ''}}">
-                    @include('page.includes.banner-tabs', [
-                        'pictures'=>$pageContent->getMedia(),
-                        'video'=>$pageContent->video
-                    ])
-
+                    <!-- BANNER TABS -->
+                @include('page.includes.banner-tabs', [
+                    'pictures'=>$pageContent->getMedia(),
+                    'video'=>$pageContent->video
+                ])
+                <!-- BANNER TABS END -->
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                     <div class="text text-md">
                         {!! $pageContent->text !!}

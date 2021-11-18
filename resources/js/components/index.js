@@ -66,5 +66,6 @@ export default {
         app.component('profile-in-favourites', require('./profile/ProfileInFavourites').default);
 
         app.component('certificate-order-form', require('./certificate/CertificateOrderForm').default);
+        app.component('vacancy-form', require('./vacancy/VacancyForm').default);
     }
 }

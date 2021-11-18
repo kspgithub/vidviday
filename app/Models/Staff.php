@@ -82,7 +82,7 @@ class Staff extends TranslatableModel implements HasMedia
     {
         return self::query()->selectRaw("last_name, first_name, id")
             ->get()->map(function ($it) {
-                return ['value' => $it->id, 'text' => $it->last_name . ' ' . $it->first_name];
+                return ['value' => $it->id, 'text' => $it->last_name . ' ' . $it->first_name . ' (' . $it->types->implode('title', ', ') . ')'];
             })->toArray();
     }
 

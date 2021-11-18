@@ -41,7 +41,7 @@
 
                         <div class="spacer-xs"></div>
 
-                        @include('transport.includes.contact', ['staff'=>$pageContent->contact])
+                        <x-page.contact-block :staff="$pageContent->staff" title="Співпраця з перевізниками"/>
 
                         <div class="bg-box" id="transport-form" v-is="'order-transport-form'"></div>
 
