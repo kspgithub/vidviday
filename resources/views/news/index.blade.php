@@ -33,7 +33,7 @@
                     </div>
 
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
-                    <div class="text">
+                    <div class="text text-md">
                         {!! $pageContent->text !!}
                     </div>
 

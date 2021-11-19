@@ -1,11 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*

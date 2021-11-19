@@ -90,16 +90,16 @@
                         </div>
                         <div class="expand-all-button">
                             <div class="expand-all open">Розгорнути все</div>
-							<div class="expand-all close">Згорнути все</div>
-						</div>
-					</div>
-					<!-- ACCORDIONS CONTENT END -->
-				</div>
-			</div>
-			<div class="spacer-lg"></div>
-		</div>
+                            <div class="expand-all close">Згорнути все</div>
+                        </div>
+                    </div>
+                    <!-- ACCORDIONS CONTENT END -->
+                </div>
+            </div>
+            <div class="spacer-lg"></div>
+        </div>
         <!-- SEO TEXT -->
-        @include('home.includes.seo-text')
+        <x-page.regulations/>
         <!-- SEO TEXT END -->
-	</main>
+    </main>
 @endsection

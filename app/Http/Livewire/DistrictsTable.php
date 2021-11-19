@@ -15,15 +15,13 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 /**
  * Class CitiesTable.
  */
-class CitiesTable extends DataTableComponent
+class DistrictsTable extends DataTableComponent
 {
 
 
     public array $perPageAccepted = [30, 50, 100];
 
     public $region;
-    public $district;
-
 
     /**
      * @var array
@@ -33,16 +31,9 @@ class CitiesTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
-    public function mount($region = null, $district = null): void
+    public function mount($region = null): void
     {
-
-        if (!empty($district)) {
-            $this->district = $district;
-            $this->region = $district->region;
-        } elseif (!empty($region)) {
-            $this->region = $region;
-        }
-
+        $this->region = $region;
     }
 
     /**
@@ -50,25 +41,12 @@ class CitiesTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = City::query();
 
-        $has_place = $this->getFilter('has_place');
-        $region_id = $this->region ? $this->region->id : $this->getFilter('region_id');
-        $district_id = $this->district ? $this->district->id : $this->getFilter('district_id');
+        $region_id = !empty($this->region) ? $this->region->id : $this->getFilter('region_id');
 
-        $query = $query->withCount(['places'])->with(['country', 'region', 'district'])
-            ->when(!empty($has_place), function (Builder $q) use ($has_place) {
-                if ($has_place === 'yes') {
-                    return $q->whereHas('places');
-                } else {
-                    return $q->doesntHave('places');
-                }
-            })
+        $query = District::query()->with(['country', 'region'])
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
                 return $q->where('region_id', $region_id);
-            })
-            ->when($district_id > 0, function (Builder $q) use ($district_id) {
-                return $q->where('district_id', $district_id);
             });
 
         return $query;
@@ -94,11 +72,6 @@ class CitiesTable extends DataTableComponent
                     return optional($row->region)->title;
                 })
                 ->sortable(),
-            Column::make(__('District'), 'district_id')
-                ->format(function ($value, $column, $row) {
-                    return optional($row->district)->title;
-                })
-                ->sortable(),
 
             Column::make(__('Title'), 'title')
                 ->searchable(function (Builder $query, $searchTerm) {
@@ -115,31 +88,25 @@ class CitiesTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make(__('Places'), 'places_count')
-                ->sortable(),
-
-
+            Column::make(__('Links'))
+                ->format(function ($value, $column, $row) {
+                    return view('admin.district.includes.links', ['district' => $row]);
+                }),
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.city.includes.actions', ['city' => $row]);
+                    return view('admin.district.includes.actions', ['district' => $row]);
                 }),
         ];
     }
 
     public function filters(): array
     {
-        $filters = ['has_place' => Filter::make(__('З місцями'))
-            ->select([
-                '' => 'Всі',
-                'yes' => 'З місцями',
-                'no' => 'Без місць',
-            ])];
-
         if (empty($this->region)) {
-            $filters['region_id'] = Filter::make(__('Область'))
-                ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()));
+            return [
+                'region_id' => Filter::make(__('Область'))
+                    ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
+            ];
         }
-
-        return $filters;
+        return [];
     }
 }

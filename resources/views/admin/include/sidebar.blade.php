@@ -92,14 +92,14 @@
                 </ul>
             </li>
             <!-- -------------------------------------------------------------------------------------------------- --->
-            <li class="sidebar-item {{routeActiveClass('admin.location*')}}">
+            <li class="sidebar-item {{routeActiveClass(['admin.country*', 'admin.region*', 'admin.district*', 'admin.city*'])}}">
                 <a data-bs-target="#location" data-bs-toggle="collapse"
-                   class="sidebar-link {{routeActiveClass('admin.location*', '', 'collapsed')}}">
+                   class="sidebar-link {{routeActiveClass(['admin.country*', 'admin.region*', 'admin.district*', 'admin.city*'], '', 'collapsed')}}">
                     <i class="align-middle" data-feather="compass"></i> <span
                         class="align-middle">@lang('Cities')</span>
                 </a>
                 <ul id="location"
-                    class="sidebar-dropdown list-unstyled collapse {{routeActiveClass('admin.location*', 'show', '')}}"
+                    class="sidebar-dropdown list-unstyled collapse {{routeActiveClass(['admin.country*', 'admin.region*', 'admin.district*', 'admin.city*'], 'show', '')}}"
                     data-bs-parent="#sidebar">
                     <li class="sidebar-item {{routeActiveClass('admin.country.index')}}">
                         <a class="sidebar-link"
@@ -108,6 +108,10 @@
                     <li class="sidebar-item {{routeActiveClass('admin.region.index')}}">
                         <a class="sidebar-link"
                            href="{{route('admin.region.index')}}">@lang('Regions')</a>
+                    </li>
+                    <li class="sidebar-item {{routeActiveClass('admin.district.index')}}">
+                        <a class="sidebar-link"
+                           href="{{route('admin.district.index')}}">@lang('Districts')</a>
                     </li>
                     <li class="sidebar-item {{routeActiveClass('admin.city.index')}}">
                         <a class="sidebar-link"

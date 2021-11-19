@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ContactController extends Controller
+class ContactsController extends Controller
 {
 
     /**

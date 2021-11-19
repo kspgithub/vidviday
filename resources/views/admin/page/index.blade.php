@@ -13,10 +13,8 @@
         <h1>@lang('Page management')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i
-                        data-feather="user-plus"></i> @lang('Create page')</a>
-            @endif
+            <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="user-plus"></i> @lang('Create page')</a>
         </div>
     </div>
 
@@ -47,7 +45,7 @@
                         <td class="table-action">
 
                             <x-utils.edit-button :href="route('admin.page.edit', ['page'=>$page])" text=""/>
-                            @if(current_user()->isMasterAdmin())
+                            @if(!$page->main)
                                 <x-utils.delete-button :href="route('admin.page.destroy', $page)" text=""/>
                             @endif
                         </td>

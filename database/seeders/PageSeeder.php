@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Models\Staff;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
+use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
 
 class PageSeeder extends Seeder
@@ -21,13 +22,25 @@ class PageSeeder extends Seeder
     {
         //
         $this->disableForeignKeys();
-        //$this->truncate('pages');
+        $this->truncate('pages');
+        $ukFaker = FakerFactory::create('uk_UA');
+        $ruFaker = FakerFactory::create('ru_RU');
+        $enFaker = FakerFactory::create('en_US');
+        $plFaker = FakerFactory::create('pl_PL');
+
 
         $pages = [
             [
                 'title' => ['en' => 'About Us', 'ru' => 'О нас', 'uk' => 'Про нас', 'pl' => 'O nas'],
                 'seo_h1' => ['en' => 'About Us', 'ru' => 'О нас', 'uk' => 'Про нас', 'pl' => 'O nas'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'about',
+                'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
@@ -38,13 +51,30 @@ class PageSeeder extends Seeder
                     'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty'],
                 'seo_h1' => ['en' => 'Our Documents', 'ru' => 'Наши Документы',
                     'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'our-documents',
+                'main' => 1,
                 'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Guides', 'ru' => 'Экскурсоводы', 'uk' => 'Екскурсоводи', 'pl' => 'Przewodniki'],
                 'seo_h1' => ['en' => 'Guides', 'ru' => 'Экскурсоводы', 'uk' => 'Екскурсоводи', 'pl' => 'Przewodniki'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'guides',
+                'main' => 1,
                 'published' => 1,
             ],
             [
@@ -53,12 +83,26 @@ class PageSeeder extends Seeder
                 'seo_h1' => ['en' => 'Office workers', 'ru' => 'Офисные работники',
                     'uk' => 'Офісні працівники', 'pl' => 'Pracownicy biurowi'],
                 'key' => 'office-workers',
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+                'main' => 1,
                 'published' => 1,
             ],
             [
                 'title' => ['en' => 'News', 'ru' => 'Новости', 'uk' => 'Новини', 'pl' => 'Aktualności'],
                 'seo_h1' => ['en' => 'News', 'ru' => 'Новости', 'uk' => 'Новини', 'pl' => 'Aktualności'],
                 'key' => 'news',
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+                'main' => 1,
                 'published' => 1,
             ],
             [
@@ -75,7 +119,11 @@ class PageSeeder extends Seeder
                     'pl' => 'Dobroczynność'
                 ],
                 'key' => 'charity',
+                'main' => 1,
                 'published' => 1,
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Awards and honors', 'ru' => 'Награды и отличия',
@@ -83,6 +131,7 @@ class PageSeeder extends Seeder
                 'seo_h1' => ['en' => 'Awards and honors', 'ru' => 'Награды и отличия',
                     'uk' => 'Нагороди та відзнаки', 'pl' => 'Nagrody i wyróżnienia'],
                 'key' => 'awards-and-honors',
+                'main' => 1,
                 'published' => 1,
             ],
             [
@@ -94,6 +143,7 @@ class PageSeeder extends Seeder
                 'video' => 'https://www.youtube.com/embed/BMQQQynlrn4',
                 'key' => 'vacancies',
                 'images' => [url('/img/banner-img_14.jpg')],
+                'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts'],
@@ -103,18 +153,33 @@ class PageSeeder extends Seeder
                 'title' => ['en' => 'Practice', 'ru' => 'Практика', 'uk' => 'Практика', 'pl' => 'Ćwiczyć'],
                 'seo_h1' => ['en' => 'Practice', 'ru' => 'Практика', 'uk' => 'Практика', 'pl' => 'Ćwiczyć'],
                 'key' => 'practice',
+                'main' => 1,
                 'published' => 1,
             ],
             [
                 'title' => ['en' => 'Blog', 'ru' => 'Блог', 'uk' => 'Блог', 'pl' => 'Blog'],
                 'seo_h1' => ['en' => 'Blog', 'ru' => 'Блог', 'uk' => 'Блог', 'pl' => 'Blog'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'blog',
+                'main' => 1,
                 'published' => 1,
             ],
             [
                 'title' => ['en' => 'Corporates', 'ru' => 'Корпоративы', 'uk' => 'Корпоративи', 'pl' => 'Korporatyvy'],
                 'seo_h1' => ['en' => 'Corporates', 'ru' => 'Корпоративы', 'uk' => 'Корпоративи', 'pl' => 'Korporatyvy'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'corporates',
+                'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
@@ -123,13 +188,27 @@ class PageSeeder extends Seeder
             [
                 'title' => ['en' => 'Places', 'ru' => 'Места', 'uk' => 'Місця', 'pl' => 'Miejsca'],
                 'seo_h1' => ['en' => 'Places', 'ru' => 'Места', 'uk' => 'Місця', 'pl' => 'Miejsca'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'places',
+                'main' => 1,
                 'published' => 1,
             ],
             [
                 'title' => ['en' => 'Contacts', 'ru' => 'Контакты', 'uk' => 'Контакти', 'pl' => 'Kontacty'],
                 'seo_h1' => ['en' => 'Contacts', 'ru' => 'Контакты', 'uk' => 'Контакти', 'pl' => 'Kontacty'],
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
                 'key' => 'our-contacts',
+                'main' => 1,
                 'published' => 1,
             ],
             [
@@ -152,6 +231,7 @@ class PageSeeder extends Seeder
                     'pl' => 'Jeśli podobały Ci się nasze wycieczki, chętnie sprzedasz je swoim turystom. Współpraca z nami jest bardzo prosta. Poniżej znajdują się odpowiedzi na najpopularniejsze pytania.',
                 ],
                 'key' => 'faq',
+                'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
@@ -161,6 +241,7 @@ class PageSeeder extends Seeder
                 'title' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
                 'seo_h1' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
                 'key' => 'testimonials',
+                'main' => 1,
                 'published' => 1,
             ],
             [
@@ -183,6 +264,7 @@ class PageSeeder extends Seeder
                     'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
                 ],
                 'key' => 'certificate',
+                'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
@@ -208,30 +290,33 @@ class PageSeeder extends Seeder
                     'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
                 ],
                 'key' => 'certificate-order',
+                'main' => 1,
                 'published' => 1,
             ],
             [
                 'title' => ['uk' => 'Наші події', 'ru' => 'Наши события', 'en' => 'Our events', 'pl' => 'Nasze wydarzenia'],
                 'seo_h1' => ['uk' => 'Наші події', 'ru' => 'Наши события', 'en' => 'Our events', 'pl' => 'Nasze wydarzenia'],
                 'key' => 'events',
+                'main' => 1,
                 'published' => 1,
                 'text' => [
-                    'en' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'ru' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'uk' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'pl' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
                 ],
             ],
             [
                 'title' => ['uk' => 'Турагентам', 'ru' => 'Турагентам', 'en' => 'For travel agents', 'pl' => 'Dla biur podróży'],
                 'seo_h1' => ['uk' => 'Турагентам', 'ru' => 'Турагентам', 'en' => 'For travel agents', 'pl' => 'Dla biur podróży'],
                 'key' => 'for-travel-agents',
+                'main' => 1,
                 'published' => 1,
                 'text' => [
-                    'en' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'ru' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'uk' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
-                    'pl' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolorum harum quas sapiente totam! Amet animi aspernatur blanditiis consequuntur deserunt dicta est, exercitationem, natus necessitatibus non repellendus reprehenderit tenetur, vitae!</p>',
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
@@ -241,9 +326,61 @@ class PageSeeder extends Seeder
                 'title' => ['uk' => 'Транспорт'],
                 'seo_h1' => ['uk' => 'Оренда автобуса у Львові'],
                 'key' => 'transport',
+                'main' => 1,
                 'published' => 1,
                 'text' => [
-                    'uk' => '<p></p>',
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+            ],
+            [
+                'title' => ['uk' => 'Школам'],
+                'seo_h1' => ['uk' => 'Школам'],
+                'key' => 'schools',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(1500),
+                    'ru' => $ruFaker->realText(1500),
+                    'en' => $enFaker->realText(1500),
+                    'pl' => $plFaker->realText(1500),
+                ],
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+            ],
+            [
+                'title' => ['uk' => 'Курси екскурсоводів'],
+                'seo_h1' => ['uk' => 'Курси екскурсоводів'],
+                'key' => 'guides-courses',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(1500),
+                    'ru' => $ruFaker->realText(1500),
+                    'en' => $enFaker->realText(1500),
+                    'pl' => $plFaker->realText(1500),
+                ],
+                'sidebar' => 1,
+                'sidebar_items' => ['share', 'contacts', 'testimonials'],
+                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+            ],
+            [
+                'title' => ['uk' => 'Проживання'],
+                'seo_h1' => ['uk' => 'Проживання'],
+                'key' => 'accommodation',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(1500),
+                    'ru' => $ruFaker->realText(1500),
+                    'en' => $enFaker->realText(1500),
+                    'pl' => $plFaker->realText(1500),
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],

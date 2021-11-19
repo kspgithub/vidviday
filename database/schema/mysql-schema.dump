@@ -168,25 +168,6 @@ CREATE TABLE `bitrix_contacts` (
   CONSTRAINT `bitrix_contacts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `blogs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `blogs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `text` longtext COLLATE utf8mb4_unicode_ci,
-  `short_text` longtext COLLATE utf8mb4_unicode_ci,
-  `published` tinyint(1) NOT NULL DEFAULT '1',
-  `seo_h1` text COLLATE utf8mb4_unicode_ci,
-  `seo_title` text COLLATE utf8mb4_unicode_ci,
-  `seo_description` text COLLATE utf8mb4_unicode_ci,
-  `seo_keywords` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -267,13 +248,13 @@ DROP TABLE IF EXISTS `directions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `directions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` json NOT NULL,
   `seo_h1` text COLLATE utf8mb4_unicode_ci,
   `seo_title` text COLLATE utf8mb4_unicode_ci,
   `seo_description` text COLLATE utf8mb4_unicode_ci,
   `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `text` longtext COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` json NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -605,14 +586,14 @@ DROP TABLE IF EXISTS `news`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `news` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` json NOT NULL,
   `short_text` longtext COLLATE utf8mb4_unicode_ci,
   `seo_h1` text COLLATE utf8mb4_unicode_ci,
   `seo_title` text COLLATE utf8mb4_unicode_ci,
   `seo_description` text COLLATE utf8mb4_unicode_ci,
   `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `text` longtext COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` json NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -925,6 +906,25 @@ CREATE TABLE `places` (
   CONSTRAINT `places_direction_id_foreign` FOREIGN KEY (`direction_id`) REFERENCES `directions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `places_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE SET NULL,
   CONSTRAINT `places_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` json NOT NULL,
+  `slug` json NOT NULL,
+  `text` longtext COLLATE utf8mb4_unicode_ci,
+  `short_text` longtext COLLATE utf8mb4_unicode_ci,
+  `published` tinyint(1) NOT NULL DEFAULT '1',
+  `seo_h1` text COLLATE utf8mb4_unicode_ci,
+  `seo_title` text COLLATE utf8mb4_unicode_ci,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
+  `seo_keywords` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `price_items`;
@@ -1348,13 +1348,13 @@ DROP TABLE IF EXISTS `tour_subjects`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tour_subjects` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` json NOT NULL,
   `seo_h1` text COLLATE utf8mb4_unicode_ci,
   `seo_title` text COLLATE utf8mb4_unicode_ci,
   `seo_description` text COLLATE utf8mb4_unicode_ci,
   `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `text` longtext COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` json NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1366,13 +1366,13 @@ DROP TABLE IF EXISTS `tour_types`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tour_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` json NOT NULL,
   `seo_h1` text COLLATE utf8mb4_unicode_ci,
   `seo_title` text COLLATE utf8mb4_unicode_ci,
   `seo_description` text COLLATE utf8mb4_unicode_ci,
   `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `text` longtext COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` json NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1598,6 +1598,8 @@ CREATE TABLE `user_questions` (
   `comment` text COLLATE utf8mb4_unicode_ci,
   `call_date` timestamp NULL DEFAULT NULL,
   `call_time` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachment` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attachment_name` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `utm_campaign` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `utm_content` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `utm_medium` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1671,14 +1673,16 @@ DROP TABLE IF EXISTS `vacancies`;
 CREATE TABLE `vacancies` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `staff_id` bigint(20) unsigned DEFAULT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` json NOT NULL,
   `seo_h1` text COLLATE utf8mb4_unicode_ci,
   `seo_title` text COLLATE utf8mb4_unicode_ci,
   `seo_description` text COLLATE utf8mb4_unicode_ci,
   `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `short_text` longtext COLLATE utf8mb4_unicode_ci,
   `text` longtext COLLATE utf8mb4_unicode_ci,
-  `slug` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `video` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `similar` json DEFAULT NULL,
+  `slug` json NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1864,3 +1868,12 @@ INSERT INTO `migrations` VALUES (243,'2021_11_15_135955_change_slug_column_to_me
 INSERT INTO `migrations` VALUES (244,'2021_11_16_115803_change_columns_to_contacts_table',93);
 INSERT INTO `migrations` VALUES (246,'2021_11_16_134505_change_columns_to_transports_table',94);
 INSERT INTO `migrations` VALUES (252,'2021_11_17_061548_create_order_transports_table',95);
+INSERT INTO `migrations` VALUES (253,'2021_11_17_134115_change_slug_column_to_vacancies_table',96);
+INSERT INTO `migrations` VALUES (255,'2021_11_18_061007_add_attachment_column_to_user_questions_table',97);
+INSERT INTO `migrations` VALUES (257,'2021_11_18_074532_add_video_column_to_vacancies_table',98);
+INSERT INTO `migrations` VALUES (258,'2021_11_18_125110_change_slug_column_to_tour_subjects_table',99);
+INSERT INTO `migrations` VALUES (259,'2021_11_18_130918_change_slug_column_to_directions_table',100);
+INSERT INTO `migrations` VALUES (260,'2021_11_18_132454_change_slug_column_to_tour_types_table',101);
+INSERT INTO `migrations` VALUES (261,'2021_11_18_142210_change_slug_column_to_news_table',102);
+INSERT INTO `migrations` VALUES (262,'2021_11_19_061424_change_slug_column_to_blogs_table',103);
+INSERT INTO `migrations` VALUES (263,'2021_11_19_062425_rename_blogs_table',104);

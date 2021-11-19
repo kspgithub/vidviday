@@ -15,17 +15,17 @@ use App\Http\Controllers\Admin\Accommodation\AccommodationController;
 use App\Http\Controllers\Admin\Accommodation\AccommodationTypeController;
 use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
-use App\Http\Controllers\Admin\BadgeController;
+use App\Http\Controllers\Admin\Badge\BadgeController;
 use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Certificate\CertificateController;
-use App\Http\Controllers\Admin\CityController;
-use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\Location\CityController;
+use App\Http\Controllers\Admin\ContactsController;
+use App\Http\Controllers\Admin\Location\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Direction\DirectionController;
 use App\Http\Controllers\Admin\Discount\DiscountController;
-use App\Http\Controllers\Admin\DistrictController;
+use App\Http\Controllers\Admin\Location\DistrictController;
 use App\Http\Controllers\Admin\Document\DocumentController;
 use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\Event\EventGroupController;
@@ -40,7 +40,7 @@ use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\Place\PlaceController;
 use App\Http\Controllers\Admin\PriceItem\PriceItemController;
-use App\Http\Controllers\Admin\RegionController;
+use App\Http\Controllers\Admin\Location\RegionController;
 use App\Http\Controllers\Admin\SiteMenu\MenuItemController;
 use App\Http\Controllers\Admin\SiteOptionsController;
 use App\Http\Controllers\Admin\Staff\StaffController;
@@ -199,8 +199,8 @@ Route::get('testimonials', [TestimonialController::class, 'index'])->name('testi
 Route::get('questions', [TestimonialController::class, 'questions'])->name('testimonial.questions');
 
 // CONTACTS
-Route::get('contacts', [ContactController::class, 'edit'])->name('contact.edit');
-Route::patch('contacts', [ContactController::class, 'update'])->name('contact.update');
+Route::get('contacts', [ContactsController::class, 'edit'])->name('contact.edit');
+Route::patch('contacts', [ContactsController::class, 'update'])->name('contact.update');
 
 // SITE OPTIONS
 Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');

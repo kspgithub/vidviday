@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
-use App\Models\Place;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,10 +19,25 @@ class CityController extends Controller
      *
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return view('admin.city.index');
+
+        $region = null;
+        $district = null;
+        $region_id = $request->input('region_id', 0);
+        $district_id = $request->input('district_id', 0);
+        if ($district_id > 0) {
+            $district = District::findOrFail($district_id);
+            $region = $district->region;
+        } elseif ($region_id > 0) {
+            $region = Region::findOrFail($region_id);
+        }
+
+        return view('admin.city.index', [
+            'district' => $district,
+            'region' => $region,
+        ]);
     }
 
     /**
@@ -31,19 +45,36 @@ class CityController extends Controller
      *
      * @return View
      */
-    public function create()
+    public function create(Request $request)
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
         $districts = District::toSelectBox();
         $city = new City();
 
+        $region = null;
+        $district = null;
+        $region_id = $request->input('region_id', 0);
+        $district_id = $request->input('district_id', 0);
+        if ($district_id > 0) {
+            $district = District::findOrFail($district_id);
+            $city->district_id = $district->id;
+            $city->region_id = $district->region_id;
+            $city->country_id = $district->country_id;
+            $region = $district->region;
+        } elseif ($region_id > 0) {
+            $region = Region::findOrFail($region_id);
+            $city->region_id = $region->id;
+            $city->country_id = $region->country_id;
+        }
+
         return view('admin.city.create', [
             'city' => $city,
             'countries' => $countries,
             'regions' => $regions,
             'districts' => $districts,
-
+            'district' => $district,
+            'region' => $region,
         ]);
     }
 
@@ -60,7 +91,7 @@ class CityController extends Controller
         $city = new City();
         $city->fill($request->all());
         $city->save();
-        return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.city.edit', ['city' => $city])->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -100,7 +131,7 @@ class CityController extends Controller
         $city->fill($request->all());
         $city->save();
 
-        return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Updated'));
+        return redirect()->route('admin.city.edit', ['city' => $city])->withFlashSuccess(__('Record Updated'));
     }
 
     /**

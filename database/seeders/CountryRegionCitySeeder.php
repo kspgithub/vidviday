@@ -66,7 +66,7 @@ class CountryRegionCitySeeder extends Seeder
                 'title' => json_encode([
                     'uk' => $reg->region,
                 ], JSON_UNESCAPED_UNICODE),
-                'slug' => Str::slug($reg->region)
+                'slug' => $reg->id . '-' . Str::slug($reg->region)
             ];
         })->toArray();
         Region::insert($located_region);
@@ -79,7 +79,7 @@ class CountryRegionCitySeeder extends Seeder
                 'title' => json_encode([
                     'uk' => $area->area,
                 ], JSON_UNESCAPED_UNICODE),
-                'slug' => Str::slug($area->region)
+                'slug' => $area->id . '-' . Str::slug($area->area)
             ];
         })->toArray();
         District::insert($located_area);
@@ -95,7 +95,7 @@ class CountryRegionCitySeeder extends Seeder
                 'title' => json_encode([
                     'uk' => $vil->village,
                 ], JSON_UNESCAPED_UNICODE),
-                'slug' => $vil->region . '-' . Str::slug($vil->village)
+                'slug' => $vil->id . '-' . Str::slug($vil->village)
             ];
         })->chunk(100);
 
@@ -105,10 +105,10 @@ class CountryRegionCitySeeder extends Seeder
 
 
         // 4. Delete secondary data from DB
-        DB::statement('drop table located_area');
-        DB::statement('drop table located_countrys');
-        DB::statement('drop table located_region');
-        DB::statement('drop table located_village');
+        DB::statement('drop table if exists located_area');
+        DB::statement('drop table if exists located_countrys');
+        DB::statement('drop table if exists located_region');
+        DB::statement('drop table if exists located_village');
 
         $this->enableForeignKeys();
     }

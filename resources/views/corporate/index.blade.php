@@ -57,18 +57,19 @@
 		 <div class="section only-desktop only">
             @include('corporate.includes.carousel')
         </div>
-        <!-- THUMBS CAROUSEL END -->
-        <div class="spacer-lg"></div>
-    </div>
+            <!-- THUMBS CAROUSEL END -->
+            <div class="spacer-lg"></div>
+        </div>
 
 
+        <!-- OUR CLIENTS -->
+        <x-page.clients/>
 
-    <!-- OUR CLIENTS -->
-    @include('home.includes.partners')
-    <!-- OUR CLIENTS END -->
+        <!-- OUR CLIENTS END -->
 
-    <!-- SEO TEXT -->
-    @include('home.includes.seo-text')
-    <!-- SEO TEXT END -->
-</main>
+        <!-- SEO TEXT -->
+        <x-page.regulations/>
+
+        <!-- SEO TEXT END -->
+    </main>
 @endsection

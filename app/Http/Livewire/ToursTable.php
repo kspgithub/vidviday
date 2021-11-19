@@ -58,7 +58,14 @@ class ToursTable extends DataTableComponent
                 ->sortable(),
 
             Column::make(__('Title'), 'title')
-                ->searchable()
+                ->searchable(function (Builder $query, $searchTerm) {
+                    return $query->where(function ($sq) use ($searchTerm) {
+                        return $sq->where('title->uk', 'LIKE', "%$searchTerm%")
+                            ->orWhere('title->ru', 'LIKE', "%$searchTerm%")
+                            ->orWhere('title->en', 'LIKE', "%$searchTerm%")
+                            ->orWhere('title->pl', 'LIKE', "%$searchTerm%");
+                    });
+                })
                 ->sortable(),
 
 

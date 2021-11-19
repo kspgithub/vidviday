@@ -79,14 +79,14 @@ class MenuSeeder extends Seeder
                         'side' => 'left',
                     ],
                     [
-                        'title' => ['uk' => 'Офісні працівники'],
-                        'slug' => pageUrlByKey('benefit'),
+                        'title' => ['uk' => 'Благодійність'],
+                        'slug' => pageUrlByKey('charity'),
                         'side' => 'left',
                     ],
 
                     [
                         'title' => ['uk' => 'Нагороди та відзнаки'],
-                        'slug' => pageUrlByKey('awards'),
+                        'slug' => pageUrlByKey('awards-and-honors'),
                         'side' => 'right',
                     ],
                     [

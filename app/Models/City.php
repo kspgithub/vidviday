@@ -22,6 +22,7 @@ class City extends TranslatableModel
     public $translatable = [
         'title',
     ];
+
     protected $fillable = [
         'region_id',
         'country_id',
@@ -58,8 +59,8 @@ class City extends TranslatableModel
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
+            ->generateSlugsFrom(['id', 'title'])
+            ->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
 

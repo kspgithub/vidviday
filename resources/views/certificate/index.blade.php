@@ -61,8 +61,8 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('home.includes.seo-text')
-    <!-- SEO TEXT END -->
+        <x-page.regulations/>
+        <!-- SEO TEXT END -->
     </main>
 
 @endsection

@@ -80,6 +80,7 @@ class Page extends TranslatableModel implements HasMedia
         'text',
         'key',
         'slug',
+        'main',
         'published',
         'sidebar',
         'sidebar_items',
@@ -87,6 +88,7 @@ class Page extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
+        'main' => 'boolean',
         'published' => 'boolean',
         'sidebar' => 'boolean',
         'sidebar_items' => 'array',

@@ -20,23 +20,36 @@
             <table class="table table-responsive table-striped table-sm">
                 <thead>
                 <tr>
+                    <th>@lang('ID')</th>
                     <th>@lang('Country')</th>
                     <th>@lang('Region')</th>
                     <th>@lang('Url')</th>
+                    <th>@lang('Links')</th>
                     <th>@lang('Actions') </th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($regions as $region)
                     <tr>
-                        <td>{{$region->country()->pluck('title')[0]}}</td>
+                        <td>{{$region->id}}</td>
+                        <td>{{$region->country->title ?? '-'}}</td>
                         <td>{{$region->title}}</td>
                         <td>{{$region->slug}}</td>
                         <td class="table-action">
+                            <a href="{{route('admin.district.index', ['region_id'=>$region->id])}}"
+                               class="btn btn-sm btn-outline-info">
+                                @lang('Districts')
+                            </a>
+                            <a href="{{route('admin.city.index', ['region_id'=>$region->id])}}"
+                               class="btn btn-sm btn-outline-info">
+                                @lang('Cities')
+                            </a>
+                        </td>
+                        <td class="table-action">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <x-utils.edit-button :href="route('admin.region.edit', ['region'=>$region])" text="" />
+                            <x-utils.edit-button :href="route('admin.region.edit', $region)" text=""/>
                             @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.region.destroy', $region)" text="" />
+                                <x-utils.delete-button :href="route('admin.region.destroy', $region)" text=""/>
                             @endif
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
@@ -47,22 +60,7 @@
         </x-slot>
     </x-bootstrap.card>
 
-    {{ $regionsPaginated->onEachSide(1)->links() }}
+    {{ $regions->links() }}
 
 @endsection
 
-@push('before-scripts')
-    <script>
-        /*** Fix Lara Paginator ***/
-        // p (calculate) style
-        let childDiv = document.querySelectorAll('[role="navigation"]')[0];
-        childDiv.getElementsByTagName('div')[1].firstElementChild.firstElementChild.style.marginTop = '15px';
-        // paginate View fix for arrows
-        if(document.querySelectorAll('[aria-label="&laquo; Назад"]')[0] !== undefined)
-            document.querySelectorAll('[aria-label="&laquo; Назад"]')[0].style.display = 'none';
-        if(document.querySelectorAll('[rel="next"]')[0] !== undefined)
-            document.querySelectorAll('[rel="next"]')[0].style.display = 'none';
-        if(document.querySelectorAll('[rel="prev"]')[0] !== undefined)
-            document.querySelectorAll('[rel="prev"]')[0].style.display = 'none';
-    </script>
-@endpush

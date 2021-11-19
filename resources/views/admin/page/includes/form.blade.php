@@ -37,6 +37,41 @@
                                     :value="old('seo_keywords',  $page->getTranslations('seo_keywords'))"/>
         </x-slot>
     </x-bootstrap.card>
+    <x-bootstrap.card>
+        <x-slot name="header">
+            <h3>@lang('Right Sidebar')</h3>
+            <x-slot name="body">
+                <x-forms.switch-group :label="__('Show sidebar')" name="sidebar"
+                                      :active="$page->sidebar"
+                                      help="Цей параметр не впливає на деякі сторінки"
+                ></x-forms.switch-group>
+
+
+                <x-forms.switch-group :label="__('Share')" name="sidebar_items[]"
+                                      :active-value="'share'"
+                                      :inactive-value="null"
+                                      :active="in_array('share', $page->sidebar_items)"></x-forms.switch-group>
+
+                <x-forms.switch-group :label="__('Testimonials')" name="sidebar_items[]"
+                                      :active-value="'testimonials'"
+                                      :inactive-value="null"
+                                      :active="in_array('testimonials',$page->sidebar_items)"></x-forms.switch-group>
+
+                <x-forms.switch-group :label="__('Contacts')" name="sidebar_items[]"
+                                      :active-value="'contacts'"
+                                      :inactive-value="null"
+                                      :active="in_array('contacts', $page->sidebar_items)"></x-forms.switch-group>
+
+                <x-forms.select-group name="staff[]"
+                                      :label="__('Contact Manager')"
+                                      :value="old('staff_id', $page->staff_id ?? 0)"
+                                      :options="$managers">
+                    <option value="">Не вибрано</option>
+                </x-forms.select-group>
+            </x-slot>
+        </x-slot>
+    </x-bootstrap.card>
+
     @if($page->id > 0)
         <x-bootstrap.card>
             <x-slot name="header">
@@ -44,36 +79,6 @@
             </x-slot>
             <x-slot name="body">
                 <x-utils.media-library :model="$page"></x-utils.media-library>
-            </x-slot>
-        </x-bootstrap.card>
-    @endif
-    @if($page->sidebar)
-        <x-bootstrap.card>
-            <x-slot name="header">
-                <h3>@lang('Sidebar')</h3>
-                <x-slot name="body">
-                    <x-forms.switch-group :label="__('Share')" name="sidebar_items[]"
-                                          :active-value="'share'"
-                                          :inactive-value="null"
-                                          :active="in_array('share', $page->sidebar_items)"></x-forms.switch-group>
-
-                    <x-forms.switch-group :label="__('Testimonials')" name="sidebar_items[]"
-                                          :active-value="'testimonials'"
-                                          :inactive-value="null"
-                                          :active="in_array('testimonials',$page->sidebar_items)"></x-forms.switch-group>
-
-                    <x-forms.switch-group :label="__('Contacts')" name="sidebar_items[]"
-                                          :active-value="'contacts'"
-                                          :inactive-value="null"
-                                          :active="in_array('contacts', $page->sidebar_items)"></x-forms.switch-group>
-
-                    <x-forms.select-group name="staff[]"
-                                          :label="__('Contact Manager')"
-                                          :value="old('staff_id', $page->staff_id ?? 0)"
-                                          :options="$managers">
-                        <option value="">Не вибрано</option>
-                    </x-forms.select-group>
-                </x-slot>
             </x-slot>
         </x-bootstrap.card>
     @endif

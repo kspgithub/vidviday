@@ -44,16 +44,18 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                @include('transport.includes.right-sidebar')
-                <!-- SIDEBAR END -->
+                    <x-page.right-sidebar :pageContent="$pageContent">
+
+                    </x-page.right-sidebar>
+                    <!-- SIDEBAR END -->
                 </div>
             </div>
             <div class="spacer-lg"></div>
         </div>
 
         <!-- SEO TEXT -->
-    @include('home.includes.seo-text')
-    <!-- SEO TEXT END -->
+        <x-page.regulations/>
+        <!-- SEO TEXT END -->
     </main>
 
 @endsection

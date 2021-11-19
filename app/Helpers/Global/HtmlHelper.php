@@ -22,7 +22,7 @@ if (!function_exists('routeActive')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param        $condition
+     * @param string|array $routeName
      *
      * @return boolean
      */
@@ -50,7 +50,7 @@ if (!function_exists('routeActiveClass')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param        $condition
+     * @param string|array $routeName
      * @param string $activeClass
      * @param string $inactiveClass
      *
@@ -101,14 +101,17 @@ if (!function_exists('breadcrumbs')) {
         $result = '<nav aria-label="breadcrumb" class="breadcrumbs-wrapper"><ol class="breadcrumb">';
         $lastItemKey = count($items) - 1;
         foreach ($items as $key => $item) {
-            $activeClass = $key === $lastItemKey ? ' active' : '';
-            $result .= '<li class="breadcrumb-item' . $activeClass . '" itemscope itemtype = "http://data-vocabulary.org/Breadcrumb">';
-            if ($key < count($items) - 1) {
-                $result .= '<a href="' . $item['url'] . '" itemprop="url"><span itemprop="title">' . $item['title'] . '</span></a>';
-            } else {
-                $result .= '<link href="' . $item['url'] . '" itemprop="url" /><span itemprop="title">' . $item['title'] . '</span>';
+            if ($item !== null) {
+                $activeClass = $key === $lastItemKey ? ' active' : '';
+                $result .= '<li class="breadcrumb-item' . $activeClass . '" itemscope itemtype = "http://data-vocabulary.org/Breadcrumb">';
+                if ($key < count($items) - 1) {
+                    $result .= '<a href="' . $item['url'] . '" itemprop="url"><span itemprop="title">' . $item['title'] . '</span></a>';
+                } else {
+                    $result .= '<link href="' . $item['url'] . '" itemprop="url" /><span itemprop="title">' . $item['title'] . '</span>';
+                }
+                $result .= '</li>';
             }
-            $result .= '</li>';
+
         }
         $result .= '</ol></nav>';
 

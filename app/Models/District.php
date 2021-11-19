@@ -23,6 +23,7 @@ class District extends TranslatableModel
     public $translatable = [
         'title',
     ];
+
     protected $fillable = [
         'region_id',
         'country_id',

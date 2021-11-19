@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenameBlogsTable extends Migration
+class AddMainColumnToPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class RenameBlogsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::rename('blogs', 'posts');
+        Schema::table('pages', function (Blueprint $table) {
+            //
+            $table->boolean('main')->default(0)->after('key');
+        });
     }
 
     /**
@@ -24,6 +26,9 @@ class RenameBlogsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('pages', function (Blueprint $table) {
+            //
+            $table->dropColumn('main');
+        });
     }
 }

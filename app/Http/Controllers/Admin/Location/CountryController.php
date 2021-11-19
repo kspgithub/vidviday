@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +42,7 @@ class CountryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return RedirectResponse
      */
     public function show(Country $country)
     {
@@ -53,7 +54,7 @@ class CountryController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function store(Request $request)
     {

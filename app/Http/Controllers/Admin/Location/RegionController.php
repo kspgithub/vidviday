@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
 use App\Models\Region;
@@ -19,14 +19,12 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regionsPrepeared = Region::query()->orderBy('id');
-        $regionsPaginated = $regionsPrepeared->paginate(20);
-        $regions = $regionsPrepeared->get();//->sortBy('region_id');
+
+        $regions = Region::query()->orderBy('title')->paginate(30);
 
         //
         return view('admin.region.index', [
-            'regions'=>$regions,
-            'regionsPaginated'=>$regionsPaginated
+            'regions' => $regions,
         ]);
     }
 
