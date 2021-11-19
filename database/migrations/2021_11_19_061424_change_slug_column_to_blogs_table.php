@@ -15,10 +15,10 @@ class ChangeSlugColumnToBlogsTable extends Migration
     {
         $items = \App\Models\Post::all();
         foreach ($items as  $item) {
-            DB::table('blogs')->where('id', $item->id)->update(['slug'=> json_encode(['uk'=> Str::slug($item->title)])]);
+            DB::table('posts')->where('id', $item->id)->update(['slug' => json_encode(['uk' => Str::slug($item->title)])]);
         }
 
-        Schema::table('blogs', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             //
             $table->json('slug')->change();
             $table->json('title')->change();
@@ -32,7 +32,7 @@ class ChangeSlugColumnToBlogsTable extends Migration
      */
     public function down()
     {
-        Schema::table('blogs', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             //
             $table->text('slug')->change();
             $table->text('title')->change();
