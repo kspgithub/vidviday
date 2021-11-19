@@ -49,11 +49,4 @@
     </div>
 </div><!--form-group-->
 
-@push('after-scripts')
-    <script>
-        @foreach(siteLocales() as $lang)
-
-        @endforeach
-    </script>
-@endpush
 

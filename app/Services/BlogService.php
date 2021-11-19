@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\GeneralException;
 
-use App\Models\Blog;
+use App\Models\Post;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,21 +15,21 @@ class BlogService extends BaseService
     /**
      * NewsService constructor.
      *
-     * @param Blog $blog
+     * @param Post $blog
      */
-    public function __construct(Blog $blog)
+    public function __construct(Post $blog)
     {
         $this->model = $blog;
     }
 
-    public function store($params)
+    public function storePost($params)
     {
-        $blog = new Blog();
+        $blog = new Post();
 
-        return $this->update($blog, $params);
+        return $this->updatePost($blog, $params);
     }
 
-    public function update(Blog $blog, array $params = [])
+    public function updatePost(Post $blog, array $params = [])
     {
         DB::beginTransaction();
 

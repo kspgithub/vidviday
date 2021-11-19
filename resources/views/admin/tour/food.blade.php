@@ -3,6 +3,12 @@
 @section('title', __('Tour').' '.$tour->title.'-'.__('Food'))
 
 @section('content')
+    {!! breadcrumbs([
+   ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+   ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+   ['url'=>route('admin.tour.edit', $tour), 'title'=>$tour->title],
+   ['url'=>'#', 'title'=>__('Food')],
+   ]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Tour') "{{$tour->title}}" - @lang('Food')</h1>
         <div class="d-flex align-items-center">

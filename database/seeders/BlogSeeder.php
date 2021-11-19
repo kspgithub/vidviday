@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Blog;
+use App\Models\Post;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +21,6 @@ class BlogSeeder extends Seeder
 
         $this->truncate('blogs');
 
-        Blog::factory()->count(30)->create();
+        Post::factory()->count(30)->create();
     }
 }

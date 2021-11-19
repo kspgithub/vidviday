@@ -221,6 +221,12 @@ export default {
             if (response) {
                 commit('SET_POPULAR_TOURS', response);
             }
+        },
+        async submit({getters, dispatch}) {
+            const path = document.location.pathname;
+            const query = urlUtils.filterParams(getters.formData, getters.defaultData);
+            urlUtils.updateUrl(path, query, true);
+            await dispatch('fetchTours', query);
         }
     }
 }

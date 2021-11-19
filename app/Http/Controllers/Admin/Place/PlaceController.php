@@ -116,13 +116,4 @@ class PlaceController extends Controller
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-
-    /**
-     * @param Place $place
-     * @return View
-     */
-    public function mediaIndex(Place $place)
-    {
-        return view('admin.place.media', ['place' => $place]);
-    }
 }

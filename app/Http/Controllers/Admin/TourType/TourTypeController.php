@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\TourType;
 use App\Http\Controllers\Controller;
 use App\Models\TourType;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -50,7 +51,7 @@ class TourTypeController extends Controller
         $tourType->fill($request->all());
         $tourType->save();
 
-        return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.tour-type.edit', $tourType)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -72,15 +73,17 @@ class TourTypeController extends Controller
      * @param Request $request
      * @param TourType $tourType
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, TourType $tourType)
     {
         //
         $tourType->fill($request->all());
         $tourType->save();
-
-        return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Updated'));
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
+        return redirect()->route('admin.tour-type.edit', $tourType)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -98,8 +101,4 @@ class TourTypeController extends Controller
         return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-    public function mediaIndex(TourType $tourType)
-    {
-        return view('admin.tour-type.media', compact('tourType'));
-    }
 }

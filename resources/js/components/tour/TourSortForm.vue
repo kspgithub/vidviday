@@ -5,11 +5,11 @@
         <span class="title h3 only-desktop">Доступно {{ total }} турів</span>
         <label class="only-desktop">
             <span class="text">Показати тури</span>
-            <form-select v-model="pagination" :options="options.pagination"/>
+            <form-sumo-select v-model.number="pagination" :options="options.pagination" inline/>
         </label>
         <label>
             <span class="text">Сортувати за</span>
-            <form-select v-model="sorting" :options="options.sorting"/>
+            <form-sumo-select v-model="sorting" :options="options.sorting" inline/>
         </label>
     </div>
 
@@ -17,12 +17,14 @@
 
 <script>
 import {useStore} from "vuex";
-import {computed} from "vue";
+import {computed, nextTick} from "vue";
 import FormSelect from "../form/FormSelect";
+import * as urlUtils from "../../utils/url";
+import FormSumoSelect from "../form/FormSumoSelect";
 
 export default {
     name: "TourSortForm",
-    components: {FormSelect},
+    components: {FormSumoSelect, FormSelect},
     setup() {
         const store = useStore();
         const options = computed(() => store.state.tourFilter.options);
@@ -34,6 +36,9 @@ export default {
             },
             set(value) {
                 store.commit('tourFilter/SET_PER_PAGE', value);
+                nextTick(() => {
+                    store.dispatch('tourFilter/submit');
+                })
             }
         });
         const sorting = computed({
@@ -46,6 +51,10 @@ export default {
                     sortBy: values[0] || 'price',
                     sortDirection: values[1] || 'desc'
                 });
+
+                nextTick(() => {
+                    store.dispatch('tourFilter/submit');
+                })
             }
         });
 

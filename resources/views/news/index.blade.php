@@ -25,8 +25,10 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12 news">
 
                     <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="img/preloader.png" data-img-src="icon/filter-dark.svg" alt="filter-dark">Підбір туру</span>
+                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
+                            <img src="/img/preloader.png" data-img-src="/icon/filter-dark.svg" alt="filter-dark">
+                            Підбір туру
+                        </span>
                         <div class="spacer-xs"></div>
                     </div>
 
@@ -45,7 +47,7 @@
                             <div class="item post">
                                 <div class="thumb-img">
                                     <img src="{{ asset("img/preloader.png") }}"
-                                         data-img-src="{{ $post->main_image }}"
+                                         data-img-src="{{ $post->main_image_url }}"
                                          alt="img 25">
                                     <a href="{{ route("news.single", ["slug" => $post->slug]) }}"
                                        class="full-size"></a>
@@ -67,7 +69,7 @@
                     </div>
                     <div class="spacer-xs"></div>
 
-                    {{ $news->links('paginate.vendor.pagination.newsCustom') }}
+                    {{ $news->links('paginate.vendor.pagination.default') }}
 
                 </div>
             </div>

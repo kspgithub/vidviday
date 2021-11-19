@@ -3,6 +3,12 @@
 @section('title', __('Editing tour') .'-'.__('Subjects'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+['url'=>route('admin.tour.edit', $tour), 'title'=>$tour->title],
+['url'=>'#', 'title'=>__('Subjects')],
+]) !!}
     <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Subjects')</h1>
 
     @include('admin.tour.includes.edit-tabs')

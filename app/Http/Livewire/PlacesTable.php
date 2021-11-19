@@ -19,7 +19,12 @@ class PlacesTable extends DataTableComponent
     /**
      * @var string
      */
-    public $sortField = 'id';
+    public string $defaultSortColumn = 'created_at';
+
+    /**
+     * @var string
+     */
+    public string $defaultSortDirection = 'desc';
 
     /**
      * @var array
@@ -84,7 +89,7 @@ class PlacesTable extends DataTableComponent
             Column::make(__('Gallery'))
                 ->format(function ($value, $column, $row) {
                     return view('admin.partials.media-link', [
-                        'url' => route('admin.place.media.index', $row),
+                        'url' => route('admin.place.edit', $row),
                         'count' => $row->media_count,
                     ]);
                 }),
@@ -95,7 +100,7 @@ class PlacesTable extends DataTableComponent
                 }),
         ];
     }
-    
+
     public function filters(): array
     {
         return [

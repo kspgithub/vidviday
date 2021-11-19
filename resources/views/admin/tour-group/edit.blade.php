@@ -3,25 +3,20 @@
 @section('title', __('Tour Group').' - '.__('Editing'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1><span> @lang('Tour Group') - @lang('Editing')</span> <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+    {!! breadcrumbs([
+  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+  ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+  ['url'=>route('admin.tour-group.index'), 'title'=>__('Groups')],
+  ['url'=>route('admin.tour-group.edit', $tourGroup), 'title'=>$tourGroup->title],
+  ]) !!}
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.tour-group.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
+    <x-page.edit :update-url="route('admin.tour-group.update', $tourGroup)"
+                 :back-url="route('admin.tour-group.index')" :edit="true"
+                 :title="__('Edit').' '.$tourGroup->title"
+    >
+        @include('admin.tour-group.includes.form')
+    </x-page.edit>
 
-    <x-forms.patch :action="route('admin.tour-group.update', $tourGroup)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.tour-group.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
 
 
 @endsection

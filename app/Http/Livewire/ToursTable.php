@@ -16,7 +16,12 @@ class ToursTable extends DataTableComponent
     /**
      * @var string
      */
-    public $sortField = 'id';
+    public string $defaultSortColumn = 'created_at';
+
+    /**
+     * @var string
+     */
+    public string $defaultSortDirection = 'desc';
 
     /**
      * @var array
@@ -55,6 +60,7 @@ class ToursTable extends DataTableComponent
             Column::make(__('Title'), 'title')
                 ->searchable()
                 ->sortable(),
+
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {

@@ -49,4 +49,5 @@ return [
     'departure-return-dates' => 'Дати виїзду та повернення',
     'read-more' => 'Читати більше',
     'hide-text' => 'Сховати текст',
+    'all-tours' => 'Всі тури',
 ];

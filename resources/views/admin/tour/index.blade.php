@@ -3,11 +3,17 @@
 @section('title', __('Tour management'))
 
 @section('content')
+    {!! breadcrumbs([
+      ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+      ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+  ]) !!}
+
     <div class="d-flex justify-content-between">
         <h1>@lang('Tour management')</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.tour.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="plus"></i> @lang('Create tour')</a>
+            <a href="{{route('admin.tour.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="plus"></i> @lang('Create tour')</a>
         </div>
     </div>
 

@@ -3,6 +3,12 @@
 @section('title', __('Editing tour')." $tour->title - ".__('Schedule'))
 
 @section('content')
+    {!! breadcrumbs([
+   ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+   ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+   ['url'=>route('admin.tour.edit', $tour), 'title'=>$tour->title],
+   ['url'=>'#', 'title'=>__('Schedule')],
+   ]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Editing tour') "{{$tour->title}}" - @lang('Schedule')</h1>
     </div>

@@ -3,6 +3,11 @@
 @section('title', __('Create tour'))
 
 @section('content')
+    {!! breadcrumbs([
+     ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+     ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+     ['url'=>route('admin.tour.create'), 'title'=>__('Create')],
+ ]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Create tour')
             <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>

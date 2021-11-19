@@ -169,7 +169,8 @@ html.overflow-menu body {
     margin-right: 0;
 }
 
-.pagination a.text:after {
+.pagination a.text:after,
+.pagination span.text:after {
     left: -8px;
     right: -8px;
     content: "";
@@ -183,12 +184,14 @@ html.overflow-menu body {
     background-color: #2ab0cd;
 }
 
-.pagination a.text.active {
+.pagination a.text.active,
+.pagination span.text.active {
     color: #323232;
     font-weight: 500;
 }
 
-.pagination a.text.active:after {
+.pagination a.text.active:after,
+.pagination span.text.active:after {
     -webkit-transform: none;
     -ms-transform: none;
     transform: none;
@@ -494,7 +497,8 @@ html.overflow-menu body {
         width: 100%;
         text-align: center;
     }
-    .pagination a.text:after {
+    .pagination a.text:after,
+    .pagination span.text:after {
         left: -8px;
         right: -8px;
         content: "";
@@ -507,11 +511,13 @@ html.overflow-menu body {
         wil-change: transform;
         background-color: #2ab0cd;
     }
-    .pagination a.text.active {
+    .pagination a.text.active,
+    .pagination span.text.active {
         color: #323232;
         font-weight: 500;
     }
-    .pagination a.text.active:after {
+    .pagination a.text.active:after,
+    .pagination span.text.active:after {
         -webkit-transform: none;
         -ms-transform: none;
         transform: none;

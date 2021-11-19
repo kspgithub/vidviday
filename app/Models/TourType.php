@@ -11,6 +11,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -22,7 +23,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class TourType extends TranslatableModel implements HasMedia
 {
-    use HasSlug;
+    use HasTranslatableSlug;
     use HasFactory;
     use HasTranslations;
     use InteractsWithMedia;
@@ -41,14 +42,11 @@ class TourType extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public $translatable = [
         'title',
         'text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',

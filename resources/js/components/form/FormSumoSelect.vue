@@ -1,6 +1,6 @@
 <template>
-    <label class="form-label" :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
-        <select ref="selectRef" :name="name" :multiple="multiple" v-model="value">
+    <label class="form-label" :data-tooltip="errorMessage" :class="{invalid: errorMessage, 'mb-0':inline}">
+        <select :class="{'mb-0':inline}" ref="selectRef" :name="name" :multiple="multiple" v-model="value">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
             <slot/>
         </select>
@@ -22,6 +22,7 @@ export default {
         options: Array,
         multiple: Boolean,
         search: Boolean,
+        inline: Boolean,
         searchText: {
             type: String,
             default: 'Пошук...'
@@ -30,6 +31,7 @@ export default {
             type: [String, Object],
             default: ''
         },
+
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {

@@ -55,16 +55,6 @@ class DocumentController extends Controller
             ->withFlashSuccess(__('Record Created'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Document $document
-     * @return Response
-     */
-    public function show(Document $document)
-    {
-        //
-    }
 
     /**
      * @param Document $document
@@ -113,6 +103,6 @@ class DocumentController extends Controller
     {
         $document->published = (int) $request->input('published');
         $document->save();
-        return response()->json(['result' => 'Success']);
+        return response()->json(['result' => 'success']);
     }
 }

@@ -100,9 +100,4 @@ class PageController extends Controller
 
         return redirect()->route('admin.page.index')->withFlashSuccess(__('Record Deleted'));
     }
-
-    public function mediaIndex(Page $page)
-    {
-        return view('admin.page.media', ['page'=>$page]);
-    }
 }

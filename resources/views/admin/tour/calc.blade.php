@@ -5,6 +5,12 @@
 
 
 @section('content')
+    {!! breadcrumbs([
+   ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+   ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+   ['url'=>route('admin.tour.edit', $tour), 'title'=>$tour->title],
+   ['url'=>'#', 'title'=>__('Calculator')],
+   ]) !!}
     <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Calculator')</h1>
 
     <div class="row">

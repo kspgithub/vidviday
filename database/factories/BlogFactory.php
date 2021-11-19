@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Blog;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -13,7 +13,7 @@ class BlogFactory extends Factory
      *
      * @var string
      */
-    protected $model = Blog::class;
+    protected $model = Post::class;
 
     /**
      * Define the model's default state.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\TourGroup;
 use App\Http\Controllers\Controller;
 use App\Models\TourGroup;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -50,7 +51,7 @@ class TourGroupController extends Controller
         $tourGroup->fill($request->all());
         $tourGroup->save();
 
-        return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.tour-group.edit', $tourGroup)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -72,15 +73,17 @@ class TourGroupController extends Controller
      * @param Request $request
      * @param TourGroup $tourGroup
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, TourGroup $tourGroup)
     {
         //
         $tourGroup->fill($request->all());
         $tourGroup->save();
-
-        return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Updated'));
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
+        return redirect()->route('admin.tour-group.edit', $tourGroup)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -98,8 +101,4 @@ class TourGroupController extends Controller
         return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-    public function mediaIndex(TourGroup $tourGroup)
-    {
-        return view('admin.tour-group.media', compact('tourGroup'));
-    }
 }

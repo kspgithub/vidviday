@@ -57,8 +57,9 @@ class TourService extends BaseService
                 ],
                 'pagination' => [
                     ['value' => 12, 'text' => '12'],
-                    ['value' => 24, 'text' => '12'],
-                    ['value' => 100, 'text' => __('tours-section.all-tours')],
+                    ['value' => 24, 'text' => '24'],
+                    ['value' => 48, 'text' => '48'],
+                    ['value' => 1000, 'text' => __('tours-section.all-tours')],
                 ],
             ];
         });

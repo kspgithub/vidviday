@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -11,6 +12,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,16 +25,18 @@ use Spatie\Translatable\HasTranslations;
 class TourSubject extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
     use HasTranslations;
+    use HasTranslatableSlug;
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
+    use HasJsonSlug;
 
     public $translatable = [
         'title',
         'text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -71,11 +75,6 @@ class TourSubject extends TranslatableModel implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(315)
             ->height(180);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
     }
 
     public function getSlugOptions(): SlugOptions

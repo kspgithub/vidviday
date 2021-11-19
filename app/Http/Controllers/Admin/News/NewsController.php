@@ -60,7 +60,7 @@ class NewsController extends Controller
 
         $news = $this->service->store($request->validated());
 
-        return redirect()->route('admin.news.index', ["news" => $news])->withFlashSuccess(__('Record created.'));
+        return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Created'));
     }
 
 
@@ -94,7 +94,7 @@ class NewsController extends Controller
 
         $this->service->update($news, $request->validated());
 
-        return redirect()->route('admin.news.index', $news)->withFlashSuccess(__('Record updated.'));
+        return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Updated'));
     }
 
 
@@ -109,6 +109,20 @@ class NewsController extends Controller
     {
         $news->delete();
 
-        return redirect()->route('admin.news.index')->withFlashSuccess(__('Record deleted.'));
+        return redirect()->route('admin.news.index')->withFlashSuccess(__('Record Deleted'));
+    }
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param News $news
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, News $news)
+    {
+        $news->published = (int)$request->input('published');
+        $news->save();
+        return response()->json(['result' => 'success']);
     }
 }

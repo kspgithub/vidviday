@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Attributes\NewsAttribute;
+use App\Models\Traits\Attributes\PostAttribute;
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -25,23 +25,26 @@ use Spatie\Translatable\HasTranslations;
 class News extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
-    use NewsAttribute;
+    use PostAttribute;
+    use HasJsonSlug;
 
 
     public $translatable = [
         'title',
         'text',
+        'slug',
         'short_text',
         'seo_h1',
         'seo_title',
         'seo_description',
         'seo_keywords',
     ];
+
     protected $fillable = [
         'title',
         'seo_h1',
@@ -53,6 +56,12 @@ class News extends TranslatableModel implements HasMedia
         'slug',
         'published',
     ];
+
+    protected $appends = [
+        'main_image_url',
+        'mobile_image_url',
+    ];
+
     protected $casts = [
         'published' => 'boolean'
     ];
@@ -63,17 +72,12 @@ class News extends TranslatableModel implements HasMedia
         /**
          * генерируем короткий текст если он не было передан
          */
-        self::creating(function ($model) {
+        self::saving(function ($model) {
             if (empty($model->short_text)) {
                 $model->short_text = Str::limit(strip_tags($model->text), 500);
             }
         });
 
-        self::updating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -93,13 +97,12 @@ class News extends TranslatableModel implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png'])
             ->singleFile();
 
+        $this->addMediaCollection('mobile')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
     }
 
     public function getSlugOptions(): SlugOptions

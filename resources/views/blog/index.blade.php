@@ -3,17 +3,19 @@
 @section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
 @section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
 @section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
-
-
 @section("content")
 
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
 
-        @include("blog.includes.bread_crumbs")
+            <div class="bread-crumbs">
+                <a href="{{ route("home") }}">{{ __("Home") }}</a>
+                <span>—</span>
+                <span>{{ __("Blog") }}</span>
+            </div>
 
-        <!-- BREAD CRUMBS END -->
+            <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
@@ -35,27 +37,27 @@
                     <div class="spacer-xs"></div>
                     <div>
 
-                        @foreach($blogs as $blog)
+                        @foreach($posts as $post)
 
 
                             <div class="item post">
 
                                 <div class="thumb-img">
                                     <img src="{{ asset("img/preloader.png") }}"
-                                         data-img-src="{{ $blog->main_image }}"
+                                         data-img-src="{{ $post->main_image_url }}"
                                          alt="img 25">
-                                    <a href="{{ route("blogs.single", ["slug" => $blog->slug]) }}"
+                                    <a href="{{ route("blog.post", ['slug' => $post->slug]) }}"
                                        class="full-size"></a>
                                 </div>
                                 <div class="thumb-content">
                                     <div class="title h3">
-                                        <a href="{{ route("blogs.single", ["slug" => $blog->slug]) }}">{{ $blog->title }}</a>
+                                        <a href="{{ route("blog.post", ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                     </div>
-                                    <span class="text text-sm">{{ $blog->created_at->format("d.m.Y") }}</span>
+                                    <span class="text text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
                                     <div class="text">
-                                        <p>{{ $blog->short_text }}</p>
-                                        <a href="{{ route("blogs.single", ["slug" => $blog->slug]) }}"
-                                           class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
+                                        <p>{{ $post->short_text }}</p>
+                                        <a href="{{ route("blog.post", ['slug' => $post->slug]) }}"
+                                           class="btn btn-read-more text-bold">{{ __("Read more") }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +67,7 @@
                     </div>
                     <div class="spacer-xs"></div>
 
-                    {{ $blogs->links('paginate.vendor.pagination.blogCustom') }}
+                    {{ $posts->links('paginate.vendor.pagination.default') }}
 
                 </div>
             </div>

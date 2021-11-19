@@ -326,8 +326,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.blog.*')}}">
-                <a class="sidebar-link" href="{{route('admin.blog.index')}}">
+            <li class="sidebar-item {{routeActiveClass('admin.post.*')}}">
+                <a class="sidebar-link" href="{{route('admin.post.index')}}">
                     <i class="align-middle" data-feather="rss"></i> <span
                         class="align-middle">@lang('Blog')</span>
                 </a>

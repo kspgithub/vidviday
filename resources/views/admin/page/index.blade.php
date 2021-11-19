@@ -43,11 +43,9 @@
                         <td>{{$page->key}}</td>
                         <td>/{{$page->slug}}</td>
 
-                        <td><a href="{{route('admin.page.media.index', ['page'=>$page])}}"
-                               class="badge bg-info"><span>{{$page->media_count}}</span></a></td>
+                        <td><span class="badge bg-info">{{$page->media_count}}</span></td>
                         <td class="table-action">
 
-                            {{--                            <x-utils.view-button :href="route('admin.page.show', ['page'=>$page])" text="" />--}}
                             <x-utils.edit-button :href="route('admin.page.edit', ['page'=>$page])" text=""/>
                             @if(current_user()->isMasterAdmin())
                                 <x-utils.delete-button :href="route('admin.page.destroy', $page)" text=""/>

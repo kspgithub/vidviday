@@ -12,8 +12,8 @@ class NewsController extends Controller
     public function index()
     {
 
-        $news = $this->query()->latest()->paginate(9);
-        $pageContent = Page::whereKey('news')->first();
+        $news = News::published()->orderBy('id', 'desc')->paginate(9);
+        $pageContent = Page::where('key', 'news')->first();
 
         return view("news.index", [
             "pageContent" => $pageContent,
@@ -24,17 +24,11 @@ class NewsController extends Controller
     public function single($slug)
     {
 
-        $newsSingle = $this->query()->whereSlug($slug)
-            ->firstOrFail();
+        $newsSingle = News::findBySlugOrFail($slug);
 
         return view("news.single", [
             "newsSingle" => $newsSingle,
         ]);
     }
 
-    protected function query()
-    {
-
-        return News::query()->wherePublished(true);
-    }
 }
