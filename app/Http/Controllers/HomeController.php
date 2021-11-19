@@ -26,4 +26,10 @@ class HomeController extends Controller
             'achievements' => $achievements,
         ]);
     }
+
+
+    public function testError()
+    {
+        return 50 / 0;
+    }
 }

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // SITE ROUTES
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//Route::get('/test-error', [HomeController::class, 'testError'])->name('test-error');
 
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
