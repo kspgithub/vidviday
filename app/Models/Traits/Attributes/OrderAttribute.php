@@ -69,4 +69,11 @@ trait OrderAttribute
     {
         return $this->price - $this->discount + $this->commission;
     }
+
+
+    public function getPaymentTitleAttribute()
+    {
+        return $this->payment ? $this->payment->title : '';
+    }
+
 }

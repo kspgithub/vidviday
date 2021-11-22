@@ -80,6 +80,7 @@ class Order extends TranslatableModel
         'last_name',
         'company',
         'phone',
+        'email',
         'viber',
         'places',
         'comment',

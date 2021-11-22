@@ -7,6 +7,8 @@ use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
 use App\Http\Requests\TourOrderRequest;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
+use App\Mail\TourOrderAdminEmail;
+use App\Mail\TourOrderEmail;
 use App\Models\AccommodationType;
 use App\Models\FaqItem;
 use App\Models\IncludeType;
@@ -19,10 +21,13 @@ use App\Models\TourGroup;
 use App\Models\TourQuestion;
 use App\Services\OrderService;
 use App\Services\TourService;
+use Exception;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TourController extends Controller
 {
@@ -240,6 +245,15 @@ class TourController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
+            try {
+                Mail::send(new TourOrderAdminEmail($order));
+                if (!empty($order->email)) {
+                    Mail::to($order->email)->send(new TourOrderEmail($order));
+                }
+            } catch (Exception $exception) {
+                Log::error($exception->getMessage(), $exception->getTrace());
+            }
+
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
             }

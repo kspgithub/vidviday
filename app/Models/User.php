@@ -86,6 +86,12 @@ class User extends Authenticatable
         'birthday' => 'date:d.m.Y',
     ];
 
+    protected $dates = [
+        'birthday',
+        'created_at',
+        'updated_at',
+    ];
+
     public function staffs()
     {
         return $this->hasMany(Staff::class);

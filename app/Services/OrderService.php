@@ -33,7 +33,7 @@ class OrderService extends BaseService
             'group_type' => (int)$params['group_type'],
             'places' => (int)$params['places'],
             'tour_id' => $params['tour_id'] ?? null,
-            'schedule_id' => (int)$params['schedule_id'] > 0 ? (int)$params['schedule_id'] : null,
+            'schedule_id' => isset($params['schedule_id']) && (int)$params['schedule_id'] > 0 ? (int)$params['schedule_id'] : null,
             'user_id' => $params['user_id'] ?? null,
             'comment' => $params['comment'] ?? '',
             'act_is_needed' => $params['act_is_needed'] ?? 0,
@@ -109,7 +109,7 @@ class OrderService extends BaseService
                             $items['other'] = $params['accommodation']['other_text'] ?? '';
                         }
                     }
-                    
+
                     $order_params['accommodation'] = $items;
                 }
             }

@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Relationship;
 
 use App\Models\OrderNote;
+use App\Models\PaymentType;
 use App\Models\Tour;
 use App\Models\TourSchedule;
 use App\Models\User;
@@ -17,6 +18,11 @@ trait OrderRelationship
     public function tour()
     {
         return $this->belongsTo(Tour::class, 'tour_id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentType::class, 'payment_type');
     }
 
     public function schedule()

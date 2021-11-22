@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
  *
  * @property string $email
  * @property string $password
+ * @property string $role
  * @property string $password_confirmation
  * @property boolean $agree
  *
@@ -37,11 +38,19 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['required'],
             'last_name' => ['required'],
+            'middle_name' => ['nullable'],
             'mobile_phone' => ['required'],
-            'email' => ['required', 'email'],
+            'work_phone' => ['nullable'],
+            'email' => ['required', 'email', Rule::unique('users')],
+            'work_email' => ['nullable', 'email'],
             'password' => ['required', 'confirmed'],
             'role' => ['required', Rule::in(['tourist', 'tour-agent'])],
             'company' => [Rule::requiredIf($this->role === 'tour-agent')],
+            'viber' => ['nullable'],
+            'position' => ['nullable'],
+            'address' => ['nullable'],
+            'website' => ['nullable'],
+            'birthday' => ['nullable'],
         ];
     }
 

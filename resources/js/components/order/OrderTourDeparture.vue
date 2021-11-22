@@ -13,6 +13,7 @@
 
             <form-datepicker
                 name="start_date"
+                label="Оберіть дату*"
                 :disabled="!tour"
                 v-if="group_type === 1 || schedules.length === 0"
                 v-model="start_date"

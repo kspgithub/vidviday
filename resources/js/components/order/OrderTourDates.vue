@@ -57,6 +57,8 @@ export default {
     components: {FormInput, FormDatepicker},
     setup() {
         const store = useStore();
+        store.commit('orderTour/UPDATE_FORM_DATA', {start_date: null, end_date: null});
+
 
         const program_type = computed(() => store.state.orderTour.formData.program_type);
 

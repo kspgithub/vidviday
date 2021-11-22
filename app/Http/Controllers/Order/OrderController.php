@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourOrderRequest;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
+use App\Mail\TourOrderAdminEmail;
+use App\Mail\TourOrderEmail;
 use App\Models\AccommodationType;
 use App\Models\Order;
 use App\Models\PaymentType;
 use App\Services\OrderService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -49,6 +54,15 @@ class OrderController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
+            try {
+                Mail::send(new TourOrderAdminEmail($order));
+                if (!empty($order->email)) {
+                    Mail::to($order->email)->send(new TourOrderEmail($order));
+                }
+            } catch (Exception $exception) {
+                Log::error($exception->getMessage(), $exception->getTrace());
+            }
+
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
             }

@@ -12,12 +12,13 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Номер телефону" name="phone" v-model="phone" mask="+38 (099) 999-99-99"
+                <form-input label="Номер телефону" name="phone" id="order-phone" v-model="phone"
+                            mask="+38 (099) 999-99-99"
                             rules="required|tel"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Email" name="email" v-model="email" rules="required|email"/>
+                <form-input label="Email" name="email" id="order-email" v-model="email" rules="required|email"/>
             </div>
 
             <div class="col-md-6 col-12" v-if="isTourAgent">

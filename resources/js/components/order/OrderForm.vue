@@ -188,9 +188,7 @@ export default {
             store.commit('orderTour/UPDATE_FORM_DATA', {children: 0});
         }
 
-        if (props.orderCorporate) {
-            store.commit('orderTour/UPDATE_FORM_DATA', {group_type: 1});
-        }
+        store.commit('orderTour/UPDATE_FORM_DATA', {group_type: props.orderCorporate ? 1 : 0});
 
         const currentStep = computed(() => store.state.orderTour.currentStep);
         const additional = computed(() => store.state.orderTour.additional);
@@ -199,6 +197,7 @@ export default {
         const group_type = computed(() => store.state.orderTour.formData.group_type);
         const program_type = computed(() => store.state.orderTour.formData.program_type);
         const tour_id = computed(() => store.state.orderTour.formData.tour_id);
+        const formData = computed(() => store.state.orderTour.formData);
 
 
         const conditions = useFormDataProperty('orderTour', 'conditions');
@@ -223,9 +222,9 @@ export default {
                     schema.schedule_id = 'required';
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
-                        schema.start_date = 'required';
+                        schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;
                         schema.start_place = 'required';
-                        schema.end_date = 'required';
+                        schema.end_date = () => !formData.value.start_date ? 'Оберіть дату повернення' : true;
                         schema.end_place = 'required';
                     } else {
                         schema.start_date = 'required';

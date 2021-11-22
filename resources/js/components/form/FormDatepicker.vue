@@ -8,10 +8,9 @@
              @click="toggle()">{{ displayLabel }}
         </div>
         <div class="datepicker-toggle">
-            <div ref="pickerEl" :class="{filled: filled, picked: filled}">
-                <input :name="name" v-model="modelValue" type="hidden">
-            </div>
+            <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
         </div>
+        <input :name="name" :value="innerValue" type="text" class="d-none">
     </div>
 </template>
 
@@ -20,6 +19,7 @@ import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
 import useFormField from "./composables/useFormField";
+import {useField} from "vee-validate";
 
 export default {
     name: "FormDatepicker",
@@ -59,7 +59,10 @@ export default {
     emits: ['update:modelValue', 'onSelect'],
     setup(props, {emit}) {
         const {locale} = useI18nLocal();
-        const field = useFormField(props, emit);
+
+        const {errorMessage, value: innerValue} = useField(props.name, props.rules, {
+            initialValue: props.modelValue
+        });
 
         const pickerRef = ref(null);
         const pickerEl = ref(null);
@@ -109,6 +112,7 @@ export default {
                 maxDate: maxDate.value,
                 onSelect: function (formattedDate, date, ins) {
                     open.value = false;
+                    innerValue.value = formattedDate;
                     emit('update:modelValue', formattedDate);
                     emit('onSelect', {formattedDate, date, ins});
                 },
@@ -156,7 +160,8 @@ export default {
             open,
             toggle,
             close,
-            ...field,
+            errorMessage,
+            innerValue,
         }
     }
 }
