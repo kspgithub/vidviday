@@ -11,7 +11,7 @@
                         <x-swiper-media :slides="$residence->media"/>
 
                         <div class="text text-md">
-                            <p>{!! strip_tags($residence->text) !!}</p>
+                            <p>{!! $residence->text!!}</p>
                         </div>
                     </div>
                 </div>

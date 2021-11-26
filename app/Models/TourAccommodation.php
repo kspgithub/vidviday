@@ -58,4 +58,10 @@ class TourAccommodation extends TranslatableModel
         return $this->hasMany(Media::class, 'model_id', 'accommodation_id')
             ->where('model_type', Accommodation::class);
     }
+
+
+    public function getTextAttribute()
+    {
+        return !empty($this->accommodation) ? $this->accommodation->text : $this->getTranslation('text', $this->getLocale());
+    }
 }
