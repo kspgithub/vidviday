@@ -26,7 +26,8 @@ class DiscountBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [Rule::requiredIf(is_null($this->published)), 'string'],
+            'title' => [Rule::requiredIf(is_null($this->published)), 'array'],
+            'title.uk' => [Rule::requiredIf(is_null($this->published)), 'string'],
             'slug' => ['nullable', 'string'],
             'type' => ['nullable', 'integer'],
             'category' => ['nullable'],
