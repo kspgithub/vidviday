@@ -2,7 +2,7 @@
     <div id="tour-selection-dropdown" class="sidebar-item selection-tour notice">
         <div class="top-part">
             <div class="title h3 light title-icon"><img alt="filter" src="/icon/filter.svg">
-                Підбір туру
+                {{ __('sidebar-section.filter.tour-search') }}
             </div>
             <div class="btn-close light">
                 <span></span>
@@ -15,12 +15,14 @@
                     v-model:date-to="dateTo"
                     :max-date="options.date_to"
                     :min-date="options.date_from"
+                    :from-title="__('sidebar-section.filter.from-date')"
+                    :to-title="__('sidebar-section.filter.to-date')"
                 />
 
                 <form-range v-model="duration"
                             :max="options.duration_to"
                             :min="options.duration_from"
-                            label="Тривалість днів"
+                            :label="__('sidebar-section.filter.duration')"
                             name="duration"
                 />
 
@@ -29,7 +31,7 @@
                             :max="options.price_to"
                             :min="options.price_from"
                             :step="100"
-                            label="Вартість, грн"
+                            :label="__('sidebar-section.filter.price')"
                             name="price"
                 />
 
@@ -49,8 +51,8 @@
                              name="subject"
                 />
 
-                <span class="btn type-3" @click.prevent="clear()">Очистити</span>
-                <span class="btn type-1" @click.prevent="submit()">Підібрати</span>
+                <span class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
+                <span class="btn type-1" @click.prevent="submit()">{{ __('sidebar-section.filter.search') }}</span>
             </form>
         </div>
     </div>

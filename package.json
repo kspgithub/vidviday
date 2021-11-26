@@ -52,6 +52,7 @@
         "select2": "^4.1.0-rc.0",
         "select2-bootstrap-5-theme": "^1.1.1",
         "selectize": "^0.12.6",
+        "sharer.js": "^0.4.2",
         "simplebar": "^5.3.4",
         "sortablejs": "^1.14.0",
         "sumoselect": "^3.3.22",

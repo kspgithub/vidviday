@@ -73,7 +73,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include("home.includes.seo-text")
+        <x-page.regulations/>
         <!-- SEO TEXT END -->
     </main>
 

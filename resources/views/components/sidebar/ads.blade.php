@@ -4,8 +4,8 @@
             <div class="h3 light title-icon">
                 <img src="{{asset('/img/preloader.png')}}"
                      data-img-src="{{asset('/icon/info.svg')}}"
-                     alt="@lang('Advertisement')">
-                @lang('Advertisement')
+                     alt="@lang('idebar-section.ads')">
+                @lang('sidebar-section.ads')
             </div>
         </div>
         <div class="bottom-part">

@@ -3,10 +3,10 @@
     <div class="left-sidebar-inner">
 
         <a href="{{route('order.index')}}" class="btn type-4 arrow-right only-desktop">
-            {{svg('sidebar-tour')}} @lang('Order tour')</a>
+            {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
 
         <a href="{{asset('documents/test-document.pdf')}}" download class="btn type-5 arrow-right only-desktop">
-            {{svg('excel')}} @lang('Download tour schedules')</a>
+            {{svg('excel')}} @lang('sidebar-section.download-schedules')</a>
 
         <x-sidebar.filter/>
 
@@ -21,12 +21,13 @@
                 <div class="gift-icon">
                     <img src="{{asset('/icon/gift.svg')}}" alt="gift">
                 </div>
-                <div class="title h3 light">@lang('Gift<br> certificate')</div>
+                <div class="title h3 light">@lang('sidebar-section.gift-certificate')</div>
                 <a href="{{pageUrlByKey('certificate')}}" class="full-size"></a>
             </div>
         </div>
         <x-sidebar.latest-news/>
-        <x-sidebar.latest-testimonials/>
+        <x-sidebar.latest-testimonials :title="__('sidebar-section.testimonials')"
+                                       :btn-text="__('sidebar-section.all-testimonials')"/>
 
         <x-sidebar.mailing/>
 

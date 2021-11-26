@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class SiteFooter extends Component
 {
 
-    public $contacts = [];
+    public Contact $contact;
     public $menu = [];
 
     /**
@@ -20,7 +20,7 @@ class SiteFooter extends Component
     public function __construct()
     {
         // TODO: Кеширование
-        $this->contacts = Contact::all();
+        $this->contact = Contact::first();
         $this->menu = Menu::whereSlug('footer')->with(['items' => fn($q) => $q->where('parent_id', 0), 'items.children'])->first();
     }
 

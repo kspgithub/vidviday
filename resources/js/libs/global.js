@@ -937,9 +937,9 @@ jQuery(function ($) {
         $('.tab-caption').eq($($(this).attr('href')).index()).addClass('active').siblings().removeClass('active');
     });
 
-    $('.add-to-like').on('click', function () {
-        $(this).toggleClass('active');
-    });
+    // $('.add-to-like').on('click', function () {
+    //     $(this).toggleClass('active');
+    // });
     // Open acordion
     $('.accordion-open-trigger').on('click', function () {
         let link = $(this).attr('href'),

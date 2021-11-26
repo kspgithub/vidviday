@@ -39,7 +39,7 @@
 
             <div class="spacer-lg"></div>
 
-            @include('includes.regulations')
+            <x-page.regulations/>
         </div>
     </main>
 @endsection

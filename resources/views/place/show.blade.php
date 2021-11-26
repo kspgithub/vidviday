@@ -66,43 +66,47 @@
                         </div>
                     </div>
 
-                    <!-- BANNER/INFO END -->
-                    <div class="only-pad-mobile">
-                        <div class="spacer-xs"></div>
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/filter-dark.svg')}}"
-                                alt="filter-dark">Підбір туру</span>
-                        <div class="spacer-xs"></div>
-                    </div>
-                    <div class="spacer-xs"></div>
-                    <h2 class="h2">Ми підібрали тури в які входить це місце:</h2>
-                    <div class="spacer-xs"></div>
-                    <hr>
-                    <div class="spacer-xs"></div>
-                    <div class="tabs">
-
-                        @include('home.includes.tab-nav')
-                        <div class="tabs-wrap">
-                            <!-- TAB #1 -->
-                        @include('home.includes.tab-gallery')
-                        <!-- TAB #1 END -->
-
-                            <!-- TAB #2 -->
-                        @include('home.includes.tab-list')
-                        <!-- TAB #2 END -->
-
-                            <!-- TAB #3 -->
-                            <div class="tab">
-                                <div class="spacer-xs"></div>
-                                <x-tour.calendar :filter="['place_id'=>$place->id ]"/>
-                            </div>
-                            <!-- TAB #3 END -->
+                    <div class=" hidden-print">
+                        <!-- BANNER/INFO END -->
+                        <div class="only-pad-mobile">
+                            <div class="spacer-xs"></div>
+                            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
+                                    src="{{asset('img/preloader.png')}}"
+                                    data-img-src="{{asset('icon/filter-dark.svg')}}"
+                                    alt="filter-dark">Підбір туру</span>
+                            <div class="spacer-xs"></div>
                         </div>
+                        <div class="spacer-xs"></div>
+                        <h2 class="h2  hidden-print">Ми підібрали тури в які входить це місце:</h2>
+                        <div class="spacer-xs"></div>
+                        <hr>
+                        <div class="spacer-xs"></div>
+                        <div class="tabs  hidden-print">
+
+                            @include('home.includes.tab-nav')
+                            <div class="tabs-wrap">
+                                <!-- TAB #1 -->
+                            @include('home.includes.tab-gallery')
+                            <!-- TAB #1 END -->
+
+                                <!-- TAB #2 -->
+                            @include('home.includes.tab-list')
+                            <!-- TAB #2 END -->
+
+                                <!-- TAB #3 -->
+                                <div class="tab">
+                                    <div class="spacer-xs"></div>
+                                    <x-tour.calendar :filter="['place_id'=>$place->id ]"/>
+                                </div>
+                                <!-- TAB #3 END -->
+                            </div>
+                        </div>
+
+                        <!-- ACCORDIONS CONTENT -->
+                    @include('place.includes.testimonials')
+                    <!-- ACCORDIONS CONTENT END -->
                     </div>
 
-                    <!-- ACCORDIONS CONTENT -->
-                @include('place.includes.testimonials')
-                <!-- ACCORDIONS CONTENT END -->
                 </div>
             </div>
             <div class="spacer-lg"></div>

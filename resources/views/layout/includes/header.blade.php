@@ -1,9 +1,9 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/logo.png')}}" alt="logo">
+            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/logo.png')}}" alt="Vidviay">
         </a>
-        <div class="row">
+        <div class="row hidden-print">
             <div class="col-xl-6 col">
                 <div v-is="'header-search'"></div>
             </div>
@@ -45,32 +45,33 @@
                         <ul class="dropdown-toggle">
                             @if(current_user()->isAdmin())
                                 <li>
-                                    <a href="{{route('admin.dashboard')}}">Адміністрування</a>
+                                    <a href="{{route('admin.dashboard')}}">{{__('header-section.administration')}}</a>
                                 </li>
                             @endif
                             <li>
-                                <a href="{{route('profile.index')}}">Особисті дані</a>
+                                <a href="{{route('profile.index')}}">{{__('header-section.personal-data')}}</a>
                             </li>
 
                             <li>
-                                <a href="{{route('profile.orders')}}">Історія замовлень</a>
+                                <a href="{{route('profile.orders')}}">{{__('header-section.order-history')}}</a>
                             </li>
 
                             <li>
-                                <a href="{{route('profile.history')}}">Історія переглядів</a>
+                                <a href="{{route('profile.history')}}">{{__('header-section.browsing-history')}}</a>
                             </li>
 
                             <li>
-                                <a href="{{route('profile.favourites')}}" v-is="'profile-favourite-link'">Улюблені</a>
+                                <a href="{{route('profile.favourites')}}"
+                                   v-is="'profile-favourite-link'">{{__('header-section.favorites')}}</a>
                             </li>
 
                             <li>
-                                <a href="#">Інфо листи</a>
+                                <a href="#">{{__('header-section.info-letters')}}</a>
                             </li>
 
                             <li>
                                 <a href="#"
-                                   onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();">Вихід</a>
+                                   onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();">{{__('header-section.logout')}}</a>
                                 <form id="header-logout-form" action="{{ route('auth.logout') }}" method="POST"
                                       class="d-none">
                                     @csrf
@@ -80,7 +81,7 @@
                         <div class="full-size"></div>
                     </div>
                 @else
-                    <span class="log-in open-popup" data-rel="login-popup">Вхід</span>
+                    <span class="log-in open-popup" data-rel="login-popup">{{__('header-section.login')}}</span>
                 @endif
 
 

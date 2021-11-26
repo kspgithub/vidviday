@@ -1,4 +1,4 @@
-<div class="only-pad-mobile">
+<div class="only-pad-mobile hidden-print">
     <div class="row short-distance">
         <div class="col-md-4 col-12 only-pad">
                                 <span class="btn type-4 arrow-right text-left flex"><img

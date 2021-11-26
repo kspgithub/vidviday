@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class TourController extends Controller
 {
@@ -124,14 +125,21 @@ class TourController extends Controller
             $user->viewTour($tour->id);
         }
 
-        return view('tour.show', [
+        $viewData = [
             'tour' => $tour,
             'future_events' => $future_events,
             'nearest_event' => $nearest_event,
             'similar_tours' => $similar_tours,
             'faq_items' => $faq_items,
             'price_items' => $price_items,
-        ]);
+        ];
+
+//        if ((int)request()->input('print', 0) === 1) {
+//            $pdf = PDF::loadView('tour.show', $viewData);
+//            return $pdf->download($tour->slug . '.pdf');
+//        }
+
+        return view('tour.show', $viewData);
     }
 
 

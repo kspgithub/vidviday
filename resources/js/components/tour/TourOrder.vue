@@ -8,12 +8,12 @@
             </span>
         </div>
 
-        <div>
+        <div class="only-desktop hidden-print">
             <tour-rating :rating="tour.rating" :count="tour.testimonials_count" force-count/>
 
-            <share-dropdown v-if="!corporate"/>
+            <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
 
-            <tour-like-btn v-if="!corporate"/>
+            <tour-like-btn v-if="!corporate" :tour="tour"/>
         </div>
 
         <div class="spacer-xs"></div>
@@ -38,9 +38,14 @@
                     </tooltip>
                 </span>
             </div>
-            <button type="submit" class="btn type-1 btn-block" v-if="!corporate">Замовити Тур</button>
-            <span class="btn type-2 btn-block" @click="showPopup()" v-if="!corporate">Замовити в 1 клік</span>
-            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block" v-if="corporate">Замовити корпоратив</a>
+            <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
+                Замовити Тур
+            </button>
+            <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
+                  v-if="!corporate">Замовити в 1 клік</span>
+            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
+                Замовити корпоратив
+            </a>
         </div>
     </form>
 </template>

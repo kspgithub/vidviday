@@ -22,6 +22,10 @@
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
 
     @stack('after-styles', false)
+
+    <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
@@ -31,26 +35,23 @@
     <!-- HEADER -->
     <div id="header-layer-close"></div>
     <x-site-header/>
+    <!-- END HEADER -->
 
 @yield('content')
-    <!-- FOOTER -->
+
+<!-- FOOTER -->
     <div id="footer-layer-close"></div>
     <x-site-footer/>
+    <!-- END FOOTER -->
 
-@include('includes.search-dropdown')
-
-<!-- BUTTON SCROLL TO TOP -->
+    <!-- BUTTON SCROLL TO TOP -->
     <div class="btn-to-top"></div>
 
     @include('includes.popups')
 
-    @include('includes.video')
-
     @include('layout.includes.toast-notifications')
 </div>
 
-<link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
-<link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 @stack('before-scripts', false)
 @livewireScripts

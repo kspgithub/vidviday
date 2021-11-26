@@ -90,7 +90,7 @@
         </div>
 
         <!-- SEO TEXT -->
-    @include('includes.regulations')
-    <!-- SEO TEXT END -->
+        <x-page.regulations/>
+        <!-- SEO TEXT END -->
     </main>
 @endsection

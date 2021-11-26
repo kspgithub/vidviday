@@ -14,15 +14,15 @@
 
         <x-tour.manager :tour="$tour"/>
 
-        <div class="sidebar-item only-desktop">
-            <a href="{{asset('/document/document.pdf')}}" download class="download">
+        <div class="sidebar-item only-desktop hidden-print">
+            <a download class="download" v-is="'print-btn'">
                 <span class="text-md text-medium">@lang('tours-section.download-tour')</span>
             </a>
         </div>
 
         @include('tour.includes.sidebar-reviews')
 
-        <div class="only-mobile">
+        <div class="only-mobile hidden-print">
             <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
         </div>
     </div>

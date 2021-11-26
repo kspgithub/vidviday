@@ -1,5 +1,5 @@
 <template>
-    <div class="add-to-like">
+    <div class="add-to-like" :class="{active: inFavourites}" @click.stop.prevent="toggleFavourite()">
         <span class="icon">
             <svg width="26" height="25" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -15,8 +15,25 @@
 </template>
 
 <script>
+import {computed} from "vue";
+import {useStore} from "vuex";
+
 export default {
-    name: "TourLikeBtn"
+    name: "TourLikeBtn",
+    props: {
+        tour: Object,
+    },
+    setup({tour}) {
+        const store = useStore();
+        const inFavourites = computed(() => store.getters['user/inFavourites'](tour ? tour.id : 0));
+        const toggleFavourite = async () => {
+            await store.dispatch('user/toggleFavourite', tour.id);
+        }
+        return {
+            inFavourites,
+            toggleFavourite,
+        }
+    }
 }
 </script>
 

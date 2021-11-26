@@ -1,4 +1,4 @@
-<div class="accordion-item">
+<div class="accordion-item  hidden-print">
     <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                             data-img-src="{{asset('/icon/faq.svg')}}"
                                             alt="faq"></span>Питання та відповіді<i></i>

@@ -6,7 +6,7 @@
             </div>
             <div class="text-center">
                 <span class="h2 title text-medium">
-                    {{ searchText ? searchText : 'Проговоріть фразу для пошуку' }}
+                    {{ searchText ? searchText : __('header-section.search-phrase') }}
                 </span>
             </div>
             <div class="voice-search-dots">

@@ -31,16 +31,16 @@
                             <div class="col-12 order-md-1">
                                 <h1 class="h1 title">{{!empty($tour->seo_h1) ? $tour->seo_h1 : $tour->title}}</h1>
                                 <div class="spacer-xs"></div>
-                                <div class="only-pad-mobile">
+                                <div class="only-pad-mobile hidden-print">
 
                                     <x-tour.star-rating :rating="$tour->rating"
                                                         :count="$tour->testimonials_count"
                                                         :trigger="true"
                                     />
 
-                                    <x-tour.share :tour="$tour"/>
+                                    <x-tour.share/>
 
-                                    <x-tour.like-btn :tour="$tour"/>
+                                    <x-tour.like-btn :tour="$tour->shortInfo()"/>
 
                                 </div>
                                 <div class="spacer-xs only-pad-mobile"></div>
@@ -115,8 +115,8 @@
     <!-- THUMBS CAROUSEL END -->
 
         <!-- SEO TEXT -->
-    @include('includes.regulations')
-    <!-- SEO TEXT END -->
+        <x-page.regulations/>
+        <!-- SEO TEXT END -->
     </main>
 
 @endsection

@@ -1,9 +1,8 @@
 @props([
-    'tour' => new \App\Models\Tour(),
     'title' => ''
 ])
 
-<div class="share dropdown">
+<div class="share dropdown hidden-print" v-is="'share-dropdown'" title="{{$title}}">
     <div class="icon">
         <div class="dropdown-btn full-size"></div>
     </div>

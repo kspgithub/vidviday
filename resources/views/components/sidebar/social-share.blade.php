@@ -3,6 +3,7 @@
 ])
 <div {{$attributes->merge(['class'=>'social'])}}>
     <span>Поділитись:</span>
+
     <div class="share dropdown">
         <div class="icon">
             <div class="dropdown-btn full-size"></div>

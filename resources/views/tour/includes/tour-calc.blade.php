@@ -1,4 +1,4 @@
-<div class="accordion-item">
+<div class="accordion-item  hidden-print">
     <div class="accordion-title">
         <span><img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/calculator.svg')}}"
                    alt="calculator"></span>
@@ -12,7 +12,7 @@
               :price-items='@json($price_items)'
 
         >
-            
+
         </form>
     </div>
 </div>

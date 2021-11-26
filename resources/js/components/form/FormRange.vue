@@ -4,8 +4,8 @@
         <input :id="name" :name="name" :value="modelValue.join(',')" type="hidden">
         <div ref="rangeEl" class="slider-range vue-range"></div>
         <div class="text">
-            <span>від <span class="range-min">{{ leftText }}</span></span>
-            <span>до <span class="range-max">{{ rightText }}</span></span>
+            <span>{{ __('sidebar-section.filter.from') }} <span class="range-min">{{ leftText }}</span></span>
+            <span>{{ __('sidebar-section.filter.to') }} <span class="range-max">{{ rightText }}</span></span>
         </div>
     </div>
 </template>

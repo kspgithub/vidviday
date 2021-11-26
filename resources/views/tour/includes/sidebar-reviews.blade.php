@@ -1,5 +1,5 @@
 @if($tour->testimonials->count() > 0)
-    <div class="sidebar-item testimonials only-desktop">
+    <div class="sidebar-item testimonials only-desktop hidden-print">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
                 <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"

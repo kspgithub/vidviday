@@ -386,6 +386,32 @@ class PageSeeder extends Seeder
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
                 'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
+            [
+                'title' => ['uk' => 'Публічна оферта', 'ru' => 'Публичная оферта', 'en' => 'Public offer', 'pl' => 'Oferta publiczna'],
+                'seo_h1' => ['uk' => 'Публічна оферта', 'ru' => 'Публичная оферта', 'en' => 'Public offer', 'pl' => 'Oferta publiczna'],
+                'key' => 'public-offer',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+            ],
+            [
+                'title' => ['uk' => 'Політика приватності', 'ru' => 'Политика конфиденциальности', 'en' => 'Privacy policy', 'pl' => 'Polityka prywatności'],
+                'seo_h1' => ['uk' => 'Політика приватності', 'ru' => 'Политика конфиденциальности', 'en' => 'Privacy policy', 'pl' => 'Polityka prywatności'],
+                'key' => 'privacy-policy',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+            ],
         ];
 
         foreach ($pages as $page) {
