@@ -151,7 +151,7 @@ Route::patch('document/{document}/update-status', [DocumentController::class, 'u
 Route::resource("document", DocumentController::class)->except('show');
 
 // TICKETS
-Route::patch('ticket/{ticket}/update-status', [TicketController::class, 'updateStatus'])->name('update-status');
+Route::patch('ticket/{ticket}/update-status', [TicketController::class, 'updateStatus'])->name('ticket.update-status');
 Route::resource('ticket', TicketController::class)->except('show');
 
 // EVENTS
