@@ -18,12 +18,12 @@
     <div class="{{$inputCol}}">
 
         @foreach(siteLocales() as $lang)
-            <div class="input-group mb-3 multilingual" data-lang="{{$lang}}"
-                 x-show="trans_locale == '{{ $lang }}'">
+            <div class="input-group flex-nowrap mb-3 multilingual" data-lang="{{$lang}}"
+                 x-show="trans_locale == '{{ $lang }}' || trans_expanded">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ strtoupper($lang) }}</span>
                 </div>
-                <div x-data="tiny({uploadUrl: '{{route('admin.editor.upload')}}'})">
+                <div x-data="tiny({uploadUrl: '{{route('admin.editor.upload')}}'})" style="flex: 1 auto">
                         <textarea name="{{$name}}[{{$lang}}]"
                                   x-ref="valueRef"
                                   x-model="value"

@@ -11,8 +11,8 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.schedule.*')}}"
        href="{{route('admin.tour.schedule.index', $tour)}}">@lang('Schedule')</a>
 
-    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.include.*')}}"
-       href="{{route('admin.tour.include.index', $tour)}}">@lang('Finance')</a>
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.finance.*')}}"
+       href="{{route('admin.tour.finance.index', $tour)}}">@lang('Finance')</a>
 
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.plan.*')}}"
        href="{{route('admin.tour.plan.index', $tour)}}">@lang('Plan')</a>

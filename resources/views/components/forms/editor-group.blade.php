@@ -8,10 +8,11 @@
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
-    'rows'=>5
+    'rows'=>5,
+    'ignore'=>'wire:ignore'
 ])
 
-<div class="form-group row mb-3" wire:ignore>
+<div class="form-group row mb-3" {{$ignore}}>
     <label for="{{$id ?? $name}}-editor"
            class="{{$labelCol}} col-form-label">@lang($label)@if(isset($attributes['required'])) <span
             class="text-danger">*</span>@endif</label>

@@ -3,7 +3,7 @@
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
 ])
-<div class="form-group {{$rowClass}}">
+<div class="form-group {{$rowClass}}" x-show="!trans_expanded">
     <div class="col-form-label {{$labelCol }}">
         @lang('Translations')
     </div>

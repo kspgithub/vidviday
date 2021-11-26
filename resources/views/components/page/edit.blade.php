@@ -2,7 +2,9 @@
     'title'=>'',
     'backUrl'=>'',
     'updateUrl'=>'',
-    'edit'=>false
+    'edit'=>false,
+    'expanded'=>false,
+    'containerClass'=>''
 ])
 <div>
     <div class="d-flex justify-content-between">
@@ -14,7 +16,7 @@
             @endif
         </div>
     </div>
-    <div x-data="translatable()">
+    <div x-data="translatable({expanded: {{$expanded ? 'true': 'false'}}})" class="{{$containerClass}}">
         <x-forms.post :action="$updateUrl" enctype="multipart/form-data" x-ref="form">
             @if($edit)
                 @method('PATCH')

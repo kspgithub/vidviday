@@ -21,7 +21,7 @@
     <div class="{{$inputCol}}">
         @foreach(siteLocales() as $lang)
             <div class="input-group mb-3 multilingual" data-lang="{{$lang}}"
-                 x-show="trans_locale == '{{ $lang }}'">
+                 x-show="trans_locale == '{{ $lang }}' || trans_expanded">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{ strtoupper($lang) }}</span>
                 </div>

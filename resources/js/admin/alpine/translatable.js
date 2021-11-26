@@ -1,6 +1,6 @@
-export default () => ({
+export default (options) => ({
     trans_locale: document.documentElement.lang || 'uk',
-
+    trans_expanded: options.expanded || false,
     async submit() {
         let valid = true;
         const inputs = this.$refs.form.querySelectorAll('[required]');
