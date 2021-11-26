@@ -16,7 +16,7 @@
                                         <x-swiper-media :slides="$foodTime->getMedia()"/>
 
                                         <div class="text">
-                                            <p>{{$foodTime->text}}</p>
+                                            {!! $foodTime->text !!}
                                         </div>
                                     </div>
                                 </div>

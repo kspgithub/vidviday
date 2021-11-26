@@ -15,14 +15,20 @@
             @include('admin.tour.includes.edit-tabs')
         </div>
         <div class="col-12 col-md-9 col-xl-10">
-            <x-page.edit :title="__('Create')"
-                         :backUrl="route('admin.tour.finance.index', $tour)"
-                         :updateUrl="route('admin.tour.finance.store', $tour)"
-                         :expanded="true"
-            >
+            <x-bootstrap.card>
+                <x-slot name="body">
+                    <x-page.edit :title="__('Create')"
+                                 :backUrl="route('admin.tour.finance.index', $tour)"
+                                 :updateUrl="route('admin.tour.finance.store', $tour)"
+                                 :expanded="true"
+                    >
 
-                @include('admin.tour.finance.form')
-            </x-page.edit>
+                        @include('admin.tour.finance.form')
+                    </x-page.edit>
+
+                </x-slot>
+            </x-bootstrap.card>
+
 
         </div>
     </div>
