@@ -66,7 +66,7 @@ class DiscountController extends Controller
         $discount->save();
 
         return redirect()->route('admin.discount.index', ['discount' => $discount])
-            ->withFlashSuccess(__('Discount created.'));
+            ->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -111,7 +111,7 @@ class DiscountController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success']);
         }
-        return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Record updated.'));
+        return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -125,6 +125,6 @@ class DiscountController extends Controller
     {
         $discount->delete();
 
-        return redirect()->route('admin.discount.index')->withFlashSuccess(__('Record deleted.'));
+        return redirect()->route('admin.discount.index')->withFlashSuccess(__('Record Deleted'));
     }
 }
