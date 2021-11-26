@@ -47,6 +47,11 @@
                     {!! $tour->contact !!}
                 </div>
             @endif
+            @if(!empty($tour->tour_manager->avatar))
+                <img src="{{$tour->tour_manager->avatar_url}}" data-img-src="{{$tour->tour_manager->avatar_url}}"
+                     class="manager-avatar"
+                     alt="{{$tour->tour_manager->name}}">
+            @endif
         </div>
     </div>
 @endif

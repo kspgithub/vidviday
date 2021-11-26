@@ -44,7 +44,7 @@
             accept=".jpg,.png"
             class="image-uploader"
             :value="$staff->avatar"
-            :storage="true"
+            :preview="$staff->avatar ? $staff->avatar_url : ''"
             imgstyle="height: 200px; width: 200px; object-fit: cover;">
         </x-forms.single-image-upload>
 

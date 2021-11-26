@@ -32,7 +32,8 @@ class StaffsTable extends DataTableComponent
     public function query(): Builder
     {
         $type = $this->getFilter('type');
-        $query = Staff::query()->when(!empty($type), fn($query) => $query->whereHas('types', fn($q) => $q->where('slug', $type)));
+        $query = Staff::query()->when(!empty($type), fn($query) => $query->whereHas('types', fn($q) => $q->where('slug', $type)))
+            ->withCount(['tours']);
 
         return $query;
     }
@@ -75,6 +76,9 @@ class StaffsTable extends DataTableComponent
                 })
                 ->sortable()
                 ->searchable(),
+
+            Column::make(__('Tours'), 'tours_count')
+                ->sortable(),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {

@@ -376,23 +376,35 @@
 				.btn {
 					&.btn-block {
 						width: 100%;
-					}
-				}
-			}
-		}
-		.bottom-part {
-			position: relative;
-			.text-md {
-				color: $title;
-			}
-			> img {
-				right: 0;
-				bottom: 0;
-				width: 50%;
-				position: absolute;
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+
+        .bottom-part {
+            position: relative;
+
+            .text-md {
+                color: $title;
+            }
+
+            > img {
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                position: absolute;
+
+                &.manager-avatar {
+                    height: 150px;
+                    width: 150px;
+                    object-fit: contain;
+                    z-index: -1;
+                }
+            }
+        }
+
+
+    }
 	.single-datepicker {
 		margin-bottom: 15px;
 	}
