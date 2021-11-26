@@ -3,6 +3,11 @@
 @section('title', __('Edit employee'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.staff.index'), 'title'=>__('Staff')],
+['url'=>route('admin.staff.edit', $staff), 'title'=>__('Edit')],
+]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Edit employee')
             <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
