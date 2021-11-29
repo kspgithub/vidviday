@@ -2,7 +2,7 @@
 
 return [
     'order-tour' => 'Замовити тур',
-    'download-schedules' => '"Завантажити розклади турів',
+    'download-schedules' => 'Завантажити розклади турів',
     'gift-certificate' => 'Подарунковий<br> сертифікат',
     'testimonials' => 'Відгуки',
     'all-testimonials' => 'Показати всі відгуки',

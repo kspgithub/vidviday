@@ -11,6 +11,10 @@ class CurrencyDropdown extends Component
 
     public $currencies = [];
 
+    public $current = null;
+
+    public $currentCurrencyRate = 1.0;
+
     public $currentCurrencyISO = 'UAH';
 
     public $currentCurrencySymbol = '₴';
@@ -24,11 +28,14 @@ class CurrencyDropdown extends Component
     {
         //
         $this->currencies = Cache::rememberForever('currencies', function () {
-            return Currency::all()->pluck('symbol', 'iso')->toArray();
+            return Currency::all();
         });
 
         $this->currentCurrencyISO = session('currency', 'UAH');
-        $this->currentCurrencySymbol = $this->currencies[$this->currentCurrencyISO];
+        $this->current = $this->currencies->where('iso', $this->currentCurrencyISO)->first();
+        $this->currentCurrencySymbol = $this->current->symbol ?? 'UAH';
+        $this->currentCurrencyRate = $this->current->course ?? 1.0;
+
     }
 
     /**

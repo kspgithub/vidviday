@@ -6,7 +6,7 @@ use App\Models\Traits\Attributes\TourAttribute;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Methods\TourMethods;
 use App\Models\Traits\Relationship\TourRelationship;
-use App\Models\Traits\Scope\HasJsonTitleScope;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\TourScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
@@ -44,7 +44,7 @@ class Tour extends TranslatableModel implements HasMedia
     use TourScope;
     use HasTranslatableSlug;
     use UseSelectBox;
-    use HasJsonTitleScope;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',

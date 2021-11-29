@@ -1,7 +1,7 @@
 <div class="accordion-item">
     <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                             data-img-src="{{asset('/icon/meal.svg')}}"
-                                            alt="meal"></span>Харчування<i></i></div>
+                                            alt="meal"></span>@lang('tours-section.food')<i></i></div>
     <div class="accordion-inner">
         <div class="accordion type-2">
             @foreach($tour->group_food_items as $foodDay)

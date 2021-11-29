@@ -3,18 +3,19 @@
 @section('title', __('New Translation'))
 
 @section('content')
-{{--    <div class="mb-2">--}}
-{{--        {!! breadcrumbs([--}}
-{{--            ['url'=>route('admin.dashboard'), 'title'=>__('Home')],--}}
-{{--            ['url'=>route('admin.translation.index'), 'title'=>__('Translations')],--}}
-{{--            ['url'=>route('admin.translation.create'), 'title'=>__('New Translation')],--}}
-{{--        ]) !!}--}}
-{{--    </div>--}}
+    <div class="mb-2">
+        {!! breadcrumbs([
+            ['url'=>route('admin.dashboard'), 'title'=>__('Home')],
+            ['url'=>route('admin.translation.index'), 'title'=>__('Translations')],
+            ['url'=>route('admin.translation.create'), 'title'=>__('New Translation')],
+        ]) !!}
+    </div>
     <div class="d-flex justify-content-between">
         <h1>{{__('New Translation')}}</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.translation.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
+            <a href="{{route('admin.translation.index', request()->all())}}"
+               class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
         </div>
     </div>
 

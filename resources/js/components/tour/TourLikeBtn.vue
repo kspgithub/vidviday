@@ -8,8 +8,8 @@
             </svg>
         </span>
         <span class="text">
-            <span>В улюблені</span>
-            <span>В улюблених</span>
+            <span>{{ __('tours-section.to-favorites') }}</span>
+            <span>{{ __('tours-section.in-favorites') }}</span>
         </span>
     </div>
 </template>

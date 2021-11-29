@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-trait HasJsonTitleScope
+trait JsonLikeScope
 {
     /**
      * @param QueryBuilder|EloquentBuilder|Relation $query

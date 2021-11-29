@@ -1,7 +1,7 @@
 <div class="accordion-item">
     <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                             data-img-src="{{asset('/icon/wallet.svg')}}"
-                                            alt="wallet"></span>Фінанси<i></i></div>
+                                            alt="wallet"></span>@lang('tours-section.finances')<i></i></div>
     <div class="accordion-inner">
         <div class="accordion type-2">
             @foreach($tour->group_tour_includes as $idx => $type)

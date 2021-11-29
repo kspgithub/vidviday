@@ -11,12 +11,13 @@
                 <a class="btn type-5 arrow-right text-left flex" download
                    href="/documents/test-document.pdf"><img
                     alt="tours scedule dark"
-                    src="/icon/tours-scedule-dark.svg">Завантажити розклади турів</a>
+                    src="/icon/tours-scedule-dark.svg">{{ __('sidebar-section.download-schedules') }}</a>
             </div>
 
             <div class="col-md-4 col-12">
                 <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                    <img alt="filter-dark" src="/icon/filter-dark.svg">Підбір туру</span>
+                    <img alt="filter-dark"
+                         src="/icon/filter-dark.svg">{{ __('sidebar-section.download-schedules') }}</span>
             </div>
         </div>
         <div class="spacer-sm"></div>

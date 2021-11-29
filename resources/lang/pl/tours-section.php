@@ -1,19 +1,48 @@
 <?php
 
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Мовні ресурси турів
-    |--------------------------------------------------------------------------
-    |
-    |
-    */
-
-    'sorting' => [
-        'price-asc' => 'Від найдешевшого',
-        'price-desc' => 'Від найдорожчого',
-        'created-desc' => 'Від новішого',
-        'created-asc' => 'Від старішого',
-    ],
-
-];
+return array (
+  'sorting' => array (
+    'price-asc' => 'Od najtańszego',
+    'price-desc' => 'Od najdroższych',
+    'created-desc' => 'Od nowszych',
+    'created-asc' => 'Od starszego',
+  ),
+  'search-btn' => 'Wybór wycieczki',
+  'empty-results' => 'Przepraszamy, nie znaleziono nic dla Twojego zapytania',
+  'empty-proposal' => 'Sugerujemy zacząć od strony głównej',
+  'go-home' => 'Dom',
+  'popular-title' => 'Popularne wycieczki',
+  'found' => 'Znaleziony',
+  'one_tour' => 'wycieczka',
+  'two_tours' => 'wycieczki',
+  'many_tours' => 'wycieczki',
+  'on_request' => 'na prośbę:',
+  'expand-all' => 'Rozwiń wszystko',
+  'collapse-all' => 'Zwiń wszystko',
+  'order' => 'Zamówienie',
+  'order-tour' => 'Zamów wycieczkę',
+  'order-one-click' => 'Zamów w 1 kliknięcie',
+  'order-corporate' => 'Zamów imprezę firmową',
+  'download-tour' => 'Pobierz do druku',
+  'popup-date-title' => 'Wybierz datę wycieczki',
+  'date-title' => 'Wybierz datę',
+  'price' => 'Cena:',
+  'places' => 'Miejsca',
+  'cost' => 'Koszt',
+  'commission' => 'Prowizja agenta',
+  'days-letter' => 'd',
+  'nights-letter' => 'n',
+  'similar-tours' => 'Podobne wycieczki',
+  'show-more' => 'Pokaż więcej',
+  'hide-more' => 'Ukrywać',
+  'schedule' => 'Harmonogram',
+  'seats' => 'miejsca',
+  'no-seats' => 'Brak miejsc',
+  'departure-return-dates' => 'Daty wyjazdu i powrotu',
+  'read-more' => 'Czytaj więcej',
+  'hide-text' => 'Ukryj tekst',
+  'all-tours' => 'Wszystkie wycieczki',
+  'gallery' => 'Galeria',
+  'list' => 'Lista',
+  'calendar' => 'Kalendarz',
+);

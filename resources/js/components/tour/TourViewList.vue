@@ -8,7 +8,7 @@
         </div>
 
         <div v-if="currentPage < lastPage" class="text-center">
-            <a class="btn type-2" @click.prevent="nextPage()">Показати ще {{ perPage }}</a>
+            <a class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</a>
         </div>
     </div>
 </template>

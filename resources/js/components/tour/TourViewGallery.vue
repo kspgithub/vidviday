@@ -11,7 +11,9 @@
             <div v-if="currentPage < lastPage" class="col-12">
                 <div class="spacer-xs"></div>
                 <div class="text-center">
-                    <a class="btn type-2" @click.prevent="nextPage()">Показати ще {{ perPage }}</a>
+                    <a class="btn type-2" @click.prevent="nextPage()">
+                        {{ __('tours-section.show-more') }} {{ perPage }}
+                    </a>
                 </div>
             </div>
         </div>

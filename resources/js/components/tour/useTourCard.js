@@ -5,47 +5,7 @@ import {useStore} from "vuex";
 
 
 export const useTourCard = (tour) => {
-    const {t} = useI18nLocal({
-        messages: {
-            uk: {
-                days: 'д',
-                nights: 'н',
-                peoples: '{count} людей',
-                more: 'Більше',
-                commission: 'Комісія агента',
-                order: 'Замовити Тур',
-                price: 'Ціна',
-            },
-            ru: {
-                days: 'д',
-                nights: 'н',
-                peoples: '{count} человек',
-                more: 'Больше',
-                commission: 'Комиссия агента',
-                order: 'Заказать Тур',
-                price: 'Цена',
-            },
-            en: {
-                days: 'd',
-                nights: 'n',
-                peoples: '{count} peoples',
-                more: 'More',
-                commission: 'Agent commission',
-                order: 'Order Tour',
-                price: 'Price',
 
-            },
-            pl: {
-                days: 'd',
-                nights: 'n',
-                peoples: '{count} osób',
-                more: 'Więcej',
-                commission: 'Prowizja agenta',
-                order: 'Zamów wycieczkę',
-                price: 'Cena',
-            },
-        }
-    })
 
     const store = useStore();
 
@@ -82,8 +42,21 @@ export const useTourCard = (tour) => {
     onMounted(() => {
         imageSrc.value = tour.main_image;
     })
-
+    const currencyIso = computed(() => store.getters['currency/iso']);
+    const currencyTitle = computed(() => store.getters['currency/title']);
+    const currencyRate = computed(() => store.getters['currency/rate']);
+    const currencyPrice = computed(() => {
+        return currentSchedule.value ? (currentSchedule.value.price / currencyRate.value).toFixed(0) : (tour.price / currencyRate.value).toFixed(0);
+    })
+    const currencyCommission = computed(() => {
+        return currentSchedule.value ? (currentSchedule.value.commission / currencyRate.value).toFixed(0) : (tour.commission / currencyRate.value).toFixed(0);
+    })
     return {
+        currencyTitle,
+        currencyIso,
+        currencyRate,
+        currencyPrice,
+        currencyCommission,
         tourTitle,
         shortText,
         scheduleId,
@@ -91,7 +64,6 @@ export const useTourCard = (tour) => {
         changeSchedule,
         toggleFavourite,
         schedules,
-        t,
         imageSrc,
         inFavourites,
     }

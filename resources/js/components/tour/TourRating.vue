@@ -11,7 +11,7 @@
 
 <script>
 import {pluralizeValue} from "../../utils/string";
-
+import {trans} from '../../i18n/lang';
 export default {
     name: "TourRating",
     props: {
@@ -26,7 +26,7 @@ export default {
         forceCount: Boolean
     },
     setup(props) {
-        const title = pluralizeValue(props.count, 'відгук', 'відгука', 'відгуків');
+        const title = pluralizeValue(props.count, trans('tours-section.one_review'), trans('tours-section.two_reviews'), trans('tours-section.many_reviews'));
         return {
             title,
         }

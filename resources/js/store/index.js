@@ -28,6 +28,7 @@ import userQuestion from './modules/user-question';
 import user from './modules/user';
 import analytics from './modules/analytics';
 import profileOrders from './modules/profile-orders';
+import currency from './modules/currency';
 
 const store = createStore({
     modules: {
@@ -41,6 +42,7 @@ const store = createStore({
         user,
         analytics,
         profileOrders,
+        currency,
     },
     plugins: plugins,
 });

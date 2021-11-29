@@ -7,7 +7,8 @@
             <div class="title h3 light title-icon">
                 <img src="{{asset('/img/preloader.png')}}"
                      data-img-src="{{asset('/icon/headphones.svg')}}"
-                     alt="headphones">Менеджер туру
+                     alt="headphones">
+                @lang('tours-section.tour-manager')
             </div>
         </div>
         <div class="bottom-part">

@@ -30,39 +30,41 @@
             </div>
             <div class="thumb-info">
                 <span class="thumb-info-time text">
-                    {{ tour.duration + t('days') }} / {{ tour.nights + t('nights') }}
+                    {{
+                        tour.duration + __('tours-section.days-letter')
+                    }} / {{ tour.nights + __('tours-section.nights-letter') }}
                 </span>
                 <span class="thumb-info-people text">
                     {{
                         currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
                     }}
                     <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
-                        На обрану Вами дату немає вільних місць ви можете замовити тур
-                        і якщо місця з'являться, ми повідомимо Вас про це.
+                        {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>
 
             </div>
             <div v-if="currentSchedule" class="thumb-price">
                 <span class="text">
-                    Ціна:<span>{{ currentSchedule ? currentSchedule.price : tour.price }}</span><i>грн</i>
+                    {{ __('tours-section.price') }}
+                    <span>{{ currencyPrice }}</span>
+                    <i>{{ currencyTitle }}</i>
                 </span>
                 <span v-if="currentSchedule.commission > 0" class="discount">
-                    {{ currentSchedule.commission }} грн.
-                    <tooltip class="red">{{ t("commission") }}</tooltip>
-
+                    {{ currencyCommission }} {{ currencyTitle }}
+                    <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>
                 </span>
             </div>
 
             <a :href="'/tour/'+tour.id + '/order?schedule='+scheduleId" class="btn type-1 btn-block">
-                {{ t("order") }}
+                {{ __('tours-section.order-tour') }}
             </a>
         </div>
 
         <div class="thumb-desc text">
             <p>
                 {{ shortText }}
-                <a :href="tour.url" class="btn btn-read-more text-bold">{{ t("more") }}</a>
+                <a :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
             </p>
         </div>
     </div>
@@ -75,6 +77,8 @@ import FormSelect from "../form/FormSelect";
 import {useTourCard} from "./useTourCard";
 import Tooltip from "../common/Tooltip";
 import SvgIcon from "../svg/SvgIcon";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
     name: "TourCard",
@@ -93,7 +97,6 @@ export default {
         likeBtn: Boolean
     },
     setup({tour}) {
-
 
         return {
             ...useTourCard(tour),

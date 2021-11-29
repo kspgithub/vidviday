@@ -6,6 +6,7 @@ export default {
         app.component('sign-up-form', require('./auth/SignUpForm').default);
 
         app.component('lang-dropdown', require('./header/LangDropdown').default);
+        app.component('currency-dropdown', require('./header/CurrencyDropdown').default);
         app.component('header-search', require('./header/HeaderSearch').default);
         app.component('header-voice-popup', require('./header/HeaderVoicePopup').default);
 

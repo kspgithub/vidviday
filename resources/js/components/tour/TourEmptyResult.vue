@@ -2,24 +2,26 @@
     <div>
         <div class="only-pad-mobile">
             <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                <img alt="filter-dark" src="/icon/filter-dark.svg">Підбір туру
+                <img alt="filter-dark" src="/icon/filter-dark.svg">{{ __('tours-section.search-btn') }}
             </span>
             <div class="spacer-xs"></div>
         </div>
         <div class="section text-center">
             <div class="spacer-xs"></div>
-            <h1 class="h1 title">Нажаль, за вашим запитом нічого не знайдено</h1>
+            <h1 class="h1 title">
+                {{ __('tours-section.empty-results') }}
+            </h1>
             <div class="text text-md">
-                <p>Пропонуємо почати з головної сторінки</p>
+                <p>{{ __('tours-section.empty-proposal') }}</p>
             </div>
             <div class="spacer-xs"></div>
-            <a class="btn type-1" href="/">На головну</a>
+            <a class="btn type-1" href="/">{{ __('tours-section.go-home') }}</a>
             <div class="spacer-lg"></div>
             <hr>
             <div class="spacer-xs"></div>
         </div>
 
-        <tour-slider v-if="popularTours.length" :tours="popularTours" title="Популярні тури"/>
+        <tour-slider v-if="popularTours.length" :tours="popularTours" :title="__('tours-section.popular-title')"/>
     </div>
 
 </template>

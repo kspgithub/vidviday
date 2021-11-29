@@ -1,7 +1,7 @@
 <div class="accordion-item">
     <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                             data-img-src="{{asset('/icon/tickets.svg')}}"
-                                            alt="tickets"></span>Вхідні квитки<i></i>
+                                            alt="tickets"></span>@lang('tours-section.entrance-tickets')<i></i>
     </div>
     <div class="accordion-inner">
         @foreach($tour->tickets as $ticket)

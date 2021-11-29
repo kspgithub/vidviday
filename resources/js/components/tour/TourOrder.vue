@@ -1,10 +1,10 @@
 <template>
     <form method="get" :action="action">
         <div class="thumb-price">
-            <span class="text">Ціна:<span>{{ price }}</span><i>грн</i></span>
+            <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
             <span class="discount" v-if="commission > 0">
-                {{ commission }} грн.
-                <tooltip variant="red">Комісія агента</tooltip>
+                {{ currencyCommission }} {{ currencyTitle }}
+                <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
         </div>
 
@@ -29,22 +29,25 @@
 
             </div>
             <div class="thumb-info">
-                <span class="thumb-info-time text">{{ tour.duration }}д / {{ tour.nights }}н</span>
+                <span class="thumb-info-time text">
+                    {{ tour.duration }}{{ __('tours-section.days-letter') }} / {{
+                        tour.nights
+                    }}{{ __('tours-section.nights-letter') }}
+                </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">
                     {{ places > 10 ? '10+' : places }}
                     <tooltip v-if="places === 0" variant="black">
-                        На обрану Вами дату немає вільних місць ви можете замовити тур
-                        і якщо місця з'являться, ми повідомимо Вас про це.
+                        {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>
             </div>
             <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
-                Замовити Тур
+                {{ __('tours-section.order-tour') }}
             </button>
             <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
-                  v-if="!corporate">Замовити в 1 клік</span>
+                  v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
-                Замовити корпоратив
+                {{ __('tours-section.order-corporate') }}
             </a>
         </div>
     </form>
@@ -100,7 +103,18 @@ export default {
             store.commit('orderTour/SET_CALENDAR_OPEN', true);
         }
 
+        const currencyTitle = computed(() => store.getters['currency/title']);
+        const currencyRate = computed(() => store.getters['currency/rate']);
+        const currencyPrice = computed(() => {
+            return (price.value / currencyRate.value).toFixed(0);
+        })
+        const currencyCommission = computed(() => {
+            return (commission.value / currencyRate.value).toFixed(0);
+        })
         return {
+            currencyTitle,
+            currencyPrice,
+            currencyCommission,
             schedule_id,
             departureOptions,
             selectedSchedule,
