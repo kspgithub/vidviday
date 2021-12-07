@@ -142,7 +142,7 @@ class PageSeeder extends Seeder
                 ],
                 'video' => 'https://www.youtube.com/embed/BMQQQynlrn4',
                 'key' => 'vacancies',
-                'images' => [url('/img/banner-img_14.jpg')],
+                //'images' => [url('/img/banner-img_14.jpg')],
                 'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
