@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Tour;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TourBasicRequest;
+use App\Models\Badge;
 use App\Models\Currency;
+use App\Models\Direction;
+use App\Models\Staff;
 use App\Models\Tour;
+use App\Models\TourGroup;
+use App\Models\TourSubject;
+use App\Models\TourType;
 use App\Services\TourService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -42,10 +49,24 @@ class TourController extends Controller
         $tour = new Tour();
         $tour->currency = 'UAH';
         $currencies = Currency::toSelectBox('iso', 'iso');
+        $badges = Badge::all();
+        $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
+        $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
+        $groups = TourGroup::toSelectBox();
+        $types = TourType::toSelectBox();
+        $subjects = TourSubject::toSelectBox();
+        $directions = Direction::toSelectBox();
 
         return view('admin.tour.create', [
-            'tour'=>$tour,
-            'currencies'=>$currencies,
+            'tour' => $tour,
+            'currencies' => $currencies,
+            'badges' => $badges,
+            'guides' => $guides,
+            'managers' => $managers,
+            'groups' => $groups,
+            'types' => $types,
+            'subjects' => $subjects,
+            'directions' => $directions,
         ]);
     }
 
@@ -54,19 +75,20 @@ class TourController extends Controller
      *
      * @param TourBasicRequest $request
      *
-     * @throws \App\Exceptions\GeneralException
-     *
      * @return Response
+     * @throws GeneralException
+     *
      */
     public function store(TourBasicRequest $request)
     {
         //
         $tour = $this->service->store($request->validated());
 
-        return redirect()->route('admin.tour.picture.index', ['tour'=>$tour])->withFlashSuccess(__('Tour created.'));
+        return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Tour created.'));
     }
 
-    public function show(Tour $tour){
+    public function show(Tour $tour)
+    {
         return redirect()->route('admin.tour.edit', $tour);
     }
 
@@ -81,10 +103,24 @@ class TourController extends Controller
     {
         //
         $currencies = Currency::toSelectBox('iso', 'iso');
+        $badges = Badge::all();
+        $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
+        $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
+        $groups = TourGroup::toSelectBox();
+        $types = TourType::toSelectBox();
+        $subjects = TourSubject::toSelectBox();
+        $directions = Direction::toSelectBox();
 
         return view('admin.tour.edit', [
-            'tour'=>$tour,
-            'currencies'=>$currencies,
+            'tour' => $tour,
+            'currencies' => $currencies,
+            'badges' => $badges,
+            'guides' => $guides,
+            'managers' => $managers,
+            'groups' => $groups,
+            'types' => $types,
+            'subjects' => $subjects,
+            'directions' => $directions,
         ]);
     }
 
@@ -132,6 +168,6 @@ class TourController extends Controller
     {
         $tour->published = (int)$request->input('published');
         $tour->save();
-        return response()->json(['result'=>'Success']);
+        return response()->json(['result' => 'Success']);
     }
 }

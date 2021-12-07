@@ -4,9 +4,15 @@ namespace App\Console\Commands;
 
 use App\Models\LanguageLine;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class ImportTranslations extends Command
 {
+
+    protected $allLines;
+
+    protected $locales = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -38,26 +44,93 @@ class ImportTranslations extends Command
      */
     public function handle()
     {
-        $locale = $this->argument('locale');
+        if ($this->hasArgument('truncate') && (bool)$this->argument('truncate') === true) {
+            LanguageLine::truncate();
+        }
 
-        if (!file_exists(resource_path("lang/$locale.json"))) {
-            $this->error(__('File :file not found.', ['file'=>"lang/$locale.json"]));
-        } else {
-            $json = json_decode(file_get_contents(resource_path("lang/$locale.json")), true);
-            foreach ($json as $key=>$value) {
-                $line = LanguageLine::query()
-                    ->where('group', '*')
-                    ->where('key', $key)->first();
-                if ($line === null) {
-                    LanguageLine::create([
-                        'group' => '*',
-                        'key' => $key,
-                        'text' => ['en' => $key, 'uk' => $value, 'ru' => $value, 'pl'=>$key],
-                    ]);
-                }
+        $this->locales = siteLocales();
+        $languagePath = resource_path("lang");
+
+
+        $this->allLines = LanguageLine::orderBy('group')->get();
+
+        $files = File::files($languagePath);
+        foreach ($files as $file) {
+            if ($file->getExtension() === 'json') {
+                $this->importJsonFile($file);
             }
         }
 
+        $directories = File::directories($languagePath);
+        foreach ($directories as $directory) {
+            $this->importDirectory($directory);
+        }
+
+
         return 0;
+    }
+
+    private function importJsonFile($file)
+    {
+        $fileLocale = $file->getFilenameWithoutExtension();
+        if (in_array($fileLocale, $this->locales)) {
+            $json = json_decode(file_get_contents($file->getRealPath()), true);
+            foreach ($json as $key => $value) {
+                $this->createOrUpdate('*', $key, $fileLocale, $value);
+            }
+        }
+    }
+
+
+    public function importDirectory($path)
+    {
+        $locale = basename($path);
+        if (in_array($locale, $this->locales)) {
+            $files = File::files($path);
+            foreach ($files as $file) {
+                $group = $file->getFilenameWithoutExtension();
+                $data = include $file->getRealPath();
+                foreach ($data as $key => $value) {
+                    if (is_array($value)) {
+                        $this->importArray($group, $key, $locale, $value);
+                    } else {
+                        $this->createOrUpdate($group, $key, $locale, $value);
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+    public function importArray($group, $parentKey, $locale, $array)
+    {
+        foreach ($array as $key => $value) {
+            $subKey = $parentKey . '.' . $key;
+            if (is_array($value)) {
+                $this->importArray($group, $subKey, $locale, $value);
+            } else {
+                $this->createOrUpdate($group, $subKey, $locale, $value);
+            }
+        }
+    }
+
+    public function createOrUpdate($group, $key, $locale, $value)
+    {
+        $languageLine = $this->allLines->where('group', $group)->where('key', $key)->first();
+        if (empty($languageLine)) {
+            $languageLine = new LanguageLine();
+            $languageLine->group = $group;
+            $languageLine->key = $key;
+            $languageLine->text = [$locale => $value];
+            $languageLine->save();
+            $this->allLines->push($languageLine);
+        } else {
+            $text = $languageLine->text ?? [];
+            $text[$locale] = $value;
+            $languageLine->text = $text;
+            $languageLine->save();
+        }
     }
 }

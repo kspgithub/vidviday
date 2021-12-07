@@ -23,6 +23,9 @@ class TourAccommodationFactory extends Factory
     {
         return [
             //
+            'title' => $this->faker->text(50),
+            'text' => $this->faker->text(500),
+            'published' => 1
         ];
     }
 }

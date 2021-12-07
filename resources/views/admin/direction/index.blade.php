@@ -1,15 +1,19 @@
 @extends('admin.layout.app')
 
-@section('title', __('direction management'))
+@section('title', __('Directions'))
 
 @section('content')
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+    ['url'=>route('admin.direction.index'), 'title'=>__('Directions')],
+    ]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Direction management')</h1>
+        <h1>@lang('Directions')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.direction.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create direction')</a>
-            @endif
+            <a href="{{route('admin.direction.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="plus"></i> @lang('Create Record')</a>
         </div>
     </div>
 
@@ -20,10 +24,10 @@
                 <thead>
                 <tr>
 
-                    <th>@lang('title')</th>
+                    <th>@lang('Title')</th>
                     <th>@lang('Url')</th>
-                    <th>@lang('Locale')</th>
                     <th>@lang('Media')</th>
+                    <th>@lang('Published')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -32,14 +36,14 @@
                     <tr>
                         <td>{{$direction->title}}</td>
                         <td>{{$direction->slug}}</td>
-                        <td>{{app()->getLocale()}}</td>
-                        <td><a href="{{route('admin.direction.media.index', ['direction'=>$direction])}}" class="badge bg-info"><span>{{$direction->media_count}}</span></a></td>
+                        <td><span class="badge bg-info">{{$direction->media_count}}</span></td>
+                        <td>
+                            @include('admin.partials.published', ['model' => $direction, 'updateUrl' => route('admin.direction.update', $direction)])
+                        </td>
                         <td class="table-action">
-
-                            <x-utils.edit-button :href="route('admin.direction.edit', ['direction'=>$direction])" text="" />
-                            @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.direction.destroy', $direction)" text="" />
-                            @endif
+                            <x-utils.edit-button :href="route('admin.direction.edit', ['direction'=>$direction])"
+                                                 text=""/>
+                            <x-utils.delete-button :href="route('admin.direction.destroy', $direction)" text=""/>
                         </td>
                     </tr>
                 @endforeach

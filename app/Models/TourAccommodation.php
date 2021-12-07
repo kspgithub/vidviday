@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -13,23 +18,22 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperTourAccommodation
  */
-class TourAccommodation extends Model
+class TourAccommodation extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
 
     public $translatable = [
-        'description',
+        'text',
+        'title',
     ];
 
 
     protected $fillable = [
         'tour_id',
         'accommodation_id',
-        'type_id',
         'title',
         'text',
-        'slug',
     ];
 
 
@@ -43,8 +47,21 @@ class TourAccommodation extends Model
         return $this->belongsTo(Accommodation::class, 'accommodation_id');
     }
 
-    public function type()
+    public function types()
     {
-        return $this->belongsTo(AccommodationType::class, 'type_id');
+        return $this->belongsToMany(AccommodationType::class, 'tour_accomm_types', 'accomm_id', 'type_id');
+    }
+
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'model_id', 'accommodation_id')
+            ->where('model_type', Accommodation::class);
+    }
+
+
+    public function getTextAttribute()
+    {
+        return !empty($this->accommodation) ? $this->accommodation->text : $this->getTranslation('text', $this->getLocale());
     }
 }

@@ -44,6 +44,7 @@ nav,
 .btn-read-more.left-arrow:before,
 .btn-read-more:after,
 .show-more,
+.show-more-btn,
 .btn-fb path,
 .btn-google path,
 .btn-to-top,
@@ -70,7 +71,9 @@ nav,
 .text-sm.open-popup,
 .text-md.open-popup,
 .show-more:before,
+.show-more-btn:before,
 .show-more:after,
+.show-more-btn:after,
 .expand-all:before,
 .expand-all:after,
 .tab-title:after,
@@ -130,5 +133,57 @@ nav,
 #voice-search-btn svg,
 .search-toggle .text,
 .search-toggle-footer .text {
-	transition: all .44s ease-in-out;
+    transition: all .44s ease-in-out;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s linear;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.tabs-fade {
+    position: relative;
+
+    .fade-leave-to {
+        position: absolute;
+    }
+}
+
+
+.slide-enter-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to, .slide-leave {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.slide-enter, .slide-leave-to {
+    overflow: hidden;
+    max-height: 0;
 }

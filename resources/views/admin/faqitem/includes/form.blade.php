@@ -1,28 +1,26 @@
-<x-bootstrap.card>
+<div class="row">
+    <label class="form-label col-md-2" for="section">Розділ <span style="color: red">*</span></label>
+    <div class="col-md-10">
+        <select class="form-select form-control" maxlength="100" name="section" id="section">
+            @foreach(\App\Models\FaqItem::$sections as $value=>$title)
+                <option
+                    value="{{$value}}" {{old('question', $faqitem->section) === $value ? 'selected' : ''}}>{{$title}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<br>
+<x-forms.textarea-group name="question" :label="__('Question')"
+                        :value="old('question', $faqitem->question)"
+                        required></x-forms.textarea-group>
 
-    <x-slot name="header">
-        <h3>@lang('Faq')</h3>
-    </x-slot>
 
-    <x-slot name="body">
-        <div class="row">
-            <label class="form-label col-md-2" for="Section">Section <span style="color: red">*</span></label>
-            <div class="col-md-10">
-            <select class="form-select" maxlength="100" class="form-control" name="section" value="old('section', $faqitem->section)">
-                <option value="common">Загальні запитання</option>
-                <option value="corporate">Корпоративні запитання</option>
-                <option value="tourist">Туристичні запитання</option>
-                <option value="tour-agen">Запитання тур-аґенту</option>
-                <option value="certificate">Запит, щодо сертифікатів</option>
-            </select>
-            </div>
-            </div>
-            <br>
-        <x-forms.text-group name="question" :label="__('question')" :value="old('question', $faqitem->question)" maxlength="100" required ></x-forms.text-group>
+<x-forms.textarea-group name="answer" :label="__('Answer')"
+                        :value="old('answer', $faqitem->answer)"
+                        required></x-forms.textarea-group>
 
-        <x-forms.text-group name="answer" :label="__('answer')" :value="old('answer', $faqitem->answer)" maxlength="100" ></x-forms.text-group>
 
-    </x-slot>
-
-</x-bootstrap.card>
-
+<x-forms.switch-group
+    name="published" :label="__('Published')"
+    :value="old('published', $faqitem->published)"
+></x-forms.switch-group>

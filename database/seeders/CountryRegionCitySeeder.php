@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use App\Models\Country;
+use App\Models\District;
 use App\Models\Region;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
@@ -24,12 +25,13 @@ class CountryRegionCitySeeder extends Seeder
         //
         $this->disableForeignKeys();
 
-        $this->truncateMultiple(['cities', 'regions', 'countries']);
+        $this->truncateMultiple(['cities', 'regions', 'districts', 'countries']);
 
         /** 1. Empty 3 tables **/
         DB::statement('truncate table countries');
         DB::statement('truncate table regions');
         DB::statement('truncate table cities');
+        DB::statement('truncate table districts');
 
         DB::statement('drop table if exists located_area');
         DB::statement('drop table if exists located_countrys');
@@ -61,26 +63,39 @@ class CountryRegionCitySeeder extends Seeder
         $located_region = collect(DB::select('select * from located_region'))->map(function ($reg) {
             return [
                 'country_id' => Country::DEFAULT_COUNTRY_ID,
-                'title'=> json_encode([
+                'title' => json_encode([
                     'uk' => $reg->region,
                 ], JSON_UNESCAPED_UNICODE),
-                'slug' => Str::slug($reg->region)
+                'slug' => $reg->id . '-' . Str::slug($reg->region)
             ];
         })->toArray();
         Region::insert($located_region);
 
 
+        $located_area = collect(DB::select('select * from located_area'))->map(function ($area) {
+            return [
+                'country_id' => Country::DEFAULT_COUNTRY_ID,
+                'region_id' => $area->region,
+                'title' => json_encode([
+                    'uk' => $area->area,
+                ], JSON_UNESCAPED_UNICODE),
+                'slug' => $area->id . '-' . Str::slug($area->area)
+            ];
+        })->toArray();
+        District::insert($located_area);
+
         //$located_area = DB::select('select * from located_area');
         $located_village_chunks = collect(DB::select('select * from located_village'))->unique(function ($vil) {
-            return $vil->region.$vil->village;
+            return $vil->region . $vil->village;
         })->map(function ($vil) {
             return [
                 'country_id' => 1,
                 'region_id' => $vil->region,
+                'district_id' => $vil->area,
                 'title' => json_encode([
                     'uk' => $vil->village,
                 ], JSON_UNESCAPED_UNICODE),
-                'slug' => $vil->region.'-'.Str::slug($vil->village)
+                'slug' => $vil->id . '-' . Str::slug($vil->village)
             ];
         })->chunk(100);
 
@@ -90,10 +105,10 @@ class CountryRegionCitySeeder extends Seeder
 
 
         // 4. Delete secondary data from DB
-        DB::statement('drop table located_area');
-        DB::statement('drop table located_countrys');
-        DB::statement('drop table located_region');
-        DB::statement('drop table located_village');
+        DB::statement('drop table if exists located_area');
+        DB::statement('drop table if exists located_countrys');
+        DB::statement('drop table if exists located_region');
+        DB::statement('drop table if exists located_village');
 
         $this->enableForeignKeys();
     }

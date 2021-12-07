@@ -22,15 +22,17 @@ class PageFactory extends Factory
      */
     public function definition()
     {
+        $locale = app()->getLocale();
         $title = $this->faker->realText(50);
         $slug = Str::slug($title);
 
         return [
             //
-            'title' => $title,
-            'slug' => $slug,
+            'title' => [$locale => $title],
+            'key' => $slug,
+            'slug' => [$locale => $slug],
             'published' => 1,
-            'text'=>$this->faker->realText(2500),
+            'text' => $this->faker->realText(2500),
         ];
     }
 }

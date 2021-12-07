@@ -3,13 +3,18 @@
 @section('title', __('Page management'))
 
 @section('content')
+    {!! breadcrumbs([
+      ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+      ['url'=>route('admin.page.index'), 'title'=>__('Site pages')],
+  ]) !!}
+
+
     <div class="d-flex justify-content-between">
         <h1>@lang('Page management')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create page')</a>
-            @endif
+            <a href="{{route('admin.page.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="user-plus"></i> @lang('Create page')</a>
         </div>
     </div>
 
@@ -21,8 +26,9 @@
                 <tr>
 
                     <th>@lang('title')</th>
-                    <th>@lang('Url')</th>
                     <th>@lang('Locale')</th>
+                    <th>@lang('Key')</th>
+                    <th>@lang('Url')</th>
                     <th>@lang('Media')</th>
                     <th>@lang('Actions')</th>
                 </tr>
@@ -31,15 +37,16 @@
                 @foreach($pages as $page)
                     <tr>
                         <td>{{$page->title}}</td>
-                        <td>{{$page->slug}}</td>
-                        <td>{{app()->getLocale()}}</td>
-                        <td><a href="{{route('admin.page.media.index', ['page'=>$page])}}" class="badge bg-info"><span>{{$page->media_count}}</span></a></td>
+                        <td>{{strtoupper(app()->getLocale())}}</td>
+                        <td>{{$page->key}}</td>
+                        <td>/{{$page->slug}}</td>
+
+                        <td><span class="badge bg-info">{{$page->media_count}}</span></td>
                         <td class="table-action">
 
-{{--                            <x-utils.view-button :href="route('admin.page.show', ['page'=>$page])" text="" />--}}
-                            <x-utils.edit-button :href="route('admin.page.edit', ['page'=>$page])" text="" />
-                            @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.page.destroy', $page)" text="" />
+                            <x-utils.edit-button :href="route('admin.page.edit', ['page'=>$page])" text=""/>
+                            @if(!$page->main)
+                                <x-utils.delete-button :href="route('admin.page.destroy', $page)" text=""/>
                             @endif
                         </td>
                     </tr>

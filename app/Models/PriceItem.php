@@ -14,7 +14,7 @@ use Spatie\Translatable\HasTranslations;
  * @package App\Models
  * @mixin IdeHelperPriceItem
  */
-class PriceItem extends Model
+class PriceItem extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
@@ -35,7 +35,15 @@ class PriceItem extends Model
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'limited' => 'boolean',
+        'published' => 'boolean',
+        'price' => 'integer'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'published',
     ];
 
     /**

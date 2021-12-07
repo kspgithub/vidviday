@@ -1,4 +1,9 @@
-<div class="form-check form-switch published-switch" data-url="{{$updateUrl}}">
-    <input class="form-check-input" type="checkbox" id="model-{{$model->id}}" {{$model->published ? 'checked' : ''}}>
+<div class="form-check form-switch"
+     x-data="publishable({checked: {{$model->published ? 'true' : 'false'}}, url: '{{$updateUrl}}'})">
+    <input class="form-check-input" type="checkbox" id="model-{{$model->id}}"
+           x-model="checked" x-on:change="change"
+           x-ref="checkboxEl"
+        {{$model->published ? 'checked': ''}}
+    >
     <label class="form-check-label" for="model-{{$model->id}}"></label>
 </div>

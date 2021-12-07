@@ -1,38 +1,62 @@
-<x-bootstrap.card>
+<div>
+    <x-bootstrap.card>
+        <x-slot name="body">
+            <x-forms.translation-switch row-class="row mb-0"/>
+        </x-slot>
+    </x-bootstrap.card>
 
-    <x-slot name="header">
-        <h3>@lang('Vacancy')</h3>
-    </x-slot>
+    <x-bootstrap.card>
+        <x-slot name="header">
+            <h3>@lang('Basic Information')</h3>
+        </x-slot>
 
-    <x-slot name="body">
-        <x-forms.select-group name="staff_id" :label="__('Staff')"
-        :value="old('staff_id', isset($vacancy->staff()->pluck('id')[0])?$vacancy->staff()->pluck('id')[0]:'')"
-        :options="$staffs"
-        required></x-forms.select-group>
-        <x-forms.text-group name="title" :label="__('Title')" :value="old('title', $vacancy->title)" maxlength="100" required></x-forms.text-group>
-        <x-forms.text-group name="short_text" :label="__('Short Text')" :value="old('short_text', $vacancy->short_text)" maxlength="100" ></x-forms.text-group>
-        <x-forms.text-group name="text" :label="__('Text')" :value="old('text', $vacancy->text)" maxlength="100" ></x-forms.text-group>
-        <x-forms.text-group name="slug" :label="__('Slug')" :value="old('slug', $vacancy->slug)" maxlength="100" ></x-forms.text-group>
-        <br>
-        <x-forms.text-group name="seo_title" :label="__('Seo Title')" :value="old('seo_title', $vacancy->seo_title)" maxlength="100" ></x-forms.text-group>
-        <x-forms.text-group name="seo_h1" :label="__('Seo H1')" :value="old('seo_h1', $vacancy->seo_h1)" maxlength="100" required></x-forms.text-group>
-        <x-forms.text-group name="seo_description" :label="__('Seo Description')" :value="old('seo_description', $vacancy->seo_description)" maxlength="100" ></x-forms.text-group>
-        <x-forms.text-group name="seo_keywords" :label="__('Seo Keywords')" :value="old('seo_keywords', $vacancy->seo_keywords)" maxlength="100" ></x-forms.text-group>
+        <x-slot name="body">
 
-        <br>
-        <div class="row">
-            <label class="form-label col-md-2" for="Published">Опубліковано</label>
-            <div class="col-md-10">
-                <label for="published" class="d-none"></label>
-                <select class="form-select" maxlength="100" id="published" name="published" value="old('published', $vacancy->published)">
-                    <option value="1">так</option>
-                    <option value="0">ні</option>
-                </select>
-            </div>
-            </div>
+            <x-forms.select-group name="staff_id" :label="__('Manager')"
+                                  :value="old('staff_id', isset($vacancy->staff()->pluck('id')[0])?$vacancy->staff()->pluck('id')[0]:'')"
+                                  :options="$staffs"
+                                  required>
+                <option value="">Не вибрано</option>
+            </x-forms.select-group>
+
+            <x-forms.text-loc-group name="title" :label="__('Title')"
+                                    :value="old('title', $vacancy->getTranslations('title'))" maxlength="100"
+                                    required/>
+            <x-forms.text-loc-group name="slug" :label="__('Slug')"
+                                    :value="old('slug', $vacancy->getTranslations('slug'))"
+                                    help="Залиште порожнім для автоматичної генерації"
+            />
+            <x-forms.textarea-loc-group name="short_text" :label="__('Short Text')"
+                                        :value="old('short_text', $vacancy->getTranslations('short_text'))"/>
+            <x-forms.editor-loc-group name="text" :label="__('Text')"
+                                      :value="old('text', $vacancy->getTranslations('text'))"
+                                      maxlength="100"/>
+
+            <x-forms.switch-group name="published" :label="__('Published')" :active="$vacancy->published"/>
+
+            <x-forms.tag-group name="similar[]"
+                               :label="__('Similar vacancies')"
+                               :value="$vacancy->similar ?? []"
+                               :options="$vacancies">
+            </x-forms.tag-group>
+        </x-slot>
+    </x-bootstrap.card>
+    <x-bootstrap.card>
+        <x-slot name="header">
+            <h3>@lang('Seo Information')</h3>
+        </x-slot>
+        <x-slot name="body">
+
+            <x-forms.text-loc-group name="seo_h1" :label="__('SEO H1')"
+                                    :value="old('seo_h1', $vacancy->getTranslations('seo_h1'))"></x-forms.text-loc-group>
+            <x-forms.text-loc-group name="seo_title" :label="__('SEO Title')"
+                                    :value="old('seo_title',  $vacancy->getTranslations('seo_title'))"></x-forms.text-loc-group>
+            <x-forms.text-loc-group name="seo_description" :label="__('SEO Description')"
+                                    :value="old('seo_description', $vacancy->getTranslations('seo_description'))"></x-forms.text-loc-group>
+            <x-forms.text-loc-group name="seo_keywords" :label="__('SEO Keywords')"
+                                    :value="old('seo_keywords', $vacancy->getTranslations('seo_keywords'))"></x-forms.text-loc-group>
+        </x-slot>
+    </x-bootstrap.card>
 
 
-    </x-slot>
-
-</x-bootstrap.card>
-
+</div>

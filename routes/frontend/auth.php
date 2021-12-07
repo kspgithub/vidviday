@@ -20,9 +20,13 @@ Route::group([
         ->middleware('guest')
         ->name('register');
 
-    Route::post('/register/{role?}', [RegisteredUserController::class, 'store'])
+    Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest')
         ->name('register.store');
+
+    Route::get('/register/success', [RegisteredUserController::class, 'success'])
+        ->middleware('auth')
+        ->name('register.success');
 
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])
         ->middleware('guest')

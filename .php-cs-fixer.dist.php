@@ -4,6 +4,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->exclude(['bootstrap', 'database', 'node_modules', 'public', 'storage', 'tests', 'vendor'])
     ->notPath('*')
+    ->name('_ide_helper*')
     ->in(__DIR__);
 
 return (new PhpCsFixer\Config())

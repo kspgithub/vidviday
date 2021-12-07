@@ -5,22 +5,21 @@ namespace App\Http\Controllers\Admin\Ticket;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\TicketBasicRequest;
+use App\Models\Currency;
+use App\Models\Region;
 use App\Models\Ticket;
-use App\Services\TicketService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    protected $service;
 
-    public function __construct(TicketService $service)
-    {
-        $this->service = $service;
-    }
     /**
+     * Display a listing of the resource.
+     *
      * @return Application|Factory|View
      */
     public function index()
@@ -29,71 +28,108 @@ class TicketController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
      * @return Application|Factory|View
      */
     public function create()
     {
         $ticket = new Ticket();
 
-        return view("admin.ticket.create",[
-            "ticket" => $ticket
+        $ticket->currency = 'UAH';
+
+        $currencies = Currency::toSelectBox('iso', 'iso');
+        $regions = Region::toSelectBox();
+
+        return view("admin.ticket.create", [
+            "ticket" => $ticket,
+            "currencies" => $currencies,
+            "regions" => $regions,
         ]);
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
      * @param TicketBasicRequest $request
+     *
      * @return mixed
      */
     public function store(TicketBasicRequest $request)
     {
-        $ticket = $this->service->store($request->validated());
+        $ticket = new Ticket();
 
-        return redirect()->route('admin.ticket.index',["ticket" => $ticket])->withFlashSuccess(__('Ticket created.'));
+        $ticket->fill($request->all());
+        $ticket->save();
+
+        return redirect()->route('admin.ticket.index', ["ticket" => $ticket])->withFlashSuccess(__('Record created.'));
     }
 
+
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
      * @param Ticket $ticket
+     *
      * @return Application|Factory|View
      */
     public function edit(Ticket $ticket)
     {
+        $currencies = Currency::toSelectBox('iso', 'iso');
+        $regions    = Region::toSelectBox('title', 'id');
+
         return view('admin.ticket.edit', [
-            'ticket'=> $ticket
+            'ticket' => $ticket,
+            "currencies" => $currencies,
+            "regions" => $regions,
         ]);
     }
 
     /**
+     * Update the specified resource in storage.
+     *
      * @param TicketBasicRequest $request
+     *
      * @param Ticket $ticket
+     *
      * @return mixed
+     *
      * @throws GeneralException
      */
     public function update(TicketBasicRequest $request, Ticket $ticket)
     {
-        $this->service->update($ticket, $request->validated());
+        $ticket->fill($request->all());
+        $ticket->save();
 
-        return redirect()->route('admin.ticket.index', $ticket)->withFlashSuccess(__('Ticket updated.'));
+        return redirect()->route('admin.ticket.index', $ticket)->withFlashSuccess(__('Record updated.'));
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
      * @param Ticket $ticket
+     *
      * @return mixed
      */
     public function destroy(Ticket $ticket)
     {
         $ticket->delete();
 
-        return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Ticket deleted.'));
+        return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Record deleted.'));
+    }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Ticket $ticket
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Ticket $ticket)
+    {
+        $ticket->published = (int)$request->input('published');
+        $ticket->save();
+        return response()->json(['result' => 'Success']);
     }
 }

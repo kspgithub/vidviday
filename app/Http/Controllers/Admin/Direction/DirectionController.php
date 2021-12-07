@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Direction;
 use App\Http\Controllers\Controller;
 use App\Models\Direction;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -51,7 +52,7 @@ class DirectionController extends Controller
         $direction->fill($request->all());
         $direction->save();
 
-        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Direction created.'));
+        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -73,15 +74,17 @@ class DirectionController extends Controller
      * @param Request $request
      * @param Direction $direction
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, Direction $direction)
     {
         //
         $direction->fill($request->all());
         $direction->save();
-
-        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Direction updated.'));
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
+        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -96,35 +99,6 @@ class DirectionController extends Controller
         //
         $direction->delete();
 
-        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Direction deleted.'));
-    }
-
-    // Madia
-
-    public function mediaIndex(Direction $direction)
-    {
-        return view('admin.direction.media', ['direction'=>$direction]);
-    }
-
-    public function mediaUpload(Request $request, Direction $direction)
-    {
-        if ($request->hasFile('media_file')) {
-            $media = $direction->storeMedia($request->file('media_file'));
-
-            return response()->json(['result'=>'success', 'media'=>[
-                'id'=>$media->id,
-                'url'=>$media->getUrl(),
-                'thumb'=>$media->getUrl('thumb'),
-            ]]);
-        }
-
-        return response()->json(['result'=>'error', 'message'=>'No file'], 400);
-    }
-
-    public function mediaRemove(Direction $direction, Media $media)
-    {
-        $direction->deleteMedia($media);
-
-        return response()->json(['result'=>'success', 'media'=>$media]);
+        return redirect()->route('admin.direction.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

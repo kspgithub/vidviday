@@ -114,11 +114,21 @@
 
                 </div>
             </x-slot>
+        </x-bootstrap.card>
 
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Create User')</button>
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Bitrix 24')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-forms.text-group name="bitrix_id" :label="__('Bitrix ID')"
+                                    :value="old('bitrix_id')"
+                                    maxlength="100"></x-forms.text-group>
+
             </x-slot>
         </x-bootstrap.card>
+
+        <button class="btn btn-primary" type="submit">@lang('Create User')</button>
     </x-forms.post>
 
 @endsection

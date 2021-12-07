@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\News;
 
-
+use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 
 class NewsBasicRequest extends FormRequest
 {
@@ -27,17 +27,22 @@ class NewsBasicRequest extends FormRequest
     {
         return [
             //
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'seo_h1'=>['nullable', 'string'],
-            'seo_title'=>['nullable', 'string'],
-            'seo_description'=>['nullable', 'string'],
-            'seo_keywords'=>['nullable', 'string'],
-            'text'=>['required', 'string'],
-            'main_image'=>['nullable', 'string'],
-            'mobile_image'=>['nullable', 'string'],
-            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'string'],
+            'slug' => ['nullable', 'array'],
+            'slug.uk' => ['nullable', 'string'],
+            'published' => ['nullable', Rule::in(['1', '0'])],
+            'seo_h1' => ['nullable', 'array'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_description' => ['nullable', 'array'],
+            'seo_keywords' => ['nullable', 'array'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['required', 'string'],
+            'short_text' => ['nullable', 'array'],
+            'main_image' => ['nullable', 'string'],
+            'mobile_image' => ['nullable', 'string'],
+            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
     }
 }

@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
-
+require('laravel-vue-lang/mix');
+require('laravel-mix-svg-vue');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,12 +17,17 @@ const webpack = require('webpack');
 mix.js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/admin/app.js', 'public/js/admin.js')
     .sass('resources/scss/app.scss', 'public/css/app.css')
+    .sass('resources/scss/theme/main.scss', 'public/css/main.css')
+    .sass('resources/scss/theme/print.scss', 'public/css/print.css')
+    .sass('resources/scss/theme/style.scss', 'public/css/style.css')
+    .sass('resources/scss/theme/editor.scss', 'public/css/editor.css')
     .sass('resources/scss/admin/app.scss', 'public/css/admin.css')
     .vue()
+    .lang()
     .extract()
     .disableNotifications();
 
-mix.webpackConfig ({
+mix.webpackConfig({
     plugins: [
         new webpack.DefinePlugin({
             __VUE_OPTIONS_API__: true,
@@ -32,8 +38,6 @@ mix.webpackConfig ({
 
 
 if (mix.inProduction()) {
-
-
     mix.minify([
         'public/js/app.js',
         'public/js/vendor.js',
@@ -43,7 +47,6 @@ if (mix.inProduction()) {
     ]);
 
     mix.version();
-
 } else {
     // Uses source-maps on development
     mix.sourceMaps(false, 'source-map');

@@ -1,20 +1,20 @@
 @extends('admin.layout.app')
 
-@section('title', __('Create place'))
+@section('title', __('Create').' '.__('Place'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Create place') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.place.index'), 'title'=>__('Places')],
+['url'=>route('admin.place.create'), 'title'=>__('Create')],
+]) !!}
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.place.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-
-    <x-forms.post :action="route('admin.place.store')" enctype="multipart/form-data">
+    <x-page.edit :title="__('Create').' '.__('Place')"
+                 :backUrl="route('admin.place.index')"
+                 :updateUrl="route('admin.place.store')"
+    >
         @include('admin.place.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Save')</button>
-    </x-forms.post>
-
+    </x-page.edit>
+    
 
 @endsection

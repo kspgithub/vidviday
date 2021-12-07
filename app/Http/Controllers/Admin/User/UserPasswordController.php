@@ -23,7 +23,7 @@ class UserPasswordController extends Controller
     /**
      * UserPasswordController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -31,29 +31,29 @@ class UserPasswordController extends Controller
     }
 
     /**
-     * @param  EditUserPasswordRequest  $request
-     * @param  User  $user
+     * @param EditUserPasswordRequest $request
+     * @param User $user
      *
      * @return mixed
      */
     public function edit(EditUserPasswordRequest $request, User $user)
     {
-        return view('admin.user.change-password')
-            ->withUser($user);
+        return view('admin.user.change-password', ['user' => $user]);
     }
 
     /**
-     * @param  UpdateUserPasswordRequest  $request
-     * @param  User  $user
-     *
-     * @throws Throwable
+     * @param UpdateUserPasswordRequest $request
+     * @param User $user
      *
      * @return mixed
+     * @throws Throwable
+     *
      */
     public function update(UpdateUserPasswordRequest $request, User $user)
     {
         $this->userService->updatePassword($user, $request->validated());
 
-        return redirect()->route('admin.user.show', $user)->withFlashSuccess(__('The user\'s password was successfully updated.'));
+        return redirect()->route('admin.user.show', $user)
+            ->withFlashSuccess(__('The user\'s password was successfully updated.'));
     }
 }

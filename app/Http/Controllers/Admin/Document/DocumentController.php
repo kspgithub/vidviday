@@ -10,6 +10,7 @@ use App\Services\DocumentService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,6 +22,7 @@ class DocumentController extends Controller
     {
         $this->service = $service;
     }
+
     /**
      * @return Application|Factory|View
      */
@@ -36,8 +38,8 @@ class DocumentController extends Controller
     {
         $document = new Document();
 
-        return view("admin.document.create",[
-            "document" => $document
+        return view("admin.document.create", [
+            "document" => $document,
         ]);
     }
 
@@ -49,19 +51,10 @@ class DocumentController extends Controller
     {
         $document = $this->service->store($request->validated());
 
-        return redirect()->route('admin.document.index',["document" => $document])->withFlashSuccess(__('Document created.'));
+        return redirect()->route('admin.document.index', ["document" => $document])
+            ->withFlashSuccess(__('Record Created'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Document  $document
-     * @return Response
-     */
-    public function show(Document $document)
-    {
-        //
-    }
 
     /**
      * @param Document $document
@@ -70,7 +63,7 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         return view('admin.document.edit', [
-            'document'=> $document
+            'document' => $document,
         ]);
     }
 
@@ -84,7 +77,7 @@ class DocumentController extends Controller
     {
         $this->service->update($document, $request->validated());
 
-        return redirect()->route('admin.document.index', $document)->withFlashSuccess(__('Document updated.'));
+        return redirect()->route('admin.document.index', $document)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -95,6 +88,21 @@ class DocumentController extends Controller
     {
         $document->delete();
 
-        return redirect()->route('admin.document.index')->withFlashSuccess(__('Document deleted.'));
+        return redirect()->route('admin.document.index')->withFlashSuccess(__('Record Deleted'));
+    }
+
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Document $document
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Document $document)
+    {
+        $document->published = (int) $request->input('published');
+        $document->save();
+        return response()->json(['result' => 'success']);
     }
 }

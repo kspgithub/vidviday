@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Direction;
+use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use App\Services\PlaceService;
@@ -47,8 +48,9 @@ class PlaceController extends Controller
         $directions = Direction::toSelectBox();
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
+        $districts = District::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
 
-        return view('admin.place.create', compact('place', 'directions', 'countries', 'regions'));
+        return view('admin.place.create', compact('place', 'directions', 'countries', 'regions', 'districts'));
     }
 
     /**
@@ -61,8 +63,8 @@ class PlaceController extends Controller
     public function store(Request $request)
     {
         //
-        $this->service->store($request->all());
-        return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Created'));
+        $place = $this->service->store($request->all());
+        return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -78,8 +80,8 @@ class PlaceController extends Controller
         $directions = Direction::toSelectBox();
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
-
-        return view('admin.place.edit', compact('place', 'directions', 'countries', 'regions'));
+        $districts = District::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
+        return view('admin.place.edit', compact('place', 'directions', 'countries', 'regions', 'districts'));
     }
 
     /**
@@ -96,7 +98,7 @@ class PlaceController extends Controller
         $this->service->update($place, $request->all());
 
         if ($request->ajax()) {
-            return  response()->json(['result'=>'success', 'model'=>$place]);
+            return response()->json(['result' => 'success', 'model' => $place]);
         }
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Updated'));
     }
@@ -114,13 +116,4 @@ class PlaceController extends Controller
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-
-    /**
-     * @param Place $place
-     * @return View
-     */
-    public function mediaIndex(Place $place)
-    {
-        return view('admin.place.media', ['place'=>$place]);
-    }
 }

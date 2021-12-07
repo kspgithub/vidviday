@@ -2,6 +2,10 @@
 
 namespace App\Models\Traits;
 
+use Exception;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Livewire\TemporaryUploadedFile;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
@@ -14,31 +18,46 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait UseNormalizeMedia
 {
     /**
-     * @param string|UploadedFile $file
+     * @param string|UploadedFile|TemporaryUploadedFile $file
      * @param string|null $collection
      * @param array $options
      *
-     * @throws FileIsTooBig
+     * @return FileAdder|Media
      * @throws InvalidManipulation
      * @throws FileDoesNotExist
      *
-     * @return FileAdder|Media
+     * @throws FileIsTooBig
      */
     public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {
-        $path = storage_path('tmp/uploads');
-        $name = uniqid() . '.' . trim($file->getClientOriginalExtension());
-        $file->move($path, $name);
+        $path = storage_path('app/tmp/uploads');
+        $name = md5(uniqid() . rand(0, 100)) . '.' . trim($file->getClientOriginalExtension());
+        if ($file instanceof TemporaryUploadedFile) {
+            $file->storeAs('tmp/uploads', $name);
+        } else {
+            $file->move($path, $name);
+        }
+        $file_name = $path . '/' . $name;
 
         $width = $options['width'] ?? 1920;
         $height = $options['height'] ?? 1920;
         $fitMethod = $options['fit'] ?? Manipulations::FIT_MAX;
 
-        Image::load($path . '/' . $name)->fit($fitMethod, $width, $height)->save();
+        if (File::exists($file_name)) {
+            try {
+                $image = Image::load($file_name);
+                $image->fit($fitMethod, $width, $height);
+                $image->save();
+                $media = $this->addMedia($file_name)->toMediaCollection($collection);
+                @unlink($file_name);
+                return $media;
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
 
-        $media = $this->addMedia($path . '/' . $name)->toMediaCollection($collection);
-        @unlink($path . '/' . $name);
+        }
 
-        return $media;
+        return null;
     }
+
 }

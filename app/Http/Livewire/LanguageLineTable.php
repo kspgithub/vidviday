@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\LanguageLine;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -16,9 +18,13 @@ class LanguageLineTable extends DataTableComponent
                 ->sortable(),
 
             Column::make(__('Key'), 'key')
+                ->searchable()
                 ->sortable(),
 
             Column::make(__('Translations'), 'text')
+                ->searchable(function (Builder $query, $searchTerm) {
+                    return $query->orJsonLike('text', "%$searchTerm%");
+                })
                 ->format(function ($value, $column, $row) {
                     return view('admin.translation.includes.translations', ['language_line' => $row, 'locales'=>config('site-settings.locale.languages')]);
                 }),
@@ -32,23 +38,25 @@ class LanguageLineTable extends DataTableComponent
 
     public function query()
     {
-        return LanguageLine::query()->when($this->getFilter('search'), function ($query) {
-            $term = $this->getFilter('search');
-            $encoded_term = str_replace('\\', '', str_replace('"', '', json_encode($term)));
+        $group = $this->getFilter('group') ?? false;
 
-            return $query->whereRaw(" REPLACE(`text`, '\\\', '') LIKE '%$encoded_term%' OR `text` LIKE '%$term%' OR `group` LIKE '%$term%' OR `key` LIKE '%$term%'");
-        });
+        return LanguageLine::query()
+            ->when($group, fn ($q) => $q->where('group', $group));
     }
 
-//    public function filters(): array
-//    {
-//        return [
-//            'locale' => Filter::make(__('Locale'))
-//                ->select([
-//                    '' => __('Any'),
-//                    'ru' => __('Рус'),
-//                    'kk' => __('Каз'),
-//                ]),
-//        ];
-//    }
+    public function filters(): array
+    {
+        $groups = ['' => __('All')];
+        $availableGroups = LanguageLine::select('group')->distinct()->pluck('group')->toArray();
+        foreach ($availableGroups as $group) {
+            if ($group === '*') {
+                $groups[$group] = __('Strings');
+            } else {
+                $groups[$group] = Str::ucfirst(str_replace('-', ' ', $group));
+            }
+        }
+        return [
+            'group' => Filter::make(__('Group'))->select($groups),
+        ];
+    }
 }

@@ -1,6 +1,8 @@
 <?php
 
-if (! function_exists('activeClass')) {
+use App\Models\HtmlBlock;
+
+if (!function_exists('activeClass')) {
     /**
      * Get the active class if the condition is not falsy.
      *
@@ -10,17 +12,45 @@ if (! function_exists('activeClass')) {
      *
      * @return string
      */
-    function activeClass($condition, string $activeClass = 'active', string $inactiveClass = '') : string
+    function activeClass($condition, string $activeClass = 'active', string $inactiveClass = ''): string
     {
         return $condition ? $activeClass : $inactiveClass;
     }
 }
 
-if (! function_exists('routeActiveClass')) {
+if (!function_exists('routeActive')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param        $condition
+     * @param string|array $routeName
+     *
+     * @return boolean
+     */
+    function routeActive($routeName)
+    {
+        $match = false;
+        $currentName = request()->route()->getName();
+        if (is_array($routeName)) {
+            foreach ($routeName as $route) {
+                $match = $currentName === $route ||
+                    (str_ends_with($route, '*') && str_starts_with($currentName, rtrim($route, "*")));
+                if ($match) {
+                    return true;
+                }
+            }
+        } else {
+            $match = $currentName === $routeName ||
+                (str_ends_with($routeName, '*') && str_starts_with($currentName, rtrim($routeName, "*")));
+        }
+        return $match;
+    }
+}
+
+if (!function_exists('routeActiveClass')) {
+    /**
+     * Get the active class if the condition is not falsy.
+     *
+     * @param string|array $routeName
      * @param string $activeClass
      * @param string $inactiveClass
      *
@@ -28,17 +58,11 @@ if (! function_exists('routeActiveClass')) {
      */
     function routeActiveClass($routeName, $activeClass = 'active', $inactiveClass = '')
     {
-        $currentName = request()->route()->getName();
-        if (str_ends_with($routeName, '*')) {
-            return str_starts_with($currentName, rtrim($routeName, "*"))
-                ? $activeClass : $inactiveClass;
-        }
-
-        return ($currentName === $routeName) ? $activeClass : $inactiveClass;
+        return routeActive($routeName) ? $activeClass : $inactiveClass;
     }
 }
 
-if (! function_exists('htmlLang')) {
+if (!function_exists('htmlLang')) {
     /**
      * Access the htmlLang helper.
      */
@@ -48,25 +72,25 @@ if (! function_exists('htmlLang')) {
     }
 }
 
-if (! function_exists('svg')) {
+if (!function_exists('svg')) {
     /**
      * Embed svg icon.
      *
      * @param $icon
      * @param string $class
-     *
-     * @return false|string
+     * @return string
      */
     function svg($icon, $class = '')
     {
-        $svg = new \DOMDocument();
+        $svg = new DOMDocument();
         $svg->load(resource_path("svg/$icon.svg"));
         $svg->documentElement->setAttribute("class", $class);
         echo $svg->saveXML($svg->documentElement);
+        return '';
     }
 }
 
-if (! function_exists('breadcrumbs')) {
+if (!function_exists('breadcrumbs')) {
     /**
      * @param array $items
      *
@@ -74,17 +98,20 @@ if (! function_exists('breadcrumbs')) {
      */
     function breadcrumbs($items = [])
     {
-        $result = '<nav aria-label="breadcrumb"><ol class="breadcrumb">';
+        $result = '<nav aria-label="breadcrumb" class="breadcrumbs-wrapper"><ol class="breadcrumb">';
         $lastItemKey = count($items) - 1;
-        foreach ($items as $key=>$item) {
-            $activeClass = $key === $lastItemKey ? ' active' : '';
-            $result .= '<li class="breadcrumb-item'.$activeClass.'" itemscope itemtype = "http://data-vocabulary.org/Breadcrumb">';
-            if ($key < count($items) - 1) {
-                $result .= '<a href="'.$item['url'].'" itemprop="url"><span itemprop="title">'.$item['title'].'</span></a>';
-            } else {
-                $result .= '<link href="'.$item['url'].'" itemprop="url" /><span itemprop="title">'.$item['title'].'</span>';
+        foreach ($items as $key => $item) {
+            if ($item !== null) {
+                $activeClass = $key === $lastItemKey ? ' active' : '';
+                $result .= '<li class="breadcrumb-item' . $activeClass . '" itemscope itemtype = "http://data-vocabulary.org/Breadcrumb">';
+                if ($key < count($items) - 1) {
+                    $result .= '<a href="' . $item['url'] . '" itemprop="url"><span itemprop="title">' . $item['title'] . '</span></a>';
+                } else {
+                    $result .= '<link href="' . $item['url'] . '" itemprop="url" /><span itemprop="title">' . $item['title'] . '</span>';
+                }
+                $result .= '</li>';
             }
-            $result .= '</li>';
+
         }
         $result .= '</ol></nav>';
 
@@ -92,9 +119,31 @@ if (! function_exists('breadcrumbs')) {
     }
 }
 
-if (! function_exists('html_block')) {
+if (!function_exists('html_block')) {
     function html_block($slug)
     {
-        return \App\Models\Content\HtmlBlock::getCachedBlock($slug);
+        return HtmlBlock::getCachedBlock($slug);
+    }
+}
+
+if (!function_exists('youtube_embed')) {
+    function youtube_embed($link)
+    {
+        if (preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $link, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+        return '';
+    }
+
+}
+
+
+if (!function_exists('date_title')) {
+    function date_title($date)
+    {
+        if ($date) {
+            return $date->translatedFormat('D') . ', ' . $date->format('d.m.Y');
+        }
+        return '';
     }
 }

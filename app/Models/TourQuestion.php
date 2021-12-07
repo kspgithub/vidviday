@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\Models\Traits\UseNormalizeMedia;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -22,6 +26,7 @@ class TourQuestion extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use NodeTrait;
 
     public const STATUS_NEW = 0;
     public const STATUS_PUBLISHED = 1;
@@ -52,6 +57,12 @@ class TourQuestion extends Model implements HasMedia
         'attachments',
     ];
 
+
+    protected $appends = [
+        'initials',
+        'avatar_url',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -68,19 +79,43 @@ class TourQuestion extends Model implements HasMedia
         return $this->belongsTo(Tour::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function parent()
+    public function getInitialsAttribute()
     {
-        return $this->belongsTo(TourQuestion::class, 'parent_id');
+        $name_parts = explode(' ', $this->name);
+        $initials = '';
+        if (count($name_parts) > 0) {
+            $initials .= Str::upper(Str::substr($name_parts[0], 0, 1));
+        }
+        if (count($name_parts) > 1) {
+            $initials .= Str::upper(Str::substr($name_parts[1], 0, 1));
+        }
+        return !empty($initials) ? $initials : 'N/A';
     }
 
     /**
-     * @return HasMany
+     * @return string
      */
-    public function children()
+    public function getAvatarUrlAttribute(): string
     {
-        return $this->hasMany(TourQuestion::class, 'parent_id');
+        $avatar = $this->getAttributeValue('avatar');
+
+        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
+    }
+
+    public function getOnModerationAttribute()
+    {
+        return site_option('moderate_questions', false) === true && $this->status === 0;
+    }
+
+
+    public function scopeModerated(Builder $query)
+    {
+        return $query->withDepth()->where(function ($q) {
+            $q->whereIn('status', site_option('moderate_questions', false) === true ? [1] : [0, 1]);
+            if (current_user() !== null) {
+                $q->orWhere('user_id', current_user()->id);
+            }
+            return $q;
+        });
     }
 }

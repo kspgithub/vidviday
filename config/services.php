@@ -29,10 +29,26 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'tinymce'=> [
-        'key'=> env('TINYMCE_KEY', ''),
+    'tinymce' => [
+        'key' => env('TINYMCE_KEY', ''),
     ],
-    'google'=>[
-        'maps_key'=> env('GOOGLE_MAPS_KEY', ''),
+    'google' => [
+        'maps_key' => env('GOOGLE_MAPS_KEY', ''),
+    ],
+    'bitrix24' => [
+        'domain' => env('BITRIX24_DOMAIN', ''),
+        'token' => env('BITRIX24_TOKEN', ''),
+        'contact-token' => env('BITRIX24_CONTACT_TOKEN', ''),
+        'deal-token' => env('BITRIX24_DEAL_TOKEN', ''),
+        'user' => env('BITRIX24_USER', ''),
+        'log-enable' => env('BITRIX24_LOG_ENABLE', false),
+        'test' => env('BITRIX24_TEST', true),
+        'integration' => env('BITRIX24_INTEGRATION', false),
+        'client_id' => env('BITRIX24_CLIENT_ID', ''),
+        'client_secret' => env('BITRIX24_CLIENT_SECRET', ''),
+        'client_webhook' => env('BITRIX24_CLIENT_WEBHOOK', ''),
+        'client_block_log' => env('BITRIX24_CLIENT_BLOCK_LOG', false),
+        'client_log_type_dump' => env('BITRIX24_CLIENT_LOG_TYPE_DUMP', false),
+        'client_ignore_ssl' => env('BITRIX24_CLIENT_IGNORE_SSL', true),
     ],
 ];

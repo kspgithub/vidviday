@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+require base_path('routes/api/user.php');
+require base_path('routes/api/calendar.php');
+require base_path('routes/api/tours.php');
+require base_path('routes/api/places.php');

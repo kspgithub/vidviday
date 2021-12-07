@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return ! ($this->user->isMasterAdmin() && ! $this->user()->isMasterAdmin());
+        return !($this->user->isMasterAdmin() && !$this->user()->isMasterAdmin());
     }
 
     /**
@@ -33,6 +33,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'max:255', 'email', Rule::unique('users')->ignore($this->user->id)],
+            'bitrix_id' => ['string', 'max:100', 'nullable'],
             'first_name' => ['string', 'max:100', 'nullable'],
             'last_name' => ['string', 'max:100', 'nullable'],
             'middle_name' => ['string', 'max:100', 'nullable'],
@@ -46,7 +47,7 @@ class UpdateUserRequest extends FormRequest
             'position' => ['string', 'max:255', 'nullable'],
             'work_email' => ['email', 'max:255', 'nullable'],
             'website' => ['url', 'nullable'],
-            'avatar_upload' => [ 'mimes:jpg,png'],
+            'avatar_upload' => ['mimes:jpg,png'],
             'role' => ['required', Rule::exists('roles', 'name')],
 //            'roles' => ['sometimes', 'array'],
 //            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],
@@ -62,17 +63,19 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'role.exists' => __('Role not found or are not allowed to be associated with this user.'),
-            'roles.*.exists' => __('One or more roles were not found or are not allowed to be associated with this user type.'),
-            'permissions.*.exists' => __('One or more permissions were not found or are not allowed to be associated with this user type.'),
+            'roles.*.exists' =>
+                __('One or more roles were not found or are not allowed to be associated with this user type.'),
+            'permissions.*.exists' =>
+                __('One or more permissions were not found or are not allowed to be associated with this user type.'),
         ];
     }
 
     /**
      * Handle a failed authorization attempt.
      *
+     * @return void
      * @throws AuthorizationException
      *
-     * @return void
      */
     protected function failedAuthorization()
     {

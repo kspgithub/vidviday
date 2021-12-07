@@ -2,32 +2,40 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Attributes\EventAttribute;
+use App\Models\Traits\Methods\HasJsonSlug;
+use App\Models\Traits\Relationship\EventRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class EventItem
+ * Class Event
  *
  * @package App\Models
  * @mixin IdeHelperEventItem
  */
-class EventItem extends Model implements HasMedia
+class EventItem extends TranslatableModel implements HasMedia
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use EventAttribute;
+    use EventRelationship;
+    use UseSelectBox;
+    use HasJsonSlug;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -40,14 +48,22 @@ class EventItem extends Model implements HasMedia
             ->height(180);
     }
 
-    public function getRouteKeyName()
+    public function registerMediaCollections(): void
     {
-        return 'slug';
+        $this->addMediaCollection('main')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
+        $this->addMediaCollection('pictures')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
+
 
     public $translatable = [
         'title',
         'text',
+        'short_text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
@@ -55,16 +71,22 @@ class EventItem extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'group_id',
-        'direction_id',
         'title',
+        'text',
+        'short_text',
+        'slug',
         'seo_h1',
         'seo_title',
         'seo_description',
         'seo_keywords',
-        'text',
-        'slug',
         'published',
+        'indefinite',
+        'start_date',
+        'end_date',
+    ];
+
+    protected $appends = [
+        'url',
     ];
 
     protected $casts = [
@@ -87,19 +109,9 @@ class EventItem extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function group()
+    public function getUrlAttribute()
     {
-        return $this->belongsTo(EventGroup::class, 'group_id');
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function direction()
-    {
-        return $this->belongsTo(Direction::class, 'direction_id');
+        $slug = $this->slug;
+        return !empty($slug) ? route('events.show', $slug) : '';
     }
 }

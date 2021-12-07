@@ -1,26 +1,21 @@
 @extends('admin.layout.app')
 
-@section('title', __('Create direction'))
+@section('title', __('Create').' '.__('Direction'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Create direction') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.direction.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+['url'=>route('admin.direction.index'), 'title'=>__('Directions')],
+['url'=>'#', 'title'=>__('Create')],
+]) !!}
 
-    <x-forms.post :action="route('admin.direction.store')" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.direction.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.post>
-
+    <x-page.edit :update-url="route('admin.direction.store')"
+                 :back-url="route('admin.direction.index')"
+                 :title="__('Create').' '.__('Direction')"
+    >
+        @include('admin.direction.includes.form')
+    </x-page.edit>
 
 @endsection

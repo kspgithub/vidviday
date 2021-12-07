@@ -26,7 +26,7 @@ class HtmlBlockBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
             'title'=>['required', 'string'],
             'text'=>['required', 'string'],
             'slug'=>['nullable', 'string'],

@@ -267,14 +267,14 @@
 			position: relative;
 			padding-left: 36px;
 			&:before {
-				top: 0;
-				left: 0;
-				content: '';
-				width: 26px;
-				height: 26px;
-				position: absolute;
-				background: center / contain url(../icon/resume.svg) no-repeat;
-			}
+                top: 0;
+                left: 0;
+                content: '';
+                width: 26px;
+                height: 26px;
+                position: absolute;
+                background: center / contain url('../../svg/resume.svg') no-repeat;
+            }
 		}
 		.btn {
 			width: 100%;
@@ -376,23 +376,35 @@
 				.btn {
 					&.btn-block {
 						width: 100%;
-					}
-				}
-			}
-		}
-		.bottom-part {
-			position: relative;
-			.text-md {
-				color: $title;
-			}
-			> img {
-				right: 0;
-				bottom: 0;
-				width: 50%;
-				position: absolute;
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+
+        .bottom-part {
+            position: relative;
+
+            .text-md {
+                color: $title;
+            }
+
+            > img {
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                position: absolute;
+
+                &.manager-avatar {
+                    height: 150px;
+                    width: 150px;
+                    object-fit: contain;
+                    z-index: -1;
+                }
+            }
+        }
+
+
+    }
 	.single-datepicker {
 		margin-bottom: 15px;
 	}

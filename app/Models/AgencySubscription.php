@@ -22,8 +22,16 @@ class AgencySubscription extends Model
     protected $fillable = [
         'status',
         'name',
+        'company',
         'phone',
         'email',
         'viber',
+        'bitrix_id',
+        'bitrix_contact_id',
+        'utm_campaign',
+        'utm_content',
+        'utm_medium',
+        'utm_source',
+        'utm_term',
     ];
 }

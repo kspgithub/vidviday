@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasAvatar;
 use App\Models\Traits\UseNormalizeMedia;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -23,10 +28,19 @@ class Testimonial extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use NodeTrait;
+    use HasAvatar;
 
     public const STATUS_NEW = 0;
     public const STATUS_PUBLISHED = 1;
     public const STATUS_BLOCKED = 2;
+
+
+    public const TYPES = [
+        Tour::class => 'Тур',
+        Staff::class => 'Персонал',
+        Place::class => 'Місце',
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -56,6 +70,24 @@ class Testimonial extends Model implements HasMedia
         'related_id',
     ];
 
+    protected $appends = [
+        'initials',
+        'on_moderation',
+        'avatar_url',
+        'date',
+        'time',
+        'gallery',
+        'tour',
+        'place',
+        'guide',
+        'type',
+    ];
+
+    protected $hidden = [
+        'media',
+        'model',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -64,21 +96,6 @@ class Testimonial extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo(Testimonial::class, 'parent_id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(Testimonial::class, 'parent_id');
-    }
 
     /**
      * @return MorphTo
@@ -94,5 +111,112 @@ class Testimonial extends Model implements HasMedia
     public function related()
     {
         return $this->morphTo();
+    }
+
+    public function getInitialsAttribute()
+    {
+        $name_parts = explode(' ', $this->name);
+        $initials = '';
+        if (count($name_parts) > 0) {
+            $initials .= Str::upper(Str::substr($name_parts[0], 0, 1));
+        }
+        if (count($name_parts) > 1) {
+            $initials .= Str::upper(Str::substr($name_parts[1], 0, 1));
+        }
+        return !empty($initials) ? $initials : 'N/A';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        $avatar = $this->getAttributeValue('avatar');
+
+        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
+    }
+
+    public function getTypeAttribute()
+    {
+
+        switch ($this->model_type) {
+            case Tour::class:
+                $type = 'tour';
+                break;
+            case Staff::class:
+                $type = 'staff';
+                break;
+            case Place::class:
+                $type = 'place';
+                break;
+            default:
+                $type = 'other';
+                break;
+        }
+        return $type;
+    }
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    public function getTimeAttribute()
+    {
+        return $this->created_at->format('H:i');
+    }
+
+    public function getTourAttribute()
+    {
+        if ($this->model_type == Tour::class) {
+            return $this->model->shortInfo();
+        }
+        if ($this->related_type == Tour::class) {
+            return $this->related->shortInfo();
+        }
+        return null;
+    }
+
+    public function getPlaceAttribute()
+    {
+        return $this->model_type == Place::class ? $this->model->shortInfo() : null;
+    }
+
+    public function getGuideAttribute()
+    {
+        if ($this->model_type == Staff::class) {
+            return $this->model->shortInfo();
+        }
+        if ($this->related_type == Staff::class) {
+            return $this->related->shortInfo();
+        }
+        return null;
+    }
+
+    public function getOnModerationAttribute()
+    {
+        return site_option('moderate_testimonials', false) === true && $this->status === 0;
+    }
+
+
+    public function scopeModerated(Builder $query)
+    {
+        return $query->withDepth()->where(function ($q) {
+            $q->whereIn('status', site_option('moderate_testimonials', false) === true ? [1] : [0, 1]);
+            if (current_user() !== null) {
+                $q->orWhere('user_id', current_user()->id);
+            }
+            return $q;
+        });
+    }
+
+    public function scopeTourTestimonials(Builder $query)
+    {
+        return $query->where('model_type', Tour::class);
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->media->map->toSwiperSlide();
     }
 }

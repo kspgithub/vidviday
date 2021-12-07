@@ -1,15 +1,19 @@
 @extends('admin.layout.app')
 
-@section('title', __('Tour Types management'))
+@section('title', __('Tour Types'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+['url'=>route('admin.tour-type.index'), 'title'=>__('Tour Types')],
+]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Tour Types management')</h1>
+        <h1>@lang('Tour Types')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.tour-type.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create Tour Type')</a>
-            @endif
+            <a href="{{route('admin.tour-type.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="plus"></i> @lang('Create Record')</a>
         </div>
     </div>
 
@@ -22,8 +26,7 @@
 
                     <th>@lang('title')</th>
                     <th>@lang('Url')</th>
-                    <th>@lang('Locale')</th>
-{{--                    <th>@lang('Media')</th>--}}
+                    <th>@lang('Published')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -33,14 +36,14 @@
                         <tr>
                             <td>{{$tourType->title}}</td>
                             <td>{{$tourType->slug}}</td>
-                            <td>{{app()->getLocale()}}</td>
-{{--                            <td><a href="{{route('admin.tour-type.media.index', ['tourtype'=>$tourtype])}}" class="badge bg-info"><span>{{$tourtype->media_count}}</span></a></td>--}}
+                            <td>
+                                @include('admin.partials.published', ['model' => $tourType, 'updateUrl' => route('admin.tour-type.update', $tourType)])
+                            </td>
                             <td class="table-action">
 
-                                <x-utils.edit-button :href="route('admin.tour-type.edit', ['tour_type'=>$tourType])" text="" />
-                                @if(current_user()->isMasterAdmin())
-                                    <x-utils.delete-button :href="route('admin.tour-type.destroy', $tourType)" text="" />
-                                @endif
+                                <x-utils.edit-button :href="route('admin.tour-type.edit', $tourType)"
+                                                     text=""/>
+                                <x-utils.delete-button :href="route('admin.tour-type.destroy', $tourType)" text=""/>
                             </td>
                         </tr>
                     @endforeach

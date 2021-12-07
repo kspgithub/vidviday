@@ -1,32 +1,34 @@
-.media-library{
+.media-library {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     margin-left: -15px;
 
 
-    .img-thumbnail{
+    .img-thumbnail {
         height: 180px;
+        min-width: 100px;
         overflow: hidden;
         position: relative;
         margin-left: 15px;
         margin-bottom: 15px;
-        img{
+
+        img {
             height: 170px;
         }
     }
 
-    .add-media{
+    .add-media {
         display: block;
         height: 180px;
         width: 180px;
         cursor: pointer;
 
-        input[type='file']{
+        input[type='file'] {
             display: none;
         }
 
-        .fas{
+        .fas {
             font-size: 48px;
             position: absolute;
             top: 50%;
@@ -36,9 +38,10 @@
         }
     }
 
-    .media-item{
+    .media-item {
         position: relative;
-        .delete-media-item{
+
+        .delete-media-item {
             position: absolute;
             right: 15px;
             top: 15px;
@@ -47,7 +50,7 @@
             color: $danger;
         }
 
-        .show-media-item{
+        .show-media-item {
             position: absolute;
             right: 50px;
             top: 15px;
@@ -56,7 +59,7 @@
             color: $success;
         }
 
-        .spinner-border{
+        .spinner-border {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -64,7 +67,8 @@
             margin-top: -1rem;
         }
 
-        .edit-media-title{
+        .edit-media-title,
+        .edit-media-alt {
             position: absolute;
             left: 5px;
             bottom: 5px;
@@ -78,12 +82,20 @@
             border: 1px solid transparent;
             background: rgba(0, 0, 0, .5);
 
-            &:focus{
+            &:focus {
                 outline: none;
+            }
+
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.75);
             }
         }
 
-        .error{
+        .edit-media-alt {
+            bottom: 44px;
+        }
+
+        .error {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -91,5 +103,28 @@
             color: $danger;
             text-shadow: 0 0 3px #fff;
         }
+    }
+}
+
+.media-sortable {
+    width: 100%;
+    position: relative;
+
+    .media-item {
+        display: inline-block;
+    }
+
+    .handler {
+        display: block;
+        border: 1px solid #efefef;
+        border-radius: 3px;
+        background: #fff;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        line-height: 1;
+        font-size: 14px;
+        padding: 3px 6px;
+        cursor: move;
     }
 }

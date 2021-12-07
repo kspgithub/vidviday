@@ -1,13 +1,23 @@
 <?php
 
+use App\Http\Controllers\Admin\Tour\CalcController;
+use App\Http\Controllers\Admin\Tour\HutsulFunController;
+use App\Http\Controllers\Admin\Tour\SimilarToursController;
+use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
+use App\Http\Controllers\Admin\Tour\TourDiscountController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
+use App\Http\Controllers\Admin\Tour\TourPlacesController;
+use App\Http\Controllers\Admin\Tour\TourPlanController;
+use App\Http\Controllers\Admin\Tour\TourQuestionsController;
 use App\Http\Controllers\Admin\Tour\TourScheduleController;
 use App\Http\Controllers\Admin\Tour\TourSubjectController;
+use App\Http\Controllers\Admin\Tour\TourTicketController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
+use App\Http\Controllers\Admin\Tour\TourFinanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -15,12 +25,12 @@ Route::group([
     'as' => 'tour.',
 ], function () {
     Route::get('{tour}/pictures', [TourPictureController::class, 'index'])->name('picture.index');
-    Route::post('{tour}/pictures', [TourPictureController::class, 'upload'])->name('picture.store');
-    Route::patch('{tour}/pictures/{media}', [TourPictureController::class, 'update'])->name('picture.update');
-    Route::delete('{tour}/pictures/{media}', [TourPictureController::class, 'delete'])->name('picture.destroy');
 
     Route::get('{tour}/groups', [TourGroupController::class, 'index'])->name('group.index');
     Route::patch('{tour}/groups', [TourGroupController::class, 'update'])->name('group.update');
+
+    Route::get('{tour}/places', [TourPlacesController::class, 'index'])->name('places.index');
+    Route::patch('{tour}/places', [TourPlacesController::class, 'update'])->name('places.update');
 
     Route::get('{tour}/subjects', [TourSubjectController::class, 'index'])->name('subject.index');
     Route::patch('{tour}/subjects', [TourSubjectController::class, 'update'])->name('subject.update');
@@ -35,8 +45,30 @@ Route::group([
     Route::get('{tour}/schedule', [TourScheduleController::class, 'index'])->name('schedule.index');
 
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
+
+    Route::get('{tour}/discounts', [TourDiscountController::class, 'index'])->name('discount.index');
+
+    Route::get('{tour}/plan', [TourPlanController::class, 'index'])->name('plan.index');
+    Route::patch('{tour}/plan', [TourPlanController::class, 'update'])->name('plan.update');
+
+    Route::get('{tour}/hutsul-fun', [HutsulFunController::class, 'index'])->name('hutsul-fun.index');
+    Route::patch('{tour}/hutsul-fun', [HutsulFunController::class, 'update'])->name('hutsul-fun.update');
+
+    Route::get('{tour}/finance', [TourFinanceController::class, 'index'])->name('finance.index');
+    Route::get('{tour}/finance/create', [TourFinanceController::class, 'create'])->name('finance.create');
+    Route::post('{tour}/finance', [TourFinanceController::class, 'store'])->name('finance.store');
+    Route::get('{tour}/finance/{model}', [TourFinanceController::class, 'edit'])->name('finance.edit');
+    Route::patch('{tour}/finance/{model}', [TourFinanceController::class, 'update'])->name('finance.update');
+
+    Route::get('{tour}/similar', [SimilarToursController::class, 'index'])->name('similar.index');
+
+    Route::get('{tour}/food', [TourFoodController::class, 'index'])->name('food.index');
+    Route::get('{tour}/ticket', [TourTicketController::class, 'index'])->name('ticket.index');
+    Route::get('{tour}/faq', [TourQuestionsController::class, 'faq'])->name('faq');
+    Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
+    Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
+    Route::get('{tour}/calc', [CalcController::class, 'index'])->name('calc');
+    Route::get('{tour}/accomm', [TourAccommController::class, 'index'])->name('accomm.index');
 });
 
 Route::resource('tour', TourController::class);
-
-Route::resource('tour.food', TourFoodController::class)->except('show');

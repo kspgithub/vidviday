@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LanguageLine;
 use Illuminate\Http\Request;
-use Spatie\TranslationLoader\LanguageLine;
+
 
 class TranslationController extends Controller
 {
@@ -20,15 +21,19 @@ class TranslationController extends Controller
         $line = new LanguageLine();
         $line->group = '*';
         $languages = config('site-settings.locale.languages');
-
         return view('admin.translation.create', ['line' => $line, 'languages'=>$languages]);
     }
 
     public function store(Request $request)
     {
-        LanguageLine::create($request->all());
-
-        return redirect()->route('admin.translation.index')->withFlashSuccess(__('Record Created'));
+        $line = LanguageLine::where('group', $request->group)->where('key', $request->key)->first();
+        if (empty($line)) {
+            $line = new LanguageLine();
+        }
+        $line->fill($request->all());
+        $line->save();
+        $return_to = $request->input('return_to', route('admin.translation.index'));
+        return redirect($return_to)->withFlashSuccess(__('Record Created'));
     }
 
     public function edit(LanguageLine $line)
@@ -43,13 +48,14 @@ class TranslationController extends Controller
         $line->text = $request->text;
         $line->save();
 
-        return redirect()->route('admin.translation.index')->withFlashSuccess(__('Record Updated'));
+        $return_to = $request->input('return_to', route('admin.translation.index'));
+        return redirect($return_to)->withFlashSuccess(__('Record Updated'));
     }
 
-    public function destroy(LanguageLine $line)
+    public function destroy(Request $request, LanguageLine $line)
     {
         $line->delete();
-
-        return redirect()->route('admin.translation.index')->withFlashSuccess(__('Record Deleted'));
+        $return_to = $request->input('return_to', route('admin.translation.index'));
+        return redirect($return_to)->withFlashSuccess(__('Record Deleted'));
     }
 }

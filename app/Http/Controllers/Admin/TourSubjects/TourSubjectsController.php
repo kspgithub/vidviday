@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\TourSubjects;
 use App\Http\Controllers\Controller;
 use App\Models\TourSubject;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -74,14 +75,16 @@ class TourSubjectsController extends Controller
      * @param Request $request
      * @param TourSubject $tourSubject
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, TourSubject $tourSubject)
     {
         //
         $tourSubject->fill($request->all());
         $tourSubject->save();
-
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
         return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject updated.'));
     }
 
@@ -100,32 +103,4 @@ class TourSubjectsController extends Controller
         return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject deleted.'));
     }
 
-    public function mediaIndex(TourSubject $tourSubject)
-    {
-        return view('admin.tour_subjects.media', ['tourSubject'=>$tourSubject]);
-    }
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('normal')
-            ->width(840)
-            ->height(480);
-
-        $this->addMediaConversion('thumb')
-            ->width(315)
-            ->height(180);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['title'])
-            //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
-    }
 }

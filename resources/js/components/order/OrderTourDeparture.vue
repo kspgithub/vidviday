@@ -1,0 +1,75 @@
+<template>
+    <div>
+        <span class="text-sm text-medium title">Дата виїзду*</span>
+        <div class="single-datepicker">
+
+            <form-select-event
+                name="schedule_id"
+                v-if="group_type === 0 && schedules.length > 0"
+                v-model="schedule_id" :options="departureOptions"
+                :preselect="false"
+                label="Оберіть дату*"
+            ></form-select-event>
+
+            <form-datepicker
+                name="start_date"
+                label="Оберіть дату*"
+                :disabled="!tour"
+                v-if="group_type === 1 || schedules.length === 0"
+                v-model="start_date"
+            ></form-datepicker>
+        </div>
+    </div>
+</template>
+
+<script>
+import FormSelectEvent from "../form/FormSelectEvent";
+import FormDatepicker from "../form/FormDatepicker";
+import {useStore} from "vuex";
+import {computed} from "vue";
+
+export default {
+    name: "OrderTourDeparture",
+    components: {FormDatepicker, FormSelectEvent},
+    setup() {
+        const store = useStore();
+        const tour = computed(() => store.state.orderTour.tour);
+        const group_type = computed(() => store.state.orderTour.formData.group_type);
+
+        const schedules = computed(() => store.state.orderTour.schedules);
+
+        const schedule_id = computed({
+            get: () => store.state.orderTour.formData.schedule_id,
+            set: (val) => store.commit('orderTour/UPDATE_FORM_DATA', {schedule_id: val})
+        });
+
+        const start_date = computed({
+            get: () => store.state.orderTour.formData.start_date,
+            set: (val) => store.commit('orderTour/UPDATE_FORM_DATA', {start_date: val})
+        });
+
+        const departureOptions = computed(() => {
+            return schedules.value.map((sch) => {
+                return {
+                    value: sch.id,
+                    text: sch.start_title,
+                }
+            });
+        });
+
+        return {
+            tour,
+            group_type,
+            start_date,
+            schedule_id,
+            schedules,
+            departureOptions,
+        }
+
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

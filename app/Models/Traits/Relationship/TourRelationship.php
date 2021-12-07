@@ -4,11 +4,15 @@ namespace App\Models\Traits\Relationship;
 
 use App\Models\Badge;
 use App\Models\Direction;
+use App\Models\Discount;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
 use App\Models\Testimonial;
+use App\Models\Ticket;
+use App\Models\Tour;
 use App\Models\TourAccommodation;
+use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
@@ -40,7 +44,8 @@ trait TourRelationship
      */
     public function places()
     {
-        return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id');
+        return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id')
+            ->orderByPivot('position');
     }
 
     /**
@@ -110,7 +115,7 @@ trait TourRelationship
      */
     public function foodItems()
     {
-        return $this->hasMany(TourFood::class);
+        return $this->hasMany(TourFood::class)->orderBy('day')->orderBy('time_id');
     }
 
     /**
@@ -120,7 +125,7 @@ trait TourRelationship
      */
     public function accommodations()
     {
-        return $this->hasMany(TourAccommodation::class);
+        return $this->hasMany(TourAccommodation::class)->orderBy('position');
     }
 
     /**
@@ -140,7 +145,7 @@ trait TourRelationship
      */
     public function testimonials()
     {
-        return $this->morphMany(Testimonial::class, 'model');
+        return $this->morphMany(Testimonial::class, 'model')->withDepth()->reversed();
     }
 
     /**
@@ -160,17 +165,41 @@ trait TourRelationship
      */
     public function questions()
     {
-        return $this->hasMany(TourQuestion::class);
+        return $this->hasMany(TourQuestion::class)->withDepth()->reversed();
     }
 
     /**
-     * Менеджеры тура
+     * Сотрудники тура
      *
      * @return BelongsToMany
      */
     public function staff()
     {
         return $this->belongsToMany(Staff::class, 'tours_staff');
+    }
+
+    /**
+     * Гиды тура
+     *
+     * @return BelongsToMany
+     */
+    public function guides()
+    {
+        return $this->staff()->whereHas('types', function ($q) {
+            return $q->where('slug', 'excursion-leader');
+        });
+    }
+
+    /**
+     * Менеджер тура
+     *
+     * @return BelongsToMany
+     */
+    public function manager()
+    {
+        return $this->staff()->whereHas('types', function ($q) {
+            return $q->where('slug', 'tour-manager');
+        });
     }
 
     /**
@@ -181,5 +210,36 @@ trait TourRelationship
     public function badges()
     {
         return $this->belongsToMany(Badge::class, 'tour_badges');
+    }
+
+    /**
+     * Discounts
+     *
+     * @return BelongsToMany
+     */
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id')
+            ->orderByPivot('position');
+    }
+
+    /**
+     * Входные билеты
+     *
+     * @return BelongsToMany
+     */
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
+    }
+
+    /**
+     * Вопросы к туру
+     *
+     * @return HasMany
+     */
+    public function faq()
+    {
+        return $this->hasMany(TourFaq::class, 'tour_id');
     }
 }

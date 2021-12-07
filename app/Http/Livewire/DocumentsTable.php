@@ -56,6 +56,9 @@ class DocumentsTable extends DataTableComponent
                 ->sortable(),
 
             Column::make(__('Published'), 'published')
+                ->format(function ($value, $column, $row) {
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.document.update-status', $row)]);
+                })
                 ->sortable(),
 
             Column::make(__('Actions'))

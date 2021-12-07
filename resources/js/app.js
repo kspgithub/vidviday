@@ -15,9 +15,15 @@ require('./libs/SmoothScroll');
 
 require('./libs/datepicker.min');
 
-require('./libs/full-calendar');
+require('./libs/calendar');
 
 require('./libs/global');
 
+require('./libs/markerclusterer');
+require('./libs/infobox');
+require('./libs/map');
+require('./libs/map-route');
+require('./libs/toast');
+require('./libs/sharer');
 
-
+require('./vue-app');

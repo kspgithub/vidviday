@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,50 +19,32 @@ use Illuminate\Support\Facades\Route;
 // SITE ROUTES
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//Route::get('/test-error', [HomeController::class, 'testError'])->name('test-error');
 
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 
-require_once __DIR__.'/frontend/auth.php';
+Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('currency.change');
+
+require base_path('routes/frontend/profile.php');
+require base_path('routes/frontend/tour.php');
+require base_path('routes/frontend/staff.php');
+require base_path('routes/frontend/news.php');
+require base_path('routes/frontend/guide.php');
+require base_path('routes/frontend/event.php');
+require base_path('routes/frontend/places.php');
+require base_path('routes/frontend/transport.php');
+require base_path('routes/frontend/corporate.php');
+require base_path('routes/frontend/order.php');
+require base_path('routes/frontend/faq.php');
+require base_path('routes/frontend/testimonial.php');
+require base_path('routes/frontend/document.php');
+require base_path('routes/frontend/blog.php');
+require base_path('routes/frontend/certificate.php');
+require base_path('routes/frontend/vacancy.php');
+require base_path('routes/frontend/crm.php');
 
 // ADMIN ROUTES
-
-Route::get('/admin/login', [LoginController::class, 'create'])->middleware('guest')->name('admin.login.create');
-Route::post('/admin/login', [LoginController::class, 'store'])->middleware('guest')->name('admin.login.store');
-Route::post('/admin/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('admin.logout');
-
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-    'middleware' => 'auth.admin',
-], function () {
-    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
-
-    require_once __DIR__.'/admin/upload.php';
-    require_once __DIR__.'/admin/user.php';
-    require_once __DIR__.'/admin/translation.php';
-    require_once __DIR__.'/admin/page.php';
-    require_once __DIR__.'/admin/tour.php';
-    require_once __DIR__.'/admin/tour_subjects.php';
-    require_once __DIR__.'/admin/tour-group.php';
-    require_once __DIR__.'/admin/direction.php';
-    require_once __DIR__.'/admin/place.php';
-    require_once __DIR__.'/admin/tour-type.php';
-    require_once __DIR__.'/admin/country.php';
-    require_once __DIR__.'/admin/region.php';
-    require_once __DIR__.'/admin/city.php';
-    require_once __DIR__.'/admin/faq.php';
-    require_once __DIR__.'/admin/transport.php';
-    require_once __DIR__.'/admin/badge.php';
-    require_once __DIR__.'/admin/news.php';
-    require_once __DIR__.'/admin/staff.php';
-    require_once __DIR__.'/admin/vacancies.php';
-    require_once __DIR__.'/admin/accommodation.php';
-    require_once __DIR__.'/admin/document.php';
-    require_once __DIR__.'/admin/ticket.php';
-    require_once __DIR__.'/admin/html_block.php';
-
-});
-
-Route::get('{slug}', [PageController::class, 'show'])->name('page.show');
-
+/*
+ * see admin.php
+ */

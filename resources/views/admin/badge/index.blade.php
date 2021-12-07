@@ -1,16 +1,19 @@
 @extends('admin.layout.app')
 
-@section('title', __('Badges management'))
+@section('title', __('Badges'))
 
 @section('content')
-
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+    ['url'=>route('admin.badge.index'), 'title'=>__('Badges')],
+    ]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Badges management')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.badge.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create badge')</a>
-            @endif
+            <a href="{{route('admin.badge.create')}}" class="btn btn-sm btn-outline-info"><i
+                    data-feather="plus"></i> @lang('Create badge')</a>
         </div>
     </div>
 
@@ -35,11 +38,8 @@
                         </td>
                         <td>{{$badge->slug}}</td>
                         <td class="table-action">
-                            <x-utils.edit-button :href="route('admin.badge.edit', ['badge'=>$badge])" text="" />
-                            @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.badge.destroy', $badge)" text="" />
-                            @endif
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <x-utils.edit-button :href="route('admin.badge.edit', ['badge'=>$badge])" text=""/>
+                            <x-utils.delete-button :href="route('admin.badge.destroy', $badge)" text=""/>
                         </td>
                     </tr>
                 @endforeach

@@ -20,6 +20,7 @@
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/images";
 @import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/pagination";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/breadcrumb";
@@ -37,7 +38,8 @@
 @import "~bootstrap/scss/spinners";
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/utilities/api";
-
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/modal";
 
 // 3rd party plugins
 @import "~jsvectormap/dist/css/jsvectormap";
@@ -51,7 +53,8 @@
 //@import "~choices.js/src/styles/base";
 @import "~choices.js/src/styles/choices";
 @import "~pikaday/scss/pikaday";
-
+@import "~select2/src/scss/core";
+@import "~select2-bootstrap-5-theme/src/select2-bootstrap-5-theme";
 
 // Theme mixins
 @import "2-mixins/button";
@@ -79,7 +82,7 @@
 @import "3-components/toast";
 @import "3-components/wrapper";
 @import "3-components/media-library";
-
+@import "3-components/draggable";
 
 // Theme utilities
 @import "4-utilities/cursors";

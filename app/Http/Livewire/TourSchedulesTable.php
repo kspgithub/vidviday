@@ -41,7 +41,6 @@ class TourSchedulesTable extends DataTableComponent
     public string $defaultSortDirection = 'desc';
 
 
-
     protected $listeners = ['recordSaved'];
 
 
@@ -60,6 +59,17 @@ class TourSchedulesTable extends DataTableComponent
         $this->recordSaved();
     }
 
+    public function recordSaved($schedule = null)
+    {
+        if ($schedule === null) {
+            $schedule = new TourSchedule();
+            $schedule->tour_id = $this->tour->id;
+            $schedule->price = $this->tour->price;
+            $schedule->commission = $this->tour->commission;
+        }
+        $this->schedule = $schedule;
+    }
+
     /**
      * @return Builder
      */
@@ -71,6 +81,22 @@ class TourSchedulesTable extends DataTableComponent
     }
 
     /**
+     * @return mixed
+     */
+    public function render()
+    {
+        return view('admin.tour-schedule.includes.datatable')
+            ->with([
+                'columns' => $this->columns(),
+                'rowView' => $this->rowView(),
+                'filtersView' => $this->filtersView(),
+                'customFilters' => $this->filters(),
+                'rows' => $this->rows,
+                'modalsView' => $this->modalsView(),
+            ]);
+    }
+
+    /**
      * @return array
      */
     public function columns(): array
@@ -78,9 +104,15 @@ class TourSchedulesTable extends DataTableComponent
         return [
 
             Column::make(__('Start Date'), 'start_date')
+                ->format(function ($value, $column, $row) {
+                    return $row->start_date ? $row->start_date->format('d.m.Y') : '-';
+                })
                 ->sortable(),
 
             Column::make(__('End Date'), 'end_date')
+                ->format(function ($value, $column, $row) {
+                    return $row->end_date ? $row->end_date->format('d.m.Y') : '-';
+                })
                 ->sortable(),
 
             Column::make(__('Places'), 'places')
@@ -102,41 +134,12 @@ class TourSchedulesTable extends DataTableComponent
                 ->sortable(),
 
 
-
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour-schedule.includes.actions', ['tour'=>$this->tour, 'schedule' => $row]);
+                    return view('admin.tour-schedule.includes.actions', ['tour' => $this->tour, 'schedule' => $row]);
                 }),
         ];
     }
-
-    /**
-     * @return mixed
-     */
-    public function render()
-    {
-        return view('admin.tour-schedule.includes.datatable')
-            ->with([
-                'columns' => $this->columns(),
-                'rowView' => $this->rowView(),
-                'filtersView' => $this->filtersView(),
-                'customFilters' => $this->filters(),
-                'rows' => $this->rows,
-                'modalsView' => $this->modalsView(),
-            ]);
-    }
-
-
-    public function recordSaved($schedule = null)
-    {
-        if ($schedule === null) {
-            $schedule = new TourSchedule();
-            $schedule->tour_id = $this->tour->id;
-            $schedule->price = $this->tour->price;
-        }
-        $this->schedule = $schedule;
-    }
-
 
     public function edit($id)
     {

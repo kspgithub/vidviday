@@ -4,15 +4,21 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\RegistrationAdminEmail;
+use App\Mail\RegistrationEmail;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegisteredUserController extends Controller
 {
@@ -23,7 +29,7 @@ class RegisteredUserController extends Controller
      *
      * @return View
      */
-    public function create() :View
+    public function create(): View
     {
         return view('auth.register');
     }
@@ -38,8 +44,9 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterRequest $request)
     {
+        $password = $request->password;
         $params = $request->validated();
-        $params['password'] =  Hash::make($request->password);
+        $params['password'] = Hash::make($request->password);
         $role = $request->role;
         /**
          * @var User $user
@@ -50,7 +57,20 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         event(new Registered($user));
+        try {
+            Mail::to($user->email)->send(new RegistrationEmail($user, $password));
+            if ($user->isTourAgent()) {
+                Mail::send(new RegistrationAdminEmail($user));
+            }
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage(), $exception->getTrace());
+        }
 
-        return redirect(RouteServiceProvider::HOME)->withFlashSuccess(__('A confirmation link has been sent to your email address.'));
+        return redirect()->route('auth.register.success');
+    }
+
+    public function success()
+    {
+        return view('auth.success');
     }
 }

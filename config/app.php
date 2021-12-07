@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -39,7 +40,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -229,7 +230,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Currency' => \App\Models\Currency::class,
+        'Order' => \App\Models\Order::class,
+        'OrderCertificate' => App\Models\OrderCertificate::class,
     ],
 
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Accommodation;
 
 use App\Http\Controllers\Controller;
 use App\Models\Accommodation;
+use App\Models\Region;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class AccommodationController extends Controller
      */
     public function index()
     {
-        //
         $items = Accommodation::all();
         return view('admin.accommodation.index', ['items' => $items]);
     }
@@ -31,9 +31,13 @@ class AccommodationController extends Controller
      */
     public function create()
     {
-        //
+        $regions    = Region::toSelectBox('title', 'id');
         $accommodation = new Accommodation();
-        return view('admin.accommodation.create', ['accommodation' => $accommodation]);
+
+        return view('admin.accommodation.create', [
+            'accommodation' => $accommodation,
+            "regions" => $regions
+        ]);
     }
 
     /**
@@ -44,15 +48,22 @@ class AccommodationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $request->validate([
-            'title' => ['required', 'max:100'],
-            'text' => ['required', 'max:500'],
+
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'max:100'],
+            'title_where' => ['required', 'array'],
+            'title_where.uk' => ['required', 'max:100'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['nullable', 'max:500'],
+            'region_id' => ['nullable', 'integer'],
+            'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
 
         $accommodation = new Accommodation();
-        $accommodation->fill($request->only(['title', 'text', 'published']));
+        $accommodation->fill($request->all());
         $accommodation->save();
         return redirect()->route('admin.accommodation.edit', $accommodation)->withFlashSuccess(__('Record Created'));
     }
@@ -66,8 +77,11 @@ class AccommodationController extends Controller
      */
     public function edit(Accommodation $accommodation)
     {
-        //
-        return view('admin.accommodation.edit', ['accommodation' => $accommodation]);
+        $regions    = Region::toSelectBox('title', 'id');
+        return view('admin.accommodation.edit', [
+            'accommodation' => $accommodation,
+            "regions" => $regions
+        ]);
     }
 
     /**
@@ -80,12 +94,18 @@ class AccommodationController extends Controller
     public function update(Request $request, Accommodation $accommodation)
     {
         $request->validate([
-            'title' => ['required', 'max:100'],
-            'text' => ['required', 'max:500'],
+            'title' => ['required', 'array'],
+            'title.uk' => ['required', 'max:100'],
+            'title_where' => ['required', 'array'],
+            'title_where.uk' => ['required', 'max:100'],
+            'text' => ['required', 'array'],
+            'text.uk' => ['nullable', 'max:500'],
+            'region_id' => ['nullable', 'integer'],
+            'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
 
-        $accommodation->fill($request->only(['title', 'text', 'published']));
+        $accommodation->fill($request->all());
         $accommodation->save();
         return redirect()->route('admin.accommodation.index')->withFlashSuccess(__('Record Updated'));
     }

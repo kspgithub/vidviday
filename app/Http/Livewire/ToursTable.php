@@ -16,7 +16,12 @@ class ToursTable extends DataTableComponent
     /**
      * @var string
      */
-    public $sortField = 'id';
+    public string $defaultSortColumn = 'created_at';
+
+    /**
+     * @var string
+     */
+    public string $defaultSortDirection = 'desc';
 
     /**
      * @var array
@@ -35,7 +40,9 @@ class ToursTable extends DataTableComponent
      */
     public function query(): Builder
     {
-        $query = Tour::query();
+        $query = Tour::query()->withCount(['media' => function ($q) {
+            return $q->where('collection_name', 'pictures');
+        }, 'questions', 'testimonials']);
 
         return $query;
     }
@@ -51,12 +58,15 @@ class ToursTable extends DataTableComponent
                 ->sortable(),
 
             Column::make(__('Title'), 'title')
-                ->searchable()
+                ->searchable(function (Builder $query, $searchTerm) {
+                    return $query->orJsonLike('title', "%$searchTerm%");
+                })
                 ->sortable(),
+
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
-                    return view('admin.partials.published', ['model' => $row, 'updateUrl'=>route('admin.tour.update-status', $row)]);
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.tour.update-status', $row)]);
                 })
                 ->sortable(),
 

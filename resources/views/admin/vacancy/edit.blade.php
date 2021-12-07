@@ -1,24 +1,18 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit vacancy'))
+@section('title', __('Vacancy').' - '.__('Edit'))
 
 @section('content')
-<div class="d-flex justify-content-between">
-    <h1>@lang('Edit vacancy') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
-
-    <div class="d-flex align-items-center">
-        <a href="{{route('admin.vacancy.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-    </div>
-</div>
-    <x-forms.patch :action="route('admin.vacancy.update', $vacancy)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.vacancy.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.vacancy.index'), 'title'=>__('Vacancies')],
+    ['url'=>route('admin.vacancy.edit', $vacancy), 'title'=>$vacancy->title],
+    ]) !!}
+    <x-page.edit :update-url="route('admin.vacancy.update', $vacancy)"
+                 :back-url="route('admin.vacancy.index')" :edit="true"
+                 :title="__('Edit').' '.$vacancy->title"
+    >
+        @include('admin.vacancy.includes.form')
+    </x-page.edit>
 
 @endsection

@@ -32,6 +32,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => ['required', 'max:255', 'email', Rule::unique('users')],
 
+            'bitrix_id' => ['string', 'max:100', 'nullable'],
             'first_name' => ['string', 'max:100', 'nullable'],
             'last_name' => ['string', 'max:100', 'nullable'],
             'middle_name' => ['string', 'max:100', 'nullable'],
@@ -45,7 +46,7 @@ class StoreUserRequest extends FormRequest
             'position' => ['string', 'max:255', 'nullable'],
             'work_email' => ['email', 'max:255', 'nullable'],
             'website' => ['url', 'nullable'],
-            'avatar_upload' => [ 'mimes:jpg,png'],
+            'avatar_upload' => ['mimes:jpg,png'],
             'password' => ['max:100', PasswordRules::register($this->email)],
             'status' => ['required', Rule::in([User::STATUS_ACTIVE, User::STATUS_ACTIVE])],
             'email_verified' => ['integer', 'nullable'],
@@ -65,8 +66,10 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'role.exists' => __('Role not found or are not allowed to be associated with this user.'),
-            'roles.*.exists' => __('One or more roles were not found or are not allowed to be associated with this user type.'),
-            'permissions.*.exists' => __('One or more permissions were not found or are not allowed to be associated with this user type.'),
+            'roles.*.exists' =>
+                __('One or more roles were not found or are not allowed to be associated with this user type.'),
+            'permissions.*.exists' =>
+                __('One or more permissions were not found or are not allowed to be associated with this user type.'),
         ];
     }
 }

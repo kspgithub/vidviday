@@ -12,8 +12,14 @@
     </div>
 
     <x-forms.post :action="route('admin.html-block.store')" enctype="multipart/form-data">
-        @include('admin.html-block.includes.form')
-        <button class="btn btn-primary" type="submit">@lang('Next')</button>
+        <x-bootstrap.card>
+            <x-slot name="body">
+                @include('admin.html-block.includes.form')
+            </x-slot>
+            <x-slot name="footer">
+                <button class="btn btn-primary" type="submit">@lang('Save')</button>
+            </x-slot>
+        </x-bootstrap.card>
     </x-forms.post>
 
 

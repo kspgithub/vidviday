@@ -11,16 +11,21 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
-    <title>@yield('title', config('app.name', 'Laravel'))</title>
+    <title>@yield('title', config('app.name', 'Vidviday'))</title>
+    <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
+    <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">
 
-
-    @include('layout.includes.grid')
-    <!-- Styles -->
+@include('layout.includes.grid')
+<!-- Styles -->
     @stack('before-styles', false)
     @livewireStyles
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+
     @stack('after-styles', false)
+
+    <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
@@ -29,34 +34,39 @@
 
     <!-- HEADER -->
     <div id="header-layer-close"></div>
+    <x-site-header/>
+    <!-- END HEADER -->
 
-    @include('layout.includes.header')
+@yield('content')
 
-    <main>
-        @yield('content')
-    </main>
-
-    @include('layout.includes.footer')
-
-    @include('includes.search-dropdown')
+<!-- FOOTER -->
+    <div id="footer-layer-close"></div>
+    <x-site-footer/>
+    <!-- END FOOTER -->
 
     <!-- BUTTON SCROLL TO TOP -->
     <div class="btn-to-top"></div>
 
     @include('includes.popups')
 
-    @include('includes.video')
+    @include('layout.includes.toast-notifications')
 </div>
 
-<link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css">
 
 @stack('before-scripts', false)
 @livewireScripts
+
+<script type="text/javascript">
+    window.toastsData = @json(toastData($errors));
+</script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 
 <script src="{{ mix('js/app.js') }}" defer></script>
+
+
 @stack('after-scripts', false)
 
 </body>

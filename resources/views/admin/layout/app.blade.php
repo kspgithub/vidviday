@@ -14,7 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tiny.cloud/1/{{config('services.tinymce.key')}}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/{{config('services.tinymce.key')}}/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
 
     <!-- Styles -->
     @stack('before-styles', false)
@@ -31,8 +32,7 @@
     <div class="main">
         @include('admin.include.nav')
         <main class="content">
-
-            @include('admin.include.breadcrumbs')
+            @yield('breadcrumbs')
 
             <div class="container-fluid p-0">
                 @include('admin.include.messages')

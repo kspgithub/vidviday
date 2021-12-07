@@ -15,7 +15,6 @@
 		}
 		&:before {
 			top: 1px;
-			bottom: 0;
 			opacity: 0;
 			left: 35px;
 			right: auto;
@@ -30,15 +29,15 @@
 			background-color: transparent;
 		}
 		&:after {
-			content: '';
-			height: 1px;
-			width: 110px;
-			margin-left: 10px;
-			position: relative;
-			display: inline-block;
-			vertical-align: middle;
-			background-color: $border;
-		}
+            content: '';
+            height: 1px;
+            width: 100px;
+            margin-left: 10px;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            background-color: $border;
+        }
 		span {
 			width: 25px;
 			height: 25px;
@@ -52,42 +51,55 @@
 		&.active {
 			color: transparent;
 			&:before {
-				opacity: 1;
-			}
-			span {
-				color: #fff;
-				border-color: $blue;
-				background-color: $blue;
-			}
-		}
-	}
-	.tab-top-part {
-		align-items: center;
-	}
-	.radio {
-		margin-right: 30px;
-		margin-bottom: 10px;
-		&:last-of-type {
-			margin-right: 0;
-		}
-	}
+                opacity: 1;
+            }
+
+            span {
+                color: #fff;
+                border-color: $blue;
+                background-color: $blue;
+            }
+        }
+    }
+
+    .tab-top-part {
+        align-items: center;
+    }
+
+    .radio {
+        margin-right: 30px;
+        margin-bottom: 10px;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
 }
+
+.upak-variant {
+    .img-ic {
+        img {
+            width: 50px;
+        }
+    }
+}
+
 /*///////*/
 /* HOVER */
 /*///////*/
 @media (min-width: 1200px) {
 
-	.certificate-order-page {
-		.tab-caption {
-			&:hover {
-				span {
-					color: #fff;
-					border-color: $blue;
-					background-color: $blue;
-				}
-			}
-		}
-	}
+    .certificate-order-page {
+        .tab-caption {
+            &:hover {
+                span {
+                    color: #fff;
+                    border-color: $blue;
+                    background-color: $blue;
+                }
+            }
+        }
+    }
 }
 
 /*///////////////*/

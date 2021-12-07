@@ -5,6 +5,7 @@
 /public/hot
 /public/storage
 /public/mix-manifest.json
+/public/robots.txt
 /storage/*.key
 /vendor
 .env
@@ -23,3 +24,4 @@ yarn-error.log
 /.php-cs-fixer.cache
 /_ide_helper.php
 /_ide_helper_models.php
+/deploy.sh

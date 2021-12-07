@@ -50,8 +50,23 @@ class Region extends TranslatableModel
         return $this->hasMany(City::class);
     }
 
+    public function districts()
+    {
+        return $this->hasMany(District::class);
+    }
+    
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
     }
 }

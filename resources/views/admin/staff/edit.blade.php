@@ -1,24 +1,30 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit staff'))
+@section('title', __('Edit employee'))
 
 @section('content')
-<div class="d-flex justify-content-between">
-    <h1>@lang('Edit staff') <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.staff.index'), 'title'=>__('Staff')],
+['url'=>route('admin.staff.edit', $staff), 'title'=>__('Edit')],
+]) !!}
+    <div class="d-flex justify-content-between">
+        <h1>@lang('Edit employee')
+            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
+        </h1>
 
-    <div class="d-flex align-items-center">
-        <a href="{{route('admin.staff.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
+        <div class="d-flex align-items-center">
+            <a href="{{route('admin.staff.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
+        </div>
     </div>
-</div>
-    <x-forms.patch :action="route('admin.staff.update', $staff)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
+    <div x-data="translatable()">
+        <x-forms.patch :action="route('admin.staff.update', $staff)" x-ref="form" enctype="multipart/form-data">
+            <div>
                 @include('admin.staff.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+                <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+            </div>
+        </x-forms.patch>
+    </div>
+
 
 @endsection

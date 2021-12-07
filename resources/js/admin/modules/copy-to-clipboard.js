@@ -1,4 +1,4 @@
-import {toast} from './toast';
+import {toast} from '../../libs/toast';
 
 export const copyToClipboard = str => {
     const el = document.createElement('textarea');
@@ -15,10 +15,10 @@ export const copyToClipboard = str => {
 window.copyToClipboard = copyToClipboard;
 
 
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
     const clipElements = document.querySelectorAll('[data-clip-copy]');
-    clipElements.forEach( (elem)=>{
-        elem.addEventListener('click', (evt)=>{
+    clipElements.forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
             evt.preventDefault();
             const text = elem.dataset.clipCopy;
             copyToClipboard(text);

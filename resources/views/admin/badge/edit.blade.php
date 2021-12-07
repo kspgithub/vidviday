@@ -3,17 +3,18 @@
 @section('title', __('Edit badge'))
 
 @section('content')
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
+    ['url'=>route('admin.badge.index'), 'title'=>__('Badges')],
+    ['url'=>'#', 'title'=>$badge->title],
+    ]) !!}
+    <x-page.edit :update-url="route('admin.badge.update', $badge)"
+                 :back-url="route('admin.badge.index')" :edit="true"
+                 :title="__('Edit').' '.__('Badges')"
+    >
+        @include('admin.badge.includes.form')
+    </x-page.edit>
 
-    <x-forms.patch :action="route('admin.badge.update', $badge)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.badge.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
 
 @endsection
