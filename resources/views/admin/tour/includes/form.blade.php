@@ -35,10 +35,12 @@
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
         <x-forms.single-image-upload name="main_image"
-                                     :value="$tour->main_image === asset('img/no-image.png') ? '' : $tour->main_image"
+                                     :value="$tour->getFirstMediaUrl('main')"
+                                     :preview="$tour->getFirstMediaUrl('main')"
                                      :label="__('Main Image')"/>
         <x-forms.single-image-upload name="mobile_image"
-                                     :value="$tour->mobile_image === asset('img/no-image.png') ? '' : $tour->mobile_image"
+                                     :value="$tour->getFirstMediaUrl('mobile')"
+                                     :preview="$tour->getFirstMediaUrl('mobile')"
                                      :label="__('Mobile Image')"
                                      help="320x320"
                                      imgstyle="height: 200px; width: 200px; object-fit: cover;"
