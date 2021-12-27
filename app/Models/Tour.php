@@ -158,10 +158,11 @@ class Tour extends TranslatableModel implements HasMedia
         return SlugOptions::create()
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->preventOverwrite();
     }
 
-    public function scopeWhereHasSlug(Builder $query, $slug)
+    public function scopeWhereHasSlug(Builder $query, $slug, bool $strict = true)
     {
         $locale = getLocale();
         return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
+use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,18 +18,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasTranslatableSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class Staff extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use HasTranslatableSlug;
     use SoftDeletes;
     use UsePublishedScope;
     use HasAvatar;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UserAttributes;
+    use HasJsonSlug;
 
     public $translatable = [
         'first_name',
@@ -37,6 +42,7 @@ class Staff extends TranslatableModel implements HasMedia
         'label',
         'text',
         'additional',
+        'slug',
     ];
 
     protected $fillable = [
@@ -58,11 +64,13 @@ class Staff extends TranslatableModel implements HasMedia
         'additional',
         'published',
         'bitrix_id',
+        'slug',
     ];
 
     protected $appends = [
         'name',
         'avatar_url',
+        'url',
     ];
 
     protected $hidden = [
@@ -174,5 +182,25 @@ class Staff extends TranslatableModel implements HasMedia
             'avatar_url' => $this->avatar_url,
             'label' => $this->label
         ];
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['last_name', 'first_name'])
+            //->usingLanguage('uk')
+            ->saveSlugsTo('slug')
+            ->preventOverwrite();
+    }
+
+
+    public function getUrlAttribute()
+    {
+        if ($this->types()->where('slug', 'excursion-leader')->count() > 0) {
+            $prefix = '/guide';
+        } else {
+            $prefix = '/office-worker';
+        }
+        return !empty($this->slug) ? $prefix . '/' . $this->slug : '';
     }
 }

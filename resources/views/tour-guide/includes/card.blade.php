@@ -3,16 +3,16 @@
         <img src="{{asset('img/preloader.png')}}"
              data-img-src="{{ $specialist->image ?? asset('img/no-image.png') }}"
              alt="{{$specialist->first_name}} {{$specialist->last_name}}">
-        <a href="{{ route('guide.show', $specialist->id)}}" class="full-size"></a>
+        <a href="{{ $specialist->url }}" class="full-size"></a>
     </div>
     <div class="img-caption-info">
         <div class="guide-name">
             <span class="h3">
-                <a href="{{ route('guide.show', $specialist->id)}}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
+                <a href="{{ $specialist->url }}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
             </span>
             <span class="text">{{$specialist->testimonials_count}} відгуків</span>
         </div>
         <span class="text">Проводить <b>{{$specialist->tours_count}} турів</b></span>
-        <a href="{{ route('guide.show', $specialist->id)}}" class="btn type-1 btn-block">Дізнатись більше</a>
+        <a href="{{ $specialist->url }}" class="btn type-1 btn-block">Дізнатись більше</a>
     </div>
 </div>

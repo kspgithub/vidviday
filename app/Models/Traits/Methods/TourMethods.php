@@ -46,7 +46,7 @@ trait TourMethods
             'main_image' => $this->main_image,
             'slug' => $this->slug,
             'url' => $this->url,
-            'tour_manager' => $this->tour_manager->shortInfo()
+            'tour_manager' => $this->tour_manager ? $this->tour_manager->shortInfo() : null,
         ];
     }
 
@@ -112,7 +112,7 @@ trait TourMethods
             $items[] = [
                 'id' => 'f_' . $foodItem->id,
                 'title' => $foodItem->calc_title,
-                'price' => (int)$foodItem->food->price,
+                'price' => $foodItem->food ? (int)$foodItem->food->price : 0,
                 'currency' => $foodItem->currency,
                 'limited' => false,
                 'places' => 0,

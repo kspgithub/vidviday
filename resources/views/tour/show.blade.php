@@ -126,7 +126,7 @@
     <div v-is="'tour-calendar-popup'"
          :tour='@json($tour->shortInfo())'
          :events='@json($future_events->map->asCalendarEvent(false))'
-         :nearest-event='@json($nearest_event->asCalendarEvent(false))'
+         :nearest-event='@json($nearest_event ? $nearest_event->asCalendarEvent(false) : null)'
     >
     </div>
     <div v-is="'tour-testimonial-form'"

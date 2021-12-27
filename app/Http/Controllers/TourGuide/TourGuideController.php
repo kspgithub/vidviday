@@ -8,7 +8,6 @@ use App\Models\Page;
 
 class TourGuideController extends Controller
 {
-
     public function index()
     {
         //
@@ -18,15 +17,18 @@ class TourGuideController extends Controller
 
         $pageContent = Page::select()->where('key', 'guides')->first();
 
-        return view('tour-guide.index',
+        return view(
+            'tour-guide.index',
             [
                 'specialists' => $specialists,
                 'pageContent' => $pageContent
-            ]);
+            ]
+        );
     }
 
-    public function show(Staff $staff)
+    public function show($slug)
     {
+        $staff = Staff::findBySlugOrFail($slug);
         $staff->loadMissing([
             'testimonials' => function ($q) {
                 return $q->moderated();

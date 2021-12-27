@@ -71,7 +71,8 @@ class Vacancy extends TranslatableModel
         return SlugOptions::create()
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->preventOverwrite();
     }
 
     public function staff()
