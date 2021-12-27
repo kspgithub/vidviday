@@ -84,7 +84,8 @@ class Place extends TranslatableModel implements HasMedia
         return SlugOptions::create()
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->preventOverwrite();
     }
 
 

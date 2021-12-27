@@ -8,21 +8,27 @@
         <x-forms.translation-switch/>
 
         <x-forms.text-loc-group name="first_name" :label="__('First name')"
-                                :value="$staff->getTranslations('first_name')"
+                                :value="old('first_name', $staff->getTranslations('first_name'))"
                                 maxlength="100" required/>
 
         <x-forms.text-loc-group name="last_name" :label="__('Last name')"
-                                :value="$staff->getTranslations('last_name')"
+                                :value="old('last_name', $staff->getTranslations('last_name'))"
                                 maxlength="100" required/>
 
-        <x-forms.text-loc-group name="label" :label="__('Label')" :value="$staff->getTranslations('label')"
+        <x-forms.text-loc-group name="slug" :label="__('Slug')"
+                                :value="old('slug', $staff->getTranslations('slug'))"
+                                maxlength="100" required/>
+
+        <x-forms.text-loc-group name="label" :label="__('Label')"
+                                :value="old('label', $staff->getTranslations('label'))"
                                 maxlength="100" help="Наприклад: Бронювання турів"/>
 
-        <x-forms.text-loc-group name="position" :label="__('Position')" :value="$staff->getTranslations('position')"
+        <x-forms.text-loc-group name="position" :label="__('Position')"
+                                :value="old('position', $staff->getTranslations('position'))"
                                 help="Наприклад: менеджер з продажу подарункових сертифікатів та рецепції"/>
 
         <x-forms.editor-loc-group name="text" :label="__('Text')"
-                                  :value="$staff->getTranslations('text')"></x-forms.editor-loc-group>
+                                  :value="old('text', $staff->getTranslations('text'))"></x-forms.editor-loc-group>
 
         <x-forms.select-group name="user_id" :label="__('User')"
                               :value="old('user_id', $staff->user_id)"
@@ -33,7 +39,7 @@
         </x-forms.select-group>
 
         <x-forms.checkbox-group name="types[]" :label="__('Type')"
-                                :value="$staff->types ? $staff->types->pluck('id')->toArray() : []"
+                                :value="old('types', $staff->types ? $staff->types->pluck('id')->toArray() : [])"
                                 :options="$staffTypes"
                                 required
         />

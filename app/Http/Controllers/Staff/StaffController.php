@@ -28,8 +28,9 @@ class StaffController extends Controller
         ]);
     }
 
-    public function show(Staff $staff)
+    public function show($slug)
     {
+        $staff = Staff::findBySlugOrFail($slug);
         $staff->loadMissing([
             'testimonials' => function ($q) {
                 return $q->moderated();

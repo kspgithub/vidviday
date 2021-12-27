@@ -63,6 +63,10 @@ class ToursTable extends DataTableComponent
                 })
                 ->sortable(),
 
+            Column::make(__('Мови'), 'locales')
+                ->format(function ($value, $column, $row) {
+                    return implode(', ', $row->locales);
+                }),
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
