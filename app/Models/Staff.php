@@ -36,6 +36,7 @@ class Staff extends TranslatableModel implements HasMedia
         'position',
         'label',
         'text',
+        'additional',
     ];
 
     protected $fillable = [
@@ -54,6 +55,7 @@ class Staff extends TranslatableModel implements HasMedia
         'viber',
         'telegram',
         'whatsapp',
+        'additional',
         'published',
         'bitrix_id',
     ];

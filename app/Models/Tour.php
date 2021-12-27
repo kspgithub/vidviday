@@ -11,6 +11,7 @@ use App\Models\Traits\Scope\TourScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -75,6 +76,7 @@ class Tour extends TranslatableModel implements HasMedia
         'hutsul_fun_on',
         'hutsul_fun_text',
         'contact',
+        'locales',
     ];
 
     protected $casts = [
@@ -83,6 +85,7 @@ class Tour extends TranslatableModel implements HasMedia
         'price' => 'float',
         'commission' => 'float',
         'similar' => 'array',
+        'locales' => 'array',
     ];
 
     protected $appends = [
@@ -156,5 +159,11 @@ class Tour extends TranslatableModel implements HasMedia
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function scopeWhereHasSlug(Builder $query, $slug)
+    {
+        $locale = getLocale();
+        return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug);
     }
 }

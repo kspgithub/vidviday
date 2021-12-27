@@ -12,7 +12,7 @@
 
         <div class="spacer-xs"></div>
 
-        <x-tour.manager :tour="$tour"/>
+        <x-tour.manager :manager="$tour->tour_manager"/>
 
         <div class="sidebar-item only-desktop hidden-print">
             <a download class="download" v-is="'print-btn'">

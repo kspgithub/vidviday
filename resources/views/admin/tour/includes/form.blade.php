@@ -3,6 +3,11 @@
         <h3>@lang('Basic Information')</h3>
     </x-slot>
     <x-slot name="body">
+        <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $tour->published)"/>
+
+        <x-forms.locales :value="$tour->locales"/>
+
+
         <x-forms.translation-switch/>
 
         <x-forms.text-loc-group name="title" :label="__('Title')"
@@ -137,9 +142,6 @@
                               :options="$managers">
             <option value="">Не вибрано</option>
         </x-forms.select-group>
-
-        <x-forms.editor-loc-group name="contact" :label="__('Additional contacts')"
-                                  :value="old('contact', $tour->getTranslations('contact'))"></x-forms.editor-loc-group>
 
         <x-forms.tag-group name="staff[]"
                            :label="__('Guides')"

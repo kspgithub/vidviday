@@ -75,17 +75,12 @@
         <x-forms.text-group name="whatsapp" :label="__('Whatsapp')" :value="old('whatsapp', $staff->whatsapp)"
                             maxlength="100"></x-forms.text-group>
 
+        <x-forms.editor-loc-group name="additional" :label="__('Додаткові контакти')"
+                                  :value="$staff->getTranslations('additional')"/>
+
         <br>
-        <div class="row">
-            <label class="form-label col-md-2" for="Published">Активовано</label>
-            <div class="col-md-10">
-                <select class="form-select" maxlength="100" name="published"
-                        value="old('published', $staff->published)">
-                    <option value="1">так</option>
-                    <option value="0">ні</option>
-                </select>
-            </div>
-        </div>
+
+        <x-forms.switch-group name="published" label="Активовано" :active="old('published', $staff->published)"/>
 
 
     </x-slot>
