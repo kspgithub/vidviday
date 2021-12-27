@@ -19,12 +19,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Staff
- *
- * @package App\Models
- * @mixin IdeHelperStaff
- */
 class Staff extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -42,6 +36,7 @@ class Staff extends TranslatableModel implements HasMedia
         'position',
         'label',
         'text',
+        'additional',
     ];
 
     protected $fillable = [
@@ -60,6 +55,7 @@ class Staff extends TranslatableModel implements HasMedia
         'viber',
         'telegram',
         'whatsapp',
+        'additional',
         'published',
         'bitrix_id',
     ];

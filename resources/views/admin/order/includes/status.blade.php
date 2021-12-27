@@ -6,53 +6,67 @@
     <div class="btn-group-sm mb-2">
         @switch($order->status )
             @case(\App\Models\Order::STATUS_NEW)
-            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('New')
-            </button>
-            @break
-            @case(\App\Models\Order::STATUS_PENDING_PAYMENT)
             <button class="btn btn-sm btn-outline-warning dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('Pending Payment')
+                @lang('order-section.status.new')
             </button>
             @break
-            @case(\App\Models\Order::STATUS_PROCESSING)
+            @case(\App\Models\Order::STATUS_BOOKED)
             <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('Processing')
+                @lang('order-section.status.booked')
             </button>
             @break
+            @case(\App\Models\Order::STATUS_NOT_SENT)
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                @lang('order-section.status.not-sent')
+            </button>
+            @break
+            @case(\App\Models\Order::STATUS_INTERESTED)
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                @lang('order-section.status.interested')
+            </button>
+            @break
+            @case(\App\Models\Order::STATUS_RESERVE)
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                @lang('order-section.status.reserve')
+            </button>
+            @break
+            @case(\App\Models\Order::STATUS_DEPOSIT)
+            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                @lang('order-section.status.deposit')
+            </button>
+            @break
+
             @case(\App\Models\Order::STATUS_PAYED)
             <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('Payed')
+                @lang('order-section.status.payed')
             </button>
             @break
-            @case(\App\Models\Order::STATUS_COMPLETED)
-            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('Completed')
-            </button>
 
-            @break
-            @case(\App\Models\Order::STATUS_MAINTENANCE)
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                @lang('Maintenance')
-            </button>
-            @break
-            @case(\App\Models\Order::STATUS_PENDING_REJECT)
+            @case(\App\Models\Order::STATUS_PENDING_CANCEL)
             <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                 @lang('Pending Reject')
             </button>
             @break
-            @case(\App\Models\Order::STATUS_REJECTED)
+            @case(\App\Models\Order::STATUS_CANCELED)
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                 @lang('Rejected')
             </button>
+            @break
+            @case(\App\Models\Order::STATUS_COMPLETED)
+            <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                @lang('Completed')
+            </button>
+
             @break
         @endswitch
 

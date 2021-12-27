@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class TourInclude
- *
- * @package App\Models
- * @mixin IdeHelperTourInclude
- */
 class TourInclude extends Model
 {
     use HasFactory;

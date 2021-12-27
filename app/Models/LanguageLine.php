@@ -6,13 +6,6 @@ use App\Models\Traits\Scope\JsonLikeScope;
 use Spatie\Translatable\HasTranslations;
 use Spatie\TranslationLoader\LanguageLine as SpatieLanguageLine;
 
-/**
- * Class LanguageLine
- * Переводы строк
- *
- * @package App\Models
- * @mixin IdeHelperLanguageLine
- */
 class LanguageLine extends SpatieLanguageLine
 {
     use JsonLikeScope;

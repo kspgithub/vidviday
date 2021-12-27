@@ -12,9 +12,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperDiscount
- */
 class Discount extends TranslatableModel
 {
     use HasFactory;

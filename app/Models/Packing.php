@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperPacking
- */
 class Packing extends TranslatableModel
 {
     use HasFactory;

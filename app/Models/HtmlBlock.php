@@ -8,13 +8,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class HtmlBlock
- * Различные HTML блоки на страницах
- *
- * @package App\Models
- * @mixin IdeHelperHtmlBlock
- */
 class HtmlBlock extends TranslatableModel
 {
     use HasFactory;

@@ -9,9 +9,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperAchievement
- */
 class Achievement extends TranslatableModel
 {
     use HasTranslations;

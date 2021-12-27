@@ -10,12 +10,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Ticket
- *
- * @package App\Models
- * @mixin IdeHelperTicket
- */
 class Ticket extends TranslatableModel
 {
 

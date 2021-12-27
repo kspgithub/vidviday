@@ -11,13 +11,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class TourAccommodation
- * Проживание тура
- *
- * @package App\Models
- * @mixin IdeHelperTourAccommodation
- */
 class TourAccommodation extends TranslatableModel
 {
     use HasFactory;
@@ -63,5 +56,10 @@ class TourAccommodation extends TranslatableModel
     public function getTextAttribute()
     {
         return !empty($this->accommodation) ? $this->accommodation->text : $this->getTranslation('text', $this->getLocale());
+    }
+
+    public function getTitleAttribute()
+    {
+        return !empty($this->accommodation) ? $this->accommodation->title : $this->getTranslation('title', $this->getLocale());
     }
 }

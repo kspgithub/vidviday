@@ -6,13 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-/**
- * Class UserQuestion
- * Заказ звонка или письмо от пользователя
- *
- * @package App\Models
- * @mixin IdeHelperUserQuestion
- */
 class UserQuestion extends Model
 {
     use HasFactory;

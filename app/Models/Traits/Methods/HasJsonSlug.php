@@ -10,7 +10,7 @@ trait HasJsonSlug
 
     public function scopeWhereHasSlug(Builder $query, $slug)
     {
-        return $query->whereJsonContains('slug->' . getLocale(), $slug)->orWhereJsonContains('slug->uk', $slug);
+        return $query->whereJsonContains('slug->' . getLocale(), $slug);
     }
 
     public static function existBySlug(string $slug)

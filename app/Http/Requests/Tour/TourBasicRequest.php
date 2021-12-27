@@ -27,6 +27,7 @@ class TourBasicRequest extends FormRequest
     {
         return [
             //
+            'locales' => ['required', 'array'],
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'string'],
             'bitrix_id' => ['nullable', 'string'],
@@ -47,6 +48,7 @@ class TourBasicRequest extends FormRequest
             'currency' => ['required', Rule::in(Currency::isoNames())],
             'new' => ['nullable', Rule::in(['1', '0'])],
             'bestseller' => ['nullable', Rule::in(['1', '0'])],
+            'published' => ['nullable', Rule::in(['1', '0'])],
             'main_image' => ['nullable', 'string'],
             'badges' => ['nullable', 'array'],
             'staff' => ['nullable', 'array'],

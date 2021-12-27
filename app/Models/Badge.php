@@ -9,12 +9,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Badge
- *
- * @package App\Models
- * @mixin IdeHelperBadge
- */
 class Badge extends TranslatableModel
 {
     use HasFactory;

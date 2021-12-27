@@ -14,7 +14,7 @@ const MediaLibrary = function (selector) {
     fileElement.addEventListener('change', (evt) => {
         const files = evt.target.files;
         if (files.length > 0) {
-            files.forEach(async (file) => {
+            Array.from(files).forEach(async (file) => {
                 await uploadMedia(file);
             })
 

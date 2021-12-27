@@ -3,6 +3,8 @@
         <h3>@lang('Basic Information')</h3>
     </x-slot>
     <x-slot name="body">
+        <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $place->published)"/>
+
         <x-forms.translation-switch/>
         <x-forms.text-loc-group name="title" :label="__('Title')"
                                 :value="old('title', $place->getTranslations('title'))" maxlength="100"

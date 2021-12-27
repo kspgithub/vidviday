@@ -44,6 +44,7 @@
         "livewire-sortable": "^0.2.2",
         "lodash": "^4.17.19",
         "moment": "^2.29.1",
+        "perfect-scrollbar": "^1.5.3",
         "pikaday": "^1.8.2",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^4.0.0",

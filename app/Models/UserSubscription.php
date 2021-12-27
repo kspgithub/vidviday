@@ -5,12 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class UserSubscription
- *
- * @package App\Models
- * @mixin IdeHelperUserSubscription
- */
 class UserSubscription extends Model
 {
     use HasFactory;

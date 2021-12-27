@@ -14,9 +14,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperFinance
- */
 class Finance extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -26,7 +23,6 @@ class Finance extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
-
 
 
     public $translatable = [

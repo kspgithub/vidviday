@@ -19,13 +19,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class TourPlace
- * Место
- *
- * @package App\Models
- * @mixin IdeHelperPlace
- */
 class Place extends TranslatableModel implements HasMedia
 {
     use HasFactory;

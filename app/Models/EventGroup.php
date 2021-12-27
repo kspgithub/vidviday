@@ -18,12 +18,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class EventGroup
- *
- * @package App\Models
- * @mixin IdeHelperEventGroup
- */
 class EventGroup extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -34,7 +28,7 @@ class EventGroup extends TranslatableModel implements HasMedia
     use UseNormalizeMedia;
     use UseSelectBox;
     use EventAttribute;
-    
+
 
     public $translatable = [
         'title',
@@ -95,7 +89,6 @@ class EventGroup extends TranslatableModel implements HasMedia
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
-
 
 
     /**

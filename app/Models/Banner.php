@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperBanner
- */
 class Banner extends Model
 {
     use HasFactory;
@@ -49,9 +46,9 @@ class Banner extends Model
     ];
 
     protected $casts = [
-        'published'=>'boolean',
-        'show_price'=>'boolean',
-        'price'=>'integer',
+        'published' => 'boolean',
+        'show_price' => 'boolean',
+        'price' => 'integer',
     ];
 
     public function imageSize()

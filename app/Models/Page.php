@@ -14,13 +14,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Page
- * Страницы сайта
- *
- * @package App\Models
- * @mixin IdeHelperPage
- */
 class Page extends TranslatableModel implements HasMedia
 {
     use HasFactory;

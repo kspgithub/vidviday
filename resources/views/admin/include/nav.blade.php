@@ -4,6 +4,11 @@
     </a>
 
     <div class="navbar-collapse collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/" class="nav-link">До сайту</a>
+            </li>
+        </ul>
         <ul class="navbar-nav navbar-align">
             @if(count(config('site-settings.locale.languages')) > 1)
                 <li class="nav-item dropdown">
@@ -16,8 +21,8 @@
             @endif
 
 
-{{--            @include('admin.include.nav-notifications')--}}
-{{--            @include('admin.include.nav-messages')--}}
+            {{--            @include('admin.include.nav-notifications')--}}
+            {{--            @include('admin.include.nav-messages')--}}
 
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
@@ -25,18 +30,19 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{current_user()->avatar_url}}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">{{current_user()->name}}</span>
+                    <img src="{{current_user()->avatar_url}}" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
+                    <span class="text-dark">{{current_user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-{{--                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> @lang('Profile')</a>--}}
-{{--                    <div class="dropdown-divider"></div>--}}
+                    {{--                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> @lang('Profile')</a>--}}
+                    {{--                    <div class="dropdown-divider"></div>--}}
                     <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         <i class="align-middle mr-1" data-feather="log-out"></i>
                         @lang('Logout')</a>
-                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </li>
         </ul>

@@ -25,6 +25,7 @@
         <x-input.select2 name="{{$name}}"
                          :value="$value"
                          url="/api/tours/select-box"
+        
         >
             @if($tour)
                 <option value="{{$tour->id}}" selected>

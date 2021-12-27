@@ -18,9 +18,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperPost
- */
 class Post extends TranslatableModel implements HasMedia
 {
     use HasFactory;

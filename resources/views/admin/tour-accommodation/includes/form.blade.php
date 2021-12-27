@@ -1,7 +1,6 @@
 <div>
 
 
-
     @if(!$edit)
         <h4 class="mb-3">@lang('Accommodation')</h4>
         <ul wire:sortable="updateOrder" class="list-group draggable-container mb-5" style="width: 500px;">
@@ -41,14 +40,6 @@
                     </x-input.select2wire>
                 </div>
             </div>
-            @foreach($locales as  $locale)
-                <x-forms.text-group wire:model.defer="title_{{$locale}}"
-                                    required
-                                    name="title_{{$locale}}"
-                                    label="{{__('Title')}} {{strtoupper($locale)}}"
-
-                ></x-forms.text-group>
-            @endforeach
 
             <button type="submit" class="btn btn-primary me-3">@lang('Save')</button>
             <button type="button" wire:click.prevent="cancelEdit()" class="btn btn-secondary">@lang('Cancel')</button>
@@ -58,5 +49,5 @@
 
     @endif
 
-        @include('livewire-tables::bootstrap-5.includes.delete-modal')
+    @include('livewire-tables::bootstrap-5.includes.delete-modal')
 </div>

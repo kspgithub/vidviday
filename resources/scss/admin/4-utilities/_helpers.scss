@@ -1,3 +1,60 @@
-.h-300px{
+[x-cloak] {
+    display: none !important;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.h-300px {
     height: 300px;
+}
+
+.mw-50px {
+    min-width: 50px;
+}
+
+.mw-60px {
+    min-width: 60px;
+}
+
+.w-80px {
+    width: 80px;
+}
+
+.mw-80px {
+    min-width: 80px;
+}
+
+.mw-150px {
+    min-width: 150px;
+}
+
+.mw-200px {
+    min-width: 200px;
+}
+
+.loading {
+    opacity: .7;
+}
+
+.max-60px {
+    max-width: 120px;
+}
+
+.max-120px {
+    max-width: 120px;
+}
+
+
+.fs-14 {
+    font-size: 14px;
 }

@@ -9,12 +9,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Transport
- *
- * @package App\Models
- * @mixin IdeHelperTransport
- */
 class Transport extends TranslatableModel
 {
     use HasFactory;

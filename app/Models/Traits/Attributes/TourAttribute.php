@@ -79,4 +79,14 @@ trait TourAttribute
         }
         return collect($days);
     }
+
+
+    public function getDiscountTitleAttribute()
+    {
+        $title = [];
+        foreach ($this->discounts as $discount) {
+            $title[] = !empty($discount->admin_title) ? $discount->admin_title : $discount->title;
+        }
+        return implode('<br> ', $title);
+    }
 }

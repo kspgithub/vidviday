@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Document
- *
- * @package App\Models
- * @mixin IdeHelperDocument
- */
 class Document extends TranslatableModel
 {
     use HasFactory;

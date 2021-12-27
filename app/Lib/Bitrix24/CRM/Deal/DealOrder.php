@@ -3,9 +3,7 @@
 namespace App\Lib\Bitrix24\CRM\Deal;
 
 use App\Lib\Bitrix24\Core\HasPrice;
-use App\Lib\Bitrix24\CRM\Contact\ContactItem;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
-use App\Lib\Bitrix24\CRM\Contact\ContactValue;
 use App\Models\BitrixContact;
 use App\Models\Order;
 use App\Models\Tour;
@@ -47,21 +45,21 @@ class DealOrder
 
     protected const STATUSES_MAP = [
         'C5:NEW' => Order::STATUS_NEW, // Нова
-        'C5:14' => Order::STATUS_PROCESSING, // В обробці
-        'C5:PREPARATION' => Order::STATUS_PROCESSING, // Отримати рішення
-        'C5:PREPAYMENT_INVOICE' => Order::STATUS_PENDING_PAYMENT, // ВІДПРАВИТИ РАХУНОК
-        'C5:EXECUTING' => Order::STATUS_PENDING_PAYMENT, // ОТРИМАТИ ОПЛАТУ
-        'C5:FINAL_INVOICE' => Order::STATUS_PENDING_REJECT, // РАХУНОК ПРОСРОЧЕНО
-        'C5:13' => Order::STATUS_MAINTENANCE, // ТУР ТРИВАЄ
-        'C5:2' => Order::STATUS_PROCESSING, // Отримати післяоплату/Акт
+        'C5:14' => Order::STATUS_BOOKED, // В обробці
+        'C5:PREPARATION' => Order::STATUS_BOOKED, // Отримати рішення
+        'C5:PREPAYMENT_INVOICE' => Order::STATUS_BOOKED, // ВІДПРАВИТИ РАХУНОК
+        'C5:EXECUTING' => Order::STATUS_BOOKED, // ОТРИМАТИ ОПЛАТУ
+        'C5:FINAL_INVOICE' => Order::STATUS_PENDING_CANCEL, // РАХУНОК ПРОСРОЧЕНО
+        'C5:13' => Order::STATUS_PAYED, // ТУР ТРИВАЄ
+        'C5:2' => Order::STATUS_COMPLETED, // Отримати після оплату/Акт
         'C5:WON' => Order::STATUS_COMPLETED, // Успішне Виконання
-        'C5:LOSE' => Order::STATUS_REJECTED, // Не отримали оплату
-        'C5:7' => Order::STATUS_REJECTED, // Передумав
-        'C5:8' => Order::STATUS_REJECTED, // Купив у конкурента
-        'C5:9' => Order::STATUS_REJECTED, // ДОРОГО
-        'C5:10' => Order::STATUS_REJECTED, // НЕ ГОТОВИЙ
-        'C5:11' => Order::STATUS_REJECTED, // НЕАДЕКВАТНИЙ
-        'C5:12' => Order::STATUS_REJECTED, // ЗНИК
+        'C5:LOSE' => Order::STATUS_CANCELED, // Не отримали оплату
+        'C5:7' => Order::STATUS_CANCELED, // Передумав
+        'C5:8' => Order::STATUS_CANCELED, // Купив у конкурента
+        'C5:9' => Order::STATUS_CANCELED, // ДОРОГО
+        'C5:10' => Order::STATUS_CANCELED, // НЕ ГОТОВИЙ
+        'C5:11' => Order::STATUS_CANCELED, // НЕАДЕКВАТНИЙ
+        'C5:12' => Order::STATUS_CANCELED, // ЗНИК
     ];
 
     public static function createOrUpdate($bitrix_id, $data)
@@ -185,7 +183,7 @@ class DealOrder
             $data[DealFields::FIELD_END_DATE] = $order->end_date->format('d.m.Y');
         }
 
-        $data[DealFields::FIELD_CHILDREN] = (bool)$order->children;
+        $data[DealFields::FIELD_CHILDREN] = $order->children;
 
         if ($order->children) {
             $data[DealFields::FIELD_CHILDREN_YOUNG] = $order->children_young;

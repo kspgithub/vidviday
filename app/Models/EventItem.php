@@ -18,12 +18,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Event
- *
- * @package App\Models
- * @mixin IdeHelperEventItem
- */
 class EventItem extends TranslatableModel implements HasMedia
 {
     use HasFactory;
