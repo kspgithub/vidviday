@@ -28,6 +28,7 @@ class DiscountBasicRequest extends FormRequest
         return [
             'title' => [Rule::requiredIf(is_null($this->published)), 'array'],
             'title.uk' => [Rule::requiredIf(is_null($this->published)), 'string'],
+            'admin_title' => ['required', 'string'],
             'slug' => ['nullable', 'string'],
             'type' => ['nullable', 'integer'],
             'category' => ['nullable'],
