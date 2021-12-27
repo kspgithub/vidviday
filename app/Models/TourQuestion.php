@@ -15,12 +15,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-/**
- * Class TourQuestion
- *
- * @package App\Models
- * @mixin IdeHelperTourQuestion
- */
 class TourQuestion extends Model implements HasMedia
 {
     use HasFactory;

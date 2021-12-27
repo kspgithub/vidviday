@@ -9,12 +9,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class IncludeType
- *
- * @package App\Models
- * @mixin IdeHelperIncludeType
- */
 class IncludeType extends TranslatableModel
 {
     use HasTranslations;

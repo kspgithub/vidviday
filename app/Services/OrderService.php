@@ -37,6 +37,7 @@ class OrderService extends BaseService
             'user_id' => $params['user_id'] ?? null,
             'comment' => $params['comment'] ?? '',
             'act_is_needed' => $params['act_is_needed'] ?? 0,
+            'status' => Order::STATUS_NEW,
         ];
 
 

@@ -90,8 +90,20 @@ class ToursController extends Controller
         $guidesQuery = Staff::onlyExcursionLeaders();
         $tour_id = $request->input('tour_id', 0);
         if ($tour_id > 0) {
-            $guidesQuery->whereHas('tours', fn($q) => $q->where('id', $tour_id));
+            $guidesQuery->whereHas('tours', fn ($q) => $q->where('id', $tour_id));
         }
         return $guidesQuery->orderBy('last_name')->get(['id', 'first_name', 'last_name', 'phone', 'email', 'avatar']);
+    }
+
+    /**
+     * Расписание тура (для админки)
+     * @param Request $request
+     * @param Tour $tour
+     * @return mixed
+     */
+    public function allSchedules($tourId)
+    {
+        $tour = Tour::findOrFail($tourId);
+        return $tour->scheduleItems()->orderBy('start_date', 'desc')->get()->map->shortInfo();
     }
 }

@@ -5,13 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class AgencySubscription
- * Рассылка для турфирм
- *
- * @package App\Models
- * @mixin IdeHelperAgencySubscription
- */
 class AgencySubscription extends Model
 {
     use HasFactory;

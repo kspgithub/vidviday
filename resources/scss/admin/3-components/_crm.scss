@@ -1,0 +1,70 @@
+$cs-new: #dede7f;
+$cs-booked: #ffff99;
+$cs-not-sent: #e4d0b0;
+$cs-interested: #d0d0d0;
+$cs-reserve: #a8d1df;
+$cs-deposit: #a2c4c9;
+$cs-payed: #ccffcc;
+$cs-pending-cancel: #eaa0b1;
+$cs-canceled: #f7bac5;
+$cs-completed: #ccffcc;
+
+.order-row-new,
+.bg-status-new {
+    background: $cs-new;
+    color: #495057;
+}
+
+.order-row-booked,
+.bg-status-booked {
+    background: $cs-booked;
+    color: #495057;
+}
+
+.order-row-not-sent,
+.bg-status-not-sent {
+    background: $cs-not-sent;
+    color: #495057;
+}
+
+.order-row-interested,
+.bg-status-interested {
+    background: $cs-interested;
+    color: #495057;
+}
+
+.order-row-reserve,
+.bg-status-reserve {
+    background: $cs-reserve;
+    color: #495057;
+}
+
+.order-row-deposit,
+.bg-status-deposit {
+    background: $cs-deposit;
+    color: #495057;
+}
+
+.order-row-payed,
+.bg-status-payed {
+    background: $cs-payed;
+    color: #495057;
+}
+
+.order-row-completed,
+.bg-status-completed {
+    background: $cs-completed;
+    color: #495057;
+}
+
+.order-row-pending-cancel,
+.bg-status-pending-cancel {
+    background: $cs-pending-cancel;
+    color: #495057;
+}
+
+.order-row-canceled,
+.bg-status-canceled {
+    background: $cs-canceled;
+    color: #495057;
+}

@@ -1,9 +1,9 @@
 // Usage: https://flatpickr.js.org/
 import flatpickr from "flatpickr";
 import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
+import {Ukrainian} from "flatpickr/dist/l10n/uk";
 
 window.flatpickr = flatpickr;
-
 
 
 const DatePickerComponent = function () {
@@ -14,6 +14,7 @@ const DatePickerComponent = function () {
             const input = element.querySelector('.flatpicker');
             flatpickr(input, {
                 wrap: true,
+                locale: Ukrainian,
                 dateFormat: dateFormat
             });
         });
@@ -21,17 +22,18 @@ const DatePickerComponent = function () {
     }
 }
 
-const RangePickerComponent = function (){
-    this.init = function (){
+const RangePickerComponent = function () {
+    this.init = function () {
         const pickerElements = document.querySelectorAll('.range-picker-group');
 
-        pickerElements.forEach((element)=>{
+        pickerElements.forEach((element) => {
             const startInput = element.querySelector('.flatpicker-start');
             const endInput = element.querySelector('.flatpicker-end');
             const dateFormat = startInput.dataset.dateFormat || 'Y-m-d';
 
             const picker = flatpickr(startInput, {
                 minDate: Date.now(),
+                locale: Ukrainian,
                 dateFormat: dateFormat,
                 plugins: [new rangePlugin({input: endInput})],
                 onChange: function (selectedDates, dateStr, instance) {
@@ -45,7 +47,7 @@ const RangePickerComponent = function (){
 
 window.DatePickerComponent = DatePickerComponent;
 
-document.addEventListener('DOMContentLoaded',  () =>{
+document.addEventListener('DOMContentLoaded', () => {
     new DatePickerComponent().init();
     new RangePickerComponent().init();
 });

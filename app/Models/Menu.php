@@ -10,12 +10,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class SiteMenu
- *
- * @package App\Models
- * @mixin IdeHelperMenu
- */
 class Menu extends TranslatableModel
 {
     use HasFactory;

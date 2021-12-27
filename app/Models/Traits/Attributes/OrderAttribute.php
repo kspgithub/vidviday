@@ -76,4 +76,8 @@ trait OrderAttribute
         return $this->payment ? $this->payment->title : '';
     }
 
+    public function getTourManagerAttribute()
+    {
+        return $this->tour && $this->tour->manager ? $this->tour->manager->first->shortInfo() : null;
+    }
 }

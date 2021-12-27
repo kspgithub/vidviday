@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class PriceItem
- *
- * @package App\Models
- * @mixin IdeHelperPriceItem
- */
 class PriceItem extends TranslatableModel
 {
     use HasFactory;

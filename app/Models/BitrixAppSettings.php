@@ -5,9 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @mixin IdeHelperBitrixAppSettings
- */
 class BitrixAppSettings extends Model
 {
     use HasFactory;
@@ -26,7 +23,6 @@ class BitrixAppSettings extends Model
         'refresh_token',
         'application_token',
     ];
-
 
 
 }

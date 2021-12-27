@@ -8,9 +8,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperAccommodationType
- */
 class AccommodationType extends TranslatableModel
 {
     use HasFactory;
@@ -46,5 +43,21 @@ class AccommodationType extends TranslatableModel
     public function getSlugKeyAttribute()
     {
         return str_replace('-', '_', $this->slug);
+    }
+
+    public static function toSelectBox(
+        $text_field = 'title',
+        $value_field = 'slug',
+        $value_key = 'value',
+        $text_key = 'text'
+    ) {
+        return self::query()->get(['title', 'slug', 'description'])
+            ->map(function ($item) {
+                return [
+                    'value' => str_replace('-', '_', $item->slug),
+                    'text' => $item->title,
+                    'description' => $item->description,
+                ];
+            });
     }
 }

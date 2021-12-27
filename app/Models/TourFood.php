@@ -11,13 +11,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class TourFood
- * Питание тура
- *
- * @package App\Models
- * @mixin IdeHelperTourFood
- */
 class TourFood extends TranslatableModel
 {
     use HasFactory;

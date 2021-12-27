@@ -12,12 +12,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class MenuItem
- *
- * @package App\Models
- * @mixin IdeHelperMenuItem
- */
 class MenuItem extends TranslatableModel
 {
     use UsePublishedScope;

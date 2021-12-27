@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class FoodTime
- *
- * @package App\Models
- * @mixin IdeHelperFoodTime
- */
 class FoodTime extends Model
 {
     use HasFactory;

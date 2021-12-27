@@ -17,13 +17,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Direction
- * Направление тура
- *
- * @package App\Models
- * @mixin IdeHelperDirection
- */
 class Direction extends TranslatableModel implements HasMedia
 {
     use HasTranslatableSlug;

@@ -22,7 +22,7 @@
     <div class="{{$inputCol}}">
        <textarea name="{{$name}}"
                  id="{{$id ?? $name}}"
-                 placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
+                 placeholder="{{$placeholder}}"
                 {{$readonly ? 'readonly' : ''}}
            {{ $attributes->merge(['class' => 'form-control', 'type'=>$type]) }}
             >{!! $value ?? '' !!}</textarea>

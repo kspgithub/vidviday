@@ -19,6 +19,11 @@ use App\Http\Controllers\Admin\Badge\BadgeController;
 use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Certificate\CertificateController;
+use App\Http\Controllers\Admin\CRM\CrmClientController;
+use App\Http\Controllers\Admin\CRM\CrmCorporateController;
+use App\Http\Controllers\Admin\CRM\CrmNotificationsController;
+use App\Http\Controllers\Admin\CRM\CrmOrderController;
+use App\Http\Controllers\Admin\CRM\CrmScheduleController;
 use App\Http\Controllers\Admin\Location\CityController;
 use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\Location\CountryController;
@@ -164,6 +169,7 @@ Route::resource("include-type", IncludeTypeController::class)->except('show');
 Route::resource("tour-include", TourIncludeController::class)->except('show');
 
 // ORDERS
+Route::patch('order/{order}/update-status', [OrderController::class, 'updateStatus'])->name('order.update-status');
 Route::resource('order', OrderController::class);
 Route::resource('certificate', CertificateController::class);
 
@@ -232,9 +238,27 @@ Route::resource('tour-group', TourGroupController::class)->except('show');
 require_once base_path('routes/admin/tour.php');
 
 
+Route::group([
+    'prefix' => 'crm',
+    'as' => 'crm.',
+], function () {
+    Route::get('clients', [CrmClientController::class, 'index'])->name('client.index');
+    Route::patch('clients/{client}', [CrmClientController::class, 'update'])->name('client.update');
+    Route::delete('clients/{client}', [CrmClientController::class, 'delete'])->name('client.destroy');
 
 
+    Route::get('schedules', [CrmScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('schedules/{schedule}', [CrmScheduleController::class, 'show'])->name('schedule.show');
+    Route::patch('schedules/{schedule}', [CrmScheduleController::class, 'update'])->name('schedule.update');
+    Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
+    Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
 
+    Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
-
+    Route::get('order/count', [CrmOrderController::class, 'count'])->name('order.count');
+    Route::resource('order', CrmOrderController::class);
+    Route::resource('corporate', CrmCorporateController::class)->parameters([
+        'corporate' => 'order'
+    ]);
+});
 

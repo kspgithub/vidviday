@@ -12,12 +12,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class TourPlan
- *
- * @package App\Models
- * @mixin IdeHelperTourPlan
- */
 class TourPlan extends TranslatableModel
 {
     use HasFactory;

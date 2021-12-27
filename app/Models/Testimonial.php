@@ -17,12 +17,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-/**
- * Class Testimonial
- *
- * @package App\Models
- * @mixin IdeHelperTestimonial
- */
 class Testimonial extends Model implements HasMedia
 {
     use HasFactory;

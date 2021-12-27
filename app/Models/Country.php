@@ -6,12 +6,6 @@ use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Country
- *
- * @package App\Models
- * @mixin IdeHelperCountry
- */
 class Country extends TranslatableModel
 {
     use HasFactory;

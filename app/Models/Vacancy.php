@@ -16,12 +16,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Vacancy
- *
- * @package App\Models
- * @mixin IdeHelperVacancy
- */
 class Vacancy extends TranslatableModel
 {
     use HasFactory;

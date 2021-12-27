@@ -4,9 +4,6 @@ namespace App\Models;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
-/**
- * @mixin IdeHelperMedia
- */
 class Media extends SpatieMedia
 {
     public function toSwiperSlide()

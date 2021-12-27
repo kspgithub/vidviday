@@ -10,9 +10,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperPageSection
- */
 class PageSection extends TranslatableModel implements HasMedia
 {
     use HasFactory;

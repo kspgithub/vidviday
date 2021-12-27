@@ -10,9 +10,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperDistrict
- */
 class District extends TranslatableModel
 {
     use HasSlug;

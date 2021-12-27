@@ -19,12 +19,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Staff
- *
- * @package App\Models
- * @mixin IdeHelperStaff
- */
 class Staff extends TranslatableModel implements HasMedia
 {
     use HasFactory;

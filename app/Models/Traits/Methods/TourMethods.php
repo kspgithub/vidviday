@@ -30,8 +30,6 @@ trait TourMethods
     }
 
 
-
-
     public function shortInfo()
     {
         return (object)[
@@ -48,6 +46,7 @@ trait TourMethods
             'main_image' => $this->main_image,
             'slug' => $this->slug,
             'url' => $this->url,
+            'tour_manager' => $this->tour_manager->shortInfo()
         ];
     }
 

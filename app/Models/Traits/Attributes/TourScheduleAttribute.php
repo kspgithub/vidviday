@@ -2,11 +2,15 @@
 
 namespace App\Models\Traits\Attributes;
 
+use App\Models\Order;
 use Illuminate\Support\Str;
 
 trait TourScheduleAttribute
 {
-
+    /**
+     * Дата начала
+     * @return string
+     */
     public function getStartTitleAttribute()
     {
         if ($this->start_date) {
@@ -15,7 +19,10 @@ trait TourScheduleAttribute
         return '';
     }
 
-
+    /**
+     * Дата проведения
+     * @return string
+     */
     public function getTitleAttribute()
     {
         if ($this->start_date && $this->end_date) {
@@ -30,6 +37,55 @@ trait TourScheduleAttribute
         return '';
     }
 
+    /**
+     * Кол-во забронированных мест
+     * @return int
+     */
+    public function getPlacesBookedAttribute()
+    {
+        $total = 0;
+        $orders = $this->orders->whereIn('status', [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED])->all();
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $total += $order->total_places;
+        }
+        return $total;
+    }
+
+    /**
+     * Количество проплаченных мест
+     * @return int
+     */
+    public function getPlacesPayedAttribute()
+    {
+        $total = 0;
+        $orders = $this->orders->whereIn('status', [Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED])->all();
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $total += $order->total_places;
+        }
+        return $total;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPlacesReservedAttribute()
+    {
+        $total = 0;
+        $orders = $this->orders->whereIn('status', [Order::STATUS_RESERVE])->all();
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $total += $order->total_places;
+        }
+        return $total;
+    }
 
     public function getPlacesAvailableAttribute()
     {
@@ -48,4 +104,6 @@ trait TourScheduleAttribute
         }
         return $title;
     }
+
+
 }

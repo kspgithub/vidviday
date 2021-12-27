@@ -20,6 +20,7 @@ import "./modules/media-library";
 import "./modules/sweetalert";
 import "./modules/copy-to-clipboard";
 import "./modules/select-choices";
+import "./modules/ps-scrollbar";
 import "../libs/toast";
 
 // Charts

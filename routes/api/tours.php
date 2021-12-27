@@ -13,4 +13,5 @@ Route::group([
     Route::get('guides', [ToursController::class, 'guides'])->name('guides');
     Route::get('select-box', [ToursController::class, 'selectBox'])->name('select-box');
     Route::get('{tour}/schedules', [ToursController::class, 'schedules'])->name('schedules');
+    Route::get('{tourId}/all-schedules', [ToursController::class, 'allSchedules'])->name('all-schedules');
 });

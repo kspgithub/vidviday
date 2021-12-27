@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusEmail;
 use App\Models\AccommodationType;
 use App\Models\Order;
 use App\Models\PaymentType;
+use App\Notifications\OrderStatusChanged;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -32,7 +37,7 @@ class OrderController extends Controller
     {
         //
         $order = new Order();
-        return view('admin.order.create', ['order'=>$order]);
+        return view('admin.order.create', ['order' => $order]);
     }
 
     /**
@@ -53,12 +58,24 @@ class OrderController extends Controller
      * Display the specified resource.
      *
      * @param Order $order
-     * @return View
+     * @return View|JsonResponse
      */
-    public function show(Order $order)
+    public function show(Request $request, Order $order)
     {
         //
-        return view('admin.order.show', [ 'order'=>$order ]);
+        if ($request->ajax()) {
+            $order->makeVisible([
+                'payment_fop',
+                'payment_tov',
+                'payment_office',
+                'payment_data',
+                'admin_comment',
+                'agency_data',
+                'utm_data',
+            ]);
+            return response()->json($order);
+        }
+        return view('admin.order.show', ['order' => $order]);
     }
 
     /**
@@ -71,7 +88,7 @@ class OrderController extends Controller
     {
         //
         return view('admin.order.edit', [
-            'order'=>$order
+            'order' => $order
         ]);
     }
 
@@ -80,12 +97,26 @@ class OrderController extends Controller
      *
      * @param Request $request
      * @param Order $order
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function update(Request $request, Order $order)
     {
         //
         $order->fill($request->all());
+        $order->save();
+        if ($request->ajax()) {
+            $order->makeVisible([
+                'payment_fop',
+                'payment_tov',
+                'payment_office',
+                'admin_comment',
+                'agency_data',
+                'payment_data',
+                'utm_data',
+            ]);
+            $order->loadMissing(['tour', 'schedule']);
+            return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
+        }
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Updated'));
     }
 
@@ -100,5 +131,35 @@ class OrderController extends Controller
         //
         $order->delete();
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Deleted'));
+    }
+
+
+    public function updateStatus(Request $request, Order $order)
+    {
+        $order->status = $request->status;
+        $order->save();
+
+        $notify = $request->input('notifySend', false);
+
+        if ($notify) {
+            $notifyEmail = $request->input('notifyEmail', $order->email);
+            if (!empty($notifyEmail)) {
+                $notifyMessage = $request->input('notifyMessage', '');
+                Mail::to($notifyEmail)->send(new OrderStatusEmail($order, $notifyMessage));
+            }
+        }
+
+        $order->makeVisible([
+            'payment_fop',
+            'payment_tov',
+            'payment_office',
+            'admin_comment',
+            'agency_data',
+            'payment_data',
+            'utm_data',
+        ]);
+        $order->loadMissing(['tour', 'schedule']);
+        return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
+
     }
 }

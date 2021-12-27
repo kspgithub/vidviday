@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @mixin IdeHelperBitrixContact
- */
 class BitrixContact extends Model
 {
     use SoftDeletes;
@@ -25,8 +22,8 @@ class BitrixContact extends Model
 
 
     protected $casts = [
-        'email'=>'array',
-        'phone'=>'array',
+        'email' => 'array',
+        'phone' => 'array',
     ];
 
 
@@ -45,7 +42,7 @@ class BitrixContact extends Model
         if (isset($contactData['PHONE'])) {
             foreach ($contactData['PHONE'] as $phoneData) {
                 $phones[] = trim($phoneData['VALUE']);
-                $phones[] =  preg_replace('/[^0-9]/', '', $phoneData['VALUE']);
+                $phones[] = preg_replace('/[^0-9]/', '', $phoneData['VALUE']);
             }
         }
         $bitrixContact->phone = array_filter(array_unique($phones));
@@ -63,6 +60,6 @@ class BitrixContact extends Model
 
     public static function findByPhone($phone)
     {
-        
+
     }
 }

@@ -8,12 +8,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Region
- *
- * @package App\Models
- * @mixin IdeHelperRegion
- */
 class Region extends TranslatableModel
 {
     use HasSlug;
@@ -54,7 +48,7 @@ class Region extends TranslatableModel
     {
         return $this->hasMany(District::class);
     }
-    
+
     public function country()
     {
         return $this->belongsTo(Country::class);

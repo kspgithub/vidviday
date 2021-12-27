@@ -5,9 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperContact
- */
 class Contact extends TranslatableModel
 {
     use HasFactory;

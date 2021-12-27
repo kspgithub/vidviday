@@ -4,20 +4,19 @@ namespace App\Models;
 
 use App\Models\Traits\Attributes\OrderAttribute;
 use App\Models\Traits\Relationship\OrderRelationship;
+use App\Models\Traits\Scope\OrderScope;
 use App\Models\Traits\UseOrderConstants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-/**
- * @mixin IdeHelperOrder
- */
 class Order extends TranslatableModel
 {
     use HasFactory;
     use OrderRelationship;
     use OrderAttribute;
     use UseOrderConstants;
+    use OrderScope;
     use SoftDeletes;
 
 
@@ -31,14 +30,16 @@ class Order extends TranslatableModel
         });
     }
 
-    public const STATUS_NEW = 0;
-    public const STATUS_PROCESSING = 1;
-    public const STATUS_PENDING_PAYMENT = 2;
-    public const STATUS_PAYED = 3;
-    public const STATUS_COMPLETED = 4;
-    public const STATUS_MAINTENANCE = 5;
-    public const STATUS_PENDING_REJECT = 6;
-    public const STATUS_REJECTED = 7;
+    public const STATUS_NEW = 'new';
+    public const STATUS_BOOKED = 'booked'; // Бронь
+    public const STATUS_NOT_SENT = 'not-sent'; // Не надіслано
+    public const STATUS_INTERESTED = 'interested';  // Цікавились
+    public const STATUS_RESERVE = 'reserve';  // Резерв
+    public const STATUS_DEPOSIT = 'deposit'; // Завдаток
+    public const STATUS_PAYED = 'payed'; // Оплата
+    public const STATUS_PENDING_CANCEL = 'pending-cancel'; // Очікує скасування
+    public const STATUS_CANCELED = 'canceled'; // Скасовано
+    public const STATUS_COMPLETED = 'completed'; // Виконано
 
 
     public const CONFIRMATION_EMAIL = 1;
@@ -101,6 +102,13 @@ class Order extends TranslatableModel
         'invoice',
         'info_sheet',
         'additional',
+        'payment_fop',
+        'payment_tov',
+        'payment_office',
+        'admin_comment',
+        'agency_data',
+        'utm_data',
+        'payment_data',
     ];
 
     protected $casts = [
@@ -120,6 +128,15 @@ class Order extends TranslatableModel
         'start_date' => 'date:d.m.Y',
         'end_date' => 'date:d.m.Y',
         'offer_date' => 'date:d.m.Y',
+        'agency_data' => 'array',
+        'utm_data' => 'array',
+        'payment_data' => 'array',
+    ];
+
+    protected $appends = [
+        'total_places',
+        'total_price',
+        'tour_manager',
     ];
 
     protected $dates = [
@@ -129,6 +146,16 @@ class Order extends TranslatableModel
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    protected $hidden = [
+        'payment_fop',
+        'payment_tov',
+        'payment_office',
+        'payment_data',
+        'admin_comment',
+        'agency_data',
+        'utm_data',
     ];
 
 
@@ -157,7 +184,7 @@ class Order extends TranslatableModel
     public function cancel($data)
     {
         $this->abolition = $data;
-        $this->status = self::STATUS_PENDING_REJECT;
+        $this->status = self::STATUS_PENDING_CANCEL;
         $this->save();
     }
 }

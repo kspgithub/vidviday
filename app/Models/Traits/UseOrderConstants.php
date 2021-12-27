@@ -44,40 +44,44 @@ trait UseOrderConstants
     public static function statuses()
     {
         return [
-            self::STATUS_NEW => __('New'),
-            self::STATUS_PROCESSING => __('Processing'),
-            self::STATUS_PENDING_PAYMENT => __('Pending Payment'),
-            self::STATUS_PAYED => __('Payed'),
-            self::STATUS_COMPLETED => __('Completed'),
-            self::STATUS_MAINTENANCE => __('Maintenance'),
-            self::STATUS_PENDING_REJECT => __('Pending Reject'),
-            self::STATUS_REJECTED => __('Rejected'),
+            self::STATUS_NEW => __('order-section.status.new'),
+            self::STATUS_BOOKED => __('order-section.status.booked'),
+            self::STATUS_NOT_SENT => __('order-section.status.not-sent'),
+            self::STATUS_INTERESTED => __('order-section.status.interested'),
+            self::STATUS_RESERVE => __('order-section.status.reserve'),
+            self::STATUS_DEPOSIT => __('order-section.status.deposit'),
+            self::STATUS_PAYED => __('order-section.status.payed'),
+            self::STATUS_PENDING_CANCEL => __('order-section.status.pending-cancel'),
+            self::STATUS_CANCELED => __('order-section.status.canceled'),
+            self::STATUS_COMPLETED => __('order-section.status.completed'),
         ];
     }
 
     public static function status_classes()
     {
         return [
-            self::STATUS_NEW => 'waiting',
-            self::STATUS_PROCESSING => 'waiting',
-            self::STATUS_PENDING_PAYMENT => 'waiting',
-            self::STATUS_PAYED => 'paid',
-            self::STATUS_COMPLETED => 'paid',
-            self::STATUS_MAINTENANCE => 'waiting',
-            self::STATUS_PENDING_REJECT => 'waiting',
-            self::STATUS_REJECTED => 'canceled',
+            self::STATUS_NEW => self::STATUS_NEW,
+            self::STATUS_BOOKED => self::STATUS_BOOKED,
+            self::STATUS_NOT_SENT => self::STATUS_NOT_SENT,
+            self::STATUS_INTERESTED => self::STATUS_INTERESTED,
+            self::STATUS_RESERVE => self::STATUS_RESERVE,
+            self::STATUS_DEPOSIT => self::STATUS_DEPOSIT,
+            self::STATUS_PAYED => self::STATUS_PAYED,
+            self::STATUS_PENDING_CANCEL => self::STATUS_PENDING_CANCEL,
+            self::STATUS_CANCELED => self::STATUS_CANCELED,
+            self::STATUS_COMPLETED => self::STATUS_COMPLETED,
         ];
     }
 
     public static function includes()
     {
         return [
-            'support' => 'Екскурсійний супровід',
-            'bus' => 'Проїзд у туристичному автобусі',
-            'apartment' => 'Поселення',
-            'food' => 'Харчування',
-            'ticket' => 'Вхідні квитки',
-            'insurance' => 'Страхування на час подорожі',
+            'support' => __('order-section.includes.support'),
+            'bus' => __('order-section.includes.bus'),
+            'apartment' => __('order-section.includes.apartment'),
+            'food' => __('order-section.includes.food'),
+            'ticket' => __('order-section.includes.ticket'),
+            'insurance' => __('order-section.includes.insurance'),
         ];
     }
 

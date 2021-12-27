@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * @mixin IdeHelperAdvertisement
- */
 class Advertisement extends TranslatableModel
 {
     use HasFactory;
@@ -37,7 +34,7 @@ class Advertisement extends TranslatableModel
     ];
 
     protected $casts = [
-        'published'=>'boolean',
+        'published' => 'boolean',
     ];
 
 

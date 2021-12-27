@@ -1,11 +1,18 @@
-export const parseQuery = function () {
-    let query = document.location.search.replace('?', '');
+export const parseQuery = function (url = null) {
+    let query;
+    if (url) {
+        let parts = url.split('?');
+        query = parts.length > 1 ? parts[1] : '';
+    } else {
+        query = document.location.search.replace('?', '');
+    }
+
     let queryParts = query.split('&') || [];
     let params = {};
     queryParts.forEach(function (item) {
         let itemParts = item.split('=');
         if (itemParts[0].length) {
-            params[itemParts[0]] = itemParts[1];
+            params[itemParts[0]] = decodeURIComponent(itemParts[1]);
         }
     });
     return params;

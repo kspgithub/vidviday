@@ -5,6 +5,8 @@
         </a>
 
         <ul class="sidebar-nav">
+
+
             <li class="sidebar-header">
                 @lang('Main')
             </li>
@@ -246,12 +248,12 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{routeActiveClass('admin.order*')}}">
-                <a class="sidebar-link" href="{{route('admin.order.index')}}">
-                    <i class="align-middle" data-feather="shopping-cart"></i>
-                    <span class="align-middle">@lang('Orders')</span>
-                </a>
-            </li>
+            {{--            <li class="sidebar-item {{routeActiveClass('admin.order*')}}">--}}
+            {{--                <a class="sidebar-link" href="{{route('admin.order.index')}}">--}}
+            {{--                    <i class="align-middle" data-feather="shopping-cart"></i>--}}
+            {{--                    <span class="align-middle">@lang('Orders')</span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
             <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
                 <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
                     <i class="align-middle" data-feather="shopping-cart"></i>
@@ -262,6 +264,35 @@
                 <a class="sidebar-link" href="{{route('admin.order-transport.index')}}">
                     <i class="align-middle" data-feather="truck"></i>
                     <span class="align-middle">@lang('Transport Rental')</span>
+                </a>
+            </li>
+            <li class="sidebar-header">
+                @lang('CRM')
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.crm.client*')}}">
+                <a class="sidebar-link" href="{{route('admin.crm.client.index')}}">
+                    <i class="align-middle" data-feather="users"></i>
+                    <span class="align-middle">@lang('Clients')</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.crm.schedule*')}}">
+                <a class="sidebar-link" href="{{route('admin.crm.schedule.index')}}">
+                    <i class="align-middle" data-feather="calendar"></i>
+                    <span class="align-middle">Виїзди</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.crm.order*')}}">
+                <a class="sidebar-link" href="{{route('admin.crm.order.index')}}">
+                    <i class="align-middle" data-feather="shopping-cart"></i>
+                    <span class="align-middle">Замовлення турів</span>
+                    <x-alp.new-order-tours/>
+                </a>
+            </li>
+            <li class="sidebar-item {{routeActiveClass('admin.crm.corporate*')}}">
+                <a class="sidebar-link" href="{{route('admin.crm.corporate.index')}}">
+                    <i class="align-middle" data-feather="shopping-cart"></i>
+                    <span class="align-middle">Корпоративи</span>
+                    <x-alp.new-corporates/>
                 </a>
             </li>
             <!-- CONTENT --------------------------------------------------------------------------------------- --->

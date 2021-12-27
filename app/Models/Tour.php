@@ -22,13 +22,6 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class Tour
- * Тур
- *
- * @package App\Models
- * @mixin IdeHelperTour
- */
 class Tour extends TranslatableModel implements HasMedia
 {
     use SoftDeletes;

@@ -19,7 +19,7 @@
                 <div class="text desc">
                     <p>
                         {{ shortText }}
-                        <a :href="tour.url" class="btn btn-read-more text-bold">{{ t("more") }}</a>
+                        <a :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
                     </p>
                 </div>
             </div>
@@ -30,17 +30,20 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <tour-rating :count="tour.testimonials_count" :rating="tour.rating" class="d-block d-lg-none"/>
                     <div class="thumb-info">
-                        <span class="thumb-info-time text">
-                            {{ tour.duration + t('days') }}&nbsp;/&nbsp;{{ tour.nights + t('nights') }}
-                        </span>
+                <span class="thumb-info-time text">
+                    {{
+                        tour.duration + __('tours-section.days-letter')
+                    }} / {{ tour.nights + __('tours-section.nights-letter') }}
+                </span>
                         <span class="thumb-info-people text">
-                            {{ currentSchedule.places > 10 ? '10+' : currentSchedule.places }}
-                            <span v-if="!currentSchedule || currentSchedule.places === 0" class="tooltip-wrap black">
-                                <span class="tooltip text text-sm light">{{
-                                        t('peoples', currentSchedule.places)
-                                    }}</span>
-                            </span>
-                        </span>
+                    {{
+                                currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
+                            }}
+                    <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
+                        {{ __('tours-section.empty-tooltip') }}
+                    </tooltip>
+                </span>
+
                     </div>
                 </div>
                 <div class="datepicker-input d-block d-lg-none">
@@ -48,20 +51,18 @@
                 </div>
                 <div class="thumb-price">
                     <span class="text">
-                         {{ t('price') }}:
+                         {{ __('tours-section.price') }}:
                         <span>{{ currentSchedule ? currentSchedule.price : tour.price }}</span>
                         <i>грн</i>
                     </span>
                     <span v-if="currentSchedule.commission > 0" class="discount">
                         {{ currentSchedule.commission }} грн.
-                        <span class="tooltip-wrap red">
-                            <span class="tooltip text text-sm light">
-                            {{ t("commission") }}
-                            </span>
-                        </span>
+
+                        <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>
                     </span>
                 </div>
-                <a :href="tour.url + '/order?schedule='+scheduleId" class="btn type-1 btn-block">{{ t("order") }}</a>
+                <a :href="tour.url + '/order?schedule='+scheduleId"
+                   class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
             </div>
         </div>
     </div>
@@ -73,10 +74,11 @@ import TourBadge from "./TourBadge";
 import TourRating from "./TourRating";
 import {useTourCard} from "./useTourCard";
 import FormSelect from "../form/FormSelect";
+import Tooltip from "../common/Tooltip";
 
 export default {
     name: "TourCardList",
-    components: {FormSelect, TourRating, TourBadge},
+    components: {Tooltip, FormSelect, TourRating, TourBadge},
     props: {
         tour: {
             type: Object,
@@ -90,8 +92,6 @@ export default {
         },
     },
     setup({tour}) {
-
-
         return {
             ...useTourCard(tour),
 

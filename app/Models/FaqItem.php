@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-/**
- * Class FaqItem
- *
- * @package App\Models
- * @mixin IdeHelperFaqItem
- */
 class FaqItem extends TranslatableModel
 {
     use HasFactory;
