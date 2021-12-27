@@ -69,6 +69,7 @@ class Discount extends TranslatableModel
 
     protected $fillable = [
         "title",
+        "admin_title",
         "type",
         "category",
         "duration",
