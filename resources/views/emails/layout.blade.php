@@ -107,6 +107,9 @@
             padding: 7px 20px 5px;
         }
 
+    </style>
+
+    <style>
         @media (max-width: 767px) {
 
             .header {
