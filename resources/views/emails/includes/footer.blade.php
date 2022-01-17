@@ -1,7 +1,7 @@
-<div class="footer">
-    <table style="width: 100%;">
+<div style="padding: 40px 8%; background-color: #FAFAFA; border-top: 1px solid #E9E9E9;">
+    <table style="width: 100%; border-collapse: collapse;">
         <tr>
-            <td style="vertical-align: top;">
+            <td style="vertical-align: top; margin: 0; padding: 0;  width: 50%;">
                 <div>
                     <div
                         style="font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 16px; line-height: 20px; margin-bottom: 10px;">
@@ -9,7 +9,7 @@
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
                         <img src="{{url(asset('icon/tel.png'))}}" alt="tel"
-                             style="max-width: 18px; position: absolute; top: 8px; left: 0;">
+                             style="max-width: 18px; position: absolute; top: 5px; left: 0;">
                         <a href="tel:+380322553655"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">+38
                             (032) 255 36 55</a>
@@ -33,7 +33,7 @@
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
                         <img src="{{url(asset('icon/email.png'))}}" alt="email"
-                             style="max-width: 18px; position: absolute; top: 10px; left: 0;">
+                             style="max-width: 18px; position: absolute; top: 6px; left: 0;">
                         <a href="mailto:vidviday.com.ua@gmail.com"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">vidviday.com.ua@gmail.com</a>
                     </div>
@@ -72,7 +72,7 @@
                 </div>
             </td>
 
-            <td style="vertical-align: top;">
+            <td style="vertical-align: top; margin: 0; padding: 0;  width: 50%;">
                 <div>
                     <div
                         style="font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 16px; line-height: 20px; margin-bottom: 10px;">
@@ -80,14 +80,14 @@
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
                         <img src="{{url(asset('icon/placeholder.png'))}}" alt="placeholder"
-                             style="max-width: 18px; position: absolute; top: 6px; left: 0;">
+                             style="max-width: 18px; position: absolute; top: 2px; left: 0;">
                         <span
                             style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">Львів, вул. Замарстинівська, 34</span>
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
                         <img src="{{url(asset('icon/location.png'))}}" alt="location"
-                             style="max-width: 18px; position: absolute; top: 8px; left: 0;">
+                             style="max-width: 18px; position: absolute; top: 3px; left: 0;">
                         <a href="geo:49.850562,24.026892"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">GPS:
                             49.850562, 24.026892</a>

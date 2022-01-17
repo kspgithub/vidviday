@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Mail\CustomEmail;
 
+use App\Mail\RegistrationEmail;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -43,7 +45,8 @@ class MailTest extends Command
         $to = $this->option('to');
         $message = $this->option('message');
         if (!empty($to)) {
-            Mail::to($to)->send(new CustomEmail($message, 'Тестування емейлів'));
+            $user = User::orderBy('created_at', 'desc')->first();
+            Mail::to($to)->send(new RegistrationEmail($user, 'sdfsdf'));
         }
 
         return 0;

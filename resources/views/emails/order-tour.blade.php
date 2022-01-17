@@ -1,10 +1,9 @@
 @extends('emails.layout')
 
 @section('content')
-    <div class="body">
+    <div>
         <div style="text-align: center;">
-            <span
-                style="font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 16px; line-height: 28px; color: #626262;">
+            <x-email.sub-title>
                 @if($order->type === Order::GROUP_CORPORATE)
                     Замовлення корпоративу
                 @else
@@ -12,10 +11,11 @@
                 @endif
 
                 #{{$order->order_number}}
-            </span>
+            </x-email.sub-title>
+
             <br>
             @if(!empty($order->tour))
-                <span class="title">{{$order->tour->title}}</span>
+                <x-email.title>{{$order->tour->title}}</x-email.title>
                 @if(!empty($order->tour->short_text))
                     <br>
                     <span
@@ -27,7 +27,8 @@
         </div>
 
         <!-- TABLE -->
-        <table>
+        <table
+            style="width: 100%;  margin: 30px 0; padding: 6px 20px; position: relative; border-radius: 5px; background-color: #ffffff; font-size: 16px; line-height: 36px;">
             <tr>
                 <td style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9;">
                     Номер замовлення
@@ -201,8 +202,6 @@
         </table>
         <!-- TABLE END -->
 
-        <div style="text-align: center; margin-bottom: 30px;">
-            <span style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; color: #626262;">Дякуємо за те, що обрали нас!</span>
-        </div>
+        <x-email.thanks>>Дякуємо за те, що обрали нас!</x-email.thanks>
     </div>
 @endsection
