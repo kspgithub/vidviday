@@ -50,17 +50,17 @@
                 <x-forms.switch-group :label="__('Share')" name="sidebar_items[]"
                                       :active-value="'share'"
                                       :inactive-value="null"
-                                      :active="in_array('share', $page->sidebar_items)"></x-forms.switch-group>
+                                      :active="in_array('share', $page->sidebar_items ?? [])"></x-forms.switch-group>
 
                 <x-forms.switch-group :label="__('Testimonials')" name="sidebar_items[]"
                                       :active-value="'testimonials'"
                                       :inactive-value="null"
-                                      :active="in_array('testimonials',$page->sidebar_items)"></x-forms.switch-group>
+                                      :active="in_array('testimonials',$page->sidebar_items ?? [])"></x-forms.switch-group>
 
                 <x-forms.switch-group :label="__('Contacts')" name="sidebar_items[]"
                                       :active-value="'contacts'"
                                       :inactive-value="null"
-                                      :active="in_array('contacts', $page->sidebar_items)"></x-forms.switch-group>
+                                      :active="in_array('contacts', $page->sidebar_items ?? [])"></x-forms.switch-group>
 
                 <x-forms.select-group name="staff[]"
                                       :label="__('Contact Manager')"
