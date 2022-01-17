@@ -45,7 +45,7 @@ class MailTest extends Command
         $to = $this->option('to');
         $message = $this->option('message');
         if (!empty($to)) {
-            $user = User::find(8);
+            $user = User::orderBy('created_at', 'desc')->first();
             Mail::to($to)->send(new RegistrationEmail($user, 'sdfsdf'));
         }
 
