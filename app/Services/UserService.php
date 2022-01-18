@@ -25,7 +25,7 @@ class UserService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param  User  $user
+     * @param User $user
      */
     public function __construct(User $user)
     {
@@ -34,7 +34,7 @@ class UserService extends BaseService
 
     /**
      * @param $type
-     * @param  bool|int  $perPage
+     * @param bool|int $perPage
      *
      * @return mixed
      */
@@ -48,11 +48,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
-     *
-     * @throws GeneralException
+     * @param array $data
      *
      * @return mixed
+     * @throws GeneralException
+     *
      */
     public function registerUser(array $data = []): User
     {
@@ -76,25 +76,27 @@ class UserService extends BaseService
      * @param $info
      * @param $provider
      *
+     * @return mixed
      * @throws GeneralException
      *
-     * @return mixed
      */
     public function registerProvider($info, $provider): User
     {
-        $user = $this->model::where('provider_id', $info->id)->first();
+        $user = $this->model::where('email', $info->email)->first();
 
-        if (! $user) {
+        if (!$user) {
             DB::beginTransaction();
-
             try {
+                $nameParts = array_filter(explode(' ', $info->name));
                 $user = $this->createUser([
-                    'name' => $info->name,
+                    'first_name' => $nameParts[0] ?? '',
+                    'last_name' => $nameParts[1] ?? '',
                     'email' => $info->email,
                     'provider' => $provider,
                     'provider_id' => $info->id,
                     'email_verified_at' => now(),
                 ]);
+                $user->assignRole('tourist');
             } catch (Exception $e) {
                 DB::rollBack();
 
@@ -108,12 +110,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
-     *
-     * @throws GeneralException
-     * @throws Throwable
+     * @param array $data
      *
      * @return User
+     * @throws Throwable
+     *
+     * @throws GeneralException
      */
     public function store(array $data = []): User
     {
@@ -136,7 +138,7 @@ class UserService extends BaseService
 
             $user->syncRoles($data['role'] ?? []);
 
-            if (! config('site-settings.user.only_roles')) {
+            if (!config('site-settings.user.only_roles')) {
                 $user->syncPermissions($data['permissions'] ?? []);
             }
         } catch (Exception $e) {
@@ -158,12 +160,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @param  array  $data
-     *
-     * @throws Throwable
+     * @param User $user
+     * @param array $data
      *
      * @return User
+     * @throws Throwable
+     *
      */
     public function update(User $user, array $data = []): User
     {
@@ -180,13 +182,13 @@ class UserService extends BaseService
                 $user->uploadAvatar($data['avatar_upload']);
             }
 
-            if (! $user->isMasterAdmin()) {
+            if (!$user->isMasterAdmin()) {
                 // Replace selected roles/permissions
                 if (empty($data['role'])) {
                     $user->syncRoles($data['role']);
                 }
 
-                if (! config('site-settings.user.only_roles')) {
+                if (!config('site-settings.user.only_roles')) {
                     $user->syncPermissions($data['permissions'] ?? []);
                 }
             }
@@ -204,8 +206,8 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @param  array  $data
+     * @param User $user
+     * @param array $data
      *
      * @return User
      */
@@ -224,19 +226,19 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
+     * @param User $user
      * @param $data
-     * @param  bool  $expired
-     *
-     * @throws Throwable
+     * @param bool $expired
      *
      * @return User
+     * @throws Throwable
+     *
      */
     public function updatePassword(User $user, $data, $expired = false): User
     {
         if (isset($data['current_password'])) {
             throw_if(
-                ! Hash::check($data['current_password'], $user->password),
+                !Hash::check($data['current_password'], $user->password),
                 new GeneralException(__('That is not your old password.'))
             );
         }
@@ -252,12 +254,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
+     * @param User $user
      * @param $status
      *
+     * @return User
      * @throws GeneralException
      *
-     * @return User
      */
     public function mark(User $user, $status): User
     {
@@ -281,11 +283,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     *
-     * @throws GeneralException
+     * @param User $user
      *
      * @return User
+     * @throws GeneralException
+     *
      */
     public function delete(User $user): User
     {
@@ -305,9 +307,9 @@ class UserService extends BaseService
     /**
      * @param User $user
      *
+     * @return User
      * @throws GeneralException
      *
-     * @return User
      */
     public function restore(User $user): User
     {
@@ -321,11 +323,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     *
-     * @throws GeneralException
+     * @param User $user
      *
      * @return bool
+     * @throws GeneralException
+     *
      */
     public function destroy(User $user): bool
     {
@@ -339,7 +341,7 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
+     * @param array $data
      *
      * @return User
      */
