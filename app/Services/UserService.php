@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Throwable;
 
 /**
@@ -353,7 +354,7 @@ class UserService extends BaseService
         return $this->model::create([
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,
-            'password' => $data['password'] ?? null,
+            'password' => $data['password'] ?? bcrypt(Str::random(8)),
             'first_name' => $data['first_name'] ?? null,
             'last_name' => $data['last_name'] ?? null,
             'middle_name' => $data['middle_name'] ?? null,
