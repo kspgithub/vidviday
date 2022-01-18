@@ -33,7 +33,17 @@ return [
         'key' => env('TINYMCE_KEY', ''),
     ],
     'google' => [
+        'active' => env('GOOGLE_ACTIVE', false),
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT'),
         'maps_key' => env('GOOGLE_MAPS_KEY', ''),
+    ],
+    'facebook' => [
+        'active' => env('FACEBOOK_ACTIVE', false),
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT'),
     ],
     'bitrix24' => [
         'domain' => env('BITRIX24_DOMAIN', ''),

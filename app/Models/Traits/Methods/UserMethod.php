@@ -37,7 +37,7 @@ trait UserMethod
      */
     public function isActive(): bool
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return (int)$this->status === self::STATUS_ACTIVE;
     }
 
     /**
