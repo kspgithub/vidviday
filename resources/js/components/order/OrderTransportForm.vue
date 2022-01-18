@@ -22,9 +22,10 @@
 
             <div class="col-md-6 col-12">
                 <div class="single-datepicker">
-                    <form-date-range-picker v-model="[data.start_date, data.end_date]"
-                                            label="Дата виїзду"
-                                            rules="required"/>
+                    <form-datepicker name="start_date" v-model="data.start_date" label="Дата виїзду" rules="required"/>
+                    <!--                    <form-date-range-picker v-model="[data.start_date, data.end_date]"-->
+                    <!--                                            label="Дата виїзду"-->
+                    <!--                                            rules="required"/>-->
                 </div>
             </div>
 
@@ -77,10 +78,11 @@ import {useStore} from "vuex";
 import axios from "axios";
 import {getError} from "../../services/api";
 import toast from "../../libs/toast";
+import FormDatepicker from "../form/FormDatepicker";
 
 export default {
     name: "OrderTransportForm",
-    components: {FormCsrf, FormTextarea, FormSumoSelect, FormSelect, FormDateRangePicker, FormInput},
+    components: {FormDatepicker, FormCsrf, FormTextarea, FormSumoSelect, FormSelect, FormDateRangePicker, FormInput},
     props: {
         action: {
             type: String,
@@ -119,7 +121,7 @@ export default {
                 last_name: 'required',
                 phone: 'required|tel',
                 start_date: 'required',
-                end_date: 'required',
+                //end_date: 'required',
                 duration: 'required',
                 age_group: () => {
                     return data.age_group.length > 0 ? true : 'Це поле обов\'язкове'

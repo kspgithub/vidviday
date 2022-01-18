@@ -3,6 +3,7 @@
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
+use App\Models\OrderTransport;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -47,7 +48,7 @@ require base_path('routes/frontend/crm.php');
 
 
 //Route::get('/mail/html', function () {
-//    return view('emails.registration', ['user' => User::find(8), 'showFooter' => true, 'password' => 'sdfsdf']);
+//    return view('emails.order-transport', ['order' => OrderTransport::find(1), 'showFooter' => true]);
 //});
 // ADMIN ROUTES
 /*

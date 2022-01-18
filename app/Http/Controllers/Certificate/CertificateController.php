@@ -9,6 +9,7 @@ use App\Models\OrderCertificate;
 use App\Models\Packing;
 use App\Models\Page;
 use App\Models\PaymentType;
+use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
 
 class CertificateController extends Controller
@@ -48,6 +49,9 @@ class CertificateController extends Controller
             $order->user_id = current_user()->id;
         }
         $order->save();
+
+        MailNotificationService::userCertificateEmail($order);
+        MailNotificationService::adminCertificateEmail($order);
 
         return redirect()->route('certificate.order.success', $order);
     }

@@ -72,4 +72,15 @@ class OrderTransport extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getAgeGroupTitleAttribute()
+    {
+        $availableGroups = self::ageGroups();
+        $title = [];
+        $ageGroups = $this->age_group ?? [];
+        foreach ($ageGroups as $ageGroup) {
+            $title[] = isset($availableGroups[$ageGroup]) ? $availableGroups[$ageGroup] : $ageGroup;
+        }
+        return implode(', ', $title);
+    }
 }

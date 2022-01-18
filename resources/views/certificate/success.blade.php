@@ -55,7 +55,7 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <span class="text"><b>1,000 грн.</b></span>
+                                            <span class="text"><b>{{$order->sum}} грн.</b></span>
                                         </div>
                                     </div>
                                 @else
