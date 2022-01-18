@@ -96,6 +96,7 @@ class UserService extends BaseService
                     'provider' => $provider,
                     'provider_id' => $info->id,
                     'email_verified_at' => now(),
+                    'status' => User::STATUS_ACTIVE,
                 ]);
                 $role = Role::where('name', 'tourist')->first();
                 $user->assignRole($role);
@@ -356,9 +357,10 @@ class UserService extends BaseService
             'first_name' => $data['first_name'] ?? null,
             'last_name' => $data['last_name'] ?? null,
             'middle_name' => $data['middle_name'] ?? null,
+            'avatar' => $data['avatar'] ?? null,
             'birthday' => $data['birthday'] ?? null,
             'email_verified_at' => $data['email_verified_at'] ?? null,
-            'active' => $data['active'] ?? true,
+            'status' => $data['status'] ?? User::STATUS_ACTIVE,
         ]);
     }
 
