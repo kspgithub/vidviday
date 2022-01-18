@@ -45,12 +45,15 @@ class SocialController extends Controller
 //        }
 
         $user = $userService->registerProvider($data, $provider);
-
+        if (!$user) {
+            return redirect()->route('auth.login')->withFlashDanger('Сталася помилка під час авторизації');
+        }
         if (!$user->isActive()) {
             auth()->logout();
 
             return redirect()->route('auth.login')->withFlashDanger(__('Your account has been deactivated.'));
         }
+
 
         auth()->login($user);
 
