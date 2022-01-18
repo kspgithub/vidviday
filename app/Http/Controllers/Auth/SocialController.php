@@ -46,7 +46,7 @@ class SocialController extends Controller
 
         $user = $userService->registerProvider($data, $provider);
         if (!$user) {
-            return redirect()->route('auth.login')->withFlashDanger('Сталася помилка під час авторизації');
+            return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
         }
         if (!$user->isActive()) {
             auth()->logout();

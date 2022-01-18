@@ -104,7 +104,6 @@ class UserService extends BaseService
             } catch (Exception $e) {
                 DB::rollBack();
                 Log::error($e->getMessage());
-                throw new GeneralException(__('There was a problem connecting to :provider', ['provider' => $provider]));
             }
 
             DB::commit();
