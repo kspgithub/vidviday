@@ -8,6 +8,7 @@ use App\Events\User\UserDestroyed;
 use App\Events\User\UserRestored;
 use App\Events\User\UserStatusChanged;
 use App\Events\User\UserUpdated;
+use App\Models\Role;
 use App\Models\User;
 use App\Exceptions\GeneralException;
 use Exception;
@@ -96,7 +97,8 @@ class UserService extends BaseService
                     'provider_id' => $info->id,
                     'email_verified_at' => now(),
                 ]);
-                $user->assignRole('tourist');
+                $role = Role::where('name', 'tourist')->first();
+                $user->assignRole($role);
             } catch (Exception $e) {
                 DB::rollBack();
                 Log::error($e->getMessage());
