@@ -48,13 +48,11 @@ class SocialController extends Controller
         if (!$user) {
             return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
         }
-        if (!$user->isActive()) {
+        if ($user->status !== User::STATUS_ACTIVE) {
             auth()->logout();
-
             return redirect()->route('auth.login')->withFlashDanger(__('Your account has been deactivated.'));
         }
-
-
+        
         auth()->login($user);
 
         return redirect()->route(homeRoute());
