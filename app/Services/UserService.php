@@ -84,7 +84,7 @@ class UserService extends BaseService
      */
     public function registerProvider($info, $provider): User
     {
-        $user = $this->model::where('email', $info->email)->first();
+        $user = User::where('email', $info->email)->first();
 
         if (!$user) {
             DB::beginTransaction();
@@ -351,7 +351,7 @@ class UserService extends BaseService
      */
     protected function createUser(array $data = []): User
     {
-        return $this->model::create([
+        return User::create([
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,
             'password' => $data['password'] ?? bcrypt(Str::random(8)),
