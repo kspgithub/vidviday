@@ -38,10 +38,11 @@ class SocialController extends Controller
         if (empty($data->email)) {
             return redirect()->route('auth.login')->withFlashDanger('До цього облікового запису не прив\'язаний емейл.');
         }
-        if (User::where('email', $data->email)->count() === 0) {
-            return redirect()->route('auth.login')
-                ->withFlashDanger('Користувача з адресою електронної пошти, прив\'язаною до цього облікового запису, не знайдено.');
-        }
+
+//        if (User::where('email', $data->email)->count() === 0) {
+//            return redirect()->route('auth.login')
+//                ->withFlashDanger('Користувача з адресою електронної пошти, прив\'язаною до цього облікового запису, не знайдено.');
+//        }
 
         $user = $userService->registerProvider($data, $provider);
 
