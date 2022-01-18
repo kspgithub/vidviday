@@ -94,6 +94,7 @@ class UserService extends BaseService
                     'first_name' => $nameParts[0] ?? '',
                     'last_name' => $nameParts[1] ?? '',
                     'email' => $info->email,
+                    'avatar' => $info->avatar ?? '',
                     'provider' => $provider,
                     'provider_id' => $info->id,
                     'email_verified_at' => now(),
