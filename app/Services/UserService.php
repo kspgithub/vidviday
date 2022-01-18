@@ -99,7 +99,7 @@ class UserService extends BaseService
                 $user->assignRole('tourist');
             } catch (Exception $e) {
                 DB::rollBack();
-
+                Log::error($e->getMessage());
                 throw new GeneralException(__('There was a problem connecting to :provider', ['provider' => $provider]));
             }
 
