@@ -1,5 +1,5 @@
 <div class="spacer-md"></div>
-<h2 class="h1 title text-center">Найпопулярніші корпоративи</h2>
+<h2 class="h1 title text-center">{{__('tours-section.most-popular-corporate')}}</h2>
 <div class="spacer-xs"></div>
 <div class="thumbs-carousel swiper-entry">
     <div class="swiper-container" data-options='{

@@ -3,8 +3,8 @@
         <div class="text-center">
             <h1 class="h1"><b>Реєстрація нового <span>туриста</span></b></h1>
             <span class="text">
-                Уже є аккаунт?
-                <a href="/auth/login" class="open-popup" data-rel="login-popup">Вхід</a>
+                {{ __('auth.have-account') }}
+                <a href="/auth/login" class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</a>
             </span>
             <div class="spacer-xs"></div>
         </div>
@@ -12,11 +12,11 @@
             <input type="hidden" name="role" value="tourist"/>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.last_name" rules="required" name="last_name" label="Прізвище"/>
+                <form-input v-model="data.last_name" rules="required" name="last_name" :label="__('forms.last-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.first_name" rules="required" name="first_name" label="Ім’я"/>
+                <form-input v-model="data.first_name" rules="required" name="first_name" :label="__('forms.name')"/>
             </div>
 
             <div class="col-md-6 col-12">
@@ -30,7 +30,8 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.email" rules="required|email" name="email" id="tourist-email" label="Email"/>
+                <form-input v-model="data.email" rules="required|email" name="email" id="tourist-email"
+                            :label="__('forms.email')"/>
             </div>
 
             <div class="col-md-6 col-12">
@@ -40,7 +41,7 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.viber" name="viber" label="Viber"/>
+                <form-input v-model="data.viber" name="viber" :label="__('forms.viber')"/>
             </div>
 
             <div class="col-md-6 col-12"></div>

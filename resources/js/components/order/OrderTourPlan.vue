@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class="text text-sm title">
-            <b>План туру*</b>
+            <b>{{ __('order-section.details.plan') }}*</b>
         </div>
-        <form-textarea v-model="tour_plan" name="tour_plan" placeholder="Вкажіть місця які бажаєте відвідати"/>
+        <form-textarea v-model="tour_plan" name="tour_plan"
+                       :placeholder="__('order-section.details.plan-placeholder')"/>
     </div>
 </template>
 

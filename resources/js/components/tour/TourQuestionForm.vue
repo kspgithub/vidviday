@@ -1,39 +1,36 @@
 <template>
     <form :action="action" class="row" method="POST" @submit.prevent="onSubmit()" v-show="!submitted">
         <div class="col-md-6 col-12">
-            <label>
-                <i>Прізвище*</i>
-                <input v-model="data.last_name" type="text" name="last_name" required>
-            </label>
+
+            <form-input name="last_name" id="tq_last_name" v-model="data.last_name" rules="required"
+                        :label="__('forms.last-name')"/>
+
         </div>
 
         <div class="col-md-6 col-12">
-            <label>
-                <i>Ім’я*</i>
-                <input v-model="data.first_name" type="text" name="first_name" required>
-            </label>
+            <form-input name="first_name" id="tq_first_name" v-model="data.first_name" rules="required"
+                        :label="__('forms.name')"/>
         </div>
 
         <div class="col-md-6 col-12">
-            <label>
-                <i>Email*</i>
-                <input v-model="data.email" type="email" name="email" required>
-            </label>
+            <form-input name="email" id="tq_email" v-model="data.email" rules="required"
+                        :label="__('forms.email')"/>
         </div>
 
         <div class="col-md-6 col-12">
-            <label>
-                <i>Телефон</i>
-                <input v-model="data.phone" type="tel" name="phone">
-            </label>
+            <form-input name="phone" id="tq_phone" v-model="data.phone" :label="__('forms.phone')"/>
         </div>
 
         <div class="col-12">
-            <label>
-                <i>Ваш коментар*</i>
-                <textarea v-model="data.text" name="text" required></textarea>
-            </label>
-            <button type="submit" class="btn type-1" :disabled="submitted">Надіслати</button>
+
+            <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
+                           :label="__('forms.your-comment')"
+                           rules="required"
+                           :tooltip="__('forms.required')"/>
+
+            <button type="submit" class="btn type-1" :disabled="submitted">
+                {{ __('forms.send') }}
+            </button>
         </div>
     </form>
 </template>
@@ -42,9 +39,11 @@
 import {reactive, ref} from "vue";
 import {getError} from "../../services/api";
 import toast from '../../libs/toast'
+import FormInput from "../form/FormInput";
 
 export default {
     name: "TourQuestionForm",
+    components: {FormInput},
     props: {
         action: String,
     },

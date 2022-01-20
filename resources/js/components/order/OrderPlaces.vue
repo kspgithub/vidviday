@@ -1,6 +1,6 @@
 <template>
     <div class="col-md-6 col-12 mb-10">
-        <span class="text-sm text-medium title">Кількість осіб*</span>
+        <span class="text-sm text-medium title">{{ __('order-section.number-of-people') }}*</span>
         <form-number-input v-model="places" :min="1" :max="maxPlaces" name="places"/>
     </div>
 </template>

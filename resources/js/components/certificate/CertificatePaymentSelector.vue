@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="h3">Варіанти оплати</span>
+        <span class="h3">{{ __('certificate-section.payment-options') }}</span>
         <div class="spacer-xs"></div>
         <template v-for="(paymentType, idx) in paymentTypes" :key="'payment-type-' + paymentType.value">
             <br v-if="idx > 0">

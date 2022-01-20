@@ -11,12 +11,12 @@
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <h1 class="h1"><b>Реєстрацію завершено!</b></h1>
+                        <h1 class="h1"><b>@lang('auth.registration-completed')</b></h1>
                         <span class="text-md">
-                            Деталі реєстрації надіслані на вашу електронну адресу {{current_user()->email}}
+                            @lang('auth.registration-details') {{current_user()->email}}
                         </span>
                         <div class="spacer-xs"></div>
-                        <a href="#" class="btn type-1">Увійти в кабінет</a>
+                        <a href="{{route('auth.login')}}" class="btn type-1">@lang('auth.login-profile')</a>
                     </div>
                 </div>
             </div>

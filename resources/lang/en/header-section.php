@@ -10,4 +10,9 @@ return [
     'logout' => 'Logout',
     'login' => 'Login',
     'search-phrase' => 'Say the search phrase',
+    'search-dots' => 'Пошук...',
+    'find-tour-dots' => 'Знайти тур...',
+    'nothing-found' => 'Нічого не знайдено',
+    'enter-name-of-tour' => 'Введіть назву туру',
+    'all-search-results' => 'Всі результати пошуку',
 ];

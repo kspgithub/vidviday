@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="text-sm text-medium title">Дата виїзду*</span>
+        <span class="text-sm text-medium title">{{ __('order-section.details.departure-date') }}*</span>
         <div class="single-datepicker">
 
             <form-select-event
@@ -8,12 +8,12 @@
                 v-if="group_type === 0 && schedules.length > 0"
                 v-model="schedule_id" :options="departureOptions"
                 :preselect="false"
-                label="Оберіть дату*"
+                :label="__('order-section.details.select-date')+'*'"
             ></form-select-event>
 
             <form-datepicker
                 name="start_date"
-                label="Оберіть дату*"
+                :label="__('order-section.details.select-date')+'*'"
                 :disabled="!tour"
                 v-if="group_type === 1 || schedules.length === 0"
                 v-model="start_date"

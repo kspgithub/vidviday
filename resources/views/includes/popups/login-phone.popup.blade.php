@@ -17,7 +17,7 @@
                         <a href="#" class="btn type-1 btn-block">Увійти</a>
                     </form>
                     <div class="spacer-xs"></div>
-                    <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                    <div class="text text-sm">{{__('forms.required-fields')}}</div>
                 </div>
             </div>
             <div class="btn-close">

@@ -11,20 +11,23 @@
                 <form @submit.prevent="onSubmit()" method="POST" :action="action" class="add-note-toggle d-block"
                       v-if="showForm">
                     <div class="add-note-input">
-                        <form-textarea v-model="text" :id="'note-text-'+order.id" label="Введіть текст примітки..."
+                        <form-textarea v-model="text" :id="'note-text-'+order.id"
+                                       :label="__('order-section.notes.label')"
                                        rows="3" name="text"/>
                     </div>
                     <div class="add-note-btns">
-                        <button class="btn type-2" type="submit" :disabled="!text || request">Надіслати</button>
+                        <button class="btn type-2" type="submit" :disabled="!text || request">
+                            {{ __('forms.send') }}
+                        </button>
                         <a class="text-sm add-note-btn-cancel" @click.prevent="showForm = false">
-                            <b class="text-bold">Скасувати</b>
+                            <b class="text-bold">{{ __('forms.cancel-alt') }}</b>
                         </a>
                     </div>
                 </form>
             </transition>
             <transition name="fade">
                 <a @click.prevent="showForm = true" class="add-note-btn text text-sm" v-if="!showForm">
-                    <b class="text-bold">Додати примітку</b>
+                    <b class="text-bold">{{ __('order-section.notes.add-note') }}</b>
                 </a>
             </transition>
         </div>

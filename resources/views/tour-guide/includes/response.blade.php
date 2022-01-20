@@ -1,7 +1,7 @@
 <div class="accordion-item">
     <div class="accordion-title">Відгуки (14)<i></i></div>
     <div class="accordion-inner">
-        <span class="btn type-1 open-popup" data-rel="guide-testimonial-popup">Залишити відгук</span>
+        <span class="btn type-1 open-popup" data-rel="guide-testimonial-popup">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
         <hr>
         <div class="spacer-xs"></div>
@@ -14,18 +14,19 @@
                     <span class="h4">Григоряш Вероніка</span>
                     <span class="text text-sm">22.11.2019</span>
                     <span class="text text-sm">18:55</span>
-                    <span class="text">Відповісти</span>
+                    <span class="text">{{ __('forms.reply') }}</span>
                 </div>
             </div>
             <div class="text text-md">
                 <p>Тур: <a href="tour.php">Сиро-Винний тур Закарпаттям</a></p>
-                <p>Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!</p>
+                <p>Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні
+                    емоції. Дякую організаторам!</p>
             </div>
         </div>
         <div class="load-more-wrapp">
             <div class="show-more active">
-                <span>Приховати відповіді</span>
-                <span>Показати відповіді</span>
+                <span>{{__('common.hide-answers')}}</span>
+                <span>{{ __('common.show-answers') }}</span>
             </div>
             <div class="more-info">
                 <div class="spacer-xs"></div>
@@ -38,11 +39,13 @@
                             <span class="h4">Кононієнко Петро</span>
                             <span class="text text-sm">22.11.2019</span>
                             <span class="text text-sm">12:20</span>
-                            <span class="text">Відповісти</span>
+                            <span class="text">{{ __('forms.reply') }}</span>
                         </div>
                     </div>
                     <div class="text text-md">
-                        <p><span class="label">Григоряш Вероніка</span> Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!</p>
+                        <p><span class="label">Григоряш Вероніка</span> Чудовий тур! Отлимала безліч вражень,
+                            обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!
+                        </p>
                     </div>
                 </div>
             </div>
@@ -59,18 +62,19 @@
                     <span class="h4">Григоряш Вероніка</span>
                     <span class="text text-sm">22.11.2019</span>
                     <span class="text text-sm">18:55</span>
-                    <span class="text">Відповісти</span>
+                    <span class="text">{{ __('forms.reply') }}</span>
                 </div>
             </div>
             <div class="text text-md">
                 <p>Тур: <a href="tour.php">Сиро-Винний тур Закарпаттям</a></p>
-                <p>Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!</p>
+                <p>Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні
+                    емоції. Дякую організаторам!</p>
             </div>
         </div>
         <div class="load-more-wrapp">
             <div class="show-more active">
-                <span>Приховати відповіді</span>
-                <span>Показати відповіді</span>
+                <span>{{__('common.hide-answers')}}</span>
+                <span>{{ __('common.show-answers') }}</span>
             </div>
             <div class="more-info">
                 <div class="spacer-xs"></div>
@@ -83,11 +87,13 @@
                             <span class="h4">Кононієнко Петро</span>
                             <span class="text text-sm">22.11.2019</span>
                             <span class="text text-sm">12:20</span>
-                            <span class="text">Відповісти</span>
+                            <span class="text">{{ __('forms.reply') }}</span>
                         </div>
                     </div>
                     <div class="text text-md">
-                        <p><span class="label">Григоряш Вероніка</span> Чудовий тур! Отлимала безліч вражень, обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!</p>
+                        <p><span class="label">Григоряш Вероніка</span> Чудовий тур! Отлимала безліч вражень,
+                            обов’язково спробую ще! Від туру залишились тільки позитивні емоції. Дякую організаторам!
+                        </p>
                     </div>
                 </div>
             </div>
@@ -95,6 +101,6 @@
         <div class="spacer-xs"></div>
         <hr>
         <div class="spacer-xs"></div>
-        <span class="btn type-1 open-popup" data-rel="guide-testimonial-popup">Залишити відгук</span>
+        <span class="btn type-1 open-popup" data-rel="guide-testimonial-popup">{{ __('forms.leave-feedback') }}</span>
     </div>
 </div>

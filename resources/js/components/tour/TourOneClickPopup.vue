@@ -2,13 +2,13 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">Замовити в 1 клік</span>
+                <span class="h2 title text-medium">{{ __('tour-section.order-one-click') }}</span>
             </div>
             <div class="spacer-xs"></div>
             <form :action="action" method="POST" class="row">
                 <slot/>
                 <div class="col-md-6 col-12">
-                    <form-input label="Прізвище"
+                    <form-input :label="__('forms.last-name')"
                                 name="last_name"
                                 v-model="last_name"
                                 id="order-last-name"
@@ -16,16 +16,18 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input label="Ім’я" name="first_name" v-model="first_name" id="order-first-name"
+                    <form-input :label="__('forms.name')" name="first_name" v-model="first_name" id="order-first-name"
                                 rules="required"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input label="Телефон" name="phone" v-model="phone" id="order-phone" rules="required|tel"/>
+                    <form-input :label="__('forms.phone')" name="phone" v-model="phone" id="order-phone"
+                                rules="required|tel"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input label="Email" name="email" v-model="email" id="order-email" rules="required|email"/>
+                    <form-input :label="__('forms.email')" name="email" v-model="email" id="order-email"
+                                rules="required|email"/>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -33,7 +35,7 @@
                         <form-select-event v-model="schedule_id"
                                            :options="departureOptions"
                                            name="schedule_id"
-                                           label="Оберіть дату*"
+                                           :label="__('forms.select-date') + '*'"
                                            rules="required"
                                            :preselect="false"/>
                     </div>
@@ -45,16 +47,17 @@
                                        :max="maxPlaces"
                                        name="places"
                                        rules="required"
-                                       title="Кількість осіб*"/>
+                                       :title="__('forms.number-of-people') + '*'"/>
                 </div>
 
                 <div class="col-12">
 
-                    <form-textarea v-model="comment" name="comment" id="order-comment" label="Коментар до замовлення"/>
+                    <form-textarea v-model="comment" name="comment" id="order-comment"
+                                   :label="__('forms.order-comment')"/>
 
                     <div class="text-center">
                         <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">
-                            Замовити
+                            {{ __('forms.order') }}
                         </button>
                     </div>
                 </div>
@@ -70,12 +73,12 @@
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>
-                <span class="h2 title text-medium">Дякуємо за Ваше замовлення!</span>
+                <span class="h2 title text-medium">{{ __('order-section.thanks-message') }}</span>
                 <br>
-                <span class="text">Ми передзвонимо Вам у найближчий час</span>
+                <span class="text">{{ __('common.recall') }}</span>
                 <br>
                 <div class="spacer-xs"></div>
-                <span class="btn type-1" @click="closePopup()">Повернутись на сайт</span>
+                <span class="btn type-1" @click="closePopup()">{{ __('popup.return') }}</span>
             </div>
             <div class="btn-close" @click="closePopup()">
                 <span></span>
@@ -97,6 +100,7 @@ import axios from "axios";
 import {getError} from "../../services/api";
 import toast from "../../libs/toast";
 import {useForm} from "vee-validate";
+import {__} from "../../i18n/lang";
 
 export default {
     name: "TourOneClickPopup",
@@ -117,10 +121,10 @@ export default {
                 email: 'required|email',
                 phone: 'required|tel',
                 places: () => {
-                    return data.value.places > 0 ? true : 'Кількість місць не може бути менше 1'
+                    return data.value.places > 0 ? true : __('validation.min-place-1')
                 },
                 schedule_id: () => {
-                    return data.value.schedule_id > 0 ? true : 'Оберіть дату туру'
+                    return data.value.schedule_id > 0 ? true : __('validation.select-tour-date')
                 },
             },
         });

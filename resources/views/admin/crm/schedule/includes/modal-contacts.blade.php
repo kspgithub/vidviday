@@ -13,11 +13,11 @@
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group x-model="selectedOrder.last_name" name="last_name" label="Прізвище"
                                         label-col="col-md-3" input-col="col-md-9"/>
-                    <x-forms.text-group type="tel" x-model="selectedOrder.phone" name="phone" label="Телефон"
+                    <x-forms.text-group type="tel" x-model="selectedOrder.phone" name="phone" :label="__('forms.phone')"
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group type="email" x-model="selectedOrder.email" name="email" label="Email"
                                         label-col="col-md-3" input-col="col-md-9"/>
-                    <x-forms.text-group x-model="selectedOrder.viber" name="viber" label="Viber"
+                    <x-forms.text-group x-model="selectedOrder.viber" name="viber" :label="__('forms.viber')"
                                         label-col="col-md-3" input-col="col-md-9"/>
 
                 </div>

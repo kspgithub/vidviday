@@ -1,5 +1,7 @@
 @extends('layout.app')
-
+@section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
+@section('seo_description', !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title)
+@section('seo_keywords', !empty($pageContent->seo_keywords) ? $pageContent->seo_keywords : $pageContent->title)
 @section('content')
     <main>
         <div class="container">

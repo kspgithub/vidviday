@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'uk',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'uk'),
 
     /*
     |--------------------------------------------------------------------------

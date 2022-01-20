@@ -1,27 +1,35 @@
 <template>
     <div class="bordered-box">
         <div>
-            <span class="text">Вартість туру:</span>
-            <span class="text-md"><b>{{ format(tourPrice) }}</b> грн</span>
+            <span class="text">{{ __('order-section.summary.cost-tour') }}:</span>
+            <span class="text-md"><b>{{ format(tourPrice) }}</b> {{ __('order-section.currency.uah') }}</span>
         </div>
         <hr v-if="totalChildrenDiscount > 0">
         <div v-if="totalChildrenDiscount > 0">
-            <span class="text">Знижка за дітей:</span>
-            <span class="text-md"><b>-{{ format(totalChildrenDiscount) }}</b> грн</span>
+            <span class="text">{{ __('order-section.summary.children-discount') }}:</span>
+            <span class="text-md">
+                <b>-{{ format(totalChildrenDiscount) }}</b>
+                {{ __('order-section.currency.uah') }}
+            </span>
         </div>
         <hr v-if="totalCommission > 0">
         <div v-if="totalCommission > 0">
-            <span class="text">Комісія турагенту</span>
+            <span class="text">{{ __('order-section.summary.commission') }}</span>
             <span class="discount">
-                {{ format(totalCommission) }} грн
-                <span class="tooltip-wrap red"><span class="tooltip text text-sm">Комісія турагенту</span></span>
+                {{ format(totalCommission) }} {{ __('order-section.currency.uah') }}
+                <tooltip variant="red">
+                    <span v-html="__('order-section.summary.commission-tooltip') "></span>
+                </tooltip>
             </span>
         </div>
         <hr>
         <div>
-            <span class="h5">Кінцева вартість:</span>
+            <span class="h5">{{ __('order-section.summary.final-cost') }}:</span>
             <span class="thumb-price">
-                <span class="text"><span>{{ format(totalPrice) }}</span><sup>грн</sup></span>
+                <span class="text">
+                    <span>{{ format(totalPrice) }}</span>
+                    <sup>{{ __('order-section.currency.uah') }}</sup>
+                </span>
             </span>
         </div>
     </div>
@@ -32,9 +40,11 @@ import {computed} from "vue";
 import {useStore} from "vuex";
 import {toAmount} from "../../utils/number";
 import {fetchTourSchedules} from "../../services/tour-service";
+import Tooltip from "../common/Tooltip";
 
 export default {
     name: "OrderSummary",
+    components: {Tooltip},
     setup() {
         const store = useStore();
         const tour_id = computed(() => store.state.orderTour.formData.tour_id);

@@ -31,7 +31,7 @@
                             <button type="submit" class="btn type-1 btn-block" :disabled="request">Погоджуюсь на умови
                                 скасування
                             </button>
-                            <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                            <div class="text text-sm">{{__('forms.required-fields')}}</div>
                         </div>
                     </form>
                 </div>

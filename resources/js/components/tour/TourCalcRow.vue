@@ -13,7 +13,7 @@
         />
 
         <span class="text-md">
-            <span class="calc-item-price">{{ price }}</span> грн
+            <span class="calc-item-price">{{ price }}</span> {{ __('common.currency.uah') }}
         </span>
     </div>
 </template>

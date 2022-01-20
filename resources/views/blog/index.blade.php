@@ -27,7 +27,7 @@
                     <div class="only-pad-mobile">
                         <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
                                 src="{{ __("img/preloader.png") }}" data-img-src="{{ asset("icon/filter-dark.svg") }}"
-                                alt="filter-dark">Підбір туру</span>
+                                alt="filter-dark">@lang('tours-section.search-btn')</span>
                         <div class="spacer-xs"></div>
                     </div>
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>

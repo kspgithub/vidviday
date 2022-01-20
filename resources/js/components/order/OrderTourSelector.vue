@@ -1,18 +1,18 @@
 <template>
     <div>
         <span class="text text-sm">
-            <b>Тур*</b>
+            <b>{{ __('order-section.tour') }}*</b>
         </span>
         <form-autocomplete
             name="tour_id"
-            placeholder="Вкажіть назву туру, або оберіть зі списку"
+            :placeholder="__('order-section.tour-placeholder')"
             :search="true"
             ref="tourSelectRef"
             v-model="tourId"
             @search="searchTours"
             rules="required"
         >
-            <option :value="0" :selected="tourId === 0" disabled>Вкажіть назву туру, або оберіть зі списку</option>
+            <option :value="0" :selected="tourId === 0" disabled>{{ __('order-section.tour-placeholder') }}</option>
             <option v-for="option in tours" :value="option.id">{{ option.title }}</option>
         </form-autocomplete>
 

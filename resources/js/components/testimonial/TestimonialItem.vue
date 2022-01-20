@@ -12,7 +12,7 @@
                     <span class="text text-sm">{{ item.date }}</span>
                     <span class="text text-sm">{{ item.time }}</span>
                     <star-rating v-if="!item.parent_id" :value="item.rating"/>
-                    <span class="text" @click="showAnswerForm">Відповісти</span>
+                    <span class="text" @click="showAnswerForm">{{ __('forms.reply') }}</span>
                 </div>
             </div>
             <div class="text text-md">
@@ -38,8 +38,8 @@
         <div class="spacer-xxs" v-if="!answer"></div>
         <div class="load-more-wrapp" v-if="item.children_count > 0 || children.length > 0">
             <div class="show-more-btn" :class="{active: showMore}" @click="showChildren()">
-                <span v-if="!showMore">Показати відповіді</span>
-                <span v-if="showMore">Приховати відповіді</span>
+                <span v-if="!showMore">{{ __('common.show-answers') }}</span>
+                <span v-if="showMore">{{ __('common.hide-answers') }}</span>
             </div>
             <slide-up-down v-model="showMore" :duration="300" :key="'tsmc-'+item.id" class="ps-30">
                 <testimonial-item v-for="child in children" :item="child" :key="'tm-'+child.id"/>

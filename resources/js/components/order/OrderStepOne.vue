@@ -4,7 +4,7 @@
             <div class="col-xl-6 col-12">
                 <div class="form row">
                     <div class="col-12 mb-25">
-                        <h2 class="h3">Деталі туру</h2>
+                        <h2 class="h3">{{ __('order-section.tour-details') }}</h2>
                     </div>
 
                     <order-group-type class="col-12" v-if="!tourSelected || schedules.length > 0"/>

@@ -7,9 +7,9 @@
         <div class="container">
             <!-- BREAD CRUMBS -->
             <div class="bread-crumbs">
-                <a href="{{('/')}}">Головна</a>
+                <a href="{{('/')}}">@lang('Home')</a>
                 <span>—</span>
-                <span>Наші контакти</span>
+                <span>{{$pageContent->title}}</span>
             </div>
             <!-- BREAD CRUMBS END -->
             <div class="row">
@@ -20,12 +20,8 @@
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
-                    <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/filter-dark.svg')}}"
-                                alt="filter-dark">Підбір туру</span>
-                        <div class="spacer-xs"></div>
-                    </div>
+                    <x-tour.mobile-search-btn/>
+
                     <!-- BANNER/INFO -->
                 @include('contact.includes.banner')
                 <!-- BANNER/INFO END -->
@@ -57,12 +53,12 @@
                     <!-- ACCORDIONS CONTENT -->
                     <div class="accordion-all-expand">
                         <div class="expand-all-button">
-                            <div class="expand-all open">Розгорнути все</div>
-                            <div class="expand-all close">Згорнути все</div>
+                            <div class="expand-all open">{{__('common.expand-all')}}</div>
+                            <div class="expand-all close">{{__('common.collapse-all')}}</div>
                         </div>
                         <div class="accordion type-4">
                             <div class="accordion-item active">
-                                <div class="accordion-title">Корпоративні замовлення<i></i></div>
+                                <div class="accordion-title">{{__('common.corporate-orders')}}<i></i></div>
                                 <div class="accordion-inner" style="display: block;">
                                     <div class="thumb-wrap row">
                                         @foreach ($specCorporate as $specialist)
@@ -76,7 +72,7 @@
                             </div>
 
                             <div class="accordion-item">
-                                <div class="accordion-title">Співпраця з туристичними агенціями<i></i></div>
+                                <div class="accordion-title">{{__('common.agency-cooperation')}}<i></i></div>
                                 <div class="accordion-inner">
                                     <div class="thumb-wrap row">
                                         @foreach ($specAgencies as $specialist)
@@ -89,8 +85,8 @@
                             </div>
                         </div>
                         <div class="expand-all-button">
-                            <div class="expand-all open">Розгорнути все</div>
-                            <div class="expand-all close">Згорнути все</div>
+                            <div class="expand-all open">{{__('common.expand-all')}}</div>
+                            <div class="expand-all close">{{__('common.collapse-all')}}</div>
                         </div>
                     </div>
                     <!-- ACCORDIONS CONTENT END -->

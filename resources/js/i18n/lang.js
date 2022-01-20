@@ -83,3 +83,4 @@ const Lang = {
 exports.default = Lang;
 exports.Lang = Lang;
 exports.trans = trans;
+exports.__ = trans;

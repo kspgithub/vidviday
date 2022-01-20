@@ -1,18 +1,19 @@
 <template>
     <div class="col-12">
         <span class="text-sm">
-            Тип групи: <tooltip>Тип групи</tooltip>
+            {{ __('order-section.group.title') }}:
+            <tooltip><span v-html="__('order-section.group.tooltip')"></span></tooltip>
         </span>
 
         <div>
             <label class="radio">
                 <input type="radio" name="group_type" :value="0" v-model="group_type">
-                <span>Збірна група</span>
+                <span>{{ __('order-section.group.type-team') }}</span>
             </label>
 
             <label class="radio">
                 <input type="radio" name="group_type" :value="1" v-model="group_type">
-                <span>Корпоративна група</span>
+                <span>{{ __('order-section.group.type-corporate') }}</span>
             </label>
         </div>
     </div>

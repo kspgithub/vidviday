@@ -31,6 +31,19 @@ class PageSeeder extends Seeder
 
         $pages = [
             [
+                'title' => ['en' => 'Home', 'ru' => 'Главная', 'uk' => 'Головна', 'pl' => 'Dom'],
+                'seo_h1' => ['en' => 'Home', 'ru' => 'Главная', 'uk' => 'Головна', 'pl' => 'Dom'],
+                'text' => [
+                    'uk' => '',
+                    'ru' => '',
+                    'en' => '',
+                    'pl' => '',
+                ],
+                'key' => 'home',
+                'main' => 1,
+                'published' => 1,
+            ],
+            [
                 'title' => ['en' => 'About Us', 'ru' => 'О нас', 'uk' => 'Про нас', 'pl' => 'O nas'],
                 'seo_h1' => ['en' => 'About Us', 'ru' => 'О нас', 'uk' => 'Про нас', 'pl' => 'O nas'],
                 'text' => [
@@ -44,7 +57,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Our Documents', 'ru' => 'Наши Документы',
@@ -62,7 +75,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Guides', 'ru' => 'Экскурсоводы', 'uk' => 'Екскурсоводи', 'pl' => 'Przewodniki'],
@@ -123,7 +136,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Awards and honors', 'ru' => 'Награды и отличия',
@@ -147,7 +160,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'booking-manager'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Practice', 'ru' => 'Практика', 'uk' => 'Практика', 'pl' => 'Ćwiczyć'],
@@ -183,7 +196,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'corporate-order'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'corporate-order'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Places', 'ru' => 'Места', 'uk' => 'Місця', 'pl' => 'Miejsca'],
@@ -235,7 +248,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'travel-agencies'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'travel-agencies'))->first()->id ?? 2,
             ],
             [
                 'title' => ['en' => 'Testimonials', 'ru' => 'Отзывы', 'uk' => 'Відгуки', 'pl' => 'Referencje'],
@@ -268,7 +281,7 @@ class PageSeeder extends Seeder
                 'published' => 1,
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'certificate-manager'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'certificate-manager'))->first()->id ?? 2,
             ],
             [
                 'title' => [
@@ -320,7 +333,7 @@ class PageSeeder extends Seeder
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['uk' => 'Транспорт'],
@@ -336,7 +349,7 @@ class PageSeeder extends Seeder
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['uk' => 'Школам'],
@@ -352,7 +365,7 @@ class PageSeeder extends Seeder
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['uk' => 'Курси екскурсоводів'],
@@ -368,7 +381,7 @@ class PageSeeder extends Seeder
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['uk' => 'Проживання'],
@@ -384,7 +397,7 @@ class PageSeeder extends Seeder
                 ],
                 'sidebar' => 1,
                 'sidebar_items' => ['share', 'contacts', 'testimonials'],
-                'staff_id' => Staff::whereHas('types', fn($q) => $q->where('slug', 'official'))->first()->id ?? 2,
+                'staff_id' => Staff::whereHas('types', fn ($q) => $q->where('slug', 'official'))->first()->id ?? 2,
             ],
             [
                 'title' => ['uk' => 'Публічна оферта', 'ru' => 'Публичная оферта', 'en' => 'Public offer', 'pl' => 'Oferta publiczna'],

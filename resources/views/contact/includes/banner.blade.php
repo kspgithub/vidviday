@@ -37,7 +37,7 @@
                     <a href="tel:{{clear_phone($contact->phone_3)}}">{{$contact->phone_3}}</a>
                 </div>
 
-                <span class="btn type-2" v-is="'popup-call-btn'">Замовити дзвінок</span>
+                <span class="btn type-2" v-is="'popup-call-btn'">{{__('common.order-call')}}</span>
             </div>
 
             <div class="contacts-block">
@@ -114,7 +114,7 @@
 
         <div class="col-lg-4 col-md-6 col-12">
             <div class="contacts-block">
-                <span class="text-md">Розташування</span>
+                <span class="text-md">{{__('common.location')}}</span>
 
                 <div class="contact">
                     <div class="img">
@@ -135,7 +135,7 @@
             </div>
 
             <div class="contacts-block">
-                <span class="text-md">Графік роботи</span>
+                <span class="text-md">{{__('common.work-time')}}</span>
 
                 <div class="contact">
                     <div class="img">

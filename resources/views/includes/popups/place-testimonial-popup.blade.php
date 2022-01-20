@@ -4,49 +4,53 @@
     <div class="popup-container size-1">
         <div class="popup-header">
             <div class="text-center">
-                <span class="h2 title text-medium">Написати відгук про місце</span>
+                <span class="h2 title text-medium">{{__('popup.testimonial.write-place')}} </span>
             </div>
         </div>
         <div class="popup-align">
             <div class="have-an-account text-center">
-                <span class="text">Уже є аккаунт? <span class="open-popup" data-rel="login-popup">Вхід</span></span>
+                <span class="text">
+                    {{__('auth.have-account')}}
+                    <span class="open-popup" data-rel="login-popup">{{__('auth.entrance')}}</span>
+                </span>
 
                 <div class="img-input-wrap">
                     <div class="img-input">
                         <input type="file">
                         <div class="text">
-                            <span><b>Ваша фотографія</b> (перетягніть файл сюди або натисніть для вибору)</span>
+                            <span><b>{{__('forms.avatar-title')}}</b> {{__('forms.avatar-note')}}</span>
                             <br>
-                            <span>Це повинен бути файл формату <b>JPG/PNG, 200×200 пікс.</b>, розміром не більше <b>5 МБ</b></span>
+                            <span>{{__('forms.avatar-requirements')}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <form action="/" class="row">
                 <div class="col-md-6 col-12">
-                    <label data-tooltip="Поле обов'язкове для заповнення">
-                        <i>Ваше ім’я*</i>
+                    <label data-tooltip="{{__('forms.required')}}">
+                        <i>{{__('forms.your-name')}}*</i>
                         <input type="text" name="name" required>
                     </label>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <label>
-                        <i>Ваше прізвище</i>
+                        <i>{{__('forms.your-last-name')}}</i>
                         <input type="text" name="surname">
                     </label>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <label>
-                        <i>Ваш телефон</i>
+
+                        <i>{{__('forms.your-phone')}}</i>
                         <input type="tel" name="tel">
                     </label>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <label>
-                        <i>Email</i>
+                        <i>{{__('forms.email')}}</i>
                         <input type="text" name="email">
                     </label>
                 </div>
@@ -69,14 +73,14 @@
 						<b>Тур, у якому Ви відвідували це місце</b>
 					</span>
                     <select class="custom-select" data-search="true" data-search-text="Введіть ім'я гіда">
-                        <option value="guid-0" selected disabled>Оберіть зі списку</option>
+                        <option value="guid-0" selected disabled>{{__('forms.select-from-list')}}</option>
                         <option value="guid-1" data-img="img/user.jpg">Христина Процишин</option>
                         <option value="guid-2" data-img="img/user.jpg">Марічка Касьянова (Михайлюсь)</option>
                     </select>
                 </div>
 
                 <div class="col-12">
-                    <label class="smile" data-tooltip="Поле обов'язкове для заповнення">
+                    <label class="smile" data-tooltip="{{__('forms.required')}}">
                         <i>Ваш відгук*</i>
                         <textarea required></textarea>
                     </label>
@@ -86,11 +90,11 @@
                     <div class="img-input-wrap text-center-xs">
                         <div class="img-input tooltip-wrap">
                             <div class="tooltip">
-                                <span class="text-medium">Додати фото з туру:</span>
+                                <span class="text-medium">{{ __('forms.add-tour-photo') }}</span>
                                 <div class="text text-sm">
                                     <ul>
-                                        <li>макс. розмір зображення 3 МБ</li>
-                                        <li>макс. кількість зображень — 5</li>
+                                        <li>{{ __('forms.max-image-size-3') }}</li>
+                                        <li>{{ __('forms.max-image-count-5') }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -100,12 +104,12 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <span class="btn type-1 open-popup" data-rel="thanks-popup">Залишити відгук</span>
+                    <span class="btn type-1 open-popup" data-rel="thanks-popup">{{ __('forms.leave-feedback') }}</span>
                 </div>
 
                 <div class="text-center-xs col-12">
                     <div class="only-mobile spacer-sm"></div>
-                    <span class="text-sm">* обов’язкове для заповнення поле</span>
+                    <span class="text-sm">{{__('forms.required-fields')}}</span>
                 </div>
             </form>
             <div class="btn-close">

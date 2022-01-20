@@ -54,11 +54,13 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.last_name" label="Прізвище" name="last_name" rules="required"/>
+                        <form-input v-model="formData.last_name" :label="__('forms.last-name')" name="last_name"
+                                    rules="required"/>
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.first_name" label="Ім’я" name="first_name" rules="required"/>
+                        <form-input v-model="formData.first_name" :label="__('forms.name')" name="first_name"
+                                    rules="required"/>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -73,7 +75,7 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.email" label="Email" name="email" id="profile-email"
+                        <form-input v-model="formData.email" :label="__('forms.email')" name="email" id="profile-email"
                                     rules="required"/>
                     </div>
 
@@ -84,7 +86,7 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.viber" label="Viber" name="viber">
+                        <form-input v-model="formData.viber" :label="__('forms.viber')" name="viber">
                             <tooltip>Ваш номер буде додано до турагентської <br>Вайбер-розсилки з акціями, новими
                                 турами, даними <br>про наявність місць та іншою корисною інформацією
                             </tooltip>
@@ -127,7 +129,7 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="text-sm">* обов’язкове для заповнення поле</div>
+                        <div class="text-sm">{{ __('forms.required-fields') }}</div>
                     </div>
                 </div>
             </div>

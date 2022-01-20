@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">Розсилка для туристів</span>
+                        <span class="h2 title text-medium">{{ __('common.newsletter-tourists') }}</span>
                         <br>
-                        <span class="text">Підпишіться на наші новини та особливі пропозиції!</span>
+                        <span class="text">{{ __('popup.subscribe-text') }}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <form @submit="submitForm" method="POST" :action="action" class="row">
@@ -14,21 +14,24 @@
                         <div class="col-12">
                             <form-input name="name" id="name_user_sub"
                                         v-model="data.name" rules="required"
-                                        label="Ваше ім’я"/>
+                                        :label="__('forms.your-name')"/>
 
                         </div>
 
                         <div class="col-12">
-                            <form-input type="email" name="email" id="email_user_sub" v-model="data.email" label="Email"
+                            <form-input type="email" name="email" id="email_user_sub" v-model="data.email"
+                                        :label="__('forms.email')"
                                         rules="required|email"/>
                         </div>
 
                         <div class="col-12">
                             <utm-fields/>
-                            <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                            <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                             <div class="spacer-xs"></div>
                             <div class="text-center">
-                                <button type="submit" class="btn type-1" :disabled="request">Підписатись</button>
+                                <button type="submit" class="btn type-1" :disabled="request">
+                                    {{ __('forms.subscribe') }}
+                                </button>
                             </div>
                         </div>
                     </form>

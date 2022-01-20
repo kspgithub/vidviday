@@ -3,16 +3,19 @@
         <div class="radio-additional-tabs">
             <div class="radio-additional-tab active">
                 <div class="spacer-xs"></div>
-                <h2 class="h3 m10">Додаткові дані</h2>
+                <h2 class="h3 m10">{{ __('order-section.additional.title') }}</h2>
                 <span class="text">
-                    Бажаєте заповнити додаткову інформацію?
-                    <tooltip>Заповнення додаткової інформації<br>пришвидшить опрацювання Вашого замовлення</tooltip>
+                    {{ __('order-section.additional.question') }}
+                    <tooltip>
+                        <span v-html="__('order-section.additional.tooltip')"></span>
+                    </tooltip>
                 </span>
                 <div class="spacer-xs"></div>
 
-                <form-radio name="additional" v-model="additional" :value="1" label="Так"/>
+                <form-radio name="additional" v-model="additional" :value="1"
+                            :label="__('order-section.additional.yes')"/>
                 <form-radio name="additional" v-model="additional" :value="0"
-                            label="Пропустити і перейти до підтвердження замовлення"/>
+                            :label="__('order-section.additional.skip')"/>
             </div>
 
             <div class="radio-additional-tab"></div>

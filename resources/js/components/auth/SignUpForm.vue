@@ -4,10 +4,10 @@
         <div class="tabs vue-tabs">
             <ul class="tab-toggle">
                 <li class="tab-caption" :class="{active: role === 'tourist'}" @click.stop="role = 'tourist'">
-                    Я турист
+                    {{ __('auth.i-am-tourist') }}
                 </li>
                 <li class="tab-caption" :class="{active: role === 'tour-agent'}" @click.stop="role = 'tour-agent'">
-                    Я турагент
+                    {{ __('auth.i-am-travel-agent') }}
                 </li>
             </ul>
             <div class="spacer-xs"></div>
@@ -22,10 +22,10 @@
             </transition-group>
         </div>
         <div>
-            <span class="text-sm">* обов’язкове для заповнення поле</span>
+            <span class="text-sm">{{ __('forms.required-fields') }}</span>
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button type="submit" class="btn type-1">Зареєструватись</button>
+                <button type="submit" class="btn type-1">{{ __('auth.register') }}</button>
             </div>
         </div>
         <div class="spacer-sm"></div>

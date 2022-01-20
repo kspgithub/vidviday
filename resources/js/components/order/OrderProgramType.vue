@@ -1,17 +1,15 @@
 <template>
     <div>
-        <span class="text-sm">
-            Програма
-        </span>
+        <span class="text-sm">{{ __('order-section.program.title') }}</span>
         <div>
             <label class="radio">
                 <input type="radio" name="program_type" :value="0" v-model="program_type">
-                <span>Обрати готовий тур</span>
+                <span>{{ __('order-section.program.type-exists') }}</span>
             </label>
 
             <label class="radio">
                 <input type="radio" name="program_type" :value="1" v-model="program_type">
-                <span>Скласти тур</span>
+                <span>{{ __('order-section.program.type-make') }}р</span>
             </label>
         </div>
 

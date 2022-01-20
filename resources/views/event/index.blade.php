@@ -31,18 +31,13 @@
                     </div>
 
                     <div class="spacer-xs"></div>
-                    <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="{{asset('img/preloader.png')}}" data-img-src="icon/filter-dark.svg"
-                                alt="filter-dark">Підбір туру</span>
-                        <div class="spacer-xs"></div>
-                    </div>
+                    <x-tour.mobile-search-btn/>
                 @if($directions->count() > 0)
                     <!-- ACCORDIONS CONTENT -->
                         <div class="accordion-all-expand inner-not-expand">
                             <div class="expand-all-button">
-                                <div class="expand-all open">@lang('Expand all')</div>
-                                <div class="expand-all close">@lang('Collapse all')</div>
+                                <div class="expand-all open">@lang('common.expand-all')</div>
+                                <div class="expand-all close">@lang('common.collapse-all')</div>
                             </div>
 
                             <div class="accordion type-4 accordions-inner-wrap">
@@ -81,7 +76,7 @@
                                                                                 {!! str_limit(strip_tags($event->text) , 500) !!}
                                                                             @endif
                                                                             <a href="{{$event->url}}"
-                                                                               class="btn btn-read-more text-bold">Більше</a>
+                                                                               class="btn btn-read-more text-bold">@lang('common.more')</a>
                                                                         </p>
 
 
@@ -97,8 +92,8 @@
                                 @endforeach
                             </div>
                             <div class="expand-all-button">
-                                <div class="expand-all open">@lang('Expand all')</div>
-                                <div class="expand-all close">@lang('Collapse all')</div>
+                                <div class="expand-all open">@lang('common.expand-all')</div>
+                                <div class="expand-all close">@lang('common.collapse-all')</div>
                             </div>
                         </div>
                 @endif

@@ -7,8 +7,8 @@
         <div v-if="spacer" :class="spacer"></div>
         <div class="text-right" v-if="showBtn">
             <div class="show-more-btn" :class="{active: isActive}" @click.prevent.stop="toggle()">
-                <span v-if="!isActive">{{ __('Read more') }}</span>
-                <span v-if="isActive">{{ __('Hide text') }}</span>
+                <span v-if="!isActive">{{ __('common.read-more') }}</span>
+                <span v-if="isActive">{{ __('common.hide-text') }}</span>
             </div>
         </div>
     </div>

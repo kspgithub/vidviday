@@ -7,9 +7,9 @@
         <div class="container">
             <!-- BREAD CRUMBS -->
             <div class="bread-crumbs">
-                <a href="{{ '/' }}">Головна</a>
+                <a href="{{ '/' }}">@lang('Home')</a>
                 <span>—</span>
-                <span>{{$pageContent->seo_h1 ?? $pageContent->title}}</span>
+                <span>{{$pageContent->title}}</span>
             </div>
             <!-- BREAD CRUMBS END -->
             <div class="row">

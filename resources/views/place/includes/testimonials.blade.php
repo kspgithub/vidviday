@@ -5,7 +5,8 @@
         <div class="accordion-title">Відгуки ({{$place->testimonials->count()}})<i></i></div>
         <div class="accordion-inner">
             <div></div>
-            <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'" :parent='0'>Залишити відгук</span>
+            <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
+                  :parent='0'>{{ __('forms.leave-feedback') }}</span>
             <div class="spacer-xs"></div>
             @if($place->testimonials->count() > 0)
                 <hr>
@@ -17,7 +18,8 @@
                 <div class="spacer-xs"></div>
                 <hr>
                 <div class="spacer-xs"></div>
-                <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'" :parent='0'>Залишити відгук</span>
+                <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
+                      :parent='0'>{{ __('forms.leave-feedback') }}</span>
             @endif
         </div>
     </div>

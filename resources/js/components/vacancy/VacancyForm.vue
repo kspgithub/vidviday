@@ -1,22 +1,27 @@
 <template>
     <div class="vacancy-form">
-        <span class="h3">Не знайшли вакансію?</span>
+        <span class="h3">{{ __('common.vacancy.form-title') }}</span>
         <div class="spacer-xs"></div>
         <div class="text">
-            <p>Надішліть нам своє резюме і ми обов’язково розглянемо вашу кандидатуру</p>
+            <p>{{ __('common.vacancy.form-sub-title') }}</p>
         </div>
         <div class="spacer-xs"></div>
         <form @submit="onSubmit" :action="action" method="POST">
             <form-csrf/>
-            <form-input name="first_name" v-model="data.first_name" rules="required" label="Ваше ім’я"/>
-            <form-input name="last_name" v-model="data.last_name" rules="required" label="Ваше прізвище"/>
-            <form-input name="phone" id="vacancy_phone" v-model="data.phone" rules="required|tel" label="Ваш телефон"/>
-            <form-input name="email" id="vacancy_email" v-model="data.email" rules="required|email" label="Email"/>
-            <form-textarea name="comment" id="vacancy_comment" v-model="data.comment" label="Додати коментар"/>
-            <form-file name="attachment" v-model="data.attachment" label="Прикріпити файл резюме"
+            <form-input name="first_name" v-model="data.first_name" rules="required" :label="__('forms.your-name')"/>
+            <form-input name="last_name" v-model="data.last_name" rules="required" :label="__('forms.your-last-name')"/>
+            <form-input name="phone" id="vacancy_phone" v-model="data.phone" rules="required|tel"
+                        :label="__('forms.your-phone')"/>
+            <form-input name="email" id="vacancy_email" v-model="data.email" rules="required|email"
+                        :label="__('forms.email')"/>
+            <form-textarea name="comment" id="vacancy_comment" v-model="data.comment"
+                           :label="__('forms.your-comment')"/>
+            <form-file name="attachment" v-model="data.attachment" :label="__('common.vacancy.attach-resume')"
                        accept="pdf,doc,docx"/>
             <utm-fields/>
-            <button class="btn type-1 btn-block" :disabled="submitted">Надіслати резюме</button>
+            <button class="btn type-1 btn-block" :disabled="submitted">
+                {{ __('common.vacancy.send-resume') }}
+            </button>
         </form>
     </div>
 </template>

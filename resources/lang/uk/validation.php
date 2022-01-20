@@ -93,6 +93,7 @@ return [
     'numeric' => 'Поле :attribute повинно містити число.',
     'present' => 'Поле :attribute повинне бути присутнє.',
     'regex' => 'Поле :attribute має хибний формат.',
+    'required_this' => "Це поле обов'язкове",
     'required' => "Поле :attribute є обов'язковим для заповнення.",
     'required_if' => "Поле :attribute є обов'язковим для заповнення, коли :other є рівним :value.",
     'required_unless' => "Поле :attribute є обов'язковим для заповнення, коли :other відрізняється від :values",
@@ -149,4 +150,12 @@ return [
     */
 
     'attributes' => [],
+    'select-tour' => 'Оберіть тур',
+    'select-certificate-type' => 'Оберіть тип сертифікату',
+    'select-certificate-format' => 'Оберіть формат сертифікату',
+    'select-certificate-design' => 'Оберіть дизайн сертифікату',
+    'select-packaging-type' => 'Оберіть тип пакування',
+    'min-sum-100' => 'Сума не може бути менше 100',
+    'min-place-1' => 'Кількість місць не може бути менше 1',
+    'select-tour-date' => 'Оберіть дату туру',
 ];

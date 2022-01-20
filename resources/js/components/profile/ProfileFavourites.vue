@@ -5,12 +5,14 @@
         </div>
 
         <div class="col-12" v-if="!request && tours.length === 0">
-            <span class="text text-md">Немає турів</span>
+            <span class="text text-md">{{ __('tours-section.no-tours') }}</span>
         </div>
         <div class="col-12" v-if="currentPage < lastPage">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button class="btn type-2" :disabled="request" @click.prevent="loadMore()">Показати ще 12</button>
+                <button class="btn type-2" :disabled="request" @click.prevent="loadMore()">
+                    {{ __('tours-section.show-more-12') }}
+                </button>
             </div>
         </div>
     </div>

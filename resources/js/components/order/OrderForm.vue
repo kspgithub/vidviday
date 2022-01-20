@@ -2,31 +2,31 @@
     <div class="container">
         <div class="spacer-sm"></div>
         <h1 class="h1" v-if="(schedules.length > 0 && !orderCorporate) && tourSelected ">
-            <span v-if="tour">Замовлення туру:</span>
-            {{ tour ? tour.title : 'Замовлення туру' }}
+            <span v-if="tour">{{ __('order-section.booking-tour') }}:</span>
+            {{ tour ? tour.title : __('order-section.booking-tour') }}
         </h1>
         <h1 class="h1" v-if="(schedules.length === 0 || orderCorporate) && tourSelected">
-            <span v-if="tour">Замовлення корпоративу:</span>
-            {{ tour ? tour.title : 'Замовлення корпоративу' }}
+            <span v-if="tour">{{ __('order-section.booking-corporate') }}:</span>
+            {{ tour ? tour.title : __('order-section.booking-corporate') }}
         </h1>
-        <h1 class="h1" v-if="!tourSelected && !orderCorporate">Замовлення туру</h1>
-        <h1 class="h1" v-if="!tourSelected && orderCorporate">Замовлення корпоративу</h1>
+        <h1 class="h1" v-if="!tourSelected && !orderCorporate">{{ __('order-section.booking-tour') }}</h1>
+        <h1 class="h1" v-if="!tourSelected && orderCorporate">{{ __('order-section.booking-corporate') }}</h1>
         <div class="spacer-xs"></div>
         <form :action="action" class="tabs vue-tabs" method="post">
             <slot/>
             <ul class="tab-toggle mb-40">
                 <li class="tab-caption" :class="{active: currentStep === 1}"
                     @click="setStep(1)">
-                    <span>1</span> Основні дані
+                    <span>1</span> {{ __('order-section.tabs.common') }}
                 </li>
                 <li class="tab-caption"
                     :class="{active: currentStep === 2, disabled: currentStep < 2 || (group_type === 0 && additional === 0)}"
                     @click="setStep(2)">
-                    <span>2</span> Додаткові дані
+                    <span>2</span> {{ __('order-section.tabs.additional') }}
                 </li>
                 <li class="tab-caption" :class="{active: currentStep === 3, disabled: currentStep < 3}"
                     @click="setStep(3)">
-                    <span>3</span> Підтвердження
+                    <span>3</span> {{ __('order-section.tabs.confirmation') }}
                 </li>
             </ul>
 
@@ -47,7 +47,7 @@
             </div>
             <div class="spacer-xs"></div>
             <div v-if="!(currentStep === 2 && group_type === 1)">
-                <span class="text-sm">* обов’язкове для заповнення поле</span>
+                <span class="text-sm">{{ __('forms.required-fields') }}</span>
                 <div class="spacer-sm"></div>
             </div>
             <hr>
@@ -57,22 +57,21 @@
 
                     <div class="col-4">
                         <span class="btn btn-read-more left-arrow text-bold" v-if="currentStep !== 1"
-                              @click="prevStep()">Назад</span>
+                              @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
 
                     <div class="col-md-6 col-8 text-right" v-if="currentStep !== 3">
-                        <span class="btn type-1 tab-next" @click="nextStep()">Наступний крок</span>
+                        <span class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
                     </div>
 
                     <div class="col-8 justify-content-end align-items-center d-flex" v-if="currentStep === 3">
-                        <form-checkbox class="small only-desktop-pad"
-                                       name="conditions"
-                                       v-model="conditions" label="Я прочитав та приймаю умови"/>
+                        <form-checkbox class="small only-desktop-pad" name="conditions"
+                                       v-model="conditions" :label="__('forms.read-and-accept')"/>
                         <span class="text">
-                            <a href="/" target="_blank">&nbsp;Правил бронювання</a>
+                            <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
                         </span>
                         <button type="submit" @click="submit($event)" class="btn type-1  ms-30">
-                            Оформити замовлення
+                            {{ __('order-section.order-btn') }}
                         </button>
                     </div>
                 </div>

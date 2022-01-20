@@ -1,17 +1,14 @@
 <template>
     <div>
-        <h2 class="h3 mb-40">Поселення</h2>
+        <h2 class="h3 mb-40">{{ __('order-section.accommodation.title') }}</h2>
         <div class="row mb-40">
             <div class="col-xl-9 col-12">
                 <div class="text">
-                    <p>Можна обирати декілька варіантів. Одномісне поселення (1o / SGL) оплачується
-                        додатково. Якщо тур або екскурсія не передбачають поселення, це поле можна
-                        залишити
-                        порожнім.</p>
+                    <p>{{ __('order-section.accommodation.description') }}</p>
                 </div>
             </div>
         </div>
-        
+
         <div class="apartment-option" v-for="room in rooms">
 
             <form-number-input :model-value="accommodation[room.slug_key] || 0"
@@ -26,7 +23,7 @@
                            @update:model-value="updateAccommodation($event, 'other')"
                            v-model="accommodation.other"
                            name="accommodation[other]"
-                           label="інше"/>
+                           :label="__('order-section.accommodation.other')"/>
 
 
             <slide-up-down v-model="isOtherOpen" :duration="300" class="hidden-textarea d-block">
@@ -34,7 +31,7 @@
                 <form-textarea :model-value="accommodation.other_text || ''"
                                @update:model-value="updateAccommodation($event, 'other_text')"
                                name="accommodation[other_text]"
-                               label="Напишіть свій варіант"/>
+                               :label="__('order-section.accommodation.other-label')"/>
             </slide-up-down>
         </div>
     </div>

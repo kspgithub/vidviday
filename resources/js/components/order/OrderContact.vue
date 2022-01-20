@@ -1,32 +1,33 @@
 <template>
     <div>
-        <h2 class="h3">Контактна особа</h2>
+        <h2 class="h3">{{ __('order-section.contact.title') }}</h2>
         <div class="spacer-xs"></div>
         <div class="form row">
             <div class="col-md-6 col-12">
-                <form-input label="Ваше ім’я" name="first_name" v-model="first_name" rules="required"/>
+                <form-input :label="__('forms.your-name')" name="first_name" v-model="first_name" rules="required"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Ваше прізвище" name="last_name" v-model="last_name" rules="required"/>
+                <form-input :label="__('forms.your-last-name')" name="last_name" v-model="last_name" rules="required"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Номер телефону" name="phone" id="order-phone" v-model="phone"
+                <form-input :label="__('forms.phone-number')" name="phone" id="order-phone" v-model="phone"
                             mask="+38 (099) 999-99-99"
                             rules="required|tel"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Email" name="email" id="order-email" v-model="email" rules="required|email"/>
+                <form-input :label="__('forms.email')" name="email" id="order-email" v-model="email"
+                            rules="required|email"/>
             </div>
 
             <div class="col-md-6 col-12" v-if="isTourAgent">
-                <form-input label="Турфірма" name="company" v-model="company"/>
+                <form-input :label="__('forms.travel-agency')" name="company" v-model="company"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Viber" name="viber" v-model="viber"/>
+                <form-input :label="__('forms.viber')" name="viber" v-model="viber"/>
             </div>
         </div>
     </div>

@@ -6,11 +6,13 @@
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>
-                <span class="h2 title text-medium">{{ data.title || 'Дякуємо за повідомлення' }}</span>
+                <span class="h2 title text-medium">{{ data.title || __('popup.thanks-message') }}</span>
                 <br>
                 <span class="text" v-if="data.message">{{ data.message }}</span>
                 <div class="spacer-xs"></div>
-                <span class="btn type-1 close-popup" @click.prevent.stop="closePopup()">Повернутись на сайт</span>
+                <span class="btn type-1 close-popup" @click.prevent.stop="closePopup()">
+                    {{ __('popup.return') }}
+                </span>
             </div>
             <div class="btn-close">
                 <span></span>

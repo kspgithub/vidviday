@@ -6,6 +6,7 @@ use App\Models\Achievement;
 use App\Models\Banner;
 use App\Models\News;
 use App\Models\OurClient;
+use App\Models\Page;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Support\Carbon;
@@ -19,8 +20,10 @@ class HomeController extends Controller
         $tours = Tour::search()->paginate(12);
         $banners = Banner::published()->get();
         $achievements = Achievement::published()->get();
+        $pageContent = Page::where('key', 'home')->first();
 
         return view('home.index', [
+            'pageContent' => $pageContent,
             'tours' => $tours,
             'banners' => $banners,
             'achievements' => $achievements,
@@ -30,6 +33,6 @@ class HomeController extends Controller
 
     public function testError()
     {
-        return 50 / 0;
+        return 0; //50 / 0;
     }
 }
