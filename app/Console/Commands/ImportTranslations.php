@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 
 class ImportTranslations extends Command
 {
+    protected $skipExists = false;
 
     protected $allLines;
 
@@ -18,7 +19,7 @@ class ImportTranslations extends Command
      *
      * @var string
      */
-    protected $signature = 'translations:import {locale=uk}';
+    protected $signature = 'translations:import {--T|truncate} {--S|skip-exists}';
 
     /**
      * The console command description.
@@ -44,11 +45,15 @@ class ImportTranslations extends Command
      */
     public function handle()
     {
-        if ($this->hasArgument('truncate') && (bool)$this->argument('truncate') === true) {
+        if ($this->option('skip-exists') ?? false) {
+            $this->skipExists = true;
+        }
+
+        if ($this->option('truncate') ?? false) {
             LanguageLine::truncate();
         }
 
-        $this->locales = siteLocales();
+        $this->locales = array_keys(config('site-settings.locale.languages'));
         $languagePath = resource_path("lang");
 
 
@@ -66,6 +71,7 @@ class ImportTranslations extends Command
             $this->importDirectory($directory);
         }
 
+        $this->info('Translations imported!');
 
         return 0;
     }
@@ -97,11 +103,8 @@ class ImportTranslations extends Command
                         $this->createOrUpdate($group, $key, $locale, $value);
                     }
                 }
-
             }
-
         }
-
     }
 
     public function importArray($group, $parentKey, $locale, $array)
@@ -126,7 +129,7 @@ class ImportTranslations extends Command
             $languageLine->text = [$locale => $value];
             $languageLine->save();
             $this->allLines->push($languageLine);
-        } else {
+        } elseif ($this->skipExists) {
             $text = $languageLine->text ?? [];
             $text[$locale] = $value;
             $languageLine->text = $text;

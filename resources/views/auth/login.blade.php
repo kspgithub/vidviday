@@ -12,12 +12,12 @@
                     <div class="spacer-xs"></div>
                     <form action="{{route('auth.login.store')}}" method="POST">
                         @csrf
-                        <label data-tooltip="@lang('auth.required')">
-                            <i>@lang('auth.email')*</i>
+                        <label data-tooltip="@lang('forms.required')">
+                            <i>@lang('forms.email')*</i>
                             <input type="text" name="email" required>
                         </label>
-                        <label data-tooltip="@lang('auth.required')">
-                            <i>@lang('auth.password')*</i>
+                        <label data-tooltip="@lang('forms.required')">
+                            <i>@lang('forms.password')*</i>
                             <input type="password" name="password" required>
                         </label>
                         <div class="text text-sm">@lang('auth.required-fields')</div>

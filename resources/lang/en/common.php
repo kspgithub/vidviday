@@ -13,7 +13,7 @@ return [
     'show-more-10' => 'Показати ще 10',
     'read-more' => 'Читати більше',
     'hide-text' => 'Сховати текст',
-    'achievement' => 'Досягнення',
+    'achievement' => 'Achievements',
     'write-review' => 'Написати відгук',
     'show-answers' => 'Показати відповіді',
     'hide-answers' => 'Приховати відповіді',

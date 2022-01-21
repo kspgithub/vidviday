@@ -86,6 +86,7 @@ Route::group([
     Route::get('{line}/edit', [TranslationController::class, 'edit'])->name('edit');
     Route::patch('{line}', [TranslationController::class, 'update'])->name('update');
     Route::delete('{line}', [TranslationController::class, 'destroy'])->name('destroy');
+    Route::post('publish', [TranslationController::class, 'publish'])->name('publish');
 });
 
 // SITE USERS

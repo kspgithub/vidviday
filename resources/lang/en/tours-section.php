@@ -81,4 +81,7 @@ return [
     'price-description' => 'Ціни вказані без урахування знижок для дітей, учасників АТО/ООС, осіб з інвалідністю та інших пільгових категорій.',
     'all-inclusive' => 'Все включено',
     'total-sum' => 'Загальна сума',
+    'type' => 'Type',
+    'direction' => 'Direction',
+    'subject' => 'Subject',
 ];

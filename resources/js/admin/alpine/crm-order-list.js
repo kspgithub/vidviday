@@ -4,8 +4,10 @@ import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import axios from "axios";
 import * as UrlUtils from "../../utils/url";
 
-Ukrainian.rangeSeparator = '-';
 let cancelTokenSource = null;
+
+Ukrainian.rangeSeparator = '-';
+
 
 export default (options) => ({
     loading: false,

@@ -1,7 +1,7 @@
 <template>
     <div class="tab active">
         <div class="text-center">
-            <h1 class="h1"><b>Реєстрація нового <span>туриста</span></b></h1>
+            <h1 class="h1"><b>{{ __('auth.registration-new') }} <span>{{ __('auth.tourist') }}</span></b></h1>
             <span class="text">
                 {{ __('auth.have-account') }}
                 <a href="/auth/login" class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</a>
@@ -20,12 +20,13 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.middle_name" rules="required" name="middle_name" label="По-батькові"/>
+                <form-input v-model="data.middle_name" rules="required" name="middle_name"
+                            :label="__('forms.middle-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <div class="single-datepicker">
-                    <form-datepicker v-model="data.birthday" name="birthday" label="Дата народження"/>
+                    <form-datepicker v-model="data.birthday" name="birthday" :label="__('forms.birthday')"/>
                 </div>
             </div>
 
@@ -36,7 +37,7 @@
 
             <div class="col-md-6 col-12">
                 <form-input v-model="data.mobile_phone" rules="required|tel" name="mobile_phone"
-                            label="Мобільний телефон"
+                            :label="__('forms.mobile-phone')"
                             mask="+38 (099) 999-99-99"/>
             </div>
 
@@ -47,12 +48,13 @@
             <div class="col-md-6 col-12"></div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.password" type="password" rules="required" name="password" label="Пароль"/>
+                <form-input v-model="data.password" type="password" rules="required" name="password"
+                            :label="__('forms.password')"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <form-input v-model="data.password_confirmation" type="password" rules="required"
-                            name="password_confirmation" label="Повторіть пароль"/>
+                            name="password_confirmation" :label="__('forms.password-confirmation')"/>
             </div>
         </div>
     </div>

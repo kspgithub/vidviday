@@ -1,4 +1,5 @@
 import translatable from './translatable';
+import translations from './translations';
 import publishable from './publishable';
 import tiny from './tiny';
 import singleFileUpload from './single-file-upload';
@@ -29,6 +30,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('crmEmail', crmEmail);
 
     Alpine.data('translatable', translatable);
+    Alpine.data('translations', translations);
     Alpine.data('publishable', publishable);
     Alpine.data('tiny', tiny);
     Alpine.data('singleFileUpload', singleFileUpload);
