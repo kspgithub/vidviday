@@ -2,7 +2,8 @@ import axios from "axios";
 import tinymce from "tinymce";
 import {toast} from "../../libs/toast";
 
-export default ({order, statuses, schedules}) => ({
+export default ({order, statuses, schedules, redirect = false}) => ({
+    redirect: redirect,
     editor: null,
     statuses: statuses || [],
     order: order,
@@ -125,12 +126,23 @@ export default ({order, statuses, schedules}) => ({
     updateOrder() {
         axios.patch(`/admin/order/${this.order.id}`, this.data)
             .then(({data: response}) => {
-                console.log(response);
+                // admin/crm/schedules/38/order/5
+                const oldScheduleId = this.schedule ? this.schedule.id : 0;
+                const newScheduleId = response.model.schedule ? response.model.schedule.id : 0;
                 this.order = response.model;
                 this.status = response.model.status;
                 this.tour = response.model.tour;
                 this.schedule = response.model.schedule;
-                toast.success(response.message);
+
+                if (this.redirect && newScheduleId > 0 && oldScheduleId !== newScheduleId) {
+                    toast.success(response.message + '. Перенаправлення...');
+                    document.location.href = `/admin/crm/schedules/${newScheduleId}/order/${this.order.id}`;
+                } else {
+                    toast.success(response.message);
+                }
+                //console.log(response);
+
+
             })
             .catch(error => {
                 console.log(error);

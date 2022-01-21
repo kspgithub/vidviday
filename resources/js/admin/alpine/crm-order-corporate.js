@@ -1,7 +1,7 @@
 import axios from "axios";
-import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import {swalConfirm} from "../utils/functions";
 import flatpickr from "flatpickr";
+import {Ukrainian} from "flatpickr/dist/l10n/uk";
 
 export default (params) => ({
     order: params.order,

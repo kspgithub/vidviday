@@ -71,10 +71,10 @@ class CrmScheduleController extends Controller
     {
         $tab = $request->input('tab', 'common');
         $count_items = [
-            'reserve' => $schedule->orders()->whereIn('status', [Order::STATUS_RESERVE])->count(),
-            'interested' => $schedule->orders()->whereIn('status', [Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT])->count(),
-            'cancel' => $schedule->orders()->whereIn('status', [Order::STATUS_CANCELED, Order::STATUS_PENDING_CANCEL])->count(),
-            'common' => $schedule->orders()->whereIn('status', [Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED])->count(),
+            'reserve' => $schedule->totalPlacesByStatus([Order::STATUS_RESERVE]),
+            'interested' => $schedule->totalPlacesByStatus([Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT]),
+            'cancel' => $schedule->totalPlacesByStatus([Order::STATUS_CANCELED, Order::STATUS_PENDING_CANCEL]),
+            'common' => $schedule->totalPlacesByStatus([Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED]),
         ];
         $ordersQ = $schedule->orders();
         switch ($tab) {
@@ -97,6 +97,7 @@ class CrmScheduleController extends Controller
             'payment_tov',
             'payment_office',
             'admin_comment',
+            'agency_data',
         ]);
 
         if ($request->ajax()) {
@@ -161,6 +162,7 @@ class CrmScheduleController extends Controller
             'order' => $order,
             'statuses' => $statuses,
             'schedules' => $schedules,
+            'redirect' => true,
         ]);
     }
 }

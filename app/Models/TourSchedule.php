@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\TourScheduleAttribute;
+use App\Models\Traits\Methods\TourScheduleMethod;
 use App\Models\Traits\Scope\TourScheduleScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +22,7 @@ class TourSchedule extends Model
     use UsePublishedScope;
     use TourScheduleAttribute;
     use TourScheduleScope;
+    use TourScheduleMethod;
 
     const STATUS_PLANNED = 0;
     const STATUS_WAITING = 1;

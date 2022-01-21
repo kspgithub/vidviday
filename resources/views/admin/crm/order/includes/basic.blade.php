@@ -2,6 +2,7 @@
         order: @json($order),
         statuses: @json($statuses),
         schedules: @json($schedules),
+        redirect: {{isset($redirect) && $redirect ? 'true' : 'false'}},
     })'>
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
