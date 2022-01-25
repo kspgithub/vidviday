@@ -67,7 +67,8 @@ trait OrderAttribute
 
     public function getTotalPriceAttribute()
     {
-        return $this->price - $this->discount + $this->commission;
+        $total = $this->price - $this->discount;
+        return $this->is_tour_agent ? $total - $this->commission : $total;
     }
 
 

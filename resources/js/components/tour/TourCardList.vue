@@ -55,7 +55,7 @@
                         <span>{{ currentSchedule ? currentSchedule.price : tour.price }}</span>
                         <i>грн</i>
                     </span>
-                    <span v-if="currentSchedule.commission > 0" class="discount">
+                    <span v-if="isTourAgent && currentSchedule.commission > 0" class="discount">
                         {{ currentSchedule.commission }} {{ __('common.currency.uah-dot') }}
 
                         <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>

@@ -9,6 +9,7 @@ export default {
         app.component('currency-dropdown', require('./header/CurrencyDropdown').default);
         app.component('header-search', require('./header/HeaderSearch').default);
         app.component('header-voice-popup', require('./header/HeaderVoicePopup').default);
+        app.component('user-avatar', require('./header/UserAvatar').default);
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
 

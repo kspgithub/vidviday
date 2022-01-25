@@ -200,7 +200,7 @@ class DealOrder
             if (!empty($order->discounts)) {
                 $discountComment = '';
                 foreach ($order->discounts as $discount) {
-                    $discountComment .= "$discount->title - $discount->value $order->currency\n";
+                    $discountComment .= "{$discount['title']} - {$discount['value']} $order->currency\n";
                 }
                 $data[DealFields::FIELD_PAYMENT_COMMENT] = $discountComment;
             }

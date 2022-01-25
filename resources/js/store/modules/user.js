@@ -22,6 +22,9 @@ export default {
             return state.favourites.indexOf(id) !== -1;
         },
         countFavourites: state => state.favourites.length,
+        isTourAgent: state => {
+            return state.currentUser && !!state.currentUser.roles.find(r => r.name === 'tour-agent');
+        },
     },
     actions: {
         async loadProfile({commit}) {

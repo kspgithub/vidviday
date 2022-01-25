@@ -24,7 +24,7 @@
                         <div class="spacer-xs"></div>
                         <button type="submit" class="btn type-1 btn-block">{{__('auth.sign-in')}}</button>
                         <div class="text-center">
-                            <div class="text">{{__('auth.sщк')}}</div>
+                            <div class="text">{{__('auth.or')}}</div>
                         </div>
                         <div class="spacer-xs"></div>
                         <a href="{{route('auth.social.login', 'facebook')}}" class="btn type-1 btn-block btn-fb">

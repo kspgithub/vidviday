@@ -6,7 +6,7 @@
                @focus="onFocus"
                @blur="onBlur"
                :placeholder="placeholder"
-               :autocomplete="!!mask ? 'off' : name"
+               :autocomplete="autocomplete"
                :type="type" v-model="innerValue" :name="name" :id="id || name"
         >
         <slot/>
@@ -31,6 +31,10 @@ export default {
         placeholder: {
             type: String,
             default: '',
+        },
+        autocomplete: {
+            type: String,
+            default: 'off',
         },
         id: null,
         type: {

@@ -10,4 +10,11 @@ class Role extends SpatieRole
     {
         return self::pluck('name')->toArray();
     }
+
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+        'guard_name',
+    ];
 }

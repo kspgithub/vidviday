@@ -3,12 +3,21 @@
 @section('title', __('View User'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.user.index'), 'title'=>__('Users')],
+['url'=>route('admin.user.show', $user), 'title'=>$user->email],
+]) !!}
+
     <div class="d-flex justify-content-between">
         <h2> @lang('View User')</h2>
         <div>
-            <x-utils.link class="btn btn-sm btn-outline-success" :href="route('admin.user.change-password', $user)" :text="__('Change Password')" />
-            <x-utils.link class="btn btn-sm btn-outline-info" :href="route('admin.user.edit', $user)" :text="__('Edit')" />
-            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')" :text="__('Back')" />
+            <x-utils.link class="btn btn-sm btn-outline-success" :href="route('admin.user.change-password', $user)"
+                          :text="__('Change Password')"/>
+            <x-utils.link class="btn btn-sm btn-outline-info" :href="route('admin.user.edit', $user)"
+                          :text="__('Edit')"/>
+            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')"
+                          :text="__('Back')"/>
         </div>
     </div>
 
@@ -23,7 +32,7 @@
 
                 <tr>
                     <th>@lang('Avatar')</th>
-                    <td><img src="{{ $user->avatar_url }}" class="user-profile-image" height="100px"  /></td>
+                    <td><img src="{{ $user->avatar_url }}" class="user-profile-image" height="100px"/></td>
                 </tr>
 
                 <tr>
@@ -88,10 +97,10 @@
                     <td>@include('admin.user.includes.verified', ['user' => $user])</td>
                 </tr>
 
-{{--                <tr>--}}
-{{--                    <th>@lang('2FA')</th>--}}
-{{--                    <td>@include('admin.user.includes.2fa', ['user' => $user])</td>--}}
-{{--                </tr>--}}
+                {{--                <tr>--}}
+                {{--                    <th>@lang('2FA')</th>--}}
+                {{--                    <td>@include('admin.user.includes.2fa', ['user' => $user])</td>--}}
+                {{--                </tr>--}}
 
                 <tr>
                     <th>@lang('Timezone')</th>
@@ -140,11 +149,14 @@
 
         <x-slot name="footer">
             <small class="float-right text-muted">
-                <strong>@lang('Account Created'):</strong> @displayDate($user->created_at) ({{ $user->created_at->diffForHumans() }}),
-                <strong>@lang('Last Updated'):</strong> @displayDate($user->updated_at) ({{ $user->updated_at->diffForHumans() }})
+                <strong>@lang('Account Created'):</strong> @displayDate($user->created_at)
+                ({{ $user->created_at->diffForHumans() }}),
+                <strong>@lang('Last Updated'):</strong> @displayDate($user->updated_at)
+                ({{ $user->updated_at->diffForHumans() }})
 
                 @if($user->trashed())
-                    <strong>@lang('Account Deleted'):</strong> @displayDate($user->deleted_at) ({{ $user->deleted_at->diffForHumans() }})
+                    <strong>@lang('Account Deleted'):</strong> @displayDate($user->deleted_at)
+                    ({{ $user->deleted_at->diffForHumans() }})
                 @endif
             </small>
         </x-slot>

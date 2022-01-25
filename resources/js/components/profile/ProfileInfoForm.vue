@@ -1,5 +1,6 @@
 <template>
-    <form @submit="onSubmit" :action="action" method="POST" enctype="multipart/form-data" class="tab active">
+    <form @submit="onSubmit" :action="action" method="POST" enctype="multipart/form-data" class="tab active"
+          autocomplete="off">
         <slot/>
         <div class="only-desktop-pad">
             <h1 class="h2">Особисті дані</h1>
@@ -113,6 +114,7 @@
 
                     <div class="col-md-6 col-12">
                         <form-input v-model="formData.current_password" type="password" label="Теперішній пароль"
+                                    autocomplete="none"
                                     name="current_password" rules="required"/>
                     </div>
 

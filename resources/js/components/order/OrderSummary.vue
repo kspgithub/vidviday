@@ -12,8 +12,8 @@
                 {{ __('order-section.currency.uah') }}
             </span>
         </div>
-        <hr v-if="totalCommission > 0">
-        <div v-if="totalCommission > 0">
+        <hr v-if="totalCommission > 0 && isTourAgent">
+        <div v-if="totalCommission > 0 && isTourAgent">
             <span class="text">{{ __('order-section.summary.commission') }}</span>
             <span class="discount">
                 {{ format(totalCommission) }} {{ __('order-section.currency.uah') }}
@@ -67,13 +67,14 @@ export default {
 
         const format = (val) => toAmount(val);
 
-
+        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
         return {
             format,
             tourPrice,
             totalChildrenDiscount,
             totalCommission,
             totalPrice,
+            isTourAgent,
         }
     }
 }
