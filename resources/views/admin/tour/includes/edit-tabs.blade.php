@@ -1,4 +1,4 @@
-<div class="list-group">
+<div class="list-group mb-2">
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.edit')}}"
        href="{{route('admin.tour.edit', $tour)}}">@lang('Basic Information')</a>
 
@@ -46,4 +46,10 @@
 
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.similar.*')}}"
        href="{{route('admin.tour.similar.index', $tour)}}">@lang('Similar Tours')</a>
+</div>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" href="{{$tour->url}}">
+        <span>Переглянути</span>
+        <i class="fas fa-external-link-alt ms-auto"></i>
+    </a>
 </div>
