@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="text-sm text-medium title">Дата виїзду*</span>
+        <span class="text-sm text-medium title">{{ __('order-section.departure-date') }}*</span>
         <div class="single-datepicker">
             <form-datepicker
                 name="start_date"

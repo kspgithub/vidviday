@@ -3,11 +3,14 @@
         <div class="row mb-10">
             <div class="col-12">
                 <span class="text-sm text-medium title">
-                    {{ program_type === 1 ? 'Місце та дата виїзду*' : 'Дата виїзду*' }}
+                    {{
+                        program_type === 1 ? __('order-section.details.departure-place-date') : __('order-section.details.departure-date')
+                    }}*
                 </span>
             </div>
             <div class="col-12 col-md-6">
-                <form-input v-model="start_place" name="start_place" placeholder="Вкажіть місце"/>
+                <form-input v-model="start_place" name="start_place"
+                            :placeholder="__('order-section.details.specify-place') "/>
             </div>
             <div class="col-12 col-md-6">
                 <div class="single-datepicker">
@@ -16,7 +19,7 @@
                         v-model="start_date"
                         :min-date="minDate"
                         :max-date="startMaxDate"
-                        label="Oберіть дату виїзду"
+                        :label="__('order-section.details.select-departure-date')"
                     ></form-datepicker>
                 </div>
             </div>
@@ -25,11 +28,14 @@
         <div class="row">
             <div class="col-12">
                 <span class="text-sm text-medium title">
-                    {{ program_type === 1 ? 'Місце та дата повернення*' : 'Дата повернення*' }}
+                    {{
+                        program_type === 1 ? __('order-section.details.return-place-date') : __('order-section.details.return-date')
+                    }}*
                 </span>
             </div>
             <div class="col-12 col-md-6">
-                <form-input v-model="end_place" name="end_place" placeholder="Вкажіть місце"/>
+                <form-input v-model="end_place" name="end_place"
+                            :placeholder="__('order-section.details.specify-place')"/>
             </div>
             <div class="col-12 col-md-6">
                 <div class="single-datepicker">
@@ -37,7 +43,7 @@
                         name="end_date"
                         v-model="end_date"
                         :min-date="endMinDate"
-                        label="Oберіть дату повернення"
+                        :label="__('order-section.details.select-return-date')"
                     ></form-datepicker>
                 </div>
             </div>

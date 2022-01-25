@@ -25,9 +25,9 @@
                 <x-input.datepicker name="order.end_date" wire:model.defer="order.end_date"/>
             </div>
         </div><!--form-group-->
-        <x-forms.text-group label="Тривалість" name="duration" wire:model.defer="order.duration"/>
+        <x-forms.text-group :label="__('forms.duration')" name="duration" wire:model.defer="order.duration"/>
         <x-forms.text-group label="Кількість пасажирів" name="places" wire:model.defer="order.places" required/>
-        <x-forms.text-group label="Маршрут" name="route" wire:model.defer="order.route"/>
+        <x-forms.text-group :label="__('forms.route')" name="route" wire:model.defer="order.route"/>
         <div class="form-group row mb-3 align-items-center">
             <div class="m-0 col-md-2 col-form-label">
                 <span class="form-check-label">Вікова група</span>

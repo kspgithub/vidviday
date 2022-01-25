@@ -14,7 +14,7 @@
                     <form action="/" class="row">
                         <div class="col-12">
                             <label data-tooltip="Поле обов’язкове до заповнення">
-                                <i>Ваше Ім’я*</i>
+                                <i>{{__('forms.your-name')}}*</i>
                                 <input type="text" name="name" required>
                             </label>
                         </div>
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                            <div class="text text-sm">{{__('forms.required-fields')}}</div>
                             <div class="spacer-xs"></div>
                             <div class="text-center">
                                 <span class="btn type-1 open-popup" data-rel="thanks-popup">Підписатись</span>

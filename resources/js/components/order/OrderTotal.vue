@@ -2,22 +2,25 @@
     <div>
         <div class="row mt-30" v-if="totalTour > 0">
             <div class="col-lg-3 col-12" v-if="totalTour > 0">
-                <span class="text-sm text-medium title inline">Загальна сума</span>
+                <span class="text-sm text-medium title inline">{{ __('order-section.total-sum') }}</span>
                 <div class="thumb-price">
                     <div class="text">
                         <span>{{ format(totalTour) }}</span>
-                        <sup> грн</sup>
+                        <sup> {{ __('order-section.currency.uah') }}</sup>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col-lg-3 col-12" v-if="totalCommission >  0">
-                <span class="text-sm text-medium title inline">Комісія турагенту</span>
-                <span class="discount margin-top">{{ format(totalCommission) }} грн. <span
-                    class="tooltip-wrap red"><span
-                    class="tooltip text text-sm">Комісія турагенту</span></span></span>
+            <div class="col-lg-3 col-12" v-if="totalCommission >  0 && isTourAgent">
+                <span class="text-sm text-medium title inline">{{ __('order-section.summary.commission') }}</span>
+                <span class="discount margin-top">
+                    {{ format(totalCommission) }} {{ __('order-section.currency.uah') }}
 
+                    <tooltip variant="red">
+                        <span v-html="__('order-section.summary.commission-tooltip')"></span>
+                    </tooltip>
+                </span>
             </div>
         </div>
     </div>
@@ -27,14 +30,17 @@
 import {computed} from "vue";
 import {toAmount} from "../../utils/number";
 import {useStore} from "vuex";
+import Tooltip from "../common/Tooltip";
 
 export default {
     name: "OrderTotal",
+    components: {Tooltip},
     setup() {
         const store = useStore();
 
         const totalTour = computed(() => store.getters['orderTour/totalTour']);
         const totalCommission = computed(() => store.getters['orderTour/totalCommission']);
+        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
         const format = (val) => toAmount(val);
 
@@ -42,6 +48,7 @@ export default {
             format,
             totalTour,
             totalCommission,
+            isTourAgent,
         }
     }
 }

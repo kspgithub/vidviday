@@ -1,8 +1,7 @@
 <template>
     <div class="tab active">
         <div class="text mb-20">
-            <p>Отримати сертифікат можна в нашому офісі або Новою Поштою чи Укрпоштою
-                (вартість доставки за тарифами сервісів)</p>
+            <p>{{ __('certificate-section.delivery-description') }}</p>
         </div>
 
         <certificate-payment-selector/>

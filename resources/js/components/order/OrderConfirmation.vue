@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="h3">Як ви бажаєте отримати підтвердження?</h2>
+        <h2 class="h3">{{ __('order-section.confirmation.question') }}</h2>
         <div class="spacer-xxs"></div>
         <div>
             <div class="radio-accordion" v-for="(conf, idx) in confirmationTypes" :key="'conf-' + conf.value">
@@ -13,15 +13,15 @@
 
                     <form-input v-if="conf.value === 1" v-model="email" name="confirmation_email"
                                 :rules="confirmation_type === 1 ? 'required|email' : ''"
-                                label="Ваш email"/>
+                                :label="__('forms.your-email')"/>
 
                     <form-input v-if="conf.value === 2" v-model="viber" name="confirmation_viber"
                                 :rules="confirmation_type === 2 ? 'required|tel' : ''"
-                                label="Ваш номер"/>
+                                :label="__('forms.viber')"/>
 
                     <form-input v-if="conf.value === 3" v-model="phone" name="confirmation_phone"
                                 :rules="confirmation_type === 3 ? 'required|tel' : ''"
-                                label="Ваш номер"/>
+                                :label="__('forms.your-phone')"/>
                 </div>
             </div>
         </div>

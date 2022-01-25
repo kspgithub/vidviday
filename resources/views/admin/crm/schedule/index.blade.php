@@ -77,8 +77,8 @@
                                 <td>
                                     <a :href="scheduleUrl" x-text="schedule.id" target="_blank"></a>
                                 </td>
-                                <td>
-                                    <span x-text="schedule.start_date"></span>
+                                <td class="text-nowrap">
+                                    <span x-text="schedule.start_title"></span>
                                 </td>
                                 <td>
                                     <a :href="tourUrl" x-text="tourTitle" target="_blank"></a>

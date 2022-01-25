@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\CRM;
 
+use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\AccommodationType;
 use App\Models\Order;
@@ -11,6 +12,7 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CrmScheduleController extends Controller
 {
@@ -71,10 +73,10 @@ class CrmScheduleController extends Controller
     {
         $tab = $request->input('tab', 'common');
         $count_items = [
-            'reserve' => $schedule->orders()->whereIn('status', [Order::STATUS_RESERVE])->count(),
-            'interested' => $schedule->orders()->whereIn('status', [Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT])->count(),
-            'cancel' => $schedule->orders()->whereIn('status', [Order::STATUS_CANCELED, Order::STATUS_PENDING_CANCEL])->count(),
-            'common' => $schedule->orders()->whereIn('status', [Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED])->count(),
+            'reserve' => $schedule->totalPlacesByStatus([Order::STATUS_RESERVE]),
+            'interested' => $schedule->totalPlacesByStatus([Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT]),
+            'cancel' => $schedule->totalPlacesByStatus([Order::STATUS_CANCELED, Order::STATUS_PENDING_CANCEL]),
+            'common' => $schedule->totalPlacesByStatus([Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED]),
         ];
         $ordersQ = $schedule->orders();
         switch ($tab) {
@@ -97,7 +99,12 @@ class CrmScheduleController extends Controller
             'payment_tov',
             'payment_office',
             'admin_comment',
+            'agency_data',
         ]);
+
+        if ($request->input('export', 0) == 1) {
+            return Excel::download(new OrdersExport($orders), 'export.xlsx');
+        }
 
         if ($request->ajax()) {
             return response()->json([
@@ -161,6 +168,7 @@ class CrmScheduleController extends Controller
             'order' => $order,
             'statuses' => $statuses,
             'schedules' => $schedules,
+            'redirect' => true,
         ]);
     }
 }

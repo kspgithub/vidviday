@@ -2,58 +2,60 @@
     <div class="tab active">
         <div class="form row">
             <div class="col-12">
-                <span class="h3">Дані дарувальника</span>
+                <span class="h3">{{ __('certificate-section.donor-data') }}</span>
                 <div class="spacer-xs"></div>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Ваше прізвище" name="last_name" v-model="last_name" rules="required"/>
+                <form-input :label="__('forms.your-last-name')" name="last_name" v-model="last_name" rules="required"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Ваше ім’я" name="first_name" v-model="first_name" rules="required"/>
+                <form-input :label="__('forms.your-name')" name="first_name" v-model="first_name" rules="required"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Номер телефону" name="phone" id="order-phone" v-model="phone"
+                <form-input :label="__('forms.phone-number')"
+                            name="phone" id="order-phone" v-model="phone"
                             mask="+38 (099) 999-99-99" rules="required|tel"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Email" name="email" v-model="email" id="order-email" rules="required|email"/>
+                <form-input :label="__('forms.email')" name="email" v-model="email" id="order-email"
+                            rules="required|email"/>
             </div>
 
             <div class="col-12">
                 <div class="spacer-xs"></div>
-                <span class="h3">Дані отримувача</span>
+                <span class="h3">{{ __('certificate-section.recipient-data') }}</span>
                 <div class="spacer-xs"></div>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Прізвище" name="last_name_recipient" v-model="last_name_recipient" rules="required"/>
+                <form-input :label="__('forms.last-name')" name="last_name_recipient" v-model="last_name_recipient"
+                            rules="required"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input label="Ім’я" name="first_name_recipient" v-model="first_name_recipient" rules="required"/>
+                <form-input :label="__('forms.name')" name="first_name_recipient" v-model="first_name_recipient"
+                            rules="required"/>
             </div>
 
 
             <div class="col-12">
                 <div class="spacer-xs"></div>
-                <span class="h3">Деталі сертифікату</span>
+                <span class="h3">{{ __('certificate-section.certificate-details') }}</span>
                 <div class="spacer-xs"></div>
                 <label class="radio">
                     <input type="radio" value="sum" v-model="type" name="type">
-                    <span>На суму</span>
+                    <span>{{ __('certificate-section.type-sum') }}</span>
                 </label>
                 <label class="radio">
                     <input type="radio" value="tour" v-model="type" name="type">
-                    <span>На мандрівку</span>
+                    <span>{{ __('certificate-section.type-tour') }}</span>
                 </label>
                 <div class="text">
-                    <p>Сертифікат можна оформити на будь яку суму. У вартість наших турів
-                        зазвичай не включено вхідні квитки та харчування. За бажанням їх
-                        можна також додати до ціни сертифікату.</p>
+                    <p>{{ __('certificate-section.type-description') }}</p>
                 </div>
                 <div class="spacer-xs"></div>
             </div>
@@ -70,55 +72,56 @@
                     <form-tour-autocomplete v-model="tour_id" :tour="tour" @select="selectTour"
                                             option-title="full_title"/>
 
-                    <form-number-input title="Кількість осіб*" v-model="places" :min="1" :max="999" name="places"/>
+                    <form-number-input :title="__('certificate-section.number-of-people')" v-model="places" :min="1"
+                                       :max="999" name="places"/>
 
                     <div class="spacer-xs"></div>
                 </div>
             </transition>
             <div class="col-12">
-                <span class="text-sm"><b>Дизайн сертифікату::</b></span>
+                <span class="text-sm"><b>{{ __('certificate-section.design-title') }}</b></span>
                 <br>
                 <label class="radio">
                     <input type="radio" value="classic" v-model="design" name="design">
-                    <span>Класичний</span>
+                    <span>{{ __('certificate-section.design-classic') }}</span>
                 </label>
                 <label class="radio">
                     <input type="radio" value="heart" v-model="design" name="design">
-                    <span>У формі серця</span>
+                    <span>{{ __('certificate-section.design-heart') }}</span>
                 </label>
                 <div class="spacer-xs"></div>
             </div>
             <div class="col-12">
-                <span class="text-sm"><b>Формат сертифікату:</b></span>
+                <span class="text-sm"><b>{{ __('certificate-section.format-title') }}</b></span>
                 <br>
                 <label class="radio">
                     <input type="radio" value="printed" v-model="format" name="format">
-                    <span>Друкований</span>
+                    <span>{{ __('certificate-section.format-printed') }}</span>
                 </label>
                 <label class="radio">
                     <input type="radio" value="electronic" v-model="format" name="format">
-                    <span>Електронний</span>
+                    <span>{{ __('certificate-section.format-electronic') }}</span>
                 </label>
                 <div class="spacer-xs"></div>
             </div>
 
             <div class="col-12 cert-upak" id="block-certificate-format-1">
-                <span class="text-sm"><b>Чи потрібне упакування?:</b></span>
+                <span class="text-sm"><b>{{ __('certificate-section.packing-title') }}</b></span>
                 <br>
-                <div class="ans">Упакування оплачується додатково та не є обов’язковим</div>
+                <div class="ans">{{ __('certificate-section.packing-description') }}</div>
                 <label class="radio">
                     <input type="radio" :value="1" name="packing" v-model="packing">
-                    <span>Так</span>
+                    <span>{{ __('certificate-section.yes') }}</span>
                 </label>
                 <label class="radio">
                     <input type="radio" :value="0" name="packing" v-model="packing">
-                    <span>Ні</span>
+                    <span>{{ __('certificate-section.no') }}</span>
                 </label>
                 <div class="spacer-xs"></div>
             </div>
             <transition name="fade">
                 <div class="col-12 upak-variant" v-if="packing === 1">
-                    <span class="text-sm"><b>Варіант упакування</b></span>
+                    <span class="text-sm"><b>{{ __('certificate-section.packing-variant') }}</b></span>
                     <br>
                     <label class="radio" v-for="packing in packings">
                         <input type="radio" :value="packing.slug" name="packing_type" v-model="packing_type">
@@ -126,7 +129,9 @@
                         <span>
                             {{ packing.title[locale] || packing.title['uk'] }}
                             <div class="img-ic"><img :src="packing.icon" alt=""></div>
-                            <div class="cina">Ціна: {{ packing.price }} грн</div>
+                            <div class="cina">{{ __('certificate-section.price') }}: {{
+                                    packing.price
+                                }} {{ __('certificate-section.uah') }}</div>
                         </span>
                     </label>
                     <div class="spacer-xs"></div>

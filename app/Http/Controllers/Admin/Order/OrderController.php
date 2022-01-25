@@ -8,6 +8,7 @@ use App\Models\AccommodationType;
 use App\Models\Order;
 use App\Models\PaymentType;
 use App\Notifications\OrderStatusChanged;
+use App\Services\MailNotificationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -145,7 +146,7 @@ class OrderController extends Controller
             $notifyEmail = $request->input('notifyEmail', $order->email);
             if (!empty($notifyEmail)) {
                 $notifyMessage = $request->input('notifyMessage', '');
-                Mail::to($notifyEmail)->send(new OrderStatusEmail($order, $notifyMessage));
+                MailNotificationService::userOrderStatus($order, $notifyEmail, $notifyMessage);
             }
         }
 

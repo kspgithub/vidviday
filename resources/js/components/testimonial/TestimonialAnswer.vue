@@ -8,10 +8,10 @@
                 {{ currentUser.initials }}
             </div>
         </div>
-        <form-textarea v-model="text" label="Залиште коментар" name="text" :id="'t-answer-'+item.id"/>
+        <form-textarea v-model="text" :label="__('forms.leave-comment')" name="text" :id="'t-answer-'+item.id"/>
         <div class="text-right">
-            <span class="btn type-3" @click="cancel()">Відмінити</span>
-            <span class="btn type-1" @click="success()">Відповісти</span>
+            <span class="btn type-3" @click="cancel()">{{ __('forms.cancel') }}</span>
+            <span class="btn type-1" @click="success()">{{ __('forms.reply') }}</span>
         </div>
     </form>
 </template>

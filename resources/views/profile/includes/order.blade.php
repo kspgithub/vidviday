@@ -127,7 +127,7 @@
                               key="order-testimonial-btn-{{$order->id}}"
                               :tour='{{$order->tour ? json_encode($order->tour->shortInfo()) : null}}'
                               url="{{route('testimonials.index')}}">
-                            Залишити відгук
+                            {{ __('forms.leave-feedback') }}
                         </span>
                     @endif
                     @if($order->status < Order::STATUS_PAYED)

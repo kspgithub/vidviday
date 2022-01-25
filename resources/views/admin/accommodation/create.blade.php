@@ -3,6 +3,11 @@
 @section('title', __('Accommodation').' - '.__('Create'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.accommodation.index'), 'title'=>__('Accommodations')],
+['url'=>route('admin.accommodation.create'), 'title'=>__('Create')],
+]) !!}
     <div class="d-flex justify-content-between">
         <h1>{{__('Accommodation').' - '.__('Create')}}
             <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
@@ -16,15 +21,8 @@
 
     <div x-data="translatable()">
         <x-forms.post :action="route('admin.accommodation.store')" enctype="multipart/form-data" x-ref="form">
-            <x-bootstrap.card>
-                <x-slot name="body">
-                    @include('admin.accommodation.includes.form')
-
-                </x-slot>
-                <x-slot name="footer">
-                    <button class="btn btn-primary" type="submit" x-on:click.prevent="submit()">@lang('Save')</button>
-                </x-slot>
-            </x-bootstrap.card>
+            @include('admin.accommodation.includes.form')
+            <button class="btn btn-primary" type="submit" x-on:click.prevent="submit()">@lang('Save')</button>
         </x-forms.post>
     </div>
 

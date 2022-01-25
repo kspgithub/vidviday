@@ -10,6 +10,12 @@
 ]) !!}
     <div class="d-flex justify-content-between">
         <h1>Дані про виїзд: {{$tour->title}}, {{$schedule->start_title}}</h1>
+        <div>
+            <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
+               class="btn btn-sm btn-outline-primary">
+                <i class="fa fa-plus"></i> Створити замовлення
+            </a>
+        </div>
     </div>
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
@@ -55,29 +61,41 @@
 
         <div class="card">
             <div class="card-body">
-                <nav class="btn-group mb-4">
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'common'}"
-                       @click.prevent="setTab('common')"
-                       href="#">Основний список <span x-show="countOrders.common"
-                                                      x-text="`(${countOrders.common})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'reserve'}"
-                       @click.prevent="setTab('reserve')"
-                       href="#">Резерв <span x-show="countOrders.reserve"
-                                             x-text="`(${countOrders.reserve})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'interested'}"
-                       @click.prevent="setTab('interested')"
-                       href="#">Цікавилися <span x-show="countOrders.interested"
-                                                 x-text="`(${countOrders.interested})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'cancel'}"
-                       @click.prevent="setTab('cancel')"
-                       href="#">Скасування <span x-show="countOrders.cancel" x-text="`(${countOrders.cancel})`"></span></a>
-                </nav>
+                <div class="row mb-4">
+                    <div class="col-12 col-lg-8 mb-2">
+                        <nav class="btn-group">
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'common'}"
+                               @click.prevent="setTab('common')"
+                               href="#">Основний список <span x-show="countOrders.common"
+                                                              x-text="`(${countOrders.common})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'reserve'}"
+                               @click.prevent="setTab('reserve')"
+                               href="#">Резерв <span x-show="countOrders.reserve"
+                                                     x-text="`(${countOrders.reserve})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'interested'}"
+                               @click.prevent="setTab('interested')"
+                               href="#">Цікавилися <span x-show="countOrders.interested"
+                                                         x-text="`(${countOrders.interested})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'cancel'}"
+                               @click.prevent="setTab('cancel')"
+                               href="#">Скасування <span x-show="countOrders.cancel"
+                                                         x-text="`(${countOrders.cancel})`"></span></a>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-2 text-lg-end">
+                        <a href="{{route('admin.crm.schedule.show', array_merge(request()->all(), ['schedule'=>$schedule, 'export'=>1]))}}"
+                           target="_blank" class="btn btn-outline-success">
+                            <i class="far fa-file-excel"></i> Експортувати в Excel
+                        </a>
+                    </div>
+                </div>
 
-                <div class="crm-orders-table">
+
+                <div class="crm-orders-table" data-ps="{suppressScrollY: true}">
                     <table class="table table-sm">
                         <thead>
                         <tr>
@@ -85,10 +103,10 @@
                             <th>{!! alpineSortLink('status', 'Статус') !!}</th>
                             <th>{!! alpineSortLink('places', 'Осіб') !!}</th>
                             <th>ПІБ</th>
-                            <th>Контакти</th>
-                            <th>Пошта</th>
+                            <th>Дата</th>
                             <th></th>
-                            <th>{!! alpineSortLink('created_at', 'Дата') !!}</th>
+                            <th>Контакти</th>
+                            <th></th>
                             <th>Нічліг</th>
                             <th>Сума загалом</th>
                             <th>Опл. ФОП</th>
@@ -107,38 +125,75 @@
                                        x-text="order.id"></a>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm dropdown-toggle"
-                                                :class="'bg-status-'+order.status"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span x-text="statusText(order.status)"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <template x-for="status in statuses">
-                                                <li :class="'bg-status-'+status.value">
-                                                    <a class="dropdown-item"
-                                                       @click.prevent="updateOrder(order.id, {status: status.value})"
-                                                       x-text="status.text"></a>
-                                                </li>
-                                            </template>
-                                        </ul>
-                                    </div>
+                                    <button type="button" @click.prevent="editStatus(order)" class="btn border btn-sm"
+                                            :class="'bg-status-'+order.status">
+                                        <span x-text="statusText(order.status)"></span>
+                                    </button>
+                                    {{--                                    <div class="btn-group">--}}
+                                    {{--                                        <button type="button" class="btn btn-sm dropdown-toggle"--}}
+                                    {{--                                                :class="'bg-status-'+order.status"--}}
+                                    {{--                                                data-bs-toggle="dropdown" aria-expanded="false">--}}
+                                    {{--                                            <span x-text="statusText(order.status)"></span>--}}
+                                    {{--                                        </button>--}}
+                                    {{--                                        <ul class="dropdown-menu">--}}
+                                    {{--                                            <template x-for="status in statuses">--}}
+                                    {{--                                                <li :class="'bg-status-'+status.value">--}}
+                                    {{--                                                    <a class="dropdown-item"--}}
+                                    {{--                                                       @click.prevent="updateOrder(order.id, {status: status.value})"--}}
+                                    {{--                                                       x-text="status.text"></a>--}}
+                                    {{--                                                </li>--}}
+                                    {{--                                            </template>--}}
+                                    {{--                                        </ul>--}}
+                                    {{--                                    </div>--}}
                                 </td>
                                 <td x-text="order.total_places" class="text-center"></td>
-                                <td class="text-nowrap" x-text="order.last_name + ' ' + order.first_name"></td>
+                                <td class="text-nowrap" x-html="participantNames(order)"></td>
+                                <td class="text-nowrap" x-html="participantDates(order)"></td>
                                 <td>
+                                    <a href="#" class="text-success" @click.prevent="editParticipants(order)">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="text-nowrap">
+                                        <span x-text="order.last_name + ' ' + order.first_name"></span>
+                                    </div>
                                     <div x-show="order.phone" class="text-nowrap">
                                         <b>Тел:</b>
                                         <a :href="'tel:'+order.phone" x-text="order.phone" target="_blank"></a>
                                     </div>
-                                    <div x-show="order.viber" class="text-nowrap">
-                                        <b>Viber:</b>
-                                        <span x-text="order.viber"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
-                                       target="_blank"></a>
+                                    {{--                                    <div x-show="order.viber" class="text-nowrap">--}}
+                                    {{--                                        <b>Viber:</b>--}}
+                                    {{--                                        <span x-text="order.viber"></span>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                    <div x-show="order.email" class="text-nowrap">--}}
+                                    {{--                                        <b>Email:</b>--}}
+                                    {{--                                        <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"--}}
+                                    {{--                                           target="_blank"></a>--}}
+                                    {{--                                    </div>--}}
+                                    <template x-if="order.agency_data && order.agency_data.title"
+                                              :key="'agency-data-'+order.id">
+                                        <div class="mt-1 pt-1 border-top">
+
+                                            <div class="text-nowrap">
+                                                <span x-text="order.agency_data.title"></span>
+                                                <span x-show="order.agency_data.affiliate"
+                                                      x-text="'('+order.agency_data.affiliate+')'"></span>
+                                            </div>
+                                            <div class="text-nowrap" x-show="order.agency_data.manager_name">
+                                                <span x-text="order.agency_data.manager_name"></span>
+                                            </div>
+                                            <div class="text-nowrap" x-show="order.agency_data.manager_phone">
+                                                <b>Тел:</b>
+                                                <a :href="'tel:'+order.agency_data.manager_phone"
+                                                   x-text="order.agency_data.manager_phone" target="_blank"></a>
+                                            </div>
+                                            {{--                                            <div class="text-nowrap" x-show="order.agency_data.manager_email">--}}
+                                            {{--                                                <a :href="'mailto:'+order.agency_data.manager_email"--}}
+                                            {{--                                                   x-text="order.agency_data.manager_email" target="_blank"></a>--}}
+                                            {{--                                            </div>--}}
+                                        </div>
+                                    </template>
                                 </td>
                                 <td>
                                     <a href="#" class="text-success"
@@ -146,9 +201,6 @@
                                        @click.prevent="editOrder(order)">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                </td>
-                                <td>
-                                    <span x-text="formatDate(order.created_at)" class="text-nowrap"></span>
                                 </td>
                                 <td>
                                     <div class="d-flex">
@@ -213,11 +265,15 @@
                         </tbody>
                     </table>
                 </div>
+
+                @include('admin.crm.schedule.includes.statistic')
             </div>
         </div>
 
+        @include('admin.crm.schedule.includes.modal-status')
         @include('admin.crm.schedule.includes.modal-contacts')
         @include('admin.crm.schedule.includes.modal-rooms')
+        @include('admin.crm.schedule.includes.modal-participants')
 
     </div>
 @endsection

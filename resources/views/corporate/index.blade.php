@@ -32,7 +32,7 @@
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
                         <span class="btn type-1 btn-block btn-book-size open-popup calendar-init"
-                              data-rel="calendar-popup">Замовити корпоратив</span>
+                              data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</span>
                             <div class="spacer-xs"></div>
                         </div>
                         <!-- ACCORDIONS CONTENT -->
@@ -42,7 +42,7 @@
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
                     <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
-                       href="{{route('order.corporate')}}">Замовити корпоратив</a>
+                       href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
                 </div>
                 <div class="col-xl-4 col-12">
                     <!-- THUMBS CAROUSEL -->
@@ -50,13 +50,13 @@
                     @include('corporate.includes.carousel')
                     <!-- THUMBS CAROUSEL END -->
                     </div>
-                    @include('page.includes.right-sidebar', ['button'=>['title'=>'Замовити корпоратив', 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
+                    @include('page.includes.right-sidebar', ['button'=>['title'=>__('tours-section.order-corporate'), 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
                 </div>
             </div>
-         <!-- THUMBS CAROUSEL -->
-		 <div class="section only-desktop only">
-            @include('corporate.includes.carousel')
-        </div>
+            <!-- THUMBS CAROUSEL -->
+            <div class="section only-desktop only">
+                @include('corporate.includes.carousel')
+            </div>
             <!-- THUMBS CAROUSEL END -->
             <div class="spacer-lg"></div>
         </div>

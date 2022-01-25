@@ -6,20 +6,20 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">Відновлення паролю</span>
+                        <span class="h2 title text-medium">{{__('auth.password-recovery')}}</span>
                         <br>
-                        <span class="text">Ми надішлемо вам інструкцію для відновлення паролю на вашу електронну скриньку</span>
+                        <span class="text">{{__('auth.password-recovery-message')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <form action="/">
-                        <label data-tooltip="Поле обов’язкове до заповнення">
+                        <label data-tooltip="{{__('auth.required')}}">
                             <i>Email*</i>
                             <input type="text" name="email" required>
                         </label>
-                        <a href="#" class="btn type-1 btn-block">Відновити пароль</a>
+                        <a href="#" class="btn type-1 btn-block">{{__('auth.recover-password')}}</a>
                     </form>
                     <div class="spacer-xs"></div>
-                    <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                    <div class="text text-sm">{{__('auth.required-fields')}}</div>
                 </div>
             </div>
             <div class="btn-close">
@@ -27,7 +27,10 @@
             </div>
         </div>
         <div class="popup-footer">
-            <span class="text">Назад до <span class="open-popup open-popup-link" data-rel="login-popup">входу</span></span>
+            <span class="text">
+                {{__('auth.back-to')}}
+                <span class="open-popup open-popup-link" data-rel="login-popup">{{__('auth.to-entrance')}} </span>
+            </span>
         </div>
     </div>
 </div>

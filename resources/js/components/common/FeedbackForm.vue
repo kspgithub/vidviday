@@ -1,17 +1,20 @@
 <template>
     <div class="contacts-block">
-        <span class="text-md">Питання? Скарги? Пропозиції?</span>
+        <span class="text-md">{{ __('forms.feedback-title') }}</span>
         <form action="/" @submit="submitForm" method="POST">
 
-            <form-input name="name" id="name_feedback" v-model="data.name" rules="required" label="Ваше ім’я"/>
-            <form-input name="email" id="email_feedback" v-model="data.email" label="Email"
+            <form-input name="name" id="name_feedback" v-model="data.name" rules="required"
+                        :label="__('forms.your-name')"/>
+            <form-input name="email" id="email_feedback" v-model="data.email" :label="__('forms.email')"
                         rules="required|email"/>
             <form-textarea name="comment" id="comment_feedback" v-model="data.comment"
-                           label="Ваше питання, скарга чи пропозиція"
+                           :label="__('forms.you-question')"
                            rules="required"/>
 
             <utm-fields/>
-            <button type="submit" class="btn type-2 btn-block" :disabled="request">Надіслати повідомлення</button>
+            <button type="submit" class="btn type-2 btn-block" :disabled="request">
+                {{ __('forms.send-message') }}
+            </button>
         </form>
     </div>
 </template>
@@ -24,6 +27,7 @@ import {computed, reactive, ref} from "vue";
 import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
 import UtmFields from "./UtmFields";
+import {__} from "../../i18n/lang";
 
 export default {
     name: "FeedbackForm",
@@ -65,8 +69,8 @@ export default {
                         data.name = '';
                         data.email = '';
                         await store.dispatch('userQuestion/showThanks', {
-                            title: 'Дякуємо за повідомлення',
-                            message: 'ми відповімо вам найближчим часом'
+                            title: __('forms.thank-you-message'),
+                            message: __('forms.reply-message')
                         })
                     } else {
                         toast.error(response.data.message);

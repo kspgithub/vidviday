@@ -11,9 +11,7 @@ isset($district) ? ['url'=>route('admin.city.index', ['district_id'=>$district->
 ['url'=>route('admin.city.edit', ['city'=>$city, 'region_id'=>request('region_id', 0), 'district_id'=>request('district_id', 0)]), 'title'=>$city->title],
 ]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Edit city'): {{$city->title}}
-            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
-        </h1>
+        <h1>Редагувати населений пункт: {{$city->title}}</h1>
 
         <div class="d-flex align-items-center">
             <a href="{{route('admin.city.index', ['region_id'=>request('region_id', 0), 'district_id'=>request('district_id', 0)])}}"
@@ -21,17 +19,12 @@ isset($district) ? ['url'=>route('admin.city.index', ['district_id'=>$district->
         </div>
     </div>
 
-    <x-forms.patch :action="route('admin.city.update', $city)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.city.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+    <div x-data="translatable({expanded:  true})">
+        <x-forms.patch :action="route('admin.city.update', $city)" enctype="multipart/form-data" x-ref="form">
+            @include('admin.city.includes.form')
+            <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+        </x-forms.patch>
+    </div>
 
 
 @endsection

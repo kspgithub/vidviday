@@ -13,8 +13,8 @@ use App\Services\RoleService;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Throwable;
 
 /**

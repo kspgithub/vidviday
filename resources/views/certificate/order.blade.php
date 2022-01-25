@@ -12,7 +12,7 @@
             <div class="bread-crumbs">
                 <a href="/">@lang('Home')</a>
                 <span>—</span>
-                <a href="{{pageUrlByKey('certificate')}}">@lang('Gift certificate')</a>
+                <a href="{{pageUrlByKey('certificate')}}">{{$pageContent->title}}</a>
                 <span>—</span>
                 <span>{{$pageContent->title}}</span>
             </div>

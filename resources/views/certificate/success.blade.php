@@ -21,11 +21,8 @@
                 </div>
 
                 <div class="col-xl-9 col-12">
-                    <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="/img/preloader.png" data-img-src="/icon/filter-dark.svg" alt="filter-dark">Підбір туру</span>
-                    </div>
-                    <div class="spacer-xs"></div>
+                    <x-tour.mobile-search-btn/>
+
                     <!-- ORDER COMPLETE CONTENT -->
                     <div class="row">
                         <div class="col-xl-8 offset-xl-2 col-12">
@@ -33,17 +30,17 @@
                                 <img src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
                             </div>
                             <div class="spacer-xs"></div>
-                            <h1 class="h2 text-center">Замовлення сертифікату успішно оформлене</h1>
+                            <h1 class="h2 text-center">@lang('order-section.certificate.success')</h1>
                             <div class="spacer-xs"></div>
                             <div class="bordered-box">
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Тип</span>
+                                        <span class="text">@lang('order-section.type')</span>
                                     </div>
 
                                     <div class="col-6">
                                         <span class="text">
-                                            <b>{{$order->type === 'sum' ? 'На суму' : 'На мандрівку'}}</b>
+                                            <b>{{$order->type === 'sum' ? __('order-section.certificate.type-sum') : __('order-section.certificate.type-tour')}}</b>
                                         </span>
                                     </div>
                                 </div>
@@ -51,17 +48,18 @@
                                 @if($order->type === 'sum')
                                     <div class="row">
                                         <div class="col-6">
-                                            <span class="text">Сума</span>
+                                            <span class="text">@lang('order-section.sum')</span>
                                         </div>
 
                                         <div class="col-6">
-                                            <span class="text"><b>1,000 грн.</b></span>
+                                            <span
+                                                class="text"><b>{{$order->sum}} {{__('order-section.currency.uah')}}</b></span>
                                         </div>
                                     </div>
                                 @else
                                     <div class="row">
                                         <div class="col-6">
-                                            <span class="text">Тур</span>
+                                            <span class="text">{{__('order-section.tour')}}</span>
                                         </div>
 
                                         <div class="col-6">
@@ -72,31 +70,31 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Дизайн</span>
+                                        <span class="text">{{__('order-section.design')}}</span>
                                     </div>
 
                                     <div class="col-6">
                                         <span class="text">
-                                            <b>{{$order->design === 'heart' ? 'У формі серця' : 'Класичний'}}</b>
+                                            <b>{{$order->design === 'heart' ? __('order-section.certificate.design-heart') : __('order-section.certificate.design-classic')}}</b>
                                         </span>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Формат</span>
+                                        <span class="text">{{__('order-section.format')}}</span>
                                     </div>
 
                                     <div class="col-6">
                                         <span class="text">
-                                            <b>{{$order->format === 'printed' ? 'Друкований' : 'Електронний'}}</b>
+                                            <b>{{$order->format === 'printed' ? __('order-section.certificate.format-printed') :  __('order-section.certificate.format-electronic')}}</b>
                                         </span>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Номер замовлення</span>
+                                        <span class="text">{{__('order-section.order-number')}}</span>
                                     </div>
 
                                     <div class="col-6">
@@ -106,7 +104,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Данні отримувамча</span>
+                                        <span class="text">{{__('order-section.recipient-data')}}</span>
                                     </div>
 
                                     <div class="col-6">
@@ -117,21 +115,22 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <span class="text">Загальна сума</span>
+                                        <span class="text">{{__('order-section.total-sum')}}</span>
                                     </div>
 
                                     <div class="col-6">
                                         <span
-                                            class="text"><b>{{number_format($order->price, 0, '', ',')}} грн.</b></span>
+                                            class="text"><b>{{number_format($order->price, 0, '', ',')}} {{__('order-section.currency.uah')}}</b></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="spacer-xs"></div>
                             <div class="text-center">
                                 <span
-                                    class="text-md">Деталі щодо замовлення надіслані на вашу електронну адресу <b>{{$order->email}}</b></span>
+                                    class="text-md">{{__('order-section.details-message')}} <b>{{$order->email}}</b></span>
                                 <div class="spacer-xs"></div>
-                                <a href="{{pageUrlByKey('certificate')}}" class="btn type-1">До опису сертифікату</a>
+                                <a href="{{pageUrlByKey('certificate')}}"
+                                   class="btn type-1">{{__('order-section.certificate.go-to-description')}}</a>
                             </div>
                         </div>
                     </div>

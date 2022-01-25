@@ -13,7 +13,7 @@ import createPersistedState from "vuex-persistedstate";
 
 
 const psState = createPersistedState({
-    paths: ['orderTour', 'orderCertificate', 'user']
+    paths: ['orderTour']
 });
 
 plugins.push(psState);

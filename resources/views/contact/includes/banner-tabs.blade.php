@@ -6,7 +6,7 @@
                 <li class="tab-caption active">
                     <img src="{{asset('img/preloader.png')}}"
                          data-img-src="{{asset('icon/photo.svg')}}"
-                         alt="placeholder light">Фото
+                         alt="placeholder light">{{__('common.photos')}}
                 </li>
             </ul>
         </div>

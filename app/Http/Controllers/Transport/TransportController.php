@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrderTransport;
 use App\Models\Page;
 use App\Models\Transport;
+use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
 
 class TransportController extends Controller
@@ -34,7 +35,8 @@ class TransportController extends Controller
         }
         $order->status = OrderTransport::STATUS_NEW;
         $order->save();
-
+        MailNotificationService::userTransportEmail($order);
+        MailNotificationService::adminTransportEmail($order);
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Thanks for your order!')]);
         }

@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Tour;
+use App\Models\TourSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -51,6 +52,16 @@ class CrmOrderController extends Controller
         $group_type = $request->input('group_type', 0);
         $order = new Order();
         $order->group_type = $group_type;
+
+        $schedule_id = $request->input('schedule_id', 0);
+        if ($schedule_id > 0) {
+            $schedule = TourSchedule::find($schedule_id);
+            if ($schedule) {
+                $order->tour_id = $schedule->tour_id;
+                $order->schedule_id = $schedule->id;
+            }
+
+        }
 
         $statuses = arrayToSelectBox(Order::statuses());
         $currencies = Currency::toSelectBox('iso', 'iso');

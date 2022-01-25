@@ -1,4 +1,5 @@
 <div class="tab">
     <div class="spacer-xs"></div>
-    <x-tour.calendar />
+    <x-tour.calendar/>
+
 </div>

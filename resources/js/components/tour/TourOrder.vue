@@ -2,7 +2,7 @@
     <form method="get" :action="action">
         <div class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
-            <span class="discount" v-if="commission > 0">
+            <span class="discount" v-if="isTourAgent && commission > 0">
                 {{ currencyCommission }} {{ currencyTitle }}
                 <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
@@ -103,6 +103,7 @@ export default {
             store.commit('orderTour/SET_CALENDAR_OPEN', true);
         }
 
+        const isTourAgent = computed(() => store.getters['user/isTourAgent'])
         const currencyTitle = computed(() => store.getters['currency/title']);
         const currencyRate = computed(() => store.getters['currency/rate']);
         const currencyPrice = computed(() => {
@@ -111,6 +112,7 @@ export default {
         const currencyCommission = computed(() => {
             return (commission.value / currencyRate.value).toFixed(0);
         })
+
         return {
             currencyTitle,
             currencyPrice,
@@ -119,6 +121,7 @@ export default {
             departureOptions,
             selectedSchedule,
             price,
+            isTourAgent,
             commission,
             places,
             action,

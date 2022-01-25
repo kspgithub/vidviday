@@ -118,7 +118,7 @@
                                     </div>
                                     <hr>
                                 @endif
-                                @if($order->commission > 0)
+                                @if($order->is_tour_agent && $order->commission > 0)
                                     <div class="row">
                                         <div class="col-sm-6 col-12">
                                             <span class="text">Комісія турагенту</span>
@@ -159,7 +159,7 @@
                                         <hr>
                                     @endforeach
                                 @endif
-                                @if($order->price > 0)
+                                @if($order->total_price > 0)
                                     <div class="row">
                                         <div class="col-sm-6 col-12">
                                             <span class="text">Кінцева вартість</span>

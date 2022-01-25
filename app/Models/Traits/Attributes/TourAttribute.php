@@ -74,8 +74,8 @@ trait TourAttribute
                     'title' => $foodItem->day . (in_array($locale, ['uk', 'ru']) ? '-й день' : __('day')),
                     'times' => collect([]),
                 ];
-                $days[$foodItem->day]->times->add($foodItem);
             }
+            $days[$foodItem->day]->times->add($foodItem);
         }
         return collect($days);
     }

@@ -2,14 +2,14 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-header" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">Написати відгук про місце</span>
+                <span class="h2 title text-medium">{{ __('popup.testimonial.write-place') }}</span>
             </div>
         </div>
         <form method="post" :action="action" class="popup-align" enctype="multipart/form-data" v-if="showForm">
             <slot/>
             <div class="have-an-account text-center">
-                    <span class="text" v-if="!user">Уже є аккаунт?
-                        <span class="open-popup" data-rel="login-popup">Вхід</span>
+                    <span class="text" v-if="!user">{{ __('auth.have-account') }}
+                        <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
                     </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
@@ -21,9 +21,9 @@
                                accept=".jpg,.jpeg,.png"
                                @change.stop="onAvatarChange()">
                         <div class="text" v-if="!selectedAvatar">
-                            <span><b>Ваша фотографія</b> (перетягніть файл сюди або натисніть для вибору)</span>
+                            <span><b>{{ __('forms.avatar-title') }}</b> {{ __('forms.avatar-note') }}</span>
                             <br>
-                            <span>Це повинен бути файл формату <b>JPG/PNG, 200×200 пікс.</b>, розміром не більше <b>5 МБ</b></span>
+                            <span v-html="__('forms.avatar-requirements')"></span>
                         </div>
 
                         <div class="text" v-if="selectedAvatar">
@@ -32,30 +32,32 @@
                                 <div class="btn-delete" @click="deleteAvatar()"></div>
                             </div>
 
-                            <span>Фото успішно завантажено</span>
+                            <span>{{ __('forms.avatar-success') }}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <form-input name="first_name" v-model="data.first_name" rules="required" label="Ваше ім’я"/>
+                    <form-input name="first_name" v-model="data.first_name" rules="required"
+                                :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="last_name" v-model="data.last_name" rules="required" label="Ваше прізвище"
-                                tooltip="Поле обов'язкове для заповнення"/>
+                    <form-input name="last_name" v-model="data.last_name" rules="required"
+                                :label="__('forms.your-last-name')"
+                                :tooltip="__('forms.required')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
                                 rules="tel"
-                                v-model="data.phone" label="Ваш телефон"/>
+                                v-model="data.phone" :label="__('forms.your-phone')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input type="email" name="email" v-model="data.email" label="Email"/>
+                    <form-input type="email" name="email" v-model="data.email" :label="__('forms.email')"/>
 
                 </div>
 
@@ -69,11 +71,11 @@
 
                 <div class="col-md-6 col-12">
                         <span class="text text-sm">
-                            <b>Тур, у якому ви відвідували місце</b>
+                            <b>{{ __('popup.testimonial.place-tour') }}</b>
                         </span>
                     <form-custom-select name="tour_id" search search-text="Введіть назву тура"
                                         v-model.number="data.tour_id"
-                                        placeholder="Оберіть зі списку">
+                                        :placeholder="__('forms.select-from-list')">
                         <option v-for="tour in tours" :value="tour.id">
                             {{ tour.title }}
                         </option>
@@ -82,8 +84,9 @@
                 </div>
 
                 <div class="col-12">
-                    <form-textarea name="text" v-model="data.text" class="smile" label="Ваш відгук" rules="required"
-                                   tooltip="Поле обов'язкове для заповнення"/>
+                    <form-textarea name="text" v-model="data.text" class="smile" :label="__('forms.your-feedback')"
+                                   rules="required"
+                                   :tooltip="__('forms.required')"/>
 
                 </div>
 
@@ -91,11 +94,11 @@
                     <div class="img-input-wrap text-center-xs">
                         <div class="img-input tooltip-wrap">
                             <div class="tooltip">
-                                <span class="text-medium">Додати фото з туру:</span>
+                                <span class="text-medium">{{ __('forms.add-tour-photo') }}</span>
                                 <div class="text text-sm">
                                     <ul>
-                                        <li>макс. розмір зображення 3 МБ</li>
-                                        <li>макс. кількість зображень — 5</li>
+                                        <li>{{ __('forms.max-image-size-3') }}</li>
+                                        <li>{{ __('forms.max-image-count-5') }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,13 +116,13 @@
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
                     <button type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
-                        Залишити відгук
+                        {{ __('forms.leave-feedback') }}
                     </button>
                 </div>
 
                 <div class="text-center-xs col-12">
                     <div class="only-mobile spacer-sm"></div>
-                    <span class="text-sm">* обов’язкове для заповнення поле</span>
+                    <span class="text-sm">{{ __('forms.required-fields') }}</span>
                 </div>
             </div>
             <div class="btn-close" @click="closePopup()">
@@ -133,10 +136,10 @@
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>
-                <span class="h2 title text-medium">Дякуємо за ваш відгук</span>
+                <span class="h2 title text-medium">{{ __('popup.testimonial.thank-you') }}</span>
                 <br>
                 <div class="spacer-xs"></div>
-                <span class="btn type-1" @click="closePopup()">Повернутись на сайт</span>
+                <span class="btn type-1" @click="closePopup()">{{ __('popup.return') }}</span>
             </div>
             <div class="btn-close" @click="closePopup()">
                 <span></span>

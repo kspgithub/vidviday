@@ -185,9 +185,12 @@ export default {
 
 
         // Комиссия агента
-        totalCommission: (state, getters) => {
-            const price = getters.selectedSchedule ? getters.selectedSchedule.commission : (state.tour ? state.tour.commission : 0);
-            return price * getters.totalPayedPlaces;
+        totalCommission: (state, getters, rootState, rootGetters) => {
+            if (rootGetters["user/isTourAgent"]) {
+                const price = getters.selectedSchedule ? getters.selectedSchedule.commission : (state.tour ? state.tour.commission : 0);
+                return price * getters.totalPayedPlaces;
+            }
+            return 0;
         },
         // Общая стоимость со скидками
         totalTour: (state, getters) => {
@@ -198,7 +201,7 @@ export default {
         },
         // Общая стоимость со скидками и комиссией
         totalPrice: (state, getters) => {
-            return getters.totalTour + getters.totalCommission;
+            return getters.totalTour - getters.totalCommission;
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
         participants: (state) => state.formData.participants,

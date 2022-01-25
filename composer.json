@@ -28,6 +28,7 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
+        "maatwebsite/excel": "^3.1",
         "propaganistas/laravel-phone": "^4.3",
         "rappasoft/laravel-livewire-tables": "^1.10",
         "spatie/laravel-medialibrary": "^9.0.0",
@@ -87,8 +88,7 @@
         ],
         "post-update-cmd": [
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta",
-            "@php artisan ide-helper:models -M"
+            "@php artisan ide-helper:meta"
         ],
         "ide-model": [
             "@php artisan ide-helper:models -M"

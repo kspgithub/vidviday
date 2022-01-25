@@ -1,4 +1,3 @@
-
 <!-- TOUR CANCEL POPUP -->
 <div class="popup-content" data-rel="tour-cancel-popup">
     <div class="layer-close"></div>
@@ -32,7 +31,7 @@
 
                         <div class="col-12">
                             <span class="btn type-1 btn-block">Погоджуюсь на умови скасування</span>
-                            <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                            <div class="text text-sm">{{__('forms.required-fields')}}</div>
                         </div>
                     </form>
                 </div>
@@ -73,7 +72,7 @@
 
                         <div class="col-12">
                             <span class="btn type-1 btn-block">Погоджуюсь на умови скасування</span>
-                            <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                            <div class="text text-sm">{{__('forms.required-fields')}}</div>
                         </div>
                     </form>
                 </div>

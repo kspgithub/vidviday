@@ -1,8 +1,5 @@
-<x-bootstrap.card>
-    <x-slot name="header">
-        <h3>@lang('Basic Information')</h3>
-    </x-slot>
-    <x-slot name="body">
+<div class="card">
+    <div class="card-body">
         <x-forms.translation-switch/>
         <x-forms.text-group name="admin_title" :label="__('Admin Title')"
                             :value="old('admin_title', $discount->admin_title)"
@@ -12,8 +9,8 @@
         <x-forms.text-loc-group name="title" :label="__('Title')"
                                 :value="old('title', $discount->getTranslations('title'))" maxlength="255"
                                 required></x-forms.text-loc-group>
-        <x-forms.text-group name="slug" :label="__('Url')" :value="old('slug', $discount->slug)" maxlength="100"
-                            :help="__('Leave blank for automatic generation')"></x-forms.text-group>
+        {{--        <x-forms.text-group name="slug" :label="__('Url')" :value="old('slug', $discount->slug)" maxlength="100"--}}
+        {{--                            :help="__('Leave blank for automatic generation')"></x-forms.text-group>--}}
 
         <x-forms.select-group name="type" :label="__('Type')" :value="old('type', $discount->type)" :options="$types"/>
 
@@ -57,10 +54,8 @@
 
         <x-forms.switch-group name="published" :label="__('Published')"
                               :active="$discount->published"></x-forms.switch-group>
-    </x-slot>
-</x-bootstrap.card>
-
-
+    </div>
+</div>
 
 
 

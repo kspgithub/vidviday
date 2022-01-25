@@ -28,11 +28,23 @@
                             <x-forms.switch-group name="hutsul_fun_on" :label="__('Active')"
                                                   :active="$tour->hutsul_fun_on === 1"/>
 
-                            @foreach($locales as $locale)
+                            @foreach(siteLocales() as $locale)
+                                <x-forms.text-group name="hutsul_fun_title[{{$locale}}]"
+                                                    id="hutsul_fun_title_{{ $locale }}"
+                                                    label="Назва {{strtoupper($locale)}}"
+                                                    :value="array_key_exists($locale, $titles) ? $titles[$locale] : ''"
+                                                    required
+                                >
+
+                                </x-forms.text-group>
+
+                            @endforeach
+
+                            @foreach(siteLocales() as $locale)
                                 <x-forms.editor-group name="hutsul_fun_text[{{$locale}}]"
                                                       id="hutsul_fun_text_{{ $locale }}"
-                                                      label="Text {{strtoupper($locale)}}"
-                                                      :value=" array_key_exists($locale, $translations) ? $translations[$locale] : ''"
+                                                      label="Текст {{strtoupper($locale)}}"
+                                                      :value="array_key_exists($locale, $translations) ? $translations[$locale] : ''"
                                                       required
                                 >
 

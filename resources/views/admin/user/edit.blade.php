@@ -3,10 +3,18 @@
 @section('title', __('Update User'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.user.index'), 'title'=>__('Users')],
+['url'=>route('admin.user.show', $user), 'title'=>$user->email],
+['url'=>route('admin.user.edit', $user), 'title'=>__('Edit')],
+]) !!}
+
     <div class="d-flex justify-content-between">
         <h2> @lang('Update User')</h2>
         <div>
-            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')" :text="__('Cancel')" />
+            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')"
+                          :text="__('Cancel')"/>
         </div>
     </div>
 
@@ -51,19 +59,28 @@
                     ></x-forms.text-group>
 
 
+                    <x-forms.text-group name="first_name" :label="__('First Name')"
+                                        :value="old('first_name') ?? $user->first_name"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="last_name" :label="__('Last Name')"
+                                        :value="old('last_name') ?? $user->last_name"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="middle_name" :label="__('Middle Name')"
+                                        :value="old('last_name') ?? $user->middle_name"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="mobile_phone" :label="__('Mobile Phone')"
+                                        :value="old('mobile_phone') ?? $user->mobile_phone"
+                                        maxlength="100"></x-forms.text-group>
 
-
-                    <x-forms.text-group name="first_name" :label="__('First Name')" :value="old('first_name') ?? $user->first_name" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="last_name" :label="__('Last Name')" :value="old('last_name') ?? $user->last_name" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="middle_name" :label="__('Middle Name')" :value="old('last_name') ?? $user->middle_name" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="mobile_phone" :label="__('Mobile Phone')" :value="old('mobile_phone') ?? $user->mobile_phone" maxlength="100"></x-forms.text-group>
-
-                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')" :value="old('birthday') ?? $user->birthday" maxlength="100" />
+                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')"
+                                              :value="old('birthday') ?? $user->birthday" maxlength="100"/>
 
                     <template x-if="role === 'tour-agent'">
                         <div>
-                            <x-forms.text-group name="company" :label="__('Company')" :value="old('company') ?? $user->company" ></x-forms.text-group>
-                            <x-forms.text-group name="address" :label="__('Address')" :value="old('address') ?? $user->address" ></x-forms.text-group>
+                            <x-forms.text-group name="company" :label="__('Company')"
+                                                :value="old('company') ?? $user->company"></x-forms.text-group>
+                            <x-forms.text-group name="address" :label="__('Address')"
+                                                :value="old('address') ?? $user->address"></x-forms.text-group>
                             <x-forms.text-group name="position" :label="__('Position')"
                                                 :value="old('position') ?? $user->position"></x-forms.text-group>
                             <x-forms.text-group name="website" :label="__('Website')"

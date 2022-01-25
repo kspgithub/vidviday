@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="btn type-1 btn-block-sm" @click="showPopup()">Залишити відгук</span>
+        <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
         <hr>
         <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id"/>
@@ -8,12 +8,14 @@
         <div class="spacer-xs"></div>
         <div class="row">
             <div class="col-xl-6 col-12">
-                <span class="btn type-1 btn-block-sm" @click="showPopup()">Залишити відгук</span>
+                <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
                 <div class="spacer-xxs only-pad-mobile"></div>
             </div>
 
             <div class="col-xl-6 col-12 text-right">
-                <span class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">Показати ще 10</span>
+                <span class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">
+                    {{ __('common.show-more-10') }}
+                </span>
             </div>
         </div>
     </div>

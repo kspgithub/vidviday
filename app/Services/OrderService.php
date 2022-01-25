@@ -37,6 +37,8 @@ class OrderService extends BaseService
             'user_id' => $params['user_id'] ?? null,
             'comment' => $params['comment'] ?? '',
             'act_is_needed' => $params['act_is_needed'] ?? 0,
+            'is_tour_agent' => $params['is_tour_agent'] ?? 0,
+            'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
         ];
 
@@ -132,7 +134,7 @@ class OrderService extends BaseService
             }
 
             $order_params['price'] = $order_price;
-            $order_params['commission'] = $order_commission;
+            $order_params['commission'] = $order_params['is_tour_agent'] ? $order_commission : 0;
             $order_params['discount'] = $total_discount;
             $order_params['discounts'] = $order_discounts;
             $order_params['currency'] = $tour_currency;

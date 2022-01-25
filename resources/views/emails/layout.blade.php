@@ -7,30 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="shortcut icon" href="{{url(asset('img/favicon.ico'))}}">
     <title>Відвідай</title>
-    <style>
-
-
-        .btn {
-            font-family: 'Roboto', sans-serif;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 700;
-            line-height: 24px;
-            text-align: center;
-            position: relative;
-            letter-spacing: .1em;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            background: #7EBD3E;
-            color: #fff;
-            border-radius: 5px;
-            padding: 7px 20px 5px;
-        }
-
-    </style>
-
-
+    
 </head>
 <body>
 <div style="max-width: 720px; margin: 0 auto; background-color: #FAFAFA;">

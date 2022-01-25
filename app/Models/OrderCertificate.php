@@ -144,7 +144,7 @@ class OrderCertificate extends Model
             $total += $this->sum;
         } else {
             if ($this->tour) {
-                $total += ($this->tour->price + $this->tour->commission) * $this->places;
+                $total += $this->tour->price * $this->places;
             }
         }
 

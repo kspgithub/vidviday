@@ -130,7 +130,7 @@
                     </td>
                 </tr>
             @endif
-            @if($order->commission > 0)
+            @if($order->is_tour_agent && $order->commission > 0)
                 <tr>
                     <td style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9;">
                         Комісія турагенту
@@ -169,7 +169,7 @@
 
                 @endforeach
             @endif
-            @if($order->price > 0)
+            @if($order->total_price > 0)
                 <tr>
                     <td style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9;">
                         Кінцева вартість

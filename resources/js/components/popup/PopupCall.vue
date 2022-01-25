@@ -11,18 +11,18 @@
                     <input type="hidden" name="type" :value="data.type">
                 </div>
                 <div class="col-md-6 col-12">
-                    <form-input name="name" v-model="data.name" rules="required" label="Ваше ім’я"/>
+                    <form-input name="name" v-model="data.name" rules="required" :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
                                 rules="tel|required"
-                                v-model="data.phone" label="Номер телефону"/>
+                                v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input type="email" name="email" v-model="data.email" label="Email"/>
+                    <form-input type="email" name="email" v-model="data.email" :label="__('forms.email')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -62,7 +62,7 @@
                 <div class="col-12">
                     <utm-fields/>
                     <form-textarea name="comment" v-model="data.comment" label="Примітки"/>
-                    <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                    <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
                         <button type="submit" class="btn type-1" :disabled="request">Замовити дзвінок</button>

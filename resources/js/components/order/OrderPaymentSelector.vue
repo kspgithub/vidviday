@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="h3">Оберіть форму оплати</h2>
+        <h2 class="h3">{{ __('order-section.payment.title') }}</h2>
         <div class="spacer-xxs"></div>
         <template v-for="(paymentType, idx) in paymentTypes" :key="'payment-type-' + paymentType.value">
             <br v-if="idx > 0">

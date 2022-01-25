@@ -5,9 +5,9 @@
                 <div class="form row">
 
                     <div class="col-12 mb-25">
-                        <h2 class="h3">Деталі туру</h2>
+                        <h2 class="h3">{{ __('order-section.tour-details') }}</h2>
                     </div>
-                    
+
                     <input type="hidden" name="group_type" value="1">
 
                     <order-tour-selector class="col-12  mt-5 mb-10" v-if="!tourSelected"/>

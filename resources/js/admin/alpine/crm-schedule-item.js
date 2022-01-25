@@ -4,6 +4,8 @@ let cancelTokenSource = null;
 import * as UrlUtils from '../../utils/url';
 import {toast} from "../../libs/toast";
 import moment from "moment";
+import flatpickr from "flatpickr";
+import {Ukrainian} from "flatpickr/dist/l10n/uk";
 
 const rooms = {
     "1o-plus": 0,
@@ -30,15 +32,43 @@ export default (options) => ({
     sort: options.params.order || 'id:asc',
     countOrders: options.countOrders,
     accommodation: {...rooms},
+    participants: {
+        items: [],
+        participant_phone: '',
+    },
+    participantData: {
+        first_name: '',
+        last_name: '',
+        middle_name: '',
+        birthday: '',
+    },
+    agencyData: {
+        title: '',
+        affiliate: '',
+        manager_name: '',
+        manager_email: '',
+        manager_phone: ''
+    },
     selectedOrder: {
         id: null,
+        status: 'new',
         first_name: '',
         last_name: '',
         phone: '',
         email: '',
     },
     init() {
+        setTimeout(() => {
+            if (this.$refs.pickerInput) {
+                flatpickr(this.$refs.pickerInput, {
+                    locale: Ukrainian,
+                    allowInput: true,
+                    dateFormat: 'd.m.Y'
+                });
+            }
 
+
+        }, 500)
     },
     setTab(tab) {
         this.currentTab = tab;
@@ -81,10 +111,10 @@ export default (options) => ({
         return status ? status.text : value;
     },
     formatDate(value) {
-        return moment(value).format('DD.MM.YYYY HH:mm')
+        return moment(value).format('DD.MM.YYYY')
     },
     roomTitle(key) {
-        key = key.trim().replaceAll('_', '-');
+        key = key.trim().replaceAll('-', '_').replaceAll(' ', '_');
         const room = this.roomTypes.find(r => r.value === key);
         return room ? room.text : key.replaceAll('-', ' ');
     },
@@ -122,7 +152,7 @@ export default (options) => ({
 
         const accomm = {}
         if (order.accommodation) {
-            
+
             for (let key in order.accommodation) {
                 const val = order.accommodation[key];
                 const normalKey = key.trim().replaceAll('-', '_').replaceAll(' ', '_');
@@ -130,6 +160,14 @@ export default (options) => ({
             }
         }
         this.accommodation = {...rooms, ...accomm};
+
+        this.agencyData = {
+            title: order.agency_data && order.agency_data.title ? order.agency_data.title : '',
+            affiliate: order.agency_data && order.agency_data.affiliate ? order.agency_data.affiliate : '',
+            manager_name: order.agency_data && order.agency_data.manager_name ? order.agency_data.manager_name : '',
+            manager_email: order.agency_data && order.agency_data.manager_email ? order.agency_data.manager_email : '',
+            manager_phone: order.agency_data && order.agency_data.manager_phone ? order.agency_data.manager_phone : '',
+        }
         this.edit = true;
     },
     cancelEdit() {
@@ -137,9 +175,140 @@ export default (options) => ({
     },
     saveOrder() {
         this.edit = false;
-        const params = {...this.selectedOrder, accommodation: {...this.accommodation}};
+        const params = {
+            ...this.selectedOrder,
+            accommodation: {...this.accommodation},
+            agency_data: {...this.agencyData}
+        };
         //console.log(params)
         this.updateOrder(this.selectedOrder.id, params);
     },
 
+    get participantsModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editParticipantsModal'));
+    },
+    participantNames(order) {
+        const items = [];
+        if (order.participants && order.participants.items) {
+            order.participants.items.forEach(p => {
+                let item = `${p.last_name || ''} ${p.first_name || ''} ${p.middle_name || ''}`.trim();
+                items.push(`<div>${item}</div>`);
+            })
+        }
+        return items.join('');
+    },
+    participantDates(order) {
+        const items = [];
+        if (order.participants && order.participants.items) {
+            order.participants.items.forEach(p => {
+                let item = '&nbsp;';
+                if (p.birthday) {
+                    item = this.formatDate(p.birthday);
+                }
+                items.push(`<div>${item}</div>`);
+            })
+        }
+        return items.join('');
+    },
+    editParticipants(order) {
+        this.selectedOrder = {
+            id: order.id,
+            places: order.places,
+            children: !!order.children,
+            children_young: order.children ? order.children_young : 0,
+            children_older: order.children ? order.children_older : 0,
+        };
+        this.participants = {
+            items: order.participants && order.participants.items ? order.participants.items.map(p => {
+                return Object.assign({
+                    first_name: '',
+                    last_name: '',
+                    middle_name: '',
+                    birthday: '',
+                }, p);
+            }) : [],
+            participant_phone: order.participants && order.participants.participant_phone ? order.participants.participant_phone : '',
+        };
+        this.participantsModal.show();
+    },
+    cancelParticipants() {
+        this.participantsModal.hide();
+    },
+    saveParticipants() {
+        if (this.selectedOrder.id > 0) {
+            this.updateOrder(this.selectedOrder.id, {
+                ...this.selectedOrder,
+                participants: {...this.participants}
+            })
+        }
+        this.participantsModal.hide();
+    },
+    removeParticipant(idx) {
+        this.participants.items.splice(idx, 1);
+    },
+    addParticipant() {
+        if (!this.participants) {
+            this.participants = {
+                items: [],
+                participant_phone: '',
+            }
+        }
+        if (this.participantData.first_name) {
+            this.participants.items.push({...this.participantData});
+            this.participantData = {
+                first_name: '',
+                last_name: '',
+                middle_name: '',
+                birthday: '',
+            }
+        }
+    },
+    get statusModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editStatusModal'));
+    },
+    editStatus(order) {
+        this.selectedOrder = {
+            id: order.id,
+            status: order.status,
+        };
+        this.statusModal.show();
+    },
+    cancelStatus() {
+        this.statusModal.hide();
+    },
+    saveStatus() {
+        this.updateOrder(this.selectedOrder.id, {status: this.selectedOrder.status});
+        this.statusModal.hide();
+        this.loadOrders(false);
+    },
+    get totalPlaces() {
+        let total = 0;
+        this.orders.forEach(o => total += o.total_places)
+        return total;
+    },
+    get totalSum() {
+        let total = 0;
+        this.orders.forEach(o => total += o.total_price)
+        return total;
+    },
+    get totalSumFop() {
+        let total = 0;
+        this.orders.forEach(o => total += o.payment_fop)
+        return total;
+    },
+    get totalSumTov() {
+        let total = 0;
+        this.orders.forEach(o => total += o.payment_tov)
+        return total;
+    },
+    get totalSumOffice() {
+        let total = 0;
+        this.orders.forEach(o => total += o.payment_office)
+        return total;
+    },
+    get totalSumGet() {
+        let total = 0;
+        this.orders.forEach(o => total += this.paymentGet(o))
+        return total;
+    }
 })

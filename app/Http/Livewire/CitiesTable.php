@@ -111,9 +111,9 @@ class CitiesTable extends DataTableComponent
                 })
                 ->sortable(),
 
-            Column::make(__('Slug'), 'slug')
-                ->searchable()
-                ->sortable(),
+//            Column::make(__('Slug'), 'slug')
+//                ->searchable()
+//                ->sortable(),
 
             Column::make(__('Places'), 'places_count')
                 ->sortable(),

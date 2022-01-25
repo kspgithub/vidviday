@@ -2,8 +2,8 @@
     <div>
 
         <slide-up-down :model-value="show" :duration="300">
-            <span class="text text-medium title inline">Плануєте взяти дітей?</span>
-            <form-checkbox name="children" v-model="children" label="Так"/>
+            <span class="text text-medium title inline">{{ __('order-section.kids.question') }}</span>
+            <form-checkbox name="children" v-model="children" :label=" __('forms.yes')"/>
             <div class="text">
                 <p v-for="chDiscount in childrenDiscounts">{{ chDiscount.title['uk'] }}</p>
             </div>
@@ -28,6 +28,7 @@ import FormNumberInput from "../form/FormNumberInput";
 import {useStore} from "vuex";
 import {useFormDataProperty} from "../../store/composables/useFormData";
 import {computed} from "vue";
+import {__} from "../../i18n/lang";
 
 export default {
     name: "OrderKids",
@@ -40,11 +41,15 @@ export default {
         const childrenDiscounts = computed(() => store.getters['orderTour/childrenDiscounts']);
         const young_title = computed(() => {
             const discount = childrenDiscounts.value.find(d => d.category === 'children_young');
-            return discount && discount.age_limit ? `До ${discount.age_end} років` : 'До 6 років';
+            return discount && discount.age_limit
+                ? __('order-section.kids.up-count').replace(':up', discount.age_end)
+                : __('order-section.kids.up-6');
         })
         const older_title = computed(() => {
             const discount = childrenDiscounts.value.find(d => d.category === 'children_older');
-            return discount && discount.age_limit ? `Від ${discount.age_start} до ${discount.age_end} років` : 'Від 6 до 12 років';
+            return discount && discount.age_limit
+                ? __('order-section.kids.from-to').replace(':from', discount.age_start).replace(':to', discount.age_end)
+                : __('order-section.kids.from-6-to-12');
         })
         return {
             children: useFormDataProperty('orderTour', 'children'),

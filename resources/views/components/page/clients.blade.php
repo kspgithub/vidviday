@@ -3,7 +3,7 @@
         <div class="container">
             <hr class="only-desktop">
             <div class="spacer spacer-xs only-desktop"></div>
-            <h2 class="title h1 text-center">Наші клієнти</h2>
+            <h2 class="title h1 text-center">{{__('Our Clients')}}</h2>
             <div class="spacer-xs"></div>
             <div class="swiper-entry">
                 <div class="swiper-container" data-options='{

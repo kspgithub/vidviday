@@ -11,7 +11,7 @@
                 <span class="text text-sm">13:09</span>
                 <tour-rating :rating="4"/>
 
-                <span class="text">Відповісти</span>
+                <span class="text">{{ __('forms.reply') }}</span>
             </div>
         </div>
         <div class="text text-md">

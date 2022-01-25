@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h2 class="h3">Чи Вам буде потрібен Акт виконаних робіт після завершення туру?</h2>
+        <h2 class="h3">{{ __('order-section.act.question') }}</h2>
         <div class="spacer-xs"></div>
-        <form-checkbox class="small" label="Так, потрібен" name="act_is_needed" v-model="act_is_needed"/>
+        <form-checkbox class="small" :label="__('order-section.act.yes')" name="act_is_needed" v-model="act_is_needed"/>
         <div class="spacer-xs"></div>
     </div>
 </template>

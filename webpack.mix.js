@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
+const path = require('path');
+
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
 
@@ -28,6 +30,20 @@ mix.js('resources/js/app.js', 'public/js/app.js')
     .disableNotifications();
 
 mix.webpackConfig({
+    resolve: {
+        alias: {
+            '@lang': path.resolve('./resources/lang'),
+            '@publicLang': path.resolve('./public/storage/lang'),
+        },
+    },
+    module: {
+        rules: [
+            {
+                test: /resources[\\\/]lang.+\.(php)$/,
+                loader: 'php-array-loader',
+            },
+        ],
+    },
     plugins: [
         new webpack.DefinePlugin({
             __VUE_OPTIONS_API__: true,

@@ -1,9 +1,10 @@
 <template>
     <div v-observe-visibility="visibilityChanged">
         <div class="spacer-xs"></div>
-        <slide-more v-if="isVisible" title="Примітки" sub-title="Додаткові побажання або запитання щодо туру"
+        <slide-more v-if="isVisible" :title="__('order-section.comment.title')"
+                    :sub-title="__('order-section.comment.sub-title')"
                     :open="true">
-            <form-textarea v-model="comment" name="comment" label="Текст примітки"/>
+            <form-textarea v-model="comment" name="comment" :label="__('order-section.comment.label')"/>
         </slide-more>
     </div>
 

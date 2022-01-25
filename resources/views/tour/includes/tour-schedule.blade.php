@@ -17,14 +17,18 @@
             </div>
 
             @foreach($future_events as $event_key=>$future_event)
+
                 <div class="schedule-row still-have {{$event_key > 2 ? 'd-none' : ''}}">
                     <span class="text">{{$future_event->title}}</span>
                     <div>
                         <span class="text text-medium">{{$future_event->price}} грн.</span>
-                        @if($future_event->comission > 0)
-                            <span class="discount">{{$future_event->comission}} грн. <span
-                                    class="tooltip-wrap red"><span
-                                        class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
+                        @if(is_tour_agent() && (int)$future_event->commission > 0)
+                            <span class="discount">
+                                {{$future_event->commission}} грн.
+
+                                <span class="tooltip-wrap red"><span
+                                        class="tooltip text text-sm light">@lang('tours-section.commission')</span></span>
+                            </span>
                         @endif
                     </div>
                     <a href="{{route('tour.order', ['tour'=>$tour->id, 'schedule'=>$future_event->id])}}"

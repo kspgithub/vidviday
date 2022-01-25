@@ -2,7 +2,8 @@
     <div class="participant">
         <span class="h4">Учасник <span>{{ index + 1 }}</span><i></i></span>
         <div class="form">
-            <form-input label="Прізвище" v-model="innerValue.last_name" :name="'participants['+index+'][last_name]'"/>
+            <form-input :label="__('forms.last-name')" v-model="innerValue.last_name"
+                        :name="'participants['+index+'][last_name]'"/>
             <form-input label="Ім'я" v-model="innerValue.first_name" :name="'participants['+index+'][first_name]'"/>
             <form-input label="По-батькові" v-model="innerValue.middle_name"
                         :name="'participants['+index+'][middle_name]'"/>

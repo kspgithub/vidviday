@@ -29,12 +29,16 @@ function shouldIgnore(ignore, locale, domain) {
     return false;
 }
 
+function importTranslationFile(file) {
+
+}
+
 /**
  * Imports translations from the configured alias.
  */
 function importTranslations({ignore, globalTranslationsKey}) {
     const catalogue = {};
-    const files = require.context('@lang', true, /\.(php|json)$/);
+    const files = require.context('@publicLang', true, /\.(php|json)$/);
     files.keys().forEach((file) => {
         var _a, _b;
         // Find localization files at the root directory
@@ -83,3 +87,4 @@ const Lang = {
 exports.default = Lang;
 exports.Lang = Lang;
 exports.trans = trans;
+exports.__ = trans;

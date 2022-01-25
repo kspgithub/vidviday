@@ -42,6 +42,7 @@ export const useTourCard = (tour) => {
     onMounted(() => {
         imageSrc.value = tour.main_image;
     })
+
     const currencyIso = computed(() => store.getters['currency/iso']);
     const currencyTitle = computed(() => store.getters['currency/title']);
     const currencyRate = computed(() => store.getters['currency/rate']);
@@ -51,6 +52,7 @@ export const useTourCard = (tour) => {
     const currencyCommission = computed(() => {
         return currentSchedule.value ? (currentSchedule.value.commission / currencyRate.value).toFixed(0) : (tour.commission / currencyRate.value).toFixed(0);
     })
+    const isTourAgent = computed(() => store.getters['user/isTourAgent']);
     return {
         currencyTitle,
         currencyIso,
@@ -66,5 +68,6 @@ export const useTourCard = (tour) => {
         schedules,
         imageSrc,
         inFavourites,
+        isTourAgent,
     }
 }

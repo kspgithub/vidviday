@@ -135,7 +135,8 @@ class OrderForm extends Component
 
     public function getTotalProperty()
     {
-        return $this->order->price - $this->order->discount + $this->order->commission;
+        $total = $this->order->price - $this->order->discount;
+        return $this->order->is_tour_agent ? $total - $this->order->commission : $total;
     }
 
     public function render()

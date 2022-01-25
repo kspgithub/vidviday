@@ -20,7 +20,7 @@
                 @if(!$question->parent_id)
                     <x-tour.star-rating :rating="$question->rating"/>
                 @endif
-                <span class="text">Відповісти</span>
+                <span class="text">{{ __('forms.reply') }}</span>
             </div>
         </div>
         <div class="text text-md">
@@ -31,8 +31,8 @@
     @if(!$question->parent_id && $question->children->count() > 0)
         <div class="load-more-wrapp">
             <div class="show-more active">
-                <span>Приховати відповіді</span>
-                <span>Показати відповіді</span>
+                <span>{{__('common.hide-answers')}}</span>
+                <span>{{ __('common.show-answers') }}</span>
             </div>
             <div class="more-info">
                 @foreach($question->children as $child)

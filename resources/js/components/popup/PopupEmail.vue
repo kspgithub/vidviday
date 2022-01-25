@@ -12,12 +12,14 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="name" id="name_mail" v-model="data.name" rules="required" label="Ваше ім’я"/>
+                    <form-input name="name" id="name_mail" v-model="data.name" rules="required"
+                                :label="__('forms.your-name')"/>
                 </div>
 
 
                 <div class="col-md-6 col-12">
-                    <form-input type="email" name="email" id="email_mail" v-model="data.email" label="Email"
+                    <form-input type="email" name="email" id="email_mail" v-model="data.email"
+                                :label="__('forms.email')"
                                 rules="required|email"/>
                 </div>
                 <div class="col-md-6 col-12">
@@ -25,7 +27,7 @@
                                 name="phone"
                                 id="phone_mail"
                                 rules="tel"
-                                v-model="data.phone" label="Номер телефону"/>
+                                v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
                 <div class="col-md-6 col-12">
                     <select name="question_type" required v-model="data.question_type">
@@ -40,7 +42,7 @@
                     <utm-fields/>
                     <form-textarea name="comment" id="comment_mail" v-model="data.comment" label="Текст повідомлення"
                                    rules="required"/>
-                    <div class="text text-sm">* обов’язкове для заповнення поле</div>
+                    <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
                         <button type="submit" class="btn type-1" :disabled="request">Надіслати</button>

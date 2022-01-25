@@ -37,7 +37,7 @@
                         <a href="{{route('profile.favourites')}}" class="log-inned-icon">
                             <span v-is="'profile-in-favourites'"></span>
                         </a>
-                        <div class="img">
+                        <div class="img" v-is="'user-avatar'" :user='@json(current_user())'>
                             <img src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}"
                                  alt="user">
                         </div>

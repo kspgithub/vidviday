@@ -46,7 +46,7 @@
             </div>
             <div class="thumb-price">
                 <span class="text">Ціна:<span>{{ceil($schedule->price)}}</span><i>грн</i></span>
-                @if($schedule->commission > 0 && !$history)
+                @if(is_tour_agent() && $schedule->commission > 0 && !$history)
                     <span class="discount">{{ceil($schedule->commission)}} грн. <span class="tooltip-wrap red"><span
                                 class="tooltip text text-sm light">Комісія агента</span></span></span>
                 @endif
@@ -86,7 +86,7 @@
             </div>
             <div class="thumb-price">
                 <span class="text">Ціна:<span>{{ceil($schedule->price)}}</span><i>грн</i></span>
-                @if($schedule->commission > 0 && !$history)
+                @if(is_tour_agent() && $schedule->commission > 0 && !$history)
                     <span class="discount">{{ceil($schedule->commission)}} грн. <span class="tooltip-wrap red"><span
                                 class="tooltip text text-sm light">Комісія агента</span></span></span>
                 @endif

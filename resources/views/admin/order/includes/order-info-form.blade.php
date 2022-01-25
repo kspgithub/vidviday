@@ -68,7 +68,8 @@
             </div><!--form-group-->
 
 
-            <x-forms.select-group label="Дата виїзду" name="order.schedule_id" wire:model="order.schedule_id"
+            <x-forms.select-group :label="__('forms.departure-date')" name="order.schedule_id"
+                                  wire:model="order.schedule_id"
                                   :row-class="(int)$order->group_type === 0 ? 'row mb-3' : 'row mb-3 d-none'">
                 <option value="">Не вибрано</option>
                 @foreach($this->schedules as $schedule)

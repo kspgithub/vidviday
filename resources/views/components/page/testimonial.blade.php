@@ -27,7 +27,7 @@
                     @endif
                     @if(!$short)
                         <span class="text" v-is="'open-testimonial-form'"
-                              :parent="{{$testimonial->id}}">Відповісти</span>
+                              :parent="{{$testimonial->id}}">{{ __('forms.reply') }}</span>
                     @endif
                 @endif
             </div>
@@ -49,14 +49,14 @@
         </label>
         <div class="text-right">
             <span class="btn type-3">Відмінити</span>
-            <span class="btn type-1 open-popup" data-rel="thanks-popup">Відповісти</span>
+            <span class="btn type-1 open-popup" data-rel="thanks-popup">{{ __('forms.reply') }}</span>
         </div>
     </form>
     @if(!$short && !$testimonial->parent_id && $testimonial->children->count() > 0)
         <div class="load-more-wrapp">
             <div class="show-more">
-                <span>Показати відповіді</span>
-                <span>Приховати відповіді</span>
+                <span>{{ __('common.show-answers') }}</span>
+                <span>{{__('common.hide-answers')}}</span>
             </div>
             <div class="more-info" style="display: none;">
                 @foreach($testimonial->children as $child)

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="h3 mb-30">Учасники туру</h2>
+        <h2 class="h3 mb-30">{{ __('order-section.participants.title') }}</h2>
 
         <order-participant v-for="(participant, idx) in participants"
                            :key="'participant-'+idx"
@@ -12,7 +12,7 @@
 
         <div class="text-right text-center-xs">
             <button class="btn type-1 add-participant-btn" @click.prevent="addParticipant()">
-                Додати учасника
+                {{ __('order-section.participants.add') }}
             </button>
         </div>
 
@@ -21,10 +21,10 @@
             <div class="form">
                 <form-input v-model="participant_phone"
                             name="participant_phone"
-                            label="Телефон одного із учасників туру"
+                            :label="__('order-section.participants.phone-label')"
                             rules="required|tel"
                 />
-                <span class="text">Це потрібно для СМС-розсилки з контактами гіда та місцем виїзду і, за потреби, для зв’язку з туристом під час туру</span>
+                <span class="text">{{ __('order-section.participants.phone-description') }}</span>
             </div>
         </div>
     </div>

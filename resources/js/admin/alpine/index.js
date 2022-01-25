@@ -1,5 +1,7 @@
 import translatable from './translatable';
+import translations from './translations';
 import publishable from './publishable';
+import mediaLibrary from './media-library';
 import tiny from './tiny';
 import singleFileUpload from './single-file-upload';
 import tourPlaces from './tour-places';
@@ -29,6 +31,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('crmEmail', crmEmail);
 
     Alpine.data('translatable', translatable);
+    Alpine.data('translations', translations);
     Alpine.data('publishable', publishable);
     Alpine.data('tiny', tiny);
     Alpine.data('singleFileUpload', singleFileUpload);
@@ -52,5 +55,5 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('crmOrderCorporate', crmOrderCorporate);
     Alpine.data('crmOrderBadge', crmOrderBadge);
     Alpine.data('crmCorporateBasic', crmCorporateBasic);
-
+    Alpine.data('mediaLibrary', mediaLibrary);
 })

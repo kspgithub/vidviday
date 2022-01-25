@@ -37,7 +37,7 @@
                     <div class="only-pad-mobile">
                         <div class="spacer-xs"></div>
                         <a href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
-                            Замовити сертифікат
+                            @lang('order-section.certificate.order')
                         </a>
                     </div>
                     <div class="spacer-xs"></div>
@@ -51,7 +51,7 @@
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
                 @include('page.includes.right-sidebar', [
-                    'button'=>['title'=>'Замовити сертифікат', 'url'=>route('certificate.order')],
+                    'button'=>['title'=>__('order-section.certificate.order'), 'url'=>route('certificate.order')],
                     'pageContent'=>$pageContent
                 ])
                 <!-- SIDEBAR END -->

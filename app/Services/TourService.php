@@ -43,10 +43,10 @@ class TourService extends BaseService
                 'duration_to' => (int)Tour::query()->max('duration') ?? 14,
                 'price_from' => 0,
                 'price_to' => (int)Tour::query()->max('price') ?? 10000,
-                'directions' => [['value' => 0, 'text' => __('Direction')]] +
+                'directions' => [['value' => 0, 'text' => __('tours-section.direction')]] +
                     Direction::published()->toSelectBox()->toArray(),
-                'types' => [['value' => 0, 'text' => __('Type')]] + TourType::published()->toSelectBox()->toArray(),
-                'subjects' => [['value' => 0, 'text' => __('Subjects')]] +
+                'types' => [['value' => 0, 'text' => __('tours-section.type')]] + TourType::published()->toSelectBox()->toArray(),
+                'subjects' => [['value' => 0, 'text' => __('tours-section.subject')]] +
                     TourSubject::published()->toSelectBox()->toArray(),
 
                 'sorting' => [

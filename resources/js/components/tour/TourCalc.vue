@@ -1,13 +1,12 @@
 <template>
     <form action="/" class="calc-form vue-calc">
-        <div class="text-sm">Дата виїзду*</div>
+        <div class="text-sm">{{ __('tour-section.departure-date') }}*</div>
 
         <div class="single-datepicker">
             <form-select-event v-model="eventId" :options="eventOptions"/>
         </div>
         <div class="text">
-            <p>Ціни вказані без урахування знижок для дітей, учасників АТО/ООС, осіб
-                з інвалідністю та інших пільгових категорій.</p>
+            <p>{{ __('tour-section.price-description') }}</p>
         </div>
         <div class="calc">
             <div class="calc-header">
@@ -15,7 +14,7 @@
                     <input type="checkbox" name="all-inclusive"
                            :checked="selected.length === items.length"
                            @change.prevent="toggleAll()">
-                    <span>Все включено</span>
+                    <span>{{ __('tour-section.all-inclusive') }}</span>
                 </label>
             </div>
 
@@ -30,8 +29,8 @@
 
             </div>
             <div class="calc-footer">
-                <span class="text-sm">Загальна сума: <span
-                    class="calc-total-price">{{ total }}</span> <sup>грн</sup></span>
+                <span class="text-sm">{{ __('tour-section.total-sum') }}: <span
+                    class="calc-total-price">{{ total }}</span> <sup>{{ __('common.currency.uah') }}</sup></span>
             </div>
         </div>
     </form>

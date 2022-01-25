@@ -11,9 +11,9 @@
         </x-forms.select-group>
         <x-forms.text-group label="Прізвище" name="order.last_name" wire:model="order.last_name" required/>
         <x-forms.text-group label="Ім'я" name="order.first_name" wire:model="order.first_name" required/>
-        <x-forms.text-group label="Телефон" name="order.phone" wire:model="order.phone" required/>
+        <x-forms.text-group :label="__('forms.phone')" name="order.phone" wire:model="order.phone" required/>
         <x-forms.text-group label="Email" name="order.email" wire:model="order.email" required/>
-        <x-forms.text-group label="Viber" name="order.viber" wire:model="order.viber"/>
+        <x-forms.text-group :label="__('forms.viber')" name="order.viber" wire:model="order.viber"/>
         <x-forms.text-group label="Компанія" name="order.company" wire:model="order.company"/>
 
 

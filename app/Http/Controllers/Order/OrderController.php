@@ -10,6 +10,7 @@ use App\Mail\TourOrderEmail;
 use App\Models\AccommodationType;
 use App\Models\Order;
 use App\Models\PaymentType;
+use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use Exception;
 use Illuminate\Http\Request;
@@ -43,10 +44,19 @@ class OrderController extends Controller
     {
         $params = $request->validated();
         $params['user_id'] = current_user() ? current_user()->id : null;
-        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
+        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
+        if ($params['is_tour_agent'] === 1) {
+            $params['agency_data'] = [
+                'title' => current_user()->company,
+            ];
+        }
         $order = OrderService::createOrder($params);
         if ($order !== false && config('services.bitrix24.integration')) {
-            DealOrder::createCrmDeal($order);
+            try {
+                DealOrder::createCrmDeal($order);
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
         }
         if ($order === false) {
             if ($request->ajax()) {
@@ -54,15 +64,8 @@ class OrderController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
-            try {
-                Mail::send(new TourOrderAdminEmail($order));
-                if (!empty($order->email)) {
-                    Mail::to($order->email)->send(new TourOrderEmail($order));
-                }
-            } catch (Exception $exception) {
-                Log::error($exception->getMessage(), $exception->getTrace());
-            }
-
+            MailNotificationService::userTourOrder($order);
+            MailNotificationService::adminTourOrder($order);
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
             }
@@ -82,7 +85,11 @@ class OrderController extends Controller
         $user = current_user();
         $order = $user->orders()->findOrFail($id);
         $order->cancel($request->only(['cause', 'comment']));
-        DealOrder::cancelDeal($order);
+        try {
+            DealOrder::cancelDeal($order);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'order' => $order]);
         }

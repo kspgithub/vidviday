@@ -19,6 +19,7 @@ use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
+use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\TourService;
 use Exception;
@@ -28,7 +29,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use PDF;
+
 
 class TourController extends Controller
 {
@@ -241,10 +242,19 @@ class TourController extends Controller
         $params = $request->validated();
         $params['tour_id'] = $tour->id;
         $params['user_id'] = current_user() ? current_user()->id : null;
-        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent();
+        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
+        if ($params['is_tour_agent'] === 1) {
+            $params['agency_data'] = [
+                'title' => current_user()->company,
+            ];
+        }
         $order = OrderService::createOrder($params);
         if ($order !== false && config('services.bitrix24.integration')) {
-            DealOrder::createCrmDeal($order);
+            try {
+                DealOrder::createCrmDeal($order);
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
         }
 
         if ($order === false) {
@@ -253,14 +263,8 @@ class TourController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
-            try {
-                Mail::send(new TourOrderAdminEmail($order));
-                if (!empty($order->email)) {
-                    Mail::to($order->email)->send(new TourOrderEmail($order));
-                }
-            } catch (Exception $exception) {
-                Log::error($exception->getMessage(), $exception->getTrace());
-            }
+            MailNotificationService::adminTourOrder($order);
+            MailNotificationService::userTourOrder($order);
 
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);

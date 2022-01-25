@@ -2,11 +2,13 @@
     <div class="order-page">
         <hr>
         <div class="spacer-xs"></div>
-        <span class="text-sm text-medium title inline">Загальна сума</span>
+        <span class="text-sm text-medium title inline">
+            {{ __('certificate-section.total-sum') }}
+        </span>
         <div class="thumb-price">
             <div class="text">
                 <span>{{ totalPrice }}</span>
-                <sup class="ms-5">грн</sup>
+                <sup class="ms-5"> {{ __('certificate-section.uah') }}</sup>
             </div>
         </div>
         <div class="spacer-xs"></div>

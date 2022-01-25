@@ -1,15 +1,19 @@
 @extends('admin.layout.app')
 
-@section('title', __('Region management'))
+@section('title', 'Області')
 
 @section('content')
-
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.region.index'), 'title'=>__('Області')],
+    ]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Region management')</h1>
+        <h1>Області</h1>
 
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.region.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create region')</a>
+                <a href="{{route('admin.region.create')}}" class="btn btn-sm btn-outline-info"><i
+                        data-feather="plus"></i> @lang('Create region')</a>
             @endif
         </div>
     </div>
@@ -23,9 +27,9 @@
                     <th>@lang('ID')</th>
                     <th>@lang('Country')</th>
                     <th>@lang('Region')</th>
-                    <th>@lang('Url')</th>
-                    <th>@lang('Links')</th>
-                    <th>@lang('Actions') </th>
+                    {{--                    <th>@lang('Url')</th>--}}
+                    <th>Посилання</th>
+                    <th style="width: 200px;">@lang('Actions') </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,8 +38,8 @@
                         <td>{{$region->id}}</td>
                         <td>{{$region->country->title ?? '-'}}</td>
                         <td>{{$region->title}}</td>
-                        <td>{{$region->slug}}</td>
-                        <td class="table-action">
+                        {{--                        <td>{{$region->slug}}</td>--}}
+                        <td>
                             <a href="{{route('admin.district.index', ['region_id'=>$region->id])}}"
                                class="btn btn-sm btn-outline-info">
                                 @lang('Districts')
@@ -45,8 +49,7 @@
                                 @lang('Cities')
                             </a>
                         </td>
-                        <td class="table-action">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td>
                             <x-utils.edit-button :href="route('admin.region.edit', $region)" text=""/>
                             @if(current_user()->isMasterAdmin())
                                 <x-utils.delete-button :href="route('admin.region.destroy', $region)" text=""/>

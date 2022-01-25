@@ -1,4 +1,3 @@
-
 <!-- THANKS POPUP -->
 <div class="popup-content" data-rel="thanks-popup">
     <div class="layer-close"></div>
@@ -9,11 +8,11 @@
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>
-                <span class="h2 title text-medium">Дякуємо за повідомлення</span>
+                <span class="h2 title text-medium">@lang('popup.thanks-message')</span>
                 <br>
-                <span class="text">Ми передзвонимо у обраний Вами час</span>
+                <span class="text">@lang('popup.recall')</span>
                 <div class="spacer-xs"></div>
-                <span class="btn type-1 close-popup">Повернутись на сайт</span>
+                <span class="btn type-1 close-popup">@lang('popup.return')</span>
             </div>
             <div class="btn-close">
                 <span></span>

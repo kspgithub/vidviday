@@ -1,6 +1,7 @@
 <template>
     <form action="/tours" class="header-search" :class="{active: active}" ref="formRef" @mouseleave="active = false">
-        <input type="text" name="q" v-model="searchText" :placeholder="__('Find tour...')" class="input-search"
+        <input type="text" name="q" v-model="searchText" :placeholder="__('header-section.find-tour-dots')"
+               class="input-search"
                @input="debounce(() => searchTours())"
                autocomplete="off">
         <div class="search-toggle">
@@ -17,16 +18,16 @@
 
             </ul>
             <div class="search-toggle-footer disabled" v-if="searchText.length >= 3 && !request && tours.length === 0">
-                <span class="text">{{ __('Nothing found') }}</span>
+                <span class="text">{{ __('header-section.nothing-found') }}</span>
             </div>
             <div class="search-toggle-footer disabled" v-if="request">
-                <span class="text">{{ __('Search...') }}</span>
+                <span class="text">{{ __('header-section.search-dots') }}</span>
             </div>
             <div class="search-toggle-footer disabled" v-if="searchText.length < 3  && !request">
-                <span class="text">{{ __('Enter a name for the tour') }}</span>
+                <span class="text">{{ __('header-section.enter-name-of-tour') }}</span>
             </div>
             <div @click="submit()" class="search-toggle-footer" v-if="tours.length > 0  && !request">
-                <span class="text">{{ __('All search results') }}</span>
+                <span class="text">{{ __('header-section.all-search-results') }}</span>
             </div>
         </div>
         <button type="submit" :disabled="searchText.length < 3">
