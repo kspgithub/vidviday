@@ -51,6 +51,7 @@ export default (options) => ({
     },
     selectedOrder: {
         id: null,
+        status: 'new',
         first_name: '',
         last_name: '',
         phone: '',
@@ -113,7 +114,7 @@ export default (options) => ({
         return moment(value).format('DD.MM.YYYY')
     },
     roomTitle(key) {
-        key = key.trim().replaceAll('_', '-');
+        key = key.trim().replaceAll('-', '_').replaceAll(' ', '_');
         const room = this.roomTypes.find(r => r.value === key);
         return room ? room.text : key.replaceAll('-', ' ');
     },
@@ -191,13 +192,23 @@ export default (options) => ({
         if (order.participants && order.participants.items) {
             order.participants.items.forEach(p => {
                 let item = `${p.last_name || ''} ${p.first_name || ''} ${p.middle_name || ''}`.trim();
-                if (p.birthday) {
-                    item += ', ' + this.formatDate(p.birthday);
-                }
-                items.push(item);
+                items.push(`<div>${item}</div>`);
             })
         }
-        return items.join('<br>');
+        return items.join('');
+    },
+    participantDates(order) {
+        const items = [];
+        if (order.participants && order.participants.items) {
+            order.participants.items.forEach(p => {
+                let item = '&nbsp;';
+                if (p.birthday) {
+                    item = this.formatDate(p.birthday);
+                }
+                items.push(`<div>${item}</div>`);
+            })
+        }
+        return items.join('');
     },
     editParticipants(order) {
         this.selectedOrder = {
@@ -252,8 +263,24 @@ export default (options) => ({
             }
         }
     },
-
-
+    get statusModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editStatusModal'));
+    },
+    editStatus(order) {
+        this.selectedOrder = {
+            id: order.id,
+            status: order.status,
+        };
+        this.statusModal.show();
+    },
+    cancelStatus() {
+        this.statusModal.hide();
+    },
+    saveStatus() {
+        this.updateOrder(this.selectedOrder.id, {status: this.selectedOrder.status});
+        this.statusModal.hide();
+        this.loadOrders(false);
+    },
     get totalPlaces() {
         let total = 0;
         this.orders.forEach(o => total += o.total_places)

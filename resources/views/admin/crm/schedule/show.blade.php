@@ -95,7 +95,7 @@
                 </div>
 
 
-                <div class="crm-orders-table">
+                <div class="crm-orders-table" data-ps="{suppressScrollY: true}">
                     <table class="table table-sm">
                         <thead>
                         <tr>
@@ -103,6 +103,7 @@
                             <th>{!! alpineSortLink('status', 'Статус') !!}</th>
                             <th>{!! alpineSortLink('places', 'Осіб') !!}</th>
                             <th>ПІБ</th>
+                            <th>Дата</th>
                             <th></th>
                             <th>Контакти</th>
                             <th></th>
@@ -124,25 +125,30 @@
                                        x-text="order.id"></a>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm dropdown-toggle"
-                                                :class="'bg-status-'+order.status"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span x-text="statusText(order.status)"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <template x-for="status in statuses">
-                                                <li :class="'bg-status-'+status.value">
-                                                    <a class="dropdown-item"
-                                                       @click.prevent="updateOrder(order.id, {status: status.value})"
-                                                       x-text="status.text"></a>
-                                                </li>
-                                            </template>
-                                        </ul>
-                                    </div>
+                                    <button type="button" @click.prevent="editStatus(order)" class="btn border btn-sm"
+                                            :class="'bg-status-'+order.status">
+                                        <span x-text="statusText(order.status)"></span>
+                                    </button>
+                                    {{--                                    <div class="btn-group">--}}
+                                    {{--                                        <button type="button" class="btn btn-sm dropdown-toggle"--}}
+                                    {{--                                                :class="'bg-status-'+order.status"--}}
+                                    {{--                                                data-bs-toggle="dropdown" aria-expanded="false">--}}
+                                    {{--                                            <span x-text="statusText(order.status)"></span>--}}
+                                    {{--                                        </button>--}}
+                                    {{--                                        <ul class="dropdown-menu">--}}
+                                    {{--                                            <template x-for="status in statuses">--}}
+                                    {{--                                                <li :class="'bg-status-'+status.value">--}}
+                                    {{--                                                    <a class="dropdown-item"--}}
+                                    {{--                                                       @click.prevent="updateOrder(order.id, {status: status.value})"--}}
+                                    {{--                                                       x-text="status.text"></a>--}}
+                                    {{--                                                </li>--}}
+                                    {{--                                            </template>--}}
+                                    {{--                                        </ul>--}}
+                                    {{--                                    </div>--}}
                                 </td>
                                 <td x-text="order.total_places" class="text-center"></td>
                                 <td class="text-nowrap" x-html="participantNames(order)"></td>
+                                <td class="text-nowrap" x-html="participantDates(order)"></td>
                                 <td>
                                     <a href="#" class="text-success" @click.prevent="editParticipants(order)">
                                         <i class="fa fa-edit"></i>
@@ -264,6 +270,7 @@
             </div>
         </div>
 
+        @include('admin.crm.schedule.includes.modal-status')
         @include('admin.crm.schedule.includes.modal-contacts')
         @include('admin.crm.schedule.includes.modal-rooms')
         @include('admin.crm.schedule.includes.modal-participants')

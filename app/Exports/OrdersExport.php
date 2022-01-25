@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\AccommodationType;
 use App\Models\Order;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -41,6 +42,7 @@ class OrdersExport extends DefaultValueBinder implements
                 'status' => $order->status_text,
                 'total_places' => (string)$order->total_places,
                 'participants' => $this->getParticipantsText($order),
+                'dates' => $this->getParticipantsBirthday($order),
                 'contacts' => $this->getContactsText($order),
                 'accommodation' => $this->getAccommodationText($order),
                 'sum_total' => (string)$order->total_price,
@@ -68,6 +70,7 @@ class OrdersExport extends DefaultValueBinder implements
             'Статус',
             'Осіб',
             'ПІБ',
+            'Дата',
             'Контакти',
             'Нічліг',
             'Сума загалом',
@@ -85,7 +88,21 @@ class OrdersExport extends DefaultValueBinder implements
         $participants = (object)$order->participants ?? [];
         if (!empty($participants->items)) {
             foreach ($participants->items as $item) {
-                $rows[] = "{$item['last_name']} {$item['first_name']} {$item['middle_name']} {$item['birthday']}";
+                $rows[] = "{$item['last_name']} {$item['first_name']} {$item['middle_name']}";
+            }
+        }
+
+        return implode("\n", $rows);
+    }
+
+    protected function getParticipantsBirthday(Order $order)
+    {
+        $rows = [];
+        $participants = (object)$order->participants ?? [];
+        if (!empty($participants->items)) {
+            foreach ($participants->items as $item) {
+                $birthday = $item['birthday'] ?? '-';
+                $rows[] = "$birthday";
             }
         }
 
@@ -121,7 +138,8 @@ class OrdersExport extends DefaultValueBinder implements
         if (!empty($order->accommodation)) {
             foreach ($order->accommodation as $key => $value) {
                 if ($key !== 'other' && $key !== 'other_text' && (int)$value > 0) {
-                    $accom = $this->roomTypes->where('slug_key', '=', $key)->first();
+                    $slug = Str::slug(trim($key));
+                    $accom = $this->roomTypes->where('slug', '=', $slug)->first();
                     $rows[] = !empty($accom) ? "$accom->title: $value" : "$key: $value";
                 }
                 if ($key === 'other_text' && !empty($value)) {
@@ -142,12 +160,13 @@ class OrdersExport extends DefaultValueBinder implements
             'D' => DataType::TYPE_STRING,
             'E' => DataType::TYPE_STRING,
             'F' => DataType::TYPE_STRING,
-            'G' => NumberFormat::FORMAT_NUMBER_00,
+            'G' => DataType::TYPE_STRING,
             'H' => NumberFormat::FORMAT_NUMBER_00,
             'I' => NumberFormat::FORMAT_NUMBER_00,
             'J' => NumberFormat::FORMAT_NUMBER_00,
             'K' => NumberFormat::FORMAT_NUMBER_00,
-            'L' => DataType::TYPE_STRING,
+            'L' => NumberFormat::FORMAT_NUMBER_00,
+            'M' => DataType::TYPE_STRING,
         ];
     }
 
@@ -158,6 +177,8 @@ class OrdersExport extends DefaultValueBinder implements
             1 => ['font' => ['bold' => true]],
             'D' => ['alignment' => ['wrap' => true]],
             'E' => ['alignment' => ['wrap' => true]],
+            'F' => ['alignment' => ['wrap' => true]],
+            'G' => ['alignment' => ['wrap' => true]],
 
         ];
     }
@@ -185,6 +206,8 @@ class OrdersExport extends DefaultValueBinder implements
                 $worksheet = $event->getSheet()->getDelegate();
                 $worksheet->getStyle('D1:D' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
                 $worksheet->getStyle('E1:E' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('F1:F' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('G1:G' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
             },
         ];
     }
