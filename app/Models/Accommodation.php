@@ -29,7 +29,7 @@ class Accommodation extends TranslatableModel implements HasMedia
 
     public $translatable = [
         'title',
-        'title_where',
+        //'title_where',
         'text',
         'slug',
     ];
@@ -37,7 +37,7 @@ class Accommodation extends TranslatableModel implements HasMedia
 
     public $fillable = [
         'title',
-        'title_where',
+        //'title_where',
         'text',
         'region_id',
         'city_id',

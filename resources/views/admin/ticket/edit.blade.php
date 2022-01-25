@@ -3,10 +3,13 @@
 @section('title', __('Edit ticket'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.ticket.index'), 'title'=>'Квитки'],
+['url'=>route('admin.ticket.edit', $ticket), 'title'=>__('Edit')],
+]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Edit ticket')
-            <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div>
-        </h1>
+        <h1>Редагувати квиток</h1>
 
         <div class="d-flex align-items-center">
             <a href="{{route('admin.ticket.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>

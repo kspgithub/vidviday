@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\CRM;
 
+use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\AccommodationType;
 use App\Models\Order;
@@ -11,6 +12,7 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CrmScheduleController extends Controller
 {
@@ -99,6 +101,10 @@ class CrmScheduleController extends Controller
             'admin_comment',
             'agency_data',
         ]);
+
+        if ($request->input('export', 0) == 1) {
+            return Excel::download(new OrdersExport($orders), 'export.xlsx');
+        }
 
         if ($request->ajax()) {
             return response()->json([

@@ -84,9 +84,9 @@ class DistrictsTable extends DataTableComponent
                 })
                 ->sortable(),
 
-            Column::make(__('Slug'), 'slug')
-                ->searchable()
-                ->sortable(),
+//            Column::make(__('Slug'), 'slug')
+//                ->searchable()
+//                ->sortable(),
 
             Column::make(__('Links'))
                 ->format(function ($value, $column, $row) {

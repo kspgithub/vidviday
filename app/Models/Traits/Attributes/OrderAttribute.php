@@ -80,4 +80,10 @@ trait OrderAttribute
     {
         return $this->tour && $this->tour->manager ? $this->tour->manager->first->shortInfo() : null;
     }
+
+
+    public function getPaymentGetAttribute()
+    {
+        return $this->total_price - $this->payment_fop - $this->payment_tov - $this->payment_office;
+    }
 }

@@ -31,7 +31,7 @@ class AccommodationController extends Controller
      */
     public function create()
     {
-        $regions    = Region::toSelectBox('title', 'id');
+        $regions = Region::toSelectBox('title', 'id');
         $accommodation = new Accommodation();
 
         return view('admin.accommodation.create', [
@@ -50,11 +50,10 @@ class AccommodationController extends Controller
     {
 
         $request->validate([
-
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'max:100'],
-            'title_where' => ['required', 'array'],
-            'title_where.uk' => ['required', 'max:100'],
+//            'title_where' => ['required', 'array'],
+//            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
@@ -77,7 +76,7 @@ class AccommodationController extends Controller
      */
     public function edit(Accommodation $accommodation)
     {
-        $regions    = Region::toSelectBox('title', 'id');
+        $regions = Region::toSelectBox('title', 'id');
         return view('admin.accommodation.edit', [
             'accommodation' => $accommodation,
             "regions" => $regions
@@ -96,8 +95,8 @@ class AccommodationController extends Controller
         $request->validate([
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'max:100'],
-            'title_where' => ['required', 'array'],
-            'title_where.uk' => ['required', 'max:100'],
+//            'title_where' => ['required', 'array'],
+//            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
             'region_id' => ['nullable', 'integer'],
@@ -136,7 +135,7 @@ class AccommodationController extends Controller
         $request->validate([
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
-        $accommodation->published = (int) $request->published;
+        $accommodation->published = (int)$request->published;
         $accommodation->save();
         return response()->json(['result' => 'success']);
     }

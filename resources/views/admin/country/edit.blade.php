@@ -1,19 +1,27 @@
 @extends('admin.layout.app')
 
-@section('title', __('Edit country'))
+@section('title', 'Редагування країни')
 
 @section('content')
+    {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.country.index'), 'title'=>__('Countries')],
+    ['url'=>route('admin.country.edit', $country), 'title'=>__('Edit')],
+    ]) !!}
 
-    <x-forms.patch :action="route('admin.country.update', $country)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.country.includes.form')
+    <div class="d-flex justify-content-between">
+        <h1>Редагувати країну: {{$country->title}}</h1>
 
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+        <div class="d-flex align-items-center">
+            <a href="{{route('admin.country.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
+        </div>
+    </div>
+
+    <div x-data="translatable({expanded:  true})">
+        <x-forms.patch :action="route('admin.country.update', $country)" enctype="multipart/form-data" x-ref="form">
+            @include('admin.country.includes.form')
+            <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+        </x-forms.patch>
+    </div>
 
 @endsection

@@ -2,6 +2,8 @@
 
 namespace App\View\Components\Utils;
 
+use Closure;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 use Spatie\MediaLibrary\HasMedia;
@@ -54,7 +56,7 @@ class MediaLibrary extends Component
     ) {
         $this->model = $model;
         $this->collection = $collection;
-        $this->items = $items ?: $model->getMedia($collection);
+        $this->items = $items ?: $model->getMedia($collection)->map->asAlpineData();
         $this->storeUrl = $storeUrl ?: route('admin.media.store', ['model_type' => get_class($model), 'model_id' => $model->id]);
         $this->destroyUrl = $destroyUrl ?: route('admin.media.destroy', 0);
         $this->updateUrl = $updateUrl ?: route('admin.media.update', 0);
@@ -63,7 +65,7 @@ class MediaLibrary extends Component
 
 
         if ($model !== null && $items === null) {
-            $this->items = $model->getMedia($collection);
+            $this->items = $model->getMedia($collection)->map->asAlpineData();
         }
 
         if ($model !== null && empty($storeUrl)) {
@@ -74,7 +76,7 @@ class MediaLibrary extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|Closure|string
      */
     public function render()
     {

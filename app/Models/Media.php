@@ -29,6 +29,23 @@ class Media extends SpatieMedia
     }
 
 
+    public function asAlpineData()
+    {
+        $alts = [];
+        $titles = [];
+        foreach (siteLocales() as $locale) {
+            $alts[$locale] = $this->getCustomProperty('alt_' . $locale) ?? '';
+            $titles[$locale] = $this->getCustomProperty('title_' . $locale) ?? '';
+        }
+        return [
+            'id' => $this->id,
+            'url' => $this->getUrl(),
+            'thumb' => $this->getUrl('thumb'),
+            'alt' => $alts,
+            'title' => $titles,
+        ];
+    }
+
     protected $appends = [
         'title',
         'alt',

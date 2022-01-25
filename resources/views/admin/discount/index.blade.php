@@ -3,6 +3,10 @@
 @section('title', __('Discounts'))
 
 @section('content')
+    {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.discount.index'), 'title'=>__('Discounts')],
+]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Discounts')</h1>
 

@@ -10,6 +10,12 @@
 ]) !!}
     <div class="d-flex justify-content-between">
         <h1>Дані про виїзд: {{$tour->title}}, {{$schedule->start_title}}</h1>
+        <div>
+            <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
+               class="btn btn-sm btn-outline-primary">
+                <i class="fa fa-plus"></i> Створити замовлення
+            </a>
+        </div>
     </div>
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
@@ -55,27 +61,39 @@
 
         <div class="card">
             <div class="card-body">
-                <nav class="btn-group mb-4">
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'common'}"
-                       @click.prevent="setTab('common')"
-                       href="#">Основний список <span x-show="countOrders.common"
-                                                      x-text="`(${countOrders.common})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'reserve'}"
-                       @click.prevent="setTab('reserve')"
-                       href="#">Резерв <span x-show="countOrders.reserve"
-                                             x-text="`(${countOrders.reserve})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'interested'}"
-                       @click.prevent="setTab('interested')"
-                       href="#">Цікавилися <span x-show="countOrders.interested"
-                                                 x-text="`(${countOrders.interested})`"></span></a>
-                    <a class="btn btn-outline-primary"
-                       :class="{active: currentTab === 'cancel'}"
-                       @click.prevent="setTab('cancel')"
-                       href="#">Скасування <span x-show="countOrders.cancel" x-text="`(${countOrders.cancel})`"></span></a>
-                </nav>
+                <div class="row mb-4">
+                    <div class="col-12 col-lg-8 mb-2">
+                        <nav class="btn-group">
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'common'}"
+                               @click.prevent="setTab('common')"
+                               href="#">Основний список <span x-show="countOrders.common"
+                                                              x-text="`(${countOrders.common})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'reserve'}"
+                               @click.prevent="setTab('reserve')"
+                               href="#">Резерв <span x-show="countOrders.reserve"
+                                                     x-text="`(${countOrders.reserve})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'interested'}"
+                               @click.prevent="setTab('interested')"
+                               href="#">Цікавилися <span x-show="countOrders.interested"
+                                                         x-text="`(${countOrders.interested})`"></span></a>
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'cancel'}"
+                               @click.prevent="setTab('cancel')"
+                               href="#">Скасування <span x-show="countOrders.cancel"
+                                                         x-text="`(${countOrders.cancel})`"></span></a>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-2 text-lg-end">
+                        <a href="{{route('admin.crm.schedule.show', array_merge(request()->all(), ['schedule'=>$schedule, 'export'=>1]))}}"
+                           target="_blank" class="btn btn-outline-success">
+                            <i class="far fa-file-excel"></i> Експортувати в Excel
+                        </a>
+                    </div>
+                </div>
+
 
                 <div class="crm-orders-table">
                     <table class="table table-sm">

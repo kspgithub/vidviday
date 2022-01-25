@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadMediaRequest;
+use App\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 
 class UploadController extends Controller
 {
@@ -36,31 +37,29 @@ class UploadController extends Controller
         $media = $model->storeMedia($request->media_file, $collection);
         $media->save();
 
-        return response()->json(['result' => 'success', 'media' => [
-            'id' => $media->id,
-            'url' => $media->getUrl(),
-            'thumb' => $media->getUrl('thumb'),
-        ]]);
+        return response()->json(['result' => 'success', 'media' => $media->asAlpineData()]);
     }
 
     public function mediaUpdate(Request $request, Media $media)
     {
+        $locale = $request->input('locale', app()->getLocale());
+
         if ($request->has('title')) {
-            $media->setCustomProperty('title_' . app()->getLocale(), $request->input('title', ''));
+            $media->setCustomProperty('title_' . $locale, $request->input('title', ''));
         }
         if ($request->has('alt')) {
-            $media->setCustomProperty('alt_' . app()->getLocale(), $request->input('alt', ''));
+            $media->setCustomProperty('alt_' . $locale, $request->input('alt', ''));
         }
         $media->save();
 
-        return response()->json(['result' => 'success', 'media' => $media]);
+        return response()->json(['result' => 'success', 'media' => $media->asAlpineData()]);
     }
 
     public function mediaDelete(Media $media)
     {
         $media->delete();
 
-        return response()->json(['result' => 'success', 'media' => $media]);
+        return response()->json(['result' => 'success', 'media' => $media->asAlpineData()]);
     }
 
     public function mediaOrder(Request $request)

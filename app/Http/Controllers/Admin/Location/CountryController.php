@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CountryController extends Controller
 {
@@ -25,7 +26,7 @@ class CountryController extends Controller
         $countries = $countriesPrepeared->get();//->sortBy('region_id');
 
         //
-        return view('admin.country.index', ['countries'=>$countries, 'countriesPaginated'=>$countriesPaginated]);
+        return view('admin.country.index', ['countries' => $countries, 'countriesPaginated' => $countriesPaginated]);
     }
 
     /**
@@ -36,7 +37,7 @@ class CountryController extends Controller
     public function create()
     {
         $country = new Country();
-        return view('admin.country.create', ['country'=>$country]);
+        return view('admin.country.create', ['country' => $country]);
     }
 
     /**
@@ -46,7 +47,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        return redirect("admin/country/".$country->pluck('slug')[0]."/edit");
+        return redirect("admin/country/" . $country->pluck('slug')[0] . "/edit");
     }
 
     /**
@@ -61,7 +62,7 @@ class CountryController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',//*
             'iso' => 'required|string|max:10|regex:/(^([a-zA-Z]+)?$)/u',//*
-            'slug' => 'required|string|max:100|regex:/(^([a-zA-Z]+)?$)/u',//*
+            //'slug' => 'required|string|max:100|regex:/(^([a-zA-Z]+)?$)/u',//*
         ]);
         // Failed
         if ($validator->fails()) {
@@ -71,7 +72,7 @@ class CountryController extends Controller
         $country = new Country();
         $country->title = $request->get('title');
         $country->iso = $request->get('iso');
-        $country->slug = mb_strtolower($request->get('slug'), "UTF-8");
+        $country->slug = Str::slug($request->get('title'));
         $country->save();
 
         return redirect()->route('admin.country.index')->withFlashSuccess(__('Country created.'));

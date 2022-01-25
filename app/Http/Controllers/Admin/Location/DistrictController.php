@@ -77,13 +77,13 @@ class DistrictController extends Controller
      *
      * @return View
      */
-    public function edit(Region $region)
+    public function edit(District $district)
     {
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
         //
         return view('admin.district.edit', [
-            'region' => $region,
+            'district' => $district,
             'regions' => $regions,
             'countries' => $countries
         ]);

@@ -28,10 +28,10 @@ class District extends TranslatableModel
         'slug',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName()
+//    {
+//        return 'slug';
+//    }
 
     public function country()
     {
@@ -73,12 +73,11 @@ class District extends TranslatableModel
 
     public static function scopeToSelectBox(
         Builder $query,
-                $text_field = 'title',
-                $value_field = 'id',
-                $value_key = 'value',
-                $text_key = 'text'
-    )
-    {
+        $text_field = 'title',
+        $value_field = 'id',
+        $value_key = 'value',
+        $text_key = 'text'
+    ) {
         return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
             ->map(function ($item) use ($value_key, $text_key) {
                 return [$value_key => $item->id, $text_key => $item->title . ' (' . $item->region->title . ')'];

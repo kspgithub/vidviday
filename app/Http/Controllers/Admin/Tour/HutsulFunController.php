@@ -11,15 +11,20 @@ class HutsulFunController extends Controller
     //
     public function index(Tour $tour)
     {
-        $locales = array_keys(config('site-settings.locale.languages'));
+
+        $titles = $tour->getTranslations('hutsul_fun_title') ?? [];
         $translations = $tour->getTranslations('hutsul_fun_text') ?? [];
-        return view('admin.tour.hutsul-fun', ['tour' => $tour, 'locales' => $locales, 'translations' => $translations]);
+        return view('admin.tour.hutsul-fun', [
+            'tour' => $tour,
+            'titles' => $titles,
+            'translations' => $translations
+        ]);
 
     }
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->fill($request->only(['hutsul_fun_on', 'hutsul_fun_text']));
+        $tour->fill($request->only(['hutsul_fun_on', 'hutsul_fun_title', 'hutsul_fun_text']));
         $tour->save();
         return redirect()->route('admin.tour.hutsul-fun.index', $tour)->withFlashSuccess(__('Updated'));
     }

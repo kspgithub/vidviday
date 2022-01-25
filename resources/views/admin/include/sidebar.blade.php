@@ -103,19 +103,19 @@
                 <ul id="location"
                     class="sidebar-dropdown list-unstyled collapse {{routeActiveClass(['admin.country*', 'admin.region*', 'admin.district*', 'admin.city*'], 'show', '')}}"
                     data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{routeActiveClass('admin.country.index')}}">
+                    <li class="sidebar-item {{routeActiveClass('admin.country.*')}}">
                         <a class="sidebar-link"
                            href="{{route('admin.country.index')}}">@lang('Countries')</a>
                     </li>
-                    <li class="sidebar-item {{routeActiveClass('admin.region.index')}}">
+                    <li class="sidebar-item {{routeActiveClass('admin.region.*')}}">
                         <a class="sidebar-link"
                            href="{{route('admin.region.index')}}">@lang('Regions')</a>
                     </li>
-                    <li class="sidebar-item {{routeActiveClass('admin.district.index')}}">
+                    <li class="sidebar-item {{routeActiveClass('admin.district.*')}}">
                         <a class="sidebar-link"
                            href="{{route('admin.district.index')}}">@lang('Districts')</a>
                     </li>
-                    <li class="sidebar-item {{routeActiveClass('admin.city.index')}}">
+                    <li class="sidebar-item {{routeActiveClass('admin.city.*')}}">
                         <a class="sidebar-link"
                            href="{{route('admin.city.index')}}">@lang('Cities')</a>
                     </li>
