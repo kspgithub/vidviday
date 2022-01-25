@@ -23,7 +23,7 @@
 
                             <div class="less-info">
                                 <div class="text text-md">
-                                    {{str_limit(strip_tags($place->text), 300, '...')}}
+                                    {!! str_limit(strip_tags($place->text), 300, '...') !!}
                                 </div>
                             </div>
                             <div class="more-info">

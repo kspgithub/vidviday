@@ -16,7 +16,7 @@
             <div class="spacer-xs"></div>
             <div>
                 @foreach($manager->phones as $phone)
-                    <a href="tel:+{{clear_phone($phone)}}" class="text">{{$phone}}</a>
+                    <a href="tel:{{clear_phone($phone)}}" class="text">{{$phone}}</a>
                     <br>
                 @endforeach
                 @if($manager->email)
