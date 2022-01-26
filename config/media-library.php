@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Media\FileNamer;
 use App\Helpers\Media\MediaPathGenerator;
 
 return [
@@ -54,7 +55,7 @@ return [
     /*
      * This is the class that is responsible for naming generated files.
      */
-    'file_namer' => Spatie\MediaLibrary\Support\FileNamer\DefaultFileNamer::class,
+    'file_namer' => FileNamer::class,
 
     /*
      * The class that contains the strategy for determining a media file's path.
