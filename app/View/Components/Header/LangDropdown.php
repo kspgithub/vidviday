@@ -2,10 +2,16 @@
 
 namespace App\View\Components\Header;
 
+use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Arr;
 use Illuminate\View\Component;
+use function _PHPStan_c862bb974\RingCentral\Psr7\build_query;
 
 class LangDropdown extends Component
 {
+    public $localeLinks = [];
+
     public $languages = [];
 
     public $currentLocale = 'uk';
@@ -15,18 +21,28 @@ class LangDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($localeLinks = [])
     {
         //
-        $this->languages = array_keys(config('site-settings.locale.languages'));
-
+        $this->languages = siteLocales();
         $this->currentLocale = app()->getLocale();
+        if (empty($localeLinks)) {
+            $path = request()->path();
+            $params = request()->except(['lang', 'page']);
+            $locales = siteLocales();
+            foreach ($locales as $locale) {
+                $allParams = array_merge($params, ['lang' => $locale]);
+                $url = $path . '?' . Arr::query($allParams);
+                $localeLinks[$locale] = $url;
+            }
+        }
+        $this->localeLinks = $localeLinks;
     }
 
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|Closure|string
      */
     public function render()
     {

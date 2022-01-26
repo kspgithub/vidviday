@@ -31,7 +31,7 @@ export default {
                 direction: 0,
                 type: 0,
                 subject: 0,
-
+                lang: 'uk',
             },
             pagination: {
                 current_page: 1,
@@ -108,6 +108,7 @@ export default {
                 sort_by: 'price',
                 sort_dir: 'asc',
                 view: 'gallery',
+                lang: 'uk',
             }
         },
         formData: (state) => {
@@ -126,7 +127,7 @@ export default {
                 per_page: state.pagination.per_page,
                 sort_by: state.sorting.sortBy,
                 sort_dir: state.sorting.sortDirection,
-
+                lang: state.formData.lang,
             }
         },
         filterData: (state) => {
@@ -162,6 +163,7 @@ export default {
                 direction: query.direction ? parseInt(query.direction) : 0,
                 type: query.type ? parseInt(query.type) : 0,
                 subject: query.subject ? parseInt(query.subject) : 0,
+                lang: query.lang || document.documentElement.lang || 'uk',
             };
             commit('UPDATE_FORM_DATA', formData);
 

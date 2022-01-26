@@ -25,17 +25,14 @@ trait TourScope
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {
-        $query = $query->published()->with([
-            'media' => function ($sc) {
-                return $sc->whereIn('collection_name', ['main', 'mobile']);
-            },
-        ])->where(function ($q) use ($search) {
-            $search = urldecode(trim($search));
-            return $q->where('title->uk', 'LIKE', "%$search%")
-                ->orWhere('title->ru', 'LIKE', "%$search%")
-                ->orWhere('title->en', 'LIKE', "%$search%")
-                ->orWhere('title->pl', 'LIKE', "%$search%");
-        })
+
+        $search = urldecode(trim($search));
+        $query = $query->published()
+            ->with([
+                'media' => function ($sc) {
+                    return $sc->whereIn('collection_name', ['main', 'mobile']);
+                },
+            ])
             ->select([
                 'id',
                 'title',
@@ -46,9 +43,13 @@ trait TourScope
                 'duration',
                 'nights',
                 'slug',
-            ]);
+            ])
+            ->where(function ($q) use ($search) {
+                return $q->jsonLike('title', "%$search%");
+            });
 
         if (!empty($search)) {
+            $search = mb_str_replace("'", "\'", urldecode(trim($search)));
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
                 ->orderBy('relevant');
         } else {
@@ -75,7 +76,10 @@ trait TourScope
 
     public function scopeFilter(Builder $query, $params)
     {
+        $locale = $params['lang'] ?? 'uk';
+
         $query
+            ->whereJsonContains('locales', $locale)
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
                 return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
                     return $sq->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
@@ -118,10 +122,7 @@ trait TourScope
             })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
                 $search = urldecode(trim($params['q']));
-                return $q->where('title->uk', 'LIKE', "%$search%")
-                    ->orWhere('title->ru', 'LIKE', "%$search%")
-                    ->orWhere('title->en', 'LIKE', "%$search%")
-                    ->orWhere('title->pl', 'LIKE', "%$search%");
+                return $q->jsonLike('title', "%$search%");
             });
 
         $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';

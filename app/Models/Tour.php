@@ -166,7 +166,23 @@ class Tour extends TranslatableModel implements HasMedia
 
     public function scopeWhereHasSlug(Builder $query, $slug, bool $strict = true)
     {
-        $locale = getLocale();
-        return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug);
+        if ($strict) {
+            $locale = getLocale();
+            return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug);
+        } else {
+            return $query->where(function ($sq) use ($slug) {
+                $first = true;
+                $locales = siteLocales();
+                foreach ($locales as $locale) {
+                    if ($first) {
+                        $sq->where(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $first = false;
+                    } else {
+                        $sq->orWhere(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                    }
+                }
+            });
+        }
+
     }
 }

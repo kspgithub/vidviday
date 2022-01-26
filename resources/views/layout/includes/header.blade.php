@@ -91,7 +91,7 @@
 
                 <span class="vertical-separator"></span>
 
-                <x-header.lang-dropdown class="only-desktop"/>
+                <x-header.lang-dropdown :locale-links="$localeLinks" class="only-desktop"/>
 
 
                 <div id="menu-btn">

@@ -87,9 +87,10 @@ class TourService extends BaseService
         return implode(', ', $title);
     }
 
-    public static function popularTours($count = 12)
+    public static function popularTours($count = 12, $locale = 'uk')
     {
         return Tour::search()
+            ->whereJsonContains('locales', $locale)
             ->whereHas('badges', function (Builder $q) {
                 return $q->where('slug', 'bestseller');
             })->take($count)->get();

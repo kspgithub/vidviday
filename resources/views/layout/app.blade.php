@@ -34,7 +34,7 @@
 
     <!-- HEADER -->
     <div id="header-layer-close"></div>
-    <x-site-header/>
+    <x-site-header :locale-links="$localeLinks ?? []"/>
     <!-- END HEADER -->
 
 @yield('content')

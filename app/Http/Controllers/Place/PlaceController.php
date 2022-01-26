@@ -14,13 +14,12 @@ use App\Models\Page;
 
 class PlaceController extends Controller
 {
-
     public function index()
     {
         //
 
-        $regions = Region::whereHas('places', fn($q) => $q->published())
-            ->with(['places' => fn($q) => $q->published()])->get();
+        $regions = Region::whereHas('places', fn ($q) => $q->published())
+            ->with(['places' => fn ($q) => $q->published()])->get();
 
         $pageContent = Page::select()->where('key', 'places')->first();
 
@@ -35,8 +34,10 @@ class PlaceController extends Controller
 
     public function show($slug)
     {
+        $place = Place::findBySlugOrFail($slug, false);
+        $place->checkSlugLocale($slug);
+        $localeLinks = $place->getLocaleLinks();
 
-        $place = Place::findBySlugOrFail($slug);
         $place->loadMissing([
             'media',
             'testimonials' => function ($q) {
@@ -49,6 +50,7 @@ class PlaceController extends Controller
         $price_to = $place->tours()->published()->max('price');
 
         return view('place.show', [
+            'localeLinks' => $localeLinks,
             'place' => $place,
             'tours' => $tours,
             'price_from' => $price_from,

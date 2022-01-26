@@ -32,7 +32,7 @@ return [
     'popup-date-title' => 'Choose the date of the tour',
     'date-title' => 'Choose a date',
     'price' => 'Price:',
-    'places' => 'Places',
+    'places' => 'Excursion objects',
     'cost' => 'Cost',
     'commission' => 'Agent Commission',
     'days-letter' => 'd',
