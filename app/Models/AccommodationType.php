@@ -22,6 +22,7 @@ class AccommodationType extends TranslatableModel
 
     protected $fillable = [
         'title',
+        'short_title',
         'slug',
         'description',
     ];
@@ -51,11 +52,12 @@ class AccommodationType extends TranslatableModel
         $value_key = 'value',
         $text_key = 'text'
     ) {
-        return self::query()->get(['title', 'slug', 'description'])
+        return self::query()->get(['title', 'short_title', 'slug', 'description'])
             ->map(function ($item) {
                 return [
-                    'value' => str_replace('-', '_', $item->slug),
+                    'value' => $item->slug_key,
                     'text' => $item->title,
+                    'short_title' => $item->short_title,
                     'description' => $item->description,
                 ];
             });
