@@ -74,7 +74,9 @@ class TourController extends Controller
         /**
          * @var Tour $tour
          */
-        $tour = Tour::findBySlugOrFail($slug);
+        $tour = Tour::findBySlugOrFail($slug, false);
+        $tour->checkSlugLocale($slug);
+        $localeLinks = $tour->getLocaleLinks();
 
         $tour->loadMissing([
             'directions',
@@ -133,6 +135,7 @@ class TourController extends Controller
             'similar_tours' => $similar_tours,
             'faq_items' => $faq_items,
             'price_items' => $price_items,
+            'localeLinks' => $localeLinks,
         ];
 
 //        if ((int)request()->input('print', 0) === 1) {

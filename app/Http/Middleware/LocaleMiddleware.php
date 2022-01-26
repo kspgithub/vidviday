@@ -10,16 +10,19 @@ class LocaleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
         // Locale is enabled and allowed to be changed
-        if (config('site-settings.locale.status') && session()->has('locale')) {
-            setAllLocale(session()->get('locale'));
+
+        $locale = $request->get('lang', session()->has('locale') ? session()->get('locale') : '');
+        if (config('site-settings.locale.status') && !empty($locale)) {
+            session()->put('locale', $locale);
+            setAllLocale($locale);
         }
 
         return $next($request);

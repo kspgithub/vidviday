@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Str;
 
 trait JsonLikeScope
 {
@@ -17,9 +18,10 @@ trait JsonLikeScope
      */
     private function buildJsonLikeQuery($query, $field, $value)
     {
+        $value = mb_str_replace("'", '', mb_strtolower($value));
+
         foreach (siteLocales() as $locale) {
-            $value = mb_strtolower($value);
-            $query->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$field`, '$.\"$locale\"'))) LIKE '$value'");
+            $query->orWhereRaw("REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$field`, '$.\"$locale\"'))), '\'', '') LIKE '$value'");
         }
         return $query;
     }

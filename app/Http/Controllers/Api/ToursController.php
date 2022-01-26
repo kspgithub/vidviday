@@ -35,7 +35,8 @@ class ToursController extends Controller
      */
     public function popular(Request $request)
     {
-        return TourService::popularTours($request->input('count', 12));
+        $locale = $request->input('locale', getLocale());
+        return TourService::popularTours($request->input('count', 12), $locale);
     }
 
     /**

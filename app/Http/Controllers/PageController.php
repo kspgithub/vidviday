@@ -22,11 +22,11 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
-        if (Tour::existBySlug($slug)) {
+        if (Tour::existBySlug($slug, false)) {
             return (new TourController())->show($slug);
         }
 
-        if (Place::existBySlug($slug)) {
+        if (Place::existBySlug($slug, false)) {
             return (new PlaceController())->show($slug);
         }
 
@@ -36,7 +36,10 @@ class PageController extends Controller
             return (new TourController())->index($request, $tourGroup);
         }
 
-        $pageContent = Page::findBySlugOrFail($slug);
+        $pageContent = Page::findBySlugOrFail($slug, false);
+
+        $pageContent->checkSlugLocale($slug);
+        $localeLinks = $pageContent->getLocaleLinks();
 
         switch ($pageContent->key) {
             case 'guides':
@@ -54,7 +57,7 @@ class PageController extends Controller
             case 'vacancies':
                 return (new VacancyController())->index();
             default:
-                return view('page.show', ['pageContent' => $pageContent]);
+                return view('page.show', ['pageContent' => $pageContent, 'localeLinks' => $localeLinks]);
         }
 
 

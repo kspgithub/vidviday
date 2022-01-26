@@ -43,6 +43,15 @@
                     <a href="tg://resolve?domain={{clear_phone($manager->telegram)}}">{{$manager->telegram}}</a>
                 </div>
             @endif
+            @if($manager->whatsapp)
+                <div class="contact">
+                    <div class="img">
+                        <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/whatsapp.svg')}}"
+                             alt="whatsapp">
+                    </div>
+                    <a href="https://wa.me/{{clear_phone($manager->whatsapp, false)}}">{{$manager->whatsapp}}</a>
+                </div>
+            @endif
             @if(!empty($manager->additional))
                 <div>
                     {!! $manager->additional !!}

@@ -53,7 +53,6 @@ export default {
     },
     setup() {
         const store = useStore();
-
         const viewType = computed(() => store.state.tourFilter.viewType);
         const params = computed(() => store.getters['tourFilter/formData']);
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
