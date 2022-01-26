@@ -19,8 +19,7 @@
     </div>
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
-        schedule: @json($schedule),
-        orders: @json($orders),
+        schedule: @json(['id'=>$schedule->id, 'admin_comment'=>$schedule->admin_comment], JSON_HEX_APOS),
         statuses: @json($statuses),
         roomTypes: @json($roomTypes),
         countOrders: @json($countOrders),
@@ -50,6 +49,7 @@
                             <td>{!! $tour->discount_title !!}</td>
                             <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
+                                      @change="updateScheduleComment()"
                                       class="form-control form-control-sm mw-200px"></textarea>
                             </td>
                         </tr>
@@ -129,22 +129,6 @@
                                             :class="'bg-status-'+order.status">
                                         <span x-text="statusText(order.status)"></span>
                                     </button>
-                                    {{--                                    <div class="btn-group">--}}
-                                    {{--                                        <button type="button" class="btn btn-sm dropdown-toggle"--}}
-                                    {{--                                                :class="'bg-status-'+order.status"--}}
-                                    {{--                                                data-bs-toggle="dropdown" aria-expanded="false">--}}
-                                    {{--                                            <span x-text="statusText(order.status)"></span>--}}
-                                    {{--                                        </button>--}}
-                                    {{--                                        <ul class="dropdown-menu">--}}
-                                    {{--                                            <template x-for="status in statuses">--}}
-                                    {{--                                                <li :class="'bg-status-'+status.value">--}}
-                                    {{--                                                    <a class="dropdown-item"--}}
-                                    {{--                                                       @click.prevent="updateOrder(order.id, {status: status.value})"--}}
-                                    {{--                                                       x-text="status.text"></a>--}}
-                                    {{--                                                </li>--}}
-                                    {{--                                            </template>--}}
-                                    {{--                                        </ul>--}}
-                                    {{--                                    </div>--}}
                                 </td>
                                 <td x-text="order.total_places" class="text-center"></td>
                                 <td class="text-nowrap" x-html="participantNames(order)"></td>

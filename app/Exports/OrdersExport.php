@@ -140,7 +140,7 @@ class OrdersExport extends DefaultValueBinder implements
                 if ($key !== 'other' && $key !== 'other_text' && (int)$value > 0) {
                     $slug = Str::slug(trim($key));
                     $accom = $this->roomTypes->where('slug', '=', $slug)->first();
-                    $rows[] = !empty($accom) ? "$accom->title: $value" : "$key: $value";
+                    $rows[] = !empty($accom) ? "$accom->short_title: $value" : "$key: $value";
                 }
                 if ($key === 'other_text' && !empty($value)) {
                     $rows[] = "Інше: $value";

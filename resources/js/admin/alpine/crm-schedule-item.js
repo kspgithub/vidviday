@@ -68,7 +68,8 @@ export default (options) => ({
             }
 
 
-        }, 500)
+        }, 500);
+        this.loadOrders(false);
     },
     setTab(tab) {
         this.currentTab = tab;
@@ -114,9 +115,10 @@ export default (options) => ({
         return moment(value).format('DD.MM.YYYY')
     },
     roomTitle(key) {
-        key = key.trim().replaceAll('-', '_').replaceAll(' ', '_');
+        key = key.trim().replaceAll('_', '-').replaceAll(' ', '-').replaceAll('р', 'p').replaceAll('о', 'o');
+
         const room = this.roomTypes.find(r => r.value === key);
-        return room ? room.text : key.replaceAll('-', ' ');
+        return room ? room.text : key.replaceAll('-', ' ').replaceAll('_', ' ');
     },
     paymentGet(order) {
         return order.total_price - order.payment_fop - order.payment_tov - order.payment_office;
@@ -310,5 +312,16 @@ export default (options) => ({
         let total = 0;
         this.orders.forEach(o => total += this.paymentGet(o))
         return total;
+    },
+    updateScheduleComment() {
+        this.loader = true;
+        axios.patch(`/admin/crm/schedules/${this.schedule.id}`, {admin_comment: this.schedule.admin_comment})
+            .then(({data}) => {
+                this.loader = false;
+            })
+            .catch((err) => {
+
+                this.loader = false;
+            })
     }
 })
