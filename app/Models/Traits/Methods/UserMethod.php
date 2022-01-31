@@ -79,7 +79,7 @@ trait UserMethod
         }
         $this->tourHistory()->attach([$id]);
         if ($this->tourHistory()->count() > 36) {
-            $detach_ids = array_values($this->tourHistory()->skip(36)->get(['id'])->pluck('id')->toArray());
+            $detach_ids = array_slice(array_values($this->tourHistory()->get(['id'])->pluck('id')->toArray()), 36);
             $this->tourHistory()->detach($detach_ids);
         }
     }
