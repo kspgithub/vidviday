@@ -42,7 +42,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a href="{{route('admin.tour.edit', $tour)}}" target="_blank">{{$tour->title}}</a></td>
+                            <td><a href="{{route('admin.tour.schedule.index', $tour)}}"
+                                   target="_blank">{{$tour->title}}</a>
+                            </td>
                             <td>{{$schedule->title}}</td>
                             <td>{{$schedule->price}} {{$schedule->currency}}</td>
                             <td>{{$schedule->commission}} {{$schedule->currency}}</td>
