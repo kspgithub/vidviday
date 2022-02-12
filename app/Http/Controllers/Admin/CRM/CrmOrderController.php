@@ -90,7 +90,7 @@ class CrmOrderController extends Controller
     public function show(Order $order)
     {
         //
-        $order->loadMissing(['tour', 'tour.manager', 'schedule']);
+        $order->loadMissing(['tour', 'tour.discounts', 'tour.manager', 'schedule']);
         $order->makeVisible([
             'payment_fop',
             'payment_tov',
@@ -106,6 +106,7 @@ class CrmOrderController extends Controller
         $schedule = $order->schedule;
         return view('admin.crm.order.show', [
             'tour' => $tour->shortInfo(),
+            'discounts' => $tour->discounts ?? [],
             'schedule' => $schedule,
             'order' => $order,
             'statuses' => $statuses,
@@ -116,6 +117,8 @@ class CrmOrderController extends Controller
     public function edit(Order $order)
     {
         //
+        $order->loadMissing(['tour', 'tour.discounts', 'schedule']);
+
         $order->makeVisible([
             'payment_fop',
             'payment_tov',

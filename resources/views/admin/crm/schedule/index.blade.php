@@ -60,6 +60,7 @@
                             <th class="mw-200px">Тур</th>
                             <th>Менеджер</th>
                             <th class="text-right text-nowrap">Вільн.</th>
+                            <th class="text-right text-nowrap">Нові</th>
                             <th class="text-right">Бронь</th>
                             <th class="text-right">Оплата</th>
                             <th class="text-right">Ліміт</th>
@@ -88,6 +89,9 @@
                                 </td>
                                 <td class="text-center">
                                     <span x-text="placesAvailable"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span x-text="schedule.places_new"></span>
                                 </td>
                                 <td class="text-center">
                                     <span x-text="schedule.places_booked"></span>

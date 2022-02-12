@@ -37,7 +37,6 @@ class TourSchedule extends Model
         'start_date',
         'end_date',
         'places',
-        'places_booked',
         'price',
         'commission',
         'currency',
@@ -66,6 +65,7 @@ class TourSchedule extends Model
         'places_booked',
         'places_reserved',
         'places_payed',
+        'places_new',
     ];
 
     protected $dates = [

@@ -163,9 +163,11 @@ class CrmScheduleController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $schedule->tour;
         $schedules = $tour->scheduleItems()->get()->map->shortInfo();
+        $discounts = $tour->discounts()->get()->map->asAlpineData();
 
         return view('admin.crm.schedule.order', [
             'tour' => $tour->shortInfo(),
+            'discounts' => $discounts,
             'schedule' => $schedule,
             'order' => $order,
             'statuses' => $statuses,

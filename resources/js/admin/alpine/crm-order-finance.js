@@ -4,11 +4,18 @@ import {swalConfirm} from "../utils/functions";
 
 const defaultAgency = {}
 
-export default (order) => ({
-    order: order,
+const DEFAULT_DISCOUNT = {
+    id: 0,
+    title: '',
+    value: 0,
+    places: 0,
+};
+
+export default (props) => ({
+    order: props.order,
 
     // ORDER PRICE
-    orderPrice: order.price || 0,
+    orderPrice: props.order.price || 0,
     editSumMode: false,
     editSum() {
         this.orderPrice = this.order.price;
@@ -26,7 +33,7 @@ export default (order) => ({
     },
 
     // ORDER COMMISSION
-    orderCommission: order.commission || 0,
+    orderCommission: props.order.commission || 0,
     editComMode: false,
     editCom() {
         this.orderCommission = this.order.commission;
@@ -43,14 +50,11 @@ export default (order) => ({
         this.orderPrice = this.order.price;
     },
 
-    // ORDER DISCOUNT
-    discounts: order.discounts || [],
+    tourDiscounts: props.discounts || [],
+    discounts: props.order.discounts || [],
     // DISCOUNTS
     discountIdx: null,
-    discountData: {
-        title: '',
-        value: '',
-    },
+    discountData: {...DEFAULT_DISCOUNT},
     get discountModal() {
         return bootstrap.Modal.getOrCreateInstance(document.getElementById('edit-discount-modal'));
     },
@@ -58,7 +62,7 @@ export default (order) => ({
     get totalDiscount() {
         let total = 0;
         this.discounts.forEach(item => {
-            total += parseInt(item.value) || 0;
+            total += item.value * (item.places || 1);
         })
         return total;
     },
@@ -66,30 +70,43 @@ export default (order) => ({
         this.discountIdx = idx;
         if (idx !== null) {
             this.discountData = {
+                id: this.discounts[idx].id || 0,
                 title: this.discounts[idx].title,
                 value: this.discounts[idx].value,
+                places: this.discounts[idx].places || 1,
             }
         } else {
-            this.discountData = {
-                title: '',
-                value: '',
-            }
+            this.discountData = {...DEFAULT_DISCOUNT}
         }
         this.discountModal.show();
     },
     cancelDiscount() {
         this.discountModal.hide();
         this.discountIdx = null;
-        this.discountData = {
-            title: '',
-            value: '',
-        }
+        this.discountData = {...DEFAULT_DISCOUNT}
     },
     saveDiscount() {
-        const data = {
-            title: this.discountData.title,
-            value: this.discountData.value,
+        const id = this.discountData.id || 0;
+        const existsDiscount = this.tourDiscounts.find(d => d.id === id)
+        const title = existsDiscount ? (existsDiscount.title.uk) : this.discountData.title;
+        const places = this.discountData.places || 1;
+        let value = this.discountData.value;
+
+        if (existsDiscount) {
+            if (existsDiscount.type === 'percent' || existsDiscount.type === 1) {
+                value = (this.placePrice / 100) * existsDiscount.price;
+            } else {
+                value = existsDiscount.price;
+            }
         }
+
+        const data = {
+            id: id,
+            title: title,
+            value: value,
+            places: places,
+        }
+
         if (this.discountIdx !== null) {
             this.discounts[this.discountIdx] = data;
         } else {
@@ -112,7 +129,7 @@ export default (order) => ({
     },
 
     // ORDER PAYMENTS
-    payments: order.payment_data || [],
+    payments: props.order.payment_data || [],
     paymentIdx: null,
     paymentData: {
         sum: null,

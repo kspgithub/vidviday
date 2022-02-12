@@ -16,7 +16,7 @@
         <div class="row mb-3">
             <div class="col-md-2 col-form-label">Тур <span class="text-danger">*</span></div>
             <div class="col-md-10">
-                <select name="tour_id" x-model="order.tour_id" id="tourSelectBox" class="form-control"
+                <select name="tour_id" x-model.number="order.tour_id" id="tourSelectBox" class="form-control"
                         @change="loadSchedules()"
                         required>
                     @if($order->tour)
@@ -31,7 +31,7 @@
             <div class="col-md-2 col-form-label">Дата виїзду <span class="text-danger">*</span></div>
             <div class="col-md-10">
 
-                <select name="schedule_id" x-model="order.schedule_id" class="form-control" required>
+                <select name="schedule_id" x-model.number="order.schedule_id" class="form-control" required>
                     <option value="">оберіть дату виїзду</option>
                     <template x-for="sch in schedules" :key="'shc-'+sch.id">
                         <option :value="sch.id" x-text="sch.start_title"

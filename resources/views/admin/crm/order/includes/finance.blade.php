@@ -1,4 +1,7 @@
-<div class="card" x-data='crmOrderFinance(@json($order))'>
+<div class="card" x-data='crmOrderFinance({
+order: @json($order),
+discounts: @json($discounts),
+})'>
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="fw-bold">Фінансова інформація</h3>
@@ -93,6 +96,8 @@
                 <tr>
                     <td><span x-text="discount.title"></span></td>
                     <td>
+                        <span x-text="discount.places || 1"></span>
+                        x
                         <span x-text="discount.value"></span>
                         <span x-text="order.currency"></span>
 

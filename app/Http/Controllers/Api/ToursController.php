@@ -71,12 +71,32 @@ class ToursController extends Controller
     public function selectBox(Request $request)
     {
         $q = $request->input('q', '');
-        $paginator = Tour::autocomplete($q)->paginate($request->input('limit', 10));
-        $items = [];
-        foreach ($paginator->items() as $item) {
-            $items[] = $item->asSelectBox();
-        }
 
+        $query = Tour::autocomplete($q);
+        $relations = $request->input('relations', []);
+        $attributes = $request->input('attributes', []);
+
+        if (!empty($relations)) {
+            $query->with($relations);
+        }
+        $paginator = $query->paginate($request->input('limit', 10));
+
+        $paginator->getCollection()->transform(function (Tour $tour) use ($relations, $attributes) {
+            $value = $tour->asSelectBox();
+            if (!empty($relations)) {
+                foreach ($relations as $relation) {
+                    $value[$relation] = $tour->getRelation($relation);
+                }
+            }
+            if (!empty($attributes)) {
+                foreach ($attributes as $attribute) {
+                    $value[$attribute] = $tour->getAttribute($attribute);
+                }
+            }
+            return $value;
+        });
+
+        $items = $paginator->items();
         return [
             'results' => $items,
             'pagination' => [

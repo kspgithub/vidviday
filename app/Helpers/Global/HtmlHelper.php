@@ -147,3 +147,14 @@ if (!function_exists('date_title')) {
         return '';
     }
 }
+
+
+if (!function_exists('json_prepare')) {
+    function json_prepare($string)
+    {
+
+        $string = str_replace('(', '&#40;', str_replace(')', '&#41;', $string));
+        $string = str_replace('"', '&#34;', str_replace('\'', '&#39;', $string));
+        return $string;
+    }
+}
