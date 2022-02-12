@@ -12,6 +12,7 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Models\Audit;
 
 class CrmOrderController extends Controller
 {
@@ -104,6 +105,8 @@ class CrmOrderController extends Controller
         $tour = $order->tour;
         $schedules = $tour->scheduleItems()->get()->map->shortInfo();
         $schedule = $order->schedule;
+        $audits = $order->audits()->with('user')->latest()->paginate(10);
+
         return view('admin.crm.order.show', [
             'tour' => $tour->shortInfo(),
             'discounts' => $tour->discounts ?? [],
@@ -111,6 +114,7 @@ class CrmOrderController extends Controller
             'order' => $order,
             'statuses' => $statuses,
             'schedules' => $schedules,
+            'audits' => $audits,
         ]);
     }
 
@@ -169,5 +173,20 @@ class CrmOrderController extends Controller
         $group_type = $request->input('group_type', 0);
 
         return Order::where('group_type', $group_type)->where('status', $status)->count();
+    }
+
+
+    public function audits(Request $request, Order $order)
+    {
+        //
+        $query = $order->audits()->with('user')->latest();
+
+        $paginator = $query->paginate(20);
+        $paginator->getCollection()->transform(function (Audit $item) {
+            $data = $item->toArray();
+            $data['user'] = $item->user->basicInfo();
+            return $data;
+        });
+        return $paginator;
     }
 }

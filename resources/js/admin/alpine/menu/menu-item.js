@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2/src/sweetalert2.js';
-import {toast} from "../../libs/toast";
+import {toast} from "../../../libs/toast";
 
 export default (item) => ({
     children: item.children,

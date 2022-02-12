@@ -1,4 +1,4 @@
-import {cleanPhoneNumber, formatPhoneNumber} from "../../utils/string";
+import {cleanPhoneNumber, formatPhoneNumber} from "../../../../utils/string";
 
 export default (client) => ({
     client: client,

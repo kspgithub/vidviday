@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Attributes;
 
 use App\Models\Order;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 trait TourScheduleAttribute
@@ -104,6 +105,24 @@ trait TourScheduleAttribute
         return $total;
     }
 
+    /**
+     * @return int
+     */
+    public function getPlacesYesterdayAttribute()
+    {
+        $total = 0;
+        $orders = $this->orders->all();
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            if ($order->created_at->greaterThan(Carbon::yesterday()->startOfDay()) && $order->created_at->lessThan(Carbon::yesterday()->endOfDay())) {
+                $total += $order->total_places;
+            }
+        }
+        return $total;
+    }
+
     public function getPlacesAvailableAttribute()
     {
         return $this->places - $this->places_booked;
@@ -121,6 +140,4 @@ trait TourScheduleAttribute
         }
         return $title;
     }
-
-
 }

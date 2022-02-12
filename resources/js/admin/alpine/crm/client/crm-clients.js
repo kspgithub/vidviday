@@ -1,8 +1,8 @@
 import axios from "axios";
 
 let cancelTokenSource = null;
-import * as UrlUtils from '../../utils/url';
-import {toast} from "../../libs/toast";
+import * as UrlUtils from '../../../../utils/url';
+import {toast} from "../../../../libs/toast";
 
 export default (options) => ({
     links: [],

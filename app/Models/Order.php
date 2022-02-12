@@ -9,8 +9,10 @@ use App\Models\Traits\UseOrderConstants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Order extends TranslatableModel
+class Order extends TranslatableModel implements Auditable
 {
     use HasFactory;
     use OrderRelationship;
@@ -18,6 +20,7 @@ class Order extends TranslatableModel
     use UseOrderConstants;
     use OrderScope;
     use SoftDeletes;
+    use AuditableTrait;
 
 
     protected static function boot()

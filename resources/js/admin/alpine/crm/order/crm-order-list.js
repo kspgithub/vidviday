@@ -2,7 +2,7 @@ import moment from "moment";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import axios from "axios";
-import * as UrlUtils from "../../utils/url";
+import * as UrlUtils from "../../../../utils/url";
 
 let cancelTokenSource = null;
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 let cancelTokenSource = null;
-import * as UrlUtils from '../../utils/url';
-import {toast} from "../../libs/toast";
+import * as UrlUtils from '../../../../utils/url';
+import {toast} from "../../../../libs/toast";
 import moment from "moment";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
