@@ -1,11 +1,13 @@
 import axios from "axios";
 import tinymce from "tinymce";
-import {toast} from "../../libs/toast";
+import {toast} from "../../../../libs/toast";
+import flatpickr from "flatpickr";
+import {Ukrainian} from "flatpickr/dist/l10n/uk";
 
-export default ({order, statuses, schedules, redirect = false}) => ({
-    redirect: redirect,
+export default ({order, statuses, includes}) => ({
     editor: null,
     statuses: statuses || [],
+    includes: includes || [],
     order: order,
     data: {
         first_name: order.first_name || '',
@@ -14,21 +16,26 @@ export default ({order, statuses, schedules, redirect = false}) => ({
         email: order.email || '',
         viber: order.viber || '',
         company: order.company || '',
+        start_date: order.start_date || '',
+        start_place: order.start_place || '',
+        end_date: order.end_date || '',
+        end_place: order.end_place || '',
+        program_type: order.program_type || 0,
+        tour_plan: order.tour_plan || '',
         tour_id: order.tour_id || null,
-        schedule_id: order.schedule_id || null,
         places: order.places || null,
         children: order.children || false,
         children_older: order.children_older || 0,
         children_young: order.children_young || 0,
+        group_comment: order.group_comment || '',
+        program_comment: order.program_comment || '',
+        price_include: order.price_include || [],
     },
     status: order.status || 'new',
-
     notifySend: false,
     notifyEmail: order.email,
     notifyMessage: '',
     tour: order.tour || null,
-    schedule: order.schedule || null,
-    schedules: schedules || [],
     init() {
         setTimeout(() => {
             const tourSelectBox = document.getElementById('tourSelectBox');
@@ -48,8 +55,6 @@ export default ({order, statuses, schedules, redirect = false}) => ({
             });
             jQuery(tourSelectBox).on('select2:select', (e) => {
                 this.data.tour_id = e.params.data.id;
-                this.data.schedule_id = null;
-                this.loadSchedules();
             })
 
             this.$watch('notifyEmail', (value) => {
@@ -80,15 +85,21 @@ export default ({order, statuses, schedules, redirect = false}) => ({
                 }
             })
 
+            const startPicker = flatpickr(this.$refs.startDateRef, {
+                locale: Ukrainian,
+                dateFormat: 'd.m.Y',
 
+            });
+
+            const endPicker = flatpickr(this.$refs.endDateRef, {
+                locale: Ukrainian,
+                dateFormat: 'd.m.Y',
+            });
         }, 200);
 
     },
-    loadSchedules() {
-        axios.get(`/api/tours/${this.data.tour_id}/all-schedules`)
-            .then((response) => {
-                this.schedules = response.data;
-            });
+    get basicModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('edit-basic-modal'));
     },
     get clientName() {
         return this.data.last_name + ' ' + this.data.first_name;
@@ -105,6 +116,10 @@ export default ({order, statuses, schedules, redirect = false}) => ({
         }
         return total;
     },
+    get includeTitle() {
+        return this.includes.filter(inc => this.data.price_include.indexOf(inc.value) !== -1)
+            .map(inc => inc.text).join(', ');
+    },
     resetData() {
         this.data = {
             first_name: this.order.first_name || '',
@@ -113,12 +128,20 @@ export default ({order, statuses, schedules, redirect = false}) => ({
             email: this.order.email || '',
             viber: this.order.viber || '',
             company: this.order.company || '',
+            start_date: this.order.start_date || '',
+            start_place: this.order.start_place || '',
+            end_date: this.order.end_date || '',
+            end_place: this.order.end_place || '',
+            program_type: this.order.program_type || 0,
+            tour_plan: this.order.tour_plan || '',
             tour_id: this.order.tour_id || null,
-            schedule_id: this.order.schedule_id || null,
             places: this.order.places || null,
             children: this.order.children || false,
             children_older: this.order.children_older || 0,
             children_young: this.order.children_young || 0,
+            group_comment: this.order.group_comment || '',
+            program_comment: this.order.program_comment || '',
+            price_include: this.order.price_include || [],
         }
         this.status = this.order.status;
     },
@@ -126,23 +149,11 @@ export default ({order, statuses, schedules, redirect = false}) => ({
     updateOrder() {
         axios.patch(`/admin/order/${this.order.id}`, this.data)
             .then(({data: response}) => {
-                // admin/crm/schedules/38/order/5
-                const oldScheduleId = this.schedule ? this.schedule.id : 0;
-                const newScheduleId = response.model.schedule ? response.model.schedule.id : 0;
+                this.basicModal.hide();
                 this.order = response.model;
                 this.status = response.model.status;
-                this.tour = response.model.tour;
-                this.schedule = response.model.schedule;
-
-                if (this.redirect && newScheduleId > 0 && oldScheduleId !== newScheduleId) {
-                    toast.success(response.message + '. Перенаправлення...');
-                    document.location.href = `/admin/crm/schedules/${newScheduleId}/order/${this.order.id}`;
-                } else {
-                    toast.success(response.message);
-                }
-                //console.log(response);
-
-
+                this.tour = response.model.tour || null;
+                toast.success(response.message);
             })
             .catch(error => {
                 console.log(error);

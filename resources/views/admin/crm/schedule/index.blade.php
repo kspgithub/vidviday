@@ -92,7 +92,7 @@
                             <th class="text-right text-nowrap">Вільн.</th>
                             <th class="text-right text-nowrap">Нові</th>
                             <th class="text-right">Бронь</th>
-                            <th class="text-right">Оплата</th>
+                            <th class="text-right">Вчора</th>
                             <th class="text-right">Ліміт</th>
                             <th class="text-right">Резерв</th>
                             <th>Гід</th>
@@ -127,7 +127,7 @@
                                     <span x-text="schedule.places_booked"></span>
                                 </td>
                                 <td class="text-center">
-                                    <span x-text="schedule.places_payed"></span>
+                                    <span x-text="schedule.places_yesterday"></span>
                                 </td>
                                 <td>
                                     <input type="text" x-model.debounce.500ms="schedule.places"

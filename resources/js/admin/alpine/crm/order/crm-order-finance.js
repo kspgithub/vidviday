@@ -1,6 +1,6 @@
 import axios from "axios";
-import {toast} from "../../libs/toast";
-import {swalConfirm} from "../utils/functions";
+import {toast} from "../../../../libs/toast";
+import {swalConfirm} from "../../../utils/functions";
 
 const defaultAgency = {}
 

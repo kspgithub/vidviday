@@ -1,30 +1,31 @@
-import translatable from './translatable';
+import translatable from './form/translatable';
 import translations from './translations';
-import publishable from './publishable';
-import mediaLibrary from './media-library';
-import tiny from './tiny';
-import singleFileUpload from './single-file-upload';
-import tourPlaces from './tour-places';
-import tourFinance from './tour-finance';
-import menuEditor from './menu-editor';
-import menuList from './menu-list';
-import menuItem from './menu-item';
-import crmClients from './crm-clients';
-import crmClient from './crm-client';
-import crmSchedules from './crm-schedules';
-import crmScheduleRow from './crm-schedule-row';
-import crmScheduleItem from './crm-schedule-item';
-import crmOrderBasic from './crm-order-basic';
-import crmOrderParticipants from './crm-order-participants';
-import crmOrderAgency from './crm-order-agency';
-import crmOrderFinance from './crm-order-finance';
-import crmOrderOther from './crm-order-other';
-import crmOrderList from './crm-order-list';
-import crmOrderCollective from './crm-order-collective';
-import crmOrderCorporate from './crm-order-corporate';
-import crmOrderBadge from './crm-order-badge';
-import crmCorporateBasic from './crm-corporate-basic';
-import crmEmail from './crm-email';
+import publishable from './form/publishable';
+import mediaLibrary from './form/media-library';
+import tiny from './form/tiny';
+import singleFileUpload from './form/single-file-upload';
+import tourPlaces from './tour/tour-places';
+import tourFinance from './tour/tour-finance';
+import menuEditor from './menu/menu-editor';
+import menuList from './menu/menu-list';
+import menuItem from './menu/menu-item';
+import crmClients from './crm/client/crm-clients';
+import crmClient from './crm/client/crm-client';
+import crmSchedules from './crm/schedule/crm-schedules';
+import crmScheduleRow from './crm/schedule/crm-schedule-row';
+import crmScheduleItem from './crm/schedule/crm-schedule-item';
+import crmOrderBasic from './crm/order/crm-order-basic';
+import crmOrderParticipants from './crm/order/crm-order-participants';
+import crmOrderAgency from './crm/order/crm-order-agency';
+import crmOrderFinance from './crm/order/crm-order-finance';
+import crmOrderOther from './crm/order/crm-order-other';
+import crmOrderList from './crm/order/crm-order-list';
+import crmOrderCollective from './crm/order/crm-order-collective';
+import crmOrderCorporate from './crm/order/crm-order-corporate';
+import crmOrderAudits from './crm/order/crm-order-audits';
+import crmOrderBadge from './crm/order/crm-order-badge';
+import crmCorporateBasic from './crm/order/crm-corporate-basic';
+import crmEmail from './crm/crm-email';
 
 document.addEventListener('alpine:init', () => {
 
@@ -54,6 +55,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('crmOrderCollective', crmOrderCollective);
     Alpine.data('crmOrderCorporate', crmOrderCorporate);
     Alpine.data('crmOrderBadge', crmOrderBadge);
+    Alpine.data('crmOrderAudits', crmOrderAudits);
     Alpine.data('crmCorporateBasic', crmCorporateBasic);
     Alpine.data('mediaLibrary', mediaLibrary);
 })

@@ -2,12 +2,12 @@ import moment from "moment";
 import axios from "axios";
 
 let cancelTokenSource = null;
-import * as UrlUtils from '../../utils/url';
-import {toast} from "../../libs/toast";
+import * as UrlUtils from '../../../../utils/url';
+import {toast} from "../../../../libs/toast";
 import flatpickr from "flatpickr";
 import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
-import loadItems from "./composables/load-items";
+import loadItems from "../../composables/load-items";
 
 Ukrainian.rangeSeparator = '-';
 

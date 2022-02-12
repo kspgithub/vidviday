@@ -66,6 +66,7 @@ class TourSchedule extends Model
         'places_reserved',
         'places_payed',
         'places_new',
+        'places_yesterday',
     ];
 
     protected $dates = [

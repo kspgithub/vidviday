@@ -256,7 +256,9 @@ Route::group([
 
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
+    Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');
     Route::get('order/count', [CrmOrderController::class, 'count'])->name('order.count');
+
     Route::resource('order', CrmOrderController::class);
     Route::resource('corporate', CrmCorporateController::class)->parameters([
         'corporate' => 'order'

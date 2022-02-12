@@ -1,22 +1,14 @@
 import axios from "axios";
+import {swalConfirm} from "../../../utils/functions";
+import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
-import {swalConfirm} from "../utils/functions";
-import {toast} from "../../libs/toast";
-
-const DEFAULT_DISCOUNT = {
-    id: 0,
-    title: '',
-    value: 0,
-    places: 0,
-};
 
 export default (params) => ({
     order: params.order,
-    tour: params.order.tour ?? null,
     formChanged: false,
     roomTypes: params.roomTypes || [],
     statuses: params.statuses,
-    schedules: [],
+    includes: params.includes,
     participantData: {
         first_name: '',
         last_name: '',
@@ -24,12 +16,11 @@ export default (params) => ({
         birthday: '',
     },
     discountIdx: null,
-    discountData: {...DEFAULT_DISCOUNT},
+    discountData: {
+        title: '',
+        value: 0,
+    },
     init() {
-        if (this.order.tour_id > 0) {
-            this.loadSchedules(false);
-        }
-
         this.$watch('order', () => {
             this.formChanged = true;
         });
@@ -44,24 +35,30 @@ export default (params) => ({
                         return {
                             q: params.term,
                             page: params.page || 1,
-                            limit: 20,
-                            relations: ['discounts'],
-                            attributes: ['price', 'commission'],
+                            limit: 20
                         };
                     },
                 }
             });
             jQuery(tourSelectBox).on('select2:select', (e) => {
                 this.order.tour_id = e.params.data.id;
-                this.tour = e.params.data;
-                this.order.schedule_id = null;
-                this.loadSchedules();
             })
 
             flatpickr(this.$refs.pickerInput, {
                 locale: Ukrainian,
                 allowInput: true,
                 dateFormat: 'd.m.Y'
+            });
+
+            const startPicker = flatpickr(this.$refs.startDateRef, {
+                locale: Ukrainian,
+                dateFormat: 'd.m.Y',
+
+            });
+
+            const endPicker = flatpickr(this.$refs.endDateRef, {
+                locale: Ukrainian,
+                dateFormat: 'd.m.Y',
             });
 
         }, 200);
@@ -78,16 +75,6 @@ export default (params) => ({
         });
     },
 
-    loadSchedules(clear = true) {
-        if (clear) {
-            this.order.schedule_id = null;
-        }
-
-        axios.get(`/api/tours/${this.order.tour_id}/all-schedules`)
-            .then((response) => {
-                this.schedules = response.data;
-            });
-    },
     get participantPhone() {
         return this.order.participants ? this.order.participants.participant_phone : '';
     },
@@ -148,7 +135,7 @@ export default (params) => ({
     get discountAmount() {
         let amount = 0;
         this.discounts.forEach(d => {
-            amount += (d.value * (d.places || 1)) || 0;
+            amount += parseInt(d.value) || 0;
         })
         return amount;
     },
@@ -159,61 +146,31 @@ export default (params) => ({
         this.discountIdx = idx;
         if (idx !== null) {
             this.discountData = {
-                id: this.discounts[idx].id || 0,
                 title: this.discounts[idx].title,
                 value: this.discounts[idx].value,
-                places: this.discounts[idx].places || 1,
             }
         } else {
-            this.discountData = {...DEFAULT_DISCOUNT}
+            this.discountData = {
+                title: '',
+                value: '',
+            }
         }
         this.discountModal.show();
     },
     cancelDiscount() {
         this.discountModal.hide();
         this.discountIdx = null;
-        this.discountData = {...DEFAULT_DISCOUNT}
-    },
-    discountChanged() {
-        const id = this.discountData.id || 0;
-        const existsDiscount = this.tourDiscounts.find(d => d.id === id);
-        let value = 0;
-        if (existsDiscount) {
-            if (existsDiscount.type === 'percent' || existsDiscount.type === 1) {
-                value = (this.placePrice / 100) * existsDiscount.price;
-            } else {
-                value = existsDiscount.price;
-            }
+        this.discountData = {
+            title: '',
+            value: 0,
         }
-
-        const data = {
-            title: existsDiscount ? (existsDiscount.title.uk) : '',
-            value: value,
-        }
-
-        this.discountData = {...this.discountData, ...data};
     },
     saveDiscount() {
         const discounts = this.order.discounts || [];
-        const id = this.discountData.id || 0;
-        const existsDiscount = this.tourDiscounts.find(d => d.id === id)
-        const title = existsDiscount ? (existsDiscount.title.uk) : this.discountData.title;
-        const places = this.discountData.places || 1;
-        let value = this.discountData.value;
-
-        if (existsDiscount) {
-            if (existsDiscount.type === 'percent' || existsDiscount.type === 1) {
-                value = (this.placePrice / 100) * existsDiscount.price;
-            } else {
-                value = existsDiscount.price;
-            }
-        }
 
         const data = {
-            id: id,
-            title: title,
-            value: value,
-            places: places,
+            title: this.discountData.title,
+            value: this.discountData.value,
         }
         if (this.discountIdx !== null) {
             discounts[this.discountIdx] = data;
@@ -230,7 +187,7 @@ export default (params) => ({
     },
 
     get totalPrice() {
-        return (this.order.price || 0) - this.discountAmount;// + (this.order.commission || 0);
+        return (this.order.price || 0) - this.discountAmount + (this.order.commission || 0);
     },
     get agency() {
         return this.order.agency_data || {
@@ -272,56 +229,10 @@ export default (params) => ({
         this.order.accommodation = value;
     },
     async onFormChange(evt) {
-        //console.log(evt);
+        console.log(evt);
         this.formChanged = true;
     },
     async onSubmit(evt) {
         this.formChanged = false;
-    },
-
-
-    get tourDiscounts() {
-        return this.tour?.discounts || [];
-    },
-    get childrenDiscounts() {
-        return this.tourDiscounts.filter(d => d.category.includes('children'))
-    },
-    // Дети до 6 бесплатно?
-    get childrenYoungFree() {
-        return !!this.childrenDiscounts.find(d => (d.category === 'children_young' || d.category === 'children') && d.type === 1 && d.price === 100);
-    },
-    // Дети до 12 бесплатно?
-    get childrenOlderFree() {
-        return !!this.childrenDiscounts.find(d => (d.category === 'children_older' || d.category === 'children') && d.type === 1 && d.price === 100);
-    },
-    get totalPayedPlaces() {
-        let total = this.order.places || 0;
-        if (this.order.children && !this.childrenYoungFree) {
-            total += this.order.children_young || 0;
-        }
-        if (this.order.children && !this.childrenOlderFree) {
-            total += this.order.children_older || 0;
-        }
-        return total;
-    },
-    get selectedSchedule() {
-        return this.order.schedule_id > 0 ? this.schedules.find(it => it.id === this.order.schedule_id) : null;
-    },
-    get placePrice() {
-
-        return this.selectedSchedule ? this.selectedSchedule.price : (this.tour ? this.tour.price : 0);
-    },
-    get placeCommission() {
-        return this.selectedSchedule ? this.selectedSchedule.commission : (this.tour ? this.tour.commission : 0);
-    },
-    calcSum() {
-        if (this.totalPayedPlaces === 0) {
-            toast.warning('Введіть кількість учасників');
-        }
-        if (this.placePrice === 0) {
-            toast.warning('Оберіть дату виїзду');
-        }
-        this.order.price = (this.totalPayedPlaces * this.placePrice) || 0;
-        this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
     }
 });

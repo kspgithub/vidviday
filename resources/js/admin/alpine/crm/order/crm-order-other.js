@@ -1,5 +1,5 @@
 import axios from "axios";
-import {toast} from "../../libs/toast";
+import {toast} from "../../../../libs/toast";
 
 export default (order) => ({
     order: order,
