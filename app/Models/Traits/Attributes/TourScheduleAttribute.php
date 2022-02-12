@@ -38,6 +38,23 @@ trait TourScheduleAttribute
     }
 
     /**
+     * Кол-во новых мест
+     * @return int
+     */
+    public function getPlacesNewAttribute()
+    {
+        $total = 0;
+        $orders = $this->orders->whereIn('status', [Order::STATUS_NEW])->all();
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $total += $order->total_places;
+        }
+        return $total;
+    }
+
+    /**
      * Кол-во забронированных мест
      * @return int
      */

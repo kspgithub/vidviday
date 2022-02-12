@@ -33,7 +33,7 @@ export default (schedule) => ({
         return `/admin/crm/schedules/${this.schedule.id}`;
     },
     get tourUrl() {
-        return this.tour ? `/admin/tour/${this.tour.id}/edit` : '#';
+        return this.tour ? `/admin/tour/${this.tour.id}/schedule` : '#';
     },
     get tourTitle() {
         return this.tour ? this.tour.title.uk : '';

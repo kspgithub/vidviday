@@ -7,6 +7,7 @@ import {toast} from "../../libs/toast";
 import flatpickr from "flatpickr";
 import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
+import loadItems from "./composables/load-items";
 
 Ukrainian.rangeSeparator = '-';
 
@@ -14,9 +15,10 @@ export default (options) => ({
     loading: false,
     links: [],
     items: [],
+    currentTab: options.params.tab || 'recruited',
     current_page: parseInt(options.params.page) || 1,
     sort: options.params.order || 'start_date:asc',
-    dates: options.params.dates || moment().format('DD.MM.YYYY'),
+    dates: options.params.dates || '',
     manager_id: parseInt(options.params.manager_id) || 0,
     booked: options.params.booked ? !!options.params.booked : false,
     init() {
@@ -31,6 +33,11 @@ export default (options) => ({
     setPage(url) {
         const params = UrlUtils.parseQuery(url);
         this.current_page = params['page'] || 1;
+        this.loadItems(true);
+    },
+    setTab(tab) {
+        this.currentTab = tab;
+        this.current_page = 1;
         this.loadItems(true);
     },
     setSorting(sorting) {
@@ -51,38 +58,35 @@ export default (options) => ({
         }
         cancelTokenSource = axios.CancelToken.source();
         this.loading = true;
-        const params = {
-            manager_id: this.manager_id,
-            dates: this.dates,
-            order: this.sort,
-            page: this.current_page,
-            booked: this.booked ? 1 : 0,
-        };
 
-        if (updateUrl) {
-            const updateParams = UrlUtils.filterParams(params, {
+        loadItems({
+            url: '',
+            params: {
+                manager_id: this.manager_id,
+                dates: this.dates,
+                order: this.sort,
+                page: this.current_page,
+                booked: this.booked ? 1 : 0,
+                tab: this.currentTab,
+            },
+            updateUrl: updateUrl,
+            defaultParams: {
                 dates: moment().format('DD.MM.YYYY'),
                 order: 'start_date:asc',
                 page: 1,
                 manager_id: 0,
                 booked: 0,
-            });
-            UrlUtils.updateUrl(document.location.pathname, updateParams, false);
-        }
-
-        axios.get('', {
-            cancelToken: cancelTokenSource.token,
-            params: params
-        })
-            .then(({data: response}) => {
+                tab: 'recruited',
+            },
+            onSuccess: (response) => {
                 this.items = response.data;
                 this.links = response.links;
                 this.loading = false;
-            })
-            .catch(error => {
-                console.log(error);
+            },
+            onError: (error) => {
                 this.loading = false;
-            })
+            }
+        });
 
     }
 });

@@ -20,8 +20,8 @@ class Discount extends TranslatableModel
     use UseSelectBox;
 
 
-    public const TYPE_VALUE = 0;
-    public const TYPE_PERCENT = 1;
+    public const TYPE_VALUE = 'value';
+    public const TYPE_PERCENT = 'percent';
 
     public const CATEGORY_ALL = 'all';
     public const CATEGORY_ADULT = 'adult';
@@ -85,7 +85,6 @@ class Discount extends TranslatableModel
     ];
 
     protected $casts = [
-        'type' => 'integer',
         'price' => 'integer',
         'published' => 'boolean',
         'age_limit' => 'boolean',
@@ -98,6 +97,11 @@ class Discount extends TranslatableModel
         'end_date',
     ];
 
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+    ];
 
     public function scopeAvailable(Builder $query)
     {
@@ -157,5 +161,17 @@ class Discount extends TranslatableModel
                 break;
         }
         return $total;
+    }
+
+    public function asAlpineData()
+    {
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'price' => $this->price,
+            'currency' => $this->currency,
+            'title' => json_prepare($this->title),
+            'admin_title' => json_prepare($this->admin_title),
+        ];
     }
 }

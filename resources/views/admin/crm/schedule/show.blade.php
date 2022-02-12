@@ -42,7 +42,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a href="{{route('admin.tour.edit', $tour)}}" target="_blank">{{$tour->title}}</a></td>
+                            <td><a href="{{route('admin.tour.schedule.index', $tour)}}"
+                                   target="_blank">{{$tour->title}}</a>
+                            </td>
                             <td>{{$schedule->title}}</td>
                             <td>{{$schedule->price}} {{$schedule->currency}}</td>
                             <td>{{$schedule->commission}} {{$schedule->currency}}</td>
@@ -130,12 +132,17 @@
                                         <span x-text="statusText(order.status)"></span>
                                     </button>
                                 </td>
-                                <td x-text="order.total_places" class="text-center"></td>
+                                <td class="text-center">
+                                    <span x-text="order.total_places"></span>
+                                    <a href="#" class="text-success" @click.prevent="editParticipants(order)">
+                                        <i class="fa fa-pen-alt"></i>
+                                    </a>
+                                </td>
                                 <td class="text-nowrap" x-html="participantNames(order)"></td>
                                 <td class="text-nowrap" x-html="participantDates(order)"></td>
                                 <td>
                                     <a href="#" class="text-success" @click.prevent="editParticipants(order)">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-pen-alt"></i>
                                     </a>
                                 </td>
                                 <td>
@@ -183,7 +190,7 @@
                                     <a href="#" class="text-success"
                                        data-bs-toggle="modal" data-bs-target="#editModal"
                                        @click.prevent="editOrder(order)">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-pen-alt"></i>
                                     </a>
                                 </td>
                                 <td>

@@ -51,6 +51,36 @@
 
         <div class="card">
             <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-12 col-lg-8 mb-2">
+                        <nav class="btn-group">
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'recruited'}"
+                               @click.prevent="setTab('recruited')"
+                               href="#">Набираються</a>
+
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'progress'}"
+                               @click.prevent="setTab('progress')"
+                               href="#">Проводяться</a>
+
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'canceled'}"
+                               @click.prevent="setTab('canceled')"
+                               href="#">Скасовані</a>
+
+                            <a class="btn btn-outline-primary"
+                               :class="{active: currentTab === 'finished'}"
+                               @click.prevent="setTab('finished')"
+                               href="#">Проведені</a>
+
+                        </nav>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-2 text-lg-end">
+
+                    </div>
+                </div>
+
                 <div data-ps="{suppressScrollY: true}">
                     <table class="table table-sm" x-bind:class="{loading: loading}">
                         <thead>
@@ -60,6 +90,7 @@
                             <th class="mw-200px">Тур</th>
                             <th>Менеджер</th>
                             <th class="text-right text-nowrap">Вільн.</th>
+                            <th class="text-right text-nowrap">Нові</th>
                             <th class="text-right">Бронь</th>
                             <th class="text-right">Оплата</th>
                             <th class="text-right">Ліміт</th>
@@ -88,6 +119,9 @@
                                 </td>
                                 <td class="text-center">
                                     <span x-text="placesAvailable"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span x-text="schedule.places_new"></span>
                                 </td>
                                 <td class="text-center">
                                     <span x-text="schedule.places_booked"></span>

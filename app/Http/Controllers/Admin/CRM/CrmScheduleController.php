@@ -22,6 +22,9 @@ class CrmScheduleController extends Controller
         if ($request->ajax()) {
             $query = TourSchedule::query()->with(['tour', 'tour.manager', 'orders']);
 
+            $tab = $request->input('tab', 'recruited');
+            $query->tab($tab);
+
             $manager_id = $request->input('manager_id', 0);
             if ($manager_id > 0) {
                 $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('id', $manager_id)));
@@ -163,9 +166,11 @@ class CrmScheduleController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $schedule->tour;
         $schedules = $tour->scheduleItems()->get()->map->shortInfo();
+        $discounts = $tour->discounts()->get()->map->asAlpineData();
 
         return view('admin.crm.schedule.order', [
             'tour' => $tour->shortInfo(),
+            'discounts' => $discounts,
             'schedule' => $schedule,
             'order' => $order,
             'statuses' => $statuses,
