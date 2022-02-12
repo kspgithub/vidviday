@@ -46,7 +46,10 @@ class TourSchedule extends Model
         'guide',
         'duty_transport',
         'duty_call',
+        'duty_comment',
         'admin_comment',
+        'auto_booking',
+        'auto_limit',
     ];
 
     protected $casts = [
@@ -83,7 +86,10 @@ class TourSchedule extends Model
         'guide',
         'duty_transport',
         'duty_call',
+        'duty_comment',
         'admin_comment',
+        'auto_booking',
+        'auto_limit',
     ];
 
     /**

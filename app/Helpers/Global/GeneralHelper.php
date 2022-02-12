@@ -247,3 +247,16 @@ if (!function_exists('currency_options')) {
         return Currency::toSelectBox('iso', 'iso');
     }
 }
+
+
+if (!function_exists('user_roles')) {
+    function user_roles()
+    {
+        $roles = ['guest'];
+        $user = current_user();
+        if (!empty($user)) {
+            $roles = $user->roles->pluck('name')->toArray();
+        }
+        return $roles;
+    }
+}

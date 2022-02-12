@@ -6,7 +6,7 @@
 
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
-        schedule: @json($schedule->shortInfo(['admin_comment', 'places']), JSON_HEX_APOS),
+        schedule: @json($schedule->shortInfo(['admin_comment', 'duty_comment', 'places']), JSON_HEX_APOS),
         statuses: @json($statuses),
         roomTypes: @json($roomTypes),
         countOrders: @json($countOrders),
@@ -38,6 +38,7 @@
                             <th>Вартість</th>
                             <th>Комісія</th>
                             <th>Знижка</th>
+                            <th>Ліміт</th>
                             <th>Додатково</th>
                             <th>Опубліковано</th>
                         </tr>
@@ -59,8 +60,13 @@
                             <td x-text="schedule.commission + ' ' + schedule.currency"></td>
                             <td>{!! $tour->discount_title !!}</td>
                             <td>
+                                <input type="text" x-model.debounce.500ms="schedule.places"
+                                       @change="updateSchedule({places: schedule.places})"
+                                       class="form-control form-control-sm mw-50px"/>
+                            </td>
+                            <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
-                                      @change="updateScheduleComment()"
+                                      @change="updateSchedule({admin_comment: schedule.admin_comment})"
                                       class="form-control form-control-sm mw-200px"></textarea>
                             </td>
                             <td>
@@ -134,6 +140,7 @@
                             <th>Опл. ТОВ</th>
                             <th>Опл. в офісі</th>
                             <th>Дозбирати</th>
+                            <th>Коментарі</th>
                             <th>Примітки</th>
                         </tr>
                         </thead>
@@ -170,17 +177,18 @@
                                     </div>
                                     <div x-show="order.phone" class="text-nowrap">
                                         <b>Тел:</b>
-                                        <a :href="'tel:'+order.phone" x-text="order.phone" target="_blank"></a>
+                                        <a :href="'tel:'+clearPhone(order.phone)" x-text="clearPhone(order.phone)"
+                                           target="_blank"></a>
                                     </div>
-                                    {{--                                    <div x-show="order.viber" class="text-nowrap">--}}
-                                    {{--                                        <b>Viber:</b>--}}
-                                    {{--                                        <span x-text="order.viber"></span>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <div x-show="order.email" class="text-nowrap">--}}
-                                    {{--                                        <b>Email:</b>--}}
-                                    {{--                                        <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"--}}
-                                    {{--                                           target="_blank"></a>--}}
-                                    {{--                                    </div>--}}
+                                    <div x-show="order.viber" class="text-nowrap">
+                                        <b>Viber:</b>
+                                        <span x-text="clearPhone(order.viber)"></span>
+                                    </div>
+                                    <div x-show="order.email" class="text-nowrap">
+                                        <b>Email:</b>
+                                        <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
+                                           target="_blank"></a>
+                                    </div>
                                     <template x-if="order.agency_data && order.agency_data.title"
                                               :key="'agency-data-'+order.id">
                                         <div class="mt-1 pt-1 border-top">
@@ -195,13 +203,14 @@
                                             </div>
                                             <div class="text-nowrap" x-show="order.agency_data.manager_phone">
                                                 <b>Тел:</b>
-                                                <a :href="'tel:'+order.agency_data.manager_phone"
-                                                   x-text="order.agency_data.manager_phone" target="_blank"></a>
+                                                <a :href="'tel:'+clearPhone(order.agency_data.manager_phone)"
+                                                   x-text="clearPhone(order.agency_data.manager_phone)"
+                                                   target="_blank"></a>
                                             </div>
-                                            {{--                                            <div class="text-nowrap" x-show="order.agency_data.manager_email">--}}
-                                            {{--                                                <a :href="'mailto:'+order.agency_data.manager_email"--}}
-                                            {{--                                                   x-text="order.agency_data.manager_email" target="_blank"></a>--}}
-                                            {{--                                            </div>--}}
+                                            <div class="text-nowrap" x-show="order.agency_data.manager_email">
+                                                <a :href="'mailto:'+order.agency_data.manager_email"
+                                                   x-text="order.agency_data.manager_email" target="_blank"></a>
+                                            </div>
                                         </div>
                                     </template>
                                 </td>
@@ -263,6 +272,12 @@
                                 <td class="text-right text-nowrap">
                                     <span x-text="paymentGet(order)"></span>
                                     <span x-text="order.currency"></span>
+                                </td>
+                                <td>
+                                    <textarea type="text" x-model.debounce.500ms="order.duty_comment"
+                                              @blur="updateOrder(order.id, {duty_comment: order.duty_comment})"
+                                              x-bind:readonly="$store.crmUser.hasRole('admin')"
+                                              class="form-control form-control-sm mw-200px"></textarea>
                                 </td>
                                 <td>
                                     <textarea type="text" x-model.debounce.500ms="order.admin_comment"

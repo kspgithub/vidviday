@@ -72,6 +72,22 @@ trait UserMethod
         ];
     }
 
+    public function asCrmUser()
+    {
+        return (object)[
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'name' => $this->name,
+            'email' => $this->email,
+            'mobile_phone' => json_prepare($this->mobile_phone),
+            'company' => json_prepare($this->company),
+            'role' => $this->role,
+            'roles' => $this->roles->pluck('name')->toArray(),
+            'avatar_url' => $this->avatar_url,
+        ];
+    }
+
     public function viewTour($id)
     {
         if ($this->tourHistory()->whereId($id)->count() > 0) {

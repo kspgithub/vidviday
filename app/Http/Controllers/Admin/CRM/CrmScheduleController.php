@@ -58,7 +58,10 @@ class CrmScheduleController extends Controller
                     'guide',
                     'duty_transport',
                     'duty_call',
-                    'admin_comment'
+                    'admin_comment',
+                    'duty_comment',
+                    'auto_booking',
+                    'auto_limit',
                 ]);
                 return $val;
             });
@@ -105,6 +108,7 @@ class CrmScheduleController extends Controller
                 'payment_tov',
                 'payment_office',
                 'admin_comment',
+                'duty_comment',
                 'agency_data',
             ]);
 
@@ -123,7 +127,10 @@ class CrmScheduleController extends Controller
             'guide',
             'duty_transport',
             'duty_call',
-            'admin_comment'
+            'admin_comment',
+            'duty_comment',
+            'auto_booking',
+            'auto_limit',
         ]);
 
         $roomTypes = AccommodationType::get(['short_title as text', 'slug as value'])->toArray();
@@ -156,14 +163,19 @@ class CrmScheduleController extends Controller
             'guide',
             'duty_transport',
             'duty_call',
-            'admin_comment'
+            'admin_comment',
+            'duty_comment',
+            'auto_booking',
+            'auto_limit',
         ]);
+
         $order->loadMissing(['tour', 'tour.manager', 'schedule']);
         $order->makeVisible([
             'payment_fop',
             'payment_tov',
             'payment_office',
             'admin_comment',
+            'duty_comment',
             'agency_data',
             'payment_data',
             'utm_data',

@@ -21,4 +21,9 @@ trait UserAttributes
         $initials = Str::upper(Str::substr($this->last_name, 0, 1) . Str::substr($this->first_name, 0, 1));
         return $initials ?: 'N/A';
     }
+
+    public function getRolesLabelAttribute()
+    {
+        return implode(', ', $this->roles->map(fn ($role) => __(ucfirst(str_replace('-', ' ', $role->name))))->toArray());
+    }
 }

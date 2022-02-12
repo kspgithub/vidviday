@@ -29,7 +29,9 @@
                     <i class="align-middle" data-feather="settings"></i>
                 </a>
 
-                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown" x-data='user({
+                        user: @json(current_user()->asCrmUser()),
+                    })'>
                     <img src="{{current_user()->avatar_url}}" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
                     <span class="text-dark">{{current_user()->name}}</span>
                 </a>

@@ -1,7 +1,3 @@
-import axios from "axios";
-
-let cancelTokenSource = null;
-import * as UrlUtils from '../../../../utils/url';
 import {toast} from "../../../../libs/toast";
 import moment from "moment";
 import flatpickr from "flatpickr";
@@ -11,7 +7,7 @@ import loadItems from "../../composables/load-items";
 import roomTitle from "../../composables/room-title";
 import updateItem from "../../composables/update-item";
 import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
-import {instances} from "simplebar";
+import {cleanPhoneNumber} from "../../../../utils/string";
 
 const rooms = {
     "1o-plus": 0,
@@ -163,9 +159,7 @@ export default (options) => ({
     saveSchedule() {
         const params = {...this.scheduleData};
         this.updateSchedule(params, (response) => {
-            this.schedule = response.schedule;
             this.scheduleModal.hide();
-            toast.success(response.message);
         })
     },
     updateSchedule(params = {}, callback = null) {
@@ -177,6 +171,8 @@ export default (options) => ({
                 if (callback) {
                     callback(response);
                 }
+                this.schedule = response.schedule;
+                toast.success(response.message);
                 this.loader = false;
             },
             onError: () => {
@@ -371,8 +367,7 @@ export default (options) => ({
         this.orders.forEach(o => total += this.paymentGet(o))
         return total;
     },
-    updateScheduleComment() {
-        this.updateSchedule({admin_comment: this.schedule.admin_comment})
-    },
-
+    clearPhone(phone) {
+        return '+' + cleanPhoneNumber(phone);
+    }
 })
