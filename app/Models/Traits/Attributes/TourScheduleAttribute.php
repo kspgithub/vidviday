@@ -140,4 +140,6 @@ trait TourScheduleAttribute
         }
         return $title;
     }
+
+    
 }

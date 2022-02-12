@@ -3,28 +3,29 @@
 @section('title', 'Дані про виїзд: '.$tour->title.', '.$schedule->start_title)
 
 @section("content")
-    {!! breadcrumbs([
-  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-  ['url'=>route('admin.crm.schedule.index'), 'title'=>'Список збірних виїздів'],
-  ['url'=>route('admin.crm.schedule.show', $schedule), 'title'=>$tour->title.' - '.$schedule->start_title],
-]) !!}
-    <div class="d-flex justify-content-between">
-        <h1>Дані про виїзд: {{$tour->title}}, {{$schedule->start_title}}</h1>
-        <div>
-            <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
-               class="btn btn-sm btn-outline-primary">
-                <i class="fa fa-plus"></i> Створити замовлення
-            </a>
-        </div>
-    </div>
+
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
-        schedule: @json(['id'=>$schedule->id, 'admin_comment'=>$schedule->admin_comment], JSON_HEX_APOS),
+        schedule: @json($schedule->shortInfo(['admin_comment', 'places']), JSON_HEX_APOS),
         statuses: @json($statuses),
         roomTypes: @json($roomTypes),
         countOrders: @json($countOrders),
         })'>
+        {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.crm.schedule.index'), 'title'=>'Список збірних виїздів'],
+['url'=>route('admin.crm.schedule.show', $schedule), 'title'=>$tour->title.' - <span x-text="schedule.start_title"></span>'],
+]) !!}
 
+        <div class="d-flex justify-content-between">
+            <h1>Дані про виїзд: {{$tour->title}}, <span x-text="schedule.start_title"></span></h1>
+            <div>
+                <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fa fa-plus"></i> Створити замовлення
+                </a>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-body">
@@ -38,26 +39,44 @@
                             <th>Комісія</th>
                             <th>Знижка</th>
                             <th>Додатково</th>
+                            <th>Опубліковано</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a href="{{route('admin.tour.schedule.index', $tour)}}"
-                                   target="_blank">{{$tour->title}}</a>
+                            <td>
+                                <a href="{{route('admin.tour.schedule.index', $tour)}}" target="_blank">
+                                    {{$tour->title}}
+                                </a>
                             </td>
-                            <td>{{$schedule->title}}</td>
-                            <td>{{$schedule->price}} {{$schedule->currency}}</td>
-                            <td>{{$schedule->commission}} {{$schedule->currency}}</td>
+                            <td class="text-nowrap">
+                                <span x-text="schedule.title"></span>
+                                <a href="#" @click.prevent="editSchedule()" class="text-success">
+                                    <i class="fa fa-pen-alt"></i>
+                                </a>
+                            </td>
+                            <td x-text="schedule.price + ' ' + schedule.currency"></td>
+                            <td x-text="schedule.commission + ' ' + schedule.currency"></td>
                             <td>{!! $tour->discount_title !!}</td>
                             <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
                                       @change="updateScheduleComment()"
                                       class="form-control form-control-sm mw-200px"></textarea>
                             </td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" x-model="schedule.published" class="form-check-input"
+                                           @change="togglePublished()"
+                                           id="schedule_published">
+                                    <label class="form-check-label" for="schedule_published"></label>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+                @include('admin.crm.schedule.includes.modal-basic')
             </div>
         </div>
 

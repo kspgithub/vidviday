@@ -140,7 +140,12 @@ class CrmScheduleController extends Controller
     {
         $schedule->fill($request->all());
         $schedule->save();
-        return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+
+        return response()->json([
+            'result' => 'success',
+            'message' => __('Record Updated'),
+            'schedule' => $schedule->shortInfo(['admin_comment', 'places'])
+        ]);
     }
 
 

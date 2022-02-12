@@ -107,18 +107,28 @@ class TourSchedule extends Model
     }
 
 
-    public function shortInfo()
+    public function shortInfo($additional = [])
     {
-        return [
+        $data = [
             'id' => $this->id,
             'start_title' => $this->start_title,
             'start_date' => $this->start_date->format('d.m.Y'),
+            'end_date' => $this->end_date->format('d.m.Y'),
             'title' => $this->title,
             'places' => $this->places,
             'price' => $this->price,
             'commission' => $this->commission,
             'currency' => $this->currency,
+            'published' => $this->published,
         ];
+        if (!empty($additional)) {
+            foreach ($additional as $attribute) {
+                $data[$attribute] = $this->getAttribute($attribute);
+            }
+        }
+
+        return $data;
+
     }
 
     public function asCalendarEvent($event_click = 'url')
