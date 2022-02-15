@@ -10,7 +10,7 @@ class AddDutyFieldsToTourSchedules extends Migration
     {
         Schema::table('tour_schedules', function (Blueprint $table) {
             //
-            $table->text('duty_comment')->nullable()->after('duty_call');
+            $table->text('duty_comment')->after('duty_call')->nullable();
             $table->boolean('auto_booking')->default(0)->after('places');
             $table->integer('auto_limit')->default(10)->after('auto_booking');
         });

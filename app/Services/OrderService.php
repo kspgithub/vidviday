@@ -40,6 +40,7 @@ class OrderService extends BaseService
             'is_tour_agent' => $params['is_tour_agent'] ?? 0,
             'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
+            'duty_comment' => '',
         ];
 
 
@@ -173,6 +174,7 @@ class OrderService extends BaseService
             $order_params['end_place'] = $params['end_place'] ?? null;
             $order_params['price_include'] = $params['price_include'] ?? [];
             $order_params['offer_date'] = $params['offer_date'] ?? null;
+
 
             if ((int)$order_params['program_type'] === 1) {
                 $order_params['tour_plan'] = $params['tour_plan'] ?? '';
