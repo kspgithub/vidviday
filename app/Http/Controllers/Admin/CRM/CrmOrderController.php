@@ -27,6 +27,7 @@ class CrmOrderController extends Controller
             $paginator = $orderQ->paginate(20);
             $paginator->getCollection()->transform(function ($val) {
                 $val->makeVisible([
+                    'duty_comment',
                     'admin_comment',
                     'agency_data',
                 ]);
@@ -97,6 +98,7 @@ class CrmOrderController extends Controller
             'payment_tov',
             'payment_office',
             'admin_comment',
+            'duty_comment',
             'agency_data',
             'payment_data',
             'utm_data',
@@ -127,6 +129,7 @@ class CrmOrderController extends Controller
             'payment_fop',
             'payment_tov',
             'payment_office',
+            'duty_comment',
             'admin_comment',
             'agency_data',
             'payment_data',
@@ -184,7 +187,7 @@ class CrmOrderController extends Controller
         $paginator = $query->paginate(20);
         $paginator->getCollection()->transform(function (Audit $item) {
             $data = $item->toArray();
-            $data['user'] = $item->user->basicInfo();
+            $data['user'] = $item->user ? $item->user->basicInfo() : ['name' => 'Система'];
             return $data;
         });
         return $paginator;

@@ -17,6 +17,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th>{!! alpineSortLink('id', 'ID')!!}</th>
                         <th>{!! alpineSortLink('start_date', 'Дата виїзду')!!}</th>
                         <th>{!!alpineSortLink('end_date', 'Дата повернення')!!}</th>
                         <th>{!!alpineSortLink('places', 'Ліміт місць')!!}</th>
@@ -32,6 +33,7 @@
                     <tbody>
                     <template x-for="item in items" :key="'it'+item.id">
                         <tr>
+                            <td><a :href="`/admin/crm/schedules/${item.id}`" target="_blank" x-text="item.id"></a></td>
                             <td><span x-text="item.start_date"></span></td>
                             <td><span x-text="item.end_date"></span></td>
                             <td><span x-text="item.places"></span></td>
@@ -60,10 +62,14 @@
                                    @click.prevent="editSchedule(item)">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm my-1 me-2 btn-outline-danger"
-                                   @click.prevent="deleteSchedule(item)">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                <template x-if="$store.crmUser.isTourManager || $store.crmUser.isAdmin">
+                                    <a href="#" class="btn btn-sm my-1 me-2 btn-outline-danger"
+                                       x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
+                                       @click.prevent="deleteSchedule(item)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </template>
+
                             </td>
                         </tr>
                     </template>

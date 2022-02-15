@@ -28,8 +28,10 @@ class Order extends TranslatableModel implements Auditable
         parent::boot();
 
         self::created(function ($model) {
+            self::disableAuditing();
             $model->order_number = Str::padLeft($model->id, 5, '0');
             $model->save();
+            self::enableAuditing();
         });
     }
 
@@ -109,6 +111,7 @@ class Order extends TranslatableModel implements Auditable
         'payment_tov',
         'payment_office',
         'admin_comment',
+        'duty_comment',
         'is_tour_agent',
         'agency_data',
         'utm_data',

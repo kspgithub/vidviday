@@ -25,6 +25,7 @@ import crmOrderCollective from './crm/order/crm-order-collective';
 import crmOrderCorporate from './crm/order/crm-order-corporate';
 import crmOrderAudits from './crm/order/crm-order-audits';
 import crmOrderBadge from './crm/order/crm-order-badge';
+import crmOrderAdditional from './crm/order/crm-order-additional';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
 import user from './crm/user';
 import crmEmail from './stores/crm-email';
@@ -61,6 +62,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('crmOrderCorporate', crmOrderCorporate);
     Alpine.data('crmOrderBadge', crmOrderBadge);
     Alpine.data('crmOrderAudits', crmOrderAudits);
+    Alpine.data('crmOrderAdditional', crmOrderAdditional);
     Alpine.data('crmCorporateBasic', crmCorporateBasic);
     Alpine.data('mediaLibrary', mediaLibrary);
     Alpine.data('user', user);
