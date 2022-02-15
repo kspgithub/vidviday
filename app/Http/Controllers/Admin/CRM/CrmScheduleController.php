@@ -134,6 +134,7 @@ class CrmScheduleController extends Controller
         ]);
 
         $roomTypes = AccommodationType::get(['short_title as text', 'slug as value'])->toArray();
+
         return view('admin.crm.schedule.show', [
             'schedule' => $schedule,
             'tour' => $schedule->tour,
@@ -151,7 +152,7 @@ class CrmScheduleController extends Controller
         return response()->json([
             'result' => 'success',
             'message' => __('Record Updated'),
-            'schedule' => $schedule->shortInfo(['admin_comment', 'places'])
+            'schedule' => $schedule->asCrmSchedule()
         ]);
     }
 
@@ -182,7 +183,7 @@ class CrmScheduleController extends Controller
         ]);
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $schedule->tour;
-        $schedules = $tour->scheduleItems()->get()->map->shortInfo();
+        $schedules = $tour->scheduleItems()->get()->map->asCrmSchedule();
         $discounts = $tour->discounts()->get()->map->asAlpineData();
 
         return view('admin.crm.schedule.order', [

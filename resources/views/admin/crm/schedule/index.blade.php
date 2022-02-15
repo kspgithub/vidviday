@@ -94,6 +94,7 @@
                             <th class="text-right">Бронь</th>
                             <th class="text-right">Вчора</th>
                             <th class="text-right">Ліміт</th>
+                            <th class="text-left">Авто</th>
                             <th class="text-right">Резерв</th>
                             <th>Гід</th>
                             <th>Автобус</th>
@@ -131,29 +132,50 @@
                                 </td>
                                 <td>
                                     <input type="text" x-model.debounce.500ms="schedule.places"
+                                           @change="updateSchedule({places: schedule.places})"
                                            class="form-control form-control-sm mw-50px text-right">
+                                </td>
+                                <td class="text-nowrap">
+                                    <div class="d-flex align-items-center">
+
+                                        <input type="text" x-model.debounce.500ms="schedule.auto_limit"
+                                               @change="updateSchedule({auto_limit: schedule.auto_limit})"
+                                               class="form-control form-control-sm mw-50px me-1 text-right d-inline-block">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox"
+                                                   @change="updateSchedule({auto_booking: schedule.auto_booking})"
+                                                   x-model="schedule.auto_booking" :id="'auto-'+schedule.id">
+                                            <label class="form-check-label" :for="'auto-'+schedule.id"></label>
+                                        </div>
+                                    </div>
+
                                 </td>
                                 <td class="text-center">
                                     <span x-text="schedule.places_reserved"></span>
                                 </td>
                                 <td>
                                      <textarea type="text" x-model.debounce.500ms="schedule.guide"
+                                               @change="updateSchedule({guide: schedule.guide})"
                                                class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                                 <td>
                                      <textarea type="text" x-model.debounce.500ms="schedule.bus"
+                                               @change="updateSchedule({bus: schedule.bus})"
                                                class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                                 <td>
                                 <textarea type="text" x-model.debounce.500ms="schedule.duty_transport"
+                                          @change="updateSchedule({duty_transport: schedule.duty_transport})"
                                           class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                                 <td>
                                 <textarea type="text" x-model.debounce.500ms="schedule.duty_call"
+                                          @change="updateSchedule({duty_transport: schedule.duty_transport})"
                                           class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                                 <td>
                                 <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
+                                          @change="updateSchedule({admin_comment: schedule.admin_comment})"
                                           class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                             </tr>

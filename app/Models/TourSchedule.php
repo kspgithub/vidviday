@@ -54,6 +54,7 @@ class TourSchedule extends Model
 
     protected $casts = [
         'published' => 'boolean',
+        'auto_booking' => 'boolean',
         'price' => 'integer',
         'commission' => 'integer',
         'start_date' => 'date:d.m.Y',
@@ -110,52 +111,6 @@ class TourSchedule extends Model
     public function orders()
     {
         return $this->hasMany(Order::class, 'schedule_id');
-    }
-
-
-    public function shortInfo($additional = [])
-    {
-        $data = [
-            'id' => $this->id,
-            'start_title' => $this->start_title,
-            'start_date' => $this->start_date->format('d.m.Y'),
-            'end_date' => $this->end_date->format('d.m.Y'),
-            'title' => $this->title,
-            'places' => $this->places,
-            'price' => $this->price,
-            'commission' => $this->commission,
-            'currency' => $this->currency,
-            'published' => $this->published,
-        ];
-        if (!empty($additional)) {
-            foreach ($additional as $attribute) {
-                $data[$attribute] = $this->getAttribute($attribute);
-            }
-        }
-
-        return $data;
-
-    }
-
-    public function asCalendarEvent($event_click = 'url')
-    {
-        $json = json_encode($this->shortInfo());
-
-
-        $data = [
-            'id' => $this->id,
-            'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->title,
-            'start' => $this->start_date->format('Y-m-d'),
-            'end' => $this->end_date->format('Y-m-d'),
-            'className' => $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
-        ];
-
-        if ($event_click !== false) {
-            $data['url'] = $event_click === 'order'
-                ? "javascript:selectTourEvent({$json})"
-                : $this->tour->url;
-        }
-        return $data;
     }
 
 

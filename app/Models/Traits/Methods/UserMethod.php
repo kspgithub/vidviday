@@ -24,6 +24,22 @@ trait UserMethod
         return $this->hasRole('tour-agent');
     }
 
+    public function isManager(): bool
+    {
+        return $this->hasRole('manager');
+    }
+
+    public function isTourManager(): bool
+    {
+        return $this->hasRole('tour-manager');
+    }
+
+    public function isDutyManager(): bool
+    {
+        return $this->hasRole('duty-manager');
+    }
+
+
     /**
      * @return bool
      */

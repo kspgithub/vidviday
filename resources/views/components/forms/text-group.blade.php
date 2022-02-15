@@ -12,7 +12,7 @@
     'rowClass'=>'row mb-3',
 ])
 
-<div class="form-group {{$rowClass}}">
+<div class="form-group {{$rowClass}}" x-transition>
     <label for="{{$id ?? $name}}" class="{{$labelCol}} col-form-label">
         {{$label}}
         @if(isset($attributes['required']) || isset($attributes['x-bind:required']))

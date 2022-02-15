@@ -22,8 +22,7 @@
         </div>
 
         <div class="col-12">
-
-            <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
+            <form-textarea name="text" id="tq_text" v-model="data.text" class="smile"
                            :label="__('forms.your-comment')"
                            rules="required"
                            :tooltip="__('forms.required')"/>
@@ -40,10 +39,11 @@ import {reactive, ref} from "vue";
 import {getError} from "../../services/api";
 import toast from '../../libs/toast'
 import FormInput from "../form/FormInput";
+import FormTextarea from "../form/FormTextarea";
 
 export default {
     name: "TourQuestionForm",
-    components: {FormInput},
+    components: {FormTextarea, FormInput},
     props: {
         action: String,
     },

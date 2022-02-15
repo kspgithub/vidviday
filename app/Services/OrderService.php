@@ -45,8 +45,12 @@ class OrderService extends BaseService
 
         // Сборная группа
         if ($order_params['group_type'] === 0) {
+            $total_places = $order_params['places'];
+
             $tour = Tour::find($order_params['tour_id']);
+
             $schedule = TourSchedule::find($order_params['schedule_id']);
+
 
             $tour_price = $schedule ? $schedule->price : $tour->price;
             $tour_commission = $schedule ? $schedule->commission : $tour->commission;
@@ -68,8 +72,11 @@ class OrderService extends BaseService
 
             $order_params['children'] = $params['children'] ?? 0;
             if ((int)$order_params['children'] === 1) {
-                $order_params['children_young'] = $params['children_young'] ?? 0;
-                $order_params['children_older'] = $params['children_older'] ?? 0;
+                $order_params['children_young'] = (int)$params['children_young'] ?? 0;
+                $order_params['children_older'] = (int)$params['children_older'] ?? 0;
+                $total_places += $order_params['children_young'];
+                $total_places += $order_params['children_older'];
+
                 if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
                     $order_price += $tour_price * (int)$params['children_young'];
                     $order_commission += $tour_commission * (int)$params['children_young'];
@@ -138,6 +145,21 @@ class OrderService extends BaseService
             $order_params['discount'] = $total_discount;
             $order_params['discounts'] = $order_discounts;
             $order_params['currency'] = $tour_currency;
+
+            $schedule = $schedule->availableForBooking($total_places);
+
+
+            $order_params['schedule_id'] = $schedule->id;
+            if ($schedule->isAutoBookingAvailable()) {
+                $order_params['status'] = Order::STATUS_BOOKED;
+                $order_params['auto'] = true;
+            }
+
+            if ($schedule->places_available < $total_places) {
+                $order_params['status'] = Order::STATUS_RESERVE;
+            }
+
+
         }
 
         // Корпоративная группа

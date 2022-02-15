@@ -2093,11 +2093,13 @@ a {
 @media (max-width: 480px) {
 }
 
+
 .fc-h-event {
     background: transparent;
 }
 
 .fc {
+
     .fc-toolbar {
         min-height: 40px;
     }
@@ -2167,6 +2169,8 @@ a {
     }
 
     .fc-button {
+        border: 0 none;
+
         &:active,
         &:focus {
             outline: 0 none;
@@ -2193,6 +2197,7 @@ a {
         &.fc-button-primary {
             background-color: transparent;
             color: $title !important;
+            border-color: transparent;
         }
     }
 
@@ -2212,6 +2217,7 @@ a {
 
     .fc-next-button {
         transform: rotate(45deg);
+        margin-top: 0px;
     }
 
     .fc-today-button {

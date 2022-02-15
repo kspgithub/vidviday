@@ -19,6 +19,7 @@ use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
+use App\Models\TourSchedule;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\TourService;
@@ -112,7 +113,7 @@ class TourController extends Controller
             }
         ]);
 
-        $future_events = $tour->scheduleItems()->whereDate('start_date', '>=', Carbon::now())->orderBy('start_date')->get();
+        $future_events = $tour->schedulesForBooking();
 
         $nearest_event = $future_events->first();
 
@@ -224,7 +225,8 @@ class TourController extends Controller
 
     public function order(Request $request, Tour $tour)
     {
-        $schedules = $tour->scheduleItems()->inFuture()->get();
+        $schedules = $tour->schedulesForBooking();
+
         $discounts = $tour->discounts()->available()->get();
         $room_types = AccommodationType::all();
         $payment_types = PaymentType::published()->toSelectBox();

@@ -17,7 +17,10 @@
             @include('admin.tour.includes.edit-tabs')
         </div>
         <div class="col-12 col-md-9 col-xl-10">
-            <livewire:tour-schedules-table :tour="$tour"/>
+
+            {{--            <livewire:tour-schedules-table :tour="$tour"/>--}}
+
+            @include('admin.tour-schedule.includes.list')
         </div>
     </div>
 

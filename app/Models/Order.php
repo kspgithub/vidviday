@@ -113,6 +113,7 @@ class Order extends TranslatableModel implements Auditable
         'agency_data',
         'utm_data',
         'payment_data',
+        'auto',
     ];
 
     protected $casts = [
@@ -136,6 +137,7 @@ class Order extends TranslatableModel implements Auditable
         'agency_data' => 'array',
         'utm_data' => 'array',
         'payment_data' => 'array',
+        'auto' => 'boolean',
     ];
 
     protected $appends = [

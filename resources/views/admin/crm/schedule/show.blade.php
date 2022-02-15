@@ -6,7 +6,7 @@
 
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
-        schedule: @json($schedule->shortInfo(['admin_comment', 'duty_comment', 'places']), JSON_HEX_APOS),
+        schedule:@json($schedule->asCrmSchedule()),
         statuses: @json($statuses),
         roomTypes: @json($roomTypes),
         countOrders: @json($countOrders),
@@ -39,6 +39,7 @@
                             <th>Комісія</th>
                             <th>Знижка</th>
                             <th>Ліміт</th>
+                            <th>Авто</th>
                             <th>Додатково</th>
                             <th>Опубліковано</th>
                         </tr>
@@ -63,6 +64,21 @@
                                 <input type="text" x-model.debounce.500ms="schedule.places"
                                        @change="updateSchedule({places: schedule.places})"
                                        class="form-control form-control-sm mw-50px"/>
+                            </td>
+                            <td class="text-nowrap">
+                                <div class="d-flex align-items-center">
+
+                                    <input type="text" x-model.debounce.500ms="schedule.auto_limit"
+                                           @change="updateSchedule({auto_limit: schedule.auto_limit})"
+                                           class="form-control form-control-sm mw-50px me-1 text-right d-inline-block">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                               @change="updateSchedule({auto_booking: schedule.auto_booking})"
+                                               x-model="schedule.auto_booking" :id="'auto-'+schedule.id">
+                                        <label class="form-check-label" :for="'auto-'+schedule.id"></label>
+                                    </div>
+                                </div>
+
                             </td>
                             <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
@@ -276,12 +292,13 @@
                                 <td>
                                     <textarea type="text" x-model.debounce.500ms="order.duty_comment"
                                               @blur="updateOrder(order.id, {duty_comment: order.duty_comment})"
-                                              x-bind:readonly="$store.crmUser.hasRole('admin')"
+                                              x-bind:readonly="!$store.crmUser.isDutyManager && !$store.crmUser.isAdmin"
                                               class="form-control form-control-sm mw-200px"></textarea>
                                 </td>
                                 <td>
                                     <textarea type="text" x-model.debounce.500ms="order.admin_comment"
                                               @blur="updateOrder(order.id, {admin_comment: order.admin_comment})"
+                                              x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
                                               class="form-control form-control-sm mw-200px"></textarea>
                                 </td>
 
