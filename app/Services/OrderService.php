@@ -149,17 +149,16 @@ class OrderService extends BaseService
 
             $schedule = $schedule->availableForBooking($total_places);
 
-
-            $order_params['schedule_id'] = $schedule->id;
-            if ($schedule->isAutoBookingAvailable()) {
+            if ($schedule->isAutoBookingAvailable($total_places)) {
                 $order_params['status'] = Order::STATUS_BOOKED;
                 $order_params['auto'] = true;
             }
 
-            if ($schedule->places_available < $total_places) {
+            if (($schedule->places_available - $schedule->places_new) < $total_places) {
                 $order_params['status'] = Order::STATUS_RESERVE;
             }
 
+            $order_params['schedule_id'] = $schedule->id;
 
         }
 

@@ -43,24 +43,27 @@ trait TourScheduleMethod
 
     public function availableForBooking($places)
     {
+        $lastItem = $this;
         $availableItems = self::published()
             ->where('tour_id', $this->tour_id)
             ->whereDate('start_date', $this->start_date)
             ->orderBy('id')->get();
 
         foreach ($availableItems as $item) {
-            if ($item->places_available >= $places) {
+            if (($item->places_available - $item->places_new) >= $places) {
                 return $item;
             }
+
+            $lastItem = $item;
         }
 
-        return $this;
+        return $lastItem;
     }
 
-    public function isAutoBookingAvailable()
+    public function isAutoBookingAvailable($places)
     {
         if ($this->auto_booking) {
-            if ($this->auto_limit > $this->places_booked) {
+            if ($this->auto_limit >= ($this->places_booked + $places)) {
                 return true;
             } else {
                 $this->auto_booking = false;
