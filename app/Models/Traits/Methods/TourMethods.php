@@ -35,9 +35,10 @@ trait TourMethods
         return (object)[
             'id' => $this->id,
             'title' => $this->title,
-            'full_title' => $this->commission > 0 ? "$this->title ($this->price $this->currency + $this->commission $this->currency)" : "$this->title ($this->price $this->currency)",
+            'full_title' => json_prepare($this->commission > 0 ? "$this->title ($this->price $this->currency + $this->commission $this->currency)" : "$this->title ($this->price $this->currency)"),
             'price' => $this->price,
             'commission' => $this->commission,
+            'accomm_price' => $this->accomm_price,
             'currency' => $this->currency,
             'rating' => $this->rating,
             'testimonials_count' => $this->testimonials_count,

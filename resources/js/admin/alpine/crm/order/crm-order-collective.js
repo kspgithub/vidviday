@@ -58,11 +58,14 @@ export default (params) => ({
                 this.loadSchedules();
             })
 
-            flatpickr(this.$refs.pickerInput, {
-                locale: Ukrainian,
-                allowInput: true,
-                dateFormat: 'd.m.Y'
-            });
+            if (this.$refs.pickerInput) {
+                flatpickr(this.$refs.pickerInput, {
+                    locale: Ukrainian,
+                    allowInput: true,
+                    dateFormat: 'd.m.Y'
+                });
+            }
+
 
         }, 200);
 
@@ -230,7 +233,7 @@ export default (params) => ({
     },
 
     get totalPrice() {
-        return (this.order.price || 0) - this.discountAmount;// + (this.order.commission || 0);
+        return (this.order.price || 0) - this.discountAmount + (this.order.accomm_price || 0) - (this.order.commission || 0);
     },
     get agency() {
         return this.order.agency_data || {
@@ -294,6 +297,16 @@ export default (params) => ({
     get childrenOlderFree() {
         return !!this.childrenDiscounts.find(d => (d.category === 'children_older' || d.category === 'children') && d.type === 1 && d.price === 100);
     },
+    get totalPlaces() {
+        let total = this.order.places || 0;
+        if (this.order.children) {
+            total += this.order.children_young || 0;
+        }
+        if (this.order.children) {
+            total += this.order.children_older || 0;
+        }
+        return total;
+    },
     get totalPayedPlaces() {
         let total = this.order.places || 0;
         if (this.order.children && !this.childrenYoungFree) {
@@ -314,6 +327,10 @@ export default (params) => ({
     get placeCommission() {
         return this.selectedSchedule ? this.selectedSchedule.commission : (this.tour ? this.tour.commission : 0);
     },
+    get accommPrice() {
+
+        return this.selectedSchedule ? this.selectedSchedule.accomm_price : (this.tour ? this.tour.accomm_price : 0);
+    },
     calcSum() {
         if (this.totalPayedPlaces === 0) {
             toast.warning('Введіть кількість учасників');
@@ -321,7 +338,13 @@ export default (params) => ({
         if (this.placePrice === 0) {
             toast.warning('Оберіть дату виїзду');
         }
+        this.order.accomm_price = ((this.order.places || 0) * this.accommPrice) || 0;
         this.order.price = (this.totalPayedPlaces * this.placePrice) || 0;
-        this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
+        if (this.order.is_tour_agent) {
+            this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
+        } else {
+            this.order.commission = 0;
+        }
+
     }
 });

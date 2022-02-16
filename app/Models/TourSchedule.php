@@ -39,6 +39,7 @@ class TourSchedule extends Model
         'places',
         'price',
         'commission',
+        'accomm_price',
         'currency',
         'published',
         'comment',
@@ -57,6 +58,7 @@ class TourSchedule extends Model
         'auto_booking' => 'boolean',
         'price' => 'integer',
         'commission' => 'integer',
+        'accomm_price' => 'integer',
         'start_date' => 'date:d.m.Y',
         'end_date' => 'date:d.m.Y',
     ];

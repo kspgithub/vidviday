@@ -19,23 +19,27 @@
                 <template x-for="(participant, idx) in participants">
                     <tr>
                         <td>
-                            <span x-text="participant.last_name"></span>
-                            <input type="hidden" :name="`participants[items][${idx}][last_name]`"
+                            <input type="text" :name="`participants[items][${idx}][last_name]`"
+                                   class="form-control form-control-sm"
+                                   x-model="participant.last_name"
                                    x-bind:value="participant.last_name">
                         </td>
                         <td>
-                            <span x-text="participant.first_name"></span>
-                            <input type="hidden" :name="`participants[items][${idx}][first_name]`"
+                            <input type="text" :name="`participants[items][${idx}][first_name]`"
+                                   class="form-control form-control-sm"
+                                   x-model="participant.first_name"
                                    x-bind:value="participant.first_name">
                         </td>
                         <td>
-                            <span x-text="participant.middle_name"></span>
-                            <input type="hidden" :name="`participants[items][${idx}][middle_name]`"
+                            <input type="text" :name="`participants[items][${idx}][middle_name]`"
+                                   class="form-control form-control-sm"
+                                   x-model="participant.middle_name"
                                    x-bind:value="participant.middle_name">
                         </td>
                         <td>
-                            <span x-text="participant.birthday"></span>
-                            <input type="hidden" :name="`participants[items][${idx}][birthday]`"
+                            <input type="date" :name="`participants[items][${idx}][birthday]`"
+                                   class="form-control form-control-sm"
+                                   x-model="participant.birthday"
                                    x-bind:value="participant.birthday">
                         </td>
                         <td>
@@ -60,14 +64,10 @@
                                placeholder="По батькові">
                     </td>
                     <td class="border-0 pt-4">
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
-                            <input class="form-control form-control-sm"
-                                   x-ref="pickerInput"
-                                   x-model="participantData.birthday"
-                                   autocomplete="off"
-                            />
-                        </div>
+                        <input class="form-control form-control-sm" type="date"
+                               x-model="participantData.birthday"
+                               autocomplete="off"
+                        />
 
                     </td>
                     <td class="border-0 pt-4">

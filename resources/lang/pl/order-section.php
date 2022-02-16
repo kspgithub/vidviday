@@ -110,6 +110,7 @@ return [
         'children-discount' => 'Знижка за дітей',
         'commission' => 'Комісія турагенту',
         'commission-tooltip' => 'Комісія турагенту',
+        'accomm-tooltip' => 'з однієї особи',
     ],
     'details' => [
         'departure-date' => 'Дата виїзду',

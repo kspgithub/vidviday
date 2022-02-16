@@ -16,6 +16,7 @@ const DEFAULT_SCHEDULE = {
     places: 40,
     price: null,
     commission: null,
+    accomm_price: null,
     curren: 'UAH',
     comment: '',
     auto_booking: false,
@@ -91,7 +92,7 @@ export default (props) => ({
     saveSchedule() {
         const params = {...this.scheduleData};
         if (params.id > 0) {
-            this.updateSchedule(params);
+            this.updateSchedule({id: params.id}, params);
         } else {
             this.createSchedule(params);
         }
@@ -114,6 +115,7 @@ export default (props) => ({
             onSuccess: (response) => {
                 toast.success(response.message);
                 this.scheduleModal.hide();
+                this.loadItems();
             }
         });
     },

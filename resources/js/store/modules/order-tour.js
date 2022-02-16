@@ -115,6 +115,8 @@ export default {
         tourDays: (state) => state.tour ? state.tour.duration : 0,
         // Стоимость места в выбранном туре
         tourPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.price : (state.tour ? state.tour.price : 0),
+
+        accommodationPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.accomm_price : (state.tour ? state.tour.accomm_price : 0),
         // Скидки на детей
         childrenDiscounts: (state) => state.discounts.filter(d => d.category.includes('children')),
         // Дети до 6 бесплатно?
@@ -143,6 +145,7 @@ export default {
             if (state.formData.children && state.formData.children_older > 0 && !getters.childrenOlderFree) {
                 const discount = getters.childrenDiscounts.find(d => d.category === 'children_older') ||
                     getters.childrenDiscounts.find(d => d.category === 'children');
+
                 if (discount) {
                     total = calcChildDiscount(getters.tourPrice, state.formData.children_older, getters.tourDays, discount);
                 }
@@ -170,8 +173,9 @@ export default {
             return total;
         },
         // Стоимость тура без скидок
+        // Стоимость тура без скидок
         tourTotalPrice: (state, getters) => {
-            return getters.totalPayedPlaces * getters.tourPrice;
+            return getters.totalPlaces * getters.tourPrice;
         },
         // Скидки на детей
         totalChildrenDiscount: (state, getters) => {
@@ -192,6 +196,11 @@ export default {
             }
             return 0;
         },
+        // Доплата за размещение
+        totalAccommodation: (state, getters, rootState, rootGetters) => {
+            const price = getters.accommodationPrice;
+            return price * (state.formData.places || 0);
+        },
         // Общая стоимость со скидками
         totalTour: (state, getters) => {
             const price = getters.tourPrice;
@@ -201,7 +210,7 @@ export default {
         },
         // Общая стоимость со скидками и комиссией
         totalPrice: (state, getters) => {
-            return getters.totalTour - getters.totalCommission;
+            return getters.totalTour - getters.totalCommission + getters.totalAccommodation;
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
         participants: (state) => state.formData.participants,

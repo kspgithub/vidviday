@@ -83,6 +83,7 @@ trait TourScheduleMethod
             'title' => $this->title,
             'places' => $this->places,
             'price' => $this->price,
+            'accomm_price' => $this->accomm_price,
             'commission' => $this->commission,
             'currency' => $this->currency,
             'published' => $this->published,

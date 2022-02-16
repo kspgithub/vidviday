@@ -23,6 +23,7 @@
                         <th>{!!alpineSortLink('places', 'Ліміт місць')!!}</th>
                         <th>{!!alpineSortLink('price', 'Ціна')!!}</th>
                         <th>{!!alpineSortLink('commission', 'Комісія')!!}</th>
+                        <th>{!!alpineSortLink('accomm_price', 'Допл. за пос.')!!}</th>
                         <th>{!!alpineSortLink('currency', 'Валюта')!!}</th>
                         <th>{!!alpineSortLink('published', 'Опубліковано')!!}</th>
                         <th>{!!alpineSortLink('auto_booking', 'Автобронь')!!}</th>
@@ -37,8 +38,9 @@
                             <td><span x-text="item.start_date"></span></td>
                             <td><span x-text="item.end_date"></span></td>
                             <td><span x-text="item.places"></span></td>
-                            <td><span x-text="item.price"></span></td>
-                            <td><span x-text="item.commission"></span></td>
+                            <td class="text-right"><span x-text="item.price"></span></td>
+                            <td class="text-right"><span x-text="item.commission"></span></td>
+                            <td class="text-right"><span x-text="item.accomm_price"></span></td>
                             <td><span x-text="item.currency"></span></td>
                             <td>
                                 <div class="form-check form-switch">

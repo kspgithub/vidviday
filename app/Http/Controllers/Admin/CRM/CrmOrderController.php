@@ -106,12 +106,12 @@ class CrmOrderController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $order->tour;
         $schedules = $tour->scheduleItems()->get()->map->shortInfo();
-        $schedule = $order->schedule;
-        $audits = $order->audits()->with('user')->latest()->paginate(10);
-
+        $schedule = (object)$order->schedule->asCrmSchedule();
+        $audits = [];
+        $discounts = $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
         return view('admin.crm.order.show', [
             'tour' => $tour->shortInfo(),
-            'discounts' => $tour->discounts ?? [],
+            'discounts' => $discounts,
             'schedule' => $schedule,
             'order' => $order,
             'statuses' => $statuses,
@@ -142,6 +142,7 @@ class CrmOrderController extends Controller
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
         $roomTypes = AccommodationType::toSelectBox();
 
+        $order->makeHidden(['tour', 'schedule']);
         return view('admin.crm.order.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,

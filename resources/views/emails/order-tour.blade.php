@@ -130,6 +130,17 @@
                     </td>
                 </tr>
             @endif
+            @if($order->accomm_price > 0)
+                <tr>
+                    <td style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9;">
+                        Доплата за проживання
+                    </td>
+
+                    <td style="font-family: 'Roboto', sans-serif; font-weight: 700; border-bottom: 1px solid #E9E9E9;">
+                        {{number_format($order->accomm_price)}}  {{currency_title($order->currency)}}
+                    </td>
+                </tr>
+            @endif
             @if($order->is_tour_agent && $order->commission > 0)
                 <tr>
                     <td style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9;">

@@ -256,7 +256,7 @@ if (!function_exists('arrayToSelectBox')) {
     {
         $result = [];
         foreach ($array as $value => $text) {
-            $result[] = ['value' => $value, 'text' => $text];
+            $result[] = ['value' => $value, 'text' => json_prepare($text)];
         }
         return $result;
     }

@@ -2,7 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">{{ __('tour-section.order-one-click') }}</span>
+                <span class="h2 title text-medium">{{ __('tours-section.order-one-click') }}</span>
             </div>
             <div class="spacer-xs"></div>
             <form :action="action" method="POST" class="row">

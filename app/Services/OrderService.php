@@ -54,6 +54,7 @@ class OrderService extends BaseService
 
 
             $tour_price = $schedule ? $schedule->price : $tour->price;
+
             $tour_commission = $schedule ? $schedule->commission : $tour->commission;
             $tour_currency = $schedule ? $schedule->currency : $tour->currency;
             $places = (int)$order_params['places'];
@@ -66,8 +67,12 @@ class OrderService extends BaseService
             $total_discount = 0;
             $children_discount = 0;
 
+            $accomm_price = $schedule ? $schedule->accomm_price : $tour->accomm_price;
+            $total_accomm = $accomm_price * (int)$order_params['places'];
+
             if ($schedule) {
                 $order_params['start_date'] = $schedule->start_date->format('d.m.Y');
+                $order_params['end_date'] = $schedule->end_date->format('d.m.Y');
             }
 
 
@@ -146,6 +151,7 @@ class OrderService extends BaseService
             $order_params['discount'] = $total_discount;
             $order_params['discounts'] = $order_discounts;
             $order_params['currency'] = $tour_currency;
+            $order_params['accomm_price'] = $total_accomm;
 
             $schedule = $schedule->availableForBooking($total_places);
 

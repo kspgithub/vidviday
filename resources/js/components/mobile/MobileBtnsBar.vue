@@ -4,7 +4,7 @@
             <div class="col-md-4 col-12 only-pad">
                 <span class="btn type-4 arrow-right text-left flex">
                     <img alt="placeholder light" src="/icon/placeholder-light.svg">
-                    {{ __('tour-section.order-tour') }}
+                    {{ __('tours-section.order-tour') }}
                 </span>
             </div>
 

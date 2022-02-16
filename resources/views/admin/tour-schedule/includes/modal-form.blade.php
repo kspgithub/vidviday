@@ -21,13 +21,17 @@
                                             required x-ref="endDateRef"
                                             autocomplete="off"
                                             label-col="col-md-4" input-col="col-md-8"/>
-                        <x-forms.text-group label="Вартість" x-model="scheduleData.price" name="price"
+                        <x-forms.text-group label="Вартість" x-model.number="scheduleData.price" name="price"
                                             required
                                             label-col="col-md-4" input-col="col-md-8"/>
 
-                        <x-forms.text-group label="Комісія" x-model="scheduleData.commission" name="commission"
+                        <x-forms.text-group label="Комісія" x-model.number="scheduleData.commission" name="commission"
                                             required
                                             label-col="col-md-4" input-col="col-md-8"/>
+
+                        <x-forms.text-group label="Допл. за поселення" x-model.number="scheduleData.accomm_price"
+                                            name="accomm_price"
+                                            required label-col="col-md-4" input-col="col-md-8"/>
 
                         <x-forms.text-group label="Ліміт місць" x-model="scheduleData.places" name="places"
                                             required

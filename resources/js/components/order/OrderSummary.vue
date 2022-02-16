@@ -12,6 +12,13 @@
                 {{ __('order-section.currency.uah') }}
             </span>
         </div>
+        <hr v-if="totalAccommodation > 0">
+        <div v-if="totalAccommodation > 0">
+            <span class="text">{{ __('tours-section.accomm-price') }}</span>
+            <span class="text-md">
+                <b>{{ format(totalAccommodation) }}</b> {{ __('order-section.currency.uah') }}
+            </span>
+        </div>
         <hr v-if="totalCommission > 0 && isTourAgent">
         <div v-if="totalCommission > 0 && isTourAgent">
             <span class="text">{{ __('order-section.summary.commission') }}</span>
@@ -63,6 +70,7 @@ export default {
         const tourPrice = computed(() => store.getters["orderTour/tourTotalPrice"]);
         const totalChildrenDiscount = computed(() => store.getters["orderTour/totalChildrenDiscount"]);
         const totalCommission = computed(() => store.getters["orderTour/totalCommission"]);
+        const totalAccommodation = computed(() => store.getters['orderTour/totalAccommodation']);
         const totalPrice = computed(() => store.getters["orderTour/totalPrice"]);
 
         const format = (val) => toAmount(val);
@@ -73,6 +81,7 @@ export default {
             tourPrice,
             totalChildrenDiscount,
             totalCommission,
+            totalAccommodation,
             totalPrice,
             isTourAgent,
         }

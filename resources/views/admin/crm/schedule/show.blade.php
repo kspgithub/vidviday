@@ -37,6 +37,7 @@
                             <th>Дата проведення</th>
                             <th>Вартість</th>
                             <th>Комісія</th>
+                            <th>Допл. за поселення</th>
                             <th>Знижка</th>
                             <th>Ліміт</th>
                             <th>Авто</th>
@@ -57,8 +58,9 @@
                                     <i class="fa fa-pen-alt"></i>
                                 </a>
                             </td>
-                            <td x-text="schedule.price + ' ' + schedule.currency"></td>
-                            <td x-text="schedule.commission + ' ' + schedule.currency"></td>
+                            <td class="text-nowrap" x-text="schedule.price + ' ' + schedule.currency"></td>
+                            <td class="text-nowrap" x-text="schedule.commission + ' ' + schedule.currency"></td>
+                            <td class="text-nowrap" x-text="schedule.accomm_price + ' ' + schedule.currency"></td>
                             <td>{!! $tour->discount_title !!}</td>
                             <td>
                                 <input type="text" x-model.debounce.500ms="schedule.places"

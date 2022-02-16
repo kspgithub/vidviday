@@ -118,6 +118,19 @@
                                     </div>
                                     <hr>
                                 @endif
+                                @if($order->accomm_price > 0)
+                                    <div class="row">
+                                        <div class="col-sm-6 col-12">
+                                            <span class="text">Доплата за проживання</span>
+                                        </div>
+
+                                        <div class="col-sm-6 col-12">
+                                            <span
+                                                class="text"><b>{{number_format($order->accomm_price)}}  {{currency_title($order->currency)}}</b></span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @endif
                                 @if($order->is_tour_agent && $order->commission > 0)
                                     <div class="row">
                                         <div class="col-sm-6 col-12">

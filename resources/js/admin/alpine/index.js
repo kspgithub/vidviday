@@ -31,13 +31,11 @@ import crmCorporateBasic from './crm/order/crm-corporate-basic';
 import user from './crm/user';
 import storeEmail from './stores/store-email';
 import storeUser from './stores/store-user';
-import storeOrders from './stores/store-orders';
 
 document.addEventListener('alpine:init', () => {
 
     Alpine.store('crmEmail', storeEmail);
     Alpine.store('crmUser', storeUser);
-    Alpine.store('orders', storeOrders);
 
     Alpine.data('translatable', translatable);
     Alpine.data('translations', translations);
