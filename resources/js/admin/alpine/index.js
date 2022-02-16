@@ -12,6 +12,7 @@ import menuList from './menu/menu-list';
 import menuItem from './menu/menu-item';
 import crmClients from './crm/client/crm-clients';
 import crmClient from './crm/client/crm-client';
+import crmClientOrders from './crm/client/crm-client-orders';
 import crmSchedules from './crm/schedule/crm-schedules';
 import crmScheduleRow from './crm/schedule/crm-schedule-row';
 import crmScheduleItem from './crm/schedule/crm-schedule-item';
@@ -28,13 +29,15 @@ import crmOrderBadge from './crm/order/crm-order-badge';
 import crmOrderAdditional from './crm/order/crm-order-additional';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
 import user from './crm/user';
-import crmEmail from './stores/crm-email';
-import crmUser from './stores/crm-user';
+import storeEmail from './stores/store-email';
+import storeUser from './stores/store-user';
+import storeOrders from './stores/store-orders';
 
 document.addEventListener('alpine:init', () => {
 
-    Alpine.store('crmEmail', crmEmail);
-    Alpine.store('crmUser', crmUser);
+    Alpine.store('crmEmail', storeEmail);
+    Alpine.store('crmUser', storeUser);
+    Alpine.store('orders', storeOrders);
 
     Alpine.data('translatable', translatable);
     Alpine.data('translations', translations);
@@ -49,6 +52,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('tourFinance', tourFinance);
     Alpine.data('crmClients', crmClients);
     Alpine.data('crmClient', crmClient);
+    Alpine.data('crmClientOrders', crmClientOrders);
     Alpine.data('crmSchedules', crmSchedules);
     Alpine.data('crmScheduleRow', crmScheduleRow);
     Alpine.data('crmScheduleItem', crmScheduleItem);

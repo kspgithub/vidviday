@@ -51,6 +51,7 @@
                             </th>
                             <th>Телефон</th>
                             <th>Email</th>
+                            <th>Замовлення</th>
                             <th style="width: 100px">Дії</th>
                         </tr>
                         </thead>
@@ -70,6 +71,11 @@
                                 </td>
                                 <td>
                                     <span x-html="clientEmails"></span>
+                                </td>
+                                <td>
+                                    <a :href="`/admin/crm/clients/${client.id}/orders`" target="_blank">
+                                        <span class="badge bg-info" x-text="client.orders_count"></span>
+                                    </a>
                                 </td>
                                 <td>
                                     <a x-on:click.prevent="$dispatch('edit-client', client)" href="#"

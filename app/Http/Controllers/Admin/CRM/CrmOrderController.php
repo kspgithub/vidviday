@@ -24,7 +24,7 @@ class CrmOrderController extends Controller
                 ->filter($request)
                 ->with(['tour', 'tour.manager', 'schedule']);
 
-            $paginator = $orderQ->paginate(20);
+            $paginator = $orderQ->paginate($request->input('per_page', 20));
             $paginator->getCollection()->transform(function ($val) {
                 $val->makeVisible([
                     'duty_comment',

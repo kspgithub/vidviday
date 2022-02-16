@@ -10,7 +10,7 @@ export default (options) => ({
     edit: false,
     loader: false,
     search: options.params.q || '',
-    order: options.params.order || 'bitrix_id:asc',
+    sort: options.params.order || 'bitrix_id:asc',
     current_page: parseInt(options.params.page) || 1,
     selectedClient: null,
     init() {
@@ -28,7 +28,7 @@ export default (options) => ({
         this.loader = true;
         const params = {
             q: this.search,
-            order: this.order,
+            order: this.sort,
             page: this.current_page,
         };
 
@@ -42,8 +42,6 @@ export default (options) => ({
             params: params
         })
             .then(({data: response}) => {
-
-                console.log(response);
                 this.clients = response.data;
                 this.links = response.links;
                 this.loader = false;

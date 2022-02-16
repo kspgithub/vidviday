@@ -53,10 +53,7 @@ export default (options) => ({
         this.loadItems();
     },
     loadItems(updateUrl = true) {
-        if (cancelTokenSource) {
-            cancelTokenSource.cancel();
-        }
-        cancelTokenSource = axios.CancelToken.source();
+
         this.loading = true;
 
         loadItems({
