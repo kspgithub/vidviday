@@ -35,8 +35,10 @@
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $tour->price)" type="number"
                             required></x-forms.text-group>
         <x-forms.text-group name="commission" :label="__('Commission')"
-                            :value="old('commission', $tour->commission)" type="number"
-        ></x-forms.text-group>
+                            :value="old('commission', $tour->commission)" type="number"/>
+        <x-forms.text-group name="accomm_price" label="Доп. за поселення"
+                            :value="old('accomm_price', $tour->accomm_price)" type="number"/>
+        
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
         <x-forms.single-image-upload name="main_image"

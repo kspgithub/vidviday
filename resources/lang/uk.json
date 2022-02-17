@@ -530,5 +530,10 @@
     "tour subjects": "тема тура",
     "tour type": "тип тура",
     "translation": "Переклади",
+    "Tour manager": "Менеджер туру",
+    "Duty manager": "Черговий менеджер",
+    "Tourist": "Турист",
+    "Tour agent": "Турагент",
+    "Admin": "Адміністратор",
     "user": "користувач"
 }

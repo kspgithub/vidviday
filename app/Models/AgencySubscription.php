@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgencySubscription extends Model
 {
-    use HasFactory;
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;

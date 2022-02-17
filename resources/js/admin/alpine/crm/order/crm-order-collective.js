@@ -12,7 +12,7 @@ const DEFAULT_DISCOUNT = {
 
 export default (params) => ({
     order: params.order,
-    tour: params.order.tour ?? null,
+    tour: params.tour ?? null,
     formChanged: false,
     roomTypes: params.roomTypes || [],
     statuses: params.statuses,
@@ -25,6 +25,7 @@ export default (params) => ({
     },
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
+    tourDiscounts: params.availableDiscounts || [],
     init() {
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
@@ -54,15 +55,19 @@ export default (params) => ({
             jQuery(tourSelectBox).on('select2:select', (e) => {
                 this.order.tour_id = e.params.data.id;
                 this.tour = e.params.data;
+                this.tourDiscounts = e.params.data.discounts || [];
                 this.order.schedule_id = null;
                 this.loadSchedules();
             })
 
-            flatpickr(this.$refs.pickerInput, {
-                locale: Ukrainian,
-                allowInput: true,
-                dateFormat: 'd.m.Y'
-            });
+            if (this.$refs.pickerInput) {
+                flatpickr(this.$refs.pickerInput, {
+                    locale: Ukrainian,
+                    allowInput: true,
+                    dateFormat: 'd.m.Y'
+                });
+            }
+
 
         }, 200);
 
@@ -88,8 +93,25 @@ export default (params) => ({
                 this.schedules = response.data;
             });
     },
+
+    // PARTICIPANTS
+    get isCustomerParticipant() {
+        return this.order.participants && !!this.order.participants.customer;
+    },
+    set isCustomerParticipant(value) {
+        if (!this.order.participants) {
+            this.order.participants = {
+                items: [],
+                participant_phone: '',
+                customer: value,
+            }
+        } else {
+            this.order.participants.customer = value;
+        }
+    },
+
     get participantPhone() {
-        return this.order.participants ? this.order.participants.participant_phone : '';
+        return this.order.participants && this.order.participants.participant_phone ? this.order.participants.participant_phone : '';
     },
     set participantPhone(value) {
         this.formChanged = true;
@@ -97,6 +119,7 @@ export default (params) => ({
             this.order.participants = {
                 items: [],
                 participant_phone: '',
+                customer: false,
             }
         }
         this.order.participants.participant_phone = value;
@@ -110,6 +133,7 @@ export default (params) => ({
             this.order.participants = {
                 items: [],
                 participant_phone: '',
+                customer: false,
             }
         }
         this.order.participants.items = value;
@@ -138,6 +162,10 @@ export default (params) => ({
         });
 
     },
+
+
+    // DISCOUNTS
+
     get discounts() {
         return this.order.discounts || [];
     },
@@ -229,9 +257,7 @@ export default (params) => ({
         })
     },
 
-    get totalPrice() {
-        return (this.order.price || 0) - this.discountAmount;// + (this.order.commission || 0);
-    },
+
     get agency() {
         return this.order.agency_data || {
             title: '',
@@ -279,10 +305,6 @@ export default (params) => ({
         this.formChanged = false;
     },
 
-
-    get tourDiscounts() {
-        return this.tour?.discounts || [];
-    },
     get childrenDiscounts() {
         return this.tourDiscounts.filter(d => d.category.includes('children'))
     },
@@ -294,9 +316,21 @@ export default (params) => ({
     get childrenOlderFree() {
         return !!this.childrenDiscounts.find(d => (d.category === 'children_older' || d.category === 'children') && d.type === 1 && d.price === 100);
     },
+
+
+    get totalPlaces() {
+        let total = this.order.places || 0;
+        if (this.order.children && !this.order.without_place) {
+            total += this.order.children_young || 0;
+        }
+        if (this.order.children) {
+            total += this.order.children_older || 0;
+        }
+        return total;
+    },
     get totalPayedPlaces() {
         let total = this.order.places || 0;
-        if (this.order.children && !this.childrenYoungFree) {
+        if (this.order.children && !this.order.without_place && !this.childrenYoungFree) {
             total += this.order.children_young || 0;
         }
         if (this.order.children && !this.childrenOlderFree) {
@@ -314,6 +348,14 @@ export default (params) => ({
     get placeCommission() {
         return this.selectedSchedule ? this.selectedSchedule.commission : (this.tour ? this.tour.commission : 0);
     },
+    get accommPrice() {
+
+        return this.selectedSchedule ? this.selectedSchedule.accomm_price : (this.tour ? this.tour.accomm_price : 0);
+    },
+
+    get totalPrice() {
+        return (this.order.price || 0) - this.discountAmount + (this.order.accomm_price || 0) - (this.order.commission || 0);
+    },
     calcSum() {
         if (this.totalPayedPlaces === 0) {
             toast.warning('Введіть кількість учасників');
@@ -321,7 +363,13 @@ export default (params) => ({
         if (this.placePrice === 0) {
             toast.warning('Оберіть дату виїзду');
         }
+        this.order.accomm_price = ((this.order.places || 0) * this.accommPrice) || 0;
         this.order.price = (this.totalPayedPlaces * this.placePrice) || 0;
-        this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
+        if (this.order.is_tour_agent) {
+            this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
+        } else {
+            this.order.commission = 0;
+        }
+
     }
 });

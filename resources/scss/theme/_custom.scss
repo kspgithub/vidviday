@@ -6817,6 +6817,15 @@ a.fc-more {
     vertical-align: middle;
 }
 
+.tooltip-wrap.red,
+.tooltip-wrap.black {
+    .text {
+        span {
+            color: #fff;
+        }
+    }
+}
+
 .tooltip-wrap.red .tooltip,
 .tooltip-wrap.black .tooltip,
 .tooltip-wrap.light .tooltip {

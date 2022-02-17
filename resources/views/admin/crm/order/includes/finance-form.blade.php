@@ -3,8 +3,9 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="fw-bold">Фінансова інформація</h3>
             <div>
-                <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="calcSum()">Розрахувати суму
-                    замовлення</a>
+                <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="calcSum()">
+                    Розрахувати суму замовлення
+                </a>
             </div>
         </div>
         <x-forms.select-group label="Валюта" name="currency" x-model="order.currency" :options="$currencies"/>
@@ -14,6 +15,8 @@
 
 
         <x-forms.text-group label="Комісія агента" name="commission" x-model.number="order.commission" required/>
+        <x-forms.text-group label="Допл. за поселення" name="accomm_price" x-model.number="order.accomm_price"
+                            required/>
         <x-forms.text-group label="Сума знижки" name="discount" x-model.number="discountAmount" readonly/>
         <div class="row mb-3">
             <div class="col-md-2">Знижки</div>

@@ -46,13 +46,32 @@ export default (props) => ({
         })
     },
     cancelCom() {
-        this.editSumMode = false;
+        this.editComMode = false;
         this.orderPrice = this.order.price;
     },
 
+    // ACCOMMODATION
+    orderAccomm: props.order.accomm_price || 0,
+    editAccommMode: false,
+    editAccomm() {
+        this.orderAccomm = this.order.accomm_price;
+        this.editAccommMode = true;
+    },
+    saveAccomm() {
+        this.editAccommMode = false;
+        this.updateOrder({
+            accomm_price: this.orderAccomm || 0,
+        })
+    },
+    cancelAccomm() {
+        this.editAccommMode = false;
+        this.orderAccomm = this.order.accomm_price;
+    },
+
+
+    // DISCOUNTS
     tourDiscounts: props.discounts || [],
     discounts: props.order.discounts || [],
-    // DISCOUNTS
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     get discountModal() {
@@ -212,7 +231,7 @@ export default (props) => ({
 
     // COMMON
     get totalPrice() {
-        return this.orderPrice + this.orderCommission - this.totalDiscount;
+        return this.orderPrice - this.orderCommission - this.totalDiscount + this.orderAccomm;
     },
     get pickUpPayment() {
         return this.totalPrice - this.totalPayed;
@@ -227,6 +246,7 @@ export default (props) => ({
                 this.discounts = response.model.discounts || [];
                 this.orderPrice = response.model.price || 0;
                 this.orderCommission = response.model.commission || 0;
+                this.orderAccomm = response.model.accomm_price || 0;
                 toast.success(response.message);
             })
             .catch(error => {

@@ -52,6 +52,38 @@ discounts: @json($discounts),
                 </td>
             </tr>
             <tr>
+                <th style="width: 300px">Доплата за проживання</th>
+                <td>
+                    <template x-if="!editAccommMode">
+                        <div>
+
+                            <b x-text="orderAccomm"></b>
+                            <b x-text="order.currency"></b>
+                            <a href="#" class="ms-3 text-success" @click.prevent="editAccomm()">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                        </div>
+                    </template>
+                    <template x-if="editAccommMode">
+                        <form @submit.prevent="saveAccomm()">
+                            <div class="d-flex align-items-center">
+                                <input type="number" id="orderCommission" x-model.number="orderAccomm"
+                                       class="form-control form-control-sm me-3" required>
+                                <button type="submit" class="btn btn-sm btn-outline-success me-3">
+                                    <i class="fa fa-save"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary me-3"
+                                        @click.prevent="cancelAccomm()">
+                                    <i class="far fa-times-circle"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                    </template>
+
+                </td>
+            </tr>
+            <tr>
                 <th style="width: 300px">Турагентська комісія</th>
                 <td>
                     <template x-if="!editComMode">

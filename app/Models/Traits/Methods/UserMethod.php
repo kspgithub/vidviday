@@ -24,6 +24,22 @@ trait UserMethod
         return $this->hasRole('tour-agent');
     }
 
+    public function isManager(): bool
+    {
+        return $this->hasRole('manager');
+    }
+
+    public function isTourManager(): bool
+    {
+        return $this->hasRole('tour-manager');
+    }
+
+    public function isDutyManager(): bool
+    {
+        return $this->hasRole('duty-manager');
+    }
+
+
     /**
      * @return bool
      */
@@ -68,6 +84,22 @@ trait UserMethod
             'mobile_phone' => $this->mobile_phone,
             'company' => $this->company,
             'role' => $this->role,
+            'avatar_url' => $this->avatar_url,
+        ];
+    }
+
+    public function asCrmUser()
+    {
+        return (object)[
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'name' => $this->name,
+            'email' => $this->email,
+            'mobile_phone' => json_prepare($this->mobile_phone),
+            'company' => json_prepare($this->company),
+            'role' => $this->role,
+            'roles' => $this->roles->pluck('name')->toArray(),
             'avatar_url' => $this->avatar_url,
         ];
     }

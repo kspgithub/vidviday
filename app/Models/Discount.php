@@ -165,13 +165,9 @@ class Discount extends TranslatableModel
 
     public function asAlpineData()
     {
-        return [
-            'id' => $this->id,
-            'type' => $this->type,
-            'price' => $this->price,
-            'currency' => $this->currency,
-            'title' => json_prepare($this->title),
-            'admin_title' => json_prepare($this->admin_title),
-        ];
+        $data = $this->toArray();
+        $data['title'] = json_prepare($this->title);
+        $data['admin_title'] = json_prepare($this->admin_title);
+        return $data;
     }
 }

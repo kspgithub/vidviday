@@ -6,6 +6,11 @@
                 {{ currencyCommission }} {{ currencyTitle }}
                 <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
+            <span class="discount" v-if="accommPrice > 0">
+                {{ currencyAccomm }} {{ currencyTitle }}
+                <tooltip variant="red">{{ __('tours-section.accomm-price') }}</tooltip>
+
+            </span>
         </div>
 
         <div class="only-desktop hidden-print">
@@ -23,7 +28,7 @@
                 <input name="schedule" :value="schedule_id" type="hidden">
                 <div class="datepicker-input datepicker-dropdown">
                      <span class="datepicker-placeholder" @click.stop="showCalendar()">
-                        {{ selectedSchedule ? selectedSchedule.title : __('tour-section.date-title') }}
+                        {{ selectedSchedule ? selectedSchedule.title : __('tours-section.date-title') }}
                     </span>
                 </div>
 
@@ -87,12 +92,12 @@ export default {
         }
 
         const price = computed(() => selectedSchedule.value ? selectedSchedule.value.price : props.tour.price);
+        const accommPrice = computed(() => selectedSchedule.value ? selectedSchedule.value.accomm_price : props.tour.accomm_price);
         const commission = computed(() => selectedSchedule.value ? selectedSchedule.value.commission : props.tour.commission);
         const places = computed(() => selectedSchedule.value ? selectedSchedule.value.places : 0);
 
         const action = computed(() => {
-            let url = `/tour/${props.tour.id}/order`
-            return url;
+            return `/tour/${props.tour.id}/order`;
         })
 
         const showPopup = () => {
@@ -107,10 +112,17 @@ export default {
         const currencyTitle = computed(() => store.getters['currency/title']);
         const currencyRate = computed(() => store.getters['currency/rate']);
         const currencyPrice = computed(() => {
-            return (price.value / currencyRate.value).toFixed(0);
+            let sum = ((price.value || 0) / currencyRate.value);
+            sum += ((accommPrice.value || 0) / currencyRate.value);
+
+            return (sum).toFixed(0);
         })
         const currencyCommission = computed(() => {
             return (commission.value / currencyRate.value).toFixed(0);
+        })
+
+        const currencyAccomm = computed(() => {
+            return (accommPrice.value / currencyRate.value).toFixed(0);
         })
 
         return {
@@ -121,6 +133,8 @@ export default {
             departureOptions,
             selectedSchedule,
             price,
+            accommPrice,
+            currencyAccomm,
             isTourAgent,
             commission,
             places,

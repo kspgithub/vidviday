@@ -43,25 +43,25 @@ class AuthSeeder extends Seeder
         $adminRole = Role::create([
             'id' => 1,
             'name' => 'admin',
-            'guard_name'=> 'web',
+            'guard_name' => 'web',
         ]);
 
         Role::create([
             'id' => 2,
             'name' => 'manager',
-            'guard_name'=> 'web',
+            'guard_name' => 'web',
         ]);
 
         Role::create([
             'id' => 3,
             'name' => 'tour-agent',
-            'guard_name'=> 'web',
+            'guard_name' => 'web',
         ]);
 
         Role::create([
             'id' => 4,
             'name' => 'tourist',
-            'guard_name'=> 'web',
+            'guard_name' => 'web',
         ]);
 
         // Create Permissions
@@ -70,15 +70,17 @@ class AuthSeeder extends Seeder
         $adminRole->givePermissionTo(Permission::all());
 
         $masterAdmin = User::create([
-            'id'=>1,
-            'email'=>'admin@vidviday.org.ua',
-            'first_name'=>'Super',
-            'last_name'=>'Admin',
-            'password'=> bcrypt('secret12345'),
+            'id' => 1,
+            'email' => 'admin@vidviday.org.ua',
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
+            'password' => bcrypt('secret12345'),
             'email_verified_at' => now(),
         ]);
 
         $masterAdmin->assignRole('admin');
+
+        $this->call(AdditionalRolesSeeder::class);
 
         $this->enableForeignKeys();
     }

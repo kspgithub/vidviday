@@ -40,15 +40,21 @@ class OrderService extends BaseService
             'is_tour_agent' => $params['is_tour_agent'] ?? 0,
             'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
+            'duty_comment' => '',
         ];
 
 
         // Сборная группа
         if ($order_params['group_type'] === 0) {
+            $total_places = $order_params['places'];
+
             $tour = Tour::find($order_params['tour_id']);
+
             $schedule = TourSchedule::find($order_params['schedule_id']);
 
+
             $tour_price = $schedule ? $schedule->price : $tour->price;
+
             $tour_commission = $schedule ? $schedule->commission : $tour->commission;
             $tour_currency = $schedule ? $schedule->currency : $tour->currency;
             $places = (int)$order_params['places'];
@@ -61,16 +67,24 @@ class OrderService extends BaseService
             $total_discount = 0;
             $children_discount = 0;
 
+            $accomm_price = $schedule ? $schedule->accomm_price : $tour->accomm_price;
+            $total_accomm = $accomm_price * (int)$order_params['places'];
+
             if ($schedule) {
                 $order_params['start_date'] = $schedule->start_date->format('d.m.Y');
+                $order_params['end_date'] = $schedule->end_date->format('d.m.Y');
             }
 
 
             $order_params['children'] = $params['children'] ?? 0;
             if ((int)$order_params['children'] === 1) {
-                $order_params['children_young'] = $params['children_young'] ?? 0;
-                $order_params['children_older'] = $params['children_older'] ?? 0;
-                if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
+                $order_params['children_young'] = (int)$params['children_young'] ?? 0;
+                $order_params['children_older'] = (int)$params['children_older'] ?? 0;
+                $order_params['without_place'] = !empty($params['without_place']) ? (int)$params['without_place'] : 0;
+                $total_places += $order_params['without_place'] === 0 ? $order_params['children_young'] : 0;
+                $total_places += $order_params['children_older'];
+
+                if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree() && $order_params['without_place'] === 0) {
                     $order_price += $tour_price * (int)$params['children_young'];
                     $order_commission += $tour_commission * (int)$params['children_young'];
                     $discount = $tour->discounts()->available()
@@ -98,6 +112,7 @@ class OrderService extends BaseService
 
             if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
+                    'without_place' => !empty($params['without_place']) ? (int)$params['without_place'] : 0,
                     'items' => $params['participants'] ?? [],
                     'participant_phone' => $params['participant_phone'] ?? '',
                 ];
@@ -138,6 +153,21 @@ class OrderService extends BaseService
             $order_params['discount'] = $total_discount;
             $order_params['discounts'] = $order_discounts;
             $order_params['currency'] = $tour_currency;
+            $order_params['accomm_price'] = $total_accomm;
+
+            $schedule = $schedule->availableForBooking($total_places);
+
+            if ($schedule->isAutoBookingAvailable($total_places)) {
+                $order_params['status'] = Order::STATUS_BOOKED;
+                $order_params['auto'] = true;
+            }
+
+            if (($schedule->places_available - $schedule->places_new) < $total_places) {
+                $order_params['status'] = Order::STATUS_RESERVE;
+            }
+
+            $order_params['schedule_id'] = $schedule->id;
+
         }
 
         // Корпоративная группа
@@ -151,6 +181,7 @@ class OrderService extends BaseService
             $order_params['end_place'] = $params['end_place'] ?? null;
             $order_params['price_include'] = $params['price_include'] ?? [];
             $order_params['offer_date'] = $params['offer_date'] ?? null;
+
 
             if ((int)$order_params['program_type'] === 1) {
                 $order_params['tour_plan'] = $params['tour_plan'] ?? '';

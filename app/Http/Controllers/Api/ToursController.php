@@ -59,7 +59,7 @@ class ToursController extends Controller
      */
     public function schedules(SearchEventsRequest $request, Tour $tour)
     {
-        return $tour->scheduleItems()->inFuture()->filter($request->validated())->orderBy('start_date')->get();
+        return $tour->schedulesForBooking($request->validated());
     }
 
 

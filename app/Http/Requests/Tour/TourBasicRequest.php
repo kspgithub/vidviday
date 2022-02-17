@@ -44,6 +44,7 @@ class TourBasicRequest extends FormRequest
             'duration' => ['required', 'integer'],
             'nights' => ['required', 'integer'],
             'price' => ['required', 'integer'],
+            'accomm_price' => ['required', 'integer'],
             'commission' => ['nullable', 'integer'],
             'currency' => ['required', Rule::in(Currency::isoNames())],
             'new' => ['nullable', Rule::in(['1', '0'])],

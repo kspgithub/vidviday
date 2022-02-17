@@ -6,7 +6,8 @@
     <div class="d-flex justify-content-between">
         <h2> @lang('Create User')</h2>
         <div>
-            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')" :text="__('Cancel')" />
+            <x-utils.link class="btn btn-sm btn-outline-secondary" :href="route('admin.user.index')"
+                          :text="__('Cancel')"/>
         </div>
     </div>
 
@@ -18,15 +19,11 @@
 
                     <x-forms.select-group
                         name="role"
-                        :label="__('Role')"
+                        label="Основна роль"
                         :value="old('role')"
                         required
                         x-on:change="role = $event.target.value"
-                        :options="[
-                            ['value'=>'tourist', 'text'=>__('Tourist')],
-                            ['value'=>'tour-agent', 'text'=>__('Tour Agent')],
-                            ['value'=>'admin', 'text'=>__('Administrator')],
-                        ]"
+                        :options="\App\Models\Role::toSelectBox()"
                     ></x-forms.select-group>
 
                     <x-forms.single-image-upload
@@ -48,31 +45,43 @@
                     ></x-forms.text-group>
 
 
+                    <x-forms.text-group name="first_name" :label="__('First Name')" :value="old('first_name')"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="last_name" :label="__('Last Name')" :value="old('last_name')"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="middle_name" :label="__('Middle Name')" :value="old('middle_name')"
+                                        maxlength="100"></x-forms.text-group>
+                    <x-forms.text-group name="mobile_phone" :label="__('Mobile Phone')"
+                                        :value="old('mobile_phone')"></x-forms.text-group>
+                    <x-forms.text-group name="viber" :label="__('Viber')" :value="old('viber')"></x-forms.text-group>
 
-
-                    <x-forms.text-group name="first_name" :label="__('First Name')" :value="old('first_name')" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="last_name" :label="__('Last Name')" :value="old('last_name')" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="middle_name" :label="__('Middle Name')" :value="old('middle_name')" maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="mobile_phone" :label="__('Mobile Phone')" :value="old('mobile_phone')" ></x-forms.text-group>
-                    <x-forms.text-group name="viber" :label="__('Viber')" :value="old('viber')" ></x-forms.text-group>
-
-                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')" :value="old('birthday') " maxlength="100" />
+                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')" :value="old('birthday') "
+                                              maxlength="100"/>
 
                     <template x-if="role === 'tour-agent'">
                         <div class="my-5">
-                            <x-forms.text-group name="company" :label="__('Company')" :value="old('company') ?? $user->company" ></x-forms.text-group>
-                            <x-forms.text-group name="address" :label="__('Address')" :value="old('address') ?? $user->address" ></x-forms.text-group>
-                            <x-forms.text-group name="position" :label="__('Position')" :value="old('position') ?? $user->position" ></x-forms.text-group>
-                            <x-forms.text-group name="website" :label="__('Website')" :value="old('website') ?? $user->website" ></x-forms.text-group>
-                            <x-forms.text-group name="work_phone" :label="__('Work Phone')" :value="old('work_phone') ?? $user->work_phone"></x-forms.text-group>
-                            <x-forms.text-group name="work_email" :label="__('Work Email')" :value="old('work_email') ?? $user->work_email"></x-forms.text-group>
+                            <x-forms.text-group name="company" :label="__('Company')"
+                                                :value="old('company') ?? $user->company"></x-forms.text-group>
+                            <x-forms.text-group name="address" :label="__('Address')"
+                                                :value="old('address') ?? $user->address"></x-forms.text-group>
+                            <x-forms.text-group name="position" :label="__('Position')"
+                                                :value="old('position') ?? $user->position"></x-forms.text-group>
+                            <x-forms.text-group name="website" :label="__('Website')"
+                                                :value="old('website') ?? $user->website"></x-forms.text-group>
+                            <x-forms.text-group name="work_phone" :label="__('Work Phone')"
+                                                :value="old('work_phone') ?? $user->work_phone"></x-forms.text-group>
+                            <x-forms.text-group name="work_email" :label="__('Work Email')"
+                                                :value="old('work_email') ?? $user->work_email"></x-forms.text-group>
                         </div>
 
                     </template>
 
-                    <x-forms.text-group type="password" name="password" :label="__('Password')"  maxlength="100" required autocomplete="new-password"></x-forms.text-group>
+                    <x-forms.text-group type="password" name="password" :label="__('Password')" maxlength="100" required
+                                        autocomplete="new-password"></x-forms.text-group>
 
-                    <x-forms.text-group type="password" name="password_confirmation" :label="__('Password Confirmation')"  maxlength="100" required autocomplete="new-password"></x-forms.text-group>
+                    <x-forms.text-group type="password" name="password_confirmation"
+                                        :label="__('Password Confirmation')" maxlength="100" required
+                                        autocomplete="new-password"></x-forms.text-group>
 
                     <x-forms.select-group
                         name="status"
@@ -87,7 +96,6 @@
                     ></x-forms.select-group>
 
 
-
                     <div x-data="{ emailVerified : false }">
 
                         <x-forms.switch-group
@@ -98,8 +106,6 @@
                             type="checkbox"
                             x-on:change="emailVerified = !emailVerified"
                         ></x-forms.switch-group>
-
-
 
 
                         <div x-show="!emailVerified">

@@ -28,7 +28,7 @@
         >
             @foreach($options as $option)
                 <option
-                    value="{{ $option['value']}}" {{in_array($option['value'], $value, false) ? 'selected' : ''}}>{{ $option['text']}}</option>
+                    value="{{ $option['value']}}" {{in_array($option['value'], $value) ? 'selected' : ''}}>{{ $option['text']}}</option>
             @endforeach
 
         </select>

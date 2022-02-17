@@ -28,8 +28,10 @@ class Order extends TranslatableModel implements Auditable
         parent::boot();
 
         self::created(function ($model) {
+            self::disableAuditing();
             $model->order_number = Str::padLeft($model->id, 5, '0');
             $model->save();
+            self::enableAuditing();
         });
     }
 
@@ -73,15 +75,19 @@ class Order extends TranslatableModel implements Auditable
         'order_number',
         'price',
         'commission',
+        'accomm_price',
         'discount',
         'currency',
         'discounts',
         'children',
         'children_young',
         'children_older',
+        'without_place',
         'tour_title',
         'first_name',
+        'middle_name',
         'last_name',
+        'birthday',
         'company',
         'phone',
         'email',
@@ -109,10 +115,12 @@ class Order extends TranslatableModel implements Auditable
         'payment_tov',
         'payment_office',
         'admin_comment',
+        'duty_comment',
         'is_tour_agent',
         'agency_data',
         'utm_data',
         'payment_data',
+        'auto',
     ];
 
     protected $casts = [
@@ -122,12 +130,14 @@ class Order extends TranslatableModel implements Auditable
         'abolition' => 'array',
         'price_include' => 'array',
         'children' => 'boolean',
+        'without_place' => 'boolean',
         'additional' => 'boolean',
         'children_older' => 'integer',
         'children_young' => 'integer',
         'places' => 'integer',
         'price' => 'integer',
         'commission' => 'integer',
+        'accomm_price' => 'integer',
         'discount' => 'integer',
         'start_date' => 'date:d.m.Y',
         'end_date' => 'date:d.m.Y',
@@ -136,6 +146,7 @@ class Order extends TranslatableModel implements Auditable
         'agency_data' => 'array',
         'utm_data' => 'array',
         'payment_data' => 'array',
+        'auto' => 'boolean',
     ];
 
     protected $appends = [
@@ -147,6 +158,7 @@ class Order extends TranslatableModel implements Auditable
     protected $dates = [
         'start_date',
         'end_date',
+        'birthday',
         'offer_date',
         'created_at',
         'updated_at',

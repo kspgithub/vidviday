@@ -16,7 +16,7 @@ trait UseSelectBox
 
         return self::query()->get($fields)
             ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
-                return [$value_key => $item->{$value_field}, $text_key => $item->{$text_field}];
+                return [$value_key => $item->{$value_field}, $text_key => json_prepare($item->{$text_field})];
             });
     }
 
@@ -35,7 +35,7 @@ trait UseSelectBox
             ->map(function ($item) use ($value_field, $text_field, $price_filed, $currency_filed) {
                 return [
                     'value' => $item->{$value_field},
-                    'text' => "{$item->{$text_field}}({$item->{$price_filed ?? ""}} {$item->{$currency_filed ?? ""}})"
+                    'text' => json_prepare("{$item->{$text_field}}({$item->{$price_filed ?? ""}} {$item->{$currency_filed ?? ""}})")
                 ];
             });
     }
@@ -49,7 +49,7 @@ trait UseSelectBox
     ) {
         $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
         return $query->get($fields)->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
-            return [$value_key => $item->{$value_field}, $text_key => $item->{$text_field}];
+            return [$value_key => $item->{$value_field}, $text_key => json_prepare($item->{$text_field})];
         });
     }
 
@@ -59,7 +59,7 @@ trait UseSelectBox
         $result = [];
         $items = self::query()->get($fields);
         foreach ($items as $item) {
-            $result[$item->{$value_field}] = $item->{$text_field};
+            $result[$item->{$value_field}] = json_prepare($item->{$text_field});
         }
         return $result;
     }
