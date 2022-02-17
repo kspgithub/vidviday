@@ -1,11 +1,13 @@
-import axios from "axios";
-
-let cancelTokenSource = null;
-import * as UrlUtils from '../../../../utils/url';
 import {toast} from "../../../../libs/toast";
 import moment from "moment";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
+import handleError from "../../composables/handle-error";
+import loadItems from "../../composables/load-items";
+import roomTitle from "../../composables/room-title";
+import updateItem from "../../composables/update-item";
+import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
+import {cleanPhoneNumber} from "../../../../utils/string";
 
 const rooms = {
     "1o-plus": 0,
@@ -57,6 +59,7 @@ export default (options) => ({
         phone: '',
         email: '',
     },
+    scheduleData: {...options.schedule},
     init() {
         setTimeout(() => {
             if (this.$refs.pickerInput) {
@@ -66,6 +69,18 @@ export default (options) => ({
                     dateFormat: 'd.m.Y'
                 });
             }
+            flatpickr(this.$refs.startDateRef, {
+                locale: Ukrainian,
+                allowInput: true,
+                dateFormat: 'd.m.Y',
+                plugins: [new rangePlugin({input: this.$refs.endDateRef})],
+                onChange: (selectedDates, dateStr, instance) => {
+                    const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
+                    const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null;
+                    console.log(start_date, end_date);
+                    this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
+                }
+            });
 
 
         }, 500);
@@ -76,36 +91,30 @@ export default (options) => ({
         this.loadOrders();
     },
     loadOrders(updateUrl = true) {
-        if (cancelTokenSource) {
-            cancelTokenSource.cancel();
-        }
-        cancelTokenSource = axios.CancelToken.source();
         this.loader = true;
-        const params = {
-            tab: this.currentTab,
-            order: this.sort,
-        };
 
-        if (updateUrl) {
-            const updateParams = UrlUtils.filterParams(params, {
+        loadItems({
+            url: '',
+            params: {
+                tab: this.currentTab,
+                order: this.sort,
+            },
+            updateUrl: updateUrl,
+            defaultParams: {
                 tab: 'common',
                 order: 'id:asc'
-            });
-            UrlUtils.updateUrl(document.location.pathname, updateParams, false);
-        }
-
-        axios.get('', {
-            cancelToken: cancelTokenSource.token,
-            params: params
-        })
-            .then(({data}) => {
+            },
+            onSuccess: (data) => {
                 this.orders = data.orders;
                 this.countOrders = data.countOrders;
-            })
-            .catch(error => {
-                console.log(error);
                 this.loader = false;
-            })
+            },
+            onError: (error) => {
+                handleError(error);
+                this.loader = false;
+            },
+        });
+
     },
     statusText(value) {
         const status = this.statuses.find(s => s.value === value);
@@ -115,28 +124,73 @@ export default (options) => ({
         return moment(value).format('DD.MM.YYYY')
     },
     roomTitle(key) {
-        key = key.trim().replaceAll('_', '-').replaceAll(' ', '-').replaceAll('р', 'p').replaceAll('о', 'o');
-
-        const room = this.roomTypes.find(r => r.value === key);
-        return room ? room.text : key.replaceAll('-', ' ').replaceAll('_', ' ');
+        return roomTitle(key, this.roomTypes);
     },
     paymentGet(order) {
         return order.total_price - order.payment_fop - order.payment_tov - order.payment_office;
     },
     updateOrder(id, params) {
-        axios.patch(`/admin/order/${id}`, params)
-            .then(({data: response}) => {
+        updateItem({
+            url: `/admin/order/${id}`,
+            params: params,
+            onSuccess: (response) => {
                 if (params.status) {
                     this.loadOrders(false);
                 } else {
                     const idx = this.orders.findIndex(o => o.id === id);
                     this.orders[idx] = response.model;
                 }
-            })
-            .catch(error => {
-                console.log(error);
+            },
+            onError: () => {
                 this.loadOrders(false);
-            })
+            }
+        })
+    },
+    get scheduleModal() {
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editScheduleModal'));
+    },
+    editSchedule() {
+        this.scheduleData = {...this.schedule};
+        this.scheduleModal.show();
+    },
+    cancelSchedule() {
+        this.scheduleModal.hide();
+    },
+    saveSchedule() {
+        const params = {...this.scheduleData};
+        this.updateSchedule(params, (response) => {
+            this.scheduleModal.hide();
+        })
+    },
+    updateSchedule(params = {}, callback = null) {
+        this.loader = true;
+        updateItem({
+            url: `/admin/crm/schedules/${this.schedule.id}`,
+            params: params,
+            onSuccess: (response) => {
+                if (callback) {
+                    callback(response);
+                }
+                this.schedule = response.schedule;
+                toast.success(response.message);
+                this.loader = false;
+            },
+            onError: () => {
+                this.loader = false;
+            }
+        })
+    },
+
+    togglePublished() {
+        this.updateSchedule({
+            published: this.schedule.published
+        }, () => {
+            if (this.schedule.published) {
+                toast.success('Виїзд опубліковано');
+            } else {
+                toast.success('Виїзд скасовано');
+            }
+        })
     },
     setSorting(sorting) {
         this.sort = sorting;
@@ -313,15 +367,7 @@ export default (options) => ({
         this.orders.forEach(o => total += this.paymentGet(o))
         return total;
     },
-    updateScheduleComment() {
-        this.loader = true;
-        axios.patch(`/admin/crm/schedules/${this.schedule.id}`, {admin_comment: this.schedule.admin_comment})
-            .then(({data}) => {
-                this.loader = false;
-            })
-            .catch((err) => {
-
-                this.loader = false;
-            })
+    clearPhone(phone) {
+        return '+' + cleanPhoneNumber(phone);
     }
 })

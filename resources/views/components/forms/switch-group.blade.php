@@ -1,5 +1,6 @@
 @props([
     'name' => '',
+    'id' => null,
     'active' => false,
     'label'=>'',
     'activeValue'=>1,
@@ -23,10 +24,11 @@
                 <input type="hidden" name="{{$name}}" value="{{$inactiveValue}}">
             @endif
             <input
-                {{$active ? 'checked' : ''}} name="{{$name}}" value="{{$activeValue}}" type="checkbox" id="{{$name}}"
+                {{$active ? 'checked' : ''}} name="{{$name}}" value="{{$activeValue}}" type="checkbox"
+                id="{{$id ?? $name}}"
                 {{ $attributes->merge(['class' => 'form-check-input']) }}
             >
-            <label class="form-check-label" for="{{$name}}"></label>
+            <label class="form-check-label" for="{{$id ?? $name}}"></label>
         </div>
         @if(!empty($help))
             <div class="form-text">{{$help}}</div>

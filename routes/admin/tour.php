@@ -43,6 +43,9 @@ Route::group([
 
 
     Route::get('{tour}/schedule', [TourScheduleController::class, 'index'])->name('schedule.index');
+    Route::post('{tour}/schedule', [TourScheduleController::class, 'store'])->name('schedule.store');
+    Route::patch('{tour}/schedule/{schedule}', [TourScheduleController::class, 'update'])->name('schedule.update');
+    Route::delete('{tour}/schedule/{schedule}', [TourScheduleController::class, 'destroy'])->name('schedule.destroy');
 
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
 

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UserQuestion extends Model
 {
-    use HasFactory;
-
     public const STATUS_NEW = 0;
     public const STATUS_RESOLVED = 1;
     public const STATUS_ARCHIVED = 2;

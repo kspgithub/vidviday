@@ -5,5 +5,5 @@
 @elseif ($user->isTourAgent())
     @lang('Tour Agent')
 @else
-    @lang('N/A')
+    {{ucfirst(str_replace('-', ' ', $user->role))}}
 @endif

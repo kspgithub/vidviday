@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 
 class OrderCertificate extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     public const STATUS_NEW = 0;

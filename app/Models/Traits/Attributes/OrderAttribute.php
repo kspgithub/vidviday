@@ -49,7 +49,7 @@ trait OrderAttribute
     {
         $total = $this->places;
         if ($this->children) {
-            $total += $this->children_young;
+            $total += $this->without_place ? 0 : $this->children_young;
             $total += $this->children_older;
         }
         return $total;
@@ -59,7 +59,7 @@ trait OrderAttribute
     {
         $total = 0;
         if ($this->children) {
-            $total += $this->children_young;
+            $total += $this->without_place ? 0 : $this->children_young;
             $total += $this->children_older;
         }
         return $total;
@@ -67,7 +67,7 @@ trait OrderAttribute
 
     public function getTotalPriceAttribute()
     {
-        $total = $this->price - $this->discount;
+        $total = $this->price - $this->discount + $this->accomm_price;
         return $this->is_tour_agent ? $total - $this->commission : $total;
     }
 

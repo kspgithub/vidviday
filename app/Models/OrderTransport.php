@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderTransport extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     public const STATUS_NEW = 'new';

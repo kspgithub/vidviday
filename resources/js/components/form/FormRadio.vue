@@ -6,7 +6,7 @@
                :name="name"
                @change="change"
         >
-        <span>{{ label }}</span>
+        <span v-html="label"></span>
     </label>
 </template>
 

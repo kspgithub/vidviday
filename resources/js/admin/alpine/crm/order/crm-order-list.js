@@ -19,15 +19,18 @@ export default (options) => ({
     dates: options.params.dates || '',
     manager_id: parseInt(options.params.manager_id) || 0,
     tour_id: parseInt(options.params.tour_id) || 0,
-    status: parseInt(options.params.status) || '',
+    status: options.params.status || '',
     init() {
         this.loadItems(false);
-        const picker = flatpickr(this.$refs.datesRef, {
-            mode: 'range',
-            locale: Ukrainian,
-            dateFormat: 'd.m.Y',
-            defaultDate: this.dates,
-        });
+        if (this.$refs.datesRef) {
+            const picker = flatpickr(this.$refs.datesRef, {
+                mode: 'range',
+                locale: Ukrainian,
+                dateFormat: 'd.m.Y',
+                defaultDate: this.dates,
+            });
+        }
+
     },
     clearDates() {
         this.dates = '';
@@ -72,6 +75,7 @@ export default (options) => ({
         }
         cancelTokenSource = axios.CancelToken.source();
         this.loading = true;
+
         const params = this.filterData;
 
         if (updateUrl) {

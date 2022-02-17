@@ -1,5 +1,6 @@
 @props([
     'name' => '',
+    'id' => null,
     'value' => '',
     'label'=>'',
     'placeholder' => '',
@@ -11,8 +12,8 @@
     'rowClass'=>'row mb-3',
 ])
 
-<div class="form-group {{$rowClass}}">
-    <label for="{{$name}}" class="{{$labelCol}} col-form-label">
+<div class="form-group {{$rowClass}}" x-transition>
+    <label for="{{$id ?? $name}}" class="{{$labelCol}} col-form-label">
         {{$label}}
         @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
             <span class="text-danger">*</span>
@@ -21,7 +22,7 @@
 
     <div class="{{$inputCol}}">
         <input name="{{$name}}"
-               id="{{$name}}"
+               id="{{$id ?? $name}}"
                placeholder="{{ !empty($placeholder) ? $placeholder : '' }}"
                value="{{ $value}}"
             {{$readonly ? 'readonly' : ''}}

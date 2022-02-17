@@ -17,7 +17,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class TourQuestion extends Model implements HasMedia
 {
-    use HasFactory;
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use NodeTrait;

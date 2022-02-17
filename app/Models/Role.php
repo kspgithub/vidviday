@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
@@ -17,4 +18,10 @@ class Role extends SpatieRole
         'updated_at',
         'guard_name',
     ];
+
+
+    public static function toSelectBox()
+    {
+        return self::all()->map(fn ($role) => ['value' => $role->name, 'text' => __(Str::ucfirst(str_replace('-', ' ', $role->name)))]);
+    }
 }

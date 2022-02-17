@@ -56,9 +56,9 @@ class AccommodationType extends TranslatableModel
             ->map(function ($item) {
                 return [
                     'value' => $item->slug_key,
-                    'text' => $item->title,
-                    'short_title' => $item->short_title,
-                    'description' => $item->description,
+                    'text' => json_prepare($item->title),
+                    'short_title' => json_prepare($item->short_title),
+                    'description' => json_prepare($item->description),
                 ];
             });
     }

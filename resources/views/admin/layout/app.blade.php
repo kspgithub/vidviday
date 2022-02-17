@@ -53,7 +53,7 @@
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 <script src="{{ mix('js/admin.js') }}" defer></script>
-<script src="//unpkg.com/alpinejs" defer></script>
+<script defer src="//unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
 @stack('after-scripts', false)
 </body>
 </html>

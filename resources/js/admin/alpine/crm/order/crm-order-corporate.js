@@ -2,6 +2,7 @@ import axios from "axios";
 import {swalConfirm} from "../../../utils/functions";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
+import {toast} from "../../../../libs/toast";
 
 export default (params) => ({
     order: params.order,
@@ -9,6 +10,7 @@ export default (params) => ({
     roomTypes: params.roomTypes || [],
     statuses: params.statuses,
     includes: params.includes,
+    tour: null,
     participantData: {
         first_name: '',
         last_name: '',
@@ -33,6 +35,7 @@ export default (params) => ({
                     dataType: 'json',
                     data: function (params) {
                         return {
+                            attributes: ['price', 'commission', 'accomm_price'],
                             q: params.term,
                             page: params.page || 1,
                             limit: 20
@@ -41,6 +44,7 @@ export default (params) => ({
                 }
             });
             jQuery(tourSelectBox).on('select2:select', (e) => {
+                this.tour = e.params.data;
                 this.order.tour_id = e.params.data.id;
             })
 
@@ -125,6 +129,9 @@ export default (params) => ({
         });
 
     },
+    get tourDiscounts() {
+        return this.tour?.discounts || [];
+    },
     get discounts() {
         return this.order.discounts || [];
     },
@@ -187,7 +194,17 @@ export default (params) => ({
     },
 
     get totalPrice() {
-        return (this.order.price || 0) - this.discountAmount + (this.order.commission || 0);
+        return (this.order.price || 0) - this.discountAmount + (this.order.accomm_price || 0);// + (this.order.commission || 0);
+    },
+    get totalPlaces() {
+        let total = this.order.places || 0;
+        if (this.order.children) {
+            total += this.order.children_young || 0;
+        }
+        if (this.order.children) {
+            total += this.order.children_older || 0;
+        }
+        return total;
     },
     get agency() {
         return this.order.agency_data || {
@@ -234,5 +251,25 @@ export default (params) => ({
     },
     async onSubmit(evt) {
         this.formChanged = false;
+    },
+    get placePrice() {
+        return this.tour ? this.tour.price : 0;
+    },
+    get placeCommission() {
+        return this.tour ? this.tour.commission : 0;
+    },
+    get accommPrice() {
+        return this.tour ? this.tour.accomm_price : 0;
+    },
+    calcSum() {
+        if (this.totalPlaces === 0) {
+            toast.warning('Введіть кількість учасників');
+        }
+        if (this.placePrice === 0 && this.order.program_type === 0) {
+            toast.warning('Оберіть тур');
+        }
+        this.order.accomm_price = ((this.order.places || 0) * this.accommPrice) || 0;
+        this.order.price = (this.totalPlaces * this.placePrice) || 0;
+        this.order.commission = (this.totalPlaces * this.placeCommission) || 0;
     }
 });

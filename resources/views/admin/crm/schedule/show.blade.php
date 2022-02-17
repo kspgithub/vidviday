@@ -3,28 +3,29 @@
 @section('title', 'Дані про виїзд: '.$tour->title.', '.$schedule->start_title)
 
 @section("content")
-    {!! breadcrumbs([
-  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-  ['url'=>route('admin.crm.schedule.index'), 'title'=>'Список збірних виїздів'],
-  ['url'=>route('admin.crm.schedule.show', $schedule), 'title'=>$tour->title.' - '.$schedule->start_title],
-]) !!}
-    <div class="d-flex justify-content-between">
-        <h1>Дані про виїзд: {{$tour->title}}, {{$schedule->start_title}}</h1>
-        <div>
-            <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
-               class="btn btn-sm btn-outline-primary">
-                <i class="fa fa-plus"></i> Створити замовлення
-            </a>
-        </div>
-    </div>
+
     <div x-data='crmScheduleItem({
         params: @json(request()->all()),
-        schedule: @json(['id'=>$schedule->id, 'admin_comment'=>$schedule->admin_comment], JSON_HEX_APOS),
+        schedule:@json($schedule->asCrmSchedule()),
         statuses: @json($statuses),
         roomTypes: @json($roomTypes),
         countOrders: @json($countOrders),
         })'>
+        {!! breadcrumbs([
+['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+['url'=>route('admin.crm.schedule.index'), 'title'=>'Список збірних виїздів'],
+['url'=>route('admin.crm.schedule.show', $schedule), 'title'=>$tour->title.' - <span x-text="schedule.start_title"></span>'],
+]) !!}
 
+        <div class="d-flex justify-content-between">
+            <h1>Дані про виїзд: {{$tour->title}}, <span x-text="schedule.start_title"></span></h1>
+            <div>
+                <a href="{{route('admin.crm.order.create', ['schedule_id'=>$schedule->id])}}"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fa fa-plus"></i> Створити замовлення
+                </a>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-body">
@@ -36,28 +37,70 @@
                             <th>Дата проведення</th>
                             <th>Вартість</th>
                             <th>Комісія</th>
+                            <th>Допл. за поселення</th>
                             <th>Знижка</th>
+                            <th>Ліміт</th>
+                            <th>Авто</th>
                             <th>Додатково</th>
+                            <th>Опубліковано</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a href="{{route('admin.tour.schedule.index', $tour)}}"
-                                   target="_blank">{{$tour->title}}</a>
+                            <td>
+                                <a href="{{route('admin.tour.schedule.index', $tour)}}" target="_blank">
+                                    {{$tour->title}}
+                                </a>
                             </td>
-                            <td>{{$schedule->title}}</td>
-                            <td>{{$schedule->price}} {{$schedule->currency}}</td>
-                            <td>{{$schedule->commission}} {{$schedule->currency}}</td>
+                            <td class="text-nowrap">
+                                <span x-text="schedule.title"></span>
+                                <a href="#" @click.prevent="editSchedule()" class="text-success">
+                                    <i class="fa fa-pen-alt"></i>
+                                </a>
+                            </td>
+                            <td class="text-nowrap" x-text="schedule.price + ' ' + schedule.currency"></td>
+                            <td class="text-nowrap" x-text="schedule.commission + ' ' + schedule.currency"></td>
+                            <td class="text-nowrap" x-text="schedule.accomm_price + ' ' + schedule.currency"></td>
                             <td>{!! $tour->discount_title !!}</td>
                             <td>
+                                <input type="text" x-model.debounce.500ms="schedule.places"
+                                       @change="updateSchedule({places: schedule.places})"
+                                       class="form-control form-control-sm mw-50px"/>
+                            </td>
+                            <td class="text-nowrap">
+                                <div class="d-flex align-items-center">
+
+                                    <input type="text" x-model.debounce.500ms="schedule.auto_limit"
+                                           @change="updateSchedule({auto_limit: schedule.auto_limit})"
+                                           class="form-control form-control-sm mw-50px me-1 text-right d-inline-block">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                               @change="updateSchedule({auto_booking: schedule.auto_booking})"
+                                               x-model="schedule.auto_booking" :id="'auto-'+schedule.id">
+                                        <label class="form-check-label" :for="'auto-'+schedule.id"></label>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
-                                      @change="updateScheduleComment()"
+                                      @change="updateSchedule({admin_comment: schedule.admin_comment})"
                                       class="form-control form-control-sm mw-200px"></textarea>
+                            </td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" x-model="schedule.published" class="form-check-input"
+                                           @change="togglePublished()"
+                                           id="schedule_published">
+                                    <label class="form-check-label" for="schedule_published"></label>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+                @include('admin.crm.schedule.includes.modal-basic')
             </div>
         </div>
 
@@ -115,7 +158,8 @@
                             <th>Опл. ТОВ</th>
                             <th>Опл. в офісі</th>
                             <th>Дозбирати</th>
-                            <th>Примітки</th>
+                            <th>Коментарі (черг.)</th>
+                            <th>Примітки (мен.)</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -151,17 +195,18 @@
                                     </div>
                                     <div x-show="order.phone" class="text-nowrap">
                                         <b>Тел:</b>
-                                        <a :href="'tel:'+order.phone" x-text="order.phone" target="_blank"></a>
+                                        <a :href="'tel:'+clearPhone(order.phone)" x-text="clearPhone(order.phone)"
+                                           target="_blank"></a>
                                     </div>
-                                    {{--                                    <div x-show="order.viber" class="text-nowrap">--}}
-                                    {{--                                        <b>Viber:</b>--}}
-                                    {{--                                        <span x-text="order.viber"></span>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <div x-show="order.email" class="text-nowrap">--}}
-                                    {{--                                        <b>Email:</b>--}}
-                                    {{--                                        <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"--}}
-                                    {{--                                           target="_blank"></a>--}}
-                                    {{--                                    </div>--}}
+                                    <div x-show="order.viber" class="text-nowrap">
+                                        <b>Viber:</b>
+                                        <span x-text="clearPhone(order.viber)"></span>
+                                    </div>
+                                    <div x-show="order.email" class="text-nowrap">
+                                        <b>Email:</b>
+                                        <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
+                                           target="_blank"></a>
+                                    </div>
                                     <template x-if="order.agency_data && order.agency_data.title"
                                               :key="'agency-data-'+order.id">
                                         <div class="mt-1 pt-1 border-top">
@@ -176,13 +221,14 @@
                                             </div>
                                             <div class="text-nowrap" x-show="order.agency_data.manager_phone">
                                                 <b>Тел:</b>
-                                                <a :href="'tel:'+order.agency_data.manager_phone"
-                                                   x-text="order.agency_data.manager_phone" target="_blank"></a>
+                                                <a :href="'tel:'+clearPhone(order.agency_data.manager_phone)"
+                                                   x-text="clearPhone(order.agency_data.manager_phone)"
+                                                   target="_blank"></a>
                                             </div>
-                                            {{--                                            <div class="text-nowrap" x-show="order.agency_data.manager_email">--}}
-                                            {{--                                                <a :href="'mailto:'+order.agency_data.manager_email"--}}
-                                            {{--                                                   x-text="order.agency_data.manager_email" target="_blank"></a>--}}
-                                            {{--                                            </div>--}}
+                                            <div class="text-nowrap" x-show="order.agency_data.manager_email">
+                                                <a :href="'mailto:'+order.agency_data.manager_email"
+                                                   x-text="order.agency_data.manager_email" target="_blank"></a>
+                                            </div>
                                         </div>
                                     </template>
                                 </td>
@@ -246,8 +292,15 @@
                                     <span x-text="order.currency"></span>
                                 </td>
                                 <td>
+                                    <textarea type="text" x-model.debounce.500ms="order.duty_comment"
+                                              @blur="updateOrder(order.id, {duty_comment: order.duty_comment})"
+                                              x-bind:readonly="!$store.crmUser.isDutyManager && !$store.crmUser.isAdmin"
+                                              class="form-control form-control-sm mw-200px"></textarea>
+                                </td>
+                                <td>
                                     <textarea type="text" x-model.debounce.500ms="order.admin_comment"
                                               @blur="updateOrder(order.id, {admin_comment: order.admin_comment})"
+                                              x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
                                               class="form-control form-control-sm mw-200px"></textarea>
                                 </td>
 

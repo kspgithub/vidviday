@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Discount;
 
 use App\Models\Currency;
+use App\Models\Discount;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +31,7 @@ class DiscountBasicRequest extends FormRequest
             'title.uk' => [Rule::requiredIf(is_null($this->published)), 'string'],
             'admin_title' => ['required', 'string'],
             'slug' => ['nullable', 'string'],
-            'type' => ['nullable', 'integer'],
+            'type' => ['nullable', Rule::in([Discount::TYPE_PERCENT, Discount::TYPE_VALUE])],
             'category' => ['nullable'],
             'duration' => ['nullable'],
             'age_limit' => ['nullable', 'numeric'],

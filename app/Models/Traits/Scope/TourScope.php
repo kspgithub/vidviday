@@ -38,6 +38,7 @@ trait TourScope
                 'title',
                 'price',
                 'commission',
+                'accomm_price',
                 'currency',
                 'rating',
                 'duration',

@@ -26,6 +26,7 @@ export default {
                 end_date: null,
                 end_place: '',
                 places: 1,
+                without_place: 0,
                 children: 0,
                 children_young: 0,
                 children_older: 0,
@@ -115,6 +116,8 @@ export default {
         tourDays: (state) => state.tour ? state.tour.duration : 0,
         // Стоимость места в выбранном туре
         tourPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.price : (state.tour ? state.tour.price : 0),
+
+        accommodationPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.accomm_price : (state.tour ? state.tour.accomm_price : 0),
         // Скидки на детей
         childrenDiscounts: (state) => state.discounts.filter(d => d.category.includes('children')),
         // Дети до 6 бесплатно?
@@ -128,7 +131,7 @@ export default {
         //Скидка для детей до 6 лет
         childrenYoungDiscount: (state, getters) => {
             let total = 0;
-            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree) {
+            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree && !state.formData.without_place) {
                 const discount = getters.childrenDiscounts.find(d => d.category === 'children_young') ||
                     getters.childrenDiscounts.find(d => d.category === 'children');
                 if (discount) {
@@ -143,6 +146,7 @@ export default {
             if (state.formData.children && state.formData.children_older > 0 && !getters.childrenOlderFree) {
                 const discount = getters.childrenDiscounts.find(d => d.category === 'children_older') ||
                     getters.childrenDiscounts.find(d => d.category === 'children');
+
                 if (discount) {
                     total = calcChildDiscount(getters.tourPrice, state.formData.children_older, getters.tourDays, discount);
                 }
@@ -153,7 +157,7 @@ export default {
         totalPlaces: (state, getters) => {
             let total = state.formData.places;
             if (state.formData.children) {
-                total += state.formData.children_young;
+                total += !state.formData.without_place ? state.formData.children_young : 0;
                 total += state.formData.children_older;
             }
             return total;
@@ -161,7 +165,7 @@ export default {
         // Всего мест которые оплачиваются
         totalPayedPlaces: (state, getters) => {
             let total = state.formData.places;
-            if (state.formData.children && !getters.childrenYoungFree) {
+            if (state.formData.children && !state.formData.without_place && !getters.childrenYoungFree) {
                 total += state.formData.children_young;
             }
             if (state.formData.children && !getters.childrenOlderFree) {
@@ -171,7 +175,7 @@ export default {
         },
         // Стоимость тура без скидок
         tourTotalPrice: (state, getters) => {
-            return getters.totalPayedPlaces * getters.tourPrice;
+            return getters.totalPlaces * getters.tourPrice;
         },
         // Скидки на детей
         totalChildrenDiscount: (state, getters) => {
@@ -192,6 +196,11 @@ export default {
             }
             return 0;
         },
+        // Доплата за размещение
+        totalAccommodation: (state, getters, rootState, rootGetters) => {
+            const price = getters.accommodationPrice;
+            return price * (state.formData.places || 0);
+        },
         // Общая стоимость со скидками
         totalTour: (state, getters) => {
             const price = getters.tourPrice;
@@ -201,7 +210,7 @@ export default {
         },
         // Общая стоимость со скидками и комиссией
         totalPrice: (state, getters) => {
-            return getters.totalTour - getters.totalCommission;
+            return getters.totalTour - getters.totalCommission + getters.totalAccommodation;
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
         participants: (state) => state.formData.participants,
@@ -248,7 +257,7 @@ export default {
             if (state.formData.children && state.formData.children_older > 0) {
                 total += state.formData.children_older;
             }
-            if (state.formData.children && state.formData.children_young > 0) {
+            if (state.formData.children && state.formData.children_young > 0 && !state.formData.without_place) {
                 total += state.formData.children_young;
             }
 

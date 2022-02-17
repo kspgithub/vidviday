@@ -45,7 +45,7 @@
                 {{$slot}}
                 @foreach($options as $option)
                     <option
-                        value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ $option['text']}}</option>
+                        value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ html_entity_decode($option['text'])}}</option>
                 @endforeach
             </select>
         </div>

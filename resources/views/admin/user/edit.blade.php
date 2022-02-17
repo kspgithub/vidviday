@@ -26,15 +26,11 @@
                     @if (!$user->isMasterAdmin())
                         <x-forms.select-group
                             name="role"
-                            :label="__('Role')"
+                            label="Основна роль"
                             :value="old('role') ?? $user->role"
                             required
                             x-on:change="role = $event.target.value"
-                            :options="[
-                                        ['value'=>'tourist', 'text'=>__('Tourist')],
-                                        ['value'=>'tour-agent', 'text'=>__('Tour Agent')],
-                                        ['value'=>'admin', 'text'=>__('Administrator')],
-                                    ]"
+                            :options="\App\Models\Role::toSelectBox()"
                         ></x-forms.select-group>
                     @else
                         <input type="hidden" name="role" value="admin">
@@ -45,6 +41,7 @@
                         accept=".jpg,.png"
                         class="image-uploader"
                         :value="$user->avatar"
+                        :preview="$user->avatar ? $user->avatar_url : ''"
                         imgstyle="height: 200px; width: 200px; object-fit: cover;"
                     >
                     </x-forms.single-image-upload>

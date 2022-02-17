@@ -84,7 +84,7 @@ class TourController extends Controller
         //
         $tour = $this->service->store($request->validated());
 
-        return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Tour created.'));
+        return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Record Created'));
     }
 
     public function show(Tour $tour)
@@ -137,7 +137,7 @@ class TourController extends Controller
         //
         $this->service->update($tour, $request->validated());
 
-        return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Tour updated.'));
+        return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -152,7 +152,7 @@ class TourController extends Controller
         //
         $tour->delete();
 
-        return redirect()->route('admin.tour.index')->withFlashSuccess(__('Tour deleted.'));
+        return redirect()->route('admin.tour.index')->withFlashSuccess(__('Record Deleted'));
     }
 
 

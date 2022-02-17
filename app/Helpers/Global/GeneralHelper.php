@@ -97,6 +97,54 @@ if (!function_exists('is_admin')) {
     }
 }
 
+if (!function_exists('is_manager')) {
+    /**
+     * Является текущий авторизованный пользователь админом
+     *
+     * @return boolean
+     */
+    function is_manager()
+    {
+        if (current_user() !== null) {
+            return current_user()->isManager();
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('is_tour_manager')) {
+    /**
+     * Является текущий авторизованный пользователь админом
+     *
+     * @return boolean
+     */
+    function is_tour_manager()
+    {
+        if (current_user() !== null) {
+            return current_user()->isTourManager();
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('is_duty_manager')) {
+    /**
+     * Является текущий авторизованный пользователь админом
+     *
+     * @return boolean
+     */
+    function is_duty_manager()
+    {
+        if (current_user() !== null) {
+            return current_user()->isDutyManager();
+        }
+
+        return false;
+    }
+}
+
 if (!function_exists('is_tourist')) {
     /**
      * Является текущий авторизованный пользователь туристом
@@ -208,7 +256,7 @@ if (!function_exists('arrayToSelectBox')) {
     {
         $result = [];
         foreach ($array as $value => $text) {
-            $result[] = ['value' => $value, 'text' => $text];
+            $result[] = ['value' => $value, 'text' => json_prepare($text)];
         }
         return $result;
     }
@@ -245,5 +293,18 @@ if (!function_exists('currency_options')) {
     function currency_options()
     {
         return Currency::toSelectBox('iso', 'iso');
+    }
+}
+
+
+if (!function_exists('user_roles')) {
+    function user_roles()
+    {
+        $roles = ['guest'];
+        $user = current_user();
+        if (!empty($user)) {
+            $roles = $user->roles->pluck('name')->toArray();
+        }
+        return $roles;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Methods;
 
 use App\Models\Tour;
+use App\Models\TourSchedule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -16,7 +17,6 @@ trait TourMethods
      */
     public function getSimilarTours(int $count = 4)
     {
-
         if (!empty($this->similar)) {
             $similar = implode(', ', $this->similar);
             $query = Tour::search()->whereIn('id', $this->similar)->orderByRaw("FIELD(id,  $similar)");
@@ -35,12 +35,13 @@ trait TourMethods
         return (object)[
             'id' => $this->id,
             'title' => $this->title,
-            'full_title' => $this->commission > 0 ? "$this->title ($this->price $this->currency + $this->commission $this->currency)" : "$this->title ($this->price $this->currency)",
+            'full_title' => json_prepare($this->commission > 0 ? "$this->title ($this->price $this->currency + $this->commission $this->currency)" : "$this->title ($this->price $this->currency)"),
             'price' => $this->price,
             'commission' => $this->commission,
+            'accomm_price' => $this->accomm_price,
             'currency' => $this->currency,
             'rating' => $this->rating,
-            'testimonials_count' => $this->testimonials_count,
+            'testimonials_count' => $this->testimonials_count ?? 0,
             'duration' => $this->duration,
             'nights' => $this->nights,
             'main_image' => $this->main_image,
@@ -84,7 +85,6 @@ trait TourMethods
         $foodItems = $this->foodItems()->whereHas('food')->get();
 
         foreach ($this->priceItems as $priceItem) {
-
             $items[] = [
                 'id' => 'pi_' . $priceItem->id,
                 'title' => $priceItem->title,
@@ -93,7 +93,6 @@ trait TourMethods
                 'limited' => $priceItem->limited,
                 'places' => $priceItem->places,
             ];
-
         }
 
 
@@ -120,5 +119,16 @@ trait TourMethods
         }
 
         return $items;
+    }
+
+
+    public function schedulesForBooking($filter = null)
+    {
+        $query = $this->scheduleItems()->inFuture();
+        if (!empty($filter)) {
+            $query->filter($filter);
+        }
+        $schedules = $query->get()->filter(fn (TourSchedule $value, $key) => $value->places_available > 0);
+        return TourSchedule::transformForBooking($schedules);
     }
 }

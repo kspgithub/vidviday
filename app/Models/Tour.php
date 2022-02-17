@@ -70,6 +70,7 @@ class Tour extends TranslatableModel implements HasMedia
         'nights',
         'price',
         'commission',
+        'accomm_price',
         'currency',
         'rating',
         'video',
@@ -84,8 +85,9 @@ class Tour extends TranslatableModel implements HasMedia
     protected $casts = [
         'published' => 'bool',
         'duration' => 'int',
-        'price' => 'float',
-        'commission' => 'float',
+        'price' => 'integer',
+        'commission' => 'integer',
+        'accomm_price' => 'integer',
         'similar' => 'array',
         'locales' => 'array',
     ];
@@ -175,14 +177,13 @@ class Tour extends TranslatableModel implements HasMedia
                 $locales = siteLocales();
                 foreach ($locales as $locale) {
                     if ($first) {
-                        $sq->where(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                         $first = false;
                     } else {
-                        $sq->orWhere(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                     }
                 }
             });
         }
-
     }
 }

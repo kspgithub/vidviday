@@ -1,12 +1,12 @@
 <template>
     <form action="/" class="calc-form vue-calc">
-        <div class="text-sm">{{ __('tour-section.departure-date') }}*</div>
+        <div class="text-sm">{{ __('tours-section.departure-date') }}*</div>
 
         <div class="single-datepicker">
             <form-select-event v-model="eventId" :options="eventOptions"/>
         </div>
         <div class="text">
-            <p>{{ __('tour-section.price-description') }}</p>
+            <p>{{ __('tours-section.price-description') }}</p>
         </div>
         <div class="calc">
             <div class="calc-header">
@@ -14,7 +14,7 @@
                     <input type="checkbox" name="all-inclusive"
                            :checked="selected.length === items.length"
                            @change.prevent="toggleAll()">
-                    <span>{{ __('tour-section.all-inclusive') }}</span>
+                    <span>{{ __('tours-section.all-inclusive') }}</span>
                 </label>
             </div>
 
@@ -29,7 +29,7 @@
 
             </div>
             <div class="calc-footer">
-                <span class="text-sm">{{ __('tour-section.total-sum') }}: <span
+                <span class="text-sm">{{ __('tours-section.total-sum') }}: <span
                     class="calc-total-price">{{ total }}</span> <sup>{{ __('common.currency.uah') }}</sup></span>
             </div>
         </div>

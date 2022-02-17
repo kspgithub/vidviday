@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="row mt-30" v-if="totalTour > 0">
-            <div class="col-lg-3 col-12" v-if="totalTour > 0">
+        <div class="row mt-30" v-if="totalPrice > 0">
+            <div class="col-lg-3 col-12" v-if="totalPrice > 0">
                 <span class="text-sm text-medium title inline">{{ __('order-section.total-sum') }}</span>
                 <div class="thumb-price">
                     <div class="text">
-                        <span>{{ format(totalTour) }}</span>
+                        <span>{{ format(totalPrice) }}</span>
                         <sup> {{ __('order-section.currency.uah') }}</sup>
                     </div>
                 </div>
@@ -19,6 +19,16 @@
 
                     <tooltip variant="red">
                         <span v-html="__('order-section.summary.commission-tooltip')"></span>
+                    </tooltip>
+                </span>
+            </div>
+            <div class="col-lg-4 col-12" v-if="totalAccommodation >  0">
+                <span class="text-sm text-medium title inline">{{ __('tours-section.accomm-price') }}</span>
+                <span class="discount margin-top">
+                    {{ format(totalAccommodation) }} {{ __('order-section.currency.uah') }}
+                     <tooltip variant="red">
+                        <span
+                            v-html="accommPrice + __('order-section.currency.uah') + ' '+__('order-section.summary.accomm-tooltip')"></span>
                     </tooltip>
                 </span>
             </div>
@@ -37,17 +47,20 @@ export default {
     components: {Tooltip},
     setup() {
         const store = useStore();
-
-        const totalTour = computed(() => store.getters['orderTour/totalTour']);
+        const totalPrice = computed(() => store.getters['orderTour/totalPrice']);
+        const accommPrice = computed(() => store.getters['orderTour/accommodationPrice']);
         const totalCommission = computed(() => store.getters['orderTour/totalCommission']);
+        const totalAccommodation = computed(() => store.getters['orderTour/totalAccommodation']);
         const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
         const format = (val) => toAmount(val);
 
         return {
             format,
-            totalTour,
+            accommPrice,
+            totalPrice,
             totalCommission,
+            totalAccommodation,
             isTourAgent,
         }
     }
