@@ -80,7 +80,7 @@ class OrderService extends BaseService
             if ((int)$order_params['children'] === 1) {
                 $order_params['children_young'] = (int)$params['children_young'] ?? 0;
                 $order_params['children_older'] = (int)$params['children_older'] ?? 0;
-                $order_params['without_place'] = (int)$params['without_place'] ?? 0;
+                $order_params['without_place'] = !empty($params['without_place']) ? (int)$params['without_place'] : 0;
                 $total_places += $order_params['without_place'] === 0 ? $order_params['children_young'] : 0;
                 $total_places += $order_params['children_older'];
 
@@ -112,7 +112,7 @@ class OrderService extends BaseService
 
             if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
-                    'without_place' => (int)$params['without_place'] ?? 0,
+                    'without_place' => !empty($params['without_place']) ? (int)$params['without_place'] : 0,
                     'items' => $params['participants'] ?? [],
                     'participant_phone' => $params['participant_phone'] ?? '',
                 ];
