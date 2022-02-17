@@ -54,13 +54,16 @@ class CrmOrderController extends Controller
         $group_type = $request->input('group_type', 0);
         $order = new Order();
         $order->group_type = $group_type;
-
+        $discounts = [];
+        $tour = null;
         $schedule_id = $request->input('schedule_id', 0);
         if ($schedule_id > 0) {
             $schedule = TourSchedule::find($schedule_id);
             if ($schedule) {
                 $order->tour_id = $schedule->tour_id;
                 $order->schedule_id = $schedule->id;
+                $discounts = $schedule->tour->discounts->map->asAlpineData()->all();
+                $tour = $schedule->tour->shortInfo();
             }
 
         }
@@ -70,6 +73,8 @@ class CrmOrderController extends Controller
         $paymentTypes = PaymentType::toSelectBox();
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
         $roomTypes = AccommodationType::toSelectBox();
+
+        $order->makeHidden(['tour', 'schedule']);
         return view('admin.crm.order.create', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -77,6 +82,9 @@ class CrmOrderController extends Controller
             'paymentStatuses' => $paymentStatuses,
             'roomTypes' => $roomTypes,
             'order' => $order,
+            'tour' => $tour,
+            'schedule' => $schedule->asCrmSchedule(),
+            'availableDiscounts' => $discounts,
         ]);
     }
 
@@ -141,8 +149,17 @@ class CrmOrderController extends Controller
         $paymentTypes = PaymentType::toSelectBox();
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
         $roomTypes = AccommodationType::toSelectBox();
-
+        $discounts = $order->tour->discounts->map->asAlpineData()->all();
+        $schedule = null;
+        $tour = null;
+        if (!empty($order->schedule)) {
+            $schedule = $order->schedule->asCrmSchedule();
+        }
+        if (!empty($order->tour)) {
+            $tour = $order->tour->shortInfo();
+        }
         $order->makeHidden(['tour', 'schedule']);
+
         return view('admin.crm.order.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -150,13 +167,17 @@ class CrmOrderController extends Controller
             'paymentStatuses' => $paymentStatuses,
             'roomTypes' => $roomTypes,
             'order' => $order,
+            'tour' => $tour,
+            'schedule' => $schedule,
+            'availableDiscounts' => $discounts,
         ]);
     }
 
     public function update(Request $request, Order $order)
     {
         //
-        $order->fill($request->all());
+        $params = $request->all();
+        $order->fill($params);
         $order->save();
 
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Updated'));

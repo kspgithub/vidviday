@@ -1,9 +1,12 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h3 class="mb-3"><strong>Учасники туру</strong></h3>
-
         <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"/>
-
+        <x-forms.switch-group id="cust-part"
+                              x-model="isCustomerParticipant"
+                              label="Замовник є учасником туру"
+        />
+        <input type="hidden" :name="`participants[customer]`" :value="isCustomerParticipant ? 1 : 0">
         <div class="table-responsive">
             <table class="table table-sm">
                 <thead>
@@ -16,31 +19,49 @@
                 </tr>
                 </thead>
                 <tbody>
+                <template x-if="isCustomerParticipant">
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" x-bind:value="order.last_name"
+                                   readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" x-bind:value="order.first_name"
+                                   readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" x-bind:value="order.middle_name"
+                                   readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" x-bind:value="order.birthday"
+                                   readonly>
+
+                        </td>
+                        <td>(замовник)</td>
+                    </tr>
+                </template>
                 <template x-for="(participant, idx) in participants">
                     <tr>
                         <td>
                             <input type="text" :name="`participants[items][${idx}][last_name]`"
                                    class="form-control form-control-sm"
-                                   x-model="participant.last_name"
-                                   x-bind:value="participant.last_name">
+                                   x-model="participant.last_name">
                         </td>
                         <td>
                             <input type="text" :name="`participants[items][${idx}][first_name]`"
                                    class="form-control form-control-sm"
-                                   x-model="participant.first_name"
-                                   x-bind:value="participant.first_name">
+                                   x-model="participant.first_name">
                         </td>
                         <td>
                             <input type="text" :name="`participants[items][${idx}][middle_name]`"
                                    class="form-control form-control-sm"
-                                   x-model="participant.middle_name"
-                                   x-bind:value="participant.middle_name">
+                                   x-model="participant.middle_name">
                         </td>
                         <td>
                             <input type="date" :name="`participants[items][${idx}][birthday]`"
                                    class="form-control form-control-sm"
-                                   x-model="participant.birthday"
-                                   x-bind:value="participant.birthday">
+                                   x-model="participant.birthday">
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-outline-danger"

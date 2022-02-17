@@ -26,6 +26,7 @@ export default {
                 end_date: null,
                 end_place: '',
                 places: 1,
+                without_place: 0,
                 children: 0,
                 children_young: 0,
                 children_older: 0,
@@ -130,7 +131,7 @@ export default {
         //Скидка для детей до 6 лет
         childrenYoungDiscount: (state, getters) => {
             let total = 0;
-            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree) {
+            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree && !state.formData.without_place) {
                 const discount = getters.childrenDiscounts.find(d => d.category === 'children_young') ||
                     getters.childrenDiscounts.find(d => d.category === 'children');
                 if (discount) {
@@ -156,7 +157,7 @@ export default {
         totalPlaces: (state, getters) => {
             let total = state.formData.places;
             if (state.formData.children) {
-                total += state.formData.children_young;
+                total += !state.formData.without_place ? state.formData.children_young : 0;
                 total += state.formData.children_older;
             }
             return total;
@@ -164,7 +165,7 @@ export default {
         // Всего мест которые оплачиваются
         totalPayedPlaces: (state, getters) => {
             let total = state.formData.places;
-            if (state.formData.children && !getters.childrenYoungFree) {
+            if (state.formData.children && !state.formData.without_place && !getters.childrenYoungFree) {
                 total += state.formData.children_young;
             }
             if (state.formData.children && !getters.childrenOlderFree) {
@@ -172,7 +173,6 @@ export default {
             }
             return total;
         },
-        // Стоимость тура без скидок
         // Стоимость тура без скидок
         tourTotalPrice: (state, getters) => {
             return getters.totalPlaces * getters.tourPrice;
@@ -257,7 +257,7 @@ export default {
             if (state.formData.children && state.formData.children_older > 0) {
                 total += state.formData.children_older;
             }
-            if (state.formData.children && state.formData.children_young > 0) {
+            if (state.formData.children && state.formData.children_young > 0 && !state.formData.without_place) {
                 total += state.formData.children_young;
             }
 

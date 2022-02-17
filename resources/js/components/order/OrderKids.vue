@@ -9,14 +9,23 @@
             </div>
         </slide-up-down>
         <div class="my-20"></div>
-        <slide-up-down :model-value="show && children === 1" :duration="300">
-            <form-number-input v-model="children_young" :min="0"
-                               name="children_young"
-                               :title="young_title"/>
-
+        <slide-up-down :model-value="show && children === 1" :duration="300" class="order-children-input">
+            <div class="row align-items-center mb-10">
+                <div class="col-auto">
+                    <form-number-input v-model="children_young" :min="0"
+                                       name="children_young"
+                                       :title="young_title"/>
+                </div>
+                <div class="col-auto">
+                    <form-checkbox name="without_place" v-model="without_place"
+                                   :label=" __('order-section.kids.without-place')"/>
+                </div>
+            </div>
             <form-number-input v-model="children_older" :min="0"
                                name="children_older"
                                :title="older_title"/>
+
+
         </slide-up-down>
     </div>
 </template>
@@ -52,6 +61,7 @@ export default {
                 : __('order-section.kids.from-6-to-12');
         })
         return {
+            without_place: useFormDataProperty('orderTour', 'without_place'),
             children: useFormDataProperty('orderTour', 'children'),
             children_young: useFormDataProperty('orderTour', 'children_young'),
             young_title,

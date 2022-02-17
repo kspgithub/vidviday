@@ -1,7 +1,10 @@
 <div x-data='crmOrderCollective({
     order: @json($order),
+    tour: @json($tour),
+    schedule: @json($schedule),
     statuses: @json($statuses),
     roomTypes: @json($roomTypes),
+    availableDiscounts: @json($availableDiscounts),
 })'>
     <form action="{{$order->id > 0 ? route('admin.crm.order.update', $order) : route('admin.crm.order.store')}}"
           @submit="onSubmit"

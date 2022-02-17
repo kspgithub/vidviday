@@ -38,6 +38,7 @@ class TourOrderRequest extends FormRequest
             'children' => ['nullable', Rule::in(['0', '1'])],
             'children_young' => ['nullable', 'integer'],
             'children_older' => ['nullable', 'integer'],
+            'without_place' => ['nullable', Rule::in(['0', '1'])],
 
             'additional' => ['nullable', Rule::in(['0', '1'])],
             'program_type' => ['nullable', Rule::in(['0', '1'])],

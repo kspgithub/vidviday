@@ -4,10 +4,10 @@
             <h3 class="fw-bold">Турфірма (від кого турист)</h3>
             <div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" x-model="order.is_tour_agent" id="is_tour_agent"
-                           name="is_tour_agent">
+                    <input class="form-check-input" type="checkbox" x-model="order.is_tour_agent" id="is_tour_agent"/>
                     <label class="form-check-label" for="is_tour_agent">Замовлення від турагента</label>
                 </div>
+                <input type="hidden" name="is_tour_agent" :value="order.is_tour_agent ? 1 : 0">
             </div>
         </div>
         <div x-cloak x-show="order.is_tour_agent" class="mt-3">

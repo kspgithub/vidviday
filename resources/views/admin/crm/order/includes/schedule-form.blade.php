@@ -49,7 +49,17 @@
             </div>
         </div>
         <template x-if="order.children">
-            <x-forms.text-group label="Діти до 6 років" name="children_young" x-model.number="order.children_young"/>
+            <div class="row mb-3">
+                <div class="col-md-2 col-form-label">Діти до 6 років</div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="children_young" x-model.number="order.children_young">
+                </div>
+                <div class="col-md-4">
+                    <x-input.switch id="without_place" x-model="order.without_place" label="без місця в автобусі"/>
+                    <input type="hidden" name="without_place" :value="order.without_place ? 1 : 0">
+                </div>
+            </div>
+
         </template>
         <template x-if="order.children">
             <x-forms.text-group label="Діти від 6 до 12 років" name="children_older"

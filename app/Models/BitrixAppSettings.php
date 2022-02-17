@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BitrixAppSettings extends Model
 {
-    use HasFactory;
 
     protected $fillable = [
         'access_token',

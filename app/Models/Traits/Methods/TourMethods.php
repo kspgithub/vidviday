@@ -41,7 +41,7 @@ trait TourMethods
             'accomm_price' => $this->accomm_price,
             'currency' => $this->currency,
             'rating' => $this->rating,
-            'testimonials_count' => $this->testimonials_count,
+            'testimonials_count' => $this->testimonials_count ?? 0,
             'duration' => $this->duration,
             'nights' => $this->nights,
             'main_image' => $this->main_image,

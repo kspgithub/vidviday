@@ -85,6 +85,7 @@ return [
         'up-count' => 'До :up років',
         'from-6-to-12' => 'Від 6 до 12 років',
         'from-to' => 'Від :from до :to років',
+        'without-place' => 'без місця в автобусі',
     ],
     'age-groups' => [
         'to-6' => 'До 6 років',
