@@ -3,16 +3,27 @@
 @section('title', 'Області')
 
 @section('content')
-    {!! breadcrumbs([
-    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-    ['url'=>route('admin.region.index'), 'title'=>__('Області')],
-    ]) !!}
+    @if(!empty($country))
+        {!! breadcrumbs([
+  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+  ['url'=>route('admin.country.index'), 'title'=>'Країни'],
+  ['url'=>route('admin.country.edit', $country), 'title'=>$country->title],
+  ['url'=>route('admin.region.index'), 'title'=>__('Області')],
+  ]) !!}
+    @else
+        {!! breadcrumbs([
+  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+  ['url'=>route('admin.region.index'), 'title'=>__('Області')],
+  ]) !!}
+    @endif
+
     <div class="d-flex justify-content-between">
         <h1>Області</h1>
 
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.region.create')}}" class="btn btn-sm btn-outline-info"><i
+                <a href="{{route('admin.region.create', ['country_id'=>$country ? $country->id: ''])}}"
+                   class="btn btn-sm btn-outline-info"><i
                         data-feather="plus"></i> @lang('Create region')</a>
             @endif
         </div>

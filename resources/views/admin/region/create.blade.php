@@ -3,16 +3,29 @@
 @section('title', 'Створити область')
 
 @section('content')
-    {!! breadcrumbs([
-        ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-        ['url'=>route('admin.region.index'), 'title'=>__('Області')],
-        ['url'=>route('admin.region.create'), 'title'=>__('Create')],
-        ]) !!}
+    @if(!empty($country))
+        {!! breadcrumbs([
+  ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+  ['url'=>route('admin.country.index'), 'title'=>'Країни'],
+  ['url'=>route('admin.country.edit', $country), 'title'=>$country->title],
+  ['url'=>route('admin.region.index'), 'title'=>__('Області')],
+  ['url'=>route('admin.region.create'), 'title'=>__('Create')],
+  ]) !!}
+    @else
+        {!! breadcrumbs([
+    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+    ['url'=>route('admin.region.index'), 'title'=>__('Області')],
+    ['url'=>route('admin.region.create'), 'title'=>__('Create')],
+    ]) !!}
+    @endif
+
+
     <div class="d-flex justify-content-between">
         <h1>Створити область</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.region.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
+            <a href="{{route('admin.region.index', ['country_id'=>$country ? $country->id : ''])}}"
+               class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
         </div>
     </div>
 

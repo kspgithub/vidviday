@@ -17,13 +17,22 @@ class RegionController extends Controller
      *
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $regions = Region::query()->orderBy('title')->paginate(30);
+        $query = Region::query();
+        $country_id = $request->input('country_id', 0);
+        $country = null;
+        if ($country_id > 0) {
+            $query->where('country_id', $country_id);
+            $country = Country::findOrFail($country_id);
+        }
+
+        $regions = $query->orderBy('title->uk')->paginate(30);
 
         //
         return view('admin.region.index', [
+            'country' => $country,
             'regions' => $regions,
         ]);
     }
@@ -33,12 +42,19 @@ class RegionController extends Controller
      *
      * @return View
      */
-    public function create()
+    public function create(Request $request)
     {
         $countries = Country::toSelectBox();
         $region = new Region();
+        $country = null;
+        $country_id = $request->input('country_id', 0);
+        if ($country_id > 0) {
+            $country = Country::findOrFail($country_id);
+            $region->country_id = $country->id;
 
+        }
         return view('admin.region.create', [
+            'country' => $country,
             'region' => $region,
             'countries' => $countries,
         ]);
@@ -58,7 +74,7 @@ class RegionController extends Controller
         $region->fill($request->all());
         $region->save();
 
-        return redirect()->route('admin.region.index')->withFlashSuccess(__('Region created.'));
+        return redirect()->route('admin.region.index', ['country_id' => $region->country_id])->withFlashSuccess(__('Region created.'));
     }
 
     /**
@@ -71,11 +87,12 @@ class RegionController extends Controller
     public function edit(Region $region)
     {
         $countries = Country::toSelectBox();
-
+        $country = $region->country;
         //
         return view('admin.region.edit', [
+            'country' => $country,
             'region' => $region,
-            'countries' => $countries
+            'countries' => $countries,
         ]);
     }
 
@@ -94,7 +111,7 @@ class RegionController extends Controller
         $region->fill($request->all());
         $region->save();
 
-        return redirect()->route('admin.region.index')->withFlashSuccess(__('Region updated.'));
+        return redirect()->route('admin.region.index', ['country_id' => $region->country_id])->withFlashSuccess(__('Region updated.'));
     }
 
     /**
@@ -109,7 +126,7 @@ class RegionController extends Controller
         //
         $region->delete();
 
-        return redirect()->route('admin.region.index')->withFlashSuccess(__('Region deleted.'));
+        return redirect()->route('admin.region.index', ['country_id' => $region->country_id])->withFlashSuccess(__('Region deleted.'));
     }
 
 }

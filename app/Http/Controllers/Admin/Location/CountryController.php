@@ -21,12 +21,10 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countriesPrepeared = Country::query();
-        $countriesPaginated = $countriesPrepeared->paginate(20);
-        $countries = $countriesPrepeared->get();//->sortBy('region_id');
 
-        //
-        return view('admin.country.index', ['countries' => $countries, 'countriesPaginated' => $countriesPaginated]);
+        $countries = Country::paginate(20);
+
+        return view('admin.country.index', ['countries' => $countries]);
     }
 
     /**
@@ -40,15 +38,6 @@ class CountryController extends Controller
         return view('admin.country.create', ['country' => $country]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return RedirectResponse
-     */
-    public function show(Country $country)
-    {
-        return redirect("admin/country/" . $country->pluck('slug')[0] . "/edit");
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -60,9 +49,10 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:100',//*
-            'iso' => 'required|string|max:10|regex:/(^([a-zA-Z]+)?$)/u',//*
-            //'slug' => 'required|string|max:100|regex:/(^([a-zA-Z]+)?$)/u',//*
+            'title' => 'required|array',
+            'title.uk' => 'required|string',
+            'iso' => 'required|string|max:10|unique:countries',
+            'slug' => 'required|string|max:10|unique:countries',
         ]);
         // Failed
         if ($validator->fails()) {
@@ -70,12 +60,10 @@ class CountryController extends Controller
         }
 
         $country = new Country();
-        $country->title = $request->get('title');
-        $country->iso = $request->get('iso');
-        $country->slug = Str::slug($request->get('title'));
+        $country->fill($request->all());
         $country->save();
 
-        return redirect()->route('admin.country.index')->withFlashSuccess(__('Country created.'));
+        return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -98,16 +86,25 @@ class CountryController extends Controller
      * @param Request $request
      * @param Country $country
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function update(Request $request, Country $country)
     {
-
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|array',
+            'title.uk' => 'required|string',
+            'iso' => 'required|string|max:10|unique:countries,iso,' . $country->id,
+            'slug' => 'required|string|max:10|unique:countries,slug,' . $country->id,
+        ]);
+        // Failed
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors()->toArray());
+        }
         //
         $country->fill($request->all());
         $country->save();
 
-        return redirect()->route('admin.country.index')->withFlashSuccess(__('Country updated.'));
+        return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -122,7 +119,7 @@ class CountryController extends Controller
         //
         $country->delete();
 
-        return redirect()->route('admin.country.index')->withFlashSuccess(__('Country deleted.'));
+        return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Deleted'));
     }
 
 }
