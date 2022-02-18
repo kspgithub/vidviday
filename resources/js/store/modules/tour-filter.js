@@ -20,6 +20,7 @@ export default {
                 subjects: [],
                 types: [],
                 places: [],
+                landings: [],
                 pagination: [],
                 sorting: [],
             },
@@ -33,6 +34,7 @@ export default {
                 type: 0,
                 subject: 0,
                 place: 0,
+                landing: 0,
                 lang: 'uk',
             },
             pagination: {
@@ -106,6 +108,7 @@ export default {
                 type: 0,
                 subject: 0,
                 place: 0,
+                landing: 0,
                 page: 1,
                 per_page: 12,
                 sort_by: 'price',
@@ -126,6 +129,7 @@ export default {
                 direction: state.formData.direction,
                 type: state.formData.type,
                 place: state.formData.place,
+                landing: state.formData.landing,
                 subject: state.formData.subject,
                 page: state.pagination.current_page,
                 per_page: state.pagination.per_page,
@@ -147,6 +151,7 @@ export default {
                 type: state.formData.type,
                 subject: state.formData.subject,
                 place: state.formData.place,
+                landing: state.formData.landing,
             }
         }
     },
@@ -168,6 +173,7 @@ export default {
                 direction: query.direction ? parseInt(query.direction) : 0,
                 type: query.type ? parseInt(query.type) : 0,
                 place: query.place ? parseInt(query.place) : 0,
+                landing: query.landing ? parseInt(query.landing) : 0,
                 subject: query.subject ? parseInt(query.subject) : 0,
                 lang: query.lang || document.documentElement.lang || 'uk',
             };
@@ -199,6 +205,7 @@ export default {
                 type: 0,
                 subject: 0,
                 place: 0,
+                landing: 0,
             });
             commit('SET_PAGE', 1);
         },

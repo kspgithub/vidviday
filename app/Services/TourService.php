@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\GeneralException;
 use App\Models\Direction;
+use App\Models\LandingPlace;
 use App\Models\Place;
 use App\Models\Tour;
 use App\Models\TourSchedule;
@@ -44,9 +45,16 @@ class TourService extends BaseService
                 });
             })->toSelectBox()->toArray();
 
+            $landings = LandingPlace::query()->whereHas('tours', function ($sq) {
+                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
+                });
+            })->toSelectBox()->toArray();
+
             $subjects = TourSubject::published()->toSelectBox()->toArray();
             $types = TourType::published()->toSelectBox()->toArray();
             $directions = Direction::published()->toSelectBox()->toArray();
+
 
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
@@ -59,6 +67,7 @@ class TourService extends BaseService
                 'types' => [['value' => 0, 'text' => __('tours-section.type')]] + $types,
                 'subjects' => [['value' => 0, 'text' => __('tours-section.subject')]] + $subjects,
                 'places' => [['value' => 0, 'text' => __('tours-section.places')]] + $places,
+                'landings' => [['value' => 0, 'text' => __('tours-section.landing-places')]] + $landings,
                 'sorting' => [
                     ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],

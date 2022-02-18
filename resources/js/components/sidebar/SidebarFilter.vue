@@ -50,9 +50,9 @@
                              name="type"
                 />
 
-                <form-select v-model="subject"
-                             :options="options.subjects"
-                             name="subject"
+                <form-select v-model="landing"
+                             :options="options.landings"
+                             name="landing"
                 />
 
                 <span class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
@@ -89,6 +89,7 @@ export default {
                     subjects: [],
                     types: [],
                     places: [],
+                    landings: [],
                 }
             }
         }
@@ -107,6 +108,7 @@ export default {
         const type = useFormDataProperty('tourFilter', 'type');
         const subject = useFormDataProperty('tourFilter', 'subject');
         const place = useFormDataProperty('tourFilter', 'place');
+        const landing = useFormDataProperty('tourFilter', 'landing');
 
 
         const params = computed(() => store.getters['tourFilter/formData']);
@@ -138,6 +140,7 @@ export default {
             direction,
             type,
             place,
+            landing,
             subject,
             clear,
             submit,
