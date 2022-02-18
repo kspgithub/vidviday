@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\JsonLikeScope;
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,6 +18,7 @@ class LandingPlace extends TranslatableModel
     use HasTranslatableSlug;
     use JsonLikeScope;
     use UseSelectBox;
+    use UsePublishedScope;
 
     public $translatable = [
         'title',
