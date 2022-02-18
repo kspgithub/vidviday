@@ -2,7 +2,7 @@
 
 
 export default {
-    install: (app, options) => {
+    install: (app) => {
         app.component('sign-up-form', require('./auth/SignUpForm').default);
 
         app.component('lang-dropdown', require('./header/LangDropdown').default);
@@ -23,6 +23,7 @@ export default {
         app.component('feedback-form', require('./common/FeedbackForm').default);
         app.component('share-dropdown', require('./common/ShareDropdown').default);
         app.component('print-btn', require('./common/PrintBtn').default);
+        app.component('map-route', require('./common/MapRoute').default);
 
         app.component('testimonial-list', require('./testimonial/TestimonialList').default);
         app.component('testimonial-popup-form', require('./testimonial/TestimonialPopupForm').default);

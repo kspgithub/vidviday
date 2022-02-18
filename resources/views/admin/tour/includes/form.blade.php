@@ -38,12 +38,13 @@
                             :value="old('commission', $tour->commission)" type="number"/>
         <x-forms.text-group name="accomm_price" label="Доп. за поселення"
                             :value="old('accomm_price', $tour->accomm_price)" type="number"/>
-        
+
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
         <x-forms.single-image-upload name="main_image"
                                      :value="$tour->getFirstMediaUrl('main')"
                                      :preview="$tour->getFirstMediaUrl('main')"
+                                     help="1500х1000"
                                      :label="__('Main Image')"/>
         <x-forms.single-image-upload name="mobile_image"
                                      :value="$tour->getFirstMediaUrl('mobile')"

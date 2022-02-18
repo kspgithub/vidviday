@@ -5,6 +5,9 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.picture.*')}}"
        href="{{route('admin.tour.picture.index', $tour)}}">@lang('Pictures')</a>
 
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.landing.*')}}"
+       href="{{route('admin.tour.landing.index', $tour)}}">@lang('Місця посадки')</a>
+    
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.places.*')}}"
        href="{{route('admin.tour.places.index', $tour)}}">@lang('Places')</a>
 

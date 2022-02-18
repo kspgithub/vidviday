@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodSeeder::class);
         $this->call(TicketsSeeder::class);
         $this->call(PlaceSeeder::class);
+        $this->call(LandingPlaceSeeder::class);
 
         $this->call(AccommodationTypeSeeder::class);
         $this->call(AccommodationsSeeder::class);

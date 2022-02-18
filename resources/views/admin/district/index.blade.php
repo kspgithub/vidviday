@@ -5,7 +5,10 @@
 @section('content')
     {!! breadcrumbs([
 ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-isset($region) ? ['url'=>route('admin.city.index', ['region_id'=>$region->id]), 'title'=>$region->title] : null,
+isset($country) ? ['url'=>route('admin.country.index'), 'title'=>'Країни'] : null,
+isset($country) ? ['url'=>route('admin.region.edit', $country), 'title'=>$country->title] : null,
+isset($country) ? ['url'=>route('admin.region.index', ['country_id'=>$country->id]), 'title'=>'Області'] : null,
+isset($region) ? ['url'=>route('admin.region.edit', $region), 'title'=>$region->title] : null,
 ['url'=>route('admin.district.index'), 'title'=>__('Districts')],
 ]) !!}
     <div class="d-flex justify-content-between">

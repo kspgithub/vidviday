@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -12,6 +13,7 @@ class City extends TranslatableModel
     use HasSlug;
     use HasFactory;
     use HasTranslations;
+    use UseSelectBox;
 
     public $translatable = [
         'title',

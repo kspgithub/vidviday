@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Place;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Throwable;
 
 class PlaceController extends Controller
 {
@@ -27,12 +29,43 @@ class PlaceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return View|JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return view('admin.place.index');
+        if ($request->ajax()) {
+            $query = Place::query()->with(['region', 'district', 'city']);
+
+            $q = $request->input('q', '');
+            if (!empty($q)) {
+                $query->jsonLike('title', "%$q%");
+            }
+
+            $region_id = $request->input('region_id', 0);
+            if ($region_id > 0) {
+                $query->where('region_id', $region_id);
+            }
+
+            $district_id = $request->input('district_id', 0);
+            if ($district_id > 0) {
+                $query->where('district_id', $district_id);
+            }
+
+            $perPage = $request->input('per_page', 20);
+            if ($perPage === 'all') {
+                $perPage = 1000;
+            }
+
+            $order = explode(':', $request->input('order', 'bitrix_id:asc'));
+            $query->orderBy($order[0] ?? 'title->uk', $order[1] ?? 'asc');
+
+            $paginator = $query->paginate($perPage);
+            return response()->json($paginator);
+        }
+
+        $regions = Region::toSelectBox();
+        return view('admin.place.index', ['regions' => $regions]);
     }
 
     /**
@@ -91,6 +124,8 @@ class PlaceController extends Controller
      * @param Place $place
      *
      * @return Response|JsonResponse
+     * @throws GeneralException
+     * @throws Throwable
      */
     public function update(Request $request, Place $place)
     {
@@ -98,7 +133,7 @@ class PlaceController extends Controller
         $this->service->update($place, $request->all());
 
         if ($request->ajax()) {
-            return response()->json(['result' => 'success', 'model' => $place]);
+            return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Updated')]);
         }
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Updated'));
     }
@@ -106,13 +141,17 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param Place $place
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
-    public function destroy(Place $place)
+    public function destroy(Request $request, Place $place)
     {
         $this->service->destroy($place);
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Deleted')]);
+        }
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Deleted'));
     }
 

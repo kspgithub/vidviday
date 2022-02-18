@@ -5,6 +5,7 @@ namespace App\Models\Traits\Relationship;
 use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Discount;
+use App\Models\LandingPlace;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
@@ -241,5 +242,16 @@ trait TourRelationship
     public function faq()
     {
         return $this->hasMany(TourFaq::class, 'tour_id');
+    }
+
+    /**
+     * Места посадки
+     *
+     * @return BelongsToMany
+     */
+    public function landings()
+    {
+        return $this->belongsToMany(LandingPlace::class, 'tours_landings', 'tour_id', 'landing_id')
+            ->orderByPivot('position');
     }
 }

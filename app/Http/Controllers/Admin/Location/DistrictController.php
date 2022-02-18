@@ -19,14 +19,17 @@ class DistrictController extends Controller
      */
     public function index(Request $request)
     {
+        $country = null;
         $region = null;
         $region_id = $request->input('region_id', 0);
         if ($region_id > 0) {
             $region = Region::findOrFail($region_id);
+            $country = $region->country;
         }
 
         //
         return view('admin.district.index', [
+            'country' => $country,
             'region' => $region,
         ]);
     }
@@ -41,12 +44,19 @@ class DistrictController extends Controller
         $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
         $district = new District();
+        $region = null;
+        $country = null;
         $region_id = $request->input('region_id', 0);
         if ($region_id > 0) {
-            $district->region_id = $region_id;
+            $region = Region::findOrFail($region_id);
+            $country = $region->country;
+            $district->country_id = $region->country_id;
+            $district->region_id = $region->id;
         }
 
         return view('admin.district.create', [
+            'country' => $country,
+            'region' => $region,
             'district' => $district,
             'regions' => $regions,
             'countries' => $countries,
@@ -83,6 +93,8 @@ class DistrictController extends Controller
         $regions = Region::toSelectBox();
         //
         return view('admin.district.edit', [
+            'country' => $district->country,
+            'region' => $district->region,
             'district' => $district,
             'regions' => $regions,
             'countries' => $countries

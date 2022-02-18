@@ -18,10 +18,13 @@
         </div>
     </div>
 
-    <x-bootstrap.card>
-        <x-slot name="body">
-            <livewire:places-table />
-        </x-slot>
-    </x-bootstrap.card>
+    @include('admin.place.includes.list')
+    {{--    <x-bootstrap.card>--}}
+    {{--        <x-slot name="body">--}}
+
+    {{--           --}}
+    {{--            --}}{{--            <livewire:places-table/>--}}
+    {{--        </x-slot>--}}
+    {{--    </x-bootstrap.card>--}}
 
 @endsection

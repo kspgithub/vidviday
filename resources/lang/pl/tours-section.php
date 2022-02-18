@@ -93,4 +93,5 @@ return [
     'type' => 'Type',
     'direction' => 'Direction',
     'subject' => 'Subject',
+    'landing-places' => 'Місця посадки',
 ];
