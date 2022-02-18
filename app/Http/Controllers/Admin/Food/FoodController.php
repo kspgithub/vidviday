@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Food;
 use App\Http\Controllers\Controller;
 use App\Models\Currency;
 use App\Models\Food;
+use App\Models\FoodTime;
+use App\Models\Region;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,11 +18,28 @@ class FoodController extends Controller
      *
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Food::query()->withCount(['media'])->get();
+        $query = Food::query();
+
+        $time_id = $request->input('time_id', 0);
+        if ($time_id > 0) {
+            $query->where('time_id', $time_id);
+        }
+
+        $region_id = $request->input('region_id', 0);
+        if ($region_id > 0) {
+            $query->where('region_id', $region_id);
+        }
+
+        $items = $query->withCount(['media'])->paginate();
+
+        $foodTimes = FoodTime::all();
+        $regions = Region::toSelectBox();
 
         return view('admin.food.index', [
+            'regions' => $regions,
+            'foodTimes' => $foodTimes,
             'items' => $items,
         ]);
     }
@@ -36,7 +55,13 @@ class FoodController extends Controller
         $food = new Food();
         $food->currency = 'UAH';
         $currencies = Currency::toSelectBox('iso', 'iso');
+
+        $foodTimes = FoodTime::toSelectBox();
+        $regions = Region::toSelectBox();
+
         return view('admin.food.create', [
+            'regions' => $regions,
+            'foodTimes' => $foodTimes,
             'model' => $food,
             'currencies' => $currencies,
         ]);
@@ -55,7 +80,7 @@ class FoodController extends Controller
         $food->fill($request->all());
         $food->save();
         if ($request->hasFile('media')) {
-            foreach ($request->file('media') as  $imageFile) {
+            foreach ($request->file('media') as $imageFile) {
                 $food->storeMedia($imageFile);
             }
         }
@@ -73,7 +98,11 @@ class FoodController extends Controller
     {
         //
         $currencies = Currency::toSelectBox('iso', 'iso');
+        $foodTimes = FoodTime::toSelectBox();
+        $regions = Region::toSelectBox();
         return view('admin.food.edit', [
+            'regions' => $regions,
+            'foodTimes' => $foodTimes,
             'model' => $food,
             'currencies' => $currencies,
         ]);

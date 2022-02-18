@@ -31,6 +31,8 @@ class Food extends TranslatableModel implements HasMedia
     ];
 
     protected $fillable = [
+        'time_id',
+        'region_id',
         'title',
         'text',
         'price',
@@ -69,11 +71,20 @@ class Food extends TranslatableModel implements HasMedia
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    )
-    {
+    ) {
         return self::query()->get(['id', 'title', 'price', 'currency'])
             ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
                 return [$value_key => $item->{$value_field}, $text_key => $item->title . ', ' . $item->price . $item->currency];
             });
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    public function time()
+    {
+        return $this->belongsTo(FoodTime::class, 'time_id');
     }
 }

@@ -5,9 +5,10 @@ namespace App\Models;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
-class FoodTime extends Model
+class FoodTime extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
@@ -23,8 +24,13 @@ class FoodTime extends Model
         'published',
     ];
 
+    public function foodItems()
+    {
+        return $this->hasMany(Food::class, 'time_id');
+    }
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function foods()
     {

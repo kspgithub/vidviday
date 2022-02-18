@@ -41,7 +41,7 @@
     @else
         <x-bootstrap.card>
             <x-slot name="body">
-                <h2 class="mb-2">@lang('Tour Food')</h2>
+                <h2 class="mb-2">@lang('Tour food')</h2>
                 <div>
                     <form method="post" wire:submit.prevent="saveItem()">
 
@@ -56,8 +56,13 @@
                             <option value="0">Не вибрано</option>
                         </x-forms.select-group>
 
+                        <x-forms.select-group wire:model="region_id" name="region_id" :label="__('Region')"
+                                              :options="$regions">
+                            <option value="0">Не вибрано</option>
+                        </x-forms.select-group>
+
                         <x-forms.select-group wire:model="food_id" name="food_id" :label="__('Food')"
-                                              :options="$foodItems">
+                                              :options="$this->foods">
                             <option value="0">Не вибрано</option>
                         </x-forms.select-group>
 

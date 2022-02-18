@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\Food;
 use App\Models\FoodTime;
+use App\Models\Region;
 use App\Models\Tour;
 use App\Models\TourFood;
 use App\Models\TourPlan;
@@ -34,9 +35,13 @@ class TourFoodTable extends Component
 
     public $foodTimes = [];
 
+    public $regions = [];
+
     public $pictures = [];
 
     public $day = 1;
+
+    public $region_id = 0;
 
     public $food_id = 0;
 
@@ -47,6 +52,7 @@ class TourFoodTable extends Component
     {
         return [
             'day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
+            'region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
             'food_id' => ['required', 'integer', Rule::exists('food', 'id')],
             'time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
         ];
@@ -59,8 +65,21 @@ class TourFoodTable extends Component
         $this->locales = $this->getLocales();
         $this->foodTimes = FoodTime::toSelectBox();
         $this->foodItems = Food::toSelectBox();
+        $this->regions = Region::toSelectBox();
         $this->day = 1;
         $this->time_id = 1;
+    }
+
+    public function getFoodsProperty()
+    {
+        $query = Food::query();
+        if ($this->region_id > 0) {
+            $query->where('region_id', $this->region_id);
+        }
+        if ($this->time_id > 0) {
+            $query->where('time_id', $this->time_id);
+        }
+        return $query->toSelectBox();
     }
 
     public function render()
