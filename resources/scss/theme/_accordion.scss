@@ -37,6 +37,17 @@
         }
     }
 
+    .accordion-icon {
+        svg {
+            width: 26px;
+            height: 26px;
+
+            path {
+                fill: #626262;
+            }
+        }
+    }
+
     &.type-1,
     &.type-4,
     &.type-5 {

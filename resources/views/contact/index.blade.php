@@ -27,27 +27,12 @@
                 <!-- BANNER/INFO END -->
                     <div class="spacer-xs"></div>
                     <!-- MAP -->
-                    <div class="map-route-wrap">
-                        <div class="map-block full-size" id="map-canvas-route" data-lat="{{$contact->lat}}"
-                             data-lng="{{$contact->lng}}" data-zoom="13"
-                             data-set-marker="{{asset('icon/marker-circle.svg')}}"></div>
-
-                        <div class="addresses-block">
-                            <a data-lat="{{$contact->lat}}" data-lng="{{$contact->lng}}"
-                               data-marker="{{asset('img/marker.png')}}"
-                               data-string="<div class='map-informer-content'><p>{{$contact->address}}{{$contact->address_comment}}</p></div>"></a>
-                        </div>
-                        <form action="/" class="build-route">
-                            <label>
-                                <!-- <i>Ваше місце розташування</i> -->
-                                <input type="text" name="user-location" id="your_location">
-                            </label>
-
-                            <label>
-                                <input type="text" value="{{$contact->address}}" id="select_department" disabled>
-                            </label>
-                        </form>
-                    </div>
+                    <div v-is="'map-route'"
+                         :lat='{{$contact->lat}}'
+                         :lng='{{$contact->lng}}'
+                         :address='"{{$contact->title}}"'
+                         :address-comment='"{{$contact->address_comment}}"'
+                    ></div>
                     <!-- MAP END -->
                     <div class="spacer-xs"></div>
                     <!-- ACCORDIONS CONTENT -->

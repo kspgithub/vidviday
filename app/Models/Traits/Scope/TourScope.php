@@ -121,6 +121,18 @@ trait TourScope
                     $sq->whereIn('id', $ids);
                 });
             })
+            ->when(!empty($params['place']), function (Builder $q) use ($params) {
+                return $q->whereHas('places', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['place']));
+                    $sq->whereIn('id', $ids);
+                });
+            })
+            ->when(!empty($params['landing']), function (Builder $q) use ($params) {
+                return $q->whereHas('landings', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['landing']));
+                    $sq->whereIn('id', $ids);
+                });
+            })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
                 $search = urldecode(trim($params['q']));
                 return $q->jsonLike('title', "%$search%");

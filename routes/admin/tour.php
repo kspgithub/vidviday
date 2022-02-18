@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Tour\TourSubjectController;
 use App\Http\Controllers\Admin\Tour\TourTicketController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
 use App\Http\Controllers\Admin\Tour\TourFinanceController;
+use App\Http\Controllers\Admin\TourLandingController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -72,6 +73,12 @@ Route::group([
     Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
     Route::get('{tour}/calc', [CalcController::class, 'index'])->name('calc');
     Route::get('{tour}/accomm', [TourAccommController::class, 'index'])->name('accomm.index');
+    Route::get('{tour}/landing', [TourLandingController::class, 'index'])->name('landing.index');
+    Route::get('{tour}/landing/select-box', [TourLandingController::class, 'selectBox'])->name('landing.select-box');
+    Route::post('{tour}/landing/update-position', [TourLandingController::class, 'updatePosition'])->name('landing.update-position');
+    Route::post('{tour}/landing/{id}/attach', [TourLandingController::class, 'attach'])->name('landing.attach');
+    Route::post('{tour}/landing/{id}/detach', [TourLandingController::class, 'detach'])->name('landing.detach');
+
 });
 
 Route::resource('tour', TourController::class);

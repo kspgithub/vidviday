@@ -61,13 +61,13 @@
 
             @if(is_admin() || is_manager())
 
-                <li class="sidebar-item {{routeActiveClass('admin.tour*')}}">
+                <li class="sidebar-item {{routeActiveClass(['admin.tour*', 'admin.badge*', 'admin.direction*', 'admin.landing-place*'])}}">
                     <a data-bs-target="#tours" data-bs-toggle="collapse"
                        class="sidebar-link {{routeActiveClass('admin.tour*', '', 'collapsed')}}">
                         <i class="align-middle" data-feather="map"></i> <span class="align-middle">@lang('Tours')</span>
                     </a>
                     <ul id="tours"
-                        class="sidebar-dropdown list-unstyled collapse {{routeActiveClass(['admin.tour*', 'admin.badge*', 'admin.direction*'], 'show', '') }}"
+                        class="sidebar-dropdown list-unstyled collapse {{routeActiveClass(['admin.tour*', 'admin.badge*', 'admin.direction*', 'admin.landing-place*'], 'show', '') }}"
                         data-bs-parent="#sidebar">
                         <li class="sidebar-item {{routeActiveClass('admin.tour.*')}}">
                             <a class="sidebar-link"
@@ -88,6 +88,10 @@
                         <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}">
                             <a class="sidebar-link "
                                href="{{route('admin.direction.index')}}">@lang('Directions')</a>
+                        </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.landing-place.*')}}">
+                            <a class="sidebar-link "
+                               href="{{route('admin.landing-place.index')}}">Місця посадки</a>
                         </li>
                         <li class="sidebar-item {{routeActiveClass('admin.tour-type.*')}}">
                             <a class="sidebar-link "

@@ -14,18 +14,19 @@
 /* 06 SET CURRENT POSITION                   */
 /*###########################################*/
 
-$(function() {
-	var marker,
+$(function () {
+    var marker,
         markers = [],
         infowindow = [],
         map,
         image,
         autocomplete,
         set_marker;
-	/*###############*/
-	/* 01 SET MARKER */
-	/*###############*/
-	function setMarker(location) {
+    /*###############*/
+    /* 01 SET MARKER */
+
+    /*###############*/
+    function setMarker(location) {
         image = {
             url: $('#map-canvas-route').attr('data-set-marker'),
             scaledSize: new google.maps.Size(50, 50),
@@ -37,16 +38,17 @@ $(function() {
         set_marker.setMap(map);
         map.panTo(location);
     }
-	/*###############*/
-	/* 02 ADD MARKER */
-	/*###############*/
-	function addMarker(location, name, contentstr, markimg, mark_city) {
-		marker = new google.maps.Marker({
-			position: location,
+
+    /*###############*/
+    /* 02 ADD MARKER */
+
+    /*###############*/
+    function addMarker(location, name, contentstr, markimg, mark_city) {
+        marker = new google.maps.Marker({
+            position: location,
             map: map,
             icon: markimg
         });
-        console.log(location);
         marker.setMap(map);
         infowindow[name] = new google.maps.InfoWindow({
             content: contentstr
@@ -151,7 +153,8 @@ $(function() {
                 "elementType": "labels.text.fill",
                 "stylers": [{"lightness": "-49"}, {"saturation": "-53"}, {"gamma": "0.79"}]
             }],
-            styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"}), mapOptions = {
+            styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"}),
+            mapOptions = {
                 zoom: setZoom,
                 panControl: false,
                 zoomControl: true,
@@ -198,54 +201,57 @@ $(function() {
                 strokeOpacity: 1,
                 strokeWeight: 3,
                 center: location
-			}
-		});
-		// Google Autocomplete options
-		var options = {
-			types: ['geocode'],
-			componentRestrictions: {country: "ua"}
-		};
+            }
+        });
+        // Google Autocomplete options
+        var options = {
+            types: ['geocode'],
+            componentRestrictions: {country: "ua"}
+        };
 
-		if($('#your_location').length ) {
-			your_location = new google.maps.places.Autocomplete(
-				(document.getElementById('your_location')),
-				options
-			);
-			google.maps.event.addListener(your_location, 'place_changed', function() {
-				var place = your_location.getPlace(),
-						newLocation;
-				if(markers.length) {
-					map.panTo(myLatlng);
-				}
-				newLocation = new google.maps.LatLng(
-						place.geometry.location.lat(),
-						place.geometry.location.lng()
-					);
-				setMarker(newLocation);
-			});
-		}
-	}
-	/*###########################################*/
-	/* 04 AUTOMATIC BIULD ROUTE ON CHANGE INPUTS */
-	/*###########################################*/
-	function onChangeInput() {
-		buildRoute(directionsService, directionsDisplay);
-	}
+        if ($('#your_location').length) {
+            your_location = new google.maps.places.Autocomplete(
+                (document.getElementById('your_location')),
+                options
+            );
+            google.maps.event.addListener(your_location, 'place_changed', function () {
+                var place = your_location.getPlace(),
+                    newLocation;
+                if (markers.length) {
+                    map.panTo(myLatlng);
+                }
+                newLocation = new google.maps.LatLng(
+                    place.geometry.location.lat(),
+                    place.geometry.location.lng()
+                );
+                setMarker(newLocation);
+            });
+        }
+    }
 
-	if($('.build-route').length) {
-		var input_your_location = document.getElementById('your_location');
-		autocomplete = new google.maps.places.Autocomplete(input_your_location);
-		document.getElementById('your_location').addEventListener('change', onChangeInput);
-	}
-	/*################*/
-	/* 05 BIULD ROUTE */
-	/*################*/
-	function buildRoute(markimg) {
-		for (var y = 0; y < markers.length; y++) {
-			infowindow['template_marker_' + y].close();
-		}
-		directionsDisplay.setMap(null);
-		setTimeout(function() {
+    /*###########################################*/
+    /* 04 AUTOMATIC BIULD ROUTE ON CHANGE INPUTS */
+
+    /*###########################################*/
+    function onChangeInput() {
+        buildRoute(directionsService, directionsDisplay);
+    }
+
+    if ($('.build-route').length && $('#your_location').length) {
+        var input_your_location = document.getElementById('your_location');
+        autocomplete = new google.maps.places.Autocomplete(input_your_location);
+        document.getElementById('your_location').addEventListener('change', onChangeInput);
+    }
+    /*################*/
+    /* 05 BIULD ROUTE */
+
+    /*################*/
+    function buildRoute(markimg) {
+        for (var y = 0; y < markers.length; y++) {
+            infowindow['template_marker_' + y].close();
+        }
+        directionsDisplay.setMap(null);
+        setTimeout(function () {
             var start = 'Україна, ' + document.getElementById("your_location").value;
             var end = document.getElementById("select_department").value;
             var request = {
@@ -260,32 +266,32 @@ $(function() {
                 }
             });
         }, 200);
-	}
+    }
 
-	$(document).on('change', '#select_department', function(){
-		if ($('#your_location').val()) {
-			buildRoute();
-		}
-	});
+    $(document).on('change', '#select_department', function () {
+        if ($('#your_location').val()) {
+            buildRoute();
+        }
+    });
 
-	$(document).on('click', '.select2-selection__rendered', function(){
-		if ($('#your_location').val()) {
-			buildRoute();
-		}
-	});
+    $(document).on('click', '.select2-selection__rendered', function () {
+        if ($('#your_location').val()) {
+            buildRoute();
+        }
+    });
 
-	$(document).on('blur', '#your_location', function() {
-		if ($(this).val() == '') {
-			setTimeout(function() {
-				directionsDisplay.setMap(null);
-				set_marker.setMap(null);
-			}, 230);
-		}
-	});
-	/*#########################*/
-	/* 06 SET CURRENT POSITION */
-	/*#########################*/
-	if($('.build-route').length) {
+    $(document).on('blur', '#your_location', function () {
+        if ($(this).val() == '') {
+            setTimeout(function () {
+                directionsDisplay.setMap(null);
+                set_marker.setMap(null);
+            }, 230);
+        }
+    });
+    /*#########################*/
+    /* 06 SET CURRENT POSITION */
+    /*#########################*/
+    if ($('.build-route').length && $('#your_location').length) {
         navigator.geolocation.getCurrentPosition(
             function (position) {
                 var geocoder = new google.maps.Geocoder;

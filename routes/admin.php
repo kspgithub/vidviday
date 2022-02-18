@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\CRM\CrmCorporateController;
 use App\Http\Controllers\Admin\CRM\CrmNotificationsController;
 use App\Http\Controllers\Admin\CRM\CrmOrderController;
 use App\Http\Controllers\Admin\CRM\CrmScheduleController;
+use App\Http\Controllers\Admin\LandingPlaceController;
 use App\Http\Controllers\Admin\Location\CityController;
 use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\Location\CountryController;
@@ -236,6 +237,8 @@ Route::resource('tour-type', TourTypeController::class)->except('show');
 Route::resource('direction', DirectionController::class)->except('show');
 Route::resource('tour-subjects', TourSubjectsController::class)->except('show');
 Route::resource('tour-group', TourGroupController::class)->except('show');
+Route::resource('landing-place', LandingPlaceController::class)->except('show');
+
 require_once base_path('routes/admin/tour.php');
 
 

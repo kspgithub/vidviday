@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\GeneralException;
 use App\Models\Direction;
+use App\Models\Place;
 use App\Models\Tour;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
@@ -35,7 +36,18 @@ class TourService extends BaseService
     {
         $locale = app()->getLocale();
 
+
         return Cache::remember('filter-options-' . $locale, 1, function () {
+            $places = Place::query()->whereHas('tours', function ($sq) {
+                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
+                });
+            })->toSelectBox()->toArray();
+
+            $subjects = TourSubject::published()->toSelectBox()->toArray();
+            $types = TourType::published()->toSelectBox()->toArray();
+            $directions = Direction::published()->toSelectBox()->toArray();
+
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
                 'date_to' => Carbon::now()->addYears(1)->format('d.m.Y'),
@@ -43,12 +55,10 @@ class TourService extends BaseService
                 'duration_to' => (int)Tour::query()->max('duration') ?? 14,
                 'price_from' => 0,
                 'price_to' => (int)Tour::query()->max('price') ?? 10000,
-                'directions' => [['value' => 0, 'text' => __('tours-section.direction')]] +
-                    Direction::published()->toSelectBox()->toArray(),
-                'types' => [['value' => 0, 'text' => __('tours-section.type')]] + TourType::published()->toSelectBox()->toArray(),
-                'subjects' => [['value' => 0, 'text' => __('tours-section.subject')]] +
-                    TourSubject::published()->toSelectBox()->toArray(),
-
+                'directions' => [['value' => 0, 'text' => __('tours-section.direction')]] + $directions,
+                'types' => [['value' => 0, 'text' => __('tours-section.type')]] + $types,
+                'subjects' => [['value' => 0, 'text' => __('tours-section.subject')]] + $subjects,
+                'places' => [['value' => 0, 'text' => __('tours-section.places')]] + $places,
                 'sorting' => [
                     ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],

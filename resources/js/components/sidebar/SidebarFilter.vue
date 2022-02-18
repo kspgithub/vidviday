@@ -40,6 +40,10 @@
                              name="direction"
                 />
 
+                <form-select v-model="place"
+                             :options="options.places"
+                             name="place"
+                />
 
                 <form-select v-model="type"
                              :options="options.types"
@@ -66,7 +70,6 @@ import {computed} from "vue";
 import FormRange from "../form/FormRange";
 import FormSelect from "../form/FormSelect";
 import * as urlUtils from "../../utils/url";
-import {updateUrl} from "../../utils/url";
 
 export default {
     name: "SidebarFilter",
@@ -85,6 +88,7 @@ export default {
                     directions: [],
                     subjects: [],
                     types: [],
+                    places: [],
                 }
             }
         }
@@ -102,6 +106,7 @@ export default {
         const direction = useFormDataProperty('tourFilter', 'direction');
         const type = useFormDataProperty('tourFilter', 'type');
         const subject = useFormDataProperty('tourFilter', 'subject');
+        const place = useFormDataProperty('tourFilter', 'place');
 
 
         const params = computed(() => store.getters['tourFilter/formData']);
@@ -132,6 +137,7 @@ export default {
             price,
             direction,
             type,
+            place,
             subject,
             clear,
             submit,

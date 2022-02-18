@@ -99,6 +99,7 @@ class TourController extends Controller
             'discounts',
             'guides',
             'manager',
+            'landings',
             'testimonials' => function ($q) {
                 return $q->moderated();
             },

@@ -47,6 +47,7 @@ class TourSeeder extends Seeder
             'tours_staff',
             'tour_schedules',
             'tour_questions',
+            'tours_landings',
             'tours',
         ]);
 

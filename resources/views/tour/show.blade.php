@@ -77,6 +77,7 @@
                             <div class="accordion type-1">
                                 {{--                                //@dd($tour->accommodations)--}}
                                 @include('tour.includes.tour-plan')
+                                @include('tour.includes.tour-landing')
                                 @include('tour.includes.tour-places')
                                 @include('tour.includes.tour-schedule')
                                 @include('tour.includes.tour-finances')

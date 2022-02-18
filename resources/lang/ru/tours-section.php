@@ -93,4 +93,5 @@ return [
     'type' => 'Тип',
     'direction' => 'Направление',
     'subject' => 'Тематика',
+    'landing-places' => 'Місця посадки',
 ];
