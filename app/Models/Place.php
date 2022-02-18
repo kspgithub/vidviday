@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\PlaceRelationship;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -30,6 +31,7 @@ class Place extends TranslatableModel implements HasMedia
     use PlaceRelationship;
     use HasTranslatableSlug;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',
@@ -62,6 +64,7 @@ class Place extends TranslatableModel implements HasMedia
     protected $casts = [
         'lat' => 'float',
         'lng' => 'float',
+        'published' => 'boolean',
     ];
 
     protected $appends = [

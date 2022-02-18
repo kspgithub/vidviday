@@ -67,7 +67,7 @@ class District extends TranslatableModel
             'country_title' => $this->country->title,
             'region_title' => $this->region->title,
             'value' => $this->id,
-            'text' => $this->title . ' (' . $this->region->title . ')',
+            'text' => json_prepare($this->title . ' (' . $this->region->title . ')'),
         ];
     }
 
@@ -80,7 +80,7 @@ class District extends TranslatableModel
     ) {
         return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
             ->map(function ($item) use ($value_key, $text_key) {
-                return [$value_key => $item->id, $text_key => $item->title . ' (' . $item->region->title . ')'];
+                return [$value_key => $item->id, $text_key => json_prepare($item->title . ' (' . $item->region->title . ')')];
             });
     }
 
@@ -92,7 +92,7 @@ class District extends TranslatableModel
         $query = self::query();
         $items = $query->with(['region'])->get($fields);
         foreach ($items as $item) {
-            $result[$item->{$value_field}] = $item->title . ' (' . $item->region->title . ')';
+            $result[$item->{$value_field}] = json_prepare($item->title . ' (' . $item->region->title . ')');
         }
         return $result;
     }
