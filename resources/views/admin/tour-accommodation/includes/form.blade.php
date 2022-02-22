@@ -38,9 +38,18 @@
                                 value="{{$value}}" {{$value === $accommodation_id ? 'selected' : ''}}>{{$text}}</option>
                         @endforeach
                     </x-input.select2wire>
+
+
                 </div>
             </div>
+            @foreach(siteLocales() as $locale)
 
+                <x-forms.text-group wire:model.defer="title_{{$locale}}"
+                                    required
+                                    name="title_{{$locale}}"
+                                    label="Суфікс {{strtoupper($locale)}}"
+                />
+            @endforeach
             <button type="submit" class="btn btn-primary me-3">@lang('Save')</button>
             <button type="button" wire:click.prevent="cancelEdit()" class="btn btn-secondary">@lang('Cancel')</button>
 

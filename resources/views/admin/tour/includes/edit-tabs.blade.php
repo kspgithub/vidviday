@@ -7,7 +7,7 @@
 
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.landing.*')}}"
        href="{{route('admin.tour.landing.index', $tour)}}">@lang('Місця посадки')</a>
-    
+
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.places.*')}}"
        href="{{route('admin.tour.places.index', $tour)}}">@lang('Places')</a>
 
@@ -50,9 +50,13 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.similar.*')}}"
        href="{{route('admin.tour.similar.index', $tour)}}">@lang('Similar Tours')</a>
 </div>
-<div class="list-group">
-    <a class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" href="{{$tour->url}}">
-        <span>Переглянути</span>
-        <i class="fas fa-external-link-alt ms-auto"></i>
-    </a>
-</div>
+
+@if(!empty($tour->url))
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action d-flex align-items-center" target="_blank"
+           href="{{$tour->url}}">
+            <span>Переглянути</span>
+            <i class="fas fa-external-link-alt ms-auto"></i>
+        </a>
+    </div>
+@endif
