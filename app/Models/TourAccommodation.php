@@ -60,6 +60,10 @@ class TourAccommodation extends TranslatableModel
 
     public function getTitleAttribute()
     {
-        return !empty($this->accommodation) ? $this->accommodation->title : $this->getTranslation('title', $this->getLocale());
+        $locale = $this->getLocale();
+        $title = $this->attributes['title'] ?? '';
+        $title = !empty($title) ? json_decode($title, true) : [];
+        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
+        return !empty($this->accommodation) ? trim($this->accommodation->title . ' ' . $prefix) : '-';
     }
 }

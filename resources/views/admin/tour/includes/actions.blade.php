@@ -1,5 +1,6 @@
-<x-utils.link-button target="_blank" :href="$tour->url" :text="__('Show')"/>
-
+@if(!empty($tour->url))
+    <x-utils.link-button target="_blank" :href="$tour->url" :text="__('Show')"/>
+@endif
 <x-utils.link-button :href="route('admin.tour.picture.index', $tour)"
                      :text="__('Pictures').' ('.$tour->media_count.')'"/>
 <x-utils.link-button :href="route('admin.tour.questions', $tour)"

@@ -26,11 +26,20 @@ class TourAccommodation extends Component
 
     public $accommodation_id = 0;
 
+    public $title_uk = '';
+    public $title_ru = '';
+    public $title_en = '';
+    public $title_pl = '';
+
 
     public function rules()
     {
         return [
             'accommodation_id' => ['required', Rule::exists('accommodations', 'id')],
+            'title_uk' => ['nullable'],
+            'title_ru' => ['nullable'],
+            'title_en' => ['nullable'],
+            'title_pl' => ['nullable'],
         ];
     }
 
@@ -53,6 +62,7 @@ class TourAccommodation extends Component
     public function afterModelInit()
     {
         $this->accommodation_id = (int)$this->model->accommodation_id;
+        $this->getTranslations('title');
 
     }
 
@@ -62,6 +72,7 @@ class TourAccommodation extends Component
         $this->model->tour_id = $this->tour->id;
         $this->model->accommodation_id = (int)$this->accommodation_id;
         $this->model->type_id = 0;
+        $this->setTranslations('title');
     }
 
     public function updateOrder($items)
