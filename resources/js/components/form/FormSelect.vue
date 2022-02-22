@@ -10,7 +10,7 @@
                 <li v-for="option in options"
                     :class="{selected: option.value === modelValue}"
                     class="opt"
-                    @click="change(option)"><label>{{ option.value === 0 ? 'Не вибрано' : option.text }}</label>
+                    @click="change(option)"><label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
                 </li>
             </ul>
         </div>
