@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin\TourGroup;
 
 use App\Http\Controllers\Controller;
 use App\Models\TourGroup;
+use App\Rules\TranslatableSlugRule;
+use App\Rules\UniqueSlugRule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class TourGroupController extends Controller
 {
@@ -42,13 +46,32 @@ class TourGroupController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function store(Request $request)
     {
         //
+        $params = $request->all();
+        $validator = Validator::make($params, [
+            'title' => ['required', 'array'],
+            'title.uk' => ['required'],
+            'title.ru' => ['nullable'],
+            'title.en' => ['nullable'],
+            'title.pl' => ['nullable'],
+            'slug' => ['required', 'array', new TranslatableSlugRule()],
+            'slug.uk' => ['required', new UniqueSlugRule('tour_groups', 'slug')],
+            'slug.ru' => ['nullable', new UniqueSlugRule('tour_groups', 'slug')],
+            'slug.en' => ['nullable', new UniqueSlugRule('tour_groups', 'slug')],
+            'slug.pl' => ['nullable', new UniqueSlugRule('tour_groups', 'slug')],
+            'text' => ['nullable', 'array'],
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput($params);
+        }
         $tourGroup = new TourGroup();
-        $tourGroup->fill($request->all());
+        $tourGroup->fill($params);
         $tourGroup->save();
 
         return redirect()->route('admin.tour-group.edit', $tourGroup)->withFlashSuccess(__('Record Created'));
@@ -73,12 +96,34 @@ class TourGroupController extends Controller
      * @param Request $request
      * @param TourGroup $tourGroup
      *
-     * @return Response|JsonResponse
+     * @return Response|JsonResponse|RedirectResponse
      */
     public function update(Request $request, TourGroup $tourGroup)
     {
         //
-        $tourGroup->fill($request->all());
+        $params = $request->all();
+
+        if (!$request->ajax()) {
+            $validator = Validator::make($params, [
+                'title' => ['required', 'array'],
+                'title.uk' => ['required'],
+                'title.ru' => ['nullable'],
+                'title.en' => ['nullable'],
+                'title.pl' => ['nullable'],
+                'slug' => ['required', 'array', new TranslatableSlugRule()],
+                'slug.uk' => ['required', new UniqueSlugRule('tour_groups', 'slug', $tourGroup->id)],
+                'slug.ru' => ['nullable', new UniqueSlugRule('tour_groups', 'slug', $tourGroup->id)],
+                'slug.en' => ['nullable', new UniqueSlugRule('tour_groups', 'slug', $tourGroup->id)],
+                'slug.pl' => ['nullable', new UniqueSlugRule('tour_groups', 'slug', $tourGroup->id)],
+                'text' => ['nullable', 'array'],
+            ]);
+            if ($validator->fails()) {
+                return redirect()->route('admin.tour-group.edit', $tourGroup)
+                    ->withErrors($validator);
+            }
+        }
+
+        $tourGroup->fill($params);
         $tourGroup->save();
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);

@@ -4,6 +4,7 @@
     'label'=>'',
     'placeholder' => '',
     'options'=>[],
+    'requiredLocales'=>['uk'],
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
@@ -30,7 +31,7 @@
                                   id="{{$name}}-{{$lang}}-editor"
                                   rows="10"
                                   placeholder="{{ !empty($placeholder) ? $placeholder : ''}}"
-                          {{ $attributes->merge(['class' => 'form-control'])->except( $lang === 'uk' ? [] :['required']) }}
+                          {{ $attributes->merge(['class' => 'form-control'])->except( in_array($lang, $requiredLocales) ? [] :['required']) }}
                         >{!! $value[$lang] ?? '' !!}</textarea>
                 </div>
 

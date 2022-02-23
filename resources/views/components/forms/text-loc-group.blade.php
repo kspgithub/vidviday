@@ -5,6 +5,7 @@
     'placeholder' => '',
     'type'=>'text',
     'readonly'=>false,
+    'requiredLocales'=>['uk'],
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
@@ -30,7 +31,7 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                     {{$readonly ? 'readonly' : ''}}
-                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except( $lang === 'uk' ? [] :['required']) }}
+                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(  in_array($lang, $requiredLocales) ? [] :['required']) }}
                 />
             </div>
         @endforeach

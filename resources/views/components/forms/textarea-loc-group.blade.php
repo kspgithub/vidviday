@@ -5,6 +5,7 @@
     'placeholder' => '',
     'type'=>'text',
     'readonly'=>false,
+    'requiredLocales'=>['uk'],
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
@@ -29,7 +30,7 @@
                           id="{{$name}}-{{$lang}}"
                           {{$readonly ? 'readonly' : ''}}
                           placeholder="{{ !empty($placeholder) ? $placeholder : ''}}"
-                      {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except( $lang === 'uk' ? [] :['required']) }}
+                      {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except( in_array($lang, $requiredLocales) ? [] :['required']) }}
             >{{  $value[$lang] ?? '' }}</textarea>
             </div>
         @endforeach

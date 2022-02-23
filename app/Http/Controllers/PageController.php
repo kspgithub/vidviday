@@ -31,8 +31,9 @@ class PageController extends Controller
         }
 
 
-        $tourGroup = TourGroup::findBySlug($slug);
+        $tourGroup = TourGroup::findBySlug($slug, false);
         if ($tourGroup !== null) {
+            $tourGroup->checkSlugLocale($slug);
             return (new TourController())->index($request, $tourGroup);
         }
 

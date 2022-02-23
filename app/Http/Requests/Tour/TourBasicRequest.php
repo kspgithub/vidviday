@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Tour;
 
 use App\Models\Currency;
+use App\Rules\TranslatableSlugRule;
+use App\Rules\UniqueSlugRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,20 +27,19 @@ class TourBasicRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+
+        $rules = [
             //
             'locales' => ['required', 'array'],
             'title' => ['required', 'array'],
-            'title.uk' => ['required', 'string'],
             'bitrix_id' => ['nullable', 'string'],
             'bitrix_manager_id' => ['nullable', 'string'],
-            'slug' => ['nullable', 'array'],
+            'slug' => ['nullable', 'array', new TranslatableSlugRule()],
             'seo_h1' => ['nullable', 'array'],
             'seo_title' => ['nullable', 'array'],
             'seo_description' => ['nullable', 'array'],
             'seo_keywords' => ['nullable', 'array'],
             'text' => ['required', 'array'],
-            'text.uk' => ['required', 'string'],
             'short_text' => ['nullable', 'array'],
             'video' => ['nullable', 'string'],
             'duration' => ['required', 'integer'],
@@ -62,5 +63,13 @@ class TourBasicRequest extends FormRequest
             'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];
+
+        foreach ($this->locales as $locale) {
+            $rules['title.' . $locale] = ['required'];
+            $rules['text.' . $locale] = ['required'];
+            $rules['slug.' . $locale] = ['required', new UniqueSlugRule('tours', 'slug', $this->tour->id ?? 0)];
+        }
+
+        return $rules;
     }
 }

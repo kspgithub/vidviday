@@ -8,7 +8,6 @@
                                     required></x-forms.text-loc-group>
             <x-forms.text-loc-group name="slug" :label="__('Url')"
                                     :value="old('slug', $tourGroup->getTranslations('slug'))"
-                                    :help="__('Leave blank for automatic generation')"
                                     required></x-forms.text-loc-group>
 
             <x-forms.editor-loc-group name="text" :label="__('Text')"
@@ -33,7 +32,7 @@
                                     :value="old('seo_keywords',  $tourGroup->getTranslations('seo_keywords'))"/>
         </x-slot>
     </x-bootstrap.card>
-    
+
     @if($tourGroup->id > 0)
         <x-bootstrap.card>
             <x-slot name="header">

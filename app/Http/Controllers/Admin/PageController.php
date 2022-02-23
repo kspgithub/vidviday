@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Staff;
+use App\Rules\TranslatableSlugRule;
+use App\Rules\UniqueSlugRule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PageController extends Controller
@@ -22,7 +26,7 @@ class PageController extends Controller
     {
         $pages = Page::query()->withCount(['media'])->orderBy('title->uk')->get();
         //
-        return view('admin.page.index', ['pages'=>$pages]);
+        return view('admin.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -43,13 +47,34 @@ class PageController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function store(Request $request)
     {
         //
+        $params = $request->all();
+        $validator = Validator::make($params, [
+            'title' => ['required', 'array'],
+            'title.uk' => ['required'],
+            'title.ru' => ['required'],
+            'title.en' => ['required'],
+            'title.pl' => ['required'],
+            'key' => ['required', 'unique:pages'],
+            'slug' => ['required', 'array', new TranslatableSlugRule()],
+            'slug.uk' => ['required', new UniqueSlugRule('pages', 'slug')],
+            'slug.ru' => ['required', new UniqueSlugRule('pages', 'slug')],
+            'slug.en' => ['required', new UniqueSlugRule('pages', 'slug')],
+            'slug.pl' => ['required', new UniqueSlugRule('pages', 'slug')],
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput($params);
+        }
+
         $page = new Page();
-        $page->fill($request->all());
+        $page->fill($params);
         $page->save();
 
         return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Created'));
@@ -75,12 +100,30 @@ class PageController extends Controller
      * @param Request $request
      * @param Page $page
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function update(Request $request, Page $page)
     {
         //
-        $page->fill($request->all());
+        $params = $request->all();
+        $validator = Validator::make($params, [
+            'title' => ['required', 'array'],
+            'title.uk' => ['required'],
+            'title.ru' => ['required'],
+            'title.en' => ['required'],
+            'title.pl' => ['required'],
+            'slug' => ['required', 'array', new TranslatableSlugRule()],
+            'slug.uk' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
+            'slug.ru' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
+            'slug.en' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
+            'slug.pl' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.page.edit', $page)->withErrors($validator);
+        }
+
+        $page->fill($params);
         $page->save();
 
         return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Updated'));
