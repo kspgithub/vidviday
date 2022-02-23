@@ -56,6 +56,7 @@ class CrmOrderController extends Controller
         $order->group_type = $group_type;
         $discounts = [];
         $tour = null;
+        $schedule = null;
         $schedule_id = $request->input('schedule_id', 0);
         if ($schedule_id > 0) {
             $schedule = TourSchedule::find($schedule_id);
@@ -83,7 +84,7 @@ class CrmOrderController extends Controller
             'roomTypes' => $roomTypes,
             'order' => $order,
             'tour' => $tour,
-            'schedule' => $schedule->asCrmSchedule(),
+            'schedule' => $schedule ? $schedule->asCrmSchedule() : null,
             'availableDiscounts' => $discounts,
         ]);
     }
@@ -114,7 +115,7 @@ class CrmOrderController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $order->tour;
         $schedules = $tour->scheduleItems()->get()->map->shortInfo();
-        $schedule = (object)$order->schedule->asCrmSchedule();
+        $schedule = $order->schedule ? (object)$order->schedule->asCrmSchedule() : null;
         $audits = [];
         $discounts = $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
         return view('admin.crm.order.show', [
