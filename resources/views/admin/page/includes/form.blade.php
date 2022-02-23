@@ -6,11 +6,16 @@
             <x-forms.text-loc-group name="title" :label="__('Title')"
                                     :value="old('title', $page->getTranslations('title'))"
                                     maxlength="100"
-                                    required></x-forms.text-loc-group>
+                                    :required-locales="siteLocales()"
+                                    required/>
             <x-forms.text-loc-group name="slug" :label="__('Url')" :value="old('slug', $page->getTranslations('slug'))"
+                                    :required-locales="siteLocales()"
                                     maxlength="100"
-                                    required></x-forms.text-loc-group>
-
+                                    required/>
+            @if(empty($page->key))
+                <x-forms.text-group name="key" :label="__('Key')"
+                                    :value="old('key', $page->key)" required></x-forms.text-group>
+            @endif
             <x-forms.editor-loc-group name="text" :label="__('Text')"
                                       :value="old('text', $page->getTranslations('text'))"></x-forms.editor-loc-group>
 

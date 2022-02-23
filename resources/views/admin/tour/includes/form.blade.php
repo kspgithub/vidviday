@@ -14,9 +14,10 @@
                                 :value="old('title', $tour->getTranslations('title'))"
                                 maxlength="100"
                                 required></x-forms.text-loc-group>
-        <x-forms.text-loc-group name="slug" :label="__('Url')" :value="old('slug', $tour->getTranslations('slug'))"
-                                maxlength="100"
-                                :help="__('Leave blank for automatic generation')"></x-forms.text-loc-group>
+        <x-forms.text-loc-group name="slug" :label="__('Url')"
+                                :value="old('slug', $tour->getTranslations('slug'))"
+                                required
+                                maxlength="100"/>
 
         <x-forms.textarea-loc-group name="short_text" :label="__('Short Text')"
                                     :value="old('short_text', $tour->getTranslations('short_text'))"

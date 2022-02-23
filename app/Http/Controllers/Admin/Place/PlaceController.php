@@ -10,11 +10,15 @@ use App\Models\Direction;
 use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
+use App\Rules\TranslatableSlugRule;
+use App\Rules\UniqueSlugRule;
 use App\Services\PlaceService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class PlaceController extends Controller
@@ -91,11 +95,25 @@ class PlaceController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+        $validator = Validator::make($params, [
+            'title' => ['required', 'array'],
+            'title.uk' => ['required'],
+            'slug' => ['required', 'array', new TranslatableSlugRule()],
+            'slug.uk' => ['required', new UniqueSlugRule('places', 'slug')],
+            'slug.ru' => [new UniqueSlugRule('places', 'slug')],
+            'slug.en' => [new UniqueSlugRule('places', 'slug')],
+            'slug.pl' => [new UniqueSlugRule('places', 'slug')],
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput($params);
+        }
         $place = $this->service->store($request->all());
         return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Created'));
     }
@@ -123,14 +141,40 @@ class PlaceController extends Controller
      * @param Request $request
      * @param Place $place
      *
-     * @return Response|JsonResponse
+     * @return Response|JsonResponse|RedirectResponse
      * @throws GeneralException
      * @throws Throwable
      */
     public function update(Request $request, Place $place)
     {
         //
-        $this->service->update($place, $request->all());
+        $params = $request->all();
+        if (!$request->ajax()) {
+            $validator = Validator::make($params, [
+                'title' => ['required', 'array'],
+                'title.uk' => ['required'],
+                'slug' => ['required', 'array', new TranslatableSlugRule()],
+                'slug.uk' => ['required', new UniqueSlugRule('places', 'slug', $place->id)],
+                'slug.ru' => [new UniqueSlugRule('places', 'slug', $place->id)],
+                'slug.en' => [new UniqueSlugRule('places', 'slug', $place->id)],
+                'slug.pl' => [new UniqueSlugRule('places', 'slug', $place->id)],
+                'text' => ['required', 'array'],
+                'text.uk' => ['required'],
+                'direction_id' => ['required'],
+                'region_id' => ['required'],
+                'district_id' => ['nullable'],
+                'city_id' => ['nullable'],
+                'lat' => ['nullable'],
+                'lng' => ['nullable'],
+            ]);
+            if ($validator->fails()) {
+                return redirect()->route('admin.place.edit', $place)
+                    ->withErrors($validator);
+            }
+        }
+
+
+        $this->service->update($place, $params);
 
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Updated')]);

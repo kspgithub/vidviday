@@ -8,12 +8,12 @@
         <x-forms.translation-switch/>
         <x-forms.text-loc-group name="title" :label="__('Title')"
                                 :value="old('title', $place->getTranslations('title'))" maxlength="100"
-                                required></x-forms.text-loc-group>
+                                required/>
         <x-forms.text-loc-group name="slug" :label="__('Url')" :value="old('slug', $place->getTranslations('slug'))"
                                 maxlength="100"
-                                :help="__('Leave blank for automatic generation')"></x-forms.text-loc-group>
+                                required/>
         <x-forms.editor-loc-group name="text" :label="__('Text')" :value="old('text', $place->getTranslations('text'))"
-                                  required></x-forms.editor-loc-group>
+                                  required/>
 
         <x-forms.select-group name="direction_id" :label="__('Direction')"
                               :value="old('direction_id', $place->direction_id)"
@@ -22,12 +22,12 @@
 
 
         <x-forms.location-group
-            :city-id="$place->city_id"
+            :city-id="old('city_id', $place->city_id)"
             :city="$place->city"
-            :region-id="$place->region_id"
+            :region-id="old('region_id', $place->region_id)"
             :region="$place->region"
             :regions="$regions"
-            :district-id="$place->district_id"
+            :district-id="old('district_id', $place->district_id)"
             :district="$place->district"
             :districts="$districts"
             :lat="old('lat', $place->lat)"
