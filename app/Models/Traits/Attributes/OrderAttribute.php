@@ -24,6 +24,7 @@ trait OrderAttribute
         return '';
     }
 
+    
     public function getEventTitleAttribute()
     {
         if ($this->start_date) {
@@ -32,6 +33,10 @@ trait OrderAttribute
         return '';
     }
 
+    /**
+     * Продолжительность дней
+     * @return int|mixed
+     */
     public function getDurationAttribute()
     {
         if ($this->tour_id > 0) {
@@ -45,26 +50,38 @@ trait OrderAttribute
         return 0;
     }
 
+    /**
+     * Количество мест
+     * @return int|mixed
+     */
     public function getTotalPlacesAttribute()
     {
         $total = $this->places;
         if ($this->children) {
-            $total += $this->without_place ? 0 : $this->children_young;
+            $total += $this->children_young;
             $total += $this->children_older;
         }
         return $total;
     }
 
+    /**
+     * Количество детей
+     * @return int|mixed
+     */
     public function getTotalChildrenAttribute()
     {
         $total = 0;
         if ($this->children) {
-            $total += $this->without_place ? 0 : $this->children_young;
+            $total += $this->children_young;
             $total += $this->children_older;
         }
         return $total;
     }
 
+    /**
+     * Общая стоимость с учетом скидок и доплат
+     * @return int|mixed|null
+     */
     public function getTotalPriceAttribute()
     {
         $total = $this->price - $this->discount + $this->accomm_price;
@@ -72,17 +89,29 @@ trait OrderAttribute
     }
 
 
+    /**
+     * Заглавие типа оплаты
+     * @return mixed|string
+     */
     public function getPaymentTitleAttribute()
     {
         return $this->payment ? $this->payment->title : '';
     }
 
+    /**
+     * Менеджер тура
+     * @return object|null
+     */
     public function getTourManagerAttribute()
     {
-        return $this->tour && $this->tour->manager ? $this->tour->manager->first->shortInfo() : null;
+        return $this->tour && $this->tour->manager ? $this->tour->manager->shortInfo() : null;
     }
 
 
+    /**
+     * Дособирать
+     * @return int|mixed|null
+     */
     public function getPaymentGetAttribute()
     {
         return $this->total_price - $this->payment_fop - $this->payment_tov - $this->payment_office;

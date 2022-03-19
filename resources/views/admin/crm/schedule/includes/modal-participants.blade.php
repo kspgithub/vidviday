@@ -19,11 +19,24 @@
                         </div>
                     </div>
                     <template x-if="selectedOrder.children">
-                        <div class="row mb-3">
+                        <div class="row mb-3 align-items-center">
                             <div class="col-md-3 col-form-label">Діти до 6 років</div>
-                            <div class="col-md-9">
+                            <div class="col-md-2">
                                 <input type="number" class="form-control" x-model.number="selectedOrder.children_young">
                             </div>
+                            <div class="col-auto">
+                                <x-input.switch id="without_place" x-model="selectedOrder.without_place"
+                                                label="без місця в автобусі"/>
+                                <input type="hidden" name="without_place" :value="selectedOrder.without_place ? 1 : 0">
+                            </div>
+                            <template x-if="selectedOrder.without_place">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="without_place_count"
+                                           placeholder="Вкажіть кількість дітей БЕЗ місць *"
+                                           x-model.number="selectedOrder.without_place_count" required>
+                                </div>
+
+                            </template>
                         </div>
                     </template>
                     <template x-if="selectedOrder.children">
@@ -34,7 +47,12 @@
                             </div>
                         </div>
                     </template>
-
+                    <x-forms.switch-group id="cust-part"
+                                          label-col="col-md-3"
+                                          input-col="col-md-9"
+                                          x-model="isCustomerParticipant"
+                                          label="Замовник є учасником туру"
+                    />
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
@@ -47,6 +65,32 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <template x-if="isCustomerParticipant">
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm"
+                                               x-bind:value="selectedOrder.last_name"
+                                               readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm"
+                                               x-bind:value="selectedOrder.first_name"
+                                               readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm"
+                                               x-bind:value="selectedOrder.middle_name"
+                                               readonly>
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control form-control-sm"
+                                               x-bind:value="selectedOrder.birthday"
+                                               readonly>
+
+                                    </td>
+                                    <td>(замовник)</td>
+                                </tr>
+                            </template>
                             <template x-for="(participant, idx) in participants.items">
                                 <tr>
                                     <td>
@@ -56,7 +100,6 @@
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
                                                x-model="participant.first_name">
-
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"

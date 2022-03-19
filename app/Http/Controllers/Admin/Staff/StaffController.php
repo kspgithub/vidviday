@@ -29,7 +29,11 @@ class StaffController extends Controller
      */
     public function create()
     {
-        $users = User::toSelectBox();
+        $users = User::onlyAdmins()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value' => $it->value, 'text' => $it->text];
+            });
+        
         $staffTypes = StaffType::toSelectBox();
         $staff = new Staff();
 
@@ -68,7 +72,11 @@ class StaffController extends Controller
     public function edit(Staff $staff)
     {
 
-        $users = User::toSelectBox();
+        $users = User::onlyAdmins()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
+            ->get()->map(function ($it) {
+                return ['value' => $it->value, 'text' => $it->text];
+            });
+
         $staffTypes = StaffType::toSelectBox();
 
         return view('admin.staff.edit', [

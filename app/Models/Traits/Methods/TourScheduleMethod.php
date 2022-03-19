@@ -82,6 +82,7 @@ trait TourScheduleMethod
             'end_date' => $this->end_date->format('d.m.Y'),
             'title' => $this->title,
             'places' => $this->places,
+            'places_available' => $this->places_available,
             'price' => $this->price,
             'accomm_price' => $this->accomm_price,
             'commission' => $this->commission,

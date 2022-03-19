@@ -32,6 +32,7 @@ class TourBasicRequest extends FormRequest
             //
             'locales' => ['required', 'array'],
             'title' => ['required', 'array'],
+            'manager_id' => ['nullable', 'string'],
             'bitrix_id' => ['nullable', 'string'],
             'bitrix_manager_id' => ['nullable', 'string'],
             'slug' => ['nullable', 'array', new TranslatableSlugRule()],

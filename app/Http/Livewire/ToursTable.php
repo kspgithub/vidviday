@@ -68,6 +68,11 @@ class ToursTable extends DataTableComponent
                     return implode(', ', $row->locales);
                 }),
 
+            Column::make(__('Manager'))
+                ->format(function ($value, $column, $row) {
+                    return !empty($row->tourManager) ? $row->tourManager->name : '-';
+                }),
+            
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
                     return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.tour.update-status', $row)]);

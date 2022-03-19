@@ -55,6 +55,7 @@ class Tour extends TranslatableModel implements HasMedia
     ];
 
     protected $fillable = [
+        'manager_id',
         'bitrix_id',
         'bitrix_manager_id',
         'title',

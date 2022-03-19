@@ -201,6 +201,8 @@ export default (options) => ({
             id: order.id,
             first_name: order.first_name || '',
             last_name: order.last_name || '',
+            middle_name: order.middle_name || '',
+            birthday: order.birthday || '',
             phone: order.phone || '',
             email: order.email || '',
             viber: order.viber || '',
@@ -243,6 +245,20 @@ export default (options) => ({
     get participantsModal() {
         return bootstrap.Modal.getOrCreateInstance(document.getElementById('editParticipantsModal'));
     },
+    get isCustomerParticipant() {
+        return this.participants && !!this.participants.customer;
+    },
+    set isCustomerParticipant(value) {
+        if (!this.participants) {
+            this.participants = {
+                items: [],
+                participant_phone: '',
+                customer: value,
+            }
+        } else {
+            this.participants.customer = value;
+        }
+    },
     participantNames(order) {
         const items = [];
         if (order.participants && order.participants.items) {
@@ -269,8 +285,14 @@ export default (options) => ({
     editParticipants(order) {
         this.selectedOrder = {
             id: order.id,
+            first_name: order.first_name || '',
+            last_name: order.last_name || '',
+            middle_name: order.middle_name || '',
+            birthday: order.birthday || '',
             places: order.places,
             children: !!order.children,
+            without_place: !!order.without_place,
+            without_place_count: order.without_place_count ? order.without_place_count : 0,
             children_young: order.children ? order.children_young : 0,
             children_older: order.children ? order.children_older : 0,
         };
@@ -284,6 +306,7 @@ export default (options) => ({
                 }, p);
             }) : [],
             participant_phone: order.participants && order.participants.participant_phone ? order.participants.participant_phone : '',
+            customer: order.participants && order.participants.customer,
         };
         this.participantsModal.show();
     },
@@ -326,6 +349,7 @@ export default (options) => ({
         this.selectedOrder = {
             id: order.id,
             status: order.status,
+            total_places: order.total_places,
         };
         this.statusModal.show();
     },
@@ -369,5 +393,8 @@ export default (options) => ({
     },
     clearPhone(phone) {
         return '+' + cleanPhoneNumber(phone);
+    },
+    get disabledBookedStatus() {
+        return this.currentTab === 'reserve' && this.selectedOrder.total_places > this.schedule.places_available;
     }
 })

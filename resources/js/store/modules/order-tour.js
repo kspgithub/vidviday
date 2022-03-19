@@ -27,6 +27,7 @@ export default {
                 end_place: '',
                 places: 1,
                 without_place: 0,
+                without_place_count: 0,
                 children: 0,
                 children_young: 0,
                 children_older: 0,
@@ -131,11 +132,12 @@ export default {
         //Скидка для детей до 6 лет
         childrenYoungDiscount: (state, getters) => {
             let total = 0;
-            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree && !state.formData.without_place) {
+            if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree) {
                 const discount = getters.childrenDiscounts.find(d => d.category === 'children_young') ||
                     getters.childrenDiscounts.find(d => d.category === 'children');
                 if (discount) {
-                    total = calcChildDiscount(getters.tourPrice, state.formData.children_young, getters.tourDays, discount)
+                    let places = state.formData.children_young;
+                    total = calcChildDiscount(getters.tourPrice, places, getters.tourDays, discount)
                 }
             }
             return total;
@@ -157,7 +159,7 @@ export default {
         totalPlaces: (state, getters) => {
             let total = state.formData.places;
             if (state.formData.children) {
-                total += !state.formData.without_place ? state.formData.children_young : 0;
+                total += state.formData.children_young;
                 total += state.formData.children_older;
             }
             return total;
@@ -165,7 +167,7 @@ export default {
         // Всего мест которые оплачиваются
         totalPayedPlaces: (state, getters) => {
             let total = state.formData.places;
-            if (state.formData.children && !state.formData.without_place && !getters.childrenYoungFree) {
+            if (state.formData.children && !getters.childrenYoungFree) {
                 total += state.formData.children_young;
             }
             if (state.formData.children && !getters.childrenOlderFree) {
@@ -199,7 +201,7 @@ export default {
         // Доплата за размещение
         totalAccommodation: (state, getters, rootState, rootGetters) => {
             const price = getters.accommodationPrice;
-            return price * (state.formData.places || 0);
+            return price * (state.formData.accommodation['1o_sgl'] || 0);
         },
         // Общая стоимость со скидками
         totalTour: (state, getters) => {
@@ -209,8 +211,12 @@ export default {
             return total;
         },
         // Общая стоимость со скидками и комиссией
+        totalTourComm: (state, getters) => {
+            return getters.totalTour - getters.totalCommission;
+        },
+        // Общая стоимость с доплатами, скидками и комиссией
         totalPrice: (state, getters) => {
-            return getters.totalTour - getters.totalCommission + getters.totalAccommodation;
+            return getters.totalTourComm + getters.totalAccommodation;
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
         participants: (state) => state.formData.participants,
@@ -226,7 +232,7 @@ export default {
                 group_type: 0,
                 conditions: 1,
             }
-        }
+        },
 
     },
     actions: {
@@ -257,10 +263,12 @@ export default {
             if (state.formData.children && state.formData.children_older > 0) {
                 total += state.formData.children_older;
             }
-            if (state.formData.children && state.formData.children_young > 0 && !state.formData.without_place) {
+            if (state.formData.children && state.formData.children_young > 0) {
                 total += state.formData.children_young;
             }
-
+            if (state.formData.children && state.formData.without_place_count > 0) {
+                total += state.formData.without_place_count;
+            }
             for (let i = 0; i < total; i++) {
                 if (state.formData.participants[i]) {
                     items.push(state.formData.participants[i]);

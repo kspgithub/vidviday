@@ -43,7 +43,7 @@ return [
     'places' => 'Екскурсійні об’єкти',
     'cost' => 'Вартість',
     'commission' => 'Комісія агента',
-    'accomm-price' => 'Доплата за поселение',
+    'accomm-price' => 'Доплата за 1-местное поселение',
     'days-letter' => 'д',
     'nights-letter' => 'н',
     'similar-tours' => 'Схожі тури',

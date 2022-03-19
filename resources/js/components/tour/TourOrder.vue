@@ -6,11 +6,6 @@
                 {{ currencyCommission }} {{ currencyTitle }}
                 <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
-            <span class="discount" v-if="accommPrice > 0">
-                {{ currencyAccomm }} {{ currencyTitle }}
-                <tooltip variant="red">{{ __('tours-section.accomm-price') }}</tooltip>
-
-            </span>
         </div>
 
         <div class="only-desktop hidden-print">
@@ -113,8 +108,6 @@ export default {
         const currencyRate = computed(() => store.getters['currency/rate']);
         const currencyPrice = computed(() => {
             let sum = ((price.value || 0) / currencyRate.value);
-            sum += ((accommPrice.value || 0) / currencyRate.value);
-
             return (sum).toFixed(0);
         })
         const currencyCommission = computed(() => {

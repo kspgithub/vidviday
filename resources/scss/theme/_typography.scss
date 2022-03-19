@@ -3,46 +3,46 @@
 /*////////////*/
 body,
 .text {
-	color: $text;
-	font-size: 14px;
-	line-height: 22px;
-	font-family: $mainFont;
+    color: $text;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: $mainFont;
 }
 
 b,
 strong {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 a {
-	outline: none;
-	color: inherit;
-	cursor: pointer;
-	text-decoration: none;
+    outline: none;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 a:link,
 a:visited,
 a:active,
 a:hover {
-	cursor: pointer;
-	text-decoration: none;
-	outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
 }
 
 iframe {
-	border: none;
-	outline: none;
+    border: none;
+    outline: none;
 }
 
 ul,
 ol {
-	list-style: none;
+    list-style: none;
 }
 
 .simple-item {
-	position: relative;
-	z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .text-lg {
@@ -65,6 +65,10 @@ ol {
     line-height: 16px;
 }
 
+.text-nowrap {
+    white-space: nowrap;
+}
+
 .text,
 .text-sm,
 .text-md {
@@ -82,90 +86,104 @@ ol {
 }
 
 .text {
-	color: $text;
-	font-weight: 400;
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		b {
-			font-weight: 700;
-		}
-	}
-	> * {
-		margin-bottom: 10px;
-		&:first-child {
-			margin-top: 0;
-		}
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-	img {
-		max-width: 100%;
-		height: auto;
-		display: block;
-	}
-	ul,
-	ol {
-		li {
-			position: relative;
-			padding-left: 20px;
-			margin-bottom: 10px;
-			&:last-child {
-				margin-bottom: 0;
-			}
-			span {
-				color: $green;
-				font-weight: 500;
-			}
-		}
-	}
-	ul {
-		li {
-			&:before {
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 8px;
-				width: 6px;
-				height: 6px;
-				border-radius: 50%;
-				background: $blue;
-			}
-		}
-	}
-	ol {
-		counter-reset: number;
-		li {
-			&:before {
-				top: 0;
-				left: 0;
-				color: $blue;
-				font-size: 12px;
-				font-weight: 700;
-				line-height: 20px;
-				position: absolute;
-				counter-increment: number;
-				content: counter(number) '.';
-			}
-		}
-	}
-	a,
-	span.open-popup {
-		color: $green;
-		cursor: pointer;
-		white-space: nowrap;
-		font-weight: 400;
-	}
-	.btn {
-		&.arrow-right {
-			line-height: 20px;
-		}
-	}
-	i {
+    color: $text;
+    font-weight: 400;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        b {
+            font-weight: 700;
+        }
+    }
+
+    > * {
+        margin-bottom: 10px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    ul,
+    ol {
+        li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            span {
+                color: $green;
+                font-weight: 500;
+            }
+        }
+    }
+
+    ul {
+        li {
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 8px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: $blue;
+            }
+        }
+    }
+
+    ol {
+        counter-reset: number;
+
+        li {
+            &:before {
+                top: 0;
+                left: 0;
+                color: $blue;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 20px;
+                position: absolute;
+                counter-increment: number;
+                content: counter(number) '.';
+            }
+        }
+    }
+
+    a,
+    span.open-popup {
+        color: $green;
+        cursor: pointer;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .btn {
+        &.arrow-right {
+            line-height: 20px;
+        }
+    }
+
+    i {
         font-weight: 300;
         color: $green;
     }
@@ -196,75 +214,81 @@ ol {
         overflow: hidden;
         position: relative;
         padding-top: 56.72%;
-		border-radius: 10px;
-		iframe {
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			display: block;
-			position: absolute;
-		}
-	}
-	&.text-sm {
-		ul {
-			li {
-				&:before {
-					top: 6px;
-				}
-			}
-		}
-		ol {
-			li {
-				&:before {
-					top: -1px;
-				}
-			}
-		}
-	}
-	&.text-md {
-		ul {
-			li {
-				&:before {
-					top: 10px;
-				}
-			}
-		}
-		ol {
-			li {
-				&:before {
-					top: 4px;
-				}
-			}
-		}
-	}
-	.label {
-		top: auto;
-		left: auto;
-		color: #fff;
-		font-size: 12px;
-		font-weight: 500;
-		line-height: 16px;
-		position: relative;
-		border-radius: 3px;
-		margin-bottom: 0;
-		padding: 2px 10px 0;
-		display: inline-block;
-		vertical-align: middle;
-		background-color: $orange;
-		text-transform: none;
-	}
+        border-radius: 10px;
+
+        iframe {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+        }
+    }
+
+    &.text-sm {
+        ul {
+            li {
+                &:before {
+                    top: 6px;
+                }
+            }
+        }
+
+        ol {
+            li {
+                &:before {
+                    top: -1px;
+                }
+            }
+        }
+    }
+
+    &.text-md {
+        ul {
+            li {
+                &:before {
+                    top: 10px;
+                }
+            }
+        }
+
+        ol {
+            li {
+                &:before {
+                    top: 4px;
+                }
+            }
+        }
+    }
+
+    .label {
+        top: auto;
+        left: auto;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        position: relative;
+        border-radius: 3px;
+        margin-bottom: 0;
+        padding: 2px 10px 0;
+        display: inline-block;
+        vertical-align: middle;
+        background-color: $orange;
+        text-transform: none;
+    }
 }
 
 blockquote {
-	position: relative;
-	color: $title;
-	font-size: 22px;
-	font-weight: 500;
-	line-height: 32px;
-	padding-left: 30px;
-	text-align: left;
-	border-left: 4px solid $blue;
+    position: relative;
+    color: $title;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 32px;
+    padding-left: 30px;
+    text-align: left;
+    border-left: 4px solid $blue;
 }
 
 h1,
@@ -279,146 +303,152 @@ h5,
 .h5,
 h6,
 .h6 {
-	color: $title;
-	font-weight: 500;
-	&.light {
-		color: #fff;
-	}
+    color: $title;
+    font-weight: 500;
+
+    &.light {
+        color: #fff;
+    }
 }
 
 h1,
 .h1 {
-	font-size: 30px;
-	line-height: 1.33em;
+    font-size: 30px;
+    line-height: 1.33em;
 }
 
 h2,
 .h2 {
-	font-size: 24px;
-	line-height: 1.33em;
+    font-size: 24px;
+    line-height: 1.33em;
 }
 
 h3,
 .h3 {
-	font-size: 18px;
-	line-height: 1.33em;
+    font-size: 18px;
+    line-height: 1.33em;
 }
 
 h4,
 .h4 {
-	font-size: 16px;
-	line-height: 1.25em;
+    font-size: 16px;
+    line-height: 1.25em;
 }
 
 h5,
 .h5 {
-	font-size: 14px;
-	line-height: 1.43em;
+    font-size: 14px;
+    line-height: 1.43em;
 }
 
 h6,
 .h6 {
-	font-size: 14px;
-	line-height: 1.43em;
+    font-size: 14px;
+    line-height: 1.43em;
 }
 
 .error {
-	color: $title;
-	font-size: 96px;
-	font-weight: 700;
-	line-height: 92px;
-	margin-bottom: 12px;
+    color: $title;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 92px;
+    margin-bottom: 12px;
 }
 
 .section-title {
-	margin-bottom: 25px;
+    margin-bottom: 25px;
 }
 
 .title {
-	color: $title;
-	font-weight: 700;
-	&.light {
-		color: #fff;
-	}
+    color: $title;
+    font-weight: 700;
+
+    &.light {
+        color: #fff;
+    }
 }
 
 .title-decor {
-	position: relative;
-	padding-right: 50px;
-	font-weight: 700;
-	display: inline-block;
-	&:before {
-		content: '';
-		position: absolute;
-		top: 50%;
-		right: 0;
-		width: 30px;
-		height: 5px;
-		margin-top: -2px;
-		background: currentColor;
-	}
+    position: relative;
+    padding-right: 50px;
+    font-weight: 700;
+    display: inline-block;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 30px;
+        height: 5px;
+        margin-top: -2px;
+        background: currentColor;
+    }
 }
 
 .title-icon {
-	> * {
-		vertical-align: middle;
-	}
-	img {
-		width: 26px;
-		height: auto;
-		display: inline-block;
-		margin-right: 15px;
-	}
-	span {
-		font-weight: 500;
-	}
+    > * {
+        vertical-align: middle;
+    }
+
+    img {
+        width: 26px;
+        height: auto;
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    span {
+        font-weight: 500;
+    }
 }
 
 .sub-title {
-	position: relative;
-	font-size: 22px;
-	line-height: 34px;
-	color: #000;
-	font-weight: 400;
-	&.style-2 {
-		font-size: 26px;
-		line-height: 37px;
-		color: #1f1f1f;
-	}
+    position: relative;
+    font-size: 22px;
+    line-height: 34px;
+    color: #000;
+    font-weight: 400;
+
+    &.style-2 {
+        font-size: 26px;
+        line-height: 37px;
+        color: #1f1f1f;
+    }
 }
 
 .text-left {
-	text-align: left;
+    text-align: left;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 .text-right {
-	text-align: right;
+    text-align: right;
 }
 
 .text-medium {
-	font-weight: 500;
+    font-weight: 500;
 }
 
 .text-bold {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 .text-uppercase {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .full-link {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 /*///////*/
@@ -426,22 +456,22 @@ h6,
 /*///////*/
 @media (min-width: 1200px) {
 
-	.text,
-	.text-sm,
-	.text-md {
-		&.open-popup {
-			&:hover {
-				color: $green;
-			}
-		}
-	}
+    .text,
+    .text-sm,
+    .text-md {
+        &.open-popup {
+            &:hover {
+                color: $green;
+            }
+        }
+    }
 
-	.text a,
-	.text span.open-popup {
-		&:hover {
-			color: $blue;
-		}
-	}
+    .text a,
+    .text span.open-popup {
+        &:hover {
+            color: $blue;
+        }
+    }
 }
 
 /*///////////////*/
@@ -464,70 +494,70 @@ h6,
 
 @media(max-width: 1199px) {
 
-	.text-center-sm {
-		text-align: center;
-	}
+    .text-center-sm {
+        text-align: center;
+    }
 }
 
 @media (max-width: 991px) {
 
-	.text > * {
-		margin-bottom: 20px;
-	}
+    .text > * {
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 767px) {
 
-	.text-left-xs {
-		text-align: left;
-	}
+    .text-left-xs {
+        text-align: left;
+    }
 
-	.text-center-xs {
-		text-align: center;
-	}
+    .text-center-xs {
+        text-align: center;
+    }
 
-	h1,
-	.h1 {
-		font-size: 22px;
-		line-height: 1.2em;
-	}
+    h1,
+    .h1 {
+        font-size: 22px;
+        line-height: 1.2em;
+    }
 
-	h2,
-	.h2 {
-		font-size: 20px;
-	}
+    h2,
+    .h2 {
+        font-size: 20px;
+    }
 
-	blockquote {
-		font-size: 18px;
-		line-height: 30px;
-		padding-left: 15px;
-	}
+    blockquote {
+        font-size: 18px;
+        line-height: 30px;
+        padding-left: 15px;
+    }
 
-	.xs-hide,
-	.title br {
-		display: none;
-	}
+    .xs-hide,
+    .title br {
+        display: none;
+    }
 
-	.text,
-	.text-sm {
-		font-size: 14px;
-		line-height: 22px;
-	}
+    .text,
+    .text-sm {
+        font-size: 14px;
+        line-height: 22px;
+    }
 
-	.text ul li:before {
-		top: 8px;
-	}
+    .text ul li:before {
+        top: 8px;
+    }
 
-	.sub-title {
-		font-size: 20px;
-		line-height: 30px;
-	}
+    .sub-title {
+        font-size: 20px;
+        line-height: 30px;
+    }
 
-	.text {
-		> div {
-			border-radius: 0;
-			margin: 30px -15px;
-			width: calc(100% + 30px);
-		}
-	}
+    .text {
+        > div {
+            border-radius: 0;
+            margin: 30px -15px;
+            width: calc(100% + 30px);
+        }
+    }
 }

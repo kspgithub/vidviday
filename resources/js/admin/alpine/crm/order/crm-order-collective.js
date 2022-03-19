@@ -297,6 +297,12 @@ export default (params) => ({
         this.formChanged = true;
         this.order.accommodation = value;
     },
+    setAccommodationItem(key, value) {
+        if (!this.order.accommodation) {
+            this.order.accommodation = {};
+        }
+        this.order.accommodation[key] = parseInt(value) || 0;
+    },
     async onFormChange(evt) {
         //console.log(evt);
         this.formChanged = true;
@@ -320,17 +326,16 @@ export default (params) => ({
 
     get totalPlaces() {
         let total = this.order.places || 0;
-        if (this.order.children && !this.order.without_place) {
-            total += this.order.children_young || 0;
-        }
+
         if (this.order.children) {
+            total += this.order.children_young || 0;
             total += this.order.children_older || 0;
         }
         return total;
     },
     get totalPayedPlaces() {
         let total = this.order.places || 0;
-        if (this.order.children && !this.order.without_place && !this.childrenYoungFree) {
+        if (this.order.children && !this.childrenYoungFree) {
             total += this.order.children_young || 0;
         }
         if (this.order.children && !this.childrenOlderFree) {
@@ -363,7 +368,8 @@ export default (params) => ({
         if (this.placePrice === 0) {
             toast.warning('Оберіть дату виїзду');
         }
-        this.order.accomm_price = ((this.order.places || 0) * this.accommPrice) || 0;
+        const accomm_places = this.accommodation['1o_sgl'] || 0;
+        this.order.accomm_price = (accomm_places * this.accommPrice) || 0;
         this.order.price = (this.totalPayedPlaces * this.placePrice) || 0;
         if (this.order.is_tour_agent) {
             this.order.commission = (this.totalPayedPlaces * this.placeCommission) || 0;
@@ -371,5 +377,8 @@ export default (params) => ({
             this.order.commission = 0;
         }
 
+    },
+    get isReserve() {
+        return !this.order.id && this.selectedSchedule && this.selectedSchedule.places_available < this.totalPayedPlaces;
     }
 });

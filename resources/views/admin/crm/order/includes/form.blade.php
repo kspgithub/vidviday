@@ -4,7 +4,7 @@
     schedule: @json($schedule),
     statuses: @json($statuses),
     roomTypes: @json($roomTypes),
-    availableDiscounts: @json($availableDiscounts),
+    availableDiscounts: @json([]),
 })'>
     <form action="{{$order->id > 0 ? route('admin.crm.order.update', $order) : route('admin.crm.order.store')}}"
           @submit="onSubmit"

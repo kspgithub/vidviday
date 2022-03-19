@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\RequestDefaultValuesTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class TourOrderRequest extends FormRequest
 {
+    use RequestDefaultValuesTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -39,7 +42,7 @@ class TourOrderRequest extends FormRequest
             'children_young' => ['nullable', 'integer'],
             'children_older' => ['nullable', 'integer'],
             'without_place' => ['nullable', Rule::in(['0', '1'])],
-
+            'without_place_count' => ['nullable', 'integer', Rule::requiredIf((int)$this->without_place === 1)],
             'additional' => ['nullable', Rule::in(['0', '1'])],
             'program_type' => ['nullable', Rule::in(['0', '1'])],
             'participants' => ['nullable', 'array'],
@@ -63,6 +66,13 @@ class TourOrderRequest extends FormRequest
             'price_include' => ['nullable', 'array'],
             'conditions' => ['required', Rule::in(['1'])],
 
+        ];
+    }
+
+    protected function defaults()
+    {
+        return [
+            'without_place_count' => 0,
         ];
     }
 }

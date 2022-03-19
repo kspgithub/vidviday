@@ -36,19 +36,22 @@ class TourSchedulePolicy
     public function update(User $user, TourSchedule $tourSchedule): bool
     {
         //
-        return $user->isAdmin() || $user->isTourManager();
+        $tour = $tourSchedule->tour;
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function delete(User $user, TourSchedule $tourSchedule): bool
     {
         //
-        return $user->isAdmin() || $user->isTourManager();
+        $tour = $tourSchedule->tour;
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function restore(User $user, TourSchedule $tourSchedule): bool
     {
         //
-        return $user->isAdmin() || $user->isTourManager();
+        $tour = $tourSchedule->tour;
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function forceDelete(User $user, TourSchedule $tourSchedule): bool

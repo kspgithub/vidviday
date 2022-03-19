@@ -19,13 +19,22 @@
                                 </template>
 
                             </select>
+                            <template x-if="disabledBookedStatus && selectedOrder.status === 'booked'">
+                                <div class="form-text text-danger">
+                                    Кількість місць замовлення (<b x-text="selectedOrder.total_places"></b>)
+                                    більша ніж кількість вільних місць (<b x-text="schedule.places_available"></b>)
+                                </div>
+                            </template>
+
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click.prevent="cancelStatus()">Скасувати</button>
-                    <button type="submit" class="btn btn-primary">Зберегти</button>
+                    <button type="submit" :disabled="disabledBookedStatus && selectedOrder.status === 'booked'"
+                            class="btn btn-primary">Зберегти
+                    </button>
                 </div>
             </form>
         </div>

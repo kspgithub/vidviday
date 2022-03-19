@@ -2,6 +2,8 @@
 
 namespace App\Models\Traits\Scope;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait UserScope
 {
     /**
@@ -32,5 +34,10 @@ trait UserScope
     public function scopeOnlyBlocked($query)
     {
         return $query->whereStatus(self::STATUS_BLOCKED);
+    }
+
+    public function scopeOnlyAdmins(Builder $query)
+    {
+        return $query->role(['admin', 'manager', 'tour-manager', 'duty-manager']);
     }
 }

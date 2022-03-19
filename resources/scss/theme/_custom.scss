@@ -1496,6 +1496,10 @@ form.row > div,
     transform: scale(0.94);
 }
 
+.number-input .suffix {
+    margin-left: 10px;
+}
+
 .checkbox,
 .radio {
     margin: 0;

@@ -34,10 +34,13 @@ class CrmClientController extends Controller
     }
 
 
-    public function show(Request $request, BitrixContact $client)
+    public function show(Request $request, BitrixContact $client, $type = 'team')
     {
+        $group_type = $type === 'corporate' ? Order::GROUP_CORPORATE : Order::GROUP_TEAM;
+
         if ($request->ajax()) {
-            $orderQ = $client->orders()->filter($request)->with(['tour', 'tour.manager', 'schedule']);
+
+            $orderQ = $client->orders()->where('group_type', $group_type)->filter($request)->with(['tour', 'tour.manager', 'schedule']);
 
             $paginator = $orderQ->paginate($request->input('per_page', 20));
             $paginator->getCollection()->transform(function ($val) {
@@ -56,11 +59,11 @@ class CrmClientController extends Controller
         $tours = Tour::toSelectBox();
         return view('admin.crm.client.show', [
             'client' => $client,
+            'group_type' => $group_type,
             'managers' => $managers,
             'statuses' => $statuses,
             'tours' => $tours,
         ]);
-
     }
 
     public function update(Request $request, BitrixContact $client)
@@ -75,6 +78,5 @@ class CrmClientController extends Controller
         $client->delete();
         return response()->json(['result' => 'success', 'message' => __('Record Deleted')]);
     }
-
 
 }
