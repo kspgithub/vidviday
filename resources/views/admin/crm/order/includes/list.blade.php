@@ -14,17 +14,19 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-auto">
-            <select x-model="manager_id"
-                    class="form-control form-control-sm"
-                    @change.debounce="filterChange()"
-            >
-                <option value="0">Менеджер</option>
-                @foreach($managers as $manager)
-                    <option value="{{$manager['value']}}">{{$manager['text']}}</option>
-                @endforeach
-            </select>
-        </div>
+        @if(!current_user()->isTourManager())
+            <div class="col-auto">
+                <select x-model="manager_id"
+                        class="form-control form-control-sm"
+                        @change.debounce="filterChange()"
+                >
+                    <option value="0">Менеджер</option>
+                    @foreach($managers as $manager)
+                        <option value="{{$manager['value']}}">{{$manager['text']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
         <div class="col-auto">
             <select x-model="tour_id"
                     class="form-control form-control-sm"
@@ -76,7 +78,7 @@
                     <template x-for="order in items" :key="'ord-'+order.id">
                         <tr x-bind:class="'order-row-'+order.status">
                             <td>
-                                <a :href="`/admin/crm/${order.id}/show`" x-text="order.id" target="_blank"></a>
+                                <a :href="`/admin/crm/order/${order.id}`" x-text="order.id" target="_blank"></a>
                             </td>
                             <td>
                                 <span x-text="statusText(order.status)"></span>

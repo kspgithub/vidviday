@@ -44,6 +44,10 @@ class ToursTable extends DataTableComponent
             return $q->where('collection_name', 'pictures');
         }, 'questions', 'testimonials']);
 
+        if (current_user()->isTourManager()) {
+            $query->whereHas('manager', fn ($sq) => $sq->where('user_id', current_user()->id));
+        }
+
         return $query;
     }
 
@@ -72,7 +76,7 @@ class ToursTable extends DataTableComponent
                 ->format(function ($value, $column, $row) {
                     return !empty($row->tourManager) ? $row->tourManager->name : '-';
                 }),
-            
+
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
                     return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.tour.update-status', $row)]);

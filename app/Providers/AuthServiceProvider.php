@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\TourSchedule;
+use App\Policies\OrderPolicy;
 use App\Policies\TourSchedulePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         TourSchedule::class => TourSchedulePolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
@@ -26,7 +30,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Gate::define('order-admin-comments', [OrderPolicy::class, 'adminComments']);
+        Gate::define('order-duty-comments', [OrderPolicy::class, 'dutyComments']);
         //
     }
 }

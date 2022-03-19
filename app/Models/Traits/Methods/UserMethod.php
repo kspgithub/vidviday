@@ -2,6 +2,8 @@
 
 namespace App\Models\Traits\Methods;
 
+use App\Models\Order;
+
 trait UserMethod
 {
     public function isMasterAdmin()
@@ -114,5 +116,11 @@ trait UserMethod
             $detach_ids = array_slice(array_values($this->tourHistory()->get(['id'])->pluck('id')->toArray()), 36);
             $this->tourHistory()->detach($detach_ids);
         }
+    }
+    
+
+    public function isManagerOfOrder(Order $order)
+    {
+        return $this->isTourManager() && $order->tour_manager && $order->tour_manager->user_id === $this->id;
     }
 }
