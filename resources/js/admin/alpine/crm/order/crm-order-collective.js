@@ -215,7 +215,7 @@ export default (params) => ({
         }
 
         const data = {
-            title: existsDiscount ? (existsDiscount.title.uk) : '',
+            title: existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : '',
             value: value,
         }
 
@@ -225,7 +225,7 @@ export default (params) => ({
         const discounts = this.order.discounts || [];
         const id = this.discountData.id || 0;
         const existsDiscount = this.tourDiscounts.find(d => d.id === id)
-        const title = existsDiscount ? (existsDiscount.title.uk) : this.discountData.title;
+        const title = existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : this.discountData.title;
         const places = this.discountData.places || 1;
         let value = this.discountData.value;
 
