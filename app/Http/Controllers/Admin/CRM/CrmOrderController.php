@@ -11,7 +11,6 @@ use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Models\Audit;
 
 class CrmOrderController extends Controller
@@ -36,6 +35,7 @@ class CrmOrderController extends Controller
                     'admin_comment',
                     'agency_data',
                 ]);
+
                 return $val;
             });
 
@@ -85,6 +85,7 @@ class CrmOrderController extends Controller
         $roomTypes = AccommodationType::toSelectBox();
 
         $order->makeHidden(['tour', 'schedule', 'tour_manager']);
+
         return view('admin.crm.order.create', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -103,10 +104,11 @@ class CrmOrderController extends Controller
         //
         $order = new Order();
         $order->fill($request->all());
-        if ($order->status !== Order::STATUS_RESERVE && $order->schedule->places_available < $order->total_places) {
+        if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
             $order->status = Order::STATUS_RESERVE;
         }
         $order->save();
+
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Created'));
     }
 
@@ -127,9 +129,10 @@ class CrmOrderController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $tour = $order->tour;
         $schedules = $tour ? $tour->scheduleItems()->get()->map->shortInfo() : [];
-        $schedule = $order->schedule ? (object)$order->schedule->asCrmSchedule() : null;
+        $schedule = $order->schedule ? (object) $order->schedule->asCrmSchedule() : null;
         $audits = [];
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
+
         return view('admin.crm.order.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
             'discounts' => $discounts,
@@ -191,6 +194,9 @@ class CrmOrderController extends Controller
         //
         $params = $request->all();
         $order->fill($params);
+        if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
+            $order->status = Order::STATUS_RESERVE;
+        }
         $order->save();
 
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Updated'));
@@ -200,15 +206,15 @@ class CrmOrderController extends Controller
     {
         //
         $order->delete();
+
         return redirect()->route('admin.crm.order.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 
     public function count(Request $request)
     {
         //
         $status = $request->input('status', 'new');
-        $group_type = (int)$request->input('group_type', 0);
+        $group_type = (int) $request->input('group_type', 0);
         $query = Order::where('group_type', $group_type)->where('status', $status);
         if (current_user()->isTourManager() && $group_type === 0) {
             $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
@@ -217,8 +223,7 @@ class CrmOrderController extends Controller
         return $query->count();
     }
 
-
-    public function audits(Request $request, Order $order)
+    public function audits(Order $order)
     {
         //
         $query = $order->audits()->with('user')->latest();
@@ -227,8 +232,10 @@ class CrmOrderController extends Controller
         $paginator->getCollection()->transform(function (Audit $item) {
             $data = $item->toArray();
             $data['user'] = $item->user ? $item->user->basicInfo() : ['name' => 'Система'];
+
             return $data;
         });
+
         return $paginator;
     }
 }
