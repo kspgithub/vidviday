@@ -78,7 +78,12 @@ class CrmOrderController extends Controller
             }
         }
 
-        $statuses = arrayToSelectBox(Order::statuses());
+        if (current_user()->isDutyManager()) {
+            $statuses = arrayToSelectBox(Order::dutyStatuses());
+        } else {
+            $statuses = arrayToSelectBox(Order::statuses());
+        }
+
         $currencies = Currency::toSelectBox('iso', 'iso');
         $paymentTypes = PaymentType::toSelectBox();
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
@@ -126,7 +131,13 @@ class CrmOrderController extends Controller
             'payment_data',
             'utm_data',
         ]);
-        $statuses = arrayToSelectBox(Order::statuses());
+
+        if (current_user()->isDutyManager()) {
+            $statuses = arrayToSelectBox(Order::dutyStatuses());
+        } else {
+            $statuses = arrayToSelectBox(Order::statuses());
+        }
+
         $tour = $order->tour;
         $schedules = $tour ? $tour->scheduleItems()->get()->map->shortInfo() : [];
         $schedule = $order->schedule ? (object) $order->schedule->asCrmSchedule() : null;
@@ -160,7 +171,12 @@ class CrmOrderController extends Controller
             'utm_data',
         ]);
 
-        $statuses = arrayToSelectBox(Order::statuses());
+        if (current_user()->isDutyManager()) {
+            $statuses = arrayToSelectBox(Order::dutyStatuses());
+        } else {
+            $statuses = arrayToSelectBox(Order::statuses());
+        }
+
         $currencies = Currency::toSelectBox('iso', 'iso');
         $paymentTypes = PaymentType::toSelectBox();
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);

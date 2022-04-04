@@ -6,7 +6,6 @@ use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\AccommodationType;
 use App\Models\Order;
-use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourSchedule;
@@ -22,9 +21,9 @@ class CrmScheduleController extends Controller
         if ($request->ajax()) {
             $query = TourSchedule::query()->with(['tour', 'tour.manager', 'orders']);
 
-            if (current_user()->isTourManager()) {
-                $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
-            }
+//            if (current_user()->isTourManager()) {
+//                $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
+//            }
 
             $tab = $request->input('tab', 'recruited');
             $query->tab($tab);
@@ -68,6 +67,7 @@ class CrmScheduleController extends Controller
                     'auto_limit',
                 ]);
                 $val->append(['manager']);
+
                 return $val;
             });
 
@@ -82,7 +82,11 @@ class CrmScheduleController extends Controller
 
     public function show(Request $request, TourSchedule $schedule)
     {
+        $schedule->load(['tour', 'tour.manager']);
+        $schedule->append(['manager']);
+
         $tab = $request->input('tab', 'common');
+
         $count_items = [
             'reserve' => $schedule->totalPlacesByStatus([Order::STATUS_RESERVE]),
             'interested' => $schedule->totalPlacesByStatus([Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT]),
@@ -90,18 +94,20 @@ class CrmScheduleController extends Controller
             'common' => $schedule->totalPlacesByStatus([Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED]),
         ];
 
-
         if ($request->ajax() || $request->input('export', 0) == 1) {
             $ordersQ = $schedule->orders();
             switch ($tab) {
                 case 'reserve':
                     $ordersQ->whereIn('status', [Order::STATUS_RESERVE]);
+
                     break;
                 case 'interested':
                     $ordersQ->whereIn('status', [Order::STATUS_INTERESTED, Order::STATUS_NOT_SENT]);
+
                     break;
                 case 'cancel':
                     $ordersQ->whereIn('status', [Order::STATUS_CANCELED, Order::STATUS_PENDING_CANCEL]);
+
                     break;
                 default:
                     $ordersQ->whereIn('status', [Order::STATUS_NEW, Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED]);
@@ -160,7 +166,6 @@ class CrmScheduleController extends Controller
             'schedule' => $schedule->asCrmSchedule()
         ]);
     }
-
 
     public function order(TourSchedule $schedule, Order $order)
     {
