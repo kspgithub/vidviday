@@ -33,6 +33,12 @@ class Order extends TranslatableModel implements Auditable
             $model->save();
             self::enableAuditing();
         });
+
+        self::updating(function ($order) {
+            if ($order->status === Order::STATUS_BOOKED && $order->schedule->places_available < $order->total_places) {
+                $order->status = Order::STATUS_RESERVE;
+            }
+        });
     }
 
     public const STATUS_NEW = 'new';
