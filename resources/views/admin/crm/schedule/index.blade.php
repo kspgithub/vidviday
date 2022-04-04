@@ -173,11 +173,12 @@
                                 </td>
                                 <td>
                                 <textarea type="text" x-model.debounce.500ms="schedule.duty_call"
-                                          @change="updateSchedule({duty_transport: schedule.duty_transport})"
+                                          @change="updateSchedule({duty_transport: schedule.duty_call})"
                                           class="form-control form-control-sm mw-150px "></textarea>
                                 </td>
                                 <td>
                                 <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
+                                          x-bind:readonly="!(schedule.manager?.id !== $store.crmUser.id) && !$store.crmUser.isAdmin"
                                           @change="updateSchedule({admin_comment: schedule.admin_comment})"
                                           class="form-control form-control-sm mw-150px "></textarea>
                                 </td>

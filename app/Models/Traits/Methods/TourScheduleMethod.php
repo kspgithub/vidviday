@@ -101,7 +101,7 @@ trait TourScheduleMethod
 
     public function asCrmSchedule()
     {
-        return $this->shortInfo(['admin_comment', 'duty_comment', 'places', 'auto_booking', 'auto_limit']);
+        return $this->shortInfo(['admin_comment', 'duty_comment', 'places', 'auto_booking', 'auto_limit', 'manager']);
     }
 
     public function asCalendarEvent($event_click = 'url')
