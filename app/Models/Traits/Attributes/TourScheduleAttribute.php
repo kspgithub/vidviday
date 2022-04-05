@@ -125,13 +125,12 @@ trait TourScheduleAttribute
 
     public function getPlacesAvailableAttribute()
     {
-        return $this->places - $this->places_booked;
+        return max($this->places - $this->places_booked, 0);
     }
 
     public function getPriceTitleAttribute()
     {
         $price = ceil($this->price);
-
 
         $title = "Ціна: {$price} грн.";
         if ($this->commission > 0) {
