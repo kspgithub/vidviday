@@ -256,6 +256,17 @@ export default {
             })
             commit('UPDATE_FORM_DATA', {accommodation: accomm});
         },
+        resetAccommodation({commit, state}) {
+            const accomm = {
+                other: 0,
+                other_text: '',
+            };
+            state.rooms.forEach(r => {
+                const slug = r.slug.replace('-', '_');
+                accomm[slug] = 0;
+            })
+            commit('UPDATE_FORM_DATA', {accommodation: accomm});
+        },
         setParticipants({commit, state}) {
             let total = state.formData.places;
             const items = [];
