@@ -113,9 +113,12 @@ class OrdersExport extends DefaultValueBinder implements
     {
         $rows = [];
         $rows[] = "{$order->last_name} {$order->first_name}";
-        $rows[] = "Тел: {$order->phone}";
+        $rows[] = "{$order->phone}";
         if (!empty($order->email)) {
-            $rows[] = "Email: {$order->email}";
+            $rows[] = "{$order->email}";
+        }
+        if (!empty($order->viber)) {
+            $rows[] = "{$order->viber}";
         }
         if (!empty($order->agency_data) && !empty($order->agency_data['title'])) {
             $rows[] = '----------------';
@@ -123,9 +126,9 @@ class OrdersExport extends DefaultValueBinder implements
             $rows[] = !empty($agencyData->affiliate) ? "$agencyData->title ($agencyData->affiliate)" : $agencyData->title;
             $rows[] = $agencyData->manager_name;
             $rows[] = $agencyData->manager_phone;
-            $rows[] = "Тел: {$agencyData->manager_phone}";
+            $rows[] = "{$agencyData->manager_phone}";
             if (!empty($agencyData->manager_email)) {
-                $rows[] = "Email: {$agencyData->manager_email}";
+                $rows[] = "{$agencyData->manager_email}";
             }
         }
 
