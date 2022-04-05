@@ -37,6 +37,7 @@ class TourSchedule extends Model
         'start_date',
         'end_date',
         'places',
+        'places_yesterday',
         'price',
         'commission',
         'accomm_price',
@@ -51,6 +52,7 @@ class TourSchedule extends Model
         'admin_comment',
         'auto_booking',
         'auto_limit',
+        'places_yd_updated_at',
     ];
 
     protected $casts = [
@@ -63,7 +65,6 @@ class TourSchedule extends Model
         'end_date' => 'date:d.m.Y',
     ];
 
-
     protected $appends = [
         'title',
         'start_title',
@@ -72,7 +73,6 @@ class TourSchedule extends Model
         'places_reserved',
         'places_payed',
         'places_new',
-        'places_yesterday',
     ];
 
     protected $dates = [
