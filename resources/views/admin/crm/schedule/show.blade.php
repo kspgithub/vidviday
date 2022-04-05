@@ -198,12 +198,12 @@
                                         <a :href="'tel:'+clearPhone(order.phone)" x-text="clearPhone(order.phone)"
                                            target="_blank"></a>
                                     </div>
-                                    <div x-show="order.viber" class="text-nowrap">
-                                        <span x-text="clearPhone(order.viber)"></span>
-                                    </div>
                                     <div x-show="order.email" class="text-nowrap">
                                         <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
                                            target="_blank"></a>
+                                    </div>
+                                    <div x-show="order.viber" class="text-nowrap">
+                                        <span x-text="clearPhone(order.viber)"></span>
                                     </div>
                                     <template x-if="order.agency_data && order.agency_data.title"
                                               :key="'agency-data-'+order.id">
@@ -218,7 +218,6 @@
                                                 <span x-text="order.agency_data.manager_name"></span>
                                             </div>
                                             <div class="text-nowrap" x-show="order.agency_data.manager_phone">
-                                                <b>Тел:</b>
                                                 <a :href="'tel:'+clearPhone(order.agency_data.manager_phone)"
                                                    x-text="clearPhone(order.agency_data.manager_phone)"
                                                    target="_blank"></a>
