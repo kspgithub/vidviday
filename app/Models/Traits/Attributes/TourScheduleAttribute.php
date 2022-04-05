@@ -144,7 +144,7 @@ trait TourScheduleAttribute
 
     public function getManagerAttribute()
     {
-        return $this->tour && $this->tour->manager ? $this->tour->manager->shortInfo() : null;
+        return ($this->tour && $this->tour->manager) ? $this->tour->manager->shortInfo() : null;
     }
 
 }

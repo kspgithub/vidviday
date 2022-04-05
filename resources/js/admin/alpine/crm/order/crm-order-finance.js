@@ -174,7 +174,6 @@ export default (props) => ({
             discounts: [...this.discounts]
         })
         this.discountModal.hide();
-        console.log(this.discounts)
     },
     deleteDiscount(idx) {
         swalConfirm(() => {
