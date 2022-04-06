@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\CRM;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CRM\StoreClientRequest;
 use App\Models\BitrixContact;
 use App\Models\Order;
 use App\Models\Staff;
@@ -64,6 +65,14 @@ class CrmClientController extends Controller
             'statuses' => $statuses,
             'tours' => $tours,
         ]);
+    }
+
+    public function store(StoreClientRequest $request)
+    {
+        $client = new BitrixContact();
+        $client->fill($request->validated());
+        $client->save();
+        return response()->json(['result' => 'success', 'message' => __('Record Created')]);
     }
 
     public function update(Request $request, BitrixContact $client)
