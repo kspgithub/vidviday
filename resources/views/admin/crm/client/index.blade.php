@@ -56,7 +56,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <template x-for="client in clients" :key="client.bitrix_id">
+                        <template x-for="client in clients" :key="client.bitrix_id + client.id">
 
                             <tr x-data="crmClient(client)">
 
