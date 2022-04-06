@@ -247,7 +247,7 @@ Route::group([
     'as' => 'crm.',
 ], function () {
     Route::get('clients', [CrmClientController::class, 'index'])->name('client.index');
-    Route::get('clients/{client}', [CrmClientController::class, 'show'])->name('client.show');
+    Route::get('clients/{client}/{type?}', [CrmClientController::class, 'show'])->name('client.show');
     Route::patch('clients/{client}', [CrmClientController::class, 'update'])->name('client.update');
     Route::delete('clients/{client}', [CrmClientController::class, 'delete'])->name('client.destroy');
 

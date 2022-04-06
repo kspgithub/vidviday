@@ -194,16 +194,13 @@
                                         <span x-text="order.last_name + ' ' + order.first_name"></span>
                                     </div>
                                     <div x-show="order.phone" class="text-nowrap">
-                                        <b>Тел:</b>
                                         <a :href="'tel:'+clearPhone(order.phone)" x-text="clearPhone(order.phone)"
                                            target="_blank"></a>
                                     </div>
                                     <div x-show="order.viber" class="text-nowrap">
-                                        <b>Viber:</b>
                                         <span x-text="clearPhone(order.viber)"></span>
                                     </div>
                                     <div x-show="order.email" class="text-nowrap">
-                                        <b>Email:</b>
                                         <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
                                            target="_blank"></a>
                                     </div>

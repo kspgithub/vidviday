@@ -10,14 +10,11 @@ isset($district) ? ['url'=>route('admin.city.index', ['district_id'=>$district->
 ['url'=>route('admin.city.index', ['region_id'=>request('region_id', 0), 'district_id'=>request('district_id', 0)]), 'title'=>__('Cities')],
 ['url'=>route('admin.city.create', ['region_id'=>request('region_id', 0), 'district_id'=>request('district_id', 0)]), 'title'=>__('Create')],
 ]) !!}
-    <div class="d-flex justify-content-between">
-        <h1>@lang('Create city')</div>
-    </h1>
 
-    <div class="d-flex align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>@lang('Create city')</h1>
         <a href="{{route('admin.city.index', ['region_id'=>request('region_id', 0), 'district_id'=>request('district_id', 0)])}}"
            class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-    </div>
     </div>
 
     <div x-data="translatable({expanded:  true})">

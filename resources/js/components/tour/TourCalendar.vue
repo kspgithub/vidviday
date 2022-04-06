@@ -21,8 +21,8 @@
 
 <script>
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
-import '@fullcalendar/core/vdom' // solves problem with Vite
-import FullCalendar from '@fullcalendar/vue3'
+//import '@fullcalendar/core/vdom' // solves problem with Vite
+import FullCalendar from '@fullcalendar/vue3/dist/FullCalendar'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';

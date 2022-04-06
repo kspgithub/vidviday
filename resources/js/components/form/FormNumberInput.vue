@@ -7,11 +7,12 @@
                    :required="required">
             <button type="button" class="increment" :disabled="disabled" @click.prevent="increment()"></button>
         </div>
+        <span class="text-sm text-medium suffix inline" v-if="suffix">{{ suffix }}</span>
     </div>
 </template>
 
 <script>
-import {computed} from "vue";
+import {computed, watch} from "vue";
 import useFormField from "./composables/useFormField";
 
 export default {
@@ -20,6 +21,7 @@ export default {
         modelValue: Number,
         name: String,
         title: String,
+        suffix: String,
         min: {
             type: Number,
             default: 0,

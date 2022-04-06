@@ -6,7 +6,7 @@ use App\Models\LanguageLine;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
-class ImportTranslations extends Command
+class TranslationImport extends Command
 {
     protected $skipExists = false;
 

@@ -44,6 +44,10 @@ class ToursTable extends DataTableComponent
             return $q->where('collection_name', 'pictures');
         }, 'questions', 'testimonials']);
 
+        if (current_user()->isTourManager()) {
+            $query->whereHas('manager', fn ($sq) => $sq->where('user_id', current_user()->id));
+        }
+
         return $query;
     }
 
@@ -66,6 +70,11 @@ class ToursTable extends DataTableComponent
             Column::make(__('Мови'), 'locales')
                 ->format(function ($value, $column, $row) {
                     return implode(', ', $row->locales);
+                }),
+
+            Column::make(__('Manager'))
+                ->format(function ($value, $column, $row) {
+                    return !empty($row->tourManager) ? $row->tourManager->name : '-';
                 }),
 
             Column::make(__('Published'), 'published')

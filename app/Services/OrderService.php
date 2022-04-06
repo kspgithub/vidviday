@@ -68,7 +68,7 @@ class OrderService extends BaseService
             $children_discount = 0;
 
             $accomm_price = $schedule ? $schedule->accomm_price : $tour->accomm_price;
-            $total_accomm = $accomm_price * (int)$order_params['places'];
+            $total_accomm = 0;
 
             if ($schedule) {
                 $order_params['start_date'] = $schedule->start_date->format('d.m.Y');
@@ -80,11 +80,12 @@ class OrderService extends BaseService
             if ((int)$order_params['children'] === 1) {
                 $order_params['children_young'] = (int)$params['children_young'] ?? 0;
                 $order_params['children_older'] = (int)$params['children_older'] ?? 0;
-                $order_params['without_place'] = !empty($params['without_place']) ? (int)$params['without_place'] : 0;
-                $total_places += $order_params['without_place'] === 0 ? $order_params['children_young'] : 0;
+                $order_params['without_place_count'] = (int)$params['without_place_count'] ?? 0;
+                $order_params['without_place'] = $order_params['without_place_count'] > 0 ? 1 : 0;
+                $total_places += $order_params['children_young'];
                 $total_places += $order_params['children_older'];
 
-                if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree() && $order_params['without_place'] === 0) {
+                if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
                     $order_price += $tour_price * (int)$params['children_young'];
                     $order_commission += $tour_commission * (int)$params['children_young'];
                     $discount = $tour->discounts()->available()
@@ -112,7 +113,8 @@ class OrderService extends BaseService
 
             if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
-                    'without_place' => !empty($params['without_place']) ? (int)$params['without_place'] : 0,
+                    'without_place' => $order_params['without_place'] ?? 0,
+                    'without_place_count' => $order_params['without_place_count'] ?? 0,
                     'items' => $params['participants'] ?? [],
                     'participant_phone' => $params['participant_phone'] ?? '',
                 ];
@@ -120,8 +122,13 @@ class OrderService extends BaseService
                 if (isset($params['accommodation'])) {
                     $items = [];
                     foreach ($params['accommodation'] as $key => $value) {
+                        $accomm_slug = str_replace('-', '_', $key);
+
                         if ((int)$value > 0 && $key !== 'other' && $key !== 'other_text') {
-                            $items[str_replace('_', '-', $key)] = (int)$value;
+                            $items[$accomm_slug] = (int)$value;
+                            if ($accomm_slug === '1o_sgl' && $value > 0) {
+                                $total_accomm = $accomm_price * (int)$value;
+                            }
                         }
                         if ($key === 'other' && (int)$value === 1) {
                             $items['other'] = $params['accommodation']['other_text'] ?? '';

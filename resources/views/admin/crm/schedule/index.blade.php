@@ -14,17 +14,20 @@
         params: @json(request()->all()),
     })'>
         <div class="row mb-3">
-            <div class="col-auto">
-                <select x-model="manager_id"
-                        class="form-control form-control-sm"
-                        @change.debounce="filterChange()"
-                >
-                    <option value="0">Менеджер</option>
-                    @foreach($managers as $manager)
-                        <option value="{{$manager['value']}}">{{$manager['text']}}</option>
-                    @endforeach
-                </select>
-            </div>
+            @if(!current_user()->isTourManager())
+                <div class="col-auto">
+
+                    <select x-model="manager_id"
+                            class="form-control form-control-sm"
+                            @change.debounce="filterChange()"
+                    >
+                        <option value="0">Менеджер</option>
+                        @foreach($managers as $manager)
+                            <option value="{{$manager['value']}}">{{$manager['text']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
             <div class="col-auto">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="only-booked" x-model="booked"

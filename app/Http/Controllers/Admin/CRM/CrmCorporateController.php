@@ -94,10 +94,11 @@ class CrmCorporateController extends Controller
         $statuses = arrayToSelectBox(Order::statuses());
         $includes = arrayToSelectBox(Order::includes());
         $tour = $order->tour;
-
+        $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
         return view('admin.crm.corporate.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
             'order' => $order,
+            'discounts' => $discounts,
             'statuses' => $statuses,
             'includes' => $includes,
         ]);

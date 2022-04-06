@@ -4,6 +4,7 @@ namespace App\Models\Traits\Methods;
 
 use App\Models\Tour;
 use App\Models\TourSchedule;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -130,5 +131,14 @@ trait TourMethods
         }
         $schedules = $query->get()->filter(fn (TourSchedule $value, $key) => $value->places_available > 0);
         return TourSchedule::transformForBooking($schedules);
+    }
+
+
+    public function userCanEditTour(User $user)
+    {
+        $staff_ids = $user->staffs()->pluck('id')->toArray();
+        $tourManager = $this->manager;
+        $manager_id = !empty($tourManager) ? $tourManager->id : 0;
+        return $user->isAdmin() || ($user->isTourManager() && in_array($manager_id, $staff_ids));
     }
 }

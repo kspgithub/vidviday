@@ -22,12 +22,16 @@ class CrmScheduleController extends Controller
         if ($request->ajax()) {
             $query = TourSchedule::query()->with(['tour', 'tour.manager', 'orders']);
 
+            if (current_user()->isTourManager()) {
+                $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
+            }
+
             $tab = $request->input('tab', 'recruited');
             $query->tab($tab);
 
             $manager_id = $request->input('manager_id', 0);
             if ($manager_id > 0) {
-                $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('id', $manager_id)));
+                $query->whereHas('tour', fn ($sq) => $sq->where('manager_id', $manager_id));
             }
 
             $booked = $request->input('booked', 0);
@@ -63,6 +67,7 @@ class CrmScheduleController extends Controller
                     'auto_booking',
                     'auto_limit',
                 ]);
+                $val->append(['manager']);
                 return $val;
             });
 

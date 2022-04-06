@@ -13,7 +13,7 @@
                 <th style="width: 300px">Коментарі чергового</th>
                 <td>
                     <textarea x-model.debounce.500ms="order.duty_comment" class="form-control"
-                              x-bind:readonly="!$store.crmUser.isDutyManager && !$store.crmUser.isAdmin"
+                              x-bind:readonly="{{current_user()->can('order-duty-comments', $order) ? 'false' : 'true'}}"
                               @change="updateOrder({duty_comment: order.duty_comment})"></textarea>
                 </td>
             </tr>
@@ -21,7 +21,7 @@
                 <th style="width: 300px">Примітки</th>
                 <td>
                     <textarea x-model.debounce.500ms="order.admin_comment" class="form-control"
-                              x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
+                              x-bind:readonly="{{current_user()->can('order-admin-comments', $order) ? 'false' : 'true'}}"
                               @change="updateOrder({admin_comment: order.admin_comment})"></textarea>
                 </td>
             </tr>

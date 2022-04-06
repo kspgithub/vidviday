@@ -140,9 +140,9 @@
         <h3>@lang('Staff')</h3>
     </x-slot>
     <x-slot name="body">
-        <x-forms.select-group name="staff[]"
+        <x-forms.select-group name="manager_id"
                               :label="__('Tour Manager')"
-                              :value="old('staff', $tour->tour_manager ?  $tour->tour_manager->id : 0)"
+                              :value="old('manager_id', $tour->manager_id)"
                               :options="$managers">
             <option value="">Не вибрано</option>
         </x-forms.select-group>

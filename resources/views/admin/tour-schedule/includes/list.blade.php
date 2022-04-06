@@ -1,11 +1,12 @@
 <div x-data='tourSchedules({
     params: @json(request()->all()),
     tour: @json($tour->shortInfo()),
+    canEdit: {{$can_edit ? 'true' : 'false'}},
 })'>
     <div class="row mb-3">
         <div class="col-6"></div>
         <div class="col-6 text-right">
-            <a href="#" class="btn btn-sm btn-primary" @click.prevent="editSchedule()">
+            <a href="#" x-show="canEdit" class="btn btn-sm btn-primary" @click.prevent="editSchedule()">
                 <i class="fa fa-plus"></i> Додати виїзд
             </a>
         </div>
@@ -60,11 +61,14 @@
                             </td>
                             <td><span x-text="item.auto_limit"></span></td>
                             <td>
-                                <a href="#" class="btn btn-sm my-1 me-2 btn-outline-success"
-                                   @click.prevent="editSchedule(item)">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <template x-if="$store.crmUser.isTourManager || $store.crmUser.isAdmin">
+                                <template x-if="canEdit">
+                                    <a href="#" class="btn btn-sm my-1 me-2 btn-outline-success"
+                                       @click.prevent="editSchedule(item)">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </template>
+
+                                <template x-if="canEdit">
                                     <a href="#" class="btn btn-sm my-1 me-2 btn-outline-danger"
                                        x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
                                        @click.prevent="deleteSchedule(item)">

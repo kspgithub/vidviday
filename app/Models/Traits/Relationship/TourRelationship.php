@@ -22,6 +22,7 @@ use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -193,14 +194,11 @@ trait TourRelationship
 
     /**
      * Менеджер тура
-     *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
     public function manager()
     {
-        return $this->staff()->whereHas('types', function ($q) {
-            return $q->where('slug', 'tour-manager');
-        });
+        return $this->belongsTo(Staff::class, 'manager_id');
     }
 
     /**

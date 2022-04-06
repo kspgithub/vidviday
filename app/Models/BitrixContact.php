@@ -74,7 +74,7 @@ class BitrixContact extends Model
         $rawQuery = [];
         foreach ($phones as $phone) {
             if (!empty($phone)) {
-                $rawQuery[] = "REPLACE(REPLACE(REPLACE(REPLACE(phone, '-', ''), ')', ''), '(', ''), ' ', '') LIKE '$phone'";
+                $rawQuery[] = "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(phone, '-', ''), ')', ''), '(', ''), ' ', ''), '+', '') LIKE '$phone'";
             }
         }
 
@@ -85,7 +85,7 @@ class BitrixContact extends Model
         }
 
         if (!empty($rawQuery)) {
-            return Order::query()->whereRaw(implode(' OR ', $rawQuery));
+            return Order::query()->whereRaw('(' . implode(' OR ', $rawQuery) . ')');
         }
         return null;
     }
@@ -98,5 +98,13 @@ class BitrixContact extends Model
     public function getOrdersCountAttribute()
     {
         return $this->orders() !== null ? $this->orders()->count() : 0;
+    }
+
+    public function getFullNameAttribute()
+    {
+        $name = trim($this->last_name . ' ' . $this->first_name);
+        $phone = $this->phone[0] ?? '';
+        $email = $this->email[0] ?? '';
+        return !empty($name) ? $name : (!empty($phone) ? $phone : $email);
     }
 }

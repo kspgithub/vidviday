@@ -59,6 +59,16 @@
                 </li>
             @endif
 
+            @if(is_tour_manager())
+                <li class="sidebar-item {{routeActiveClass('admin.tour.*')}}">
+                    <a class="sidebar-link"
+                       href="{{route('admin.tour.index')}}">
+                        <i class="align-middle" data-feather="map"></i>
+                        <span class="align-middle">@lang('Tours')</span>
+                    </a>
+                </li>
+            @endif
+
             @if(is_admin() || is_manager())
 
                 <li class="sidebar-item {{routeActiveClass(['admin.tour*', 'admin.badge*', 'admin.direction*', 'admin.landing-place*'])}}">

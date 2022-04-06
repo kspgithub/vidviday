@@ -35,7 +35,7 @@ return [
     'places' => 'Excursion objects',
     'cost' => 'Cost',
     'commission' => 'Agent Commission',
-    'accomm-price' => 'Accommodation fee',
+    'accomm-price' => 'Single occupancy surcharge',
     'days-letter' => 'd',
     'nights-letter' => 'n',
     'similar-tours' => 'Similar tours',

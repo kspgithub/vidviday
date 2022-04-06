@@ -46,10 +46,12 @@ trait TourAttribute
 
     public function getTourManagerAttribute()
     {
-        if ($this->tourManager === null) {
-            $this->tourManager = $this->staff()->onlyTourManagers()->first();
-        }
-        return $this->tourManager;
+//        if ($this->tourManager === null) {
+//            $this->tourManager = $this->staff()->onlyTourManagers()->first();
+//        }
+//        return $this->tourManager;
+
+        return $this->manager;
     }
 
 

@@ -2,7 +2,7 @@ export default (schedule) => ({
     request: false,
     schedule: schedule,
     tour: schedule.tour || null,
-    manager: schedule.tour.manager.length ? schedule.tour.manager[0] : null,
+    manager: schedule.manager || null,
     orders: schedule.orders || [],
     init() {
 

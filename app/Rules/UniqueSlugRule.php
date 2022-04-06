@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class UniqueSlugRule implements Rule
 {
+    protected $tables = ['tours', 'places', 'tour_groups', 'pages'];
+
     protected $table;
 
     protected $exceptId;
@@ -26,20 +28,23 @@ class UniqueSlugRule implements Rule
     {
 
         if (!empty($value)) {
-            $query = DB::table($this->table)->where(function ($q) use ($attribute, $value) {
-
-                foreach (siteLocales() as $idx => $locale) {
-                    if ($idx === 0) {
-                        $q->where("{$this->attr}->{$locale}", $value);
-                    } else {
-                        $q->orWhere("{$this->attr}->{$locale}", $value);
+            foreach ($this->tables as $table) {
+                $query = DB::table($table)->where(function ($q) use ($attribute, $value) {
+                    foreach (siteLocales() as $idx => $locale) {
+                        if ($idx === 0) {
+                            $q->where("{$this->attr}->{$locale}", $value);
+                        } else {
+                            $q->orWhere("{$this->attr}->{$locale}", $value);
+                        }
                     }
+                });
+                if ($this->exceptId > 0 && $table === $this->table) {
+                    $query->where('id', '<>', $this->exceptId);
                 }
-            });
-            if ($this->exceptId > 0) {
-                $query->where('id', '<>', $this->exceptId);
+                if ($query->count() > 0) {
+                    return false;
+                }
             }
-            return $query->count() === 0;
         }
         return true;
     }

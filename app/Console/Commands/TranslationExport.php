@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\LanguageLine;
 
-class ExportTranslations extends Command
+class TranslationExport extends Command
 {
     /**
      * The name and signature of the console command.

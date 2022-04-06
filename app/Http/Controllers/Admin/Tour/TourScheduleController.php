@@ -39,11 +39,13 @@ class TourScheduleController extends Controller
 
             $paginator = $query->paginate($request->input('per_page', 20));
             $paginator->getCollection()->transform(fn ($item) => $item->asCrmSchedule());
+
             return response()->json($paginator);
         }
 
         $currencies = Currency::toSelectBox('iso', 'iso');
-        return view('admin.tour-schedule.index', ['tour' => $tour, 'currencies' => $currencies]);
+        $can_edit = $tour->userCanEditTour(current_user());
+        return view('admin.tour-schedule.index', ['tour' => $tour, 'currencies' => $currencies, 'can_edit' => $can_edit]);
     }
 
     public function store(Request $request, Tour $tour)

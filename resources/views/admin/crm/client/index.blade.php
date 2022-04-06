@@ -73,7 +73,7 @@
                                     <span x-html="clientEmails"></span>
                                 </td>
                                 <td>
-                                    <a :href="`/admin/crm/clients/${client.id}/orders`" target="_blank">
+                                    <a :href="`/admin/crm/clients/${client.id}`" target="_blank">
                                         <span class="badge bg-info" x-text="client.orders_count"></span>
                                     </a>
                                 </td>

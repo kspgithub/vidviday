@@ -2,12 +2,14 @@
     <div class="bordered-box">
         <div>
             <span class="text">{{ __('order-section.summary.cost-tour') }}:</span>
-            <span class="text-md"><b>{{ format(tourPrice) }}</b> {{ __('order-section.currency.uah') }}</span>
+            <span class="text-md text-nowrap"><b>{{ format(tourPrice) }}</b> {{
+                    __('order-section.currency.uah')
+                }}</span>
         </div>
         <hr v-if="totalChildrenDiscount > 0">
         <div v-if="totalChildrenDiscount > 0">
             <span class="text">{{ __('order-section.summary.children-discount') }}:</span>
-            <span class="text-md">
+            <span class="text-md text-nowrap">
                 <b>-{{ format(totalChildrenDiscount) }}</b>
                 {{ __('order-section.currency.uah') }}
             </span>
@@ -15,7 +17,7 @@
         <hr v-if="totalAccommodation > 0">
         <div v-if="totalAccommodation > 0">
             <span class="text">{{ __('tours-section.accomm-price') }}</span>
-            <span class="text-md">
+            <span class="text-md text-nowrap">
                 <b>{{ format(totalAccommodation) }}</b> {{ __('order-section.currency.uah') }}
             </span>
         </div>
@@ -33,7 +35,7 @@
         <div>
             <span class="h5">{{ __('order-section.summary.final-cost') }}:</span>
             <span class="thumb-price">
-                <span class="text">
+                <span class="text  text-nowrap">
                     <span>{{ format(totalPrice) }}</span>
                     <sup>{{ __('order-section.currency.uah') }}</sup>
                 </span>

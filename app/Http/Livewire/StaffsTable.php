@@ -14,8 +14,6 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class StaffsTable extends DataTableComponent
 {
-
-
     public string $defaultSortColumn = 'last_name';
 
     public string $defaultSortDirection = 'asc';
@@ -32,7 +30,7 @@ class StaffsTable extends DataTableComponent
     public function query(): Builder
     {
         $type = $this->getFilter('type');
-        $query = Staff::query()->when(!empty($type), fn($query) => $query->whereHas('types', fn($q) => $q->where('slug', $type)))
+        $query = Staff::query()->when(!empty($type), fn ($query) => $query->whereHas('types', fn ($q) => $q->where('slug', $type)))
             ->withCount(['tours']);
 
         return $query;
@@ -57,8 +55,12 @@ class StaffsTable extends DataTableComponent
             Column::make(__('ID'), 'id')
                 ->searchable()
                 ->sortable(),
+            Column::make(__('Користувач'))
+                ->format(function ($value, $column, $row) {
+                    return $row->user_id > 0 ? "<a href='/admin/user/$row->user_id' target='_blank'>$row->user_id</a>   " : '-';
+                })->asHtml(),
 
-            Column::make(__('Staff'), 'last_name')
+            Column::make(__('Ім\'я'), 'last_name')
                 ->sortable(function (Builder $query, $direction) {
                     return $query->orderBy('last_name', $direction);
                 })
@@ -95,5 +97,4 @@ class StaffsTable extends DataTableComponent
 
         ];
     }
-
 }
