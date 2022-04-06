@@ -15,9 +15,13 @@
         })'
          x-on:delete-client.window="deleteClient($event.detail)"
          x-on:edit-client.window="editClient($event.detail)"
+         x-on:create-client.window="createClient()"
     >
+        <a x-on:click.prevent="$dispatch('create-client')" href="#" class="btn btn-success mb-3">
+            <i class="fa fa-plus"></i> Додати клієнта
+        </a>
 
-        <div x-show="!edit">
+        <div x-show="!edit && !create">
             <div class="mb-3">
                 <input type="search" class="form-control" x-model.debounce.500ms="search" placeholder="Пошук..."/>
             </div>
@@ -103,6 +107,9 @@
             <x-alp.pagination></x-alp.pagination>
         </div>
         <template x-if="edit" key="edit">
+            @include('admin.crm.client.form')
+        </template>
+        <template x-if="create" key="create">
             @include('admin.crm.client.form')
         </template>
 
