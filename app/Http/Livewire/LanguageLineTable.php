@@ -26,7 +26,7 @@ class LanguageLineTable extends DataTableComponent
                     return $query->orJsonLike('text', "%$searchTerm%");
                 })
                 ->format(function ($value, $column, $row) {
-                    return view('admin.translation.includes.translations', ['language_line' => $row, 'locales'=>config('site-settings.locale.languages')]);
+                    return view('admin.translation.includes.translations', ['language_line' => $row, 'locales' => config('site-settings.locale.languages')]);
                 }),
 
             Column::make(__('Actions'))
@@ -36,7 +36,7 @@ class LanguageLineTable extends DataTableComponent
         ];
     }
 
-    public function query()
+    public function query(): Builder
     {
         $group = $this->getFilter('group') ?? false;
 

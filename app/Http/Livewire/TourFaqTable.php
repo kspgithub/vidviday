@@ -74,7 +74,7 @@ class TourFaqTable extends Component
         $this->answer = $this->model->answer ?? '';
     }
 
-    public function query()
+    public function query(): Builder
     {
         return $this->tour->faq()->orderBy('position');
     }
