@@ -58,7 +58,7 @@ class TourUserQuestions extends DataTableComponent
         TourQuestion::fixTree();
     }
 
-    public function query()
+    public function query(): Builder
     {
         $status = $this->getFilter('status');
 

@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\Currency;
 use App\Models\PriceItem;
 use App\Models\Tour;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -67,7 +68,7 @@ class TourCalc extends Component
         return PriceItem::class;
     }
 
-    public function query()
+    public function query(): Builder
     {
         return $this->tour->priceItems();
     }
