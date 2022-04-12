@@ -16,8 +16,9 @@ class AddManagerIdToTours extends Migration
 
 
         Tour::all()->each(function ($tour) {
-            if (!empty($tour->tour_manager)) {
-                $tour->manager_id = $tour->tour_manager->id;
+            $tourManager = $tour->staff()->whereHas('types', fn ($t) => $t->where('slug', 'tour-manager'))->first();
+            if ($tourManager) {
+                $tour->manager_id = $tourManager->id;
                 $tour->save();
             }
         });
