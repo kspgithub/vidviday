@@ -7,6 +7,7 @@ use App\Models\Currency;
 use App\Models\PriceItem;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -68,7 +69,7 @@ class TourCalc extends Component
         return PriceItem::class;
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return $this->tour->priceItems();
     }
