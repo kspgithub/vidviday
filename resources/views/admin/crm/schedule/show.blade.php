@@ -240,7 +240,8 @@
                                     <div class="d-flex">
                                         <div>
                                             <template x-for="(val, key) in order.accommodation">
-                                                <template x-if="val > 0 && key !== 'other' && key !== 'other_text'">
+                                                <template
+                                                    x-if="val > 0 && key && key !== 'other' && key !== 'other_text'">
                                                     <div class="text-nowrap">
                                                         <b x-text="roomTitle(key)+':'"></b>
                                                         <span x-text="val"></span>
@@ -249,7 +250,7 @@
                                                 <template x-if="!!order.accommodation['other']">
                                                     <div :key="'ord-accomm-other-'+order.id">
                                                         <b>Інше:</b>
-                                                        <span x-text="order.accommodation['other-text']"></span>
+                                                        <span x-text="order.accommodation['other_text'] || ''"></span>
                                                     </div>
                                                 </template>
                                             </template>

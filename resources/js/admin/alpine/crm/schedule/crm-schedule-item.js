@@ -10,16 +10,16 @@ import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 import {cleanPhoneNumber} from "../../../../utils/string";
 
 const rooms = {
-    "1o-plus": 0,
-    "1o-sgl": 0,
-    "2o-twn": 0,
-    "2p-dbl": 0,
-    "3o-trpl": 0,
-    "2p-1o-trpl": 0,
-    "4o-qdpl": 0,
-    "2p-2p-qdpl": 0,
+    "1o_plus": 0,
+    "1o_sgl": 0,
+    "2o_twn": 0,
+    "2p_dbl": 0,
+    "3o_trpl": 0,
+    "2p_1o_trpl": 0,
+    "4o_qdpl": 0,
+    "2p_2p_qdpl": 0,
     "other": false,
-    "other-text": '',
+    "other_text": '',
 }
 
 

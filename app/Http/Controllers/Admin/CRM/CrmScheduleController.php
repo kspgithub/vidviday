@@ -144,7 +144,8 @@ class CrmScheduleController extends Controller
             'auto_limit',
         ]);
 
-        $roomTypes = AccommodationType::get(['short_title as text', 'slug as value'])->toArray();
+        $roomTypes = AccommodationType::get(['short_title as text', 'slug as value'])
+            ->map(fn ($it) => ['text' => $it->text, 'value' => str_replace('-', '_', $it->value)])->toArray();
 
         return view('admin.crm.schedule.show', [
             'schedule' => $schedule,
