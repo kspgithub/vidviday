@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Discount;
 use App\Models\Place;
 use App\Models\Tour;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -33,7 +34,7 @@ class TourDiscountsTable extends Component
         $this->options = Discount::all();
     }
 
-    public function query()
+    public function query(): Builder
     {
         return $this->tour->discounts();
     }

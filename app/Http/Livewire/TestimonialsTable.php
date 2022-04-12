@@ -53,7 +53,7 @@ class TestimonialsTable extends DataTableComponent
         Testimonial::fixTree();
     }
 
-    public function query()
+    public function query(): Builder
     {
         $status = $this->getFilter('status');
         $type = $this->getFilter('type');

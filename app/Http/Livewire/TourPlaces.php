@@ -6,6 +6,7 @@ use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use App\Models\Tour;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -55,7 +56,7 @@ class TourPlaces extends Component
         $this->query()->detach([$id]);
     }
 
-    public function query()
+    public function query(): Builder
     {
         return $this->tour->places()->with(['region', 'district', 'city']);
     }
