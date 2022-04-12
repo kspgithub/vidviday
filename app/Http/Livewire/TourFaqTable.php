@@ -8,6 +8,7 @@ use App\Models\Tour;
 use App\Models\TourFaq;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -74,7 +75,7 @@ class TourFaqTable extends Component
         $this->answer = $this->model->answer ?? '';
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return $this->tour->faq()->orderBy('position');
     }

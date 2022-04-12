@@ -7,6 +7,7 @@ use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -59,7 +60,7 @@ class TourTestimonials extends DataTableComponent
         Testimonial::fixTree();
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $status = $this->getFilter('status');
 
