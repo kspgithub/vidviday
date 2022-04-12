@@ -15,7 +15,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class EventsTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
     /**
      * @var string
      */
@@ -47,8 +48,8 @@ class EventsTable extends DataTableComponent
         $group_id = (int)$this->getFilter('group');
 
         $query = EventItem::query()->with(['directions', 'groups'])
-            ->when($direction_id > 0, fn($q) => $q->whereHas('directions', fn($sq) => $sq->where('id', $direction_id)))
-            ->when($group_id > 0, fn($q) => $q->whereHas('groups', fn($sq) => $sq->where('id', $group_id)));
+            ->when($direction_id > 0, fn ($q) => $q->whereHas('directions', fn ($sq) => $sq->where('id', $direction_id)))
+            ->when($group_id > 0, fn ($q) => $q->whereHas('groups', fn ($sq) => $sq->where('id', $group_id)));
 
 
         return $query;
@@ -98,7 +99,5 @@ class EventsTable extends DataTableComponent
             'group' => Filter::make(__('Group'))
                 ->select(array_merge([0 => 'Всі'], EventGroup::toSelectArray())),
         ];
-
-
     }
 }

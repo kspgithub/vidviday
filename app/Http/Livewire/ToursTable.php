@@ -12,6 +12,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class ToursTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string

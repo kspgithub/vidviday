@@ -14,7 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class TourSchedulesTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var Tour
      */

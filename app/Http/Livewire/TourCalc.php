@@ -68,7 +68,7 @@ class TourCalc extends Component
         return PriceItem::class;
     }
 
-    public function query(): Builder
+    public function query()
     {
         return $this->tour->priceItems();
     }

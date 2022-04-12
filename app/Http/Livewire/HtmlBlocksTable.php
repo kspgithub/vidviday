@@ -13,7 +13,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class HtmlBlocksTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
     /**
      * @var string
      */
@@ -56,7 +57,7 @@ class HtmlBlocksTable extends DataTableComponent
                 ->sortable(),
 
             //Column::make(__('Published'), 'published')
-                //->sortable(),
+            //->sortable(),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
