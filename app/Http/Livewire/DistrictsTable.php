@@ -17,7 +17,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class DistrictsTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
 
     public array $perPageAccepted = [30, 50, 100];
 

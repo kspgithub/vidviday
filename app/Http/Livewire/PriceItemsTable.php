@@ -12,6 +12,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class PriceItemsTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -60,8 +62,8 @@ class PriceItemsTable extends DataTableComponent
             Column::make(__('Currency'), 'currency')
                 ->sortable(),
 
-           Column::make(__('Tour ID'), 'tour_id')
-               ->sortable(),
+            Column::make(__('Tour ID'), 'tour_id')
+                ->sortable(),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {

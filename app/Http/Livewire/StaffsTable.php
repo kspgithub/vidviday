@@ -14,6 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class StaffsTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
+
     public string $defaultSortColumn = 'last_name';
 
     public string $defaultSortDirection = 'asc';

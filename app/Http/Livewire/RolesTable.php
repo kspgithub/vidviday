@@ -13,6 +13,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class RolesTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -45,17 +47,7 @@ class RolesTable extends DataTableComponent
             Column::make(__('Type'), 'type')
                 ->sortable()
                 ->format(function ($value, $column, $row) {
-                    if ($row->type === User::TYPE_ADMIN) {
-                        return __('Administrator');
-                    }
 
-                    if ($row->type === User::TYPE_USER) {
-                        return __('User');
-                    }
-
-                    if ($row->type === User::TYPE_COMPANY) {
-                        return __('Company');
-                    }
 
                     return 'N/A';
                 }),
@@ -65,7 +57,7 @@ class RolesTable extends DataTableComponent
             Column::make(__('Permissions'), 'permissions_label')
                 ->searchable(function ($builder, $term) {
                     return $builder->orWhereHas('permissions', function ($query) use ($term) {
-                        return $query->where('name', 'like', '%'.$term.'%');
+                        return $query->where('name', 'like', '%' . $term . '%');
                     });
                 }),
             Column::make(__('Number of Users'), 'users_count')

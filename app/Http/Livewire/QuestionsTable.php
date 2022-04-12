@@ -14,6 +14,8 @@ class QuestionsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array

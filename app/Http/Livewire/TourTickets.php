@@ -25,7 +25,7 @@ class TourTickets extends Component
      */
     public $item_id = 0;
 
-    public function query(): Builder
+    public function query()
     {
         return $this->tour->tickets();
     }

@@ -18,7 +18,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 class CitiesTable extends DataTableComponent
 {
 
-
+    public array $bulkActions = [
+    ];
+    
     public array $perPageAccepted = [30, 50, 100];
 
     public $region;

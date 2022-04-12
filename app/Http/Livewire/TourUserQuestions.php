@@ -6,6 +6,7 @@ use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -15,6 +16,8 @@ class TourUserQuestions extends DataTableComponent
 {
     use DeleteRecordTrait;
 
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array
@@ -58,7 +61,7 @@ class TourUserQuestions extends DataTableComponent
         TourQuestion::fixTree();
     }
 
-    public function query(): Builder
+    public function query()
     {
         $status = $this->getFilter('status');
 
@@ -174,7 +177,7 @@ class TourUserQuestions extends DataTableComponent
                 'rowView' => $this->rowView(),
                 'filtersView' => $this->filtersView(),
                 'customFilters' => $this->filters(),
-                'rows' => $this->rows,
+                'rows' => $this->rows ?? collect(),
                 'modalsView' => $this->modalsView(),
             ]);
     }

@@ -14,6 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 class PostsTable extends DataTableComponent
 {
 
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var string
      */

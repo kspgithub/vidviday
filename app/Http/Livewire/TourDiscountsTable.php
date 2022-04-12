@@ -34,7 +34,7 @@ class TourDiscountsTable extends Component
         $this->options = Discount::all();
     }
 
-    public function query(): Builder
+    public function query()
     {
         return $this->tour->discounts();
     }

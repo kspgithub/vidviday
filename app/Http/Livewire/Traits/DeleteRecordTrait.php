@@ -8,7 +8,7 @@ trait DeleteRecordTrait
 {
     public $deleteId = 0;
 
-    abstract public function query(): Builder;
+    abstract public function query();
 
 
     public function deleteId($id)

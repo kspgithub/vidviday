@@ -15,6 +15,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class AccommodationsTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string

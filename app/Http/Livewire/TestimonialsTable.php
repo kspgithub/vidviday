@@ -18,6 +18,8 @@ class TestimonialsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array
