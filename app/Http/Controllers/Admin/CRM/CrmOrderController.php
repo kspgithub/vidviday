@@ -114,7 +114,7 @@ class CrmOrderController extends Controller
             $order->status = Order::STATUS_RESERVE;
         }
         $order->save();
-        $order->syncClient();
+        $order->syncContact();
 
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Created'));
     }
