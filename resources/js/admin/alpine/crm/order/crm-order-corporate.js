@@ -3,6 +3,7 @@ import {swalConfirm} from "../../../utils/functions";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import {toast} from "../../../../libs/toast";
+import validateForm from "../../composables/validate-form";
 
 export default (params) => ({
     order: params.order,
@@ -250,8 +251,12 @@ export default (params) => ({
         this.formChanged = true;
     },
     async onSubmit(evt) {
-        this.formChanged = false;
+        if (validateForm(this.$refs.form)) {
+            this.formChanged = false;
+            this.$refs.form.submit();
+        }
     },
+
     get placePrice() {
         return this.tour ? this.tour.price : 0;
     },

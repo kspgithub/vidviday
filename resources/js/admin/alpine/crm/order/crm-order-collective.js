@@ -2,6 +2,7 @@ import axios from "axios";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import {swalConfirm} from "../../../utils/functions";
 import {toast} from "../../../../libs/toast";
+import validateForm from "../../composables/validate-form";
 
 const DEFAULT_DISCOUNT = {
     id: 0,
@@ -308,7 +309,10 @@ export default (params) => ({
         this.formChanged = true;
     },
     async onSubmit(evt) {
-        this.formChanged = false;
+        if (validateForm(this.$refs.form)) {
+            this.formChanged = false;
+            this.$refs.form.submit();
+        }
     },
 
     get childrenDiscounts() {
