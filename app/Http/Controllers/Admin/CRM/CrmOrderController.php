@@ -109,10 +109,12 @@ class CrmOrderController extends Controller
         //
         $order = new Order();
         $order->fill($request->all());
+
         if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
             $order->status = Order::STATUS_RESERVE;
         }
         $order->save();
+        $order->syncClient();
 
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Created'));
     }
@@ -140,7 +142,7 @@ class CrmOrderController extends Controller
 
         $tour = $order->tour;
         $schedules = $tour ? $tour->scheduleItems()->get()->map->shortInfo() : [];
-        $schedule = $order->schedule ? (object) $order->schedule->asCrmSchedule() : null;
+        $schedule = $order->schedule ? (object)$order->schedule->asCrmSchedule() : null;
         $audits = [];
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
 
@@ -214,7 +216,7 @@ class CrmOrderController extends Controller
             $order->status = Order::STATUS_RESERVE;
         }
         $order->save();
-
+        $order->syncContact();
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Updated'));
     }
 
@@ -230,7 +232,7 @@ class CrmOrderController extends Controller
     {
         //
         $status = $request->input('status', 'new');
-        $group_type = (int) $request->input('group_type', 0);
+        $group_type = (int)$request->input('group_type', 0);
         $query = Order::where('group_type', $group_type)->where('status', $status);
         if (current_user()->isTourManager() && $group_type === 0) {
             $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));

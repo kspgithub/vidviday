@@ -71,6 +71,7 @@ class Order extends TranslatableModel implements Auditable
 
     protected $fillable = [
         'user_id',
+        'contact_id',
         'tour_id',
         'schedule_id',
         'status',

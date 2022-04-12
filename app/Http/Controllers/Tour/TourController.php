@@ -269,6 +269,7 @@ class TourController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
+            $order->syncContact();
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
 
