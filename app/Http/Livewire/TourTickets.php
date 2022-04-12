@@ -6,6 +6,7 @@ use App\Models\IncludeType;
 use App\Models\Ticket;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -25,7 +26,7 @@ class TourTickets extends Component
      */
     public $item_id = 0;
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return $this->tour->tickets();
     }
