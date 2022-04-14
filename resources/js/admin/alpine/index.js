@@ -5,6 +5,8 @@ import mediaLibrary from './form/media-library';
 import tiny from './form/tiny';
 import singleFileUpload from './form/single-file-upload';
 import tourPlaces from './tour/tour-places';
+import tourTickets from './tour/tour-tickets';
+import tourFood from './tour/tour-food';
 import tourSchedules from './tour/tour-schedules';
 import tourFinance from './tour/tour-finance';
 import tourLanding from './tour/tour-landing';
@@ -45,6 +47,8 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('tiny', tiny);
     Alpine.data('singleFileUpload', singleFileUpload);
     Alpine.data('tourPlaces', tourPlaces);
+    Alpine.data('tourTickets', tourTickets);
+    Alpine.data('tourFood', tourFood);
     Alpine.data('tourSchedules', tourSchedules);
     Alpine.data('tourLanding', tourLanding);
     Alpine.data('menuEditor', menuEditor);

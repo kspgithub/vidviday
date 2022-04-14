@@ -62,6 +62,7 @@
                         </x-forms.select-group>
 
                         <x-forms.select-group wire:model="food_id" name="food_id" :label="__('Food')"
+                                              :select2="true"
                                               :options="$this->foods">
                             <option value="0">Не вибрано</option>
                         </x-forms.select-group>

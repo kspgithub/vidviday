@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\Region;
 use App\Models\Place;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -37,9 +38,9 @@ class DistrictsTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
 
         $region_id = !empty($this->region) ? $this->region->id : $this->getFilter('region_id');

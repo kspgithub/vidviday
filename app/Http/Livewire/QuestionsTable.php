@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -52,7 +53,7 @@ class QuestionsTable extends DataTableComponent
         TourQuestion::fixTree();
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $status = $this->getFilter('status');
 

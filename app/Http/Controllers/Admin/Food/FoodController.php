@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Food;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Food;
 use App\Models\FoodTime;
@@ -35,9 +36,11 @@ class FoodController extends Controller
         $items = $query->withCount(['media'])->paginate();
 
         $foodTimes = FoodTime::all();
+        $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
 
         return view('admin.food.index', [
+            'countries' => $countries,
             'regions' => $regions,
             'foodTimes' => $foodTimes,
             'items' => $items,
@@ -57,9 +60,11 @@ class FoodController extends Controller
         $currencies = Currency::toSelectBox('iso', 'iso');
 
         $foodTimes = FoodTime::toSelectBox();
+        $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
 
         return view('admin.food.create', [
+            'countries' => $countries,
             'regions' => $regions,
             'foodTimes' => $foodTimes,
             'model' => $food,
@@ -98,9 +103,12 @@ class FoodController extends Controller
     {
         //
         $currencies = Currency::toSelectBox('iso', 'iso');
-        $foodTimes = FoodTime::toSelectBox();
+        $countries = Country::toSelectBox();
         $regions = Region::toSelectBox();
+        $foodTimes = FoodTime::toSelectBox();
+
         return view('admin.food.edit', [
+            'countries' => $countries,
             'regions' => $regions,
             'foodTimes' => $foodTimes,
             'model' => $food,

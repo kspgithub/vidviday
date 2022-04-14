@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Models\Order;
 use App\Models\PaymentType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
@@ -43,9 +44,9 @@ class OrdersTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $query = Order::query()->with(['tour', 'user', 'schedule']);
 
