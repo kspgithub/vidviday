@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Country;
 use App\Models\Food;
 use App\Models\FoodTime;
 use App\Models\Region;
@@ -58,21 +59,27 @@ class FoodTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make(__('Time'), 'time_id')
-                ->format(function ($value, $column, $row) {
-                    return !empty($row->time) ? $row->time->title : '-';
-                })
-                ->sortable(),
-
             Column::make(__('Title'), 'title')
                 ->searchable(function (Builder $query, $searchTerm) {
                     return $query->orJsonLike('title', "%$searchTerm%");
                 })
                 ->sortable(),
 
+            Column::make(__('Time'), 'time_id')
+                ->format(function ($value, $column, $row) {
+                    return !empty($row->time) ? $row->time->title : '-';
+                })
+                ->sortable(),
+
             Column::make(__('Region'), 'region_id')
                 ->format(function ($value, $column, $row) {
                     return !empty($row->region) ? $row->region->title : '-';
+                })
+                ->sortable(),
+
+            Column::make(__('Country'), 'country_id')
+                ->format(function ($value, $column, $row) {
+                    return !empty($row->country) ? $row->country->title : '-';
                 })
                 ->sortable(),
 
@@ -98,10 +105,12 @@ class FoodTable extends DataTableComponent
     public function filters(): array
     {
         return [
+            'country_id' => Filter::make(__('Countries'))
+                ->select(array_merge([0 => 'Всі'], Country::select(['id', 'title'])->pluck('title', 'id')->toArray())),
             'region_id' => Filter::make(__('Regions'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
             'time_id' => Filter::make(__('Time'))
-                ->select(array_merge([0 => 'Всі'], FoodTime::select(['id', 'title'])->pluck('title', 'id')->toArray()))
+                ->select(array_merge([0 => 'Всі'], FoodTime::select(['id', 'title'])->pluck('title', 'id')->toArray())),
         ];
     }
 }
