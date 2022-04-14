@@ -17,14 +17,28 @@
     <div class="row align-items-end">
         <div class="col-12 col-xl-auto">
             <label for="place_id">@lang('Ticket')</label>
-            <select name="item_id" id="item_id" class="form-control" wire:model="item_id" style="width: 500px;">
-                <option value="0">Оберіть квиток</option>
-                @foreach($options as $option)
-                    <option value="{{$option->id}}">
-                        {{$option->title}} ({{$option->region ? $option->region->title : '-'}})
-                    </option>
-                @endforeach
-            </select>
+            <div wire:ignore>
+                <div
+                    x-data="tourTickets({value: @entangle('item_id')})"
+
+                >
+                    <select name="item_id" id="item_id"
+                            class="form-control"
+                            x-ref="input"
+                            x-bind:value="value"
+                            wire:model="item_id"
+                            x-change="onChange"
+                            style="width: 500px;"
+                    >
+                        <option value="0">Оберіть квиток</option>
+                        @foreach($options as $option)
+                            <option value="{{$option->id}}">
+                                {{$option->title}} ({{$option->region ? $option->region->title : '-'}})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-xl-auto">
             <button type="button" class="btn btn-primary" wire:loading.class="disabled"
