@@ -13,7 +13,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class DiscountsTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
     /**
      * @var string
      */

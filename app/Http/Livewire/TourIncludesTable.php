@@ -15,7 +15,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class TourIncludesTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var string
      */

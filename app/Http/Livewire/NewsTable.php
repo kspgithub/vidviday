@@ -15,6 +15,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 class NewsTable extends DataTableComponent
 {
 
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var string
      */

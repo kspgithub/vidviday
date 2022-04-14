@@ -14,7 +14,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class DocumentsTable extends DataTableComponent
 {
-
+    public array $bulkActions = [
+    ];
     /**
      * @var string
      */

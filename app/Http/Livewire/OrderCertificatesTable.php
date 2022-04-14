@@ -17,6 +17,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 class OrderCertificatesTable extends DataTableComponent
 {
 
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var string
      */

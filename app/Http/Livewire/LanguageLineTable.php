@@ -12,6 +12,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 class LanguageLineTable extends DataTableComponent
 {
+    public array $bulkActions = [
+    ];
+
     public function columns(): array
     {
         return [
