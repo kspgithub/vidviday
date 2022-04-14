@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\IncludeType;
+use App\Models\Region;
 use App\Models\Ticket;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -17,9 +19,19 @@ class TourTickets extends Component
      */
     public $tour;
 
+    /**
+     * @var array|Collection
+     */
+    public $regions = [];
+
     public $options = [];
 
     public $ticket_ids = [];
+
+    /**
+     * @var int
+     */
+    public $region_id = 0;
 
     /**
      * @var int
@@ -28,12 +40,13 @@ class TourTickets extends Component
 
     public function query(): Builder|Relation
     {
-        return $this->tour->tickets();
+        return $this->tour->tickets()->with(['region']);
     }
 
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
+        $this->regions = Region::query()->orderBy('title')->get();
         $this->ticket_ids = $tour->tickets()->select('id')->get()->pluck('id')->toArray();
         $this->options = Ticket::query()->with('region')
             ->orderBy('region_id')

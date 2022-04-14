@@ -15,6 +15,18 @@
         @endforeach
     </ul>
     <div class="row align-items-end">
+
+        <div class="col-12 mb-3">
+            <label for="region_id">@lang('Region')</label>
+            <select name="region_id" id="region_id" wire:model="region_id" class="form-control">
+                <option value="0">Оберіть область</option>
+                @foreach($regions as $region)
+                    <option value="{{$region->id}}">{{$region->title}}</option>
+                @endforeach
+            </select>
+
+        </div>
+
         <div class="col-12 col-xl-auto">
             <label for="place_id">@lang('Ticket')</label>
             <div wire:ignore>

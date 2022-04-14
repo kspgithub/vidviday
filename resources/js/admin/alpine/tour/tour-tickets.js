@@ -4,6 +4,19 @@ export default (options) => ({
         const self = this;
         jQuery(this.$refs.input).select2({
             theme: 'bootstrap-5',
+            ajax: {
+                url: '/api/tickets/select-box',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        region_id: jQuery('#region_id').val(),
+                        q: params.term,
+                        page: params.page || 1,
+                        limit: 20
+                    };
+                },
+            }
+
         });
         jQuery(this.$refs.input).on('select2:select', (e) => {
             this.value = e.params.data.id;
