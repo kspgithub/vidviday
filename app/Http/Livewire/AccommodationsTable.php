@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Accommodation;
+use App\Models\Country;
 use App\Models\Region;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,9 +43,13 @@ class AccommodationsTable extends DataTableComponent
     public function query(): Builder|Relation
     {
 
+        $country_id = (int)$this->getFilter('country_id');
         $region_id = (int)$this->getFilter('region_id');
 
         $query = Accommodation::query()
+            ->when($country_id > 0, function (Builder $q) use ($country_id) {
+                return $q->where('country_id', $country_id);
+            })
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
                 return $q->where('region_id', $region_id);
             });
@@ -61,6 +66,12 @@ class AccommodationsTable extends DataTableComponent
 
             Column::make(__('Title'), 'title')
                 ->searchable()
+                ->sortable(),
+
+            Column::make(__('Country'), 'country_id')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->country)->title;
+                })
                 ->sortable(),
 
             Column::make(__('Region'), 'region_id')
@@ -85,6 +96,8 @@ class AccommodationsTable extends DataTableComponent
     public function filters(): array
     {
         return [
+            'country_id' => Filter::make(__('Countries'))
+                ->select(array_merge([0 => 'Всі'], Country::select(['id', 'title'])->pluck('title', 'id')->toArray())),
             'region_id' => Filter::make(__('Regions'))
                 ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
         ];
