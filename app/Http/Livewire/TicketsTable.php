@@ -17,6 +17,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 class TicketsTable extends DataTableComponent
 {
 
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var string
      */

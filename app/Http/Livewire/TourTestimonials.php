@@ -18,6 +18,9 @@ class TourTestimonials extends DataTableComponent
     use DeleteRecordTrait;
 
 
+    public array $bulkActions = [
+    ];
+
     /**
      * @var array
      */
@@ -178,7 +181,7 @@ class TourTestimonials extends DataTableComponent
                 'rowView' => $this->rowView(),
                 'filtersView' => $this->filtersView(),
                 'customFilters' => $this->filters(),
-                'rows' => $this->rows,
+                'rows' => $this->rows ?? collect(),
                 'modalsView' => $this->modalsView(),
             ]);
     }
