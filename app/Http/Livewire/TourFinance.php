@@ -9,6 +9,7 @@ use App\Models\IncludeType;
 use App\Models\Tour;
 use App\Models\TourInclude;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Component;
 
 /**
@@ -63,7 +64,7 @@ class TourFinance extends Component
         return view('admin.tour.includes.tour-finance', ['items' => $this->query()->get()]);
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return TourInclude::where('tour_id', $this->tour->id)->with(['type'])->orderBy('type_id');
     }

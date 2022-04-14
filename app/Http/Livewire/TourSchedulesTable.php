@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
@@ -71,9 +72,9 @@ class TourSchedulesTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $query = TourSchedule::query()->where('tour_id', $this->tour->id);
 

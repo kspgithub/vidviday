@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Staff;
 use App\Models\StaffType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -25,9 +26,9 @@ class StaffsTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $type = $this->getFilter('type');
         $query = Staff::query()->when(!empty($type), fn ($query) => $query->whereHas('types', fn ($q) => $q->where('slug', $type)))

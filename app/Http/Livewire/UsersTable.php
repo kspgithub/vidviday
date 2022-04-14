@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
@@ -40,9 +41,9 @@ class UsersTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $query = User::with('roles');
 

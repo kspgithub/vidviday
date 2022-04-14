@@ -11,6 +11,7 @@ use App\Models\Tour;
 use App\Models\TourFood;
 use App\Models\TourPlan;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -88,9 +89,9 @@ class TourFoodTable extends Component
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return TourFood::query()->where('tour_id', $this->tour->id)
             ->with(['time', 'food'])

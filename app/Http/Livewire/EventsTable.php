@@ -6,6 +6,7 @@ use App\Models\Direction;
 use App\Models\EventGroup;
 use App\Models\EventItem;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -39,9 +40,9 @@ class EventsTable extends DataTableComponent
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $direction_id = (int)$this->getFilter('direction');
         $group_id = (int)$this->getFilter('group');

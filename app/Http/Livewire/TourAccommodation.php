@@ -7,6 +7,7 @@ use App\Models\Accommodation;
 use App\Models\Region;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -50,7 +51,7 @@ class TourAccommodation extends Component
         $this->options = Accommodation::toSelectArray();
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return \App\Models\TourAccommodation::query()->where('tour_id', $this->tour->id)->with(['accommodation'])->orderBy('position');
     }
