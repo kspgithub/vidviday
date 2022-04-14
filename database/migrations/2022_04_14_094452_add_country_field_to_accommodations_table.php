@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCountryFieldToFoodTable extends Migration
+class AddCountryFieldToAccommodationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddCountryFieldToFoodTable extends Migration
      */
     public function up()
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->foreignId('country_id')->nullable()->after('time_id')->constrained('countries')->nullOnDelete();
+        Schema::table('accommodations', function (Blueprint $table) {
+            $table->foreignId('country_id')->nullable()->after('id')->constrained('countries')->nullOnDelete();
         });
     }
 
@@ -25,8 +25,8 @@ class AddCountryFieldToFoodTable extends Migration
      */
     public function down()
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->dropForeign('food_country_id_foreign');
+        Schema::table('accommodations', function (Blueprint $table) {
+            $table->dropForeign('accommodations_country_id_foreign');
             $table->dropColumn('country_id');
         });
     }
