@@ -43,6 +43,7 @@ class Media extends SpatieMedia
             'thumb' => $this->getUrl('thumb'),
             'alt' => $alts,
             'title' => $titles,
+            'published' => $this->getCustomProperty('published'),
         ];
     }
 
