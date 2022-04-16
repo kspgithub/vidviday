@@ -1,4 +1,5 @@
 export default (options = {expanded: false}) => ({
+    ...options.share,
     trans_locale: document.documentElement.lang || 'uk',
     trans_expanded: options && options.expanded,
     async submit() {

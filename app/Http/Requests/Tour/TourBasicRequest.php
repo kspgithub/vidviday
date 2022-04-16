@@ -61,6 +61,7 @@ class TourBasicRequest extends FormRequest
             'types' => ['nullable', 'array'],
             'subjects' => ['nullable', 'array'],
             'contact' => ['nullable', 'array'],
+            'plan' => ['nullable', 'array'],
             'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
         ];

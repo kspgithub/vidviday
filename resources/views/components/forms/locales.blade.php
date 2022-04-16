@@ -10,7 +10,7 @@
         <input type="hidden" name="locales[]" value="{{$fallback_locale}}">
         @foreach($locales as $lang)
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="locales[]" type="checkbox"
+                <input class="form-check-input" name="locales[]" type="checkbox" x-model="locales"
                        value="{{$lang}}" id="{{'locale-'.$lang}}"
                     {{$lang == $fallback_locale ? 'disabled checked' : (in_array($lang, $value) ? 'checked' : '')}}
 

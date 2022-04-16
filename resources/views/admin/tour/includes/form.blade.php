@@ -7,7 +7,6 @@
 
         <x-forms.locales :value="$tour->locales"/>
 
-
         <x-forms.translation-switch/>
 
         <x-forms.text-loc-group name="title" :label="__('Title')"
@@ -172,4 +171,4 @@
     </x-slot>
 </x-bootstrap.card>
 
-
+@include('admin.tour.includes.tour-plan')
