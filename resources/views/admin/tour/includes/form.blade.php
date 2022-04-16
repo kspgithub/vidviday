@@ -125,11 +125,11 @@
                            :options="$types">
         </x-forms.tag-group>
 
-        <x-forms.tag-group name="subjects[]"
-                           :label="__('Subjects')"
-                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"
-                           :options="$subjects">
-        </x-forms.tag-group>
+{{--        <x-forms.tag-group name="subjects[]"--}}
+{{--                           :label="__('Subjects')"--}}
+{{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
+{{--                           :options="$subjects">--}}
+{{--        </x-forms.tag-group>--}}
     </x-slot>
 </x-bootstrap.card>
 

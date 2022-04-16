@@ -28,6 +28,8 @@ const LocationGroup = async function (wrapper) {
     const lngInput = LocationWrapper.querySelector('[name="lng"]');
     const mapElement = LocationWrapper.querySelector('.map');
 
+    let cityChanged = false
+
     if (citySelect) {
         const cityChoices = new Choices(citySelect);
 
@@ -37,6 +39,7 @@ const LocationGroup = async function (wrapper) {
                 'value',
                 'text',
                 true);
+            cityChanged = true
         })
     }
 
@@ -77,19 +80,18 @@ const LocationGroup = async function (wrapper) {
     }
 
 
-    if (citySelect.value && !noMap) {
+    if (!noMap && mapElement) {
 
-        // if(!latInput.value && !lngInput.value) {
+        if(citySelect && citySelect.value && cityChanged) {
             const {lat, lng} = await GetLocation();
             latInput.value = lat
             lngInput.value = lng
-        // }
+        }
 
         let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
         let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
 
         let latLng = {lat: latValue, lng: lngValue};
-
 
         const map = new googleMaps.Map(mapElement, {
             zoom: 6,
@@ -120,11 +122,11 @@ const LocationGroup = async function (wrapper) {
         });
 
         //add a normal event listener on the map container
-        map.addEventListener('mousewheel', wheelEvent, true);
-        map.addEventListener('DOMMouseScroll', wheelEvent, true);
+        map.addListener('mousewheel', wheelEvent, true);
+        map.addListener('DOMMouseScroll', wheelEvent, true);
 
         //same with the double click
-        map.addEventListener('dblclick', zoomIn, true);
+        map.addListener('dblclick', zoomIn, true);
 
     }
 

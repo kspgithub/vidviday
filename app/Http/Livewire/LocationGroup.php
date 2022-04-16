@@ -20,6 +20,7 @@ class LocationGroup extends Component
     public bool $useRegion;
     public bool $useDistrict;
     public bool $useCity;
+    public bool $useCoords;
     public bool $useMap;
 
     public Collection $countries;
@@ -44,6 +45,7 @@ class LocationGroup extends Component
               $region = true,
               $district = true,
               $city = true,
+              $coords = true,
               $map = true,
     ): void
     {
@@ -55,7 +57,8 @@ class LocationGroup extends Component
         $this->useRegion = in_array('region_id', $attributes) && $region;
         $this->useDistrict = in_array('district_id', $attributes) && $district;
         $this->useCity = in_array('city_id', $attributes) && $city;
-        $this->useMap = in_array('lat', $attributes) && $map;
+        $this->useCoords = in_array($this->latName, $attributes) && in_array($this->lngName, $attributes);
+        $this->useMap = $this->useCoords && $map;
 
         $this->selectedCountry = $model->country_id ?? 0;
         $this->selectedRegion = $model->region_id ?? 0;
