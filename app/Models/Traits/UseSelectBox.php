@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 trait UseSelectBox
 {
@@ -11,7 +12,7 @@ trait UseSelectBox
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    ) {
+    ): Collection {
         $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
 
         return self::query()->get($fields)
