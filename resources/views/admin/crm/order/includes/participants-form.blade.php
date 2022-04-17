@@ -1,7 +1,9 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h3 class="mb-3"><strong>Учасники туру</strong></h3>
-        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"/>
+        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"
+                            x-mask="+38 (999) 999-99-99" placeholder="+38 (___) ___-__-__"/>
+
         <x-forms.switch-group id="cust-part"
                               x-model="isCustomerParticipant"
                               label="Замовник є учасником туру"
@@ -35,6 +37,7 @@
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.birthday"
+                                   x-datepicker
                                    readonly>
 
                         </td>
@@ -59,9 +62,9 @@
                                    x-model="participant.middle_name">
                         </td>
                         <td>
-                            <input type="date" :name="`participants[items][${idx}][birthday]`"
+                            <input type="text" :name="`participants[items][${idx}][birthday]`"
                                    class="form-control form-control-sm"
-                                   x-model="participant.birthday">
+                                   x-datepicker x-model="participant.birthday">
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-outline-danger"
@@ -85,9 +88,8 @@
                                placeholder="По батькові">
                     </td>
                     <td class="border-0 pt-4">
-                        <input class="form-control form-control-sm" type="date"
-                               x-model="participantData.birthday"
-                               autocomplete="off"
+                        <input class="form-control form-control-sm" type="text" x-model="participantData.birthday"
+                               x-datepicker autocomplete="off"
                         />
 
                     </td>

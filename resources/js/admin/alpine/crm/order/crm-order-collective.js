@@ -1,5 +1,4 @@
 import axios from "axios";
-import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import {swalConfirm} from "../../../utils/functions";
 import {toast} from "../../../../libs/toast";
 import validateForm from "../../composables/validate-form";
@@ -28,6 +27,7 @@ export default (params) => ({
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
     init() {
+        console.log(this.order);
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }
@@ -60,15 +60,6 @@ export default (params) => ({
                 this.order.schedule_id = null;
                 this.loadSchedules();
             })
-
-            if (this.$refs.pickerInput) {
-                flatpickr(this.$refs.pickerInput, {
-                    locale: Ukrainian,
-                    allowInput: true,
-                    dateFormat: 'd.m.Y'
-                });
-            }
-
 
         }, 200);
 
@@ -145,6 +136,9 @@ export default (params) => ({
                 items: [],
                 participant_phone: '',
             }
+        }
+        if (!this.order.participants.items) {
+            this.order.participants.items = [];
         }
         if (this.participantData.first_name) {
             this.order.participants.items.push({...this.participantData});
@@ -304,11 +298,11 @@ export default (params) => ({
         }
         this.order.accommodation[key] = parseInt(value) || 0;
     },
-    async onFormChange(evt) {
+    async onFormChange() {
         //console.log(evt);
         this.formChanged = true;
     },
-    async onSubmit(evt) {
+    async onSubmit() {
         if (validateForm(this.$refs.form)) {
             this.formChanged = false;
             this.$refs.form.submit();

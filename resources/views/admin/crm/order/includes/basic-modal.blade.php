@@ -14,12 +14,12 @@
                     <x-forms.text-group x-model="data.last_name" name="last_name" label="Прізвище"
                                         required
                                         label-col="col-md-3" input-col="col-md-9"/>
-                    <x-forms.text-group type="tel" x-model="data.phone" name="phone" :label="__('forms.phone')"
+                    <x-forms.text-group type="tel" x-model="data.phone" name="phone" label="Телефон"
                                         required
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group type="email" x-model="data.email" name="email" label="Email"
                                         label-col="col-md-3" input-col="col-md-9"/>
-                    <x-forms.text-group x-model="data.viber" name="viber" :label="__('forms.viber')"
+                    <x-forms.text-group x-model="data.viber" name="viber" label="Viber"
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group x-model="data.company" name="viber" label="Компанія"
                                         label-col="col-md-3" input-col="col-md-9"/>

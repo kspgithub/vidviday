@@ -83,9 +83,8 @@
                                                readonly>
                                     </td>
                                     <td>
-                                        <input type="date" class="form-control form-control-sm"
-                                               x-bind:value="selectedOrder.birthday"
-                                               readonly>
+                                        <input type="text" class="form-control form-control-sm"
+                                               x-bind:value="selectedOrder.birthday" readonly>
 
                                     </td>
                                     <td>(замовник)</td>
@@ -107,7 +106,7 @@
                                     </td>
                                     <td>
                                         <input type="date" class="form-control form-control-sm"
-                                               x-model="participant.birthday">
+                                               x-model="participant.birthday" x-datepicker>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-outline-danger"
@@ -134,7 +133,7 @@
                                            placeholder="По батькові">
                                 </td>
                                 <td class="border-0 pt-4">
-                                    <input type="date" class="form-control form-control-sm"
+                                    <input type="text" class="form-control form-control-sm" x-datepicker
                                            x-model="participantData.birthday"/>
 
                                 </td>

@@ -152,7 +152,7 @@ class Order extends TranslatableModel implements Auditable
         'start_date' => 'date:d.m.Y',
         'end_date' => 'date:d.m.Y',
         'offer_date' => 'date:d.m.Y',
-        'birthday' => 'date:Y-m-d',
+        'birthday' => 'date:d.m.Y',
         'is_tour_agent' => 'boolean',
         'agency_data' => 'array',
         'utm_data' => 'array',
