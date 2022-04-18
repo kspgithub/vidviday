@@ -83,7 +83,12 @@ export default (props) => ({
         return bootstrap.Modal.getOrCreateInstance(document.getElementById('editScheduleModal'));
     },
     editSchedule(item = {}) {
-        this.scheduleData = {...DEFAULT_SCHEDULE, ...item};
+        const tourDefaults = {
+            price: this.tour.price,
+            commission: this.tour.commission,
+            accomm_price: this.tour.accomm_price,
+        }
+        this.scheduleData = {...DEFAULT_SCHEDULE, ...tourDefaults, ...item};
         this.scheduleModal.show();
     },
     cancelSchedule() {
