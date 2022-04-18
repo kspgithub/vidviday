@@ -4,6 +4,7 @@ namespace App\Models\Traits\Attributes;
 
 use App\Models\FoodTime;
 use App\Models\IncludeType;
+use App\Models\TourPlan;
 
 trait TourAttribute
 {
@@ -90,5 +91,15 @@ trait TourAttribute
             $title[] = !empty($discount->admin_title) ? $discount->admin_title : $discount->title;
         }
         return implode('<br> ', $title);
+    }
+
+    /**
+     * План
+     *
+     * @return TourPlan
+     */
+    public function getPlanAttribute()
+    {
+        return $this->planItems()->firstOrNew(['tour_id' => $this->id]);
     }
 }

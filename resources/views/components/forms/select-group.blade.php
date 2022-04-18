@@ -39,8 +39,8 @@
                     {{$readonly ? 'readonly' : ''}}
                     {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
                     @if($select2)
-                    x-ref="input"
-                @endif
+                        x-ref="input"
+                    @endif
             >
                 {{$slot}}
                 @foreach($options as $option)

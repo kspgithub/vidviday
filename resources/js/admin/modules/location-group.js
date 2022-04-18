@@ -14,23 +14,84 @@ const loader = new Loader({
 
 const DEFAULT_LAT_LNG =  { lat: 48.7363835, lng: 31.46074611 };
 
-const LocationGroup = function (wrapper) {
-    const noMap = wrapper.classList.contains('no-map');
-    const citySelect = wrapper.querySelector('[name="city_id"]');
-    const districtSelect = wrapper.querySelector('[name="district_id"]');
+let LocationWrapper
+
+const LocationGroup = async function (wrapper) {
+    LocationWrapper = LocationWrapper || wrapper
+    const noMap = LocationWrapper.classList.contains('no-map');
+    const citySelect = LocationWrapper.querySelector('[name="city_id"]');
+    const districtSelect = LocationWrapper.querySelector('[name="district_id"]');
+    const regionSelect = LocationWrapper.querySelector('[name="region_id"]');
+    const countrySelect = LocationWrapper.querySelector('[name="country_id"]');
+
+    const latInput = LocationWrapper.querySelector('[name="lat"]');
+    const lngInput = LocationWrapper.querySelector('[name="lng"]');
+    const mapElement = LocationWrapper.querySelector('.map');
+
+    let cityChanged = false
+
+    if (citySelect) {
+        const cityChoices = new Choices(citySelect);
+
+        //change
+        cityChoices.passedElement.element.addEventListener('change', async (event) => {
+            cityChoices.setChoices([],
+                'value',
+                'text',
+                true);
+            cityChanged = true
+        })
+    }
+
+    if (districtSelect) {
+        const districtChoices = new Choices(districtSelect);
+
+        //change
+        districtChoices.passedElement.element.addEventListener('change', async (event) => {
+            districtChoices.setChoices([],
+                'value',
+                'text',
+                true);
+        })
+    }
+
+    if (regionSelect) {
+        const regionChoices = new Choices(regionSelect);
+
+        //change
+        regionChoices.passedElement.element.addEventListener('change', async (event) => {
+            regionChoices.setChoices([],
+                'value',
+                'text',
+                true);
+        })
+    }
+
+    if (countrySelect) {
+        const countryChoices = new Choices(countrySelect);
+
+        //change
+        countryChoices.passedElement.element.addEventListener('change', async (event) => {
+            countryChoices.setChoices([],
+                'value',
+                'text',
+                true);
+        })
+    }
 
 
-    if (!noMap) {
-        const latInput = wrapper.querySelector('[name="lat"]');
-        const lngInput = wrapper.querySelector('[name="lng"]');
-        const mapElement = wrapper.querySelector('.map');
+    if (!noMap && mapElement) {
 
+        if(citySelect && citySelect.value && cityChanged) {
+            const {lat, lng} = await GetLocation();
+            latInput.value = lat
+            lngInput.value = lng
+        }
 
         let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
         let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
 
         let latLng = {lat: latValue, lng: lngValue};
-
 
         const map = new googleMaps.Map(mapElement, {
             zoom: 6,
@@ -42,79 +103,55 @@ const LocationGroup = function (wrapper) {
             map: map,
         });
 
-        map.addListener("drag", () => {
-            marker.setPosition(map.getCenter());
-        });
+        //function that will handle the wheelEvent
+        function wheelEvent(event) {
+            var e = window.event || e; // old IE support
+            var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); //to know whether it was wheel up or down
+            map.setZoom(map.getZoom() + delta);
+        }
 
-        map.addListener("center_changed", () => {
+        function zoomIn() {
+            map.setZoom(map.getZoom() + 1);
+        }
+
+        map.addListener("drag", () => {
             marker.setPosition(map.getCenter());
             latLng = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
             latInput.value = latLng.lat;
             lngInput.value = latLng.lng;
         });
+
+        //add a normal event listener on the map container
+        map.addListener('mousewheel', wheelEvent, true);
+        map.addListener('DOMMouseScroll', wheelEvent, true);
+
+        //same with the double click
+        map.addListener('dblclick', zoomIn, true);
+
     }
 
+    function GetLocation() {
+        const geocoder = new google.maps.Geocoder();
+        const address = countrySelect.options[countrySelect.selectedIndex].text
+            + regionSelect.options[countrySelect.selectedIndex].text
+            + districtSelect.options[districtSelect.selectedIndex].text
+            + citySelect.options[citySelect.selectedIndex].text
 
-    // city search
+        return new Promise((resolve, reject) => {
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    const coords = {
+                        lat: results[0].geometry.location.lat(),
+                        lng: results[0].geometry.location.lng(),
+                    }
 
-    const CancelToken = axios.CancelToken;
-    let cancel;
-    let citySearchText = '';
-    let districtSearchText = '';
-
-    if (citySelect) {
-        const cityChoices = new Choices(citySelect);
-
-        const searchCities = async (q) => {
-            if (q === citySearchText) return;
-            citySearchText = q;
-
-            if (cancel !== undefined) {
-                cancel();
-            }
-            if (q.length > 0) {
-                const items = await axios
-                    .get('/admin/city/search?q=' + q, {
-                        cancelToken: new CancelToken(function executor(c) {
-                            cancel = c;
-                        }),
-                    })
-                    .catch(err => console.log(err));
-
-                cityChoices.setChoices(items && items.data ? items.data : [],
-                    'value',
-                    'text',
-                    true);
-            } else {
-                cityChoices.setChoices([],
-                    'value',
-                    'text',
-                    true);
-            }
-
-        }
-
-        cityChoices.passedElement.element.addEventListener('search', async (event) => {
-            const searchText = event.detail.value;
-            await searchCities(searchText)
-        })
-
-        //change
-
-        cityChoices.passedElement.element.addEventListener('change', async (event) => {
-            cityChoices.setChoices([],
-                'value',
-                'text',
-                true);
+                    resolve(coords)
+                } else {
+                    alert("Request failed.")
+                }
+            });
         })
     }
-
-    if (districtSelect) {
-        const districtChoices = new Choices(districtSelect);
-
-
-    }
-
 }
 
 window.LocationGroup = LocationGroup;
@@ -132,4 +169,6 @@ loader.load()
         console.log(e);
     });
 
-
+window.addEventListener('livewire-refresh', event => {
+    window.LocationGroup()
+})

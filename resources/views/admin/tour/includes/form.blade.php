@@ -7,7 +7,6 @@
 
         <x-forms.locales :value="$tour->locales"/>
 
-
         <x-forms.translation-switch/>
 
         <x-forms.text-loc-group name="title" :label="__('Title')"
@@ -126,11 +125,11 @@
                            :options="$types">
         </x-forms.tag-group>
 
-        <x-forms.tag-group name="subjects[]"
-                           :label="__('Subjects')"
-                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"
-                           :options="$subjects">
-        </x-forms.tag-group>
+{{--        <x-forms.tag-group name="subjects[]"--}}
+{{--                           :label="__('Subjects')"--}}
+{{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
+{{--                           :options="$subjects">--}}
+{{--        </x-forms.tag-group>--}}
     </x-slot>
 </x-bootstrap.card>
 
@@ -172,4 +171,4 @@
     </x-slot>
 </x-bootstrap.card>
 
-
+@include('admin.tour.includes.tour-plan')

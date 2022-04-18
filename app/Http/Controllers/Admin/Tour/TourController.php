@@ -102,6 +102,7 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         //
+        $tour->append(['plan']);
         $currencies = Currency::toSelectBox('iso', 'iso');
         $badges = Badge::all();
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();

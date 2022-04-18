@@ -20,9 +20,7 @@
                               :options="$directions"
                               required></x-forms.select-group>
 
-
-        <livewire:location-group :model="$place" />
-
+        <livewire:location-group :model="$place"/>
 
     </x-slot>
 </x-bootstrap.card>

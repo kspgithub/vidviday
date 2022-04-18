@@ -17,6 +17,7 @@ use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
+use App\Models\TourLanding;
 use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
@@ -247,9 +248,19 @@ trait TourRelationship
      *
      * @return BelongsToMany
      */
+//    public function landings()
+//    {
+//        return $this->belongsToMany(LandingPlace::class, 'tours_landings', 'tour_id', 'landing_id')
+//            ->orderByPivot('position');
+//    }
+
+    /**
+     * Места посадки
+     *
+     * @return HasMany
+     */
     public function landings()
     {
-        return $this->belongsToMany(LandingPlace::class, 'tours_landings', 'tour_id', 'landing_id')
-            ->orderByPivot('position');
+        return $this->hasMany(TourLanding::class)->orderBy('position');
     }
 }
