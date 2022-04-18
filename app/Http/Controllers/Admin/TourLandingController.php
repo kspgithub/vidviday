@@ -23,7 +23,7 @@ class TourLandingController extends Controller
             }));
         }
 
-        return view('admin.tour.landing', [
+        return view('admin.tour-landing.index', [
             'tour' => $tour,
         ]);
     }
