@@ -46,7 +46,7 @@ class TourService extends BaseService
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-                return $sq->where('tours.published', 1)->whereHas('scheduleItems', function ($ssq) {
+                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
                     return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
                 });
             })->orderBy('title->uk')->toSelectBox()->toArray();
