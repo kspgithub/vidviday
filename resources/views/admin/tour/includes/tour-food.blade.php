@@ -45,6 +45,13 @@
                 <div>
                     <form method="post" wire:submit.prevent="saveItem()">
 
+                        @foreach($locales as  $locale)
+                            <x-forms.text-group wire:model.defer="text_{{$locale}}"
+                                                name="text_{{$locale}}"
+                                                label="Text {{strtoupper($locale)}}"
+                            />
+                        @endforeach
+
                         <x-forms.select-group wire:model="day" name="day" :label="__('Day')">
                             @for($day = 1; $day <= $tour->duration; $day++)
                                 <option value="{{$day}}">{{$day}}-й день</option>

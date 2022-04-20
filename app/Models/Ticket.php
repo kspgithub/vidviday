@@ -68,8 +68,10 @@ class Ticket extends TranslatableModel
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {
-        $query = $query->published()->with(['region'])->where('title->uk', 'LIKE', "%$search%")
-            ->orWhere('title->en', 'LIKE', "%$search%")
+        $search = strtolower(urldecode(trim($search)));
+        $query = $query->published()->with(['region'])
+            ->whereRaw('LOWER(title->"$.uk") like ?', '%'.$search.'%')
+            ->orWhereRaw('LOWER(title->"$.en") like ?', '%'.$search.'%')
             ->select([
                 'id',
                 'region_id',

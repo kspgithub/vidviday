@@ -18,7 +18,9 @@
     <div class="row align-items-end">
         <div class="col-12 mb-3">
             <label for="region_id">@lang('Region')</label>
-            <select name="region_id" id="region_id" wire:model="region_id" class="form-control">
+            <select name="region_id" id="region_id" wire:model="region_id"
+                    x-ref="inputRegion"
+                    class="form-control">
                 <option value="0">Оберіть область</option>
                 @foreach($regions as $region)
                     <option value="{{$region->id}}">{{$region->title}}</option>
@@ -27,8 +29,9 @@
 
         </div>
         <div class="col-12 mb-3">
-            <label for="region_id">@lang('District')</label>
+            <label for="district_id">@lang('District')</label>
             <select name="district_id" id="district_id" wire:model="district_id"
+                    x-ref="inputDistrict"
                     class="form-control" {{$region_id > 0 ? '' : 'disabled'}}>
                 <option value="0">Оберіть район</option>
                 @foreach($this->filteredDistricts as $district)
@@ -46,7 +49,7 @@
                 >
                     <select name="place_id" id="place_id"
                             class="form-control"
-                            x-ref="input"
+                            x-ref="inputPlace"
                             x-bind:value="value"
                             wire:model="item_id"
                             x-change="onChange"
