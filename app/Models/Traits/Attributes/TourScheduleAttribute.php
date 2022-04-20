@@ -128,4 +128,11 @@ trait TourScheduleAttribute
         return ($this->tour && $this->tour->manager) ? $this->tour->manager->shortInfo() : null;
     }
 
+    public function getEndDateAttribute($endDate)
+    {
+        $newEndDate = Carbon::parse($endDate);
+
+        return $this->start_date->addDays($this->tour->duration);
+    }
+
 }

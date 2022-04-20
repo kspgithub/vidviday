@@ -17,10 +17,13 @@
                                             required x-ref="startDateRef"
                                             autocomplete="off"
                                             label-col="col-md-4" input-col="col-md-8"/>
+
                         <x-forms.text-group label="Дата повернення" x-bind:value="scheduleData.end_date" name="end_date"
-                                            required x-ref="endDateRef"
+{{--                                            required x-ref="endDateRef"--}}
+                                            disabled
                                             autocomplete="off"
                                             label-col="col-md-4" input-col="col-md-8"/>
+
                         <x-forms.text-group label="Вартість" x-model.number="scheduleData.price" name="price"
                                             required
                                             label-col="col-md-4" input-col="col-md-8"/>
