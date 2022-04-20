@@ -12,8 +12,7 @@ import createItem from "../composables/create-item";
 const DEFAULT_SCHEDULE = {
     id: 0,
     start_date: '',
-    end_date: '',
-    places: 40,
+    places: 48,
     price: null,
     commission: null,
     accomm_price: null,
@@ -40,10 +39,10 @@ export default (props) => ({
                 locale: Ukrainian,
                 allowInput: true,
                 dateFormat: 'd.m.Y',
-                plugins: [new rangePlugin({input: this.$refs.endDateRef})],
+                // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
                 onChange: (selectedDates) => {
                     const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
-                    const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null;
+                    const end_date = selectedDates[0] ? moment(selectedDates[0]).add('days', this.tour.duration).format('DD.MM.YYYY') : null;
                     this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
                 }
             });

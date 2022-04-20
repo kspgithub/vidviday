@@ -7,7 +7,7 @@
                 wire:key="item-{{ $item->id }}">
                 <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                 <span
-                    class="me-3">{{$item->price . ($item->type === 1 ? '%' : $item->currency).', '.$item->title}}</span>
+                    class="me-3">{{$item->price . ($item->type === App\Models\Discount::TYPE_PERCENT ? '%' : $item->currency).', '.$item->title}}</span>
                 <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">
                     <i class="fa fa-times"></i>
                 </a>

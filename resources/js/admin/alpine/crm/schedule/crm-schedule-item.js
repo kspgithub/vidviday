@@ -73,7 +73,7 @@ export default (options) => ({
                 locale: Ukrainian,
                 allowInput: true,
                 dateFormat: 'd.m.Y',
-                plugins: [new rangePlugin({input: this.$refs.endDateRef})],
+                // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
                 onChange: (selectedDates, dateStr, instance) => {
                     const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
                     const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null;
