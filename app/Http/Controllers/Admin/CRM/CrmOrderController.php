@@ -116,7 +116,7 @@ class CrmOrderController extends Controller
         $order->save();
         $order->syncContact();
 
-        return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.crm.schedule.show', $order->schedule)->withFlashSuccess(__('Record Created'));
     }
 
     public function show(Order $order)
