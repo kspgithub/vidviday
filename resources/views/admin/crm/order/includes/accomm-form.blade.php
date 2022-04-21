@@ -11,7 +11,7 @@
                 <div class="col-10">
                     <input type="number" class="form-control"
                            name="accommodation[{{str_replace('-', '_', $roomType['value'])}}]"
-                        {!! ':value="accommodation[\''.str_replace('-', '_', $roomType['value']).'\'] || 0"' !!}
+                        {!! ':value="accommodation[\''.str_replace('-', '_', $roomType['value']).'\'] || null"' !!}
                         {!! '@change="setAccommodationItem(\''.str_replace('-', '_', $roomType['value']).'\', $event.target.value)"' !!}
                     >
                     <div class="form-text">{{$roomType['description']}}</div>

@@ -4,7 +4,7 @@
             <h3 class="fw-bold">Інше</h3>
         </div>
 
-        <x-forms.textarea-group x-model="order.comment" name="comment" label="Додатково" rows="5"
+        <x-forms.textarea-group x-model="order.duty_comment" name="duty_comment" label="Додатково" rows="5"
                                 :readonly="!current_user()->can('order-admin-comments', $order)"
         />
         <x-forms.textarea-group x-model="order.admin_comment" name="admin_comment" label="Примітки менеджера" rows="5"

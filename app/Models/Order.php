@@ -28,6 +28,11 @@ class Order extends TranslatableModel implements Auditable
     {
         parent::boot();
 
+        self::creating(function (Order $order) {
+            $order->price = $order->price ?: 0;
+            $order->commission = $order->commission ?: 0;
+        });
+
         self::created(function (Order $order) {
             self::disableAuditing();
             $order->order_number = Str::padLeft($order->id, 5, '0');

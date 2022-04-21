@@ -43,6 +43,9 @@ export default (params) => ({
 
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
+
+            order.is_customer = !order.is_tour_agent
+            order.is_tour_agent = !order.is_customer
         });
 
         setTimeout(() => {

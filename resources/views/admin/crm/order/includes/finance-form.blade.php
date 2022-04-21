@@ -10,13 +10,12 @@
         </div>
         <x-forms.select-group label="Валюта" name="currency" x-model="order.currency" :options="$currencies"/>
 
-        <x-forms.text-group label="Сума замовлення" name="price" x-model.number="order.price" required
+        <x-forms.text-group label="Сума замовлення" name="price" x-model.number="order.price"
                             help="(повна вартість, без знижок та комісій)"/>
 
 
-        <x-forms.text-group label="Комісія агента" name="commission" x-model.number="order.commission" required/>
-        <x-forms.text-group label="Допл. за поселення" name="accomm_price" x-model.number="order.accomm_price"
-                            required/>
+        <x-forms.text-group label="Комісія агента" name="commission" x-model.number="order.commission"/>
+        <x-forms.text-group label="Допл. за поселення" name="accomm_price" x-model.number="order.accomm_price"/>
         <x-forms.text-group label="Сума знижки" name="discount" x-model.number="discountAmount" readonly/>
         <div class="row mb-3">
             <div class="col-md-2">Знижки</div>
@@ -52,8 +51,8 @@
         <x-forms.select-group label="Тип оплати" name="payment_type" x-model="order.payment_type"
                               :options="$paymentTypes"></x-forms.select-group>
 
-        <x-forms.select-group label="Статус оплати" name="payment_status" x-model="order.payment_status"
-                              :options="$paymentStatuses"></x-forms.select-group>
+{{--        <x-forms.select-group label="Статус оплати" name="payment_status" x-model="order.payment_status"--}}
+{{--                              :options="$paymentStatuses"></x-forms.select-group>--}}
 
         @include('admin.crm.order.includes.discount-modal')
     </div>
