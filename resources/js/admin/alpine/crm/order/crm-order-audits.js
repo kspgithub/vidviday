@@ -42,16 +42,18 @@ export default (orderId) => ({
         if (item.event === 'updated') {
             const fields = [];
             for (let key in item.new_values) {
-                fields.push(key);
 
-                // const newValue = item.new_values[key];
-                // if (item.old_values[key]) {
-                //     const oldValue = item.old_values[key];
-                //     html += `${key}: ${oldValue} => ${newValue}`;
-                // } else {
-                //     html += `${key}: ${newValue}`;
-                // }
+                let html = '';
 
+                const newValue = item.new_values[key];
+                if (item.old_values[key]) {
+                    const oldValue = item.old_values[key];
+                    html += `${key}: ${oldValue} => ${newValue}`;
+                } else {
+                    html += `${key}: ${newValue}`;
+                }
+
+                fields.push(html);
             }
 
             html += fields.join(', ');

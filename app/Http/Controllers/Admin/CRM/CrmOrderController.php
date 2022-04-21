@@ -251,6 +251,19 @@ class CrmOrderController extends Controller
             $data = $item->toArray();
             $data['user'] = $item->user ? $item->user->basicInfo() : ['name' => 'Система'];
 
+            if(isset($item->new_values['tour_id']) && isset($item->old_values['tour_id'])){
+                $tour = Tour::query()->find($item->old_values['tour_id']);
+                $newTour = Tour::query()->find($item->new_values['tour_id']);
+                $data['old_values']['tour_id'] = '<a href="'.route('admin.tour.show', $tour->id).'">'.$tour->title.'</a>';
+                $data['new_values']['tour_id'] = '<a href="'.route('admin.tour.show', $newTour->id).'">'.$newTour->title.'</a>';
+            }
+            if(isset($item->new_values['schedule_id']) && isset($item->old_values['schedule_id'])){
+                $schedule = TourSchedule::query()->find($item->old_values['schedule_id']);
+                $newSchedule = TourSchedule::query()->find($item->new_values['schedule_id']);
+                $data['old_values']['schedule_id'] = '<a href="'.route('admin.crm.schedule.show', $schedule->id).'">'.$schedule->title.'</a>';
+                $data['new_values']['schedule_id'] = '<a href="'.route('admin.crm.schedule.show', $newSchedule->id).'">'.$newSchedule->title.'</a>';
+            }
+
             return $data;
         });
 
