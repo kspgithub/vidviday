@@ -32,9 +32,19 @@ export default (params) => ({
             this.loadSchedules(false);
         }
 
-        this.$watch('order', () => {
+        this.$watch('order', (order) => {
             this.formChanged = true;
+
+            if(order.first_name)
+                this.order.first_name = order.first_name.ucWords()
+
+            if(order.last_name)
+                this.order.last_name = order.last_name.ucWords()
+
+            if(order.middle_name)
+                this.order.middle_name = order.middle_name.ucWords()
         });
+
         setTimeout(() => {
             const tourSelectBox = document.getElementById('tourSelectBox');
             jQuery(tourSelectBox).select2({

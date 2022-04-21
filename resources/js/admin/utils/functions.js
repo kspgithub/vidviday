@@ -34,3 +34,11 @@ Array.prototype.toObject = function() {
     return Object.entries(this)
         .reduce((obj, [key, value]) => ({ ...obj, [value]: key }), {});
 };
+
+String.prototype.ucFirst = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.ucWords = function () {
+    return this.split(' ').map(w => w.ucFirst()).join(' ');
+}
