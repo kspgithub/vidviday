@@ -55,6 +55,8 @@
                     <form-textarea v-model="comment" name="comment" id="order-comment"
                                    :label="__('forms.order-comment')"/>
 
+                    <input name="conditions" type="hidden" value="1"/>
+
                     <div class="text-center">
                         <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">
                             {{ __('forms.order') }}
