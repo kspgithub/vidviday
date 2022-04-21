@@ -121,7 +121,7 @@ export default (options) => ({
         return status ? status.text : value;
     },
     formatDate(value) {
-        return moment(value).format('DD.MM.YYYY')
+        return moment(value, 'DD.MM.YYYY').format('DD.MM.YYYY')
     },
     roomTitle(key) {
         return roomTitle(key, this.roomTypes);
