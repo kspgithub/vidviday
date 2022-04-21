@@ -107,9 +107,18 @@ export default (params) => ({
                 participant_phone: '',
                 customer: value,
             }
-        } else {
-            this.order.participants.customer = value;
         }
+        if(value) {
+            this.order.participants.items.unshift({
+                first_name: this.order.first_name || '',
+                last_name: this.order.last_name || '',
+                middle_name: this.order.middle_name || '',
+                birthday: this.order.birthday || '',
+            })
+        } else {
+            this.order.participants.items.shift()
+        }
+        this.order.participants.customer = value
     },
 
     get participantPhone() {
