@@ -13,6 +13,7 @@ const DEFAULT_DISCOUNT = {
 
 export default (props) => ({
     order: props.order,
+    tour: props.tour ?? null,
     schedules: [],
 
     // ORDER PRICE

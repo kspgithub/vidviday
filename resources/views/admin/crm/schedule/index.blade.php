@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div data-ps="{suppressScrollY: true}">
+                <div data-ps="{suppressScrollY: true}" style="min-height: 350px; max-height: calc(100vh - 350px);">
                     <table class="table table-sm" x-bind:class="{loading: loading}">
                         <thead>
                         <tr>

@@ -247,12 +247,12 @@
                                                         <span x-text="val"></span>
                                                     </div>
                                                 </template>
-                                                <template x-if="!!order.accommodation['other']">
-                                                    <div :key="'ord-accomm-other-'+order.id">
-                                                        <b>Інше:</b>
-                                                        <span x-text="order.accommodation['other_text'] || ''"></span>
-                                                    </div>
-                                                </template>
+                                            </template>
+                                            <template x-if="!!order.accommodation?.other">
+                                                <div :key="'ord-accomm-other-'+order.id">
+                                                    <b>Інше:</b>
+                                                    <span x-text="order.accommodation?.other_text || ''"></span>
+                                                </div>
                                             </template>
                                         </div>
                                         <div>

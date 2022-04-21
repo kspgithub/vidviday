@@ -32,9 +32,19 @@ export default (params) => ({
             this.loadSchedules(false);
         }
 
-        this.$watch('order', () => {
+        this.$watch('order', (order) => {
             this.formChanged = true;
+
+            if(order.first_name)
+                this.order.first_name = order.first_name.ucWords()
+
+            if(order.last_name)
+                this.order.last_name = order.last_name.ucWords()
+
+            if(order.middle_name)
+                this.order.middle_name = order.middle_name.ucWords()
         });
+
         setTimeout(() => {
             const tourSelectBox = document.getElementById('tourSelectBox');
             jQuery(tourSelectBox).select2({
@@ -97,9 +107,18 @@ export default (params) => ({
                 participant_phone: '',
                 customer: value,
             }
-        } else {
-            this.order.participants.customer = value;
         }
+        if(value) {
+            this.order.participants.items.unshift({
+                first_name: this.order.first_name || '',
+                last_name: this.order.last_name || '',
+                middle_name: this.order.middle_name || '',
+                birthday: this.order.birthday || '',
+            })
+        } else {
+            this.order.participants.items.shift()
+        }
+        this.order.participants.customer = value
     },
 
     get participantPhone() {
