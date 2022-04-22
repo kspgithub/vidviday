@@ -75,7 +75,7 @@ class QuestionsTable extends DataTableComponent
             Column::make(__('PID'), 'parent_id'),
             Column::make(__('Tour'), 'tour.title')
                 ->format(function ($value, $column, $row) {
-                    return $row->tour->title;
+                    return $row->tour->title ?? null;
                 })
                 ->asHtml(),
             Column::make(__('User'), 'name')
