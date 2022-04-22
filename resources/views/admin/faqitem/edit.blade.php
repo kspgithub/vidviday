@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <x-forms.patch :action="route('admin.faqitem.update', $faqitem)" enctype="multipart/form-data">
+    <x-forms.patch :action="route('admin.faqitem.update', ['faqItem'=>$faqitem, 'section'=>$section])" enctype="multipart/form-data">
         <x-bootstrap.card>
             <x-slot name="header">
                 <h4>{{__('Editing').' '.__('FAQ')}}</h4>
