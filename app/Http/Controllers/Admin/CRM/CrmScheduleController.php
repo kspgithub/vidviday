@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin\CRM;
 use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\AccommodationType;
+use App\Models\Currency;
 use App\Models\Order;
+use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourSchedule;
@@ -197,8 +199,17 @@ class CrmScheduleController extends Controller
         $schedules = $tour->scheduleItems()->get()->map->asCrmSchedule();
         $discounts = $tour->discounts()->get()->map->asAlpineData();
 
+        $currencies = Currency::toSelectBox('iso', 'iso');
+        $paymentTypes = PaymentType::toSelectBox();
+        $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
+        $roomTypes = AccommodationType::toSelectBox();
+
         return view('admin.crm.schedule.order', [
             'tour' => $tour->shortInfo(),
+            'currencies' => $currencies,
+            'paymentTypes' => $paymentTypes,
+            'paymentStatuses' => $paymentStatuses,
+            'roomTypes' => $roomTypes,
             'discounts' => $discounts,
             'schedule' => $schedule,
             'order' => $order,
