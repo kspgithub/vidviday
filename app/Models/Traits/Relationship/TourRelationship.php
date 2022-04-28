@@ -6,6 +6,7 @@ use App\Models\Badge;
 use App\Models\Direction;
 use App\Models\Discount;
 use App\Models\LandingPlace;
+use App\Models\Order;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
@@ -262,5 +263,15 @@ trait TourRelationship
     public function tourLandings()
     {
         return $this->hasMany(TourLanding::class)->orderBy('position');
+    }
+
+    /**
+     * Замовлення
+     *
+     * @return HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

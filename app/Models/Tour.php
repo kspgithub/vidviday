@@ -123,9 +123,17 @@ class Tour extends TranslatableModel implements HasMedia
             }
         });
 
-        self::updating(function ($model) {
+        self::updating(function (self $model) {
             if (empty($model->short_text)) {
                 $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+
+            if ($model->isDirty(['price', 'accomm_price'])) {
+                foreach ($model->orders as $order) {
+                    if ($order->group_type === 0) {
+                        $order->recalculatePrice();
+                    }
+                }
             }
         });
     }
