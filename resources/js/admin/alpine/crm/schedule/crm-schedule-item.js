@@ -60,6 +60,7 @@ export default (options) => ({
         email: '',
     },
     scheduleData: {...options.schedule},
+    selectedOrders: [],
     init() {
         setTimeout(() => {
             if (this.$refs.pickerInput) {
@@ -396,5 +397,15 @@ export default (options) => ({
     },
     get disabledBookedStatus() {
         return this.currentTab === 'reserve' && this.selectedOrder.total_places > this.schedule.places_available;
+    },
+    selectAllOrders(e) {
+        this.selectedOrders = e.target.checked ? this.orders.map(o => o.id) : []
+    },
+    exportOrders(e) {
+        let url = e.target.href
+        if(this.selectedOrders.length){
+            url += '&orders=[' + this.selectedOrders.join(',') + ']'
+        }
+        window.open(url)
     }
 })

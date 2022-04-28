@@ -44,6 +44,8 @@ class OrdersExport extends DefaultValueBinder implements
                 'participants' => $this->getParticipantsText($order),
                 'dates' => $this->getParticipantsBirthday($order),
                 'contacts' => $this->getContactsText($order),
+                'phones' => $this->getPhonesText($order),
+                'emails' => $this->getEmailsText($order),
                 'accommodation' => $this->getAccommodationText($order),
                 'sum_total' => (string)$order->total_price,
                 'payment_fop' => (string)$order->payment_fop,
@@ -72,6 +74,8 @@ class OrdersExport extends DefaultValueBinder implements
             'ПІБ',
             'Дата',
             'Контакти',
+            'Телефон',
+            'Email',
             'Нічліг',
             'Сума загалом',
             'Оплата ФОП',
@@ -113,13 +117,7 @@ class OrdersExport extends DefaultValueBinder implements
     {
         $rows = [];
         $rows[] = "{$order->last_name} {$order->first_name}";
-        $rows[] = "{$order->phone}";
-        if (!empty($order->email)) {
-            $rows[] = "{$order->email}";
-        }
-        if (!empty($order->viber)) {
-            $rows[] = "{$order->viber}";
-        }
+
         if (!empty($order->agency_data) && !empty($order->agency_data['title'])) {
             $rows[] = '----------------';
             $agencyData = (object)$order->agency_data;
@@ -130,6 +128,27 @@ class OrdersExport extends DefaultValueBinder implements
             if (!empty($agencyData->manager_email)) {
                 $rows[] = "{$agencyData->manager_email}";
             }
+        }
+
+        return implode("\n", $rows);
+    }
+
+    protected function getPhonesText(Order $order)
+    {
+        $rows = [];
+        $rows[] = "{$order->phone}";
+        if (!empty($order->viber)) {
+            $rows[] = "{$order->viber}";
+        }
+
+        return implode("\n", $rows);
+    }
+
+    protected function getEmailsText(Order $order)
+    {
+        $rows = [];
+        if (!empty($order->email)) {
+            $rows[] = "{$order->email}";
         }
 
         return implode("\n", $rows);

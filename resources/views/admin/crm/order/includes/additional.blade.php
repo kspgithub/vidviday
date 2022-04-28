@@ -25,6 +25,14 @@
                               @change="updateOrder({admin_comment: order.admin_comment})"></textarea>
                 </td>
             </tr>
+            <tr class="border-top">
+                <th style="width: 300px">Побажання замовника</th>
+                <td>
+                    <textarea x-model.debounce.500ms="order.comment" class="form-control"
+                              x-bind:readonly="{{current_user()->can('order-comments', $order) ? 'false' : 'true'}}"
+                              @change="updateOrder({comment: order.comment})"></textarea>
+                </td>
+            </tr>
             </tbody>
         </table>
 
