@@ -98,6 +98,11 @@ class CrmScheduleController extends Controller
 
         if ($request->ajax() || $request->input('export', 0) == 1) {
             $ordersQ = $schedule->orders();
+
+            if($ids = json_decode($request->input('orders', '[]'), true)) {
+                $ordersQ->whereIn('id', $ids);
+            }
+
             switch ($tab) {
                 case 'reserve':
                     $ordersQ->whereIn('status', [Order::STATUS_RESERVE]);

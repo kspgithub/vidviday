@@ -134,6 +134,7 @@
                     </div>
                     <div class="col-12 col-lg-4 mb-2 text-lg-end">
                         <a href="{{route('admin.crm.schedule.show', array_merge(request()->all(), ['schedule'=>$schedule, 'export'=>1]))}}"
+                           @click.prevent="exportOrders"
                            target="_blank" class="btn btn-outline-success">
                             <i class="far fa-file-excel"></i> Експортувати в Excel
                         </a>
@@ -145,6 +146,7 @@
                     <table class="table table-sm">
                         <thead>
                         <tr>
+                            <th><input type="checkbox" @change="selectAllOrders"></th>
                             <th>{!! alpineSortLink('id', 'ID') !!}</th>
                             <th>{!! alpineSortLink('status', 'Статус') !!}</th>
                             <th>{!! alpineSortLink('places', 'Осіб') !!}</th>
@@ -166,6 +168,7 @@
                         <tbody>
                         <template x-for="order in orders" :key="'order-'+order.id">
                             <tr x-bind:class="'order-row-'+order.status">
+                                <td><input type="checkbox" x-bind:value="order.id" x-model="selectedOrders"></td>
                                 <td>
                                     <a :href="`/admin/crm/schedules/${order.schedule_id}/order/${order.id}`"
                                        target="_blank"
