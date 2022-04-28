@@ -95,6 +95,21 @@ class TourSchedule extends Model
         'auto_limit',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::updating(function (self $model) {
+            if ($model->isDirty(['price', 'accomm_price'])) {
+                foreach ($model->orders as $order) {
+                    if ($order->group_type === 0) {
+                        $order->recalculatePrice();
+                    }
+                }
+            }
+        });
+    }
+
     /**
      * Тур
      *
