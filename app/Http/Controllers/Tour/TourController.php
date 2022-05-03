@@ -43,6 +43,8 @@ class TourController extends Controller
      */
     public function index(Request $request, TourGroup $group = null)
     {
+        $localeLinks = $group->getLocaleLinks();
+
         $toursQuery = Tour::search();
 
         if ($group === null) {
@@ -65,6 +67,7 @@ class TourController extends Controller
             'group' => $group,
             'min_price' => $min_price,
             'max_price' => $max_price,
+            'localeLinks' => $localeLinks,
         ]);
     }
 
