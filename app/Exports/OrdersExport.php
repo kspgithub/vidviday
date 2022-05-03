@@ -116,7 +116,10 @@ class OrdersExport extends DefaultValueBinder implements
     protected function getContactsText(Order $order)
     {
         $rows = [];
-        $rows[] = "{$order->last_name} {$order->first_name}";
+
+        if(!$order->is_tourist) {
+            $rows[] = "{$order->last_name} {$order->first_name}";
+        }
 
         if (!empty($order->agency_data) && !empty($order->agency_data['title'])) {
             $rows[] = '----------------';

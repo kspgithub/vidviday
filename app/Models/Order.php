@@ -141,6 +141,7 @@ class Order extends TranslatableModel implements Auditable
         'utm_data',
         'payment_data',
         'auto',
+        'is_tourist',
     ];
 
     protected $casts = [

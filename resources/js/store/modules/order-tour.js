@@ -38,6 +38,7 @@ export default {
                 company: '',
                 viber: '',
                 discounts: [],
+                isTourist: 1,
                 participants: [],
                 accommodation: {
                     other: 0,
@@ -285,8 +286,8 @@ export default {
                     items.push(state.formData.participants[i]);
                 } else {
                     items.push({
-                        first_name: '',
-                        last_name: '',
+                        first_name: state.formData.first_name || '',
+                        last_name: state.formData.last_name || '',
                         middle_name: '',
                         birthday: '',
                     });
@@ -302,6 +303,11 @@ export default {
                 middle_name: '',
                 birthday: '',
             });
+            commit('UPDATE_FORM_DATA', {participants: items});
+        },
+        prependParticipant({commit, state}, payload) {
+            const items = state.formData.participants || [];
+            items.unshift(payload);
             commit('UPDATE_FORM_DATA', {participants: items});
         },
         updateParticipant({commit, state}, payload) {

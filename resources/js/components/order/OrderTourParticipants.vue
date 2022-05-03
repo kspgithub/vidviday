@@ -2,6 +2,14 @@
     <div>
         <h2 class="h3 mb-30">{{ __('order-section.participants.title') }}</h2>
 
+        <div class="mb-30">
+            <form-checkbox class="small"
+                           :model-value="false"
+                           v-model="isTourist"
+                           name="is_tourist"
+                           :label="__('order-section.is-tourist')"/>
+        </div>
+
         <order-participant v-for="(participant, idx) in participants"
                            :key="'participant-'+idx"
                            :participant="participant"
@@ -35,18 +43,24 @@ import OrderParticipant from "./OrderParticipant";
 import FormInput from "../form/FormInput";
 import {useStore} from "vuex";
 import {useDebounceFormDataProperty} from "../../store/composables/useFormData";
-import {computed} from "vue";
+import {computed, watch} from "vue";
+import FormCheckbox from "../form/FormCheckbox";
 
 export default {
     name: "OrderTourParticipants",
-    components: {FormInput, OrderParticipant},
+    components: {FormCheckbox, FormInput, OrderParticipant},
     setup() {
         const store = useStore();
+        const isTourist = useDebounceFormDataProperty('orderTour', 'isTourist');
         const participants = computed(() => store.state.orderTour.formData.participants);
         const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
 
         const updateParticipant = (data) => {
             store.dispatch('orderTour/updateParticipant', data);
+        }
+
+        const prependParticipant = (data) => {
+            store.dispatch('orderTour/prependParticipant', data);
         }
 
         const deleteParticipant = (idx) => {
@@ -57,7 +71,26 @@ export default {
             store.dispatch('orderTour/addParticipant');
         }
 
+        watch(isTourist, (val) => {
+            if(val) {
+                updateParticipant({idx: 0, data: {
+                    first_name: store.state.orderTour.formData.first_name,
+                    last_name: store.state.orderTour.formData.last_name,
+                    middle_name: '',
+                    birthday: '',
+                }})
+            } else {
+                updateParticipant({idx: 0, data: {
+                    first_name: '',
+                    last_name: '',
+                    middle_name: '',
+                    birthday: '',
+                }})
+            }
+        })
+
         return {
+            isTourist,
             participants,
             participant_phone,
             updateParticipant,
