@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Place;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Place\TestimonialRequest;
+use App\Models\Country;
 use App\Models\Place;
 use App\Models\Region;
 use App\Models\City;
@@ -11,6 +12,7 @@ use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\Badge;
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PlaceController extends Controller
 {
@@ -18,15 +20,17 @@ class PlaceController extends Controller
     {
         //
 
-        $regions = Region::whereHas('places', fn ($q) => $q->published())
-            ->with(['places' => fn ($q) => $q->published()])->get();
+        $countries = Country::query()->with('regions', function(HasMany $q) {
+            $q->whereHas('places', fn ($q) => $q->published())
+                ->with(['places' => fn ($q) => $q->published()]);
+        })->get();
 
         $pageContent = Page::select()->where('key', 'places')->first();
 
         $markers = Place::query()->published()->get()->map->asMapMarker();
 
         return view('place.index', [
-            'regions' => $regions,
+            'countries' => $countries,
             'pageContent' => $pageContent,
             'markers' => $markers,
         ]);
