@@ -98,7 +98,9 @@ class TourController extends Controller
             'foodItems.time',
             'accommodations',
             'accommodations.media',
-            'tickets',
+            'tickets' => function ($q) {
+                return $q->orderBy('position');
+            },
             'discounts',
             'guides',
             'manager',
