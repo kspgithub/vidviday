@@ -59,26 +59,35 @@
                             <div class="expand-all close">Згорнути все</div>
                         </div>
                         <div class="accordion type-4 accordions-inner-wrap">
-                            @foreach($regions as $region)
+                            @foreach($countries as $country)
                                 <div class="accordion-item">
-                                    <div class="accordion-title">{{$region->title}}<i></i></div>
+                                    <div class="accordion-title">{{$country->title}}<i></i></div>
                                     <div class="accordion-inner">
                                         <div class="accordion type-2">
-                                            @foreach($region->places as $place)
+                                            @foreach($country->regions as $region)
                                                 <div class="accordion-item">
-                                                    <div class="accordion-title">{{ $place->title }}<i></i></div>
+                                                    <div class="accordion-title">{{$region->title}}<i></i></div>
                                                     <div class="accordion-inner">
-                                                        @if($place->hasMedia())
-                                                            <div class="swiper-entry" v-is="'swiper-slider'"
-                                                                 :media='@json($place->getMedia()->map->toSwiperSlide())'
-                                                            >
-                                                            </div>
-                                                            <div class="spacer-xs"></div>
-                                                        @endif
-                                                        <div class="text text-md">
-                                                            {!! $place->text !!}
-                                                            <a href="{{ $place->url}}"
-                                                               class="btn btn-read-more text-bold">Більше</a>
+                                                        <div class="accordion type-2">
+                                                            @foreach($region->places as $place)
+                                                                <div class="accordion-item">
+                                                                    <div class="accordion-title">{{ $place->title }}<i></i></div>
+                                                                    <div class="accordion-inner">
+                                                                        @if($place->hasMedia())
+                                                                            <div class="swiper-entry" v-is="'swiper-slider'"
+                                                                                 :media='@json($place->getMedia()->map->toSwiperSlide())'
+                                                                            >
+                                                                            </div>
+                                                                            <div class="spacer-xs"></div>
+                                                                        @endif
+                                                                        <div class="text text-md">
+                                                                            {!! $place->text !!}
+                                                                            <a href="{{ $place->url}}"
+                                                                               class="btn btn-read-more text-bold">Більше</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
