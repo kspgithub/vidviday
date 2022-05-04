@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasImage;
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -16,7 +17,7 @@ class Transport extends TranslatableModel
     use UsePublishedScope;
     use HasImage;
     use HasSlug;
-
+    use UseSelectBox;
 
     public $translatable = [
         'title',

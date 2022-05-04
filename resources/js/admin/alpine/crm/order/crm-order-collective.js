@@ -32,6 +32,17 @@ export default (params) => ({
             this.loadSchedules(false);
         }
 
+        this.$watch('participantData', (data) => {
+            if(data.first_name)
+                this.participantData.first_name = data.first_name.ucWords()
+
+            if(data.last_name)
+                this.participantData.last_name = data.last_name.ucWords()
+
+            if(data.middle_name)
+                this.participantData.middle_name = data.middle_name.ucWords()
+        })
+
         this.$watch('order', (order) => {
             this.formChanged = true;
 
@@ -43,6 +54,15 @@ export default (params) => ({
 
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
+
+            for (let i in order.participants.items) {
+                if(order.participants.items[i].first_name)
+                    this.order.participants.items[i].first_name = order.participants.items[i].first_name.ucWords()
+                if(order.participants.items[i].last_name)
+                    this.order.participants.items[i].last_name = order.participants.items[i].last_name.ucWords()
+                if(order.participants.items[i].middle_name)
+                    this.order.participants.items[i].middle_name = order.participants.items[i].middle_name.ucWords()
+            }
 
             order.is_customer = !order.is_tour_agent
             order.is_tour_agent = !order.is_customer

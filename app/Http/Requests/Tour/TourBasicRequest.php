@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Tour;
 
 use App\Models\Currency;
+use App\Models\Tour;
 use App\Rules\TranslatableSlugRule;
 use App\Rules\UniqueSlugRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,8 +44,10 @@ class TourBasicRequest extends FormRequest
             'text' => ['required', 'array'],
             'short_text' => ['nullable', 'array'],
             'video' => ['nullable', 'string'],
-            'duration' => ['required', 'integer'],
-            'nights' => ['required', 'integer'],
+            'duration_format' => ['required:duration_format,==,0', Rule::in([Tour::FORMAT_DAYS, Tour::FORMAT_TIME])],
+            'duration' => ['required_if:duration_format,==,0'],
+            'nights' => ['required_if:duration_format,==,0'],
+            'time' => ['required_if:duration_format,==,1'],
             'price' => ['required', 'integer'],
             'accomm_price' => ['required', 'integer'],
             'commission' => ['nullable', 'integer'],
