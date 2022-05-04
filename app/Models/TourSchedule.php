@@ -130,5 +130,9 @@ class TourSchedule extends Model
         return $this->hasMany(Order::class, 'schedule_id');
     }
 
+    public function currencyModel()
+    {
+        return $this->belongsTo(Currency::class, 'currency', 'iso');
+    }
 
 }

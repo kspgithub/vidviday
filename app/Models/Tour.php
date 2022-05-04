@@ -81,6 +81,7 @@ class Tour extends TranslatableModel implements HasMedia
         'hutsul_fun_text',
         'contact',
         'locales',
+        'show_map',
     ];
 
     protected $casts = [

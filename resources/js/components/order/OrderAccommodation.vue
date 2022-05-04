@@ -14,7 +14,7 @@
             <form-number-input :model-value="accommodation[room.slug_key] || 0"
                                @update:model-value="updateAccommodation($event, room.slug_key)"
                                :name="'accommodation['+room.slug_key+']'"/>
-            <span class="text">{{ room.title }} ({{ room.description['uk'] }})</span>
+            <span class="text">{{ room.title }} ({{ room.description }})</span>
         </div>
 
         <div class="checkbox-accordion">

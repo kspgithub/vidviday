@@ -102,4 +102,9 @@ trait TourAttribute
     {
         return $this->planItems()->firstOrNew(['tour_id' => $this->id]);
     }
+
+    public function getCurrencyTitleAttribute()
+    {
+        return $this->currencyModel->title;
+    }
 }

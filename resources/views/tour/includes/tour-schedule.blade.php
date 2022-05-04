@@ -21,10 +21,10 @@
                 <div class="schedule-row still-have {{$event_key > 2 ? 'd-none' : ''}}">
                     <span class="text">{{$future_event->title}}</span>
                     <div>
-                        <span class="text text-medium">{{$future_event->price}} грн.</span>
+                        <span class="text text-medium">{{$future_event->price}} {{$future_event->currencyTitle}}</span>
                         @if(is_tour_agent() && (int)$future_event->commission > 0)
                             <span class="discount">
-                                {{$future_event->commission}} грн.
+                                {{$future_event->commission}} {{$future_event->currencyTitle}}
 
                                 <span class="tooltip-wrap red"><span
                                         class="tooltip text text-sm light">@lang('tours-section.commission')</span></span>

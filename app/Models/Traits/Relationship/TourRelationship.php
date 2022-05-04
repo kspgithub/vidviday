@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Relationship;
 
 use App\Models\Badge;
+use App\Models\Currency;
 use App\Models\Direction;
 use App\Models\Discount;
 use App\Models\LandingPlace;
@@ -273,5 +274,10 @@ trait TourRelationship
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function currencyModel()
+    {
+        return $this->belongsTo(Currency::class, 'currency', 'iso');
     }
 }
