@@ -84,6 +84,7 @@
                                 @include('tour.includes.tour-tickets')
 
                                 @include('tour.includes.tour-fun')
+                                @include('tour.includes.tour-transport')
                                 @include('tour.includes.tour-residence')
                                 @include('tour.includes.tour-food')
                                 @include('tour.includes.tour-calc')

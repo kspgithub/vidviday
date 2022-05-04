@@ -24,7 +24,9 @@ use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
+use App\Models\TourTransport;
 use App\Models\TourType;
+use App\Models\Transport;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -274,6 +276,17 @@ trait TourRelationship
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function tourTransports()
+    {
+        return $this->hasMany(TourTransport::class);
+    }
+
+    public function transports()
+    {
+        return $this->belongsToMany(Transport::class, 'tour_transports', 'tour_id', 'transport_id')
+            ->orderByPivot('position');
     }
 
     public function currencyModel()
