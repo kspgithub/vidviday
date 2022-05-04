@@ -135,4 +135,9 @@ trait TourScheduleAttribute
         return $this->start_date->addDays($this->tour->duration);
     }
 
+    public function getCurrencyTitleAttribute()
+    {
+        return $this->currencyModel->title;
+    }
+
 }

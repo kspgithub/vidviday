@@ -84,6 +84,46 @@ class TourController extends Controller
         //
         $tour = $this->service->store($request->validated());
 
+        if ($main_image_alts = $request->get('main_image_alts')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($main_image_titles = $request->get('main_image_titles')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_alts = $request->get('mobile_image_alts')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_titles = $request->get('mobile_image_titles')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
         return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Record Created'));
     }
 
@@ -137,6 +177,46 @@ class TourController extends Controller
     {
         //
         $this->service->update($tour, $request->validated());
+
+        if ($main_image_alts = $request->get('main_image_alts')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($main_image_titles = $request->get('main_image_titles')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_alts = $request->get('mobile_image_alts')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_titles = $request->get('mobile_image_titles')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
 
         return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Record Updated'));
     }

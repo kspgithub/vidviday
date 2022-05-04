@@ -39,7 +39,7 @@
                     <template x-if="item.id">
                         <div>
 
-                            <x-forms.switch-group name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
+                            <x-forms.switch-group style="position: absolute; top: 0;bottom: 50%;left:0;right:0;margin:auto" name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
 
                             <a href="#" @click.prevent="deleteMediaItem(item)" class="delete-media-item">
                                 <i class="fas fa-times"></i>

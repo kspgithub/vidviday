@@ -234,9 +234,8 @@ class TourController extends Controller
         $schedules = $tour->schedulesForBooking();
 
         $discounts = $tour->discounts()->available()->get();
-        $room_types = AccommodationType::all();
+        $room_types = AccommodationType::all()->translate();
         $payment_types = PaymentType::published()->toSelectBox();
-
 
         return view('tour.order', [
             'tour' => $tour,
