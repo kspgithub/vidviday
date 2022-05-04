@@ -29,7 +29,9 @@
             <a href="#" class="clear-image text-danger {{empty($value) ? 'd-none' : ''}}"
                title="@lang('Clear image')"><i data-feather="x"></i></a>
         </label>
+        {!! $slot !!}
         <input type="hidden" name="{{$name}}" class="old-file" value="{{!empty($value) ? $value : ''}}">
+
         <input accept="{{$accept}}" type="file" id="{{$name}}"
                {{$required ? 'required' : ''}}
                name="{{$name.'_upload'}}" {{ $attributes->merge(['class' => 'form-control']) }}>
