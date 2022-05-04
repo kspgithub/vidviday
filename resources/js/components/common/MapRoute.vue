@@ -100,7 +100,7 @@ export default {
             })
 
             const infoWindow = addInfoWindow(targetMarker, {
-                content: `<div class='map-informer-content'><p>${props.address + props.address_comment}</p></div>`,
+                content: `<div class='map-informer-content'><p>${props.address + (props.addressComment || '')}</p></div>`,
             })
 
             dirDisplay.value = directionsDisplay({

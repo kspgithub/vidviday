@@ -41,4 +41,17 @@ class PlacesController extends Controller
             ]
         ];
     }
+
+    public function show(Request $request)
+    {
+        $place_id = (int)$request->input('place_id', 0);
+
+        $place = Place::query()->findOrFail($place_id);
+
+        return response()->json([
+            'description' => $place->text,
+            'url' => $place->url,
+            'media' => $place->getMedia()->map->toSwiperSlide(),
+        ]);
+    }
 }

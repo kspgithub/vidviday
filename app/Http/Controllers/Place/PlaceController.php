@@ -20,10 +20,12 @@ class PlaceController extends Controller
     {
         //
 
-        $countries = Country::query()->with('regions', function(HasMany $q) {
-            $q->whereHas('places', fn ($q) => $q->published())
-                ->with(['places' => fn ($q) => $q->published()]);
-        })->get();
+//        $countries = Country::query()->with('regions', function(HasMany $q) {
+//            $q->whereHas('places', fn ($q) => $q->published())
+//                ->with(['places' => fn ($q) => $q->published()->with('media')]);
+//        })->get();
+
+        $countries = Country::query()->toSelectBox();
 
         $pageContent = Page::select()->where('key', 'places')->first();
 

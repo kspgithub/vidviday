@@ -61,6 +61,7 @@ Route::group([
 ], function () {
 
     Route::get('select-box', [PlacesController::class, 'selectBox'])->name('select-box');
+    Route::get('find', [PlacesController::class, 'show'])->name('show');
 
 });
 
