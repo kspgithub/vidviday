@@ -30,10 +30,15 @@
                                   :value="old('text', $tour->getTranslations('text'))"
                                   required></x-forms.editor-loc-group>
 
+        <x-forms.select-group name="duration_format" :label="__('Format')" :value="old('duration_format', $tour->duration_format)"
+                              :options="$durationFormats" type="number"></x-forms.select-group>
+
         <x-forms.text-group name="duration" :label="__('Days')" :value="old('duration', $tour->duration)"
                             type="number" required></x-forms.text-group>
         <x-forms.text-group name="nights" :label="__('Nights')" :value="old('nights', $tour->nights)"
                             type="number" required></x-forms.text-group>
+        <x-forms.text-group name="time" :label="__('Time')" :value="old('time', $tour->time)"
+                            type="text"></x-forms.text-group>
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $tour->price)" type="number"
                             required></x-forms.text-group>
         <x-forms.text-group name="commission" :label="__('Commission')"

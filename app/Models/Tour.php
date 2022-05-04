@@ -40,6 +40,9 @@ class Tour extends TranslatableModel implements HasMedia
     use UseSelectBox;
     use JsonLikeScope;
 
+    const FORMAT_DAYS = 0;
+    const FORMAT_TIME = 1;
+
     public $translatable = [
         'title',
         'slug',
@@ -82,6 +85,8 @@ class Tour extends TranslatableModel implements HasMedia
         'contact',
         'locales',
         'show_map',
+        'duration_format',
+        'time',
     ];
 
     protected $casts = [
@@ -187,10 +192,10 @@ class Tour extends TranslatableModel implements HasMedia
                 $locales = siteLocales();
                 foreach ($locales as $locale) {
                     if ($first) {
-                        $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->where(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                         $first = false;
                     } else {
-                        $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->orWhere(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                     }
                 }
             });
