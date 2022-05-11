@@ -64,7 +64,9 @@ class TourFood extends TranslatableModel
 
     public function getCalcTitleAttribute()
     {
-        return $this->time ? $this->time->title . ' у ' . $this->day . '-й день' : '';
+        $translations = $this->getTranslations('text');
+
+        return $translations[app()->getLocale()] ?? ($this->time ? $this->time->title . ' у ' . $this->day . '-й день' : '');
     }
 
     public function getTextAttribute()

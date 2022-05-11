@@ -7,7 +7,7 @@
                     <button type="button" class="btn-close" @click.prevent="cancel()"></button>
                 </div>
                 <div class="modal-body">
-                    <x-forms.textarea-group x-model="comment" name="comment" label="Додатково"
+                    <x-forms.textarea-group x-model="duty_comment" name="duty_comment" label="Додатково"
                                             rows="5"
                                             label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.textarea-group x-model="admin_comment" name="admin_comment" label="Примітки менеджера"

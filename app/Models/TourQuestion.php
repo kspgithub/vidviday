@@ -69,7 +69,7 @@ class TourQuestion extends Model implements HasMedia
      */
     public function tour()
     {
-        return $this->belongsTo(Tour::class, 'user_id');
+        return $this->belongsTo(Tour::class, 'tour_id');
     }
 
     public function getInitialsAttribute()

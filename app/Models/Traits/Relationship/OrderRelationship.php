@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits\Relationship;
 
+use App\Models\BitrixContact;
 use App\Models\OrderNote;
 use App\Models\PaymentType;
 use App\Models\Tour;
@@ -33,5 +34,10 @@ trait OrderRelationship
     public function notes()
     {
         return $this->hasMany(OrderNote::class, 'order_id')->orderBy('created_at', 'desc');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo(BitrixContact::class, 'contact_id');
     }
 }

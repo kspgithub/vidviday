@@ -1,7 +1,7 @@
 import axios from "axios";
-import {Ukrainian} from "flatpickr/dist/l10n/uk";
 import {swalConfirm} from "../../../utils/functions";
 import {toast} from "../../../../libs/toast";
+import validateForm from "../../composables/validate-form";
 
 const DEFAULT_DISCOUNT = {
     id: 0,
@@ -27,13 +27,47 @@ export default (params) => ({
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
     init() {
+        console.log(this.order);
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }
 
-        this.$watch('order', () => {
+        this.$watch('participantData', (data) => {
+            if(data.first_name)
+                this.participantData.first_name = data.first_name.ucWords()
+
+            if(data.last_name)
+                this.participantData.last_name = data.last_name.ucWords()
+
+            if(data.middle_name)
+                this.participantData.middle_name = data.middle_name.ucWords()
+        })
+
+        this.$watch('order', (order) => {
             this.formChanged = true;
+
+            if(order.first_name)
+                this.order.first_name = order.first_name.ucWords()
+
+            if(order.last_name)
+                this.order.last_name = order.last_name.ucWords()
+
+            if(order.middle_name)
+                this.order.middle_name = order.middle_name.ucWords()
+
+            for (let i in order.participants.items) {
+                if(order.participants.items[i].first_name)
+                    this.order.participants.items[i].first_name = order.participants.items[i].first_name.ucWords()
+                if(order.participants.items[i].last_name)
+                    this.order.participants.items[i].last_name = order.participants.items[i].last_name.ucWords()
+                if(order.participants.items[i].middle_name)
+                    this.order.participants.items[i].middle_name = order.participants.items[i].middle_name.ucWords()
+            }
+
+            order.is_customer = !order.is_tour_agent
+            order.is_tour_agent = !order.is_customer
         });
+
         setTimeout(() => {
             const tourSelectBox = document.getElementById('tourSelectBox');
             jQuery(tourSelectBox).select2({
@@ -59,15 +93,6 @@ export default (params) => ({
                 this.order.schedule_id = null;
                 this.loadSchedules();
             })
-
-            if (this.$refs.pickerInput) {
-                flatpickr(this.$refs.pickerInput, {
-                    locale: Ukrainian,
-                    allowInput: true,
-                    dateFormat: 'd.m.Y'
-                });
-            }
-
 
         }, 200);
 
@@ -105,9 +130,18 @@ export default (params) => ({
                 participant_phone: '',
                 customer: value,
             }
-        } else {
-            this.order.participants.customer = value;
         }
+        if(value) {
+            this.order.participants.items.unshift({
+                first_name: this.order.first_name || '',
+                last_name: this.order.last_name || '',
+                middle_name: this.order.middle_name || '',
+                birthday: this.order.birthday || '',
+            })
+        } else {
+            this.order.participants.items.shift()
+        }
+        this.order.participants.customer = value
     },
 
     get participantPhone() {
@@ -144,6 +178,9 @@ export default (params) => ({
                 items: [],
                 participant_phone: '',
             }
+        }
+        if (!this.order.participants.items) {
+            this.order.participants.items = [];
         }
         if (this.participantData.first_name) {
             this.order.participants.items.push({...this.participantData});
@@ -215,7 +252,7 @@ export default (params) => ({
         }
 
         const data = {
-            title: existsDiscount ? (existsDiscount.title.uk) : '',
+            title: existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : '',
             value: value,
         }
 
@@ -225,7 +262,7 @@ export default (params) => ({
         const discounts = this.order.discounts || [];
         const id = this.discountData.id || 0;
         const existsDiscount = this.tourDiscounts.find(d => d.id === id)
-        const title = existsDiscount ? (existsDiscount.title.uk) : this.discountData.title;
+        const title = existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : this.discountData.title;
         const places = this.discountData.places || 1;
         let value = this.discountData.value;
 
@@ -303,12 +340,15 @@ export default (params) => ({
         }
         this.order.accommodation[key] = parseInt(value) || 0;
     },
-    async onFormChange(evt) {
+    async onFormChange() {
         //console.log(evt);
         this.formChanged = true;
     },
-    async onSubmit(evt) {
-        this.formChanged = false;
+    async onSubmit() {
+        if (validateForm(this.$refs.form)) {
+            this.formChanged = false;
+            this.$refs.form.submit();
+        }
     },
 
     get childrenDiscounts() {

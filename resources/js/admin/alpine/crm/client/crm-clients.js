@@ -8,6 +8,7 @@ export default (options) => ({
     links: [],
     clients: [],
     edit: false,
+    create: false,
     loader: false,
     search: options.params.q || '',
     sort: options.params.order || 'bitrix_id:asc',
@@ -68,6 +69,20 @@ export default (options) => ({
         this.selectedClient = client;
         this.edit = true;
     },
+    createClient() {
+        this.selectedClient = {
+            id: null,
+            bitrix_id: null,
+            first_name: '',
+            last_name: '',
+            email: [],
+            phone: [],
+        };
+        this.create = true;
+    },
+    cancelCreate() {
+        this.create = false;
+    },
     deleteClient(client) {
 
         Swal.fire({
@@ -108,6 +123,29 @@ export default (options) => ({
                     toast.success(data.message);
                     this.loadClients(true);
                     this.edit = false;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err.message);
+            })
+    },
+    storeClient() {
+        const data = {
+            id: this.selectedClient.id,
+            bitrix_id: this.selectedClient.bitrix_id,
+            first_name: this.selectedClient.first_name,
+            last_name: this.selectedClient.last_name,
+            email: this.selectedClient.email,
+            phone: this.selectedClient.phone,
+        };
+
+        axios.post(`/admin/crm/clients`, data)
+            .then(({data}) => {
+                if (data.result === 'success') {
+                    toast.success(data.message);
+                    this.loadClients(true);
+                    this.create = false;
                 }
             })
             .catch(err => {

@@ -45,7 +45,7 @@
             @foreach(siteLocales() as $locale)
 
                 <x-forms.text-group wire:model.defer="title_{{$locale}}"
-                                    required
+{{--                                    required--}}
                                     name="title_{{$locale}}"
                                     label="Суфікс {{strtoupper($locale)}}"
                 />

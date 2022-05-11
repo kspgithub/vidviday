@@ -105,33 +105,14 @@ trait TourScheduleAttribute
         return $total;
     }
 
-    /**
-     * @return int
-     */
-    public function getPlacesYesterdayAttribute()
-    {
-        $total = 0;
-        $orders = $this->orders->all();
-        /**
-         * @var Order $order
-         */
-        foreach ($orders as $order) {
-            if ($order->created_at->greaterThan(Carbon::yesterday()->startOfDay()) && $order->created_at->lessThan(Carbon::yesterday()->endOfDay())) {
-                $total += $order->total_places;
-            }
-        }
-        return $total;
-    }
-
     public function getPlacesAvailableAttribute()
     {
-        return $this->places - $this->places_booked;
+        return max($this->places - $this->places_booked, 0);
     }
 
     public function getPriceTitleAttribute()
     {
         $price = ceil($this->price);
-
 
         $title = "Ціна: {$price} грн.";
         if ($this->commission > 0) {
@@ -144,7 +125,19 @@ trait TourScheduleAttribute
 
     public function getManagerAttribute()
     {
-        return $this->tour && $this->tour->manager ? $this->tour->manager->shortInfo() : null;
+        return ($this->tour && $this->tour->manager) ? $this->tour->manager->shortInfo() : null;
+    }
+
+    public function getEndDateAttribute($endDate)
+    {
+        $newEndDate = Carbon::parse($endDate);
+
+        return $this->start_date->addDays($this->tour->duration);
+    }
+
+    public function getCurrencyTitleAttribute()
+    {
+        return $this->currencyModel->title;
     }
 
 }

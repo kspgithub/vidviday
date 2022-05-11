@@ -24,7 +24,7 @@ class OrderController extends Controller
     {
         return view('order.index', [
             'corporate' => false,
-            'room_types' => AccommodationType::all(),
+            'room_types' => AccommodationType::all()->translate(),
             'payment_types' => PaymentType::published()->toSelectBox(),
             'confirmation_types' => Order::confirmationSelectBox(),
         ]);
@@ -34,7 +34,7 @@ class OrderController extends Controller
     {
         return view('order.index', [
             'corporate' => true,
-            'room_types' => AccommodationType::all(),
+            'room_types' => AccommodationType::all()->translate(),
             'payment_types' => PaymentType::published()->toSelectBox(),
             'confirmation_types' => Order::confirmationSelectBox(),
         ]);
@@ -58,12 +58,14 @@ class OrderController extends Controller
                 Log::error($e->getMessage());
             }
         }
+
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
+            $order->syncContact();
             MailNotificationService::userTourOrder($order);
             MailNotificationService::adminTourOrder($order);
             if ($request->ajax()) {

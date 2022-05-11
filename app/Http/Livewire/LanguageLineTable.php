@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\LanguageLine;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -39,7 +40,7 @@ class LanguageLineTable extends DataTableComponent
         ];
     }
 
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         $group = $this->getFilter('group') ?? false;
 

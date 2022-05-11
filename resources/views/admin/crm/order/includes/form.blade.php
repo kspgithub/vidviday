@@ -4,11 +4,12 @@
     schedule: @json($schedule),
     statuses: @json($statuses),
     roomTypes: @json($roomTypes),
-    availableDiscounts: @json([]),
+    availableDiscounts: @json($availableDiscounts??[]),
 })'>
     <form action="{{$order->id > 0 ? route('admin.crm.order.update', $order) : route('admin.crm.order.store')}}"
-          @submit="onSubmit"
+
           @change="onFormChange"
+          x-ref="form"
           method="POST">
         @csrf
         @if($order->id > 0)
@@ -23,7 +24,7 @@
         @include('admin.crm.order.includes.finance-form')
         @include('admin.crm.order.includes.other-form')
 
-        <button type="submit" class="btn btn-primary">Зберегти</button>
+        <button type="submit" class="btn btn-primary" @click.prevent="onSubmit">Зберегти</button>
     </form>
 
 </div>

@@ -39,6 +39,7 @@
 <script>
 import {computed, reactive, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
+import { trans } from "../../i18n/lang";
 import FormNumberInput from "../form/FormNumberInput";
 import TourCalcRow from "./TourCalcRow";
 import FormSelect from "../form/FormSelect";
@@ -67,7 +68,7 @@ export default {
         const nearestPrice = computed(() => {
             return {
                 id: 'event_' + (selectedEvent.value ? selectedEvent.value.id : 0),
-                title: 'Тур',
+                title: trans('tours-section.calc.tour-title'),
                 price: selectedEvent.value ? selectedEvent.value.price : props.tour.price,
                 commission: selectedEvent.value ? selectedEvent.value.commission : props.tour.commission,
                 currency: selectedEvent.value ? selectedEvent.value.currency : props.tour.currency,

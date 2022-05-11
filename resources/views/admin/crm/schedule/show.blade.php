@@ -84,6 +84,7 @@
                             </td>
                             <td>
                             <textarea type="text" x-model.debounce.500ms="schedule.admin_comment"
+                                      x-bind:readonly="!(schedule.manager?.user_id === $store.crmUser.user.id || $store.crmUser.isAdmin)"
                                       @change="updateSchedule({admin_comment: schedule.admin_comment})"
                                       class="form-control form-control-sm mw-200px"></textarea>
                             </td>
@@ -133,6 +134,7 @@
                     </div>
                     <div class="col-12 col-lg-4 mb-2 text-lg-end">
                         <a href="{{route('admin.crm.schedule.show', array_merge(request()->all(), ['schedule'=>$schedule, 'export'=>1]))}}"
+                           @click.prevent="exportOrders"
                            target="_blank" class="btn btn-outline-success">
                             <i class="far fa-file-excel"></i> Експортувати в Excel
                         </a>
@@ -144,6 +146,7 @@
                     <table class="table table-sm">
                         <thead>
                         <tr>
+                            <th><input type="checkbox" @change="selectAllOrders"></th>
                             <th>{!! alpineSortLink('id', 'ID') !!}</th>
                             <th>{!! alpineSortLink('status', 'Статус') !!}</th>
                             <th>{!! alpineSortLink('places', 'Осіб') !!}</th>
@@ -165,6 +168,7 @@
                         <tbody>
                         <template x-for="order in orders" :key="'order-'+order.id">
                             <tr x-bind:class="'order-row-'+order.status">
+                                <td><input type="checkbox" x-bind:value="order.id" x-model="selectedOrders"></td>
                                 <td>
                                     <a :href="`/admin/crm/schedules/${order.schedule_id}/order/${order.id}`"
                                        target="_blank"
@@ -197,12 +201,12 @@
                                         <a :href="'tel:'+clearPhone(order.phone)" x-text="clearPhone(order.phone)"
                                            target="_blank"></a>
                                     </div>
-                                    <div x-show="order.viber" class="text-nowrap">
-                                        <span x-text="clearPhone(order.viber)"></span>
-                                    </div>
                                     <div x-show="order.email" class="text-nowrap">
                                         <a x-show="order.email" :href="'mailto:'+order.email" x-text="order.email"
                                            target="_blank"></a>
+                                    </div>
+                                    <div x-show="order.viber" class="text-nowrap">
+                                        <span x-text="clearPhone(order.viber)"></span>
                                     </div>
                                     <template x-if="order.agency_data && order.agency_data.title"
                                               :key="'agency-data-'+order.id">
@@ -217,7 +221,6 @@
                                                 <span x-text="order.agency_data.manager_name"></span>
                                             </div>
                                             <div class="text-nowrap" x-show="order.agency_data.manager_phone">
-                                                <b>Тел:</b>
                                                 <a :href="'tel:'+clearPhone(order.agency_data.manager_phone)"
                                                    x-text="clearPhone(order.agency_data.manager_phone)"
                                                    target="_blank"></a>
@@ -240,18 +243,19 @@
                                     <div class="d-flex">
                                         <div>
                                             <template x-for="(val, key) in order.accommodation">
-                                                <template x-if="val > 0 && key !== 'other' && key !== 'other_text'">
+                                                <template
+                                                    x-if="val > 0 && key && key !== 'other' && key !== 'other_text'">
                                                     <div class="text-nowrap">
                                                         <b x-text="roomTitle(key)+':'"></b>
                                                         <span x-text="val"></span>
                                                     </div>
                                                 </template>
-                                                <template x-if="!!order.accommodation['other']">
-                                                    <div :key="'ord-accomm-other-'+order.id">
-                                                        <b>Інше:</b>
-                                                        <span x-text="order.accommodation['other-text']"></span>
-                                                    </div>
-                                                </template>
+                                            </template>
+                                            <template x-if="!!order.accommodation?.other">
+                                                <div :key="'ord-accomm-other-'+order.id">
+                                                    <b>Інше:</b>
+                                                    <span x-text="order.accommodation?.other_text || ''"></span>
+                                                </div>
                                             </template>
                                         </div>
                                         <div>

@@ -40,7 +40,6 @@ trait UseOrderConstants
         return $items;
     }
 
-
     public static function statuses()
     {
         return [
@@ -54,6 +53,15 @@ trait UseOrderConstants
             self::STATUS_PENDING_CANCEL => __('order-section.status.pending-cancel'),
             self::STATUS_CANCELED => __('order-section.status.canceled'),
             self::STATUS_COMPLETED => __('order-section.status.completed'),
+        ];
+    }
+
+    public static function dutyStatuses()
+    {
+        return [
+            self::STATUS_NEW => __('order-section.status.new'),
+            self::STATUS_INTERESTED => __('order-section.status.interested'),
+            self::STATUS_RESERVE => __('order-section.status.reserve'),
         ];
     }
 

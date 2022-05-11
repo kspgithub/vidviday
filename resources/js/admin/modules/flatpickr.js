@@ -10,7 +10,7 @@ const DatePickerComponent = function () {
     this.init = function () {
         const pickerElements = document.querySelectorAll('.date-picker-group');
         pickerElements.forEach((element) => {
-            const dateFormat = element.dataset.dateFormat || 'Y-m-d';
+            const dateFormat = element.dataset.dateFormat || 'd.m.Y';
             const input = element.querySelector('.flatpicker');
             flatpickr(input, {
                 wrap: true,

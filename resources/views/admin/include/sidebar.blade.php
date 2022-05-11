@@ -91,10 +91,10 @@
                             <a class="sidebar-link"
                                href="{{route('admin.tour-group.index')}}">@lang('Groups')</a>
                         </li>
-                        <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}">
-                            <a class="sidebar-link "
-                               href="{{route('admin.tour-subjects.index')}}">@lang('Subjects')</a>
-                        </li>
+{{--                        <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}">--}}
+{{--                            <a class="sidebar-link "--}}
+{{--                               href="{{route('admin.tour-subjects.index')}}">@lang('Subjects')</a>--}}
+{{--                        </li>--}}
                         <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}">
                             <a class="sidebar-link "
                                href="{{route('admin.direction.index')}}">@lang('Directions')</a>

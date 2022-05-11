@@ -43,6 +43,8 @@ class TourController extends Controller
      */
     public function index(Request $request, TourGroup $group = null)
     {
+        $localeLinks = $group->getLocaleLinks();
+
         $toursQuery = Tour::search();
 
         if ($group === null) {
@@ -65,6 +67,7 @@ class TourController extends Controller
             'group' => $group,
             'min_price' => $min_price,
             'max_price' => $max_price,
+            'localeLinks' => $localeLinks,
         ]);
     }
 
@@ -95,7 +98,9 @@ class TourController extends Controller
             'foodItems.time',
             'accommodations',
             'accommodations.media',
-            'tickets',
+            'tickets' => function ($q) {
+                return $q->orderBy('position');
+            },
             'discounts',
             'guides',
             'manager',
@@ -229,9 +234,8 @@ class TourController extends Controller
         $schedules = $tour->schedulesForBooking();
 
         $discounts = $tour->discounts()->available()->get();
-        $room_types = AccommodationType::all();
+        $room_types = AccommodationType::all()->translate();
         $payment_types = PaymentType::published()->toSelectBox();
-
 
         return view('tour.order', [
             'tour' => $tour,
@@ -269,6 +273,7 @@ class TourController extends Controller
             }
             return back()->withFlashError('Помилка при замовлені туру');
         } else {
+            $order->syncContact();
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
 

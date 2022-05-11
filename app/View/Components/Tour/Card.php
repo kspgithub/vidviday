@@ -44,10 +44,10 @@ class Card extends Component
         $this->tour = $tour;
 
         $this->vue = $vue;
-        
+
         $this->history = $history;
 
-        $this->schedule = $tour->scheduleItems->first();
+        $this->schedule = $tour->scheduleItems()->firstOrNew();
     }
 
     /**

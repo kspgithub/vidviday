@@ -52,6 +52,7 @@ class OrderController extends Controller
         //
         $order = new Order();
         $order->fill($request->all());
+        $order->syncContact();
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Created'));
     }
 
@@ -105,6 +106,7 @@ class OrderController extends Controller
         //
         $order->fill($request->all());
         $order->save();
+        $order->syncContact();
         if ($request->ajax()) {
             $order->makeVisible([
                 'payment_fop',

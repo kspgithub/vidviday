@@ -5,7 +5,7 @@
     roomTypes: @json($roomTypes),
 })'>
     <form action="{{$order->id > 0 ? route('admin.crm.corporate.update', $order) : route('admin.crm.corporate.store')}}"
-          @submit="onSubmit"
+
           @change="onFormChange"
           method="POST">
         @csrf
@@ -20,8 +20,7 @@
         @include('admin.crm.order.includes.finance-form')
         @include('admin.crm.order.includes.agency-form')
         @include('admin.crm.order.includes.other-form')
-
-        <button type="submit" class="btn btn-primary">Зберегти</button>
+        <button type="submit" class="btn btn-primary" @click.prevent="onSubmit">Зберегти</button>
     </form>
 
 </div>

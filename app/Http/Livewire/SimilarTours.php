@@ -43,9 +43,9 @@ class SimilarTours extends Component
     public function detachItem($id)
     {
         $items = $this->tour->similar ?? [];
-        if (!in_array((int)$id, $items)) {
+        if (in_array((int)$id, $items)) {
             $items = array_diff($items, [(int)$id]);
-            $this->tour->similar = $items;
+            $this->tour->similar = array_filter($items);
             $this->tour->save();
         }
     }
@@ -55,7 +55,7 @@ class SimilarTours extends Component
         $items = $this->tour->similar ?? [];
         if (!in_array((int)$this->tourId, $items)) {
             $items[] = (int)$this->tourId;
-            $this->tour->similar = $items;
+            $this->tour->similar = array_filter($items);
             $this->tour->save();
         }
 

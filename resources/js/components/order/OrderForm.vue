@@ -261,7 +261,7 @@ export default {
             if (result.valid) {
                 if (currentStep.value === 1 && group_type.value === 0) {
                     await store.dispatch('orderTour/setParticipants');
-                    await store.dispatch('orderTour/setAccommodation');
+                    await store.dispatch('orderTour/resetAccommodation');
                 }
                 if (currentStep.value === 1 && group_type.value === 0 && additional.value === 0) {
                     await store.dispatch('orderTour/setStep', 3);

@@ -62,6 +62,7 @@ export default {
         app.component('order-transport-form', require('./order/OrderTransportForm').default);
 
         app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
+        app.component('places-accordion', require('./place/PlacesAccordion').default);
 
         app.component('staff-testimonial-form', require('./staff/StaffTestimonialForm').default);
 

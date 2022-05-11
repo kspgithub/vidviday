@@ -20,19 +20,7 @@
                               :options="$directions"
                               required></x-forms.select-group>
 
-
-        <x-forms.location-group
-            :city-id="old('city_id', $place->city_id)"
-            :city="$place->city"
-            :region-id="old('region_id', $place->region_id)"
-            :region="$place->region"
-            :regions="$regions"
-            :district-id="old('district_id', $place->district_id)"
-            :district="$place->district"
-            :districts="$districts"
-            :lat="old('lat', $place->lat)"
-            :lng="old('lng', $place->lng)"
-        ></x-forms.location-group>
+        <livewire:location-group :model="$place"/>
 
     </x-slot>
 </x-bootstrap.card>

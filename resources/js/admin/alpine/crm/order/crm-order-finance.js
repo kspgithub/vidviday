@@ -13,10 +13,30 @@ const DEFAULT_DISCOUNT = {
 
 export default (props) => ({
     order: props.order,
+    tour: props.tour ?? null,
+    schedules: [],
 
     // ORDER PRICE
     orderPrice: props.order.price || 0,
     editSumMode: false,
+
+    init() {
+        if (this.order.tour_id > 0) {
+            this.loadSchedules(false);
+        }
+    },
+
+    loadSchedules(clear = true) {
+        if (clear) {
+            this.order.schedule_id = null;
+        }
+
+        axios.get(`/api/tours/${this.order.tour_id}/all-schedules`)
+            .then((response) => {
+                this.schedules = response.data;
+            });
+    },
+
     editSum() {
         this.orderPrice = this.order.price;
         this.editSumMode = true;
@@ -104,10 +124,29 @@ export default (props) => ({
         this.discountIdx = null;
         this.discountData = {...DEFAULT_DISCOUNT}
     },
+    discountChanged() {
+        const id = this.discountData.id || 0;
+        const existsDiscount = this.tourDiscounts.find(d => d.id === id);
+        let value = 0;
+        if (existsDiscount) {
+            if (existsDiscount.type === 'percent' || existsDiscount.type === 1) {
+                value = (this.placePrice / 100) * existsDiscount.price;
+            } else {
+                value = existsDiscount.price;
+            }
+        }
+        const data = {
+            title: existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : '',
+            value: value,
+        }
+
+        this.discountData = {...this.discountData, ...data};
+        console.log(this.discountData)
+    },
     saveDiscount() {
         const id = this.discountData.id || 0;
         const existsDiscount = this.tourDiscounts.find(d => d.id === id)
-        const title = existsDiscount ? (existsDiscount.title.uk) : this.discountData.title;
+        const title = existsDiscount ? (existsDiscount.admin_title || existsDiscount.title.uk || existsDiscount.title) : this.discountData.title;
         const places = this.discountData.places || 1;
         let value = this.discountData.value;
 
@@ -147,6 +186,12 @@ export default (props) => ({
         })
     },
 
+    get selectedSchedule() {
+        return this.order.schedule_id > 0 ? this.schedules.find(it => it.id === this.order.schedule_id) : null;
+    },
+    get placePrice() {
+        return this.selectedSchedule ? this.selectedSchedule.price : (this.tour ? this.tour.price : 0);
+    },
     // ORDER PAYMENTS
     payments: props.order.payment_data || [],
     paymentIdx: null,

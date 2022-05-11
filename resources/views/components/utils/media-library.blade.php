@@ -1,3 +1,4 @@
+
 <div x-data='mediaLibrary({
         items: @json($items),
         collection: "{{$collection}}",
@@ -29,6 +30,7 @@
 
         <div class="media-sortable draggable-container" x-ref="sortableRef">
             <template x-for="(item, idx) in items">
+
                 <div class="media-item img-thumbnail" x-bind:id="'media-item-'+idx" x-bind:data-id="item.id"
                      x-bind:class="{error: !!item.error}">
                     <img x-bind:src="item.thumb" x-bind:alt="item.alt[locale] || ''"
@@ -36,6 +38,9 @@
                     <div x-show="item.loader" class="spinner-border text-warning" role="status"></div>
                     <template x-if="item.id">
                         <div>
+
+                            <x-forms.switch-group style="position: absolute; top: 0;bottom: 50%;left:0;right:0;margin:auto" name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
+
                             <a href="#" @click.prevent="deleteMediaItem(item)" class="delete-media-item">
                                 <i class="fas fa-times"></i>
                             </a>
@@ -55,10 +60,8 @@
                         </div>
                     </template>
 
-
                     <span class="error" x-show="item.error" x-text="item.error || ''"></span>
                 </div>
-
             </template>
         </div>
 

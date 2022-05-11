@@ -23,6 +23,9 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.food.*')}}"
        href="{{route('admin.tour.food.index', $tour)}}">@lang('Food')</a>
 
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.transport.*')}}"
+       href="{{route('admin.tour.transport.index', $tour)}}">@lang('Transport')</a>
+
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.accomm.*')}}"
        href="{{route('admin.tour.accomm.index', $tour)}}">@lang('Accommodation')</a>
 

@@ -5,8 +5,9 @@
     <x-slot name="body">
         <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $tour->published)"/>
 
-        <x-forms.locales :value="$tour->locales"/>
+        <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
+        <x-forms.locales :value="$tour->locales"/>
 
         <x-forms.translation-switch/>
 
@@ -29,10 +30,15 @@
                                   :value="old('text', $tour->getTranslations('text'))"
                                   required></x-forms.editor-loc-group>
 
+        <x-forms.select-group name="duration_format" :label="__('Format')" :value="old('duration_format', $tour->duration_format)"
+                              :options="$durationFormats" type="number"></x-forms.select-group>
+
         <x-forms.text-group name="duration" :label="__('Days')" :value="old('duration', $tour->duration)"
                             type="number" required></x-forms.text-group>
         <x-forms.text-group name="nights" :label="__('Nights')" :value="old('nights', $tour->nights)"
                             type="number" required></x-forms.text-group>
+        <x-forms.text-group name="time" :label="__('Time')" :value="old('time', $tour->time)"
+                            type="text"></x-forms.text-group>
         <x-forms.text-group name="price" :label="__('Price')" :value="old('price', $tour->price)" type="number"
                             required></x-forms.text-group>
         <x-forms.text-group name="commission" :label="__('Commission')"
@@ -42,18 +48,57 @@
 
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
+
+        @php
+            $main_image_alts = [];
+            $main_image_titles = [];
+            foreach (siteLocales() as $locale) {
+                $main_image_alts[$locale] = $tour->getFirstMedia('main')->custom_properties['alt_' . $locale] ?? '';
+                $main_image_titles[$locale] = $tour->getFirstMedia('main')->custom_properties['title_' . $locale] ?? '';
+            }
+        @endphp
         <x-forms.single-image-upload name="main_image"
                                      :value="$tour->getFirstMediaUrl('main')"
                                      :preview="$tour->getFirstMediaUrl('main')"
                                      help="1500х1000"
-                                     :label="__('Main Image')"/>
+                                     :label="__('Main Image')">
+            <slot>
+                <x-forms.translation-switch/>
+
+                <x-forms.text-loc-group name="main_image_alts" :label="__('Alt')"
+                                        :value="old('main_image_alts', $main_image_alts)"
+                                        maxlength="100"/>
+                <x-forms.text-loc-group name="main_image_titles" :label="__('Title')"
+                                        :value="old('main_image_titles', $main_image_titles)"
+                                        maxlength="100"/>
+            </slot>
+        </x-forms.single-image-upload>
+
+        @php
+            $mobile_image_alts = [];
+            $mobile_image_titles = [];
+            foreach (siteLocales() as $locale) {
+                $mobile_image_alts[$locale] = $tour->getFirstMedia('mobile')->custom_properties['alt_' . $locale] ?? '';
+                $mobile_image_titles[$locale] = $tour->getFirstMedia('mobile')->custom_properties['title_' . $locale] ?? '';
+            }
+        @endphp
         <x-forms.single-image-upload name="mobile_image"
                                      :value="$tour->getFirstMediaUrl('mobile')"
                                      :preview="$tour->getFirstMediaUrl('mobile')"
                                      :label="__('Mobile Image')"
                                      help="320x320"
-                                     imgstyle="height: 200px; width: 200px; object-fit: cover;"
-        />
+                                     imgstyle="height: 200px; width: 200px; object-fit: cover;">
+            <slot>
+                <x-forms.translation-switch/>
+
+                <x-forms.text-loc-group name="mobile_image_alts" :label="__('Alt')"
+                                        :value="old('mobile_image_alts', $mobile_image_alts)"
+                                        maxlength="100"/>
+                <x-forms.text-loc-group name="mobile_image_titles" :label="__('Title')"
+                                        :value="old('mobile_image_titles', $mobile_image_titles)"
+                                        maxlength="100"/>
+            </slot>
+        </x-forms.single-image-upload>
 
         <x-forms.text-group name="video"
                             type="url"
@@ -126,11 +171,11 @@
                            :options="$types">
         </x-forms.tag-group>
 
-        <x-forms.tag-group name="subjects[]"
-                           :label="__('Subjects')"
-                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"
-                           :options="$subjects">
-        </x-forms.tag-group>
+{{--        <x-forms.tag-group name="subjects[]"--}}
+{{--                           :label="__('Subjects')"--}}
+{{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
+{{--                           :options="$subjects">--}}
+{{--        </x-forms.tag-group>--}}
     </x-slot>
 </x-bootstrap.card>
 
@@ -172,4 +217,4 @@
     </x-slot>
 </x-bootstrap.card>
 
-
+@include('admin.tour.includes.tour-plan')

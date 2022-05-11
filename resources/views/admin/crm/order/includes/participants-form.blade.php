@@ -1,7 +1,9 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h3 class="mb-3"><strong>Учасники туру</strong></h3>
-        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"/>
+        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"
+                            x-mask="+38 (999) 999-99-99" placeholder="+38 (___) ___-__-__"/>
+
         <x-forms.switch-group id="cust-part"
                               x-model="isCustomerParticipant"
                               label="Замовник є учасником туру"
@@ -23,18 +25,23 @@
                     <tr>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.last_name"
+                                   :name="`participants[items][0][last_name]`"
                                    readonly>
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.first_name"
+                                   :name="`participants[items][0][first_name]`"
                                    readonly>
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.middle_name"
+                                   :name="`participants[items][0][middle_name]`"
                                    readonly>
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.birthday"
+                                   :name="`participants[items][0][birthday]`"
+                                   x-datepicker
                                    readonly>
 
                         </td>
@@ -42,34 +49,36 @@
                     </tr>
                 </template>
                 <template x-for="(participant, idx) in participants">
-                    <tr>
-                        <td>
-                            <input type="text" :name="`participants[items][${idx}][last_name]`"
-                                   class="form-control form-control-sm"
-                                   x-model="participant.last_name">
-                        </td>
-                        <td>
-                            <input type="text" :name="`participants[items][${idx}][first_name]`"
-                                   class="form-control form-control-sm"
-                                   x-model="participant.first_name">
-                        </td>
-                        <td>
-                            <input type="text" :name="`participants[items][${idx}][middle_name]`"
-                                   class="form-control form-control-sm"
-                                   x-model="participant.middle_name">
-                        </td>
-                        <td>
-                            <input type="date" :name="`participants[items][${idx}][birthday]`"
-                                   class="form-control form-control-sm"
-                                   x-model="participant.birthday">
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-outline-danger"
-                               @click.prevent="removeParticipant(idx)">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <template x-if="!(idx == 0 && isCustomerParticipant)">
+                        <tr>
+                            <td>
+                                <input type="text" :name="`participants[items][${idx}][last_name]`"
+                                       class="form-control form-control-sm"
+                                       x-model="participant.last_name">
+                            </td>
+                            <td>
+                                <input type="text" :name="`participants[items][${idx}][first_name]`"
+                                       class="form-control form-control-sm"
+                                       x-model="participant.first_name">
+                            </td>
+                            <td>
+                                <input type="text" :name="`participants[items][${idx}][middle_name]`"
+                                       class="form-control form-control-sm"
+                                       x-model="participant.middle_name">
+                            </td>
+                            <td>
+                                <input type="text" :name="`participants[items][${idx}][birthday]`"
+                                       class="form-control form-control-sm"
+                                       x-datepicker x-model="participant.birthday">
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-danger"
+                                   @click.prevent="removeParticipant(idx)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </template>
                 </template>
                 <tr>
                     <td class="border-0 pt-4">
@@ -85,9 +94,8 @@
                                placeholder="По батькові">
                     </td>
                     <td class="border-0 pt-4">
-                        <input class="form-control form-control-sm" type="date"
-                               x-model="participantData.birthday"
-                               autocomplete="off"
+                        <input class="form-control form-control-sm" type="text" x-model="participantData.birthday"
+                               x-datepicker autocomplete="off"
                         />
 
                     </td>

@@ -11,9 +11,12 @@
             <x-forms.editor-loc-group name="description" :label="__('Description')"
                                       :value="old('description', $model->getTranslations('description'))"/>
 
-            <x-forms.text-group name="lat" :label="__('Latitude')" :value="old('lat', $model->lat)" required/>
-            <x-forms.text-group name="lng" :label="__('Longitude')" :value="old('lng', $model->lng)" required/>
-            
+
+            <livewire:location-group :model="$model"/>
+
+{{--            <x-forms.text-group name="lat" :label="__('Latitude')" :value="old('lat', $model->lat)" required/>--}}
+{{--            <x-forms.text-group name="lng" :label="__('Longitude')" :value="old('lng', $model->lng)" required/>--}}
+
             <x-forms.switch-group name="published" :label="__('Published')" :active="$model->published"/>
         </x-slot>
 

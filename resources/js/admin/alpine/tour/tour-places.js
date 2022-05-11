@@ -2,7 +2,15 @@ export default (options) => ({
     value: options.value,
     init() {
         const self = this;
-        jQuery(this.$refs.input).select2({
+        jQuery(this.$refs.inputRegion).select2({
+            theme: 'bootstrap-5',
+        })
+
+        jQuery(this.$refs.inputDistrict).select2({
+            theme: 'bootstrap-5',
+        })
+
+        jQuery(this.$refs.inputPlace).select2({
             theme: 'bootstrap-5',
             ajax: {
                 url: '/api/places/select-box',
@@ -19,7 +27,13 @@ export default (options) => ({
             }
 
         });
-        jQuery(this.$refs.input).on('select2:select', (e) => {
+        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
+            this.value = e.params.data.id;
+        })
+        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
+            this.value = e.params.data.id;
+        })
+        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
             this.value = e.params.data.id;
         })
     },

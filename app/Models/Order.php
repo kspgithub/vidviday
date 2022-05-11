@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\OrderAttribute;
+use App\Models\Traits\Methods\OrderMethods;
 use App\Models\Traits\Relationship\OrderRelationship;
 use App\Models\Traits\Scope\OrderScope;
 use App\Models\Traits\UseOrderConstants;
@@ -21,17 +22,36 @@ class Order extends TranslatableModel implements Auditable
     use OrderScope;
     use SoftDeletes;
     use AuditableTrait;
-
+    use OrderMethods;
 
     protected static function boot()
     {
         parent::boot();
 
-        self::created(function ($model) {
+        self::creating(function (Order $order) {
+            $order->price = $order->price ?: 0;
+            $order->commission = $order->commission ?: 0;
+        });
+
+        self::created(function (Order $order) {
             self::disableAuditing();
-            $model->order_number = Str::padLeft($model->id, 5, '0');
-            $model->save();
+            $order->order_number = Str::padLeft($order->id, 5, '0');
+            $order->save();
             self::enableAuditing();
+        });
+
+        self::updating(function (Order $order) {
+            $forbiddenStatuses = [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED];
+            if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded() && in_array($order->status, $forbiddenStatuses)) {
+                $status = in_array($order->getOriginal('status'), $forbiddenStatuses) ? Order::STATUS_RESERVE : $order->getOriginal('status');
+                $order->status = $status;
+            }
+            if($order->payment_get > 0 && $order->payment_get < $order->total_price){
+                $order->status = Order::STATUS_DEPOSIT;
+            }
+            if($order->payment_get <= 0){
+                $order->status = Order::STATUS_PAYED;
+            }
         });
     }
 
@@ -46,7 +66,6 @@ class Order extends TranslatableModel implements Auditable
     public const STATUS_CANCELED = 'canceled'; // Скасовано
     public const STATUS_COMPLETED = 'completed'; // Виконано
 
-
     public const CONFIRMATION_EMAIL = 1;
     public const CONFIRMATION_VIBER = 2;
     public const CONFIRMATION_PHONE = 3;
@@ -58,12 +77,12 @@ class Order extends TranslatableModel implements Auditable
     public const PAYMENT_COMPLETE = 1;
     public const PAYMENT_RETURNED = 2;
 
-
     public const PROGRAM_EXISTS = 0;
     public const PROGRAM_CUSTOM = 1;
 
     protected $fillable = [
         'user_id',
+        'contact_id',
         'tour_id',
         'schedule_id',
         'status',
@@ -122,6 +141,7 @@ class Order extends TranslatableModel implements Auditable
         'utm_data',
         'payment_data',
         'auto',
+        'is_tourist',
     ];
 
     protected $casts = [
@@ -144,7 +164,7 @@ class Order extends TranslatableModel implements Auditable
         'start_date' => 'date:d.m.Y',
         'end_date' => 'date:d.m.Y',
         'offer_date' => 'date:d.m.Y',
-        'birthday' => 'date:Y-m-d',
+        'birthday' => 'date:d.m.Y',
         'is_tour_agent' => 'boolean',
         'agency_data' => 'array',
         'utm_data' => 'array',
@@ -177,34 +197,4 @@ class Order extends TranslatableModel implements Auditable
         'agency_data',
         'utm_data',
     ];
-
-
-    public function getParticipantsComment()
-    {
-        $data = $this->participants;
-        $comment = '';
-        if (!empty($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $part = trim($item['last_name'] . ' ' . $item['first_name'] . ' ' . $item['middle_name'] . ' ' . $item['birthday']);
-                if (!empty($part)) {
-                    $comment .= "$part\n";
-                }
-            }
-            $comment .= "\n";
-        }
-
-        if (!empty($data['participant_phone'])) {
-            $phone = $data['participant_phone'];
-
-            $comment .= "Телефон одного з учасників: $phone\n";
-        }
-        return trim($comment);
-    }
-
-    public function cancel($data)
-    {
-        $this->abolition = $data;
-        $this->status = self::STATUS_PENDING_CANCEL;
-        $this->save();
-    }
 }

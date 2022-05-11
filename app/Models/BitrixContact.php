@@ -69,35 +69,13 @@ class BitrixContact extends Model
 
     public function orders()
     {
-        $phones = collect(array_values($this->phone))->map(fn ($p) => clear_phone($p, false))->unique()->all();
-        $emails = collect(array_values($this->email))->unique()->all();
-        $rawQuery = [];
-        foreach ($phones as $phone) {
-            if (!empty($phone)) {
-                $rawQuery[] = "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(phone, '-', ''), ')', ''), '(', ''), ' ', ''), '+', '') LIKE '$phone'";
-            }
-        }
-
-        foreach ($emails as $email) {
-            if (!empty($email)) {
-                $rawQuery[] = "email LIKE '$email'";
-            }
-        }
-
-        if (!empty($rawQuery)) {
-            return Order::query()->whereRaw('(' . implode(' OR ', $rawQuery) . ')');
-        }
-        return null;
+        return $this->hasMany(Order::class, 'contact_id');
     }
 
-    public function getOrdersAttribute()
-    {
-        return $this->orders() !== null ? $this->orders()->get() : collect();
-    }
 
     public function getOrdersCountAttribute()
     {
-        return $this->orders() !== null ? $this->orders()->count() : 0;
+        return $this->orders()->count();
     }
 
     public function getFullNameAttribute()

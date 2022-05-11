@@ -25,6 +25,9 @@
             :region-id="$accommodation->region_id"
             :region="$accommodation->region"
             :regions="$regions"
+            :country-id="$accommodation->country_id"
+            :country="$accommodation->country"
+            :countries="$countries"
             :map="false"
         ></x-forms.location-group>
 

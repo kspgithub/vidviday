@@ -27,14 +27,14 @@
                 </select>
             </div>
         @endif
-        <div class="col-auto">
+        <div class="col-auto max-300px">
             <select x-model="tour_id"
                     class="form-control form-control-sm"
                     @change.debounce="filterChange()"
             >
                 <option value="0">Тур</option>
                 @foreach($tours as $tour)
-                    <option value="{{$tour['value']}}">{{$tour['text']}}</option>
+                    <option value="{{$tour['value']}}">{{html_entity_decode($tour['text'])}}</option>
                 @endforeach
             </select>
         </div>

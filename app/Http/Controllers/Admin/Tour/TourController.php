@@ -84,6 +84,46 @@ class TourController extends Controller
         //
         $tour = $this->service->store($request->validated());
 
+        if ($main_image_alts = $request->get('main_image_alts')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($main_image_titles = $request->get('main_image_titles')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_alts = $request->get('mobile_image_alts')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_titles = $request->get('mobile_image_titles')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
         return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Record Created'));
     }
 
@@ -102,6 +142,7 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         //
+        $tour->append(['plan']);
         $currencies = Currency::toSelectBox('iso', 'iso');
         $badges = Badge::all();
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
@@ -110,6 +151,10 @@ class TourController extends Controller
         $types = TourType::toSelectBox();
         $subjects = TourSubject::toSelectBox();
         $directions = Direction::toSelectBox();
+        $durationFormats = [
+            ['value' => Tour::FORMAT_DAYS, 'text' => __('Дні / Ночі')],
+            ['value' => Tour::FORMAT_TIME, 'text' => __('Час')],
+        ];
 
         return view('admin.tour.edit', [
             'tour' => $tour,
@@ -121,6 +166,7 @@ class TourController extends Controller
             'types' => $types,
             'subjects' => $subjects,
             'directions' => $directions,
+            'durationFormats' => $durationFormats,
         ]);
     }
 
@@ -136,6 +182,46 @@ class TourController extends Controller
     {
         //
         $this->service->update($tour, $request->validated());
+
+        if ($main_image_alts = $request->get('main_image_alts')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($main_image_titles = $request->get('main_image_titles')) {
+            $media = $tour->getFirstMedia('main');
+            if ($media) {
+                foreach ($main_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_alts = $request->get('mobile_image_alts')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_alts as $locale => $alt) {
+                    $media->setCustomProperty('alt_' . $locale, $alt);
+                }
+                $media->save();
+            }
+        }
+
+        if ($mobile_image_titles = $request->get('mobile_image_titles')) {
+            $media = $tour->getFirstMedia('mobile');
+            if ($media) {
+                foreach ($mobile_image_titles as $locale => $title) {
+                    $media->setCustomProperty('title_' . $locale, $title);
+                }
+                $media->save();
+            }
+        }
 
         return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Record Updated'));
     }

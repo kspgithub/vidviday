@@ -11,6 +11,7 @@ use App\Models\Tour;
 use App\Models\TourFood;
 use App\Models\TourPlan;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,10 +48,19 @@ class TourFoodTable extends Component
 
     public $time_id = 1;
 
+    public $text_uk = '';
+    public $text_ru = '';
+    public $text_en = '';
+    public $text_pl = '';
+
 
     protected function getRules()
     {
         return [
+            'text_uk' => ['nullable'],
+            'text_ru' => ['nullable'],
+            'text_en' => ['nullable'],
+            'text_pl' => ['nullable'],
             'day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
             'region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
             'food_id' => ['required', 'integer', Rule::exists('food', 'id')],
@@ -88,9 +98,9 @@ class TourFoodTable extends Component
     }
 
     /**
-     * @return Builder
+     * @return Builder|Relation
      */
-    public function query(): Builder
+    public function query(): Builder|Relation
     {
         return TourFood::query()->where('tour_id', $this->tour->id)
             ->with(['time', 'food'])
@@ -99,14 +109,17 @@ class TourFoodTable extends Component
 
     public function afterModelInit()
     {
+        $this->getTranslations('text');
         $this->day = $this->model->day ?? 1;
         $this->food_id = $this->model->food_id ?? 0;
         $this->time_id = $this->model->time_id ?? 1;
+        $this->region_id = $this->model->food->region_id ?? 0;
     }
 
     public function beforeSaveItem()
     {
         $this->model->tour_id = $this->tour->id;
+        $this->setTranslations('text');
         $this->model->day = $this->day;
         $this->model->time_id = $this->time_id;
         $this->model->food_id = $this->food_id;

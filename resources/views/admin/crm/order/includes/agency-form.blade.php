@@ -10,7 +10,7 @@
                 <input type="hidden" name="is_tour_agent" :value="order.is_tour_agent ? 1 : 0">
             </div>
         </div>
-        <div x-cloak x-show="order.is_tour_agent" class="mt-3">
+        <div x-cloak x-show="order.is_tour_agent" x-transition class="mt-3">
             <x-forms.text-group x-model="agency.title" name="agency_data[title]" label="Назва"/>
             <x-forms.text-group x-model="agency.affiliate" name="agency_data[affiliate]" label="Філія"/>
             <x-forms.text-group x-model="agency.manager_name" name="agency_data[manager_name]" label="Менеджер"/>

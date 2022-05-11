@@ -72,7 +72,7 @@ class ToursController extends Controller
     {
         $q = $request->input('q', '');
 
-        $query = Tour::autocomplete($q);
+        $query = Tour::search()->autocomplete($q);
         $relations = $request->input('relations', []);
         $attributes = $request->input('attributes', []);
 

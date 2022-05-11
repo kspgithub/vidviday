@@ -33,7 +33,7 @@ class LangDropdown extends Component
             foreach ($locales as $locale) {
                 $allParams = array_merge($params, ['lang' => $locale]);
                 $url = $path . '?' . Arr::query($allParams);
-                $localeLinks[$locale] = $url;
+                $localeLinks[$locale] = url($url);
             }
         }
         $this->localeLinks = $localeLinks;

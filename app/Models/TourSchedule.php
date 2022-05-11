@@ -37,6 +37,7 @@ class TourSchedule extends Model
         'start_date',
         'end_date',
         'places',
+        'places_yesterday',
         'price',
         'commission',
         'accomm_price',
@@ -51,6 +52,7 @@ class TourSchedule extends Model
         'admin_comment',
         'auto_booking',
         'auto_limit',
+        'places_yd_updated_at',
     ];
 
     protected $casts = [
@@ -63,7 +65,6 @@ class TourSchedule extends Model
         'end_date' => 'date:d.m.Y',
     ];
 
-
     protected $appends = [
         'title',
         'start_title',
@@ -72,7 +73,6 @@ class TourSchedule extends Model
         'places_reserved',
         'places_payed',
         'places_new',
-        'places_yesterday',
     ];
 
     protected $dates = [
@@ -95,6 +95,21 @@ class TourSchedule extends Model
         'auto_limit',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::updating(function (self $model) {
+            if ($model->isDirty(['price', 'accomm_price'])) {
+                foreach ($model->orders as $order) {
+                    if ($order->group_type === 0) {
+                        $order->recalculatePrice();
+                    }
+                }
+            }
+        });
+    }
+
     /**
      * Тур
      *
@@ -115,5 +130,9 @@ class TourSchedule extends Model
         return $this->hasMany(Order::class, 'schedule_id');
     }
 
+    public function currencyModel()
+    {
+        return $this->belongsTo(Currency::class, 'currency', 'iso');
+    }
 
 }

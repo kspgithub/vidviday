@@ -43,6 +43,7 @@ class Media extends SpatieMedia
             'thumb' => $this->getUrl('thumb'),
             'alt' => $alts,
             'title' => $titles,
+            'published' => $this->getCustomProperty('published'),
         ];
     }
 
@@ -53,11 +54,11 @@ class Media extends SpatieMedia
 
     public function getTitleAttribute()
     {
-        return $this->getCustomProperty('alt_' . app()->getLocale()) ?? $this->getCustomProperty('alt_uk');
+        return $this->getCustomProperty('title_' . app()->getLocale()) ?? $this->getCustomProperty('title_uk');
     }
 
     public function getAltAttribute()
     {
-        return $this->getCustomProperty('title_' . app()->getLocale()) ?? $this->getCustomProperty('title_uk');
+        return $this->getCustomProperty('alt_' . app()->getLocale()) ?? $this->getCustomProperty('alt_uk');
     }
 }

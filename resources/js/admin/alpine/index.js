@@ -5,6 +5,8 @@ import mediaLibrary from './form/media-library';
 import tiny from './form/tiny';
 import singleFileUpload from './form/single-file-upload';
 import tourPlaces from './tour/tour-places';
+import tourTickets from './tour/tour-tickets';
+import tourFood from './tour/tour-food';
 import tourSchedules from './tour/tour-schedules';
 import tourFinance from './tour/tour-finance';
 import tourLanding from './tour/tour-landing';
@@ -31,20 +33,32 @@ import crmOrderAdditional from './crm/order/crm-order-additional';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
 import user from './crm/user';
 import placeList from './place/place-list';
+
 import storeEmail from './stores/store-email';
 import storeUser from './stores/store-user';
 
-document.addEventListener('alpine:init', () => {
+import mask from './directives/mask';
+import datepicker from "./directives/datepicker";
 
+
+document.addEventListener('alpine:init', () => {
+    // Directives
+    Alpine.directive('datepicker', datepicker);
+    Alpine.directive('mask', mask);
+
+    // Stores
     Alpine.store('crmEmail', storeEmail);
     Alpine.store('crmUser', storeUser);
 
+    // Components
     Alpine.data('translatable', translatable);
     Alpine.data('translations', translations);
     Alpine.data('publishable', publishable);
     Alpine.data('tiny', tiny);
     Alpine.data('singleFileUpload', singleFileUpload);
     Alpine.data('tourPlaces', tourPlaces);
+    Alpine.data('tourTickets', tourTickets);
+    Alpine.data('tourFood', tourFood);
     Alpine.data('tourSchedules', tourSchedules);
     Alpine.data('tourLanding', tourLanding);
     Alpine.data('menuEditor', menuEditor);

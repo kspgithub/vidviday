@@ -8,6 +8,7 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -80,6 +81,43 @@ class TourGroup extends TranslatableModel implements HasMedia
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    protected function generateNonUniqueSlug(): string
+    {
+        $slugField = $this->slugOptions->slugField;
+        $slugString = $this->getSlugSourceString();
+
+        $slug = $this->getTranslations($slugField)[$this->getLocale()] ?? null;
+
+        $hasCustomSlug = $this->hasCustomSlugBeenUsed() && ! empty($slug);
+        $hasNonChangedCustomSlug = ! $this->slugIsBasedOnTitle() && ! empty($slug);
+
+        if ($hasCustomSlug || $hasNonChangedCustomSlug) {
+            $slugString = $slug;
+
+            $slugString = Str::replace(' ', $this->slugOptions->slugSeparator, $slugString);
+
+            // Split slug by uppercase chars
+            $parts = preg_split('/(?=[A-Z])/',$slugString);
+
+            if(count($parts) > 1) {
+                $resultSlug = '';
+
+                foreach ($parts as $part) {
+                    $firstLetter = mb_substr($part, 0, 1);
+                    $lastLetter = mb_substr($part, -1);
+                    $word = substr($part, 1);
+                    $resultSlug .= $firstLetter
+                        . Str::slug($word, $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage)
+                        . (in_array($lastLetter, ['-', '_']) ? $lastLetter : '');
+                }
+            }
+
+            return $slugString;
+        }
+
+        return Str::slug($slugString, $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage);
     }
 
     public function getUrlAttribute()

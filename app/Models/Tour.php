@@ -40,6 +40,9 @@ class Tour extends TranslatableModel implements HasMedia
     use UseSelectBox;
     use JsonLikeScope;
 
+    const FORMAT_DAYS = 0;
+    const FORMAT_TIME = 1;
+
     public $translatable = [
         'title',
         'slug',
@@ -81,6 +84,9 @@ class Tour extends TranslatableModel implements HasMedia
         'hutsul_fun_text',
         'contact',
         'locales',
+        'show_map',
+        'duration_format',
+        'time',
     ];
 
     protected $casts = [
@@ -123,9 +129,17 @@ class Tour extends TranslatableModel implements HasMedia
             }
         });
 
-        self::updating(function ($model) {
+        self::updating(function (self $model) {
             if (empty($model->short_text)) {
                 $model->short_text = Str::limit(strip_tags($model->text), 500);
+            }
+
+            if ($model->isDirty(['price', 'accomm_price'])) {
+                foreach ($model->orders as $order) {
+                    if ($order->group_type === 0) {
+                        $order->recalculatePrice();
+                    }
+                }
             }
         });
     }
@@ -178,10 +192,10 @@ class Tour extends TranslatableModel implements HasMedia
                 $locales = siteLocales();
                 foreach ($locales as $locale) {
                     if ($first) {
-                        $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->where(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                         $first = false;
                     } else {
-                        $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
+                        $sq->orWhere(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
                     }
                 }
             });

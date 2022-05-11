@@ -3,9 +3,11 @@
 namespace App\Models\Traits\Relationship;
 
 use App\Models\Badge;
+use App\Models\Currency;
 use App\Models\Direction;
 use App\Models\Discount;
 use App\Models\LandingPlace;
+use App\Models\Order;
 use App\Models\Place;
 use App\Models\PriceItem;
 use App\Models\Staff;
@@ -17,11 +19,14 @@ use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
+use App\Models\TourLanding;
 use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
+use App\Models\TourTransport;
 use App\Models\TourType;
+use App\Models\Transport;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -251,5 +256,41 @@ trait TourRelationship
     {
         return $this->belongsToMany(LandingPlace::class, 'tours_landings', 'tour_id', 'landing_id')
             ->orderByPivot('position');
+    }
+
+    /**
+     * Места посадки
+     *
+     * @return HasMany
+     */
+    public function tourLandings()
+    {
+        return $this->hasMany(TourLanding::class)->orderBy('position');
+    }
+
+    /**
+     * Замовлення
+     *
+     * @return HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function tourTransports()
+    {
+        return $this->hasMany(TourTransport::class);
+    }
+
+    public function transports()
+    {
+        return $this->belongsToMany(Transport::class, 'tour_transports', 'tour_id', 'transport_id')
+            ->orderByPivot('position');
+    }
+
+    public function currencyModel()
+    {
+        return $this->belongsTo(Currency::class, 'currency', 'iso');
     }
 }

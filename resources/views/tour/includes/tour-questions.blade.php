@@ -6,7 +6,7 @@
     <div class="accordion-inner">
         <div class="accordion type-2">
             <div class="accordion-item">
-                <div class="accordion-title">Загальні питання<i></i></div>
+                <div class="accordion-title">@lang('tours-section.faq.section-common-questions')<i></i></div>
                 <div class="accordion-inner">
                     <div class="accordion type-3">
                         @foreach($faq_items as $faq_item)
@@ -24,7 +24,7 @@
             </div>
 
             <div class="accordion-item">
-                <div class="accordion-title">Питання щодо туру<i></i></div>
+                <div class="accordion-title">@lang('tours-section.faq.section-tour-questions')<i></i></div>
                 <div class="accordion-inner">
                     <div class="accordion type-3">
                         @foreach($tour->faq as $faq_item)
@@ -43,7 +43,7 @@
             </div>
 
             <div class="accordion-item">
-                <div class="accordion-title">Задати питання<i></i></div>
+                <div class="accordion-title">@lang('tours-section.faq.section-ask-question')<i></i></div>
                 <div class="accordion-inner">
                     <form action="{{route('tour.question', $tour->id)}}" class="row" method="POST"
                           v-is="'tour-question-form'">

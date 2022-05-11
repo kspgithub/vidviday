@@ -1,6 +1,7 @@
 <div class="card" x-data='crmOrderFinance({
 order: @json($order),
 discounts: @json($discounts),
+tour: @json($order->tour),
 })'>
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">

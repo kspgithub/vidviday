@@ -21,7 +21,7 @@
                     <!-- BANNER TABS -->
                 @include('tour.includes.banner-tabs', [
                     'tour'=>$tour,
-                    'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('pictures') : $tour->getMedia('main'))
+                    'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('main')->merge($tour->getMedia('pictures')) : $tour->getMedia('main'))
                 ])
                 <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
@@ -84,6 +84,7 @@
                                 @include('tour.includes.tour-tickets')
 
                                 @include('tour.includes.tour-fun')
+                                @include('tour.includes.tour-transport')
                                 @include('tour.includes.tour-residence')
                                 @include('tour.includes.tour-food')
                                 @include('tour.includes.tour-calc')

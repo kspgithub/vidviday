@@ -2,6 +2,7 @@
     <x-forms.translation-switch/>
 
     <x-forms.select-group :label="__('Час')" name="time_id" :value="$model->time_id" :options="$foodTimes"/>
+    <x-forms.select-group :label="__('Країна')" name="country_id" :value="$model->country_id" :options="$countries"/>
     <x-forms.select-group :label="__('Область')" name="region_id" :value="$model->region_id" :options="$regions"/>
 
     <x-forms.text-loc-group name="title" :label="__('Title')"

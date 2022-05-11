@@ -69,7 +69,7 @@
                                         :value="old('mobile_phone') ?? $user->mobile_phone"
                                         maxlength="100"></x-forms.text-group>
 
-                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')"
+                    <x-forms.datepicker-group name="birthday" :label="__('Date of Birth')" format="d.m.Y"
                                               :value="old('birthday') ?? $user->birthday" maxlength="100"/>
 
                     <template x-if="role === 'tour-agent'">

@@ -39,6 +39,7 @@ class Accommodation extends TranslatableModel implements HasMedia
         'title',
         //'title_where',
         'text',
+        'country_id',
         'region_id',
         'city_id',
         'slug',
@@ -62,6 +63,11 @@ class Accommodation extends TranslatableModel implements HasMedia
             ->generateSlugsFrom(['title'])
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 
     public function region()

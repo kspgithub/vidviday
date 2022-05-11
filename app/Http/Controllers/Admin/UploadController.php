@@ -50,6 +50,9 @@ class UploadController extends Controller
         if ($request->has('alt')) {
             $media->setCustomProperty('alt_' . $locale, $request->input('alt', ''));
         }
+        if ($request->has('published')) {
+            $media->setCustomProperty('published', $request->input('published', !$media->getCustomProperty('published', false)));
+        }
         $media->save();
 
         return response()->json(['result' => 'success', 'media' => $media->asAlpineData()]);

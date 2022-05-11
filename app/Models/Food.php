@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -23,6 +24,7 @@ class Food extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
+    use JsonLikeScope;
 
 
     public $translatable = [
@@ -32,6 +34,7 @@ class Food extends TranslatableModel implements HasMedia
 
     protected $fillable = [
         'time_id',
+        'country_id',
         'region_id',
         'title',
         'text',
@@ -76,6 +79,11 @@ class Food extends TranslatableModel implements HasMedia
             ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
                 return [$value_key => $item->{$value_field}, $text_key => $item->title . ', ' . $item->price . $item->currency];
             });
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     public function region()

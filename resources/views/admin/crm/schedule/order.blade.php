@@ -14,6 +14,8 @@
         <h2 class="text-muted">{{$tour->title}}, {{$schedule->start_title}}</h2>
     </div>
 
-    @include('admin.crm.order.card')
+    @include('admin.crm.order.includes.form')
+    @include('admin.crm.order.includes.audit')
+{{--    @include('admin.crm.order.card')--}}
 
 @endsection

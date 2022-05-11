@@ -4,6 +4,10 @@
             <x-livewire-tables::bs5.table.heading />
         @endif
 
+        @php
+            $bulkActions = isset($bulkActions) ? ($bulkActions ?: []) : [];
+        @endphp
+
         @if ($bulkActionsEnabled && count($bulkActions))
             <x-livewire-tables::bs5.table.heading>
                 <input

@@ -8,7 +8,7 @@ export default (schedule) => ({
 
     },
     get placesAvailable() {
-        return schedule.places - schedule.places_booked;
+        return Math.max(schedule.places - schedule.places_booked, 0);
     },
     get scheduleUrl() {
         return `/admin/crm/schedules/${this.schedule.id}`;

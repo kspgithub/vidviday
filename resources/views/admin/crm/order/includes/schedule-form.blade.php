@@ -13,7 +13,7 @@
                 </select>
             </div>
         </div><!--form-group-->
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Тур <span class="text-danger">*</span></div>
             <div class="col-md-10">
                 <select name="tour_id" x-model.number="order.tour_id" id="tourSelectBox" class="form-control"
@@ -36,7 +36,7 @@
                 </template>
             </div>
         </div>
-        <div class="row mb-3 align-items-center">
+        <div class="form-group row mb-3 align-items-center">
             <div class="col-md-2 col-form-label">Дата виїзду <span class="text-danger">*</span></div>
             <div class="col-md-10">
 
@@ -61,7 +61,7 @@
 
         </div>
         <x-forms.text-group type="number" x-model.number="order.places" name="places" label="Дорослих" required/>
-        <div class="row mb-3 align-items-center">
+        <div class="form-group row mb-3 align-items-center">
             <div class="col-md-2 col-form-label">З дітьми</div>
             <div class="col-md-3">
                 <x-input.switch id="children" x-model="order.children"/>
@@ -69,7 +69,7 @@
             </div>
         </div>
         <template x-if="order.children">
-            <div class="row mb-3 align-items-center">
+            <div class="form-group row mb-3 align-items-center">
                 <div class="col-md-2 col-form-label">Діти до 6 років<span
                         class="text-danger">*</span></div>
                 <div class="col-md-3">
@@ -80,7 +80,7 @@
             </div>
         </template>
         <template x-if="order.children">
-            <div class="row mb-3 align-items-center">
+            <div class="form-group row mb-3 align-items-center">
                 <div class="col-md-2 col-form-label">Діти до 6 років <span
                         class="text-danger">*</span></div>
                 <div class="col-md-3">

@@ -176,6 +176,11 @@ class TourService extends BaseService
                 $directions = array_filter($params['directions']);
                 $tour->directions()->sync($directions);
             }
+
+            if (array_key_exists('plan', $params)) {
+                $plan = array_filter($params['plan']);
+                $tour->planItems()->updateOrCreate(['tour_id' => $tour->id], $plan);
+            }
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());

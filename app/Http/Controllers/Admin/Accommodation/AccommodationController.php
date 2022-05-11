@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Accommodation;
 
 use App\Http\Controllers\Controller;
 use App\Models\Accommodation;
+use App\Models\Country;
 use App\Models\Region;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -31,12 +32,14 @@ class AccommodationController extends Controller
      */
     public function create()
     {
+        $countries = Country::toSelectBox('title', 'id');
         $regions = Region::toSelectBox('title', 'id');
         $accommodation = new Accommodation();
 
         return view('admin.accommodation.create', [
             'accommodation' => $accommodation,
-            "regions" => $regions
+            "countries" => $countries,
+            "regions" => $regions,
         ]);
     }
 
@@ -56,6 +59,7 @@ class AccommodationController extends Controller
 //            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
+            'country_id' => ['nullable', 'integer'],
             'region_id' => ['nullable', 'integer'],
             'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
@@ -76,9 +80,12 @@ class AccommodationController extends Controller
      */
     public function edit(Accommodation $accommodation)
     {
+        $countries = Country::toSelectBox('title', 'id');
         $regions = Region::toSelectBox('title', 'id');
+
         return view('admin.accommodation.edit', [
             'accommodation' => $accommodation,
+            "countries" => $countries,
             "regions" => $regions
         ]);
     }
@@ -99,6 +106,7 @@ class AccommodationController extends Controller
 //            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
+            'country_id' => ['nullable', 'integer'],
             'region_id' => ['nullable', 'integer'],
             'city_id' => ['nullable', 'integer'],
             'published' => ['nullable', 'integer', Rule::in([0, 1])],

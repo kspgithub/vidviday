@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CalendarController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PlacesController;
+use App\Http\Controllers\Api\TicketsController;
 use App\Http\Controllers\Api\ToursController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -60,6 +61,16 @@ Route::group([
 ], function () {
 
     Route::get('select-box', [PlacesController::class, 'selectBox'])->name('select-box');
+    Route::get('find', [PlacesController::class, 'show'])->name('show');
+
+});
+
+Route::group([
+    'as' => 'tickets.',
+    'prefix' => 'tickets',
+], function () {
+
+    Route::get('select-box', [TicketsController::class, 'selectBox'])->name('select-box');
 
 });
 

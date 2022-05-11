@@ -1,4 +1,6 @@
 @props([
+    'countryId'=>0,
+    'country'=>null,
     'regionId'=>0,
     'region'=>null,
     'districtId'=>0,
@@ -11,11 +13,20 @@
     'lngName'=>'lng',
     'required'=>false,
     'map'=>true,
+    'countries'=>[],
     'regions'=>[],
     'districts'=>[],
 ])
 
 <div class="location-group {{$map ? '' : 'no-map'}}">
+    @if(count($countries) > 0)
+        <x-forms.select-group name="country_id" :label="__('Country')"
+                              :value="old('country_id', $countryId)"
+                              :options="$countries"
+                              required>
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+    @endif
     @if(count($regions) > 0)
         <x-forms.select-group name="region_id" :label="__('Region')"
                               :value="old('region_id', $regionId)"

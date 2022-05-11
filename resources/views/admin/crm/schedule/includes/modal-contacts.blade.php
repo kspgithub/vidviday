@@ -18,7 +18,7 @@
                     <x-forms.text-group x-model="selectedOrder.middle_name" name="middle_name" label="По батькові"
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group x-model="selectedOrder.birthday" name="birthday" label="Дата народження"
-                                        type="date" label-col="col-md-3" input-col="col-md-9"/>
+                                        x-datepicker label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group type="tel" x-model="selectedOrder.phone" name="phone" :label="__('forms.phone')"
                                         label-col="col-md-3" input-col="col-md-9"/>
                     <x-forms.text-group type="email" x-model="selectedOrder.email" name="email" label="Email"

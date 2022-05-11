@@ -13,7 +13,7 @@
                 </select>
             </div>
         </div><!--form-group-->
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Тип програми</div>
             <div class="col-md-10">
                 <div class="form-check form-check-inline">
@@ -35,7 +35,7 @@
         </div>
 
 
-        <div class="row mb-3" x-show="order.program_type === 0">
+        <div class="form-group row mb-3" x-show="order.program_type === 0">
             <div class="col-md-2 col-form-label">Тур <span class="text-danger">*</span></div>
             <div class="col-md-10">
                 <select name="tour_id" x-model.number="order.tour_id" id="tourSelectBox" class="form-control"
@@ -48,13 +48,13 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3" x-show="order.program_type === 1">
+        <div class="form-group row mb-3" x-show="order.program_type === 1">
             <div class="col-md-2 col-form-label">План туру <span class="text-danger">*</span></div>
             <div class="col-md-10">
                 <textarea x-model="order.tour_plan" name="tour_plan" class="form-control"></textarea>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">
                 Дата виїзду <span class="text-danger">*</span>
             </div>
@@ -82,7 +82,7 @@
 
         </div>
 
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Дата повернення <span class="text-danger">*</span>
             </div>
             <div class="col-md-10">
@@ -113,20 +113,20 @@
 
         <x-forms.text-group type="number" x-model.number="order.places" name="places" label="Кількість осіб"/>
 
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Особливості групи</div>
             <div class="col-md-10">
                 <textarea x-model="order.group_comment" name="group_comment" class="form-control"></textarea>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Побажання</div>
             <div class="col-md-10">
                 <textarea x-model="order.program_comment" name="program_comment" class="form-control"></textarea>
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="form-group row mb-3">
             <div class="col-md-2 col-form-label">Включити у вартість</div>
             <div class="col-md-10">
                 <template x-for="inc in includes" :key="'inc-'+inc.value">
