@@ -41,7 +41,6 @@ class OrderService extends BaseService
             'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
             'duty_comment' => '',
-            'is_tourist' => $params['is_tourist'] ?? false,
         ];
 
 

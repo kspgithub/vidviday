@@ -27,7 +27,6 @@ export default (params) => ({
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
     init() {
-        console.log(this.order);
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }
@@ -54,6 +53,14 @@ export default (params) => ({
 
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
+
+            if(!order.participants) {
+                order.participants = {
+                    items: [],
+                    participant_phone: '',
+                    customer: false,
+                }
+            }
 
             for (let i in order.participants.items) {
                 if(order.participants.items[i].first_name)
@@ -138,6 +145,9 @@ export default (params) => ({
                 middle_name: this.order.middle_name || '',
                 birthday: this.order.birthday || '',
             })
+            if(!this.participantPhone) {
+                this.participantPhone = this.order.phone
+            }
         } else {
             this.order.participants.items.shift()
         }

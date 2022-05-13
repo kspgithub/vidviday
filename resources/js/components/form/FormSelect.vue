@@ -55,7 +55,7 @@ export default {
 
         onMounted(() => {
             let vm = getCurrentInstance();
-            if(props.search) {
+            if(props.search && vm.ctx.$refs && vm.ctx.$refs.search) {
                 let searchInput = vm.ctx.$refs.search
 
                 watch(open, (val) => {
