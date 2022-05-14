@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits\Methods;
 
+use App\Models\BitrixContact;
 use App\Models\Order;
 
 trait UserMethod
@@ -117,10 +118,50 @@ trait UserMethod
             $this->tourHistory()->detach($detach_ids);
         }
     }
-    
+
 
     public function isManagerOfOrder(Order $order)
     {
         return $this->isTourManager() && $order->tour_manager && $order->tour_manager->user_id === $this->id;
+    }
+
+    public function syncContact()
+    {
+        $emails = array_filter([$this->email]);
+
+        $phones = array_filter(array_unique([$this->mobile_phone, clear_phone($this->mobile_phone, false), clear_phone($this->mobile_phone, true)]));
+        if (!empty($emails) || !empty($phones)) {
+            $query = BitrixContact::query();
+            $first = true;
+            foreach ($phones as $phone) {
+                if ($first) {
+                    $query->whereJsonContains('phone', $phone);
+                    $first = false;
+                } else {
+                    $query->orWhereJsonContains('phone', $phone);
+                }
+            }
+            foreach ($emails as $email) {
+                if ($first) {
+                    $query->whereJsonContains('email', $email);
+                    $first = false;
+                } else {
+                    $query->orWhereJsonContains('email', $email);
+                }
+            }
+            $contact = $query->first();
+            if (empty($contact)) {
+                $contact = new BitrixContact();
+                $contact->user_id = $this->id;
+                $contact->phone = $phones;
+                $contact->email = $emails;
+                $contact->first_name = $this->first_name;
+                $contact->last_name = $this->last_name;
+                $contact->save();
+                return true;
+            }
+        }
+
+        return false;
     }
 }
