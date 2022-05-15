@@ -16,7 +16,7 @@
             <tbody>
             <template x-for="attribute in attributes">
                 <tr>
-                    <th style="width: 50%" x-text="attribute.label"></th>
+                    <th style="width: 300px" x-text="attribute.label"></th>
                     <td>
                         <template x-if="!isEditable(attribute.key)">
                             <div>

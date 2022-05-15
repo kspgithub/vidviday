@@ -11,7 +11,7 @@
             <tbody>
                 <template x-for="roomType of roomTypes">
                     <tr>
-                        <th style="width: 50%" x-text="roomType.text"></th>
+                        <th style="width: 300px" x-text="roomType.text"></th>
                         <td>
                             <template x-if="!isEditable(roomType.value)">
                                 <div>
