@@ -38,7 +38,7 @@ trait OrderMethods
 
     public function isOverloaded()
     {
-        return $this->schedule->places_available < $this->total_places;
+        return $this->schedule ? $this->schedule->places_available < $this->total_places : false;
     }
 
 

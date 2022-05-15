@@ -172,6 +172,7 @@ Route::resource("tour-include", TourIncludeController::class)->except('show');
 
 // ORDERS
 Route::patch('order/{order}/update-status', [OrderController::class, 'updateStatus'])->name('order.update-status');
+Route::patch('order/{order}/accomm', [OrderController::class, 'accomm'])->name('order.accom');
 Route::resource('order', OrderController::class);
 Route::resource('certificate', CertificateController::class);
 
