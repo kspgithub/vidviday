@@ -117,7 +117,7 @@ class OrdersExport extends DefaultValueBinder implements
     {
         $rows = [];
 
-        if(!$order->is_tourist) {
+        if(!($order->participants['customer'] ?? false)) {
             $rows[] = "{$order->last_name} {$order->first_name}";
         }
 

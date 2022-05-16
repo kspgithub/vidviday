@@ -45,6 +45,8 @@ trait TourMethods
             'testimonials_count' => $this->testimonials_count ?? 0,
             'duration' => $this->duration,
             'nights' => $this->nights,
+            'time' => $this->nights,
+            'format_duration' => $this->format_duration,
             'main_image' => $this->main_image,
             'slug' => $this->slug,
             'url' => $this->url,

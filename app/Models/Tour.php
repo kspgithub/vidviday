@@ -87,6 +87,7 @@ class Tour extends TranslatableModel implements HasMedia
         'show_map',
         'duration_format',
         'time',
+        'transport_on',
     ];
 
     protected $casts = [
@@ -103,6 +104,7 @@ class Tour extends TranslatableModel implements HasMedia
         'main_image',
         'mobile_image',
         'url',
+        'format_duration',
     ];
 
     protected $hidden = [
@@ -199,6 +201,17 @@ class Tour extends TranslatableModel implements HasMedia
                     }
                 }
             });
+        }
+    }
+
+    public function getFormatDurationAttribute()
+    {
+        if($this->duration_format === self::FORMAT_DAYS) {
+            return $this->duration.__('tours-section.days-letter') . ($this->nights > 0 && $this->nights !== $this->duration ? '/ '.$this->nights.'н' : '');
+        }
+
+        if($this->duration_format === self::FORMAT_TIME) {
+            return $this->time.__('tours-section.hours-letter');
         }
     }
 }

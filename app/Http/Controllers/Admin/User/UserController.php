@@ -84,6 +84,10 @@ class UserController extends Controller
     {
         $user = $this->userService->store($request->validated());
 
+        if ($user->isTourist()) {
+            $user->syncContact();
+        }
+
         return redirect()->route('admin.user.show', $user)->withFlashSuccess(__('The user was successfully created.'));
     }
 

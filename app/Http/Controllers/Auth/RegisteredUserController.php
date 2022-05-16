@@ -54,6 +54,9 @@ class RegisteredUserController extends Controller
         $user = User::create($params);
         $role = Role::findByName($role);
         $user->assignRole($role);
+        if ($user->isTourist()) {
+            $user->syncContact();
+        }
         Auth::login($user);
 
         event(new Registered($user));

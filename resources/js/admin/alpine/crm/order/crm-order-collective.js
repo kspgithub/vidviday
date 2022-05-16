@@ -26,8 +26,31 @@ export default (params) => ({
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
+    fillForm() {
+        let vm = this
+        this.order.first_name = 'Test'
+        this.order.last_name = 'Test'
+        this.order.middle_name = 'Test'
+        this.order.phone = '+38 (333) 333-33-33'
+
+        const tourSelectBox = document.getElementById('tourSelectBox');
+        $(tourSelectBox).select2('open')
+        setTimeout(() => {
+            $('#select2-tourSelectBox-results > *').first().mouseup()
+            setTimeout(function() {
+                vm.order.schedule_id = vm.schedules[0].id
+                vm.calcSum()
+            }, 500)
+        }, 500)
+
+        this.order.places = 1
+        this.isCustomerParticipant = true
+    },
     init() {
-        console.log(this.order);
+        //Set default status
+        if (!this.order.status) {
+            this.order.status = 'booked'
+        }
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }
@@ -54,6 +77,14 @@ export default (params) => ({
 
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
+
+            if(!order.participants) {
+                order.participants = {
+                    items: [],
+                    participant_phone: '',
+                    customer: false,
+                }
+            }
 
             for (let i in order.participants.items) {
                 if(order.participants.items[i].first_name)
@@ -138,6 +169,9 @@ export default (params) => ({
                 middle_name: this.order.middle_name || '',
                 birthday: this.order.birthday || '',
             })
+            if(!this.participantPhone) {
+                this.participantPhone = this.order.phone
+            }
         } else {
             this.order.participants.items.shift()
         }

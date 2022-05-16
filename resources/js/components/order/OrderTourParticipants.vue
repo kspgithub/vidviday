@@ -29,6 +29,7 @@
             <div class="form">
                 <form-input v-model="participant_phone"
                             name="participant_phone"
+                            mask="+38 (099) 999-99-99"
                             :label="__('order-section.participants.phone-label')"
                             rules="required|tel"
                 />
@@ -43,7 +44,7 @@ import OrderParticipant from "./OrderParticipant";
 import FormInput from "../form/FormInput";
 import {useStore} from "vuex";
 import {useDebounceFormDataProperty} from "../../store/composables/useFormData";
-import {computed, watch} from "vue";
+import {computed, getCurrentInstance, watch} from "vue";
 import FormCheckbox from "../form/FormCheckbox";
 
 export default {
@@ -54,6 +55,10 @@ export default {
         const isTourist = useDebounceFormDataProperty('orderTour', 'isTourist');
         const participants = computed(() => store.state.orderTour.formData.participants);
         const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
+
+        const vm = getCurrentInstance()
+
+        let form = vm.ctx.$.provides[Object.getOwnPropertySymbols(vm.ctx.$.provides)[1]]
 
         const updateParticipant = (data) => {
             store.dispatch('orderTour/updateParticipant', data);
@@ -71,6 +76,12 @@ export default {
             store.dispatch('orderTour/addParticipant');
         }
 
+        const updateParticipantPhone = () => {
+            store.dispatch('orderTour/updateParticipantPhone').then(() => {
+                form.values.participant_phone = store.state.orderTour.formData.phone
+            })
+        }
+
         watch(isTourist, (val) => {
             if(val) {
                 updateParticipant({idx: 0, data: {
@@ -79,6 +90,11 @@ export default {
                     middle_name: '',
                     birthday: '',
                 }})
+                form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
+                form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
+                if(!participant_phone.value && !participant_phone._dirty){
+                    updateParticipantPhone()
+                }
             } else {
                 updateParticipant({idx: 0, data: {
                     first_name: '',

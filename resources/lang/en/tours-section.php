@@ -38,6 +38,7 @@ return [
     'accomm-price' => 'Single occupancy surcharge',
     'days-letter' => 'd',
     'nights-letter' => 'n',
+    'hours-letter' => 'h',
     'similar-tours' => 'Similar tours',
     'more' => 'More',
     'show-more' => 'Show more',
@@ -86,4 +87,5 @@ return [
     'direction' => 'Direction',
     'subject' => 'Subject',
     'landing-places' => 'Місця посадки',
+    'transport' => 'Транспорт',
 ];

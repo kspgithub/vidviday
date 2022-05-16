@@ -46,6 +46,7 @@ return [
     'accomm-price' => 'Dopłata za pojedyncze obłożenie',
     'days-letter' => 'д',
     'nights-letter' => 'н',
+    'hours-letter' => 'h',
     'similar-tours' => 'Схожі тури',
     'show-more' => 'Показати ще',
     'more' => 'Більше',
@@ -94,4 +95,5 @@ return [
     'direction' => 'Direction',
     'subject' => 'Subject',
     'landing-places' => 'Місця посадки',
+    'transport' => 'Транспорт',
 ];

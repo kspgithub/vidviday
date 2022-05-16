@@ -20,6 +20,8 @@ import crmSchedules from './crm/schedule/crm-schedules';
 import crmScheduleRow from './crm/schedule/crm-schedule-row';
 import crmScheduleItem from './crm/schedule/crm-schedule-item';
 import crmOrderBasic from './crm/order/crm-order-basic';
+import crmOrderCustomer from './crm/order/crm-order-customer';
+import crmOrderSchedule from './crm/order/crm-order-schedule';
 import crmOrderParticipants from './crm/order/crm-order-participants';
 import crmOrderAgency from './crm/order/crm-order-agency';
 import crmOrderFinance from './crm/order/crm-order-finance';
@@ -30,7 +32,9 @@ import crmOrderCorporate from './crm/order/crm-order-corporate';
 import crmOrderAudits from './crm/order/crm-order-audits';
 import crmOrderBadge from './crm/order/crm-order-badge';
 import crmOrderAdditional from './crm/order/crm-order-additional';
+import crmOrderAccom from './crm/order/crm-order-accom';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
+import userCollective from './user/user-collective';
 import user from './crm/user';
 import placeList from './place/place-list';
 
@@ -72,6 +76,8 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('crmScheduleRow', crmScheduleRow);
     Alpine.data('crmScheduleItem', crmScheduleItem);
     Alpine.data('crmOrderBasic', crmOrderBasic);
+    Alpine.data('crmOrderCustomer', crmOrderCustomer);
+    Alpine.data('crmOrderSchedule', crmOrderSchedule);
     Alpine.data('crmOrderParticipants', crmOrderParticipants);
     Alpine.data('crmOrderAgency', crmOrderAgency);
     Alpine.data('crmOrderFinance', crmOrderFinance);
@@ -82,8 +88,10 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('crmOrderBadge', crmOrderBadge);
     Alpine.data('crmOrderAudits', crmOrderAudits);
     Alpine.data('crmOrderAdditional', crmOrderAdditional);
+    Alpine.data('crmOrderAccom', crmOrderAccom);
     Alpine.data('crmCorporateBasic', crmCorporateBasic);
     Alpine.data('mediaLibrary', mediaLibrary);
+    Alpine.data('userCollective', userCollective);
     Alpine.data('user', user);
     Alpine.data('placeList', placeList);
 })

@@ -38,7 +38,7 @@ export default {
                 company: '',
                 viber: '',
                 discounts: [],
-                isTourist: 1,
+                isTourist: 0,
                 participants: [],
                 accommodation: {
                     other: 0,
@@ -286,8 +286,8 @@ export default {
                     items.push(state.formData.participants[i]);
                 } else {
                     items.push({
-                        first_name: state.formData.first_name || '',
-                        last_name: state.formData.last_name || '',
+                        first_name: '',
+                        last_name: '',
                         middle_name: '',
                         birthday: '',
                     });
@@ -319,6 +319,9 @@ export default {
             const items = state.formData.participants || [];
             items.splice(idx, 1);
             commit('UPDATE_FORM_DATA', {participants: items});
+        },
+        updateParticipantPhone({commit, state}) {
+            commit('UPDATE_FORM_DATA', {participant_phone: state.formData.phone});
         },
         async fetchSchedules({commit}, tourId) {
             const schedules = await fetchTourSchedules(tourId);

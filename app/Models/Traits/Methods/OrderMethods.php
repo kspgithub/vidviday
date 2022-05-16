@@ -38,7 +38,7 @@ trait OrderMethods
 
     public function isOverloaded()
     {
-        return $this->schedule->places_available < $this->total_places;
+        return $this->schedule ? $this->schedule->places_available < $this->total_places : false;
     }
 
 
@@ -69,6 +69,7 @@ trait OrderMethods
             $contact = $query->first();
             if (empty($contact)) {
                 $contact = new BitrixContact();
+                $contact->user_id = $this->user_id;
                 $contact->phone = $phones;
                 $contact->email = $emails;
                 $contact->first_name = $this->first_name;

@@ -31,9 +31,7 @@
                     <tour-rating :count="tour.testimonials_count" :rating="tour.rating" class="d-block d-lg-none"/>
                     <div class="thumb-info">
                 <span class="thumb-info-time text">
-                    {{
-                        tour.duration + __('tours-section.days-letter')
-                    }} / {{ tour.nights + __('tours-section.nights-letter') }}
+                    {{ tour.format_duration }}
                 </span>
                         <span class="thumb-info-people text">
                     {{

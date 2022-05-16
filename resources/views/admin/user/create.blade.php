@@ -15,7 +15,7 @@
         <x-bootstrap.card>
 
             <x-slot name="body">
-                <div x-data="{role : 'tourist', status: 1}">
+                <div x-data="userCollective({role : 'tourist', status: 1})">
 
                     <x-forms.select-group
                         name="role"
@@ -45,13 +45,14 @@
                     ></x-forms.text-group>
 
 
-                    <x-forms.text-group name="first_name" :label="__('First Name')" :value="old('first_name')"
+                    <x-forms.text-group name="first_name" :label="__('First Name')" :value="old('first_name')" x-model="formData.first_name"
                                         maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="last_name" :label="__('Last Name')" :value="old('last_name')"
+                    <x-forms.text-group name="last_name" :label="__('Last Name')" :value="old('last_name')" x-model="formData.last_name"
                                         maxlength="100"></x-forms.text-group>
-                    <x-forms.text-group name="middle_name" :label="__('Middle Name')" :value="old('middle_name')"
+                    <x-forms.text-group name="middle_name" :label="__('Middle Name')" :value="old('middle_name')" x-model="formData.middle_name"
                                         maxlength="100"></x-forms.text-group>
                     <x-forms.text-group name="mobile_phone" :label="__('Mobile Phone')"
+                                        placeholder="+38 (___) ___-__-__" x-mask="+38 (999) 999-99-99"
                                         :value="old('mobile_phone')"></x-forms.text-group>
                     <x-forms.text-group name="viber" :label="__('Viber')" :value="old('viber')"></x-forms.text-group>
 
