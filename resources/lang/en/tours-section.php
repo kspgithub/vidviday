@@ -86,4 +86,5 @@ return [
     'direction' => 'Direction',
     'subject' => 'Subject',
     'landing-places' => 'Місця посадки',
+    'transport' => 'Транспорт',
 ];
