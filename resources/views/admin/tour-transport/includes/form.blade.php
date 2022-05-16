@@ -1,6 +1,8 @@
 <div>
 
 
+    <x-forms.switch-group name="hutsul_fun_on" :label="__('Active')" wire:model="transport_on"/>
+
     @if(!$edit)
         <h4 class="mb-3">@lang('Transport')</h4>
         <ul wire:sortable="updateOrder" class="list-group draggable-container mb-5" style="width: 500px;">

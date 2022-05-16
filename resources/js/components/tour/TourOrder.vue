@@ -30,9 +30,7 @@
             </div>
             <div class="thumb-info">
                 <span class="thumb-info-time text">
-                    {{ tour.duration }}{{ __('tours-section.days-letter') }} / {{
-                        tour.nights
-                    }}{{ __('tours-section.nights-letter') }}
+                    {{ tour.format_duration }}
                 </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">
                     {{ places > 10 ? '10+' : places }}

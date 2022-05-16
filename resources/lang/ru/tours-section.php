@@ -46,6 +46,7 @@ return [
     'accomm-price' => 'Доплата за 1-местное поселение',
     'days-letter' => 'д',
     'nights-letter' => 'н',
+    'hours-letter' => 'ч',
     'similar-tours' => 'Схожі тури',
     'show-more' => 'Показати ще',
     'more' => 'Більше',
