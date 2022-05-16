@@ -26,7 +26,31 @@ export default (params) => ({
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
+    fillForm() {
+        let vm = this
+        this.order.first_name = 'Test'
+        this.order.last_name = 'Test'
+        this.order.middle_name = 'Test'
+        this.order.phone = '+38 (333) 333-33-33'
+
+        const tourSelectBox = document.getElementById('tourSelectBox');
+        $(tourSelectBox).select2('open')
+        setTimeout(() => {
+            $('#select2-tourSelectBox-results > *').first().mouseup()
+            setTimeout(function() {
+                vm.order.schedule_id = vm.schedules[0].id
+                vm.calcSum()
+            }, 500)
+        }, 500)
+
+        this.order.places = 1
+        this.isCustomerParticipant = true
+    },
     init() {
+        //Set default status
+        if (!this.order.status) {
+            this.order.status = 'booked'
+        }
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }

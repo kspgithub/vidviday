@@ -11,6 +11,7 @@
           @change="onFormChange"
           x-ref="form"
           method="POST">
+        <a href="#" @click.prevent="fillForm">fill</a>
         @csrf
         @if($order->id > 0)
             @method('PATCH')
