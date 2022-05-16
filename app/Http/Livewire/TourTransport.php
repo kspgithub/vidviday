@@ -26,6 +26,7 @@ class TourTransport extends Component
     public $options = [];
 
     public $transport_id = 0;
+    public $transport_on = false;
 
     public $title_uk = '';
     public $title_ru = '';
@@ -35,6 +36,7 @@ class TourTransport extends Component
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
+        $this->transport_on = (bool)$this->tour->transport_on;
         $this->options = Transport::toSelectArray();
     }
 
@@ -86,5 +88,12 @@ class TourTransport extends Component
     public function editRecordClass(): string
     {
         return \App\Models\TourTransport::class;
+    }
+
+    public function updatedTransportOn()
+    {
+        $this->tour->transport_on = $this->transport_on;
+        $this->tour->save();
+        session()->flash('success', __('Record Updated'));
     }
 }

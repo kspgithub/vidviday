@@ -35,7 +35,7 @@
             </div>
             <div class="thumb-info">
                 <span
-                    class="thumb-info-time text">{{$tour->duration}}д {{$tour->nights > 0 && $tour->nights !== $tour->duration ? '/ '.$tour->nights.'н' : ''}}</span>
+                    class="thumb-info-time text">{!! $tour->format_duration !!}</span>
                 <span class="thumb-info-people text">{{$schedule->places >= 10 ? '10+' : $schedule->places}}</span>
                 @if($schedule->places <= 2)
                     <span class="thumb-info-people text">{{$schedule->places}}<span class="tooltip-wrap black">
@@ -75,7 +75,7 @@
             </div>
             <div class="thumb-info">
                 <span
-                    class="thumb-info-time text">{{$tour->duration}}д {{$tour->nights > 0 && $tour->nights !== $tour->duration ? '/ '.$tour->nights.'н' : ''}}</span>
+                    class="thumb-info-time text">{!! $tour->format_duration !!}</span>
                 <span class="thumb-info-people text">{{$schedule->places >= 10 ? '10+' : $schedule->places}}</span>
                 @if($schedule->places <= 2)
                     <span class="thumb-info-people text">{{$schedule->places}}<span class="tooltip-wrap black">

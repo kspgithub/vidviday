@@ -146,11 +146,14 @@ class CrmOrderController extends Controller
         $audits = [];
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
 
+        $roomTypes = AccommodationType::toSelectBox();
+
         return view('admin.crm.order.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
             'discounts' => $discounts,
             'schedule' => $schedule,
             'order' => $order,
+            'roomTypes' => $roomTypes,
             'statuses' => $statuses,
             'schedules' => $schedules,
             'audits' => $audits,

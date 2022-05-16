@@ -46,12 +46,12 @@ class Order extends TranslatableModel implements Auditable
                 $status = in_array($order->getOriginal('status'), $forbiddenStatuses) ? Order::STATUS_RESERVE : $order->getOriginal('status');
                 $order->status = $status;
             }
-            if($order->payment_get > 0 && $order->payment_get < $order->total_price){
-                $order->status = Order::STATUS_DEPOSIT;
-            }
-            if($order->payment_get <= 0){
-                $order->status = Order::STATUS_PAYED;
-            }
+//            if($order->total_price > 0 && $order->payment_get > 0 && $order->payment_get < $order->total_price){
+//                $order->status = Order::STATUS_DEPOSIT;
+//            }
+//            if($order->total_price > 0 && $order->payment_get <= 0){
+//                $order->status = Order::STATUS_PAYED;
+//            }
         });
     }
 
@@ -141,7 +141,6 @@ class Order extends TranslatableModel implements Auditable
         'utm_data',
         'payment_data',
         'auto',
-        'is_tourist',
     ];
 
     protected $casts = [

@@ -15,7 +15,12 @@ const DatePickerComponent = function () {
             flatpickr(input, {
                 wrap: true,
                 locale: Ukrainian,
-                dateFormat: dateFormat
+                dateFormat: dateFormat,
+                allowInput: true,
+                onChange: function (selectedDates, dateStr, instance) {
+                    instance.close()
+                    instance._input.blur()
+                },
             });
         });
 

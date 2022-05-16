@@ -105,7 +105,7 @@
                                                x-model="participant.middle_name">
                                     </td>
                                     <td>
-                                        <input type="date" class="form-control form-control-sm"
+                                        <input type="text" class="form-control form-control-sm"
                                                x-model="participant.birthday" x-datepicker>
                                     </td>
                                     <td>

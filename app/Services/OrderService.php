@@ -41,7 +41,6 @@ class OrderService extends BaseService
             'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
             'duty_comment' => '',
-            'is_tourist' => $params['is_tourist'] ?? false,
         ];
 
 
@@ -114,6 +113,7 @@ class OrderService extends BaseService
 
             if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
+                    'customer' => $params['is_tourist'] ?? 0,
                     'without_place' => $order_params['without_place'] ?? 0,
                     'without_place_count' => $order_params['without_place_count'] ?? 0,
                     'items' => $params['participants'] ?? [],
