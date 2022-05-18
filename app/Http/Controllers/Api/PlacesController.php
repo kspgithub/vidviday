@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PlacesController extends Controller
 {
@@ -17,7 +18,7 @@ class PlacesController extends Controller
      */
     public function selectBox(Request $request)
     {
-        $q = $request->input('q', '');
+        $q = Str::lower($request->input('q', ''));
         $region_id = (int)$request->input('region_id', 0);
         $district_id = (int)$request->input('district_id', 0);
         $query = Place::query();
