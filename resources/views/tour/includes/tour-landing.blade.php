@@ -13,8 +13,8 @@
                         </div>
 
                         <div v-is="'map-route'"
-                             :lat='{{$landing->lat}}'
-                             :lng='{{$landing->lng}}'
+                             :lat='{{$landing->lat?:0}}'
+                             :lng='{{$landing->lng?:0}}'
                              marker='/img/marker-bus.png'
                              :address='"{{$landing->title}}"'
                         ></div>
