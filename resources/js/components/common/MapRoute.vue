@@ -6,7 +6,7 @@
             <a :data-lat="lat"
                :data-lng="lng"
                :data-marker="marker"
-               :data-string="`<div class='map-informer-content'><p>${address}${address_comment}</p></div>`"></a>
+               :data-string="`<div class='map-informer-content'><p>${address}${addressComment}</p></div>`"></a>
         </div>
         <form action="/" class="build-route">
             <label>
