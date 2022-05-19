@@ -6,7 +6,14 @@ import {toast} from "../../../../libs/toast";
 import validateForm from "../../composables/validate-form";
 
 export default (params) => ({
-    order: params.order,
+    order: {
+        ...params.order,
+        participants: {
+            items: params.order?.participants?.items || [],
+            participant_phone: params.order?.participants?.participant_phone || '',
+            customer: params.order?.participants?.customer || false,
+        },
+    },
     formChanged: false,
     roomTypes: params.roomTypes || [],
     statuses: params.statuses,
@@ -85,12 +92,6 @@ export default (params) => ({
     },
     set participantPhone(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-            }
-        }
         this.order.participants.participant_phone = value;
     },
     get participants() {
@@ -98,21 +99,9 @@ export default (params) => ({
     },
     set participants(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-            }
-        }
         this.order.participants.items = value;
     },
     addParticipant() {
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-            }
-        }
         if (this.participantData.first_name) {
             this.order.participants.items.push({...this.participantData});
             this.participantData = {
