@@ -24,37 +24,6 @@ class Order extends TranslatableModel implements Auditable
     use AuditableTrait;
     use OrderMethods;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::creating(function (Order $order) {
-            $order->price = $order->price ?: 0;
-            $order->commission = $order->commission ?: 0;
-        });
-
-        self::created(function (Order $order) {
-            self::disableAuditing();
-            $order->order_number = Str::padLeft($order->id, 5, '0');
-            $order->save();
-            self::enableAuditing();
-        });
-
-        self::updating(function (Order $order) {
-            $forbiddenStatuses = [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED];
-            if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded() && in_array($order->status, $forbiddenStatuses)) {
-                $status = in_array($order->getOriginal('status'), $forbiddenStatuses) ? Order::STATUS_RESERVE : $order->getOriginal('status');
-                $order->status = $status;
-            }
-//            if($order->total_price > 0 && $order->payment_get > 0 && $order->payment_get < $order->total_price){
-//                $order->status = Order::STATUS_DEPOSIT;
-//            }
-//            if($order->total_price > 0 && $order->payment_get <= 0){
-//                $order->status = Order::STATUS_PAYED;
-//            }
-        });
-    }
-
     public const STATUS_NEW = 'new';
     public const STATUS_BOOKED = 'booked'; // Бронь
     public const STATUS_NOT_SENT = 'not-sent'; // Не надіслано

@@ -56,6 +56,10 @@ class TourController extends Controller
         $types = TourType::toSelectBox();
         $subjects = TourSubject::toSelectBox();
         $directions = Direction::toSelectBox();
+        $durationFormats = [
+            ['value' => Tour::FORMAT_DAYS, 'text' => __('Дні / Ночі')],
+            ['value' => Tour::FORMAT_TIME, 'text' => __('Час')],
+        ];
 
         return view('admin.tour.create', [
             'tour' => $tour,
@@ -67,6 +71,7 @@ class TourController extends Controller
             'types' => $types,
             'subjects' => $subjects,
             'directions' => $directions,
+            'durationFormats' => $durationFormats,
         ]);
     }
 

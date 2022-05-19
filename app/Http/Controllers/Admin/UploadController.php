@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadMediaRequest;
 use App\Models\Media;
+use App\Models\Tour;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,11 @@ class UploadController extends Controller
         $model = app()->make($request->input('model_type', ['id' => $request->input('model_id')]));
         $model = $model->newQuery()->findOrFail($request->input('model_id'));
         $collection = $request->input('collection', 'default');
+        /** @var Media $media */
         $media = $model->storeMedia($request->media_file, $collection);
+        foreach ($request->get('custom_properties', []) as $key => $value) {
+            $media->setCustomProperty($key, $value);
+        }
         $media->save();
 
         return response()->json(['result' => 'success', 'media' => $media->asAlpineData()]);

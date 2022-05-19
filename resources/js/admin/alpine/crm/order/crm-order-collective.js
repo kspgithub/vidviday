@@ -11,7 +11,14 @@ const DEFAULT_DISCOUNT = {
 };
 
 export default (params) => ({
-    order: params.order,
+    order: {
+        ...params.order,
+        participants: {
+            items: params.order?.participants?.items || [],
+            participant_phone: params.order?.participants?.participant_phone || '',
+            customer: params.order?.participants?.customer || false,
+        },
+    },
     tour: params.tour ?? null,
     formChanged: false,
     roomTypes: params.roomTypes || [],
@@ -152,16 +159,9 @@ export default (params) => ({
 
     // PARTICIPANTS
     get isCustomerParticipant() {
-        return this.order.participants && !!this.order.participants.customer;
+        return !!this.order.participants.customer;
     },
     set isCustomerParticipant(value) {
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: value,
-            }
-        }
         if(value) {
             this.order.participants.items.unshift({
                 first_name: this.order.first_name || '',
@@ -183,13 +183,6 @@ export default (params) => ({
     },
     set participantPhone(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: false,
-            }
-        }
         this.order.participants.participant_phone = value;
     },
     get participants() {
@@ -197,25 +190,9 @@ export default (params) => ({
     },
     set participants(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: false,
-            }
-        }
         this.order.participants.items = value;
     },
     addParticipant() {
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-            }
-        }
-        if (!this.order.participants.items) {
-            this.order.participants.items = [];
-        }
         if (this.participantData.first_name) {
             this.order.participants.items.push({...this.participantData});
             this.participantData = {
