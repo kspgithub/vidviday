@@ -128,7 +128,7 @@ export default (options) => ({
         return roomTitle(key, this.roomTypes);
     },
     paymentGet(order) {
-        return order.total_price - order.payment_fop - order.payment_tov - order.payment_office;
+        return 1*(order.total_price - order.payment_fop - order.payment_tov - order.payment_office);
     },
     updateOrder(id, params) {
         updateItem({
@@ -369,22 +369,22 @@ export default (options) => ({
     },
     get totalSum() {
         let total = 0;
-        this.orders.forEach(o => total += o.total_price)
+        this.orders.forEach(o => total += 1*o.total_price)
         return total;
     },
     get totalSumFop() {
         let total = 0;
-        this.orders.forEach(o => total += o.payment_fop)
+        this.orders.forEach(o => total += 1*o.payment_fop)
         return total;
     },
     get totalSumTov() {
         let total = 0;
-        this.orders.forEach(o => total += o.payment_tov)
+        this.orders.forEach(o => total += 1*o.payment_tov)
         return total;
     },
     get totalSumOffice() {
         let total = 0;
-        this.orders.forEach(o => total += o.payment_office)
+        this.orders.forEach(o => total += 1*o.payment_office)
         return total;
     },
     get totalSumGet() {
