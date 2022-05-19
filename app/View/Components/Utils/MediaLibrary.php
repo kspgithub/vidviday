@@ -39,6 +39,8 @@ class MediaLibrary extends Component
 
     public string $accept;
 
+    private array $customProperties;
+
     /**
      * Create a new component instance.
      *
@@ -52,7 +54,8 @@ class MediaLibrary extends Component
         $destroyUrl = null,
         $orderUrl = null,
         $collection = 'default',
-        $accept = 'image/jpeg,image/png'
+        $accept = 'image/jpeg,image/png',
+        $customProperties = [],
     ) {
         $this->model = $model;
         $this->collection = $collection;
@@ -62,15 +65,20 @@ class MediaLibrary extends Component
         $this->updateUrl = $updateUrl ?: route('admin.media.update', 0);
         $this->orderUrl = $orderUrl ?: route('admin.media.order');
         $this->accept = $accept;
-
+        $this->customProperties = $customProperties;
 
         if ($model !== null && $items === null) {
             $this->items = $model->getMedia($collection)->map->asAlpineData();
         }
 
         if ($model !== null && empty($storeUrl)) {
-            $this->storeUrl = route('admin.media.store', ['model_type' => get_class($model), 'model_id' => $model->id]);
+            $this->storeUrl = route('admin.media.store', [
+                'model_type' => get_class($model),
+                'model_id' => $model->id,
+                'custom_properties' => $this->customProperties,
+            ]);
         }
+        $this->customProperties = $customProperties;
     }
 
     /**
