@@ -20,7 +20,7 @@
             <x-bootstrap.card>
                 <x-slot name="body">
                     <h2 class="mb-2">@lang('Tour Plan')</h2>
-                    <div x-data="translatable()">
+                    <div x-data='translatable({share: {locales: @json($tour->locales)}})'>
                         <form method="post" action="{{route('admin.tour.plan.update', $tour)}}" x-ref="form">
                             @csrf
                             @method('PATCH')
@@ -29,7 +29,8 @@
                                                       id="text_{{ $locale }}"
                                                       label="Text {{strtoupper($locale)}}"
                                                       :value="array_key_exists($locale, $translations) ? $translations[$locale] : ''"
-                                                      required
+                                                      :required="in_array($locale, $tour->locales)"
+{{--                                                      x-bind:required="true"--}}
                                 ></x-forms.editor-group>
 
                             @endforeach

@@ -15,7 +15,9 @@
     <label for="{{$name}}" class="{{$labelCol}} col-form-label">
         {{$label}}
         @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
-            <span class="text-danger">*</span>
+            <template x-if="locales.includes(trans_locale)">
+                <span class="text-danger">*</span>
+            </template>
         @endif
     </label>
 
@@ -30,8 +32,9 @@
                        id="{{$name}}-{{$lang}}"
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
-                    {{$readonly ? 'readonly' : ''}}
-                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(  in_array($lang, $requiredLocales) ? [] :['required']) }}
+                       {{$readonly ? 'readonly' : ''}}
+                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required']) }}
+                       x-bind:required="{{$attributes['required'] ? 'true' : 'false'}} && locales.includes('{{$lang}}')"
                 />
             </div>
         @endforeach
