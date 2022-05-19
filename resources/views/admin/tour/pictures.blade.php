@@ -23,6 +23,7 @@
                     <x-utils.media-library
                         :model="$tour"
                         collection="pictures"
+                        :custom-properties="['published' => 1]"
                     ></x-utils.media-library>
 
                 </x-slot>

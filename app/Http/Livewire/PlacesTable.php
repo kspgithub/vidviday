@@ -88,11 +88,18 @@ class PlacesTable extends DataTableComponent
                 })
                 ->sortable(),
 
+            Column::make(__('Country'), 'country_id')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->country)->title;
+                })
+                ->sortable(),
+
             Column::make(__('Region'), 'region_id')
                 ->format(function ($value, $column, $row) {
                     return optional($row->region)->title;
                 })
                 ->sortable(),
+
             Column::make(__('District'), 'district_id')
                 ->format(function ($value, $column, $row) {
                     return optional($row->district)->title;
