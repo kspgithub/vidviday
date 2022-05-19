@@ -65,55 +65,39 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <template x-if="isCustomerParticipant">
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               x-bind:value="selectedOrder.last_name"
-                                               readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               x-bind:value="selectedOrder.first_name"
-                                               readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               x-bind:value="selectedOrder.middle_name"
-                                               readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               x-bind:value="selectedOrder.birthday" readonly>
-
-                                    </td>
-                                    <td>(замовник)</td>
-                                </tr>
-                            </template>
                             <template x-for="(participant, idx) in participants.items">
                                 <tr>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
+                                               x-bind:readonly="isCustomerParticipant && idx === 0"
                                                x-model="participant.last_name">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
+                                               x-bind:readonly="isCustomerParticipant && idx === 0"
                                                x-model="participant.first_name">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
+                                               x-bind:readonly="isCustomerParticipant && idx === 0"
                                                x-model="participant.middle_name">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
+                                               x-bind:readonly="isCustomerParticipant && idx === 0"
                                                x-model="participant.birthday" x-datepicker>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-outline-danger"
-                                           @click.prevent="removeParticipant(idx)">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    <template x-if="isCustomerParticipant && idx === 0">
+                                        <td>(замовник)</td>
+                                    </template>
+                                    <template x-else>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-outline-danger"
+                                               @click.prevent="removeParticipant(idx)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </template>
                                 </tr>
                             </template>
                             <tr>
