@@ -216,5 +216,3 @@
 
     </x-slot>
 </x-bootstrap.card>
-
-@include('admin.tour.includes.tour-plan')
