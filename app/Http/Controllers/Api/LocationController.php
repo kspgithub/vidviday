@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Str;
 
 class LocationController extends Controller
 {
@@ -25,6 +26,15 @@ class LocationController extends Controller
         if ($country_id > 0) {
             $query->where('country_id', $country_id);
         }
+
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
+
         return $query->orderBy('title->uk')->toSelectBox();
     }
 
@@ -41,7 +51,14 @@ class LocationController extends Controller
         if ($region_id > 0) {
             $query->where('region_id', $region_id);
         }
-       
+
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
 
         return $query->orderBy('title->uk')->toSelectBox();
     }
@@ -63,6 +80,18 @@ class LocationController extends Controller
         if ($district_id > 0) {
             $query->where('district_id', $district_id);
         }
-        return $query->orderBy('title->uk')->toSelectBox();
+
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
+
+        return $query->orderBy('title->uk')->get()->map(fn($item) => [
+            'value' => $item['id'],
+            'text' => $item['fullTitle'],
+        ]);
     }
 }

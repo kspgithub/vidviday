@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
+use App\Services\GoogleMapsService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -27,6 +28,11 @@ class LocationGroup extends Component
     public Collection $regions;
     public Collection $districts;
     public Collection $cities;
+
+    public Country|null $country;
+    public Region|null $region;
+    public District|null $district;
+    public City|null $city;
 
     public int|array $selectedCountry;
     public int|array $selectedRegion;
@@ -85,11 +91,20 @@ class LocationGroup extends Component
 
         if ($this->selectedCountry) {
             $this->regions = Region::query()->where('country_id', $country)->toSelectBox();
-            $this->selectedRegion = 0;
-            $this->selectedDistrict = 0;
-            $this->selectedCity = 0;
-            $this->districts = collect();
-            $this->cities = collect();
+
+            if($this->region->country->id !== $this->selectedCountry) {
+                $this->selectedRegion = 0;
+            }
+
+            if($this->district->country->id !== $this->selectedCountry) {
+                $this->selectedDistrict = 0;
+                $this->districts = collect();
+            }
+
+            if($this->city->country->id !== $this->selectedCountry) {
+                $this->selectedCity = 0;
+                $this->cities = collect();
+            }
         }
 
         $this->dispatchBrowserEvent('livewire-refresh', ['data' => 'ok']);
@@ -100,10 +115,21 @@ class LocationGroup extends Component
         $this->selectedRegion = $region ? (int)Arr::first((array)$region) : 0;
 
         if ($this->selectedRegion) {
-            $this->districts = District::query()->where('region_id', $region)->toSelectBox();
-            $this->selectedDistrict = 0;
-            $this->selectedCity = 0;
-            $this->cities = collect();
+            $this->region = District::query()->with(['country'])->find($this->selectedRegion);
+
+            $this->regions = Region::query()->where('country_id', $this->region->country->id)->toSelectBox();
+
+            $this->selectedCountry = $this->city->country->id ?? $this->selectedCountry;
+
+            if($this->district->region->id !== $this->selectedRegion) {
+                $this->selectedDistrict = 0;
+                $this->districts = District::query()->where('region_id', $region)->toSelectBox();
+            }
+
+            if($this->city->region->id !== $this->selectedRegion) {
+                $this->selectedCity = 0;
+                $this->cities = collect();
+            }
         }
 
         $this->dispatchBrowserEvent('livewire-refresh', ['data' => 'ok']);
@@ -114,8 +140,18 @@ class LocationGroup extends Component
         $this->selectedDistrict = $district ? (int)Arr::first((array)$district) : 0;
 
         if ($this->selectedDistrict) {
-            $this->cities = City::query()->where('district_id', $district)->toSelectBox();
-            $this->selectedCity = 0;
+            $this->district = District::query()->with(['region', 'country'])->find($this->selectedDistrict);
+
+            $this->districts = District::query()->where('region_id', $this->district->region->id)->toSelectBox();
+            $this->regions = Region::query()->where('country_id', $this->district->country->id)->toSelectBox();
+
+            $this->selectedRegion = $this->city->region->id ?? $this->selectedRegion;
+            $this->selectedCountry = $this->city->country->id ?? $this->selectedCountry;
+
+            if($this->city->district->id !== $this->selectedDistrict) {
+                $this->selectedCity = 0;
+                $this->cities = City::query()->where('district_id', $district)->toSelectBox();
+            }
         }
 
         $this->dispatchBrowserEvent('livewire-refresh', ['data' => 'ok']);
@@ -125,6 +161,20 @@ class LocationGroup extends Component
     {
         $this->selectedCity = $city ? (int)Arr::first((array)$city) : 0;
 
-        $this->dispatchBrowserEvent('livewire-refresh', ['data' => 'ok']);
+        if ($this->selectedCity) {
+            $this->city = City::query()->with(['district', 'region', 'country'])->find($this->selectedCity);
+
+            $this->cities = City::query()->where('district_id', $this->city->district->id)->toSelectBox();
+            $this->districts = District::query()->where('region_id', $this->city->region->id)->toSelectBox();
+            $this->regions = Region::query()->where('country_id', $this->city->country->id)->toSelectBox();
+
+            $this->selectedDistrict = $this->city->district->id ?? $this->selectedDistrict;
+            $this->selectedRegion = $this->city->region->id ?? $this->selectedRegion;
+            $this->selectedCountry = $this->city->country->id ?? $this->selectedCountry;
+
+            $address = implode(' ', [$this->city->region->title, $this->city->district->title, $this->city->title]);
+        }
+
+        $this->dispatchBrowserEvent('livewire-refresh', ['data' => 'ok', 'address' => $address ?? '']);
     }
 }
