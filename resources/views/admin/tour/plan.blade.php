@@ -29,7 +29,7 @@
                                                       id="text_{{ $locale }}"
                                                       label="Text {{strtoupper($locale)}}"
                                                       :value="array_key_exists($locale, $translations) ? $translations[$locale] : ''"
-                                                      :required="in_array($locale, $tour->locales)"
+{{--                                                      :required="in_array($locale, $tour->locales)"--}}
 {{--                                                      x-bind:required="true"--}}
                                 ></x-forms.editor-group>
 
