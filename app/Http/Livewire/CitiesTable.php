@@ -21,7 +21,7 @@ class CitiesTable extends DataTableComponent
 
     public array $bulkActions = [
     ];
-    
+
     public array $perPageAccepted = [30, 50, 100];
 
     public $region;
@@ -105,12 +105,7 @@ class CitiesTable extends DataTableComponent
 
             Column::make(__('Title'), 'title')
                 ->searchable(function (Builder $query, $searchTerm) {
-                    return $query->where(function ($sq) use ($searchTerm) {
-                        return $sq->where('title->uk', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->ru', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->en', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->pl', 'LIKE', "%$searchTerm%");
-                    });
+                    return $query->jsonLike('title', "%$searchTerm%");
                 })
                 ->sortable(),
 

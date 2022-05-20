@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class District extends TranslatableModel
     use HasFactory;
     use HasTranslations;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',

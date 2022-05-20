@@ -81,7 +81,7 @@ class PlaceController extends Controller
     {
         //
         $place = new Place();
-        $place->country_id = Country::DEFAULT_COUNTRY_ID;
+//        $place->country_id = Country::DEFAULT_COUNTRY_ID;
         $directions = Direction::toSelectBox();
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();

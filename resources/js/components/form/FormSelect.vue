@@ -2,7 +2,7 @@
     <div v-click-outside="close" :class="{open: open}" class="SumoSelect">
         <input :name="name" :value="modelValue" type="hidden">
         <p :title="current.text" class="CaptionCont SelectBox" @click="open = !open">
-            <span>{{ current.text }}</span>
+            <span v-html="current.text"></span>
             <label><i></i></label>
         </p>
         <div class="optWrapper">

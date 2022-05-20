@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Sluggable\HasSlug;
@@ -14,6 +15,7 @@ class City extends TranslatableModel
     use HasFactory;
     use HasTranslations;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',
@@ -75,5 +77,23 @@ class City extends TranslatableModel
             'value' => $this->id,
             'text' => $this->title . ' (' . $this->region->title . ', ' . $this->district->title . ' р-н)',
         ];
+    }
+
+    public function getFullTitleAttribute()
+    {
+        $title = $this->title;
+        if ((!empty($this->region) || !empty($this->district))) {
+            $title .= ' (';
+        }
+        if (!empty($this->region)) {
+            $title .= $this->region->title . ' обл.';
+        }
+        if (!empty($this->district)) {
+            $title .= ', ' . $this->district->title . ' рн.';
+        }
+        if ((!empty($this->region) || !empty($this->district))) {
+            $title .= ')';
+        }
+        return $title;
     }
 }
