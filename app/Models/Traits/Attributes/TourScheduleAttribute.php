@@ -132,7 +132,15 @@ trait TourScheduleAttribute
     {
         $newEndDate = Carbon::parse($endDate);
 
-        return $this->start_date->addDays($this->tour->duration);
+        $totalDayNights = $this->tour->duration + $this->tour->nights;
+
+        if($this->tour->duration > $this->tour->nights) {
+            $days = floor($totalDayNights / 2);
+        } else {
+            $days = ceil($totalDayNights / 2);
+        }
+
+        return $this->start_date->addDays($days);
     }
 
     public function getCurrencyTitleAttribute()

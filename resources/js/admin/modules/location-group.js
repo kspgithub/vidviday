@@ -1,5 +1,6 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import Choices from 'choices.js';
+import axios from "axios";
 
 let googleMaps;
 
@@ -16,7 +17,7 @@ const DEFAULT_LAT_LNG =  { lat: 48.7363835, lng: 31.46074611 };
 
 let LocationWrapper
 
-const LocationGroup = async function (wrapper) {
+const LocationGroup = async function (wrapper, event) {
     LocationWrapper = LocationWrapper || wrapper
     const noMap = LocationWrapper.classList.contains('no-map');
     const citySelect = LocationWrapper.querySelector('[name="city_id"]');
@@ -31,16 +32,45 @@ const LocationGroup = async function (wrapper) {
     let cityChanged = false
 
     if (citySelect) {
-        const cityChoices = new Choices(citySelect);
+        const cityChoices = new Choices(citySelect, {
+            maxItemCount: -1,
+            renderChoiceLimit: -1,
+            searchResultLimit: 20,
+            searchFloor: 2,
+        });
 
         //change
-        cityChoices.passedElement.element.addEventListener('change', async (event) => {
-            cityChoices.setChoices([],
+        // cityChoices.passedElement.element.addEventListener('change', async (event) => {
+        //     cityChoices.setChoices([],
+        //         'value',
+        //         'text',
+        //         true);
+        //     cityChanged = true
+        // })
+
+        let citySearchEventListener = async (event) => {
+            let cities = await axios.get('/api/location/cities', {
+                params: {
+                    q: event.detail.value,
+                    limit: 20,
+                    country_id: countrySelect.value,
+                    district_id: districtSelect.value,
+                    region_id: regionSelect.value,
+                }
+            })
+
+            cityChoices.setChoices(cities.data,
                 'value',
                 'text',
                 true);
-            cityChanged = true
-        })
+
+        }
+
+        if(event){
+            cityChoices.passedElement.element.removeEventListener('search', citySearchEventListener)
+        }
+
+        cityChoices.passedElement.element.addEventListener('search', citySearchEventListener)
     }
 
     if (districtSelect) {
@@ -90,6 +120,13 @@ const LocationGroup = async function (wrapper) {
 
         let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
         let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
+
+        if(event && event?.detail?.address) {
+            const geocoder = new googleMaps.Geocoder()
+            const geocode = await geocoder.geocode({ address: event.detail.address })
+            latValue = geocode.results[0].geometry.location.lat()
+            lngValue = geocode.results[0].geometry.location.lng()
+        }
 
         let latLng = {lat: latValue, lng: lngValue};
 
@@ -170,5 +207,5 @@ loader.load()
     });
 
 window.addEventListener('livewire-refresh', event => {
-    window.LocationGroup()
+    window.LocationGroup(null, event)
 })
