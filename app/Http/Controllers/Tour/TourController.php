@@ -41,7 +41,7 @@ class TourController extends Controller
      * @param TourGroup|null|mixed $group
      * @return View
      */
-    public function index(Request $request, TourGroup $group = null)
+    public function index(Request $request, TourGroup $group)
     {
         $localeLinks = $group->getLocaleLinks();
 
