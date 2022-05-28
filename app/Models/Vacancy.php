@@ -35,6 +35,7 @@ class Vacancy extends TranslatableModel
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
     ];
 
     protected $fillable = [
@@ -45,6 +46,7 @@ class Vacancy extends TranslatableModel
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'text',
         'video',
         'slug',

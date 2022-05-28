@@ -52,7 +52,7 @@
         <!-- OUR CLIENTS END -->
 
         <!-- SEO TEXT -->
-        <x-page.regulations :page="$pageContent"/>
+        <x-page.regulations :model="$pageContent"/>
         <!-- SEO TEXT END -->
     </main>
 

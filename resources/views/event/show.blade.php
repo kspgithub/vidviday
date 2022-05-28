@@ -42,7 +42,7 @@
         </div>
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$event"/>
         <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')

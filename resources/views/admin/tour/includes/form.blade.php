@@ -30,7 +30,8 @@
                                   :value="old('text', $tour->getTranslations('text'))"
                                   required></x-forms.editor-loc-group>
 
-        <x-forms.select-group name="duration_format" :label="__('Format')" :value="old('duration_format', $tour->duration_format)"
+        <x-forms.select-group name="duration_format" :label="__('Format')"
+                              :value="old('duration_format', $tour->duration_format)"
                               :options="$durationFormats" type="number"></x-forms.select-group>
 
         <x-forms.text-group name="duration" :label="__('Days')" :value="old('duration', $tour->duration)"
@@ -123,6 +124,8 @@
                                 :value="old('seo_description', $tour->getTranslations('seo_description'))"></x-forms.text-loc-group>
         <x-forms.text-loc-group name="seo_keywords" :label="__('SEO Keywords')"
                                 :value="old('seo_keywords', $tour->getTranslations('seo_keywords'))"></x-forms.text-loc-group>
+        <x-forms.editor-loc-group name="seo_text" :label="__('SEO Text')"
+                                  :value="old('seo_text', $tour->getTranslations('seo_text'))"></x-forms.editor-loc-group>
     </x-slot>
 </x-bootstrap.card>
 
@@ -142,7 +145,6 @@
                     {{$badge->title}}
                 </label>
             </div>
-
 
         @endforeach
     </x-slot>
@@ -171,11 +173,11 @@
                            :options="$types">
         </x-forms.tag-group>
 
-{{--        <x-forms.tag-group name="subjects[]"--}}
-{{--                           :label="__('Subjects')"--}}
-{{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
-{{--                           :options="$subjects">--}}
-{{--        </x-forms.tag-group>--}}
+        {{--        <x-forms.tag-group name="subjects[]"--}}
+        {{--                           :label="__('Subjects')"--}}
+        {{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
+        {{--                           :options="$subjects">--}}
+        {{--        </x-forms.tag-group>--}}
     </x-slot>
 </x-bootstrap.card>
 

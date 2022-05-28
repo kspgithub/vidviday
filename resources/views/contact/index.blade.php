@@ -80,7 +80,7 @@
             <div class="spacer-lg"></div>
         </div>
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$contact"/>
         <!-- SEO TEXT END -->
     </main>
 @endsection

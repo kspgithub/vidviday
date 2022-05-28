@@ -16,4 +16,20 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+
+    $tables = Schema::getAllTables();
+
+    $seo_tables = [];
+
+    foreach ($tables as $table) {
+        $tableName = $table->Tables_in_vidviday_prod;
+
+        $columns = Schema::getColumnListing($tableName);
+
+        if(in_array('seo_h1', $columns) && !in_array('seo_text', $columns)) {
+            $seo_tables[] = $tableName;
+        }
+    }
+    dd($seo_tables);
+
 })->purpose('Display an inspiring quote');

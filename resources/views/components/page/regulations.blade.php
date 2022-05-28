@@ -5,7 +5,7 @@
         <div class="seo-text load-more-wrapp">
             <div class="row">
                 <div class="col-xl-8 offset-xl-2 col-12">
-                    {!! $page->text !!}
+                    {!! $seoText !!}
                 </div>
             </div>
         </div>

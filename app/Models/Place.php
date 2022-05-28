@@ -40,6 +40,7 @@ class Place extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'slug',
     ];
 
@@ -50,6 +51,7 @@ class Place extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'slug',
         'lat',
         'lng',
