@@ -52,10 +52,12 @@ class TourAccommodation extends TranslatableModel
             ->where('model_type', Accommodation::class);
     }
 
-
     public function getTextAttribute()
     {
-        return !empty($this->accommodation) ? $this->accommodation->text : $this->getTranslation('text', $this->getLocale());
+        $locale = $this->getLocale();
+        $text = $this->attributes['text'] ?? '';
+        $text = !empty($text) ? json_decode($text, true) : [];
+        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] || '');
     }
 
     public function getTitleAttribute()

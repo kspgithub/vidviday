@@ -46,7 +46,10 @@ class TourLanding extends Model
 
     public function getTextAttribute()
     {
-        return !empty($this->landing) ? $this->landing->text : $this->getTranslation('text', $this->getLocale());
+        $locale = $this->getLocale();
+        $text = $this->attributes['text'] ?? '';
+        $text = !empty($text) ? json_decode($text, true) : [];
+        return !empty($this->landing) ? $this->landing->description : ($text[$locale] || '');
     }
 
     public function getTitleAttribute()
@@ -55,6 +58,6 @@ class TourLanding extends Model
         $title = $this->attributes['title'] ?? '';
         $title = !empty($title) ? json_decode($title, true) : [];
         $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return !empty($this->landing) ? trim($this->landing->title . ' ' . $prefix) : '-';
+        return trim(($this->landing->title ?? '') . ' ' . $prefix);
     }
 }
