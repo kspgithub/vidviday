@@ -38,7 +38,7 @@
                           x-model.number="model.place_id"
                           :label="__('Template')">
         <option value="0">Не вибано</option>
-        <template x-for="option in placeOptions">
+        <template x-for="option in placeOptions(model)">
             <option x-bind:value="option.value" x-bind:selected="option.value == model.place_id"
                     x-html="option.text"></option>
         </template>

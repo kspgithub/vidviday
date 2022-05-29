@@ -13,9 +13,20 @@ export default (options) => ({
         this.place = this.places.find(item => item.id == place_id);
     },
     get placeOptions() {
-        return this.places.map(item => ({
-            value: item.id,
-            text: item.title[this.locale] || item.title,
-        }))
+        return (model) => {
+            console.log(model)
+            return this.places.filter(item => {
+                if(model.region_id > 0 ) {
+                    if(model.region_id != item.region_id) return false
+                }
+                if(model.district_id > 0 ) {
+                    if(model.district_id != item.district_id) return false
+                }
+                return true
+            }).map(item => ({
+                value: item.id,
+                text: item.title[this.locale] || item.title,
+            }))
+        }
     }
 })
