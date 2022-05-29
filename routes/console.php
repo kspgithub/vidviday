@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tour;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -17,19 +18,18 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 
-    $tables = Schema::getAllTables();
+    $data = [];
 
-    $seo_tables = [];
+    $tour = Tour::find(299);
 
-    foreach ($tables as $table) {
-        $tableName = $table->Tables_in_vidviday_prod;
+    $media = [];
 
-        $columns = Schema::getColumnListing($tableName);
-
-        if(in_array('seo_h1', $columns) && !in_array('seo_text', $columns)) {
-            $seo_tables[] = $tableName;
+    foreach ($tour->tourPlaces as $tourPlace) {
+        if($tourPlace->hasMedia()) {
+            $media[] = $tourPlace->getMedia();
         }
     }
-    dd($seo_tables);
+
+    dd($media);
 
 })->purpose('Display an inspiring quote');

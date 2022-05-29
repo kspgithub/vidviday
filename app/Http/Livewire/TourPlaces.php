@@ -59,7 +59,7 @@ class TourPlaces extends Component
 
     public function query(): Builder|Relation
     {
-        return $this->tour->places()->with(['region', 'district', 'city']);
+        return \App\Models\TourPlace::where('tour_id', $this->tour->id)->with(['place']);
     }
 
     public function attachItem()

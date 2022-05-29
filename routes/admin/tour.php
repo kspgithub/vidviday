@@ -32,7 +32,10 @@ Route::group([
     Route::patch('{tour}/groups', [TourGroupController::class, 'update'])->name('group.update');
 
     Route::get('{tour}/places', [TourPlacesController::class, 'index'])->name('places.index');
-    Route::patch('{tour}/places', [TourPlacesController::class, 'update'])->name('places.update');
+    Route::get('{tour}/places/create', [TourPlacesController::class, 'create'])->name('places.create');
+    Route::post('{tour}/places', [TourPlacesController::class, 'store'])->name('places.store');
+    Route::get('{tour}/places/{model}', [TourPlacesController::class, 'edit'])->name('places.edit');
+    Route::patch('{tour}/places/{model}', [TourPlacesController::class, 'update'])->name('places.update');
 
     Route::get('{tour}/subjects', [TourSubjectController::class, 'index'])->name('subject.index');
     Route::patch('{tour}/subjects', [TourSubjectController::class, 'update'])->name('subject.update');
@@ -81,12 +84,6 @@ Route::group([
     Route::post('{tour}/landing', [TourLandingController::class, 'store'])->name('landing.store');
     Route::get('{tour}/landing/{model}', [TourLandingController::class, 'edit'])->name('landing.edit');
     Route::patch('{tour}/landing/{model}', [TourLandingController::class, 'update'])->name('landing.update');
-
-//    Route::get('{tour}/landing', [TourLandingController::class, 'index'])->name('landing.index');
-//    Route::get('{tour}/landing/select-box', [TourLandingController::class, 'selectBox'])->name('landing.select-box');
-//    Route::post('{tour}/landing/update-position', [TourLandingController::class, 'updatePosition'])->name('landing.update-position');
-//    Route::post('{tour}/landing/{id}/attach', [TourLandingController::class, 'attach'])->name('landing.attach');
-//    Route::post('{tour}/landing/{id}/detach', [TourLandingController::class, 'detach'])->name('landing.detach');
 
 });
 

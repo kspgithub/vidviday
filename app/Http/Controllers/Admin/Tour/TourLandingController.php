@@ -21,13 +21,11 @@ class TourLandingController extends Controller
     {
         $model = new TourLanding();
         $model->landing_id = 0;
-        $options = LandingPlace::query()->toSelectBox();
-        $landings = LandingPlace::query()->get();
+        $landings = LandingPlace::query()->get(['id', 'title', 'description']);
         return view('admin.tour.landing.create', [
             'model' => $model,
             'tour' => $tour,
             'landings' => $landings,
-            'options' => $options,
         ]);
     }
 
@@ -46,13 +44,11 @@ class TourLandingController extends Controller
 
     public function edit(Tour $tour, TourLanding $model)
     {
-        $options = LandingPlace::query()->toSelectBox();
         $landings = LandingPlace::query()->get();
         return view('admin.tour.landing.edit', [
             'model' => $model,
             'tour' => $tour,
             'landings' => $landings,
-            'options' => $options,
         ]);
     }
 

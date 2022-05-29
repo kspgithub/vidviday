@@ -1,68 +1,48 @@
 <div>
-    <ul wire:sortable="updateOrder" class="list-group draggable-container mb-5" style="width: 500px;">
-        @foreach($items as $item)
-            <li class="list-group-item draggable d-flex align-items-center"
-                style="width: 500px;"
-                wire:sortable.item="{{ $item->id }}"
-                wire:key="place-{{ $item->id }}">
-                <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
-                <span class="me-3">{{$item->title}} ({{$item->region->title}})</span>
-                <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">
-                    <i class="fa fa-times"></i>
-                </a>
-            </li>
-        @endforeach
-    </ul>
 
-    <hr>
-    <div class="row align-items-end">
-        <div class="col-12 mb-3">
-            <label for="region_id">@lang('Region')</label>
-            <select name="region_id" id="region_id" wire:model="region_id"
-                    x-ref="inputRegion"
-                    class="form-control">
-                <option value="0">Оберіть область</option>
-                @foreach($regions as $region)
-                    <option value="{{$region->id}}">{{$region->title}}</option>
+    <x-bootstrap.card>
+        <x-slot name="body">
+            <h2 class="mb-2">@lang('Place')</h2>
+            <table class="table table-sm mb-3">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>@lang('Title') {{strtoupper(app()->getLocale())}}</th>
+                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>
+                    <th>@lang('Actions')</th>
+                </tr>
+                </thead>
+                <tbody wire:sortable="updateOrder">
+                @foreach($items as $item)
+                    <tr class="draggable" wire:sortable.item="{{ $item->id }}" wire:key="place-{{ $item->id }}">
+                        <td>
+                            <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
+                        </td>
+                        <td>{!! $item->title !!}</td>
+                        <td>{!! $item->text !!}</td>
+                        <td style="width: 150px">
+
+                            <a href="{{route('admin.tour.places.edit', [$tour, $item])}}"
+                               class="btn btn-success m-2"><i
+                                    class="fas fa-file-alt"></i></a>
+                            <a href="#deleteModal" wire:click="deleteId({{$item->id}})" data-bs-toggle="modal"
+                               class="btn btn-danger m-2"><i
+                                    class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
                 @endforeach
-            </select>
 
-        </div>
-        <div class="col-12 mb-3">
-            <label for="district_id">@lang('District')</label>
-            <select name="district_id" id="district_id" wire:model="district_id"
-                    x-ref="inputDistrict"
-                    class="form-control" {{$region_id > 0 ? '' : 'disabled'}}>
-                <option value="0">Оберіть район</option>
-                @foreach($this->filteredDistricts as $district)
-                    <option value="{{$district->id}}">{{$district->title}}</option>
-                @endforeach
-            </select>
+                </tbody>
+            </table>
 
-        </div>
-        <div class="col-12 mb-3">
-            <label for="place_id">@lang('Place')</label>
-            <div wire:ignore>
-                <div
-                    x-data="tourPlaces({value: @entangle('item_id')})"
+            <a href="{{route('admin.tour.places.create', $tour)}}" class="btn btn-primary me-2">
+                @lang('Create Record')
+            </a>
+        </x-slot>
+    </x-bootstrap.card>
 
-                >
-                    <select name="place_id" id="place_id"
-                            class="form-control"
-                            x-ref="inputPlace"
-                            x-bind:value="value"
-                            wire:model="item_id"
-                            x-change="onChange"
-                    >
-                        <option value="0">Оберіть місце</option>
-                    </select>
-                </div>
-            </div>
 
-        </div>
-        <div class="col-12 mb-3">
-            <button type="button" class="btn btn-primary" wire:click.prevent="attachItem()">@lang('Add Place')</button>
-        </div>
-    </div>
+    @include('livewire-tables::bootstrap-5.includes.delete-modal')
 </div>
 

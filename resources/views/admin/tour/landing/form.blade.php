@@ -3,7 +3,6 @@
     landing: @json($model->landing),
     model: @json($model),
     landings: @json($landings),
-    options: @json($options),
 })'>
     <x-forms.translation-switch/>
 
@@ -13,9 +12,9 @@
                           x-model.number="model.landing_id"
                           :label="__('Template')">
         <option value="0">Не вибано</option>
-        <template x-for="option in options">
+        <template x-for="option in landingOptions">
             <option x-bind:value="option.value" x-bind:selected="option.value === model.landing_id"
-                    x-text="option.text"></option>
+                    x-html="option.text"></option>
         </template>
     </x-forms.select-group>
 

@@ -1,46 +1,21 @@
 export default (options) => ({
-    value: options.value,
+    locale: document.documentElement.lang || 'uk',
+    locales: options.locales,
+    regions: options.regions || [],
+    districts: options.districts || [],
+    places: options.places || [],
+    model: options.model,
+    place: options.place || null,
     init() {
-        const self = this;
-        jQuery(this.$refs.inputRegion).select2({
-            theme: 'bootstrap-5',
-        })
-
-        jQuery(this.$refs.inputDistrict).select2({
-            theme: 'bootstrap-5',
-        })
-
-        jQuery(this.$refs.inputPlace).select2({
-            theme: 'bootstrap-5',
-            ajax: {
-                url: '/api/places/select-box',
-                dataType: 'json',
-                data: function (params) {
-                    return {
-                        region_id: jQuery('#region_id').val(),
-                        district_id: jQuery('#district_id').val(),
-                        q: params.term,
-                        page: params.page || 1,
-                        limit: 20
-                    };
-                },
-            }
-
-        });
-        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
-            this.value = e.params.data.id;
-        })
-        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
-            this.value = e.params.data.id;
-        })
-        jQuery(this.$refs.inputPlace).on('select2:select', (e) => {
-            this.value = e.params.data.id;
-        })
+        this.$watch('model.place_id', (place_id) => this.onPlaceChange(place_id))
     },
-    onChange(event) {
-        this.value = event.target.value;
+    onPlaceChange(place_id) {
+        this.place = this.places.find(item => item.id == place_id);
     },
-    clear() {
-        this.value = 0;
+    get placeOptions() {
+        return this.places.map(item => ({
+            value: item.id,
+            text: item.title[this.locale] || item.title,
+        }))
     }
 })
