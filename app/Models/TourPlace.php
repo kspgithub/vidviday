@@ -42,7 +42,7 @@ class TourPlace extends Model
         $locale = $this->getLocale();
         $text = $this->attributes['text'] ?? '';
         $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->place) ? $this->place->text : ($text[$locale] || '');
+        return !empty($this->place) ? $this->place->text : ($text[$locale] ?? '');
     }
 
     public function getTitleAttribute()
