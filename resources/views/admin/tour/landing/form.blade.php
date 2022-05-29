@@ -22,18 +22,15 @@
     <template x-if="model.landing_id === 0 || !landing">
         <div>
             <x-forms.text-loc-group name="title" :label="__('Title')"
-                                    :value="old('title', $model->getTranslations('title'))"
-                                    required/>
+                                    :value="old('title', $model->getTranslations('title'))"/>
             <x-forms.editor-loc-group name="text" :label="__('Text')"
-                                      :value="old('text', $model->getTranslations('text'))"
-                                      required/>
+                                      :value="old('text', $model->getTranslations('text'))"/>
         </div>
     </template>
     <template x-if="model.landing_id > 0 && landing">
         <div>
             <x-forms.text-loc-group name="title" :label="__('Суфікс')"
-                                    :value="old('title', $model->getTranslations('title'))"
-                                    required/>
+                                    :value="old('title', $model->getTranslations('title'))"/>
             <div class="row mb-3">
                 <div class="col-md-2">@lang('Text')</div>
                 <div class="col-md-10">

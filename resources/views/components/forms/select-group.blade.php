@@ -31,14 +31,15 @@
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
                 });
-                jQuery($refs.input).on('change', (e)=> {
-                    @if($attributes->has('x-model'))
-                    {{$attributes->get('x-model')}} = e.target.value
-                    @endif
-                    @if($attributes->has('x-model.number'))
-                    {{$attributes->get('x-model.number')}} = parseInt(e.target.value)
-                    @endif
+                jQuery($refs.input).on('select2:select', (e) => {
+                    value = e.params.data.id;
                 })
+                $watch('value', (value) => {
+                    jQuery($refs.input).select2().val(value).trigger('change');
+                    @if($model = $attributes->first(fn($attr, $key) => Str::startsWith($key, 'x-model')))
+                    {{$model}} = value
+                    @endif
+                });
              "
             @endif
         >
@@ -48,6 +49,7 @@
                     {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
                     @if($select2)
                         x-ref="input"
+                        x-bind:value="value"
                     @endif
             >
                 {{$slot}}
