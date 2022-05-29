@@ -42,7 +42,7 @@ class TourLanding extends Model
         $locale = $this->getLocale();
         $text = $this->attributes['text'] ?? '';
         $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->landing) ? $this->landing->description : ($text[$locale] || '');
+        return !empty($this->landing) ? $this->landing->description : ($text[$locale] ?? '');
     }
 
     public function getTitleAttribute()
