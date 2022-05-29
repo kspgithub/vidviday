@@ -6,14 +6,18 @@
             <table class="table table-sm mb-3">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>@lang('Title') {{strtoupper(app()->getLocale())}}</th>
                     <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody wire:sortable="updateOrder">
                 @foreach($items as $item)
-                    <tr>
+                    <tr class="draggable" wire:sortable.item="{{ $item->id }}" wire:key="landing-{{ $item->id }}">
+                        <td>
+                            <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
+                        </td>
                         <td>{!! $item->title !!}</td>
                         <td>{!! $item->text !!}</td>
                         <td style="width: 150px">

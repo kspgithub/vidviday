@@ -8,9 +8,9 @@
     <x-forms.translation-switch/>
 
     <x-forms.select-group :value="old('landing_id', $model->landing_id)"
+                          select2="true"
                           name="landing_id"
                           x-model.number="model.landing_id"
-                          x-on:change="onLandingChange"
                           :label="__('Template')">
         <option value="0">Не вибано</option>
         <template x-for="option in options">

@@ -38,9 +38,9 @@
 
                         <div class="row">
                             <div class="col">
-                                <select class="form-control" x-ref="select" x-model.number="selectedId">
+                                <x-input.select2 class="form-control" x-ref="select" x-model.number="selectedId">
                                     <option value="0">Оберіть місце</option>
-                                </select>
+                                </x-input.select2>
                             </div>
                             <div class="col">
                                 <button type="button" @click.prevent="attachItem(selectedId)" class="btn btn-success"

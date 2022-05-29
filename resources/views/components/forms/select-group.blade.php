@@ -31,6 +31,14 @@
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
                 });
+                jQuery($refs.input).on('change', (e)=> {
+                    @if($attributes->has('x-model'))
+                    {{$attributes->get('x-model')}} = e.target.value
+                    @endif
+                    @if($attributes->has('x-model.number'))
+                    {{$attributes->get('x-model.number')}} = parseInt(e.target.value)
+                    @endif
+                })
              "
             @endif
         >

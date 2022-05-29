@@ -7,6 +7,7 @@ use App\Models\LandingPlace;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 /**
@@ -63,14 +64,21 @@ class TourLanding extends Component
     public function afterModelInit()
     {
         $this->landing_id = (int)$this->model->landing_id;
-        $this->getTranslations('text');
     }
 
     public function beforeSaveItem()
     {
         $this->model->tour_id = $this->tour->id;
         $this->model->landing_id = $this->landing_id === 0 ? null : $this->landing_id;
-        $this->setTranslations('text');
+    }
+
+    public function updateOrder($items)
+    {
+        foreach ($items as $item) {
+            DB::table('tours_landings')
+                ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
+                ->update(['position' => $item['order']]);
+        }
     }
 
     public function editRecordClass(): string
