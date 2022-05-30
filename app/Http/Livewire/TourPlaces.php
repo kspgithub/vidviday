@@ -66,7 +66,7 @@ class TourPlaces extends Component
     {
         foreach ($items as $item) {
             DB::table('tours_places')
-                ->where([['tour_id', $this->tour->id], ['place_id', $item['value']]])
+                ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
                 ->update(['position' => $item['order']]);
         }
     }

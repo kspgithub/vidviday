@@ -25,6 +25,7 @@ use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
+use App\Models\TourTicket;
 use App\Models\TourTransport;
 use App\Models\TourType;
 use App\Models\Transport;
@@ -240,6 +241,10 @@ trait TourRelationship
     public function tickets()
     {
         return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
+    }
+    public function tourTickets()
+    {
+        return $this->hasMany(TourTicket::class);
     }
 
     /**

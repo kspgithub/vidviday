@@ -156,15 +156,4 @@ class Place extends TranslatableModel implements HasMedia
             'text' => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
         ];
     }
-
-    public function asExtendedSelectBox()
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
-            'text' => $this->text,
-            'district_id' => $this->district_id,
-            'region_id' => $this->region_id,
-        ];
-    }
 }

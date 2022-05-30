@@ -12,18 +12,7 @@ export default (options) => ({
     init() {
         const self = this;
 
-        console.log(this.model)
-
         this.$watch('model.place_id', (place_id) => this.onPlaceChange(place_id))
-
-        jQuery(document).on('input change keyup focus', '.select2-search input', (event) => {
-            if(self.prevSearchQuery === event.target.value) {
-                event.preventDefault()
-                console.log("not changed")
-            } else {
-                console.log("changed")
-            }
-        });
 
         jQuery(this.$refs.input).select2({
             theme: 'bootstrap-5',

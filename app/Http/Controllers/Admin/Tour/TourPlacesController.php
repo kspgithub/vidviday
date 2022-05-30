@@ -28,8 +28,7 @@ class TourPlacesController extends Controller
         $model->place_id = 0;
         $regions = Region::query()->orderBy('title')->toSelectBox();
         $districts = District::query()->orderBy('title')->toSelectBox();
-        $places = Place::query()->with(['region', 'district'])->get(['id', 'title', 'text', 'district_id', 'region_id'])
-            ->map->asExtendedSelectBox();
+        $places = [];
 
         return view('admin.tour.places.create', [
             'model' => $model,
@@ -58,7 +57,7 @@ class TourPlacesController extends Controller
         $regions = Region::query()->orderBy('title')->toSelectBox();
         $districts = District::query()->orderBy('title')->toSelectBox();
         $places = Place::query()->with(['region', 'district'])->get(['id', 'title', 'text', 'district_id', 'region_id'])
-            ->map->asExtendedSelectBox();
+            ->map->asSelectBox();
 
         return view('admin.tour.places.edit', [
             'model' => $model,

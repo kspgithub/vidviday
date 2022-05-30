@@ -1,10 +1,9 @@
-<div x-data='tourPlaces({
+<div x-data='tourTickets({
     locales: @json(siteLocales()),
-    place: @json($model->place),
+    ticket: @json($model->ticket),
     model: @json($model),
     regions: @json($regions),
-    districts: @json($districts),
-    places: @json($places),
+    tickets: @json($tickets),
 })'>
     <x-forms.translation-switch/>
 
@@ -20,30 +19,18 @@
         </template>
     </x-forms.select-group>
 
-    <x-forms.select-group :value="old('district_id', $model->district_id)"
-                          select2="true"
-                          name="district_id"
-                          x-model.number="model.district_id"
-                          :label="__('District')">
-        <option value="0">Не вибано</option>
-        <template x-for="option in districts">
-            <option x-bind:value="option.value" x-bind:selected="option.value == model.district_id"
-                    x-html="option.text"></option>
-        </template>
-    </x-forms.select-group>
-
     <div class="form-group row mb-3">
-        <div class="col-md-2 col-form-label">@lang('Template')</div>
+        <div class="col-md-2 col-form-label">@lang('Ticket')</div>
         <div class="col-md-10">
             <div>
-                <select name="place_id" id="place_id"
+                <select name="ticket_id" id="ticket_id"
                         class="form-control"
                         x-ref="input"
-                        x-model.number="model.place_id"
+                        x-model.number="model.ticket_id"
                 >
-                    <option value="0">Оберіть місце</option>
-                    <template x-for="option in options">
-                        <option x-bind:value="option.value" x-bind:selected="option.value == model.place_id"
+                    <option value="0">Оберіть квиток</option>
+                    <template x-for="option in tickets">
+                        <option x-bind:value="option.value" x-bind:selected="option.value == model.ticket_id"
                                 x-html="option.text"></option>
                     </template>
                 </select>
@@ -51,7 +38,7 @@
         </div>
     </div>
 
-    <template x-if="model.place_id === 0 || !place">
+    <template x-if="model.ticket_id === 0 || !ticket">
         <div>
             <x-forms.text-loc-group name="title" :label="__('Title')"
                                     :value="old('title', $model->getTranslations('title'))"/>
@@ -59,9 +46,9 @@
                                       :value="old('text', $model->getTranslations('text'))"/>
         </div>
     </template>
-    <template x-if="model.place_id > 0 && place">
+    <template x-if="model.ticket_id > 0 && ticket">
         <div>
-            <x-forms.text-loc-group name="title" :label="__('Title')"
+            <x-forms.text-loc-group name="title" :label="__('title')"
                                     :value="old('title', $model->getTranslations('title'))"/>
             <div class="row mb-3">
                 <div class="col-md-2">@lang('Text')</div>
@@ -70,7 +57,7 @@
                         <div class="mb-3 row">
                             <div x-text="loc.toUpperCase()" class="col-auto"></div>
                             <div class="col">
-                                <div x-html="place?.text[loc] || ''" class="border p-2"></div>
+                                <div x-html="ticket?.text[loc] || ''" class="border p-2"></div>
                             </div>
 
                         </div>

@@ -28,7 +28,7 @@
     </template>
     <template x-if="model.landing_id > 0 && landing">
         <div>
-            <x-forms.text-loc-group name="title" :label="__('Суфікс')"
+            <x-forms.text-loc-group name="title" :label="__('title')"
                                     :value="old('title', $model->getTranslations('title'))"/>
             <div class="row mb-3">
                 <div class="col-md-2">@lang('Text')</div>

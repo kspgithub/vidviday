@@ -71,7 +71,13 @@ Route::group([
     Route::get('{tour}/similar', [SimilarToursController::class, 'index'])->name('similar.index');
 
     Route::get('{tour}/food', [TourFoodController::class, 'index'])->name('food.index');
+
     Route::get('{tour}/ticket', [TourTicketController::class, 'index'])->name('ticket.index');
+    Route::get('{tour}/ticket/create', [TourTicketController::class, 'create'])->name('ticket.create');
+    Route::post('{tour}/ticket', [TourTicketController::class, 'store'])->name('ticket.store');
+    Route::get('{tour}/ticket/{model}', [TourTicketController::class, 'edit'])->name('ticket.edit');
+    Route::patch('{tour}/ticket/{model}', [TourTicketController::class, 'update'])->name('ticket.update');
+
     Route::get('{tour}/faq', [TourQuestionsController::class, 'faq'])->name('faq');
     Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
     Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');

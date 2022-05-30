@@ -72,6 +72,7 @@ Route::group([
 ], function () {
 
     Route::get('select-box', [TicketsController::class, 'selectBox'])->name('select-box');
+    Route::get('get', [TicketsController::class, 'get'])->name('get');
 
 });
 

@@ -1,7 +1,14 @@
 export default (options) => ({
-    value: options.value,
+    locales: options.locales || [],
+    ticket: options.ticket || null,
+    model: options.model || null,
+    regions: options.regions || [],
+    tickets: options.tickets || [],
     init() {
         const self = this;
+
+        this.$watch('model.ticket_id', (ticket_id) => this.onTicketChange(ticket_id))
+
         jQuery(this.$refs.input).select2({
             theme: 'bootstrap-5',
             ajax: {
@@ -19,13 +26,20 @@ export default (options) => ({
 
         });
         jQuery(this.$refs.input).on('select2:select', (e) => {
-            this.value = e.params.data.id;
+            self.model.ticket_id = e.params.data.id;
+            console.log(self.model)
+        })
+    },
+    onTicketChange(ticket_id) {
+        let self = this
+        axios.get('/api/tickets/get', {params: {ticket_id}}).then(response => {
+            self.ticket = response.data
         })
     },
     onChange(event) {
-        this.value = event.target.value;
+        this.model.ticket_id = event.target.value;
     },
     clear() {
-        this.value = 0;
+        this.model.ticket_id = 0;
     }
 })
