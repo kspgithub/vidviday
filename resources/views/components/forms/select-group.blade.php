@@ -26,6 +26,10 @@
     <div class="{{$inputCol}}">
         <div
             @if($select2)
+            {{--Share x-model with parent if exists--}}
+            @if($attributes->has('x-model'))
+                x-modelable="value" x-model="{{$attributes->get('x-model')}}"
+            @endif
             x-data="{value: ''}"
             x-init="
                 jQuery($refs.input).select2({
@@ -36,9 +40,6 @@
                 })
                 $watch('value', (value) => {
                     jQuery($refs.input).select2().val(value).trigger('change');
-                    @if($model = $attributes->first(fn($attr, $key) => Str::startsWith($key, 'x-model')))
-                    {{$model}} = value
-                    @endif
                 });
              "
             @endif

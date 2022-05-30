@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\IncludeType;
 use App\Models\Region;
 use App\Models\Ticket;
 use App\Models\Tour;
+use App\Models\TourTicket;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -14,6 +16,9 @@ use Livewire\Component;
 
 class TourTickets extends Component
 {
+
+    use EditRecordTrait;
+
     /**
      * @var Tour
      */
@@ -81,5 +86,10 @@ class TourTickets extends Component
         return view('admin.tour.includes.tour-tickets', [
             'items' => $this->query()->orderBy('position')->get(),
         ]);
+    }
+
+    public function editRecordClass(): string
+    {
+        return TourTicket::class;
     }
 }

@@ -21,10 +21,15 @@ class TourLandingController extends Controller
     {
         $model = new TourLanding();
         $model->landing_id = 0;
+        $types = [
+            ['value' => TourLanding::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
+            ['value' => TourLanding::TYPE_CUSTOM, 'text' => __('Свій тип')],
+        ];
         $landings = LandingPlace::query()->get(['id', 'title', 'description']);
         return view('admin.tour.landing.create', [
             'model' => $model,
             'tour' => $tour,
+            'types' => $types,
             'landings' => $landings,
         ]);
     }
@@ -44,10 +49,15 @@ class TourLandingController extends Controller
 
     public function edit(Tour $tour, TourLanding $model)
     {
+        $types = [
+            ['value' => TourLanding::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
+            ['value' => TourLanding::TYPE_CUSTOM, 'text' => __('Свій тип')],
+        ];
         $landings = LandingPlace::query()->get();
         return view('admin.tour.landing.edit', [
             'model' => $model,
             'tour' => $tour,
+            'types' => $types,
             'landings' => $landings,
         ]);
     }

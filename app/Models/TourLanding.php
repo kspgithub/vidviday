@@ -2,21 +2,33 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
+use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasTranslatableSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class TourLanding extends Model
+class TourLanding extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
+    use HasTranslatableSlug;
+    use JsonLikeScope;
+    use UseSelectBox;
+    use UsePublishedScope;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     protected $table = 'tours_landings';
 
     public $translatable = [
         'text',
         'title',
+        'description',
+        'slug',
     ];
 
 
@@ -24,8 +36,26 @@ class TourLanding extends Model
         'tour_id',
         'landing_id',
         'title',
+        'description',
+        'slug',
         'text',
+        'lat',
+        'lng',
+        'type',
     ];
+
+    protected $casts = [
+        'lat' => 'float',
+        'lng' => 'float',
+        'published' => 'boolean',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
 
     public function tour()
     {
