@@ -27,8 +27,6 @@ class AddFieldsToToursPlacesTable extends Migration
 
             $table->foreign('tour_id', 'tour_places_tour_id_foreign')
                 ->references('id')->on('tours')->onDelete('cascade');
-            $table->foreign('place_id', 'tour_places_place_id_foreign')
-                ->references('id')->on('tours')->onDelete('cascade');
         });
     }
 
@@ -40,7 +38,7 @@ class AddFieldsToToursPlacesTable extends Migration
     public function down()
     {
         Schema::table('tours_places', function (Blueprint $table) {
-            $table->unsignedBigInteger('place_id')->nullable(false)->change();
+            $table->unsignedBigInteger('place_id')->change();
             $table->dropColumn(['id', 'title', 'text']);
             $table->primary(['tour_id', 'place_id']);
         });

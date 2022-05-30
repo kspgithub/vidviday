@@ -24,6 +24,10 @@ class TourPlaces extends Component
      */
     public $regions = [];
 
+    public $options = [];
+
+    public $place_ids = [];
+
     /**
      * @var array|Collection
      */
@@ -44,30 +48,18 @@ class TourPlaces extends Component
      */
     public $item_id = 0;
 
+    public function query(): Builder|Relation
+    {
+        return $this->tour->tourPlaces()->with(['place']);
+    }
+
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
-
         $this->regions = Region::query()->orderBy('title')->get();
         $this->districts = District::query()->orderBy('title')->get();
-    }
-
-    public function detachItem($id)
-    {
-        $this->query()->detach([$id]);
-    }
-
-    public function query(): Builder|Relation
-    {
-        return \App\Models\TourPlace::where('tour_id', $this->tour->id)->with(['place']);
-    }
-
-    public function attachItem()
-    {
-        if ($this->item_id > 0 && $this->query()->where('id', $this->item_id)->count() === 0) {
-            $this->query()->attach($this->item_id, ['position' => $this->query()->count() + 1]);
-            $this->item_id = 0;
-        }
+        $this->place_ids = $tour->tourPlaces()->pluck('id')->toArray();
+        $this->options = [];
     }
 
     public function updateOrder($items)
@@ -79,17 +71,24 @@ class TourPlaces extends Component
         }
     }
 
+    public function detachItem($id)
+    {
+        $this->query()->detach([$id]);
+    }
+
+    public function attachItem()
+    {
+        if ($this->item_id > 0 && $this->query()->where('id', $this->item_id)->count() === 0) {
+            $this->query()->attach($this->item_id, ['position' => $this->query()->count() + 1]);
+            $this->item_id = 0;
+        }
+    }
+
     public function render()
     {
-        return view('admin.tour.includes.tour-places', ['items' => $this->query()->get()]);
+        return view('admin.tour.includes.tour-places', [
+            'items' => $this->query()->orderBy('position')->get()
+        ]);
     }
 
-
-    public function getFilteredDistrictsProperty()
-    {
-        if ((int)$this->region_id > 0) {
-            return $this->districts->where('region_id', (int)$this->region_id)->all();
-        }
-        return [];
-    }
 }

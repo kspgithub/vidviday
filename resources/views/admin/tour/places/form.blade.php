@@ -32,18 +32,49 @@
         </template>
     </x-forms.select-group>
 
-    <x-forms.select-group :value="old('place_id', $model->place_id)"
-                          select2="true"
-                          name="place_id"
-                          x-model.number="model.place_id"
-                          :label="__('Template')">
-        <option value="0">Не вибано</option>
-        <template x-for="option in placeOptions(model)">
-            <option x-bind:value="option.value" x-bind:selected="option.value == model.place_id"
-                    x-html="option.text"></option>
-        </template>
-    </x-forms.select-group>
+{{--    <x-forms.select-group :value="old('place_id', $model->place_id)"--}}
+{{--                          select2="true"--}}
+{{--                          name="place_id"--}}
+{{--                          x-ref="input"--}}
+{{--                          x-model.number="model.place_id"--}}
+{{--                          :label="__('Template')">--}}
+{{--        <option value="0">Не вибано</option>--}}
+{{--        <template x-for="option in options">--}}
+{{--            <option x-bind:value="option.value" x-bind:selected="option.value == model.place_id"--}}
+{{--                    x-html="option.text"></option>--}}
+{{--        </template>--}}
+{{--    </x-forms.select-group>--}}
 
+    <span x-text="model"></span>
+    <span x-text="model.place_id"></span>
+
+    <div class="col-12 col-xl-auto">
+        <label for="place_id">@lang('Template')</label>
+        <div>
+            <div>
+                <select name="place_id" id="place_id"
+                        class="form-control"
+                        x-ref="input"
+                        x-model.number="model.place_id"
+{{--                        x-bind:value="model.place_id"--}}
+{{--                        wire:model="item_id"--}}
+{{--                        x-change="onChange"--}}
+                        style="width: 500px;"
+                >
+                    <option value="0">Оберіть місце</option>
+                    <template x-for="option in options">
+                        <option x-bind:value="option.value" x-bind:selected="option.value == model.place_id"
+                                x-html="option.text"></option>
+                    </template>
+{{--                    @foreach($options as $option)--}}
+{{--                        <option value="{{$option->id}}">--}}
+{{--                            {{$option->title}} ({{$option->region ? $option->region->title : '-'}})--}}
+{{--                        </option>--}}
+{{--                    @endforeach--}}
+                </select>
+            </div>
+        </div>
+    </div>
 
     <template x-if="model.place_id === 0 || !place">
         <div>
@@ -55,7 +86,7 @@
     </template>
     <template x-if="model.place_id > 0 && place">
         <div>
-            <x-forms.text-loc-group name="title" :label="__('Суфікс')"
+            <x-forms.text-loc-group name="title" :label="__('Title')"
                                     :value="old('title', $model->getTranslations('title'))"/>
             <div class="row mb-3">
                 <div class="col-md-2">@lang('Text')</div>
