@@ -122,7 +122,7 @@
     <!-- THUMBS CAROUSEL END -->
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$tour"/>
         <!-- SEO TEXT END -->
     </main>
 

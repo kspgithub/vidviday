@@ -38,6 +38,7 @@ class EventGroup extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
     ];
 
     protected $fillable = [
@@ -46,6 +47,7 @@ class EventGroup extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'start_date',
         'end_date',
         'text',

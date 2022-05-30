@@ -68,7 +68,7 @@
         <!-- OUR CLIENTS END -->
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$pageContent"/>
 
         <!-- SEO TEXT END -->
     </main>

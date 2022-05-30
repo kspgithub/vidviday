@@ -1,61 +1,48 @@
 <div>
-    <ul wire:sortable="updateOrder" class="list-group draggable-container mb-5" style="width: 500px;">
-        @foreach($items as $item)
-            <li class="list-group-item draggable d-flex align-items-center"
-                style="width: 500px;"
-                wire:sortable.item="{{ $item->id }}"
-                wire:key="place-{{ $item->id }}">
-                <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
-                <span
-                    class="me-3">{{$item->title}}, {{$item->price}}{{$item->currency}} ({{$item->region->title}})</span>
-                <a href="#" class="text-danger ms-auto" wire:click.prevent="detachItem({{$item->id}})">
-                    <i class="fa fa-times"></i>
-                </a>
-            </li>
-        @endforeach
-    </ul>
-    <div class="row align-items-end">
 
-        <div class="col-12 mb-3">
-            <label for="region_id">@lang('Region')</label>
-            <select name="region_id" id="region_id" wire:model="region_id" class="form-control">
-                <option value="0">Оберіть область</option>
-                @foreach($regions as $region)
-                    <option value="{{$region->id}}">{{$region->title}}</option>
+    <x-bootstrap.card>
+        <x-slot name="body">
+            <h2 class="mb-2">@lang('ticket')</h2>
+            <table class="table table-sm mb-3">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>@lang('Title') {{strtoupper(app()->getLocale())}}</th>
+                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>
+                    <th>@lang('Actions')</th>
+                </tr>
+                </thead>
+                <tbody wire:sortable="updateOrder">
+                @foreach($items as $item)
+                    <tr class="draggable" wire:sortable.item="{{ $item->id }}" wire:key="ticket-{{ $item->id }}">
+                        <td>
+                            <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
+                        </td>
+                        <td>{!! $item->title !!}</td>
+                        <td>{!! $item->text !!}</td>
+                        <td style="width: 150px">
+
+                            <a href="{{route('admin.tour.ticket.edit', [$tour, $item])}}"
+                               class="btn btn-success m-2"><i
+                                    class="fas fa-file-alt"></i></a>
+                            <a href="#deleteModal" wire:click="deleteId({{$item->id}})" data-bs-toggle="modal"
+                               class="btn btn-danger m-2"><i
+                                    class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
                 @endforeach
-            </select>
 
-        </div>
+                </tbody>
+            </table>
 
-        <div class="col-12 col-xl-auto">
-            <label for="place_id">@lang('Ticket')</label>
-            <div wire:ignore>
-                <div
-                    x-data="tourTickets({value: @entangle('item_id')})"
+            <a href="{{route('admin.tour.ticket.create', $tour)}}" class="btn btn-primary me-2">
+                @lang('Create Record')
+            </a>
+        </x-slot>
+    </x-bootstrap.card>
 
-                >
-                    <select name="item_id" id="item_id"
-                            class="form-control"
-                            x-ref="input"
-                            x-bind:value="value"
-                            wire:model="item_id"
-                            x-change="onChange"
-                            style="width: 500px;"
-                    >
-                        <option value="0">Оберіть квиток</option>
-                        @foreach($options as $option)
-                            <option value="{{$option->id}}">
-                                {{$option->title}} ({{$option->region ? $option->region->title : '-'}})
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-xl-auto">
-            <button type="button" class="btn btn-primary" wire:loading.class="disabled"
-                    wire:click.prevent="attachItem()">@lang('Add Ticket')</button>
-        </div>
-    </div>
+
+    @include('livewire-tables::bootstrap-5.includes.delete-modal')
 </div>
 

@@ -35,6 +35,7 @@ class PostBasicRequest extends FormRequest
             'seo_title' => ['nullable', 'array'],
             'seo_description' => ['nullable', 'array'],
             'seo_keywords' => ['nullable', 'array'],
+            'seo_text' => ['nullable', 'array'],
             'text' => ['required', 'array'],
             'text.uk' => ['required', 'string'],
             'short_text' => ['nullable', 'array'],

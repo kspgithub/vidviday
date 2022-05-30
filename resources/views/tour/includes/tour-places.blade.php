@@ -6,7 +6,7 @@
     </div>
     <div class="accordion-inner">
         <div class="accordion type-2">
-            @foreach($tour->places as $place)
+            @foreach($tour->tourPlaces as $place)
                 <div class="accordion-item active">
                     <div class="accordion-title">{{$place->title}}<i></i></div>
                     <div class="accordion-inner" style="display: block">

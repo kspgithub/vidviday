@@ -40,6 +40,8 @@
                                 :value="old('seo_description', $place->getTranslations('seo_description'))"></x-forms.text-loc-group>
         <x-forms.text-loc-group name="seo_keywords" :label="__('SEO Keywords')"
                                 :value="old('seo_keywords', $place->getTranslations('seo_keywords'))"></x-forms.text-loc-group>
+        <x-forms.editor-loc-group name="seo_text" :label="__('SEO Text')"
+                                  :value="old('seo_text', $place->getTranslations('seo_text'))"></x-forms.editor-loc-group>
     </x-slot>
 </x-bootstrap.card>
 

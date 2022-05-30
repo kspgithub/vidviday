@@ -90,7 +90,7 @@
         </div>
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$group"/>
         <!-- SEO TEXT END -->
     </main>
 @endsection

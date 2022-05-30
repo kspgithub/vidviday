@@ -19,6 +19,7 @@ class Ticket extends TranslatableModel
     use HasSlug;
     use HasTranslations;
     use UsePublishedScope;
+    use UseSelectBox;
 
     public function getRouteKeyName()
     {

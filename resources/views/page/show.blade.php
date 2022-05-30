@@ -39,7 +39,7 @@
 
             <div class="spacer-lg"></div>
 
-            <x-page.regulations/>
+            <x-page.regulations :model="$pageContent"/>
         </div>
     </main>
 @endsection

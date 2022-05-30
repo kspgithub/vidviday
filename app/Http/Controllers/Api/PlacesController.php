@@ -55,4 +55,13 @@ class PlacesController extends Controller
             'media' => $place->getMedia()->map->toSwiperSlide(),
         ]);
     }
+
+    public function get(Request $request)
+    {
+        $place_id = (int)$request->input('place_id', 0);
+
+        $place = Place::query()->findOrFail($place_id);
+
+        return response()->json($place);
+    }
 }

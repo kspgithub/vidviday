@@ -37,6 +37,7 @@ class News extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
     ];
 
     protected $fillable = [
@@ -45,6 +46,7 @@ class News extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'text',
         'short_text',
         'slug',

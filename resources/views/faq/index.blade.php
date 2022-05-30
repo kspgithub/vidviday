@@ -75,7 +75,7 @@
         </div>
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$pageContent ?? null"/>
         <!-- SEO TEXT END -->
     </main>
 
