@@ -44,7 +44,7 @@ class Regulations extends Component
                 $text = Str::replace($matches[0][$i], $html, $text);
             }
         }
-        $this->seoText = $text;
+        $this->seoText = (string) $text;
     }
 
     /**
