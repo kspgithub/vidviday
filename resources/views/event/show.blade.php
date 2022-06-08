@@ -6,13 +6,27 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <span><a href="{{pageUrlByKey('events')}}">@lang('Events')</a></span>
-                <span>—</span>
-                <span>{{$event->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ pageUrlByKey('events') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Events") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $event->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">

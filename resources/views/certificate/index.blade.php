@@ -9,11 +9,19 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <span>{{$pageContent->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $pageContent->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-xl-8 col-12">

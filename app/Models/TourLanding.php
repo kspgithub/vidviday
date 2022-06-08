@@ -47,7 +47,6 @@ class TourLanding extends TranslatableModel
     protected $casts = [
         'lat' => 'float',
         'lng' => 'float',
-        'published' => 'boolean',
     ];
 
     public function getSlugOptions(): SlugOptions
