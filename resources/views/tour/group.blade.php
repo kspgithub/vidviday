@@ -6,11 +6,19 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">Головна</a>
-                <span>—</span>
-                <span>{{$group ? $group->title :  'Пошук турів'}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $group ? $group->title : __('Пошук турів') }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row mobile-reverse-content">
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">

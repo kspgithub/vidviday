@@ -5,11 +5,19 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('home')</a>
-                <span>—</span>
-                <span>Сторінка не знайдена</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">Сторінка не знайдена</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-xl-3 col-12">

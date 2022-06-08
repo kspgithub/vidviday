@@ -1,8 +1,27 @@
-<div class="bread-crumbs">
-    <a href="{{ route("home") }}">{{ __("Головна") }}</a>
-    <span>—</span>
-    <span>{{ __("Blog") }}</span>
-
-    @if(isset($title)) <span>{{ $title }}</span> @endif
-
-</div>
+<ul class="bread-crumbs">
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="{{ route('home') }}" itemprop="url">
+            <span itemprop="title">{{ __("Home") }}</span>
+        </a>
+    </li>
+    <li>
+        <span>—</span>
+    </li>
+    @if(isset($title))
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ route('blog.index') }}" itemprop="url">
+                <span itemprop="title">{{ __("Blog") }}</span>
+            </a>
+        </li>
+        <li>
+            <span>—</span>
+        </li>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <span itemprop="title">{{ $title }}</span>
+        </li>
+    @else
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <span itemprop="title">{{ __("Blog") }}</span>
+        </li>
+    @endif
+</ul>

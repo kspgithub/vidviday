@@ -433,6 +433,43 @@ hr {
     margin-top: -10px;
     margin-bottom: 15px;
 
+    li {
+        display: inline-block;
+
+        span,
+        a {
+            font-size: 12px;
+            line-height: 24px;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &:first-child {
+            span,
+            a {
+                margin: 0;
+            }
+        }
+        span {
+            margin: 0 10px;
+            color: $title;
+            transition: all 0.44s ease-in-out;
+        }
+
+        a {
+            color: $title;
+        }
+
+        &:last-child {
+            span,
+            a {
+                color: $text;
+                margin: 0;
+            }
+        }
+    }
+
     span,
     a {
         font-size: 12px;
@@ -440,11 +477,6 @@ hr {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-
-        &:last-child {
-            color: $text;
-            margin: 0;
-        }
     }
 
     span {
@@ -562,6 +594,9 @@ hr {
         a {
             &:hover {
                 color: $green;
+                span {
+                    color: $green;
+                }
             }
         }
     }
