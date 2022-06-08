@@ -8,11 +8,19 @@
 @section('content')
     <main>
         <div class="container">
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <span>{{$pageContent->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $pageContent->title }}</span>
+                </li>
+            </ul>
             <div class="row">
                 <div class="col-12 {{$pageContent->sidebar ? 'col-xl-8' : ''}}">
                     <!-- BANNER TABS -->
@@ -39,7 +47,7 @@
 
             <div class="spacer-lg"></div>
 
-            <x-page.regulations/>
+            <x-page.regulations :model="$pageContent"/>
         </div>
     </main>
 @endsection

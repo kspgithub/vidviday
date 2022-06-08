@@ -24,6 +24,10 @@ class TourPlaces extends Component
      */
     public $regions = [];
 
+    public $options = [];
+
+    public $place_ids = [];
+
     /**
      * @var array|Collection
      */
@@ -44,22 +48,32 @@ class TourPlaces extends Component
      */
     public $item_id = 0;
 
+    public function query(): Builder|Relation
+    {
+        return $this->tour->tourPlaces()->with(['place']);
+    }
+
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
-
         $this->regions = Region::query()->orderBy('title')->get();
         $this->districts = District::query()->orderBy('title')->get();
+        $this->place_ids = $tour->tourPlaces()->pluck('id')->toArray();
+        $this->options = [];
+    }
+
+    public function updateOrder($items)
+    {
+        foreach ($items as $item) {
+            DB::table('tours_places')
+                ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
+                ->update(['position' => $item['order']]);
+        }
     }
 
     public function detachItem($id)
     {
         $this->query()->detach([$id]);
-    }
-
-    public function query(): Builder|Relation
-    {
-        return $this->tour->places()->with(['region', 'district', 'city']);
     }
 
     public function attachItem()
@@ -70,26 +84,11 @@ class TourPlaces extends Component
         }
     }
 
-    public function updateOrder($items)
-    {
-        foreach ($items as $item) {
-            DB::table('tours_places')
-                ->where([['tour_id', $this->tour->id], ['place_id', $item['value']]])
-                ->update(['position' => $item['order']]);
-        }
-    }
-
     public function render()
     {
-        return view('admin.tour.includes.tour-places', ['items' => $this->query()->get()]);
+        return view('admin.tour.includes.tour-places', [
+            'items' => $this->query()->orderBy('position')->get()
+        ]);
     }
 
-
-    public function getFilteredDistrictsProperty()
-    {
-        if ((int)$this->region_id > 0) {
-            return $this->districts->where('region_id', (int)$this->region_id)->all();
-        }
-        return [];
-    }
 }

@@ -1,77 +1,26 @@
-import axios from "axios";
-import handleError from "../composables/handle-error";
-import jQuery from 'jquery';
-import Sortable from "sortablejs";
-
-export default (props) => ({
-    baseUrl: props.baseUrl || document.location.pathname,
-    tour: props.tour,
-    items: [],
-    selectedId: 0,
+export default (options) => ({
+    locale: document.documentElement.lang || 'uk',
+    locales: options.locales,
+    trans_expanded: false,
+    landings: options.landings || [],
+    model: options.model,
+    landing: options.landing || null,
     init() {
-        this.loadItems();
-
-        const self = this;
-
-        jQuery(self.$refs.select).select2({
-            theme: 'bootstrap-5',
-            ajax: {
-                url: `${self.baseUrl}/select-box`,
-                dataType: 'json',
-                data: function (params) {
-                    return {
-                        q: params.term,
-                        page: params.page || 1,
-                        limit: 20
-                    };
-                },
-            }
-
-        });
-        jQuery(this.$refs.select).on('select2:select', (e) => {
-            self.selectedId = e.params.data.id;
-        })
-
-        const sortable = Sortable.create(self.$refs.sortable, {
-            draggable: '.draggable',
-            handler: '.handle',
-            onUpdate: (/**Event*/evt) => {
-                const sorted_ids = sortable.toArray();
-                const data = {
-                    ids: sorted_ids,
-                };
-                axios.post(`${self.baseUrl}/update-position`, data)
-                    .then(({data}) => {
-                    })
-                    .catch(error => handleError(error));
-            },
-        });
+        this.$watch('model.landing_id', (landing_id) => this.onLandingChange(landing_id))
     },
-    loadItems() {
-        axios.get(this.baseUrl)
-            .then(({data}) => {
-                this.items = data;
-            })
-            .catch(error => {
-                handleError(error);
-            })
+    onTypeChange() {
+        setTimeout(() => {
+            window.LocationGroup(document.querySelector('.location-group'))
+        }, 1000)
+        this.trans_expanded = this.model.type <= 1
     },
-    detachItem(id) {
-        axios.post(`${this.baseUrl}/${id}/detach`)
-            .then(({data}) => {
-                this.loadItems();
-            })
-            .catch(error => {
-                handleError(error);
-            })
+    onLandingChange(landing_id) {
+        this.landing = this.landings.find(item => item.id == landing_id);
     },
-    attachItem(id) {
-        axios.post(`${this.baseUrl}/${id}/attach`)
-            .then(({data}) => {
-                this.loadItems();
-            })
-            .catch(error => {
-                handleError(error);
-            })
+    get landingOptions() {
+        return this.landings.map(item => ({
+            value: item.id,
+            text: item.title[this.locale] || item.title,
+        }))
     }
 })

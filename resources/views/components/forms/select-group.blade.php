@@ -26,10 +26,20 @@
     <div class="{{$inputCol}}">
         <div
             @if($select2)
+            {{--Share x-model with parent if exists--}}
+            @if($attributes->has('x-model'))
+                x-modelable="value" x-model="{{$attributes->get('x-model')}}"
+            @endif
             x-data="{value: ''}"
             x-init="
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
+                });
+                jQuery($refs.input).on('select2:select', (e) => {
+                    value = e.params.data.id;
+                })
+                $watch('value', (value) => {
+                    jQuery($refs.input).select2().val(value).trigger('change');
                 });
              "
             @endif
@@ -40,6 +50,7 @@
                     {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
                     @if($select2)
                         x-ref="input"
+                        x-bind:value="value"
                     @endif
             >
                 {{$slot}}

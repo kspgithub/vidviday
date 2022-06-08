@@ -16,7 +16,7 @@ export const useTourView = () => {
 
     const nextPage = async () => {
         if (fetchRequest.value || currentPage.value >= lastPage.value) return;
-        await store.dispatch('tourFilter/fetchTours', Object.assign(params, {page: currentPage.value + 1}));
+        await store.dispatch('tourFilter/fetchTours', Object.assign(params.value, {page: currentPage.value + 1}));
     }
 
     return {

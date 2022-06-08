@@ -8,13 +8,27 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="{{'/'}}">Головна</a>
-                <span>—</span>
-                <a href="{{route('places')}}">Місця</a>
-                <span>—</span>
-                <span>{{ $place->title }}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('places') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Місця") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $place->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
@@ -113,7 +127,7 @@
         </div>
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$pageContent"/>
         <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')

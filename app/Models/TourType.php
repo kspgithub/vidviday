@@ -45,6 +45,7 @@ class TourType extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
     ];
 
     protected $fillable = [
@@ -53,6 +54,7 @@ class TourType extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'text',
         'slug',
         'published',

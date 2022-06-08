@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\Tour\TourTicketController;
 use App\Http\Controllers\Admin\Tour\TourTransportController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
 use App\Http\Controllers\Admin\Tour\TourFinanceController;
-use App\Http\Controllers\Admin\TourLandingController;
+use App\Http\Controllers\Admin\Tour\TourLandingController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -32,7 +32,10 @@ Route::group([
     Route::patch('{tour}/groups', [TourGroupController::class, 'update'])->name('group.update');
 
     Route::get('{tour}/places', [TourPlacesController::class, 'index'])->name('places.index');
-    Route::patch('{tour}/places', [TourPlacesController::class, 'update'])->name('places.update');
+    Route::get('{tour}/places/create', [TourPlacesController::class, 'create'])->name('places.create');
+    Route::post('{tour}/places', [TourPlacesController::class, 'store'])->name('places.store');
+    Route::get('{tour}/places/{model}', [TourPlacesController::class, 'edit'])->name('places.edit');
+    Route::patch('{tour}/places/{model}', [TourPlacesController::class, 'update'])->name('places.update');
 
     Route::get('{tour}/subjects', [TourSubjectController::class, 'index'])->name('subject.index');
     Route::patch('{tour}/subjects', [TourSubjectController::class, 'update'])->name('subject.update');
@@ -68,18 +71,25 @@ Route::group([
     Route::get('{tour}/similar', [SimilarToursController::class, 'index'])->name('similar.index');
 
     Route::get('{tour}/food', [TourFoodController::class, 'index'])->name('food.index');
+
     Route::get('{tour}/ticket', [TourTicketController::class, 'index'])->name('ticket.index');
+    Route::get('{tour}/ticket/create', [TourTicketController::class, 'create'])->name('ticket.create');
+    Route::post('{tour}/ticket', [TourTicketController::class, 'store'])->name('ticket.store');
+    Route::get('{tour}/ticket/{model}', [TourTicketController::class, 'edit'])->name('ticket.edit');
+    Route::patch('{tour}/ticket/{model}', [TourTicketController::class, 'update'])->name('ticket.update');
+
     Route::get('{tour}/faq', [TourQuestionsController::class, 'faq'])->name('faq');
     Route::get('{tour}/questions', [TourQuestionsController::class, 'questions'])->name('questions');
     Route::get('{tour}/testimonials', [TourQuestionsController::class, 'testimonials'])->name('testimonials');
     Route::get('{tour}/calc', [CalcController::class, 'index'])->name('calc');
     Route::get('{tour}/accomm', [TourAccommController::class, 'index'])->name('accomm.index');
     Route::get('{tour}/transport', [TourTransportController::class, 'index'])->name('transport.index');
+
     Route::get('{tour}/landing', [TourLandingController::class, 'index'])->name('landing.index');
-    Route::get('{tour}/landing/select-box', [TourLandingController::class, 'selectBox'])->name('landing.select-box');
-    Route::post('{tour}/landing/update-position', [TourLandingController::class, 'updatePosition'])->name('landing.update-position');
-    Route::post('{tour}/landing/{id}/attach', [TourLandingController::class, 'attach'])->name('landing.attach');
-    Route::post('{tour}/landing/{id}/detach', [TourLandingController::class, 'detach'])->name('landing.detach');
+    Route::get('{tour}/landing/create', [TourLandingController::class, 'create'])->name('landing.create');
+    Route::post('{tour}/landing', [TourLandingController::class, 'store'])->name('landing.store');
+    Route::get('{tour}/landing/{model}', [TourLandingController::class, 'edit'])->name('landing.edit');
+    Route::patch('{tour}/landing/{model}', [TourLandingController::class, 'update'])->name('landing.update');
 
 });
 

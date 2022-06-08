@@ -29,9 +29,12 @@
                     }
                     @endif
                 });
-                jQuery($refs.input).on('select2:select', (e)=> {
+                jQuery($refs.input).on('select2:select', (e) => {
                     value = e.params.data.id;
                 })
+                $watch('value', (value) => {
+                    jQuery($refs.input).select2().val(value).trigger('change');
+                });
 "
         >
             <select name="{{$name}}" id="{{$name}}"

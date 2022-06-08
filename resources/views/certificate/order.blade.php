@@ -9,13 +9,27 @@
     <main class="certificate-order-page">
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <a href="{{pageUrlByKey('certificate')}}">{{$pageContent->title}}</a>
-                <span>—</span>
-                <span>{{$pageContent->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ pageUrlByKey('certificate') }}" itemprop="url">
+                        <span itemprop="title">{{ $pageContent->title }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $pageContent->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="container bg-white">
                 <div class="row">

@@ -2,21 +2,33 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
+use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasTranslatableSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class TourLanding extends Model
+class TourLanding extends TranslatableModel
 {
     use HasFactory;
     use HasTranslations;
+    use HasTranslatableSlug;
+    use JsonLikeScope;
+    use UseSelectBox;
+    use UsePublishedScope;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     protected $table = 'tours_landings';
 
     public $translatable = [
         'text',
         'title',
+        'description',
+        'slug',
     ];
 
 
@@ -24,8 +36,25 @@ class TourLanding extends Model
         'tour_id',
         'landing_id',
         'title',
+        'description',
+        'slug',
         'text',
+        'lat',
+        'lng',
+        'type',
     ];
+
+    protected $casts = [
+        'lat' => 'float',
+        'lng' => 'float',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
 
     public function tour()
     {
@@ -37,16 +66,12 @@ class TourLanding extends Model
         return $this->belongsTo(LandingPlace::class, 'landing_id');
     }
 
-    public function media()
-    {
-        return $this->hasMany(Media::class, 'model_id', 'landing_id')
-            ->where('model_type', LandingPlace::class);
-    }
-
-
     public function getTextAttribute()
     {
-        return !empty($this->landing) ? $this->landing->text : $this->getTranslation('text', $this->getLocale());
+        $locale = $this->getLocale();
+        $text = $this->attributes['text'] ?? '';
+        $text = !empty($text) ? json_decode($text, true) : [];
+        return !empty($this->landing) ? $this->landing->description : ($text[$locale] ?? '');
     }
 
     public function getTitleAttribute()
@@ -55,6 +80,17 @@ class TourLanding extends Model
         $title = $this->attributes['title'] ?? '';
         $title = !empty($title) ? json_decode($title, true) : [];
         $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return !empty($this->landing) ? trim($this->landing->title . ' ' . $prefix) : '-';
+        return trim(($this->landing->title ?? '') . ' ' . $prefix);
+    }
+
+
+    /* Get Media from parent */
+    public function hasMedia(string $collectionName = 'default')
+    {
+        return $this->landing ? $this->landing->hasMedia($collectionName) : false;
+    }
+    public function getMedia(string $collectionName = 'default', $filters = [])
+    {
+        return $this->landing ? $this->landing->getMedia($collectionName, $filters) : collect();
     }
 }

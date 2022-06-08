@@ -20,10 +20,12 @@ use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
 use App\Models\TourLanding;
+use App\Models\TourPlace;
 use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
+use App\Models\TourTicket;
 use App\Models\TourTransport;
 use App\Models\TourType;
 use App\Models\Transport;
@@ -53,6 +55,10 @@ trait TourRelationship
     {
         return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id')
             ->orderByPivot('position');
+    }
+    public function tourPlaces()
+    {
+        return $this->hasMany(TourPlace::class)->orderBy('position');
     }
 
     /**
@@ -235,6 +241,10 @@ trait TourRelationship
     public function tickets()
     {
         return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
+    }
+    public function tourTickets()
+    {
+        return $this->hasMany(TourTicket::class);
     }
 
     /**

@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\IncludeType;
 use App\Models\Region;
 use App\Models\Ticket;
 use App\Models\Tour;
+use App\Models\TourTicket;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -14,6 +16,9 @@ use Livewire\Component;
 
 class TourTickets extends Component
 {
+
+    use EditRecordTrait;
+
     /**
      * @var Tour
      */
@@ -40,14 +45,14 @@ class TourTickets extends Component
 
     public function query(): Builder|Relation
     {
-        return $this->tour->tickets()->with(['region']);
+        return $this->tour->tourTickets();
     }
 
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
         $this->regions = Region::query()->orderBy('title')->get();
-        $this->ticket_ids = $tour->tickets()->select('id')->get()->pluck('id')->toArray();
+        $this->ticket_ids = $tour->tourTickets()->pluck('id')->toArray();
         $this->options = Ticket::query()->with('region')
             ->orderBy('region_id')
             ->orderBy('slug')
@@ -58,7 +63,7 @@ class TourTickets extends Component
     {
         foreach ($items as $item) {
             DB::table('tours_tickets')
-                ->where([['tour_id', $this->tour->id], ['ticket_id', $item['value']]])
+                ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
                 ->update(['position' => $item['order']]);
         }
     }
@@ -79,7 +84,12 @@ class TourTickets extends Component
     public function render()
     {
         return view('admin.tour.includes.tour-tickets', [
-            'items' => $this->query()->with(['region'])->orderByPivot('position')->get(),
+            'items' => $this->query()->orderBy('position')->get(),
         ]);
+    }
+
+    public function editRecordClass(): string
+    {
+        return TourTicket::class;
     }
 }
