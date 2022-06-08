@@ -446,13 +446,13 @@ hr {
         }
 
         &:first-child {
-            span,
-            a {
+            span{
                 margin: 0;
+                margin-right: 10px;
             }
         }
         span {
-            margin: 0 10px;
+            margin-right: 10px;
             color: $title;
             transition: all 0.44s ease-in-out;
         }
@@ -477,10 +477,6 @@ hr {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-    }
-
-    span {
-        margin: 0 10px;
     }
 
     a {
