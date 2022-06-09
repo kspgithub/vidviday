@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\District;
 use App\Models\Place;
 use App\Models\Region;
 use App\Models\Tour;
+use App\Models\TourPlace;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -14,6 +16,8 @@ use Livewire\Component;
 
 class TourPlaces extends Component
 {
+    use EditRecordTrait;
+
     /**
      * @var Tour
      */
@@ -91,4 +95,8 @@ class TourPlaces extends Component
         ]);
     }
 
+    public function editRecordClass(): string
+    {
+        return TourPlace::class;
+    }
 }

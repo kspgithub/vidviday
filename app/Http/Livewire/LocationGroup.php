@@ -29,10 +29,10 @@ class LocationGroup extends Component
     public Collection $districts;
     public Collection $cities;
 
-    public Country|null $country;
-    public Region|null $region;
-    public District|null $district;
-    public City|null $city;
+    public Country|null $country = null;
+    public Region|null $region = null;
+    public District|null $district = null;
+    public City|null $city = null;
 
     public int|array $selectedCountry;
     public int|array $selectedRegion;
@@ -92,16 +92,16 @@ class LocationGroup extends Component
         if ($this->selectedCountry) {
             $this->regions = Region::query()->where('country_id', $country)->toSelectBox();
 
-            if($this->region->country->id !== $this->selectedCountry) {
+            if($this->region && $this->region->country->id !== $this->selectedCountry) {
                 $this->selectedRegion = 0;
             }
 
-            if($this->district->country->id !== $this->selectedCountry) {
+            if($this->district && $this->district->country->id !== $this->selectedCountry) {
                 $this->selectedDistrict = 0;
                 $this->districts = collect();
             }
 
-            if($this->city->country->id !== $this->selectedCountry) {
+            if($this->city && $this->city->country->id !== $this->selectedCountry) {
                 $this->selectedCity = 0;
                 $this->cities = collect();
             }
@@ -115,18 +115,19 @@ class LocationGroup extends Component
         $this->selectedRegion = $region ? (int)Arr::first((array)$region) : 0;
 
         if ($this->selectedRegion) {
-            $this->region = District::query()->with(['country'])->find($this->selectedRegion);
+            $this->region = Region::query()->with(['country'])->find($this->selectedRegion);
 
             $this->regions = Region::query()->where('country_id', $this->region->country->id)->toSelectBox();
+            $this->districts = District::query()->where('region_id', $this->region->id)->toSelectBox();
 
             $this->selectedCountry = $this->city->country->id ?? $this->selectedCountry;
 
-            if($this->district->region->id !== $this->selectedRegion) {
+            if($this->district && $this->district->region->id !== $this->selectedRegion) {
                 $this->selectedDistrict = 0;
                 $this->districts = District::query()->where('region_id', $region)->toSelectBox();
             }
 
-            if($this->city->region->id !== $this->selectedRegion) {
+            if($this->city && $this->city->region->id !== $this->selectedRegion) {
                 $this->selectedCity = 0;
                 $this->cities = collect();
             }
@@ -142,13 +143,14 @@ class LocationGroup extends Component
         if ($this->selectedDistrict) {
             $this->district = District::query()->with(['region', 'country'])->find($this->selectedDistrict);
 
+            $this->cities = City::query()->where('district_id', $this->district->id)->toSelectBox();
             $this->districts = District::query()->where('region_id', $this->district->region->id)->toSelectBox();
             $this->regions = Region::query()->where('country_id', $this->district->country->id)->toSelectBox();
 
             $this->selectedRegion = $this->city->region->id ?? $this->selectedRegion;
             $this->selectedCountry = $this->city->country->id ?? $this->selectedCountry;
 
-            if($this->city->district->id !== $this->selectedDistrict) {
+            if($this->city && $this->city->district->id !== $this->selectedDistrict) {
                 $this->selectedCity = 0;
                 $this->cities = City::query()->where('district_id', $district)->toSelectBox();
             }
