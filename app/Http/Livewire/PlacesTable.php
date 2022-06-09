@@ -73,18 +73,11 @@ class PlacesTable extends DataTableComponent
     {
         return [
             Column::make(__('ID'), 'id')
-                ->searchable()
                 ->sortable(),
-
 
             Column::make(__('Title'), 'title')
                 ->searchable(function (Builder $query, $searchTerm) {
-                    return $query->where(function ($sq) use ($searchTerm) {
-                        return $sq->where('title->uk', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->ru', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->en', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->pl', 'LIKE', "%$searchTerm%");
-                    });
+                    return $query->jsonLike('title', "%$searchTerm%");
                 })
                 ->sortable(),
 

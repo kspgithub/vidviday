@@ -126,6 +126,8 @@ const LocationGroup = async function (wrapper, event) {
             const geocode = await geocoder.geocode({ address: event.detail.address })
             latValue = geocode.results[0].geometry.location.lat()
             lngValue = geocode.results[0].geometry.location.lng()
+            latInput.value = latValue
+            lngInput.value = lngValue
         }
 
         let latLng = {lat: latValue, lng: lngValue};

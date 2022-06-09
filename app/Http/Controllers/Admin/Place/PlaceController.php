@@ -114,7 +114,7 @@ class PlaceController extends Controller
                 ->withErrors($validator)
                 ->withInput($params);
         }
-        $place = $this->service->store($request->all());
+        $place = $this->service->store($params);
         return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Created'));
     }
 
@@ -160,8 +160,8 @@ class PlaceController extends Controller
                 'slug.pl' => [new UniqueSlugRule('places', 'slug', $place->id)],
                 'text' => ['required', 'array'],
                 'text.uk' => ['required'],
-                'direction_id' => ['required'],
-                'region_id' => ['required'],
+                'direction_id' => ['nullable'],
+                'region_id' => ['nullable'],
                 'district_id' => ['nullable'],
                 'city_id' => ['nullable'],
                 'lat' => ['nullable'],
