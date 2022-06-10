@@ -112,22 +112,28 @@ const LocationGroup = async function (wrapper, event) {
 
     if (!noMap && mapElement) {
 
-        if(citySelect && citySelect.value && cityChanged) {
+        if(citySelect && citySelect.value && cityChanged && latInput && lngInput) {
             const {lat, lng} = await GetLocation();
             latInput.value = lat
             lngInput.value = lng
+
+            jQuery(latInput).trigger('change')
+            jQuery(lngInput).trigger('change')
         }
 
-        let latValue = latInput.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
-        let lngValue = lngInput.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
+        let latValue = latInput?.value ? parseFloat(latInput.value) : DEFAULT_LAT_LNG.lat;
+        let lngValue = lngInput?.value ? parseFloat(lngInput.value) : DEFAULT_LAT_LNG.lng;
 
-        if(event && event?.detail?.address) {
+        if(event && event?.detail?.address && latInput && lngInput) {
             const geocoder = new googleMaps.Geocoder()
             const geocode = await geocoder.geocode({ address: event.detail.address })
             latValue = geocode.results[0].geometry.location.lat()
             lngValue = geocode.results[0].geometry.location.lng()
             latInput.value = latValue
             lngInput.value = lngValue
+
+            jQuery(latInput).trigger('change')
+            jQuery(lngInput).trigger('change')
         }
 
         let latLng = {lat: latValue, lng: lngValue};
@@ -156,8 +162,17 @@ const LocationGroup = async function (wrapper, event) {
         map.addListener("drag", () => {
             marker.setPosition(map.getCenter());
             latLng = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
-            latInput.value = latLng.lat;
-            lngInput.value = latLng.lng;
+            if(latInput && lngInput) {
+                latInput.value = latLng.lat;
+                lngInput.value = latLng.lng;
+            }
+        });
+
+        map.addListener("dragend", () => {
+            if(latInput && lngInput) {
+                jQuery(latInput).trigger('change')
+                jQuery(lngInput).trigger('change')
+            }
         });
 
         //add a normal event listener on the map container

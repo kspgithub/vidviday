@@ -42,9 +42,18 @@
         </div>
         <div class="col-6">
             <x-forms.text-group wire:model="lng" name="lng" :label="__('Longitude')" :value="$lng" :readonly="true"
+                                :filters="['region_id' => $region_id, 'district_id' => $district_id, 'place_id' => $place_id, 'city_id' => $city_id, 'lat' => $lat, 'lng' => $lng]"
                                 label-col="col-4" input-col="col-8"></x-forms.text-group>
         </div>
     </div>
 
     <div class="map"></div>
 </div>
+<script>
+    $('#lat').change(e => {
+        @this.set('lat', e.target.value)
+    })
+    $('#lng').change(e => {
+        @this.set('lng', e.target.value)
+    })
+</script>

@@ -27,6 +27,12 @@ class TourPlacesController extends Controller
     {
         $model = new TourPlace();
         $model->place_id = 0;
+
+        $types = [
+            ['value' => TourPlace::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
+            ['value' => TourPlace::TYPE_CUSTOM, 'text' => __('Свій тип')],
+        ];
+
         $regions = Region::query()->orderBy('title')->toSelectBox();
         $districts = District::query()->orderBy('title')->toSelectBox();
         $places = [];
@@ -34,6 +40,7 @@ class TourPlacesController extends Controller
         return view('admin.tour.places.create', [
             'model' => $model,
             'tour' => $tour,
+            'types' => $types,
             'regions' => $regions,
             'districts' => $districts,
             'places' => $places,

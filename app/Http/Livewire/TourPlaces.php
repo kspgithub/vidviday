@@ -214,6 +214,21 @@ class TourPlaces extends Component
         }
     }
 
+    public function updatedLat($lat)
+    {
+        $this->dispatchBrowserEvent('livewire-refresh', []);
+    }
+
+    public function updatedLng($lng)
+    {
+        $this->dispatchBrowserEvent('livewire-refresh', []);
+    }
+
+    public function updatedSelectedId($id)
+    {
+        $this->dispatchBrowserEvent('livewire-refresh', []);
+    }
+
     public function updateOrder($items)
     {
         foreach ($items as $item) {
@@ -239,11 +254,15 @@ class TourPlaces extends Component
 
     public function afterSaveItem()
     {
-        $this->type_id = null;
+        $this->type_id = 0;
         $this->region_id = 0;
         $this->district_id = 0;
         $this->city_id = 0;
         $this->place_id = 0;
+        $this->title = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+        $this->text = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+        $this->lat = 48.736383466532274;
+        $this->lng = 31.460746106250006;
     }
 
     public function afterModelInit()
@@ -254,8 +273,12 @@ class TourPlaces extends Component
         $this->city_id = $this->model->city_id ?? 0;
         $this->place_id = $this->model->place_id ?? 0;
         $this->place = Place::query()->find($this->place_id);
+        $this->title = $this->model->getTranslations('title');
+        $this->text = $this->model->getTranslations('text');
         $this->lat = $this->model->lat;
         $this->lng = $this->model->lng;
+
+        $this->dispatchBrowserEvent('livewire-refresh', []);
 
     }
 }
