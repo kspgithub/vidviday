@@ -31,83 +31,83 @@ const LocationGroup = async function (wrapper, event) {
 
     let cityChanged = false
 
-    if (citySelect) {
-        const cityChoices = new Choices(citySelect, {
-            maxItemCount: -1,
-            renderChoiceLimit: -1,
-            searchResultLimit: 20,
-            searchFloor: 2,
-        });
-
-        //change
-        // cityChoices.passedElement.element.addEventListener('change', async (event) => {
-        //     cityChoices.setChoices([],
-        //         'value',
-        //         'text',
-        //         true);
-        //     cityChanged = true
-        // })
-
-        let citySearchEventListener = async (event) => {
-            let cities = await axios.get('/api/location/cities', {
-                params: {
-                    q: event.detail.value,
-                    limit: 20,
-                    country_id: countrySelect.value,
-                    district_id: districtSelect.value,
-                    region_id: regionSelect.value,
-                }
-            })
-
-            cityChoices.setChoices(cities.data,
-                'value',
-                'text',
-                true);
-
-        }
-
-        if(event){
-            cityChoices.passedElement.element.removeEventListener('search', citySearchEventListener)
-        }
-
-        cityChoices.passedElement.element.addEventListener('search', citySearchEventListener)
-    }
-
-    if (districtSelect) {
-        const districtChoices = new Choices(districtSelect);
-
-        //change
-        districtChoices.passedElement.element.addEventListener('change', async (event) => {
-            districtChoices.setChoices([],
-                'value',
-                'text',
-                true);
-        })
-    }
-
-    if (regionSelect) {
-        const regionChoices = new Choices(regionSelect);
-
-        //change
-        regionChoices.passedElement.element.addEventListener('change', async (event) => {
-            regionChoices.setChoices([],
-                'value',
-                'text',
-                true);
-        })
-    }
-
-    if (countrySelect) {
-        const countryChoices = new Choices(countrySelect);
-
-        //change
-        countryChoices.passedElement.element.addEventListener('change', async (event) => {
-            countryChoices.setChoices([],
-                'value',
-                'text',
-                true);
-        })
-    }
+    // if (citySelect) {
+    //     const cityChoices = new Choices(citySelect, {
+    //         maxItemCount: -1,
+    //         renderChoiceLimit: -1,
+    //         searchResultLimit: 20,
+    //         searchFloor: 2,
+    //     });
+    //
+    //     //change
+    //     // cityChoices.passedElement.element.addEventListener('change', async (event) => {
+    //     //     cityChoices.setChoices([],
+    //     //         'value',
+    //     //         'text',
+    //     //         true);
+    //     //     cityChanged = true
+    //     // })
+    //
+    //     let citySearchEventListener = async (event) => {
+    //         let cities = await axios.get('/api/location/cities', {
+    //             params: {
+    //                 q: event.detail.value,
+    //                 limit: 20,
+    //                 country_id: countrySelect.value,
+    //                 district_id: districtSelect.value,
+    //                 region_id: regionSelect.value,
+    //             }
+    //         })
+    //
+    //         cityChoices.setChoices(cities.data,
+    //             'value',
+    //             'text',
+    //             true);
+    //
+    //     }
+    //
+    //     if(event){
+    //         cityChoices.passedElement.element.removeEventListener('search', citySearchEventListener)
+    //     }
+    //
+    //     cityChoices.passedElement.element.addEventListener('search', citySearchEventListener)
+    // }
+    //
+    // if (districtSelect) {
+    //     const districtChoices = new Choices(districtSelect);
+    //
+    //     //change
+    //     districtChoices.passedElement.element.addEventListener('change', async (event) => {
+    //         districtChoices.setChoices([],
+    //             'value',
+    //             'text',
+    //             true);
+    //     })
+    // }
+    //
+    // if (regionSelect) {
+    //     const regionChoices = new Choices(regionSelect);
+    //
+    //     //change
+    //     regionChoices.passedElement.element.addEventListener('change', async (event) => {
+    //         regionChoices.setChoices([],
+    //             'value',
+    //             'text',
+    //             true);
+    //     })
+    // }
+    //
+    // if (countrySelect) {
+    //     const countryChoices = new Choices(countrySelect);
+    //
+    //     //change
+    //     countryChoices.passedElement.element.addEventListener('change', async (event) => {
+    //         countryChoices.setChoices([],
+    //             'value',
+    //             'text',
+    //             true);
+    //     })
+    // }
 
 
     if (!noMap && mapElement) {
@@ -209,5 +209,10 @@ loader.load()
     });
 
 window.addEventListener('livewire-refresh', event => {
-    window.LocationGroup(null, event)
+    setTimeout(function () {
+        const groupElements = document.querySelectorAll('.location-group');
+        groupElements.forEach((elem) => {
+            const gr = new LocationGroup(elem, event);
+        })
+    }, 500);
 })

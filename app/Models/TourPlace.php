@@ -21,13 +21,24 @@ class TourPlace extends Model
     public $translatable = [
         'text',
         'title',
+        'slug',
     ];
 
     protected $fillable = [
+        'type_id',
         'tour_id',
         'place_id',
+        'country_id',
+        'region_id',
+        'district_id',
+        'direction_id',
         'title',
         'text',
+        'slug',
+        'lat',
+        'lng',
+        'video',
+        'rating',
     ];
 
     public function tour()
@@ -63,8 +74,29 @@ class TourPlace extends Model
     {
         return $this->place ? $this->place->hasMedia($collectionName) : false;
     }
+
     public function getMedia(string $collectionName = 'default', $filters = [])
     {
         return $this->place ? $this->place->getMedia($collectionName, $filters) : collect();
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class);
     }
 }

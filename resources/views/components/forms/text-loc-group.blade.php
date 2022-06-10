@@ -33,9 +33,17 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                        {{$readonly ? 'readonly' : ''}}
-                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required']) }}
+                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required', 'wire:model']) }}
                        x-bind:required="{{$attributes['required'] ? 'true' : 'false'}} && locales.includes('{{$lang}}')"
+                       @if($attributes->has('wire:model'))
+                       wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
+                       @endif
                 />
+                @error($name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
             </div>
         @endforeach
         @if(!empty($help))

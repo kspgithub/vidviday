@@ -10,6 +10,7 @@ use App\Models\Tour;
 use App\Models\TourPlace;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TourPlacesController extends Controller
 {
@@ -41,6 +42,13 @@ class TourPlacesController extends Controller
 
     public function store(Request $request, Tour $tour)
     {
+        $this->validate($request, [
+            'type_id' => ['required', 'int', 'min:1'],
+            'place_id' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'title' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
+            'text' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
+        ]);
+
         $model = new TourPlace();
         $model->fill($request->all());
         $model->tour_id = $tour->id;
@@ -70,6 +78,13 @@ class TourPlacesController extends Controller
 
     public function update(Request $request, Tour $tour, TourPlace $model)
     {
+        $this->validate($request, [
+            'type_id' => 'required',
+            'place_id' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'title' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
+            'text' => Rule::when(fn() => $request->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
+        ]);
+
         $model->fill($request->all());
         $model->tour_id = $tour->id;
         if ((int)$model->place_id === 0) {

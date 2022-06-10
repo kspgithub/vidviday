@@ -60,7 +60,7 @@
                             };
                         },
                         processResults: function (data) {
-                            return data.results ? data : {results: data, pagination: {more: false}};
+                            return data.results ? data : {results: data.map(item => ({id: item.id||item.value, text: decode(item.text)})), pagination: {more: false}};
                         },
                         success: function (data) {
                             console.log(data)

@@ -22,11 +22,12 @@
                         <td>{!! $item->text !!}</td>
                         <td style="width: 150px">
 
-                            <a href="{{route('admin.tour.places.edit', [$tour, $item])}}"
-                               class="btn btn-success m-2"><i
-                                    class="fas fa-file-alt"></i></a>
+                            <a href="#" wire:click.prevent="editItem({{$item->id}})"
+                               class="btn btn-sm btn-outline-primary m-1"><i
+                                    class="fa fa-edit"></i></a>
+
                             <a href="#deleteModal" wire:click="deleteId({{$item->id}})" data-bs-toggle="modal"
-                               class="btn btn-danger m-2"><i
+                               class="btn btn-sm btn-danger m-2"><i
                                     class="fas fa-trash"></i></a>
                         </td>
                     </tr>
