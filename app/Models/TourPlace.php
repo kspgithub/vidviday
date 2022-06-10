@@ -11,6 +11,9 @@ class TourPlace extends Model
     use HasFactory;
     use HasTranslations;
 
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
+
     public $timestamps = false;
 
     protected $table = 'tours_places';

@@ -8,7 +8,7 @@ use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
 use Illuminate\Http\Request;
-use Str;
+use Illuminate\Support\Str;
 
 class LocationController extends Controller
 {
@@ -40,6 +40,25 @@ class LocationController extends Controller
 
     public function districts(Request $request)
     {
+        $q = Str::lower($request->input('q', ''));
+        $region_id = (int)$request->input('region_id', 0);
+        $query = District::query();
+
+        if ($region_id > 0) {
+            $query->where('region_id', $region_id);
+        }
+        $paginator = $query->paginate($request->input('limit', 10));
+        $items = [];
+        foreach ($paginator->items() as $item) {
+            $items[] = $item->asSelectBox();
+        }
+
+        return [
+            'results' => $items,
+            'pagination' => [
+                'more' => $paginator->hasMorePages()
+            ]
+        ];
         //
         $query = District::query();
         $country_id = $request->input('country_id', 1);

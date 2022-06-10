@@ -2,16 +2,19 @@
     'name' => '',
     'id' => null,
     'value' => '',
-    'label'=>'',
+    'label' => '',
     'placeholder' => '',
-    'type'=>'text',
-    'readonly'=>false,
-    'help'=>'',
-    'options'=>[],
-    'labelCol'=>'col-md-2',
-    'inputCol'=>'col-md-10',
-    'rowClass'=>'row mb-3',
-    'select2'=>false
+    'type' => 'text',
+    'readonly'=> false,
+    'help' => '',
+    'options'=> [],
+    'labelCol' => 'col-md-2',
+    'inputCol' => 'col-md-10',
+    'rowClass' => 'row mb-3',
+    'select2' => false,
+    'autocomplete'=> false,
+    'allowClear'=> false,
+    'filters'=> [],
 ])
 
 
@@ -37,11 +40,48 @@
             @endif
             x-init="
                 jQuery($refs.input).select2({
+                    placeholder: '{{ $placeholder }}',
+                    allowClear: '{{ $allowClear }}',
                     theme: 'bootstrap-5',
+                    @if($autocomplete)
+                    ajax: {
+                        url: '{{ $autocomplete }}',
+                        dataType: 'json',
+                        quietMillis: 500,
+                        data: function (params) {
+                            self.prevQuery = params
+                            return {
+                                q: params.term,
+                                page: params.page || 1,
+                                limit: 20,
+                                @foreach($filters as $key => $val)
+                                {{ $key }}: '{{ $val }}',
+                                @endforeach
+                            };
+                        },
+                        processResults: function (data) {
+                            return data.results ? data : {results: data, pagination: {more: false}};
+                        },
+                        success: function (data) {
+                            console.log(data)
+                        }
+                    },
+                    @endif
                 });
                 jQuery($refs.input).on('select2:select', (e) => {
                     value = e.params.data.id;
                 })
+                jQuery($refs.input).on('select2:opening', function(e) {
+                    if (jQuery($refs.input).data('unselecting')) {
+                        jQuery($refs.input).removeData('unselecting');
+                        setTimeout(function() {
+                            jQuery($refs.input).select2('close');
+                        }, 1);
+                    }
+                }).on('select2:unselecting', function(e) {
+                    jQuery($refs.input).data('unselecting', true);
+                    value = '0';
+                });
                 $watch('value', (value) => {
                     jQuery($refs.input).select2().val(value).trigger('change');
                 });
@@ -60,7 +100,7 @@
                 {{$slot}}
                 @foreach($options as $option)
                     <option
-                        value="{{ $option['value']}}" {{$option['value'] === $value ? 'selected' : ''}}>{{ html_entity_decode($option['text'])}}</option>
+                        value="{{ $option['value'] ?? $option['id']}}" {{$option['value'] ?? $option['id'] === $value ? 'selected' : ''}}>{{ html_entity_decode($option['text'] ?? $option['title'])}}</option>
                 @endforeach
             </select>
         </div>
@@ -75,3 +115,4 @@
 
     </div>
 </div><!--form-group-->
+
