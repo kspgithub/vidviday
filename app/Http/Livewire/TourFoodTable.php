@@ -129,4 +129,14 @@ class TourFoodTable extends Component
     {
         return TourFood::class;
     }
+
+    public function updatedFoodId($id)
+    {
+        $food = Food::query()->find($id);
+
+        if($food) {
+            $this->region_id = $food->region_id ?: 0;
+            $this->time_id = $food->time_id ?: 0;
+        }
+    }
 }

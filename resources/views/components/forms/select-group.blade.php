@@ -30,7 +30,11 @@
             @if($attributes->has('x-model'))
                 x-modelable="value" x-model="{{$attributes->get('x-model')}}"
             @endif
-            x-data="{value: ''}"
+            @if($attributes->has('wire:model'))
+                x-data="{value: @entangle($attributes->get('wire:model'))}"
+            @else
+                x-data="{value: ''}"
+            @endif
             x-init="
                 jQuery($refs.input).select2({
                     theme: 'bootstrap-5',
