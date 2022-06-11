@@ -7,8 +7,9 @@
                 <thead>
                 <tr>
                     <th></th>
+                    <th>@lang('Id')</th>
                     <th>@lang('Title') {{strtoupper(app()->getLocale())}}</th>
-                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>
+{{--                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>--}}
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -18,8 +19,9 @@
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
+                        <td>{!! $item->id !!}</td>
                         <td>{!! $item->title !!}</td>
-                        <td>{!! $item->text !!}</td>
+{{--                        <td>{!! $item->text !!}</td>--}}
                         <td style="width: 150px">
 
                             <a href="#" wire:click.prevent="editItem({{$item->id}})"

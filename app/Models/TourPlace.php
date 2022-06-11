@@ -31,6 +31,7 @@ class TourPlace extends Model
         'country_id',
         'region_id',
         'district_id',
+        'city_id',
         'direction_id',
         'title',
         'text',

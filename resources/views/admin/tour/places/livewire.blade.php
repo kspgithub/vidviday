@@ -1,7 +1,9 @@
 <div>
     @if($edit)
         @include('admin.tour.places.form')
-    @else
+    @endif
+
+    @if(!$edit)
         @include('admin.tour.places.list')
     @endif
 </div>

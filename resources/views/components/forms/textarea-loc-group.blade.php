@@ -35,6 +35,13 @@
                           wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
                       @endif
             >{{  $value[$lang] ?? '' }}</textarea>
+
+                @error($name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
+
             </div>
         @endforeach
 

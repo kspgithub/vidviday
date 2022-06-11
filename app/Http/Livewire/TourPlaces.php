@@ -21,6 +21,8 @@ class TourPlaces extends Component
 {
     use EditRecordTrait;
 
+    protected $listeners = ['locationChanged' => 'syncLocation'];
+
     /**
      * @var Tour
      */
@@ -56,44 +58,18 @@ class TourPlaces extends Component
      */
     public $places;
 
-
-    /**
-     * @var int
-     */
-    public $type_id = null;
-
-    /**
-     * @var int
-     */
-    public $region_id = 0;
-
-    /**
-     * @var int
-     */
-    public $district_id = 0;
-
-    /**
-     * @var int
-     */
-    public $city_id = 0;
-
-    /**
-     * @var int
-     */
-    public $place_id = 0;
-
-    /**
-     * @var array
-     */
-    public $title = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
-
-    /**
-     * @var array
-     */
-    public $text = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
-
-    public $lat = 48.736383466532274;
-    public $lng = 31.460746106250006;
+    public array $form = [
+        'type_id' => null,
+        'country_id' => 0,
+        'region_id' => 0,
+        'district_id' => 0,
+        'city_id' => 0,
+        'place_id' => 0,
+        'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
+        'text' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
+        'lat' => 48.736383466532274,
+        'lng' => 31.460746106250006,
+    ];
 
     /**
      * @var Place
@@ -128,17 +104,14 @@ class TourPlaces extends Component
     protected function rules()
     {
         $rules = [
-            'type_id' => 'required',
-            'place_id' => Rule::when(fn() => $this->type_id == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
-            'title' => Rule::when(fn() => $this->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
-            'text' => Rule::when(fn() => $this->type_id == TourPlace::TYPE_CUSTOM, ['required', 'array']),
+            'form.type_id' => 'required',
+            'form.place_id' => Rule::when(fn() => $this->form['type_id'] == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['title.' . $locale] = Rule::when(fn() => $this->type_id == TourPlace::TYPE_CUSTOM, ['required', 'string']);
-            $rules['text.' . $locale] = Rule::when(fn() => $this->type_id == TourPlace::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourPlace::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -146,16 +119,16 @@ class TourPlaces extends Component
 
     public function render()
     {
-        if($this->district_id) {
-            $district = District::query()->find($this->district_id);
+        if ($this->form['district_id']) {
+            $district = District::query()->find($this->form['district_id']);
             $this->districts = collect([$district->asSelectBox()]);
         }
-        if($this->city_id) {
-            $city = City::query()->find($this->city_id);
+        if ($this->form['city_id']) {
+            $city = City::query()->find($this->form['city_id']);
             $this->cities = collect([$city->asSelectBox()]);
         }
-        if($this->place_id) {
-            $place = Place::query()->find($this->place_id);
+        if ($this->form['place_id']) {
+            $place = Place::query()->find($this->form['place_id']);
             $this->places = collect([$place->asSelectBox()]);
         }
 
@@ -164,69 +137,69 @@ class TourPlaces extends Component
         ]);
     }
 
-    public function updatedTypeId($type_id)
+    public function updatedFormTypeId($type_id)
     {
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
     }
 
-    public function updatedRegionId($region_id)
+    public function updatedFormRegionId($region_id)
     {
-        $this->district_id = 0;
-        $this->city_id = 0;
-        $this->place_id = 0;
+        $this->form['district_id'] = 0;
+        $this->form['city_id'] = 0;
+        $this->form['place_id'] = 0;
 
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
-    public function updatedDistrictId($district_id)
+    public function updatedFormDistrictId($district_id)
     {
-        if($district_id) {
+        if ($district_id) {
             $district = District::query()->find($district_id);
-            $this->region_id = $district->region_id;
+            $this->form['region_id'] = $district->region_id;
         }
-        $this->city_id = 0;
-        $this->place_id = 0;
+        $this->form['city_id'] = 0;
+        $this->form['place_id'] = 0;
 
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
-    public function updatedCityId($city_id)
+    public function updatedFormCityId($city_id)
     {
-        if($city_id) {
+        if ($city_id) {
             $city = City::query()->with(['district', 'region', 'country'])->find($city_id);
 
-            $this->region_id = $city->region_id;
-            $this->district_id = $city->district_id;
+            $this->form['region_id'] = $city->region_id;
+            $this->form['district_id'] = $city->district_id;
 
             $address = implode(' ', [$city->region->title, $city->district->title, $city->title]);
         }
 
-        $this->dispatchBrowserEvent('livewire-refresh', ['address' => $address ?? '']);
+        $this->dispatchBrowserEvent('initLocation', ['address' => $address ?? '']);
     }
 
-    public function updatedPlaceId($place_id)
+    public function updatedFormPlaceId($place_id)
     {
-        if($place_id) {
-            $this->place = Place::query()->find($this->place_id);
-            $this->region_id = $this->place->region_id;
-            $this->city_id = $this->place->city_id;
-            $this->district_id = $this->place->district_id;
+        if ($place_id) {
+            $this->place = Place::query()->find($this->form['place_id']);
+            $this->form['region_id'] = $this->place->region_id;
+            $this->form['city_id'] = $this->place->city_id;
+            $this->form['district_id'] = $this->place->district_id;
         }
     }
 
-    public function updatedLat($lat)
+    public function updatedFormLat($lat)
     {
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
-    public function updatedLng($lng)
+    public function updatedFormLng($lng)
     {
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function updatedSelectedId($id)
     {
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+//        $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function updateOrder($items)
@@ -241,44 +214,66 @@ class TourPlaces extends Component
     public function beforeSaveItem()
     {
         $this->model->tour_id = $this->tour->id;
-        $this->model->type_id = $this->type_id;
-        $this->model->region_id = $this->region_id;
-        $this->model->district_id = $this->district_id;
-        $this->model->city_id = $this->city_id;
-        $this->model->place_id = $this->place_id;
-        $this->model->title = $this->title;
-        $this->model->text = $this->text;
-        $this->model->lat = $this->lat;
-        $this->model->lng = $this->lng;
+        $this->model->type_id = $this->form['type_id'];
+        $this->model->place_id = $this->form['place_id'] === 0 ? null : $this->form['place_id'];
+        $this->model->title = $this->form['title'];
+        $this->model->text = $this->form['text'];
+        $this->model->country_id = $this->form['country_id'] === 0 ? null : $this->form['country_id'];
+        $this->model->region_id = $this->form['region_id'] === 0 ? null : $this->form['region_id'];
+        $this->model->district_id = $this->form['district_id'] === 0 ? null : $this->form['district_id'];
+        $this->model->city_id = $this->form['city_id'] === 0 ? null : $this->form['city_id'];
+        $this->model->lat = $this->form['lat'];
+        $this->model->lng = $this->form['lng'];
     }
 
     public function afterSaveItem()
     {
-        $this->type_id = 0;
-        $this->region_id = 0;
-        $this->district_id = 0;
-        $this->city_id = 0;
-        $this->place_id = 0;
-        $this->title = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
-        $this->text = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
-        $this->lat = 48.736383466532274;
-        $this->lng = 31.460746106250006;
+        $this->form['type_id'] = 0;
+        $this->form['place_id'] = 0;
+        $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+        $this->form['text'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+
+        $this->form['country_id'] = 0;
+        $this->form['region_id'] = 0;
+        $this->form['district_id'] = 0;
+        $this->form['city_id'] = 0;
+        $this->form['lat'] = 48.736383466532274;
+        $this->form['lng'] = 31.460746106250006;
+
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function afterModelInit()
     {
-        $this->type_id = $this->model->type_id === 0 ? ($this->model->place_id > 0 ? TourPlace::TYPE_TEMPLATE : TourPlace::TYPE_CUSTOM) : $this->model->type_id;
-        $this->region_id = $this->model->region_id ?? 0;
-        $this->district_id = $this->model->district_id ?? 0;
-        $this->city_id = $this->model->city_id ?? 0;
-        $this->place_id = $this->model->place_id ?? 0;
-        $this->place = Place::query()->find($this->place_id);
-        $this->title = $this->model->getTranslations('title');
-        $this->text = $this->model->getTranslations('text');
-        $this->lat = $this->model->lat;
-        $this->lng = $this->model->lng;
+        $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->place_id > 0 ? TourPlace::TYPE_TEMPLATE : TourPlace::TYPE_CUSTOM) : $this->model->type_id;
+        $this->form['place_id'] = $this->model->place_id === null ? 0 : $this->model->place_id;
+        $this->place = Place::query()->find($this->form['place_id']);
+        $this->form['title'] = $this->model->getTranslations('title');
+        $this->form['text'] = $this->model->getTranslations('text');
 
-        $this->dispatchBrowserEvent('livewire-refresh', []);
+        $this->form['region_id'] = $this->model->region_id === null ? 0 : $this->model->region_id;
+        $this->form['district_id'] = $this->model->district_id === null ? 0 : $this->model->district_id;
+        $this->form['city_id'] = $this->model->city_id === null ? 0 : $this->model->city_id;
+        $this->form['lat'] = $this->model->lat;
+        $this->form['lng'] = $this->model->lng;
 
+        $this->dispatchBrowserEvent('initLocation', []);
+
+    }
+
+    public function syncLocation(array $location = [
+        'country_id' => 0,
+        'region_id' => 0,
+        'district_id' => 0,
+        'city_id' => 0,
+        'lat' => 0,
+        'lng' => 0,
+    ])
+    {
+        foreach ($location as $key => $value) {
+            if (array_key_exists($key, $this->form)) {
+                $this->form[$key] = $value;
+            }
+        }
     }
 }
