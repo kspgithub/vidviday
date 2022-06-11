@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class TourPlace extends Model
+class TourPlace extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
 
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;
@@ -42,6 +47,17 @@ class TourPlace extends Model
         'rating',
     ];
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
+
     public function tour()
     {
         return $this->belongsTo(Tour::class, 'tour_id');
@@ -67,18 +83,6 @@ class TourPlace extends Model
         $title = !empty($title) ? json_decode($title, true) : [];
         $prefix = $title[$locale] ?? ($title['uk'] ?? '');
         return trim(($this->place->title ?? '') . ' ' . $prefix);
-    }
-
-
-    /* Get Media from parent */
-    public function hasMedia(string $collectionName = 'default')
-    {
-        return $this->place ? $this->place->hasMedia($collectionName) : false;
-    }
-
-    public function getMedia(string $collectionName = 'default', $filters = [])
-    {
-        return $this->place ? $this->place->getMedia($collectionName, $filters) : collect();
     }
 
     public function country()
