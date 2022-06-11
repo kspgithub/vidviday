@@ -149,11 +149,14 @@ class Place extends TranslatableModel implements HasMedia
     }
 
 
-    public function asSelectBox()
+    public function asSelectBox(
+        $value_key = 'id',
+        $text_key = 'text'
+    )
     {
         return [
-            'id' => $this->id,
-            'text' => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
+            $value_key => $this->id,
+            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
         ];
     }
 }

@@ -98,4 +98,15 @@ class District extends TranslatableModel
         }
         return $result;
     }
+
+    public function asSelectBox(
+        $value_key = 'id',
+        $text_key = 'text'
+    )
+    {
+        return [
+            $value_key => $this->id,
+            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
+        ];
+    }
 }

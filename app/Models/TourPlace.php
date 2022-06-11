@@ -2,14 +2,22 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class TourPlace extends Model
+class TourPlace extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     public $timestamps = false;
 
@@ -18,14 +26,37 @@ class TourPlace extends Model
     public $translatable = [
         'text',
         'title',
+        'slug',
     ];
 
     protected $fillable = [
+        'type_id',
         'tour_id',
         'place_id',
+        'country_id',
+        'region_id',
+        'district_id',
+        'city_id',
+        'direction_id',
         'title',
         'text',
+        'slug',
+        'lat',
+        'lng',
+        'video',
+        'rating',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
     public function tour()
     {
@@ -54,14 +85,23 @@ class TourPlace extends Model
         return trim(($this->place->title ?? '') . ' ' . $prefix);
     }
 
-
-    /* Get Media from parent */
-    public function hasMedia(string $collectionName = 'default')
+    public function country()
     {
-        return $this->place ? $this->place->hasMedia($collectionName) : false;
+        return $this->belongsTo(Country::class);
     }
-    public function getMedia(string $collectionName = 'default', $filters = [])
+
+    public function region()
     {
-        return $this->place ? $this->place->getMedia($collectionName, $filters) : collect();
+        return $this->belongsTo(Region::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class);
     }
 }

@@ -2,6 +2,8 @@
 
 @section('title', __('Editing tour') .'-'.__('Finance'))
 
+
+
 @section('content')
     {!! breadcrumbs([
 ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
