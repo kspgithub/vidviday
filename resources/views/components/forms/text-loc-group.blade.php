@@ -33,8 +33,10 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                        {{$readonly ? 'readonly' : ''}}
-                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required', 'wire:model']) }}
-                       x-bind:required="{{$attributes['required'] ? 'true' : 'false'}} && locales.includes('{{$lang}}')"
+                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['wire:model']) }}
+                       @if(in_array($lang,$requiredLocales))
+                           required="required"
+                       @endif
                        @if($attributes->has('wire:model'))
                        wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
                        @endif

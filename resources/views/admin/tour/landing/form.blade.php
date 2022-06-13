@@ -1,89 +1,45 @@
-<div x-data='tourLanding({
-    locales: @json(siteLocales()),
-    landing: @json($model->landing),
-    model: @json($model),
-    landings: @json($landings),
-})'>
-    <x-forms.translation-switch/>
+<x-bootstrap.card>
+    <x-slot name="body">
+        <h2 class="mb-2">@lang('Tour landings') {{ $model?->id }}</h2>
+        <div x-data='translatable({locales: @json($tour->locales), trans_expanded: true})'>
+            <form x-ref="form" method="post" wire:submit.prevent="saveItem()">
 
-    <x-forms.select-group name="type_id"
-                          :label="__('Type')"
-                          :value="old('type', $model->type)"
-                          x-model="model.type"
-                          x-on:change="onTypeChange"
-                          required
-                          :options="$types">
-        <option value="0">Не вибано</option>
-    </x-forms.select-group>
+                @if($errors->any())
+                    <ul class="text-danger mb-3">
+                        @foreach ($errors->all() as $message)
+                            <li>{{$message}}</li>
+                        @endforeach
+                    </ul>
 
-    <template x-if="model.type == {{$model::TYPE_TEMPLATE}}">
-        <div>
-            <x-forms.select-group :value="old('landing_id', $model->landing_id)"
-                                  select2="true"
-                                  name="landing_id"
-                                  x-model="model.landing_id"
-                                  :label="__('Template')">
-                <option value="0">Не вибано</option>
-                <template x-for="option in landingOptions">
-                    <option x-bind:value="option.value" x-bind:selected="option.value === model.landing_id"
-                            x-html="option.text"></option>
-                </template>
-            </x-forms.select-group>
-
-            <template x-if="model.landing_id === 0 || !landing">
-                <div>
-                    <x-forms.text-loc-group name="title" :label="__('Title')"
-                                            :value="old('title', $model->getTranslations('title'))"/>
-                    <x-forms.editor-loc-group name="text" :label="__('Text')"
-                                              :value="old('text', $model->getTranslations('text'))"/>
-                </div>
-            </template>
-
-            <template x-if="model.landing_id > 0 && landing">
-                <div>
-                    <x-forms.text-loc-group name="title" :label="__('title')"
-                                            :value="old('title', $model->getTranslations('title'))"/>
-                    <div class="row mb-3">
-                        <div class="col-md-2">@lang('Text')</div>
-                        <div class="col-md-10">
-                            <template x-for="loc in locales">
-                                <div class="mb-3 row">
-                                    <div x-text="loc.toUpperCase()" class="col-auto"></div>
-                                    <div class="col">
-                                        <div x-html="landing?.description[loc] || ''" class="border p-2"></div>
-                                    </div>
-
-                                </div>
-
-                            </template>
-
-                        </div>
+                @endif
+                @if (session()->has('success'))
+                    <div class="toast-container">
+                        <x-utils.toast type="success">
+                            {{ session('success') }}
+                        </x-utils.toast>
                     </div>
-                </div>
+                @endif
 
-            </template>
+                <x-forms.select-group wire:model="form.type_id" name="type_id" :label="__('Type')"
+                                      :options="$types">
+                    <option value="0">Не вибрано</option>
+                </x-forms.select-group>
+
+                @if($form['type_id'] == App\Models\TourLanding::TYPE_TEMPLATE)
+                    @include('admin.tour.landing.template_form')
+                @endif
+
+                @if($form['type_id'] == App\Models\TourLanding::TYPE_CUSTOM)
+                    @include('admin.tour.landing.custom_form')
+                @endif
+
+                <button type="submit" class="btn btn-primary me-3"
+                        x-on:click.prevent="submit($event, false)"
+                        wire:loading.class="disabled">@lang('Save')</button>
+
+                <button type="button" wire:click.prevent="cancelEdit()"
+                        class="btn btn-outline-secondary">@lang('Cancel')</button>
+            </form>
         </div>
-    </template>
-
-
-    <template x-if="model.type == {{$model::TYPE_CUSTOM}}">
-        <div>
-            <x-forms.text-loc-group name="title" :label="__('Title')"
-                                    :value="old('title', $model->getTranslations('title'))"
-                                    required></x-forms.text-loc-group>
-
-            <x-forms.editor-loc-group name="description" :label="__('Description')"
-                                      :value="old('text', $model->getTranslations('text'))"/>
-
-            <livewire:location-group :model="$model"/>
-
-            {{--            <x-forms.text-group name="lat" :label="__('Latitude')" :value="old('lat', $model->lat)" required/>--}}
-            {{--            <x-forms.text-group name="lng" :label="__('Longitude')" :value="old('lng', $model->lng)" required/>--}}
-
-            <x-forms.switch-group name="published" :label="__('Published')" :active="$model->published"/>
-
-        </div>
-    </template>
-
-
-</div>
+    </x-slot>
+</x-bootstrap.card>

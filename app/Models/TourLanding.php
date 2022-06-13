@@ -82,15 +82,4 @@ class TourLanding extends TranslatableModel
         $prefix = $title[$locale] ?? ($title['uk'] ?? '');
         return trim(($this->landing->title ?? '') . ' ' . $prefix);
     }
-
-
-    /* Get Media from parent */
-    public function hasMedia(string $collectionName = 'default')
-    {
-        return $this->landing ? $this->landing->hasMedia($collectionName) : false;
-    }
-    public function getMedia(string $collectionName = 'default', $filters = [])
-    {
-        return $this->landing ? $this->landing->getMedia($collectionName, $filters) : collect();
-    }
 }

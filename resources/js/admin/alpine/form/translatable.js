@@ -6,7 +6,7 @@ export default (options = {expanded: false}) => {
         locales: options.share?.locales || [],
         trans_locale: document.documentElement.lang || 'uk',
         trans_expanded: options && options.expanded,
-        async submit() {
+        async submit(e, submit) {
             let valid = true;
             const inputs = this.$refs.form.querySelectorAll('[required]');
 
@@ -20,7 +20,13 @@ export default (options = {expanded: false}) => {
 
 
             if (valid) {
-                this.$refs.form.submit();
+                if(submit) {
+                    this.$refs.form.submit();
+                } else {
+                    let btn = jQuery('<button type="submit"></button>')
+                    jQuery(this.$refs.form).append(btn)
+                    btn.click()
+                }
             } else {
                 toast.error('Перевірте правильність заповнення полів');
             }
