@@ -6,5 +6,12 @@
 
     <x-forms.textarea-loc-group wire:model="form.description" name="description" :label="__('Description')"/>
 
+
+    <div>
+        <livewire:location-group :model="$model"
+                                 :lat="$form['lat']"
+                                 :lng="$form['lng']"
+        />
+    </div>
 </div>
 

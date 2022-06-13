@@ -17,6 +17,11 @@ class TourLandings extends Component
 {
     use EditRecordTrait;
 
+    protected $listeners = [
+        'locationChanged' => 'syncLocation',
+        'updateType' => 'syncType',
+    ];
+
     /**
      * @var Tour
      */
@@ -32,17 +37,22 @@ class TourLandings extends Component
      */
     public $landings;
 
+
     public array $form = [
         'type_id' => null,
         'landing_id' => 0,
         'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'description' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
+        'lat' => 48.736383466532274,
+        'lng' => 31.460746106250006,
     ];
 
     /**
      * @var LandingPlace
      */
     public $landing;
+
+    public $type;
 
     public function mount(Tour $tour): void
     {
@@ -95,7 +105,14 @@ class TourLandings extends Component
 
     public function updatedFormTypeId($type_id)
     {
-        $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
+        if(!$this->type) {
+            $this->type = $type_id;
+
+            $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
+        } else {
+            $this->form['type_id'] = 0;
+            $this->dispatchBrowserEvent('updateType', ['type_id' => $type_id]);
+        }
     }
 
     public function updatedFormLandingId($landing_id)
@@ -103,6 +120,16 @@ class TourLandings extends Component
         if ($landing_id) {
             $this->landing = LandingPlace::query()->find($this->form['landing_id']);
         }
+    }
+
+    public function updatedFormLat($lat)
+    {
+        $this->dispatchBrowserEvent('initLocation', []);
+    }
+
+    public function updatedFormLng($lng)
+    {
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function updatedSelectedId($id)
@@ -126,6 +153,8 @@ class TourLandings extends Component
         $this->model->landing_id = $this->form['landing_id'] === 0 ? null : $this->form['landing_id'];
         $this->model->title = $this->form['title'];
         $this->model->description = $this->form['description'];
+        $this->model->lat = $this->form['lat'];
+        $this->model->lng = $this->form['lng'];
     }
 
     public function afterSaveItem()
@@ -134,6 +163,8 @@ class TourLandings extends Component
         $this->form['landing_id'] = 0;
         $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
         $this->form['description'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+        $this->form['lat'] = 48.736383466532274;
+        $this->form['lng'] = 31.460746106250006;
 
         $this->dispatchBrowserEvent('initLocation', []);
     }
@@ -145,8 +176,33 @@ class TourLandings extends Component
         $this->landing = LandingPlace::query()->find($this->form['landing_id']);
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['description'] = $this->model->getTranslations('description');
+        $this->form['lat'] = $this->model->lat;
+        $this->form['lng'] = $this->model->lng;
 
         $this->dispatchBrowserEvent('initLocation', []);
 
+    }
+
+    public function syncLocation(array $location = [
+        'country_id' => 0,
+        'region_id' => 0,
+        'district_id' => 0,
+        'city_id' => 0,
+        'lat' => 0,
+        'lng' => 0,
+    ])
+    {
+        foreach ($location as $key => $value) {
+            if (array_key_exists($key, $this->form)) {
+                $this->form[$key] = $value;
+            }
+        }
+    }
+
+    public function syncType($type_id)
+    {
+        $this->type = 0;
+        $this->form['type_id'] = $type_id;
+        $this->updatedFormTypeId($type_id);
     }
 }

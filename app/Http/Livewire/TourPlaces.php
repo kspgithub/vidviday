@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Direction;
 use App\Models\District;
 use App\Models\Place;
@@ -21,7 +22,10 @@ class TourPlaces extends Component
 {
     use EditRecordTrait;
 
-    protected $listeners = ['locationChanged' => 'syncLocation'];
+    protected $listeners = [
+        'locationChanged' => 'syncLocation',
+        'updateType' => 'syncType',
+    ];
 
     /**
      * @var Tour
@@ -37,6 +41,11 @@ class TourPlaces extends Component
      * @var Collection
      */
     public $directions;
+
+    /**
+     * @var Collection
+     */
+    public $countries;
 
     /**
      * @var Collection
@@ -76,6 +85,8 @@ class TourPlaces extends Component
      */
     public $place;
 
+    public $type;
+
     public function mount(Tour $tour): void
     {
         $this->tour = $tour;
@@ -84,6 +95,7 @@ class TourPlaces extends Component
             ['value' => TourPlace::TYPE_CUSTOM, 'text' => __('Свій тип')],
         ]);
         $this->directions = Direction::query()->orderBy('title')->toSelectBox();
+        $this->countries = Country::query()->orderBy('title')->toSelectBox();
         $this->regions = Region::query()->orderBy('title')->toSelectBox();
         $this->districts = collect();
         $this->cities = collect();
@@ -119,6 +131,10 @@ class TourPlaces extends Component
 
     public function render()
     {
+        if ($this->form['country_id']) {
+            $country = Country::query()->find($this->form['country_id']);
+            $this->countries = collect([$country->asSelectBox()]);
+        }
         if ($this->form['district_id']) {
             $district = District::query()->find($this->form['district_id']);
             $this->districts = collect([$district->asSelectBox()]);
@@ -139,11 +155,44 @@ class TourPlaces extends Component
 
     public function updatedFormTypeId($type_id)
     {
-        $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
+        if(!$this->type) {
+            $this->type = $type_id;
+
+            $this->form['country_id'] = 0;
+            $this->form['region_id'] = 0;
+            $this->form['district_id'] = 0;
+            $this->form['city_id'] = 0;
+            $this->form['place_id'] = 0;
+
+            $this->updatedFormCountryId($this->form['country_id']);
+            $this->updatedFormRegionId($this->form['region_id']);
+            $this->dispatchBrowserEvent($this->form['district_id']);
+            $this->updatedFormCountryId($this->form['country_id']);
+            $this->updatedFormPlaceId($this->form['place_id']);
+
+            $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
+        } else {
+            $this->form['type_id'] = 0;
+            $this->dispatchBrowserEvent('updateType', ['type_id' => $type_id]);
+        }
+    }
+
+    public function updatedFormCountryId($country_id)
+    {
+        $this->form['region_id'] = 0;
+        $this->form['district_id'] = 0;
+        $this->form['city_id'] = 0;
+        $this->form['place_id'] = 0;
+
+        $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function updatedFormRegionId($region_id)
     {
+        if ($region_id) {
+            $region = Region::query()->find($region_id);
+            $this->form['country_id'] = $region->country_id;
+        }
         $this->form['district_id'] = 0;
         $this->form['city_id'] = 0;
         $this->form['place_id'] = 0;
@@ -154,7 +203,9 @@ class TourPlaces extends Component
     public function updatedFormDistrictId($district_id)
     {
         if ($district_id) {
-            $district = District::query()->find($district_id);
+            $district = District::query()->with(['region', 'country'])->find($district_id);
+
+            $this->form['country_id'] = $district->country_id;
             $this->form['region_id'] = $district->region_id;
         }
         $this->form['city_id'] = 0;
@@ -168,11 +219,13 @@ class TourPlaces extends Component
         if ($city_id) {
             $city = City::query()->with(['district', 'region', 'country'])->find($city_id);
 
-            $this->form['region_id'] = $city->region_id;
+            $this->form['country_id'] = $city->country_id ?: $city->district->country_id ?: $city->region->country_id;
+            $this->form['region_id'] = $city->region_id ?: $city->district->region_id;
             $this->form['district_id'] = $city->district_id;
 
             $address = implode(' ', [$city->region->title, $city->district->title, $city->title]);
         }
+        $this->form['place_id'] = 0;
 
         $this->dispatchBrowserEvent('initLocation', ['address' => $address ?? '']);
     }
@@ -180,10 +233,11 @@ class TourPlaces extends Component
     public function updatedFormPlaceId($place_id)
     {
         if ($place_id) {
-            $this->place = Place::query()->find($this->form['place_id']);
-            $this->form['region_id'] = $this->place->region_id;
+            $this->place = Place::query()->with(['city', 'district', 'region', 'country'])->find($this->form['place_id']);
+            $this->form['country_id'] = $this->place->country_id ?: $this->place->city->country_id ?: $this->place->district->country_id ?: $this->place->region->country_id;
+            $this->form['region_id'] = $this->place->region_id ?: $this->city->region_id ?: $this->district->region_id;
+            $this->form['district_id'] = $this->place->district_id ?: $this->city->district_id;
             $this->form['city_id'] = $this->place->city_id;
-            $this->form['district_id'] = $this->place->district_id;
         }
     }
 
@@ -275,5 +329,12 @@ class TourPlaces extends Component
                 $this->form[$key] = $value;
             }
         }
+    }
+
+    public function syncType($type_id)
+    {
+        $this->type = 0;
+        $this->form['type_id'] = $type_id;
+        $this->updatedFormTypeId($type_id);
     }
 }

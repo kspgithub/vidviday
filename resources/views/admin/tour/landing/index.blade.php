@@ -23,3 +23,13 @@
 
 @endsection
 
+
+@push('after-scripts')
+
+    <script>
+        window.addEventListener('updateType', (event) => {
+            const type_id = event.detail.type_id
+            window.Livewire.emit('updateType', type_id)
+        })
+    </script>
+@endpush
