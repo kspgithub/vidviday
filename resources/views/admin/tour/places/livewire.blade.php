@@ -7,3 +7,4 @@
         @include('admin.tour.places.list')
     @endif
 </div>
+

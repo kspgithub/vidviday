@@ -1,7 +1,7 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h2 class="mb-2">@lang('Tour places') {{ $model?->id }}</h2>
-        <div x-data="translatable({trans_expanded: true})">
+        <div x-data='translatable({trans_expanded: true})'>
             <form method="post" wire:submit.prevent="saveItem()">
 
                 <x-forms.select-group wire:model="form.type_id" name="type_id" :label="__('Type')"

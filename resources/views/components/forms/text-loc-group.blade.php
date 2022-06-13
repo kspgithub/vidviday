@@ -44,6 +44,11 @@
                     {{$message}}
                 </div>
                 @enderror
+                @error('form.' . $name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
             </div>
         @endforeach
         @if(!empty($help))

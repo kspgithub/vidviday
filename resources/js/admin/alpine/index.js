@@ -44,6 +44,12 @@ import storeUser from './stores/store-user';
 import mask from './directives/mask';
 import datepicker from "./directives/datepicker";
 
+window.addEventListener('displayErrors', event => {
+    Object.values(event.detail?.errors||{}).forEach(errors => {
+        for(let error of errors)
+            toast.error(error)
+    })
+})
 
 document.addEventListener('alpine:init', () => {
     // Directives
