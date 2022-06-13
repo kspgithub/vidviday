@@ -40,6 +40,17 @@
                     x-data="{value: ''}"
                 @endif
                 x-init="
+
+{{--                    @if($attributes->has('wire:ignore'))--}}
+{{--                        if($refs.input) {--}}
+{{--                            jQuery($refs.input).html('')--}}
+{{--                            @foreach($options as $option)--}}
+{{--                                    newOption = new Option('{{ html_entity_decode($option['text'] ?? $option['title'])}}', '{{ $option['value'] ?? $option['id'] }}', {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }}, {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }})--}}
+{{--                                    $refs.input.add(newOption)--}}
+{{--                            @endforeach--}}
+{{--                        }--}}
+{{--                    @endif--}}
+
                     jQuery($refs.input).select2({
                         placeholder: '{{ $placeholder }}',
                         allowClear: '{{ $allowClear }}',
@@ -94,11 +105,11 @@
                  "
             @endif
         >
-            <div>
+            <div {{ $attributes->has('wire:ignore') ? 'wire:ignore' : '' }}>
                 <select name="{{$name}}"
                         id="{{$id ?? $name}}"
                         {{$readonly ? 'readonly' : ''}}
-                        {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control']) }}
+                        {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except(['wire:ignore']) }}
                         @if($select2)
                             x-ref="input"
                         @endif

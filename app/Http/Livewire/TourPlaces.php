@@ -135,6 +135,10 @@ class TourPlaces extends Component
             $country = Country::query()->find($this->form['country_id']);
             $this->countries = collect([$country->asSelectBox()]);
         }
+        if ($this->form['region_id']) {
+            $region = Region::query()->find($this->form['region_id']);
+            $this->regions = collect([$region->asSelectBox()]);
+        }
         if ($this->form['district_id']) {
             $district = District::query()->find($this->form['district_id']);
             $this->districts = collect([$district->asSelectBox()]);
@@ -166,7 +170,7 @@ class TourPlaces extends Component
 
             $this->updatedFormCountryId($this->form['country_id']);
             $this->updatedFormRegionId($this->form['region_id']);
-            $this->dispatchBrowserEvent($this->form['district_id']);
+            $this->updatedFormDistrictId($this->form['district_id']);
             $this->updatedFormCountryId($this->form['country_id']);
             $this->updatedFormPlaceId($this->form['place_id']);
 

@@ -15,6 +15,6 @@ class TourFoodController extends Controller
 
     public function index(Tour $tour)
     {
-        return view('admin.tour.food', ['tour' => $tour]);
+        return view('admin.tour.food.index', ['tour' => $tour]);
     }
 }
