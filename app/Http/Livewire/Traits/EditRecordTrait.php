@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Traits;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait EditRecordTrait
@@ -65,6 +67,7 @@ trait EditRecordTrait
 
     public function saveItem()
     {
+
         $this->validate();
         $this->beforeSaveItem();
         $this->model->save();
@@ -116,5 +119,45 @@ trait EditRecordTrait
             $translations[$locale] = $this->{$key . '_' . $locale} ?? '';
         }
         $this->model->setTranslations($key, $translations);
+    }
+
+    public function validate($rules = null, $messages = [], $attributes = [])
+    {
+        [$rules, $messages, $attributes] = $this->providedOrGlobalRulesMessagesAndAttributes($rules, $messages, $attributes);
+
+        $data = $this->prepareForValidation(
+            $this->getDataForValidation($rules)
+        );
+
+        $this->checkRuleMatchesProperty($rules, $data);
+
+        $ruleKeysToShorten = $this->getModelAttributeRuleKeysToShorten($data, $rules);
+
+        $data = $this->unwrapDataForValidation($data);
+
+        $validator = Validator::make($data, $rules, $messages, $attributes);
+
+        if ($this->withValidatorCallback) {
+            call_user_func($this->withValidatorCallback, $validator);
+
+            $this->withValidatorCallback = null;
+        }
+
+        $this->shortenModelAttributesInsideValidator($ruleKeysToShorten, $validator);
+
+        $customValues = $this->getValidationCustomValues();
+        if (!empty($customValues)) {
+            $validator->addCustomValues($customValues);
+        }
+
+        if($validator->fails()) {
+            $this->dispatchBrowserEvent('displayErrors', ['errors' => $validator->errors()->getMessages()]);
+        }
+
+        $validatedData = $validator->validate();
+
+        $this->resetErrorBag();
+
+        return $validatedData;
     }
 }
