@@ -42,7 +42,6 @@ trait EditRecordTrait
 
     public function addItem()
     {
-
         $this->selectedId = 0;
         $class_name = $this->editRecordClass();
         $this->model = new $class_name;
@@ -67,7 +66,6 @@ trait EditRecordTrait
 
     public function saveItem()
     {
-
         $this->validate();
         $this->beforeSaveItem();
         $this->model->save();

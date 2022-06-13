@@ -11,9 +11,9 @@ use App\Models\FoodTime;
 use App\Models\Region;
 use App\Models\Tour;
 use App\Models\TourFood;
-use Foo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -35,6 +35,8 @@ class TourFoods extends Component
      * @var Tour
      */
     public $tour;
+
+    public $types;
 
     public $foodItems = [];
 
@@ -94,7 +96,7 @@ class TourFoods extends Component
     {
         return TourFood::query()->where('tour_id', $this->tour->id)
             ->with(['time', 'food'])
-            ->orderBy('day')->orderBy('time_id');
+            ->orderBy('position')->orderBy('day')->orderBy('time_id');
     }
 
     protected function rules()
@@ -182,14 +184,23 @@ class TourFoods extends Component
         }
     }
 
+    public function updateOrder($items)
+    {
+        foreach ($items as $item) {
+            DB::table('tour_food')
+                ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
+                ->update(['position' => $item['order']]);
+        }
+    }
+
     public function afterModelInit()
     {
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->food_id > 0 ? TourFood::TYPE_TEMPLATE : TourFood::TYPE_CUSTOM) : $this->model->type_id;
         $this->form['food_id'] = $this->model->food_id === null ? 0 : $this->model->food_id;
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['text'] = $this->model->getTranslations('text');
-        $this->form['country_id'] = $this->model->country_id ?: $this->model->food->country_id;
-        $this->form['region_id'] = $this->model->region_id ?: $this->model->food->region_id;
+        $this->form['country_id'] = $this->model->country_id ?: $this->model->food?->country_id;
+        $this->form['region_id'] = $this->model->region_id ?: $this->model->food?->region_id;
         $this->form['day'] = $this->model->day;
         $this->form['food_id'] = $this->model->food_id === null ? 0 : $this->model->food_id;
         $this->form['time_id'] = $this->model->time_id;

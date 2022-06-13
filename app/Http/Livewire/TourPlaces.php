@@ -238,9 +238,9 @@ class TourPlaces extends Component
     {
         if ($place_id) {
             $this->place = Place::query()->with(['city', 'district', 'region', 'country'])->find($this->form['place_id']);
-            $this->form['country_id'] = $this->place->country_id ?: $this->place->city->country_id ?: $this->place->district->country_id ?: $this->place->region->country_id;
-            $this->form['region_id'] = $this->place->region_id ?: $this->city->region_id ?: $this->district->region_id;
-            $this->form['district_id'] = $this->place->district_id ?: $this->city->district_id;
+            $this->form['country_id'] = $this->place->country_id ?: $this->place->city?->country_id ?: $this->place->district?->country_id ?: $this->place->region?->country_id;
+            $this->form['region_id'] = $this->place->region_id ?: $this->place->city?->region_id ?: $this->place->district?->region_id;
+            $this->form['district_id'] = $this->place->district_id ?: $this->place->city?->district_id;
             $this->form['city_id'] = $this->place->city_id;
         }
     }
