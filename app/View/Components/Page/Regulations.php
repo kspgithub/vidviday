@@ -3,7 +3,10 @@
 namespace App\View\Components\Page;
 
 use App\Models\HtmlBlock;
+use App\Models\OrderCertificate;
 use App\Models\Page;
+use App\Models\Tour;
+use App\Models\TourGroup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
@@ -29,8 +32,12 @@ class Regulations extends Component
     {
         $text = '';
 
+        $modelsWithTextAttribute = [
+            Page::class,
+        ];
+
         if($this->model) {
-            $text = $this->model instanceof Page ? $this->model->text : $this->model->seo_text;
+            $text = in_array(get_class($this->model), $modelsWithTextAttribute) ? $this->model->text : $this->model->seo_text;
         }
 
         preg_match_all("/\{\{([^\}\}]*)\}\}/", $text, $matches);
