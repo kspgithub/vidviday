@@ -11,11 +11,16 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class TourFood extends TranslatableModel
+class TourFood extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
     use UsePublishedScope;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     public $translatable = [
         'title',
@@ -23,8 +28,11 @@ class TourFood extends TranslatableModel
     ];
 
     public $fillable = [
+        'type_id',
         'tour_id',
         'food_id',
+        'country_id',
+        'region_id',
         'time_id',
         'day',
         'title',
@@ -37,6 +45,18 @@ class TourFood extends TranslatableModel
     protected $appends = [
         'calc_title',
     ];
+
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
     /**
      * @return BelongsTo
@@ -77,10 +97,5 @@ class TourFood extends TranslatableModel
     public function getTitleAttribute()
     {
         return $this->food->title ?? '';
-    }
-
-    public function getMedia()
-    {
-        return $this->food->getMedia() ?? collect();
     }
 }

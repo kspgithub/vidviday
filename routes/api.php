@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AccommodationController;
 use App\Http\Controllers\Api\CalendarController;
+use App\Http\Controllers\Api\LandingsController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PlacesController;
 use App\Http\Controllers\Api\TicketsController;
@@ -63,6 +65,26 @@ Route::group([
     Route::get('select-box', [PlacesController::class, 'selectBox'])->name('select-box');
     Route::get('find', [PlacesController::class, 'show'])->name('show');
     Route::get('get', [PlacesController::class, 'get'])->name('get');
+
+});
+
+Route::group([
+    'as' => 'accommodations.',
+    'prefix' => 'accommodations',
+], function () {
+
+    Route::get('select-box', [AccommodationController::class, 'selectBox'])->name('select-box');
+
+});
+
+Route::group([
+    'as' => 'landings.',
+    'prefix' => 'landings',
+], function () {
+
+    Route::get('select-box', [LandingsController::class, 'selectBox'])->name('select-box');
+    Route::get('find', [LandingsController::class, 'show'])->name('show');
+    Route::get('get', [LandingsController::class, 'get'])->name('get');
 
 });
 

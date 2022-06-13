@@ -1,8 +1,6 @@
 @extends('admin.layout.app')
 
-@section('title', __('Editing tour') .'-'.__('Finance'))
-
-
+@section('title', __('Editing tour') .'-'.__('Tour places'))
 
 @section('content')
     {!! breadcrumbs([
@@ -23,3 +21,12 @@
 
 @endsection
 
+@push('after-scripts')
+
+    <script>
+        window.addEventListener('updateType', (event) => {
+            const type_id = event.detail.type_id
+            window.Livewire.emit('updateType', type_id)
+        })
+    </script>
+@endpush

@@ -17,9 +17,19 @@
             @include('admin.tour.includes.edit-tabs')
         </div>
         <div class="col-12 col-md-9 col-xl-10">
-            <livewire:tour-landing :tour="$tour"/>
+            <livewire:tour-landings :tour="$tour"/>
         </div>
     </div>
 
 @endsection
 
+
+@push('after-scripts')
+
+    <script>
+        window.addEventListener('updateType', (event) => {
+            const type_id = event.detail.type_id
+            window.Livewire.emit('updateType', type_id)
+        })
+    </script>
+@endpush

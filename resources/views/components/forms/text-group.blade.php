@@ -10,6 +10,7 @@
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
     'rowClass'=>'row mb-3',
+    'filters'=>[],
 ])
 
 <div class="form-group {{$rowClass}}" x-transition>
