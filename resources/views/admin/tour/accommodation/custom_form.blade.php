@@ -54,8 +54,6 @@
                 ></x-utils.media-library>
             </div>
         </div>
-    @else
-        <x-forms.files-group name="media[]" id="media" label="Зображення" multiple accept=".jpg,.jpeg,.png"/>
     @endif
 </div>
 

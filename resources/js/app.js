@@ -25,5 +25,6 @@ require('./libs/map');
 require('./libs/map-route');
 require('./libs/toast');
 require('./libs/sharer');
+require('./libs/moreLess');
 
 require('./vue-app');
