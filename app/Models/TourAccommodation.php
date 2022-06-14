@@ -67,7 +67,7 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         $locale = $this->getLocale();
         $text = $this->attributes['text'] ?? '';
         $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] || '');
+        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] ?? '');
     }
 
     public function getTitleAttribute()
@@ -75,7 +75,6 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         $locale = $this->getLocale();
         $title = $this->attributes['title'] ?? '';
         $title = !empty($title) ? json_decode($title, true) : [];
-        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return !empty($this->accommodation) ? trim($this->accommodation->title . ' ' . $prefix) : '-';
+        return !empty($this->accommodation) ? $this->accommodation->title : ($title[$locale] ?? '');
     }
 }

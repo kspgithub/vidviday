@@ -17,28 +17,16 @@
     <div class="spacer spacer-lg"></div>
 </div>
 
-<style>
-    .seo-text-wrapper {
-
-    }
-
-    .seo-text {
-        overflow: hidden;
-    }
-
-    a.show-more {
-
-    }
-</style>
 @push('after-scripts')
-<script>
+@if($seoText)
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener('DOMContentLoaded', () => {
-
-    moreLess('seo-text', '150px', {
-        textMore: '{{ __('Показати більше') }}',
-        textLess: '{{ __('Показати менше') }}',
-    });
-})
-</script>
+            moreLess('seo-text', '150px', {
+                textMore: '{{ __('Показати більше') }}',
+                textLess: '{{ __('Показати менше') }}',
+            });
+        })
+    </script>
+@endif
 @endpush()
