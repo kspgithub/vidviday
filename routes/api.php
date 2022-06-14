@@ -8,8 +8,10 @@ use App\Http\Controllers\Api\PlacesController;
 use App\Http\Controllers\Api\TicketsController;
 use App\Http\Controllers\Api\ToursController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\HtmlBlock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,4 +110,18 @@ Route::group([
     Route::get('districts', [LocationController::class, 'districts'])->name('districts');
     Route::get('cities', [LocationController::class, 'cities'])->name('cities');
 
+});
+
+Route::get('html-blocks', function (Request $request) {
+    $q = Str::lower($request->input('q', ''));
+    $htmlBlocks = HtmlBlock::query()
+        ->orWhere('slug', 'like', '%'.$q.'%')
+        ->orWhere('title', 'like', '%'.$q.'%')
+        ->get();
+    return response()->json([
+        'results' => $htmlBlocks->map(fn($html) => [
+            'id' => $html->slug,
+            'text' => $html->title,
+        ])->toArray()
+    ]);
 });
