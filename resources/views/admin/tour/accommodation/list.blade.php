@@ -7,8 +7,8 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>@lang('Id')</th>
-                    <th class="text-nowrap">@lang('Title')</th>
+                    <th>@lang('Title')</th>
+                    <th>@lang('Description')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -18,7 +18,8 @@
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
-                        <td class="text-nowrap">{{$item->title}}</td>
+                        <td>{!! $item->accommodation->title ?? $item->title !!}</td>
+                        <td>{!! $item->accommodation->description ?? $item->description !!}</td>
                         <td style="width: 150px">
                             <a href="#" wire:click.prevent="editItem({{$item->id}})"
                                class="btn btn-sm btn-outline-primary m-1"><i

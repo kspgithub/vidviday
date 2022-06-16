@@ -41,15 +41,16 @@
                 @endif
                 x-init="
 
-{{--                    @if($attributes->has('wire:ignore'))--}}
-{{--                        if($refs.input) {--}}
-{{--                            jQuery($refs.input).html('')--}}
-{{--                            @foreach($options as $option)--}}
-{{--                                    newOption = new Option('{{ html_entity_decode($option['text'] ?? $option['title'])}}', '{{ $option['value'] ?? $option['id'] }}', {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }}, {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }})--}}
-{{--                                    $refs.input.add(newOption)--}}
-{{--                            @endforeach--}}
-{{--                        }--}}
-{{--                    @endif--}}
+                    @if($attributes->has('wire:ignore'))
+                        if($refs.input) {
+                            jQuery($refs.input).html('')
+                            @foreach($options as $option)
+                                newOption = new Option('', '{{ $option['value'] ?? $option['id'] }}', {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }}, {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }})
+                                jQuery(newOption).html('{{ htmlentities($option['text'] ?? $option['title']) }}')
+                                $refs.input.add(newOption)
+                            @endforeach
+                        }
+                    @endif
 
                     jQuery($refs.input).select2({
                         placeholder: '{{ $placeholder }}',
@@ -72,7 +73,7 @@
                                 };
                             },
                             processResults: function (data) {
-                                return data.results ? data : {results: data.map(item => ({id: item.id||item.value, text: decode(item.text)})), pagination: {more: false}};
+                                return data.results ? data : {results: data.map(item => ({id: item.id||item.value, text: item.text})), pagination: {more: false}};
                             },
                             success: function (data) {
                                 console.log(data)

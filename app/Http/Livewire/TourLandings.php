@@ -105,6 +105,10 @@ class TourLandings extends Component
 
     public function updatedFormTypeId($type_id)
     {
+        if($type_id == TourLanding::TYPE_CUSTOM) {
+            $this->form['landing_id'] = 0;
+        }
+
         if(!$this->type) {
             $this->type = $type_id;
 
@@ -172,6 +176,7 @@ class TourLandings extends Component
     public function afterModelInit()
     {
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->landing_id > 0 ? TourLanding::TYPE_TEMPLATE : TourLanding::TYPE_CUSTOM) : $this->model->type_id;
+        $this->type = $this->model->type_id;
         $this->form['landing_id'] = $this->model->landing_id === null ? 0 : $this->model->landing_id;
         $this->landing = LandingPlace::query()->find($this->form['landing_id']);
         $this->form['title'] = $this->model->getTranslations('title');

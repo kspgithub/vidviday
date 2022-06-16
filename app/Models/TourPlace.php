@@ -68,22 +68,22 @@ class TourPlace extends TranslatableModel implements HasMedia
         return $this->belongsTo(Place::class, 'place_id');
     }
 
-    public function getTextAttribute()
-    {
-        $locale = $this->getLocale();
-        $text = $this->attributes['text'] ?? '';
-        $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->place) ? $this->place->text : ($text[$locale] ?? '');
-    }
-
-    public function getTitleAttribute()
-    {
-        $locale = $this->getLocale();
-        $title = $this->attributes['title'] ?? '';
-        $title = !empty($title) ? json_decode($title, true) : [];
-        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return trim(($this->place->title ?? '') . ' ' . $prefix);
-    }
+//    public function getTextAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $text = $this->attributes['text'] ?? '';
+//        $text = !empty($text) ? json_decode($text, true) : [];
+//        return !empty($this->place) ? $this->place->text : ($text[$locale] ?? '');
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $title = $this->attributes['title'] ?? '';
+//        $title = !empty($title) ? json_decode($title, true) : [];
+//        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
+//        return trim(($this->place->title ?? '') . ' ' . $prefix);
+//    }
 
     public function country()
     {

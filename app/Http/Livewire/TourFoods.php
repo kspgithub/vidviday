@@ -167,6 +167,10 @@ class TourFoods extends Component
 
     public function updatedFormTypeId($type_id)
     {
+        if($type_id == TourFood::TYPE_CUSTOM) {
+            $this->form['food_id'] = 0;
+        }
+
         if(!$this->type) {
             $this->type = $type_id;
 
@@ -196,6 +200,7 @@ class TourFoods extends Component
     public function afterModelInit()
     {
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->food_id > 0 ? TourFood::TYPE_TEMPLATE : TourFood::TYPE_CUSTOM) : $this->model->type_id;
+        $this->type = $this->model->type_id;
         $this->form['food_id'] = $this->model->food_id === null ? 0 : $this->model->food_id;
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['text'] = $this->model->getTranslations('text');

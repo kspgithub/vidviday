@@ -244,7 +244,7 @@ trait TourRelationship
     }
     public function tourTickets()
     {
-        return $this->hasMany(TourTicket::class);
+        return $this->hasMany(TourTicket::class)->orderBy('position');
     }
 
     /**

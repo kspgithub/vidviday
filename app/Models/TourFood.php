@@ -89,13 +89,13 @@ class TourFood extends TranslatableModel implements HasMedia
         return $translations[app()->getLocale()] ?? ($this->time ? $this->time->title . ' ' . __('helpers.at_N_day', ['day' => ordinal_number($this->day, app()->getLocale())]) : '');
     }
 
-    public function getTextAttribute()
-    {
-        return $this->food->text ?? '';
-    }
-
-    public function getTitleAttribute()
-    {
-        return $this->food->title ?? '';
-    }
+//    public function getTextAttribute()
+//    {
+//        return $this->food->text ?? '';
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        return $this->food->title ?? '';
+//    }
 }

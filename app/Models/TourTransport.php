@@ -35,20 +35,20 @@ class TourTransport extends Model
         return $this->belongsTo(Transport::class);
     }
 
-    public function getTextAttribute()
-    {
-        $locale = $this->getLocale();
-        $text = $this->attributes['text'] ?? '';
-        $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->transport) ? $this->transport->text : ($text[$locale] || '');
-    }
-
-    public function getTitleAttribute()
-    {
-        $locale = $this->getLocale();
-        $title = $this->attributes['title'] ?? '';
-        $title = !empty($title) ? json_decode($title, true) : [];
-        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return trim(($this->transport->title ?? '') . ' ' . $prefix);
-    }
+//    public function getTextAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $text = $this->attributes['text'] ?? '';
+//        $text = !empty($text) ? json_decode($text, true) : [];
+//        return !empty($this->transport) ? $this->transport->text : ($text[$locale] || '');
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $title = $this->attributes['title'] ?? '';
+//        $title = !empty($title) ? json_decode($title, true) : [];
+//        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
+//        return trim(($this->transport->title ?? '') . ' ' . $prefix);
+//    }
 }

@@ -1,5 +1,6 @@
 <div>
-    <x-forms.select-group wire:model="form.day" name="day" :label="__('Day')">
+    <x-forms.select-group wire:model="form.day" name="day" :label="__('Day')" :required="true">
+        <option value="0">Не вибрано</option>
         @for($day = 1; $day <= $tour->duration; $day++)
             <option value="{{$day}}">{{$day}}-й день</option>
         @endfor
@@ -11,7 +12,10 @@
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"
-                          :foodholder="__('Не вибрано')"
+                          wire:ignore
+                          :select2="true"
+                          :allowClear="true"
+                          :placeholder="__('Не вибрано')"
                           :options="$countries">
         <option value="0">Не вибрано</option>
     </x-forms.select-group>
@@ -20,8 +24,9 @@
                           :select2="true"
                           :allowClear="true"
                           autocomplete="/api/location/regions?paginate=1"
-                          :foodholder="__('Не вибрано')"
+                          :placeholder="__('Не вибрано')"
                           :filters="[
+                              'country_id' => $form['country_id'] ?? 0,
                               'region_id' => $form['region_id'] ?? 0,
                               'district_id' => $form['district_id'] ?? 0,
                            ]"
@@ -33,7 +38,7 @@
                           wire:ignore
                           :select2="true"
                           :allowClear="true"
-                          :foodholder="__('Не вибрано')"
+                          :placeholder="__('Не вибрано')"
                           :options="$foodItems" >
         <option value="0">Не вибрано</option>
     </x-forms.select-group>

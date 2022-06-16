@@ -7,10 +7,9 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>@lang('Id')</th>
-                    <th class="text-nowrap">@lang('Day')</th>
-                    <th class="text-nowrap">@lang('Time')</th>
-                    <th class="text-nowrap">@lang('Food')</th>
+                    <th>@lang('Day')</th>
+                    <th>@lang('Time')</th>
+                    <th>@lang('Food')</th>
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
@@ -20,9 +19,9 @@
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
-                        <td class="text-nowrap">{{$item->day}}-й день</td>
-                        <td class="text-nowrap">{{$item->time->title}}</td>
-                        <td class="text-nowrap">{{$item->food ? $item->food->title.', '.$item->food->price.$item->food->currency : 'не вибрано'}}</td>
+                        <td>{{$item->day}}-й день</td>
+                        <td>{{$item->time->title}}</td>
+                        <td>{{$item->food ? $item->food->title.', '.$item->food->price.$item->food->currency : $item->title.', '.$item->price.$item->currency}}</td>
                         <td style="width: 150px">
                             <a href="#" wire:click.prevent="editItem({{$item->id}})"
                                class="btn btn-sm btn-outline-primary m-1"><i

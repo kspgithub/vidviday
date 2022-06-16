@@ -30,7 +30,7 @@
         <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
-    <x-forms.select-group wire:model="form.city_id" name="city_id" :label="__('city')"
+    <x-forms.select-group wire:model="form.city_id" name="city_id" :label="__('City')"
                           :select2="true"
                           :allowClear="true"
                           autocomplete="/api/location/cities?paginate=1"
