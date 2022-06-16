@@ -67,11 +67,48 @@ trait TourAttribute
         }));
     }
 
+    public function getGroupTourLandingsAttribute()
+    {
+        $landings = [];
+        foreach ($this->tourLandings as $tourLanding) {
+            $landings[] = $tourLanding->landing ?: $tourLanding;
+        }
+        return collect($landings);
+    }
+
+    public function getGroupTourPlacesAttribute()
+    {
+        $places = [];
+        foreach ($this->tourPlaces as $tourPlace) {
+            $places[] = $tourPlace->place ?: $tourPlace;
+        }
+        return collect($places);
+    }
+
+    public function getGroupTourTicketsAttribute()
+    {
+        $tickets = [];
+        foreach ($this->tourTickets as $tourTicket) {
+            $tickets[] = $tourTicket->ticket ?: $tourTicket;
+        }
+        return collect($tickets);
+    }
+
+    public function getGroupTourAccommodationsAttribute()
+    {
+        $accommodations = [];
+        foreach ($this->accommodations as $accommodation) {
+            $accommodations[] = $accommodation->accommodation ?: $accommodation;
+        }
+        return collect($accommodations);
+    }
+
     public function getGroupFoodItemsAttribute()
     {
         $locale = app()->getLocale();
         $days = [];
         foreach ($this->foodItems as $foodItem) {
+            $foodItem = $foodItem->food ?: $foodItem;
             if (!isset($days[$foodItem->day])) {
                 $days[$foodItem->day] = (object)[
                     'title' => $foodItem->day . (in_array($locale, ['uk', 'ru']) ? '-й день' : __('day')),
