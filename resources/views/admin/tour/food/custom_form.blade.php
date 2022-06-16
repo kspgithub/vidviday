@@ -13,6 +13,9 @@
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"
+                          wire:ignore
+                          :select2="true"
+                          :allowClear="true"
                           :placeholder="__('Не вибрано')"
                           :options="$countries">
         <option value="0">Не вибрано</option>

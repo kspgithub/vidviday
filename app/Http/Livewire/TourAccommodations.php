@@ -109,10 +109,10 @@ class TourAccommodations extends Component
 
     public function render()
     {
-        if ($this->form['country_id']) {
-            $country = Country::query()->find($this->form['country_id']);
-            $this->countries = collect([$country->asSelectBox()]);
-        }
+//        if ($this->form['country_id']) {
+//            $country = Country::query()->find($this->form['country_id']);
+//            $this->countries = collect([$country->asSelectBox()]);
+//        }
         if ($this->form['region_id']) {
             $region = Region::query()->find($this->form['region_id']);
             $this->regions = collect([$region->asSelectBox()]);

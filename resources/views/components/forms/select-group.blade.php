@@ -16,7 +16,16 @@
     'allowClear'=> false,
     'filters'=> [],
 ])
-
+@php
+    if($placeholder && isset($options[0]) && ($options[0]['value'] ?? $options[0]['id']) ) {
+        if(is_array($options)) {
+            array_unshift($options,['id' => 0, 'title' => $placeholder]);
+        }
+        if($options instanceof Illuminate\Support\Collection) {
+            $options->prepend(['id' => 0, 'title' => $placeholder]);
+        }
+    }
+@endphp
 
 <div class="form-group {{$rowClass}}">
     <div class="{{$labelCol}} col-form-label">
@@ -41,9 +50,10 @@
                 @endif
                 x-init="
 
-                    @if($attributes->has('wire:ignore'))
+                    @if($attributes->has('wire:ignore') && count($options))
                         if($refs.input) {
-                            jQuery($refs.input).html('')
+                            jQuery($refs.input).find('option[value]').remove()
+                            //jQuery($refs.input).html('')
                             @foreach($options as $option)
                                 newOption = new Option('', '{{ $option['value'] ?? $option['id'] }}', {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }}, {{ ($option['value'] ?? $option['id']) === $value ? 'true' : 'null' }})
                                 jQuery(newOption).html('{{ htmlentities($option['text'] ?? $option['title']) }}')
