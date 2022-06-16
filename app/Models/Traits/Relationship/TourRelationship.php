@@ -288,15 +288,15 @@ trait TourRelationship
         return $this->hasMany(Order::class);
     }
 
-    public function tourTransports()
-    {
-        return $this->hasMany(TourTransport::class);
-    }
-
     public function transports()
     {
         return $this->belongsToMany(Transport::class, 'tour_transports', 'tour_id', 'transport_id')
             ->orderByPivot('position');
+    }
+
+    public function tourTransports()
+    {
+        return $this->hasMany(TourTransport::class)->orderBy('position');
     }
 
     public function currencyModel()
