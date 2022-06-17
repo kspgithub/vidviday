@@ -32,12 +32,8 @@ class Regulations extends Component
     {
         $text = '';
 
-        $modelsWithTextAttribute = [
-            Page::class,
-        ];
-
         if($this->model) {
-            $text = in_array(get_class($this->model), $modelsWithTextAttribute) ? $this->model->text : $this->model->seo_text;
+            $text = $this->model->seo_text ?? $this->model->text;
         }
 
         preg_match_all("/\{\{([^\}\}]*)\}\}/", $text, $matches);
