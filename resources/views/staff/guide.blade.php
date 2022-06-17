@@ -1,7 +1,22 @@
 @extends('layout.app')
+
 @section('title', "$staff->first_name $staff->last_name - $staff->position")
 @section('seo_description', "$staff->text")
 @section('seo_keywords', "$staff->position")
+
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ $staff->first_name . '' . $staff->last_name . '-' . $staff->position }}">
+    <meta property="og:description" content="{{ $staff->text }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @if($pageImage = $staff->getFirstMedia())
+<meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
+<meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
 @section('content')
     <main>
         <div class="container">
@@ -24,7 +39,7 @@
                     <span>—</span>
                 </li>
                 <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span itemprop="title">{{ {{$staff->first_name}} {{$staff->last_name}} }}</span>
+                    <span itemprop="title">{{$staff->first_name}} {{$staff->last_name}}</span>
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->
@@ -44,7 +59,7 @@
                          ])
                         <h1 class="h1 title">{{$staff->first_name}} {{$staff->last_name}}</h1>
 
-                        <x-page.social-share/>
+                        <x-page.social-share :share-url="route('staff.show', $staff)" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position"/>
 
                         <div class="text text-md">
                             {!! $staff->text !!}
