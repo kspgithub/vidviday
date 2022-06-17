@@ -14,18 +14,18 @@
                 </thead>
                 <tbody wire:sortable="updateOrder">
                 @foreach($items as $item)
-                    <tr class="draggable" wire:sortable.item="{{ $item->id }}" wire:key="accommodation-{{ $item->id }}">
+                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}" wire:key="accommodation-{{ $item->original_id }}">
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
                         <td>{!! $item->title !!}</td>
                         <td>{!! $item->description !!}</td>
                         <td style="width: 150px">
-                            <a href="#" wire:click.prevent="editItem({{$item->id}})"
+                            <a href="#" wire:click.prevent="editItem({{$item->original_id}})"
                                class="btn btn-sm btn-outline-primary m-1"><i
                                     class="fa fa-edit"></i></a>
 
-                            <a href="#deleteModal" wire:click="deleteId({{$item->id}})" data-bs-toggle="modal"
+                            <a href="#deleteModal" wire:click="deleteId({{$item->original_id}})" data-bs-toggle="modal"
                                class="btn btn-sm btn-danger m-2"><i
                                     class="fas fa-trash"></i></a>
                         </td>

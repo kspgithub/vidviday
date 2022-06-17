@@ -90,18 +90,29 @@ class TourAccommodations extends Component
 
     protected function rules()
     {
-        $rules = [
-            'form.type_id' => 'required',
-            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
-            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
+        $rules = [];
+
+        if($this->form['type_id'] == TourAccommodation::TYPE_TEMPLATE) {
+            $rules = [
+                'form.type_id' => 'required',
+                'form.accommodation_id' => ['required', 'int', 'min:1'],
+            ];
+        }
+
+        if($this->form['type_id'] == TourAccommodation::TYPE_CUSTOM) {
+            $rules = [
+                'form.type_id' => 'required',
+//            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
+//            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
 //            'form.city_id' => ['required', 'integer', Rule::exists('cities', 'id')],
-            'form.accommodation_id' => Rule::when(fn() => $this->form['type_id'] == TourAccommodation::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
-        ];
+            ];
 
-        $locales = $this->tour->locales;
+            $locales = $this->tour->locales;
 
-        foreach ($locales as $locale) {
-            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourAccommodation::TYPE_CUSTOM, ['required', 'string']);
+            foreach ($locales as $locale) {
+                $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourAccommodation::TYPE_CUSTOM, ['required', 'string']);
+            }
+
         }
 
         return $rules;

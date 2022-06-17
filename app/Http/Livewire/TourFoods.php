@@ -39,6 +39,8 @@ class TourFoods extends Component
 
     public $types;
 
+    public $days = [];
+
     public $foodItems = [];
 
     public $foodTimes = [];
@@ -78,6 +80,10 @@ class TourFoods extends Component
             ['value' => TourFood::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
             ['value' => TourFood::TYPE_CUSTOM, 'text' => __('Свій тип')],
         ]);
+        for($day = 1; $day <= $tour->duration; $day++) {
+            $this->days[] = ['value' => $day, 'text' => $day . '-й день'];
+        }
+
         $this->foodTimes = FoodTime::toSelectBox();
         $this->foodItems = Food::toSelectBox();
         $this->countries = Country::toSelectBox();
@@ -102,19 +108,32 @@ class TourFoods extends Component
 
     protected function rules()
     {
-        $rules = [
-            'form.type_id' => 'required',
-            'form.day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
-            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
-            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
-            'form.food_id' => Rule::when(fn() => $this->form['type_id'] == TourFood::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
-            'form.time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
-        ];
+        $rules = [];
 
-        $locales = $this->tour->locales;
+        if($this->form['type_id'] == TourFood::TYPE_TEMPLATE) {
+            $rules = [
+                'form.type_id' => 'required',
+                'form.day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
+//            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
+//            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
+                'form.food_id' => ['required', 'int', 'min:1'],
+                'form.time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
+            ];
+        }
 
-        foreach ($locales as $locale) {
-            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourFood::TYPE_CUSTOM, ['required', 'string']);
+        if($this->form['type_id'] == TourFood::TYPE_CUSTOM) {
+            $rules = [
+                'form.type_id' => 'required',
+                'form.day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
+                'form.time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
+            ];
+
+            $locales = $this->tour->locales;
+
+            foreach ($locales as $locale) {
+                $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourFood::TYPE_CUSTOM, ['required', 'string']);
+            }
+
         }
 
         return $rules;

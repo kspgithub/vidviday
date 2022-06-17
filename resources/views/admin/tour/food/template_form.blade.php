@@ -4,10 +4,8 @@
                           :select2="true"
                           :allowClear="true"
                           :required="true"
-                          :placeholder="__('Не вибрано')">
-        @for($day = 1; $day <= $tour->duration; $day++)
-            <option value="{{$day}}">{{$day}}-й день</option>
-        @endfor
+                          :placeholder="__('Не вибрано')"
+                          :options="$days">
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.time_id" name="time_id" :label="__('Time')"

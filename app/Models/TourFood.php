@@ -82,6 +82,14 @@ class TourFood extends TranslatableModel implements HasMedia
         return $this->belongsTo(FoodTime::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function times()
+    {
+        return $this->belongsTo(FoodTime::class);
+    }
+
     public function getCalcTitleAttribute()
     {
         $translations = $this->getTranslations('text');

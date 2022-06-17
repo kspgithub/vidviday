@@ -4,10 +4,8 @@
                           wire:ignore
                           :select2="true"
                           :allowClear="true"
-                          :placeholder="__('Не вибрано')">
-        @for($day = 1; $day <= $tour->duration; $day++)
-            <option value="{{$day}}">{{$day}}-й день</option>
-        @endfor
+                          :placeholder="__('Не вибрано')"
+                          :options="$days">
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.time_id" name="time_id" :label="__('Time')"
@@ -18,21 +16,21 @@
                           :options="$foodTimes">
     </x-forms.select-group>
 
-    <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"
-                          wire:ignore
-                          :select2="true"
-                          :allowClear="true"
-                          :placeholder="__('Не вибрано')"
-                          :options="$countries">
-    </x-forms.select-group>
+{{--    <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"--}}
+{{--                          wire:ignore--}}
+{{--                          :select2="true"--}}
+{{--                          :allowClear="true"--}}
+{{--                          :placeholder="__('Не вибрано')"--}}
+{{--                          :options="$countries">--}}
+{{--    </x-forms.select-group>--}}
 
-    <x-forms.select-group wire:model="form.region_id" name="region_id" :label="__('Region')"
-                          wire:ignore
-                          :select2="true"
-                          :allowClear="true"
-                          :placeholder="__('Не вибрано')"
-                          :options="$regions">
-    </x-forms.select-group>
+{{--    <x-forms.select-group wire:model="form.region_id" name="region_id" :label="__('Region')"--}}
+{{--                          wire:ignore--}}
+{{--                          :select2="true"--}}
+{{--                          :allowClear="true"--}}
+{{--                          :placeholder="__('Не вибрано')"--}}
+{{--                          :options="$regions">--}}
+{{--    </x-forms.select-group>--}}
 
 
     <x-forms.translation-switch/>
@@ -68,8 +66,6 @@
                 ></x-utils.media-library>
             </div>
         </div>
-    @else
-        <x-forms.files-group name="media[]" id="media" label="Зображення" multiple accept=".jpg,.jpeg,.png"/>
     @endif
 </div>
 

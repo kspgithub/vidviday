@@ -74,7 +74,7 @@ trait TourAttribute
 
         foreach ($tourLandings as $tourLanding) {
             $landing = $tourLanding->landing ?: $tourLanding;
-            $landing->id = $tourLanding->id;
+            $landing->original_id = $tourLanding->id;
             $landings[] = $landing;
         }
         return collect($landings);
@@ -87,7 +87,7 @@ trait TourAttribute
 
         foreach ($tourPlaces as $tourPlace) {
             $place = $tourPlace->place ?: $tourPlace;
-            $place->id = $tourPlace->id;
+            $place->original_id = $tourPlace->id;
             $places[] = $place;
         }
         return collect($places);
@@ -100,7 +100,7 @@ trait TourAttribute
 
         foreach ($tourTickets as $tourTicket) {
             $ticket = $tourTicket->ticket ?: $tourTicket;
-            $ticket->id = $tourTicket->id;
+            $ticket->original_id = $tourTicket->id;
             $tickets[] = $ticket;
         }
         return collect($tickets);
@@ -113,7 +113,7 @@ trait TourAttribute
 
         foreach ($tourAccommodations as $tourAccommodation) {
             $accommodation = $tourAccommodation->accommodation ?: $tourAccommodation;
-            $accommodation->id = $tourAccommodation->id;
+            $accommodation->original_id = $tourAccommodation->id;
             if($tourAccommodation->accommodation) {
 
             }
@@ -129,7 +129,7 @@ trait TourAttribute
 
         foreach ($tourTransports as $tourTransport) {
             $transport = $tourTransport->transport ?: $tourTransport;
-            $transport->id = $tourTransport->id;
+            $transport->original_id = $tourTransport->id;
             if($tourTransport->transport) {
                 $transport->title = $tourTransport->title . ' ' . $transport->title;
             }
@@ -145,9 +145,8 @@ trait TourAttribute
 
         foreach ($foodItems as $tourFood) {
             $food = $tourFood->food ?: $tourFood;
-            $food->id = $tourFood->id;
+            $food->original_id = $tourFood->id;
             if($tourFood->food) {
-                $food->id = $tourFood->id;
                 $food->day = $tourFood->day;
                 $food->title = $tourFood->title . ' ' . $food->title;
             }
@@ -163,7 +162,7 @@ trait TourAttribute
 
         foreach ($tourDiscounts as $tourDiscount) {
             $discount = $tourDiscount->discount ?: $tourDiscount;
-            $discount->id = $tourDiscount->id;
+            $discount->original_id = $tourDiscount->id;
             if($tourDiscount->discount) {
 
             }

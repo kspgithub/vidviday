@@ -13,6 +13,8 @@
                                 <div class="accordion-item">
                                     <div class="accordion-title">{{$foodTime->time->title}}<i></i></div>
                                     <div class="accordion-inner">
+                                        <div class="accordion-title">{{$foodTime->title}}<i></i></div>
+
                                         <x-swiper-media :slides="$foodTime->getMedia()"/>
 
                                         <div class="text">
