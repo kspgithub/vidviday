@@ -9,6 +9,6 @@
             <span class="text-md text-medium">Завантажити для друку</span>
         </a>
         <hr class="only-desktop only">
-        <x-sidebar.social-share class="only-desktop only"/>
+        <x-sidebar.social-share :share-url="route('place.show', $place)" :share-title="$place->title" class="only-desktop only"/>
     </div>
 </div>

@@ -1,7 +1,20 @@
 @extends('layout.app')
+
 @section('title', !empty($event->seo_title) ? $event->seo_title : $event->title)
 @section('seo_description', !empty($event->seo_description) ? $event->seo_description : $event->title)
 @section('seo_keywords', !empty($event->seo_keywords) ? $event->seo_keywords : $event->title)
+
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ !empty($event->seo_title) ? $event->seo_title : $event->title }}">
+    <meta property="og:description" content="{{ !empty($event->seo_description) ? $event->seo_description : $event->title }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $event->getFirstMedia()->getFullUrl() }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
 @section('content')
     <main>
         <div class="container">

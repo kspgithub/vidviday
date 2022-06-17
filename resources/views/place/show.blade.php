@@ -1,8 +1,19 @@
 @extends('layout.app')
+
 @section('title', !empty($place->seo_title) ? $place->seo_title : $place->title)
 @section('seo_description', !empty($place->seo_description) ? $place->seo_description : $place->title)
 @section('seo_keywords', !empty($place->seo_keywords) ? $place->seo_keywords : $place->title)
 
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ !empty($place->seo_title) ? $place->seo_title : $place->title }}">
+    <meta property="og:description" content="{{ !empty($place->seo_description) ? $place->seo_description : $place->title }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $place->getFirstMedia()->getFullUrl() }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
 
 @section('content')
     <main>
@@ -53,7 +64,7 @@
                                 <h1 class="h1 title">{{ $place->title }}</h1>
                                 <x-tour.star-rating :rating="4" :count="0"/>
 
-                                <x-sidebar.social-share class="only-pad-mobile inline-block"/>
+                                <x-sidebar.social-share :share-url="route('place.show', $place)" :share-title="$place->title" class="only-pad-mobile inline-block"/>
                                 <div class="seo-text load-more-wrapp">
 
                                     <div class="less-info">
