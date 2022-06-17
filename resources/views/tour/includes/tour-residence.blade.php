@@ -8,7 +8,7 @@
                 <div class="accordion-item">
                     <div class="accordion-title">{{$residence->title}} <i></i></div>
                     <div class="accordion-inner">
-                        <x-swiper-media :slides="$residence->media"/>
+                        <x-swiper-media :slides="$residence->getMedia()"/>
 
                         <div class="text text-md">
                             <p>{!! $residence->text!!}</p>

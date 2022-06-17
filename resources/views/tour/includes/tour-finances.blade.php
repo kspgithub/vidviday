@@ -23,13 +23,13 @@
                 @endif
             @endforeach
 
-            @if($tour->discounts->count() > 0)
+            @if($tour->groupTourDiscounts->count() > 0)
                 <div class="accordion-item active">
                     <div class="accordion-title">{{__('Discounts')}}<i></i></div>
                     <div class="accordion-inner" style="display: block">
                         <div class="text text-md pb-1">
                             <ul>
-                                @foreach($tour->discounts as $discount)
+                                @foreach($tour->groupTourDiscounts as $discount)
                                     <li>{!! $discount->title !!}</li>
                                 @endforeach
                             </ul>

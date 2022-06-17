@@ -15,6 +15,7 @@ use App\Models\Testimonial;
 use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourAccommodation;
+use App\Models\TourDiscount;
 use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
@@ -140,6 +141,10 @@ trait TourRelationship
     {
         return $this->hasMany(TourAccommodation::class)->orderBy('position');
     }
+    public function tourAccommodations()
+    {
+        return $this->hasMany(TourAccommodation::class)->orderBy('position');
+    }
 
     /**
      * Доп фишки которые можно купить, используются также в калькуляторе
@@ -232,6 +237,10 @@ trait TourRelationship
         return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id')
             ->orderByPivot('position');
     }
+    public function tourDiscounts()
+    {
+        return $this->hasMany(TourDiscount::class)->orderBy('position');
+    }
 
     /**
      * Входные билеты
@@ -244,7 +253,7 @@ trait TourRelationship
     }
     public function tourTickets()
     {
-        return $this->hasMany(TourTicket::class);
+        return $this->hasMany(TourTicket::class)->orderBy('position');
     }
 
     /**

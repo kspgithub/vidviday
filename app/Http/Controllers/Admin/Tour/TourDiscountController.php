@@ -22,6 +22,6 @@ class TourDiscountController extends Controller
     public function index(Tour $tour)
     {
 
-        return view('admin.tour.discounts', ['tour' => $tour]);
+        return view('admin.tour.discount.index', ['tour' => $tour]);
     }
 }

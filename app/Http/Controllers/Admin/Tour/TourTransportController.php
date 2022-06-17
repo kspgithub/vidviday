@@ -11,6 +11,6 @@ class TourTransportController extends Controller
 
     public function index(Tour $tour)
     {
-        return view('admin.tour-transport.index', ['tour' => $tour]);
+        return view('admin.tour.transport.index', ['tour' => $tour]);
     }
 }
