@@ -58,7 +58,7 @@ class TourDiscounts extends Component
     public array $form = [
         'type_id' => null,
         'discount_id' => 0,
-        'title_admin' => '',
+//        'title_admin' => '',
         'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'type' => null,
         'price' => 0,
@@ -173,6 +173,17 @@ class TourDiscounts extends Component
         $this->model->type_id = $this->form['type_id'];
         $this->model->discount_id = $this->form['discount_id'] === 0 ? null : $this->form['discount_id'];
         $this->model->title = $this->form['title'];
+//        $this->model->title_admin = $this->form['title_admin'];
+        $this->model->type = $this->form['type'];
+        $this->model->price = $this->form['price'];
+        $this->model->currency = $this->form['currency'];
+        $this->model->category = $this->form['category'];
+        $this->model->duration = $this->form['duration'];
+        $this->model->age_limit = $this->form['age_limit'];
+        $this->model->age_start = $this->form['age_start'];
+        $this->model->age_end = $this->form['age_end'];
+        $this->model->start_date = $this->form['start_date'];
+        $this->model->end_date = $this->form['end_date'];
     }
 
     public function afterSaveItem()
@@ -180,8 +191,19 @@ class TourDiscounts extends Component
         $this->form['type_id'] = 0;
         $this->form['discount_id'] = 0;
         $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+//        $this->form['title_admin'] = '';
+        $this->form['type'] = null;
+        $this->form['price'] = null;
+        $this->form['currency'] = null;
+        $this->form['category'] = null;
+        $this->form['duration'] = null;
+        $this->form['age_limit'] = null;
+        $this->form['age_start'] = null;
+        $this->form['age_end'] = null;
+        $this->form['start_date'] = null;
+        $this->form['end_date'] = null;
 
-        $this->dispatchBrowserEvent('initLocation', []);
+        $this->dispatchBrowserEvent('DOMContentLoaded', []);
     }
 
     public function afterModelInit()
@@ -190,9 +212,20 @@ class TourDiscounts extends Component
         $this->type = $this->model->type_id;
         $this->form['discount_id'] = $this->model->discount_id === null ? 0 : $this->model->discount_id;
         $this->discount = Discount::query()->find($this->form['discount_id']);
+//        $this->form['title_admin'] = $this->model->title_admin;
         $this->form['title'] = $this->model->getTranslations('title');
+        $this->form['type'] = $this->model->type;
+        $this->form['price'] = $this->model->price;
+        $this->form['currency'] = $this->model->currency;
+        $this->form['category'] = $this->model->category;
+        $this->form['duration'] = $this->model->duration;
+        $this->form['age_limit'] = $this->model->age_limit;
+        $this->form['age_start'] = $this->model->age_start;
+        $this->form['age_end'] = $this->model->age_end;
+        $this->form['start_date'] = $this->model->start_date;
+        $this->form['end_date'] = $this->model->end_date;
 
-        $this->dispatchBrowserEvent('initLocation', []);
+        $this->dispatchBrowserEvent('DOMContentLoaded', []);
 
     }
 

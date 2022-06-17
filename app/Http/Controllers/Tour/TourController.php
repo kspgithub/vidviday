@@ -17,6 +17,7 @@ use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\TourDiscount;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
@@ -233,7 +234,8 @@ class TourController extends Controller
     {
         $schedules = $tour->schedulesForBooking();
 
-        $discounts = $tour->discounts()->available()->get();
+        $discounts = TourService::getAvailableDiscounts($tour);
+
         $room_types = AccommodationType::all()->translate();
         $payment_types = PaymentType::published()->toSelectBox();
 

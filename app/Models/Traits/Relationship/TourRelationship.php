@@ -239,7 +239,7 @@ trait TourRelationship
     }
     public function tourDiscounts()
     {
-        return $this->hasMany(TourDiscount::class)->orderBy('position');
+        return $this->hasMany(TourDiscount::class)->orderBy('tours_discounts.position');
     }
 
     /**

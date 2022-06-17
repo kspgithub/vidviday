@@ -16,6 +16,10 @@ class OrderObserver
     {
         $order->price = $order->price ?: 0;
         $order->commission = $order->commission ?: 0;
+
+        if($order->participants['customer'] ?? false) {
+            $order->birthday = $order->participants['items'][0]['birthday'] ?? null;
+        }
     }
 
     public function created(Order $order)
@@ -52,6 +56,7 @@ class OrderObserver
             $participantsOriginal = $order->getOriginal('participants');
             $participants = $order->participants;
             if(
+                $participantsOriginal &&
                 $participants['customer'] && $participantsOriginal['customer'] &&
                 !empty($participants['items'][0]) && !empty($participantsOriginal['items'][0]) &&
                 $participantsOriginal['items'][0]['birthday'] !== $participants['items'][0]['birthday']
