@@ -88,8 +88,9 @@ class OrderService extends BaseService
                 if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
                     $order_price += $tour_price * (int)$params['children_young'];
                     $order_commission += $tour_commission * (int)$params['children_young'];
-                    $discount = $tour->discounts()->available()
-                        ->whereIn('category', ['children_young', 'children'])->first();
+                    $discount = TourService::getFilteredAvailableDiscounts($tour, [
+                        'categories' => ['in' => ['children_older', 'children']],
+                    ])->first();
                     if ($discount) {
                         $children_discount += $discount->calculate($tour_price, (int)$params['children_young'], $days);
                     }
@@ -98,8 +99,10 @@ class OrderService extends BaseService
                     $order_price += $tour_price * (int)$params['children_older'];
                     $order_commission += $tour_commission * (int)$params['children_older'];
 
-                    $discount = $tour->discounts()->available()
-                        ->whereIn('category', ['children_older', 'children'])->first();
+                    $discount = TourService::getFilteredAvailableDiscounts($tour, [
+                        'categories' => ['in' => ['children_older', 'children']],
+                    ])->first();
+
                     if ($discount) {
                         $children_discount += $discount->calculate($tour_price, (int)$params['children_older'], $days);
                     }
@@ -140,8 +143,10 @@ class OrderService extends BaseService
                 }
             }
 
-            $other_discounts = $tour->discounts()->available()->where('age_limit', 0)
-                ->whereNotIn('category', ['children_young', 'children', 'children_older'])->get();
+            $other_discounts = TourService::getFilteredAvailableDiscounts($tour, [
+                'categories' => ['notIn' => ['children_young', 'children', 'children_older']],
+                'age_limit' => 0,
+            ]);
 
             /*
              * Подсчет скидок

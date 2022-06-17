@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
 
 class TourDiscount extends Model
@@ -53,6 +57,39 @@ class TourDiscount extends Model
     public function discount()
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public function scopeCustom(Builder $query)
+    {
+        return $query->whereNull('discount_id');
+    }
+
+    public function scopeTemplate(Builder $query)
+    {
+        return $query->whereNotNull('discount_id');
+    }
+
+    public function scopeAvailable(Builder $query)
+    {
+        return $query
+            ->where(function ($q) {
+                $q->whereNull('start_date')->orWhereDate('start_date', '<=', Carbon::now()->startOfDay());
+            })
+            ->where(function ($q) {
+                $q->whereNull('end_date')->orWhereDate('end_date', '>=', Carbon::now()->endOfDay());
+            });
+    }
+
+    public static function mapWithTemplates(Collection $items)
+    {
+        $results = [];
+
+        foreach ($items as $item) {
+            $discount = $item->discount ?: $item;
+            $results[] = $discount;
+        }
+
+        return collect($results);
     }
 
     /**
