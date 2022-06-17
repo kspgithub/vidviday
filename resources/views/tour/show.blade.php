@@ -14,6 +14,7 @@
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
+
 @section('content')
     <main>
 
@@ -56,7 +57,7 @@
                             <div class="col-12 order-md-1">
                                 <h1 class="h1 title">{{!empty($tour->seo_h1) ? $tour->seo_h1 : $tour->title}}</h1>
                                 <div class="spacer-xs"></div>
-                                <x-tour.share/>
+
                                 <div class="only-pad-mobile hidden-print">
 
                                     <x-tour.star-rating :rating="$tour->rating"
