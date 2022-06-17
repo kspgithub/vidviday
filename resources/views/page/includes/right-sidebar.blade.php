@@ -9,7 +9,7 @@
             <div class="bordered-box only-desktop-pad">
                 <x-sidebar.download-print/>
                 <hr>
-                <x-sidebar.social-share/>
+                <x-sidebar.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
             </div>
         @endif
         @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
