@@ -1,6 +1,6 @@
 <x-bootstrap.card>
     <x-slot name="body">
-        <h2 class="mb-2">@lang('Tour tickets') {{ $model?->id }}</h2>
+        <h2 class="mb-2">@lang('Tour transports') {{ $model?->id }}</h2>
         <div x-data='translatable({trans_expanded: true})'>
             <form method="post" wire:submit.prevent="saveItem()">
 
@@ -9,12 +9,12 @@
                                       :options="$types">
                 </x-forms.select-group>
 
-                @if($form['type_id'] == App\Models\TourTicket::TYPE_TEMPLATE)
-                    @include('admin.tour.ticket.template_form')
+                @if($form['type_id'] == App\Models\TourTransport::TYPE_TEMPLATE)
+                    @include('admin.tour.transport.template_form')
                 @endif
 
-                @if($form['type_id'] == App\Models\TourTicket::TYPE_CUSTOM)
-                    @include('admin.tour.ticket.custom_form')
+                @if($form['type_id'] == App\Models\TourTransport::TYPE_CUSTOM)
+                    @include('admin.tour.transport.custom_form')
                 @endif
 
                 <button type="submit" class="btn btn-primary me-3"

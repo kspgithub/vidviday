@@ -12,7 +12,6 @@
                               'ticket_id' => $form['ticket_id'] ?? 0,
                            ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.text-loc-group wire:model="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />

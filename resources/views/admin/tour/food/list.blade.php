@@ -21,7 +21,7 @@
                         </td>
                         <td>{{$item->day}}-й день</td>
                         <td>{{$item->time->title}}</td>
-                        <td>{{$item->food ? $item->food->title.', '.$item->food->price.$item->food->currency : $item->title.', '.$item->price.$item->currency}}</td>
+                        <td>{{$item->title.', '.$item->price.$item->currency}}</td>
                         <td style="width: 150px">
                             <a href="#" wire:click.prevent="editItem({{$item->id}})"
                                class="btn btn-sm btn-outline-primary m-1"><i

@@ -1,14 +1,21 @@
 <div>
-    <x-forms.select-group wire:model="form.day" name="day" :label="__('Day')" :required="true">
-        <option value="0">Не вибрано</option>
+    <x-forms.select-group wire:model="form.day" name="day" :label="__('Day')"
+                          wire:ignore
+                          :select2="true"
+                          :allowClear="true"
+                          :required="true"
+                          :placeholder="__('Не вибрано')">
         @for($day = 1; $day <= $tour->duration; $day++)
             <option value="{{$day}}">{{$day}}-й день</option>
         @endfor
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.time_id" name="time_id" :label="__('Time')"
+                          wire:ignore
+                          :select2="true"
+                          :allowClear="true"
+                          :placeholder="__('Не вибрано')"
                           :options="$foodTimes">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"
@@ -17,21 +24,14 @@
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
                           :options="$countries">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.region_id" name="region_id" :label="__('Region')"
+                          wire:ignore
                           :select2="true"
                           :allowClear="true"
-                          autocomplete="/api/location/regions?paginate=1"
                           :placeholder="__('Не вибрано')"
-                          :filters="[
-                              'country_id' => $form['country_id'] ?? 0,
-                              'region_id' => $form['region_id'] ?? 0,
-                              'district_id' => $form['district_id'] ?? 0,
-                           ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.food_id" name="food_id" :label="__('Template')"
@@ -40,7 +40,6 @@
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
                           :options="$foodItems" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     @if($form['food_id'] && $food)

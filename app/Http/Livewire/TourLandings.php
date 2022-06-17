@@ -99,7 +99,7 @@ class TourLandings extends Component
         }
 
         return view('admin.tour.landing.livewire', [
-            'items' => $this->query()->orderBy('position')->get()
+            'items' => $this->tour->groupTourLandings
         ]);
     }
 

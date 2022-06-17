@@ -9,7 +9,6 @@
                               'ticket_id' => $form['ticket_id'] ?? 0,
                            ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.ticket_id" name="ticket_id" :label="__('Template')"
@@ -22,7 +21,6 @@
                               'ticket_id' => $form['ticket_id'] ?? 0,
                           ]"
                           :options="$tickets" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     @if($form['ticket_id'] && $ticket)

@@ -4,9 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\Region;
-use App\Models\Ticket;
+use App\Models\Transport;
 use App\Models\Tour;
-use App\Models\TourTicket;
+use App\Models\TourTransport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class TourTickets extends Component
+class TourTransports extends Component
 {
     use EditRecordTrait;
 
@@ -35,26 +35,20 @@ class TourTickets extends Component
     /**
      * @var Collection
      */
-    public $regions;
-
-    /**
-     * @var Collection
-     */
-    public $tickets;
+    public $transports;
 
 
     public array $form = [
         'type_id' => null,
-        'ticket_id' => 0,
-        'region_id' => 0,
+        'transport_id' => 0,
         'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'text' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
     ];
 
     /**
-     * @var Ticket
+     * @var Transport
      */
-    public $ticket;
+    public $transport;
 
     public $type;
 
@@ -62,35 +56,34 @@ class TourTickets extends Component
     {
         $this->tour = $tour;
         $this->types = collect([
-            ['value' => TourTicket::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
-            ['value' => TourTicket::TYPE_CUSTOM, 'text' => __('Свій тип')],
+            ['value' => TourTransport::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
+            ['value' => TourTransport::TYPE_CUSTOM, 'text' => __('Свій тип')],
         ]);
-        $this->regions = Region::query()->orderBy('title')->toSelectBox();
-        $this->tickets = collect();
-        $this->ticket = null;
+        $this->transports = Transport::query()->orderBy('title')->toSelectBox();
+        $this->transport = null;
     }
 
     public function editRecordClass(): string
     {
-        return TourTicket::class;
+        return TourTransport::class;
     }
 
     public function query(): Builder|Relation
     {
-        return $this->tour->tourTickets()->with(['ticket']);
+        return $this->tour->tourTransports()->with(['transport']);
     }
 
     protected function rules()
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.ticket_id' => Rule::when(fn() => $this->form['type_id'] == TourTicket::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.transport_id' => Rule::when(fn() => $this->form['type_id'] == TourTransport::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourTicket::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourTransport::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -98,33 +91,21 @@ class TourTickets extends Component
 
     public function render()
     {
-        if ($this->form['region_id']) {
-            $region = Region::query()->find($this->form['region_id']);
-            $this->regions = collect([$region->asSelectBox()]);
-        }
-        if ($this->form['ticket_id']) {
-            $ticket = Ticket::query()->find($this->form['ticket_id']);
-            $this->tickets = collect([$ticket->asSelectBox()]);
-        }
-
-        return view('admin.tour.ticket.livewire', [
-            'items' => $this->tour->groupTourTickets
+        return view('admin.tour.transport.livewire', [
+            'items' => $this->tour->groupTourTransport
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if($type_id == TourTicket::TYPE_CUSTOM) {
-            $this->form['ticket_id'] = 0;
+        if($type_id == TourTransport::TYPE_CUSTOM) {
+            $this->form['transport_id'] = 0;
         }
 
         if(!$this->type) {
             $this->type = $type_id;
 
-            $this->form['region_id'] = 0;
-            $this->form['ticket_id'] = 0;
-
-            $this->updatedFormRegionId($this->form['region_id']);
+            $this->form['transport_id'] = 0;
 
             $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
         } else {
@@ -133,16 +114,10 @@ class TourTickets extends Component
         }
     }
 
-    public function updatedFormRegionId($region_id)
+    public function updatedFormTransportId($transport_id)
     {
-
-    }
-
-    public function updatedFormTicketId($ticket_id)
-    {
-        if ($ticket_id) {
-            $this->ticket = Ticket::query()->find($this->form['ticket_id']);
-            $this->form['region_id'] = $this->ticket->region_id ;
+        if ($transport_id) {
+            $this->transport = Transport::query()->find($this->form['transport_id']);
         }
     }
 
@@ -154,7 +129,7 @@ class TourTickets extends Component
     public function updateOrder($items)
     {
         foreach ($items as $item) {
-            DB::table('tours_tickets')
+            DB::table('tour_transports')
                 ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
                 ->update(['position' => $item['order']]);
         }
@@ -164,32 +139,29 @@ class TourTickets extends Component
     {
         $this->model->tour_id = $this->tour->id;
         $this->model->type_id = $this->form['type_id'];
-        $this->model->ticket_id = $this->form['ticket_id'] === 0 ? null : $this->form['ticket_id'];
+        $this->model->transport_id = $this->form['transport_id'] === 0 ? null : $this->form['transport_id'];
         $this->model->title = $this->form['title'];
         $this->model->text = $this->form['text'];
-        $this->model->region_id = $this->form['region_id'] === 0 ? null : $this->form['region_id'];
     }
 
     public function afterSaveItem()
     {
         $this->form['type_id'] = 0;
-        $this->form['ticket_id'] = 0;
+        $this->form['transport_id'] = 0;
         $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
         $this->form['text'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
-        $this->form['region_id'] = 0;
 
         $this->dispatchBrowserEvent('initLocation', []);
     }
 
     public function afterModelInit()
     {
-        $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->ticket_id > 0 ? TourTicket::TYPE_TEMPLATE : TourTicket::TYPE_CUSTOM) : $this->model->type_id;
+        $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->transport_id > 0 ? TourTransport::TYPE_TEMPLATE : TourTransport::TYPE_CUSTOM) : $this->model->type_id;
         $this->type = $this->model->type_id;
-        $this->form['ticket_id'] = $this->model->ticket_id === null ? 0 : $this->model->ticket_id;
-        $this->ticket = Ticket::query()->find($this->form['ticket_id']);
+        $this->form['transport_id'] = $this->model->transport_id === null ? 0 : $this->model->transport_id;
+        $this->transport = Transport::query()->find($this->form['transport_id']);
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['text'] = $this->model->getTranslations('text');
-        $this->form['region_id'] = $this->model->region_id === null ? 0 : $this->model->region_id;
 
         $this->dispatchBrowserEvent('initLocation', []);
 

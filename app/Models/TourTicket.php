@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -11,7 +10,6 @@ class TourTicket extends Model
 {
     use HasFactory;
     use HasTranslations;
-    use UseSelectBox;
 
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;

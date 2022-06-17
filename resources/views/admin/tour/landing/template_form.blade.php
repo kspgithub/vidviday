@@ -9,7 +9,6 @@
                               'landing_id' => $form['landing_id'] ?? 0,
                           ]"
                           :options="$landings" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     @if($form['landing_id'] && $landing)

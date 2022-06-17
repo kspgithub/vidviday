@@ -153,7 +153,7 @@ class TourPlaces extends Component
         }
 
         return view('admin.tour.places.livewire', [
-            'items' => $this->query()->orderBy('position')->get()
+            'items' => $this->tour->groupTourPlaces
         ]);
     }
 

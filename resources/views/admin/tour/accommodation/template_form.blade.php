@@ -20,7 +20,6 @@
                               'accommodation_id' => $form['accommodation_id'] ?? 0,
                            ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.city_id" name="city_id" :label="__('City')"
@@ -35,7 +34,6 @@
                               'accommodation_id' => $form['accommodation_id'] ?? 0,
                            ]"
                           :options="$cities">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.accommodation_id" name="accommodation_id" :label="__('Template')"
@@ -50,7 +48,6 @@
                               'accommodation_id' => $form['accommodation_id'] ?? 0,
                            ]"
                           :options="$accommodations" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     @if($form['accommodation_id'] && $accommodation)

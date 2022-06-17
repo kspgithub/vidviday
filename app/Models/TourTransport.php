@@ -2,15 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class TourTransport extends Model
+class TourTransport extends Model implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     public $translatable = [
         'text',
@@ -24,6 +33,17 @@ class TourTransport extends Model
         'text',
         'position',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
     public function tour(): BelongsTo
     {

@@ -11,6 +11,7 @@ use App\Models\FoodTime;
 use App\Models\Region;
 use App\Models\Tour;
 use App\Models\TourFood;
+use Foo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
@@ -136,7 +137,14 @@ class TourFoods extends Component
 
     public function render()
     {
-        return view('admin.tour.food.livewire', ['items' => $this->query()->get()]);
+        $foodQuery = Food::query();
+
+        if($this->form['region_id']) {
+            $foodQuery = Food::query()->where('region_id', $this->form['region_id']);
+        }
+        $this->foodItems = $foodQuery->toSelectBox();
+
+        return view('admin.tour.food.livewire', ['items' => $this->tour->groupTourFood]);
     }
 
     public function updatedFormCountryId($country_id)

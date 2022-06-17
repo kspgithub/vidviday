@@ -126,7 +126,7 @@ class TourAccommodations extends Component
             $this->accommodations = collect([$accommodation->asSelectBox()]);
         }
 
-        return view('admin.tour.accommodation.livewire', ['items' => $this->query()->get()]);
+        return view('admin.tour.accommodation.livewire', ['items' => $this->tour->groupTourAccommodations]);
     }
 
     public function updatedFormCountryId($country_id)

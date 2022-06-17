@@ -18,8 +18,8 @@
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
-                        <td>{!! $item->accommodation->title ?? $item->title !!}</td>
-                        <td>{!! $item->accommodation->description ?? $item->description !!}</td>
+                        <td>{!! $item->title !!}</td>
+                        <td>{!! $item->description !!}</td>
                         <td style="width: 150px">
                             <a href="#" wire:click.prevent="editItem({{$item->id}})"
                                class="btn btn-sm btn-outline-primary m-1"><i

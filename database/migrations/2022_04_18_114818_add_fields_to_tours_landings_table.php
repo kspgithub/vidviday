@@ -39,7 +39,8 @@ class AddFieldsToToursLandingsTable extends Migration
     {
         Schema::table('tours_landings', function (Blueprint $table) {
             $table->dropColumn(['id', 'title', 'text', 'published', 'created_at', 'updated_at']);
-                        $table->foreign('tour_id', 'tours_landings_tour_id_foreign')
+
+            $table->foreign('tour_id', 'tours_landings_tour_id_foreign')
                 ->references('id')->on('tours')->onDelete('cascade');
 
             $table->foreign('landing_id', 'tours_landings_landing_id_foreign')

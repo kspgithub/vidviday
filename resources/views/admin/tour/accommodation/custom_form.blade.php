@@ -12,7 +12,6 @@
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
                           :options="$countries">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.region_id" name="region_id" :label="__('Region')"
@@ -26,7 +25,6 @@
                               'country_id' => $form['country_id'] ?? 0,
                            ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.city_id" name="city_id" :label="__('City')"
@@ -40,7 +38,6 @@
                               'country_id' => $form['country_id'] ?? 0,
                            ]"
                           :options="$cities">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
 
