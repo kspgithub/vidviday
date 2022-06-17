@@ -1,8 +1,10 @@
 @props([
-    'title' => ''
+    'shareUrl' => null,
+    'shareTitle' => null,
+    'title' => null,
 ])
 
-<div class="share dropdown hidden-print" v-is="'share-dropdown'" title="{{$title}}">
+<div class="share dropdown hidden-print" v-is="'share-dropdown'"  :share-url="{{json_encode($shareUrl)}}" :title="{{ json_encode($title) }}" :share-title="{{ json_encode($shareTitle) }}">
     <div class="icon">
         <div class="dropdown-btn full-size"></div>
     </div>

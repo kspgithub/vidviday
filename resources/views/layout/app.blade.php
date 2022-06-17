@@ -21,7 +21,6 @@
     @foreach($localeLinks ?? [] as $locale => $link)
 <link rel="alternate" hreflang="{{ $locale }}-UA" href="{{ url($link) }}"/>
     @endforeach
-
     @stack('meta-fields', false)
 
 @include('layout.includes.grid')

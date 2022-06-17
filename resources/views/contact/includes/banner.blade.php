@@ -6,7 +6,7 @@
     <h1 class="h1 title">{{!empty($pageContent->seo_h1) ? $pageContent->seo_h1 : $pageContent->title}}</h1>
     <div class="spacer-xxs"></div>
     <div class="only-pad-mobile">
-        <x-sidebar.social-share/>
+        <x-sidebar.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
         <div class="spacer-xs"></div>
     </div>
     <div class="text text-md">
