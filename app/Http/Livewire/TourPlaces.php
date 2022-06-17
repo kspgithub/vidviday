@@ -153,12 +153,16 @@ class TourPlaces extends Component
         }
 
         return view('admin.tour.places.livewire', [
-            'items' => $this->query()->orderBy('position')->get()
+            'items' => $this->tour->groupTourPlaces
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
+        if($type_id == TourPlace::TYPE_CUSTOM) {
+            $this->form['place_id'] = 0;
+        }
+
         if(!$this->type) {
             $this->type = $type_id;
 
@@ -304,6 +308,7 @@ class TourPlaces extends Component
     public function afterModelInit()
     {
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->place_id > 0 ? TourPlace::TYPE_TEMPLATE : TourPlace::TYPE_CUSTOM) : $this->model->type_id;
+        $this->type = $this->model->type_id;
         $this->form['place_id'] = $this->model->place_id === null ? 0 : $this->model->place_id;
         $this->place = Place::query()->find($this->form['place_id']);
         $this->form['title'] = $this->model->getTranslations('title');

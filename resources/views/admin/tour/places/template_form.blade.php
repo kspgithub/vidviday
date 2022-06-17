@@ -12,7 +12,6 @@
                                'place_id' => $form['place_id'] ?? 0,
                            ]"
                           :options="$regions">
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.district_id" name="district_id" :label="__('District')"
@@ -28,7 +27,6 @@
                               'place_id' => $form['place_id'] ?? 0,
                           ]"
                           :options="$districts" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.place_id" name="place_id" :label="__('Template')"
@@ -44,7 +42,6 @@
                               'place_id' => $form['place_id'] ?? 0,
                           ]"
                           :options="$places" >
-        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     @if($form['place_id'] && $place)

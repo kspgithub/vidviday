@@ -5,8 +5,8 @@
             <form method="post" wire:submit.prevent="saveItem()">
 
                 <x-forms.select-group wire:model="form.type_id" name="type_id" :label="__('Type')"
+                                      :placeholder="__('Не вибрано')"
                                       :options="$types">
-                    <option value="0">Не вибрано</option>
                 </x-forms.select-group>
 
                 @if($form['type_id'] == App\Models\TourLanding::TYPE_TEMPLATE)

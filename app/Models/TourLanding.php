@@ -66,20 +66,20 @@ class TourLanding extends TranslatableModel
         return $this->belongsTo(LandingPlace::class, 'landing_id');
     }
 
-    public function getTextAttribute()
-    {
-        $locale = $this->getLocale();
-        $text = $this->attributes['text'] ?? '';
-        $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->landing) ? $this->landing->description : ($text[$locale] ?? '');
-    }
-
-    public function getTitleAttribute()
-    {
-        $locale = $this->getLocale();
-        $title = $this->attributes['title'] ?? '';
-        $title = !empty($title) ? json_decode($title, true) : [];
-        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return trim(($this->landing->title ?? '') . ' ' . $prefix);
-    }
+//    public function getTextAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $text = $this->attributes['text'] ?? '';
+//        $text = !empty($text) ? json_decode($text, true) : [];
+//        return !empty($this->landing) ? $this->landing->description : ($text[$locale] ?? '');
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $title = $this->attributes['title'] ?? '';
+//        $title = !empty($title) ? json_decode($title, true) : [];
+//        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
+//        return trim(($this->landing->title ?? '') . ' ' . $prefix);
+//    }
 }

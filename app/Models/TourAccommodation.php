@@ -62,19 +62,19 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         return $this->belongsToMany(AccommodationType::class, 'tour_accomm_types', 'accomm_id', 'type_id');
     }
 
-    public function getTextAttribute()
-    {
-        $locale = $this->getLocale();
-        $text = $this->attributes['text'] ?? '';
-        $text = !empty($text) ? json_decode($text, true) : [];
-        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] ?? '');
-    }
-
-    public function getTitleAttribute()
-    {
-        $locale = $this->getLocale();
-        $title = $this->attributes['title'] ?? '';
-        $title = !empty($title) ? json_decode($title, true) : [];
-        return !empty($this->accommodation) ? $this->accommodation->title : ($title[$locale] ?? '');
-    }
+//    public function getTextAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $text = $this->attributes['text'] ?? '';
+//        $text = !empty($text) ? json_decode($text, true) : [];
+//        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] ?? '');
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $title = $this->attributes['title'] ?? '';
+//        $title = !empty($title) ? json_decode($title, true) : [];
+//        return !empty($this->accommodation) ? $this->accommodation->title : ($title[$locale] ?? '');
+//    }
 }
