@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">{{ __('common.newsletter-tourists') }}</span>
+                        <span class="h2 title text-medium">{{ __('popup.newsletter-tourists') }}</span>
                         <br>
                         <span class="text">{{ __('popup.subscribe-text') }}</span>
                     </div>

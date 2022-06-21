@@ -129,7 +129,7 @@
                 @if(!($attributes->has('wire:model') && $attributes->has('wire:ignore')))
                     @foreach($options as $option)
                         <option
-                            value="{{ $option['value'] ?? $option['id']}}" {{$option['value'] ?? $option['id'] === $value ? 'selected' : ''}}>{{ html_entity_decode($option['text'] ?? $option['title'])}}</option>
+                            value="{{ $option['value'] ?? $option['id']}}" {{($option['value'] ?? $option['id']) == $value ? 'selected' : ''}}>{{ html_entity_decode($option['text'] ?? $option['title'])}}</option>
                     @endforeach
                 @endif
             </select>
