@@ -13,9 +13,11 @@
                 <p>{{$advertisement->text}}</p>
             </div>
             @if(!empty($advertisement->image))
-                <img src="{{asset('/img/preloader.png')}}"
-                     data-img-src="{{$advertisement->image_url}}"
-                     alt="{{$advertisement->title}}">
+                <a href="{{ $advertisement->url }}">
+                    <img src="{{asset('/img/preloader.png')}}"
+                         data-img-src="{{$advertisement->image_url}}"
+                         alt="{{$advertisement->title}}">
+                </a>
             @endif
         </div>
     </div>
