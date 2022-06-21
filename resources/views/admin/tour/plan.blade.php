@@ -20,17 +20,18 @@
             <x-bootstrap.card>
                 <x-slot name="body">
                     <h2 class="mb-2">@lang('Tour Plan')</h2>
+
                     <div x-data="translatable()">
                         <form method="post" action="{{route('admin.tour.plan.update', $tour)}}" x-ref="form">
                             @csrf
                             @method('PATCH')
                             @foreach(siteLocales() as $locale)
+
                                 <x-forms.editor-group name="text[{{$locale}}]"
                                                       id="text_{{ $locale }}"
                                                       label="Text {{strtoupper($locale)}}"
                                                       :value="array_key_exists($locale, $translations) ? $translations[$locale] : ''"
-                                                      required
-                                ></x-forms.editor-group>
+                                />
 
                             @endforeach
 
@@ -47,7 +48,6 @@
             </x-bootstrap.card>
         </div>
     </div>
-
 
 @endsection
 

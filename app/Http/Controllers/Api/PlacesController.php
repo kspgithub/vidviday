@@ -22,11 +22,11 @@ class PlacesController extends Controller
         $district_id = (int)$request->input('district_id', 0);
         $query = Place::query();
 
-        if ($region_id > 0) {
-            $query->where('region_id', $region_id);
-        }
+
         if ($district_id > 0) {
             $query->where('district_id', $district_id);
+        } elseif ($region_id > 0) {
+            $query->where('region_id', $region_id);
         }
         $paginator = $query->autocomplete($q)->paginate($request->input('limit', 10));
         $items = [];

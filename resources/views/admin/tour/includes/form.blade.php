@@ -7,7 +7,7 @@
 
         <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
-        <x-forms.locales :value="$tour->locales"/>
+        <x-forms.locales :value="$tour->locales ?? ['uk']"/>
 
         <x-forms.translation-switch/>
 
@@ -30,7 +30,8 @@
                                   :value="old('text', $tour->getTranslations('text'))"
                                   required></x-forms.editor-loc-group>
 
-        <x-forms.select-group name="duration_format" :label="__('Format')" :value="old('duration_format', $tour->duration_format)"
+        <x-forms.select-group name="duration_format" :label="__('Format')"
+                              :value="old('duration_format', $tour->duration_format)"
                               :options="$durationFormats" type="number"></x-forms.select-group>
 
         <x-forms.text-group name="duration" :label="__('Days')" :value="old('duration', $tour->duration)"
@@ -43,7 +44,7 @@
                             required></x-forms.text-group>
         <x-forms.text-group name="commission" :label="__('Commission')"
                             :value="old('commission', $tour->commission)" type="number"/>
-        <x-forms.text-group name="accomm_price" label="Доп. за поселення"
+        <x-forms.text-group name="accomm_price" label="Доп. за поселення" required
                             :value="old('accomm_price', $tour->accomm_price)" type="number"/>
 
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
@@ -143,7 +144,6 @@
                 </label>
             </div>
 
-
         @endforeach
     </x-slot>
 </x-bootstrap.card>
@@ -171,11 +171,11 @@
                            :options="$types">
         </x-forms.tag-group>
 
-{{--        <x-forms.tag-group name="subjects[]"--}}
-{{--                           :label="__('Subjects')"--}}
-{{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
-{{--                           :options="$subjects">--}}
-{{--        </x-forms.tag-group>--}}
+        {{--        <x-forms.tag-group name="subjects[]"--}}
+        {{--                           :label="__('Subjects')"--}}
+        {{--                           :value="$tour->subjects ?  $tour->subjects->pluck('id')->toArray() : []"--}}
+        {{--                           :options="$subjects">--}}
+        {{--        </x-forms.tag-group>--}}
     </x-slot>
 </x-bootstrap.card>
 
@@ -217,4 +217,4 @@
     </x-slot>
 </x-bootstrap.card>
 
-@include('admin.tour.includes.tour-plan')
+{{--@include('admin.tour.includes.tour-plan')--}}
