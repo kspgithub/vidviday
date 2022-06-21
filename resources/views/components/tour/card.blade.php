@@ -2,6 +2,7 @@
      @if($vue)
      v-is="'tour-card'"
      :tour='@json($tour)'
+     {{ Auth::check() ? 'like-btn' : '' }}
      :history="{{$history ? 'true' : 'false'}}"
     @endif
 >

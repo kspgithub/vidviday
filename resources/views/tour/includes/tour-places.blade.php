@@ -13,7 +13,7 @@
                         @if($place->hasMedia())
                             <div class="swiper-entry" v-is="'swiper-slider'"
                                  key="swiper-place-{{$place->id}}"
-                                 :media='@json($place->getMedia()->map->toSwiperSlide())'
+                                 :media='@json($place->getMedia('default', ['published' => true])->map->toSwiperSlide())'
                             >
                             </div>
                             <div class="spacer-xs"></div>
