@@ -1,18 +1,45 @@
 @extends('layout.app')
+
 @section('title', !empty($event->seo_title) ? $event->seo_title : $event->title)
 @section('seo_description', !empty($event->seo_description) ? $event->seo_description : $event->title)
 @section('seo_keywords', !empty($event->seo_keywords) ? $event->seo_keywords : $event->title)
+
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ !empty($event->seo_title) ? $event->seo_title : $event->title }}">
+    <meta property="og:description" content="{{ !empty($event->seo_description) ? $event->seo_description : $event->title }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $event->getFirstMedia()->getFullUrl() }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
 @section('content')
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <span><a href="{{pageUrlByKey('events')}}">@lang('Events')</a></span>
-                <span>—</span>
-                <span>{{$event->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ pageUrlByKey('events') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Events") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $event->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
@@ -42,7 +69,7 @@
         </div>
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$event"/>
         <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
     @include('includes.mobile-btns-bar')

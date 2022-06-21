@@ -15,15 +15,18 @@ use App\Models\Testimonial;
 use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourAccommodation;
+use App\Models\TourDiscount;
 use App\Models\TourFaq;
 use App\Models\TourFood;
 use App\Models\TourGroup;
 use App\Models\TourInclude;
 use App\Models\TourLanding;
+use App\Models\TourPlace;
 use App\Models\TourPlan;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
+use App\Models\TourTicket;
 use App\Models\TourTransport;
 use App\Models\TourType;
 use App\Models\Transport;
@@ -53,6 +56,10 @@ trait TourRelationship
     {
         return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id')
             ->orderByPivot('position');
+    }
+    public function tourPlaces()
+    {
+        return $this->hasMany(TourPlace::class)->orderBy('position');
     }
 
     /**
@@ -131,6 +138,10 @@ trait TourRelationship
      * @return HasMany
      */
     public function accommodations()
+    {
+        return $this->hasMany(TourAccommodation::class)->orderBy('position');
+    }
+    public function tourAccommodations()
     {
         return $this->hasMany(TourAccommodation::class)->orderBy('position');
     }
@@ -226,6 +237,10 @@ trait TourRelationship
         return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id')
             ->orderByPivot('position');
     }
+    public function tourDiscounts()
+    {
+        return $this->hasMany(TourDiscount::class)->orderBy('tours_discounts.position');
+    }
 
     /**
      * Входные билеты
@@ -235,6 +250,10 @@ trait TourRelationship
     public function tickets()
     {
         return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
+    }
+    public function tourTickets()
+    {
+        return $this->hasMany(TourTicket::class)->orderBy('position');
     }
 
     /**
@@ -278,15 +297,15 @@ trait TourRelationship
         return $this->hasMany(Order::class);
     }
 
-    public function tourTransports()
-    {
-        return $this->hasMany(TourTransport::class);
-    }
-
     public function transports()
     {
         return $this->belongsToMany(Transport::class, 'tour_transports', 'tour_id', 'transport_id')
             ->orderByPivot('position');
+    }
+
+    public function tourTransports()
+    {
+        return $this->hasMany(TourTransport::class)->orderBy('position');
     }
 
     public function currencyModel()

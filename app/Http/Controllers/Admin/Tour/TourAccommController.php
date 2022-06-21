@@ -20,9 +20,9 @@ class TourAccommController extends Controller
      */
     public function index(Tour $tour)
     {
-        return view('admin.tour-accommodation.index', [
+        return view('admin.tour.accommodation.index', [
             'tour' => $tour,
         ]);
     }
-    
+
 }

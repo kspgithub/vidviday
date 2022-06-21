@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Exceptions\GeneralException;
 use App\Models\Direction;
+use App\Models\Discount;
 use App\Models\LandingPlace;
 use App\Models\Place;
 use App\Models\Tour;
+use App\Models\TourDiscount;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
@@ -189,5 +191,42 @@ class TourService extends BaseService
         DB::commit();
 
         return $tour;
+    }
+
+    public static function getAvailableDiscounts(Tour $tour)
+    {
+        $tourDiscounts = $tour->tourDiscounts()->available()->where('age_limit', 0)->whereNotIn('category', ['children_young', 'children', 'children_older']);
+
+        $discounts = $tour->discounts()->available()->where('discounts.age_limit', 0)->whereNotIn('discounts.category', ['children_young', 'children', 'children_older']);
+
+        return $discounts->get($discounts->get()->merge($tourDiscounts->get()));
+    }
+
+    public static function getFilteredAvailableDiscounts(Tour $tour, array $filters = [
+        'categories' => [
+            'in' => [],
+            'notIn' => [],
+        ],
+        'age_limit' => false,
+    ])
+    {
+        $tourDiscounts = $tour->tourDiscounts()->custom();
+        $discounts = $tour->discounts();
+
+        if($filters['categories']['in'] ?? false) {
+            $tourDiscounts->whereIn('category', $filters['categories']['in']);
+            $discounts->whereIn('discounts.category', $filters['categories']['in']);
+        }
+        if($filters['categories']['notIn'] ?? false) {
+            $tourDiscounts->whereNotIn('category', $filters['categories']['notIn']);
+            $discounts->whereNotIn('discounts.category', $filters['categories']['notIn']);
+        }
+
+        if($filters['age_limit'] ?? false) {
+            $tourDiscounts->where('age_limit', $filters['categories']['age_limit']);
+            $discounts->where('discounts.age_limit', $filters['categories']['age_limit']);
+        }
+
+        return $discounts->get()->merge($tourDiscounts->get());
     }
 }

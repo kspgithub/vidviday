@@ -1,13 +1,17 @@
 <?php
 
+use App\Http\Controllers\Api\AccommodationController;
 use App\Http\Controllers\Api\CalendarController;
+use App\Http\Controllers\Api\LandingsController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PlacesController;
 use App\Http\Controllers\Api\TicketsController;
 use App\Http\Controllers\Api\ToursController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\HtmlBlock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +66,27 @@ Route::group([
 
     Route::get('select-box', [PlacesController::class, 'selectBox'])->name('select-box');
     Route::get('find', [PlacesController::class, 'show'])->name('show');
+    Route::get('get', [PlacesController::class, 'get'])->name('get');
+
+});
+
+Route::group([
+    'as' => 'accommodations.',
+    'prefix' => 'accommodations',
+], function () {
+
+    Route::get('select-box', [AccommodationController::class, 'selectBox'])->name('select-box');
+
+});
+
+Route::group([
+    'as' => 'landings.',
+    'prefix' => 'landings',
+], function () {
+
+    Route::get('select-box', [LandingsController::class, 'selectBox'])->name('select-box');
+    Route::get('find', [LandingsController::class, 'show'])->name('show');
+    Route::get('get', [LandingsController::class, 'get'])->name('get');
 
 });
 
@@ -71,6 +96,7 @@ Route::group([
 ], function () {
 
     Route::get('select-box', [TicketsController::class, 'selectBox'])->name('select-box');
+    Route::get('get', [TicketsController::class, 'get'])->name('get');
 
 });
 
@@ -84,4 +110,18 @@ Route::group([
     Route::get('districts', [LocationController::class, 'districts'])->name('districts');
     Route::get('cities', [LocationController::class, 'cities'])->name('cities');
 
+});
+
+Route::get('html-blocks', function (Request $request) {
+    $q = Str::lower($request->input('q', ''));
+    $htmlBlocks = HtmlBlock::query()
+        ->orWhere('slug', 'like', '%'.$q.'%')
+        ->orWhere('title', 'like', '%'.$q.'%')
+        ->get();
+    return response()->json([
+        'results' => $htmlBlocks->map(fn($html) => [
+            'id' => $html->slug,
+            'text' => $html->title,
+        ])->toArray()
+    ]);
 });

@@ -49,6 +49,8 @@
                                     :value="old('seo_description', $post->getTranslations('seo_description'))"/>
             <x-forms.text-loc-group name="seo_keywords" :label="__('SEO Keywords')"
                                     :value="old('seo_keywords',  $post->getTranslations('seo_keywords'))"/>
+            <x-forms.editor-loc-group name="seo_text" :label="__('SEO Text')"
+                                      :value="old('seo_text', $post->getTranslations('seo_text'))"></x-forms.editor-loc-group>
         </x-slot>
     </x-bootstrap.card>
     @if($post->id > 0)

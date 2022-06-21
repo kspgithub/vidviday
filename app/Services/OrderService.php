@@ -41,7 +41,6 @@ class OrderService extends BaseService
             'agency_data' => $params['agency_data'] ?? null,
             'status' => Order::STATUS_NEW,
             'duty_comment' => '',
-            'is_tourist' => $params['is_tourist'] ?? false,
         ];
 
 
@@ -89,8 +88,9 @@ class OrderService extends BaseService
                 if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
                     $order_price += $tour_price * (int)$params['children_young'];
                     $order_commission += $tour_commission * (int)$params['children_young'];
-                    $discount = $tour->discounts()->available()
-                        ->whereIn('category', ['children_young', 'children'])->first();
+                    $discount = TourService::getFilteredAvailableDiscounts($tour, [
+                        'categories' => ['in' => ['children_older', 'children']],
+                    ])->first();
                     if ($discount) {
                         $children_discount += $discount->calculate($tour_price, (int)$params['children_young'], $days);
                     }
@@ -99,8 +99,10 @@ class OrderService extends BaseService
                     $order_price += $tour_price * (int)$params['children_older'];
                     $order_commission += $tour_commission * (int)$params['children_older'];
 
-                    $discount = $tour->discounts()->available()
-                        ->whereIn('category', ['children_older', 'children'])->first();
+                    $discount = TourService::getFilteredAvailableDiscounts($tour, [
+                        'categories' => ['in' => ['children_older', 'children']],
+                    ])->first();
+
                     if ($discount) {
                         $children_discount += $discount->calculate($tour_price, (int)$params['children_older'], $days);
                     }
@@ -114,6 +116,7 @@ class OrderService extends BaseService
 
             if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
+                    'customer' => $params['is_tourist'] ?? 0,
                     'without_place' => $order_params['without_place'] ?? 0,
                     'without_place_count' => $order_params['without_place_count'] ?? 0,
                     'items' => $params['participants'] ?? [],
@@ -140,8 +143,10 @@ class OrderService extends BaseService
                 }
             }
 
-            $other_discounts = $tour->discounts()->available()->where('age_limit', 0)
-                ->whereNotIn('category', ['children_young', 'children', 'children_older'])->get();
+            $other_discounts = TourService::getFilteredAvailableDiscounts($tour, [
+                'categories' => ['notIn' => ['children_young', 'children', 'children_older']],
+                'age_limit' => 0,
+            ]);
 
             /*
              * Подсчет скидок

@@ -15,6 +15,14 @@
     <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
     <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">
 
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
+    @foreach($localeLinks ?? [] as $locale => $link)
+<link rel="alternate" hreflang="{{ $locale }}-UA" href="{{ url($link) }}"/>
+    @endforeach
+    @stack('meta-fields', false)
+
 @include('layout.includes.grid')
 <!-- Styles -->
     @stack('before-styles', false)

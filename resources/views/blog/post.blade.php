@@ -8,14 +8,27 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-
-            <div class="bread-crumbs">
-                <a href="{{ route('home') }}">{{ __("Home") }}</a>
-                <span>—</span>
-                <a href="{{ route('blog.index') }}">{{ __("Blog") }}</a>
-                <span>—</span>
-                <span>{{ $post->title }}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('blog.index') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Blog") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $post->title }}</span>
+                </li>
+            </ul>
 
             <!-- BREAD CRUMBS END -->
             <div class="row">

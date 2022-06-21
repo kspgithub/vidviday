@@ -4,11 +4,11 @@
                                             alt="keys"></span>@lang('tours-section.accommodation')<i></i></div>
     <div class="accordion-inner">
         <div class="accordion type-2">
-            @foreach($tour->accommodations as $residence)
+            @foreach($tour->groupTourAccommodations as $residence)
                 <div class="accordion-item">
                     <div class="accordion-title">{{$residence->title}} <i></i></div>
                     <div class="accordion-inner">
-                        <x-swiper-media :slides="$residence->media"/>
+                        <x-swiper-media :slides="$residence->getMedia()"/>
 
                         <div class="text text-md">
                             <p>{!! $residence->text!!}</p>

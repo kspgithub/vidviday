@@ -17,6 +17,7 @@ use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\TourDiscount;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
@@ -41,7 +42,7 @@ class TourController extends Controller
      * @param TourGroup|null|mixed $group
      * @return View
      */
-    public function index(Request $request, TourGroup $group = null)
+    public function index(Request $request, TourGroup $group)
     {
         $localeLinks = $group->getLocaleLinks();
 
@@ -233,7 +234,8 @@ class TourController extends Controller
     {
         $schedules = $tour->schedulesForBooking();
 
-        $discounts = $tour->discounts()->available()->get();
+        $discounts = TourService::getAvailableDiscounts($tour);
+
         $room_types = AccommodationType::all()->translate();
         $payment_types = PaymentType::published()->toSelectBox();
 

@@ -30,8 +30,23 @@
                           id="{{$name}}-{{$lang}}"
                           {{$readonly ? 'readonly' : ''}}
                           placeholder="{{ !empty($placeholder) ? $placeholder : ''}}"
-                      {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except( in_array($lang, $requiredLocales) ? [] :['required']) }}
+                      {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except( in_array($lang, $requiredLocales) ? ['wire:model'] :['required', 'wire:model']) }}
+                      @if($attributes->has('wire:model'))
+                          wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
+                      @endif
             >{{  $value[$lang] ?? '' }}</textarea>
+
+                @error($name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
+                @error('form.' . $name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
+
             </div>
         @endforeach
 

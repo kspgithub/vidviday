@@ -5,7 +5,8 @@
             <form action="{{route('tour.order', $tour)}}"
                   v-is="'tour-order'"
                   :tour='@json($tour->shortInfo())'
-                  :corporate="{{$future_events->count() > 0 ? 'false' : 'true'}}"
+{{--                  :corporate="{{$future_events->count() > 0 ? 'false' : 'true'}}"--}}
+                  :corporate="false"
             ></form>
 
         </div>

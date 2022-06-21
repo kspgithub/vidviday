@@ -15,9 +15,7 @@
 <div class="form-group row mb-3" {{$ignore}}>
     <label for="{{$id ?? $name}}-editor" class="{{$labelCol}} col-form-label">
         @lang($label)
-        @if(isset($attributes['required']))
-            <span class="text-danger">*</span>
-        @else
+        @if(isset($attributes['required']) && $attributes['required'])
             <span x-text="locales.indexOf('{{$id}}'.split('_').pop()) > -1 ? '*' : ''" class="text-danger"></span>
         @endif
     </label>

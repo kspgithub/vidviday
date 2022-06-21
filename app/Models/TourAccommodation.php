@@ -4,30 +4,47 @@ namespace App\Models;
 
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 
-class TourAccommodation extends TranslatableModel
+class TourAccommodation extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
+    const TYPE_TEMPLATE = 1;
+    const TYPE_CUSTOM = 2;
 
     public $translatable = [
         'text',
         'title',
     ];
 
-
     protected $fillable = [
+        'type_id',
         'tour_id',
         'accommodation_id',
+        'country_id',
+        'region_id',
+        'city_id',
         'title',
         'text',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
 
     public function tour()
@@ -45,25 +62,19 @@ class TourAccommodation extends TranslatableModel
         return $this->belongsToMany(AccommodationType::class, 'tour_accomm_types', 'accomm_id', 'type_id');
     }
 
-
-    public function media()
-    {
-        return $this->hasMany(Media::class, 'model_id', 'accommodation_id')
-            ->where('model_type', Accommodation::class);
-    }
-
-
-    public function getTextAttribute()
-    {
-        return !empty($this->accommodation) ? $this->accommodation->text : $this->getTranslation('text', $this->getLocale());
-    }
-
-    public function getTitleAttribute()
-    {
-        $locale = $this->getLocale();
-        $title = $this->attributes['title'] ?? '';
-        $title = !empty($title) ? json_decode($title, true) : [];
-        $prefix = $title[$locale] ?? ($title['uk'] ?? '');
-        return !empty($this->accommodation) ? trim($this->accommodation->title . ' ' . $prefix) : '-';
-    }
+//    public function getTextAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $text = $this->attributes['text'] ?? '';
+//        $text = !empty($text) ? json_decode($text, true) : [];
+//        return !empty($this->accommodation) ? $this->accommodation->text : ($text[$locale] ?? '');
+//    }
+//
+//    public function getTitleAttribute()
+//    {
+//        $locale = $this->getLocale();
+//        $title = $this->attributes['title'] ?? '';
+//        $title = !empty($title) ? json_decode($title, true) : [];
+//        return !empty($this->accommodation) ? $this->accommodation->title : ($title[$locale] ?? '');
+//    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class District extends TranslatableModel
     use HasFactory;
     use HasTranslations;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',
@@ -95,5 +97,16 @@ class District extends TranslatableModel
             $result[$item->{$value_field}] = json_prepare($item->title . ' (' . $item->region->title . ')');
         }
         return $result;
+    }
+
+    public function asSelectBox(
+        $value_key = 'id',
+        $text_key = 'text'
+    )
+    {
+        return [
+            $value_key => $this->id,
+            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
+        ];
     }
 }

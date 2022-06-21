@@ -11,6 +11,9 @@
           @change="onFormChange"
           x-ref="form"
           method="POST">
+        @if(app()->environment('local'))
+            <a href="#" @click.prevent="fillForm">fillForm</a>
+        @endif
         @csrf
         @if($order->id > 0)
             @method('PATCH')

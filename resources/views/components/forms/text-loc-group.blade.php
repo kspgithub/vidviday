@@ -15,7 +15,9 @@
     <label for="{{$name}}" class="{{$labelCol}} col-form-label">
         {{$label}}
         @if(isset($attributes['required']) || isset($attributes['x-bind:required']))
-            <span class="text-danger">*</span>
+            <template x-if="locales.includes(trans_locale)">
+                <span class="text-danger">*</span>
+            </template>
         @endif
     </label>
 
@@ -30,9 +32,23 @@
                        id="{{$name}}-{{$lang}}"
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
-                    {{$readonly ? 'readonly' : ''}}
-                    {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(  in_array($lang, $requiredLocales) ? [] :['required']) }}
+                       {{$readonly ? 'readonly' : ''}}
+                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required', 'wire:model']) }}
+                       x-bind:required="{{$attributes['required'] ? 'true' : 'false'}} && locales.includes('{{$lang}}')"
+                       @if($attributes->has('wire:model'))
+                       wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
+                       @endif
                 />
+                @error($name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
+                @error('form.' . $name. '.' . $lang)
+                <div class="invalid-feedback d-block">
+                    {{$message}}
+                </div>
+                @enderror
             </div>
         @endforeach
         @if(!empty($help))

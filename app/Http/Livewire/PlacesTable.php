@@ -73,18 +73,17 @@ class PlacesTable extends DataTableComponent
     {
         return [
             Column::make(__('ID'), 'id')
-                ->searchable()
                 ->sortable(),
-
 
             Column::make(__('Title'), 'title')
                 ->searchable(function (Builder $query, $searchTerm) {
-                    return $query->where(function ($sq) use ($searchTerm) {
-                        return $sq->where('title->uk', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->ru', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->en', 'LIKE', "%$searchTerm%")
-                            ->orWhere('title->pl', 'LIKE', "%$searchTerm%");
-                    });
+                    return $query->jsonLike('title', "%$searchTerm%");
+                })
+                ->sortable(),
+
+            Column::make(__('Country'), 'country_id')
+                ->format(function ($value, $column, $row) {
+                    return optional($row->country)->title;
                 })
                 ->sortable(),
 
@@ -93,6 +92,7 @@ class PlacesTable extends DataTableComponent
                     return optional($row->region)->title;
                 })
                 ->sortable(),
+
             Column::make(__('District'), 'district_id')
                 ->format(function ($value, $column, $row) {
                     return optional($row->district)->title;

@@ -7,13 +7,27 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <a href="{{$pageContent->url}}">@lang('Vacancies')</a>
-                <span>—</span>
-                <span>{{$vacancy->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ $pageContent->url }}" itemprop="url">
+                        <span itemprop="title">{{ __("Vacancies") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $vacancy->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-xl-8 col-12">
@@ -29,7 +43,7 @@
                     <div class="spacer-xxs"></div>
                     <span class="text-md">{{$vacancy->created_at->format('d.m.Y')}}</span>
                     <div class="only-pad-mobile">
-                        <x-page.social-share/>
+                        <x-page.social-share :share-url="route('vacancy.show', $vacancy)" :share-title="$vacancy->title"/>
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text text-md">
@@ -59,7 +73,7 @@
     <!-- VACANCY SLIDER END -->
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$pageContent"/>
         <!-- SEO TEXT END -->
     </main>
 

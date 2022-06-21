@@ -21,7 +21,7 @@
                 <option value="0">Оберіть знижку</option>
                 @foreach($options as $option)
                     <option value="{{$option->id}}">
-                        {{$option->price . ($option->type === 1 ? '%' : $option->currency).', '.($option->admin_title ?? $option->title)}}
+                        {{$option->price . ($option->type === App\Models\Discount::TYPE_PERCENT ? '%' : $option->currency).', '.($option->admin_title ?? $option->title)}}
                     </option>
                 @endforeach
             </select>

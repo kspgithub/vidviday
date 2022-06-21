@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
@@ -62,5 +64,16 @@ class Region extends TranslatableModel
     public function places()
     {
         return $this->hasMany(Place::class);
+    }
+
+    public function asSelectBox(
+        $value_key = 'id',
+        $text_key = 'text'
+    )
+    {
+        return [
+            $value_key => $this->id,
+            $text_key => $this->title,
+        ];
     }
 }

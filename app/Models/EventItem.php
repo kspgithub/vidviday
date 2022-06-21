@@ -62,6 +62,7 @@ class EventItem extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
     ];
 
     protected $fillable = [
@@ -73,6 +74,7 @@ class EventItem extends TranslatableModel implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'seo_text',
         'published',
         'indefinite',
         'start_date',

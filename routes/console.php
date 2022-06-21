@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tour;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -16,4 +17,19 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+
+    $data = [];
+
+    $tour = Tour::find(299);
+
+    $media = [];
+
+    foreach ($tour->tourPlaces as $tourPlace) {
+        if($tourPlace->hasMedia()) {
+            $media[] = $tourPlace->getMedia();
+        }
+    }
+
+    dd($media);
+
 })->purpose('Display an inspiring quote');

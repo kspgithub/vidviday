@@ -87,7 +87,7 @@
 
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="null"/>
         <!-- SEO TEXT END -->
     </main>
 

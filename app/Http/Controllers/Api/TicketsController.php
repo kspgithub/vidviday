@@ -37,4 +37,13 @@ class TicketsController extends Controller
             ]
         ];
     }
+
+    public function get(Request $request)
+    {
+        $place_id = (int)$request->input('ticket_id', 0);
+
+        $place = Ticket::query()->findOrFail($place_id);
+
+        return response()->json($place);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class UniqueSlugRule implements Rule
 {
@@ -40,6 +41,9 @@ class UniqueSlugRule implements Rule
                 });
                 if ($this->exceptId > 0 && $table === $this->table) {
                     $query->where('id', '<>', $this->exceptId);
+                }
+                if (Schema::hasColumn($table, 'deleted_at')) {
+                    $query->whereNull('deleted_at');
                 }
                 if ($query->count() > 0) {
                     return false;

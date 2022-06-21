@@ -165,4 +165,14 @@ class OrderController extends Controller
         return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
 
     }
+
+    public function accomm(Request $request, Order $order)
+    {
+        $accommodation = $order->accommodation;
+        $accommodation[$request->id] = $request->value;
+        $order->accommodation = $accommodation;
+        $order->save();
+
+        return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
+    }
 }

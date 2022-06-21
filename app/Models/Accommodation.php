@@ -6,8 +6,10 @@ use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -78,5 +80,43 @@ class Accommodation extends TranslatableModel implements HasMedia
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+
+
+    public function scopeAutocomplete(Builder $query, $search = '')
+    {
+        $search = strtolower(urldecode(trim($search)));
+        $query = $query->published()->with(['region'])
+            ->whereRaw('LOWER(title->"$.uk") like ?', '%'.$search.'%')
+            ->orWhereRaw('LOWER(title->"$.en") like ?', '%'.$search.'%')
+            ->orWhere('title->en', 'LIKE', "%$search%")
+            ->select([
+                'id',
+                'country_id',
+                'region_id',
+                'city_id',
+                'title',
+                'slug',
+            ]);
+
+        if (!empty($search)) {
+            $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
+                ->orderBy('relevant');
+        } else {
+            $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
+        }
+        return $query;
+    }
+
+    public function asSelectBox(
+        $value_key = 'id',
+        $text_key = 'text'
+    )
+    {
+        return [
+            $value_key => $this->id,
+            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
+        ];
     }
 }

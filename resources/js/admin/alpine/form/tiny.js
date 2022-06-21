@@ -48,7 +48,7 @@ export default (options) => ({
             ],
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
                 'bullist numlist outdent indent | link image | preview media fullpage | ' +
-                'forecolor backcolor emoticons | help',
+                'forecolor backcolor emoticons | help | customInsertButton customDateButton',
             menubar: 'favs file edit view insert format tools table help',
             images_upload_handler: async (blobInfo, success, failure) => {
                 await uploadHandler(options.uploadUrl, blobInfo, success, failure);
@@ -59,6 +59,33 @@ export default (options) => ({
                 })
                 editor.on('Change', (evt) => {
                     this.value = editor.getContent();
+                })
+                editor.ui.registry.addButton('customInsertButton', {
+                    text: 'Html Block',
+                    onAction: function (_) {
+                        let select = $('<select id="s2" class="form-control"></select>');
+                        $('.tox-menubar').append(select)
+                        $('#s2').select2({
+                            theme: 'bootstrap-5',
+                            ajax: {
+                                url: '/api/html-blocks',
+                                dataType: 'json',
+                                quietMillis: 500,
+                                data: function (params) {
+                                    self.prevQuery = params
+                                    return {
+                                        q: params.term,
+                                        page: params.page || 1,
+                                        limit: 20
+                                    };
+                                },
+                            }
+                        })
+                        $('#s2').on('select2:select', (e) => {
+                            editor.insertContent('{{'+e.params.data.id+'}}');
+                        })
+                        $('#s2').select2('open')
+                    }
                 })
             }
             //content_css: 'css/content.css'

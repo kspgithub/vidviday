@@ -4,26 +4,52 @@
 @section('seo_description', !empty($tour->seo_description) ? $tour->seo_description : $tour->title)
 @section('seo_keywords', !empty($tour->seo_keywords) ? $tour->seo_keywords : $tour->title)
 
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ !empty($tour->seo_title) ? $tour->seo_title : $tour->title }}">
+    <meta property="og:description" content="{{ !empty($tour->seo_description) ? $tour->seo_description : $tour->title }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $tour->getFirstMedia('main')->getFullUrl() }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
 @section('content')
     <main>
+
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="/">@lang('Home')</a>
-                <span>—</span>
-                <a href="{{route('tour.index')}}">@lang('Tours')</a>
-                <span>—</span>
-                <span>{{$tour->title}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('tour.index') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Tours") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{ $tour->title }}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-xl-8 col-12">
                     <!-- BANNER TABS -->
-                @include('tour.includes.banner-tabs', [
-                    'tour'=>$tour,
-                    'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('main')->merge($tour->getMedia('pictures')) : $tour->getMedia('main'))
-                ])
-                <!-- BANNER TABS END -->
+                    @include('tour.includes.banner-tabs', [
+                        'tour'=>$tour,
+                        'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('main')->merge($tour->getMedia('pictures')) : $tour->getMedia('main')),
+                    ])
+                    <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
                     <!-- TOUR CONTENT -->
                     <div class="tour-content">
@@ -31,6 +57,7 @@
                             <div class="col-12 order-md-1">
                                 <h1 class="h1 title">{{!empty($tour->seo_h1) ? $tour->seo_h1 : $tour->title}}</h1>
                                 <div class="spacer-xs"></div>
+
                                 <div class="only-pad-mobile hidden-print">
 
                                     <x-tour.star-rating :rating="$tour->rating"
@@ -84,7 +111,11 @@
                                 @include('tour.includes.tour-tickets')
 
                                 @include('tour.includes.tour-fun')
-                                @include('tour.includes.tour-transport')
+
+                                @if($tour->transport_on)
+                                    @include('tour.includes.tour-transport')
+                                @endif
+
                                 @include('tour.includes.tour-residence')
                                 @include('tour.includes.tour-food')
                                 @include('tour.includes.tour-calc')
@@ -104,20 +135,20 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                @include('tour.includes.right-sidebar')
+                    @include('tour.includes.right-sidebar')
 
-                <!-- SIDEBAR END -->
+                    <!-- SIDEBAR END -->
                 </div>
             </div>
             <div class="spacer-lg"></div>
         </div>
 
         <!-- THUMBS CAROUSEL -->
-    @include('tour.includes.similar-carousel')
-    <!-- THUMBS CAROUSEL END -->
+        @include('tour.includes.similar-carousel')
+        <!-- THUMBS CAROUSEL END -->
 
         <!-- SEO TEXT -->
-        <x-page.regulations/>
+        <x-page.regulations :model="$tour"/>
         <!-- SEO TEXT END -->
     </main>
 

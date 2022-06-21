@@ -6,13 +6,27 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <div class="bread-crumbs">
-                <a href="{{('/')}}">Головна</a>
-                <span>—</span>
-                <a href="{{pageUrlByKey('office-workers')}}">Офісні працівники</a>
-                <span>—</span>
-                <span>{{$staff->first_name}} {{$staff->last_name}}</span>
-            </div>
+            <ul class="bread-crumbs">
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ route('home') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Home") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="{{ pageUrlByKey('office-workers') }}" itemprop="url">
+                        <span itemprop="title">{{ __("Офісні працівники") }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>—</span>
+                </li>
+                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span itemprop="title">{{$staff->first_name}} {{$staff->last_name}}</span>
+                </li>
+            </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
@@ -35,7 +49,7 @@
                                 <span class="staff-label btn type-4">{{$staff->label}}</span>
                             </div>
                             <div class="col-auto">
-                                <x-page.social-share class="drop-right"/>
+                                <x-page.social-share :share-url="route('staff.show', $staff)" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position" class="drop-right"/>
                             </div>
                         </div>
 

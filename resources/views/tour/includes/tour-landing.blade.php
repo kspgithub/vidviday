@@ -4,7 +4,7 @@
     </div>
     <div class="accordion-inner">
         <div class="accordion type-2">
-            @foreach($tour->landings as $landing)
+            @foreach($tour->groupTourLandings as $landing)
                 <div class="accordion-item">
                     <div class="accordion-title">{{$landing->title}}<i></i></div>
                     <div class="accordion-inner">
@@ -13,8 +13,8 @@
                         </div>
 
                         <div v-is="'map-route'"
-                             :lat='{{$landing->lat}}'
-                             :lng='{{$landing->lng}}'
+                             :lat='{{$landing->lat?:0}}'
+                             :lng='{{$landing->lng?:0}}'
                              marker='/img/marker-bus.png'
                              :address='"{{$landing->title}}"'
                         ></div>

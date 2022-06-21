@@ -8,30 +8,72 @@ use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LocationController extends Controller
 {
-    public function countries()
+    public function countries(Request $request)
     {
         //
-        return Country::toSelectBox();
+        $query = Country::query()->orderBy('title->uk');
+
+        if($request->paginate) {
+            $paginator = $query->paginate($request->input('limit', 10));
+            $items = [];
+            foreach ($paginator->items() as $item) {
+                $items[] = $item->asSelectBox();
+            }
+
+            return [
+                'results' => $items,
+                'pagination' => [
+                    'more' => $paginator->hasMorePages()
+                ]
+            ];
+        }
+
+        return $query->toSelectBox();
     }
 
     public function regions(Request $request)
     {
         //
-        $query = Region::query();
+        $query = Region::query()->orderBy('title->uk');
         $country_id = $request->input('country_id', 1);
         if ($country_id > 0) {
             $query->where('country_id', $country_id);
         }
-        return $query->orderBy('title->uk')->toSelectBox();
+
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
+
+        if($request->paginate) {
+            $paginator = $query->paginate($request->input('limit', 10));
+            $items = [];
+            foreach ($paginator->items() as $item) {
+                $items[] = $item->asSelectBox();
+            }
+
+            return [
+                'results' => $items,
+                'pagination' => [
+                    'more' => $paginator->hasMorePages()
+                ]
+            ];
+        }
+
+        return $query->toSelectBox();
     }
 
     public function districts(Request $request)
     {
         //
-        $query = District::query();
+        $query = District::query()->orderBy('title->uk');
         $country_id = $request->input('country_id', 1);
 
         if ($country_id > 0) {
@@ -41,15 +83,37 @@ class LocationController extends Controller
         if ($region_id > 0) {
             $query->where('region_id', $region_id);
         }
-       
 
-        return $query->orderBy('title->uk')->toSelectBox();
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
+
+        if($request->paginate) {
+            $paginator = $query->paginate($request->input('limit', 10));
+            $items = [];
+            foreach ($paginator->items() as $item) {
+                $items[] = $item->asSelectBox();
+            }
+
+            return [
+                'results' => $items,
+                'pagination' => [
+                    'more' => $paginator->hasMorePages()
+                ]
+            ];
+        }
+
+        return $query->toSelectBox();
     }
 
     public function cities(Request $request)
     {
         //
-        $query = City::query();
+        $query = City::query()->orderBy('title->uk');
         $country_id = $request->input('country_id', 1);
 
         if ($country_id > 0) {
@@ -63,6 +127,33 @@ class LocationController extends Controller
         if ($district_id > 0) {
             $query->where('district_id', $district_id);
         }
-        return $query->orderBy('title->uk')->toSelectBox();
+
+        if($search = Str::lower($request->get('q'))){
+            $query->jsonLike('title', "%$search%");
+        }
+
+        if($limit = $request->get('limit')){
+            $query->limit($limit);
+        }
+
+        if($request->paginate) {
+            $paginator = $query->paginate($request->input('limit', 10));
+            $items = [];
+            foreach ($paginator->items() as $item) {
+                $items[] = $item->asSelectBox();
+            }
+
+            return [
+                'results' => $items,
+                'pagination' => [
+                    'more' => $paginator->hasMorePages()
+                ]
+            ];
+        }
+
+        return $query->get()->map(fn($item) => [
+            'value' => $item['id'],
+            'text' => $item['fullTitle'],
+        ]);
     }
 }

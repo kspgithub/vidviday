@@ -11,7 +11,14 @@ const DEFAULT_DISCOUNT = {
 };
 
 export default (params) => ({
-    order: params.order,
+    order: {
+        ...params.order,
+        participants: {
+            items: params.order?.participants?.items || [],
+            participant_phone: params.order?.participants?.participant_phone || '',
+            customer: params.order?.participants?.customer || false,
+        },
+    },
     tour: params.tour ?? null,
     formChanged: false,
     roomTypes: params.roomTypes || [],
@@ -26,8 +33,31 @@ export default (params) => ({
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
+    fillForm() {
+        let vm = this
+        this.order.first_name = 'Test'
+        this.order.last_name = 'Test'
+        this.order.middle_name = 'Test'
+        this.order.phone = '+38 (333) 333-33-33'
+
+        const tourSelectBox = document.getElementById('tourSelectBox');
+        $(tourSelectBox).select2('open')
+        setTimeout(() => {
+            $('#select2-tourSelectBox-results > *').first().mouseup()
+            setTimeout(function() {
+                vm.order.schedule_id = vm.schedules[0].id
+                vm.calcSum()
+            }, 500)
+        }, 500)
+
+        this.order.places = 1
+        this.isCustomerParticipant = true
+    },
     init() {
-        console.log(this.order);
+        //Set default status
+        if (!this.order.status) {
+            this.order.status = 'booked'
+        }
         if (this.order.tour_id > 0) {
             this.loadSchedules(false);
         }
@@ -54,6 +84,14 @@ export default (params) => ({
 
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
+
+            if(!order.participants) {
+                order.participants = {
+                    items: [],
+                    participant_phone: '',
+                    customer: false,
+                }
+            }
 
             for (let i in order.participants.items) {
                 if(order.participants.items[i].first_name)
@@ -121,16 +159,9 @@ export default (params) => ({
 
     // PARTICIPANTS
     get isCustomerParticipant() {
-        return this.order.participants && !!this.order.participants.customer;
+        return !!this.order.participants.customer;
     },
     set isCustomerParticipant(value) {
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: value,
-            }
-        }
         if(value) {
             this.order.participants.items.unshift({
                 first_name: this.order.first_name || '',
@@ -138,6 +169,9 @@ export default (params) => ({
                 middle_name: this.order.middle_name || '',
                 birthday: this.order.birthday || '',
             })
+            if(!this.participantPhone) {
+                this.participantPhone = this.order.phone
+            }
         } else {
             this.order.participants.items.shift()
         }
@@ -149,13 +183,6 @@ export default (params) => ({
     },
     set participantPhone(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: false,
-            }
-        }
         this.order.participants.participant_phone = value;
     },
     get participants() {
@@ -163,25 +190,9 @@ export default (params) => ({
     },
     set participants(value) {
         this.formChanged = true;
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-                customer: false,
-            }
-        }
         this.order.participants.items = value;
     },
     addParticipant() {
-        if (!this.order.participants) {
-            this.order.participants = {
-                items: [],
-                participant_phone: '',
-            }
-        }
-        if (!this.order.participants.items) {
-            this.order.participants.items = [];
-        }
         if (this.participantData.first_name) {
             this.order.participants.items.push({...this.participantData});
             this.participantData = {

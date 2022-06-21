@@ -107,10 +107,10 @@ class Discount extends TranslatableModel
     {
         return $query->where('published', 1)
             ->where(function ($q) {
-                $q->whereNull('start_date')->orWhereDate('start_date', '<=', Carbon::now()->startOfDay());
+                $q->whereNull('discounts.start_date')->orWhereDate('discounts.start_date', '<=', Carbon::now()->startOfDay());
             })
             ->where(function ($q) {
-                $q->whereNull('end_date')->orWhereDate('end_date', '>=', Carbon::now()->endOfDay());
+                $q->whereNull('discounts.end_date')->orWhereDate('discounts.end_date', '>=', Carbon::now()->endOfDay());
             });
     }
 
