@@ -18,7 +18,7 @@
                         </label>
                         <label data-tooltip="@lang('forms.required')">
                             <i>@lang('forms.password')*</i>
-                            <input type="password" name="password" required>
+                            <input type="password" name="password" required autocomplete="off">
                         </label>
                         <div class="text text-sm">@lang('auth.required-fields')</div>
                         <div class="spacer-xs"></div>

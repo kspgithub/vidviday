@@ -234,6 +234,7 @@ hr {
                     position: relative;
                     display: inline-block;
                     vertical-align: middle;
+
                 }
             }
 
@@ -415,6 +416,10 @@ hr {
         img {
             max-height: 100%;
         }
+
+        svg {
+            height: 18px;
+        }
     }
 
     a,
@@ -446,11 +451,12 @@ hr {
         }
 
         &:first-child {
-            span{
+            span {
                 margin: 0;
                 margin-right: 10px;
             }
         }
+
         span {
             margin-right: 10px;
             color: $title;
@@ -590,6 +596,7 @@ hr {
         a {
             &:hover {
                 color: $green;
+
                 span {
                     color: $green;
                 }

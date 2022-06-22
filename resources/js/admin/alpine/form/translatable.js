@@ -1,6 +1,4 @@
 export default (options = {expanded: false}) => {
-
-    console.log(document.documentElement.lang || 'uk')
     return {
         ...options.share || {},
         locales: options.share?.locales || [],
@@ -8,13 +6,12 @@ export default (options = {expanded: false}) => {
         trans_expanded: options && options.expanded,
         async submit(e, submit) {
             let valid = true;
-            const inputs = this.$refs.form.querySelectorAll('[required]');
+            const inputs = this.$refs.form.querySelectorAll(':invalid');
 
             inputs.forEach((inputEl) => {
                 if (!inputEl.validity.valid) {
                     valid = false;
                     toast.error('Поле ' + inputEl.name + ' має не вірне значення');
-                    console.log(inputEl);
                 }
             })
 

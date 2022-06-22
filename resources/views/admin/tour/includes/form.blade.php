@@ -7,7 +7,7 @@
 
         <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
-        <x-forms.locales :value="$tour->locales"/>
+        <x-forms.locales :value="$tour->locales ?? ['uk']"/>
 
         <x-forms.translation-switch/>
 
@@ -44,7 +44,7 @@
                             required></x-forms.text-group>
         <x-forms.text-group name="commission" :label="__('Commission')"
                             :value="old('commission', $tour->commission)" type="number"/>
-        <x-forms.text-group name="accomm_price" label="Доп. за поселення"
+        <x-forms.text-group name="accomm_price" label="Доп. за поселення" required
                             :value="old('accomm_price', $tour->accomm_price)" type="number"/>
 
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
@@ -218,3 +218,5 @@
 
     </x-slot>
 </x-bootstrap.card>
+
+{{--@include('admin.tour.includes.tour-plan')--}}

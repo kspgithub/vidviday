@@ -126,10 +126,7 @@ class Place extends TranslatableModel implements HasMedia
     public function scopeAutocomplete(Builder $query, $search = '')
     {
         $search = strtolower(urldecode(trim($search)));
-        $query = $query->published()->with(['region'])
-            ->whereRaw('LOWER(title->"$.uk") like ?', '%'.$search.'%')
-            ->orWhereRaw('LOWER(title->"$.en") like ?', '%'.$search.'%')
-            ->orWhere('title->en', 'LIKE', "%$search%")
+        $query = $query->published()->with(['region'])->jsonLike('title', $search)
             ->select([
                 'id',
                 'district_id',

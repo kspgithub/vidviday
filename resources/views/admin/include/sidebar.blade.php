@@ -91,10 +91,10 @@
                             <a class="sidebar-link"
                                href="{{route('admin.tour-group.index')}}">@lang('Groups')</a>
                         </li>
-{{--                        <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}">--}}
-{{--                            <a class="sidebar-link "--}}
-{{--                               href="{{route('admin.tour-subjects.index')}}">@lang('Subjects')</a>--}}
-{{--                        </li>--}}
+                        {{--                        <li class="sidebar-item {{routeActiveClass('admin.tour-subjects.*')}}">--}}
+                        {{--                            <a class="sidebar-link "--}}
+                        {{--                               href="{{route('admin.tour-subjects.index')}}">@lang('Subjects')</a>--}}
+                        {{--                        </li>--}}
                         <li class="sidebar-item {{routeActiveClass('admin.direction.*')}}">
                             <a class="sidebar-link "
                                href="{{route('admin.direction.index')}}">@lang('Directions')</a>
@@ -271,18 +271,7 @@
                 {{--                    <span class="align-middle">@lang('Orders')</span>--}}
                 {{--                </a>--}}
                 {{--            </li>--}}
-                <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
-                    <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
-                        <i class="align-middle" data-feather="shopping-cart"></i>
-                        <span class="align-middle">@lang('Certificates')</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{routeActiveClass('admin.order-transport*')}}">
-                    <a class="sidebar-link" href="{{route('admin.order-transport.index')}}">
-                        <i class="align-middle" data-feather="truck"></i>
-                        <span class="align-middle">@lang('Transport Rental')</span>
-                    </a>
-                </li>
+
             @endif
 
             @if(is_admin() || is_tour_manager() || is_duty_manager())
@@ -315,8 +304,22 @@
                         <x-alp.new-corporates/>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.order-transport*')}}">
+                    <a class="sidebar-link" href="{{route('admin.order-transport.index')}}">
+                        <i class="align-middle" data-feather="truck"></i>
+                        <span class="align-middle">@lang('Transport Rental')</span>
+                        <x-alp.new-transport/>
+                    </a>
+                </li>
+                <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
+                    <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
+                        <i class="align-middle" data-feather="shopping-cart"></i>
+                        <span class="align-middle">@lang('Certificates')</span>
+                        <x-alp.new-certificate/>
+                    </a>
+                </li>
             @endif
-        <!-- CONTENT --------------------------------------------------------------------------------------- --->
+            <!-- CONTENT --------------------------------------------------------------------------------------- --->
             @if(is_admin() || is_manager())
                 <li class="sidebar-header">
                     @lang('Content')

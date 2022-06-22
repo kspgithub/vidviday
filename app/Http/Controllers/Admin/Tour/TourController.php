@@ -48,6 +48,7 @@ class TourController extends Controller
     {
         $tour = new Tour();
         $tour->currency = 'UAH';
+        $tour->locales = ['uk'];
         $currencies = Currency::toSelectBox('iso', 'iso');
         $badges = Badge::all();
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
@@ -60,7 +61,6 @@ class TourController extends Controller
             ['value' => Tour::FORMAT_DAYS, 'text' => __('Дні / Ночі')],
             ['value' => Tour::FORMAT_TIME, 'text' => __('Час')],
         ];
-
         return view('admin.tour.create', [
             'tour' => $tour,
             'currencies' => $currencies,

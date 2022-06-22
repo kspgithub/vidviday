@@ -21,10 +21,10 @@ class Ticket extends TranslatableModel
     use UsePublishedScope;
     use UseSelectBox;
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName()
+//    {
+//        return 'slug';
+//    }
 
 
     public $translatable = [
@@ -71,8 +71,8 @@ class Ticket extends TranslatableModel
     {
         $search = strtolower(urldecode(trim($search)));
         $query = $query->published()->with(['region'])
-            ->whereRaw('LOWER(title->"$.uk") like ?', '%'.$search.'%')
-            ->orWhereRaw('LOWER(title->"$.en") like ?', '%'.$search.'%')
+            ->whereRaw('LOWER(title->"$.uk") like ?', '%' . $search . '%')
+            ->orWhereRaw('LOWER(title->"$.en") like ?', '%' . $search . '%')
             ->select([
                 'id',
                 'region_id',

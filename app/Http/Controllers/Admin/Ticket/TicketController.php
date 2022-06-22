@@ -62,7 +62,7 @@ class TicketController extends Controller
         $ticket->fill($request->all());
         $ticket->save();
 
-        return redirect()->route('admin.ticket.index', ["ticket" => $ticket])->withFlashSuccess(__('Record created.'));
+        return redirect()->route('admin.ticket.index', ["ticket" => $ticket])->withFlashSuccess(__('Record Created'));
     }
 
 
@@ -76,7 +76,7 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         $currencies = Currency::toSelectBox('iso', 'iso');
-        $regions    = Region::toSelectBox('title', 'id');
+        $regions = Region::toSelectBox('title', 'id');
 
         return view('admin.ticket.edit', [
             'ticket' => $ticket,
@@ -101,7 +101,7 @@ class TicketController extends Controller
         $ticket->fill($request->all());
         $ticket->save();
 
-        return redirect()->route('admin.ticket.index', $ticket)->withFlashSuccess(__('Record updated.'));
+        return redirect()->route('admin.ticket.index', $ticket)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -115,7 +115,7 @@ class TicketController extends Controller
     {
         $ticket->delete();
 
-        return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Record deleted.'));
+        return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Record Deleted'));
     }
 
 

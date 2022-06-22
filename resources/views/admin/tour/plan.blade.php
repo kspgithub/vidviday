@@ -25,6 +25,7 @@
                             @csrf
                             @method('PATCH')
                             @foreach(siteLocales() as $locale)
+
                                 <x-forms.editor-group name="text[{{$locale}}]"
                                                       id="text_{{ $locale }}"
                                                       label="Text {{strtoupper($locale)}}"
@@ -48,7 +49,6 @@
             </x-bootstrap.card>
         </div>
     </div>
-
 
 @endsection
 
