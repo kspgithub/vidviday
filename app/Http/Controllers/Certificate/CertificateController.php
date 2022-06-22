@@ -56,6 +56,17 @@ class CertificateController extends Controller
         return redirect()->route('certificate.order.success', $order);
     }
 
+    public function purchase(Request $request, OrderCertificate $order)
+    {
+        if ($order->payment_status !== OrderCertificate::PAYMENT_PENDING) {
+            return redirect()->route('certificate.success', $order);
+        }
+
+        $wizard = $order->purchaseWizard();
+
+        return view('payment.form', ['wizard' => $wizard, 'order' => $order, 'type' => 'certificate']);
+    }
+
     public function orderSuccess(OrderCertificate $order)
     {
         $pageContent = Page::where('key', 'certificate-order')->first();

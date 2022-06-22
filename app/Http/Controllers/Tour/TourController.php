@@ -273,11 +273,15 @@ class TourController extends Controller
             $order->syncContact();
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
-
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
+            if ($order->payment_type === PaymentType::TYPE_ONLINE) {
+                $redirect_route = 'order.purchase';
+            } else {
+                $redirect_route = 'order.success';
             }
-            return redirect()->route('order.success', $order);
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+            }
+            return redirect()->route($redirect_route, $order);
         }
     }
 

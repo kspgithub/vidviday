@@ -2,8 +2,11 @@
 
 namespace App\Models\Traits\Methods;
 
+use App\Lib\WayForPay\PurchaseAbstract;
+use App\Lib\WayForPay\PurchaseTour;
 use App\Models\BitrixContact;
 use App\Models\Discount;
+use App\Models\PurchaseTransaction;
 
 trait OrderMethods
 {
@@ -201,5 +204,19 @@ trait OrderMethods
         $order_params['accomm_price'] = $total_accomm;
 
         return $this->update($order_params);
+    }
+
+
+    public function purchaseWizard(): PurchaseAbstract
+    {
+        return new PurchaseTour($this);
+    }
+
+    public function paymentOnline(PurchaseTransaction $transaction)
+    {
+        $this->payment_online += $transaction->amount;
+        $this->payment_status = self::PAYMENT_COMPLETE;
+        $this->save();
+        $this->transactions()->where('transactionStatus', 'New')->forceDelete();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Traits\Relationship;
 use App\Models\BitrixContact;
 use App\Models\OrderNote;
 use App\Models\PaymentType;
+use App\Models\PurchaseTransaction;
 use App\Models\Tour;
 use App\Models\TourSchedule;
 use App\Models\User;
@@ -39,5 +40,10 @@ trait OrderRelationship
     public function contact()
     {
         return $this->belongsTo(BitrixContact::class, 'contact_id');
+    }
+
+    public function transactions()
+    {
+        return $this->morphMany(PurchaseTransaction::class, 'model');
     }
 }

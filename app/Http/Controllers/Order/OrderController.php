@@ -63,11 +63,29 @@ class OrderController extends Controller
             $order->syncContact();
             MailNotificationService::userTourOrder($order);
             MailNotificationService::adminTourOrder($order);
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
+
+            if ($order->payment_type === PaymentType::TYPE_ONLINE) {
+                $redirect_route = 'order.purchase';
+            } else {
+                $redirect_route = 'order.success';
             }
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+            }
+            return redirect()->route($redirect_route, $order);
+        }
+    }
+
+
+    public function purchase(Request $request, Order $order)
+    {
+        if ($order->payment_status !== Order::PAYMENT_PENDING) {
             return redirect()->route('order.success', $order);
         }
+
+        $wizard = $order->purchaseWizard();
+
+        return view('payment.form', ['wizard' => $wizard, 'order' => $order, 'type' => 'tour']);
     }
 
     public function success(Request $request, Order $order)
