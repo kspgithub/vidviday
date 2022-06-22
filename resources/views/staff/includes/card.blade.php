@@ -6,7 +6,7 @@
     @endif
     <div class="zoom centered">
         <img src="{{asset('img/preloader.png')}}"
-             data-img-src="{{ $specialist->image ?? asset('img/no-image.png') }}"
+             data-img-src="{{ $specialist->avatar_url ?? asset('img/no-image.png') }}"
              alt="{{$specialist->first_name}} {{$specialist->last_name}}">
         <a href="{{ $specialist->url }}" class="full-size"></a>
     </div>

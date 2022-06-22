@@ -1,9 +1,9 @@
 <template>
     <div class="vacancy-form">
-        <span class="h3">{{ __('common.vacancy.form-title') }}</span>
+        <span class="h3">{{ formTitle || __('common.vacancy.form-title') }}</span>
         <div class="spacer-xs"></div>
         <div class="text">
-            <p>{{ __('common.vacancy.form-sub-title') }}</p>
+            <p>{{ formSubTitle || __('common.vacancy.form-sub-title') }}</p>
         </div>
         <div class="spacer-xs"></div>
         <form @submit="onSubmit" :action="action" method="POST">
@@ -46,7 +46,13 @@ export default {
         action: {
             type: String,
             default: '/api/user/feedback'
-        }
+        },
+        formTitle: {
+            type: String,
+        },
+        formSubTitle: {
+            type: String,
+        },
     },
     setup(props) {
         const store = useStore();
