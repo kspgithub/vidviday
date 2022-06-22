@@ -28,17 +28,17 @@ class PurchaseController extends Controller
                 if ($valid === true) {
                     $order = $transaction->order;
                     $order->paymentOnline($transaction);
-                    Log::info('PAYMENT RESULT ' . $request->orderReference . ': SUCCESS');
+                    Log::info('PAYMENT RESULT ' . $data['orderReference'] . ': SUCCESS');
                     return $helper->getSuccessResponse();
                 }
-                Log::error('PAYMENT RESULT ' . $request->orderReference . ':' . $valid);
+                Log::error('PAYMENT RESULT ' . $data['orderReference'] . ':' . $valid);
                 return $valid;
             } catch (\Exception $e) {
-                Log::error('WFP EXCEPTION ' . $request->orderReference . ':' . $e->getMessage());
+                Log::error('WFP EXCEPTION ' . $data['orderReference'] . ':' . $e->getMessage());
                 return $e->getMessage();
             }
         } else {
-            Log::error('Transaction not found: ' . $request->orderReference);
+            Log::error('Transaction not found: ' . $data['orderReference']);
             return 'Transaction not found';
         }
     }
