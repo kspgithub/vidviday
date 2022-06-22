@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-md-4 col-12 only-pad">
-            <a href="{{asset('documents/test-document.pdf')}}" download
+            <a href="{{route('tour.download')}}" download
                class="btn type-5 arrow-right text-left flex"><img
                     src="{{asset('img/preloader.png')}}"
                     data-img-src="{{asset('icon/tours-scedule-dark.svg')}}"

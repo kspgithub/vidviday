@@ -7,13 +7,15 @@
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
-    <meta property="og:title" content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
-    <meta property="og:description" content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
+    <meta property="og:title"
+          content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
+    <meta property="og:description"
+          content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
     @if($pageImage = $pageContent->getFirstMedia())
-<meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
-<meta property="og:type" content="product">
+    <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
@@ -38,8 +40,8 @@
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
@@ -76,7 +78,7 @@
                             </div>
 
                             <div class="col-md-4 col-12 only-pad">
-                                <a href="{{asset('documents/test-document.pdf')}}" download
+                                <a href="{{route('tour.download')}}" download
                                    class="btn type-5 arrow-right text-left flex"><img
                                         src="{{asset('img/preloader.png')}}"
                                         data-img-src="{{asset('icon/tours-scedule-dark.svg')}}"
