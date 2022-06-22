@@ -17,7 +17,7 @@
                         </label>
                         <label data-tooltip="{{__('auth.required')}}">
                             <i>{{__('auth.password')}}*</i>
-                            <input type="password" name="password" required>
+                            <input type="password" name="password" required autocomplete="off">
                         </label>
                         <span class="text open-popup"
                               data-rel="password-recovery-popup">{{__('auth.forgot-password')}}</span>

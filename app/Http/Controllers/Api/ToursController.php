@@ -47,7 +47,10 @@ class ToursController extends Controller
     public function autocomplete(Request $request)
     {
         $q = $request->input('q', '');
-        $limit = $request->input('limit', 10);
+        $limit = $request->input('limit', 20);
+        if ($limit == 0) {
+            $limit = 1000;
+        }
         return Tour::published()->autocomplete($q)->take($limit)->get()->map->shortInfo();
     }
 

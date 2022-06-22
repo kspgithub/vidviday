@@ -6,7 +6,7 @@
         <form-autocomplete
             name="tour_id"
             :placeholder="__('order-section.tour-placeholder')"
-            :search="true"
+            search
             ref="tourSelectRef"
             v-model="tourId"
             @search="searchTours"
@@ -21,7 +21,7 @@
 
 <script>
 
-import {computed, nextTick, onBeforeMount, ref, watch} from "vue";
+import {computed, ref} from "vue";
 import FormAutocomplete from "../form/FormAutocomplete";
 import {autocompleteTours} from "../../services/tour-service";
 import FormCustomSelect from "../form/FormCustomSelect";
@@ -46,7 +46,7 @@ export default {
         });
 
         const searchTours = async (q = '') => {
-            const items = await autocompleteTours(q);
+            const items = await autocompleteTours(q, 50);
             tours.value = items || [];
             tourSelectRef.value.update(tours.value);
         }

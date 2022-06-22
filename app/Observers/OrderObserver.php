@@ -9,7 +9,6 @@ class OrderObserver
 {
     public function retrieved(Order $order)
     {
-
     }
 
     public function creating(Order $order)
@@ -17,7 +16,7 @@ class OrderObserver
         $order->price = $order->price ?: 0;
         $order->commission = $order->commission ?: 0;
 
-        if($order->participants['customer'] ?? false) {
+        if ($order->participants['customer'] ?? false) {
             $order->birthday = $order->participants['items'][0]['birthday'] ?? null;
         }
     }
@@ -47,7 +46,7 @@ class OrderObserver
         // Sync order birthday if participant is customer
         if ($order->isDirty('birthday') && $order->participants['customer']) {
             $participants = $order->participants;
-            if($participants['items'][0] ?? false) {
+            if ($participants['items'][0] ?? false) {
                 $participants['items'][0]['birthday'] = $order->birthday->format('d.m.Y');
                 $order->participants = $participants;
             }
@@ -55,7 +54,7 @@ class OrderObserver
         if ($order->isDirty('participants')) {
             $participantsOriginal = $order->getOriginal('participants');
             $participants = $order->participants;
-            if(
+            if (
                 $participantsOriginal &&
                 $participants['customer'] && $participantsOriginal['customer'] &&
                 !empty($participants['items'][0]) && !empty($participantsOriginal['items'][0]) &&
@@ -68,46 +67,37 @@ class OrderObserver
 
     public function updated(Order $order)
     {
-
     }
 
     public function saving(Order $order)
     {
-
     }
 
     public function saved(Order $order)
     {
-
     }
 
     public function restoring(Order $order)
     {
-
     }
 
     public function restored(Order $order)
     {
-
     }
 
     public function replicating(Order $order)
     {
-
     }
 
     public function deleting(Order $order)
     {
-
     }
 
     public function deleted(Order $order)
     {
-
     }
 
     public function forceDeleted(Order $order)
     {
-
     }
 }

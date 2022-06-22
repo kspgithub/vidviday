@@ -50,11 +50,12 @@ trait TourScope
             });
 
         if (!empty($search)) {
-            $search = mb_str_replace("'", "\'", urldecode(trim($search)));
-            $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
-                ->orderBy('relevant');
+            $search = mb_strtolower(mb_str_replace("'", "\'", urldecode(trim($search))));
+            $query->addSelect(DB::raw("LOCATE('$search', LOWER(JSON_EXTRACT(title, '$.uk'))) as relevant_uk"))
+                ->addSelect(DB::raw("LOCATE('$search', LOWER(JSON_EXTRACT(title, '$.en'))) as relevant_en"))
+                ->orderBy('relevant_uk')->orderBy('relevant_en');
         } else {
-            $query->orderBy('title');
+            $query->orderBy('title->uk')->orderBy('title->en');
         }
 
         return $query;

@@ -86,8 +86,10 @@
             "@php artisan key:generate --ansi"
         ],
         "post-install-cmd": [
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "post-update-cmd": [
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "ide-model": [
             "@php artisan ide-helper:models -M"
