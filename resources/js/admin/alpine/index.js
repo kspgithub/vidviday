@@ -35,6 +35,7 @@ import crmOrderAdditional from './crm/order/crm-order-additional';
 import crmOrderAccom from './crm/order/crm-order-accom';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
 import crmTransportBadge from './crm/transport/crm-transport-badge';
+import crmCertificateBadge from './crm/certificate/crm-certificate-badge';
 import userCollective from './user/user-collective';
 import user from './crm/user';
 import placeList from './place/place-list';
@@ -102,4 +103,5 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('user', user);
     Alpine.data('placeList', placeList);
     Alpine.data('crmTransportBadge', crmTransportBadge);
+    Alpine.data('crmCertificateBadge', crmCertificateBadge);
 })

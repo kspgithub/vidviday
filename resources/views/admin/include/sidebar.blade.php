@@ -271,12 +271,6 @@
                 {{--                    <span class="align-middle">@lang('Orders')</span>--}}
                 {{--                </a>--}}
                 {{--            </li>--}}
-                <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
-                    <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
-                        <i class="align-middle" data-feather="shopping-cart"></i>
-                        <span class="align-middle">@lang('Certificates')</span>
-                    </a>
-                </li>
 
             @endif
 
@@ -315,6 +309,13 @@
                         <i class="align-middle" data-feather="truck"></i>
                         <span class="align-middle">@lang('Transport Rental')</span>
                         <x-alp.new-transport/>
+                    </a>
+                </li>
+                <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
+                    <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
+                        <i class="align-middle" data-feather="shopping-cart"></i>
+                        <span class="align-middle">@lang('Certificates')</span>
+                        <x-alp.new-certificate/>
                     </a>
                 </li>
             @endif

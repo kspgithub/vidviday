@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Certificate\CertificateController;
 use App\Http\Controllers\Admin\ContactsController;
+use App\Http\Controllers\Admin\CRM\CrmCertificateController;
 use App\Http\Controllers\Admin\CRM\CrmClientController;
 use App\Http\Controllers\Admin\CRM\CrmCorporateController;
 use App\Http\Controllers\Admin\CRM\CrmNotificationsController;
@@ -264,6 +265,8 @@ Route::group([
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
     Route::get('transport/count', [CrmTransportController::class, 'count'])->name('transport.count');
+    
+    Route::get('certificate/count', [CrmCertificateController::class, 'count'])->name('certificate.count');
 
     Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');
     Route::get('order/count', [CrmOrderController::class, 'count'])->name('order.count');
