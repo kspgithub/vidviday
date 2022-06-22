@@ -89,4 +89,15 @@
             </x-slot>
         </x-bootstrap.card>
     @endif
+
+    @if($page->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Gallery')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-utils.media-library :model="$page" collection="gallery"></x-utils.media-library>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
 </div>
