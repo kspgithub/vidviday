@@ -38,7 +38,7 @@ class StaffController extends Controller
         ]);
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
-        })->get();
+        })->limit(1)->get();
         return view('staff.worker', ['staff' => $staff, 'tours' => $tours]);
     }
 
