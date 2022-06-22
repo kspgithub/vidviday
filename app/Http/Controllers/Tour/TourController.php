@@ -253,13 +253,6 @@ class TourController extends Controller
     {
         $params = $request->validated();
         $params['tour_id'] = $tour->id;
-        $params['user_id'] = current_user() ? current_user()->id : null;
-        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
-        if ($params['is_tour_agent'] === 1) {
-            $params['agency_data'] = [
-                'title' => current_user()->company,
-            ];
-        }
         $order = OrderService::createOrder($params);
         if ($order !== false && config('services.bitrix24.integration')) {
             try {

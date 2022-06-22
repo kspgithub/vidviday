@@ -5,7 +5,7 @@
         <div class="spacer-xs"></div>
         <div :class="{loading: fetchRequest}" class="thumb-wrap row">
             <div v-for="tour in tours" class="col-lg-4 col-sm-6 col-12">
-                <tour-card :key="'tour-'+tour.id" :tour="tour" :like-btn="$store.state.user.currentUser"/>
+                <tour-card :key="'tour-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
             </div>
 
             <div v-if="currentPage < lastPage" class="col-12">
