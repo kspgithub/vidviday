@@ -36,16 +36,14 @@
                         <div class="accordion-inner">
                             <div class="contact">
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{asset('icon/tel.svg')}}" alt="tel">
+                                    {{svg('tel')}}
                                 </div>
                                 <a href="tel:{{$contact->work_phone}}">{{$contact->work_phone}}</a>
                             </div>
 
                             <div class="contact">
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{asset('icon/smartphone.svg')}}" alt="smartphone">
+                                    {{svg('smartphone')}}
                                 </div>
                                 <a href="tel:{{$contact->phone_1}}">{{$contact->phone_1}}</a>
                                 <br>
@@ -56,35 +54,36 @@
 
                             <div class="contact">
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{asset('icon/mail.svg')}}" alt="mail">
+                                    {{svg('mail')}}
                                 </div>
                                 <a href="mailto:{{$contact->email}}">{{$contact->email}}</a>
                             </div>
 
                             <div class="social style-2">
                                 @if ( !empty($contact->skype))
-                                    <a href="skype:{{$contact->skype}}">
+                                    <a target="_blank" href="skype:{{$contact->skype}}">
                                         {{svg('icon-skype')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->viber))
-                                    <a href="{{$contact->viber}}">
+                                    <a target="_blank"
+                                       href="viber://chat?number={{clear_phone($contact->viber, false)}}">
                                         {{svg('icon-viber')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->telegram))
-                                    <a href="{{$contact->telegram}}">
+                                    <a target="_blank" href="https://t.me/{{$contact->telegram}}">
                                         {{svg('icon-telegram')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->whatsapp))
-                                    <a href="{{$contact->whatsapp}}">
+                                    <a target="_blank"
+                                       href="https://api.whatsapp.com/send?phone={{clear_phone($contact->whatsapp, false)}}">
                                         {{svg('icon-whatsapp')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->messenger))
-                                    <a href="{{$contact->messenger}}">
+                                    <a target="_blank" href="https://m.me/{{$contact->messenger}}">
                                         {{svg('icon-messenger')}}
                                     </a>
                                 @endif
@@ -104,16 +103,14 @@
                         <div class="accordion-inner">
                             <div class="contact">
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{asset('icon/placeholder.svg')}}" alt="placeholder">
+                                    {{svg('placeholder')}}
                                 </div>
                                 <span>{{$contact->address}}</span>
                             </div>
 
                             <div class="contact">
                                 <div class="img">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{asset('icon/plane.svg')}}" alt="plane">
+                                    {{svg('plane')}}
                                 </div>
                                 <a href="geo:{{$contact->lat}},{{$contact->lng}}">GPS: {{$contact->lat}}
                                     , {{$contact->lng}}</a>
