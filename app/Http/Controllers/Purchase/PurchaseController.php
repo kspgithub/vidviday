@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Log;
 
 class PurchaseController extends Controller
 {
-    public function service(Request $request)
+    public function service(PurchaseServiceRequest $request)
     {
-        $data = json_decode($request->getContent(), true);
+        $data = $request->validated();
         $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $data['orderReference'] ?? 'TEST')->first();
         if (!empty($transaction)) {
 
