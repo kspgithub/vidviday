@@ -5,7 +5,7 @@
         <a href="{{route('order.index')}}" class="btn type-4 arrow-right only-desktop">
             {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
 
-        <a href="{{asset('documents/test-document.pdf')}}" download class="btn type-5 arrow-right only-desktop">
+        <a href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
             {{svg('excel')}} @lang('sidebar-section.download-schedules')</a>
 
         <x-sidebar.filter/>

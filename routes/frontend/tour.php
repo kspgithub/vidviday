@@ -7,6 +7,7 @@ Route::group([
 ], function () {
     Route::get('tour/order/{order}/success', [TourController::class, 'orderSuccess'])->name('order-success');
 
+    Route::get('tours/download', [TourController::class, 'download'])->name('download');
     Route::get('tours/{group?}', [TourController::class, 'index'])->name('index');
     //Route::get('tour/{slug}', [TourController::class, 'show'])->name('show');
     Route::get('tour/{tour}/order', [TourController::class, 'order'])->name('order');

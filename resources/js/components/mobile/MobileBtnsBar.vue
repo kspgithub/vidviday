@@ -10,7 +10,7 @@
 
             <div class="col-md-4 col-12 only-pad">
                 <a class="btn type-5 arrow-right text-left flex" download
-                   href="/documents/test-document.pdf"><img
+                   href="/tour/download"><img
                     alt="tours scedule dark"
                     src="/icon/tours-scedule-dark.svg">{{ __('sidebar-section.download-schedules') }}</a>
             </div>

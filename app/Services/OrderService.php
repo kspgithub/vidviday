@@ -24,6 +24,14 @@ class OrderService extends BaseService
 
     public static function createOrder($params = [])
     {
+        $params['user_id'] = current_user() ? current_user()->id : null;
+        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
+        if ($params['is_tour_agent'] === 1) {
+            $params['agency_data'] = [
+                'title' => current_user()->company,
+            ];
+        }
+
         // Основные параметры
         $order_params = [
             'first_name' => $params['first_name'] ?? '',

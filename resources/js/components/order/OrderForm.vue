@@ -180,14 +180,16 @@ export default {
                 tour_id: props.tour ? props.tour.id : 0,
                 schedule_id: props.scheduleId
             });
+
+            if (props.orderCorporate !== null) {
+                store.commit('orderTour/UPDATE_FORM_DATA', {group_type: props.orderCorporate ? 1 : 0});
+            }
+
+            if (!props.tourSelected) {
+                store.commit('orderTour/UPDATE_FORM_DATA', {children: 0});
+            }
         }
 
-
-        if (!props.tourSelected) {
-            store.commit('orderTour/UPDATE_FORM_DATA', {children: 0});
-        }
-
-        store.commit('orderTour/UPDATE_FORM_DATA', {group_type: props.orderCorporate ? 1 : 0});
 
         const currentStep = computed(() => store.state.orderTour.currentStep);
         const additional = computed(() => store.state.orderTour.additional);

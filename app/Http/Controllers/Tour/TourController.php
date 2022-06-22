@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tour;
 
+use App\Exports\ScheduleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
@@ -31,6 +32,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class TourController extends Controller
@@ -253,13 +255,6 @@ class TourController extends Controller
     {
         $params = $request->validated();
         $params['tour_id'] = $tour->id;
-        $params['user_id'] = current_user() ? current_user()->id : null;
-        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
-        if ($params['is_tour_agent'] === 1) {
-            $params['agency_data'] = [
-                'title' => current_user()->company,
-            ];
-        }
         $order = OrderService::createOrder($params);
         if ($order !== false && config('services.bitrix24.integration')) {
             try {
@@ -284,5 +279,11 @@ class TourController extends Controller
             }
             return redirect()->route('order.success', $order);
         }
+    }
+
+    public function download()
+    {
+        return Excel::download(new ScheduleExport(), 'tours.xlsx');
+
     }
 }

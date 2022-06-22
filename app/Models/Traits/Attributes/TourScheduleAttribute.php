@@ -90,6 +90,7 @@ trait TourScheduleAttribute
     }
 
     /**
+     * Количество мест в резерве
      * @return int
      */
     public function getPlacesReservedAttribute()
@@ -105,6 +106,10 @@ trait TourScheduleAttribute
         return $total;
     }
 
+    /**
+     * Количество доступных мест
+     * @return int
+     */
     public function getPlacesAvailableAttribute()
     {
         return max($this->places - $this->places_booked, 0);
@@ -134,7 +139,7 @@ trait TourScheduleAttribute
 
         $totalDayNights = $this->tour->duration + $this->tour->nights;
 
-        if($this->tour->duration > $this->tour->nights) {
+        if ($this->tour->duration > $this->tour->nights) {
             $days = floor($totalDayNights / 2);
         } else {
             $days = ceil($totalDayNights / 2);
@@ -147,5 +152,4 @@ trait TourScheduleAttribute
     {
         return $this->currencyModel->title;
     }
-
 }
