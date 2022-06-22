@@ -8,9 +8,9 @@
             </div>
         </div>
         <div class="bottom-part">
-            <div class="only-desktop">
-                @foreach($testimonials as $testimonial)
-                    <div class="review">
+            <div class="latest-testimonials only-desktop">
+                @foreach($testimonials as $i => $testimonial)
+                    <div class="review" style="{{ $i > 1 ? 'display: none' : '' }}">
                         <div class="review-header">
                             <div class="review-img">
                                 @if($testimonial->avatar || empty($testimonial->initials))
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{route('testimonials.index')}}" class="btn type-2 btn-block">{{$btnText}}</a>
+                <a href="{{route('testimonials.index')}}" class="btn type-2 btn-block show_more">{{$btnText}}</a>
             </div>
 
             <div class="only-pad-mobile">
@@ -99,3 +99,17 @@
         </div>
     </div>
 @endif
+
+@push('after-scripts')
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            $('.latest-testimonials a.show_more').click(function (e) {
+                e.preventDefault()
+
+                $(this).parents('.latest-testimonials').find('.review[style]').removeAttr('style')
+
+                $(this).off('click')
+            })
+        })
+    </script>
+@endpush
