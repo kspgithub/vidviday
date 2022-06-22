@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tour;
 
+use App\Exports\ScheduleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
@@ -31,6 +32,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class TourController extends Controller
@@ -277,5 +279,11 @@ class TourController extends Controller
             }
             return redirect()->route('order.success', $order);
         }
+    }
+
+    public function download()
+    {
+        return Excel::download(new ScheduleExport(), 'tours.xlsx');
+
     }
 }
