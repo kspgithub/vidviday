@@ -16,7 +16,7 @@ class PurchaseController extends Controller
     {
         $data = $request->all();
         Log::info('PurchaseServiceRequest: ' . json_encode($data));
-        $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $request->input('orderReference'))->first();
+        $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $data['orderReference'] ?? 'TEST')->first();
         if (!empty($transaction)) {
             $transaction->fill($data);
             $transaction->save();
