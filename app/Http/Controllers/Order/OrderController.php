@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Mail;
 class OrderController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         return view('order.index', [
-            'corporate' => false,
+            'corporate' => !!$request->input('group_type', 0),
             'room_types' => AccommodationType::all()->translate(),
             'payment_types' => PaymentType::published()->toSelectBox(),
             'confirmation_types' => Order::confirmationSelectBox(),
@@ -43,14 +43,9 @@ class OrderController extends Controller
     public function store(TourOrderRequest $request)
     {
         $params = $request->validated();
-        $params['user_id'] = current_user() ? current_user()->id : null;
-        $params['is_tour_agent'] = current_user() && current_user()->isTourAgent() ? 1 : 0;
-        if ($params['is_tour_agent'] === 1) {
-            $params['agency_data'] = [
-                'title' => current_user()->company,
-            ];
-        }
+
         $order = OrderService::createOrder($params);
+
         if ($order !== false && config('services.bitrix24.integration')) {
             try {
                 DealOrder::createCrmDeal($order);
