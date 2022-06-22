@@ -78,7 +78,7 @@ class AdvertisementController extends Controller
     public function update(Request $request, Advertisement $advertisement)
     {
         //
-        $advertisement->fill($request->all());
+        $advertisement->update($request->all());
         if ($request->hasFile('image_upload')) {
             $advertisement->deleteImage();
             $advertisement->uploadImage($request->file('image_upload'));
