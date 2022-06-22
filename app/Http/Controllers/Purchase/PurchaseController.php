@@ -15,8 +15,8 @@ class PurchaseController extends Controller
     public function service(Request $request)
     {
         $data = $request->all();
-        Log::info('PurchaseServiceRequest', $data);
-        $transaction = PurchaseTransaction::where('orderReference', $request->orderReference)->first();
+        Log::info('PurchaseServiceRequest: ' . json_encode($data));
+        $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $request->input('orderReference'))->first();
         if (!empty($transaction)) {
             $transaction->fill($data);
             $transaction->save();
