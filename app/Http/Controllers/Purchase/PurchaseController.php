@@ -15,7 +15,7 @@ class PurchaseController extends Controller
     public function service(Request $request)
     {
         $data = $request->all();
-        Log::channel('payment')->info('PurchaseServiceRequest', $data);
+        Log::info('PurchaseServiceRequest', $data);
         $transaction = PurchaseTransaction::where('orderReference', $request->orderReference)->first();
         if (!empty($transaction)) {
             $transaction->fill($data);
@@ -28,16 +28,17 @@ class PurchaseController extends Controller
                 if ($valid === true) {
                     $order = $transaction->order;
                     $order->paymentOnline($transaction);
+                    Log::info('PAYMENT RESULT ' . $request->orderReference . ': SUCCESS');
                     return $helper->getSuccessResponse();
                 }
-                Log::channel('payment')->error('PAYMENT RESULT ' . $request->orderReference . ':' . $valid);
+                Log::error('PAYMENT RESULT ' . $request->orderReference . ':' . $valid);
                 return $valid;
             } catch (\Exception $e) {
-                Log::channel('payment')->error('WFP EXCEPTION ' . $request->orderReference . ':' . $e->getMessage());
+                Log::error('WFP EXCEPTION ' . $request->orderReference . ':' . $e->getMessage());
                 return $e->getMessage();
             }
         } else {
-            Log::channel('payment')->error('Transaction not found: ' . $request->orderReference);
+            Log::error('Transaction not found: ' . $request->orderReference);
             return 'Transaction not found';
         }
     }
