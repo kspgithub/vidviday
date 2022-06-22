@@ -45,14 +45,14 @@
                         <div class="spacer-xs"></div>
                     </div>
                     <div class="text text-md">
-                        <p>{{$pageContent->text}}</p>
+                        <p>{!! $pageContent->text !!}</p>
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="thumb-wrap row">
                         @foreach ($documents as $document)
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="bordered-box doc">
-                                    <a class="img d-block" href="{{$document->file}}" target="_blank">
+                                    <a class="img d-block open-popup" data-rel="document-popup" href="{{$document->file}}" target="_blank">
                                         <img src="{{asset('img/preloader.png')}}"
                                              data-img-src="{{$document->image ?? asset('img/no-image.png')}}"
                                              alt="{{$document->title}}">
@@ -82,3 +82,27 @@
     </main>
 
 @endsection
+
+@push('popups')
+    <div class="popup-content" data-rel="document-popup">
+        <div class="layer-close"></div>
+        <div class="popup-container">
+            <div class="btn-close">
+                <span></span>
+            </div>
+            <div class="content" style="height: 70vh; padding-top: 50px"></div>
+        </div>
+    </div>
+@endpush
+
+@push('after-scripts')
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            $('.open-popup[data-rel="document-popup"]').click(function (e) {
+                let url = $(this).attr('href')
+                let frame = '<iframe src="'+url+'" frameborder="0" height="100%" width="100%"></iframe>'
+                $('.popup-content[data-rel="document-popup"] .content').html(frame)
+            })
+        })
+    </script>
+@endpush

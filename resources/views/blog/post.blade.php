@@ -47,7 +47,7 @@
                     <div class="banner-img">
                         @foreach($post->media as $media)
                             @if($media->collection_name === "main")
-                                <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="banner img 11">
+                                <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/post/'.$media->id.'/'.$media->file_name) }}" alt="banner img 11">
                             @endif
                         @endforeach
                     </div>
