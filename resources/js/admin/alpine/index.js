@@ -34,6 +34,7 @@ import crmOrderBadge from './crm/order/crm-order-badge';
 import crmOrderAdditional from './crm/order/crm-order-additional';
 import crmOrderAccom from './crm/order/crm-order-accom';
 import crmCorporateBasic from './crm/order/crm-corporate-basic';
+import crmTransportBadge from './crm/transport/crm-transport-badge';
 import userCollective from './user/user-collective';
 import user from './crm/user';
 import placeList from './place/place-list';
@@ -45,8 +46,8 @@ import mask from './directives/mask';
 import datepicker from "./directives/datepicker";
 
 window.addEventListener('displayErrors', event => {
-    Object.values(event.detail?.errors||{}).forEach(errors => {
-        for(let error of errors)
+    Object.values(event.detail?.errors || {}).forEach(errors => {
+        for (let error of errors)
             toast.error(error)
     })
 })
@@ -100,4 +101,5 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('userCollective', userCollective);
     Alpine.data('user', user);
     Alpine.data('placeList', placeList);
+    Alpine.data('crmTransportBadge', crmTransportBadge);
 })

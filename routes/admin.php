@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\CRM\CrmCorporateController;
 use App\Http\Controllers\Admin\CRM\CrmNotificationsController;
 use App\Http\Controllers\Admin\CRM\CrmOrderController;
 use App\Http\Controllers\Admin\CRM\CrmScheduleController;
+use App\Http\Controllers\Admin\CRM\CrmTransportController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Direction\DirectionController;
 use App\Http\Controllers\Admin\Discount\DiscountController;
@@ -261,6 +262,8 @@ Route::group([
     Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
 
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
+
+    Route::get('transport/count', [CrmTransportController::class, 'count'])->name('transport.count');
 
     Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');
     Route::get('order/count', [CrmOrderController::class, 'count'])->name('order.count');
