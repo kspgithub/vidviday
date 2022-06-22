@@ -37,9 +37,6 @@
                     <div class="spacer-xxs"></div>
                     <span class="text-sm">{{ $newsSingle->created_at->format("d.m.Y") }}</span>
                     <div class="spacer-xxs"></div>
-                    <div class="text text-md">
-                        {!! $newsSingle->short_text !!}
-                    </div>
                     <!-- BANNER/INFO END -->
 
 
