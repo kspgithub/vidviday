@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PurchaseServiceRequest;
 use App\Lib\WayForPay\TransactionHelper;
 use App\Models\PurchaseTransaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 
 class PurchaseController extends Controller
 {
-    public function service(PurchaseServiceRequest $request)
+    public function service(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         Log::channel('payment')->info('PurchaseServiceRequest', $data);
         $transaction = PurchaseTransaction::where('orderReference', $request->orderReference)->first();
         if (!empty($transaction)) {
