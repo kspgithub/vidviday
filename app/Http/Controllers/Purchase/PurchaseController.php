@@ -15,11 +15,8 @@ class PurchaseController extends Controller
     public function service(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        Log::info('PurchaseServiceRequest: ' . $request->getContent());
         $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $data['orderReference'] ?? 'TEST')->first();
         if (!empty($transaction)) {
-            $transaction->fill($data);
-            $transaction->save();
 
             try {
                 $helper = new TransactionHelper($data);
@@ -27,19 +24,20 @@ class PurchaseController extends Controller
 
                 if ($valid === true) {
                     $order = $transaction->order;
-                    $order->paymentOnline($transaction);
-                    Log::info('PAYMENT RESULT ' . $data['orderReference'] . ': SUCCESS');
+                    $order->paymentOnline($transaction, $data);
+                    Log::info('WFP RESULT ' . $data['orderReference'] . ' SUCCESS');
                     return $helper->getSuccessResponse();
                 }
-                Log::error('PAYMENT RESULT ' . $data['orderReference'] . ':' . $valid);
-                return $valid;
+                $responseMessage = 'WFP RESULT ' . $data['orderReference'] . ' ' . $valid;
             } catch (\Exception $e) {
-                Log::error('WFP EXCEPTION ' . $data['orderReference'] . ':' . $e->getMessage());
-                return $e->getMessage();
+                $responseMessage = 'WFP EXCEPTION ' . $data['orderReference'] . ' ' . $e->getMessage();
             }
         } else {
-            Log::error('Transaction not found: ' . $data['orderReference']);
-            return 'Transaction not found';
+            $responseMessage = 'WFP ERROR Transaction not found ' . ($data['orderReference'] ?? '');
+
         }
+        Log::info('PurchaseServiceRequest: ' . $request->getContent());
+        Log::error($responseMessage);
+        return $responseMessage;
     }
 }

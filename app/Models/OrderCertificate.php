@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Lib\WayForPay\PurchaseAbstract;
 use App\Lib\WayForPay\PurchaseCertificate;
 use App\Models\Contracts\Purchasable;
+use App\Models\Traits\UsePaymentOnline;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ use Illuminate\Support\Str;
 class OrderCertificate extends Model implements Purchasable
 {
     use SoftDeletes;
+    use UsePaymentOnline;
 
     public const STATUS_NEW = 0;
     public const STATUS_PROCESSING = 1;
@@ -182,13 +184,6 @@ class OrderCertificate extends Model implements Purchasable
         return $title;
     }
 
-    public function paymentOnline(PurchaseTransaction $transaction)
-    {
-        $this->payment_online += $transaction->amount;
-        $this->payment_status = self::PAYMENT_COMPLETE;
-        $this->save();
-        $this->transactions()->where('transactionStatus', 'New')->forceDelete();
-    }
 
     public function purchaseWizard(): PurchaseAbstract
     {

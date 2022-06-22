@@ -2,13 +2,13 @@
 
 namespace App\Lib\WayForPay;
 
+use App\Models\PurchaseTransaction;
 use WayForPay\SDK\Credential\AccountSecretCredential;
 use WayForPay\SDK\Handler\ServiceUrlHandler;
 
 class TransactionHelper
 {
-    const ORDER_APPROVED = 'Approved';
-    const ORDER_HOLD_APPROVED = 'WaitingAuthComplete';
+
 
     const SIGNATURE_SEPARATOR = ';';
 
@@ -117,7 +117,7 @@ class TransactionHelper
             return 'Invalid Signature';
         }
 
-        if ($response['transactionStatus'] == self::ORDER_APPROVED || $response['transactionStatus'] == self::ORDER_HOLD_APPROVED) {
+        if ($response['transactionStatus'] == PurchaseTransaction::ORDER_APPROVED || $response['transactionStatus'] == PurchaseTransaction::ORDER_HOLD_APPROVED) {
             return true;
         }
 

@@ -212,11 +212,4 @@ trait OrderMethods
         return new PurchaseTour($this);
     }
 
-    public function paymentOnline(PurchaseTransaction $transaction)
-    {
-        $this->payment_online += $transaction->amount;
-        $this->payment_status = self::PAYMENT_COMPLETE;
-        $this->save();
-        $this->transactions()->where('transactionStatus', 'New')->forceDelete();
-    }
 }

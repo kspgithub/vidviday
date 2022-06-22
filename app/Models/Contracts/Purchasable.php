@@ -12,7 +12,7 @@ interface Purchasable
 
     public function getTotalPriceAttribute(): int;
 
-    public function paymentOnline(PurchaseTransaction $transaction);
+    public function paymentOnline(PurchaseTransaction $transaction, array $data);
 
     public function purchaseWizard(): PurchaseAbstract;
 

@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PurchaseTransaction extends Model
 {
+    const ORDER_APPROVED = 'Approved';
+    const ORDER_HOLD_APPROVED = 'WaitingAuthComplete';
+
     use SoftDeletes;
 
     protected $fillable = [
@@ -48,4 +51,8 @@ class PurchaseTransaction extends Model
     }
 
 
+    public function notApproved()
+    {
+        return $this->transactionStatus !== self::ORDER_APPROVED && $this->transactionStatus !== self::ORDER_HOLD_APPROVED;
+    }
 }

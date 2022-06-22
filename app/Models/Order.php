@@ -8,6 +8,7 @@ use App\Models\Traits\Methods\OrderMethods;
 use App\Models\Traits\Relationship\OrderRelationship;
 use App\Models\Traits\Scope\OrderScope;
 use App\Models\Traits\UseOrderConstants;
+use App\Models\Traits\UsePaymentOnline;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -21,6 +22,7 @@ class Order extends TranslatableModel implements Auditable, Purchasable
     use SoftDeletes;
     use AuditableTrait;
     use OrderMethods;
+    use UsePaymentOnline;
 
     public const STATUS_NEW = 'new';
     public const STATUS_BOOKED = 'booked'; // Бронь
