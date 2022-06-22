@@ -120,6 +120,12 @@ class MailNotificationService
         return array_unique(array_filter($emails));
     }
 
+    public static function getAdminNotifyEmails()
+    {
+        $emails = [site_option('notify_email')];
+        return array_unique(array_filter($emails));
+    }
+
     public static function userTransportEmail(OrderTransport $order)
     {
         try {

@@ -11,7 +11,7 @@
                     <i></i>
                 </div>
                 <div class="swiper-container" data-options='{
-						"loop": true,
+{{--						"loop": true,--}}
 						"slidesPerView": 1,
 						"spaceBetween": 20,
 						"centerInsufficientSlides": true,

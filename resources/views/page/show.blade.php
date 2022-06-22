@@ -45,7 +45,15 @@
                     <div class="text text-md">
                         {!! $pageContent->text !!}
                     </div>
-
+                    <div class="spacer-xs"></div>
+                    @if($pageContent->hasMedia('gallery'))
+                        <div class="swiper-entry" v-is="'swiper-slider'"
+                             key="swiper-place-{{$pageContent->id}}"
+                             :media='@json($pageContent->getMedia('gallery'/*, ['published' => true]*/)->map->toSwiperSlide())'
+                        >
+                        </div>
+                        <div class="spacer-xs"></div>
+                    @endif
                 </div>
 
                 @if($pageContent->sidebar)
