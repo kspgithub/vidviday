@@ -64,8 +64,10 @@
     {!! $wizard->getForm()->getWidgetExternalScript() !!}
     <script type="text/javascript">
         var purchaseStatus = 0;
+        var purchaseOrder = '{{$wizard->getOrderReference()}}';
 
         function purchaseCallback(event) {
+
             if (event.data === 'WfpWidgetEventApproved') {
                 // location.url = '...';
                 purchaseStatus = 1;

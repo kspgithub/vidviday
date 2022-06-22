@@ -273,6 +273,7 @@ class TourController extends Controller
             $order->syncContact();
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
+
             if ($order->payment_type === PaymentType::TYPE_ONLINE) {
                 $redirect_route = 'order.purchase';
             } else {

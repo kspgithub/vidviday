@@ -52,14 +52,18 @@ class CertificateController extends Controller
 
         MailNotificationService::userCertificateEmail($order);
         MailNotificationService::adminCertificateEmail($order);
-
-        return redirect()->route('certificate.order.success', $order);
+        if ($order->payment_type === PaymentType::TYPE_ONLINE) {
+            $redirectRoute = 'certificate.order.purchase';
+        } else {
+            $redirectRoute = 'certificate.order.success';
+        }
+        return redirect()->route($redirectRoute, $order);
     }
 
     public function purchase(Request $request, OrderCertificate $order)
     {
         if ($order->payment_status !== OrderCertificate::PAYMENT_PENDING) {
-            return redirect()->route('certificate.success', $order);
+            return redirect()->route('certificate.order.success', $order);
         }
 
         $wizard = $order->purchaseWizard();

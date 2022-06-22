@@ -40,4 +40,10 @@ class PurchaseController extends Controller
         Log::error($responseMessage);
         return $responseMessage;
     }
+
+
+    public function check(Request $request)
+    {
+
+    }
 }
