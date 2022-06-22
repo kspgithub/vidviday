@@ -1023,3 +1023,7 @@ $('.scroll-div-1').width($('table').width());
 $('.scroll-div-2').width($('table').width());
 
 
+$(document).on('click', 'a[print]', function (e) {
+    e.preventDefault()
+    window.print();
+})

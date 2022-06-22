@@ -2,6 +2,18 @@
 
 @section("title") {{ "Відвідай | ". $newsSingle->title }}  @endsection
 
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ $newsSingle->title }}">
+    <meta property="og:description" content="{{ $newsSingle->short_text }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @if($pageImage = $newsSingle->getFirstMedia())
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
 
 @section("content")
 
@@ -35,9 +47,18 @@
                     <div class="spacer-xs"></div>
                     <h1 class="h1 title">{{ $newsSingle->title }}</h1>
                     <div class="spacer-xxs"></div>
-                    <span class="text-sm">{{ $newsSingle->created_at->format("d.m.Y") }}</span>
+                    <span class="text-sm">
+                        {{ $newsSingle->created_at->format("d.m.Y") }}
+                    </span>
                     <div class="spacer-xxs"></div>
+                    <div>
+                        <a href="/document/document.pdf" download print class="download">
+                            <span class="text-md text-medium">Завантажити для друку</span>
+                        </a>
 
+                        <div v-is="'share-dropdown'" share-url="{{url()->current()}}"  share-title="{{ $newsSingle->title }}"></div>
+                    </div>
+                    <div class="spacer-xxs"></div>
                     <!-- BANNER/INFO END -->
 
 
