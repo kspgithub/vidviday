@@ -189,6 +189,8 @@
     "Editing :role": "Редактирование :role",
     "Home": "Домой",
     "News": "Новости",
-    "News List" : "Новости Список",
-    "Create News": "Создать новость"
+    "News List": "Новости Список",
+    "Create News": "Создать новость",
+    "Payment": "Оплата",
+    "Order payment": "Оплата заказа"
 }

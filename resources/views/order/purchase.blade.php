@@ -1,8 +1,8 @@
 @extends('layout.app')
 
-@section('title', 'Оплата замовлення')
-@section('seo_description', 'Оплата замовлення')
-@section('seo_keywords',  'Оплата замовлення')
+@section('title', __('Order payment'))
+@section('seo_description', __('Order payment'))
+@section('seo_keywords',  __('Order payment'))
 
 @push('meta-fields')
 
@@ -25,7 +25,7 @@
                 <div class="col-xl-9 col-12">
                     <div class="only-pad-mobile">
                         <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                                src="/img/preloader.png" data-img-src="/icon/filter-dark.svg" alt="filter-dark">Підбір туру</span>
+                                src="/img/preloader.png" data-img-src="/icon/filter-dark.svg" alt="filter-dark">{{__('sidebar-section.filter.tour-search')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <!-- ORDER COMPLETE CONTENT -->
@@ -33,7 +33,7 @@
                         <div class="col-xl-8 offset-xl-2 col-12">
 
                             <div class="spacer-xs"></div>
-                            <h1 class="h2 text-center">Оплата замовлення</h1>
+                            <h1 class="h2 text-center">{{__('Order payment')}}</h1>
 
                             <div class="spacer-xs"></div>
                             @if($type === 'tour')
@@ -61,40 +61,6 @@
 @endsection
 
 @push('after-scripts')
-    {!! $wizard->getForm()->getWidgetExternalScript() !!}
-    <script type="text/javascript">
-        var purchaseStatus = 0;
-        var purchaseOrder = '{{$wizard->getOrderReference()}}';
-
-        function purchaseCallback(event) {
-
-            if (event.data === 'WfpWidgetEventApproved') {
-                // location.url = '...';
-                purchaseStatus = 1;
-                console.log('WfpWidgetEventApproved')
-            }
-            if (event.data === 'WfpWidgetEventDeclined') {
-                // location.url = '...';
-                console.log('WfpWidgetEventDeclined')
-            }
-            if (event.data === 'WfpWidgetEventPending') {
-                // location.url = '...';
-                console.log('WfpWidgetEventPending')
-            }
-            if (event.data === 'WfpWidgetEventClose') {
-                // location.url = '...';
-                console.log('WfpWidgetEventClose')
-                if (purchaseStatus === 1) {
-                    document.location = '{{$wizard->getReturnUrl()}}';
-                } else {
-                    document.location.reload();
-                }
-
-            }
-        }
-
-    </script>
-    {!! $wizard->getForm()->getWidgetInitScript('purchaseCallback') !!}
-
+    @include('purchase.includes.wizard-scripts')
 @endpush
 

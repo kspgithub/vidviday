@@ -52,7 +52,7 @@ class CertificateController extends Controller
 
         MailNotificationService::userCertificateEmail($order);
         MailNotificationService::adminCertificateEmail($order);
-        if ($order->payment_type === PaymentType::TYPE_ONLINE) {
+        if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
             $redirectRoute = 'certificate.order.purchase';
         } else {
             $redirectRoute = 'certificate.order.success';
@@ -68,7 +68,7 @@ class CertificateController extends Controller
 
         $wizard = $order->purchaseWizard();
 
-        return view('payment.form', ['wizard' => $wizard, 'order' => $order, 'type' => 'certificate']);
+        return view('certificate.purchase', ['wizard' => $wizard, 'order' => $order, 'type' => 'certificate']);
     }
 
     public function orderSuccess(OrderCertificate $order)
