@@ -39,6 +39,7 @@ function importTranslationFile(file) {
 function importTranslations({ignore, globalTranslationsKey}) {
     const catalogue = {};
     const files = require.context('@publicLang', true, /\.(php|json)$/);
+    
     files.keys().forEach((file) => {
         var _a, _b;
         // Find localization files at the root directory

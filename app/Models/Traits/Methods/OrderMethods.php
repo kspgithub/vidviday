@@ -2,8 +2,11 @@
 
 namespace App\Models\Traits\Methods;
 
+use App\Lib\WayForPay\PurchaseAbstract;
+use App\Lib\WayForPay\PurchaseTour;
 use App\Models\BitrixContact;
 use App\Models\Discount;
+use App\Models\PurchaseTransaction;
 
 trait OrderMethods
 {
@@ -202,4 +205,11 @@ trait OrderMethods
 
         return $this->update($order_params);
     }
+
+
+    public function purchaseWizard(): PurchaseAbstract
+    {
+        return new PurchaseTour($this);
+    }
+
 }

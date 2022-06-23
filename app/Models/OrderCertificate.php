@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
+use App\Lib\WayForPay\PurchaseAbstract;
+use App\Lib\WayForPay\PurchaseCertificate;
+use App\Models\Contracts\Purchasable;
+use App\Models\Traits\UsePaymentOnline;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class OrderCertificate extends Model
+class OrderCertificate extends Model implements Purchasable
 {
     use SoftDeletes;
+    use UsePaymentOnline;
 
     public const STATUS_NEW = 0;
     public const STATUS_PROCESSING = 1;
@@ -104,6 +109,7 @@ class OrderCertificate extends Model
         'places',
         'payment_type',
         'payment_status',
+        'payment_data',
         'comment',
     ];
 
@@ -112,6 +118,7 @@ class OrderCertificate extends Model
         'price' => 'integer',
         'sum' => 'integer',
         'packing' => 'boolean',
+        'payment_data' => 'array',
     ];
 
     protected $dates = [
@@ -135,7 +142,15 @@ class OrderCertificate extends Model
         return $this->belongsTo(Packing::class, 'packing_type', 'slug');
     }
 
-    public function calcPrice()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function transactions()
+    {
+        return $this->morphMany(PurchaseTransaction::class, 'model');
+    }
+
+    public function calcPrice(): int
     {
         $total = 0;
 
@@ -152,5 +167,28 @@ class OrderCertificate extends Model
         }
 
         return $total;
+    }
+
+
+    public function getTotalPriceAttribute(): int
+    {
+        return $this->calcPrice();
+    }
+
+    public function getTitleAttribute(): string
+    {
+        $title = 'Cертификат на ';
+        if ($this->type == self::TYPE_SUM) {
+            $title .= 'сумму ' . $this->sum . $this->currency;
+        } else {
+            $title .= 'мандрівку ' . $this->tour->title;
+        }
+        return $title;
+    }
+
+
+    public function purchaseWizard(): PurchaseAbstract
+    {
+        return new PurchaseCertificate($this);
     }
 }

@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\Purchasable;
 use App\Models\Traits\Attributes\OrderAttribute;
 use App\Models\Traits\Methods\OrderMethods;
 use App\Models\Traits\Relationship\OrderRelationship;
 use App\Models\Traits\Scope\OrderScope;
 use App\Models\Traits\UseOrderConstants;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\UsePaymentOnline;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Order extends TranslatableModel implements Auditable
+class Order extends TranslatableModel implements Auditable, Purchasable
 {
-    use HasFactory;
     use OrderRelationship;
     use OrderAttribute;
     use UseOrderConstants;
@@ -23,6 +22,7 @@ class Order extends TranslatableModel implements Auditable
     use SoftDeletes;
     use AuditableTrait;
     use OrderMethods;
+    use UsePaymentOnline;
 
     public const STATUS_NEW = 'new';
     public const STATUS_BOOKED = 'booked'; // Бронь
@@ -103,6 +103,7 @@ class Order extends TranslatableModel implements Auditable
         'payment_fop',
         'payment_tov',
         'payment_office',
+        'payment_online',
         'admin_comment',
         'duty_comment',
         'is_tour_agent',
@@ -160,6 +161,7 @@ class Order extends TranslatableModel implements Auditable
         'payment_fop',
         'payment_tov',
         'payment_office',
+        'payment_online',
         'payment_data',
         'admin_comment',
         'agency_data',

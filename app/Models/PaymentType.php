@@ -12,11 +12,13 @@ use Spatie\Translatable\HasTranslations;
 
 class PaymentType extends TranslatableModel
 {
-    use HasFactory;
+    public const TYPE_ONLINE = 5;
+
     use HasSlug;
     use HasTranslations;
     use UsePublishedScope;
     use UseSelectBox;
+
 
     public $translatable = [
         'title',

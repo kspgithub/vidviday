@@ -24,7 +24,7 @@ trait OrderAttribute
         return '';
     }
 
-    
+
     public function getEventTitleAttribute()
     {
         if ($this->start_date) {
@@ -82,7 +82,7 @@ trait OrderAttribute
      * Общая стоимость с учетом скидок и доплат
      * @return int|mixed|null
      */
-    public function getTotalPriceAttribute()
+    public function getTotalPriceAttribute(): int
     {
         $total = $this->price - $this->discount + $this->accomm_price;
         return $this->is_tour_agent ? $total - $this->commission : $total;
@@ -114,6 +114,22 @@ trait OrderAttribute
      */
     public function getPaymentGetAttribute()
     {
-        return $this->total_price - $this->payment_fop - $this->payment_tov - $this->payment_office;
+        return $this->total_price - $this->payment_fop - $this->payment_tov - $this->payment_office - $this->payment_online;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleAttribute(): string
+    {
+        $title = $this->group_type == self::GROUP_CORPORATE ? 'Корпоратив: ' : 'Тур: ';
+
+        if ($this->tour_id > 0) {
+            $title .= $this->tour->title;
+        } else {
+            $title .= ' за побажанням кліента';
+        }
+        $title .= ($this->start_date ? ', ' . $this->start_date->format('d.m.Y') : '');
+        return $title;
     }
 }

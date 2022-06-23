@@ -38,52 +38,52 @@
                                 <div class="img">
                                     {{svg('tel')}}
                                 </div>
-                                <a href="tel:{{$contact->work_phone}}">{{$contact->work_phone}}</a>
+                                <a href="{{phone_link($contact->work_phone)}}">{{$contact->work_phone}}</a>
                             </div>
 
                             <div class="contact">
                                 <div class="img">
                                     {{svg('smartphone')}}
                                 </div>
-                                <a href="tel:{{$contact->phone_1}}">{{$contact->phone_1}}</a>
+                                <a href="{{phone_link($contact->phone_1)}}">{{$contact->phone_1}}</a>
                                 <br>
-                                <a href="tel:{{$contact->phone_2}}">{{$contact->phone_2}}</a>
+                                <a href="{{phone_link($contact->phone_2)}}">{{$contact->phone_2}}</a>
                                 <br>
-                                <a href="tel:{{$contact->phone_3}}">{{$contact->phone_3}}</a>
+                                <a href="{{phone_link($contact->phone_3)}}">{{$contact->phone_3}}</a>
                             </div>
 
                             <div class="contact">
                                 <div class="img">
                                     {{svg('mail')}}
                                 </div>
-                                <a href="mailto:{{$contact->email}}">{{$contact->email}}</a>
+                                <a href="{{mail_link($contact->email)}}">{{$contact->email}}</a>
                             </div>
 
                             <div class="social style-2">
                                 @if ( !empty($contact->skype))
-                                    <a target="_blank" href="skype:{{$contact->skype}}">
+                                    <a target="_blank" href="{{skype_link($contact->skype)}}">
                                         {{svg('icon-skype')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->viber))
                                     <a target="_blank"
-                                       href="viber://chat?number={{clear_phone($contact->viber, false)}}">
+                                       href="{{viber_link($contact->viber)}}">
                                         {{svg('icon-viber')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->telegram))
-                                    <a target="_blank" href="https://t.me/{{$contact->telegram}}">
+                                    <a target="_blank" href="{{tg_link($contact->telegram)}}">
                                         {{svg('icon-telegram')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->whatsapp))
                                     <a target="_blank"
-                                       href="https://api.whatsapp.com/send?phone={{clear_phone($contact->whatsapp, false)}}">
+                                       href="{{whatsapp_link($contact->whatsapp,)}}">
                                         {{svg('icon-whatsapp')}}
                                     </a>
                                 @endif
                                 @if ( !empty($contact->messenger))
-                                    <a target="_blank" href="https://m.me/{{$contact->messenger}}">
+                                    <a target="_blank" href="{{messenger_link($contact->messenger)}}">
                                         {{svg('icon-messenger')}}
                                     </a>
                                 @endif

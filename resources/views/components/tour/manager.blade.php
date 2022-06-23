@@ -16,40 +16,40 @@
             <div class="spacer-xs"></div>
             <div>
                 @foreach($manager->phones as $phone)
-                    <a href="tel:{{clear_phone($phone)}}" class="text">{{$phone}}</a>
+                    <a href="tel:{{clear_phone($phone)}}" class="text" target="_blank">{{$phone}}</a>
                     <br>
                 @endforeach
                 @if($manager->email)
                     <div class="spacer-xs"></div>
-                    <a href="mailto:{{$manager->email}}" class="text">{{$manager->email}}</a>
+                    <a href="mailto:{{$manager->email}}" class="text" target="_blank">{{$manager->email}}</a>
                 @endif
             </div>
             <div class="spacer-xs"></div>
             @if($manager->viber)
                 <div class="contact">
                     <div class="img">
-                        <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/viber.svg')}}"
-                             alt="viber">
+                        {{svg('viber')}}
                     </div>
-                    <a href="viber:{{clear_phone($manager->viber)}}">{{$manager->viber}}</a>
+                    <a href="{{viber_link($manager->viber)}}"
+                       target="_blank">{{$manager->viber}}</a>
                 </div>
             @endif
             @if($manager->telegram)
                 <div class="contact">
                     <div class="img">
-                        <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/telegram.svg')}}"
-                             alt="viber">
+                        {{svg('telegram')}}
                     </div>
-                    <a href="tg://resolve?domain={{clear_phone($manager->telegram)}}">{{$manager->telegram}}</a>
+                    <a href="{{tg_link($manager->telegram)}}"
+                       target="_blank">{{$manager->telegram}}</a>
                 </div>
             @endif
             @if($manager->whatsapp)
                 <div class="contact">
                     <div class="img">
-                        <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/whatsapp.svg')}}"
-                             alt="whatsapp">
+                        {{svg('whatsapp')}}
                     </div>
-                    <a href="https://wa.me/{{clear_phone($manager->whatsapp, false)}}">{{$manager->whatsapp}}</a>
+                    <a href="{{whatsapp_link($manager->whatsapp)}}"
+                       target="_blank">{{$manager->whatsapp}}</a>
                 </div>
             @endif
             @if(!empty($manager->additional))

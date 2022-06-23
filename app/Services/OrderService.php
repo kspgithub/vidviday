@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Lib\Bitrix24\CRM\Deal\DealOrder;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Tour;
@@ -238,6 +239,14 @@ class OrderService extends BaseService
         }
 
         DB::commit();
+
+        if (config('services.bitrix24.integration')) {
+            try {
+                DealOrder::createCrmDeal($order);
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
+        }
 
         return $order;
     }

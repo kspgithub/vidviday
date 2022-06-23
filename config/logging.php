@@ -40,7 +40,11 @@ return [
             'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
-
+        'payments' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/payments.log'),
+            'ignore_exceptions' => false,
+        ],
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

@@ -12,7 +12,6 @@ use Spatie\Translatable\HasTranslations;
 
 class TourLanding extends TranslatableModel
 {
-    use HasFactory;
     use HasTranslations;
     use HasTranslatableSlug;
     use JsonLikeScope;

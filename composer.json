@@ -38,7 +38,8 @@
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-translatable": "^4.6",
         "spatie/laravel-translation-loader": "^2.7",
-        "verschuur/laravel-robotstxt": "^4.0"
+        "verschuur/laravel-robotstxt": "^4.0",
+        "wayforpay/php-sdk": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

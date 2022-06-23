@@ -1,26 +1,19 @@
 @extends('admin.layout.app')
 
-@section('title', __('Accommodation Type').' - '.__('Edit'))
+@section('title', __('Accommodation Types').' - '.__('Edit'))
 
 @section('content')
-    <div class="d-flex justify-content-between">
-        <h1>{{__('Accommodation Type').' - '.__('Edit')}} <div class="badge bg-info text-uppercase">{{app()->getLocale()}}</div></h1>
-
-        <div class="d-flex align-items-center">
-            <a href="{{route('admin.accommodation-type.index')}}" class="btn btn-sm btn-outline-secondary">@lang('Cancel')</a>
-        </div>
-    </div>
-
-    <x-forms.patch :action="route('admin.accommodation-type.update', $type)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="body">
-                @include('admin.accommodation-type.includes.form')
-
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.patch>
+    {!! breadcrumbs([
+   ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+   ['url'=>route('admin.accommodation-type.index'), 'title'=>__('Accommodation Types')],
+   ['url'=>'#', 'title'=>$type->title],
+   ]) !!}
+    <x-page.edit :update-url="route('admin.accommodation-type.update', $type)"
+                 :back-url="route('admin.accommodation-type.index')" :edit="true"
+                 :expanded="true"
+                 :title="__('Edit').' '.__('Accommodation Type')"
+    >
+        @include('admin.accommodation-type.includes.form')
+    </x-page.edit>
 
 @endsection

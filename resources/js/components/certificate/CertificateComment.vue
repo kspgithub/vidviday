@@ -5,7 +5,7 @@
                     :sub-title="__('certificate-section.notes-sub-title')"
                     :open="true">
             <form-textarea v-model="comment" name="comment" id="certificate-comment"
-                           :label="__('certificate-section.label')"/>
+                           :label="__('certificate-section.notes-label')"/>
         </slide-more>
     </div>
 

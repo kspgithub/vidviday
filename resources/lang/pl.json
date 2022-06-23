@@ -162,6 +162,8 @@
     "Editing :role": "Edytujesz :role",
     "Home": "Strona główna",
     "News": "Nowości",
-    "News List" : "Lista nowości",
-    "Create News": "Twórz wiadomości"
+    "News List": "Lista nowości",
+    "Create News": "Twórz wiadomości",
+    "Payment": "Zapłata",
+    "Order payment": "Zamówienie płatności"
 }

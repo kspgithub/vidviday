@@ -61,4 +61,10 @@ return [
         'client_log_type_dump' => env('BITRIX24_CLIENT_LOG_TYPE_DUMP', false),
         'client_ignore_ssl' => env('BITRIX24_CLIENT_IGNORE_SSL', true),
     ],
+    'wayforpay' => [
+        'login' => env('WFP_LOGIN', ''),
+        'secret' => env('WFP_SECRET', ''),
+        'test' => env('WFP_TEST', true),
+        'domain' => env('WFP_DOMAIN', 'https://dev.vidviday.org.ua'),
+    ]
 ];

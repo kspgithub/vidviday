@@ -46,14 +46,6 @@ class OrderController extends Controller
 
         $order = OrderService::createOrder($params);
 
-        if ($order !== false && config('services.bitrix24.integration')) {
-            try {
-                DealOrder::createCrmDeal($order);
-            } catch (Exception $e) {
-                Log::error($e->getMessage());
-            }
-        }
-
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);
@@ -63,11 +55,29 @@ class OrderController extends Controller
             $order->syncContact();
             MailNotificationService::userTourOrder($order);
             MailNotificationService::adminTourOrder($order);
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
+
+            if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
+                $redirect_route = 'order.purchase';
+            } else {
+                $redirect_route = 'order.success';
             }
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+            }
+            return redirect()->route($redirect_route, $order);
+        }
+    }
+
+
+    public function purchase(Request $request, Order $order)
+    {
+        if ($order->payment_status !== Order::PAYMENT_PENDING) {
             return redirect()->route('order.success', $order);
         }
+
+        $wizard = $order->purchaseWizard();
+
+        return view('order.purchase', ['wizard' => $wizard, 'order' => $order, 'type' => 'tour']);
     }
 
     public function success(Request $request, Order $order)

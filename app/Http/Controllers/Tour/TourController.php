@@ -256,13 +256,7 @@ class TourController extends Controller
         $params = $request->validated();
         $params['tour_id'] = $tour->id;
         $order = OrderService::createOrder($params);
-        if ($order !== false && config('services.bitrix24.integration')) {
-            try {
-                DealOrder::createCrmDeal($order);
-            } catch (Exception $e) {
-                Log::error($e->getMessage());
-            }
-        }
+
 
         if ($order === false) {
             if ($request->ajax()) {
@@ -274,10 +268,15 @@ class TourController extends Controller
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
 
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route('order.success', $order)]);
+            if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
+                $redirect_route = 'order.purchase';
+            } else {
+                $redirect_route = 'order.success';
             }
-            return redirect()->route('order.success', $order);
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+            }
+            return redirect()->route($redirect_route, $order);
         }
     }
 
