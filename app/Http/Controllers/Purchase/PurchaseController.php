@@ -17,7 +17,6 @@ class PurchaseController extends Controller
         $data = json_decode($request->getContent(), true);
         $transaction = PurchaseTransaction::where('orderReference', 'LIKE', $data['orderReference'] ?? 'TEST')->first();
         if (!empty($transaction)) {
-
             try {
                 $helper = new TransactionHelper($data);
                 $valid = $helper->isPaymentValid();
@@ -25,7 +24,7 @@ class PurchaseController extends Controller
                 if ($valid === true) {
                     $order = $transaction->order;
                     $order->paymentOnline($transaction, $data);
-                    Log::info('WFP RESULT ' . $data['orderReference'] . ' SUCCESS');
+                    Log::info('WFP RESULT ' . $data['orderReference'] . $data['transactionStatus']);
                     return $helper->getSuccessResponse();
                 }
                 $responseMessage = 'WFP RESULT ' . $data['orderReference'] . ' ' . $valid;

@@ -117,7 +117,9 @@ class TransactionHelper
             return 'Invalid Signature';
         }
 
-        if ($response['transactionStatus'] == PurchaseTransaction::ORDER_APPROVED || $response['transactionStatus'] == PurchaseTransaction::ORDER_HOLD_APPROVED) {
+        if ($response['transactionStatus'] == PurchaseTransaction::ORDER_APPROVED ||
+            $response['transactionStatus'] == PurchaseTransaction::ORDER_HOLD_APPROVED ||
+            $response['transactionStatus'] == PurchaseTransaction::ORDER_REFUNDED) {
             return true;
         }
 

@@ -109,6 +109,7 @@ class OrderCertificate extends Model implements Purchasable
         'places',
         'payment_type',
         'payment_status',
+        'payment_data',
         'comment',
     ];
 
@@ -117,6 +118,7 @@ class OrderCertificate extends Model implements Purchasable
         'price' => 'integer',
         'sum' => 'integer',
         'packing' => 'boolean',
+        'payment_data' => 'array',
     ];
 
     protected $dates = [
