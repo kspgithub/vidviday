@@ -10,7 +10,7 @@
        ['url'=>'#', 'title'=>__('Create')],
        ]) !!}
     <x-page.edit :update-url="route('admin.badge.store')"
-                 :back-url="route('admin.badge.index')" :edit="true"
+                 :back-url="route('admin.badge.index')"
                  :title="__('Create').' '.__('Badge')"
     >
         @include('admin.badge.includes.form')

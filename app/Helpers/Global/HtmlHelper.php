@@ -158,3 +158,60 @@ if (!function_exists('json_prepare')) {
         return $string;
     }
 }
+
+
+if (!function_exists('tg_link')) {
+    function tg_link($contact)
+    {
+        if (\Illuminate\Support\Str::startsWith($contact, '+')) {
+            $contact = clear_phone($contact);
+        }
+        return 'https://t.me/' . $contact;
+    }
+}
+
+if (!function_exists('whatsapp_link')) {
+    function whatsapp_link($contact)
+    {
+        $contact = clear_phone($contact, false);
+        return 'https://api.whatsapp.com/send?phone=' . $contact;
+    }
+}
+
+if (!function_exists('viber_link')) {
+    function viber_link($contact)
+    {
+        $contact = clear_phone($contact, false);
+        return 'viber://chat?number=%2B' . $contact;
+    }
+}
+
+if (!function_exists('messenger_link')) {
+    function messenger_link($contact)
+    {
+        return 'https://m.me/' . $contact;
+    }
+}
+
+
+if (!function_exists('skype_link')) {
+    function skype_link($contact)
+    {
+        return 'skype:' . $contact;
+    }
+}
+
+if (!function_exists('phone_link')) {
+    function phone_link($contact)
+    {
+        $contact = clear_phone($contact);
+        return 'tel:' . $contact;
+    }
+}
+
+if (!function_exists('mail_link')) {
+    function mail_link($contact)
+    {
+        return 'mailto:' . $contact;
+    }
+}

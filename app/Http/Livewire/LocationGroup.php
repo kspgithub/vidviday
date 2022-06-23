@@ -46,15 +46,14 @@ class LocationGroup extends Component
 
     public function mount(
         Model $model,
-              $country_id = null,
-              $region_id = null,
-              $district_id = null,
-              $city_id = null,
-              $lat = null,
-              $lng = null,
-              $map = null,
-    ): void
-    {
+        $country_id = null,
+        $region_id = null,
+        $district_id = null,
+        $city_id = null,
+        $lat = null,
+        $lng = null,
+        $map = null,
+    ): void {
         $this->model = $model;
 
         $attributes = $model->getFillable();
@@ -90,11 +89,11 @@ class LocationGroup extends Component
 
     public function render(): View
     {
-        if($this->selectedDistrict) {
+        if ($this->selectedDistrict) {
             $district = District::query()->find($this->selectedDistrict);
             $this->districts = collect([$district->asSelectBox()]);
         }
-        if($this->city_id) {
+        if ($this->city_id) {
             $city = City::query()->find($this->city_id);
             $this->cities = collect([$city->asSelectBox()]);
         }
@@ -110,16 +109,16 @@ class LocationGroup extends Component
 
 //            $this->regions = Region::query()->where('country_id', $country)->toSelectBox();
 
-            if($this->region && $this->region->country->id !== $this->selectedCountry) {
+            if ($this->region && $this->region->country->id !== $this->selectedCountry) {
                 $this->selectedRegion = 0;
             }
 
-            if($this->district && $this->district->country->id !== $this->selectedCountry) {
+            if ($this->district && $this->district->country->id !== $this->selectedCountry) {
                 $this->selectedDistrict = 0;
                 $this->districts = collect();
             }
 
-            if($this->city && $this->city->country->id !== $this->selectedCountry) {
+            if ($this->city && $this->city->country->id !== $this->selectedCountry) {
                 $this->city_id = 0;
                 $this->cities = collect();
             }
@@ -159,12 +158,12 @@ class LocationGroup extends Component
             $this->selectedCountry = $this->region->country_id ?? $this->selectedCountry;
             $this->country = $this->region->country;
 
-            if($this->district && $this->district->region_id !== $this->selectedRegion) {
+            if ($this->district && $this->district->region_id !== $this->selectedRegion) {
                 $this->selectedDistrict = 0;
 //                $this->districts = District::query()->where('region_id', $region)->toSelectBox();
             }
 
-            if($this->city && $this->city->region_id !== $this->selectedRegion) {
+            if ($this->city && $this->city->region_id !== $this->selectedRegion) {
                 $this->city_id = 0;
                 $this->cities = collect();
             }
@@ -208,7 +207,7 @@ class LocationGroup extends Component
             $this->selectedCountry = $this->district->country_id ?? $this->selectedCountry;
             $this->country = $this->district->country;
 
-            if($this->city && $this->city->district->id !== $this->selectedDistrict) {
+            if ($this->city && $this->city->district->id !== $this->selectedDistrict) {
                 $this->city_id = 0;
 //                $this->cities = City::query()->where('district_id', $district)->toSelectBox();
             }
@@ -247,7 +246,6 @@ class LocationGroup extends Component
             $this->region = $this->city->region;
             $this->selectedCountry = $this->city->country_id ?? $this->selectedCountry;
             $this->country = $this->city->country;
-
         } else {
             $this->city = null;
         }

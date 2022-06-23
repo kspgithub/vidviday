@@ -18,10 +18,10 @@ trait JsonLikeScope
      */
     private function buildJsonLikeQuery($query, $field, $value)
     {
-        $value = mb_str_replace("'", '', mb_strtolower($value));
+        $value = trim(mb_str_replace(' ', '', mb_str_replace('+', '', mb_str_replace("'", '', mb_strtolower($value)))));
 
         foreach (siteLocales() as $locale) {
-            $query->orWhereRaw("REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$field`, '$.\"$locale\"'))), '\'', '') LIKE '$value'");
+            $query->orWhereRaw("REPLACE(REPLACE(REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$field`, '$.\"$locale\"'))), '\'', ''), '+', ''), ' ', '') LIKE '$value'");
         }
         return $query;
     }
@@ -34,7 +34,7 @@ trait JsonLikeScope
      */
     public function scopeJsonLike($builder, $field, $value)
     {
-        return $builder->where(fn ($sq) => $this->buildJsonLikeQuery($sq, $field, $value));
+        return $builder->where(fn($sq) => $this->buildJsonLikeQuery($sq, $field, $value));
     }
 
     /**
@@ -45,6 +45,6 @@ trait JsonLikeScope
      */
     public function scopeOrJsonLike($builder, $field, $value)
     {
-        return $builder->orWhere(fn ($sq) => $this->buildJsonLikeQuery($sq, $field, $value));
+        return $builder->orWhere(fn($sq) => $this->buildJsonLikeQuery($sq, $field, $value));
     }
 }

@@ -15,7 +15,7 @@
                           x-on:change="onTypeChange"
                           required
                           :options="$types">
-        <option value="0">Не вибано</option>
+        <option value="0">Не вибрано</option>
     </x-forms.select-group>
 
     <x-forms.select-group :value="old('finance_id', $model->finance_id)"
@@ -24,7 +24,7 @@
                           x-on:change="onFinanceChange"
                           x-bind:disabled="model.type_id === 0"
                           :label="__('Template')">
-        <option value="0">Не вибано</option>
+        <option value="0">Не вибрано</option>
         <template x-for="option in financeOptions">
             <option x-bind:value="option.value" x-bind:selected="option.value === model.finance_id"
                     x-text="option.text"></option>

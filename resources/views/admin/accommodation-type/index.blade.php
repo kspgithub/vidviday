@@ -3,13 +3,17 @@
 @section('title', __('Accommodation Types'))
 
 @section('content')
-
+    {!! breadcrumbs([
+ ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
+ ['url'=>route('admin.accommodation-type.index'), 'title'=>__('Accommodation Types')],
+ ]) !!}
     <div class="d-flex justify-content-between">
         <h1>@lang('Accommodation Types')</h1>
 
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
-                <a href="{{route('admin.accommodation-type.create')}}" class="btn btn-sm btn-outline-info"><i data-feather="user-plus"></i> @lang('Create')</a>
+                <a href="{{route('admin.accommodation-type.create')}}" class="btn btn-sm btn-outline-info"><i
+                        data-feather="plus"></i> @lang('Create')</a>
             @endif
         </div>
     </div>
@@ -33,9 +37,10 @@
                         <td>{{$type->description}}</td>
                         <td>{{$type->slug}}</td>
                         <td class="table-action">
-                            <x-utils.edit-button :href="route('admin.accommodation-type.edit', $type)" text="" />
+                            <x-utils.edit-button :href="route('admin.accommodation-type.edit', $type)" text=""/>
                             @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.accommodation-type.destroy', $type)" text="" />
+                                <x-utils.delete-button :href="route('admin.accommodation-type.destroy', $type)"
+                                                       text=""/>
                             @endif
                         </td>
                     </tr>
