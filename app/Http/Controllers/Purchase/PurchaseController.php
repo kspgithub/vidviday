@@ -24,7 +24,7 @@ class PurchaseController extends Controller
                 if ($valid === true) {
                     $order = $transaction->order;
                     $order->paymentOnline($transaction, $data);
-                    Log::info('WFP RESULT ' . $data['orderReference'] . $data['transactionStatus']);
+                    Log::info('WFP RESULT ' . $data['orderReference'] . ' ' . $data['transactionStatus']);
                     return $helper->getSuccessResponse();
                 }
                 $responseMessage = 'WFP RESULT ' . $data['orderReference'] . ' ' . $valid;
