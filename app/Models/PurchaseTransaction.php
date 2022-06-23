@@ -63,4 +63,10 @@ class PurchaseTransaction extends Model
     {
         return $this->transactionStatus !== self::ORDER_APPROVED && $this->transactionStatus !== self::ORDER_HOLD_APPROVED;
     }
+
+
+    public function notRefunded()
+    {
+        return $this->transactionStatus !== self::ORDER_REFUNDED && $this->transactionStatus !== self::ORDER_REFUND_IN_PROCESS;
+    }
 }
