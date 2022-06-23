@@ -14,7 +14,7 @@ trait UsePaymentOnline
 
             $this->payment_online += $amount;
             $this->payment_status = self::PAYMENT_COMPLETE;
-            $payment_data = $this->payment_data || [];
+            $payment_data = empty($this->payment_data) ? [] : $this->payment_data;
             $payment_data[] = [
                 'sum' => $amount,
                 'currency' => $data['currency'],
@@ -26,11 +26,12 @@ trait UsePaymentOnline
             $this->payment_data = $payment_data;
             $this->save();
         } elseif ($data['transactionStatus'] === PurchaseTransaction::ORDER_REFUNDED) {
+            $amount = -$amount;
             $this->payment_online -= $data['amount'];
             $this->payment_status = self::PAYMENT_RETURNED;
-            $payment_data = $this->payment_data || [];
+            $payment_data = empty($this->payment_data) ? [] : $this->payment_data;
             $payment_data[] = [
-                'sum' => -$amount,
+                'sum' => $amount,
                 'currency' => $data['currency'],
                 'date' => Carbon::now()->format('d.m.Y'),
                 'type' => 'Повернення платежу',
