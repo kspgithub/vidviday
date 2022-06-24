@@ -68,6 +68,7 @@ use App\Http\Controllers\Admin\User\DeletedUserController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserPasswordController;
 use App\Http\Controllers\Admin\Vacancy\VacancyController;
+use App\Http\Controllers\Admin\Course\CourseController;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -148,6 +149,9 @@ Route::resource("post", PostController::class)->except('show');
 
 // VACANCY
 Route::resource('vacancy', VacancyController::class)->except('show');
+
+// Course
+Route::resource('course', CourseController::class)->except('show');
 
 // ACCOMMODATION
 Route::patch('accommodation/{accommodation}/update-status', [AccommodationController::class, 'updateStatus'])
@@ -265,7 +269,7 @@ Route::group([
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
     Route::get('transport/count', [CrmTransportController::class, 'count'])->name('transport.count');
-    
+
     Route::get('certificate/count', [CrmCertificateController::class, 'count'])->name('certificate.count');
 
     Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');
