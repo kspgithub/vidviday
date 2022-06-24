@@ -44,6 +44,7 @@ require base_path('routes/frontend/document.php');
 require base_path('routes/frontend/blog.php');
 require base_path('routes/frontend/certificate.php');
 require base_path('routes/frontend/vacancy.php');
+require base_path('routes/frontend/course.php');
 require base_path('routes/frontend/crm.php');
 require base_path('routes/frontend/purchase.php');
 
