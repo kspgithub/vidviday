@@ -4,10 +4,10 @@ namespace App\View\Components\Tour;
 
 use App\Models\Tour;
 use App\Services\TourService;
-use Cache;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class Popular extends Component
