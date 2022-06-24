@@ -22,7 +22,7 @@ class CalendarController extends Controller
             $query->where('tour_id', $request->tour_id);
         }
 
-        $event_click = $request->input('event_click', 'show');
+        $event_click = $request->input('event_click', 'url');
         $schedules = TourSchedule::transformForBooking($query->get());
         return $schedules->map->asCalendarEvent($event_click);
     }

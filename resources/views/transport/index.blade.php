@@ -54,7 +54,7 @@
                             <span class="btn type-1 btn-block">Замовити автобус</span>
                             <div class="spacer-xs"></div>
                         </div>
-                        <div>
+                        <div class="text text-md">
                             {!! $pageContent->text !!}
                         </div>
                         <div class="spacer-xs"></div>

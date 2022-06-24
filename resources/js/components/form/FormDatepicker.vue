@@ -5,7 +5,9 @@
     >
         <div class="datepicker-placeholder"
              :data-tooltip="errorMessage"
-             @click="toggle()">{{ displayLabel }}
+             @click="toggle">
+            <input ref="placeholderInput" type="text" :value="modelValue" @change="setValue" >
+            {{ displayLabel }}
         </div>
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
@@ -66,6 +68,7 @@ export default {
 
         const pickerRef = ref(null);
         const pickerEl = ref(null);
+        const placeholderInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
 
@@ -89,9 +92,11 @@ export default {
             }
         }
 
-        const toggle = () => {
+        const toggle = (e) => {
             if (props.disabled) return;
-            open.value = !open.value;
+            if(placeholderInput.value !== e.target) {
+                open.value = !open.value;
+            }
         }
 
         const clickOutside = (event) => {
@@ -100,6 +105,20 @@ export default {
             if (!$target.closest($(pickerRef.value)).length) {
                 close(event);
             }
+        }
+
+        const setValue = (event) => {
+            const $target = $(event.target);
+            open.value = false;
+            innerValue.value = $target.val();
+            emit('update:modelValue', $target.val());
+            let parts = $target.val().split('.')
+            let year = parts[2]
+            let month = parts[1]
+            let day = parts[0]
+            let date = new Date(year, month, day);
+            console.log(date)
+            $(pickerEl.value).datepicker('setDate', date)
         }
 
         onMounted(() => {
@@ -154,6 +173,7 @@ export default {
         return {
             pickerRef,
             pickerEl,
+            placeholderInput,
             filled,
             displayLabel,
             locale,
@@ -162,6 +182,7 @@ export default {
             close,
             errorMessage,
             innerValue,
+            setValue,
         }
     }
 }
