@@ -69,7 +69,7 @@
                                       :inactive-value="null"
                                       :active="in_array('contacts', $page->sidebar_items ?? [])"></x-forms.switch-group>
 
-                <x-forms.select-group name="staff[]"
+                <x-forms.select-group name="staff_id"
                                       :label="__('Contact Manager')"
                                       :value="old('staff_id', $page->staff_id ?? 0)"
                                       :options="$managers">
