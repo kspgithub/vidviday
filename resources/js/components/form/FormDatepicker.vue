@@ -117,8 +117,6 @@ export default {
             let dayCell = $('.datepicker--cell[data-date="'+d+'"][data-month="'+m+'"][data-year="'+y+'"]')
 
             if(dayCell.length){
-                console.log(val)
-                console.log(d,m,y)
                 dayCell.click()
             }
 
