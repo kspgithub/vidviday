@@ -47,7 +47,7 @@ class PackingSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            Packing::create($item);
+            Packing::query()->updateOrCreate(['slug' => $item['slug']], $item);
         }
 
         $this->enableForeignKeys();
