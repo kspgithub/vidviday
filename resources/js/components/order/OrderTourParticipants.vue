@@ -46,6 +46,7 @@ import {useStore} from "vuex";
 import {useDebounceFormDataProperty} from "../../store/composables/useFormData";
 import {computed, getCurrentInstance, watch} from "vue";
 import FormCheckbox from "../form/FormCheckbox";
+import {useForm} from "vee-validate";
 
 export default {
     name: "OrderTourParticipants",
@@ -58,7 +59,7 @@ export default {
 
         const vm = getCurrentInstance()
 
-        let form = vm.ctx.$.provides[Object.getOwnPropertySymbols(vm.ctx.$.provides)[1]]
+        // let form = vm.ctx.$.provides[Object.getOwnPropertySymbols(vm.ctx.$.provides)[1]]
 
         const updateParticipant = (data) => {
             store.dispatch('orderTour/updateParticipant', data);
@@ -78,7 +79,7 @@ export default {
 
         const updateParticipantPhone = () => {
             store.dispatch('orderTour/updateParticipantPhone').then(() => {
-                form.values.participant_phone = store.state.orderTour.formData.phone
+                // form.values.participant_phone = store.state.orderTour.formData.phone
             })
         }
 
@@ -90,8 +91,8 @@ export default {
                     middle_name: '',
                     birthday: '',
                 }})
-                form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
-                form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
+                // form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
+                // form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
                 if(!participant_phone.value && !participant_phone._dirty){
                     updateParticipantPhone()
                 }
