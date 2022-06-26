@@ -5,19 +5,17 @@
     >
         <div class="datepicker-placeholder"
              :data-tooltip="errorMessage"
-             @click="toggle">
-            <input ref="placeholderInput" type="text" :value="modelValue" @change="setValue" >
-            {{ displayLabel }}
+             @click="toggle()">{{ displayLabel }}
         </div>
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
         </div>
-        <input :name="name" :value="innerValue" type="text" class="d-none">
+        <input :name="name" :value="innerValue" type="text" :class="{'d-none': !open}" @change="manualChange">
     </div>
 </template>
 
 <script>
-import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
 import useFormField from "./composables/useFormField";
@@ -68,7 +66,6 @@ export default {
 
         const pickerRef = ref(null);
         const pickerEl = ref(null);
-        const placeholderInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
 
@@ -92,11 +89,9 @@ export default {
             }
         }
 
-        const toggle = (e) => {
+        const toggle = () => {
             if (props.disabled) return;
-            if(placeholderInput.value !== e.target) {
-                open.value = !open.value;
-            }
+            open.value = !open.value;
         }
 
         const clickOutside = (event) => {
@@ -107,22 +102,30 @@ export default {
             }
         }
 
-        const setValue = (event) => {
+        const manualChange = (event) => {
             const $target = $(event.target);
-            open.value = false;
-            innerValue.value = $target.val();
-            emit('update:modelValue', $target.val());
-            let parts = $target.val().split('.')
-            let year = parts[2]
-            let month = parts[1]
-            let day = parts[0]
-            let date = new Date(year, month, day);
-            console.log(date)
-            $(pickerEl.value).datepicker('setDate', date)
+            const val = $target.val()
+
+            let date = moment(val, props.valueFormat.toUpperCase()).toDate()
+
+            let d = date.getDate()
+            let m = date.getMonth()
+            let y = date.getFullYear()
+
+            datepicker.value.date = date
+
+            let dayCell = $('.datepicker--cell[data-date="'+d+'"][data-month="'+m+'"][data-year="'+y+'"]')
+
+            if(dayCell.length){
+                dayCell.click()
+            }
+
+            close(event)
         }
 
         onMounted(() => {
             $(pickerEl.value).datepicker({
+                constrainInput: true,
                 inline: true,
                 language: locale.value,
                 dateFormat: props.valueFormat,
@@ -139,7 +142,7 @@ export default {
 
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
-            //document.addEventListener('click', clickOutside);
+            // document.addEventListener('click', clickOutside);
         });
 
         onUnmounted(() => {
@@ -173,7 +176,6 @@ export default {
         return {
             pickerRef,
             pickerEl,
-            placeholderInput,
             filled,
             displayLabel,
             locale,
@@ -182,7 +184,7 @@ export default {
             close,
             errorMessage,
             innerValue,
-            setValue,
+            manualChange,
         }
     }
 }

@@ -105,22 +105,25 @@
                 <div class="spacer-xs"></div>
             </div>
 
-            <div class="col-12 cert-upak" id="block-certificate-format-1">
-                <span class="text-sm"><b>{{ __('certificate-section.packing-title') }}</b></span>
-                <br>
-                <div class="ans">{{ __('certificate-section.packing-description') }}</div>
-                <label class="radio">
-                    <input type="radio" :value="1" name="packing" v-model="packing">
-                    <span>{{ __('certificate-section.yes') }}</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" :value="0" name="packing" v-model="packing">
-                    <span>{{ __('certificate-section.no') }}</span>
-                </label>
-                <div class="spacer-xs"></div>
-            </div>
             <transition name="fade">
-                <div class="col-12 upak-variant" v-if="packing === 1">
+                <div class="col-12 cert-upak" id="block-certificate-format-1"  v-if="format === 'printed'">
+                    <span class="text-sm"><b>{{ __('certificate-section.packing-title') }}</b></span>
+                    <br>
+                    <div class="ans">{{ __('certificate-section.packing-description') }}</div>
+                    <label class="radio">
+                        <input type="radio" :value="1" name="packing" v-model="packing">
+                        <span>{{ __('certificate-section.yes') }}</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" :value="0" name="packing" v-model="packing">
+                        <span>{{ __('certificate-section.no') }}</span>
+                    </label>
+                    <div class="spacer-xs"></div>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <div class="col-12 upak-variant" v-if="format === 'printed' && packing === 1">
                     <span class="text-sm"><b>{{ __('certificate-section.packing-variant') }}</b></span>
                     <br>
                     <label class="radio" v-for="packing in packings">
