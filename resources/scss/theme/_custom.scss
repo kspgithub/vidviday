@@ -8222,6 +8222,24 @@ a.fc-more {
     text-align: center;
 }
 
+.datepicker-input input {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    opacity: 0;
+    position: absolute;
+    padding-left: 45px;
+    pointer-events: none;
+    border-color: transparent;
+}
+.datepicker-input.active input {
+    opacity: 1;
+    pointer-events: auto;
+}
+.datepicker-input.active .datepicker-placeholder {
+    color: transparent;
+}
 .participant {
     display: -webkit-box;
     display: -ms-flexbox;
