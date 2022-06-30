@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\Location\CountryController;
 use App\Http\Controllers\Admin\Location\DistrictController;
 use App\Http\Controllers\Admin\Location\RegionController;
 use App\Http\Controllers\Admin\News\NewsController;
+use App\Http\Controllers\Admin\Charity\CharityController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
@@ -142,6 +143,10 @@ Route::resource('order-transport', OrderTransportController::class)->only(['inde
 // NEWS
 Route::patch('news/{news}/update-status', [NewsController::class, 'updateStatus'])->name('news.update-status');
 Route::resource('news', NewsController::class)->except('show');
+
+// Charity
+Route::patch('charity/{charity}/update-status', [CharityController::class, 'updateStatus'])->name('charity.update-status');
+Route::resource('charity', CharityController::class)->except('show');
 
 // BLOG
 Route::patch('post/{post}/update-status', [PostController::class, 'updateStatus'])->name('post.update-status');
