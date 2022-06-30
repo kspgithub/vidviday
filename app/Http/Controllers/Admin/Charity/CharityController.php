@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\News;
+namespace App\Http\Controllers\Admin\Charity;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\News\CharityBasicRequest;
-use App\Models\News;
-use App\Services\NewsService;
+use App\Http\Requests\Charity\CharityBasicRequest;
+use App\Models\Charity;
+use App\Services\CharityService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -13,11 +13,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class CharityController extends Controller
 {
     protected $service;
 
-    public function __construct(NewsService $service)
+    public function __construct(CharityService $service)
     {
         $this->service = $service;
     }
@@ -30,7 +30,7 @@ class NewsController extends Controller
     public function index()
     {
 
-        return view("admin.news.index");
+        return view("admin.charity.index");
     }
 
     /**
@@ -41,10 +41,10 @@ class NewsController extends Controller
     public function create()
     {
 
-        $news = new News();
+        $charity = new Charity();
 
-        return view("admin.news.create", [
-            "news" => $news
+        return view("admin.charity.create", [
+            "charity" => $charity
         ]);
     }
 
@@ -58,23 +58,23 @@ class NewsController extends Controller
     public function store(CharityBasicRequest $request)
     {
 
-        $news = $this->service->store($request->validated());
+        $charity = $this->service->store($request->validated());
 
-        return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.charity.edit', $charity)->withFlashSuccess(__('Record Created'));
     }
 
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param News $news
+     * @param Charity $charity
      *
      * @return Application|Factory|View|RedirectResponse
      */
-    public function edit(News $news)
+    public function edit(Charity $charity)
     {
-        return view('admin.news.edit', [
-            'news'=> $news
+        return view('admin.charity.edit', [
+            'charity'=> $charity
         ]);
     }
 
@@ -83,46 +83,46 @@ class NewsController extends Controller
      *
      * @param CharityBasicRequest $request
      *
-     * @param News $news
+     * @param Charity $charity
      *
      * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
      */
-    public function update(CharityBasicRequest $request, News $news)
+    public function update(CharityBasicRequest $request, Charity $charity)
     {
 
-        $this->service->update($news, $request->validated());
+        $this->service->update($charity, $request->validated());
 
-        return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Updated'));
+        return redirect()->route('admin.charity.edit', $charity)->withFlashSuccess(__('Record Updated'));
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param News $news
+     * @param Charity $charity
      *
      * @return mixed
      */
-    public function destroy(News $news)
+    public function destroy(Charity $charity)
     {
-        $news->delete();
+        $charity->delete();
 
-        return redirect()->route('admin.news.index')->withFlashSuccess(__('Record Deleted'));
+        return redirect()->route('admin.charity.index')->withFlashSuccess(__('Record Deleted'));
     }
 
     /**
      * Update status the specified resource.
      *
      * @param Request $request
-     * @param News $news
+     * @param Charity $charity
      * @return JsonResponse
      */
-    public function updateStatus(Request $request, News $news)
+    public function updateStatus(Request $request, Charity $charity)
     {
-        $news->published = (int)$request->input('published');
-        $news->save();
+        $charity->published = (int)$request->input('published');
+        $charity->save();
         return response()->json(['result' => 'success']);
     }
 }
