@@ -391,6 +391,12 @@
                             class="align-middle">@lang('News')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.charity.*')}}">
+                    <a class="sidebar-link" href="{{route('admin.charity.index')}}">
+                        <i class="align-middle" data-feather="rss"></i> <span
+                            class="align-middle">@lang('Charity')</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item {{routeActiveClass('admin.post.*')}}">
                     <a class="sidebar-link" href="{{route('admin.post.index')}}">
