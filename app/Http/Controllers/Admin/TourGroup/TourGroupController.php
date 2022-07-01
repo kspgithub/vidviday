@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\TourGroup;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Rules\TranslatableSlugRule;
 use App\Rules\UniqueSlugRule;
@@ -23,7 +24,7 @@ class TourGroupController extends Controller
     public function index()
     {
         //
-        $tourGroups = TourGroup::query()->withCount('media')->paginate(20);
+        $tourGroups = TourGroup::query()->withCount(['media', 'tours'])->paginate(20);
 
         return view('admin.tour-group.index', compact('tourGroups'));
     }
@@ -37,8 +38,9 @@ class TourGroupController extends Controller
     {
         //
         $tourGroup = new TourGroup();
+        $tours = Tour::toSelectBox();
 
-        return view('admin.tour-group.create', compact('tourGroup'));
+        return view('admin.tour-group.create', compact('tourGroup', 'tours'));
     }
 
     /**
@@ -74,6 +76,10 @@ class TourGroupController extends Controller
         $tourGroup->fill($params);
         $tourGroup->save();
 
+        if (isset($params['tours'])) {
+            $tourGroup->tours()->sync($params['tours']);
+        }
+
         return redirect()->route('admin.tour-group.edit', $tourGroup)->withFlashSuccess(__('Record Created'));
     }
 
@@ -87,7 +93,8 @@ class TourGroupController extends Controller
     public function edit(TourGroup $tourGroup)
     {
         //
-        return view('admin.tour-group.edit', compact('tourGroup'));
+        $tours = Tour::toSelectBox();
+        return view('admin.tour-group.edit', compact('tourGroup', 'tours'));
     }
 
     /**
@@ -125,6 +132,11 @@ class TourGroupController extends Controller
 
         $tourGroup->fill($params);
         $tourGroup->save();
+        
+        if (isset($params['tours'])) {
+            $tourGroup->tours()->sync($params['tours']);
+        }
+
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }

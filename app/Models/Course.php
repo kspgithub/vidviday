@@ -18,7 +18,6 @@ use Spatie\Translatable\HasTranslations;
 
 class Course extends TranslatableModel
 {
-    use HasFactory;
     use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;

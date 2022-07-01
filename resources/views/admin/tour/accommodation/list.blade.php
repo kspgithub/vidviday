@@ -2,7 +2,7 @@
 
     <x-bootstrap.card>
         <x-slot name="body">
-            <h2 class="mb-2">@lang('accommodation')</h2>
+            <h2 class="mb-2">@lang('Accommodation')</h2>
             <table class="table table-sm mb-3">
                 <thead>
                 <tr>
@@ -14,7 +14,8 @@
                 </thead>
                 <tbody wire:sortable="updateOrder">
                 @foreach($items as $item)
-                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}" wire:key="accommodation-{{ $item->original_id }}">
+                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}"
+                        wire:key="accommodation-{{ $item->original_id }}">
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>

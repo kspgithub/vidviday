@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\News\CharityBasicRequest;
+use App\Http\Requests\Charity\CharityBasicRequest;
 use App\Models\News;
 use App\Services\NewsService;
 use Illuminate\Contracts\Foundation\Application;
@@ -74,7 +74,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         return view('admin.news.edit', [
-            'news'=> $news
+            'news' => $news
         ]);
     }
 

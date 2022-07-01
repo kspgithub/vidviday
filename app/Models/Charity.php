@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Charity extends TranslatableModel implements HasMedia
 {
-    use HasFactory;
+
     use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;

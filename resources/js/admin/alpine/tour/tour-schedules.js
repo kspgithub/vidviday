@@ -20,6 +20,10 @@ const DEFAULT_SCHEDULE = {
     comment: '',
     auto_booking: false,
     auto_limit: 10,
+    repeat: '',
+    repeat_count: 1,
+    repeat_custom_interval: 'all',
+    repeat_day_of_week: 'saturday',
 }
 
 export default (props) => ({
@@ -42,15 +46,15 @@ export default (props) => ({
                 // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
                 onChange: (selectedDates) => {
                     const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
-                    const totalDayNights = this.tour.duration + this.tour.nights
-                    let days
-                    if(this.tour.duration > this.tour.nights) {
+                    const totalDayNights = this.tour.duration + this.tour.nights;
+                    let days;
+                    if (this.tour.duration > this.tour.nights) {
                         days = Math.floor(totalDayNights / 2)
                     } else {
                         days = Math.ceil(totalDayNights / 2)
                     }
 
-                    const end_date = selectedDates[0] ? moment(selectedDates[0]).add('days', days).format('DD.MM.YYYY') : null;
+                    const end_date = selectedDates[0] ? moment(selectedDates[0]).add(days, 'days').format('DD.MM.YYYY') : null;
                     this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
                 }
             });

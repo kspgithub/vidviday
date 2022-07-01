@@ -1,15 +1,15 @@
 @extends('admin.layout.app')
 
-@section('title', __('Tour groups'))
+@section('title', __('Tour categories'))
 
 @section('content')
     {!! breadcrumbs([
    ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
    ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
-   ['url'=>route('admin.tour-group.index'), 'title'=>__('Groups')],
+   ['url'=>route('admin.tour-group.index'), 'title'=>__('Categories')],
    ]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Tour groups')</h1>
+        <h1>@lang('Tour categories')</h1>
 
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
@@ -26,9 +26,10 @@
                 <thead>
                 <tr>
 
-                    <th>@lang('title')</th>
+                    <th>@lang('Title')</th>
                     <th>@lang('Url')</th>
                     <th>@lang('Media')</th>
+                    <th>@lang('Tours')</th>
                     <th>@lang('Published')</th>
                     <th>@lang('Actions')</th>
                 </tr>
@@ -39,6 +40,7 @@
                         <td>{{$item->title}}</td>
                         <td>{{$item->slug}}</td>
                         <td><span class="badge bg-info">{{$item->media_count}}</span></td>
+                        <td><span class="badge bg-primary">{{$item->tours_count}}</span></td>
                         <td>
                             @include('admin.partials.published', ['model' => $item, 'updateUrl' => route('admin.tour-group.update', $item)])
                         </td>
@@ -52,5 +54,5 @@
             </table>
         </x-slot>
     </x-bootstrap.card>
-
+    {{$tourGroups->links()}}
 @endsection

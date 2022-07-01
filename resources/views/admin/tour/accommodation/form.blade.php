@@ -1,6 +1,6 @@
 <x-bootstrap.card>
     <x-slot name="body">
-        <h2 class="mb-2">@lang('Tour accommodations') {{ $model?->id }}</h2>
+        <h2 class="mb-2">@lang('Accommodations') {{ $model?->id }}</h2>
         <div x-data='translatable({trans_expanded: true})'>
             <form method="post" wire:submit.prevent="saveItem()">
 
