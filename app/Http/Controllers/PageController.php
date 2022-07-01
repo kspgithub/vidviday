@@ -6,6 +6,7 @@ use App\Http\Controllers\Certificate\CertificateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Practice\PracticeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
@@ -58,6 +59,8 @@ class PageController extends Controller
                 return (new TravelAgentController())->index();
             case 'vacancies':
                 return (new VacancyController())->index();
+            case 'practice':
+                return (new PracticeController())->index();
             case 'our-documents':
                 return (new DocumentController())->index();
             default:

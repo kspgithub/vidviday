@@ -69,7 +69,9 @@ use App\Http\Controllers\Admin\User\DeletedUserController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserPasswordController;
 use App\Http\Controllers\Admin\Vacancy\VacancyController;
+use App\Http\Controllers\Admin\Practice\PracticeController;
 use App\Http\Controllers\Admin\Course\CourseController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -154,6 +156,9 @@ Route::resource("post", PostController::class)->except('show');
 
 // VACANCY
 Route::resource('vacancy', VacancyController::class)->except('show');
+
+// Practice
+Route::resource('practice', PracticeController::class)->except('show');
 
 // Course
 Route::resource('course', CourseController::class)->except('show');
