@@ -1,4 +1,3 @@
-
 <div x-data='mediaLibrary({
         items: @json($items),
         collection: "{{$collection}}",
@@ -39,7 +38,9 @@
                     <template x-if="item.id">
                         <div>
 
-                            <x-forms.switch-group style="position: absolute; top: 0;bottom: 50%;left:0;right:0;margin:auto" name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
+                            <x-forms.switch-group
+                                style="position: absolute; top: 0;bottom: 50%;left:0;right:0;margin:auto"
+                                name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
 
                             <a href="#" @click.prevent="deleteMediaItem(item)" class="delete-media-item">
                                 <i class="fas fa-times"></i>
@@ -52,9 +53,13 @@
 
                             <input class="edit-media-title" x-model="item.title[locale]"
                                    @change="updateMediaTitle(item)"
+                                   @focus="$event.target.placeholder = ''"
+                                   @blur="$event.target.placeholder = '{{__('Change image title')}}'"
                                    placeholder="{{__('Change image title')}}"/>
 
                             <input class="edit-media-alt" x-model="item.alt[locale]"
+                                   @focus="$event.target.placeholder = ''"
+                                   @blur="$event.target.placeholder = '{{__('Change image alt')}}'"
                                    @change="updateMediaAlt(item)"
                                    placeholder="{{__('Change image alt')}}"/>
                         </div>
