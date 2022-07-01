@@ -19,9 +19,11 @@ class CertificateController extends Controller
     public function index()
     {
         $pageContent = Page::where('key', 'certificate')->first();
+        $localeLinks = $pageContent->getLocaleLinks();
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
         return view('certificate.index', [
             'pageContent' => $pageContent,
+            'localeLinks' => $localeLinks,
             'faqItems' => $faqItems,
         ]);
     }

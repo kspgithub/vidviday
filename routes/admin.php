@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\Location\CountryController;
 use App\Http\Controllers\Admin\Location\DistrictController;
 use App\Http\Controllers\Admin\Location\RegionController;
 use App\Http\Controllers\Admin\News\NewsController;
+use App\Http\Controllers\Admin\Charity\CharityController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
@@ -68,6 +69,7 @@ use App\Http\Controllers\Admin\User\DeletedUserController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserPasswordController;
 use App\Http\Controllers\Admin\Vacancy\VacancyController;
+use App\Http\Controllers\Admin\Course\CourseController;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -142,12 +144,19 @@ Route::resource('order-transport', OrderTransportController::class)->only(['inde
 Route::patch('news/{news}/update-status', [NewsController::class, 'updateStatus'])->name('news.update-status');
 Route::resource('news', NewsController::class)->except('show');
 
+// Charity
+Route::patch('charity/{charity}/update-status', [CharityController::class, 'updateStatus'])->name('charity.update-status');
+Route::resource('charity', CharityController::class)->except('show');
+
 // BLOG
 Route::patch('post/{post}/update-status', [PostController::class, 'updateStatus'])->name('post.update-status');
 Route::resource("post", PostController::class)->except('show');
 
 // VACANCY
 Route::resource('vacancy', VacancyController::class)->except('show');
+
+// Course
+Route::resource('course', CourseController::class)->except('show');
 
 // ACCOMMODATION
 Route::patch('accommodation/{accommodation}/update-status', [AccommodationController::class, 'updateStatus'])
@@ -265,7 +274,7 @@ Route::group([
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
     Route::get('transport/count', [CrmTransportController::class, 'count'])->name('transport.count');
-    
+
     Route::get('certificate/count', [CrmCertificateController::class, 'count'])->name('certificate.count');
 
     Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');

@@ -10,12 +10,12 @@
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
         </div>
-        <input :name="name" :value="innerValue" type="text" class="d-none">
+        <input :name="name" :value="innerValue" type="text" :class="{'d-none': !open}" @change="manualChange">
     </div>
 </template>
 
 <script>
-import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
 import useFormField from "./composables/useFormField";
@@ -102,8 +102,30 @@ export default {
             }
         }
 
+        const manualChange = (event) => {
+            const $target = $(event.target);
+            const val = $target.val()
+
+            let date = moment(val, props.valueFormat.toUpperCase()).toDate()
+
+            let d = date.getDate()
+            let m = date.getMonth()
+            let y = date.getFullYear()
+
+            datepicker.value.date = date
+
+            let dayCell = $('.datepicker--cell[data-date="'+d+'"][data-month="'+m+'"][data-year="'+y+'"]')
+
+            if(dayCell.length){
+                dayCell.click()
+            }
+
+            close(event)
+        }
+
         onMounted(() => {
             $(pickerEl.value).datepicker({
+                constrainInput: true,
                 inline: true,
                 language: locale.value,
                 dateFormat: props.valueFormat,
@@ -120,7 +142,7 @@ export default {
 
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
-            //document.addEventListener('click', clickOutside);
+            // document.addEventListener('click', clickOutside);
         });
 
         onUnmounted(() => {
@@ -162,6 +184,7 @@ export default {
             close,
             errorMessage,
             innerValue,
+            manualChange,
         }
     }
 }

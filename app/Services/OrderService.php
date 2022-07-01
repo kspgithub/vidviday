@@ -153,7 +153,7 @@ class OrderService extends BaseService
             }
 
             $other_discounts = TourService::getFilteredAvailableDiscounts($tour, [
-                'categories' => ['notIn' => ['children_young', 'children', 'children_older']],
+                'categories' => ['notIn' => ['children_young', 'children', 'children_older', 'adult']],
                 'age_limit' => 0,
             ]);
 

@@ -31,7 +31,7 @@
                     <span>—</span>
                 </li>
                 <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span itemprop="title">@lang('Transport')</span>
+                    <span itemprop="title">{{ __('Вакансії') }}</span>
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->
@@ -39,43 +39,50 @@
                 <div class="col-xl-8 col-12">
                     <!-- BANNER TABS -->
                 @include('page.includes.banner-tabs', [
-                   'pictures'=>$pageContent->getMedia(),
-                   'video'=>$pageContent->video
-               ])
+                    'pictures'=>$pageContent->getMedia(),
+                    'video'=>$pageContent->video
+                ])
                 <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
-                    <!-- TRANSPORT CONTENT -->
-                    <div class="tour-content nn">
-                        <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
-                        <div class="spacer-xs only-desktop-9"></div>
-                        <div class="only-pad-mobile">
-                            <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
-                            <div class="spacer-xs"></div>
-                            <span class="btn type-1 btn-block">Замовити автобус</span>
-                            <div class="spacer-xs"></div>
-                        </div>
-                        <div class="text text-md">
-                            {!! $pageContent->text !!}
-                        </div>
+                    <!-- CAREER CONTENT -->
+                    <h1 class="h1 title">{{!empty($pageContent->seo_h1) ? $pageContent->seo_h1 : $pageContent->title }}</h1>
+                    <div class="spacer-xs"></div>
+                    <div class="only-pad-mobile">
+                        <x-page.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
                         <div class="spacer-xs"></div>
-
-                        @include('transport.includes.transport')
-                        @include('transport.includes.mobile-swiper')
-
-                        <div class="spacer-xs"></div>
-
-                        <x-page.contact-block :staff="$pageContent->staff" title="Співпраця з перевізниками"/>
-
-                        <div class="bg-box" id="transport-form" v-is="'order-transport-form'"></div>
-
                     </div>
-                    <!-- TRANSPORT CONTENT END -->
+                    <div class="text text-md">
+                        {!! $pageContent->text !!}
+                    </div>
+                    <div class="spacer-xs"></div>
+                    <div>
+                        @foreach($courses as  $course)
+                            <div class="bordered-box course">
+                                <h2 class="h3"><a href="{{$course->url}}">{{$course->title}}</a></h2>
+                                <span class="text-sm">{{$course->created_at}}</span>
+                                <div class="text">
+                                    <p>{{!empty($course->short_text) ? $course->short_text : str_limit(strip_tags($course->text), 500)}}</p>
+                                </div>
+                                <a href="{{$course->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- CAREER CONTENT END -->
+                    <div class="only-pad-mobile">
+                        <div class="spacer-sm"></div>
+                    </div>
                 </div>
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                @include('page.includes.right-sidebar', ['button'=>['title'=>'Замовити автобус', 'url'=>'#transport-form'], 'pageContent'=>$pageContent])
-                <!-- SIDEBAR END -->
+                    <x-page.right-sidebar :pageContent="$pageContent">
+                        <div class="sidebar-item" v-is="'course-form'"
+                             form-title="{{ __('common.course.form-title') }}"
+                             form-sub-title="{{ __('common.course.form-sub-title') }}"
+                        ></div>
+                    </x-page.right-sidebar>
+
+                    <!-- SIDEBAR END -->
                 </div>
             </div>
             <div class="spacer-lg"></div>
@@ -85,5 +92,6 @@
         <x-page.regulations :model="$pageContent"/>
         <!-- SEO TEXT END -->
     </main>
+
 
 @endsection

@@ -230,6 +230,12 @@
                             class="align-middle">@lang('Vacancies')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.course*')}}">
+                    <a class="sidebar-link" href="{{route('admin.course.index')}}">
+                        <i class="align-middle" data-feather="user-check"></i> <span
+                            class="align-middle">@lang('Courses')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.finance*')}}">
                     <a data-bs-target="#finance" data-bs-toggle="collapse"
                        class="sidebar-link {{routeActiveClass('admin.finance*', '', 'collapsed')}}">
@@ -383,6 +389,12 @@
                     <a class="sidebar-link" href="{{route('admin.news.index')}}">
                         <i class="align-middle" data-feather="rss"></i> <span
                             class="align-middle">@lang('News')</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{routeActiveClass('admin.charity.*')}}">
+                    <a class="sidebar-link" href="{{route('admin.charity.index')}}">
+                        <i class="align-middle" data-feather="rss"></i> <span
+                            class="align-middle">@lang('Charity')</span>
                     </a>
                 </li>
 

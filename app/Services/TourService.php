@@ -113,8 +113,9 @@ class TourService extends BaseService
         return Tour::search()
             ->whereJsonContains('locales', $locale)
             ->whereHas('badges', function (Builder $q) {
-                return $q->where('slug', 'bestseller');
-            })->take($count)->get();
+                return $q->where('slug', 'bestseler');
+            })
+            ->take($count)->get();
     }
 
     public function store($params)
