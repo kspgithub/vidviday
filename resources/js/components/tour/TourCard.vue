@@ -54,7 +54,7 @@
                 </span>
             </div>
 
-            <a :href="'/tour/'+tour.id + '/order?schedule='+scheduleId" class="btn type-1 btn-block">
+            <a :href="'/tour/'+tour.id + '/order?clear=1&schedule='+scheduleId" class="btn type-1 btn-block">
                 {{ __('tours-section.order-tour') }}
             </a>
         </div>

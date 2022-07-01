@@ -65,7 +65,7 @@
                         <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>
                     </span>
                 </div>
-                <a :href="tour.url + '/order?schedule='+scheduleId"
+                <a :href="tour.url + '/order?clear=1&schedule='+scheduleId"
                    class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
             </div>
         </div>
