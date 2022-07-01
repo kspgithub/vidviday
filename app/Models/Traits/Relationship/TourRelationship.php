@@ -29,6 +29,7 @@ use App\Models\TourSubject;
 use App\Models\TourTicket;
 use App\Models\TourTransport;
 use App\Models\TourType;
+use App\Models\TourVoting;
 use App\Models\Transport;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -311,5 +312,10 @@ trait TourRelationship
     public function currencyModel()
     {
         return $this->belongsTo(Currency::class, 'currency', 'iso');
+    }
+
+    public function votings()
+    {
+        return $this->hasMany(TourVoting::class);
     }
 }
