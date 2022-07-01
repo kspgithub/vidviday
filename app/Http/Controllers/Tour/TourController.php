@@ -129,7 +129,7 @@ class TourController extends Controller
         $similar_tours = $tour->getSimilarTours(12);
 
 
-        $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOUR)->get();
+        $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOURIST)->get();
 
         $price_items = $tour->calcItems();
 

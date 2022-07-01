@@ -17,37 +17,42 @@ class Regulations extends Component
 
     public string $seoText;
 
+    public string $h1;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Model|null $model = null)
+    public function __construct(Model|null $model = null, string $h1 = '')
     {
         //
         $this->model = $model;
+        $this->h1 = $h1;
     }
 
     protected function injectHtmlBlocks()
     {
         $text = '';
 
-        if($this->model) {
+        if ($this->model) {
             $text = $this->model->seo_text ?? $this->model->text;
         }
 
         preg_match_all("/\{\{([^\}\}]*)\}\}/", $text, $matches);
-        if($matches[0] && $matches[1]) {
+        if ($matches[0] && $matches[1]) {
             foreach ($matches[1] as $i => $slug) {
                 $htmlBlock = HtmlBlock::query()->where('slug', $slug)->first();
                 $html = '';
-                if($htmlBlock) {
+                if ($htmlBlock) {
                     $html = $htmlBlock->text;
                 }
                 $text = Str::replace($matches[0][$i], $html, $text);
             }
         }
-        $this->seoText = (string) $text;
+        $this->seoText = (string)$text;
+
+
     }
 
     /**

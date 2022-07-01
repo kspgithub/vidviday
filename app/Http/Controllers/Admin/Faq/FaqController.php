@@ -16,7 +16,7 @@ class FaqController extends Controller
      *
      * @return View
      */
-    public function index($section = 'common')
+    public function index($section = 'corporate')
     {
         //
         $faqitems = FaqItem::query()->where('section', $section)->get();
@@ -48,7 +48,7 @@ class FaqController extends Controller
         $faqitem->fill($request->all());
         $faqitem->save();
 
-        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('FaqItem created.'));
+        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('Record Created'));
     }
 
     /**
@@ -79,7 +79,7 @@ class FaqController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success']);
         }
-        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('FaqItem updated.'));
+        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
@@ -89,11 +89,11 @@ class FaqController extends Controller
      *
      * @return Response
      */
-    public function destroy(FaqItem $faqItem, $section)
+    public function destroy($section, FaqItem $faqItem)
     {
         //
         $faqItem->delete();
 
-        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('FaqItem deleted.'));
+        return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('Record Deleted'));
     }
 }

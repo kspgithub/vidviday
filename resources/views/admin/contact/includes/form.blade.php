@@ -37,6 +37,9 @@
                             :value="old('lat', $contact->lat)"></x-forms.text-group>
         <x-forms.text-group name="lng" :label="__('Lng')" :lng="old('lng', $contact->lng)"
                             :value="old('lng', $contact->lng)"></x-forms.text-group>
+
+        <x-forms.textarea-loc-group name="map_comment" label="Коментар на карті"
+                                    :value="old('map_comment', $contact->getTranslations('map_comment'))"></x-forms.textarea-loc-group>
     </x-slot>
 
 </x-bootstrap.card>
