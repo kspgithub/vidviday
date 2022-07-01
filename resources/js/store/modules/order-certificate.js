@@ -17,7 +17,7 @@ export default {
 
                 type: '',
                 format: '',
-                design: '',
+                // design: '',
                 sum: null,
                 tour_id: 0,
                 places: 1,
