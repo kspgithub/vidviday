@@ -19,7 +19,7 @@ class FaqController extends Controller
     public function index($section = 'corporate')
     {
         //
-        $faqitems = FaqItem::query()->where('section', $section)->get();
+        $faqitems = FaqItem::query()->where('section', $section)->orderBy('sort_order')->get();
         return view('admin.faqitem.index', compact('faqitems', 'section'));
     }
 
@@ -95,5 +95,15 @@ class FaqController extends Controller
         $faqItem->delete();
 
         return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('Record Deleted'));
+    }
+
+    public function sort(Request $request)
+    {
+        $ids = $request->input('order', []);
+        foreach ($ids as $position => $id) {
+            FaqItem::whereId($id)->update(['sort_order' => $position]);
+        }
+
+        return response()->json(['result' => 'success']);
     }
 }

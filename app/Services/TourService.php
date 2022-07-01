@@ -153,37 +153,63 @@ class TourService extends BaseService
 
             if (array_key_exists('staff', $params)) {
                 $staff = array_filter($params['staff']);
-                $tour->staff()->sync($staff);
+
+            } else {
+                $staff = [];
             }
+
+            $tour->staff()->sync($staff);
 
             if (array_key_exists('badges', $params)) {
                 $badges = array_filter($params['badges']);
-                $tour->badges()->sync($badges);
+
+            } else {
+                $badges = [];
             }
+
+            $tour->badges()->sync($badges);
+
             if (array_key_exists('groups', $params)) {
                 $groups = array_filter($params['groups']);
-                $tour->groups()->sync($groups);
+
+            } else {
+                $groups = [];
             }
+
+            $tour->groups()->sync($groups);
 
             if (array_key_exists('types', $params)) {
                 $types = array_filter($params['types']);
-                $tour->types()->sync($types);
+
+            } else {
+                $types = [];
             }
 
+            $tour->types()->sync($types);
+
             if (array_key_exists('subjects', $params)) {
-                $types = array_filter($params['subjects']);
-                $tour->subjects()->sync($types);
+                $subjects = array_filter($params['subjects']);
+
+            } else {
+                $subjects = [];
             }
+
+            $tour->subjects()->sync($subjects);
 
             if (array_key_exists('directions', $params)) {
                 $directions = array_filter($params['directions']);
-                $tour->directions()->sync($directions);
+
+            } else {
+                $directions = [];
             }
+
+            $tour->directions()->sync($directions);
 
             if (array_key_exists('plan', $params)) {
                 $plan = array_filter($params['plan']);
                 $tour->planItems()->updateOrCreate(['tour_id' => $tour->id], $plan);
             }
+
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
@@ -214,16 +240,16 @@ class TourService extends BaseService
         $tourDiscounts = $tour->tourDiscounts()->custom();
         $discounts = $tour->discounts();
 
-        if($filters['categories']['in'] ?? false) {
+        if ($filters['categories']['in'] ?? false) {
             $tourDiscounts->whereIn('category', $filters['categories']['in']);
             $discounts->whereIn('discounts.category', $filters['categories']['in']);
         }
-        if($filters['categories']['notIn'] ?? false) {
+        if ($filters['categories']['notIn'] ?? false) {
             $tourDiscounts->whereNotIn('category', $filters['categories']['notIn']);
             $discounts->whereNotIn('discounts.category', $filters['categories']['notIn']);
         }
 
-        if($filters['age_limit'] ?? false) {
+        if ($filters['age_limit'] ?? false) {
             $tourDiscounts->where('age_limit', $filters['categories']['age_limit']);
             $discounts->where('discounts.age_limit', $filters['categories']['age_limit']);
         }

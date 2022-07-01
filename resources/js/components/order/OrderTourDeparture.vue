@@ -5,7 +5,7 @@
 
             <form-select-event
                 name="schedule_id"
-                v-if="group_type === 0 && schedules.length > 0"
+                v-if="group_type === 0 && schedules.length > 0 && !request"
                 v-model="schedule_id" :options="departureOptions"
                 :preselect="false"
                 :label="__('order-section.details.select-date')+'*'"
@@ -14,8 +14,8 @@
             <form-datepicker
                 name="start_date"
                 :label="__('order-section.details.select-date')+'*'"
-                :disabled="!tour"
-                v-if="group_type === 1 || schedules.length === 0"
+                :disabled="!tour || request"
+                v-if="group_type === 1 || schedules.length === 0 || request"
                 v-model="start_date"
             ></form-datepicker>
         </div>
@@ -37,6 +37,7 @@ export default {
         const group_type = computed(() => store.state.orderTour.formData.group_type);
 
         const schedules = computed(() => store.state.orderTour.schedules);
+        const request = computed(() => store.state.orderTour.fetchSchedulesRequest);
 
         const schedule_id = computed({
             get: () => store.state.orderTour.formData.schedule_id,
@@ -64,6 +65,7 @@ export default {
             schedule_id,
             schedules,
             departureOptions,
+            request,
         }
 
     }

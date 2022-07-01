@@ -57,7 +57,7 @@ export const autocompleteTours = async (q = '', limit = 20) => {
     searchRequestSource = axios.CancelToken.source();
 
     const response = await apiClient.get('/tours/autocomplete', {
-        params: {q: q, limit: limit},
+        params: {q: q, limit: limit, order: 'relevant'},
         cancelToken: searchRequestSource.token
     }).catch(error => {
         if (!axios.isCancel(error)) {

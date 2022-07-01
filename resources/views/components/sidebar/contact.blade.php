@@ -26,7 +26,8 @@
             @endif
         </div>
         @if($staff->avatar)
-            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{$staff->avatar_url}}" alt="{{$staff->title}}">
+            <img class="manager-avatar" src="{{asset('/img/preloader.png')}}" data-img-src="{{$staff->avatar_url}}"
+                 alt="{{$staff->title}}">
         @endif
     </div>
 </div>

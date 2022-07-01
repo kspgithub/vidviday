@@ -51,7 +51,7 @@ class TourOrderRequest extends FormRequest
 
             'payment_type' => ['nullable', 'integer'],
             'confirmation_type' => ['nullable', 'integer'],
-            'confirmation_email' => [Rule::requiredIf((int)$this->confirmation_type === 1), 'email'],
+            'confirmation_email' => (int)$this->confirmation_type === 1 ? ['required', 'email'] : ['nullable'],
             'confirmation_viber' => [Rule::requiredIf((int)$this->confirmation_type === 2)],
             'confirmation_phone' => [Rule::requiredIf((int)$this->confirmation_type === 3)],
             'act_is_needed' => ['nullable', Rule::in(['0', '1'])],

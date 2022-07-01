@@ -51,6 +51,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            fetchSchedulesRequest: false,
             calendarOpen: false,
             popupOpen: false,
             votingPopupOpen: false,
@@ -88,6 +89,9 @@ export default {
         },
         SET_USER(state, value) {
             state.user = value;
+        },
+        SET_SCHEDULES_REQUEST(state, value) {
+            state.fetchSchedulesRequest = value;
         },
         SET_SCHEDULES(state, value) {
             state.schedules = value;
@@ -344,9 +348,11 @@ export default {
             commit('UPDATE_FORM_DATA', {participant_phone: state.formData.phone});
         },
         async fetchSchedules({commit}, tourId) {
+            commit('SET_SCHEDULES_REQUEST', true);
             const schedules = await fetchTourSchedules(tourId);
             commit('SET_SCHEDULES', schedules || []);
             commit('UPDATE_FORM_DATA', {schedule_id: schedules && schedules.length ? schedules[0].id : 0})
+            commit('SET_SCHEDULES_REQUEST', false);
         }
     }
 }
