@@ -7,13 +7,13 @@ use Spatie\Translatable\HasTranslations;
 
 class Contact extends TranslatableModel
 {
-    use HasFactory;
     use HasTranslations;
 
     public $translatable = [
         'title',
         'address',
         'address_comment',
+        'map_comment',
         'opening_hours',
     ];
 
@@ -21,6 +21,7 @@ class Contact extends TranslatableModel
         'title',
         'address',
         'address_comment',
+        'map_comment',
         'opening_hours',
         'lat',
         'lng',

@@ -22,12 +22,12 @@ class FaqItem extends TranslatableModel
 
 
     public static $sections = [
-        self::SECTION_COMMON => 'Загальні питання',
-        self::SECTION_CORPORATE => 'Корпоративи',
+//        self::SECTION_COMMON => 'Загальні питання',
+        self::SECTION_CORPORATE => 'Корпоративному клієнту',
         self::SECTION_TOURIST => 'Туристу',
         self::SECTION_TOUR_AGENT => 'Турагенту',
         self::SECTION_CERTIFICATE => 'Сертифікат',
-        self::SECTION_TOUR => 'Тур',
+//        self::SECTION_TOUR => 'Тур',
     ];
 
     public static $sectionTitles = [
@@ -38,10 +38,10 @@ class FaqItem extends TranslatableModel
             'pl' => 'Ogólne pytania',
         ],
         self::SECTION_CORPORATE => [
-            'uk' => 'Корпоративи',
-            'ru' => 'Корпоративы',
-            'en' => 'Corporate parties',
-            'pl' => 'Imprezy firmowe',
+            'uk' => 'Корпоративному клієнту',
+            'ru' => 'Корпоративному клиенту',
+            'en' => 'Corporate client',
+            'pl' => 'Klient korporacyjny',
         ],
         self::SECTION_TOURIST => [
             'uk' => 'Туристу',

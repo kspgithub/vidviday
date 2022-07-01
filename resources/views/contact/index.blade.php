@@ -55,8 +55,8 @@
                     <div v-is="'map-route'"
                          :lat='{{$contact->lat}}'
                          :lng='{{$contact->lng}}'
-                         :address='"{{$contact->title}}"'
-                         :address-comment='"{{$contact->address_comment}}"'
+                         :address='"{{$contact->address}}"'
+                         :address-comment='"{{$contact->map_comment}}"'
                     ></div>
                     <!-- MAP END -->
                     <div class="spacer-xs"></div>

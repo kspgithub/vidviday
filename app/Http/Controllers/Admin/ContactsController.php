@@ -43,6 +43,6 @@ class ContactsController extends Controller
         $contact->fill($request->all());
         $contact->save();
 
-        return redirect()->route('admin.contact.edit')->withFlashSuccess(__('Contact updated.'));
+        return redirect()->route('admin.contact.edit')->withFlashSuccess(__('Контакти оновлено'));
     }
 }

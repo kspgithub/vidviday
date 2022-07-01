@@ -12,7 +12,7 @@ class FaqController extends Controller
     public function index()
     {
         $pageContent = Page::query()->where('key', 'faq')->first();
-        $faqGroups = FaqItem::getBySections([FaqItem::SECTION_COMMON, FaqItem::SECTION_TOURIST, FaqItem::SECTION_TOUR_AGENT]);
+        $faqGroups = FaqItem::getBySections([FaqItem::SECTION_TOURIST, FaqItem::SECTION_CORPORATE, FaqItem::SECTION_TOUR_AGENT]);
 
 
         return view("faq.index", [

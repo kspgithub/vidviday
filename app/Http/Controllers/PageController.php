@@ -24,6 +24,8 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
+
+
         if (Tour::existBySlug($slug, false)) {
             return (new TourController())->show($slug);
         }
@@ -45,6 +47,8 @@ class PageController extends Controller
         $localeLinks = $pageContent->getLocaleLinks();
 
         switch ($pageContent->key) {
+            case 'home':
+                return redirect('/?lang=' . getLocale(), 301);
             case 'guides':
                 return (new TourGuideController())->index();
             case 'office-workers':
