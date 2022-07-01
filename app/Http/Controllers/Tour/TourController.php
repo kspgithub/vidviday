@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
 use App\Http\Requests\TourOrderRequest;
+use App\Http\Requests\TourVotingRequest;
 use App\Lib\Bitrix24\CRM\Deal\DealOrder;
 use App\Mail\TourOrderAdminEmail;
 use App\Mail\TourOrderEmail;
@@ -22,12 +23,14 @@ use App\Models\TourDiscount;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
+use App\Models\TourVoting;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\TourService;
 use Exception;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -278,6 +281,49 @@ class TourController extends Controller
             }
             return redirect()->route($redirect_route, $order);
         }
+    }
+
+    public function voting(TourVotingRequest $request, Tour $tour)
+    {
+        $params = $request->validated();
+        $params['tour_id'] = $tour->id;
+        $params['ip'] = $request->ip();
+        $params['user_id'] = $request->user() ? $request->user()->id : null;
+
+        $existing = $tour->votings()->where(function (Builder $q) use ($params) {
+            $q->where('ip', $params['ip'])
+                ->orWhere('email', $params['email'])
+                ->orWhere('phone', $params['phone']);
+
+            if($params['user_id']) {
+                $q->orWhere('user_id', $params['user_id']);
+            }
+
+            return $q;
+        });
+
+        if(!$existing->count()) {
+            $voting = $tour->votings()->create($params);
+
+            $redirect_route = 'tour.voting-success';
+
+            if ($request->ajax()) {
+                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, [$tour, $voting])]);
+            }
+            return redirect()->route($redirect_route, [$tour, $voting]);
+        } else {
+
+            if ($request->ajax()) {
+                return response()->json(['result' => 'error', 'message' => 'Ви вже голосували за цей тур!']);
+            }
+            return back()->withFlashError('Ви вже голосували за цей тур!');
+        }
+    }
+
+    public function votingSuccess(Tour $tour, TourVoting $voting)
+    {
+
+        return view('tour.success', ['tour' => $tour, 'voting' => $voting]);
     }
 
     public function download()
