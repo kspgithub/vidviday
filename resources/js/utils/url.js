@@ -68,16 +68,21 @@ export const makeUrl = function (path, params = {}) {
     return path;
 }
 
-export const updateUrl = function (path, params = {}, checkChange = false) {
+export const updateUrl = function (path, params = {}, checkChange = false, replace = false) {
     const url = makeUrl(path, params);
     if (checkChange && url === currentUrl()) {
         return false;
     }
-    window.history.pushState(null, null, url);
+    if (replace) {
+        window.history.replaceState(null, null, url);
+    } else {
+        window.history.pushState(null, null, url);
+    }
+   
     return url;
 }
 
-export const updateUrlQuery = function (params = {}, checkChange = true) {
+export const updateUrlQuery = function (params = {}, checkChange = true, replace = false) {
     const newParams = filterParams(Object.assign(parseQuery(), params));
-    updateUrl(document.location.pathname, newParams, checkChange);
+    updateUrl(document.location.pathname, newParams, checkChange, replace);
 }

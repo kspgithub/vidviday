@@ -5,6 +5,7 @@
         <div v-is="'order-form'"
              action='{{route('order.store')}}'
              :current-step='{{(int)request()->input('step', 1)}}'
+             :clear='{{(int)request()->input('clear', 0)}}'
              :schedule-id='null'
              :tour='null'
              :tour-selected='false'

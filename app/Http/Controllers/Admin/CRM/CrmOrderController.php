@@ -23,7 +23,7 @@ class CrmOrderController extends Controller
                 ->with(['tour', 'tour.manager', 'schedule']);
 
             if (current_user()->isTourManager()) {
-                $orderQ->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
+                $orderQ->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
             }
 
             $orderQ->filter($request);
@@ -45,7 +45,7 @@ class CrmOrderController extends Controller
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $statuses = arrayToSelectBox(Order::statuses());
         if (current_user()->isTourManager()) {
-            $tours = Tour::query()->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id))->toSelectBox();
+            $tours = Tour::query()->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id))->toSelectBox();
         } else {
             $tours = Tour::toSelectBox();
         }
@@ -148,6 +148,10 @@ class CrmOrderController extends Controller
 
         $roomTypes = AccommodationType::toSelectBox();
 
+        if (empty($order->utm_data)) {
+            $order->utm_data = ['customer_source' => '', 'customer_device' => ''];
+        }
+
         return view('admin.crm.order.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
             'discounts' => $discounts,
@@ -196,7 +200,9 @@ class CrmOrderController extends Controller
             $tour = $order->tour->shortInfo();
         }
         $order->makeHidden(['tour', 'schedule', 'tour_manager']);
-
+        if (empty($order->utm_data)) {
+            $order->utm_data = ['customer_source' => '', 'customer_device' => ''];
+        }
         return view('admin.crm.order.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -238,7 +244,7 @@ class CrmOrderController extends Controller
         $group_type = (int)$request->input('group_type', 0);
         $query = Order::where('group_type', $group_type)->whereIn('status', $status);
         if (current_user()->isTourManager() && $group_type === 0) {
-            $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
+            $query->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
         }
 
         return $query->count();

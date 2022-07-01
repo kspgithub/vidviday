@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="col-8 justify-content-end align-items-center d-flex" v-if="currentStep === 3">
-                        <form-checkbox class="small only-desktop-pad" name="conditions"
+                        <form-checkbox class="small only-desktop-pad checkbox-cond" name="conditions"
                                        v-model="conditions" :label="__('forms.read-and-accept')"/>
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
@@ -159,6 +159,9 @@ export default {
                 return [];
             }
         },
+        clear: {
+            default: 0
+        },
     },
     setup(props) {
         const store = useStore();
@@ -175,19 +178,27 @@ export default {
         })
 
         if (props.currentStep === 1) {
+            // Очищаем форму при первом заходе
+            if (props.clear) {
+                store.dispatch('orderTour/clearForm');
+                UrlUtils.updateUrlQuery({clear: null}, false, true);
+            }
+
             store.commit('orderTour/SET_TOUR', props.tour);
-            store.commit('orderTour/UPDATE_FORM_DATA', {
+
+            const params = {
                 tour_id: props.tour ? props.tour.id : 0,
                 schedule_id: props.scheduleId
-            });
+            }
 
             if (props.orderCorporate !== null) {
-                store.commit('orderTour/UPDATE_FORM_DATA', {group_type: props.orderCorporate ? 1 : 0});
+                params.group_type = props.orderCorporate ? 1 : 0
             }
 
             if (!props.tourSelected) {
-                store.commit('orderTour/UPDATE_FORM_DATA', {children: 0});
+                params.children = 0
             }
+            store.commit('orderTour/UPDATE_FORM_DATA', params);
         }
 
 
@@ -306,6 +317,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

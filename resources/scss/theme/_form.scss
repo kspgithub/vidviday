@@ -666,6 +666,7 @@ form,
 }
 
 .checkbox {
+
     span {
         font-size: 16px;
         line-height: 20px;
@@ -677,6 +678,28 @@ form,
         &:after {
             top: 6px;
             left: -23px;
+        }
+    }
+
+    &.checkbox-cond {
+        margin-top: 2px;
+
+        span {
+            line-height: 1;
+
+            &:before {
+                top: 1px;
+            }
+
+            &:after {
+                top: 4px;
+            }
+        }
+
+        + .text {
+            margin-top: 4px;
+            margin-left: 5px;
+            line-height: 1;
         }
     }
 

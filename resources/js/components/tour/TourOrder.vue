@@ -1,5 +1,7 @@
 <template>
     <form method="get" :action="action">
+        <input name="clear" :value="1" type="hidden">
+
         <div class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
             <span class="discount" v-if="isTourAgent && commission > 0">
@@ -21,6 +23,7 @@
         <div class="sidebar-item">
             <div class="single-datepicker" v-if="!corporate">
                 <input name="schedule" :value="schedule_id" type="hidden">
+
                 <div class="datepicker-input datepicker-dropdown">
                      <span class="datepicker-placeholder" @click.stop="showCalendar()">
                         {{ selectedSchedule ? selectedSchedule.title : __('tours-section.date-title') }}
@@ -67,11 +70,18 @@ export default {
     props: {
         tour: Object,
         corporate: Boolean,
+        nearestEvent: {
+            type: Number,
+            default: 0,
+        }
     },
     setup(props) {
         const store = useStore();
 
         const schedule_id = useFormDataProperty('orderTour', 'schedule_id');
+        if (props.nearestEvent > 0) {
+            schedule_id.value = props.nearestEvent;
+        }
 
         const schedules = computed(() => store.state.orderTour.schedules);
         const departureOptions = computed(() => store.getters['orderTour/departureOptions']('title'));
