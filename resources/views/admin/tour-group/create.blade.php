@@ -6,7 +6,7 @@
     {!! breadcrumbs([
 ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
 ['url'=>route('admin.tour.index'), 'title'=>__('Tours')],
-['url'=>route('admin.tour-group.index'), 'title'=>__('Groups')],
+['url'=>route('admin.tour-group.index'), 'title'=>__('Categories')],
 ['url'=>'#', 'title'=>__('Create')],
 ]) !!}
 

@@ -162,7 +162,7 @@
         </x-forms.tag-group>
 
         <x-forms.tag-group name="groups[]"
-                           :label="__('Groups')"
+                           :label="__('Categories')"
                            :value="$tour->groups ?  $tour->groups->pluck('id')->toArray() : []"
                            :options="$groups">
         </x-forms.tag-group>
