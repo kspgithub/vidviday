@@ -178,4 +178,12 @@
     >
         @csrf
     </div>
+
+    <div v-is="'tour-voting-popup'"
+         :tour='@json($tour->shortInfo())'
+         :schedules='@json($future_events)'
+         action='{{route('tour.voting', $tour)}}'
+    >
+        @csrf
+    </div>
 @endpush

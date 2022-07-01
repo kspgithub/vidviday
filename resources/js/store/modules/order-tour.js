@@ -53,6 +53,7 @@ export default {
         return {
             calendarOpen: false,
             popupOpen: false,
+            votingPopupOpen: false,
             currentStep: 1,
             additional: 1,
             tour: null,
@@ -99,6 +100,9 @@ export default {
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;
+        },
+        SET_VOTING_POPUP_OPEN(state, value) {
+            state.votingPopupOpen = value;
         },
         SET_CALENDAR_OPEN(state, value) {
             state.calendarOpen = value;
@@ -234,6 +238,16 @@ export default {
                 schedule_id: state.formData.schedule_id,
                 group_type: 0,
                 conditions: 1,
+            }
+        },
+        votingData: state => {
+            return {
+                first_name: '',
+                last_name: '',
+                email: '',
+                phone: '',
+                tour_id: state.formData.tour_id,
+                user_id: null,
             }
         },
 
