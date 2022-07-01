@@ -62,7 +62,7 @@ trait TourScheduleScope
                 return $q->whereHas('tour', function ($sq) use ($params) {
                     return $sq->whereHas('places', function (Builder $ssq) use ($params) {
                         $ids = array_filter(explode(',', $params['place_id']));
-                        $ssq->whereIn('id', $ids);
+                        $ssq->whereIn('places.id', $ids);
                     });
                 });
             })

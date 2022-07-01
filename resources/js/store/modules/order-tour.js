@@ -1,6 +1,52 @@
 import {calcChildDiscount} from "../../composables/useDiscount";
 import {autocompleteTours, fetchTourSchedules} from "../../services/tour-service";
 
+const DEFAULT_VALUES = {
+    tour_id: 0,
+    schedule_id: 0,
+    conditions: 1,
+    group_type: 0,
+    start_date: null,
+    start_place: '',
+    end_date: null,
+    end_place: '',
+    places: 1,
+    without_place: 0,
+    without_place_count: 0,
+    children: 0,
+    children_young: 0,
+    children_older: 0,
+    first_name: '',
+    last_name: '',
+    phone: '',
+    email: '',
+    company: '',
+    viber: '',
+    discounts: [],
+    isTourist: 0,
+    participants: [],
+    accommodation: {
+        other: 0,
+        other_text: '',
+    },
+    participant_phone: '',
+    payment_type: 0,
+    confirmation_type: 1,
+    confirmation_email: '',
+    confirmation_viber: '',
+    confirmation_phone: '',
+    act_is_needed: 0,
+    comment: '',
+    group_comment: '',
+
+    program_type: 0,
+    tour_plan: '',
+    program_comment: '',
+
+    offer_date: '',
+    price_include: [],
+}
+
 export default {
     namespaced: true,
     state() {
@@ -16,51 +62,7 @@ export default {
             paymentTypes: [],
             confirmationTypes: [],
             rooms: [],
-            formData: {
-                tour_id: 0,
-                schedule_id: 0,
-                conditions: 0,
-                group_type: 0,
-                start_date: null,
-                start_place: '',
-                end_date: null,
-                end_place: '',
-                places: 1,
-                without_place: 0,
-                without_place_count: 0,
-                children: 0,
-                children_young: 0,
-                children_older: 0,
-                first_name: '',
-                last_name: '',
-                phone: '',
-                email: '',
-                company: '',
-                viber: '',
-                discounts: [],
-                isTourist: 0,
-                participants: [],
-                accommodation: {
-                    other: 0,
-                    other_text: '',
-                },
-                participant_phone: '',
-                payment_type: 0,
-                confirmation_type: 1,
-                confirmation_email: '',
-                confirmation_viber: '',
-                confirmation_phone: '',
-                act_is_needed: 0,
-                comment: '',
-                group_comment: '',
-
-                program_type: 0,
-                tour_plan: '',
-                program_comment: '',
-
-                offer_date: '',
-                price_include: [],
-            }
+            formData: {...DEFAULT_VALUES}
         }
     },
     mutations: {
@@ -237,6 +239,10 @@ export default {
 
     },
     actions: {
+        clearForm({commit}) {
+            commit('UPDATE_FORM_DATA', {...DEFAULT_VALUES});
+
+        },
         setStep({commit}, step) {
             commit('SET_CURRENT_STEP', step);
         },

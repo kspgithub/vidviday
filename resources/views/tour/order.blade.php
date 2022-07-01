@@ -5,6 +5,7 @@
         <div v-is="'order-form'"
              action='{{route('tour.order-confirm', ['tour'=>$tour])}}'
              :current-step='{{(int)request()->input('step', 1)}}'
+             :clear='{{(int)request()->input('clear', 0)}}'
              :schedule-id='{{(int)request()->input('schedule', 0)}}'
              :tour='@json($tour->shortInfo())'
              :schedules='@json($schedules)'

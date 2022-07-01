@@ -48,8 +48,8 @@ export default (props) => ({
         })
     },
     cancelSum() {
-        this.editComMode = false;
-        this.orderCommission = this.order.commission;
+        this.editSumMode = false;
+        this.orderPrice = this.order.price;
     },
 
     // ORDER COMMISSION
@@ -67,7 +67,7 @@ export default (props) => ({
     },
     cancelCom() {
         this.editComMode = false;
-        this.orderPrice = this.order.price;
+        this.orderCommission = this.order.commission;
     },
 
     // ACCOMMODATION

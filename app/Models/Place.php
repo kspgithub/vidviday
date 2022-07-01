@@ -126,15 +126,18 @@ class Place extends TranslatableModel implements HasMedia
     public function scopeAutocomplete(Builder $query, $search = '')
     {
         $search = strtolower(urldecode(trim($search)));
-        $query = $query->published()->with(['region'])->jsonLike('title', $search)
-            ->select([
-                'id',
-                'district_id',
-                'region_id',
-                'city_id',
-                'title',
-                'slug',
-            ]);
+        $query = $query->published()->with(['region']);
+        if (!empty($search)) {
+            $query->jsonLike('title', $search);
+        }
+        $query->select([
+            'id',
+            'district_id',
+            'region_id',
+            'city_id',
+            'title',
+            'slug',
+        ]);
 
         if (!empty($search)) {
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
@@ -146,10 +149,7 @@ class Place extends TranslatableModel implements HasMedia
     }
 
 
-    public function asSelectBox(
-        $value_key = 'id',
-        $text_key = 'text'
-    )
+    public function asSelectBox($value_key = 'id', $text_key = 'text')
     {
         return [
             $value_key => $this->id,

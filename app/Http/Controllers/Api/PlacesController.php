@@ -29,6 +29,7 @@ class PlacesController extends Controller
         } elseif ($region_id > 0) {
             $query->where('region_id', $region_id);
         }
+
         $paginator = $query->autocomplete($q)->paginate($request->input('limit', 10));
         $items = [];
         foreach ($paginator->items() as $item) {

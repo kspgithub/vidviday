@@ -6,27 +6,31 @@
         </div>
         <div class="accordion type-4 accordions-inner-wrap">
             <div v-for="country in countries" class="accordion-item">
-                <div class="accordion-title" @click="loadRegions(country)">{{country.text}}<i></i></div>
+                <div class="accordion-title" @click="loadRegions(country)">{{ country.text }}<i></i></div>
 
                 <div class="accordion-inner">
                     <div class="accordion type-2">
                         <div v-for="region in getRegions(country)" class="accordion-item">
-                            <div class="accordion-title" @click="loadDistricts(region)" v-html="region.text + '<i></i>'"></div>
+                            <div class="accordion-title" @click="loadDistricts(region)"
+                                 v-html="region.text + '<i></i>'"></div>
 
                             <div class="accordion-inner">
                                 <div class="accordion type-2" style="margin-left: 15px">
                                     <div v-for="district in getDistricts(region)" class="accordion-item">
-                                        <div class="accordion-title" @click="loadPlaces(district)" v-html="district.text + '<i></i>'"></div>
+                                        <div class="accordion-title" @click="loadPlaces(district)"
+                                             v-html="district.text + '<i></i>'"></div>
 
                                         <div class="accordion-inner">
                                             <div class="accordion type-2" style="margin-left: 15px">
                                                 <div v-for="place in getPlaces(district)" class="accordion-item">
-                                                    <div class="accordion-title" @click="loadPlace(district, place)" v-html="place.text + '<i></i>'"></div>
+                                                    <div class="accordion-title" @click="loadPlace(district, place)"
+                                                         v-html="place.text + '<i></i>'"></div>
 
                                                     <div class="accordion-inner">
 
                                                         <template v-if="place.media">
-                                                            <div class="swiper-entry" v-is="'swiper-slider'" :media="place.media"></div>
+                                                            <div class="swiper-entry" v-is="'swiper-slider'"
+                                                                 :media="place.media"></div>
                                                             <div class="spacer-xs"></div>
                                                         </template>
 
@@ -69,29 +73,33 @@ export default {
     data() {
         return {
             // countries: [],
-            regions: [],
-            districts: [],
-            places: [],
+            regions: {},
+            districts: {},
+            places: {},
         }
     },
     computed: {
         getRegions() {
-            return country => {
-                return this.regions[country.value] || []
-            }
+            return country => this.regions[country.value] || []
         },
-        getDistricts() {
-            return region => {
-                return this.districts[region.value] || []
-            }
-        },
-        getPlaces() {
-            return district => {
-                return this.places[district.value] || []
-            }
-        },
+        // getDistricts() {
+        //     return region => this.districts[region.value] || []
+        // },
+        // getPlaces() {
+        //     return district => this.places[district.value] || []
+        // },
     },
     methods: {
+        getRegions(country) {
+            return this.regions[country.value] || []
+        },
+        getDistricts(region) {
+            return this.districts[region.value] || []
+        },
+        getPlaces(district) {
+            return this.places[district.value] || [];
+        },
+
         async loadRegions(country) {
             const response = await apiClient.get('/location/regions', {
                 params: {country_id: country.value},

@@ -7,13 +7,15 @@
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
-    <meta property="og:title" content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
-    <meta property="og:description" content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
+    <meta property="og:title"
+          content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
+    <meta property="og:description"
+          content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
     @if($pageImage = $pageContent->getFirstMedia())
-<meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
-<meta property="og:type" content="product">
+    <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
@@ -38,16 +40,16 @@
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <x-tour.mobile-search-btn/>
 
                     <!-- BANNER/INFO -->
-                @include('contact.includes.banner')
-                <!-- BANNER/INFO END -->
+                    @include('contact.includes.banner')
+                    <!-- BANNER/INFO END -->
                     <div class="spacer-xs"></div>
                     <!-- MAP -->
                     <div v-is="'map-route'"
@@ -78,19 +80,20 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-title">{{__('common.agency-cooperation')}}<i></i></div>
-                                <div class="accordion-inner">
-                                    <div class="thumb-wrap row">
-                                        @foreach ($specAgencies as $specialist)
-                                            <div class="col-lg-4 col-md-6 col-12">
-                                                <x-staff.card :specialist="$specialist" :label="false"/>
-                                            </div>
-                                        @endforeach
+                            @if(false)
+                                <div class="accordion-item">
+                                    <div class="accordion-title">{{__('common.agency-cooperation')}}<i></i></div>
+                                    <div class="accordion-inner">
+                                        <div class="thumb-wrap row">
+                                            @foreach ($specAgencies as $specialist)
+                                                <div class="col-lg-4 col-md-6 col-12">
+                                                    <x-staff.card :specialist="$specialist" :label="false"/>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         <div class="expand-all-button">
                             <div class="expand-all open">{{__('common.expand-all')}}</div>
