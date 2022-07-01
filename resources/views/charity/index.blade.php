@@ -27,6 +27,11 @@
 
         <!-- BREAD CRUMBS END -->
             <div class="row">
+                <div class="order-xl-1 order-2 col-xl-3 col-12">
+                    <!-- SIDEBAR -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
+                </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12 charity">
 
