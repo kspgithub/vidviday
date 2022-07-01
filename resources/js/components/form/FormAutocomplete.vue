@@ -53,7 +53,9 @@ export default {
                 placeholder: props.placeholder,
                 search: props.search,
                 searchText: props.searchText,
+                forceCustomRendering: true,
                 noMatch: 'Нічого не знайдено для "{0}"',
+
             }).sumo;
 
             sumo.value.ftxt.on('keyup', _.debounce((evt) => {

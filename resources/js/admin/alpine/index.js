@@ -1,3 +1,4 @@
+import sortable from './common/sortable';
 import translatable from './form/translatable';
 import translations from './translations';
 import publishable from './form/publishable';
@@ -63,6 +64,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('crmUser', storeUser);
 
     // Components
+    Alpine.data('sortable', sortable);
     Alpine.data('translatable', translatable);
     Alpine.data('translations', translations);
     Alpine.data('publishable', publishable);

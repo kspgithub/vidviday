@@ -130,6 +130,7 @@ Route::group([
     'prefix' => 'faq',
     'as' => 'faqitem.',
 ], function () {
+    Route::post('sort', [FaqController::class, 'sort'])->name('sort');
     Route::get('{section?}', [FaqController::class, 'index'])->name('index');
     Route::get('{section}/create', [FaqController::class, 'create'])->name('create');
     Route::post('{section}/create', [FaqController::class, 'store'])->name('store');

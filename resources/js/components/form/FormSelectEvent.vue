@@ -55,7 +55,10 @@ export default {
         }
 
         const close = () => {
-            open.value = false;
+            if (open.value) {
+                open.value = false;
+            }
+
         }
 
 

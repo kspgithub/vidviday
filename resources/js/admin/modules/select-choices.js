@@ -8,8 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     tagSelects.forEach((el) => {
-        new Choices(el, {
+        const plug = new Choices(el, {
             removeItemButton: true
+        });
+        plug.passedElement.element.addEventListener('change', () => {
+            const values = plug.getValue(true);
+
         });
     });
 

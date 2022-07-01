@@ -114,9 +114,9 @@ export default {
 
             datepicker.value.date = date
 
-            let dayCell = $('.datepicker--cell[data-date="'+d+'"][data-month="'+m+'"][data-year="'+y+'"]')
+            let dayCell = $('.datepicker--cell[data-date="' + d + '"][data-month="' + m + '"][data-year="' + y + '"]')
 
-            if(dayCell.length){
+            if (dayCell.length) {
                 dayCell.click()
             }
 
@@ -140,6 +140,7 @@ export default {
                 },
             });
 
+            $(pickerEl.value).datepicker('option', 'disabled', props.disabled);
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
             // document.addEventListener('click', clickOutside);
@@ -164,6 +165,16 @@ export default {
         watch(maxDate, () => {
             if (datepicker.value) {
                 datepicker.value.update('maxDate', maxDate.value)
+            }
+        });
+
+        watch(() => props.disabled, (value) => {
+            if (datepicker.value) {
+                if (value) {
+                    open.value = false;
+                    $(pickerEl.value).datepicker('hide');
+                }
+                $(pickerEl.value).datepicker('option', 'disabled', value)
             }
         });
 

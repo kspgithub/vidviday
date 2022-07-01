@@ -18,7 +18,7 @@
         <div class="d-flex align-items-center">
             @if(current_user()->isMasterAdmin())
                 <a href="{{route('admin.faqitem.create', $section)}}" class="btn btn-sm btn-outline-info"><i
-                        data-feather="plus"></i> @lang('Create')</a>
+                        data-feather="plus"></i> Додати питання</a>
             @endif
         </div>
     </div>
@@ -34,18 +34,22 @@
         <x-slot name="body">
             <h4>{{\App\Models\FaqItem::$sections[$section]}}</h4>
 
-            <table class="table table-responsive table-striped table-sm">
+            <table class="table table-responsive table-striped table-sm" x-data='sortable({
+                url: "{{route('admin.faqitem.sort')}}"
+            })'>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>@lang('Question')</th>
                     <th>@lang('Answer')</th>
                     <th>@lang('Published')</th>
-                    <th>@lang('Actions') </th>
+                    <th style="width: 100px">@lang('Actions') </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody x-ref="sortableRef">
                 @foreach($faqitems as $faqitem)
-                    <tr>
+                    <tr class="draggable" data-id="{{$faqitem->id}}">
+                        <td class="handler ps-2"><i class="fa fa-bars cursor-move me-3"></i></td>
                         <td>
                             {{$faqitem->question}}
                         </td>
