@@ -230,6 +230,12 @@
                             class="align-middle">@lang('Vacancies')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.practice*')}}">
+                    <a class="sidebar-link" href="{{route('admin.practice.index')}}">
+                        <i class="align-middle" data-feather="user-check"></i> <span
+                            class="align-middle">@lang('Practices')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.course*')}}">
                     <a class="sidebar-link" href="{{route('admin.course.index')}}">
                         <i class="align-middle" data-feather="user-check"></i> <span

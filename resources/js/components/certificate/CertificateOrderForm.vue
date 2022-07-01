@@ -101,10 +101,10 @@ export default {
                     if (!!formData.value.format) return true;
                     return __('validation.select-certificate-format');
                 },
-                design: () => {
-                    if (!!formData.value.design) return true;
-                    return __('validation.select-certificate-design');
-                },
+                // design: () => {
+                //     if (!!formData.value.design) return true;
+                //     return __('validation.select-certificate-design');
+                // },
                 sum: (value) => {
                     if (formData.value.type === 'sum' && (value === '' || value === null || value < 100)) {
                         return __('validation.min-sum-100');
