@@ -78,19 +78,19 @@
                     <div class="spacer-xs"></div>
                 </div>
             </transition>
-            <div class="col-12">
-                <span class="text-sm"><b>{{ __('certificate-section.design-title') }}</b></span>
-                <br>
-                <label class="radio">
-                    <input type="radio" value="classic" v-model="design" name="design">
-                    <span>{{ __('certificate-section.design-classic') }}</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" value="heart" v-model="design" name="design">
-                    <span>{{ __('certificate-section.design-heart') }}</span>
-                </label>
-                <div class="spacer-xs"></div>
-            </div>
+<!--            <div class="col-12">-->
+<!--                <span class="text-sm"><b>{{ __('certificate-section.design-title') }}</b></span>-->
+<!--                <br>-->
+<!--                <label class="radio">-->
+<!--                    <input type="radio" value="classic" v-model="design" name="design">-->
+<!--                    <span>{{ __('certificate-section.design-classic') }}</span>-->
+<!--                </label>-->
+<!--                <label class="radio">-->
+<!--                    <input type="radio" value="heart" v-model="design" name="design">-->
+<!--                    <span>{{ __('certificate-section.design-heart') }}</span>-->
+<!--                </label>-->
+<!--                <div class="spacer-xs"></div>-->
+<!--            </div>-->
             <div class="col-12">
                 <span class="text-sm"><b>{{ __('certificate-section.format-title') }}</b></span>
                 <br>
@@ -182,7 +182,7 @@ export default {
             first_name_recipient: useFormDataProperty('orderCertificate', 'first_name_recipient'),
             last_name_recipient: useFormDataProperty('orderCertificate', 'last_name_recipient'),
             type: useFormDataProperty('orderCertificate', 'type'),
-            design: useFormDataProperty('orderCertificate', 'design'),
+            // design: useFormDataProperty('orderCertificate', 'design'),
             format: useFormDataProperty('orderCertificate', 'format'),
             sum: useFormDataProperty('orderCertificate', 'sum'),
             tour_id: useFormDataProperty('orderCertificate', 'tour_id'),
