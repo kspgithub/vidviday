@@ -8,6 +8,7 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -59,11 +60,11 @@ class TourGroup extends TranslatableModel implements HasMedia
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function tours()
     {
-        return $this->belongsToMany(Tour::class);
+        return $this->belongsToMany(Tour::class, 'tours_tour_groups', 'group_id', 'tour_id');
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -92,8 +93,8 @@ class TourGroup extends TranslatableModel implements HasMedia
 
         $slug = $this->getTranslations($slugField)[$this->getLocale()] ?? null;
 
-        $hasCustomSlug = $this->hasCustomSlugBeenUsed() && ! empty($slug);
-        $hasNonChangedCustomSlug = ! $this->slugIsBasedOnTitle() && ! empty($slug);
+        $hasCustomSlug = $this->hasCustomSlugBeenUsed() && !empty($slug);
+        $hasNonChangedCustomSlug = !$this->slugIsBasedOnTitle() && !empty($slug);
 
         if ($hasCustomSlug || $hasNonChangedCustomSlug) {
             $slugString = $slug;
@@ -101,9 +102,9 @@ class TourGroup extends TranslatableModel implements HasMedia
             $slugString = Str::replace(' ', $this->slugOptions->slugSeparator, $slugString);
 
             // Split slug by uppercase chars
-            $parts = preg_split('/(?=[A-Z])/',$slugString);
+            $parts = preg_split('/(?=[A-Z])/', $slugString);
 
-            if(count($parts) > 1) {
+            if (count($parts) > 1) {
                 $resultSlug = '';
 
                 foreach ($parts as $part) {

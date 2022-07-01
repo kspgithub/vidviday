@@ -1,18 +1,35 @@
+@php
+    $id = isset($collapse) ? $collapse : 'card-'.time();
+@endphp
 <div class="card">
     @if (isset($header))
-        <div class="card-header">
-            {{ $header }}
+        @if(isset($collapse))
+            <div class="card-header d-flex align-items-center justify-content-between">
+                {{ $header }}
+                <button data-bs-toggle="collapse" class="accordion-button collapsed"
+                        data-bs-target="#{{$id}}">
 
-            @if (isset($headerActions))
-                <div class="card-header-actions">
-                    {{ $headerActions }}
-                </div><!--card-header-actions-->
-            @endif
-        </div><!--card-header-->
+                </button>
+            </div>
+
+        @else
+            <div class="card-header">
+                {{ $header }}
+
+                @if (isset($headerActions))
+                    <div class="card-header-actions">
+                        {{ $headerActions }}
+                    </div><!--card-header-actions-->
+                @endif
+            </div><!--card-header-->
+
+        @endif
+
     @endif
 
     @if (isset($body))
-        <div class="card-body">
+        <div class="card-body {{isset($collapse) ? 'collapse' : ''}}"
+             id="{{$id}}">
             {{ $body }}
         </div><!--card-body-->
     @endif

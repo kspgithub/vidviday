@@ -35,6 +35,19 @@
         </x-slot>
     </x-bootstrap.card>
 
+    <x-bootstrap.card>
+        <x-slot name="header">
+            <h3>@lang('Tours')</h3>
+        </x-slot>
+        <x-slot name="body">
+            <x-forms.tag-group name="tours[]"
+                               :label="__('Tours')"
+                               :value="$tourGroup->tours ?  $tourGroup->tours->pluck('id')->toArray() : []"
+                               :options="$tours">
+            </x-forms.tag-group>
+        </x-slot>
+    </x-bootstrap.card>
+
     @if($tourGroup->id > 0)
         <x-bootstrap.card>
             <x-slot name="header">
@@ -45,6 +58,8 @@
             </x-slot>
         </x-bootstrap.card>
     @endif
+
+
 </div>
 
 

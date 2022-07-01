@@ -9,7 +9,7 @@
 ['url'=>route('admin.tour.edit', $tour), 'title'=>$tour->title],
 ['url'=>'#', 'title'=>__('Finance')],
 ]) !!}
-    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Tour accommodation')</h1>
+    <h1 class="mb-3">@lang('Editing tour') "{{$tour->title}}" - @lang('Accommodation')</h1>
     <div class="row">
         <div class="col-12 col-md-3 col-xl-2">
             @include('admin.tour.includes.edit-tabs')
