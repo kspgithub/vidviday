@@ -5,7 +5,7 @@
         <div class="mb-30">
             <form-checkbox class="small"
                            v-model="isCustomerParticipant"
-                           name="is_customer_participant"
+                           name="is_tourist"
                            :label="__('order-section.is-tourist')"/>
         </div>
 
@@ -53,7 +53,7 @@ export default {
         const store = useStore();
         const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant');
         const formData = computed(() => store.state.orderTour.formData);
-        const participants = ref(formData.value.participants);
+        const participants = computed(() => store.state.orderTour.formData.participants);
         const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
 
         const vm = getCurrentInstance()

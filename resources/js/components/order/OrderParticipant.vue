@@ -42,7 +42,7 @@ export default {
         }, participant));
 
         watch(innerValue, _.debounce(() => {
-            emit('update', {idx: index, data: {...innerValue}});
+            emit('update', {idx: index, data: Object.assign({}, innerValue)});
         }, 300));
 
         const deleteItem = () => {
