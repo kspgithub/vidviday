@@ -47,7 +47,7 @@ class OrderObserver
         if ($order->isDirty('birthday') && $order->participants['customer']) {
             $participants = $order->participants;
             if ($participants['items'][0] ?? false) {
-                $participants['items'][0]['birthday'] = $order->birthday->format('d.m.Y');
+                $participants['items'][0]['birthday'] = $order->birthday ? $order->birthday->format('d.m.Y') : null;
                 $order->participants = $participants;
             }
         }

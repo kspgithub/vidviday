@@ -53,7 +53,7 @@ export default {
                 placeholder: props.placeholder,
                 search: props.search,
                 searchText: props.searchText,
-                forceCustomRendering: true,
+                forceCustomRendering: false,
                 noMatch: 'Нічого не знайдено для "{0}"',
 
             }).sumo;

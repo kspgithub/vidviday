@@ -4,7 +4,7 @@ import {createStore, createLogger} from "vuex";
 const plugins = [];
 
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && false) {
     const logger = createLogger();
     plugins.push(logger);
 }

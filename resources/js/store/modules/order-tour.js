@@ -23,7 +23,7 @@ const DEFAULT_VALUES = {
     company: '',
     viber: '',
     discounts: [],
-    isTourist: 0,
+    isCustomerParticipant: 0,
     participants: [],
     accommodation: {
         other: 0,
@@ -100,7 +100,7 @@ export default {
             state.discounts = value;
         },
         UPDATE_FORM_DATA(state, value) {
-            Object.assign(state.formData, value);
+            state.formData = {...state.formData, ...value};
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;
@@ -230,7 +230,7 @@ export default {
             return getters.totalTourComm + getters.totalAccommodation;
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
-        participants: (state) => state.formData.participants,
+        participants: (state) => state.formData.participants || [],
         oneClickData: state => {
             return {
                 first_name: state.formData.first_name,
@@ -259,6 +259,7 @@ export default {
     actions: {
         clearForm({commit}) {
             commit('UPDATE_FORM_DATA', {...DEFAULT_VALUES});
+            commit('SET_ADDITIONAL', 1);
 
         },
         setStep({commit}, step) {
