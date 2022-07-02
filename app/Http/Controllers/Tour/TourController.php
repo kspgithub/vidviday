@@ -131,8 +131,7 @@ class TourController extends Controller
 
         $similar_tours = $tour->getSimilarTours(12);
 
-
-        $faq_items = FaqItem::query()->where('section', FaqItem::SECTION_TOURIST)->get();
+        $faq_items = FaqItem::whereSection(FaqItem::SECTION_TOURIST)->orderBy('sort_order')->get();
 
         $price_items = $tour->calcItems();
 
@@ -295,14 +294,14 @@ class TourController extends Controller
                 ->orWhere('email', $params['email'])
                 ->orWhere('phone', $params['phone']);
 
-            if($params['user_id']) {
+            if ($params['user_id']) {
                 $q->orWhere('user_id', $params['user_id']);
             }
 
             return $q;
         });
 
-        if(!$existing->count()) {
+        if (!$existing->count()) {
             $voting = $tour->votings()->create($params);
 
             $redirect_route = 'tour.voting-success';

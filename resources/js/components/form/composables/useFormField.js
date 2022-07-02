@@ -13,7 +13,11 @@ const useFormField = (props, emit) => {
 
 
     watch(innerValue, (val) => emit('update:modelValue', val));
-
+    watch(() => props.modelValue, (val) => {
+        if (innerValue.value !== val) {
+            innerValue.value = val;
+        }
+    });
 
     const onFocus = () => {
         focused.value = true;

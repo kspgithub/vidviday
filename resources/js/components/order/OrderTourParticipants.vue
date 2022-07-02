@@ -4,9 +4,8 @@
 
         <div class="mb-30">
             <form-checkbox class="small"
-                           :model-value="false"
-                           v-model="isTourist"
-                           name="is_tourist"
+                           v-model="isCustomerParticipant"
+                           name="is_customer_participant"
                            :label="__('order-section.is-tourist')"/>
         </div>
 
@@ -43,18 +42,18 @@
 import OrderParticipant from "./OrderParticipant";
 import FormInput from "../form/FormInput";
 import {useStore} from "vuex";
-import {useDebounceFormDataProperty} from "../../store/composables/useFormData";
-import {computed, getCurrentInstance, watch} from "vue";
+import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
+import {computed, getCurrentInstance, ref, watch} from "vue";
 import FormCheckbox from "../form/FormCheckbox";
-import {useForm} from "vee-validate";
 
 export default {
     name: "OrderTourParticipants",
     components: {FormCheckbox, FormInput, OrderParticipant},
     setup() {
         const store = useStore();
-        const isTourist = useDebounceFormDataProperty('orderTour', 'isTourist');
-        const participants = computed(() => store.state.orderTour.formData.participants);
+        const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant');
+        const formData = computed(() => store.state.orderTour.formData);
+        const participants = ref(formData.value.participants);
         const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
 
         const vm = getCurrentInstance()
@@ -83,31 +82,37 @@ export default {
             })
         }
 
-        watch(isTourist, (val) => {
-            if(val) {
-                updateParticipant({idx: 0, data: {
-                    first_name: store.state.orderTour.formData.first_name,
-                    last_name: store.state.orderTour.formData.last_name,
-                    middle_name: '',
-                    birthday: '',
-                }})
+        watch(isCustomerParticipant, (val) => {
+            if (val) {
+                updateParticipant({
+                    idx: 0, data: {
+                        first_name: formData.value.first_name,
+                        last_name: formData.value.last_name,
+                        middle_name: '',
+                        birthday: '',
+
+                    }
+                })
                 // form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
                 // form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
-                if(!participant_phone.value && !participant_phone._dirty){
+                if (!participant_phone.value && !participant_phone._dirty) {
                     updateParticipantPhone()
                 }
             } else {
-                updateParticipant({idx: 0, data: {
-                    first_name: '',
-                    last_name: '',
-                    middle_name: '',
-                    birthday: '',
-                }})
+                updateParticipant({
+                    idx: 0, data: {
+                        first_name: '',
+                        last_name: '',
+                        middle_name: '',
+                        birthday: '',
+                    }
+                })
             }
         })
 
+
         return {
-            isTourist,
+            isCustomerParticipant,
             participants,
             participant_phone,
             updateParticipant,

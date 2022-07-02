@@ -179,7 +179,7 @@ class PlaceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Updated')]);
         }
-        return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Updated'));
+        return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
