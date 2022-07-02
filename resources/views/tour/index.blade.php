@@ -6,17 +6,17 @@
             <div class="row short-distance mobile-reverse-content">
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="col-xl-9 col-12">
 
-                    <div v-is="'tour-search'" show-title>
-                    @if($tours->count() > 0)
-                        <!-- MOBILE BUTTONS BAR -->
-                        @include('includes.mobile-btns-bar')
-                        <!-- MOBILE BUTTONS BAR END -->
+                    <div v-is="'tour-search'" show-title :in-future="false">
+                        @if($tours->count() > 0)
+                            <!-- MOBILE BUTTONS BAR -->
+                            @include('includes.mobile-btns-bar')
+                            <!-- MOBILE BUTTONS BAR END -->
                             <div class="text text-lg" v-is="'tour-request-title'">
                                 <p>
                                     @lang('tours-section.found')
@@ -43,16 +43,16 @@
                                 @include('home.includes.tab-nav')
                                 <div class="tabs-wrap">
                                     <!-- TAB #1 -->
-                                @include('home.includes.tab-gallery')
-                                <!-- TAB #1 END -->
+                                    @include('home.includes.tab-gallery')
+                                    <!-- TAB #1 END -->
 
                                     <!-- TAB #2 -->
-                                @include('home.includes.tab-list')
-                                <!-- TAB #2 END -->
+                                    @include('home.includes.tab-list')
+                                    <!-- TAB #2 END -->
 
                                     <!-- TAB #3 -->
-                                @include('home.includes.tab-calendar')
-                                <!-- TAB #3 END -->
+                                    @include('home.includes.tab-calendar')
+                                    <!-- TAB #3 END -->
                                 </div>
                             </div>
                         @else

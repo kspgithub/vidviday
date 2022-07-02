@@ -1,4 +1,4 @@
-import {autocompleteTours} from "../../services/tour-service";
+import {autocompleteSearch} from "../../services/search-service";
 
 export default {
     namespaced: true,
@@ -8,6 +8,8 @@ export default {
             recording: false,
             voiceBtn: false,
             tours: [],
+            places: [],
+            mobileActive: false,
             active: false,
             request: false,
             popupOpen: false,
@@ -18,8 +20,14 @@ export default {
         SET_TOURS(state, value) {
             state.tours = value;
         },
+        SET_PLACES(state, value) {
+            state.places = value;
+        },
         SET_ACTIVE(state, value) {
             state.active = value;
+        },
+        SET_MOBILE_ACTIVE(state, value) {
+            state.mobileActive = value;
         },
         SET_REQUEST(state, value) {
             state.request = value;
@@ -44,13 +52,15 @@ export default {
         voiceSupport: (state) => !!state.recognition,
     },
     actions: {
-        async searchTours({commit, state}) {
+        async search({commit, state}) {
             commit('SET_REQUEST', true)
             commit('SET_TOURS', []);
+            commit('SET_PLACES', []);
             if (state.searchText.length > 2) {
-                const response = await autocompleteTours(state.searchText);
+                const response = await autocompleteSearch(state.searchText);
                 if (response) {
-                    commit('SET_TOURS', response);
+                    commit('SET_TOURS', response.tours);
+                    commit('SET_PLACES', response.places);
                 }
             }
             commit('SET_REQUEST', false)

@@ -75,5 +75,7 @@ export default {
 
         app.component('certificate-order-form', require('./certificate/CertificateOrderForm').default);
         app.component('vacancy-form', require('./vacancy/VacancyForm').default);
+
+        app.component('mobile-search', require('./mobile/MobileSearchDropdown').default);
     }
 }

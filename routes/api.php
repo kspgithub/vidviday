@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CalendarController;
 use App\Http\Controllers\Api\LandingsController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PlacesController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TicketsController;
 use App\Http\Controllers\Api\ToursController;
 use App\Http\Controllers\Api\UserController;
@@ -63,60 +64,57 @@ Route::group([
     'as' => 'places.',
     'prefix' => 'places',
 ], function () {
-
     Route::get('select-box', [PlacesController::class, 'selectBox'])->name('select-box');
     Route::get('find', [PlacesController::class, 'show'])->name('show');
     Route::get('get', [PlacesController::class, 'get'])->name('get');
+});
 
+Route::group([
+    'as' => 'search.',
+    'prefix' => 'search',
+], function () {
+    Route::get('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
 });
 
 Route::group([
     'as' => 'accommodations.',
     'prefix' => 'accommodations',
 ], function () {
-
     Route::get('select-box', [AccommodationController::class, 'selectBox'])->name('select-box');
-
 });
 
 Route::group([
     'as' => 'landings.',
     'prefix' => 'landings',
 ], function () {
-
     Route::get('select-box', [LandingsController::class, 'selectBox'])->name('select-box');
     Route::get('find', [LandingsController::class, 'show'])->name('show');
     Route::get('get', [LandingsController::class, 'get'])->name('get');
-
 });
 
 Route::group([
     'as' => 'tickets.',
     'prefix' => 'tickets',
 ], function () {
-
     Route::get('select-box', [TicketsController::class, 'selectBox'])->name('select-box');
     Route::get('get', [TicketsController::class, 'get'])->name('get');
-
 });
 
 Route::group([
     'as' => 'location.',
     'prefix' => 'location',
 ], function () {
-
     Route::get('countries', [LocationController::class, 'countries'])->name('countries');
     Route::get('regions', [LocationController::class, 'regions'])->name('regions');
     Route::get('districts', [LocationController::class, 'districts'])->name('districts');
     Route::get('cities', [LocationController::class, 'cities'])->name('cities');
-
 });
 
 Route::get('html-blocks', function (Request $request) {
     $q = Str::lower($request->input('q', ''));
     $htmlBlocks = HtmlBlock::query()
-        ->orWhere('slug', 'like', '%'.$q.'%')
-        ->orWhere('title', 'like', '%'.$q.'%')
+        ->orWhere('slug', 'like', '%' . $q . '%')
+        ->orWhere('title', 'like', '%' . $q . '%')
         ->get();
     return response()->json([
         'results' => $htmlBlocks->map(fn($html) => [

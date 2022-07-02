@@ -125,27 +125,17 @@ class Place extends TranslatableModel implements HasMedia
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {
-        $search = strtolower(urldecode(trim($search)));
-        $query = $query->published()->with(['region']);
-        if (!empty($search)) {
-            $query->jsonLike('title', $search);
-        }
-        $query->select([
+        $select = [
             'id',
             'district_id',
             'region_id',
             'city_id',
             'title',
             'slug',
-        ]);
+        ];
+        $with = ['region', 'media'];
+        return $query->published()->jsonAutocomplete($search, $select, $with);
 
-        if (!empty($search)) {
-            $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
-                ->orderBy('relevant');
-        } else {
-            $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
-        }
-        return $query;
     }
 
 
@@ -155,5 +145,13 @@ class Place extends TranslatableModel implements HasMedia
             $value_key => $this->id,
             $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
         ];
+    }
+
+    public function getMainImageAttribute()
+    {
+        $media = $this->getFirstMedia();
+
+        // TODO: Заменить на no image
+        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
 }

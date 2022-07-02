@@ -25,45 +25,30 @@ trait TourScope
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {
-
-        $search = urldecode(trim($search));
-        $query = $query->published()
-            ->with([
-                'media' => function ($sc) {
-                    return $sc->whereIn('collection_name', ['main', 'mobile']);
-                },
-            ])
-            ->select([
-                'id',
-                'title',
-                'price',
-                'commission',
-                'accomm_price',
-                'currency',
-                'rating',
-                'duration',
-                'nights',
-                'slug',
-            ])
-            ->where(function ($q) use ($search) {
-                return $q->jsonLike('title', "%$search%");
-            });
-
-        if (!empty($search)) {
-            $search = mb_strtolower(mb_str_replace("'", "\'", urldecode(trim($search))));
-            $query->addSelect(DB::raw("LOCATE('$search', LOWER(JSON_EXTRACT(title, '$.uk'))) as relevant_uk"))
-                ->addSelect(DB::raw("LOCATE('$search', LOWER(JSON_EXTRACT(title, '$.en'))) as relevant_en"))
-                ->orderBy('relevant_uk')->orderBy('relevant_en');
-        } else {
-            $query->orderBy('title->uk')->orderBy('title->en');
-        }
-
-        return $query;
+        return $query->published()->jsonAutocomplete($search, [
+            'id',
+            'title',
+            'price',
+            'commission',
+            'accomm_price',
+            'currency',
+            'rating',
+            'duration',
+            'nights',
+            'slug',
+        ], [
+            'media' => function ($sc) {
+                return $sc->whereIn('collection_name', ['main', 'mobile']);
+            },
+        ]);
     }
 
-    public function scopeSearch(Builder $query)
+    public function scopeSearch(Builder $query, $onlyFuture = true)
     {
-        return $query->inFuture()->published()->with([
+        if ($onlyFuture) {
+            $query->inFuture();
+        }
+        return $query->published()->with([
             'scheduleItems' => function ($sc) {
                 return $sc->whereDate('start_date', '>=', Carbon::now());
             },

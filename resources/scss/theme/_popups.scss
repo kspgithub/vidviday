@@ -698,6 +698,11 @@
                     position: absolute;
                 }
             }
+
+            a {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }

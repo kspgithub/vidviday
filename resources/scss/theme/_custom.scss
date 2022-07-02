@@ -4391,6 +4391,10 @@ button.swiper-pagination-bullet {
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+
+    .like {
+        line-height: 1;
+    }
 }
 
 .thumb:before {
@@ -8233,13 +8237,16 @@ a.fc-more {
     pointer-events: none;
     border-color: transparent;
 }
+
 .datepicker-input.active input {
     opacity: 1;
     pointer-events: auto;
 }
+
 .datepicker-input.active .datepicker-placeholder {
     color: transparent;
 }
+
 .participant {
     display: -webkit-box;
     display: -ms-flexbox;
