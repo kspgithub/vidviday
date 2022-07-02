@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\View\Component;
-use function _PHPStan_c862bb974\RingCentral\Psr7\build_query;
 
 class LangDropdown extends Component
 {
@@ -16,12 +15,14 @@ class LangDropdown extends Component
 
     public $currentLocale = 'uk';
 
+    public $class = false;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($localeLinks = [])
+    public function __construct($localeLinks = [], $class = '')
     {
         //
         $this->languages = siteLocales();
@@ -37,6 +38,7 @@ class LangDropdown extends Component
             }
         }
         $this->localeLinks = $localeLinks;
+        $this->class = $class;
     }
 
     /**

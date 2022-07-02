@@ -41,7 +41,7 @@
                             <img src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}"
                                  alt="user">
                         </div>
-                        <span class="dropdown-btn"></span>
+                        <span class="dropdown-btn only-desktop"></span>
                         <ul class="dropdown-toggle">
                             @if(current_user()->isAdmin())
                                 <li>
@@ -91,7 +91,7 @@
 
                 <span class="vertical-separator"></span>
 
-                <x-header.lang-dropdown :locale-links="$localeLinks" class="only-desktop"/>
+                <x-header.lang-dropdown :locale-links="$localeLinks" :class="'only-desktop'"/>
 
 
                 <div id="menu-btn">

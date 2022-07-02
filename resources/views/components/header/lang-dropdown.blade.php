@@ -1,5 +1,5 @@
 @if(count($localeLinks) > 1)
-    <div class="lang dropdown" v-is="'lang-dropdown'" current-locale="{{$currentLocale}}">
+    <div class="lang dropdown {{$class}}" v-is="'lang-dropdown'" current-locale="{{$currentLocale}}">
         <span>{{strtoupper($currentLocale)}}</span>
         <span class="dropdown-btn"></span>
         <ul class="dropdown-toggle">

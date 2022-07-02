@@ -1123,6 +1123,8 @@ nav {
             #menu-btn {
                 margin-left: 15px;
             }
+
+
         }
     }
 
@@ -1219,15 +1221,27 @@ nav {
 
 @media (max-width: 575px) {
 
+    .log-in {
+        &.dropdown {
+            padding-right: 0;
+        }
+
+        &:before {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
     .log-in.log-inned .img {
-        width: 32px;
-        height: 32px;
+        width: 20px;
+        height: 20px;
     }
 
     .log-inned-icon {
         width: 20px;
         height: 20px;
         margin-bottom: -4px;
+        margin-right: 30px;
 
         span {
             top: -4px;
