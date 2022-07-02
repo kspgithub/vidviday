@@ -38,6 +38,7 @@ class SearchToursRequest extends FormRequest
             'place' => ['nullable', 'string'],
             'landing' => ['nullable', 'string'],
             'page' => ['nullable', 'integer'],
+            'future' => ['nullable', 'integer'],
             'per_page' => ['nullable', 'integer'],
             'sort_by' => ['nullable', Rule::in(['price', 'crated'])],
             'sort_dir' => ['nullable', Rule::in(['asc', 'desc'])],

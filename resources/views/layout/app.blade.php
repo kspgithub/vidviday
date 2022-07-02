@@ -19,12 +19,12 @@
 
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
     @foreach($localeLinks ?? [] as $locale => $link)
-<link rel="alternate" hreflang="{{ $locale }}-UA" href="{{ url($link) }}"/>
+        <link rel="alternate" hreflang="{{ $locale }}-UA" href="{{ url($link) }}"/>
     @endforeach
     @stack('meta-fields', false)
 
-@include('layout.includes.grid')
-<!-- Styles -->
+    @include('layout.includes.grid')
+    <!-- Styles -->
     @stack('before-styles', false)
     @livewireStyles
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
@@ -45,13 +45,13 @@
     <x-site-header :locale-links="$localeLinks ?? []"/>
     <!-- END HEADER -->
 
-@yield('content')
+    @yield('content')
 
-<!-- FOOTER -->
+    <!-- FOOTER -->
     <div id="footer-layer-close"></div>
     <x-site-footer/>
     <!-- END FOOTER -->
-
+    <div v-is="'mobile-search'"></div>
     <!-- BUTTON SCROLL TO TOP -->
     <div class="btn-to-top"></div>
 

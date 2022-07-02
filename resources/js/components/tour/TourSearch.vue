@@ -49,15 +49,22 @@ export default {
         Spinner, MobileBtnsBar, TourEmptyResult, TourViewCalendar, TourViewList, TourViewGallery, TourTabNav
     },
     props: {
-        showTitle: Boolean
+        showTitle: Boolean,
+        inFuture: {
+            type: Boolean,
+            default: true
+        }
     },
-    setup() {
+    setup(props) {
         const store = useStore();
         const viewType = computed(() => store.state.tourFilter.viewType);
         const params = computed(() => store.getters['tourFilter/formData']);
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
         const total = computed(() => store.state.tourFilter.pagination.total);
         const loading = ref(true);
+        if (!props.inFuture) {
+            store.commit('tourFilter/UPDATE_FORM_DATA', {future: 0})
+        }
 
 
         store.dispatch('tourFilter/fetchPopularTours');
@@ -67,7 +74,7 @@ export default {
                 if (action.type === 'tourFilter/initFilter') {
 
                     const query = urlUtils.filterParams(params.value, defaultParams.value);
-                    await store.dispatch('tourFilter/fetchTours', query);
+                    await store.dispatch('tourFilter/fetchTours', {...query, future: props.inFuture ? 1 : 0});
                     loading.value = false;
                 }
             }

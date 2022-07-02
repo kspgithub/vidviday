@@ -52,6 +52,14 @@ mix.webpackConfig({
     ],
 });
 
+mix.options({
+    hmrOptions: {
+        host: '127.0.0.1',
+        port: 8081
+    }
+})
+
+mix.sourceMaps(false, 'source-map');
 
 if (mix.inProduction()) {
     mix.minify([
@@ -65,6 +73,6 @@ if (mix.inProduction()) {
     mix.version();
 } else {
     // Uses source-maps on development
-    mix.sourceMaps(false, 'source-map');
+
     // mix.browserSync(process.env.APP_URL);
 }

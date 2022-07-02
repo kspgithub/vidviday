@@ -2,11 +2,20 @@
     <form action="/tours" class="header-search" :class="{active: active}" ref="formRef" @mouseleave="active = false">
         <input type="text" name="q" v-model="searchText" :placeholder="__('header-section.find-tour-dots')"
                class="input-search"
-               @input="debounce(() => searchTours())"
+               ref="searchRef"
+               @input="debounce(() => search())"
                autocomplete="off">
+
         <div class="search-toggle">
             <ul>
-
+                <li v-for="place in places" :key="'hsp-'+place.id">
+                    <a :href="place.url">
+                        <span class="img">
+                            <img :src="place.main_image" :alt="place.title">
+                        </span>
+                        <span class="text">{{ place.title }}</span>
+                    </a>
+                </li>
                 <li v-for="tour in tours" :key="'hst-'+tour.id">
                     <a :href="tour.url">
                         <span class="img">
@@ -49,83 +58,20 @@
             </svg>
         </div>
         <span class="vertical-separator" v-if="voiceSupport"></span>
-        <div id="search-btn" class="full-size"></div>
-        <div class="btn-close" @click="searchText = ''"><span></span></div>
+        <div class="full-size" @click="mobileActive = true"></div>
+        <div class="btn-close" @click="close()"><span></span></div>
     </form>
 </template>
 
 <script>
-import {computed, ref, watch} from "vue";
-import {autocompleteTours} from "../../services/tour-service";
-import {useStore} from "vuex";
+import useSearch from "./useSearch";
 
 
 export default {
     name: "HeaderSearch",
     setup() {
-        const store = useStore();
-        const formRef = ref(null);
-        const request = computed(() => store.state.headerSearch.request);
-        const voiceSupport = computed(() => store.getters['headerSearch/voiceSupport']);
-        const recording = computed({
-            get: () => store.state.headerSearch.recording,
-            set: (val) => store.commit('headerSearch/SET_RECORDING', val)
-        });
-        const active = computed({
-            get: () => store.state.headerSearch.active,
-            set: (val) => store.commit('headerSearch/SET_ACTIVE', val)
-        });
-        const searchText = computed({
-            get: () => store.state.headerSearch.searchText,
-            set: (val) => store.commit('headerSearch/SET_SEARCH_TEXT', val)
-        });
-        const tours = computed(() => store.state.headerSearch.tours);
-
-
-        function createDebounce() {
-            let timeout = null;
-            return function (fnc, delayMs) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    fnc();
-                }, delayMs || 500);
-            };
-        }
-
-        const searchTours = async () => {
-            await store.dispatch('headerSearch/searchTours');
-        }
-
-        const openVoiceSearch = () => {
-            searchText.value = '';
-            store.commit('headerSearch/SET_POPUP_OPEN', true);
-            store.dispatch('headerSearch/startVoice');
-        }
-
-        const submit = async () => {
-            if (searchText.value.length > 2) {
-                formRef.value.submit();
-            }
-        }
-
-        watch(recording, async (newValue, oldValue) => {
-            if (newValue === false && oldValue === true) {
-                store.commit('headerSearch/SET_POPUP_OPEN', false);
-                await submit();
-            }
-        })
-
         return {
-            formRef,
-            active,
-            searchText,
-            voiceSupport,
-            tours,
-            debounce: createDebounce(),
-            searchTours,
-            openVoiceSearch,
-            submit,
-            request,
+            ...useSearch()
         }
     }
 }

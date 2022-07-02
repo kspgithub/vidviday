@@ -5,6 +5,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            inFuture: true,
             bannerVisible: false,
             fetchRequest: false,
             viewType: 'gallery',
@@ -35,6 +36,7 @@ export default {
                 subject: 0,
                 place: 0,
                 landing: 0,
+                future: 1,
                 lang: 'uk',
             },
             pagination: {
@@ -110,6 +112,7 @@ export default {
                 place: 0,
                 landing: 0,
                 page: 1,
+                future: 1,
                 per_page: 12,
                 sort_by: 'price',
                 sort_dir: 'asc',
@@ -128,6 +131,7 @@ export default {
                 price_to: state.formData.price[1],
                 direction: state.formData.direction,
                 type: state.formData.type,
+                future: state.formData.future,
                 place: state.formData.place,
                 landing: state.formData.landing,
                 subject: state.formData.subject,
@@ -149,6 +153,7 @@ export default {
                 price_to: state.formData.price[1],
                 direction: state.formData.direction,
                 type: state.formData.type,
+                future: state.formData.future,
                 subject: state.formData.subject,
                 place: state.formData.place,
                 landing: state.formData.landing,

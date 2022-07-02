@@ -23,7 +23,9 @@ class ToursController extends Controller
      */
     public function index(SearchToursRequest $request)
     {
-        $result = Tour::search()->filter($request->validated())->paginate($request->input('per_page', 12))->toArray();
+        $future = (int)$request->input('future', 1) !== 0;
+
+        $result = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 12))->toArray();
         $result['request_title'] = TourService::searchRequestTitle($request->validated());
         return response()->json($result);
     }
@@ -114,7 +116,7 @@ class ToursController extends Controller
         $guidesQuery = Staff::onlyExcursionLeaders();
         $tour_id = $request->input('tour_id', 0);
         if ($tour_id > 0) {
-            $guidesQuery->whereHas('tours', fn ($q) => $q->where('id', $tour_id));
+            $guidesQuery->whereHas('tours', fn($q) => $q->where('id', $tour_id));
         }
         return $guidesQuery->orderBy('last_name')->get(['id', 'first_name', 'last_name', 'phone', 'email', 'avatar']);
     }

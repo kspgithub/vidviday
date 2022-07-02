@@ -49,15 +49,17 @@ class TourController extends Controller
      */
     public function index(Request $request, TourGroup $group)
     {
-        $localeLinks = $group->getLocaleLinks();
 
-        $toursQuery = Tour::search();
 
         if (!$group->exists) {
             $tours = Tour::published()->filter($request->all())->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
         }
+
+        $localeLinks = $group->getLocaleLinks();
+
+        $toursQuery = Tour::search(false);
 
         $toursQuery->whereHas('groups', function ($q) use ($group) {
             return $q->where('id', $group->id);
