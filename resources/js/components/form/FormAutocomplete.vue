@@ -53,14 +53,16 @@ export default {
                 placeholder: props.placeholder,
                 search: props.search,
                 searchText: props.searchText,
-                forceCustomRendering: false,
                 noMatch: 'Нічого не знайдено для "{0}"',
 
             }).sumo;
 
-            sumo.value.ftxt.on('keyup', _.debounce((evt) => {
-                emit('search', evt.target.value);
-            }, 300));
+            if (sumo.value.ftxt) {
+                sumo.value.ftxt.on('keyup', _.debounce((evt) => {
+                    emit('search', evt.target.value);
+                }, 300));
+            }
+
 
             $(inputRef.value).on('change', (evt) => {
                 emit('update:modelValue', parseInt(evt.target.value));
