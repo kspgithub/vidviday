@@ -124,7 +124,8 @@ class TourController extends Controller
         $tour->loadCount([
             'testimonials' => function ($q) {
                 return $q->moderated();
-            }
+            },
+            'votings',
         ]);
 
         $future_events = $tour->schedulesForBooking();

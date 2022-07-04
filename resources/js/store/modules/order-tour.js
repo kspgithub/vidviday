@@ -54,7 +54,6 @@ export default {
             fetchSchedulesRequest: false,
             calendarOpen: false,
             popupOpen: false,
-            votingPopupOpen: false,
             currentStep: 1,
             additional: 1,
             tour: null,
@@ -104,9 +103,6 @@ export default {
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;
-        },
-        SET_VOTING_POPUP_OPEN(state, value) {
-            state.votingPopupOpen = value;
         },
         SET_CALENDAR_OPEN(state, value) {
             state.calendarOpen = value;
@@ -244,17 +240,6 @@ export default {
                 conditions: 1,
             }
         },
-        votingData: state => {
-            return {
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone: '',
-                tour_id: state.formData.tour_id,
-                user_id: null,
-            }
-        },
-
     },
     actions: {
         clearForm({commit}) {

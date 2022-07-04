@@ -7,6 +7,7 @@ use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Practice\PracticeController;
+use App\Http\Controllers\School\SchoolController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
@@ -41,7 +42,7 @@ class PageController extends Controller
             return (new TourController())->index($request, $tourGroup);
         }
 
-        $pageContent = Page::findBySlugOrFail($slug, false);
+        $pageContent = Page::query()->where('published', 1)->whereHasSlug($slug, false)->firstOrFail();
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
@@ -65,6 +66,8 @@ class PageController extends Controller
                 return (new VacancyController())->index();
             case 'practice':
                 return (new PracticeController())->index();
+            case 'schools':
+                return (new SchoolController())->index();
             case 'our-documents':
                 return (new DocumentController())->index();
             default:

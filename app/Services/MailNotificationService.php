@@ -37,8 +37,13 @@ class MailNotificationService
         try {
             if (!empty($order->email)) {
                 Mail::to($order->email)->send(new TourOrderEmail($order));
-                return true;
             }
+
+            if($order->confirmation_type == Order::CONFIRMATION_EMAIL && !empty($order->confirmation_contact)) {
+                Mail::to($order->confirmation_contact)->send(new TourOrderEmail($order));
+            }
+
+            return true;
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
         }

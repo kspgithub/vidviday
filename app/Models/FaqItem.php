@@ -19,6 +19,7 @@ class FaqItem extends TranslatableModel
     public const SECTION_TOUR_AGENT = 'tour-agent';
     public const SECTION_CERTIFICATE = 'certificate';
     public const SECTION_TOUR = 'tour';
+    public const SECTION_SCHOOL = 'school';
 
 
     public static $sections = [
@@ -27,6 +28,7 @@ class FaqItem extends TranslatableModel
         self::SECTION_TOURIST => 'Туристу',
         self::SECTION_TOUR_AGENT => 'Турагенту',
         self::SECTION_CERTIFICATE => 'Сертифікат',
+        self::SECTION_SCHOOL => 'Школам',
 //        self::SECTION_TOUR => 'Тур',
     ];
 
@@ -66,6 +68,12 @@ class FaqItem extends TranslatableModel
             'ru' => 'Тур',
             'en' => 'Tour',
             'pl' => 'Wycieczka',
+        ],
+        self::SECTION_SCHOOL => [
+            'uk' => 'Школам',
+            'ru' => 'Школам',
+            'en' => 'For schools',
+            'pl' => 'Dla szkół',
         ],
     ];
 

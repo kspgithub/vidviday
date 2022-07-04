@@ -94,6 +94,7 @@ class Order extends TranslatableModel implements Auditable, Purchasable
         'payment_type',
         'payment_status',
         'confirmation_type',
+        'confirmation_contact',
         'confirmation_status',
         'offer_date',
         'act',

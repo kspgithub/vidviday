@@ -34,6 +34,11 @@
 
             <x-forms.switch-group name="published" :label="__('Published')" :active="$vacancy->published"/>
 
+            <x-forms.datepicker-group name="created_at"
+                                      :label="__('Created At')"
+                                      :value="old('created_at', $vacancy->created_at->format('d.m.Y'))"
+            />
+
             <x-forms.tag-group name="similar[]"
                                :label="__('Similar vacancies')"
                                :value="$vacancy->similar ?? []"

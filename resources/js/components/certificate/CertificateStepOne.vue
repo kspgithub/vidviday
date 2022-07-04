@@ -70,7 +70,7 @@
                 <div class="col-md-8 col-12" v-if="type === 'tour'" key="type-tour">
 
                     <form-tour-autocomplete v-model="tour_id" :tour="tour" @select="selectTour"
-                                            option-title="full_title"/>
+                                            option-title="price_title"/>
 
                     <form-number-input :title="__('certificate-section.number-of-people')" v-model="places" :min="1"
                                        :max="999" name="places"/>
@@ -78,19 +78,19 @@
                     <div class="spacer-xs"></div>
                 </div>
             </transition>
-<!--            <div class="col-12">-->
-<!--                <span class="text-sm"><b>{{ __('certificate-section.design-title') }}</b></span>-->
-<!--                <br>-->
-<!--                <label class="radio">-->
-<!--                    <input type="radio" value="classic" v-model="design" name="design">-->
-<!--                    <span>{{ __('certificate-section.design-classic') }}</span>-->
-<!--                </label>-->
-<!--                <label class="radio">-->
-<!--                    <input type="radio" value="heart" v-model="design" name="design">-->
-<!--                    <span>{{ __('certificate-section.design-heart') }}</span>-->
-<!--                </label>-->
-<!--                <div class="spacer-xs"></div>-->
-<!--            </div>-->
+            <div class="col-12" v-if="false">
+                <span class="text-sm"><b>{{ __('certificate-section.design-title') }}</b></span>
+                <br>
+                <label class="radio">
+                    <input type="radio" value="classic" v-model="design" name="design">
+                    <span>{{ __('certificate-section.design-classic') }}</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" value="heart" v-model="design" name="design">
+                    <span>{{ __('certificate-section.design-heart') }}</span>
+                </label>
+                <div class="spacer-xs"></div>
+            </div>
             <div class="col-12">
                 <span class="text-sm"><b>{{ __('certificate-section.format-title') }}</b></span>
                 <br>
@@ -106,7 +106,7 @@
             </div>
 
             <transition name="fade">
-                <div class="col-12 cert-upak" id="block-certificate-format-1"  v-if="format === 'printed'">
+                <div class="col-12 cert-upak" id="block-certificate-format-1" v-if="format === 'printed'">
                     <span class="text-sm"><b>{{ __('certificate-section.packing-title') }}</b></span>
                     <br>
                     <div class="ans">{{ __('certificate-section.packing-description') }}</div>
@@ -168,6 +168,7 @@ export default {
         const store = useStore();
         const tour = computed(() => store.state.orderCertificate.tour);
         const packings = computed(() => store.state.orderCertificate.packings);
+        const design = computed(() => store.state.orderCertificate.design);
 
         const selectTour = (tour) => {
             store.commit('orderCertificate/SET_TOUR', tour)
@@ -190,6 +191,7 @@ export default {
             packing: useFormDataProperty('orderCertificate', 'packing'),
             packing_type: useFormDataProperty('orderCertificate', 'packing_type'),
             packings,
+            design,
             tour,
             selectTour,
             locale,
