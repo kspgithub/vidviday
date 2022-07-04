@@ -222,7 +222,11 @@ Route::group([
 
 // TESTIMONIALS AND QUESTIONS
 Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial.index');
+Route::get('testimonials/{testimonial}', [TestimonialController::class, 'edit'])->name('testimonial.edit');
+Route::patch('testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('testimonial.update');
 Route::get('questions', [TestimonialController::class, 'questions'])->name('testimonial.questions');
+Route::get('questions/{testimonial}', [TestimonialController::class, 'editQuestion'])->name('testimonial.questions.edit');
+Route::patch('questions/{testimonial}', [TestimonialController::class, 'updateQuestion'])->name('testimonial.questions.update');
 
 // CONTACTS
 Route::get('contacts', [ContactsController::class, 'edit'])->name('contact.edit');

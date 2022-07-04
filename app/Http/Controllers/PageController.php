@@ -42,7 +42,7 @@ class PageController extends Controller
             return (new TourController())->index($request, $tourGroup);
         }
 
-        $pageContent = Page::findBySlugOrFail($slug, false);
+        $pageContent = Page::query()->where('published', 1)->whereHasSlug($slug, false)->firstOrFail();
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();

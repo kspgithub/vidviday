@@ -39,6 +39,7 @@ class Banner extends Model
         'published',
         'label',
         'color',
+        'position',
     ];
 
     protected $appends = [

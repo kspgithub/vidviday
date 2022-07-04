@@ -62,6 +62,7 @@ class Testimonial extends Model implements HasMedia
         'model_id',
         'related_type',
         'related_id',
+        'created_at',
     ];
 
     protected $appends = [
