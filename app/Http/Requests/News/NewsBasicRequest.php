@@ -44,6 +44,7 @@ class NewsBasicRequest extends FormRequest
             'mobile_image' => ['nullable', 'string'],
             'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'created_at' => ['nullable'],
         ];
     }
 }

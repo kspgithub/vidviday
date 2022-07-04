@@ -33,6 +33,12 @@
                                          help="320x320"
                                          imgstyle="height: 200px; width: 200px; object-fit: cover;"
             />
+
+            <x-forms.datepicker-group name="created_at"
+                                      :label="__('Created At')"
+                                      :value="old('created_at', $news->created_at->format('d.m.Y'))"
+            />
+
         </x-slot>
     </x-bootstrap.card>
 

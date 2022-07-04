@@ -52,6 +52,7 @@ class Vacancy extends TranslatableModel
         'slug',
         'published',
         'similar',
+        'created_at',
     ];
 
     protected $appends = [
