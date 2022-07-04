@@ -48,6 +48,7 @@ class TourQuestion extends Model implements HasMedia
         'email',
         'text',
         'attachments',
+        'created_at',
     ];
 
 

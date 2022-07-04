@@ -81,6 +81,7 @@ class Page extends TranslatableModel implements HasMedia
         'sidebar',
         'sidebar_items',
         'staff_id',
+        'video',
     ];
 
     protected $casts = [

@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.phone')" name="phone" v-model="phone" id="voting-phone"
+                    <form-input mask="+38 (099) 999-99-99" :label="__('forms.phone')" name="phone" v-model="phone" id="voting-phone"
                                 rules="required|tel"/>
                 </div>
 
@@ -89,12 +89,12 @@ export default {
     components: {FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
     props: {
         tour: Object,
-        schedules: Array,
+        user: Object,
         action: String,
     },
     setup(props) {
         const store = useStore();
-        const data = computed(() => store.getters['orderTour/votingData']);
+        const data = computed(() => store.getters['voteTour/votingData']);
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -104,7 +104,8 @@ export default {
                 phone: 'required|tel',
             },
         });
-        store.commit('orderTour/SET_TOUR', props.tour);
+        store.commit('voteTour/SET_TOUR', props.tour);
+        store.commit('voteTour/SET_USER', props.user);
 
         const request = ref(false);
 
@@ -112,11 +113,11 @@ export default {
         const showThanks = ref(false);
 
 
-        const popupOpen = computed(() => store.state.orderTour.votingPopupOpen);
+        const popupOpen = computed(() => store.state.voteTour.popupOpen);
 
 
         const closePopup = () => {
-            store.commit('orderTour/SET_VOTING_POPUP_OPEN', false);
+            store.commit('voteTour/SET_POPUP_OPEN', false);
             showForm.value = true;
             showThanks.value = false;
         }
@@ -130,6 +131,7 @@ export default {
             } else {
 
                 request.value = true;
+                console.log(Object.assign({}, data.value))
                 axios.post(props.action, Object.assign({}, data.value))
                     .then(({data}) => {
                         if (data.result === 'success') {
@@ -153,11 +155,11 @@ export default {
         }
 
         return {
-            first_name: useDebounceFormDataProperty('orderTour', 'first_name'),
-            last_name: useDebounceFormDataProperty('orderTour', 'last_name'),
-            email: useDebounceFormDataProperty('orderTour', 'email'),
-            phone: useDebounceFormDataProperty('orderTour', 'phone'),
-            comment: useDebounceFormDataProperty('orderTour', 'comment'),
+            first_name: useDebounceFormDataProperty('voteTour', 'first_name'),
+            last_name: useDebounceFormDataProperty('voteTour', 'last_name'),
+            email: useDebounceFormDataProperty('voteTour', 'email'),
+            phone: useDebounceFormDataProperty('voteTour', 'phone'),
+            comment: useDebounceFormDataProperty('voteTour', 'comment'),
             popupOpen,
             closePopup,
             showForm,

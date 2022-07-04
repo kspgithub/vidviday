@@ -49,7 +49,7 @@
                   v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
 
             <span class="btn type-2 btn-block hidden-print" @click="showVotingPopup()"
-                  v-if="!false">{{ __('tours-section.vote-for-tour') }}</span>
+                  v-if="!nearestEvent">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
 
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
                 {{ __('tours-section.order-corporate') }}
@@ -112,7 +112,7 @@ export default {
         }
 
         const showVotingPopup = () => {
-            store.commit('orderTour/SET_VOTING_POPUP_OPEN', true);
+            store.commit('voteTour/SET_POPUP_OPEN', true);
         }
 
         const showCalendar = () => {

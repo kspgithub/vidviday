@@ -13,9 +13,8 @@
                                 help="Не обов'язково"
         ></x-forms.text-loc-group>
 
-        <x-forms.textarea-loc-group name="text" :label="__('Text')"
-                                    :value="old('text', $advertisement->getTranslations('text'))"></x-forms.textarea-loc-group>
-
+        <x-forms.editor-loc-group name="text" :label="__('Text')"
+                                    :value="old('text', $advertisement->getTranslations('text'))"></x-forms.editor-loc-group>
 
         <x-forms.single-image-upload name="image" :label="__('Image')"
                                      :value="$advertisement->image"

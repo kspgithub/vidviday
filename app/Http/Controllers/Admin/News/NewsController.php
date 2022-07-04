@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Charity\CharityBasicRequest;
+use App\Http\Requests\News\NewsBasicRequest;
 use App\Models\News;
 use App\Services\NewsService;
 use Illuminate\Contracts\Foundation\Application;
@@ -51,11 +51,11 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CharityBasicRequest $request
+     * @param NewsBasicRequest $request
      *
      * @return JsonResponse|RedirectResponse
      */
-    public function store(CharityBasicRequest $request)
+    public function store(NewsBasicRequest $request)
     {
 
         $news = $this->service->store($request->validated());
@@ -81,7 +81,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CharityBasicRequest $request
+     * @param NewsBasicRequest $request
      *
      * @param News $news
      *
@@ -89,7 +89,7 @@ class NewsController extends Controller
      *
      * @throws \App\Exceptions\GeneralException
      */
-    public function update(CharityBasicRequest $request, News $news)
+    public function update(NewsBasicRequest $request, News $news)
     {
 
         $this->service->update($news, $request->validated());

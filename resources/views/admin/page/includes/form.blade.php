@@ -22,7 +22,7 @@
             <x-forms.text-group name="video" :label="__('Youtube Video')"
                                 :value="old('video', $page->video)"></x-forms.text-group>
 
-
+            <x-forms.switch-group name="published" :label="__('Published')" :active="$page->published"/>
         </x-slot>
 
     </x-bootstrap.card>
