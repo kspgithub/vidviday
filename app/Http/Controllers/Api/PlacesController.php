@@ -21,6 +21,7 @@ class PlacesController extends Controller
         $q = Str::lower($request->input('q', ''));
         $region_id = (int)$request->input('region_id', 0);
         $district_id = (int)$request->input('district_id', 0);
+        $title = $request->input('text', 'defalut');
         $query = Place::query();
 
 
@@ -33,7 +34,7 @@ class PlacesController extends Controller
         $paginator = $query->autocomplete($q)->paginate($request->input('limit', 10));
         $items = [];
         foreach ($paginator->items() as $item) {
-            $items[] = $item->asSelectBox();
+            $items[] = $item->asSelectBox('id', 'text', $title);
         }
 
         return [

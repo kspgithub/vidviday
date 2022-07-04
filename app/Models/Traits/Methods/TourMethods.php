@@ -33,10 +33,21 @@ trait TourMethods
 
     public function shortInfo()
     {
+        $full_title = $this->title;
+        $price_title = $this->title . " ($this->price $this->currency)";
+
+        if ($this->commission > 0) {
+            $full_title .= " ($this->price $this->currency + $this->commission $this->currency)";
+        } else {
+            $full_title .= " ($this->price $this->currency)";
+        }
+
+
         return (object)[
             'id' => $this->id,
             'title' => $this->title,
-            'full_title' => json_prepare($this->commission > 0 ? "$this->title ($this->price $this->currency + $this->commission $this->currency)" : "$this->title ($this->price $this->currency)"),
+            'price_title' => json_prepare($price_title),
+            'full_title' => json_prepare($full_title),
             'price' => $this->price,
             'commission' => $this->commission,
             'accomm_price' => $this->accomm_price,
@@ -131,7 +142,7 @@ trait TourMethods
         if (!empty($filter)) {
             $query->filter($filter);
         }
-        $schedules = $query->get()->filter(fn (TourSchedule $value, $key) => $value->places_available > 0);
+        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->places_available > 0);
         return TourSchedule::transformForBooking($schedules);
     }
 

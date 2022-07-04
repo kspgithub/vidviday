@@ -39,7 +39,8 @@ export default {
         optionTitle: {
             type: String,
             default: 'title'
-        }
+        },
+        
     },
     emits: ['update:modelValue', 'select'],
     components: {FormAutocomplete},

@@ -121,7 +121,7 @@ export default {
         const submit = async () => {
             const path = document.location.pathname;
             const query = urlUtils.filterParams(params.value, defaultParams.value);
-            if (path === '/') {
+            if (path !== '/tours') {
                 document.location.href = urlUtils.makeUrl('/tours', query);
             } else {
                 urlUtils.updateUrl(path, query, true);

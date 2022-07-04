@@ -22,25 +22,13 @@
 
                                         <div class="accordion-inner">
                                             <div class="accordion type-2" style="margin-left: 15px">
-                                                <div v-for="place in getPlaces(district)" class="accordion-item">
-                                                    <div class="accordion-title" @click="loadPlace(district, place)"
-                                                         v-html="place.text + '<i></i>'"></div>
-
-                                                    <div class="accordion-inner">
-
-                                                        <template v-if="place.media">
-                                                            <div class="swiper-entry" v-is="'swiper-slider'"
-                                                                 :media="place.media"></div>
-                                                            <div class="spacer-xs"></div>
-                                                        </template>
-
-                                                        <div class="text text-md">
-                                                            <p v-html="place.description"></p>
-
-                                                            <a :href="place.url" class="btn btn-read-more text-bold">Більше</a>
-                                                        </div>
-                                                    </div>
+                                                <div v-for="place in getPlaces(district)" class="tickets text text-md">
+                                                    <a :href="place.url" class="accordion-title">{{ place.text }}</a>
+                                                    <!--                                                        <place-accordion-item :key="'place-'+place.id" :place="place"-->
+                                                    <!--                                                                              :district="district"-->
+                                                    <!--                                                                              @load-place="loadPlace"/>-->
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -61,9 +49,11 @@
 
 <script>
 import apiClient from "../../services/api";
+import PlaceAccordionItem from "./PlaceAccordionItem";
 
 export default {
     name: "PlacesAccordion",
+    components: {PlaceAccordionItem},
     props: {
         countries: {
             type: Array,
@@ -79,9 +69,9 @@ export default {
         }
     },
     computed: {
-        getRegions() {
-            return country => this.regions[country.value] || []
-        },
+        // getRegions() {
+        //     return country => this.regions[country.value] || []
+        // },
         // getDistricts() {
         //     return region => this.districts[region.value] || []
         // },
@@ -124,7 +114,7 @@ export default {
         },
         async loadPlaces(district) {
             const response = await apiClient.get('/places/select-box', {
-                params: {district_id: district.value},
+                params: {district_id: district.value, text: 'title'},
             }).catch(error => {
                 console.error(error)
             })
@@ -133,7 +123,7 @@ export default {
                 this.places[district.value] = response.data.results
             }
         },
-        async loadPlace(district, place) {
+        async loadPlace({district, place}) {
             const response = await apiClient.get('/places/find', {
                 params: {place_id: place.id},
             }).catch(error => {
