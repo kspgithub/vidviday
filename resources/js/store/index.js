@@ -22,6 +22,7 @@ import tourFilter from './modules/tour-filter';
 import popupGallery from './modules/popup-gallery';
 import testimonials from './modules/testimonials';
 import orderTour from './modules/order-tour';
+import voteTour from './modules/vote-tour';
 import orderCertificate from './modules/order-certificate';
 import headerSearch from './modules/header-search';
 import userQuestion from './modules/user-question';
@@ -36,6 +37,7 @@ const store = createStore({
         popupGallery,
         testimonials,
         orderTour,
+        voteTour,
         orderCertificate,
         headerSearch,
         userQuestion,
