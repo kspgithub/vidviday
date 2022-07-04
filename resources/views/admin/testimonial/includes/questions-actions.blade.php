@@ -1,3 +1,5 @@
+<a href="{{ route('admin.testimonial.questions.edit', $model) }}" class="btn btn-sm btn-outline-primary m-1" title="Редагувати"><i class="fa fa-edit"></i></a>
+
 <a href="#" class="btn btn-sm btn-outline-primary m-1"
    wire:click.prevent="createItem({{$model->id}})" title="Відповісти"><i
         class="fa fa-comment"></i></a>
