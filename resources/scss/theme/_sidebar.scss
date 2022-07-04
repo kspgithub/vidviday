@@ -515,6 +515,44 @@
     }
 }
 
+.sidebar-more-text {
+    p {
+        margin-bottom: 0;
+
+    }
+}
+
+.sidebar-recommendations {
+    .divider {
+        margin: 0 0 15px 0;
+        border-bottom: 1px solid #E9E9E9;
+        height: 1px;
+    }
+
+    .hidden {
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    .review {
+        transition: all linear .2s;
+
+        &.hidden {
+            height: 0;
+        }
+    }
+
+    .show_more {
+        transition: all linear .2s;
+
+        &.hidden {
+            height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    }
+}
+
 /*///////////////*/
 /* MEDIA QUERIES */
 /*///////////////*/

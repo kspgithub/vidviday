@@ -9,14 +9,15 @@
             <div class="bordered-box only-desktop-pad">
                 <x-sidebar.download-print/>
                 <hr>
-                <x-sidebar.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
+                <x-sidebar.social-share :share-url="route('page.show', $pageContent->slug)"
+                                        :share-title="$pageContent->title"/>
             </div>
         @endif
         @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
             <x-sidebar.contact :staff="$pageContent->contact"/>
         @endif
         @if(in_array('testimonials', $pageContent->sidebar_items ?? []))
-            <x-sidebar.latest-testimonials title="Нас рекомендують" btn-text="Показати ще"/>
+            <x-sidebar.recommendations :page="$pageContent"/>
         @endif
     </div>
 </div>

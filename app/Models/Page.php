@@ -110,5 +110,8 @@ class Page extends TranslatableModel implements HasMedia
         return '/' . $key;
     }
 
-
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class, 'page_id')->orderBy('sort_order');
+    }
 }

@@ -12,6 +12,8 @@ export default {
         app.component('user-avatar', require('./header/UserAvatar').default);
 
         app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
+        app.component('sidebar-more-text', require('./sidebar/SidebarMoreText').default);
+        app.component('sidebar-recommendations', require('./sidebar/SidebarRecommendations').default);
 
         app.component('svg-icon', require('./svg/SvgIcon').default);
 

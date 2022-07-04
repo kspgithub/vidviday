@@ -24,7 +24,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::query()->withCount(['media'])->orderBy('title->uk')->get();
+        $pages = Page::query()->withCount(['media', 'recommendations'])->orderBy('title->uk')->get();
         //
         return view('admin.page.index', ['pages' => $pages]);
     }
