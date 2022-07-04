@@ -17,7 +17,6 @@
 
 @section('content')
     <main>
-
         <div class="container">
             <!-- BREAD CRUMBS -->
             <ul class="bread-crumbs">
@@ -179,11 +178,13 @@
         @csrf
     </div>
 
-    <div v-is="'tour-voting-popup'"
-         :tour='@json($tour->shortInfo())'
-         :schedules='@json($future_events)'
-         action='{{route('tour.voting', $tour)}}'
-    >
-        @csrf
-    </div>
+    @if(!$nearest_event)
+        <div v-is="'tour-voting-popup'"
+             :tour='@json($tour->shortInfo())'
+             :user='@json(Auth::user())'
+             action='{{route('tour.voting', $tour)}}'
+        >
+            @csrf
+        </div>
+    @endif
 @endpush
