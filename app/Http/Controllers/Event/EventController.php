@@ -31,8 +31,11 @@ class EventController extends Controller
     {
         $event = EventItem::findBySlugOrFail($slug);
 
+        $tours = $event->tours()->search()->get();
+
         return view('event.show', [
             'event' => $event,
+            'tours' => $tours,
         ]);
     }
 }

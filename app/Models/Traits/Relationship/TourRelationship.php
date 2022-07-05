@@ -6,6 +6,7 @@ use App\Models\Badge;
 use App\Models\Currency;
 use App\Models\Direction;
 use App\Models\Discount;
+use App\Models\EventItem;
 use App\Models\LandingPlace;
 use App\Models\Order;
 use App\Models\Place;
@@ -317,5 +318,10 @@ trait TourRelationship
     public function votings()
     {
         return $this->hasMany(TourVoting::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(EventItem::class, 'tour_event');
     }
 }

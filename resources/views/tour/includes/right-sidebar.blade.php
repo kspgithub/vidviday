@@ -2,9 +2,10 @@
 
     <div class="right-sidebar-inner">
         <div class="only-desktop">
-            <form action="{{route('tour.order', $tour)}}"
+            <form action="{){route('tour.order', $tour)}}"
                   v-is="'tour-order'"
                   :tour='@json($tour->shortInfo())'
+                  :nearest-event='@json($nearest_event->id ?? 0)'
 {{--                  :corporate="{{$future_events->count() > 0 ? 'false' : 'true'}}"--}}
                   :corporate="false"
             ></form>

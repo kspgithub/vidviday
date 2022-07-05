@@ -180,6 +180,7 @@
 
     @if(!$nearest_event)
         <div v-is="'tour-voting-popup'"
+             :disabled='@json($tour->votings->count() > 0)'
              :tour='@json($tour->shortInfo())'
              :user='@json(Auth::user())'
              action='{{route('tour.voting', $tour)}}'

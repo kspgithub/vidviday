@@ -42,18 +42,27 @@
                     </tooltip>
                 </span>
             </div>
-            <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
-                {{ __('tours-section.order-tour') }}
-            </button>
-            <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
-                  v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
 
-            <span class="btn type-2 btn-block hidden-print" @click="showVotingPopup()"
-                  v-if="!nearestEvent">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
+            <template v-if="nearestEvent">
+
+                <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
+                    {{ __('tours-section.order-tour') }}
+                </button>
+                <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
+                      v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
+
+            </template>
+
+            <template v-if="!nearestEvent">
+
+            <span class="btn type-2 btn-block hidden-print"
+                  @click="showVotingPopup()">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
+            </template>
 
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
                 {{ __('tours-section.order-corporate') }}
             </a>
+
         </div>
     </form>
 </template>
@@ -81,6 +90,8 @@ export default {
     },
     setup(props) {
         const store = useStore();
+
+        console.log(props)
 
         const schedule_id = useFormDataProperty('orderTour', 'schedule_id');
         if (props.nearestEvent > 0) {
