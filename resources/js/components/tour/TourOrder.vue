@@ -2,6 +2,7 @@
     <form method="get" :action="action">
         <input name="clear" :value="1" type="hidden">
 
+
         <div class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
             <span class="discount" v-if="isTourAgent && commission > 0">
@@ -48,15 +49,15 @@
                 <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
                     {{ __('tours-section.order-tour') }}
                 </button>
+
                 <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
                       v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
 
             </template>
 
             <template v-if="!nearestEvent">
-
-            <span class="btn type-2 btn-block hidden-print"
-                  @click="showVotingPopup()">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
+                <span class="btn type-2 btn-block hidden-print"
+                      @click="showVotingPopup()">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
             </template>
 
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
@@ -90,8 +91,6 @@ export default {
     },
     setup(props) {
         const store = useStore();
-
-        console.log(props)
 
         const schedule_id = useFormDataProperty('orderTour', 'schedule_id');
         if (props.nearestEvent > 0) {
