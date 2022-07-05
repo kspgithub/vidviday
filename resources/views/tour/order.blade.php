@@ -16,6 +16,7 @@
              :confirmation-types='@json($confirmation_types)'
              :tour-selected='true'
              :order-corporate='{{$schedules->count() > 0 ? 'false' : 'true'}}'
+             :corporate-includes='@json(App\Helpers\Types\TourCorporateIncludes::values())'
         >
             @csrf
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Sidebar;
 
+use App\Models\Page;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Support\Facades\Cache;
@@ -11,6 +12,7 @@ class LatestTestimonials extends Component
 {
     public $title = '';
     public $btnText = '';
+    public $btnUrl = '';
     public $type = '';
 
 
@@ -26,8 +28,9 @@ class LatestTestimonials extends Component
         //
         $this->title = $title;
         $this->btnText = $btnText;
+        $testimonialsPage = Page::query()->where('key', 'testimonials')->first();
+        $this->btnUrl = $testimonialsPage ? $testimonialsPage->url : route('testimonials.index');
         $this->type = $type;
-
 
         switch ($type) {
             default:

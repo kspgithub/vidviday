@@ -273,6 +273,24 @@ class TourPlaces extends Component
         }
     }
 
+    public function updateActiveTabs($tab)
+    {
+        $active_tabs = $this->tour->active_tabs;
+
+        $index = array_search($tab, $active_tabs);
+
+        if($index !== false) {
+            array_splice($active_tabs, $index);
+        } else {
+            $active_tabs[] = $tab;
+        }
+
+        $this->tour->active_tabs = $active_tabs;
+        $this->tour->save();
+
+        $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Updated']);
+    }
+
     public function beforeSaveItem()
     {
         $this->model->tour_id = $this->tour->id;

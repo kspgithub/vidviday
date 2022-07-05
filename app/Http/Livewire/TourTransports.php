@@ -10,6 +10,7 @@ use App\Models\TourTransport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -133,6 +134,24 @@ class TourTransports extends Component
                 ->where([['tour_id', $this->tour->id], ['id', $item['value']]])
                 ->update(['position' => $item['order']]);
         }
+    }
+
+    public function updateActiveTabs($tab)
+    {
+        $active_tabs = $this->tour->active_tabs;
+
+        $index = array_search($tab, $active_tabs);
+
+        if($index !== false) {
+            array_splice($active_tabs, $index);
+        } else {
+            $active_tabs[] = $tab;
+        }
+
+        $this->tour->active_tabs = $active_tabs;
+        $this->tour->save();
+
+        $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Updated']);
     }
 
     public function beforeSaveItem()

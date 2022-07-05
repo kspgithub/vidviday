@@ -37,6 +37,7 @@ class EventBasicRequest extends FormRequest
             'text.uk' => ['required', 'string'],
             'short_text' => ['nullable', 'array'],
             'groups' => ['required', 'array'],
+            'tours' => ['required', 'array'],
             'directions' => ['required', 'array'],
             'published' => ['nullable', Rule::in(['1', '0'])],
             'indefinite' => ['nullable', Rule::in(['1', '0'])],

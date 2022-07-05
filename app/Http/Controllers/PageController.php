@@ -9,6 +9,7 @@ use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Practice\PracticeController;
 use App\Http\Controllers\School\SchoolController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Testimonial\TestimonialController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
 use App\Http\Controllers\Transport\TransportController;
@@ -59,17 +60,19 @@ class PageController extends Controller
             case 'events':
                 return (new EventController())->index();
             case 'transport':
-                return (new TransportController())->index();
+                return (new TransportController())->index($request);
             case 'for-travel-agents':
-                return (new TravelAgentController())->index();
+                return (new TravelAgentController())->index($request);
             case 'vacancies':
-                return (new VacancyController())->index();
+                return (new VacancyController())->index($request);
             case 'practice':
-                return (new PracticeController())->index();
+                return (new PracticeController())->index($request);
             case 'schools':
-                return (new SchoolController())->index();
+                return (new SchoolController())->index($request);
             case 'our-documents':
-                return (new DocumentController())->index();
+                return (new DocumentController())->index($request);
+            case 'testimonials':
+                return (new TestimonialController())->index($request);
             default:
                 return view('page.show', ['pageContent' => $pageContent, 'localeLinks' => $localeLinks]);
         }

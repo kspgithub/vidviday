@@ -178,6 +178,15 @@ class TourService extends BaseService
 
             $tour->groups()->sync($groups);
 
+            if (array_key_exists('events', $params)) {
+                $events = array_filter($params['events']);
+
+            } else {
+                $events = [];
+            }
+
+            $tour->events()->sync($events);
+
             if (array_key_exists('types', $params)) {
                 $types = array_filter($params['types']);
 

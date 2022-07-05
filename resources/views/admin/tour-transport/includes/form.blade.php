@@ -1,7 +1,7 @@
 <div>
 
-
-    <x-forms.switch-group name="hutsul_fun_on" :label="__('Active')" wire:model="transport_on"/>
+    <x-forms.switch-group name="active_tabs[]" :label="__('Active')" active-value="transport"
+                          :active="in_array('transport', $tour->active_tabs ?: [])"/>
 
     @if(!$edit)
         <h4 class="mb-3">@lang('Transport')</h4>

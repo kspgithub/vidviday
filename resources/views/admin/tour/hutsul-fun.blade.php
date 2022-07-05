@@ -25,8 +25,8 @@
                             @csrf
                             @method('PATCH')
 
-                            <x-forms.switch-group name="hutsul_fun_on" :label="__('Active')"
-                                                  :active="$tour->hutsul_fun_on === 1"/>
+                            <x-forms.switch-group name="active_tabs[]" :label="__('Active')" active-value="hutsul_fun"
+                                                  :active="in_array('hutsul_fun', $tour->active_tabs ?: [])"/>
 
                             @foreach(siteLocales() as $locale)
                                 <x-forms.text-group name="hutsul_fun_title[{{$locale}}]"

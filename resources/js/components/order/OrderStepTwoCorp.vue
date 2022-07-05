@@ -19,35 +19,18 @@
                 <h2 class="h3">{{ __('order-section.includes.title') }}</h2>
                 <div class="spacer-xs"></div>
                 <div class="checkbox-wrap">
-                    <label class="checkbox small">
-                        <input type="checkbox" value="support" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.support') }}</span>
-                    </label>
-                    <br>
-                    <label class="checkbox small">
-                        <input type="checkbox" value="bus" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.bus') }}</span>
-                    </label>
-                    <br>
-                    <label class="checkbox small">
-                        <input type="checkbox" value="apartment" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.apartment') }}</span>
-                    </label>
-                    <br>
-                    <label class="checkbox small">
-                        <input type="checkbox" value="food" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.food') }}</span>
-                    </label>
-                    <br>
-                    <label class="checkbox small">
-                        <input type="checkbox" value="ticket" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.ticket') }}</span>
-                    </label>
-                    <br>
-                    <label class="checkbox small">
-                        <input type="checkbox" value="insurance" name="price_include[]" v-model="price_include">
-                        <span>{{ __('order-section.includes.insurance') }}</span>
-                    </label>
+
+                    <!-- @see App\Helpers\Types\TourCorporateIncludes::values() -->
+                    <template v-for="item in corporateIncludes">
+                        <template v-if="includes.includes(item.value)">
+                            <label class="checkbox small">
+                                <input type="checkbox" :value="item.value" name="price_include[]" v-model="price_include">
+                                <span>{{item.text}}</span>
+                            </label>
+                            <br>
+                        </template>
+                    </template>
+
                 </div>
                 <span class="text-sm"></span>
             </div>
@@ -68,6 +51,13 @@ export default {
     components: {FormTextarea, FormCheckbox},
     props: {
         active: Boolean,
+        includes: Array,
+        corporateIncludes: {
+            type: Array,
+            default() {
+                return [];
+            }
+        },
     },
     setup() {
         const store = useStore();

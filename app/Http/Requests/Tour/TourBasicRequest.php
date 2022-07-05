@@ -63,6 +63,7 @@ class TourBasicRequest extends FormRequest
             'mobile_image' => ['nullable', 'string'],
             'directions' => ['nullable', 'array'],
             'groups' => ['nullable', 'array'],
+            'events' => ['nullable', 'array'],
             'types' => ['nullable', 'array'],
             'subjects' => ['nullable', 'array'],
             'contact' => ['nullable', 'array'],
