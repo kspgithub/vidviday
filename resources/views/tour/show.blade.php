@@ -103,20 +103,37 @@
                             <div class="accordion type-1">
                                 {{--                                //@dd($tour->accommodations)--}}
                                 @include('tour.includes.tour-plan')
+
                                 @include('tour.includes.tour-landing')
-                                @include('tour.includes.tour-places')
+
+                                @if(in_array('places', $tour->active_tabs))
+                                    @include('tour.includes.tour-places')
+                                @endif
+
                                 @include('tour.includes.tour-schedule')
+
                                 @include('tour.includes.tour-finances')
-                                @include('tour.includes.tour-tickets')
 
-                                @include('tour.includes.tour-fun')
+                                @if(in_array('ticket', $tour->active_tabs))
+                                    @include('tour.includes.tour-tickets')
+                                @endif
 
-                                @if($tour->transport_on)
+                                @if(in_array('hutsul_fun', $tour->active_tabs))
+                                    @include('tour.includes.tour-fun')
+                                @endif
+
+                                @if(in_array('transport', $tour->active_tabs))
                                     @include('tour.includes.tour-transport')
                                 @endif
 
-                                @include('tour.includes.tour-residence')
-                                @include('tour.includes.tour-food')
+                                @if(in_array('accommodation', $tour->active_tabs))
+                                    @include('tour.includes.tour-residence')
+                                @endif
+
+                                @if(in_array('transport', $tour->active_tabs))
+                                    @include('tour.includes.tour-food')
+                                @endif
+
                                 @include('tour.includes.tour-calc')
                                 @include('tour.includes.tour-questions')
                                 @include('tour.includes.tour-reviews')

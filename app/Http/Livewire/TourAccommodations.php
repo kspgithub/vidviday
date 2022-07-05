@@ -225,6 +225,24 @@ class TourAccommodations extends Component
         }
     }
 
+    public function updateActiveTabs($tab)
+    {
+        $active_tabs = $this->tour->active_tabs;
+
+        $index = array_search($tab, $active_tabs);
+
+        if($index !== false) {
+            array_splice($active_tabs, $index);
+        } else {
+            $active_tabs[] = $tab;
+        }
+
+        $this->tour->active_tabs = $active_tabs;
+        $this->tour->save();
+
+        $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Updated']);
+    }
+
     public function afterModelInit()
     {
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->food_id > 0 ? TourAccommodation::TYPE_TEMPLATE : TourAccommodation::TYPE_CUSTOM) : $this->model->type_id;
