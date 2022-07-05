@@ -2,9 +2,11 @@
 
 namespace App\Models\Traits\Attributes;
 
+use App\Helpers\Types\TourCorporateIncludes;
 use App\Models\FoodTime;
 use App\Models\IncludeType;
 use App\Models\TourPlan;
+use Illuminate\Support\Arr;
 
 trait TourAttribute
 {
@@ -213,5 +215,16 @@ trait TourAttribute
     public function getCurrencyTitleAttribute()
     {
         return $this->currencyModel->title;
+    }
+
+    public function getCorporateIncludesAttribute($value)
+    {
+        $includes = json_decode($value ?: '[]', true);
+
+        if(empty($includes)) {
+            $includes = Arr::pluck(TourCorporateIncludes::values(), 'value');
+        }
+
+        return $includes;
     }
 }

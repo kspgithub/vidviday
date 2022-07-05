@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Tour\HutsulFunController;
 use App\Http\Controllers\Admin\Tour\SimilarToursController;
 use App\Http\Controllers\Admin\Tour\TourAccommController;
 use App\Http\Controllers\Admin\Tour\TourController;
+use App\Http\Controllers\Admin\Tour\TourCorporateIncludesController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
 use App\Http\Controllers\Admin\Tour\TourDiscountController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
@@ -91,6 +92,8 @@ Route::group([
     Route::get('{tour}/landing/{model}', [TourLandingController::class, 'edit'])->name('landing.edit');
     Route::patch('{tour}/landing/{model}', [TourLandingController::class, 'update'])->name('landing.update');
 
+    Route::get('{tour}/corporate_includes', [TourCorporateIncludesController::class, 'index'])->name('corporate_includes.index');
+    Route::post('{tour}/corporate_includes', [TourCorporateIncludesController::class, 'save'])->name('corporate_includes.save');
 });
 
 Route::resource('tour', TourController::class);

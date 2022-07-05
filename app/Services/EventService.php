@@ -40,6 +40,10 @@ class EventService extends BaseService
                 $groups = array_filter($params['groups']);
                 $event->groups()->sync($groups);
             }
+            if (array_key_exists('tours', $params)) {
+                $tours = array_filter($params['tours']);
+                $event->tours()->sync($tours);
+            }
             if (array_key_exists('directions', $params)) {
                 $directions = array_filter($params['directions']);
                 $event->directions()->sync($directions);

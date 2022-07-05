@@ -24,7 +24,7 @@ class HutsulFunController extends Controller
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->fill($request->only(['hutsul_fun_on', 'hutsul_fun_title', 'hutsul_fun_text']));
+        $tour->fill($request->only(['active_tabs', 'hutsul_fun_title', 'hutsul_fun_text']));
         $tour->save();
         return redirect()->route('admin.tour.hutsul-fun.index', $tour)->withFlashSuccess(__('Updated'));
     }

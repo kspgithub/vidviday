@@ -1,4 +1,4 @@
-@if($tour->hutsul_fun_on)
+@if(in_array('hutsul_fun', $tour->active_tabs))
     <div class="accordion-item">
         <div class="accordion-title">
             <span>

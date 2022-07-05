@@ -119,6 +119,24 @@ class TourController extends Controller
             'questions' => function ($q) {
                 return $q->moderated();
             },
+            'votings' => function ($q) {
+                $ip = request()->ip();
+                $user = request()->user();
+
+                $q->where('ip', $ip);
+
+                if($user && $user->id) {
+                    $q->orWhere('user_id', $user->id);
+                }
+                if($user && $user->email) {
+                    $q->orWhere('email', $user->email);
+                }
+                if($user && $user->phone) {
+                    $q->orWhere('phone', $user->phone);
+                }
+
+                return $q;
+            },
         ]);
 
         $tour->loadCount([

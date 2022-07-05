@@ -5,7 +5,7 @@
     roomTypes: @json($roomTypes),
 })'>
     <form action="{{$order->id > 0 ? route('admin.crm.corporate.update', $order) : route('admin.crm.corporate.store')}}"
-
+          x-ref="form"
           @change="onFormChange"
           method="POST">
         @csrf

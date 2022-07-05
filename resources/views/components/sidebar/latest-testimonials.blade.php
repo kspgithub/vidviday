@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{route('testimonials.index')}}" class="btn type-2 btn-block show_more">{{$btnText}}</a>
+                <a href="{{$btnUrl}}" class="btn type-2 btn-block show_more">{{$btnText}}</a>
             </div>
 
             <div class="only-pad-mobile">

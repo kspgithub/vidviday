@@ -62,7 +62,11 @@
                     <div class="spacer-xs"></div>
                     <x-tour.mobile-search-btn/>
 
-                    <x-tour.popular/>
+                    @if($tours->count())
+                        @include('event.tours', ['tours' => $tours])
+                    @else
+                        <x-tour.popular />
+                    @endif
                 </div>
             </div>
             <div class="spacer-lg"></div>

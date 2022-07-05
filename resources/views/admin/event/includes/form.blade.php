@@ -30,6 +30,12 @@
                                :options="$groups">
             </x-forms.tag-group>
 
+            <x-forms.tag-group name="tours[]"
+                               :label="__('Tours')"
+                               :value="$event->tours ?  $event->tours->pluck('id')->toArray() : []"
+                               :options="$tours">
+            </x-forms.tag-group>
+
 
             <x-forms.datepicker-group
                 :label="__('Start Date')"

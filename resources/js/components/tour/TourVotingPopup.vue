@@ -5,50 +5,65 @@
                 <span class="h2 title text-medium">{{ __('tours-section.voting') }}</span>
             </div>
             <div class="spacer-xs"></div>
-            <form :action="action" method="POST" class="row" @submit.prevent="submitForm">
-                <slot/>
-                <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.last-name')"
-                                name="last_name"
-                                v-model="last_name"
-                                id="voting-last-name"
-                                rules="required"/>
-                </div>
 
-                <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.name')" name="first_name" v-model="first_name" id="voting-first-name"
-                                rules="required"/>
-                </div>
+            <template v-if="!disabled">
+                <form :action="action" method="POST" class="row" @submit.prevent="submitForm">
+                    <slot/>
 
-                <div class="col-md-6 col-12">
-                    <form-input mask="+38 (099) 999-99-99" :label="__('forms.phone')" name="phone" v-model="phone" id="voting-phone"
-                                rules="required|tel"/>
-                </div>
-
-                <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.email')" name="email" v-model="email" id="voting-email"
-                                rules="required|email"/>
-                </div>
-
-                <div class="col-12">
-
-                    <form-textarea v-model="comment" name="comment" id="voting-comment"
-                                   :label="__('forms.voting-comment')"/>
-
-                    <input name="conditions" type="hidden" value="1"/>
-
-                    <div class="text-center">
-                        <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">
-                            {{ __('forms.vote') }}
-                        </button>
+                    <div class="col-md-6 col-12">
+                        <form-input :label="__('forms.last-name')"
+                                    name="last_name"
+                                    v-model="last_name"
+                                    id="voting-last-name"
+                                    rules="required"/>
                     </div>
+
+                    <div class="col-md-6 col-12">
+                        <form-input :label="__('forms.name')" name="first_name" v-model="first_name" id="voting-first-name"
+                                    rules="required"/>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <form-input mask="+38 (099) 999-99-99" :label="__('forms.phone')" name="phone" v-model="phone" id="voting-phone"
+                                    rules="required|tel"/>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <form-input :label="__('forms.email')" name="email" v-model="email" id="voting-email"
+                                    rules="required|email"/>
+                    </div>
+
+                    <div class="col-12">
+
+                        <form-textarea v-model="comment" name="comment" id="voting-comment"
+                                       :label="__('Comment')"/>
+
+                        <input name="conditions" type="hidden" value="1"/>
+
+                        <div class="text-center">
+                            <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">
+                                {{ __('forms.vote') }}
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="group_type" value="0">
+                </form>
+            </template>
+
+            <template v-else>
+                <div class="text-center">
+                    <span class="h4 title text-medium">{{ __('tours-section.already-voted') }}</span>
+
+                    <div class="spacer-xs"></div>
+                    <span class="btn type-1" @click="closePopup()">{{ __('popup.return') }}</span>
                 </div>
-                <input type="hidden" name="group_type" value="0">
-            </form>
+            </template>
+
             <div class="btn-close" @click="closePopup()">
                 <span></span>
             </div>
         </div>
+
         <div class="popup-align" v-if="showThanks">
             <div class="img done">
                 <img src="/icon/done.svg" alt="done">
@@ -57,7 +72,7 @@
                 <div class="spacer-xs"></div>
                 <span class="h2 title text-medium">{{ __('tour-section.voting-thanks-message') }}</span>
                 <br>
-                <span class="text">{{ __('common.recall') }}</span>
+                <span class="text">{{ __('tour-section.voting-thanks-text') }}</span>
                 <br>
                 <div class="spacer-xs"></div>
                 <span class="btn type-1" @click="closePopup()">{{ __('popup.return') }}</span>
@@ -91,6 +106,7 @@ export default {
         tour: Object,
         user: Object,
         action: String,
+        disabled: Boolean,
     },
     setup(props) {
         const store = useStore();

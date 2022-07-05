@@ -5,6 +5,7 @@
             <form action="{{route('tour.order', $tour)}}"
                   v-is="'tour-order'"
                   :tour='@json($tour->shortInfo())'
+                  :nearest-event='@json($nearest_event->id ?? 0)'
 {{--                  :corporate="{{$future_events->count() > 0 ? 'false' : 'true'}}"--}}
                   :corporate="false"
             ></form>
