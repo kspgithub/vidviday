@@ -40,6 +40,7 @@ import crmCertificateBadge from './crm/certificate/crm-certificate-badge';
 import userCollective from './user/user-collective';
 import user from './crm/user';
 import placeList from './place/place-list';
+import pageForm from './page/page-form';
 
 import storeEmail from './stores/store-email';
 import storeUser from './stores/store-user';
@@ -106,4 +107,5 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('placeList', placeList);
     Alpine.data('crmTransportBadge', crmTransportBadge);
     Alpine.data('crmCertificateBadge', crmCertificateBadge);
+    Alpine.data('pageForm', pageForm);
 })

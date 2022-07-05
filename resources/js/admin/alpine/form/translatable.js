@@ -17,10 +17,10 @@ export default (options = {expanded: false}) => {
 
 
             if (valid) {
-                if(submit) {
+                if (submit) {
                     this.$refs.form.submit();
                 } else {
-                    let btn = jQuery('<button type="submit"></button>')
+                    let btn = jQuery('<button type="submit" class="d-none"></button>')
                     jQuery(this.$refs.form).append(btn)
                     btn.click()
                 }

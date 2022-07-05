@@ -1,16 +1,17 @@
-<div x-data='@json($page)'>
+<div x-data='pageForm({
+    page: @json($page)
+})'>
     <x-bootstrap.card>
         <x-slot name="header"><h3>@lang('Basic Information')</h3></x-slot>
         <x-slot name="body">
             <x-forms.translation-switch/>
             <x-forms.text-loc-group name="title" :label="__('Title')"
                                     :value="old('title', $page->getTranslations('title'))"
-                                    maxlength="100"
                                     :required-locales="siteLocales()"
                                     required/>
             <x-forms.text-loc-group name="slug" :label="__('Url')" :value="old('slug', $page->getTranslations('slug'))"
                                     :required-locales="siteLocales()"
-                                    maxlength="100"
+
                                     required/>
             @if(empty($page->key))
                 <x-forms.text-group name="key" :label="__('Key')"

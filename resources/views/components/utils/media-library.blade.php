@@ -37,10 +37,11 @@
                     <div x-show="item.loader" class="spinner-border text-warning" role="status"></div>
                     <template x-if="item.id">
                         <div>
-
-                            <x-forms.switch-group
-                                style="position: absolute; top: 0;bottom: 50%;left:0;right:0;margin:auto"
-                                name="published" x-bind:checked="item.published" @change="toggleMediaItem(item)"/>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" :id="'item_'+item.id+'_published'"
+                                       x-model="item.published" @change="toggleMediaItem(item)">
+                                <label class="form-check-label" :for="'item_'+item.id+'_published'"></label>
+                            </div>
 
                             <a href="#" @click.prevent="deleteMediaItem(item)" class="delete-media-item">
                                 <i class="fas fa-times"></i>

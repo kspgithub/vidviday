@@ -135,7 +135,7 @@ class PageController extends Controller
         $page->save();
 
         if ($request->ajax()) {
-            return response()->json(['result' => 'success']);
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
 
         return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Updated'));
