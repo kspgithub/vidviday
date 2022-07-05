@@ -117,6 +117,6 @@ export default (options) => ({
     },
     toggleMediaItem(item) {
         console.log(item.published)
-        this.updateMedia(item, {published: !item.published});
+        this.updateMedia(item, {published: !!item.published});
     },
 })

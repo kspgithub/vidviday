@@ -24,7 +24,8 @@
 
             {{$slot}}
 
-            <button class="btn btn-primary" type="submit" x-on:click.prevent="submit($event)">@lang('Save')</button>
+            <button class="btn btn-primary" type="submit"
+                    x-on:click.prevent="submit($event, true)">@lang('Save')</button>
         </x-forms.post>
     </div>
 </div>

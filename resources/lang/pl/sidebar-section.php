@@ -9,6 +9,7 @@ return [
     'ads' => 'Оголошення',
     'news' => 'Новини',
     'all-news' => 'Показати всі новини',
+    'recommended' => 'Jesteśmy polecani',
     'filter' => [
         'tour-search' => 'Підбір туру',
         'clear' => 'Очистити',

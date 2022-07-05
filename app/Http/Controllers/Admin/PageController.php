@@ -8,6 +8,7 @@ use App\Models\Staff;
 use App\Rules\TranslatableSlugRule;
 use App\Rules\UniqueSlugRule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,7 +25,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::query()->withCount(['media'])->orderBy('title->uk')->get();
+        $pages = Page::query()->withCount(['media', 'recommendations'])->orderBy('title->uk')->get();
         //
         return view('admin.page.index', ['pages' => $pages]);
     }
@@ -100,14 +101,14 @@ class PageController extends Controller
      * @param Request $request
      * @param Page $page
      *
-     * @return Response|RedirectResponse
+     * @return Response|RedirectResponse|JsonResponse
      */
     public function update(Request $request, Page $page)
     {
         //
         $params = $request->all();
 
-        if(count($params) === 1 && isset($params['published'])) {
+        if (count($params) === 1 && isset($params['published'])) {
             $validator = Validator::make($params, [
                 'published' => 'required|boolean'
             ]);
@@ -134,7 +135,7 @@ class PageController extends Controller
         $page->save();
 
         if ($request->ajax()) {
-            return response()->json(['result' => 'success']);
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
 
         return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Updated'));

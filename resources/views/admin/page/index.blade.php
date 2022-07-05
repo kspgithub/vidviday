@@ -30,6 +30,7 @@
                     <th>@lang('Key')</th>
                     <th>@lang('Url')</th>
                     <th>@lang('Media')</th>
+                    <th>Рекомендації</th>
                     <th>@lang('Published')</th>
                     <th>@lang('Actions')</th>
                 </tr>
@@ -43,6 +44,8 @@
                         <td>/{{$page->slug}}</td>
 
                         <td><span class="badge bg-info">{{$page->media_count}}</span></td>
+                        <td><a href="{{route('admin.page.recommendation.index', $page)}}"
+                               class="badge bg-success">{{$page->recommendations_count}}</a></td>
                         <td>@include('admin.partials.published', ['model'=>$page, 'updateUrl'=>route('admin.page.update', $page)])</td>
                         <td class="table-action">
 

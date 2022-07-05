@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\Place\PlaceController;
 use App\Http\Controllers\Admin\PriceItem\PriceItemController;
+use App\Http\Controllers\Admin\Recommendation\RecommendationController;
 use App\Http\Controllers\Admin\SiteMenu\MenuItemController;
 use App\Http\Controllers\Admin\SiteOptionsController;
 use App\Http\Controllers\Admin\Staff\StaffController;
@@ -242,7 +243,11 @@ Route::resource('staff', StaffController::class)->except('show');
 
 // OTHER RESOURCE
 Route::resource('html-block', HtmlBlockController::class)->except('show');
+
+Route::post('page/recommendation/sort', [RecommendationController::class, 'sort'])->name('page.recommendation.sort');
 Route::resource('page', PageController::class)->except(['show']);
+
+Route::resource('page.recommendation', RecommendationController::class)->except(['show']);
 Route::resource('banner', BannerController::class)->except('show');
 Route::resource('advertisement', AdvertisementController::class)->except('show');
 Route::resource('achievement', AchievementController::class)->except('show');

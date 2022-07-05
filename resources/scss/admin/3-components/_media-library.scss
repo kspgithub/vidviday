@@ -41,6 +41,13 @@
     .media-item {
         position: relative;
 
+        .form-switch {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            margin: auto auto auto -10px;
+        }
+
         .delete-media-item {
             position: absolute;
             right: 15px;

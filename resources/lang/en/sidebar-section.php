@@ -9,7 +9,7 @@ return [
     'ads' => 'Advertisement',
     'news' => 'News',
     'all-news' => 'Show all news',
-
+    'recommended' => 'We are recommended',
     'filter' => [
         'tour-search' => 'Search tour',
         'clear' => 'Clear',
