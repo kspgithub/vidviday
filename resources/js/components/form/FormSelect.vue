@@ -1,8 +1,8 @@
 <template>
     <div v-click-outside="close" :class="{open: open}" class="SumoSelect">
         <input :name="name" :value="modelValue" type="hidden">
-        <p :title="current.text" class="CaptionCont SelectBox" @click="open = !open">
-            <span v-html="current.text"></span>
+        <p :title="selectedText" class="CaptionCont SelectBox" @click="open = !open">
+            <span v-html="selectedText"></span>
             <label><i></i></label>
         </p>
         <div class="optWrapper">
@@ -11,7 +11,7 @@
                     <input v-model="searchValue" ref="search" type="text">
                 </li>
                 <li v-for="option in filteredOptions"
-                    :class="{selected: option.value === modelValue}"
+                    :class="{selected: selected.includes(option.value)}"
                     class="opt"
                     @click="change(option)"><label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
                 </li>
@@ -31,6 +31,7 @@ export default {
         modelValue: null,
         options: Array,
         search: false,
+        multiple: false,
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {
@@ -39,14 +40,46 @@ export default {
 
         const searchValue = ref('');
 
-        const current = computed(() => {
-            const option = props.options.find(o => o.value === props.modelValue);
-            return option || props.options[0];
+        const selected = computed(() => {
+            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
+            return value.split(',').map(id => parseInt(id)).filter(id => id > 0);
+        })
+
+        const selectedText = computed(() => {
+            let text = ''
+            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
+            const selected = value.split(',').map(id => parseInt(id)).filter(id => id > 0);
+            let options = props.options.filter(o => selected.includes(o.value));
+
+            if(!options.length) {
+                options = [props.options[0]]
+            }
+
+            for(let option of options) {
+                text += (text ? ',' : '') + option.text
+            }
+
+            return text
         })
 
         const change = (option) => {
             open.value = false;
-            emit('update:modelValue', option.value)
+
+            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
+            let val = value.split(',')
+            const index = val.indexOf(option.value)
+
+            if(option.value === 0) {
+                val = []
+            } else {
+                if(index > -1) {
+                    val.splice(index, 1)
+                } else {
+                    val.push(option.value)
+                }
+            }
+
+            emit('update:modelValue', val.join(','))
         }
 
         const close = () => {
@@ -73,7 +106,8 @@ export default {
         })
 
         return {
-            current,
+            selected,
+            selectedText,
             change,
             close,
             open,
