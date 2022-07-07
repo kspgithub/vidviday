@@ -8,6 +8,7 @@ import roomTitle from "../../composables/room-title";
 import updateItem from "../../composables/update-item";
 import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 import {cleanPhoneNumber} from "../../../../utils/string";
+import axios from "axios";
 
 const rooms = {
     "1o_plus": 0,
@@ -407,5 +408,25 @@ export default (options) => ({
             url += '&orders=[' + this.selectedOrders.join(',') + ']'
         }
         window.open(url)
+    },
+    async uploadInfoList(e) {
+        const formData = new FormData();
+        const fileInput = document.getElementsByName('info_sheet_upload')[0]
+
+        const file = fileInput.files[0] || null
+        formData.append('info_sheet', file);
+        const response = await axios.post(`/admin/crm/schedules/${this.schedule.id}/info_sheet`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
+        if (response.data) {
+            if (response.data.result === 'success') {
+                toast.success(response.data.message);
+            } else {
+                toast.error(response.data.message);
+            }
+        }
     }
 })

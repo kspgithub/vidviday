@@ -283,6 +283,7 @@ Route::group([
     Route::get('schedules', [CrmScheduleController::class, 'index'])->name('schedule.index');
     Route::get('schedules/{schedule}', [CrmScheduleController::class, 'show'])->name('schedule.show');
     Route::patch('schedules/{schedule}', [CrmScheduleController::class, 'update'])->name('schedule.update');
+    Route::post('schedules/{schedule}/info_sheet', [CrmScheduleController::class, 'uploadInfoSheet'])->name('schedule.upload_info_sheet');
     Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
     Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
 

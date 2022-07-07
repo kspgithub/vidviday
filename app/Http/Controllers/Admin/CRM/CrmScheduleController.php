@@ -13,6 +13,8 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CrmScheduleController extends Controller
@@ -167,6 +169,31 @@ class CrmScheduleController extends Controller
     {
         $schedule->fill($request->all());
         $schedule->save();
+
+        return response()->json([
+            'result' => 'success',
+            'message' => __('Record Updated'),
+            'schedule' => $schedule->asCrmSchedule()
+        ]);
+    }
+
+    public function uploadInfoSheet(Request $request, TourSchedule $schedule)
+    {
+        if ($infoSheet = $request->file('info_sheet')) {
+            $fileName = Str::replace(' ', '%20', $infoSheet->getClientOriginalName());
+            $infoSheetFile = Storage::url($schedule->storeFileAs($infoSheet, "uploads/files", $fileName));
+        } else {
+            if($schedule->info_sheet) {
+                $path = Str::replace('/storage', '', $schedule->info_sheet);
+                if(Storage::disk('public')->get($path)) {
+                    Storage::disk('public')->delete($path);
+                }
+            }
+
+            $infoSheetFile = null;
+        }
+
+        $schedule->update(['info_sheet' => $infoSheetFile]);
 
         return response()->json([
             'result' => 'success',

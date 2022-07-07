@@ -61,6 +61,9 @@ class OrderService extends BaseService
 
             $schedule = TourSchedule::find($order_params['schedule_id']);
 
+            if($schedule->info_sheet) {
+                $order_params['info_sheet'] = $schedule->info_sheet;
+            }
 
             $tour_price = $schedule ? $schedule->price : $tour->price;
 
