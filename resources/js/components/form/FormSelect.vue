@@ -10,6 +10,9 @@
                 <li v-if="search">
                     <input v-model="searchValue" ref="search" type="text">
                 </li>
+                <li v-if="multiple" class="opt" @click="selectAll()">
+                    <label>Обрати все</label>
+                </li>
                 <li v-for="option in filteredOptions"
                     :class="{selected: selected.includes(option.value)}"
                     class="opt"
@@ -105,6 +108,17 @@ export default {
             return props.options.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
         })
 
+        const selectAll = () => {
+            close()
+
+            let options = []
+            for (let option of props.options) {
+                options.push(option.value)
+            }
+
+            emit('update:modelValue', options.join(','))
+        }
+
         return {
             selected,
             selectedText,
@@ -113,6 +127,7 @@ export default {
             open,
             searchValue,
             filteredOptions,
+            selectAll,
         }
     }
 }
