@@ -17,6 +17,7 @@ use App\Http\Controllers\TravelAgent\TravelAgentController;
 use App\Http\Controllers\Vacancy\VacancyController;
 use App\Models\Page;
 use App\Models\Place;
+use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use Illuminate\Http\Request;
@@ -26,8 +27,6 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
-
-
         if (Tour::existBySlug($slug, false)) {
             return (new TourController())->show($slug);
         }
@@ -47,6 +46,8 @@ class PageController extends Controller
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
+
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
         switch ($pageContent->key) {
             case 'home':
@@ -74,7 +75,11 @@ class PageController extends Controller
             case 'testimonials':
                 return (new TestimonialController())->index($request);
             default:
-                return view('page.show', ['pageContent' => $pageContent, 'localeLinks' => $localeLinks]);
+                return view('page.show', [
+                    'pageContent' => $pageContent,
+                    'localeLinks' => $localeLinks,
+                    'popupAds' => $popupAds,
+                ]);
         }
 
 

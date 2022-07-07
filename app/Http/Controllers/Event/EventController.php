@@ -7,6 +7,7 @@ use App\Models\Direction;
 use App\Models\EventGroup;
 use App\Models\EventItem;
 use App\Models\Page;
+use App\Models\PopupAd;
 
 
 class EventController extends Controller
@@ -20,9 +21,12 @@ class EventController extends Controller
             return $q->published();
         })->with(['events', 'events.media'])->get();
 
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('event.index', [
             'eventGroups' => $eventGroups,
             'pageContent' => $pageContent,
+            'popupAds' => $popupAds,
         ]);
     }
 

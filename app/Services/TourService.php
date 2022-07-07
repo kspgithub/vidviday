@@ -75,6 +75,8 @@ class TourService extends BaseService
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
                     ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
+                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
                 ],
                 'pagination' => [
                     ['value' => 12, 'text' => '12'],
