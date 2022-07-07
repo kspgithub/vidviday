@@ -6,6 +6,7 @@ use App\Models\Traits\Attributes\TourScheduleAttribute;
 use App\Models\Traits\Methods\TourScheduleMethod;
 use App\Models\Traits\Scope\TourScheduleScope;
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\StandardUploadFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,7 @@ class TourSchedule extends Model
     use TourScheduleAttribute;
     use TourScheduleScope;
     use TourScheduleMethod;
+    use StandardUploadFile;
 
     const STATUS_PLANNED = 0;
     const STATUS_WAITING = 1;
@@ -53,6 +55,7 @@ class TourSchedule extends Model
         'auto_booking',
         'auto_limit',
         'places_yd_updated_at',
+        'info_sheet',
     ];
 
     protected $casts = [

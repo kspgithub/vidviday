@@ -69,7 +69,8 @@ export const makeUrl = function (path, params = {}) {
 }
 
 export const updateUrl = function (path, params = {}, checkChange = false, replace = false) {
-    const url = makeUrl(path, params);
+    const url = decodeURIComponent(makeUrl(path, params));
+
     if (checkChange && url === currentUrl()) {
         return false;
     }
@@ -78,7 +79,7 @@ export const updateUrl = function (path, params = {}, checkChange = false, repla
     } else {
         window.history.pushState(null, null, url);
     }
-   
+
     return url;
 }
 

@@ -3,7 +3,6 @@
 namespace App\Models\Traits\Attributes;
 
 use App\Helpers\Types\TourCorporateIncludes;
-use App\Models\FoodTime;
 use App\Models\IncludeType;
 use App\Models\TourPlan;
 use Illuminate\Support\Arr;
@@ -221,10 +220,28 @@ trait TourAttribute
     {
         $includes = json_decode($value ?: '[]', true);
 
-        if(empty($includes)) {
+        if (empty($includes)) {
             $includes = Arr::pluck(TourCorporateIncludes::values(), 'value');
         }
 
         return $includes;
+    }
+
+    public function getActiveTabsAttribute($value)
+    {
+        $tabs = json_decode($value ?: '[]', true);
+
+        if (empty($tabs)) {
+            $tabs = [
+                'places',
+                'ticket',
+                'hutsul_fun',
+                'transport',
+                'accommodation',
+                'food',
+            ];
+        }
+
+        return $tabs;
     }
 }

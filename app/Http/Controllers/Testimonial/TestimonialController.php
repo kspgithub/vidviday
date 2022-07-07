@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TestimonialAnswerRequest;
 use App\Http\Requests\Tour\TestimonialRequest;
 use App\Models\Page;
+use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
@@ -34,9 +35,13 @@ class TestimonialController extends Controller
             return response()->json($testimonials);
         }
         $pageContent = Page::query()->where('key', 'testimonials')->first();
+
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('contact.testimonials', [
             'pageContent' => $pageContent,
             'testimonials' => $testimonials,
+            'popupAds' => $popupAds,
         ]);
     }
 

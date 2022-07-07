@@ -4,6 +4,7 @@
 namespace App\Models\Traits;
 
 use Exception;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -15,9 +16,18 @@ trait StandardUploadFile
      * @param string $folderStorage
      * @return string
      */
-    public function storeFile($file, string $folderStorage)
+    public function storeFile(UploadedFile $file, string $folderStorage)
     {
         return $file->store($folderStorage, "public");
+    }
+    /**
+     * @param $file
+     * @param string $folderStorage
+     * @return string
+     */
+    public function storeFileAs($file, string $folderStorage, string $name)
+    {
+        return $file->storeAs("public/" . $folderStorage, $name);
     }
 
     /**

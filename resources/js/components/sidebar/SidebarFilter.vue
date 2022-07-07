@@ -39,24 +39,28 @@
                              :options="options.directions"
                              name="direction"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="place"
                              :options="options.places"
                              name="place"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="type"
                              :options="options.types"
                              name="type"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="landing"
                              :options="options.landings"
                              name="landing"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <span class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>

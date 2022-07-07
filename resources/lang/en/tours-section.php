@@ -6,6 +6,8 @@ return [
         'price-desc' => 'From the most expensive',
         'created-desc' => 'From newer',
         'created-asc' => 'From the elder',
+        'rating-asc' => 'From most popular',
+        'rating-desc' => 'From less popular',
     ],
     'search-btn' => 'Search tour',
     'empty-results' => 'Sorry, nothing was found for your query',

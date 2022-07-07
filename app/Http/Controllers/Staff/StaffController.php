@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Place\TestimonialRequest;
+use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\StaffType;
 use App\Models\Page;
@@ -22,9 +23,12 @@ class StaffController extends Controller
         })->withCount(['testimonials', 'tours'])->get();
         $pageContent = Page::select()->where('key', 'office-workers')->first();
 
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('staff.index', [
             'specialists' => $specialists,
-            'pageContent' => $pageContent
+            'pageContent' => $pageContent,
+            'popupAds' => $popupAds,
         ]);
     }
 
