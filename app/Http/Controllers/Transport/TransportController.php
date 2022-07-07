@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transport;
 use App\Http\Controllers\Controller;
 use App\Models\OrderTransport;
 use App\Models\Page;
+use App\Models\PopupAd;
 use App\Models\Transport;
 use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
@@ -19,9 +20,12 @@ class TransportController extends Controller
 
         $transports = Transport::published()->get();
 
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('transport.index', [
             'pageContent' => $pageContent,
             'transports' => $transports,
+            'popupAds' => $popupAds,
         ]);
     }
 

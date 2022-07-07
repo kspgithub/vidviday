@@ -17,6 +17,8 @@
     @include('includes.popups.manager-testimonial-popup')
     @include('includes.popups.tour-cancel-popup')
 
+    @include('includes.popups.popup_ads')
+
     @stack('popups', false)
 
 </div>

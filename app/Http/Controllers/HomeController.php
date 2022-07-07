@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\News;
 use App\Models\OurClient;
 use App\Models\Page;
+use App\Models\PopupAd;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Support\Carbon;
@@ -21,12 +22,14 @@ class HomeController extends Controller
         $banners = Banner::published()->orderBy('position')->get();
         $achievements = Achievement::published()->get();
         $pageContent = Page::where('key', 'home')->first();
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
         return view('home.index', [
             'pageContent' => $pageContent,
             'tours' => $tours,
             'banners' => $banners,
             'achievements' => $achievements,
+            'popupAds' => $popupAds,
         ]);
     }
 

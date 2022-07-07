@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
+use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -23,6 +24,7 @@ class Page extends TranslatableModel implements HasMedia
     use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use UseSelectBox;
 
     public function registerMediaConversions(Media $media = null): void
     {
