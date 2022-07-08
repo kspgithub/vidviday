@@ -68,9 +68,9 @@ export default {
         const change = (option) => {
             open.value = false;
 
-            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
-            let val = value.split(',')
-            const index = val.indexOf(option.value)
+            const value = String(JSON.parse(JSON.stringify(props.modelValue)))
+            let val = value.split(',').filter(v => !!v)
+            const index = val.indexOf(option.value.toString())
 
             if(option.value === 0) {
                 val = []
@@ -113,7 +113,8 @@ export default {
 
             let options = []
             for (let option of props.options) {
-                options.push(option.value)
+                if(option.value)
+                    options.push(option.value)
             }
 
             emit('update:modelValue', options.join(','))
