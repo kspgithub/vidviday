@@ -13,10 +13,10 @@
                     </div>
                 </div>
                 <div class="swiper-container" data-options='{
+										"loop": {{ count($banners) > 1 ? 'true' : 'false' }},
 										"autoHeight": true,
 										"parallax": true,
 										"speed": 900,
-										"loop": true,
 										"lazy": true,
 										"autoplay": {
 											"delay": 5000

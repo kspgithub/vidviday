@@ -9,7 +9,7 @@
             <i></i>
         </div>
         <div class="swiper-container" data-options='{
-								"loop": true,
+                                "loop": {{ count($popularTours) > 1 ? 'true' : 'false' }},
 								"lazy": true,
 								"speed": 900,
 								"slidesPerView": 1,

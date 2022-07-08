@@ -3,7 +3,7 @@
 <div class="spacer-xs"></div>
 <div class="thumbs-carousel swiper-entry">
     <div class="swiper-container" data-options='{
-        "loop": true,
+        "loop": {{ count($tours) > 1 ? 'true' : 'false' }},
         "lazy": true,
         "speed": 900,
         "slidesPerView": 1,
