@@ -1086,12 +1086,12 @@ nav {
 
             .row > div {
                 > .header-search {
-                    margin-right: -10px;
+                    //margin-right: -10px;
                 }
 
                 &:first-child {
                     padding-right: 0;
-                    margin-right: 50px;
+                    margin-right: 30px;
                 }
 
                 &:nth-child(2) {
@@ -1215,7 +1215,7 @@ nav {
     .exchange,
     .lang,
     #menu-btn {
-        margin-left: 30px;
+        //margin-left: 30px;
     }
 }
 
@@ -1250,6 +1250,19 @@ nav {
             height: 12px;
             font-size: 8px;
             line-height: 12px;
+        }
+    }
+}
+
+@media (max-width: 325px) {
+    header {
+        .container {
+
+            .row > div {
+                > .header-search {
+                    margin-right: -10px;
+                }
+            }
         }
     }
 }

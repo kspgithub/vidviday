@@ -22,7 +22,7 @@
             <div class="title h3">
                 <a :href="tour.url">{{ tourTitle }}</a>
             </div>
-            <tour-rating :count="tour.testimonials_count" :rating="tour.rating"/>
+            <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"/>
 
 
             <div class="datepicker-input" v-if="schedules.length">

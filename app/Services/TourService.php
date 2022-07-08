@@ -71,12 +71,12 @@ class TourService extends BaseService
                 'places' => [['value' => 0, 'text' => __('tours-section.places')]] + $places,
                 'landings' => [['value' => 0, 'text' => __('tours-section.landing-places')]] + $landings,
                 'sorting' => [
-                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
-                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
                     ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
-                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
+                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
+                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
+                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
                 ],
                 'pagination' => [
                     ['value' => 12, 'text' => '12'],

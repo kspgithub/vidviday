@@ -10,10 +10,9 @@
     <label>
         <span class="text">Сортувати за</span>
         <select name="sorting">
-            <option value="price-asc">Від найдешевшого</option>
-            <option value="price-desc">Від найдорожчого</option>
-            <option value="created-desc">Від новішого</option>
-            <option value="created-asc">Від старішого</option>
+            @foreach(App\Services\TourService::filterOptions()['sorting'] as $sorting)
+                <option value="{{$sorting['value']}}">{{$sorting['text']}}</option>
+            @endforeach
         </select>
     </label>
 </form>

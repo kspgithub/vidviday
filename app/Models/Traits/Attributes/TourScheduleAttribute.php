@@ -33,7 +33,14 @@ trait TourScheduleAttribute
                     Str::ucfirst($this->end_date->translatedFormat('D')) .
                     ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
             }
-            return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
+            $start_date = $this->start_date->format('d.m.Y');
+            $end_date = $this->end_date->format('d.m.Y');
+
+            if($start_date === $end_date) {
+                return $start_date;
+            } else {
+                return $start_date . ' - ' . $end_date;
+            }
         }
         return '';
     }

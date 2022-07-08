@@ -32,6 +32,8 @@ export default {
 
             const bounds = new google.maps.LatLngBounds();
 
+            const infoWindows = {}
+
             for (let i = 0; i < props.tour.places.length; i++) {
                 const place = props.tour.places[i];
                 const position = {lat: place.lat, lng: place.lng};
@@ -42,6 +44,24 @@ export default {
                     title: place.title[locale] || place.title['uk'],
                     map: map.value,
                 });
+
+                infoWindows[i] = new google.maps.InfoWindow({
+                    ariaLabel: place.title[locale] || place.title['uk'],
+                    content: place.title[locale] || place.title['uk'],
+                });
+
+                marker.addListener("click", () => {
+                    for(let i in infoWindows) {
+                        let infoWindow = infoWindows[i]
+                        infoWindow.close()
+                    }
+                    infoWindows[i].open({
+                        anchor: marker,
+                        map: map.value,
+                        shouldFocus: false,
+                    });
+                });
+
 
                 bounds.extend(marker.getPosition());
                 markers.value.push(marker);
