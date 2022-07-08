@@ -124,8 +124,17 @@ trait TourScope
                 return $q->jsonLike('title', "%$search%");
             });
 
-        $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';
-        $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
+        $query->withAvg('testimonials', 'rating');
+
+        $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'created';
+        $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'asc' ? 'asc' : 'desc';
+
+        if($sort_by === 'created') {
+            $sort_by = 'created_at';
+        }
+        if($sort_by === 'rating') {
+            $sort_by = 'testimonials_avg_rating';
+        }
 
         return $query->orderBy($sort_by, $sort_dir);
     }

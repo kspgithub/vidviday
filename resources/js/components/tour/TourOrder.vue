@@ -12,7 +12,7 @@
         </div>
 
         <div class="only-desktop hidden-print">
-            <tour-rating :rating="tour.rating" :count="tour.testimonials_count" force-count/>
+            <tour-rating :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" :count="tour.testimonials_count" force-count/>
 
             <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
 

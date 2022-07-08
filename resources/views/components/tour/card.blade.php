@@ -19,7 +19,7 @@
         </div>
         <span class="stars select-stars stars-selected">
             @for($i=1; $i <=5; $i++)
-                <i class="select-icon {{$tour->rating >= $i ? 'icon-star' : 'icon-star-empty'}}"></i>
+                <i class="select-icon {{($tour->rating ?: $tour->testimonials_avg_rating) >= $i ? 'icon-star' : 'icon-star-empty'}}"></i>
             @endfor
             @if($tour->count_testimonials > 0)
                 <span
