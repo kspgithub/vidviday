@@ -41,7 +41,7 @@
                     <tr class="draggable" data-id="{{$recommendation->id}}">
                         <td class="handler ps-2"><i class="fa fa-bars cursor-move me-3"></i></td>
                         <td>{{$recommendation->name}}</td>
-                        <td>{{str_limit(strip_tags($recommendation->text), 100)}}</td>
+                        <td>{{str_limit(strip_tags(html_entity_decode($recommendation->text)), 100)}}</td>
                         <td>{{$recommendation->published}}</td>
 
                         <td class="table-action">

@@ -61,7 +61,7 @@
                                 <h2 class="h3"><a href="{{$vacancy->url}}">{{$vacancy->title}}</a></h2>
                                 <span class="text-sm">{{$vacancy->created_at}}</span>
                                 <div class="text">
-                                    <p>{{!empty($vacancy->short_text) ? $vacancy->short_text : str_limit(strip_tags($vacancy->text), 500)}}</p>
+                                    <p>{{!empty($vacancy->short_text) ? $vacancy->short_text : str_limit(strip_tags(html_entity_decode($vacancy->text)), 500)}}</p>
                                 </div>
                                 <a href="{{$vacancy->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
                             </div>
