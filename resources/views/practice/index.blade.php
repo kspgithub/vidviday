@@ -61,7 +61,7 @@
                                 <h2 class="h3"><a href="{{$practice->url}}">{{$practice->title}}</a></h2>
                                 <span class="text-sm">{{$practice->created_at}}</span>
                                 <div class="text">
-                                    <p>{{!empty($practice->short_text) ? $practice->short_text : str_limit(strip_tags($practice->text), 500)}}</p>
+                                    <p>{{!empty($practice->short_text) ? $practice->short_text : str_limit(strip_tags(html_entity_decode($practice->text)), 500)}}</p>
                                 </div>
                                 <a href="{{$practice->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
                             </div>

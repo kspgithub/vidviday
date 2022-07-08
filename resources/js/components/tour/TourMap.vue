@@ -62,11 +62,16 @@ export default {
                     });
                 });
 
-
                 bounds.extend(marker.getPosition());
                 markers.value.push(marker);
             }
-            map.value.fitBounds(bounds, 100);
+
+            if(markers.value.length === 1) {
+                map.value.setCenter(markers.value[0].getPosition())
+            } else {
+                map.value.fitBounds(bounds, 100);
+            }
+
         });
 
         return {

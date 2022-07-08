@@ -226,7 +226,9 @@ jQuery(function ($) {
 
         if (!options.pagination) options.pagination = {
             el: $slider.find('.swiper-pagination')[0],
-            clickable: true
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 10,
         };
 
         if (!options.navigation) options.navigation = {
@@ -267,6 +269,8 @@ jQuery(function ($) {
             }
         }
         if (isTouchScreen) options.direction = "horizontal";
+
+        console.log(options)
         return options;
     };
 
