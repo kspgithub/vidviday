@@ -8,6 +8,59 @@
             <li class="nav-item">
                 <a href="/" class="nav-link">До сайту</a>
             </li>
+
+            <li class="nav-item" x-data='{
+                searchQuery: "",
+                searchResults: {
+                    tours: [],
+                    places: [],
+                },
+                get tours() {
+                    return this.searchResults.tours
+                },
+                get places() {
+                    return this.searchResults.tours
+                },
+                search(e) {
+                    if(e.target.value.length > 2) {
+                        axios.get("/api/search/autocomplete", {params: {q: this.searchQuery}}).then(response => {
+                            this.searchResults.tours = response.data.tours
+                            this.searchResults.places = response.data.places
+
+                            if(this.searchResults.tours.length || this.searchResults.places.length) {
+                                this.$refs.dropdown.setAttribute("style", "display: block; width: 500px")
+                            } else {
+                                this.$refs.dropdown.removeAttribute("style")
+                            }
+                        })
+                    } else {
+                        this.searchResults.tours = []
+                        this.searchResults.places = []
+                        this.$refs.dropdown.removeAttribute("style")
+                    }
+                },
+            }'>
+                <input class="nav-link form-control" type="text" placeholder="Пошук" x-model="searchQuery" @input="search">
+
+                <ul class="dropdown-menu" x-ref="dropdown">
+                    <li class="nav-item">
+                        <div class="text-center">Tours</div>
+                    </li>
+                    <template x-for="tour in tours">
+                        <li class="nav-item">
+                            <a class="nav-link" x-bind:href="'/admin/tour/'+tour.id+'/edit'" x-text="tour.title"></a>
+                        </li>
+                    </template>
+                    <li class="nav-item">
+                        <div class="text-center">Places</div>
+                    </li>
+                    <template x-for="tour in tours">
+                        <li class="nav-item">
+                            <a class="nav-link" x-bind:href="'/admin/tour/'+tour.id+'/edit'" x-text="tour.title"></a>
+                        </li>
+                    </template>
+                </ul>
+            </li>
         </ul>
         <ul class="navbar-nav navbar-align">
             @if(count(config('site-settings.locale.languages')) > 1)

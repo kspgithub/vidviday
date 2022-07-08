@@ -12451,6 +12451,7 @@ nav,
 .popup-container.size-3-new .swiper-slide img {
     margin: 0 auto;
     max-width: 100%;
+    max-height: 75vh;
 }
 
 .popup-container.size-3-new .swiper-slide {
@@ -12989,7 +12990,7 @@ input[name="viber"]:-ms-input-placeholder {
 }
 
 @media (max-width: 575px) {
-    
+
     .order-page .bordered-box {
         padding: 20px 0;
     }

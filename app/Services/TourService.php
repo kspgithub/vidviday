@@ -96,15 +96,15 @@ class TourService extends BaseService
             $title[] = urldecode($params['q']);
         }
         if (!empty($params['direction'])) {
-            $direction = Direction::where('id', $params['direction'])->select('title')->first();
+            $direction = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->first();
             $title[] = $direction->title;
         }
         if (!empty($params['type'])) {
-            $direction = TourType::where('id', $params['type'])->select('title')->first();
+            $direction = TourType::whereIn('id', explode(',', $params['type']))->select('title')->first();
             $title[] = $direction->title;
         }
         if (!empty($params['subject'])) {
-            $direction = TourSubject::where('id', $params['subject'])->select('title')->first();
+            $direction = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->first();
             $title[] = $direction->title;
         }
         return implode(', ', $title);
