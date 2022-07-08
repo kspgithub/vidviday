@@ -40,7 +40,13 @@ export const useTourCard = (tour) => {
     const inFavourites = computed(() => store.getters['user/inFavourites'](tour.id));
 
     onMounted(() => {
-        imageSrc.value = tour.main_image;
+        let windowWidth = document.body.clientWidth
+
+        if(windowWidth > 575) {
+            imageSrc.value = tour.main_image;
+        } else {
+            imageSrc.value = tour.mobile_image;
+        }
     })
 
     const currencyIso = computed(() => store.getters['currency/iso']);

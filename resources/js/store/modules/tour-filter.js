@@ -47,8 +47,8 @@ export default {
 
             },
             sorting: {
-                sortBy: 'price',
-                sortDirection: 'asc',
+                sortBy: 'created',
+                sortDirection: 'desc',
             },
             tours: [],
             popularTours: []
@@ -84,6 +84,7 @@ export default {
         },
         SET_SORTING(state, value) {
             Object.assign(state.sorting, value);
+            Object.assign(state.pagination, {current_page: 1});
         },
         SET_TOURS(state, value) {
             state.tours = value;
@@ -114,8 +115,8 @@ export default {
                 page: 1,
                 future: 1,
                 per_page: 12,
-                sort_by: 'price',
-                sort_dir: 'asc',
+                sort_by: 'created',
+                sort_dir: 'desc',
                 view: 'gallery',
                 lang: 'uk',
             }
@@ -192,8 +193,8 @@ export default {
             commit('SET_PAGINATION', pagination);
 
             const sorting = {
-                sortBy: query.sort_by ? query.sort_by : 'price',
-                sortDirection: query.sort_dir ? query.sort_dir : 'asc',
+                sortBy: query.sort_by ? query.sort_by : 'created',
+                sortDirection: query.sort_dir ? query.sort_dir : 'desc',
             }
 
             commit('SET_SORTING', sorting);
@@ -226,10 +227,10 @@ export default {
                 }
 
                 commit('SET_PAGINATION', {
-                    current_page: response.current_page,
-                    per_page: response.per_page,
-                    last_page: response.last_page,
-                    total: response.total,
+                    current_page: parseInt(response.current_page),
+                    per_page: parseInt(response.per_page),
+                    last_page: parseInt(response.last_page),
+                    total: parseInt(response.total),
                 });
                 commit('SET_REQUEST_TITLE', response.request_title);
             }
@@ -246,8 +247,9 @@ export default {
         async submit({getters, dispatch}) {
             const path = document.location.pathname;
             const query = urlUtils.filterParams(getters.formData, getters.defaultData);
+
             urlUtils.updateUrl(path, query, true);
-            await dispatch('fetchTours', query);
+            await dispatch('fetchTours', getters.formData);
         }
     }
 }
