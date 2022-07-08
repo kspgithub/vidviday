@@ -11,7 +11,7 @@
                     <i></i>
                 </div>
                 <div class="swiper-container" data-options='{
-{{--						"loop": true,--}}
+						"loop": {{ count($practice->similar_practices) > 1 ? 'true' : 'false' }},
 						"slidesPerView": 1,
 						"spaceBetween": 20,
 						"centerInsufficientSlides": true,
