@@ -11,10 +11,11 @@
                     <div class="accordion-item active">
                         <div class="accordion-title">{{$place->title}}<i></i></div>
                         <div class="accordion-inner" style="display: block">
-                            @if($place->hasMedia())
+                            @if($place->hasMedia('default', ['published' => true]))
                                 <div class="swiper-entry" v-is="'swiper-slider'"
                                      key="swiper-place-{{$place->id}}"
                                      :media='@json($place->getMedia('default', ['published' => true])->map->toSwiperSlide())'
+                                     :buttons="true"
                                 >
                                 </div>
                                 <div class="spacer-xs"></div>
