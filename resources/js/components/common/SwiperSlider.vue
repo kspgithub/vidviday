@@ -53,6 +53,8 @@ export default {
         const prevRef = ref(null);
 
         const options = ref(Object.assign({
+            autoHeight: true,
+            calculateHeight:true,
             loop: false,
             lazy: true,
             preloadImages: false,
