@@ -122,21 +122,21 @@ export default {
         const params = computed(() => store.getters['tourFilter/formData']);
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
 
-        const submit = async () => {
-            await store.dispatch('tourFilter/submit')
-        }
         // const submit = async () => {
-        //     const path = document.location.pathname;
-        //     console.log(params.value)
-        //     const query = urlUtils.filterParams(params.value, defaultParams.value);
-        //     if (path !== '/tours') {
-        //         document.location.href = urlUtils.makeUrl('/tours', query);
-        //     } else {
-        //         urlUtils.updateUrl(path, query, true);
-        //         await store.dispatch('tourFilter/fetchTours', query);
-        //     }
-        //
+        //     await store.dispatch('tourFilter/submit')
         // }
+        const submit = async () => {
+            const path = document.location.pathname;
+            console.log(params.value)
+            const query = urlUtils.filterParams(params.value, defaultParams.value);
+            if (path !== '/tours') {
+                document.location.href = urlUtils.makeUrl('/tours', query);
+            } else {
+                urlUtils.updateUrl(path, query, true);
+                await store.dispatch('tourFilter/fetchTours', query);
+            }
+
+        }
 
         const clear = async () => {
             await store.dispatch('tourFilter/clearFilter');
