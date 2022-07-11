@@ -61,6 +61,7 @@ class Place extends TranslatableModel implements HasMedia
         'region_id',
         'city_id',
         'district_id',
+        'video',
     ];
 
     protected $casts = [
@@ -139,13 +140,17 @@ class Place extends TranslatableModel implements HasMedia
     }
 
 
-    public function asSelectBox($value_key = 'id', $text_key = 'text', $titleSource = 'default')
+    public function asSelectBox($value_key = 'id', $text_key = 'text', $titleSource = 'default', $appendUrl = false)
     {
         $title = $titleSource === 'default' ? $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : '') : $this->{$titleSource};
-        return [
+        $data = [
             $value_key => $this->id,
             $text_key => $title,
         ];
+        if ($appendUrl) {
+            $data['url'] = $this->getUrlAttribute();
+        }
+        return $data;
     }
 
     public function getMainImageAttribute()

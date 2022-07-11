@@ -114,7 +114,7 @@ export default {
         },
         async loadPlaces(district) {
             const response = await apiClient.get('/places/select-box', {
-                params: {district_id: district.value, text: 'title'},
+                params: {district_id: district.value, text: 'title', url: 1},
             }).catch(error => {
                 console.error(error)
             })

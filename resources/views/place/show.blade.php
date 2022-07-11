@@ -11,7 +11,9 @@
     <meta property="og:description"
           content="{{ !empty($place->seo_description) ? $place->seo_description : $place->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ $place->getFirstMedia()->getFullUrl() }}">
+    @if($pageImage = $place->getFirstMedia())
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
