@@ -14,7 +14,11 @@
                                 required/>
         <x-forms.editor-loc-group name="text" :label="__('Text')" :value="old('text', $place->getTranslations('text'))"
                                   required/>
-
+        <x-forms.text-group name="video"
+                            type="url"
+                            :label="__('Youtube Video')"
+                            :value="old('video', $place->video)"
+        ></x-forms.text-group>
         <x-forms.select-group name="direction_id" :label="__('Direction')"
                               :value="old('direction_id', $place->direction_id)"
                               :options="$directions"

@@ -33,8 +33,10 @@ class PlacesController extends Controller
 
         $paginator = $query->autocomplete($q)->paginate($request->input('limit', 10));
         $items = [];
+        $url = !!$request->input('url', 0);
+
         foreach ($paginator->items() as $item) {
-            $items[] = $item->asSelectBox('id', 'text', $title);
+            $items[] = $item->asSelectBox('id', 'text', $title, $url);
         }
 
         return [
