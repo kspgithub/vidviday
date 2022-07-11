@@ -18,8 +18,8 @@ class Media extends SpatieMedia
         $item = [
             'id' => $media->id,
             'url' => $media->getUrl(),
-            'alt' => $media->getCustomProperty('alt_' . $locale) ?? $media->model->title,
-            'title' => $media->getCustomProperty('title_' . $locale) ?? $media->model->title,
+            'alt' => htmlspecialchars($media->getCustomProperty('alt_' . $locale) ?? $media->model->title),
+            'title' => htmlspecialchars($media->getCustomProperty('title_' . $locale) ?? $media->model->title),
         ];
         foreach ($conversions as $conversion) {
             $item[$conversion] = $media->getUrl($conversion);
