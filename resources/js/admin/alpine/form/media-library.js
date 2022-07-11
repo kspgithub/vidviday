@@ -116,7 +116,6 @@ export default (options) => ({
         this.updateMedia(item, {alt: alt, locale: this.locale});
     },
     toggleMediaItem(item) {
-        console.log(item.published)
         this.updateMedia(item, {published: !!item.published});
     },
 })

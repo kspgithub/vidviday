@@ -13,18 +13,11 @@
 
 @section('content')
 
-    <x-forms.post :action="route('admin.faqitem.store', $section)" enctype="multipart/form-data">
-        <x-bootstrap.card>
-            <x-slot name="header">
-                <h4>{{__('Creating').' '.__('FAQ')}}</h4>
-            </x-slot>
-            <x-slot name="body">
-                @include('admin.faqitem.includes.form')
-            </x-slot>
-            <x-slot name="footer">
-                <button class="btn btn-primary" type="submit">@lang('Save')</button>
-            </x-slot>
-        </x-bootstrap.card>
-    </x-forms.post>
+    <x-page.edit :update-url="route('admin.faqitem.store', $section)"
+                 :back-url="route('admin.faqitem.index', $section)"
+                 :title="__('Creating').' '.__('FAQ')"
+    >
+        @include('admin.faqitem.includes.form')
+    </x-page.edit>
 
 @endsection
