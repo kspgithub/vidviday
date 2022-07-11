@@ -1,5 +1,5 @@
-<x-bootstrap.card>
-    <x-slot name="body">
+<div class="card">
+    <div class="card-body">
         <x-forms.translation-switch/>
 
         <x-forms.text-loc-group name="title" :label="__('Title')"
@@ -40,7 +40,79 @@
 
         <x-forms.textarea-loc-group name="map_comment" label="Коментар на карті"
                                     :value="old('map_comment', $contact->getTranslations('map_comment'))"></x-forms.textarea-loc-group>
-    </x-slot>
 
-</x-bootstrap.card>
+        <hr>
+        <div class="form-group row mb-3">
+            <div class="col-md-2 col-form-label">Корпоративні замовлення</div>
+            <div class="col-md-10" x-data='contactManagers({
+    options: @json($managerOptions),
+    items: @json($contact->managers_corporate ?? [])
+})'>
+                <div style="width: 300px">
+                    <ul class="list-group" :class="{'mb-3': managers.length}" x-ref="sortableRef">
+                        <template x-for="(manager, idx) in managers" :key="'m'+manager.value">
+                            <li class="list-group-item d-flex align-items-center" :data-id="manager.value">
+                                <i class="handler cursor-move fa fa-bars me-3"></i>
+                                <span x-text="manager.text"></span>
+                                <a href="#" class="ms-auto text-danger" @click.prevent="remove(manager.value)"><i
+                                        class="fa fa-times"></i></a>
+                            </li>
+                        </template>
 
+                    </ul>
+
+                    <template x-for="(item, idx) in items">
+                        <input type="hidden" :name="'managers_corporate['+idx+']'" :value="item">
+                    </template>
+
+                    <div class="d-flex align-items-center">
+                        <select class="form-control me-3" x-model.number="managerId">
+                            <option value="0">Оберіть менеджера</option>
+                            <template x-for="option in options" :key="'o'+option.value">
+                                <option :value="option.value" x-text="option.text"></option>
+                            </template>
+                        </select>
+                        <button class="btn btn-primary" @click.prevent="add()" :disabled="!managerId">Додати</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group row mb-3">
+            <div class="col-md-2 col-form-label">Співпраця з туристичними агенціями</div>
+            <div class="col-md-10" x-data='contactManagers({
+    options: @json($managerOptions),
+    items: @json($contact->managers_agency ?? [])
+})'>
+                <div style="width: 300px">
+                    <ul class="list-group" :class="{'mb-3': managers.length}" x-ref="sortableRef">
+                        <template x-for="(manager, idx) in managers" :key="'m'+manager.value">
+                            <li class="list-group-item d-flex align-items-center" :data-id="manager.value">
+                                <i class="handler cursor-move fa fa-bars me-3"></i>
+                                <span x-text="manager.text"></span>
+                                <a href="#" class="ms-auto text-danger" @click.prevent="remove(manager.value)"><i
+                                        class="fa fa-times"></i></a>
+                            </li>
+                        </template>
+
+                    </ul>
+
+                    <template x-for="(item, idx) in items">
+                        <input type="hidden" :name="'managers_agency['+idx+']'" :value="item">
+                    </template>
+
+                    <div class="d-flex align-items-center">
+                        <select class="form-control me-3" x-model.number="managerId">
+                            <option value="0">Оберіть менеджера</option>
+                            <template x-for="option in options" :key="'o'+option.value">
+                                <option :value="option.value" x-text="option.text"></option>
+                            </template>
+                        </select>
+                        <button class="btn btn-primary" @click.prevent="add()" :disabled="!managerId">Додати</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

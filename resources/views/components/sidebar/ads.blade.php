@@ -10,7 +10,7 @@
         </div>
         <div class="bottom-part">
             <div class="text">
-                <p>{{$advertisement->text}}</p>
+                {!! $advertisement->text !!}
             </div>
             @if(!empty($advertisement->image))
                 <a href="{{ $advertisement->url }}">
