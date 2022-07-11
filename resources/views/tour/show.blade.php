@@ -8,9 +8,12 @@
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
     <meta property="og:title" content="{{ !empty($tour->seo_title) ? $tour->seo_title : $tour->title }}">
-    <meta property="og:description" content="{{ !empty($tour->seo_description) ? $tour->seo_description : $tour->title }}">
+    <meta property="og:description"
+          content="{{ !empty($tour->seo_description) ? $tour->seo_description : $tour->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ $tour->getFirstMedia('main')->getFullUrl() }}">
+    @if($pageImage = $tour->getFirstMedia())
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush

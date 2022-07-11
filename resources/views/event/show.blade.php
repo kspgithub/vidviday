@@ -8,8 +8,12 @@
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
     <meta property="og:title" content="{{ !empty($event->seo_title) ? $event->seo_title : $event->title }}">
-    <meta property="og:description" content="{{ !empty($event->seo_description) ? $event->seo_description : $event->title }}">
+    <meta property="og:description"
+          content="{{ !empty($event->seo_description) ? $event->seo_description : $event->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
+    @if($pageImage = $event->getFirstMedia())
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
     <meta property="og:image" content="{{ $event->getFirstMedia()->getFullUrl() }}">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
@@ -44,8 +48,8 @@
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
@@ -65,7 +69,7 @@
                     @if($tours->count())
                         @include('event.tours', ['tours' => $tours])
                     @else
-                        <x-tour.popular />
+                        <x-tour.popular/>
                     @endif
                 </div>
             </div>
@@ -76,7 +80,7 @@
         <x-page.regulations :model="$event"/>
         <!-- SEO TEXT END -->
         <!-- MOBILE BUTTONS BAR -->
-    @include('includes.mobile-btns-bar')
-    <!-- MOBILE BUTTONS BAR END -->
+        @include('includes.mobile-btns-bar')
+        <!-- MOBILE BUTTONS BAR END -->
     </main>
 @endsection
