@@ -5,5 +5,7 @@ export default (options) => ({
     },
     clear() {
         this.value = '';
+
+        this.$refs.fileInputRef.value = '';
     }
 })

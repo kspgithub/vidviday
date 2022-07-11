@@ -88,7 +88,7 @@
                                                             @if(!empty($event->short_text))
                                                                 {{$event->short_text}}
                                                             @else
-                                                                {!! str_limit(strip_tags($event->text) , 500) !!}
+                                                                {!! str_limit(strip_tags(html_entity_decode($event->text)) , 500) !!}
                                                             @endif
                                                             <a href="{{$event->url}}"
                                                                class="btn btn-read-more text-bold">@lang('common.more')</a>

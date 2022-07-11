@@ -9,6 +9,7 @@ use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Practice\PracticeController;
 use App\Http\Controllers\School\SchoolController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Testimonial\TestimonialController;
 use App\Http\Controllers\Tour\TourController;
 use App\Http\Controllers\TourGuide\TourGuideController;
 use App\Http\Controllers\Transport\TransportController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\TravelAgent\TravelAgentController;
 use App\Http\Controllers\Vacancy\VacancyController;
 use App\Models\Page;
 use App\Models\Place;
+use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use Illuminate\Http\Request;
@@ -25,8 +27,6 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
-
-
         if (Tour::existBySlug($slug, false)) {
             return (new TourController())->show($slug);
         }
@@ -47,6 +47,8 @@ class PageController extends Controller
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
 
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         switch ($pageContent->key) {
             case 'home':
                 return redirect('/?lang=' . getLocale(), 301);
@@ -59,19 +61,25 @@ class PageController extends Controller
             case 'events':
                 return (new EventController())->index();
             case 'transport':
-                return (new TransportController())->index();
+                return (new TransportController())->index($request);
             case 'for-travel-agents':
-                return (new TravelAgentController())->index();
+                return (new TravelAgentController())->index($request);
             case 'vacancies':
-                return (new VacancyController())->index();
+                return (new VacancyController())->index($request);
             case 'practice':
-                return (new PracticeController())->index();
+                return (new PracticeController())->index($request);
             case 'schools':
-                return (new SchoolController())->index();
+                return (new SchoolController())->index($request);
             case 'our-documents':
-                return (new DocumentController())->index();
+                return (new DocumentController())->index($request);
+            case 'testimonials':
+                return (new TestimonialController())->index($request);
             default:
-                return view('page.show', ['pageContent' => $pageContent, 'localeLinks' => $localeLinks]);
+                return view('page.show', [
+                    'pageContent' => $pageContent,
+                    'localeLinks' => $localeLinks,
+                    'popupAds' => $popupAds,
+                ]);
         }
 
 

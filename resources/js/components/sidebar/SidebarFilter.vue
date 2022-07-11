@@ -39,24 +39,28 @@
                              :options="options.directions"
                              name="direction"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="place"
                              :options="options.places"
                              name="place"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="type"
                              :options="options.types"
                              name="type"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <form-select v-model="landing"
                              :options="options.landings"
                              name="landing"
                              :search="true"
+                             :multiple="true"
                 />
 
                 <span class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
@@ -119,16 +123,20 @@ export default {
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
 
         const submit = async () => {
-            const path = document.location.pathname;
-            const query = urlUtils.filterParams(params.value, defaultParams.value);
-            if (path !== '/tours') {
-                document.location.href = urlUtils.makeUrl('/tours', query);
-            } else {
-                urlUtils.updateUrl(path, query, true);
-                await store.dispatch('tourFilter/fetchTours', query);
-            }
-
+            await store.dispatch('tourFilter/submit')
         }
+        // const submit = async () => {
+        //     const path = document.location.pathname;
+        //     console.log(params.value)
+        //     const query = urlUtils.filterParams(params.value, defaultParams.value);
+        //     if (path !== '/tours') {
+        //         document.location.href = urlUtils.makeUrl('/tours', query);
+        //     } else {
+        //         urlUtils.updateUrl(path, query, true);
+        //         await store.dispatch('tourFilter/fetchTours', query);
+        //     }
+        //
+        // }
 
         const clear = async () => {
             await store.dispatch('tourFilter/clearFilter');

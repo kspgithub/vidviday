@@ -167,6 +167,12 @@
                            :options="$groups">
         </x-forms.tag-group>
 
+        <x-forms.tag-group name="events[]"
+                           :label="__('Events')"
+                           :value="$tour->events ?  $tour->events->pluck('id')->toArray() : []"
+                           :options="$events">
+        </x-forms.tag-group>
+
         <x-forms.tag-group name="types[]"
                            :label="__('Types')"
                            :value="$tour->types ?  $tour->types->pluck('id')->toArray() : []"

@@ -8,6 +8,7 @@ use App\Http\Requests\Tour\TourBasicRequest;
 use App\Models\Badge;
 use App\Models\Currency;
 use App\Models\Direction;
+use App\Models\EventItem;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourGroup;
@@ -54,6 +55,7 @@ class TourController extends Controller
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $groups = TourGroup::toSelectBox();
+        $events = EventItem::toSelectBox();
         $types = TourType::toSelectBox();
         $subjects = TourSubject::toSelectBox();
         $directions = Direction::toSelectBox();
@@ -68,6 +70,7 @@ class TourController extends Controller
             'guides' => $guides,
             'managers' => $managers,
             'groups' => $groups,
+            'events' => $events,
             'types' => $types,
             'subjects' => $subjects,
             'directions' => $directions,
@@ -153,6 +156,7 @@ class TourController extends Controller
         $guides = Staff::onlyExcursionLeaders()->get()->map->asSelectBox();
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $groups = TourGroup::toSelectBox();
+        $events = EventItem::toSelectBox();
         $types = TourType::toSelectBox();
         $subjects = TourSubject::toSelectBox();
         $directions = Direction::toSelectBox();
@@ -168,6 +172,7 @@ class TourController extends Controller
             'guides' => $guides,
             'managers' => $managers,
             'groups' => $groups,
+            'events' => $events,
             'types' => $types,
             'subjects' => $subjects,
             'directions' => $directions,

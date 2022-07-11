@@ -8,6 +8,7 @@ use App\Http\Requests\Event\EventBasicRequest;
 use App\Models\Direction;
 use App\Models\EventGroup;
 use App\Models\EventItem;
+use App\Models\Tour;
 use App\Services\EventService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -43,11 +44,13 @@ class EventController extends Controller
         $event = new EventItem();
         $directions = Direction::toSelectBox();
         $groups = EventGroup::toSelectBox();
+        $tours = Tour::toSelectBox();
 
         return view('admin.event.create', [
             'event' => $event,
             'directions' => $directions,
             'groups' => $groups,
+            'tours' => $tours,
         ]);
     }
 
@@ -76,11 +79,13 @@ class EventController extends Controller
     {
         $directions = Direction::toSelectBox();
         $groups = EventGroup::toSelectBox();
+        $tours = Tour::toSelectBox();
 
         return view('admin.event.edit', [
             'event' => $event,
             'directions' => $directions,
             'groups' => $groups,
+            'tours' => $tours,
         ]);
     }
 

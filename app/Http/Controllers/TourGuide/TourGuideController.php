@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\TourGuide;
 
 use App\Http\Controllers\Controller;
+use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\Page;
 
@@ -17,11 +18,14 @@ class TourGuideController extends Controller
 
         $pageContent = Page::select()->where('key', 'guides')->first();
 
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view(
             'tour-guide.index',
             [
                 'specialists' => $specialists,
-                'pageContent' => $pageContent
+                'pageContent' => $pageContent,
+                'popupAds' => $popupAds,
             ]
         );
     }

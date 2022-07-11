@@ -10,7 +10,7 @@
       v-is="'tour-order'"
       :tour='@json($tour->shortInfo())'
       :schedules='@json($schedules)'
-      :nearest-event='{{$nearestEvent ? $nearestEvent->id : 0}}'
+      :nearest-event='@json($nearestEvent->id ?? 0)'
 >
     <div class="thumb-price">
         <span

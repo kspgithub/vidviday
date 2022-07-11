@@ -2,6 +2,9 @@
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.edit')}}"
        href="{{route('admin.tour.edit', $tour)}}">@lang('Basic Information')</a>
 
+    <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.corporate_includes.index')}}"
+       href="{{route('admin.tour.corporate_includes.index', $tour)}}">@lang('Corporate includes')</a>
+
     <a class="list-group-item list-group-item-action {{routeActiveClass('admin.tour.picture.*')}}"
        href="{{route('admin.tour.picture.index', $tour)}}">@lang('Pictures')</a>
 

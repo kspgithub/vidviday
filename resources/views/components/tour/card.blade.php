@@ -10,7 +10,7 @@
         @foreach($tour->badges as $key=>$badge)
             <div class="label label-{{$key}}" style="background-color: {{$badge->color}}">{{$badge->title}}</div>
         @endforeach
-        <img src="{{asset('img/preloader.png')}}" data-img-src="{{$tour->main_image}}" alt="tour 1">
+        <img src="{{asset('img/preloader.png')}}" data-img-src="{{$tour->main_image}}" alt="{{ $tour->title }}">
         <a href="{{$tour->url}}" class="full-size"></a>
     </div>
     <div class="thumb-content">
@@ -19,7 +19,7 @@
         </div>
         <span class="stars select-stars stars-selected">
             @for($i=1; $i <=5; $i++)
-                <i class="select-icon {{$tour->rating >= $i ? 'icon-star' : 'icon-star-empty'}}"></i>
+                <i class="select-icon {{($tour->rating ?: $tour->testimonials_avg_rating) >= $i ? 'icon-star' : 'icon-star-empty'}}"></i>
             @endfor
             @if($tour->count_testimonials > 0)
                 <span

@@ -68,7 +68,12 @@
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1 col-12">
                             <div class="default-slider swiper-entry">
-                                <div class="swiper-container" data-options='{"loop": true, "autoHeight": true, "parallax": true, "spaceBetween": 20}'>
+                                <div class="swiper-container" data-options='{
+						            "loop": {{ count($post->media) > 1 ? 'true' : 'false' }},
+                                    "autoHeight": true,
+                                    "parallax": true,
+                                    "spaceBetween": 20
+                                }'>
                                     <div class="swiper-wrapper">
 
                                         @foreach($post->media as $media)

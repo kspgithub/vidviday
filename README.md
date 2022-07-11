@@ -56,6 +56,19 @@ DB_PASSWORD=
 
 Доступные команды перечислены в верхней части файла package.json под ключом «scripts».
 
+## Импорт / Публикация Переводов
+
+После добавления новых ключей в языковых файлах нужно импортировать их в БД:
+```
+php artisan translations:import --skip-exists
+```
+
+Затем опубликовать
+```
+php artisan translations:publish --skip-import
+```
+
+
 ## Панель администратора
 Находится по адресу *http://stitename.com/admin*
 

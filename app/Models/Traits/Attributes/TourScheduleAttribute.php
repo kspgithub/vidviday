@@ -27,13 +27,21 @@ trait TourScheduleAttribute
     public function getTitleAttribute()
     {
         if ($this->start_date && $this->end_date) {
-            if ($this->start_date->month === $this->end_date->month && $this->start_date->year === $this->end_date->year &&
-                $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
+            $diff = $this->end_date->diffInDays($this->start_date);
+
+            if ($diff > 0 && $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
                 return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
                     Str::ucfirst($this->end_date->translatedFormat('D')) .
                     ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
             }
-            return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
+            $start_date = $this->start_date->format('d.m.Y');
+            $end_date = $this->end_date->format('d.m.Y');
+
+            if($start_date === $end_date) {
+                return $start_date;
+            } else {
+                return $start_date . ' - ' . $end_date;
+            }
         }
         return '';
     }

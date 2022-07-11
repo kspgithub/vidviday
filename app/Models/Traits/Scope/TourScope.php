@@ -110,13 +110,19 @@ trait TourScope
             ->when(!empty($params['place']), function (Builder $q) use ($params) {
                 return $q->whereHas('places', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['place']));
-                    $sq->whereIn('id', $ids);
+                    $sq->whereIn('places.id', $ids);
+                })->orWhereHas('tourPlaces', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['place']));
+                    $sq->whereIn('tours_places.id', $ids);
                 });
             })
             ->when(!empty($params['landing']), function (Builder $q) use ($params) {
                 return $q->whereHas('landings', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['landing']));
-                    $sq->whereIn('id', $ids);
+                    $sq->whereIn('landing_places.id', $ids);
+                })->orWhereHas('tourLandings', function (Builder $sq) use ($params) {
+                    $ids = array_filter(explode(',', $params['landing']));
+                    $sq->whereIn('tours_landings.id', $ids);
                 });
             })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
@@ -124,8 +130,17 @@ trait TourScope
                 return $q->jsonLike('title', "%$search%");
             });
 
-        $sort_by = !empty($params['sort_by']) && $params['sort_by'] === 'crated' ? 'created_at' : 'price';
-        $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
+        $query->withAvg('testimonials', 'rating');
+
+        $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'created';
+        $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'asc' ? 'asc' : 'desc';
+
+        if($sort_by === 'created') {
+            $sort_by = 'created_at';
+        }
+        if($sort_by === 'rating') {
+            $sort_by = 'testimonials_avg_rating';
+        }
 
         return $query->orderBy($sort_by, $sort_dir);
     }

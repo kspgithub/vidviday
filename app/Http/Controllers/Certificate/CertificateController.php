@@ -9,6 +9,7 @@ use App\Models\OrderCertificate;
 use App\Models\Packing;
 use App\Models\Page;
 use App\Models\PaymentType;
+use App\Models\PopupAd;
 use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,12 @@ class CertificateController extends Controller
         $pageContent = Page::where('key', 'certificate')->first();
         $localeLinks = $pageContent->getLocaleLinks();
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
         return view('certificate.index', [
             'pageContent' => $pageContent,
             'localeLinks' => $localeLinks,
             'faqItems' => $faqItems,
+            'popupAds' => $popupAds,
         ]);
     }
 

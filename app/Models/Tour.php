@@ -90,6 +90,8 @@ class Tour extends TranslatableModel implements HasMedia
         'duration_format',
         'time',
         'transport_on',
+        'corporate_includes',
+        'active_tabs',
     ];
 
     protected $casts = [
@@ -100,6 +102,8 @@ class Tour extends TranslatableModel implements HasMedia
         'accomm_price' => 'integer',
         'similar' => 'array',
         'locales' => 'array',
+        'corporate_includes' => 'array',
+        'active_tabs' => 'array',
     ];
 
     protected $appends = [

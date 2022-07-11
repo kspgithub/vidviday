@@ -71,10 +71,12 @@ class TourService extends BaseService
                 'places' => [['value' => 0, 'text' => __('tours-section.places')]] + $places,
                 'landings' => [['value' => 0, 'text' => __('tours-section.landing-places')]] + $landings,
                 'sorting' => [
-                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
-                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
                     ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
+                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
+                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
+                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
                 ],
                 'pagination' => [
                     ['value' => 12, 'text' => '12'],
@@ -94,15 +96,15 @@ class TourService extends BaseService
             $title[] = urldecode($params['q']);
         }
         if (!empty($params['direction'])) {
-            $direction = Direction::where('id', $params['direction'])->select('title')->first();
+            $direction = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->first();
             $title[] = $direction->title;
         }
         if (!empty($params['type'])) {
-            $direction = TourType::where('id', $params['type'])->select('title')->first();
+            $direction = TourType::whereIn('id', explode(',', $params['type']))->select('title')->first();
             $title[] = $direction->title;
         }
         if (!empty($params['subject'])) {
-            $direction = TourSubject::where('id', $params['subject'])->select('title')->first();
+            $direction = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->first();
             $title[] = $direction->title;
         }
         return implode(', ', $title);
@@ -177,6 +179,15 @@ class TourService extends BaseService
             }
 
             $tour->groups()->sync($groups);
+
+            if (array_key_exists('events', $params)) {
+                $events = array_filter($params['events']);
+
+            } else {
+                $events = [];
+            }
+
+            $tour->events()->sync($events);
 
             if (array_key_exists('types', $params)) {
                 $types = array_filter($params['types']);

@@ -61,7 +61,7 @@
                                 <h2 class="h3"><a href="{{$course->url}}">{{$course->title}}</a></h2>
                                 <span class="text-sm">{{$course->created_at}}</span>
                                 <div class="text">
-                                    <p>{{!empty($course->short_text) ? $course->short_text : str_limit(strip_tags($course->text), 500)}}</p>
+                                    <p>{{!empty($course->short_text) ? $course->short_text : str_limit(strip_tags(html_entity_decode($course->text)), 500)}}</p>
                                 </div>
                                 <a href="{{$course->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
                             </div>

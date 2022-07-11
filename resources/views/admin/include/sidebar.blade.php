@@ -385,6 +385,12 @@
                             class="align-middle">@lang('Advertisements')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.popup_ads*')}}">
+                    <a class="sidebar-link" href="{{route('admin.popup_ads.index')}}">
+                        <i class="align-middle" data-feather="rss"></i> <span
+                            class="align-middle">@lang('Popup Advertisements')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.faqitem.*')}}">
                     <a class="sidebar-link" href="{{route('admin.faqitem.index')}}">
                         <i class="align-middle" data-feather="help-circle"></i> <span

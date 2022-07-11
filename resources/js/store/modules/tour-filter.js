@@ -31,11 +31,11 @@ export default {
                 date_to: '',
                 duration: [0, 14],
                 price: [0, 10000],
-                direction: 0,
-                type: 0,
-                subject: 0,
-                place: 0,
-                landing: 0,
+                direction: '',
+                type: '',
+                subject: '',
+                place: '',
+                landing: '',
                 future: 1,
                 lang: 'uk',
             },
@@ -47,8 +47,8 @@ export default {
 
             },
             sorting: {
-                sortBy: 'price',
-                sortDirection: 'asc',
+                sortBy: 'created',
+                sortDirection: 'desc',
             },
             tours: [],
             popularTours: []
@@ -84,6 +84,7 @@ export default {
         },
         SET_SORTING(state, value) {
             Object.assign(state.sorting, value);
+            Object.assign(state.pagination, {current_page: 1});
         },
         SET_TOURS(state, value) {
             state.tours = value;
@@ -106,16 +107,16 @@ export default {
                 duration_to: state.options.duration_to,
                 price_from: 0,
                 price_to: state.options.price_to,
-                direction: 0,
-                type: 0,
-                subject: 0,
-                place: 0,
-                landing: 0,
+                direction: '',
+                type: '',
+                subject: '',
+                place: '',
+                landing: '',
                 page: 1,
                 future: 1,
                 per_page: 12,
-                sort_by: 'price',
-                sort_dir: 'asc',
+                sort_by: 'created',
+                sort_dir: 'desc',
                 view: 'gallery',
                 lang: 'uk',
             }
@@ -175,11 +176,11 @@ export default {
                     query.price_from ? parseInt(query.price_from) : 0,
                     query.price_to ? parseInt(query.price_to) : state.options.price_to
                 ],
-                direction: query.direction ? parseInt(query.direction) : 0,
-                type: query.type ? parseInt(query.type) : 0,
-                place: query.place ? parseInt(query.place) : 0,
-                landing: query.landing ? parseInt(query.landing) : 0,
-                subject: query.subject ? parseInt(query.subject) : 0,
+                direction: query.direction ? parseInt(query.direction) : '',
+                type: query.type ? parseInt(query.type) : '',
+                place: query.place ? parseInt(query.place) : '',
+                landing: query.landing ? parseInt(query.landing) : '',
+                subject: query.subject ? parseInt(query.subject) : '',
                 lang: query.lang || document.documentElement.lang || 'uk',
             };
             commit('UPDATE_FORM_DATA', formData);
@@ -192,8 +193,8 @@ export default {
             commit('SET_PAGINATION', pagination);
 
             const sorting = {
-                sortBy: query.sort_by ? query.sort_by : 'price',
-                sortDirection: query.sort_dir ? query.sort_dir : 'asc',
+                sortBy: query.sort_by ? query.sort_by : 'created',
+                sortDirection: query.sort_dir ? query.sort_dir : 'desc',
             }
 
             commit('SET_SORTING', sorting);
@@ -206,11 +207,11 @@ export default {
                 date_to: '',
                 duration: [0, state.options.duration_to],
                 price: [0, state.options.price_to],
-                direction: 0,
-                type: 0,
-                subject: 0,
-                place: 0,
-                landing: 0,
+                direction: '',
+                type: '',
+                subject: '',
+                place: '',
+                landing: '',
             });
             commit('SET_PAGE', 1);
         },
@@ -226,10 +227,10 @@ export default {
                 }
 
                 commit('SET_PAGINATION', {
-                    current_page: response.current_page,
-                    per_page: response.per_page,
-                    last_page: response.last_page,
-                    total: response.total,
+                    current_page: parseInt(response.current_page),
+                    per_page: parseInt(response.per_page),
+                    last_page: parseInt(response.last_page),
+                    total: parseInt(response.total),
                 });
                 commit('SET_REQUEST_TITLE', response.request_title);
             }
@@ -246,8 +247,9 @@ export default {
         async submit({getters, dispatch}) {
             const path = document.location.pathname;
             const query = urlUtils.filterParams(getters.formData, getters.defaultData);
+
             urlUtils.updateUrl(path, query, true);
-            await dispatch('fetchTours', query);
+            await dispatch('fetchTours', getters.formData);
         }
     }
 }

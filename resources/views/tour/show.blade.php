@@ -101,20 +101,15 @@
                                 <div class="expand-all close">@lang('tours-section.collapse-all')</div>
                             </div>
                             <div class="accordion type-1">
-                                {{--                                //@dd($tour->accommodations)--}}
+
                                 @include('tour.includes.tour-plan')
                                 @include('tour.includes.tour-landing')
                                 @include('tour.includes.tour-places')
                                 @include('tour.includes.tour-schedule')
                                 @include('tour.includes.tour-finances')
                                 @include('tour.includes.tour-tickets')
-
                                 @include('tour.includes.tour-fun')
-
-                                @if($tour->transport_on)
-                                    @include('tour.includes.tour-transport')
-                                @endif
-
+                                @include('tour.includes.tour-transport')
                                 @include('tour.includes.tour-residence')
                                 @include('tour.includes.tour-food')
                                 @include('tour.includes.tour-calc')
@@ -180,6 +175,7 @@
 
     @if(!$nearest_event)
         <div v-is="'tour-voting-popup'"
+             :disabled='@json($tour->votings->count() > 0)'
              :tour='@json($tour->shortInfo())'
              :user='@json(Auth::user())'
              action='{{route('tour.voting', $tour)}}'

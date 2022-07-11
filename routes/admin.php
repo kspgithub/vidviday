@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Accommodation\AccommodationController;
 use App\Http\Controllers\Admin\Accommodation\AccommodationTypeController;
 use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
+use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
 use App\Http\Controllers\Admin\Badge\BadgeController;
 use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\Blog\PostController;
@@ -250,6 +251,7 @@ Route::resource('page', PageController::class)->except(['show']);
 Route::resource('page.recommendation', RecommendationController::class)->except(['show']);
 Route::resource('banner', BannerController::class)->except('show');
 Route::resource('advertisement', AdvertisementController::class)->except('show');
+Route::resource('popup_ads', PopupAdsController::class)->except('show');
 Route::resource('achievement', AchievementController::class)->except('show');
 Route::resource('our-client', OurClientController::class)->except('show');
 
@@ -283,6 +285,7 @@ Route::group([
     Route::get('schedules', [CrmScheduleController::class, 'index'])->name('schedule.index');
     Route::get('schedules/{schedule}', [CrmScheduleController::class, 'show'])->name('schedule.show');
     Route::patch('schedules/{schedule}', [CrmScheduleController::class, 'update'])->name('schedule.update');
+    Route::post('schedules/{schedule}/info_sheet', [CrmScheduleController::class, 'uploadInfoSheet'])->name('schedule.upload_info_sheet');
     Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
     Route::get('schedules/{schedule}/order/{order}', [CrmScheduleController::class, 'order'])->name('schedule.order.show');
 

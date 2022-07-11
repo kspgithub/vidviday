@@ -6,7 +6,7 @@
         <div class="spacer-xs"></div>
         <div class="swiper-entry">
             <div class="swiper-container" data-options='{
-						"loop": true,
+						"loop": {{ count($achievements) > 1 ? 'true' : 'false' }},
 						"lazy": true,
 						"speed": 700,
 						"autoHeight": true,

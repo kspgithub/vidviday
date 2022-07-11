@@ -1,4 +1,3 @@
-import axios from "axios";
 import {swalConfirm} from "../../../utils/functions";
 import flatpickr from "flatpickr";
 import {Ukrainian} from "flatpickr/dist/l10n/uk";
@@ -56,22 +55,34 @@ export default (params) => ({
                 this.order.tour_id = e.params.data.id;
             })
 
-            flatpickr(this.$refs.pickerInput, {
-                locale: Ukrainian,
-                allowInput: true,
-                dateFormat: 'd.m.Y'
-            });
+            console.log(this.$refs.pickerInput)
+            console.log(this.$refs.startDateRef)
+            console.log(this.$refs.endDateRef)
 
-            const startPicker = flatpickr(this.$refs.startDateRef, {
-                locale: Ukrainian,
-                dateFormat: 'd.m.Y',
+            if (this.$refs.pickerInput) {
+                flatpickr(this.$refs.pickerInput, {
+                    locale: Ukrainian,
+                    allowInput: true,
+                    dateFormat: 'd.m.Y'
+                });
+            }
 
-            });
+            if (this.$refs.startDateRef) {
 
-            const endPicker = flatpickr(this.$refs.endDateRef, {
-                locale: Ukrainian,
-                dateFormat: 'd.m.Y',
-            });
+                const startPicker = flatpickr(this.$refs.startDateRef, {
+                    locale: Ukrainian,
+                    dateFormat: 'd.m.Y',
+
+                });
+            }
+
+            if (this.$refs.endDateRef) {
+
+                const endPicker = flatpickr(this.$refs.endDateRef, {
+                    locale: Ukrainian,
+                    dateFormat: 'd.m.Y',
+                });
+            }
 
         }, 200);
 
@@ -87,6 +98,9 @@ export default (params) => ({
         });
     },
 
+    get isCustomerParticipant() {
+        return !!this.order.participants.customer;
+    },
     get participantPhone() {
         return this.order.participants ? this.order.participants.participant_phone : '';
     },

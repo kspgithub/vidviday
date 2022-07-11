@@ -75,21 +75,23 @@
                     </div>
                     <!-- BANNER/INFO END -->
 
-                    <div class="tabs">
-                        @include('tour.includes.tab-nav')
-                        <div class="spacer-xs"></div>
-                        <div class="tabs-wrap">
-                            <!-- TAB #1 -->
-                            @include('tour.includes.tab-gallery')
-                            <!-- TAB #1 END -->
+                    <div v-is="'tour-search'" :in-future="false">
+                        <div class="tabs">
+                            @include('tour.includes.tab-nav')
+                            <div class="spacer-xs"></div>
+                            <div class="tabs-wrap">
+                                <!-- TAB #1 -->
+                                @include('tour.includes.tab-gallery')
+                                <!-- TAB #1 END -->
 
-                            <!-- TAB #2 -->
-                            @include('tour.includes.tab-list')
-                            <!-- TAB #2 END -->
+                                <!-- TAB #2 -->
+                                @include('tour.includes.tab-list')
+                                <!-- TAB #2 END -->
 
-                            <!-- TAB #3 -->
-                            @include('tour.includes.tab-calendar')
-                            <!-- TAB #3 END -->
+                                <!-- TAB #3 -->
+                                @include('tour.includes.tab-calendar')
+                                <!-- TAB #3 END -->
+                            </div>
                         </div>
                     </div>
                 </div>

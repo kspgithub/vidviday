@@ -85,3 +85,14 @@ window.toast = ToastNotification;
 export default ToastNotification;
 
 export const toast = ToastNotification;
+
+window.addEventListener('notify', (event) => {
+    const type = event.detail.type
+    const message = event.detail.message
+
+    if(typeof toast[type] === 'function') {
+        toast[type](message)
+    } else {
+        toast.info(message)
+    }
+})

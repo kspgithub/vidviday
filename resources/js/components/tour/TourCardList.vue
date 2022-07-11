@@ -21,7 +21,7 @@
                 <div class="title h4">
                     <a :href="tour.url">{{ tourTitle }}</a>
                 </div>
-                <tour-rating :count="tour.testimonials_count" :rating="tour.rating" class="d-none d-lg-block"/>
+                <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" class="d-none d-lg-block"/>
                 <div class="text desc">
                     <p>
                         {{ shortText }}
@@ -34,7 +34,7 @@
                     <form-select v-model="scheduleId" :options="schedules"></form-select>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
-                    <tour-rating :count="tour.testimonials_count" :rating="tour.rating" class="d-block d-lg-none"/>
+                    <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" class="d-block d-lg-none"/>
                     <div class="thumb-info">
                 <span class="thumb-info-time text">
                     {{ tour.format_duration }}
@@ -55,7 +55,7 @@
                 </div>
                 <div class="thumb-price">
                     <span class="text">
-                         {{ __('tours-section.price') }}:
+                         {{ __('tours-section.price') }}
                         <span>{{ currentSchedule ? currentSchedule.price : tour.price }}</span>
                         <i>грн</i>
                     </span>

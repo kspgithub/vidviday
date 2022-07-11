@@ -211,6 +211,7 @@
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
 	transform: scale(0.33);
 	position: relative;
+    left: 0!important;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {
