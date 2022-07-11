@@ -14,7 +14,6 @@
     @if($pageImage = $event->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
-    <meta property="og:image" content="{{ $event->getFirstMedia()->getFullUrl() }}">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
