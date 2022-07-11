@@ -32,6 +32,7 @@ class FaqController extends Controller
     {
         //
         $faqItem = new FaqItem();
+        $faqItem->published = 1;
         $faqItem->section = $section;
         return view('admin.faqitem.create', ['faqitem' => $faqItem, 'section' => $section]);
     }
@@ -53,8 +54,8 @@ class FaqController extends Controller
 
     /**
      *
-     * @param FaqItem $faqitem
-     *
+     * @param $section
+     * @param FaqItem $faqItem
      * @return View
      */
     public function edit($section, FaqItem $faqItem)

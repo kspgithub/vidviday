@@ -53,7 +53,7 @@
                         <td>
                             {{$faqitem->question}}
                         </td>
-                        <td>{{$faqitem->answer}}</td>
+                        <td>{!! $faqitem->answer !!}</td>
                         <td>@include('admin.partials.published', ['model'=>$faqitem, 'updateUrl'=>route('admin.faqitem.update', ['faqItem'=>$faqitem, 'section'=>$section])])</td>
                         <td class="table-action">
                             <x-utils.edit-button
