@@ -20,17 +20,9 @@ class ContactController extends Controller
         $contact = Contact::first();
         $pageContent = Page::query()->where('key', 'our-contacts')->first();
 
-        $specCorporate = Staff::whereHas('types', function ($q) {
-            return $q->where('slug', 'corporate-order');
-        })->withCount(['testimonials' => function ($q) {
-            return $q->moderated();
-        }])->get();
+        $specCorporate = $contact->manager_corporate_items;
 
-        $specAgencies = Staff::whereHas('types', function ($q) {
-            return $q->where('slug', 'travel-agencies');
-        })->withCount(['testimonials' => function ($q) {
-            return $q->moderated();
-        }])->get();
+        $specAgencies = $contact->manager_agency_items;
 
         return view('contact.index', [
             'contact' => $contact,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Staff;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,7 +23,11 @@ class ContactsController extends Controller
         if ($contact === null) {
             $contact = new Contact();
         }
-        return view('admin.contact.edit', ['contact' => $contact]);
+
+
+        $managerOptions = Staff::with(['types'])->get()->map->asSelectBox();
+
+        return view('admin.contact.edit', ['contact' => $contact, 'managerOptions' => $managerOptions]);
     }
 
     /**
