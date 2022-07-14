@@ -209,33 +209,39 @@
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
-	transform: scale(0.33);
-	position: relative;
+	transform: scale(0);
+	position: absolute;
     left: 0!important;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {
 	transform: scale(1);
+    position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main {
 	transform: scale(1);
+    position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
 	transform: scale(0.66);
+    position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
 	transform: scale(0.33);
+    position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {
 	transform: scale(0.66);
+    position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {
 	transform: scale(0.33);
+    position: relative;
 }
 
 .swiper-pagination-bullet {

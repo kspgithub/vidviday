@@ -11,7 +11,7 @@
             <i></i>
         </div>
         <div class="swiper-container"
-             data-options='{"parallax": true, "speed": 900, "lazy": true}'>
+             data-options='{"parallax": true, "speed": 900, "lazy": true, "pagination": {"el": ".swiper-pagination", "clickable": true, "dynamicBullets": true, "dynamicMainBullets": 5}}'>
             <div class="swiper-wrapper">
                 @foreach($slides as $i => $slide)
                     @if($i === 0 || ($slide->custom_properties['published'] ?? false))
