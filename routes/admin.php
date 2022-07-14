@@ -52,6 +52,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\Place\PlaceController;
 use App\Http\Controllers\Admin\PriceItem\PriceItemController;
 use App\Http\Controllers\Admin\Recommendation\RecommendationController;
+use App\Http\Controllers\Admin\RedirectsController;
 use App\Http\Controllers\Admin\SiteMenu\MenuItemController;
 use App\Http\Controllers\Admin\SiteOptionsController;
 use App\Http\Controllers\Admin\Staff\StaffController;
@@ -237,6 +238,10 @@ Route::patch('contacts', [ContactsController::class, 'update'])->name('contact.u
 // SITE OPTIONS
 Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');
 Route::patch('site-options', [SiteOptionsController::class, 'update'])->name('site-options.update');
+
+// REDIRECTS
+Route::get('redirects', [RedirectsController::class, 'index'])->name('redirects.index');
+Route::patch('redirects', [RedirectsController::class, 'update'])->name('redirects.update');
 
 // STAFF
 Route::resource('staff-type', StaffTypeController::class)->except(['show']);
