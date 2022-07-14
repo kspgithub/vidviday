@@ -27,11 +27,8 @@
             <div class="spacer-xs"></div>
             @if($manager->viber)
                 <div class="contact">
-                    <div class="img">
-                        {{svg('viber')}}
-                    </div>
-                    <a href="{{viber_link($manager->viber)}}"
-                       target="_blank">{{$manager->viber}}</a>
+                    <div class="img">{{svg('viber')}}</div>
+                    <a href="{{viber_link($manager->viber)}}" target="_blank">{{$manager->viber}}</a>
                 </div>
             @endif
             @if($manager->telegram)
@@ -59,7 +56,6 @@
             @endif
             @if(!empty($manager->avatar))
                 <img src="{{$manager->avatar_url}}" data-img-src="{{$manager->avatar_url}}"
-                     class="manager-avatar"
                      alt="{{$manager->name}}">
             @endif
         </div>
