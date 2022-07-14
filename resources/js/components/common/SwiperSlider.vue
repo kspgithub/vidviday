@@ -46,11 +46,11 @@ export default {
     },
     setup(props) {
         const store = useStore();
-        const swiper = ref(null);
-        const swiperRef = ref(null);
-        const paginationRef = ref(null);
-        const nextRef = ref(null);
-        const prevRef = ref(null);
+        const swiper = ref();
+        const swiperRef = ref();
+        const paginationRef = ref();
+        const nextRef = ref();
+        const prevRef = ref();
 
         const options = ref(Object.assign({
             loop: false,
@@ -63,8 +63,8 @@ export default {
             watchSlidesVisibility: true,
             centerInsufficientSlides: false,
             speed: 900,
-            slidesPerView: 4,
-            spaceBetween: 0,
+            slidesPerView: 3,
+            spaceBetween: 15,
             breakpoints: {
                 1200: {
                     slidesPerView: 4,
@@ -81,11 +81,13 @@ export default {
             },
             pagination: {
                 clickable: true,
-                el: paginationRef.value,
+                el: paginationRef,
+                dynamicBullets: true,
+                dynamicMainBullets: 5,
             },
             navigation: {
-                nextEl: nextRef.value,
-                prevRef: prevRef.value,
+                nextEl: nextRef,
+                prevEl: prevRef,
             },
 
         }, props.options));
@@ -95,11 +97,11 @@ export default {
         }
 
         const nextSlide = () => {
-            swiper.value.slideNext();
+            // swiper.value.slideNext();
         }
 
         const prevSlide = () => {
-            swiper.value.slidePrev();
+            // swiper.value.slidePrev();
         }
 
         const hidePopup = () => {

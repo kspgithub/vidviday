@@ -11,21 +11,19 @@
             <i></i>
         </div>
         <div class="swiper-container"
-             data-options='{"parallax": true, "speed": 900, "lazy": true, "pagination": {"el": ".swiper-pagination", "clickable": true, "dynamicBullets": true, "dynamicMainBullets": 5}}'>
+             data-options='{"parallax": true, "speed": 900, "lazy": true}'>
             <div class="swiper-wrapper">
                 @foreach($slides as $i => $slide)
-                    @if($i === 0 || ($slide->custom_properties['published'] ?? false))
-                        <div class="swiper-slide">
-                            <img src="{{asset('/img/preloader.png')}}"
-                                 data-src="{{$slide->getFullUrl()}}"
-                                 alt="{{$slide->alt}}" data-swiper-parallax="30%"
-                                 class="swiper-lazy">
-                            <div class="swiper-lazy-preloader"></div>
-                            <div class="full-size">
-                                <span>{{$slide->title}}</span>
-                            </div>
+                    <div class="swiper-slide">
+                        <img src="{{asset('/img/preloader.png')}}"
+                             data-src="{{$slide->getFullUrl()}}"
+                             alt="{{$slide->alt}}" data-swiper-parallax="30%"
+                             class="swiper-lazy">
+                        <div class="swiper-lazy-preloader"></div>
+                        <div class="full-size">
+                            <span>{{$slide->title}}</span>
                         </div>
-                    @endif
+                    </div>
                 @endforeach
             </div>
         </div>

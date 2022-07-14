@@ -162,7 +162,7 @@ class TourController extends Controller
         }
 
         $pictures = $tour->getMedia('main');
-        $tourPictures = $tour->getMedia('pictures');
+        $tourPictures = $tour->getMedia('pictures', ['published' => true]);
 
         if($tourPictures->count()) {
             $pictures = $pictures->merge($tourPictures);
