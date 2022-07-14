@@ -4,16 +4,16 @@
             <small>@lang('Applied Filters'):</small>
 
             @foreach($filters as $key => $value)
-                @if ($key !== 'search' && strlen($value))
+                @if ($key !== 'search' && strlen(implode((array) $value)))
                     <span
                         wire:key="filter-pill-{{ $key }}"
                         class="badge rounded-pill bg-info d-inline-flex align-items-center"
                     >
                         {{ $filterNames[$key] ?? collect($this->columns())->pluck('text', 'column')->get($key, ucwords(strtr($key, ['_' => ' ', '-' => ' ']))) }}:
                         @if(isset($customFilters[$key]) && method_exists($customFilters[$key], 'options'))
-                            {{ $customFilters[$key]->options()[$value] ?? $value }}
+                            {{ $customFilters[$key]->options()[$value[0] ?? $value] ?? $value[0] ?? $value }}
                         @else
-                            {{ ucwords(strtr($value, ['_' => ' ', '-' => ' '])) }}
+                            {{ ucwords(strtr($value[0] ?? $value, ['_' => ' ', '-' => ' '])) }}
                         @endif
 
                         <a

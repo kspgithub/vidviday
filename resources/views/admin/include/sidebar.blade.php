@@ -448,6 +448,12 @@
                         <span class="align-middle">@lang('Global settings')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.redirects*')}}">
+                    <a class="sidebar-link" href="{{route('admin.redirects.index')}}">
+                        <i class="align-middle" data-feather="settings"></i>
+                        <span class="align-middle">@lang('Redirects')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.translation*')}}">
                     <a class="sidebar-link" href="{{route('admin.translation.index')}}">
                         <i class="align-middle" data-feather="feather"></i>

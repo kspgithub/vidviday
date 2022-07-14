@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 /**
  * Class UsersTable.
@@ -51,6 +52,16 @@ class ToursTable extends DataTableComponent
             $query->whereHas('manager', fn ($sq) => $sq->where('user_id', current_user()->id));
         }
 
+        $locales = (array) $this->getFilter('locale') ?? [];
+
+        $query->when($locales, function ($q) use ($locales){
+            return $q->where(function ($q) use ($locales){
+                foreach ($locales as $locale) {
+                    $q->whereJsonContains('locales', $locale);
+                }
+            });
+        });
+
         return $query;
     }
 
@@ -90,6 +101,18 @@ class ToursTable extends DataTableComponent
                 ->format(function ($value, $column, $row) {
                     return view('admin.tour.includes.actions', ['tour' => $row]);
                 }),
+        ];
+    }
+
+    public function filters(): array
+    {
+        $locales = [];
+        $availableLocales = ['uk', 'ru', 'en', 'pl'];
+        foreach ($availableLocales as $locale) {
+            $locales[$locale] = $locale;
+        }
+        return [
+            'locale' => Filter::make(__('locale'))->multiSelect($locales),
         ];
     }
 }
