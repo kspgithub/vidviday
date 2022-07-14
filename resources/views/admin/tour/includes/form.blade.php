@@ -7,7 +7,7 @@
 
         <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
-        <x-forms.locales :value="$tour->locales ?? ['uk']"/>
+        <x-forms.locales :value="$tour->locales ?? ['uk']" :use-fallback="false"/>
 
         <x-forms.translation-switch/>
 
