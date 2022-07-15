@@ -26,7 +26,7 @@ class RedirectMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $uri = urldecode(trim($request->getRequestUri(), "/"));
+        $uri = urldecode($request->getRequestUri());
 
         $redirect = null;
 
@@ -41,7 +41,11 @@ class RedirectMiddleware
         }
 
         if($regex = $this->redirects->where('type', Redirect::TYPE_REGEX)->filter(function (Redirect $r) use($uri) {
-            return preg_match($r->from, $uri);
+            try {
+                return preg_match($r->from, $uri);
+            } catch (\Exception $e) {
+                return false;
+            }
         })->first()) {
             $redirect = preg_replace($regex->from, $regex->to, $uri);
         }
