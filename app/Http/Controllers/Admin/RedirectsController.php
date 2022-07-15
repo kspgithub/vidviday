@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\RedirectsRequest;
 use App\Models\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class RedirectsController extends Controller
 {
@@ -55,6 +56,8 @@ class RedirectsController extends Controller
             $redirect->fill($item);
             $redirect->save();
         }
+
+        Cache::forget('redirects');
 
         return redirect()->back()->with('success', __('Updated'));
     }
