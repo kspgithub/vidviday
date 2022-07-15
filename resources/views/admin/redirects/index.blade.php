@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 @section('content')
     <div class="dashboard d-flex justify-content-between">
-        <h1>@lang('Global settings')</h1>
+        <h1>@lang('Redirects')</h1>
 
     </div>
 
