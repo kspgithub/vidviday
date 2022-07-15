@@ -228,7 +228,7 @@ jQuery(function ($) {
             el: $slider.find('.swiper-pagination')[0],
             clickable: true,
             dynamicBullets: true,
-            dynamicMainBullets: 10,
+            dynamicMainBullets: 5,
         };
 
         if (!options.navigation) options.navigation = {

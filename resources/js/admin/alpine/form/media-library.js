@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs';
+import { serialize } from '../../../utils/url.js'
 
 export default (options) => ({
     locale: document.documentElement.lang || 'uk',
@@ -64,6 +65,7 @@ export default (options) => ({
         const formData = new FormData();
         formData.append(this.mediaName, file);
         formData.append('collection', this.collection);
+        formData.append('custom_properties[published]', 'true');
         await axios.post(this.storeUrl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'

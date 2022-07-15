@@ -29,16 +29,22 @@ trait TourScheduleAttribute
         if ($this->start_date && $this->end_date) {
             $diff = $this->end_date->diffInDays($this->start_date);
 
-            if ($diff > 0 && $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
-                return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
-                    Str::ucfirst($this->end_date->translatedFormat('D')) .
-                    ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
-            }
             $start_date = $this->start_date->format('d.m.Y');
             $end_date = $this->end_date->format('d.m.Y');
 
+            $start_day = $this->start_date->format('d');
+
+            $start_day_name = Str::ucfirst($this->start_date->translatedFormat('D'));
+            $end_day_name = Str::ucfirst($this->end_date->translatedFormat('D'));
+
+            if ($diff > 0 && $start_day_name !== $end_day_name) {
+                return $start_day_name . ' - ' .
+                    $end_day_name .
+                    ', ' . $start_day . ' - ' . $end_date;
+            }
+
             if($start_date === $end_date) {
-                return $start_date;
+                return $start_day_name . ', ' . $start_date;
             } else {
                 return $start_date . ' - ' . $end_date;
             }

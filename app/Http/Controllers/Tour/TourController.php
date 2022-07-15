@@ -161,6 +161,13 @@ class TourController extends Controller
             $user->viewTour($tour->id);
         }
 
+        $pictures = $tour->getMedia('main');
+        $tourPictures = $tour->getMedia('pictures', ['published' => true]);
+
+        if($tourPictures->count()) {
+            $pictures = $pictures->merge($tourPictures);
+        }
+
         $viewData = [
             'tour' => $tour,
             'future_events' => $future_events,
@@ -169,6 +176,7 @@ class TourController extends Controller
             'faq_items' => $faq_items,
             'price_items' => $price_items,
             'localeLinks' => $localeLinks,
+            'pictures' => $pictures,
         ];
 
 //        if ((int)request()->input('print', 0) === 1) {

@@ -49,7 +49,7 @@
                     <!-- BANNER TABS -->
                     @include('tour.includes.banner-tabs', [
                         'tour'=>$tour,
-                        'pictures'=>($tour->hasMedia('pictures') ? $tour->getMedia('main')->merge($tour->getMedia('pictures')) : $tour->getMedia('main')),
+                        'pictures'=>$pictures,
                     ])
                     <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>

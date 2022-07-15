@@ -38,6 +38,9 @@ class UploadController extends Controller
         /** @var Media $media */
         $media = $model->storeMedia($request->media_file, $collection);
         foreach ($request->get('custom_properties', []) as $key => $value) {
+            if($key === 'published') {
+                $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+            }
             $media->setCustomProperty($key, $value);
         }
         $media->save();
