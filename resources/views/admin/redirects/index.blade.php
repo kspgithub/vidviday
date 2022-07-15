@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 @section('content')
     <div class="dashboard d-flex justify-content-between">
-        <h1>@lang('Global settings')</h1>
+        <h1>@lang('Redirects')</h1>
 
     </div>
 
@@ -11,7 +11,7 @@
         <div class="">
             <p>
                 <b>URI</b> - частина URL після домену (не включає #Хеш), наприклад: якщо <b>URL</b>
-                <code>https://vidviday.org.ua/tours?q=камянець#drink-coffee</code> то <b>URI</b> - <code>tours?q=камянець</code>
+                <code>https://vidviday.org.ua/tours?q=камянець#drink-coffee</code> то <b>URI</b> - <code>/tours?q=камянець</code>
             </p>
             <ol>
                 <li>
