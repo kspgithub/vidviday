@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {ref} from "vue";
+import { ref, watch } from "vue";
 import {useRequiredFormGroup} from "./composables/useFormField";
 
 export default {
@@ -29,6 +29,12 @@ export default {
         const inputRef = ref(null);
         const {required} = useRequiredFormGroup(props);
         const title = ref(props.label);
+
+        watch(props, (val) => {
+            if(!val.modelValue) {
+                title.value = props.label;
+            }
+        })
 
         const onChange = async () => {
             if (inputRef.value.files.length) {

@@ -60,9 +60,9 @@
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
                     <x-page.right-sidebar :pageContent="$pageContent">
-                        <div class="sidebar-item" id="practice-form" v-is="'practice-form'"
-                             form-title="{{ __('common.practice.form-title-single') }}"
-                             form-sub-title="{{ __('common.practice.form-sub-title-single') }}"
+                        <div class="sidebar-item" v-is="'vacancy-form'"
+                             form-title="{{ __('common.vacancy.form-title-single') }}"
+                             form-sub-title="{{ __('common.vacancy.form-sub-title-single') }}"
                         ></div>
                     </x-page.right-sidebar>
                     <!-- SIDEBAR END -->

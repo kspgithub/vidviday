@@ -31,7 +31,7 @@ class FeedbackRequest extends FormRequest
             'call_date' => ['nullable', 'date_format:d.m.Y'],
             'call_time' => ['nullable'],
             'question_type' => ['nullable'],
-            'attachment' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:1024'],
+            'attachment' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5M'],
             'phone' => [Rule::requiredIf((int)$this->type === 0 || (int)$this->type === 3)],
             'email' => [Rule::requiredIf((int)$this->type > 0)],
             'comment' => [Rule::requiredIf((int)$this->type > 2)],

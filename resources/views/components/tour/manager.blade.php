@@ -24,7 +24,6 @@
                     <a href="mailto:{{$manager->email}}" class="text" target="_blank">{{$manager->email}}</a>
                 @endif
             </div>
-            <div class="spacer-xs"></div>
             @if($manager->viber)
                 <div class="contact">
                     <div class="img">{{svg('viber')}}</div>
@@ -55,7 +54,7 @@
                 </div>
             @endif
             @if(!empty($manager->avatar))
-                <img src="{{$manager->avatar_url}}" data-img-src="{{$manager->avatar_url}}"
+                <img class="manager-avatar" src="{{$manager->avatar_url}}" data-img-src="{{$manager->avatar_url}}"
                      alt="{{$manager->name}}">
             @endif
         </div>
