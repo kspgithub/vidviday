@@ -5,6 +5,31 @@
 
     </div>
 
+    <div class="alert alert-info">
+        <h4>Як працюють редіректи?</h4>
+
+        <div class="">
+            <p>
+                <b>URI</b> - частина URL після домену (не включає #Хеш), наприклад: якщо <b>URL</b>
+                <code>https://vidviday.org.ua/tours?q=камянець#drink-coffee</code> то <b>URI</b> - <code>tours?q=камянець</code>
+            </p>
+            <ol>
+                <li>
+                    <b>Тип = Full</b>.
+                    <p>Перенаправляє, якщо <b>URI</b> повністю співпадає з параметром <b>From</b></p>
+                </li>
+                <li>
+                    <b>Тип = Partial</b>.
+                    <p>Перенаправляє, якщо <b>URI</b> містить в собі параметр <b>From</b> і замінює його на <b>To</b>.</p>
+                </li>
+                <li>
+                    <b>Тип = Regex</b>.
+                    <p>Перенаправляє, якщо <b>URI</b> задовільняє умовам регулярного виразу</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+
     <div class="card" x-data='siteRedirects({
         redirects: {{json_encode(old('redirects', $redirects))}},
     })'>

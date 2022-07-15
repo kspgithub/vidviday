@@ -20,16 +20,14 @@ Artisan::command('inspire', function () {
 
     $data = [];
 
-    $tour = Tour::find(299);
+    $regex = '/q=(\d+)/';
+    $uri = '/tours?q=12';
 
-    $media = [];
+    $result = preg_match($regex, $uri, $matches);
 
-    foreach ($tour->tourPlaces as $tourPlace) {
-        if($tourPlace->hasMedia()) {
-            $media[] = $tourPlace->getMedia();
-        }
-    }
+    $data['matches'] = $matches;
+    $data['result'] = $result;
 
-    dd($media);
+    dd($data);
 
 })->purpose('Display an inspiring quote');

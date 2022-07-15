@@ -10,8 +10,11 @@
             <form-csrf/>
             <form-input name="first_name" v-model="data.first_name" rules="required" :label="__('forms.your-name')"/>
             <form-input name="last_name" v-model="data.last_name" rules="required" :label="__('forms.your-last-name')"/>
-            <form-input name="phone" id="vacancy_phone" v-model="data.phone" rules="required|tel"
-                        :label="__('forms.your-phone')"/>
+            <form-input name="phone" id="vacancy_phone" v-model="data.phone"
+                        rules="required|tel"
+                        :label="__('forms.your-phone')"
+                        mask="+38 (999) 999-99-99"
+            />
             <form-input name="email" id="vacancy_email" v-model="data.email" rules="required|email"
                         :label="__('forms.email')"/>
             <form-textarea name="comment" id="vacancy_comment" v-model="data.comment"
@@ -58,7 +61,7 @@ export default {
         const store = useStore();
         const submitted = ref(false);
 
-        const data = reactive({
+        const defaultData = {
             type: 3,
             first_name: '',
             last_name: '',
@@ -66,7 +69,18 @@ export default {
             email: '',
             comment: '',
             attachment: null,
+        }
+
+        const data = reactive({
+            ...defaultData
         });
+
+        const resetForm = () => {
+
+            Object.assign(data, {
+                ...defaultData
+            })
+        }
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -112,8 +126,10 @@ export default {
                     });
 
 
-                if (response.data) {
+                if (response?.data) {
                     if (response.data.result === 'success') {
+                        resetForm()
+
                         await store.dispatch('userQuestion/showThanks', {
                             title: response.data.message
                         })
@@ -124,7 +140,6 @@ export default {
 
                 }
 
-
             } else {
                 console.log(errors.value);
             }
@@ -134,6 +149,7 @@ export default {
             data,
             submitted,
             onSubmit,
+            resetForm,
         }
     }
 }
