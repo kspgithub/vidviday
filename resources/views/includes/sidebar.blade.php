@@ -27,7 +27,9 @@
         </div>
         <x-sidebar.latest-news/>
         <x-sidebar.latest-testimonials :title="__('sidebar-section.testimonials')"
-                                       :btn-text="__('sidebar-section.all-testimonials')"/>
+                                       :btn-text="__('sidebar-section.all-testimonials')"
+                                       type="all"
+        />
 
         <x-sidebar.mailing/>
 
