@@ -608,7 +608,7 @@
 
         .sidebar-item {
             padding: 0;
-            border: none;
+            //border: none;
         }
     }
 
@@ -752,7 +752,7 @@
 
             .sidebar-item {
                 padding: 0;
-                border: none;
+                //border: none;
             }
         }
 
@@ -817,20 +817,4 @@
 }
 
 @media (max-width: 575px) {
-}
-
-@media (max-width: 480px) {
-    .right-sidebar {
-        .sidebar-item {
-
-            .bottom-part {
-                text-align: center;
-                padding: 0!important;
-
-                img {
-                    position: relative;
-                }
-            }
-        }
-    }
 }

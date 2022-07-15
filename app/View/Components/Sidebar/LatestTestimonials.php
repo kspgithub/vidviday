@@ -42,7 +42,7 @@ class LatestTestimonials extends Component
         $this->testimonials = Cache::remember(
             'latest__testimonials_' . $type,
             60,
-            fn () => Testimonial::moderated()->where('model_type', $class)->latest()->take(10)->get()
+            fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->where('model_type', $class))->latest()->take(10)->get()
         );
     }
 

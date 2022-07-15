@@ -68,6 +68,7 @@ export default {
 
             if(markers.value.length === 1) {
                 map.value.setCenter(markers.value[0].getPosition())
+                map.value.setZoom(8)
             } else {
                 map.value.fitBounds(bounds, 100);
             }
