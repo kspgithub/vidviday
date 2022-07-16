@@ -27,8 +27,8 @@
             window.addEventListener('DOMContentLoaded', () => {
                 if (document.getElementById('seo-shorten-text').offsetHeight > 180) {
                     moreLess('shorten-text', '150px', {
-                        textMore: '{{ __('Показати більше') }}',
-                        textLess: '{{ __('Показати менше') }}',
+                        textMore: '{{ __('Read more') }}',
+                        textLess: '{{ __('Hide text') }}',
                     });
                 }
 
