@@ -36,6 +36,7 @@ trait TourScope
             'duration',
             'nights',
             'slug',
+            'corporate_includes'
         ], [
             'media' => function ($sc) {
                 return $sc->whereIn('collection_name', ['main', 'mobile']);
