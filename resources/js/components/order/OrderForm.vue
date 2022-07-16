@@ -38,7 +38,7 @@
 
                 <!-- TAB #2 -->
                 <order-step-two v-if="group_type === 0" :active="currentStep === 2"/>
-                <order-step-two-corp v-if="group_type === 1" :active="currentStep === 2" :includes="tour.corporate_includes" :corporate-includes="corporateIncludes"/>
+                <order-step-two-corp v-if="group_type === 1" :active="currentStep === 2"/>
                 <!-- TAB #2 END -->
 
                 <!-- TAB #3 -->
@@ -161,12 +161,6 @@ export default {
         },
         clear: {
             default: 0
-        },
-        corporateIncludes: {
-            type: Array,
-            default() {
-                return [];
-            }
         },
     },
     setup(props) {

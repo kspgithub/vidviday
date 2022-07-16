@@ -124,6 +124,8 @@ export default {
         tourDays: (state) => state.tour ? state.tour.duration : 0,
         // Стоимость места в выбранном туре
         tourPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.price : (state.tour ? state.tour.price : 0),
+        // Что входит в цену корпоратива
+        tourCorporateIncludes: (state, getters) => state.tour ? state.tour.corporate_includes : [],
 
         accommodationPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.accomm_price : (state.tour ? state.tour.accomm_price : 0),
         // Скидки на детей
