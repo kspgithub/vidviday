@@ -11,12 +11,21 @@
                     <input v-model="searchValue" ref="search" type="text">
                 </li>
                 <li v-if="multiple" class="opt" @click="selectAll()">
-                    <label>Обрати все</label>
+                    <label class="checkbox" >
+                        <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
+                        <span>Обрати все</span>
+                    </label>
                 </li>
                 <li v-for="option in filteredOptions"
+                    v-show="(!option.value && selected.length) || option.value"
                     :class="{selected: selected.includes(option.value)}"
                     class="opt"
-                    @click="change(option)"><label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+                    @click.prevent="change(option)"
+                >
+                    <label class="checkbox" >
+                        <input type="checkbox" :checked="selected.includes(option.value)">
+                        <span v-html="option.value === 0 ? 'Не вибрано' : option.text" />
+                    </label>
                 </li>
             </ul>
         </div>

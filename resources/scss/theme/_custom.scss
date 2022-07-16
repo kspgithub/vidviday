@@ -10919,6 +10919,10 @@ footer .accordion-inner .spacer-xs {
     display: none;
 }
 
+.SumoSelect > .optWrapper > .options li label.checkbox span {
+    display: unset!important;
+}
+
 .SumoSelect > .optWrapper > .options li label {
     color: #626262;
     display: block;

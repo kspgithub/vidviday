@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Redirect;
+use Cache;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -14,7 +15,9 @@ class RedirectMiddleware
 
     public function __construct()
     {
-        $this->redirects = Redirect::query()->published()->get();
+        $this->redirects = Cache::remember('redirects', 1, function () {
+            return Redirect::query()->published()->get();
+        });
     }
 
     /**
