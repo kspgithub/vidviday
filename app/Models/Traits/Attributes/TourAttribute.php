@@ -227,21 +227,4 @@ trait TourAttribute
         return $includes;
     }
 
-    public function getActiveTabsAttribute($value)
-    {
-        $tabs = json_decode($value ?: '[]', true);
-
-        if (empty($tabs)) {
-            $tabs = [
-                'places',
-                'ticket',
-                'hutsul_fun',
-                'transport',
-                'accommodation',
-                'food',
-            ];
-        }
-
-        return $tabs;
-    }
 }
