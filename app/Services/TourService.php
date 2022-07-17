@@ -71,12 +71,15 @@ class TourService extends BaseService
                 'places' => array_merge([['value' => 0, 'text' => __('tours-section.places')]], $places),
                 'landings' => array_merge([['value' => 0, 'text' => __('tours-section.landing-places')]], $landings),
                 'sorting' => [
-                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'date-asc', 'text' => __('tours-section.sorting.date-asc')],
                     ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
+//                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
+//                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
                     ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
-                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
-                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
+                    ['value' => 'duration-desc', 'text' => __('tours-section.sorting.duration-desc')],
+                    ['value' => 'duration-asc', 'text' => __('tours-section.sorting.duration-asc')],
                 ],
                 'pagination' => [
                     ['value' => 12, 'text' => '12'],

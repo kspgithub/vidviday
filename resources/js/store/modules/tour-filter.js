@@ -47,7 +47,7 @@ export default {
 
             },
             sorting: {
-                sortBy: 'created',
+                sortBy: 'date',
                 sortDirection: 'asc',
             },
             tours: [],
@@ -115,7 +115,7 @@ export default {
                 page: 1,
                 future: 1,
                 per_page: 12,
-                sort_by: 'created',
+                sort_by: 'date',
                 sort_dir: 'asc',
                 view: 'gallery',
                 lang: 'uk',
@@ -193,7 +193,7 @@ export default {
             commit('SET_PAGINATION', pagination);
 
             const sorting = {
-                sortBy: query.sort_by ? query.sort_by : 'created',
+                sortBy: query.sort_by ? query.sort_by : 'date',
                 sortDirection: query.sort_dir ? query.sort_dir : 'asc',
             }
 
