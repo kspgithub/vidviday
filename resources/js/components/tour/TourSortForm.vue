@@ -50,7 +50,7 @@ export default {
             set(value) {
                 const values = value.split('-');
                 store.commit('tourFilter/SET_SORTING', {
-                    sortBy: values[0] || 'created',
+                    sortBy: values[0] || 'date',
                     sortDirection: values[1] || 'asc'
                 });
 

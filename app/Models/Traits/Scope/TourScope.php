@@ -66,10 +66,7 @@ trait TourScope
     {
         $locale = $params['lang'] ?? 'uk';
 
-        $query->join('tour_schedules', 'tours.id', '=', 'tour_schedules.tour_id')
-            ->select('tours.*')
-            ->addSelect(DB::raw('MIN(start_date) as nearest_date'))
-            ->groupBy('id')
+        $query
             ->whereJsonContains('locales', $locale)
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
                 return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
@@ -136,11 +133,17 @@ trait TourScope
 
         $query->withAvg('testimonials', 'rating');
 
-        $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'created';
+        $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'date';
         $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
 
+        if($sort_by === 'date') {
+            $query->join('tour_schedules', 'tours.id', '=', 'tour_schedules.tour_id')
+                ->select('tours.*')
+                ->addSelect(DB::raw('MIN(start_date) as date'))
+                ->groupBy('tours.id');
+        }
         if($sort_by === 'created') {
-            $sort_by = 'nearest_date';
+            $sort_by = 'created_at';
         }
         if($sort_by === 'rating') {
             $sort_by = 'testimonials_avg_rating';
