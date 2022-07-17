@@ -15,7 +15,7 @@ class TravelAgentController extends Controller
 
     public function index()
     {
-        $pageContent = Page::where('key', 'for-travel-agents')->first();
+        $pageContent = Page::published()->where('key', 'for-travel-agents')->firstOrFail();
         $faqItems = FaqItem::where('section', FaqItem::SECTION_TOUR_AGENT)->orderBy('sort_order')->get();
         $tours = Tour::search()->paginate(12);
 

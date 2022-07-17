@@ -19,7 +19,7 @@ class CertificateController extends Controller
 
     public function index()
     {
-        $pageContent = Page::where('key', 'certificate')->first();
+        $pageContent = Page::published()->where('key', 'certificate')->firstOrFail();
         $localeLinks = $pageContent->getLocaleLinks();
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
@@ -33,7 +33,7 @@ class CertificateController extends Controller
 
     public function order()
     {
-        $pageContent = Page::where('key', 'certificate-order')->first();
+        $pageContent = Page::published()->where('key', 'certificate-order')->firstOrFail();
         $packings = Packing::all();
         $paymentTypes = PaymentType::published()->toSelectBox();
 

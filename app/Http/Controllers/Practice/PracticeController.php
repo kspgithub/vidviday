@@ -14,7 +14,7 @@ class PracticeController extends Controller
 
     public function index()
     {
-        $pageContent = Page::where('key', 'practice')->first();
+        $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practices = Practice::published()->orderBy('created_at', 'desc')->paginate(20);
 
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
@@ -28,7 +28,7 @@ class PracticeController extends Controller
 
     public function show($slug)
     {
-        $pageContent = Page::where('key', 'practice')->first();
+        $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practice = Practice::findBySlugOrFail($slug);
         return view('practice.show', [
             'pageContent'=>$pageContent,

@@ -13,7 +13,7 @@ class CourseController extends Controller
 
     public function index()
     {
-        $pageContent = Page::where('key', 'courses')->first();
+        $pageContent = Page::published()->where('key', 'courses')->firstOrFail();
         $courses = Course::published()->orderBy('created_at', 'desc')->paginate(20);
         return view('course.index', [
             'pageContent'=>$pageContent,
@@ -23,7 +23,7 @@ class CourseController extends Controller
 
     public function show($slug)
     {
-        $pageContent = Page::where('key', 'courses')->first();
+        $pageContent = Page::published()->where('key', 'courses')->firstOrFail();
         $course = Course::findBySlugOrFail($slug);
         return view('course.show', [
             'pageContent'=>$pageContent,

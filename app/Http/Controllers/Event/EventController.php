@@ -15,7 +15,7 @@ class EventController extends Controller
     public function index()
     {
         //
-        $pageContent = Page::where('key', 'events')->first();
+        $pageContent = Page::published()->where('key', 'events')->firstOrFail();
 
         $eventGroups = EventGroup::whereHas('events', function ($q) {
             return $q->published();

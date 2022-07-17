@@ -14,7 +14,7 @@ class SchoolController extends Controller
     public function index()
     {
         //
-        $pageContent = Page::where('key', 'schools')->first();
+        $pageContent = Page::published()->where('key', 'schools')->firstOrFail();
         $faqItems = FaqItem::where('section', FaqItem::SECTION_CORPORATE)->orderBy('sort_order')->get();
         $tours = TourService::popularTours();
 

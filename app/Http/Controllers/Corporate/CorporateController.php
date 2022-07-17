@@ -13,7 +13,7 @@ class CorporateController extends Controller
     public function index()
     {
         //
-        $pageContent = Page::where('key', 'corporates')->first();
+        $pageContent = Page::published()->where('key', 'corporates')->firstOrFail();
         $faqItems = FaqItem::where('section', FaqItem::SECTION_CORPORATE)->orderBy('sort_order')->get();
         $tours = TourService::popularTours();
 

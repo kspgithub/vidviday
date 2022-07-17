@@ -10,4 +10,9 @@ trait MenuItemAttribute
     {
         return $this->menu->title;
     }
+
+    public function getUrlAttribute()
+    {
+        return $this->page->url ?? $this->slug;
+    }
 }

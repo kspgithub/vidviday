@@ -17,7 +17,7 @@
                 <form-input name="name" v-model="form.name" rules="required"
                             :label="__('forms.your-name')"/>
 
-                <form-input name="tel" v-model="form.phone" rules="required|tel" mask="+38 (999) 999-99-99"
+                <form-input name="tel" v-model="form.phone" rules="required" mask="+38 (999) 999-99-99"
                             :label="__('forms.your-phone')"/>
 
                 <form-input name="email" v-model="form.email" rules="required"
@@ -49,11 +49,10 @@ export default {
         const submitted = ref(false)
         const user = store.state.user.currentUser
 
-        console.log(user)
         const form = reactive({
             name: user ? (user.first_name + ' ' + user.last_name) : '',
-            phone: user.mobile_phone,
-            email: user.email,
+            phone: user ? user.mobile_phone : '',
+            email: user ? user.email : '',
         })
 
         const onSubmit = async () => {
@@ -67,6 +66,8 @@ export default {
                 submitted.value = true;
 
                 if (response.data.result === 'success') {
+                    props.tour.votings_count++
+
                     if (window._functions) {
                         window._functions.showPopup('thanks-popup');
                     } else {

@@ -50,6 +50,7 @@ class MenuItem extends TranslatableModel
         'title',
         'slug',
         'parent_id',
+        'page_id',
         'menu_id',
         'position',
         'side',
@@ -75,5 +76,10 @@ class MenuItem extends TranslatableModel
     public function parent()
     {
         return $this->belongsTo(MenuItem::class, 'parent_id');
+    }
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class, 'page_id');
     }
 }

@@ -13,7 +13,7 @@
                                 <ul>
                                     @foreach($menuItem->children as  $menuChildren)
                                         <li>
-                                            <a href="{{$menuChildren->slug}}" class="text">{{$menuChildren->title}}</a>
+                                            <a href="{{$menuChildren->url}}" class="text">{{$menuChildren->title}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
