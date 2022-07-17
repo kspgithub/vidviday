@@ -2,12 +2,15 @@
 
 return [
     'sorting' => [
+        'date-asc' => 'From the nearest',
         'price-asc' => 'From the cheapest',
         'price-desc' => 'From the most expensive',
-        'created-asc' => 'From newer',
-        'created-desc' => 'From the elder',
+        'created-desc' => 'From newer',
+        'created-asc' => 'From the elder',
         'rating-desc' => 'From most popular',
         'rating-asc' => 'From less popular',
+        'duration-desc' => 'From longest',
+        'duration-asc' => 'From shortest',
     ],
     'search-btn' => 'Search tour',
     'empty-results' => 'Sorry, nothing was found for your query',

@@ -8,7 +8,7 @@
         </select>
     </label>
     <label>
-        <span class="text">Сортувати за</span>
+        <span class="text">Сортувати</span>
         <select name="sorting">
             @foreach(App\Services\TourService::filterOptions()['sorting'] as $sorting)
                 <option value="{{$sorting['value']}}">{{$sorting['text']}}</option>

@@ -24,7 +24,6 @@
             </div>
             <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"/>
 
-
             <div class="datepicker-input" v-if="schedules.length">
                 <form-select v-model="scheduleId" :options="schedules"></form-select>
             </div>

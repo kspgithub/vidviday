@@ -21,11 +21,6 @@ Artisan::command('inspire', function () {
 
     $data= [];
 
-    $langLinesAsc = LanguageLine::where('key', 'sorting.created-asc')->first();
-    $langLinesDesc = LanguageLine::where('key', 'sorting.created-desc')->first();
-    $langLinesAsc->update(['key' => 'sorting.created-desc']);
-    $langLinesDesc->update(['key' => 'sorting.created-asc']);
-
     dd($data);
 
 })->purpose('Display an inspiring quote');
