@@ -51,7 +51,7 @@ export default {
                 const values = value.split('-');
                 store.commit('tourFilter/SET_SORTING', {
                     sortBy: values[0] || 'created',
-                    sortDirection: values[1] || 'desc'
+                    sortDirection: values[1] || 'asc'
                 });
 
                 nextTick(() => {

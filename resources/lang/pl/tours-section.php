@@ -12,8 +12,8 @@ return [
     'sorting' => [
         'price-asc' => 'Від найдешевшого',
         'price-desc' => 'Від найдорожчого',
-        'created-desc' => 'Від новішого',
-        'created-asc' => 'Від старішого',
+        'created-asc' => 'Від новішого',
+        'created-desc' => 'Від старішого',
         'rating-desc' => 'Від найпопулярнішого',
         'rating-asc' => 'Від найменш популярного',
     ],

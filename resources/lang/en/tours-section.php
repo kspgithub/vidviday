@@ -4,8 +4,8 @@ return [
     'sorting' => [
         'price-asc' => 'From the cheapest',
         'price-desc' => 'From the most expensive',
-        'created-desc' => 'From newer',
-        'created-asc' => 'From the elder',
+        'created-asc' => 'From newer',
+        'created-desc' => 'From the elder',
         'rating-desc' => 'From most popular',
         'rating-asc' => 'From less popular',
     ],
