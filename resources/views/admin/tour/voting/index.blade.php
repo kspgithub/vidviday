@@ -15,31 +15,37 @@
             @include('admin.tour.includes.edit-tabs')
         </div>
         <div class="col-12 col-md-9 col-xl-10">
+            <x-bootstrap.card>
+                <x-slot name="body">
+                    <h2 class="mb-2">@lang('Voting')</h2>
 
-            <table class="table table-sm mb-3">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>@lang('User')</th>
-                    <th>@lang('Ip')</th>
-                    <th>@lang('Date')</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($tour->votings as $voting)
-                    <tr>
-                        <td>{{$voting->id}}</td>
-                        <td>
-                            {{$voting->name}}
-                            {{$voting->phone}}
-                            {{$voting->email}}
-                        </td>
-                        <td>{{ $voting->ip }}</td>
-                        <td>{{ $voting->created_at }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    <table class="table table-sm mb-3">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>@lang('User')</th>
+                            <th>@lang('Ip')</th>
+                            <th>@lang('Date')</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($tour->votings as $voting)
+                            <tr>
+                                <td>{{$voting->id}}</td>
+                                <td>
+                                    {{$voting->name}}
+                                    {{$voting->phone}}
+                                    {{$voting->email}}
+                                </td>
+                                <td>{{ $voting->ip }}</td>
+                                <td>{{ $voting->created_at }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </x-slot>
+            </x-bootstrap.card>
         </div>
     </div>
 

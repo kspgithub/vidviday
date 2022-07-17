@@ -196,5 +196,7 @@
     "Your authorization code was invalid. Please try again.": "Ваш код авторизации был недействительным. Пожалуйста, попробуйте еще раз.",
     "Your password has expired.": "Ваш пароль истек.",
     "Your password has expired. We require you to change your password every :days days for security purposes.": "Ваш пароль истек. Мы требуем, чтобы вы меняли свой пароль каждые :days день в целях безопасности.",
-    "click here to request another": "нажмите здесь, чтобы запросить другой"
+    "click here to request another": "нажмите здесь, чтобы запросить другой",
+    "Corporate includes": "Вкл. в цену корп.",
+    "Voting": "Голосование"
 }
