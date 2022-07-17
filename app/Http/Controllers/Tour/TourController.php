@@ -331,20 +331,12 @@ class TourController extends Controller
         });
 
         if (!$existing->count()) {
-            $voting = $tour->votings()->create($params);
+            $tour->votings()->create($params);
 
-            $redirect_route = 'tour.voting-success';
-
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, [$tour, $voting])]);
-            }
-            return redirect()->route($redirect_route, [$tour, $voting]);
+            return response()->json(['result' => 'success']);
         } else {
 
-            if ($request->ajax()) {
-                return response()->json(['result' => 'error', 'message' => 'Ви вже голосували за цей тур!']);
-            }
-            return back()->withFlashError('Ви вже голосували за цей тур!');
+            return response()->json(['result' => 'error', 'message' => __('tours-section.already-voted')]);
         }
     }
 

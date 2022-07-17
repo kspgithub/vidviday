@@ -16,7 +16,7 @@ class BlogController extends Controller
     {
 
         $posts = Post::published()->orderBy('id', 'desc')->paginate(9);
-        $pageContent = Page::where('key', 'blog')->first();
+        $pageContent = Page::published()->where('key', 'blog')->firstOrFail();
 
         return view('blog.index', [
             'pageContent' => $pageContent,

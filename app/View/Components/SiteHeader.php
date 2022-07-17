@@ -33,8 +33,8 @@ class SiteHeader extends Component
         $this->menu = Cache::rememberForever('header-menu', function () {
             return Menu::whereSlug('header')
                 ->with([
-                    'items' => fn ($q) => $q->published()->where('parent_id', 0),
-                    'items.children' => fn ($q) => $q->published()
+                    'items' => fn ($q) => $q->with('page:id,slug,published')->published()->where('parent_id', 0),
+                    'items.children' => fn ($q) => $q->with('page:id,slug,published')->published()
                 ])->first();
         });
     }

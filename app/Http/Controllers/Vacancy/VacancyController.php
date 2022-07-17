@@ -14,7 +14,7 @@ class VacancyController extends Controller
 
     public function index()
     {
-        $pageContent = Page::where('key', 'vacancies')->first();
+        $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancies = Vacancy::published()->orderBy('created_at', 'desc')->paginate(20);
         $popupAds = PopupAd::query()->whereJsonContains('pages',  $pageContent->key)->get();
 
@@ -27,7 +27,7 @@ class VacancyController extends Controller
 
     public function show($slug)
     {
-        $pageContent = Page::where('key', 'vacancies')->first();
+        $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancy = Vacancy::findBySlugOrFail($slug);
         $popupAds = PopupAd::query()->whereJsonContains('pages',  $pageContent->key)->get();
         return view('vacancy.show', [

@@ -21,7 +21,6 @@ export default {
 
         const apiKey = process.env.MIX_GOOGLE_MAPS_KEY;
 
-
         onMounted(() => {
 
             map.value = new google.maps.Map(mapRef.value, {
@@ -41,13 +40,13 @@ export default {
                     position: position,
                     icon: '/icon/marker.svg',
                     label: {text: (i + 1).toString(), color: "white"},
-                    title: place.title[locale] || place.title['uk'],
+                    title: place.title[locale.value] || place.title['uk'],
                     map: map.value,
                 });
 
                 infoWindows[i] = new google.maps.InfoWindow({
-                    ariaLabel: place.title[locale] || place.title['uk'],
-                    content: place.title[locale] || place.title['uk'],
+                    ariaLabel: place.title[locale.value] || place.title['uk'],
+                    content: place.title[locale.value] || place.title['uk'],
                 });
 
                 marker.addListener("click", () => {

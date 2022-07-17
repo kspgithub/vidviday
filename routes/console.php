@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LanguageLine;
 use App\Models\Tour;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -18,15 +19,12 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 
-    $data = [];
+    $data= [];
 
-    $regex = '/q=(\d+)/';
-    $uri = '/tours?q=12';
-
-    $result = preg_match($regex, $uri, $matches);
-
-    $data['matches'] = $matches;
-    $data['result'] = $result;
+    $langLinesAsc = LanguageLine::where('key', 'sorting.created-asc')->first();
+    $langLinesDesc = LanguageLine::where('key', 'sorting.created-desc')->first();
+    $langLinesAsc->update(['key' => 'sorting.created-desc']);
+    $langLinesDesc->update(['key' => 'sorting.created-asc']);
 
     dd($data);
 

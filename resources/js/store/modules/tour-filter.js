@@ -48,7 +48,7 @@ export default {
             },
             sorting: {
                 sortBy: 'created',
-                sortDirection: 'desc',
+                sortDirection: 'asc',
             },
             tours: [],
             popularTours: []
@@ -116,7 +116,7 @@ export default {
                 future: 1,
                 per_page: 12,
                 sort_by: 'created',
-                sort_dir: 'desc',
+                sort_dir: 'asc',
                 view: 'gallery',
                 lang: 'uk',
             }
@@ -194,7 +194,7 @@ export default {
 
             const sorting = {
                 sortBy: query.sort_by ? query.sort_by : 'created',
-                sortDirection: query.sort_dir ? query.sort_dir : 'desc',
+                sortDirection: query.sort_dir ? query.sort_dir : 'asc',
             }
 
             commit('SET_SORTING', sorting);
