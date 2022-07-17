@@ -93,13 +93,13 @@ trait TourScope
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
                 return $q->whereHas('directions', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['direction']));
-                    $sq->whereIn('tours_directions.id', $ids);
+                    $sq->whereIn('directions.id', $ids);
                 });
             })
             ->when(!empty($params['type']), function (Builder $q) use ($params) {
                 return $q->whereHas('types', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['type']));
-                    $sq->whereIn('tours_tour_types.id', $ids);
+                    $sq->whereIn('tour_types.id', $ids);
                 });
             })
             ->when(!empty($params['subject']), function (Builder $q) use ($params) {
