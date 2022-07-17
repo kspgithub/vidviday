@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SiteMenu\MenuItemBasicRequest;
 use App\Models\Menu;
 use App\Models\MenuItem;
+use App\Models\Page;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -32,7 +33,7 @@ class MenuItemController extends Controller
             "menus" => $menus
         ]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,10 +46,12 @@ class MenuItemController extends Controller
         $item->parent_id = $request->input('parent_id', 0);
         $item->side = MenuItem::SIDE_LEFT;
 
+        $pages = Page::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
         return view("admin.site-menu.menu-item.create", [
             "item" => $item,
             "menu" => $menu,
+            'pages' => $pages,
             "sides" => $sides,
         ]);
     }
@@ -84,9 +87,11 @@ class MenuItemController extends Controller
      */
     public function edit(MenuItem $item)
     {
+        $pages = Page::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
         return view('admin.site-menu.menu-item.edit', [
             'item' => $item,
+            'pages' => $pages,
             "sides" => $sides,
         ]);
     }

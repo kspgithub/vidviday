@@ -13,7 +13,7 @@ class CharityController extends Controller
     {
 
         $charity = Charity::published()->orderBy('id', 'desc')->paginate(9);
-        $pageContent = Page::where('key', 'charity')->first();
+        $pageContent = Page::published()->where('key', 'charity')->firstOrFail();
 
         return view("charity.index", [
             "pageContent" => $pageContent,

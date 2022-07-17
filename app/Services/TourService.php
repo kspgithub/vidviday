@@ -71,8 +71,8 @@ class TourService extends BaseService
                 'places' => array_merge([['value' => 0, 'text' => __('tours-section.places')]], $places),
                 'landings' => array_merge([['value' => 0, 'text' => __('tours-section.landing-places')]], $landings),
                 'sorting' => [
-                    ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
                     ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
                     ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],

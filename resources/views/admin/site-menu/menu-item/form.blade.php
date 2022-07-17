@@ -13,6 +13,12 @@
                                 help="наприклад: /populyarni-turi"
         ></x-forms.text-loc-group>
 
+        <x-forms.select-group name="page_id" :label="__('Page')" :value="old('page_id', $item->page_id)"
+                              :options="$pages"
+        >
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+
         @if($item->parent_id > 0)
             <x-forms.radio-group name="side" :label="__('Column')"
                                  :value="old('title', $item->side)"></x-forms.radio-group>

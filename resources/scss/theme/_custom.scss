@@ -3703,7 +3703,15 @@ button.swiper-pagination-bullet {
     position: absolute;
     background: center/contain url('../../svg/resume.svg') no-repeat;
 }
-
+.sidebar-item.tour-voting-form .h3:before {
+    top: 0;
+    left: 0;
+    content: "";
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    background: center/contain url('../../svg/done.svg') no-repeat;
+}
 .sidebar-item.vacancy-form .btn {
     width: 100%;
 }

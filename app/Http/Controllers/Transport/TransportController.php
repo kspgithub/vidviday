@@ -16,7 +16,7 @@ class TransportController extends Controller
     public function index()
     {
         //
-        $pageContent = Page::where('key', 'transport')->first();
+        $pageContent = Page::published()->where('key', 'transport')->firstOrFail();
 
         $transports = Transport::published()->get();
 

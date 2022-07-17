@@ -16,6 +16,10 @@
 
         <x-tour.manager :manager="$tour->tour_manager"/>
 
+        @if(!$nearest_event)
+            <div v-is="'tour-voting-form'" :tour='@json($tour->shortInfo())'/>
+        @endif
+
         <div class="sidebar-item only-desktop hidden-print">
             <a download class="download" v-is="'print-btn'">
                 <span class="text-md text-medium">@lang('tours-section.download-tour')</span>

@@ -118,34 +118,38 @@
                     <ul>
                         @foreach($menu->items as $menuItem)
                             @if($menuItem->children->count() > 0)
-                                <li class="dropdown {{$menuItem->class_name ?? ''}}">
-                                    <a href="/{{ltrim($menuItem->slug, '/')}}"
-                                       class="dropdown-title">{{$menuItem->title}}</a>
-                                    <span class="dropdown-btn"></span>
-                                    <div class="dropdown-toggle">
-                                        @if($menuItem->children->where('side', '=', 'left')->count() > 0 )
-                                            <ul>
-                                                @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)
-                                                    <li class="{{$menuChildren->class_name ?? ''}}">
-                                                        <a href="/{{ltrim($menuChildren->slug, '/')}}">{{$menuChildren->title}}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                        @if($menuItem->children->where('side', '=', 'right')->count() > 0 )
-                                            <ul>
-                                                @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)
-                                                    <li class="{{$menuChildren->class_name ?? ''}}">
-                                                        <a href="/{{ltrim($menuChildren->slug, '/')}}">{{$menuChildren->title}}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </div>
-                                </li>
+                                @if(!$menuItem->page || $menuItem->page->published)
+                                    <li class="dropdown {{$menuItem->class_name ?? ''}}">
+                                        <a href="/{{ltrim($menuItem->url, '/')}}"
+                                           class="dropdown-title">{{$menuItem->title}}</a>
+                                        <span class="dropdown-btn"></span>
+                                        <div class="dropdown-toggle">
+                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )
+                                                <ul>
+                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)
+                                                        <li class="{{$menuChildren->class_name ?? ''}}">
+                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )
+                                                <ul>
+                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)
+                                                        @if(!$menuChildren->page || $menuChildren->page->published)
+                                                            <li class="{{$menuChildren->class_name ?? ''}}">
+                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endif
                             @else
                                 <li class="{{$menuItem->class_name ?? ''}}">
-                                    <a href="/{{ltrim($menuItem->slug, '/')}}">{{$menuItem->title}}</a>
+                                    <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
                                 </li>
                             @endif
                         @endforeach
