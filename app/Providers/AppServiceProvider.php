@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Order;
+use App\Models\Page;
 use App\Models\TourVoting;
 use App\Models\UserQuestion;
 use App\Observers\OrderObserver;
+use App\Observers\PageObserver;
 use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
 use Illuminate\Pagination\Paginator;
@@ -43,5 +45,6 @@ class AppServiceProvider extends ServiceProvider
         Order::observe(OrderObserver::class);
         UserQuestion::observe(UserQuestionObserver::class);
         TourVoting::observe(TourVotingObserver::class);
+        Page::observe(PageObserver::class);
     }
 }
