@@ -27,11 +27,9 @@ class TourVotingRequest extends FormRequest
     {
         return [
             //
-            'first_name' => ['required'],
-            'last_name' => ['required'],
+            'name' => ['required'],
             'phone' => ['required'],
             'email' => ['required', 'email'],
-            'tour_id' => ['nullable', 'integer'],
         ];
     }
 }

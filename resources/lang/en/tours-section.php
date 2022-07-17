@@ -90,10 +90,10 @@ return [
     'subject' => 'Subject',
     'landing-places' => 'Місця посадки',
     'transport' => 'Транспорт',
-    'vote-for-tour' => 'Голосувати',
+    'persons' => 'person|persons',
+    'vote' => 'Проголосувати',
+    'want-to-vote' => 'Хочуть повторити тур',
     'voting' => 'Голосування за продовження туру',
-    'voting-thanks-message' => 'Дякую за голосування.',
-    'voting-thanks-text' => 'Ми повідомимо вас коли тур знову буде доступним.',
     'already-voted' => 'Ви вже голосували за цей тур.',
     'event-tours-title' => 'Тури пов’язані з цією подією',
 ];

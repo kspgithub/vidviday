@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Tour\TourTransportController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
 use App\Http\Controllers\Admin\Tour\TourFinanceController;
 use App\Http\Controllers\Admin\Tour\TourLandingController;
+use App\Http\Controllers\Admin\Tour\TourVotingController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -94,6 +95,8 @@ Route::group([
 
     Route::get('{tour}/corporate_includes', [TourCorporateIncludesController::class, 'index'])->name('corporate_includes.index');
     Route::post('{tour}/corporate_includes', [TourCorporateIncludesController::class, 'save'])->name('corporate_includes.save');
+
+    Route::get('{tour}/voting', [TourVotingController::class, 'index'])->name('voting.index');
 });
 
 Route::resource('tour', TourController::class);

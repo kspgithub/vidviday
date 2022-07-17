@@ -22,7 +22,7 @@
         <div class="spacer-xs"></div>
 
         <div class="sidebar-item">
-            <div class="single-datepicker" v-if="!corporate">
+            <div class="single-datepicker" v-if="!corporate && nearestEvent">
                 <input name="schedule" :value="schedule_id" type="hidden">
 
                 <div class="datepicker-input datepicker-dropdown">
@@ -53,11 +53,6 @@
                 <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
                       v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
 
-            </template>
-
-            <template v-if="!nearestEvent">
-                <span class="btn type-2 btn-block hidden-print"
-                      @click="showVotingPopup()">{{ __('tours-section.vote-for-tour') }} ({{ tour.votings_count }})</span>
             </template>
 
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
@@ -121,10 +116,6 @@ export default {
             store.commit('orderTour/SET_POPUP_OPEN', true);
         }
 
-        const showVotingPopup = () => {
-            store.commit('voteTour/SET_POPUP_OPEN', true);
-        }
-
         const showCalendar = () => {
             store.commit('orderTour/SET_CALENDAR_OPEN', true);
         }
@@ -159,7 +150,6 @@ export default {
             places,
             action,
             showPopup,
-            showVotingPopup,
             showCalendar,
         }
     }

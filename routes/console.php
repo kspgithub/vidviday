@@ -18,15 +18,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 
-    $data = [];
-
-    $regex = '/q=(\d+)/';
-    $uri = '/tours?q=12';
-
-    $result = preg_match($regex, $uri, $matches);
-
-    $data['matches'] = $matches;
-    $data['result'] = $result;
+    $data[] = trans_choice('tours-section.persons', 131);
 
     dd($data);
 
