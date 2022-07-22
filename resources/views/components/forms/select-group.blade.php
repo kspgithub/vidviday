@@ -51,18 +51,20 @@
             @endif
             x-init="
 
+                inputRef = $refs.input || document.getElementById('{{$id ?? $name}}');
+
                 @if($attributes->has('wire:model') && $attributes->has('wire:ignore') && count($options))
-                    if($refs.input) {
-                        jQuery($refs.input).find('option[value]').remove()
-                        //jQuery($refs.input).html('')
+                    if(inputRef) {
+                        jQuery(inputRef).find('option[value]').remove()
+                        //jQuery(inputRef).html('')
                         @foreach($options as $option)
                             newOption = new Option(jQuery('<div/>').html('{{ $option['text'] ?? $option['title'] }}').text(), '{{ $option['value'] ?? $option['id'] }}', value == '{{ $option['value'] ?? $option['id'] }}', value == '{{ $option['value'] ?? $option['id'] }}')
-                            $refs.input.add(newOption)
+                            inputRef.add(newOption)
                         @endforeach
                     }
                 @endif
 
-                jQuery($refs.input).select2({
+                jQuery(inputRef).select2({
                     placeholder: '{{ $placeholder }}',
                     allowClear: '{{ $allowClear }}',
                     theme: 'bootstrap-5',
@@ -92,31 +94,31 @@
                     @endif
                 });
 
-                jQuery($refs.input).on('select2:select', (e) => {
+                jQuery(inputRef).on('select2:select', (e) => {
                     value = e.params.data.id;
                 })
 
                 @if($autocomplete)
-                jQuery($refs.input).on('select2:opening', function(e) {
-                    if (jQuery($refs.input).data('unselecting')) {
-                        jQuery($refs.input).removeData('unselecting');
+                jQuery(inputRef).on('select2:opening', function(e) {
+                    if (jQuery(inputRef).data('unselecting')) {
+                        jQuery(inputRef).removeData('unselecting');
                         setTimeout(function() {
-                            jQuery($refs.input).select2('close');
+                            jQuery(inputRef).select2('close');
                         }, 1);
                         e.preventDefault()
                     }
                 }).on('select2:unselecting', function(e) {
-                    jQuery($refs.input).data('unselecting', true);
+                    jQuery(inputRef).data('unselecting', true);
                     value = 0;
                 });
                 @endif
                 $watch('value', (value) => {
-                    jQuery($refs.input).val(value).trigger('change');
+                    jQuery(inputRef).val(value).trigger('change');
                 });
              "
         @endif
     >
-        <div {{ $attributes->has('wire:ignore') ? 'wire:ignore' : '' }}>
+        <div {{ $attributes->has('wire:ignore') ? 'wire:ignore.self' : '' }}>
             <select name="{{$name}}"
                     id="{{$id ?? $name}}"
                     {{$readonly ? 'readonly' : ''}}
