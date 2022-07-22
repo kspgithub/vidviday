@@ -50,6 +50,7 @@ return [
     'commission' => 'Комісія агента',
     'accomm-price' => 'Dopłata za pojedyncze obłożenie',
     'days-letter' => 'д',
+    'day' => 'день',
     'nights-letter' => 'н',
     'hours-letter' => 'h',
     'similar-tours' => 'Схожі тури',

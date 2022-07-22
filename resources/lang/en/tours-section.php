@@ -42,6 +42,7 @@ return [
     'commission' => 'Agent Commission',
     'accomm-price' => 'Single occupancy surcharge',
     'days-letter' => 'd',
+    'day' => 'day',
     'nights-letter' => 'n',
     'hours-letter' => 'h',
     'similar-tours' => 'Similar tours',

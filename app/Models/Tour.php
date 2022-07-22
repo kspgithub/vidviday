@@ -213,7 +213,12 @@ class Tour extends TranslatableModel implements HasMedia
     public function getFormatDurationAttribute()
     {
         if($this->duration_format === self::FORMAT_DAYS) {
-            return $this->duration.__('tours-section.days-letter') . ($this->nights > 0 && $this->nights !== $this->duration ? '/ '.$this->nights.'н' : '');
+            if($this->duration === 1 && !$this->nights) {
+                return $this->duration . ' ' . __('tours-section.day');
+            } else {
+
+                return $this->duration . __('tours-section.days-letter') . ($this->nights > 0 ? '/ '. $this->nights . __('tours-section.nights-letter') : '');
+            }
         }
 
         if($this->duration_format === self::FORMAT_TIME) {
