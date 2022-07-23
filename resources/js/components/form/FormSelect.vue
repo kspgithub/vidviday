@@ -75,13 +75,14 @@ export default {
         })
 
         const change = (option) => {
-            open.value = false;
+            // open.value = false;
 
             const value = String(JSON.parse(JSON.stringify(props.modelValue)))
             let val = value.split(',').filter(v => !!v)
             const index = val.indexOf(option.value.toString())
 
             if(option.value === 0) {
+                open.value = false;
                 val = []
             } else {
                 if(index > -1) {

@@ -10,7 +10,7 @@
         <div class="bottom-part">
             <div class="latest-testimonials only-desktop">
                 @foreach($testimonials as $i => $testimonial)
-                    <div class="review" style="{{ $i > 1 ? 'display: none' : '' }}">
+                    <div class="review" {{--style="{{ $i > 1 ? 'display: none' : '' }}"--}}>
                         <div class="review-header">
                             <div class="review-img">
                                 @if($testimonial->avatar || empty($testimonial->initials))
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{$btnUrl}}" class="btn type-2 btn-block show_more">{{$btnText}}</a>
+                <a href="{{$btnUrl}}" class="btn type-2 btn-block {{--show_more--}}">{{$btnText}}</a>
             </div>
 
             <div class="only-pad-mobile">

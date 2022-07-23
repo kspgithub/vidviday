@@ -19,30 +19,17 @@
                 <x-slot name="body">
                     <h2 class="mb-2">@lang('Voting')</h2>
 
-                    <table class="table table-sm mb-3">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>@lang('User')</th>
-                            <th>@lang('Ip')</th>
-                            <th>@lang('Date')</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($tour->votings as $voting)
-                            <tr>
-                                <td>{{$voting->id}}</td>
-                                <td>
-                                    {{$voting->name}}
-                                    {{$voting->phone}}
-                                    {{$voting->email}}
-                                </td>
-                                <td>{{ $voting->ip }}</td>
-                                <td>{{ $voting->created_at }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    <div class="row mb-4">
+                        <div class="col-12 mb-2 text-lg-end">
+                            <a href="{{route('admin.tour.voting.index', ['tour' => $tour, 'export' => 1])}}"
+                               target="_blank" class="btn btn-outline-success">
+                                <i class="far fa-file-excel"></i> Експортувати в Excel
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <livewire:tour-votings :tour="$tour"/>
 
                 </x-slot>
             </x-bootstrap.card>

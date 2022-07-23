@@ -23,7 +23,7 @@
                 <form-input name="email" v-model="form.email" rules="required"
                             :label="__('forms.your-email')"/>
 
-                <button type="submit" class="btn type-1" :disabled="submitted">
+                <button type="submit" class="btn type-1 btn-block" :disabled="submitted">
                     {{ __('tours-section.vote') }}
                 </button>
 
@@ -66,8 +66,6 @@ export default {
                 submitted.value = true;
 
                 if (response.data.result === 'success') {
-                    props.tour.votings_count++
-
                     if (window._functions) {
                         window._functions.showPopup('thanks-popup');
                     } else {

@@ -30,27 +30,26 @@
                 </div>
             </div>
             <div class="thumb-content">
-                <div class="datepicker-input d-none d-lg-block">
+                <div v-if="schedules.length" class="datepicker-input d-none d-lg-block">
                     <form-select v-model="scheduleId" :options="schedules"></form-select>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" class="d-block d-lg-none"/>
-                    <div class="thumb-info">
-                <span class="thumb-info-time text">
-                    {{ tour.format_duration }}
-                </span>
+                    <div class="thumb-info ms-10">
+                        <span class="thumb-info-time text">
+                            {{ tour.format_duration }}
+                        </span>
                         <span class="thumb-info-people text">
-                    {{
-                                currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
-                            }}
-                    <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
-                        {{ __('tours-section.empty-tooltip') }}
-                    </tooltip>
-                </span>
-
+                            {{
+                                        currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
+                                    }}
+                            <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
+                                {{ __('tours-section.empty-tooltip') }}
+                            </tooltip>
+                        </span>
                     </div>
                 </div>
-                <div class="datepicker-input d-block d-lg-none">
+                <div v-if="schedules.length" class="datepicker-input d-block d-lg-none">
                     <form-select v-model="scheduleId" :options="schedules"></form-select>
                 </div>
                 <div class="thumb-price">

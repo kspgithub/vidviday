@@ -117,8 +117,8 @@
                     </div>
                     <ul>
                         @foreach($menu->items as $menuItem)
-                            @if($menuItem->children->count() > 0)
-                                @if(!$menuItem->page || $menuItem->page->published)
+                            @if(!$menuItem->page || $menuItem->page->published)
+                                @if($menuItem->children->count() > 0)
                                     <li class="dropdown {{$menuItem->class_name ?? ''}}">
                                         <a href="/{{ltrim($menuItem->url, '/')}}"
                                            class="dropdown-title">{{$menuItem->title}}</a>
@@ -146,11 +146,11 @@
                                             @endif
                                         </div>
                                     </li>
+                                @else
+                                    <li class="{{$menuItem->class_name ?? ''}}">
+                                        <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                    </li>
                                 @endif
-                            @else
-                                <li class="{{$menuItem->class_name ?? ''}}">
-                                    <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
-                                </li>
                             @endif
                         @endforeach
                     </ul>

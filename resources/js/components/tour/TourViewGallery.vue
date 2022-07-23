@@ -4,7 +4,7 @@
         <tour-sort-form/>
         <div class="spacer-xs"></div>
         <div :class="{loading: fetchRequest}" class="thumb-wrap row">
-            <div v-for="tour in tours" class="col-lg-4 col-sm-6 col-12">
+            <div v-for="tour in tours" class="col-lg-4 col-sm-6 col-12 d-flex">
                 <tour-card :key="'tour-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
             </div>
 

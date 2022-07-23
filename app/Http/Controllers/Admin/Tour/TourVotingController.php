@@ -2,34 +2,28 @@
 
 namespace App\Http\Controllers\Admin\Tour;
 
-use App\Exceptions\GeneralException;
+use App\Exports\VotingsExport;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tour\TourBasicRequest;
-use App\Models\Badge;
-use App\Models\Currency;
-use App\Models\Direction;
-use App\Models\EventItem;
-use App\Models\Staff;
 use App\Models\Tour;
-use App\Models\TourGroup;
-use App\Models\TourSubject;
-use App\Models\TourType;
-use App\Services\TourService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class TourVotingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return View|BinaryFileResponse
      */
-    public function index(Tour $tour)
+    public function index(Request $request, Tour $tour)
     {
         //
+        if ($request->input('export', 0) == 1) {
+            return Excel::download(new VotingsExport($tour->votings), 'export.xlsx');
+        }
+
         return view('admin.tour.voting.index', [
             'tour' => $tour,
         ]);

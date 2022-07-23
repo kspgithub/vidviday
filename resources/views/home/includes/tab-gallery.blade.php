@@ -5,7 +5,7 @@
     <!-- THUMBS -->
     <div class="thumb-wrap row">
         @foreach($tours as $tour)
-            <div class="col-lg-4 col-sm-6 col-12">
+            <div class="col-lg-4 col-sm-6 col-12 d-flex">
                 <x-tour.card :tour="$tour"/>
             </div>
         @endforeach
