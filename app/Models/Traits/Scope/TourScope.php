@@ -128,7 +128,8 @@ trait TourScope
             })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
                 $search = urldecode(trim($params['q']));
-                return $q->jsonLike('tours.title', "%$search%");
+
+                return $q->jsonLike('title', "%$search%");
             });
 
         $query->withAvg('testimonials', 'rating');
