@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button type="submit" :disabled="invalid || request" @click.prevent="onSubmit()" class="btn type-1">
+                    <button type="submit" :disabled="invalid || request" @click="onSubmit" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
                     </button>
                 </div>
@@ -190,11 +190,12 @@ export default {
             }
         })
 
-        const onSubmit = async () => {
+        const onSubmit = async (event) => {
             const result = await validate();
             if (result.valid) {
-                formRef.value.submit();
+                // formRef.value.submit();
             } else {
+                event.preventDefault()
                 console.log(errors.value);
             }
         }

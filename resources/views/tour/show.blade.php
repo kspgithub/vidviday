@@ -166,6 +166,9 @@
          :data-parent="0"
     >
         @csrf
+        @if(config('captcha.enabled'))
+            @captcha
+        @endif
     </div>
 
     <div v-is="'tour-one-click-popup'"

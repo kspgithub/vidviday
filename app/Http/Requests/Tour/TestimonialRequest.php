@@ -39,6 +39,7 @@ class TestimonialRequest extends FormRequest
             'rating' => ['nullable', 'integer'],
             'avatar_upload' => ['nullable', 'image', 'max:3000'],
             'images_upload.*' => ['nullable', 'image', 'max:3000'],
+            'g-recaptcha-response' => config('captcha.enabled') ? 'required|captcha': 'nullable',
         ];
     }
 }
