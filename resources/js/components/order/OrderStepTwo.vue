@@ -2,7 +2,7 @@
     <div class="tab" :class="{active: active}">
         <order-tour-participants/>
         <hr class="my-15 my-lg-20 my-xl-40">
-        <order-accommodation/>
+        <order-accommodation v-if="tour.active_tabs.indexOf('accommodation') > -1"/>
     </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
     },
     props: {
         active: Boolean,
+        tour: Object,
     },
     setup() {
 
