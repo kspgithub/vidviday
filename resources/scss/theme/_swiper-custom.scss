@@ -260,6 +260,9 @@
 }
 
 .swiper-slide {
+    display: flex !important;
+    height: auto;
+
     .img-border {
         margin-bottom: 10px;
     }
