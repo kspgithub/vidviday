@@ -69,7 +69,9 @@ jQuery(function ($) {
 
         if (!options.pagination) options.pagination = {
             el: $slider.find('.swiper-pagination')[0],
-            clickable: true
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 5,
         };
 
         if (!options.navigation) options.navigation = {
@@ -119,7 +121,7 @@ jQuery(function ($) {
         var swiper = new Swiper(el[0], _functions.getSwOptions(el));
     };
 
-    $('.swiper-entry .swiper-container').each(function () {
+    $('.swiper-entry:not(.swiper-vue) .swiper-container').each(function () {
         if (!$(this).hasClass('swiper-vue')) {
             _functions.initSwiper($(this));
             swiperConfig($(this));

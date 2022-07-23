@@ -80,8 +80,8 @@ export default {
             watchSlidesProgress: true,
             centerInsufficientSlides: false,
             speed: 900,
-            slidesPerView: 1,
-            slidesPerGroup: 1,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
             spaceBetween: 20,
             breakpoints: {
                 1200: {
@@ -102,6 +102,8 @@ export default {
             },
             pagination: {
                 clickable: true,
+                dynamicBullets: true,
+                dynamicMainBullets: 5,
             },
             navigation: true,
 

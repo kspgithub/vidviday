@@ -278,7 +278,7 @@ jQuery(function ($) {
         var swiper = new Swiper(el[0], _functions.getSwOptions(el));
     };
 
-    $('.swiper-entry .swiper-container').each(function () {
+    $('.swiper-entry:not(.swiper-vue) .swiper-container').each(function () {
         if (!$(this).hasClass('swiper-vue')) {
             _functions.initSwiper($(this));
             swiperConfig($(this));

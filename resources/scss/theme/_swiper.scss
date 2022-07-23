@@ -225,22 +225,26 @@
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
-	transform: scale(0.66);
+	//transform: scale(0.66);
+    transform: scale(0);
     position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
-	transform: scale(0.33);
+	//transform: scale(0.33);
+    transform: scale(0);
     position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {
-	transform: scale(0.66);
+	//transform: scale(0.66);
+    transform: scale(0);
     position: relative;
 }
 
 .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {
-	transform: scale(0.33);
+	//transform: scale(0.33);
+    transform: scale(0);
     position: relative;
 }
 
