@@ -19,7 +19,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $tours = Tour::search(false)->filter($request->all())->paginate($request->input('per_page', 12));
+        $tours = Tour::search(true)->filter($request->all())->paginate($request->input('per_page', 12));
         $banners = Banner::published()->orderBy('position')->get();
         $achievements = Achievement::published()->get();
         $pageContent = Page::where('key', 'home')->first();

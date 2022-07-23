@@ -52,7 +52,7 @@ class TourController extends Controller
 
 
         if (!$group->exists) {
-            $tours = Tour::published()->filter($request->all())->paginate($request->input('per_page', 12));
+            $tours = Tour::search(false)->filter($request->all())->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
         }

@@ -140,7 +140,7 @@ trait TourScope
         if($sort_by === 'date') {
             $query->join('tour_schedules', 'tours.id', '=', 'tour_schedules.tour_id')
                 ->select('tours.*')
-                ->addSelect(DB::raw('MIN(start_date) as date'))
+                ->addSelect(DB::raw('CASE WHEN DATE(MIN(start_date)) >= "'.now()->format('Y.m.d').'" THEN MIN(start_date) ELSE "2099-01-01" END as date'))
                 ->groupBy('tours.id');
         }
         if($sort_by === 'created') {
@@ -148,6 +148,10 @@ trait TourScope
         }
         if($sort_by === 'rating') {
             $sort_by = 'testimonials_avg_rating';
+        }
+        if($sort_by === 'popular') {
+            $query->withCount('views');
+            $sort_by = 'views_count';
         }
 
         return $query->orderBy($sort_by, $sort_dir);

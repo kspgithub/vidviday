@@ -32,6 +32,7 @@ use App\Models\TourTransport;
 use App\Models\TourType;
 use App\Models\TourVoting;
 use App\Models\Transport;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -323,5 +324,10 @@ trait TourRelationship
     public function events()
     {
         return $this->belongsToMany(EventItem::class, 'tour_event');
+    }
+
+    public function views()
+    {
+        return $this->belongsToMany(User::class, 'tour_views')->orderByPivot('created_at', 'desc');
     }
 }
