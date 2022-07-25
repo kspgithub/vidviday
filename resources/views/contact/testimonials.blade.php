@@ -85,7 +85,7 @@
     >
         @csrf
         @if(config('captcha.enabled'))
-            @captchaHTML
+            {!! app('captcha')->renderCaptchaHTML() !!}
         @endif
     </div>
 

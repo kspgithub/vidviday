@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
@@ -15,6 +16,8 @@ require('laravel-mix-svg-vue');
  | file for the application as well as bundling up all the JS files.
  |
  */
+
+const host = process.env.APP_URL.split('//')[1];
 
 mix.js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/admin/app.js', 'public/js/admin.js')
@@ -50,11 +53,17 @@ mix.webpackConfig({
             __VUE_PROD_DEVTOOLS__: false,
         }),
     ],
+    devServer: {
+        https: {
+            key: fs.readFileSync('/etc/nginx/ssl/localhost.key'),
+            cert: fs.readFileSync('/etc/nginx/ssl/localhost.crt'),
+        },
+    }
 });
 
 mix.options({
     hmrOptions: {
-        host: '127.0.0.1',
+        host,
         port: 8081
     }
 })

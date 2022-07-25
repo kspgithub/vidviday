@@ -31,7 +31,7 @@ export default {
     emits: ['cancel', 'success'],
     setup(props, {emit}) {
         const store = useStore();
-        const currentUser = computed(() => store.state.user.currentUser);
+        const currentUser = computed(() => store.state.user.currentUser || {});
         const text = ref('');
         const cancel = () => emit('cancel');
         const success = () => emit('success', text.value);
