@@ -24,10 +24,6 @@
                 <a :href="tour.url">{{ tourTitle }}</a>
             </div>
 
-            <div style="font-size: 14px">
-                {{tour.schedule_items.length ? tour.schedule_items[0].places_available : '0'}}
-            </div>
-
             <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"/>
 
             <div class="datepicker-input" v-if="schedules.length">

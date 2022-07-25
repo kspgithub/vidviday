@@ -6,7 +6,7 @@
             </div>
         </div>
         <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
-              @submit.once="onSubmit"
+              @submit.prevent="onSubmit"
               ref="formRef">
             <slot/>
 
@@ -19,7 +19,8 @@
 
             <div class="have-an-account text-center">
                 <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                    <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                    <span class="open-popup" @click="closePopup()"
+                          data-rel="login-popup">{{ __('auth.entrance') }}</span>
                 </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
@@ -236,8 +237,6 @@ export default {
 
         const callbackVerify = async (response) => {
             data['g-recaptcha-response'] = response
-
-            console.log(recaptchaWidget.value)
             await testimonialForm.submitForm()
             resetRecaptcha(recaptchaWidget.value)
         };
