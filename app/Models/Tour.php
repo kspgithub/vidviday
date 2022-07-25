@@ -124,34 +124,6 @@ class Tour extends TranslatableModel implements HasMedia
         'bitrix_manager_id',
     ];
 
-
-    public static function boot()
-    {
-        parent::boot();
-        /**
-         * генерируем короткий текст если он не было передан
-         */
-        self::creating(function ($model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-        });
-
-        self::updating(function (self $model) {
-            if (empty($model->short_text)) {
-                $model->short_text = Str::limit(strip_tags($model->text), 500);
-            }
-
-            if ($model->isDirty(['price', 'accomm_price'])) {
-                foreach ($model->orders as $order) {
-                    if ($order->group_type === 0) {
-                        $order->recalculatePrice();
-                    }
-                }
-            }
-        });
-    }
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('main')

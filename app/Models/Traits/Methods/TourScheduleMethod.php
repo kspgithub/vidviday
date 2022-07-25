@@ -124,4 +124,17 @@ trait TourScheduleMethod
         }
         return $data;
     }
+
+    public function calculateEndDate()
+    {
+        $totalDayNights = $this->tour->duration + $this->tour->nights;
+
+        if ($this->tour->duration > $this->tour->nights) {
+            $days = floor($totalDayNights / 2);
+        } else {
+            $days = ceil($totalDayNights / 2);
+        }
+
+        return $this->start_date->addDays($days);
+    }
 }

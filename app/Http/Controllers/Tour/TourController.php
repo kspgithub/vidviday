@@ -49,8 +49,6 @@ class TourController extends Controller
      */
     public function index(Request $request, TourGroup $group)
     {
-
-
         if (!$group->exists) {
             $tours = Tour::search(false)->filter($request->all())->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
@@ -68,7 +66,7 @@ class TourController extends Controller
         $min_price = (clone $toursQuery)->min('price');
         $max_price = (clone $toursQuery)->max('price');
 
-        $tours = $toursQuery->paginate(12);
+        $tours = $toursQuery->paginate(120);
 
         return view('tour.group', [
             'tours' => $tours,

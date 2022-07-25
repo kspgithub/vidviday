@@ -14,6 +14,7 @@ use App\Models\TourSubject;
 use App\Models\TourType;
 use Cache;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,6 @@ class TourService extends BaseService
     {
         $this->model = $tour;
     }
-
 
     public static function filterOptions()
     {
