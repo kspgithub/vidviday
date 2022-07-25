@@ -84,6 +84,9 @@
          :data-parent="0"
     >
         @csrf
+        @if(config('captcha.enabled'))
+            @captcha
+        @endif
     </div>
 
 @endpush

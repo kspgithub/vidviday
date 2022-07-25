@@ -88,56 +88,56 @@ export const useTestimonialForm = (data, action) => {
     })
 
     const submitForm = async (event) => {
-        if (invalid.value) {
-            event.preventDefault();
-        } else {
-            request.value = true;
-            const formData = new FormData();
-            for (let key in data) {
-                formData.append(key, data[key]);
-            }
-
-            if (parentId.value > 0) {
-                formData.append("parent_id", parentId.value);
-            }
-
-            if (selectedAvatar.value && selectedAvatar.value.file) {
-                formData.append("avatar_upload", selectedAvatar.value.file);
-            }
-
-            if (selectedImages.value && selectedImages.value.length) {
-                selectedImages.value.forEach(val => {
-                    formData.append("images_upload[]", val.file);
-                })
-            }
-
-            const response = await axios.post(action, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-                .catch(error => {
-                    if (!axios.isCancel(error)) {
-                        const message = getError(error);
-                        toast.error(message);
-                    }
-                });
-
-
-            if (response.data) {
-                if (response.data.result === 'success') {
-                    closePopup();
-                    await store.dispatch('userQuestion/showThanks', {
-                        title: 'Дякуємо за ваш відгук'
-                    })
-                } else {
-                    toast.error(response.data.message);
-                }
-
-            }
-
-            request.value = false;
-        }
+        // if (invalid.value) {
+        //     // event.preventDefault();
+        // } else {
+        //     request.value = true;
+        //     const formData = new FormData();
+        //     for (let key in data) {
+        //         formData.append(key, data[key]);
+        //     }
+        //
+        //     if (parentId.value > 0) {
+        //         formData.append("parent_id", parentId.value);
+        //     }
+        //
+        //     if (selectedAvatar.value && selectedAvatar.value.file) {
+        //         formData.append("avatar_upload", selectedAvatar.value.file);
+        //     }
+        //
+        //     if (selectedImages.value && selectedImages.value.length) {
+        //         selectedImages.value.forEach(val => {
+        //             formData.append("images_upload[]", val.file);
+        //         })
+        //     }
+        //
+        //     const response = await axios.post(action, formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     })
+        //         .catch(error => {
+        //             if (!axios.isCancel(error)) {
+        //                 const message = getError(error);
+        //                 toast.error(message);
+        //             }
+        //         });
+        //
+        //
+        //     if (response.data) {
+        //         if (response.data.result === 'success') {
+        //             closePopup();
+        //             await store.dispatch('userQuestion/showThanks', {
+        //                 title: 'Дякуємо за ваш відгук'
+        //             })
+        //         } else {
+        //             toast.error(response.data.message);
+        //         }
+        //
+        //     }
+        //
+        //     request.value = false;
+        // }
     }
 
     const closePopup = () => {

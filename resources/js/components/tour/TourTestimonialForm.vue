@@ -5,7 +5,7 @@
                 <span class="h2 title text-medium">Написати відгук про тур</span>
             </div>
         </div>
-        <form method="post" @submit="submitForm" :action="action" class="popup-align" enctype="multipart/form-data"
+        <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
               ref="formRef">
             <slot/>
             <div class="have-an-account text-center">
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button type="submit" :disabled="invalid || request" @click="onSubmit" class="btn type-1">
+                    <button type="submit" :disabled="invalid || request" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
                     </button>
                 </div>
