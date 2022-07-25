@@ -35,11 +35,6 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
 
-    @if(config('captcha.enabled'))
-        {!! app('captcha')->renderPolyfill() !!}
-        {!! app('captcha')->renderFooterJS() !!}
-    @endif
-
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">

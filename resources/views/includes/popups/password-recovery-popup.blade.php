@@ -11,7 +11,8 @@
                         <span class="text">{{__('auth.password-recovery-message')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
-                    <form action="{{ route('auth.password.email') }}">
+                    <form action="{{ route('auth.password.email') }}" method="post">
+                        @csrf
                         <label data-tooltip="{{__('auth.required')}}">
                             <i>Email*</i>
                             <input type="text" name="email" required>

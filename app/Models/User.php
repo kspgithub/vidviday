@@ -7,6 +7,7 @@ use App\Models\Traits\HasAvatar;
 use App\Models\Traits\Methods\UserMethod;
 use App\Models\Traits\Relationship\UserRelationship;
 use App\Models\Traits\Scope\UserScope;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -89,5 +90,17 @@ class User extends Authenticatable
     public function staffs()
     {
         return $this->hasMany(Staff::class);
+    }
+
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
