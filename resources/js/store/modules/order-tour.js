@@ -235,6 +235,7 @@ export default {
                 last_name: state.formData.last_name,
                 email: state.formData.email,
                 phone: state.formData.phone,
+                comment: state.formData.comment,
                 places: state.formData.places,
                 tour_id: state.formData.tour_id,
                 schedule_id: state.formData.schedule_id,

@@ -108,6 +108,7 @@ Route::group([
     Route::get('regions', [LocationController::class, 'regions'])->name('regions');
     Route::get('districts', [LocationController::class, 'districts'])->name('districts');
     Route::get('cities', [LocationController::class, 'cities'])->name('cities');
+    Route::get('places', [LocationController::class, 'places'])->name('places');
 });
 
 Route::get('html-blocks', function (Request $request) {
