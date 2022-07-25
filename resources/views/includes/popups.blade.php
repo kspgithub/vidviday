@@ -7,8 +7,12 @@
     {{--    @include('includes.popups.tourists-mailing-popup')--}}
     {{--    @include('includes.popups.agents-mailing-popup')--}}
     @include('includes.popups.thanks-popup')
-    @include('includes.popups.login-popup')
-    @include('includes.popups.password-recovery-popup')
+
+    @guest()
+        @include('includes.popups.login-popup')
+        @include('includes.popups.password-recovery-popup')
+    @endguest()
+
     {{--    @include('includes.popups.gallery-popup')--}}
     {{--    @include('includes.popups.one-click-popup')--}}
 

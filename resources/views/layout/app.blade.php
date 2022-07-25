@@ -34,6 +34,7 @@
     <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
+
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
@@ -67,13 +68,12 @@
 <script type="text/javascript">
     window.toastsData = @json(toastData($errors));
 </script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
+
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
-
 <script src="{{ mix('js/app.js') }}" defer></script>
-
 
 @stack('after-scripts', false)
 

@@ -31,9 +31,8 @@
                             @foreach(siteLocales() as $locale)
                                 <x-forms.text-group name="hutsul_fun_title[{{$locale}}]"
                                                     id="hutsul_fun_title_{{ $locale }}"
-                                                    label="Назва {{strtoupper($locale)}}"
+                                                    label="Назва {{strtoupper($locale)}} {{in_array($locale,$tour->locales) ? '*' : ''}}"
                                                     :value="array_key_exists($locale, $titles) ? $titles[$locale] : ''"
-                                                    required
                                 >
 
                                 </x-forms.text-group>
@@ -45,7 +44,6 @@
                                                       id="hutsul_fun_text_{{ $locale }}"
                                                       label="Текст {{strtoupper($locale)}}"
                                                       :value="array_key_exists($locale, $translations) ? $translations[$locale] : ''"
-                                                      required
                                 >
 
                                 </x-forms.editor-group>
