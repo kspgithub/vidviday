@@ -37,7 +37,7 @@
                 <!-- TAB #1 END -->
 
                 <!-- TAB #2 -->
-                <order-step-two v-if="group_type === 0" :active="currentStep === 2"/>
+                <order-step-two v-if="group_type === 0" :active="currentStep === 2" :tour="tour"/>
                 <order-step-two-corp v-if="group_type === 1" :active="currentStep === 2"/>
                 <!-- TAB #2 END -->
 

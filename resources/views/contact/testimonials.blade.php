@@ -80,6 +80,7 @@
 @push('after-popups')
     <div v-is="'testimonial-popup-form'"
          :user='@json(current_user())'
+         :captcha="@json(config('captcha.enabled'))"
          action='{{route('testimonials.store')}}'
          :data-parent="0"
     >

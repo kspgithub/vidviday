@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
@@ -54,7 +55,7 @@ mix.webpackConfig({
 
 mix.options({
     hmrOptions: {
-        host: '127.0.0.1',
+        host: '0.0.0.0',
         port: 8081
     }
 })

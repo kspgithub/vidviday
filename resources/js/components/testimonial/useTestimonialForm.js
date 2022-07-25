@@ -87,9 +87,9 @@ export const useTestimonialForm = (data, action) => {
         return !data.first_name || !data.last_name || !data.text;
     })
 
-    const submitForm = async (event) => {
+    const submitForm = async (form) => {
         if (invalid.value) {
-            event.preventDefault();
+            // event.preventDefault()
         } else {
             request.value = true;
             const formData = new FormData();
@@ -124,7 +124,7 @@ export const useTestimonialForm = (data, action) => {
                 });
 
 
-            if (response.data) {
+            if (response?.data) {
                 if (response.data.result === 'success') {
                     closePopup();
                     await store.dispatch('userQuestion/showThanks', {

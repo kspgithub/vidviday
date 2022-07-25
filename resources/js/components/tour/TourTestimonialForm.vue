@@ -5,13 +5,22 @@
                 <span class="h2 title text-medium">Написати відгук про тур</span>
             </div>
         </div>
-        <form method="post" @submit="submitForm" :action="action" class="popup-align" enctype="multipart/form-data"
+        <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
+              @submit.prevent="onSubmit"
               ref="formRef">
             <slot/>
+
+            <vue-recaptcha v-if="captcha"
+                           size="invisible"
+                           :tabindex="0"
+                           @widgetId="recaptchaWidget = $event"
+                           @verify="callbackVerify($event)"
+            />
+
             <div class="have-an-account text-center">
-                    <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                        <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
-                    </span>
+                <span class="text" v-if="!user">{{ __('auth.have-account') }}
+                    <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
                          :class="{uploaded: !!selectedAvatar}"
@@ -119,7 +128,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button type="submit" :disabled="invalid || request" @click.prevent="onSubmit()" class="btn type-1">
+                    <button type="submit" :disabled="invalid || request" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
                     </button>
                 </div>
@@ -144,21 +153,20 @@ import {computed, reactive, ref} from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
-import axios from "axios";
-import {getError} from "../../services/api";
-import toast from "../../libs/toast";
 import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
 import {useStore} from "vuex";
 import useTestimonialForm from "../testimonial/useTestimonialForm";
 import {useForm} from "vee-validate";
+import { useRecaptcha, VueRecaptcha } from 'vue3-recaptcha-v2'
 
 export default {
     name: "TourTestimonialForm",
-    components: {FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: { VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         tour: Object,
         user: Object,
+        captcha: Boolean,
         action: String,
         dataParent: Number,
     },
@@ -169,6 +177,9 @@ export default {
 
         const formRef = ref(null);
 
+        // Reset Recaptcha
+        const { resetRecaptcha } = useRecaptcha();
+        const recaptchaWidget = ref(null);
 
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
@@ -178,8 +189,8 @@ export default {
             rating: 0,
             guide_id: 0,
             text: '',
+            'g-recaptcha-response': '',
         });
-
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -190,22 +201,28 @@ export default {
             }
         })
 
-        const onSubmit = async () => {
-            const result = await validate();
-            if (result.valid) {
-                formRef.value.submit();
-            } else {
-                console.log(errors.value);
-            }
+        const testimonialForm = useTestimonialForm(data, props.action)
+
+        const callbackVerify = async (response) => {
+            data['g-recaptcha-response'] = response
+
+            console.log(recaptchaWidget.value)
+            await testimonialForm.submitForm()
+            resetRecaptcha(recaptchaWidget.value)
+        };
+        //
+        const onSubmit = (e) => {
+            grecaptcha.execute()
         }
 
-
         return {
-            ...useTestimonialForm(data, props.action),
+            ...testimonialForm,
             onSubmit,
             formRef,
             data,
             popupOpen,
+            recaptchaWidget,
+            callbackVerify,
         }
     }
 }
