@@ -162,13 +162,11 @@
     <div v-is="'tour-testimonial-form'"
          :tour='@json($tour->shortInfo())'
          :user='@json(current_user())'
+         :captcha="@json(config('captcha.enabled'))"
          action='{{route('tour.testimonial', $tour)}}'
          :data-parent="0"
     >
         @csrf
-        @if(config('captcha.enabled'))
-            {!! app('captcha')->renderCaptchaHTML() !!}
-        @endif
     </div>
 
     <div v-is="'tour-one-click-popup'"

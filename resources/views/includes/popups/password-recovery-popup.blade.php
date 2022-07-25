@@ -11,12 +11,12 @@
                         <span class="text">{{__('auth.password-recovery-message')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
-                    <form action="/">
+                    <form action="{{ route('auth.password.email') }}">
                         <label data-tooltip="{{__('auth.required')}}">
                             <i>Email*</i>
                             <input type="text" name="email" required>
                         </label>
-                        <a href="#" class="btn type-1 btn-block">{{__('auth.recover-password')}}</a>
+                        <button type="submit" class="btn type-1 btn-block">{{__('auth.recover-password')}}</button>
                     </form>
                     <div class="spacer-xs"></div>
                     <div class="text text-sm">{{__('auth.required-fields')}}</div>

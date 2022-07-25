@@ -87,18 +87,14 @@ export const useTestimonialForm = (data, action) => {
         return !data.first_name || !data.last_name || !data.text;
     })
 
-    const submitForm = async (captcha) => {
+    const submitForm = async (form) => {
         if (invalid.value) {
-
+            // event.preventDefault()
         } else {
             request.value = true;
             const formData = new FormData();
             for (let key in data) {
                 formData.append(key, data[key]);
-            }
-
-            if (captcha) {
-                formData.append("g-recaptcha-response", captcha);
             }
 
             if (parentId.value > 0) {

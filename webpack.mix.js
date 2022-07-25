@@ -17,8 +17,6 @@ require('laravel-mix-svg-vue');
  |
  */
 
-const host = process.env.APP_URL.split('//')[1];
-
 mix.js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/admin/app.js', 'public/js/admin.js')
     .sass('resources/scss/app.scss', 'public/css/app.css')
@@ -53,17 +51,11 @@ mix.webpackConfig({
             __VUE_PROD_DEVTOOLS__: false,
         }),
     ],
-    devServer: {
-        https: {
-            key: fs.readFileSync('/etc/nginx/ssl/localhost.key'),
-            cert: fs.readFileSync('/etc/nginx/ssl/localhost.crt'),
-        },
-    }
 });
 
 mix.options({
     hmrOptions: {
-        host,
+        host: '0.0.0.0',
         port: 8081
     }
 })

@@ -15,10 +15,6 @@
     <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
     <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">
 
-    @if(app()->environment('local'))
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    @endif
-
     <link rel="canonical" href="{{ url()->current() }}">
 
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
