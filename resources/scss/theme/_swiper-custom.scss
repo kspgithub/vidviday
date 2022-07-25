@@ -807,6 +807,11 @@
             margin-left: 15px !important;
         }
     }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        bottom: -25px!important;
+    }
 }
 
 .swiper-vue {
