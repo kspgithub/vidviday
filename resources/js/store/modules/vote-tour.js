@@ -35,7 +35,7 @@ export default {
                 state.formData.first_name = value.first_name
                 state.formData.last_name = value.last_name
                 state.formData.email = value.email
-                state.formData.phone = value.phone
+                state.formData.phone = value.mobile_phone
             }
         },
         SET_POPUP_OPEN(state, value) {
