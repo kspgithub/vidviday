@@ -67,8 +67,27 @@
 <script type="text/javascript">
     window.toastsData = @json(toastData($errors));
 </script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
+
+@if(config('captcha.enabled'))
+    @captchaScripts
+
+    <script>
+        // Fix captcha position when in modal
+        window.addEventListener('load', () => {
+            var _execute = grecaptcha.execute
+
+            grecaptcha.execute = (...arguments) => {
+                _execute(...arguments)
+                var recaptchaFrame = $('iframe[src^="https://www.google.com/recaptcha"]')
+                if (recaptchaFrame.length) {
+                    recaptchaFrame.parent().css({ "position": "fixed"})
+                }
+            }
+        })
+    </script>
+@endif
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 <script src="{{ mix('js/manifest.js') }}" defer></script>
 <script src="{{ mix('js/vendor.js') }}" defer></script>
 

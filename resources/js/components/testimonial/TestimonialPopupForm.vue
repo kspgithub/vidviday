@@ -5,7 +5,7 @@
                 <span class="h2 title text-medium">{{ __('common.write-review') }}</span>
             </div>
         </div>
-        <form method="post" @submit="submitForm" :action="action" class="popup-align" enctype="multipart/form-data"
+        <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
               ref="formRef">
             <slot/>
             <div class="have-an-account text-center">
@@ -169,9 +169,6 @@ import {computed, nextTick, reactive, ref, watch} from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
-import axios from "axios";
-import {getError} from "../../services/api";
-import toast from "../../libs/toast";
 import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
 import {useStore} from "vuex";
@@ -219,10 +216,14 @@ export default {
             }
         })
 
-        const onSubmit = async () => {
-            const result = await validate();
+        const testimonialForm = useTestimonialForm(data, props.action)
+
+        window._submitEvent = async () => {
+            const captcha = document.getElementById('g-recaptcha-response')
+            const result = await validate()
+
             if (result.valid) {
-                formRef.value.submit();
+                testimonialForm.submitForm(captcha?.value)
             } else {
                 console.log(errors.value);
             }
@@ -263,10 +264,8 @@ export default {
 
         searchGuides();
 
-
         return {
-            ...useTestimonialForm(data, props.action),
-            onSubmit,
+            ...testimonialForm,
             data,
             formRef,
             guides,

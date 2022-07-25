@@ -144,9 +144,6 @@ import {computed, reactive, ref} from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
-import axios from "axios";
-import {getError} from "../../services/api";
-import toast from "../../libs/toast";
 import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
 import {useStore} from "vuex";
@@ -169,7 +166,6 @@ export default {
 
         const formRef = ref(null);
 
-
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
@@ -180,7 +176,6 @@ export default {
             text: '',
         });
 
-
         const {validate, errors} = useForm({
             validationSchema: {
                 first_name: 'required',
@@ -190,20 +185,20 @@ export default {
             }
         })
 
-        const onSubmit = async (event) => {
-            const result = await validate();
+        const testimonialForm = useTestimonialForm(data, props.action)
+
+        window._submitEvent = async () => {
+            const captcha = document.getElementById('g-recaptcha-response')
+            const result = await validate()
+
             if (result.valid) {
-                // formRef.value.submit();
+                testimonialForm.submitForm(captcha?.value)
             } else {
-                event.preventDefault()
                 console.log(errors.value);
             }
         }
-
-
         return {
-            ...useTestimonialForm(data, props.action),
-            onSubmit,
+            ...testimonialForm,
             formRef,
             data,
             popupOpen,

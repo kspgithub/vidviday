@@ -167,7 +167,7 @@
     >
         @csrf
         @if(config('captcha.enabled'))
-            @captcha
+            @captchaHTML
         @endif
     </div>
 
