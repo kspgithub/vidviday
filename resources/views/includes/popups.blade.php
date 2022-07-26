@@ -30,8 +30,8 @@
 <div v-is="'popup-gallery'"></div>
 <div v-is="'popup-user-sub'"></div>
 <div v-is="'popup-agent-sub'"></div>
-<div v-is="'popup-call'" :captcha='@json(config('captcha.enabled'))' :question-types='@json(App\Helpers\Types\QuestionTypes::toSelectBox())'></div>
-<div v-is="'popup-email'"></div>
+<div v-is="'popup-call'" :question-types='@json(App\Helpers\Types\QuestionTypes::toSelectBox())'></div>
+<div v-is="'popup-email'" :question-types='@json(App\Helpers\Types\QuestionTypes::toSelectBox())'></div>
 <div v-is="'popup-thanks'"></div>
 <div v-is="'header-voice-popup'"></div>
 

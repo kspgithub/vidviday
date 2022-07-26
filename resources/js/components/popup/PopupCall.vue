@@ -93,7 +93,6 @@ export default {
     components: { UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
         questionTypes: Array,
-        captcha: Boolean,
     },
     setup(props) {
         const store = useStore();
