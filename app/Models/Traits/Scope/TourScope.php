@@ -147,7 +147,7 @@ trait TourScope
                         ->where('tour_schedules.start_date', '>=', now());
                 })
                 ->select('tours.*')
-                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN "2099-01-01" ELSE MIN(tour_schedules.start_date) END as date'))
+                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN ADDDATE("2099-01-01", DATEDIFF(NOW(), tours.created_at)) ELSE MIN(tour_schedules.start_date) END as date'))
                 ->groupBy('tours.id');
         }
         if($sort_by === 'created') {
@@ -159,6 +159,10 @@ trait TourScope
         if($sort_by === 'popular') {
             $query->withCount('views');
             $sort_by = 'views_count';
+        }
+        if($sort_by === 'duration') {
+            $query->addSelect(DB::raw('((IFNULL(tours.duration, 0) * 16) + (IFNULL(tours.nights, 0) * 8) + IFNULL(tours.time, 0)) as duration_hours'));
+            $sort_by = 'duration_hours';
         }
 
         return $query->orderBy($sort_by, $sort_dir);

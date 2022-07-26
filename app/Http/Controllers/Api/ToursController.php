@@ -26,7 +26,7 @@ class ToursController extends Controller
     {
         $future = (int)$request->input('future', 1) !== 0;
 
-        $paginator = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 120));
+        $paginator = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 12));
 
         $result = $paginator->toArray();
 
