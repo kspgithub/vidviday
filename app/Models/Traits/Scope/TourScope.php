@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Scope;
 
 use App\Models\Order;
+use App\Models\TourVoting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\JoinClause;
@@ -146,8 +147,12 @@ trait TourScope
                     $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
                         ->where('tour_schedules.start_date', '>=', now());
                 })
+                ->leftJoin('tour_votings', function (JoinClause $join) {
+                    $join->on( 'tours.id', '=', 'tour_votings.tour_id')
+                        ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
+                })
                 ->select('tours.*')
-                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN ADDDATE("2099-01-01", DATEDIFF(NOW(), tours.created_at)) ELSE MIN(tour_schedules.start_date) END as date'))
+                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN SUBDATE("2099-01-01", INTERVAL COUNT(tour_votings.id) DAY) ELSE MIN(tour_schedules.start_date) END as date'))
                 ->groupBy('tours.id');
         }
         if($sort_by === 'created') {
