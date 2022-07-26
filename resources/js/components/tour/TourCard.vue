@@ -7,6 +7,7 @@
                         :idx="idx"/>
 
             <img :alt="tourTitle" :src="imageSrc">
+
             <a :href="tour.url" class="full-size"></a>
 
             <a class="like" href="#" v-if="likeBtn" :class="{active: inFavourites}" @click.prevent="toggleFavourite()">
@@ -22,6 +23,7 @@
             <div class="title h3">
                 <a :href="tour.url">{{ tourTitle }}</a>
             </div>
+
             <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"/>
 
             <div class="datepicker-input" v-if="schedules.length">
@@ -87,7 +89,7 @@ export default {
                 return {
                     title: {uk: ''},
                     short_text: {uk: ''},
-                    schedule_items: []
+                    schedule_items: [],
                 }
             }
         },

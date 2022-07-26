@@ -127,7 +127,7 @@ export default {
         // }
         const submit = async () => {
             const path = document.location.pathname;
-            console.log(params.value)
+
             const query = urlUtils.filterParams(params.value, defaultParams.value);
             if (path !== '/tours') {
                 document.location.href = urlUtils.makeUrl('/tours', query);
@@ -142,7 +142,6 @@ export default {
             await store.dispatch('tourFilter/clearFilter');
             await submit();
         }
-
 
         return {
             dateFrom,

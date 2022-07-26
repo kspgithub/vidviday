@@ -88,6 +88,13 @@ export default {
         },
         SET_USER(state, value) {
             state.user = value;
+
+            if(value.id) {
+                state.formData.first_name = value.first_name
+                state.formData.last_name = value.last_name
+                state.formData.email = value.email
+                state.formData.phone = value.mobile_phone
+            }
         },
         SET_SCHEDULES_REQUEST(state, value) {
             state.fetchSchedulesRequest = value;

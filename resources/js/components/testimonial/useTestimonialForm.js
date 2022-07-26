@@ -87,10 +87,8 @@ export const useTestimonialForm = (data, action) => {
         return !data.first_name || !data.last_name || !data.text;
     })
 
-    const submitForm = async (form) => {
-        if (invalid.value) {
-            // event.preventDefault()
-        } else {
+    const submitForm = async () => {
+        if (!invalid.value) {
             request.value = true;
             const formData = new FormData();
             for (let key in data) {

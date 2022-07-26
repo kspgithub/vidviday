@@ -3,11 +3,13 @@
         <div class="spacer-sm"></div>
         <h1 class="h1" v-if="(schedules.length > 0 && !orderCorporate) && tourSelected ">
             <span v-if="tour">{{ __('order-section.booking-tour') }}:</span>
-            {{ tour ? tour.title : __('order-section.booking-tour') }}
+            <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
+            <template v-else>{{__('order-section.booking-tour')}}</template>
         </h1>
         <h1 class="h1" v-if="(schedules.length === 0 || orderCorporate) && tourSelected">
             <span v-if="tour">{{ __('order-section.booking-corporate') }}:</span>
-            {{ tour ? tour.title : __('order-section.booking-corporate') }}
+            <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
+            <template v-else>{{__('order-section.booking-corporate')}}</template>
         </h1>
         <h1 class="h1" v-if="!tourSelected && !orderCorporate">{{ __('order-section.booking-tour') }}</h1>
         <h1 class="h1" v-if="!tourSelected && orderCorporate">{{ __('order-section.booking-corporate') }}</h1>

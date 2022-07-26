@@ -44,7 +44,6 @@ export default {
                 per_page: 12,
                 last_page: 1,
                 total: 0,
-
             },
             sorting: {
                 sortBy: 'date',
@@ -94,6 +93,9 @@ export default {
         },
         SET_POPULAR_TOURS(state, value) {
             state.popularTours = value;
+        },
+        SET_IN_FUTURE(state, value) {
+            state.inFuture = value;
         },
     },
     getters: {
@@ -176,11 +178,11 @@ export default {
                     query.price_from ? parseInt(query.price_from) : 0,
                     query.price_to ? parseInt(query.price_to) : state.options.price_to
                 ],
-                direction: query.direction ? parseInt(query.direction) : '',
-                type: query.type ? parseInt(query.type) : '',
-                place: query.place ? parseInt(query.place) : '',
-                landing: query.landing ? parseInt(query.landing) : '',
-                subject: query.subject ? parseInt(query.subject) : '',
+                direction: query.direction || '',
+                type: query.type || '',
+                place: query.place || '',
+                landing: query.landing || '',
+                subject: query.subject || '',
                 lang: query.lang || document.documentElement.lang || 'uk',
             };
             commit('UPDATE_FORM_DATA', formData);
@@ -215,8 +217,15 @@ export default {
             });
             commit('SET_PAGE', 1);
         },
-        async fetchTours({commit}, params = {}) {
+        async fetchTours({commit, state}, params = {}) {
             commit('SET_FETCH_REQUEST', true);
+
+            if(state.inFuture === false) {
+                params.future = 0
+            } else {
+                delete params.future
+            }
+
             const response = await toursService.fetchTours(params);
 
             if (response) {

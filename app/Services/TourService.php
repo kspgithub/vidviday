@@ -14,6 +14,7 @@ use App\Models\TourSubject;
 use App\Models\TourType;
 use Cache;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,6 @@ class TourService extends BaseService
     {
         $this->model = $tour;
     }
-
 
     public static function filterOptions()
     {
@@ -95,21 +95,28 @@ class TourService extends BaseService
     public static function searchRequestTitle($params)
     {
         $title = [];
+        $limit = 3;
 
         if (!empty($params['q'])) {
             $title[] = urldecode($params['q']);
         }
         if (!empty($params['direction'])) {
-            $direction = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->first();
-            $title[] = $direction->title;
+            $directions = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->limit($limit)->get();
+            foreach ($directions as $i => $direction) {
+                $title[] = $i < ($limit-1) ? $direction->title : '...';
+            }
         }
         if (!empty($params['type'])) {
-            $direction = TourType::whereIn('id', explode(',', $params['type']))->select('title')->first();
-            $title[] = $direction->title;
+            $types = TourType::whereIn('id', explode(',', $params['type']))->select('title')->limit($limit)->get();
+            foreach ($types as $i => $type) {
+                $title[] = $i < ($limit-1) ? $type->title : '...';
+            }
         }
         if (!empty($params['subject'])) {
-            $direction = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->first();
-            $title[] = $direction->title;
+            $subjects = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->limit($limit)->get();
+            foreach ($subjects as $i => $subject) {
+                $title[] = $i < ($limit-1) ? $subject->title : '...';
+            }
         }
         return implode(', ', $title);
     }

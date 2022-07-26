@@ -22,6 +22,7 @@
 
                 <div class="col-md-6 col-12">
                     <form-input :label="__('forms.phone')" name="phone" v-model="phone" id="order-phone"
+                                mask="+38 (099) 999-99-99"
                                 rules="required|tel"/>
                 </div>
 
@@ -115,6 +116,7 @@ export default {
     setup(props) {
         const store = useStore();
         const data = computed(() => store.getters['orderTour/oneClickData']);
+        const user = store.state.user.currentUser
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -130,6 +132,11 @@ export default {
                 },
             },
         });
+
+        if(user) {
+            store.commit('orderTour/SET_USER', user);
+        }
+
         store.commit('orderTour/SET_TOUR', props.tour);
         store.commit('orderTour/SET_SCHEDULES', props.schedules || []);
 

@@ -71,6 +71,7 @@ class TourSchedule extends Model
     protected $appends = [
         'title',
         'start_title',
+        'end_title',
         'places_available',
         'places_booked',
         'places_reserved',

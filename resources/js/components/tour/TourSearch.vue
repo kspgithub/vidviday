@@ -62,10 +62,11 @@ export default {
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
         const total = computed(() => store.state.tourFilter.pagination.total);
         const loading = ref(true);
+
         if (!props.inFuture) {
             store.commit('tourFilter/UPDATE_FORM_DATA', {future: 0})
+            store.commit('tourFilter/SET_IN_FUTURE', false)
         }
-
 
         store.dispatch('tourFilter/fetchPopularTours');
 
@@ -74,12 +75,11 @@ export default {
                 if (action.type === 'tourFilter/initFilter') {
 
                     const query = urlUtils.filterParams(params.value, defaultParams.value);
-                    await store.dispatch('tourFilter/fetchTours', {...query, future: props.inFuture ? 1 : 0});
+                    await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {})});
                     loading.value = false;
                 }
             }
         })
-
 
         onUnmounted(() => {
             unsubscribe();

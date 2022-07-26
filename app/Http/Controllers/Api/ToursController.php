@@ -7,6 +7,7 @@ use App\Http\Requests\Tour\SearchEventsRequest;
 use App\Http\Requests\Tour\SearchToursRequest;
 use App\Models\Staff;
 use App\Models\Tour;
+use App\Models\TourSchedule;
 use App\Services\TourService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -25,8 +26,12 @@ class ToursController extends Controller
     {
         $future = (int)$request->input('future', 1) !== 0;
 
-        $result = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 12))->toArray();
+        $paginator = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 12));
+
+        $result = $paginator->toArray();
+
         $result['request_title'] = TourService::searchRequestTitle($request->validated());
+
         return response()->json($result);
     }
 
