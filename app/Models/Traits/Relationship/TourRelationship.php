@@ -330,4 +330,10 @@ trait TourRelationship
     {
         return $this->belongsToMany(User::class, 'tour_views')->orderByPivot('created_at', 'desc');
     }
+
+    public function nearestSchedule()
+    {
+        return $this->hasOne(TourSchedule::class)
+            ->where('start_date', '>=', now())->orderBy('start_date');
+    }
 }

@@ -25,6 +25,16 @@ class TourVoting extends Model
         'comment',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            if (empty($model->status)) {
+                $model->status = self::STATUS_PUBLISHED;
+            }
+        });
+    }
 
     public static function statuses()
     {

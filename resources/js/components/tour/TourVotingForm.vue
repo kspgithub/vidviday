@@ -66,6 +66,8 @@ export default {
                 submitted.value = true;
 
                 if (response.data.result === 'success') {
+                    props.tour.votings_count++
+
                     if (window._functions) {
                         window._functions.showPopup('thanks-popup');
                     } else {

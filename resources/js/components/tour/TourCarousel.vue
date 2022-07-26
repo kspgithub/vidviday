@@ -80,8 +80,8 @@ export default {
             watchSlidesProgress: true,
             centerInsufficientSlides: false,
             speed: 900,
-            slidesPerView: 3,
-            slidesPerGroup: 3,
+            slidesPerView: 1,
+            slidesPerGroup: 1,
             spaceBetween: 20,
             breakpoints: {
                 1200: {

@@ -2,7 +2,11 @@
 
 namespace App\Models\Traits\Scope;
 
+use App\Models\Order;
+use App\Models\TourVoting;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +22,7 @@ trait TourScope
     public function scopeInFuture(Builder $query)
     {
         return $query->whereHas('scheduleItems', function (Builder $q) {
-            return $q->whereDate('start_date', '>=', Carbon::now());
+            return $q->whereDate('tour_schedules.start_date', '>=', Carbon::now());
         });
     }
 
@@ -50,8 +54,9 @@ trait TourScope
             $query->inFuture();
         }
         return $query->published()->with([
-            'scheduleItems' => function ($sc) {
-                return $sc->whereDate('start_date', '>=', Carbon::now());
+            'scheduleItems' => function (HasMany $sc) {
+                $sc->with(['orders']);
+                return $sc->whereDate('tour_schedules.start_date', '>=', Carbon::now());
             },
             'media' => function ($sc) {
                 return $sc->whereIn('collection_name', ['main', 'mobile']);
@@ -70,7 +75,7 @@ trait TourScope
             ->whereJsonContains('locales', $locale)
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
                 return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
-                    return $sq->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+                    return $sq->whereDate('tour_schedules.start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
                 });
             })
             ->when(!empty($params['date_to']), function (Builder $q) use ($params) {
@@ -79,10 +84,10 @@ trait TourScope
                 });
             })
             ->when(!empty($params['duration_from']), function (Builder $q) use ($params) {
-                return $q->where('duration', '>=', $params['duration_from']);
+                return $q->where('tours.duration', '>=', $params['duration_from']);
             })
             ->when(!empty($params['duration_to']), function (Builder $q) use ($params) {
-                return $q->where('duration', '<=', $params['duration_to']);
+                return $q->where('tours.duration', '<=', $params['duration_to']);
             })
             ->when(!empty($params['price_from']), function (Builder $q) use ($params) {
                 return $q->where('tours.price', '>=', $params['price_from']);
@@ -138,9 +143,16 @@ trait TourScope
         $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
 
         if($sort_by === 'date') {
-            $query->join('tour_schedules', 'tours.id', '=', 'tour_schedules.tour_id')
+            $query->leftJoin('tour_schedules', function (JoinClause $join) {
+                    $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
+                        ->where('tour_schedules.start_date', '>=', now());
+                })
+                ->leftJoin('tour_votings', function (JoinClause $join) {
+                    $join->on( 'tours.id', '=', 'tour_votings.tour_id')
+                        ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
+                })
                 ->select('tours.*')
-                ->addSelect(DB::raw('CASE WHEN DATE(MIN(start_date)) >= "'.now()->format('Y.m.d').'" THEN MIN(start_date) ELSE "2099-01-01" END as date'))
+                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN SUBDATE("2099-01-01", INTERVAL COUNT(tour_votings.id) DAY) ELSE MIN(tour_schedules.start_date) END as date'))
                 ->groupBy('tours.id');
         }
         if($sort_by === 'created') {
@@ -152,6 +164,10 @@ trait TourScope
         if($sort_by === 'popular') {
             $query->withCount('views');
             $sort_by = 'views_count';
+        }
+        if($sort_by === 'duration') {
+            $query->addSelect(DB::raw('((IFNULL(tours.duration, 0) * 16) + (IFNULL(tours.nights, 0) * 8) + IFNULL(tours.time, 0)) as duration_hours'));
+            $sort_by = 'duration_hours';
         }
 
         return $query->orderBy($sort_by, $sort_dir);

@@ -21,6 +21,18 @@ trait TourScheduleAttribute
     }
 
     /**
+     * Дата начала
+     * @return string
+     */
+    public function getEndTitleAttribute()
+    {
+        if ($this->end_date) {
+            return $this->end_date->translatedFormat('D') . ', ' . $this->end_date->format('d.m.Y');
+        }
+        return '';
+    }
+
+    /**
      * Дата проведения
      * @return string
      */
@@ -149,17 +161,7 @@ trait TourScheduleAttribute
 
     public function getEndDateAttribute($endDate)
     {
-        $newEndDate = Carbon::parse($endDate);
-
-        $totalDayNights = $this->tour->duration + $this->tour->nights;
-
-        if ($this->tour->duration > $this->tour->nights) {
-            $days = floor($totalDayNights / 2);
-        } else {
-            $days = ceil($totalDayNights / 2);
-        }
-
-        return $this->start_date->addDays($days);
+        return $endDate ? Carbon::parse($endDate) : $this->calculateEndDate();
     }
 
     public function getCurrencyTitleAttribute()
