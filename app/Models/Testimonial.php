@@ -163,10 +163,10 @@ class Testimonial extends Model implements HasMedia
 
     public function getTourAttribute()
     {
-        if ($this->model_type == Tour::class) {
+        if ($this->model_type == Tour::class && $this->model) {
             return $this->model->shortInfo();
         }
-        if ($this->related_type == Tour::class) {
+        if ($this->related_type == Tour::class && $this->related) {
             return $this->related->shortInfo();
         }
         return null;

@@ -2,10 +2,11 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align">
 
-            <form @submit="submitForm" method="POST" action="/" class="row">
+            <form @submit.prevent="submitForm" method="POST" action="/" class="row">
+
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">Замовити дзвінок</span>
+                        <span class="h2 title text-medium">{{__('common.order-call')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <input type="hidden" name="type" :value="data.type">
@@ -28,9 +29,7 @@
                 <div class="col-md-6 col-12">
                     <select name="question_type" required v-model="data.question_type">
                         <option value="" selected disabled>Тип запитання *</option>
-                        <option value="tour">Запитання що до туру</option>
-                        <option value="certificate">Запитання що до сертифікату</option>
-                        <option value="other">Інше</option>
+                        <option v-for="questionType in questionTypes" :value="questionType.value">{{questionType.title}}</option>
                     </select>
                 </div>
 
@@ -65,7 +64,7 @@
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <button type="submit" class="btn type-1" :disabled="request">Замовити дзвінок</button>
+                        <button type="submit" class="btn type-1" :disabled="request">{{__('common.order-call')}}</button>
                     </div>
                 </div>
                 <div class="btn-close" @click.prevent.stop="closePopup()">
@@ -91,16 +90,16 @@ import UtmFields from "../common/UtmFields";
 
 export default {
     name: "PopupCall",
-    components: {UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
+    components: { UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
-        user: Object,
+        questionTypes: Array,
     },
     setup(props) {
         const store = useStore();
         const popupOpen = computed(() => store.state.userQuestion.popupCallOpen);
         const request = computed(() => store.state.userQuestion.request);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_CALL_OPEN', false);
-
+        const user = store.state.user.currentUser
 
         const {validate, errors, values} = useForm({
             validationSchema: {
@@ -112,17 +111,16 @@ export default {
 
         const data = reactive({
             type: 0,
-            name: props.user && props.user.first_name ? props.user.first_name + ' ' + props.user.last_name : '',
-            phone: props.user && props.user.phone ? props.user.phone : '',
-            email: props.user && props.user.email ? props.user.email : '',
+            name: user ? (user.first_name + ' ' + user.last_name) : '',
+            phone: user ? user.mobile_phone : '',
+            email: user ? user.email : '',
             question_type: '',
             call_date: '',
             call_time: '',
             comment: '',
         });
 
-        const submitForm = async (event) => {
-            event.preventDefault();
+        const submitForm = async () => {
             const result = await validate();
             if (!result.valid) {
 
@@ -131,7 +129,7 @@ export default {
 
                 const response = await store.dispatch('userQuestion/send', data);
 
-                if (response.data) {
+                if (response?.data) {
                     if (response.data.result === 'success') {
                         closePopup();
                         await store.dispatch('userQuestion/showThanks', {
@@ -150,7 +148,6 @@ export default {
 
         return {
             data,
-
             popupOpen,
             request,
             closePopup,

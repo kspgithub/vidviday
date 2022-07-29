@@ -79,6 +79,5 @@ export default {
         app.component('vacancy-form', require('./vacancy/VacancyForm').default);
 
         app.component('mobile-search', require('./mobile/MobileSearchDropdown').default);
-        app.component('vue-recaptcha', require('./recaptcha/VueRecaptcha').default);
     }
 }

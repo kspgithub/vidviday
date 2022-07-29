@@ -10,13 +10,6 @@
               ref="formRef">
             <slot/>
 
-            <vue-recaptcha v-if="captcha"
-                           size="invisible"
-                           :tabindex="0"
-                           @widgetId="recaptchaWidget = $event"
-                           @verify="callbackVerify($event)"
-            />
-
             <div class="have-an-account text-center">
                 <span class="text" v-if="!user">{{ __('auth.have-account') }}
                     <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
@@ -158,11 +151,10 @@ import FormCustomSelect from "../form/FormCustomSelect";
 import {useStore} from "vuex";
 import useTestimonialForm from "../testimonial/useTestimonialForm";
 import {useForm} from "vee-validate";
-import { useRecaptcha, VueRecaptcha } from 'vue3-recaptcha-v2'
 
 export default {
     name: "TourTestimonialForm",
-    components: { VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: { FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         tour: Object,
         user: Object,
@@ -177,10 +169,6 @@ export default {
 
         const formRef = ref(null);
 
-        // Reset Recaptcha
-        const { resetRecaptcha } = useRecaptcha();
-        const recaptchaWidget = ref(null);
-
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
@@ -189,7 +177,6 @@ export default {
             rating: 0,
             guide_id: 0,
             text: '',
-            'g-recaptcha-response': '',
         });
 
         const {validate, errors} = useForm({
@@ -203,17 +190,9 @@ export default {
 
         const testimonialForm = useTestimonialForm(data, props.action)
 
-        const callbackVerify = async (response) => {
-            data['g-recaptcha-response'] = response
-
-            console.log(recaptchaWidget.value)
+        const onSubmit = async (response) => {
             await testimonialForm.submitForm()
-            resetRecaptcha(recaptchaWidget.value)
         };
-        //
-        const onSubmit = (e) => {
-            grecaptcha.execute()
-        }
 
         return {
             ...testimonialForm,
@@ -221,8 +200,6 @@ export default {
             formRef,
             data,
             popupOpen,
-            recaptchaWidget,
-            callbackVerify,
         }
     }
 }
