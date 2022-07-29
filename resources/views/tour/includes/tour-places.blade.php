@@ -14,7 +14,7 @@
                             @if($place->hasMedia('default', ['published' => true]))
                                 <div class="swiper-entry" v-is="'swiper-slider'"
                                      key="swiper-place-{{$place->id}}"
-                                     :media='@json($place->getMedia('default', ['published' => true])->map->toSwiperSlide())'
+                                     :media="{{json_encode($place->getMedia('default', ['published' => true])->map->toSwiperSlide())}}"
                                      :buttons="true"
                                 >
                                 </div>
