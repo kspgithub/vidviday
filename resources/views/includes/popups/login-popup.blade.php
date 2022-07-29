@@ -12,8 +12,6 @@
                     <form action="{{route('auth.login.store')}}" method="POST">
                         @csrf
 
-                        <div v-is="'vue-recaptcha'" size="invisible"></div>
-
                         <label data-tooltip="{{__('auth.required')}}">
                             <i>{{__('auth.email')}}*</i>
                             <input type="text" name="email" required>

@@ -67,7 +67,7 @@ export default {
         const popupOpen = computed(() => store.state.userQuestion.popupUserSubOpen);
         const request = ref(false);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_USER_SUB_OPEN', false);
-
+        const user = store.state.user.currentUser
 
         const {validate, errors, values} = useForm({
             validationSchema: {
@@ -77,8 +77,8 @@ export default {
         });
 
         const data = reactive({
-            name: '',
-            email: '',
+            name: user ? (user.first_name + ' ' + user.last_name) : '',
+            email: user ? user.email : '',
             utm_source: '',
             utm_campaign: '',
             utm_content: '',

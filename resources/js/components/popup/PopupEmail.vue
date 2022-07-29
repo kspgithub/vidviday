@@ -32,9 +32,7 @@
                 <div class="col-md-6 col-12">
                     <select name="question_type" required v-model="data.question_type">
                         <option value="" selected disabled>Тип запитання *</option>
-                        <option value="tour">Запитання що до туру</option>
-                        <option value="certificate">Запитання що до сертифікату</option>
-                        <option value="other">Інше</option>
+                        <option v-for="questionType in questionTypes" :value="questionType.value">{{questionType.title}}</option>
                     </select>
                 </div>
 
@@ -74,13 +72,14 @@ export default {
     name: "PopupEmail",
     components: {UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
-        user: Object,
+        questionTypes: Array,
     },
     setup(props) {
         const store = useStore();
         const popupOpen = computed(() => store.state.userQuestion.popupMailOpen);
         const request = computed(() => store.state.userQuestion.request);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_MAIL_OPEN', false);
+        const user = store.state.user.currentUser
 
 
         const {validate, errors, values} = useForm({
@@ -94,9 +93,9 @@ export default {
 
         const data = reactive({
             type: 1,
-            name: props.user && props.user.first_name ? props.user.first_name + ' ' + props.user.last_name : '',
-            phone: props.user && props.user.phone ? props.user.phone : '',
-            email: props.user && props.user.email ? props.user.email : '',
+            name: user ? (user.first_name + ' ' + user.last_name) : '',
+            phone: user ? user.mobile_phone : '',
+            email: user ? user.email : '',
             question_type: '',
             comment: '',
         });
