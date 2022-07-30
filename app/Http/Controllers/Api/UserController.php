@@ -32,11 +32,11 @@ class UserController extends Controller
             $question->attachment = $file->storeAs('public/uploads/user', $file_name);
         }
         $question->save();
-        try {
-            LeadFeedback::createCrmLead($question);
-        } catch (Exception $e) {
-            Log::error($e->getMessage(), $e->getTrace());
-        }
+//        try {
+//            LeadFeedback::createCrmLead($question);
+//        } catch (Exception $e) {
+//            Log::error($e->getMessage(), $e->getTrace());
+//        }
 
         return response()->json(['result' => 'success', 'message' => __('Thanks for your feedback!')]);
     }
@@ -76,11 +76,11 @@ class UserController extends Controller
         $subscription->fill($request->all());
         $subscription->status = UserSubscription::STATUS_ACTIVE;
         $subscription->save();
-        try {
-            LeadFeedback::createCrmLead($subscription);
-        } catch (Exception $e) {
-            Log::error($e->getMessage(), $e->getTrace());
-        }
+//        try {
+//            LeadFeedback::createCrmLead($subscription);
+//        } catch (Exception $e) {
+//            Log::error($e->getMessage(), $e->getTrace());
+//        }
         return response()->json(['result' => 'success', 'message' => __('Thanks for subscribing!')]);
     }
 
@@ -99,11 +99,11 @@ class UserController extends Controller
         $subscription->status = UserSubscription::STATUS_ACTIVE;
         $subscription->save();
 
-        try {
-            LeadFeedback::createCrmLead($subscription);
-        } catch (Exception $e) {
-            Log::error($e->getMessage(), $e->getTrace());
-        }
+//        try {
+//            LeadFeedback::createCrmLead($subscription);
+//        } catch (Exception $e) {
+//            Log::error($e->getMessage(), $e->getTrace());
+//        }
         return response()->json(['result' => 'success', 'message' => __('Thanks for subscribing!')]);
     }
 }

@@ -16,9 +16,6 @@
                 <form action="{{route('admin.login.store')}}" method="POST">
                     @csrf
 
-                    @if(config('captcha.enabled'))
-                        @captcha
-                    @endif
                     <div class="mb-3">
                         <label class="form-label">@lang('Email')</label>
                         <input class="form-control form-control-lg" type="email" name="email" placeholder="@lang('Enter your email')" />
