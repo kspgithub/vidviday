@@ -80,7 +80,7 @@ trait TourScope
             })
             ->when(!empty($params['date_to']), function (Builder $q) use ($params) {
                 return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
-                    return $sq->whereDate('end_date', '<=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
+                    return $sq->whereDate('tour_schedules.end_date', '<=', Carbon::createFromFormat('d.m.Y', $params['date_to']));
                 });
             })
             ->when(!empty($params['duration_from']), function (Builder $q) use ($params) {
