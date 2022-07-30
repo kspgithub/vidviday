@@ -2,18 +2,24 @@
 
 namespace App\Providers;
 
+use App\Models\AgencySubscription;
 use App\Models\Order;
 use App\Models\Page;
+use App\Models\QuestionType;
 use App\Models\Tour;
 use App\Models\TourVoting;
 use App\Models\UserQuestion;
+use App\Models\UserSubscription;
+use App\Observers\AgencySubscriptionObserver;
 use App\Observers\OrderObserver;
 use App\Observers\PageObserver;
 use App\Observers\TourObserver;
 use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
+use App\Observers\UserSubscriptionObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,9 +49,13 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
+        View::share('questionTypes', QuestionType::query()->published()->get());
+
         // Observers
         Order::observe(OrderObserver::class);
         UserQuestion::observe(UserQuestionObserver::class);
+        UserSubscription::observe(UserSubscriptionObserver::class);
+        AgencySubscription::observe(AgencySubscriptionObserver::class);
         Tour::observe(TourObserver::class);
         TourVoting::observe(TourVotingObserver::class);
         Page::observe(PageObserver::class);
