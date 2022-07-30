@@ -59,6 +59,31 @@ export const useTourCard = (tour) => {
         return currentSchedule.value ? (currentSchedule.value.commission / currencyRate.value).toFixed(0) : (tour.commission / currencyRate.value).toFixed(0);
     })
     const isTourAgent = computed(() => store.getters['user/isTourAgent']);
+
+    const onlyQuick = computed(() => {
+        return currentSchedule.value && (currentSchedule.value.places_available === 0 || (currentSchedule.value.places_available >= 2 && currentSchedule.value.places_available <= 10))
+    })
+
+    const orderLink = computed(() => {
+        let url
+
+        if(onlyQuick.value) {
+            url = tour.url + '?schedule='+scheduleId.value+'&quick=1'
+        } else {
+            url = '/tour/'+tour.id + '/order?clear=1&schedule='+scheduleId.value
+        }
+
+        return url
+    })
+
+    const voteLink = computed(() => {
+        let url
+
+        url = tour.url + '#tour-voting-form'
+
+        return url
+    })
+
     return {
         currencyTitle,
         currencyIso,
@@ -75,5 +100,7 @@ export const useTourCard = (tour) => {
         imageSrc,
         inFavourites,
         isTourAgent,
+        orderLink,
+        voteLink,
     }
 }

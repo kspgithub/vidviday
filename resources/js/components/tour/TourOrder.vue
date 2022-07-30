@@ -1,5 +1,5 @@
 <template>
-    <form method="get" :action="action">
+    <form method="get" :action="action" @submit.prevent="orderTour">
         <input name="clear" :value="1" type="hidden">
 
 
@@ -72,6 +72,7 @@ import FormSelectEvent from "../form/FormSelectEvent";
 import Tooltip from "../common/Tooltip";
 import {useStore} from "vuex";
 import {useFormDataProperty} from "../../store/composables/useFormData";
+import * as urlUtils from '../../utils/url.js'
 
 export default {
     name: "TourOrder",
@@ -87,16 +88,21 @@ export default {
     setup(props) {
         const store = useStore();
 
+        const query = urlUtils.parseQuery();
+
         const schedule_id = useFormDataProperty('orderTour', 'schedule_id');
-        if (props.nearestEvent > 0) {
-            schedule_id.value = props.nearestEvent;
-        }
 
         const schedules = computed(() => store.state.orderTour.schedules);
         const departureOptions = computed(() => store.getters['orderTour/departureOptions']('title'));
 
+        if(query.schedule && schedules.value.length && schedules.value.find(s => s.id == query.schedule)) {
+            schedule_id.value = query.schedule;
+        } else if (props.nearestEvent > 0) {
+            schedule_id.value = props.nearestEvent;
+        }
+
         const selectedSchedule = computed(() => {
-            return store.getters['orderTour/selectedSchedule'] || (schedules.value.length ? schedules.value[0] : null)
+            return store.getters['orderTour/selectedSchedule'] || (schedules.value.length ? (query.schedule ? (schedules.value.find(s => s.id == query.schedule) || schedules.value[0]) : schedules.value[0]) : null)
         });
 
         if (selectedSchedule.value && selectedSchedule.value.id !== schedule_id.value) {
@@ -135,6 +141,24 @@ export default {
             return (accommPrice.value / currencyRate.value).toFixed(0);
         })
 
+        if(query.quick) {
+            showPopup()
+        }
+
+        const onlyQuick = computed(() => {
+            return selectedSchedule.value && (selectedSchedule.value.places_available === 0 || (selectedSchedule.value.places_available >= 2 && selectedSchedule.value.places_available <= 10))
+        })
+
+        const orderTour = (event) => {
+            if(onlyQuick.value) {
+                event.preventDefault()
+
+                showPopup()
+            } else {
+                event.target.submit()
+            }
+        }
+
         return {
             currencyTitle,
             currencyPrice,
@@ -151,6 +175,7 @@ export default {
             action,
             showPopup,
             showCalendar,
+            orderTour,
         }
     }
 }
