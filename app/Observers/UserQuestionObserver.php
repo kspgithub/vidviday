@@ -2,6 +2,9 @@
 
 namespace App\Observers;
 
+use App\Mail\UserQuestionAdminEmail;
+use App\Mail\UserQuestionEmail;
+use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
 use App\Models\UserQuestion;
 use App\Services\MailNotificationService;
@@ -18,12 +21,24 @@ class UserQuestionObserver
      */
     public function created(UserQuestion $userQuestion)
     {
-        //
-        $emails = MailNotificationService::getAdminNotifyEmails();
+        // Notify admins
+        $adminEmails = MailNotificationService::getAdminNotifyEmails();
+
+        // Notify managers related to question
+        $managerEmails = (array) $userQuestion->questionType->email ?? [];
+
+        // Notify managers related to question
+        $userEmails = (array) $userQuestion->email;
 
         try {
-            foreach ($emails as $email) {
-                Mail::to($email)->send(new VacancyEmail($userQuestion));
+            foreach ($adminEmails as $email) {
+                Mail::to($email)->send(new UserQuestionAdminEmail($userQuestion));
+            }
+            foreach ($managerEmails as $email) {
+                Mail::to($email)->send(new UserQuestionManagerEmail($userQuestion));
+            }
+            foreach ($userEmails as $email) {
+                Mail::to($email)->send(new UserQuestionEmail($userQuestion));
             }
         } catch (Exception $e) {
             //

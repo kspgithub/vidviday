@@ -343,15 +343,23 @@
                             class="align-middle">@lang('Testimonials')</span>
                     </a>
                     <ul id="testimonials"
-                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.testimonial*', 'show', '')}}"
+                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.testimonial*', 'show', '')}} {{routeActiveClass('admin.question_types*', 'show', '')}}"
                         data-bs-parent="#sidebar">
                         <li class="sidebar-item {{routeActiveClass('admin.testimonial.index')}}">
                             <a class="sidebar-link"
                                href="{{route('admin.testimonial.index')}}">@lang('Testimonials')</a>
                         </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.question_types*')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.question_types.index')}}">@lang('Question Types')</a>
+                        </li>
                         <li class="sidebar-item {{routeActiveClass('admin.testimonial.questions')}}">
                             <a class="sidebar-link"
                                href="{{route('admin.testimonial.questions')}}">@lang('Questions')</a>
+                        </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.testimonial.user_questions')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.testimonial.user_questions')}}">@lang('User Questions')</a>
                         </li>
                     </ul>
                 </li>

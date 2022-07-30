@@ -57,6 +57,7 @@ use App\Http\Controllers\Admin\SiteMenu\MenuItemController;
 use App\Http\Controllers\Admin\SiteOptionsController;
 use App\Http\Controllers\Admin\Staff\StaffController;
 use App\Http\Controllers\Admin\Staff\StaffTypeController;
+use App\Http\Controllers\Admin\Testimonial\QuestionTypesController;
 use App\Http\Controllers\Admin\Testimonial\TestimonialController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\TourGroup\TourGroupController;
@@ -230,6 +231,11 @@ Route::patch('testimonials/{testimonial}', [TestimonialController::class, 'updat
 Route::get('questions', [TestimonialController::class, 'questions'])->name('testimonial.questions');
 Route::get('questions/{testimonial}', [TestimonialController::class, 'editQuestion'])->name('testimonial.questions.edit');
 Route::patch('questions/{testimonial}', [TestimonialController::class, 'updateQuestion'])->name('testimonial.questions.update');
+Route::get('user_questions', [TestimonialController::class, 'userQuestions'])->name('testimonial.user_questions');
+Route::get('user_questions/{testimonial}', [TestimonialController::class, 'editUserQuestion'])->name('testimonial.user_questions.edit');
+Route::patch('user_questions/{testimonial}', [TestimonialController::class, 'updateUserQuestion'])->name('testimonial.user_questions.update');
+// QUESTION TYPES
+Route::resource('question_types', QuestionTypesController::class);
 
 // CONTACTS
 Route::get('contacts', [ContactsController::class, 'edit'])->name('contact.edit');

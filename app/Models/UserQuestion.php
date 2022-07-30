@@ -50,6 +50,10 @@ class UserQuestion extends Model
         'call_date',
     ];
 
+    public function questionType()
+    {
+        return $this->belongsTo(QuestionType::class, 'question_type');
+    }
 
     public function getAttachmentUrlAttribute()
     {

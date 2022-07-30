@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Testimonial;
 use App\Models\TourQuestion;
+use App\Models\UserQuestion;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,6 +23,11 @@ class TestimonialController extends Controller
     public function questions()
     {
         return view('admin.testimonial.questions');
+    }
+
+    public function userQuestions()
+    {
+        return view('admin.testimonial.user-questions');
     }
 
     /**
@@ -56,6 +62,14 @@ class TestimonialController extends Controller
     }
 
     /**
+     * @return View
+     */
+    public function editUserQuestion(UserQuestion $testimonial)
+    {
+        return view('admin.testimonial.edit-user-question', ['testimonial' => $testimonial]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -63,6 +77,21 @@ class TestimonialController extends Controller
      * @return Response
      */
     public function updateQuestion(Request $request, TourQuestion $testimonial)
+    {
+        $testimonial->fill($request->all());
+        $testimonial->save();
+
+        return redirect()->route('admin.testimonial.questions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updateUserQuestion(Request $request, UserQuestion $testimonial)
     {
         $testimonial->fill($request->all());
         $testimonial->save();
