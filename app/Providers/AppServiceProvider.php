@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-//        View::share('questionTypes', QuestionType::query()->published()->get());
+        View::share('questionTypes', QuestionType::query()->published()->get());
 
         // Observers
         Order::observe(OrderObserver::class);
