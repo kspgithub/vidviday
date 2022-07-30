@@ -491,18 +491,20 @@ jQuery(function ($) {
     $('.tooltip-wrap.red, .tooltip-wrap.black, .tooltip-wrap.light').on('click', function () {
         $(this).toggleClass('active');
     });
+
     // Tour selection dropdown
-    $('#tour-selection-btn').on('click', function () {
+    $(document).on('click', '#tour-selection-btn', function () {
         removeScroll();
         headerLayerOpen();
         tourSelectionOpen();
     });
 
-    $('#tour-selection-dropdown .btn-close').on('click', function () {
+    $(document).on('click', '#tour-selection-dropdown .btn-close', function () {
         addScroll();
         headerLayerClose();
         tourSelectionClose();
     });
+
     // Datepicker events
     $('.single-datepicker .datepicker-input > span').on('click', function () {
         if ($(this).parent().hasClass('vue-datepicker')) return;

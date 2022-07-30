@@ -35,9 +35,9 @@
                 </span>
                 <span class="thumb-info-people text">
                     {{
-                        currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
+                        currentSchedule && currentSchedule.places_available > 10 ? '10+' : (currentSchedule ? currentSchedule.places_available : 0)
                     }}
-                    <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
+                    <tooltip v-if="!currentSchedule || currentSchedule.places_available === 0" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>
@@ -55,7 +55,7 @@
                 </span>
             </div>
 
-            <a :href="'/tour/'+tour.id + '/order?clear=1&schedule='+scheduleId" class="btn type-1 btn-block">
+            <a :href="orderLink" @click="orderTour" class="btn type-1 btn-block">
                 {{ __('tours-section.order-tour') }}
             </a>
         </div>

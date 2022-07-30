@@ -136,6 +136,7 @@ export default {
                 await store.dispatch('tourFilter/fetchTours', query);
             }
 
+            $('#tour-selection-dropdown .btn-close').click()
         }
 
         const clear = async () => {

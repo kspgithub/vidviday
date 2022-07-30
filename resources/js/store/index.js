@@ -3,8 +3,9 @@ import {createStore, createLogger} from "vuex";
 
 const plugins = [];
 
+const isProd = process.env.NODE_ENV === 'production'
 
-if (process.env.NODE_ENV !== 'production' && false) {
+if (isProd && false) {
     const logger = createLogger();
     plugins.push(logger);
 }
@@ -31,6 +32,9 @@ import profileOrders from './modules/profile-orders';
 import currency from './modules/currency';
 
 const store = createStore({
+    state: {
+        isProd
+    },
     modules: {
         tourFilter,
         popupGallery,

@@ -2,11 +2,11 @@ import {createApp} from 'vue';
 
 const app = createApp({});
 
-
 import store from "./store";
 
 app.use(store);
 
+app.config.globalProperties.$isProd = store.state.isProd
 
 import i18n from './i18n';
 

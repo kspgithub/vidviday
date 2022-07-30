@@ -22,10 +22,11 @@
                     class="opt"
                     @click.prevent="change(option)"
                 >
-                    <label class="checkbox" >
+                    <label v-if="multiple" class="checkbox" >
                         <input type="checkbox" :checked="selected.includes(option.value)">
                         <span v-html="option.value === 0 ? 'Не вибрано' : option.text" />
                     </label>
+                    <label v-else v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
                 </li>
             </ul>
         </div>
@@ -75,24 +76,30 @@ export default {
         })
 
         const change = (option) => {
-            // open.value = false;
 
-            const value = String(JSON.parse(JSON.stringify(props.modelValue)))
-            let val = value.split(',').filter(v => !!v)
-            const index = val.indexOf(option.value.toString())
+            if(props.multiple) {
+                const value = String(JSON.parse(JSON.stringify(props.modelValue)))
 
-            if(option.value === 0) {
-                open.value = false;
-                val = []
-            } else {
-                if(index > -1) {
-                    val.splice(index, 1)
+                let val = value.split(',').filter(v => !!v)
+                const index = val.indexOf(option.value.toString())
+
+                if(option.value === 0) {
+                    open.value = false;
+                    val = []
                 } else {
-                    val.push(option.value)
+                    if(index > -1) {
+                        val.splice(index, 1)
+                    } else {
+                        val.push(option.value)
+                    }
                 }
-            }
 
-            emit('update:modelValue', val.join(','))
+                emit('update:modelValue', val.join(','))
+            } else {
+                open.value = false;
+
+                emit('update:modelValue', option.value)
+            }
         }
 
         const close = () => {
