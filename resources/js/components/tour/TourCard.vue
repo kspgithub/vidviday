@@ -33,7 +33,7 @@
                 <span class="thumb-info-time text">
                     {{ tour.format_duration }}
                 </span>
-                <span class="thumb-info-people text">
+                <span v-if="currentSchedule" class="thumb-info-people text">
                     {{
                         currentSchedule && currentSchedule.places_available > 10 ? '10+' : (currentSchedule ? currentSchedule.places_available : 0)
                     }}
@@ -43,7 +43,7 @@
                 </span>
 
             </div>
-            <div v-if="currentSchedule" class="thumb-price">
+            <div class="thumb-price">
                 <span class="text">
                     {{ __('tours-section.price') }}
                     <span>{{ currencyPrice }}</span>
@@ -55,9 +55,19 @@
                 </span>
             </div>
 
-            <a :href="orderLink" @click="orderTour" class="btn type-1 btn-block">
-                {{ __('tours-section.order-tour') }}
-            </a>
+            <template v-if="currentSchedule">
+                <a :href="orderLink" class="btn type-1 btn-block">
+                    {{ __('tours-section.order-tour') }}
+                </a>
+            </template>
+
+            <template v-else>
+                <hr>
+                <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{tour.votings_count}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
+                <a :href="voteLink" class="btn type-1 btn-block">
+                    {{ __('tours-section.vote') }}
+                </a>
+            </template>
         </div>
 
         <div class="thumb-desc text">

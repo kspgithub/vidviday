@@ -76,6 +76,14 @@ export const useTourCard = (tour) => {
         return url
     })
 
+    const voteLink = computed(() => {
+        let url
+
+        url = tour.url + '#tour-voting-form'
+
+        return url
+    })
+
     return {
         currencyTitle,
         currencyIso,
@@ -93,5 +101,6 @@ export const useTourCard = (tour) => {
         inFavourites,
         isTourAgent,
         orderLink,
+        voteLink,
     }
 }

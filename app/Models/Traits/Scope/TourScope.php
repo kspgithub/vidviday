@@ -146,7 +146,8 @@ trait TourScope
             $query->leftJoin('tour_schedules', function (JoinClause $join) {
                     $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
                         ->where('tour_schedules.start_date', '>=', now())
-                        ->whereNull('tour_schedules.deleted_at');
+//                        ->whereNull('tour_schedules.deleted_at')
+                    ;
                 })
                 ->leftJoin('tour_votings', function (JoinClause $join) {
                     $join->on( 'tours.id', '=', 'tour_votings.tour_id')

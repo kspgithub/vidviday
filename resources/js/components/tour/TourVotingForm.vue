@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar-item testimonials vote">
+    <div id="tour-voting-form" class="sidebar-item testimonials vote">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
                 <img src="img/preloader.png" data-img-src="icon/done.svg" alt="done">

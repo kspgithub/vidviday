@@ -344,6 +344,12 @@ jQuery(function ($) {
         return false;
     });
 
+    if(location.hash && location.hash !== '#') {
+        $('html, body').animate({
+            scrollTop: $(location.hash).offset().top - $('header').outerHeight()
+        }, 500);
+    }
+
     function headerLayerClose() {
         $('#header-layer-close').removeClass('active');
     }
