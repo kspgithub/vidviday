@@ -145,13 +145,16 @@ trait TourScope
         if($sort_by === 'date') {
             $query->leftJoin('tour_schedules', function (JoinClause $join) {
                     $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
-                        ->where('tour_schedules.start_date', '>=', now());
+                        ->where('tour_schedules.start_date', '>=', now())
+//                        ->whereNull('tour_schedules.deleted_at')
+                    ;
                 })
                 ->leftJoin('tour_votings', function (JoinClause $join) {
                     $join->on( 'tours.id', '=', 'tour_votings.tour_id')
                         ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
                 })
                 ->select('tours.*')
+                ->addSelect(DB::raw('COUNT(tour_votings.id) as votings_count'))
                 ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN SUBDATE("2099-01-01", INTERVAL COUNT(tour_votings.id) DAY) ELSE MIN(tour_schedules.start_date) END as date'))
                 ->groupBy('tours.id');
         }

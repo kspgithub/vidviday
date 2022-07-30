@@ -141,11 +141,13 @@ trait TourMethods
 
     public function schedulesForBooking($filter = null)
     {
+        $requestSchedule = (int) request()->get('schedule');
+
         $query = $this->scheduleItems()->inFuture();
         if (!empty($filter)) {
             $query->filter($filter);
         }
-        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->places_available > 0);
+        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->id === $requestSchedule || $value->places_available > 0);
         return TourSchedule::transformForBooking($schedules);
     }
 
