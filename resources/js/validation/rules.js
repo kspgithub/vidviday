@@ -83,7 +83,6 @@ for(let locale in veeMessages) {
     validationMessages[locale] = {messages: {}}
 
     for(let key in veeMessages[locale].messages) {
-        console.log(locale, key)
         validationMessages[locale][key] = i18n.has('validation.' + key, locale) ? i18n.get('validation.' + key, {attribute: key}, locale) : veeMessages[locale][key]
     }
 }

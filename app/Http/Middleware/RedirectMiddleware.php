@@ -57,6 +57,14 @@ class RedirectMiddleware
             return redirect()->to(htmlspecialchars($redirect));
         }
 
-        return $next($request);
+        $response = $next($request);
+
+        if($request->get('lang')) {
+            $url = $request->fullUrlWithoutQuery(['lang']);
+
+            return redirect($url);
+        }
+
+        return $response;
     }
 }

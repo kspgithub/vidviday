@@ -21,6 +21,7 @@ use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
@@ -46,8 +47,12 @@ class PageController extends Controller
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
-
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
+        // todo: pageContent, localeLinks & popupAds are shared to View. No need to fetch it again in certain page controller. (e.g. TourGuideController:19)
+        View::share('pageContent', $pageContent);
+        View::share('localeLinks', $localeLinks);
+        View::share('popupAds', $popupAds);
 
         switch ($pageContent->key) {
             case 'home':
@@ -75,11 +80,7 @@ class PageController extends Controller
             case 'testimonials':
                 return (new TestimonialController())->index($request);
             default:
-                return view('page.show', [
-                    'pageContent' => $pageContent,
-                    'localeLinks' => $localeLinks,
-                    'popupAds' => $popupAds,
-                ]);
+                return view('page.show', []);
         }
 
 
