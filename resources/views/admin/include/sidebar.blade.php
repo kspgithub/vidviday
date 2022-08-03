@@ -107,6 +107,10 @@
                             <a class="sidebar-link "
                                href="{{route('admin.tour-type.index')}}">@lang('Types')</a>
                         </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.popular-tours.*')}}">
+                            <a class="sidebar-link "
+                               href="{{route('admin.popular-tours.index')}}">@lang('Popular Tours')</a>
+                        </li>
                     </ul>
                 </li>
                 <!-- -------------------------------------------------------------------------------------------------- --->

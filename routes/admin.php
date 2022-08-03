@@ -62,6 +62,7 @@ use App\Http\Controllers\Admin\Testimonial\TestimonialController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\TourGroup\TourGroupController;
 use App\Http\Controllers\Admin\TourInclude\TourIncludeController;
+use App\Http\Controllers\Admin\Tours\PopularToursController;
 use App\Http\Controllers\Admin\TourSubjects\TourSubjectsController;
 use App\Http\Controllers\Admin\TourType\TourTypeController;
 use App\Http\Controllers\Admin\TranslationController;
@@ -278,6 +279,8 @@ Route::resource('direction', DirectionController::class)->except('show');
 Route::resource('tour-subjects', TourSubjectsController::class)->except('show');
 Route::resource('tour-group', TourGroupController::class)->except('show');
 Route::resource('landing-place', LandingPlaceController::class)->except('show');
+Route::resource('popular-tours', PopularToursController::class)->except(['show', 'edit']);
+Route::post('popular-tours/sort', [PopularToursController::class, 'sort'])->name('popular-tours.sort');
 
 require_once base_path('routes/admin/tour.php');
 

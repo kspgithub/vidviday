@@ -27,10 +27,17 @@ class RegisteredUserController extends Controller
      *
      * @param string|null $role
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        if($request->get('force_logout') && $request->user()) {
+            $redirect = route('auth.register', $request->except('force_logout'));
+            $request->merge(['redirect' => $redirect]);
+            $authController = app(AuthenticatedSessionController::class);
+            return $authController->destroy($request->merge(['redirect' => $redirect]));
+        }
+
         return view('auth.register');
     }
 
