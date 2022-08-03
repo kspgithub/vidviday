@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,7 @@ class Ticket extends TranslatableModel
     use HasTranslations;
     use UsePublishedScope;
     use UseSelectBox;
+    use JsonLikeScope;
 
 //    public function getRouteKeyName()
 //    {

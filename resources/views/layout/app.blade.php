@@ -35,6 +35,12 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
 
+    @production
+        @if($ga = site_option('google_analytics'))
+            {!! $ga !!}
+        @endif
+    @endproduction
+
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
@@ -76,6 +82,12 @@
 <script src="{{ mix('js/app.js') }}" defer></script>
 
 @stack('after-scripts', false)
+
+@production
+    @if($fb = site_option('facebook_chat'))
+        {!! $fb !!}
+    @endif
+@endproduction
 
 </body>
 </html>
