@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ class TourPlan extends TranslatableModel
     use HasTranslations;
     use UsePublishedScope;
     use HasSlug;
+    use JsonLikeScope;
 
     public $translatable = [
         'text',

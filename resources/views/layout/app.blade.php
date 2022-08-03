@@ -35,6 +35,12 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
 
+    @production
+        @if($ga = site_option('google_analytics'))
+            {!! $ga !!}
+        @endif
+    @endproduction
+
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">

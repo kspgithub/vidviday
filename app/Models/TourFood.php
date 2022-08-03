@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ class TourFood extends TranslatableModel implements HasMedia
     use UsePublishedScope;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use JsonLikeScope;
 
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;

@@ -17,6 +17,14 @@ trait JsonLikeScope
 
     public static function prepareLikeSelectQuery($field, $locale)
     {
+        $parts = explode('.', $field);
+
+        if(count($parts) > 1) {
+            $table = $parts[0];
+            $field = $parts[1];
+            return "REPLACE(REPLACE(REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$table`.`$field`, '$.\"$locale\"'))), '\'', ''), '+', ''), ' ', '')";
+        }
+
         return "REPLACE(REPLACE(REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$field`, '$.\"$locale\"'))), '\'', ''), '+', ''), ' ', '')";
     }
 

@@ -134,7 +134,57 @@ trait TourScope
             ->when(!empty($params['q']), function (Builder $q) use ($params) {
                 $search = urldecode(trim($params['q']));
 
-                return $q->jsonLike('title', "%$search%");
+                if ($search) {
+                    $q->where(function (Builder $q) use ($search) {
+                        // Search in Tours
+                        $q->jsonLike('tours.title', "%$search%");
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Tour Plans
+                        $q->whereHas('planItems', function (Builder $q) use ($search) {
+                            $q->jsonLike('tour_plans.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Tour Places
+                        $q->whereHas('places', function (Builder $q) use ($search) {
+                            $q->jsonLike('places.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Custom Tour Places
+                        $q->whereHas('tourPlaces', function (Builder $q) use ($search) {
+                            $q->jsonLike('tours_places.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Tour Tickets
+                        $q->whereHas('tickets', function (Builder $q) use ($search) {
+                            $q->jsonLike('tickets.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Custom Tour Tickets
+                        $q->whereHas('tourTickets', function (Builder $q) use ($search) {
+                            $q->jsonLike('tours_tickets.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Tour Food
+                        $q->whereHas('foods', function (Builder $q) use ($search) {
+                            $q->jsonLike('food.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Custom Tour Food
+                        $q->whereHas('foodItems', function (Builder $q) use ($search) {
+                            $q->jsonLike('tour_food.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Tour Accommodations
+                        $q->whereHas('accommodations', function (Builder $q) use ($search) {
+                            $q->jsonLike('accommodations.title', "%$search%");
+                        });
+                    })->orWhere(function (Builder $q) use ($search) {
+                        // Search in Custom Tour Accommodations
+                        $q->whereHas('tourAccommodations', function (Builder $q) use ($search) {
+                            $q->jsonLike('tour_accommodations.title', "%$search%");
+                        });
+                    });
+                }
             });
 
         $query->withAvg('testimonials', 'rating');
@@ -146,7 +196,7 @@ trait TourScope
             $query->leftJoin('tour_schedules', function (JoinClause $join) {
                     $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
                         ->where('tour_schedules.start_date', '>=', now())
-//                        ->whereNull('tour_schedules.deleted_at')
+                        ->whereNull('tour_schedules.deleted_at')
                     ;
                 })
                 ->leftJoin('tour_votings', function (JoinClause $join) {

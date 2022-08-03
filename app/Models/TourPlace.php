@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
@@ -15,6 +16,7 @@ class TourPlace extends TranslatableModel implements HasMedia
     use HasTranslations;
     use InteractsWithMedia;
     use UseNormalizeMedia;
+    use JsonLikeScope;
 
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;
