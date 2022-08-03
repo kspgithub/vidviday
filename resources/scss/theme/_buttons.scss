@@ -456,7 +456,7 @@
     z-index: 72;
     width: 40px;
     height: 40px;
-    bottom: 80px;
+    bottom: 120px;
     cursor: pointer;
     position: fixed;
     border-radius: 5px;
@@ -723,14 +723,14 @@
 @media (min-width: 1600px) {
 
     .btn-to-top {
-        right: 3%;
+        right: 1.8%;
     }
 }
 
 @media (max-width: 1599px) {
 
     .btn-to-top {
-        right: 15px;
+        right: 20px;
     }
 }
 
