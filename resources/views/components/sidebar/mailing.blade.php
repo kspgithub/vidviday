@@ -8,10 +8,15 @@
     </div>
     <div class="bottom-part">
         <div class="subscribe-block">
-            <a href="#" class="btn type-2" v-is="'popup-sub-btn'"
+            <a href="https://static.mailerlite.com/webforms/popup/a1x1b5?" target="_blank"
+{{--               v-is="'popup-sub-btn'"--}}
+               class="btn type-2"
                type="tourist">{{__('sidebar-section.mailing.tourist')}}</a>
-            <a href="#" class="btn type-2" v-is="'popup-sub-btn'"
-               type="tour-agent">{{__('sidebar-section.mailing.tour-agent')}}</a>
+            <a href="https://static.mailerlite.com/webforms/popup/h0l6i5?"  target="_blank"
+{{--               v-is="'popup-sub-btn'"--}}
+               class="btn type-2"
+               type="tour-agent">{{__('sidebar-section.mailing.tour-agent')}}
+            </a>
         </div>
     </div>
 </div>
