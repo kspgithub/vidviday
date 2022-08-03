@@ -270,7 +270,6 @@ jQuery(function ($) {
         }
         if (isTouchScreen) options.direction = "horizontal";
 
-        console.log(options)
         return options;
     };
 

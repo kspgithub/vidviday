@@ -75,6 +75,7 @@
                                 <form id="header-logout-form" action="{{ route('auth.logout') }}" method="POST"
                                       class="d-none">
                                     @csrf
+                                    <input id="header-logout-form-redirect" type="hidden" name="redirect">
                                 </form>
                             </li>
                         </ul>

@@ -119,7 +119,7 @@ trait TourScope
                     $sq->whereIn('places.id', $ids);
                 })->orWhereHas('tourPlaces', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['place']));
-                    $sq->whereIn('tours_places.id', $ids);
+                    $sq->whereIn('tours_places.place_id', $ids);
                 });
             })
             ->when(!empty($params['landing']), function (Builder $q) use ($params) {
@@ -128,7 +128,7 @@ trait TourScope
                     $sq->whereIn('landing_places.id', $ids);
                 })->orWhereHas('tourLandings', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['landing']));
-                    $sq->whereIn('tours_landings.id', $ids);
+                    $sq->whereIn('tours_landings.landing_id', $ids);
                 });
             })
             ->when(!empty($params['q']), function (Builder $q) use ($params) {

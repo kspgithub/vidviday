@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Tour;
 
+use App\Models\PopularTour;
 use App\Models\Tour;
 use App\Services\TourService;
 use Closure;

@@ -121,14 +121,38 @@ class TourService extends BaseService
         return implode(', ', $title);
     }
 
+    public static function getByIds(array $ids = [], $locale = 'uk')
+    {
+        return Tour::search(false)
+            ->whereJsonContains('locales', $locale)
+            ->whereIn('id', $ids)->get();
+    }
+
     public static function popularTours($count = 12, $locale = 'uk')
     {
-        return Tour::search()
+        $popularTours = Tour::search(false)
             ->whereJsonContains('locales', $locale)
-            ->whereHas('badges', function (Builder $q) {
-                return $q->where('slug', 'bestseler');
-            })
+            ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
+            ->select('tours.*')
+            ->addSelect(DB::raw('popular_tours.position as position'))
+            ->orderBy('position')
             ->take($count)->get();
+
+        $remains = $count - $popularTours->count();
+
+        if($remains > 0) {
+            $bestsellerTours = Tour::search()
+                ->whereJsonContains('locales', $locale)
+                ->whereNotIn('id', $popularTours->pluck('id')->toArray())
+                ->whereHas('badges', function (Builder $q) {
+                    return $q->where('slug', 'bestseler');
+                })
+                ->take($remains)->get();
+
+            $popularTours = $popularTours->merge($bestsellerTours);
+        }
+
+        return $popularTours;
     }
 
     public function store($params)
