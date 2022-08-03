@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 class SiteOption extends Model
 {
     public const TYPE_STRING = 'string';
+    public const TYPE_TEXT = 'text';
     public const TYPE_INTEGER = 'integer';
     public const TYPE_DOUBLE = 'double';
     public const TYPE_BOOLEAN = 'boolean';
@@ -18,6 +19,7 @@ class SiteOption extends Model
 
     public static array $types = [
         self::TYPE_STRING,
+        self::TYPE_TEXT,
         self::TYPE_INTEGER,
         self::TYPE_DOUBLE,
         self::TYPE_BOOLEAN,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Methods\HasJsonSlug;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -28,6 +29,7 @@ class Accommodation extends TranslatableModel implements HasMedia
     use HasTranslatableSlug;
     use HasJsonSlug;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',

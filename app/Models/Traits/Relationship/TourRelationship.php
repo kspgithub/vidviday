@@ -2,11 +2,13 @@
 
 namespace App\Models\Traits\Relationship;
 
+use App\Models\Accommodation;
 use App\Models\Badge;
 use App\Models\Currency;
 use App\Models\Direction;
 use App\Models\Discount;
 use App\Models\EventItem;
+use App\Models\Food;
 use App\Models\LandingPlace;
 use App\Models\Order;
 use App\Models\Place;
@@ -130,6 +132,17 @@ trait TourRelationship
      *
      * @return HasMany
      */
+    public function foods()
+    {
+        return $this->belongsToMany(Food::class, 'tour_food', 'tour_id', 'food_id')
+            ->orderBy('day')->orderBy('time_id');
+    }
+
+    /**
+     * Питание
+     *
+     * @return HasMany
+     */
     public function foodItems()
     {
         return $this->hasMany(TourFood::class)->orderBy('day')->orderBy('time_id');
@@ -138,12 +151,20 @@ trait TourRelationship
     /**
      * Размещение
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
     public function accommodations()
     {
-        return $this->hasMany(TourAccommodation::class)->orderBy('position');
+        return $this->belongsToMany(Accommodation::class, 'tour_accommodations', 'tour_id', 'accommodation_id')
+            ->orderBy('position');
     }
+
+
+    /**
+     * Размещение
+     *
+     * @return HasMany
+     */
     public function tourAccommodations()
     {
         return $this->hasMany(TourAccommodation::class)->orderBy('position');
