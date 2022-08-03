@@ -31,6 +31,7 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'certificate_email', 'value' => 'support@vidviday.ua', 'title' => 'Email менеджера по сертифікатам', 'primary' => true, 'type' => SiteOption::TYPE_STRING],
             ['key' => 'transport_email', 'value' => 'support@vidviday.ua', 'title' => 'Email менеджера по транспорту', 'primary' => true, 'type' => SiteOption::TYPE_STRING],
             ['key' => 'google_analytics', 'value' => '', 'title' => 'Google analytics', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'facebook_chat', 'value' => '', 'title' => 'Facebook chat', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
         ];
 
         foreach ($site_options as $option) {

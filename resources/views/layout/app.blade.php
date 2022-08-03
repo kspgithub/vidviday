@@ -83,6 +83,12 @@
 
 @stack('after-scripts', false)
 
+@production
+    @if($fb = site_option('facebook_chat'))
+        {!! $fb !!}
+    @endif
+@endproduction
+
 </body>
 </html>
 
