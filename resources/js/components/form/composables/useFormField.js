@@ -19,13 +19,13 @@ const useFormField = (props, emit) => {
         }
     });
 
-    const onFocus = () => {
+    const onFocus = (e) => {
         focused.value = true;
         if (props.mask && !inputRef.value.inputmask) {
             Inputmask(props.mask).mask(inputRef.value);
         }
     }
-    const onBlur = () => {
+    const onBlur = (e) => {
         focused.value = false;
         if (props.mask && inputRef.value.inputmask) {
             inputRef.value.inputmask.remove();

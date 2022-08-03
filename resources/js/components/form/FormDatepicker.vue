@@ -1,7 +1,7 @@
 <template>
     <div :class="{active: open, disabled: disabled, invalid: errorMessage}"
          class="datepicker-input vue-datepicker"
-         ref="pickerRef"
+         ref="pickerRef" v-click-outside="onClickOutside"
     >
         <div class="datepicker-placeholder"
              :data-tooltip="errorMessage"
@@ -32,7 +32,7 @@ export default {
         name: String,
         displayFormat: {
             type: String,
-            default: 'dd, DD.MM.YYYY' // https://momentjs.com/docs/#/displaying/format/
+            default: 'DD.MM.YYYY' // https://momentjs.com/docs/#/displaying/format/
         },
         valueFormat: {
             type: String,
@@ -183,6 +183,11 @@ export default {
             datepicker.value.destroy();
         })
 
+        const onClickOutside = (event) => {
+            if(open.value) {
+                close(event)
+            }
+        }
 
         return {
             pickerRef,
@@ -196,6 +201,7 @@ export default {
             errorMessage,
             innerValue,
             manualChange,
+            onClickOutside,
         }
     }
 }
