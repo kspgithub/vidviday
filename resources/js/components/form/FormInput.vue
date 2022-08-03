@@ -1,5 +1,5 @@
 <template>
-    <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage}">
+    <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage, focused}">
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
         <input ref="inputRef"
                class="vue-input"
