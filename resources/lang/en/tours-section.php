@@ -34,6 +34,7 @@ return [
     'order-tour' => 'Order Tour',
     'order-one-click' => 'Order in 1 click',
     'order-corporate' => 'Order a corporate party',
+    'start-cooperation' => 'Start cooperation',
     'download-tour' => 'Download for printing',
     'popup-date-title' => 'Choose the date of the tour',
     'date-title' => 'Choose a date',

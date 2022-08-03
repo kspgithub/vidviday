@@ -41,7 +41,7 @@ import SignUpTourAgent from "./SignUpTourAgent";
 import {computed, ref} from "vue";
 import SingUpSocial from "./SingUpSocial";
 import {useForm} from "vee-validate";
-import {scrollToEl} from "../../utils/functions";
+import { getQueryParam } from '../../utils/url.js'
 
 export default {
     name: "SignUpForm",
@@ -50,7 +50,9 @@ export default {
         action: String,
     },
     setup(props) {
-        const role = ref('tourist');
+        const isTourAgent = getQueryParam('tour_agent');
+
+        const role = ref(isTourAgent ? 'tour-agent' : 'tourist');
 
         const validationSchema = computed(() => {
             const schema = {
