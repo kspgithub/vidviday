@@ -39,7 +39,7 @@
                         </td>
                         <td class="table-action">
                             <x-utils.edit-button
-                                :href="route('admin.email-templates.edit', $template)"
+                                :href="route('admin.email-templates.edit', Str::replace('\\','-',$template))"
                                 text=""/>
                         </td>
                     </tr>

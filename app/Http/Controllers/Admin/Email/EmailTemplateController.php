@@ -19,6 +19,7 @@ use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use SplFileInfo;
 
@@ -59,6 +60,8 @@ class EmailTemplateController extends Controller
     {
         $templates = $this->getTemplates();
 
+        $template = Str::replace('-', '\\', $template);
+
         $view = $templates[$template];
 
         $viewContent = File::get($view->getPath());
@@ -75,10 +78,12 @@ class EmailTemplateController extends Controller
 
         $templates = $this->getTemplates();
 
+        $template = Str::replace('-', '\\', $template);
+
         $view = $templates[$template];
 
         File::put($view->getPath(), $content);
 
-        return redirect()->route('admin.email-templates.index')->with('success', __('Updated'));
+        return redirect()->route('admin.email-templates.index')->withFlashSuccess(__('Record Updated'));
     }
 }
