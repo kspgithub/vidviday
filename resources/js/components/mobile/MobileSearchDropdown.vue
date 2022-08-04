@@ -2,7 +2,7 @@
     <div id="search-dropdown" :class="{active: mobileActive}">
         <div class="search-dropdown-close full-size" @click="mobileActive = false"></div>
 
-        <form action="/" class="header-search search-dropdown-form">
+        <form action="/tours" class="header-search search-dropdown-form" ref="formRef" >
             <input type="text" name="q" v-model="searchText" :placeholder="__('header-section.find-tour-dots')"
                    class="input-search"
                    ref="searchRef"
