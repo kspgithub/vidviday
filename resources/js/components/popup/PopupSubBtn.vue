@@ -17,14 +17,16 @@ export default {
         const store = useStore();
         const openPopup = () => {
             if (props.type === 'tourist') {
-                if(store.state.isProd) {
-                    $('#mailerlite-tourist button').click()
+                const mailerLiteTourist = $('#mailerlite-tourist button')
+                if(mailerLiteTourist.length) {
+                    mailerLiteTourist.click()
                 } else {
                     store.commit('userQuestion/SET_POPUP_USER_SUB_OPEN', true)
                 }
             } else {
-                if(store.state.isProd) {
-                    $('#mailerlite-agent button').click()
+                const mailerLiteAgent = $('#mailerlite-agent button')
+                if(mailerLiteAgent.length) {
+                    mailerLiteAgent.click()
                 } else {
                     store.commit('userQuestion/SET_POPUP_AGENT_SUB_OPEN', true)
                 }
