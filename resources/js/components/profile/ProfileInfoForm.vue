@@ -88,7 +88,7 @@
 
                     <div class="col-md-6 col-12">
                         <form-input v-model="formData.viber" :label="__('forms.viber')" name="viber">
-                            <tooltip>Ваш номер буде додано до турагентської <br>Вайбер-розсилки з акціями, новими
+                            <tooltip v-if="user.role === 'tour-agent'">Ваш номер буде додано до турагентської <br>Вайбер-розсилки з акціями, новими
                                 турами, даними <br>про наявність місць та іншою корисною інформацією
                             </tooltip>
                         </form-input>
