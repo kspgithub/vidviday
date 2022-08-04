@@ -88,6 +88,7 @@
     @endif
 @endproduction
 
+@production
 <div style="display: none">
     <div id="mailerlite-tourist">
         <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23099/a1x1b5.js?v12"></script>
@@ -97,6 +98,7 @@
         <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23103/h0l6i5.js?v11"></script>
     </div>
 </div>
+@endproduction
 
 </body>
 </html>
