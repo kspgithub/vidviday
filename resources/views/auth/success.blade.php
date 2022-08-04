@@ -13,10 +13,17 @@
                     <div class="text-center">
                         <h1 class="h1"><b>@lang('auth.registration-completed')</b></h1>
                         <span class="text-md">
-                            @lang('auth.registration-details') {{current_user()->email}}
+                            @lang('auth.registration-details') {{$user->email}}
                         </span>
                         <div class="spacer-xs"></div>
-                        <a href="{{route('auth.login')}}" class="btn type-1">@lang('auth.login-profile')</a>
+
+                        @auth
+                            <a href="{{route('profile.index')}}" class="btn type-1">@lang('auth.login-profile')</a>
+                        @endauth
+
+                        @guest
+                            <a href="{{route('auth.login')}}" class="btn type-1">@lang('auth.login-profile')</a>
+                        @endguest
                     </div>
                 </div>
             </div>

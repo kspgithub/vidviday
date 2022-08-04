@@ -39,6 +39,9 @@ import "./modules/custom-inputs";
 // Maps
 import "./modules/vector-maps";
 
+// Ace editor
+import "./modules/ace-editor.js";
+
 
 
 

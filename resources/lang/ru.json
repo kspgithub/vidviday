@@ -40,6 +40,9 @@
     "E-mail": "Эл. почта",
     "E-mail Address": "Адрес электронной почты",
     "E-mail Verified": "E-mail проверен",
+    "E-mail Verification Failure": "На жаль, ви поки не підтвердили свій email",
+    "E-mail Verification is pending": "Ваш запит перебуває на перевірці",
+    "E-mail Verification Success": "Ваш email успішно підтверджено",
     "Each code can only be used once!": "Каждый код может быть использован только один раз!",
     "Edit": "редактировать",
     "Edit Information": "Редактировать информацию",
@@ -198,5 +201,12 @@
     "Your password has expired. We require you to change your password every :days days for security purposes.": "Ваш пароль истек. Мы требуем, чтобы вы меняли свой пароль каждые :days день в целях безопасности.",
     "click here to request another": "нажмите здесь, чтобы запросить другой",
     "Corporate includes": "Вкл. в цену корп.",
-    "Voting": "Голосование"
+    "Voting": "Голосование",
+    "Popular Tours": "Популярні тури",
+    "Practices": "Практики",
+    "Question Types": "Типи питань",
+    "Email templates": "Шаблони Email",
+    "Popup Advertisements": "Вспливаючі оголошення",
+    "Charity": "Благодійність",
+    "Redirects": "Переадресація"
 }

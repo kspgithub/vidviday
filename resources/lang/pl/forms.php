@@ -31,6 +31,8 @@ return [
     'no' => 'Ні',
     'travel-agency' => 'Турфірма',
     'travel-agency-name' => 'Назва турфірми',
+    'work-email' => 'Електронна пошта фірми',
+    'website' => 'Адреса веб-сторінки',
     'select-from-list' => 'Оберіть зі списку',
     'tour-where-on' => 'Тур, у якому ви були',
     'evaluate-tour' => 'Оцініть тур',

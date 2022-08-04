@@ -42,6 +42,7 @@ import {computed, ref} from "vue";
 import SingUpSocial from "./SingUpSocial";
 import {useForm} from "vee-validate";
 import { getQueryParam } from '../../utils/url.js'
+import { trans } from "../../i18n/lang";
 
 export default {
     name: "SignUpForm",
@@ -63,7 +64,7 @@ export default {
                 mobile_phone: 'required|tel',
                 password: 'required',
                 password_confirmation: () => {
-                    return values.password === values.password_confirmation ? true : 'Пароль и его подтверждение не совпадают'
+                    return values.password === values.password_confirmation ? true : trans('validation.confirmed', {attribute: 'password'})
                 }
             };
 
