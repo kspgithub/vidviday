@@ -141,7 +141,7 @@ export default {
 
         const clear = async () => {
             await store.dispatch('tourFilter/clearFilter');
-            await submit();
+            // await submit();
         }
 
         return {

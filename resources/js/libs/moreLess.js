@@ -18,12 +18,14 @@
             toggleButton.className = 'show-more';
             toggleButton.style.float = 'right';
             toggleButton.style.paddingRight = '15px';
+            toggleButton.style.marginTop = '15px';
             toggleButton.appendChild(text);
 
             parent.insertBefore(toggleButton, element.nextSibling);
 
             element.setAttribute('data-fullheight', elementHeight);
             element.style.height = height;
+            element.style.overflow = 'hidden';
             return toggleButton;
         }
     }

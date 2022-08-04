@@ -16,6 +16,8 @@ class SiteOption extends Model
     public const TYPE_ARRAY = 'array';
     public const TYPE_OBJECT = 'object';
     public const TYPE_NULL = 'NULL';
+    public const TYPE_FILE = 'file';
+    public const TYPE_IMAGE = 'image';
 
     public static array $types = [
         self::TYPE_STRING,

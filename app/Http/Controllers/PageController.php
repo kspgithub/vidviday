@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Certificate\CertificateController;
+use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Place\PlaceController;
@@ -77,6 +78,8 @@ class PageController extends Controller
                 return (new SchoolController())->index($request);
             case 'our-documents':
                 return (new DocumentController())->index($request);
+            case 'our-contacts':
+                return (new ContactController())->index($request);
             case 'testimonials':
                 return (new TestimonialController())->index($request);
             default:

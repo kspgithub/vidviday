@@ -14,6 +14,10 @@
     'accept'=>'.jpg,.png,.gif,.pdf,.doc,.docx',
 ])
 
+@php
+    $inputName = Str::endsWith($name, ']') ? (Str::substr($name, 0, strlen($name) - 1) . '_upload]') : $name.'_upload';
+@endphp
+
 <div class="form-group row mb-3 image-upload-group">
     <div class="{{$labelCol}} col-form-label">
         {{$label}}
@@ -34,7 +38,7 @@
 
         <input accept="{{$accept}}" type="file" id="{{$name}}"
                {{$required ? 'required' : ''}}
-               name="{{$name.'_upload'}}" {{ $attributes->merge(['class' => 'form-control']) }}>
+               name="{{$inputName}}" {{ $attributes->merge(['class' => 'form-control']) }}>
         @error($name)
         <div class="invalid-feedback d-block">
             {{$message}}
