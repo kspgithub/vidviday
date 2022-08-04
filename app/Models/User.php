@@ -50,6 +50,7 @@ class User extends Authenticatable
         'position',
         'website',
         'bitrix_id',
+        'status',
     ];
 
     /**

@@ -35,6 +35,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = $request->user();
+
+        if($user->isTourAgent()) {
+            if(!$user->isVerified()) {
+                return $this->destroy($request)->withFlashDanger(__('E-mail Verification Failure'));
+            }
+            if(!$user->isActive()) {
+                return $this->destroy($request)->withFlashDanger(__('E-mail Verification is pending'));
+            }
+        }
+
         return redirect()->back();
     }
 
