@@ -90,7 +90,7 @@ class UsersTable extends DataTableComponent
                     return '<a href="' . $value . '">' . $value . '</a>';
                 })
                 ->asHtml(),
-            Column::make(__('Phone'), 'phone')
+            Column::make(__('Phone'), 'mobile_phone')
                 ->searchable()
                 ->sortable()
                 ->format(function ($value) {

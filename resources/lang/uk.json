@@ -489,6 +489,9 @@
     "Verified": "Перевірено",
     "Verify E-mail Address": "Підтвердьте електронну адресу",
     "Verify Your E-mail Address": "Перевірте свою адресу електронної пошти",
+    "E-mail Verification Failure": "На жаль, ви поки не підтвердили свій email",
+    "E-mail Verification is pending": "Ваш запит перебуває на перевірці",
+    "E-mail Verification Success": "Ваш email успішно підтверджено",
     "View": "Вид",
     "View User": "Переглянути користувача",
     "View\/Regenerate Recovery Codes": "Переглянути \/ відновити коди відновлення",
@@ -544,5 +547,12 @@
     "Admin": "Адміністратор",
     "user": "користувач",
     "Corporate includes": "Вкл. в ціну корп.",
-    "Voting": "Голосування"
+    "Voting": "Голосування",
+    "Popular Tours": "Популярні тури",
+    "Practices": "Практики",
+    "Question Types": "Типи питань",
+    "Email templates": "Шаблони Email",
+    "Popup Advertisements": "Вспливаючі оголошення",
+    "Charity": "Благодійність",
+    "Redirects": "Переадресація"
 }

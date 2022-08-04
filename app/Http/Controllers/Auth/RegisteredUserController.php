@@ -9,6 +9,7 @@ use App\Mail\RegistrationEmail;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
@@ -18,10 +19,26 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 
 class RegisteredUserController extends Controller
 {
+    /**
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
+     * DeactivatedUserController constructor.
+     *
+     * @param  UserService  $userService
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display the registration view.
      *
@@ -55,6 +72,9 @@ class RegisteredUserController extends Controller
         $params = $request->validated();
         $params['password'] = Hash::make($request->password);
         $role = $request->role;
+        if($role === 'tour-agent') {
+            $params['status'] = 0;
+        }
         /**
          * @var User $user
          */
@@ -66,7 +86,10 @@ class RegisteredUserController extends Controller
         }
         Auth::login($user);
 
+        Session::flash('newUser', $user);
+
         event(new Registered($user));
+
         try {
             Mail::to($user->email)->send(new RegistrationEmail($user, $password));
             if ($user->isTourAgent()) {
@@ -76,11 +99,24 @@ class RegisteredUserController extends Controller
             Log::error($exception->getMessage(), $exception->getTrace());
         }
 
-        return redirect()->route('auth.register.success');
+        if($user->isTourAgent()) {
+            if(!$user->isVerified()) {
+                $user->sendEmailVerificationNotification();
+            }
+            if(!$user->isActive()) {
+                Auth::logout();
+            }
+        }
+
+        return redirect()->route('register.success');
     }
 
     public function success()
     {
-        return view('auth.success');
+        if(!$user = Session::get('newUser')) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        return view('auth.success', ['user' => $user]);
     }
 }
