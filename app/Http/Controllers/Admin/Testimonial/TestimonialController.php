@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Testimonial;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgencySubscription;
 use App\Models\Contact;
 use App\Models\Testimonial;
 use App\Models\TourQuestion;
 use App\Models\UserQuestion;
+use App\Models\UserSubscription;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,6 +30,16 @@ class TestimonialController extends Controller
     public function userQuestions()
     {
         return view('admin.testimonial.user-questions');
+    }
+
+    public function userSubscriptions()
+    {
+        return view('admin.testimonial.user-subscriptions');
+    }
+
+    public function agencySubscriptions()
+    {
+        return view('admin.testimonial.agency-subscriptions');
     }
 
     /**
@@ -96,6 +108,36 @@ class TestimonialController extends Controller
         $testimonial->fill($request->all());
         $testimonial->save();
 
-        return redirect()->route('admin.testimonial.questions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
+        return redirect()->route('admin.testimonial.user_questions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updateUserSubscription(Request $request, UserSubscription $testimonial)
+    {
+        $testimonial->fill($request->all());
+        $testimonial->save();
+
+        return redirect()->route('admin.testimonial.user_subscriptions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updateAgencySubscription(Request $request, AgencySubscription $testimonial)
+    {
+        $testimonial->fill($request->all());
+        $testimonial->save();
+
+        return redirect()->route('admin.testimonial.agency_subscriptions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
     }
 }
