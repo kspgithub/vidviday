@@ -16,9 +16,11 @@ export default {
         const store = useStore();
         const openPopup = () => {
             if (props.type === 'tourist') {
-                store.commit('userQuestion/SET_POPUP_USER_SUB_OPEN', true)
+                $('#mailerlite-tourist button').click()
+                // store.commit('userQuestion/SET_POPUP_USER_SUB_OPEN', true)
             } else {
-                store.commit('userQuestion/SET_POPUP_AGENT_SUB_OPEN', true)
+                $('#mailerlite-agent button').click()
+                // store.commit('userQuestion/SET_POPUP_AGENT_SUB_OPEN', true)
             }
         }
         return {

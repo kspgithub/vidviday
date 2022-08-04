@@ -308,3 +308,11 @@ if (!function_exists('user_roles')) {
         return $roles;
     }
 }
+
+
+if (!function_exists('routeSlug')) {
+    function routeSlug(string $name, array $params = [])
+    {
+
+    }
+}

@@ -67,7 +67,6 @@
     @include('layout.includes.toast-notifications')
 </div>
 
-
 @stack('before-scripts', false)
 @livewireScripts
 
@@ -88,6 +87,16 @@
         {!! $fb !!}
     @endif
 @endproduction
+
+<div style="display: none">
+    <div id="mailerlite-tourist">
+        <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23099/a1x1b5.js?v12"></script>
+    </div>
+
+    <div id="mailerlite-agent">
+        <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23103/h0l6i5.js?v11"></script>
+    </div>
+</div>
 
 </body>
 </html>
