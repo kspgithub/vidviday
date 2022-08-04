@@ -1,3 +1,4 @@
+@php use App\Models\SiteOption; @endphp
 @extends('admin.layout.app')
 @section('content')
     <div class="dashboard d-flex justify-content-between">
@@ -7,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form class="form mb-3" action="{{route('admin.site-options.update')}}" method="POST">
+            <form class="form mb-3" action="{{route('admin.site-options.update')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 @foreach($site_options as $site_option)
@@ -30,6 +31,11 @@
                                 @case('text')
                                 <textarea name="options[{{$site_option->key}}]" rows="8"
                                           class="form-control">{!! $site_option->value !!}</textarea>
+                                @break
+                                @case(SiteOption::TYPE_IMAGE)
+                                    <x-forms.single-image-upload name="options[{{$site_option->key}}]"
+                                                                 :preview="!empty($site_option->value) ? Storage::url($site_option->value) : ''"
+                                                                 :value="$site_option->value"/>
                                 @break
                                 @default
                                 <input name="options[{{$site_option->key}}]" type="text" class="form-control"

@@ -53,6 +53,7 @@
                     <div class="spacer-xs"></div>
                     <!-- MAP -->
                     <div v-is="'map-route'"
+                         id="map-route"
                          :lat='{{$contact->lat}}'
                          :lng='{{$contact->lng}}'
                          :address='"{{$contact->address}}"'
