@@ -198,9 +198,9 @@ class Testimonial extends Model implements HasMedia
     {
         return $query->withDepth()->where(function ($q) {
             $q->whereIn('status', site_option('moderate_testimonials', false) === true ? [1] : [0, 1]);
-            if (current_user() !== null) {
-                $q->orWhere('user_id', current_user()->id);
-            }
+//            if (current_user() !== null) {
+//                $q->orWhere('user_id', current_user()->id);
+//            }
             return $q;
         });
     }
