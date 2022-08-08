@@ -12,13 +12,16 @@ use App\Models\TourDiscount;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
+use App\Models\WrongQuery;
 use Cache;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 use Spatie\Image\Manipulations;
 
 class TourService extends BaseService
@@ -301,5 +304,20 @@ class TourService extends BaseService
         }
 
         return $discounts->get()->merge($tourDiscounts->get());
+    }
+
+    public function handleWrongRequest(Request $request): void
+    {
+        $q = $request->get('q');
+
+        RateLimiter::attempt(
+            'wrong-requests.' . $q . '.' . $request->ip(),
+            1,
+            function() use ($q) {
+                $wrongQuery = WrongQuery::query()->firstOrNew(['query' => $q],['query' => $q, 'count' => 0]);
+                $wrongQuery->count++;
+                $wrongQuery->save();
+            }
+        );
     }
 }

@@ -5,10 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Place;
 use App\Models\Tour;
+use App\Models\WrongQuery;
+use App\Services\TourService;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+    protected TourService $service;
+
+    public function __construct(TourService $service)
+    {
+        $this->service = $service;
+    }
+
     public function autocomplete(Request $request)
     {
         $q = $request->input('q', '');
@@ -21,6 +30,10 @@ class SearchController extends Controller
             $limitTours += $limitPlaces;
         }
         $tours = Tour::autocomplete($q)->take($limitTours)->get()->map->shortInfo();
+
+        if(!$tours->count() && !$places->count()) {
+            $this->service->handleWrongRequest($request);
+        }
 
         return response()->json([
             'tours' => $tours,
