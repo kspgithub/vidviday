@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LanguageLine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class TranslationController extends Controller
 {
@@ -16,11 +17,21 @@ class TranslationController extends Controller
         if ($request->ajax()) {
             $query = LanguageLine::query();
             $group = $request->input('group', '*');
-            $query->where('group', $group);
+
+            if(!empty($q) && $group !== '*') {
+                $query->where('group', $group);
+            }
 
             $q = $request->input('q', '');
+
             if (!empty($q)) {
-                $query->where(fn ($sq) => $sq->jsonLike('text', "%$q%")->orWhere('key', 'LIKE', "%$q%"));
+                $query->where(function ($sq) use ($group, $q) {
+                    $sq->jsonLike('text', "%$q%")->orWhere('key', 'LIKE', "%$q%");
+
+                    if ($group === '*') {
+                        $sq->orWhere(DB::raw('CONCAT(`group`, ".", `key`)'), 'LIKE', "%$q%");
+                    }
+                });
             }
 
             $order = explode(':', $request->input('order', 'key:asc'));

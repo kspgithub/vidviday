@@ -13043,3 +13043,21 @@ input[name="viber"]:-ms-input-placeholder {
 #seo-shorten-text {
     transition: height 0.4s ease-in-out;
 }
+
+
+@media (max-width: 1200px) {
+    .dropdown-toggle li > a {
+        display: block;
+    }
+
+    li.dropdown {
+        margin-bottom: 20px;
+    }
+
+    li.dropdown > a {
+        display: inline-block;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+

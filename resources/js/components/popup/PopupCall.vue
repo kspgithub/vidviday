@@ -28,14 +28,14 @@
 
                 <div class="col-md-6 col-12">
                     <select name="question_type" required v-model="data.question_type">
-                        <option value="" selected disabled>Тип запитання *</option>
+                        <option value="" selected disabled>{{__('common.question-type')}} *</option>
                         <option v-for="questionType in questionTypes" :value="questionType.value">{{questionType.title}}</option>
                     </select>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <div class="single-datepicker">
-                        <form-datepicker name="call_date" v-model="data.call_date" required label="Дата дзвінка"/>
+                        <form-datepicker name="call_date" v-model="data.call_date" required :label="__('common.call-date')"/>
                     </div>
                 </div>
 
@@ -43,7 +43,7 @@
                     <div class="timepicker-input">
 
                         <select name="call_time" v-model="data.call_time" required>
-                            <option value="" selected disabled>Час дзвінка</option>
+                            <option value="" selected disabled>{{__('common.call-date')}}</option>
                             <option value="11:00">11:00</option>
                             <option value="12:00">12:00</option>
                             <option value="13:00">13:00</option>
@@ -60,7 +60,7 @@
 
                 <div class="col-12">
                     <utm-fields/>
-                    <form-textarea name="comment" v-model="data.comment" label="Примітки"/>
+                    <form-textarea name="comment" v-model="data.comment" :label="__('certificate-section.notes')"/>
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">

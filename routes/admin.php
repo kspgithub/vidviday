@@ -236,6 +236,10 @@ Route::patch('questions/{testimonial}', [TestimonialController::class, 'updateQu
 Route::get('user_questions', [TestimonialController::class, 'userQuestions'])->name('testimonial.user_questions');
 Route::get('user_questions/{testimonial}', [TestimonialController::class, 'editUserQuestion'])->name('testimonial.user_questions.edit');
 Route::patch('user_questions/{testimonial}', [TestimonialController::class, 'updateUserQuestion'])->name('testimonial.user_questions.update');
+Route::get('user_subscriptions', [TestimonialController::class, 'userSubscriptions'])->name('testimonial.user_subscriptions');
+Route::patch('user_subscriptions/{testimonial}', [TestimonialController::class, 'updateUserSubscription'])->name('testimonial.user_subscriptions.update');
+Route::get('agency_subscriptions', [TestimonialController::class, 'agencySubscriptions'])->name('testimonial.agency_subscriptions');
+Route::patch('agency_subscriptions/{testimonial}', [TestimonialController::class, 'updateAgencySubscription'])->name('testimonial.agency_subscriptions.update');
 // QUESTION TYPES
 Route::resource('question_types', QuestionTypesController::class);
 
