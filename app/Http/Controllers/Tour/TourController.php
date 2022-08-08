@@ -41,13 +41,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TourController extends Controller
 {
-    protected TourService $service;
-
-    public function __construct(TourService $service)
-    {
-        $this->service = $service;
-    }
-
     /**
      * @param Request $request
      * @param TourGroup|null|mixed $group
@@ -60,7 +53,7 @@ class TourController extends Controller
             $request_title = TourService::searchRequestTitle($request->all());
 
             if(!$tours->count() && ($q = $request->get('q'))) {
-                $this->service->handleWrongRequest($request);
+                TourService::handleWrongRequest($request);
             }
 
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);

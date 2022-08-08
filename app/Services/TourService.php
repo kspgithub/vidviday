@@ -306,7 +306,7 @@ class TourService extends BaseService
         return $discounts->get()->merge($tourDiscounts->get());
     }
 
-    public function handleWrongRequest(Request $request): void
+    public static function handleWrongRequest(Request $request): void
     {
         $q = $request->get('q');
 

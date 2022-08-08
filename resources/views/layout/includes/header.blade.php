@@ -125,26 +125,35 @@
                                            class="dropdown-title">{{$menuItem->title}}</a>
                                         <span class="dropdown-btn"></span>
                                         <div class="dropdown-toggle">
-                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )
+                                            @foreach($menuItem->children->chunk(site_option('menu_column_items', 7)) as $chunk)
                                                 <ul>
-                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)
+                                                    @foreach($chunk as $menuChildren)
                                                         <li class="{{$menuChildren->class_name ?? ''}}">
                                                             <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
-                                            @endif
-                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )
-                                                <ul>
-                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)
-                                                        @if(!$menuChildren->page || $menuChildren->page->published)
-                                                            <li class="{{$menuChildren->class_name ?? ''}}">
-                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            @endif
+                                            @endforeach
+{{--                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)--}}
+{{--                                                        <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                        </li>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
+{{--                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)--}}
+{{--                                                        @if(!$menuChildren->page || $menuChildren->page->published)--}}
+{{--                                                            <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                            </li>--}}
+{{--                                                        @endif--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
                                         </div>
                                     </li>
                                 @else

@@ -33,6 +33,7 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'google_analytics', 'value' => '', 'title' => 'Google analytics', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
             ['key' => 'facebook_chat', 'value' => '', 'title' => 'Facebook chat', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
             ['key' => 'complaints_image', 'value' => '', 'title' => 'Complaints image', 'primary' => true, 'type' => SiteOption::TYPE_IMAGE],
+            ['key' => 'menu_column_items', 'value' => 7, 'title' => 'Menu items per column', 'primary' => true, 'type' => SiteOption::TYPE_INTEGER],
         ];
 
         foreach ($site_options as $option) {

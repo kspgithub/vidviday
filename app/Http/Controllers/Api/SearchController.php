@@ -11,13 +11,6 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    protected TourService $service;
-
-    public function __construct(TourService $service)
-    {
-        $this->service = $service;
-    }
-
     public function autocomplete(Request $request)
     {
         $q = $request->input('q', '');
@@ -32,7 +25,7 @@ class SearchController extends Controller
         $tours = Tour::autocomplete($q)->take($limitTours)->get()->map->shortInfo();
 
         if(!$tours->count() && !$places->count()) {
-            $this->service->handleWrongRequest($request);
+            TourService::handleWrongRequest($request);
         }
 
         return response()->json([
