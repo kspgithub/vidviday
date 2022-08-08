@@ -14,7 +14,7 @@
                     {{ __('popup.return') }}
                 </span>
             </div>
-            <div class="btn-close">
+            <div class="btn-close" @click.prevent.stop="closePopup()">
                 <span></span>
             </div>
         </div>

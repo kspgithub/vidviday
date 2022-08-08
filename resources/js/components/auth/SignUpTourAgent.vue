@@ -11,8 +11,6 @@
         <div class="form row">
             <input type="hidden" name="role" value="tour-agent"/>
 
-            <button @click.prevent="fillForm">fill</button>
-
             <div class="col-12">
                 <span class="h3">{{ __('auth.travel-agency-info') }}</span>
                 <div class="spacer-xs"></div>
@@ -130,26 +128,8 @@ export default {
             work_email: '',
         });
 
-        const fillForm = () => {
-            data.first_name = 'fsdfsdfsd'
-            data.last_name = 'fsdfsdfsd'
-            data.middle_name = 'fsdfsdfsd'
-            data.birthday = '01.01.2020'
-            data.email = 'maksym.shekhovtsev@gmail.com'
-            data.mobile_phone = '+380345436576'
-            data.password = 'secret12345'
-            data.password_confirmation = 'secret12345'
-            data.company = 'fsdfsdfsd'
-            data.address = 'fsdfsdfsd'
-            data.position = 'fsdfsdfsd'
-            data.website = 'fsdfsdfsd'
-            data.work_phone = '+380345436576'
-            data.work_email = 'fsdfds@fsdfs.fsdfds'
-        }
-
         return {
             data,
-            fillForm,
         }
     }
 }

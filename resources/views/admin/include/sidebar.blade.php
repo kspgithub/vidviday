@@ -365,6 +365,14 @@
                             <a class="sidebar-link"
                                href="{{route('admin.testimonial.user_questions')}}">@lang('User Questions')</a>
                         </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.testimonial.user_subscriptions')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.testimonial.user_subscriptions')}}">@lang('User Subscriptions')</a>
+                        </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.testimonial.agency_subscriptions')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.testimonial.agency_subscriptions')}}">@lang('Agency Subscriptions')</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="sidebar-item {{routeActiveClass('admin.page*')}}">
