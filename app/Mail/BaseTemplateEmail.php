@@ -13,7 +13,7 @@ class BaseTemplateEmail extends Mailable
         $mail = $this->from(config('mail.from.address'), config('mail.from.name'));
 
         /** @var $template EmailTemplate */
-        $template = EmailTemplate::query()->where('mailable', self::class)->first();
+        $template = EmailTemplate::query()->where('mailable', static::class)->first();
 
         $locale = app()->getLocale();
 
@@ -23,8 +23,8 @@ class BaseTemplateEmail extends Mailable
             $mail->subject($subject);
             $mail->html(Blade::render($html, $this->buildViewData()));
         } else {
-            $mail->subject(__(self::$subjectKey))
-                ->view(self::$viewKey);
+            $mail->subject(__(static::$subjectKey))
+                ->view(static::$viewKey);
         }
 
         return $mail;
