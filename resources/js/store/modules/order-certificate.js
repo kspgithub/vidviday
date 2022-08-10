@@ -64,7 +64,8 @@ export default {
                 total += state.formData.sum || 0;
             }
             if (state.formData.type === 'tour' && state.tour) {
-                total += ((state.tour.price || 0) + (state.tour.commission || 0)) * state.formData.places;
+                // total += ((state.tour.price || 0) + (state.tour.commission || 0)) * state.formData.places;
+                total += (state.tour.price || 0) * state.formData.places;
             }
             if (state.formData.packing === 1) {
                 total += getters.selectedPacking ? getters.selectedPacking.price : 0;
