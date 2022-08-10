@@ -4,16 +4,18 @@ namespace App\Mail;
 
 use App\Models\UserQuestion;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserQuestionManagerEmail extends Mailable
+class UserQuestionManagerEmail extends BaseTemplateEmail
 {
     use Queueable, SerializesModels;
 
 
     public UserQuestion $userQuestion;
+
+    public static $subjectKey = 'emails.user_question.subject';
+
+    public static $viewKey = 'emails.user_question';
 
     /**
      * Create a new message instance.
@@ -24,21 +26,5 @@ class UserQuestionManagerEmail extends Mailable
     {
         //
         $this->userQuestion = $userQuestion;
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        $view = $this->view('emails.user_question');
-
-        if($this->userQuestion->attachment) {
-            $view->attach($this->userQuestion->attachment_url);
-        }
-
-        return $view;
     }
 }

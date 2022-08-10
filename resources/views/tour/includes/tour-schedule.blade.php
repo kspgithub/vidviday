@@ -31,8 +31,19 @@
                             </span>
                         @endif
                     </div>
-                    <a href="{{route('tour.order', ['tour'=>$tour->id, 'schedule'=>$future_event->id])}}"
-                       class="btn type-1">@lang('tours-section.order')</a>
+
+                    <a v-is="'tour-order-schedule-button'"
+                       :tour='@json($tour)'
+                       :schedule='@json($future_event)'
+                       class="btn type-1"
+                    ></a>
+
+{{--                    @if($future_event->places_available === 0 || ($future_event->places_available >= 2 && $future_event->places_available <= 10))--}}
+
+{{--                    @else--}}
+{{--                        <a href="{{route('tour.order', ['tour'=>$tour->id, 'schedule'=>$future_event->id])}}"--}}
+{{--                           class="btn type-1">@lang('tours-section.order')</a>--}}
+{{--                    @endif--}}
                 </div>
             @endforeach
 

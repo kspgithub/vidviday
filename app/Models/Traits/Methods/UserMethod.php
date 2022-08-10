@@ -110,13 +110,17 @@ trait UserMethod
     public function viewTour($id)
     {
         if ($this->tourHistory()->whereId($id)->count() > 0) {
-            $this->tourHistory()->detach([$id]);
+            $this->tourHistory()->detach($id);
         }
-        $this->tourHistory()->attach([$id]);
-        if ($this->tourHistory()->count() > 36) {
-            $detach_ids = array_slice(array_values($this->tourHistory()->get(['id'])->pluck('id')->toArray()), 36);
-            $this->tourHistory()->detach($detach_ids);
-        }
+        $this->tourHistory()->attach($id, ['created_at' => now(), 'updated_at' => now()]);
+
+        // todo: Для чего задан лимит? почему 36?
+//        $count = $this->tourHistory()->count();
+//        $limit = 36;
+//        if ($count > $limit) {
+//            $detach_ids = array_slice(array_values($this->tourHistory()->get(['id'])->pluck('id')->toArray()), $limit);
+//            $this->tourHistory()->detach($detach_ids);
+//        }
     }
 
 

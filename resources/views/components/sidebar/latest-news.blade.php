@@ -15,7 +15,7 @@
                     <div class="news-item">
                         <a href="{{ route("news.single", ["slug" => $post->slug]) }}"
                            class="title">{{ $post->title }}</a>
-                        <div class="news-date">{{ $post->created_at->format("d.m.Y") }}</div>
+                        <div class="news-date">{{ $post->created_at?->format("d.m.Y") }}</div>
                     </div>
 
                 @endforeach

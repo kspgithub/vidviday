@@ -12,13 +12,16 @@ use App\Models\TourDiscount;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
+use App\Models\WrongQuery;
 use Cache;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 use Spatie\Image\Manipulations;
 
 class TourService extends BaseService
@@ -42,21 +45,22 @@ class TourService extends BaseService
 
         return Cache::remember('filter-options-' . $locale, 1, function () {
             $places = Place::published()->whereHas('tours', function ($sq) {
-                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
-                });
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
+                return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
-                });
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
+                return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
             $subjects = TourSubject::published()->toSelectBox()->toArray();
             $types = TourType::published()->toSelectBox()->toArray();
             $directions = Direction::published()->toSelectBox()->toArray();
-
 
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
@@ -301,5 +305,20 @@ class TourService extends BaseService
         }
 
         return $discounts->get()->merge($tourDiscounts->get());
+    }
+
+    public static function handleWrongRequest(Request $request): void
+    {
+        $q = $request->get('q');
+
+        RateLimiter::attempt(
+            'wrong-requests.' . $q . '.' . $request->ip(),
+            1,
+            function() use ($q) {
+                $wrongQuery = WrongQuery::query()->firstOrNew(['query' => $q],['query' => $q, 'count' => 0]);
+                $wrongQuery->count++;
+                $wrongQuery->save();
+            }
+        );
     }
 }

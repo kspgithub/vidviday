@@ -36,7 +36,7 @@
 
             <x-forms.datepicker-group name="created_at"
                                       :label="__('Created At')"
-                                      :value="old('created_at', $news->created_at->format('d.m.Y'))"
+                                      :value="old('created_at', $news->created_at?->format('d.m.Y'))"
             />
 
         </x-slot>

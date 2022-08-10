@@ -118,38 +118,61 @@
                     </div>
                     <ul>
                         @foreach($menu->items as $menuItem)
-                            @if(!$menuItem->page || $menuItem->page->published)
+                            @if(!$menuItem->page || ($menuItem->page->published && $menuItem->page->isAvailableFor(Auth::user())))
                                 @if($menuItem->children->count() > 0)
                                     <li class="dropdown {{$menuItem->class_name ?? ''}}">
                                         <a href="/{{ltrim($menuItem->url, '/')}}"
                                            class="dropdown-title">{{$menuItem->title}}</a>
                                         <span class="dropdown-btn"></span>
                                         <div class="dropdown-toggle">
-                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )
+                                            @foreach($menuItem->children->chunk(site_option('menu_column_items', 7)) as $chunk)
                                                 <ul>
-                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)
-                                                        <li class="{{$menuChildren->class_name ?? ''}}">
-                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )
-                                                <ul>
-                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)
-                                                        @if(!$menuChildren->page || $menuChildren->page->published)
+                                                    @foreach($chunk as $menuChildren)
+                                                        @if(!$menuChildren->page || ($menuChildren->page->published && $menuChildren->page->isAvailableFor(Auth::user())))
                                                             <li class="{{$menuChildren->class_name ?? ''}}">
                                                                 <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
-                                            @endif
+                                            @endforeach
+{{--                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)--}}
+{{--                                                        <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                        </li>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
+{{--                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)--}}
+{{--                                                        @if(!$menuChildren->page || $menuChildren->page->published)--}}
+{{--                                                            <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                            </li>--}}
+{{--                                                        @endif--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
                                         </div>
                                     </li>
                                 @else
                                     <li class="{{$menuItem->class_name ?? ''}}">
-                                        <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                        @if($menuItem->class_name === 'only-pad-mobile')
+                                            @env(['production'])
+                                                <span v-is="'popup-email-btn'">
+                                                    {{ $menuItem->title }}
+                                                </span>
+                                            @endenv
+
+                                            @env(['local', 'development'])
+                                                <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                            @endenv
+                                        @else
+                                            <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                        @endif
                                     </li>
                                 @endif
                             @endif

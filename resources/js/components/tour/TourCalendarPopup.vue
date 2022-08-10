@@ -1,11 +1,10 @@
 <template>
-    <popup size="size-1" :active="popupOpen" @hide="closePopup()">
+    <popup v-if="popupOpen" size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-header">
             <span class="h2 title text-medium">{{ __('tours-section.popup-date-title') }}</span>
         </div>
         <div class="popup-align p-0">
             <tour-calendar :events="events"
-
                            :view-change="false"
                            :footer="false"
                            @event-click="onClick"
@@ -38,8 +37,8 @@ export default {
         const closePopup = () => store.commit('orderTour/SET_CALENDAR_OPEN', false);
 
         const onClick = (event) => {
-            store.commit('orderTour/SET_CALENDAR_OPEN', false);
             store.commit('orderTour/UPDATE_FORM_DATA', {schedule_id: event.id});
+            store.commit('orderTour/SET_CALENDAR_OPEN', false);
         }
         return {
             popupOpen,

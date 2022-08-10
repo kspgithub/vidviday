@@ -38,11 +38,14 @@ class LatestTestimonials extends Component
                 break;
         }
 
-
         $this->testimonials = Cache::remember(
             'latest__testimonials_' . $type,
             60,
-            fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->where('model_type', $class))->latest()->take(10)->get()
+            fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->where('model_type', $class))
+                ->where('rating', '>=', 4)
+                ->orderBy('rating', 'desc')
+                ->latest()
+                ->take(2)->get()
         );
     }
 
