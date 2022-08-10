@@ -24,6 +24,12 @@
                                 :value="old('video', $page->video)"></x-forms.text-group>
 
             <x-forms.switch-group name="published" :label="__('Published')" :active="$page->published"/>
+
+            <x-forms.tag-group name="roles[]"
+                               :label="__('Roles')"
+                               :value="$page->roles ?  $page->roles->pluck('id')->toArray() : []"
+                               :options="$roles">
+            </x-forms.tag-group>
         </x-slot>
 
     </x-bootstrap.card>

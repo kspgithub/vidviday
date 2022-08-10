@@ -118,7 +118,7 @@
                     </div>
                     <ul>
                         @foreach($menu->items as $menuItem)
-                            @if(!$menuItem->page || $menuItem->page->published)
+                            @if(!$menuItem->page || ($menuItem->page->published && $menuItem->page->isAvailableFor(Auth::user())))
                                 @if($menuItem->children->count() > 0)
                                     <li class="dropdown {{$menuItem->class_name ?? ''}}">
                                         <a href="/{{ltrim($menuItem->url, '/')}}"
@@ -128,9 +128,11 @@
                                             @foreach($menuItem->children->chunk(site_option('menu_column_items', 7)) as $chunk)
                                                 <ul>
                                                     @foreach($chunk as $menuChildren)
-                                                        <li class="{{$menuChildren->class_name ?? ''}}">
-                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
-                                                        </li>
+                                                        @if(!$menuChildren->page || ($menuChildren->page->published && $menuChildren->page->isAvailableFor(Auth::user())))
+                                                            <li class="{{$menuChildren->class_name ?? ''}}">
+                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
+                                                            </li>
+                                                        @endif
                                                     @endforeach
                                                 </ul>
                                             @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\Role;
 use App\Models\Staff;
 use App\Rules\TranslatableSlugRule;
 use App\Rules\UniqueSlugRule;
@@ -40,7 +41,13 @@ class PageController extends Controller
         //
         $page = new Page();
         $managers = Staff::all()->map->asSelectBox();
-        return view('admin.page.create', ['page' => $page, 'managers' => $managers]);
+        $roles = Role::toSelectBox();
+
+        return view('admin.page.create', [
+            'page' => $page,
+            'managers' => $managers,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -66,6 +73,8 @@ class PageController extends Controller
             'slug.ru' => ['required', new UniqueSlugRule('pages', 'slug')],
             'slug.en' => ['required', new UniqueSlugRule('pages', 'slug')],
             'slug.pl' => ['required', new UniqueSlugRule('pages', 'slug')],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['exists:roles,id'],
         ]);
 
         if ($validator->fails()) {
@@ -77,6 +86,7 @@ class PageController extends Controller
         $page = new Page();
         $page->fill($params);
         $page->save();
+        $page->roles()->sync($params['roles'] ?? []);
 
         return redirect()->route('admin.page.edit', $page)->withFlashSuccess(__('Record Created'));
     }
@@ -92,7 +102,13 @@ class PageController extends Controller
     {
         //
         $managers = Staff::all()->map->asSelectBox();
-        return view('admin.page.edit', ['page' => $page, 'managers' => $managers]);
+        $roles = Role::toSelectBox();
+
+        return view('admin.page.edit', [
+            'page' => $page,
+            'managers' => $managers,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -124,6 +140,8 @@ class PageController extends Controller
                 'slug.ru' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
                 'slug.en' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
                 'slug.pl' => ['required', new UniqueSlugRule('pages', 'slug', $page->id)],
+                'roles' => ['nullable', 'array'],
+                'roles.*' => ['exists:roles,id'],
             ]);
         }
 
@@ -133,6 +151,7 @@ class PageController extends Controller
 
         $page->fill($params);
         $page->save();
+        $page->roles()->sync($params['roles'] ?? []);
 
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
