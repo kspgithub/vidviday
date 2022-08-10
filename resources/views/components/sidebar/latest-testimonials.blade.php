@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="bottom-part">
-            <div class="latest-testimonials only-desktop">
+            <div class="latest-testimonials">
                 @foreach($testimonials as $i => $testimonial)
                     <div class="review" {{--style="{{ $i > 1 ? 'display: none' : '' }}"--}}>
                         <div class="review-header">
@@ -25,91 +25,33 @@
                                 <span class="h4">{{$testimonial->name}}</span>
                                 <span class="text text-sm">{{$testimonial->created_at->format('d.m.Y')}}</span>
                                 <span class="text text-sm">{{$testimonial->created_at->format('H:i')}}</span>
-                                <x-tour.star-rating :value="$testimonial->rating"/>
+                                <x-tour.star-rating :rating="$testimonial->rating"/>
                             </div>
                         </div>
                         <div class="text">
-                            @if($type === 'tour')
+                            @if($testimonial->tour)
                                 <p>@lang('Tour'): <a
-                                        href="{{$testimonial->tour->url}}">{{$testimonial->tour->title}}</a>
+                                        href="{{$testimonial->tour->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->tour->title)), 50)}}</a>
                                 </p>
                             @endif
-                            <p>{{$testimonial->text}}</p>
+                            <div class="seo-text load-more-wrapp p-0 m-0">
+                                <div class="less-info">
+                                    <p>{!! str_limit(strip_tags(html_entity_decode($testimonial->text)), 100) !!}</p>
+                                </div>
+                                <div class="more-info">
+                                    <p>{!! $testimonial->text !!}</p>
+                                </div>
+                                <div class="show-more">
+                                    <span>Читати більше</span>
+                                    <span>Сховати текст</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
-                <a href="{{$btnUrl}}" class="btn type-2 btn-block {{--show_more--}}">{{$btnText}}</a>
+                <a href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</a>
             </div>
-
-            <div class="only-pad-mobile">
-                <div class="swiper-entry">
-                    <div class="swiper-button-prev inner bottom-2 only-mobile">
-                        <i></i>
-                    </div>
-                    <div class="swiper-button-next inner bottom-2 only-mobile">
-                        <i></i>
-                    </div>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            @foreach($testimonials as $testimonial)
-                                <div class="swiper-slide">
-                                    <div class="review">
-                                        <div class="review-header">
-                                            <div class="review-img">
-                                                @if($testimonial->avatar || empty($testimonial->initials))
-                                                    <img src="{{asset('/img/preloader.png')}}"
-                                                         data-img-src="{{$testimonial->avatar_url}}"
-                                                         alt="user">
-                                                @else
-                                                    <span class="h4 full-size">{{$testimonial->initials}}</span>
-                                                @endif
-                                            </div>
-                                            <div class="review-title">
-                                                <span class="h4">{{$testimonial->name}}</span>
-                                                {{--                                <span class="text text-sm">туроператор «Піраміда Тур»</span>--}}
-                                            </div>
-                                        </div>
-                                        <div class="text">
-                                            <p>{{str_limit($testimonial->text, 200)}}</p>
-                                        </div>
-                                    </div>
-                                    @if(strlen($testimonial->text) > 200)
-                                        <div class="seo-text load-more-wrapp">
-                                            <div class="more-info">
-                                                <div class="text">
-                                                    <p>{!! $testimonial->text !!}</p>
-                                                </div>
-                                                <div class="spacer-xs"></div>
-                                            </div>
-                                            <div class="show-more">
-                                                <span>Читати більше</span>
-                                                <span>Сховати текст</span>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="swiper-pagination relative"></div>
-                </div>
-            </div>
-
 
         </div>
     </div>
 @endif
-
-@push('after-scripts')
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            $('.latest-testimonials a.show_more').click(function (e) {
-                e.preventDefault()
-
-                $(this).parents('.latest-testimonials').find('.review[style]').removeAttr('style')
-
-                $(this).off('click')
-            })
-        })
-    </script>
-@endpush

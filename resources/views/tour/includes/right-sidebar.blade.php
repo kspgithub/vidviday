@@ -29,7 +29,14 @@
         @include('tour.includes.sidebar-reviews')
 
         <div class="only-mobile hidden-print">
-            <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
+
+            <a v-is="'tour-order-schedule-button'"
+               href="{{route('tour.order', $tour)}}"
+               :tour='@json($tour)'
+               :schedule='@json($nearest_event)'
+               class="btn type-1 btn-block"
+            ></a>
+
         </div>
     </div>
 

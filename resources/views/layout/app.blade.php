@@ -40,6 +40,9 @@
             {!! $ga !!}
         @endif
     @endproduction
+    <script>
+        window.APP_ENV = '{{app()->environment()}}';
+    </script>
 
 </head>
 <body class="{{$body_class ?? ''}}">

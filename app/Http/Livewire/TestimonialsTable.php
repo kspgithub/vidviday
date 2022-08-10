@@ -10,6 +10,7 @@ use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -138,6 +139,10 @@ class TestimonialsTable extends DataTableComponent
             $item->status = Testimonial::STATUS_PUBLISHED;
             $item->save();
         }
+
+        Cache::forget('latest__testimonials_tour');
+        Cache::forget('latest__testimonials_staff');
+        Cache::forget('latest__testimonials_all');
     }
 
     public function blockItem($id)
@@ -147,6 +152,10 @@ class TestimonialsTable extends DataTableComponent
             $item->status = Testimonial::STATUS_BLOCKED;
             $item->save();
         }
+
+        Cache::forget('latest__testimonials_tour');
+        Cache::forget('latest__testimonials_staff');
+        Cache::forget('latest__testimonials_all');
     }
 
     public function createItem($parent_id)
@@ -176,6 +185,10 @@ class TestimonialsTable extends DataTableComponent
         $this->parent_id = 0;
         $this->text = '';
         $this->edit = false;
+
+        Cache::forget('latest__testimonials_tour');
+        Cache::forget('latest__testimonials_staff');
+        Cache::forget('latest__testimonials_all');
     }
 
     public function cancelEdit()

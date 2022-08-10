@@ -31,7 +31,7 @@
                     <span>—</span>
                 </li>
                 <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span itemprop="title">{{ __('Вакансії') }}</span>
+                    <span itemprop="title">{{ __('Courses') }}</span>
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->

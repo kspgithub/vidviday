@@ -103,4 +103,18 @@ class BannerController extends Controller
         $banner->delete();
         return redirect()->route('admin.banner.index')->withFlashSuccess(__('Record Deleted'));
     }
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Banner $banner
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Banner $banner)
+    {
+        $banner->published = (int)$request->input('published');
+        $banner->save();
+        return response()->json(['result' => 'success']);
+    }
 }

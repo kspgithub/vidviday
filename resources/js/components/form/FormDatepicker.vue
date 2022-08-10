@@ -10,7 +10,7 @@
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
         </div>
-        <input :name="name" :value="innerValue" type="text" :class="{'d-none': !open}" @change="manualChange">
+        <input autofocus ref="pickerInput" :name="name" :value="innerValue" type="text" class="dr" :class="{'d-none': !open}">
     </div>
 </template>
 
@@ -37,6 +37,10 @@ export default {
         valueFormat: {
             type: String,
             default: 'dd.mm.yyyy' // http://t1m0n.name/air-datepicker/docs/index-ru.html#sub-section-9
+        },
+        placeholder: {
+            type: String,
+            default: 'DD.MM.YYYY' // http://t1m0n.name/air-datepicker/docs/index-ru.html#sub-section-9
         },
         minDate: {
             type: String,
@@ -66,6 +70,7 @@ export default {
 
         const pickerRef = ref(null);
         const pickerEl = ref(null);
+        const pickerInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
 
@@ -74,7 +79,6 @@ export default {
                 ? props.label
                 : moment(props.modelValue, props.valueFormat.toUpperCase()).format(props.displayFormat);
         });
-
 
         const filled = computed(() => !!props.modelValue);
 
@@ -103,8 +107,14 @@ export default {
         }
 
         const manualChange = (event) => {
-            const $target = $(event.target);
-            const val = $target.val()
+            let val
+
+            if(event && event.target) {
+                let $target = $(event.target);
+                val = $target.val()
+            } else {
+                val = event
+            }
 
             let date = moment(val, props.valueFormat.toUpperCase()).toDate()
 
@@ -120,7 +130,9 @@ export default {
                 dayCell.click()
             }
 
-            close(event)
+            if(event && event.target) {
+                close(event)
+            }
         }
 
         onMounted(() => {
@@ -142,6 +154,24 @@ export default {
 
             $(pickerEl.value).datepicker('option', 'disabled', props.disabled);
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
+
+            $(pickerInput.value).inputmask({
+                placeholder: props.placeholder,
+                mask: "99.99.9999",
+                clearMaskOnLostFocus: true,
+                definitions: {
+                    'x': {
+                        validator: "[1-9]"
+                    },
+                    '9': {
+                        validator: "[0-9]"
+                    }
+                }
+            }).on('change', function (event){
+                if(/^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(event.target.value)) {
+                    manualChange(event.target.value)
+                }
+            });
 
             // document.addEventListener('click', clickOutside);
         });
@@ -192,6 +222,7 @@ export default {
         return {
             pickerRef,
             pickerEl,
+            pickerInput,
             filled,
             displayLabel,
             locale,
@@ -202,6 +233,11 @@ export default {
             innerValue,
             manualChange,
             onClickOutside,
+        }
+    },
+    watch: {
+        open(val, old) {
+
         }
     }
 }

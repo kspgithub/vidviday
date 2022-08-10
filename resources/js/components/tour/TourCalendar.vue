@@ -167,7 +167,6 @@ export default {
             }, props.options)
         );
 
-
         watch(viewType, () => {
             const calendar = calendarEl.value.getApi();
             calendar.changeView(viewType.value);
@@ -177,6 +176,12 @@ export default {
             calendarOptions.value.events.extraParams = props.filter;
         }, 500));
 
+        onMounted(() => {
+            const calendar = calendarEl.value.getApi();
+            calendar.changeView(viewType.value);
+
+            calendarOptions.value.events.extraParams = props.filter;
+        })
 
         return {
             t,

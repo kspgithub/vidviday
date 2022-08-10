@@ -1,5 +1,8 @@
 <template>
     <div class="thumb">
+        <span style="font-size: 14px; color: black">Views: {{tour.views_count}}</span>
+        <span style="font-size: 14px; color: black">Votes: {{tour.votings_count}}</span>
+        <span style="font-size: 14px; color: black">Date: {{tour.date}}</span>
         <div class="thumb-img">
             <tour-badge v-for="(badge, idx) in tour.badges"
                         :key="'badge-'+tour.id + '-' + badge.id"

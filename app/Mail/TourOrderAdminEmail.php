@@ -4,15 +4,17 @@ namespace App\Mail;
 
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TourOrderAdminEmail extends Mailable
+class TourOrderAdminEmail extends BaseTemplateEmail
 {
     use Queueable, SerializesModels;
 
     public $order;
+
+    public static $subjectKey = 'emails.order-tour.subject';
+
+    public static $viewKey = 'emails.order-tour';
 
     /**
      * Create a new message instance.
@@ -23,24 +25,5 @@ class TourOrderAdminEmail extends Mailable
     {
         //
         $this->order = $order;
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        $emails = [site_option('order_email')];
-
-        if ($this->order->tour && $this->order->tour->staff  && !empty($this->order->tour->staff->email)) {
-            $emails[] = $this->order->tour->staff->email;
-        }
-
-        return $this->from(config('mail.from.address'), config('mail.from.name'))
-            ->to($emails)
-            ->subject('Нове замовлення на Vidiviay.ua')
-            ->view('emails.order-tour');
     }
 }

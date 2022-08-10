@@ -4,15 +4,17 @@ namespace App\Mail;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RegistrationAdminEmail extends Mailable
+class RegistrationAdminEmail extends BaseTemplateEmail
 {
     use Queueable, SerializesModels;
 
     public $user;
+
+    public static $subjectKey = 'emails.registration.subject';
+
+    public static $viewKey = 'emails.registration-admin';
 
     /**
      * Create a new message instance.
@@ -23,19 +25,5 @@ class RegistrationAdminEmail extends Mailable
     {
         //
         $this->user = $user;
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this
-            ->from(config('mail.from.address'), config('mail.from.name'))
-            ->to(site_option('tour_agent_email'))
-            ->subject('Нова реєстрація турагента')
-            ->view('emails.registration-admin');
     }
 }

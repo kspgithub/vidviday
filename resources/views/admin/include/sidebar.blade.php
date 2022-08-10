@@ -375,6 +375,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.wrong_requests*')}}">
+                    <a class="sidebar-link" href="{{route('admin.wrong_requests.index')}}">
+                        <i class="align-middle" data-feather="file-text"></i> <span
+                            class="align-middle">@lang('Wrong requests')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.page*')}}">
                     <a class="sidebar-link" href="{{route('admin.page.index')}}">
                         <i class="align-middle" data-feather="file-text"></i> <span

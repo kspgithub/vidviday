@@ -117,4 +117,20 @@ class Page extends TranslatableModel implements HasMedia
     {
         return $this->hasMany(Recommendation::class, 'page_id')->orderBy('sort_order');
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function isAvailableFor(User|null $user)
+    {
+        $roles = $this->roles->pluck('name')->toArray();
+
+        if($roles) {
+            return $user && $user->hasRole([$roles]);
+        }
+
+        return true;
+    }
 }

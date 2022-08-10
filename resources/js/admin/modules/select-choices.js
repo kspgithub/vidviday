@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const values = plug.getValue(true);
 
         });
+
+        el.dataset.options = JSON.stringify(plug.config.choices)
     });
 
 
