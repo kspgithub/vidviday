@@ -7,6 +7,7 @@ import store from "./store";
 app.use(store);
 
 app.config.globalProperties.$isProd = store.state.isProd
+app.config.globalProperties.$isDev = store.state.isDev
 
 import i18n from './i18n';
 

@@ -4,11 +4,9 @@ namespace App\Mail;
 
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderStatusEmail extends Mailable
+class OrderStatusEmail extends BaseTemplateEmail
 {
     use Queueable, SerializesModels;
 
@@ -22,6 +20,10 @@ class OrderStatusEmail extends Mailable
      */
     public $notifyMessage;
 
+    public static $subjectKey = 'emails.order-status.subject';
+
+    public static $viewKey = 'emails.order-status';
+
     /**
      * Create a new message instance.
      *
@@ -32,17 +34,5 @@ class OrderStatusEmail extends Mailable
         //
         $this->order = $order;
         $this->notifyMessage = $notifyMessage;
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('emails.order-status')
-            ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject('Замовлення туру #' . $this->order->order_number);
     }
 }

@@ -17,72 +17,119 @@ use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
+use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use ReflectionClass;
-use SplFileInfo;
+use ReflectionException;
 
 class EmailTemplateController extends Controller
 {
     protected function getTemplates()
     {
         return [
-            CustomEmail::class => view('emails.custom'),
-            OrderCertificateAdminMail::class => view('emails.order-certificate-admin'),
-            OrderCertificateMail::class => view('emails.order-certificate'),
-            OrderStatusEmail::class => view('emails.order-status'),
-            OrderTransportAdminMail::class => view('emails.order-transport-admin'),
-            OrderTransportMail::class => view('emails.order-transport'),
-            RegistrationAdminEmail::class => view('emails.registration-admin'),
-            RegistrationEmail::class => view('emails.registration'),
-            TourOrderAdminEmail::class => view('emails.order-tour'),
-            TourOrderEmail::class => view('emails.order-tour'),
-            UserQuestionAdminEmail::class => view('emails.user_question'),
-            UserQuestionEmail::class => view('emails.user_question'),
-            UserQuestionManagerEmail::class => view('emails.user_question'),
-            VacancyEmail::class => view('emails.vacancy'),
+            CustomEmail::class => CustomEmail::$viewKey,
+            OrderCertificateAdminMail::class => OrderCertificateAdminMail::$viewKey,
+            OrderCertificateMail::class => OrderCertificateMail::$viewKey,
+            OrderStatusEmail::class => OrderStatusEmail::$viewKey,
+            OrderTransportAdminMail::class => OrderTransportAdminMail::$viewKey,
+            OrderTransportMail::class => OrderTransportMail::$viewKey,
+            RegistrationAdminEmail::class => RegistrationAdminEmail::$viewKey,
+            RegistrationEmail::class => RegistrationEmail::$viewKey,
+            TourOrderAdminEmail::class => TourOrderAdminEmail::$viewKey,
+            TourOrderEmail::class => TourOrderEmail::$viewKey,
+            UserQuestionAdminEmail::class => UserQuestionAdminEmail::$viewKey,
+            UserQuestionEmail::class => UserQuestionEmail::$viewKey,
+            UserQuestionManagerEmail::class => UserQuestionManagerEmail::$viewKey,
+            VacancyEmail::class => VacancyEmail::$viewKey,
         ];
     }
 
     public function index()
     {
-        $templates = array_map(function ($view) {
-            return $view->getName();
-        }, $this->getTemplates());
+        $dbtemplates = EmailTemplate::query()->get();
+
+        $localTemplates = $this->getTemplates();
+
+        $templates = [];
+
+        foreach ($localTemplates as $mailable => $view) {
+            if ($dbEntry = $dbtemplates->where('mailable', $mailable)->first()) {
+                $templates[] = [
+                    ...$dbEntry->toArray(),
+                    'subject' => $dbEntry->subject,
+                    'exists' => true,
+                ];
+            } else {
+                $templates[] = [
+                    'mailable' => $mailable,
+                    'view' => $view,
+                    'subject' => '',
+                    'exists' => false,
+                    'updated_at' => null,
+                ];
+            }
+        }
 
         return view('admin.email-template.index', [
             'templates' => $templates,
         ]);
     }
 
-    public function edit($template)
+    /**
+     * @throws ReflectionException
+     */
+    public function edit($mailable)
     {
-        $templates = $this->getTemplates();
+        $locales = siteLocales();
 
-        $template = Str::replace('-', '\\', $template);
+        $localTemplates = $this->getTemplates();
 
-        $view = $templates[$template];
+        $mailable = Str::replace('-', '\\', $mailable);
 
-        $viewContent = File::get($view->getPath());
+        $view = $localTemplates[$mailable];
+
+        $template = EmailTemplate::query()->where('mailable', $mailable)->firstOrNew();
+
+        if (!$template->exists) {
+
+            $viewContent = File::get(view($view)->getPath());
+
+            $template->html = array_combine($locales, array_map(function ($locale) use ($viewContent) {
+                return $viewContent;
+            }, $locales));
+        }
 
         return view('admin.email-template.edit', [
+            'locales' => $locales,
+            'mailable' => $mailable,
             'template' => $template,
-            'viewContent' => $viewContent,
         ]);
     }
 
-    public function save(Request $request, $template)
+    public function save(Request $request, $mailable)
     {
-        $content = $request->get('content');
+        $html = $request->get('html');
+        $subject = $request->get('subject');
 
-        $templates = $this->getTemplates();
+        $localTemplates = $this->getTemplates();
 
-        $template = Str::replace('-', '\\', $template);
+        $mailable = Str::replace('-', '\\', $mailable);
 
-        $view = $templates[$template];
+        $view = $localTemplates[$mailable];
 
-        File::put($view->getPath(), $content);
+        $emailTemplate = EmailTemplate::query()->where('mailable', $mailable)->firstOrNew([
+            'mailable' => $mailable,
+        ], [
+            'mailable' => $mailable,
+            'view' => $view,
+        ]);
+
+        $emailTemplate->html = $html;
+        $emailTemplate->subject = $subject;
+        $emailTemplate->save();
+
+//        File::put(view($view)->getPath(), $content);
 
         return redirect()->route('admin.email-templates.index')->withFlashSuccess(__('Record Updated'));
     }

@@ -4,6 +4,7 @@ import {createStore, createLogger} from "vuex";
 const plugins = [];
 
 const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 
 if (isProd && false) {
     const logger = createLogger();
@@ -33,7 +34,8 @@ import currency from './modules/currency';
 
 const store = createStore({
     state: {
-        isProd
+        isProd,
+        isDev,
     },
     modules: {
         tourFilter,

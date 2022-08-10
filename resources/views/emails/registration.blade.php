@@ -4,7 +4,7 @@
 @section('content')
     <div class="body">
         <div style="text-align: center;">
-            <span class="title">@lang('Hi'), {{$user->name}}!</span>
+            <span class="title">@lang('emails.register.welcome'), {{$user->name}}!</span>
         </div>
         <!-- TABLE -->
         <x-email.card>
@@ -75,7 +75,7 @@
                 <x-email.btn href="{{url('/')}}">Перейти на сайт</x-email.btn>
             </div>
         </x-email.card>
- 
+
 
     </div>
     <!-- TABLE END -->
