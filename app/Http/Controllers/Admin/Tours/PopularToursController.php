@@ -17,9 +17,9 @@ class PopularToursController extends Controller
      */
     public function index(Request $request)
     {
-        //
         $items = PopularTour::query()->orderBy('position')
             ->with('tour')->paginate($request->input('per_page', 20));
+
         return view('admin.popular-tours.index', ['items' => $items]);
     }
 
@@ -31,7 +31,9 @@ class PopularToursController extends Controller
         //
         $popularTour = new PopularTour();
 
-        $tours = Tour::toSelectBox();
+        $ids = PopularTour::query()->pluck('tour_id')->toArray();
+
+        $tours = Tour::toSelectBox()->filter(fn($tour) => !in_array($tour['value'], $ids));
 
         return view('admin.popular-tours.create', [
             'model' => $popularTour,
