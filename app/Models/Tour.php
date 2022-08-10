@@ -104,6 +104,7 @@ class Tour extends TranslatableModel implements HasMedia
         'locales' => 'array',
         'corporate_includes' => 'array',
         'active_tabs' => 'array',
+        'date' => 'date:d.m.Y',
     ];
 
     protected $appends = [

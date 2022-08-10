@@ -22,7 +22,9 @@ trait TourScope
     public function scopeInFuture(Builder $query)
     {
         return $query->whereHas('scheduleItems', function (Builder $q) {
-            return $q->whereDate('tour_schedules.start_date', '>=', Carbon::now());
+            return $q
+                ->where('tour_schedules.start_date', '>=', now())
+                ->whereNull('tour_schedules.deleted_at');
         });
     }
 
@@ -53,17 +55,21 @@ trait TourScope
         if ($onlyFuture) {
             $query->inFuture();
         }
-        return $query->published()->with([
-            'scheduleItems' => function (HasMany $sc) {
-                $sc->with(['orders']);
-                return $sc->whereDate('tour_schedules.start_date', '>=', Carbon::now());
+        $query->published()->with([
+            'scheduleItems' => function (HasMany $q) {
+                return $q
+                    ->where('tour_schedules.start_date', '>=', now())
+                    ->whereNull('tour_schedules.deleted_at');
             },
-            'media' => function ($sc) {
-                return $sc->whereIn('collection_name', ['main', 'mobile']);
+            'media' => function ($q) {
+                return $q->whereIn('collection_name', ['main', 'mobile']);
             },
             'badges'
-        ])
-            ->withCount(['testimonials']);
+        ]);
+
+        $query->withCount(['testimonials']);
+
+        return $query;
     }
 
 
