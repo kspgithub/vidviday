@@ -61,7 +61,10 @@
 
             <div class="col-md-6 col-12">
                 <div class="single-datepicker">
-                    <form-datepicker v-model="data.birthday" name="birthday" :label="__('forms.birthday')"/>
+                    <form-datepicker v-model="data.birthday" name="birthday"
+                                     :label="__('forms.birthday')"
+                                     :placeholder="__('forms.date-format')"
+                     />
                 </div>
             </div>
 

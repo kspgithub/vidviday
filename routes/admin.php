@@ -268,6 +268,7 @@ Route::resource('page', PageController::class)->except(['show']);
 
 Route::resource('page.recommendation', RecommendationController::class)->except(['show']);
 Route::resource('banner', BannerController::class)->except('show');
+Route::patch('banner/{banner}/update-status', [BannerController::class, 'updateStatus'])->name('banner.update-status');
 Route::resource('advertisement', AdvertisementController::class)->except('show');
 Route::resource('popup_ads', PopupAdsController::class)->except('show');
 Route::resource('achievement', AchievementController::class)->except('show');

@@ -71,12 +71,12 @@ class BannersTable extends DataTableComponent
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {
-                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.charity.update-status', $row)]);
+                    return view('admin.partials.published', ['model' => $row, 'updateUrl' => route('admin.banner.update-status', $row)]);
                 }),
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.charity.includes.actions', ['charity' => $row]);
+                    return view('admin.banner.includes.actions', ['banner' => $row]);
                 }),
         ];
     }
