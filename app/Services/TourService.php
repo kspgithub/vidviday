@@ -45,21 +45,22 @@ class TourService extends BaseService
 
         return Cache::remember('filter-options-' . $locale, 1, function () {
             $places = Place::published()->whereHas('tours', function ($sq) {
-                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
-                });
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
+                return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-                    return $ssq->where('published', 1)->whereDate('start_date', '>', Carbon::today());
-                });
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
+                return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
             $subjects = TourSubject::published()->toSelectBox()->toArray();
             $types = TourType::published()->toSelectBox()->toArray();
             $directions = Direction::published()->toSelectBox()->toArray();
-
 
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
