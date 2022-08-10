@@ -77,6 +77,8 @@ trait TourScope
     {
         $locale = $params['lang'] ?? 'uk';
 
+        $order = [];
+
         $query
             ->whereJsonContains('locales', $locale)
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
@@ -200,35 +202,58 @@ trait TourScope
 
         if($sort_by === 'date') {
             $query->leftJoin('tour_schedules', function (JoinClause $join) {
-                    $join->on( 'tours.id', '=', 'tour_schedules.tour_id')
-                        ->where('tour_schedules.start_date', '>=', now())
-                        ->whereNull('tour_schedules.deleted_at')
-                    ;
-                })
-                ->leftJoin('tour_votings', function (JoinClause $join) {
-                    $join->on( 'tours.id', '=', 'tour_votings.tour_id')
-                        ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
-                })
-                ->select('tours.*')
-                ->addSelect(DB::raw('COUNT(tour_votings.id) as votings_count'))
-                ->addSelect(DB::raw('CASE WHEN MIN(tour_schedules.start_date) IS NULL THEN SUBDATE("2099-01-01", INTERVAL COUNT(tour_votings.id) DAY) ELSE MIN(tour_schedules.start_date) END as date'))
-                ->groupBy('tours.id');
+                $join->on('tours.id', '=', 'tour_schedules.tour_id')
+                    ->where('tour_schedules.start_date', '>=', now())
+                    ->whereNull('tour_schedules.deleted_at');
+            });
+
+            $query->leftJoin('tour_votings', function (JoinClause $join) {
+                $join->on('tours.id', '=', 'tour_votings.tour_id')
+                    ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
+            });
+
+            $query->leftJoin('tour_views', function (JoinClause $join) {
+                $join->on('tours.id', '=', 'tour_views.tour_id');
+            });
+
+            $query->select('tours.*')
+                ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
+                ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
+                ->addSelect(DB::raw('
+                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
+                        THEN (
+                            CASE WHEN COUNT(tour_votings.tour_id) > 0
+                                THEN SUBDATE("2111-01-01", INTERVAL COUNT(tour_votings.tour_id) DAY)
+                                ELSE SUBDATE("2222-01-01", INTERVAL COUNT(tour_views.tour_id) DAY)
+                            END
+                        )
+                        ELSE MIN(tour_schedules.start_date)
+                    END as date'
+                ));
+            $query->groupBy('tours.id');
         }
-        if($sort_by === 'created') {
+
+        if ($sort_by === 'created') {
             $sort_by = 'created_at';
         }
-        if($sort_by === 'rating') {
+        if ($sort_by === 'rating') {
             $sort_by = 'testimonials_avg_rating';
         }
-        if($sort_by === 'popular') {
+        if ($sort_by === 'popular') {
             $query->withCount('views');
             $sort_by = 'views_count';
         }
-        if($sort_by === 'duration') {
+        if ($sort_by === 'duration') {
             $query->addSelect(DB::raw('((IFNULL(tours.duration, 0) * 16) + (IFNULL(tours.nights, 0) * 8) + IFNULL(tours.time, 0)) as duration_hours'));
             $sort_by = 'duration_hours';
         }
 
-        return $query->orderBy($sort_by, $sort_dir);
+        $query->orderBy($sort_by, $sort_dir);
+
+        foreach ($order as $item) {
+            $query->orderBy($item['by'], $item['dir']);
+        }
+
+        return $query;
     }
 }
