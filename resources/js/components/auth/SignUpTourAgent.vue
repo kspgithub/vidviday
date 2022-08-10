@@ -11,7 +11,7 @@
         <div class="form row">
             <input type="hidden" name="role" value="tour-agent"/>
 
-            <button v-if="$isDev" @click.prevent="fillForm">fill</button>
+            <button v-if="$isLocal" @click.prevent="fillForm">fill</button>
 
             <div class="col-12">
                 <span class="h3">{{ __('auth.travel-agency-info') }}</span>

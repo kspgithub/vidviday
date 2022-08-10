@@ -158,7 +158,19 @@
                                     </li>
                                 @else
                                     <li class="{{$menuItem->class_name ?? ''}}">
-                                        <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                        @if($menuItem->class_name === 'only-pad-mobile')
+                                            @env(['production'])
+                                                <span v-is="'popup-email-btn'">
+                                                    {{ $menuItem->title }}
+                                                </span>
+                                            @endenv
+
+                                            @env(['local', 'development'])
+                                                <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                            @endenv
+                                        @else
+                                            <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
+                                        @endif
                                     </li>
                                 @endif
                             @endif
