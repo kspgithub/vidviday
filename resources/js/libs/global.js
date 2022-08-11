@@ -218,8 +218,60 @@ jQuery(function ($) {
     /*###################*/
     /* 04 SWIPER SLIDERS */
     /*###################*/
+
+    const initDynamicPagination = function (swiper) {
+        console.log('initDynamicPagination')
+
+        const pagination = swiper.pagination
+
+        if(pagination && typeof pagination.bullets !== 'undefined') {
+
+            const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
+
+            const totalBullets = bullets.length
+
+            if(totalBullets > 5) {
+                const maxIndex = totalBullets - 1
+                const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
+
+                const visibleIndexes = [activeIndex];
+
+                for(let i = 1; i < 3; i++) {
+                    let index, currentIndex = activeIndex + i;
+
+                    if(currentIndex >= maxIndex) {
+                        index = currentIndex - maxIndex
+                    } else {
+                        index = currentIndex
+                    }
+                    visibleIndexes.push(index)
+                }
+
+                for(let i = 1; i < 3; i++) {
+                    let index, currentIndex = activeIndex - i;
+
+                    if(currentIndex < 0) {
+                        index = maxIndex + currentIndex + 1
+                    } else {
+                        index = currentIndex
+                    }
+                    visibleIndexes.push(index)
+                }
+
+                $(bullets).each((index, bullet) => {
+                    if(visibleIndexes.includes(index)) {
+                        $(bullet).addClass('visible').show()
+                    } else {
+                        $(bullet).removeClass('visible').hide()
+                    }
+                })
+            }
+        }
+    }
+
     _functions.getSwOptions = function (swiper) {
         var options = swiper.data('options');
+
         options = (!options || typeof options !== 'object') ? {} : options;
         let $slider = swiper.closest('.swiper-entry'),
             slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
@@ -227,8 +279,6 @@ jQuery(function ($) {
         if (!options.pagination) options.pagination = {
             el: $slider.find('.swiper-pagination')[0],
             clickable: true,
-            dynamicBullets: true,
-            dynamicMainBullets: 5,
         };
 
         if (!options.navigation) options.navigation = {
@@ -249,7 +299,10 @@ jQuery(function ($) {
                         activeSlideIndex = $slider.find('.swiper-slide-active').index();
                     $(customFraction).html(activeSlideIndex + 1);
                 }
-            }
+            },
+            slideChange: function () {
+                initDynamicPagination(this)
+            },
         };
 
         if (!options.speed) options.speed = 500;
@@ -274,7 +327,9 @@ jQuery(function ($) {
     };
 
     _functions.initSwiper = function (el) {
-        var swiper = new Swiper(el[0], _functions.getSwOptions(el));
+        var swiper = new Swiper(el[0], _functions.getSwOptions(el))
+
+        initDynamicPagination(swiper)
     };
 
     $('.swiper-entry:not(.swiper-vue) .swiper-container').each(function () {

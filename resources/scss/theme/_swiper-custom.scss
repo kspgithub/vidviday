@@ -16,7 +16,7 @@
         }
 
         .swiper-wrapper {
-            //justify-content: center;
+            justify-content: center;
             transform: none !important;
         }
 
@@ -182,10 +182,6 @@
     z-index: 2;
     text-align: center;
 
-    &.only-mobile {
-        width: auto!important;
-    }
-
     &.light {
         .swiper-pagination-bullet {
             &:after {
@@ -260,9 +256,6 @@
 }
 
 .swiper-slide {
-    display: flex !important;
-    height: auto;
-
     .img-border {
         margin-bottom: 10px;
     }
@@ -477,7 +470,7 @@
 
     .swiper-pagination {
         top: 31px;
-        right: 100px;
+        right: 122px;
     }
 }
 
@@ -807,11 +800,6 @@
             margin-left: 15px !important;
         }
     }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-        bottom: -25px!important;
-    }
 }
 
 .swiper-vue {
@@ -1019,4 +1007,9 @@
             border-radius: 0;
         }
     }
+}
+
+.swiper-pagination-bullet.visible {
+    margin-left: 11px;
+    margin-right: 11px;
 }
