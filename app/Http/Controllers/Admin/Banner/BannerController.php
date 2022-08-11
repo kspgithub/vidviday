@@ -18,9 +18,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
-        $banners = Banner::paginate(20);
-        return view('admin.banner.index', ['banners'=>$banners]);
+        return view('admin.banner.index', [
+
+        ]);
 
     }
 
@@ -102,5 +102,19 @@ class BannerController extends Controller
         $banner->deleteImage();
         $banner->delete();
         return redirect()->route('admin.banner.index')->withFlashSuccess(__('Record Deleted'));
+    }
+
+    /**
+     * Update status the specified resource.
+     *
+     * @param Request $request
+     * @param Banner $banner
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, Banner $banner)
+    {
+        $banner->published = (int)$request->input('published');
+        $banner->save();
+        return response()->json(['result' => 'success']);
     }
 }

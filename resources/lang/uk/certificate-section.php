@@ -12,7 +12,7 @@ return [
     'send-order' => 'Надіслати замовлення',
     'payment-options' => 'Варіанти оплати',
     'donor-data' => 'Дані дарувальника',
-    'recipient-data' => 'Дані дарувальника',
+    'recipient-data' => 'Дані одержувача',
     'certificate-details' => 'Деталі сертифікату',
     'type-sum' => 'На суму',
     'type-tour' => 'На мандрівку',

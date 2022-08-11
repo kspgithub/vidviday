@@ -5,11 +5,9 @@ namespace App\Mail;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RegistrationEmail extends Mailable
+class RegistrationEmail extends BaseTemplateEmail
 {
     use Queueable, SerializesModels;
 
@@ -20,6 +18,10 @@ class RegistrationEmail extends Mailable
     public $contacts;
 
     public $showFooter = true;
+
+    public static $subjectKey = 'emails.registration.subject';
+
+    public static $viewKey = 'emails.registration';
 
     /**
      * Create a new message instance.
@@ -32,19 +34,5 @@ class RegistrationEmail extends Mailable
         $this->user = $user;
         $this->password = $password;
         $this->contacts = Contact::first();
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-
-        return $this
-            ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject(__('Регистрация на Vidiviay.ua'))
-            ->view('emails.registration');
     }
 }

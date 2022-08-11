@@ -14,7 +14,7 @@
                 <div class="accordion-inner"
                     {!! ($loop->iteration == 1 || $expand === 'all') && $expand !== 'none' ? 'style="display: block;"' : '' !!}>
                     <div class="text text-md">
-                        <p> {{ $item->answer }} </p>
+                        <p> {!! $item->answer !!} </p>
                     </div>
                 </div>
             </div>

@@ -78,6 +78,7 @@ use App\Http\Controllers\Admin\User\UserPasswordController;
 use App\Http\Controllers\Admin\Vacancy\VacancyController;
 use App\Http\Controllers\Admin\Practice\PracticeController;
 use App\Http\Controllers\Admin\Course\CourseController;
+use App\Http\Controllers\Admin\WrongRequestsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -268,6 +269,7 @@ Route::resource('page', PageController::class)->except(['show']);
 
 Route::resource('page.recommendation', RecommendationController::class)->except(['show']);
 Route::resource('banner', BannerController::class)->except('show');
+Route::patch('banner/{banner}/update-status', [BannerController::class, 'updateStatus'])->name('banner.update-status');
 Route::resource('advertisement', AdvertisementController::class)->except('show');
 Route::resource('popup_ads', PopupAdsController::class)->except('show');
 Route::resource('achievement', AchievementController::class)->except('show');
@@ -329,3 +331,5 @@ Route::get('email-templates/{template}', [EmailTemplateController::class, 'edit'
 Route::patch('email-templates/{template}', [EmailTemplateController::class, 'save'])->name('email-templates.save');
 
 Route::resource('partner', PartnerController::class)->except(['show']);
+
+Route::get('wrong_requests', [WrongRequestsController::class, 'index'])->name('wrong_requests.index');

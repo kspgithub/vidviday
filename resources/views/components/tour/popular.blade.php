@@ -35,6 +35,6 @@
 
             </div>
         </div>
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination relative fixed-width bottom"></div>
     </div>
 </div>

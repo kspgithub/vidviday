@@ -55,6 +55,7 @@ export default {
         app.component('tour-calendar-popup', require('./tour/TourCalendarPopup').default);
         app.component('tour-like-btn', require('./tour/TourLikeBtn').default);
         app.component('tour-voting-form', require('./tour/TourVotingForm').default);
+        app.component('tour-order-schedule-button', require('./tour/TourOrderScheduleButton').default);
 
 
         app.component('order-form', require('./order/OrderForm').default);

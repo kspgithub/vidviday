@@ -15,6 +15,10 @@ class CustomEmail extends Mailable
 
     public $messageText;
 
+    public static $subjectKey = 'emails.registration.subject';
+
+    public static $viewKey = 'emails.custom';
+
     /**
      * Create a new message instance.
      *
@@ -34,8 +38,9 @@ class CustomEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.custom')
+        return $this
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject($this->messageSubject);
+            ->subject($this->messageSubject ?: __(self::$subjectKey))
+            ->view(self::$viewKey);
     }
 }

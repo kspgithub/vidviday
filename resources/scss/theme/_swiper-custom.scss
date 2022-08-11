@@ -16,7 +16,7 @@
         }
 
         .swiper-wrapper {
-            //justify-content: center;
+            justify-content: center;
             transform: none !important;
         }
 
@@ -182,10 +182,6 @@
     z-index: 2;
     text-align: center;
 
-    &.only-mobile {
-        width: auto!important;
-    }
-
     &.light {
         .swiper-pagination-bullet {
             &:after {
@@ -260,9 +256,6 @@
 }
 
 .swiper-slide {
-    display: flex !important;
-    height: auto;
-
     .img-border {
         margin-bottom: 10px;
     }
@@ -477,7 +470,7 @@
 
     .swiper-pagination {
         top: 31px;
-        right: 100px;
+        right: 122px;
     }
 }
 
@@ -522,7 +515,7 @@
     }
 
     .swiper-wrapper {
-        padding-bottom: 95px;
+        //padding-bottom: 95px;
     }
 
     .thumb {
@@ -555,7 +548,7 @@
     .swiper-pagination {
         left: 0;
         right: 0;
-        bottom: 60px;
+        //bottom: 60px;
     }
 }
 
@@ -807,11 +800,6 @@
             margin-left: 15px !important;
         }
     }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-        bottom: -25px!important;
-    }
 }
 
 .swiper-vue {
@@ -1018,5 +1006,61 @@
         .swiper-slide .img-border {
             border-radius: 0;
         }
+    }
+}
+
+.swiper-pagination {
+
+    &.fixed-width {
+        width: 270px;
+        margin: auto;
+    }
+
+    .swiper-pagination-bullet {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+        margin-left: 9px;
+        margin-right: 9px;
+
+        &.visible {
+            margin-left: 9px;
+            margin-right: 9px;
+        }
+    }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    &.bottom {
+        bottom: 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        &.bottom {
+            bottom: 15px;
+        }
+    }
+
+    .swiper-pagination {
+        &.bottom {
+            bottom: 0;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        &.bottom {
+            bottom: 0;
+        }
+    }
+
+    .swiper-pagination-bullet{
+        margin-left: 7px;
+        margin-right: 7px;
     }
 }

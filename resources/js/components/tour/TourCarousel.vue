@@ -27,6 +27,7 @@
                 :slides-per-view="swiperOptions.slidesPerView"
                 :slides-per-group="swiperOptions.slidesPerGroup"
                 :space-between="swiperOptions.spaceBetween"
+                :auto-height="true"
                 @swiper="setController"
 
 
@@ -102,8 +103,8 @@ export default {
             },
             pagination: {
                 clickable: true,
-                dynamicBullets: true,
-                dynamicMainBullets: 5,
+                // dynamicBullets: true,
+                // dynamicMainBullets: 5,
             },
             navigation: true,
 
@@ -111,6 +112,12 @@ export default {
 
         const setController = (instance) => {
             swiper.value = instance;
+
+            const paginator = $(swiper.value.el).find('.swiper-pagination')
+
+            $(paginator).addClass('relative fixed-width bottom')
+
+            paginator.appendTo(paginator.parents('.swiper-container').first())
         }
 
         const nextSlide = () => {

@@ -3031,7 +3031,7 @@ button.swiper-pagination-bullet {
 }
 
 .thumbs-carousel .swiper-wrapper {
-    padding-bottom: 95px;
+    //padding-bottom: 95px;
 }
 
 .thumbs-carousel .thumb > * {
@@ -8252,7 +8252,7 @@ a.fc-more {
 }
 
 .datepicker-input.active .datepicker-placeholder {
-    color: transparent;
+    //color: transparent;
 }
 
 .participant {
@@ -8345,7 +8345,7 @@ a.fc-more {
 
 .participant .datepicker-input.filled .datepicker-placeholder,
 .participant .datepicker-input.active .datepicker-placeholder {
-    color: transparent;
+    //color: transparent;
 }
 
 .participant .datepicker-input.filled input,
@@ -13050,14 +13050,22 @@ input[name="viber"]:-ms-input-placeholder {
         display: block;
     }
 
-    li.dropdown {
+    li {
         margin-bottom: 20px;
     }
 
-    li.dropdown > a {
+    nav li > a {
         display: inline-block;
         width: 100%;
         padding: 10px 0;
+    }
+
+    nav li > span {
+        display: inline-block;
+        width: 100%;
+        padding: 10px 0;
+        cursor: pointer;
+        font-size: 16px;
     }
 }
 

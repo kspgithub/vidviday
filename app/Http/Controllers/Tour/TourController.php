@@ -24,6 +24,7 @@ use App\Models\TourGroup;
 use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourVoting;
+use App\Models\WrongQuery;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\TourService;
@@ -40,8 +41,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TourController extends Controller
 {
-    //
-
     /**
      * @param Request $request
      * @param TourGroup|null|mixed $group
@@ -52,6 +51,11 @@ class TourController extends Controller
         if (!$group->exists) {
             $tours = Tour::search(false)->filter($request->all())->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
+
+            if(!$tours->count() && ($q = $request->get('q'))) {
+                TourService::handleWrongRequest($request);
+            }
+
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
         }
 

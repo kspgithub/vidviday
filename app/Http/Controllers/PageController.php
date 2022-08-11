@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Certificate\CertificateController;
 use App\Http\Controllers\Contact\ContactController;
+use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Place\PlaceController;
@@ -37,7 +38,6 @@ class PageController extends Controller
             return (new PlaceController())->show($slug);
         }
 
-
         $tourGroup = TourGroup::findBySlug($slug, false);
         if ($tourGroup !== null) {
             $tourGroup->checkSlugLocale($slug);
@@ -45,6 +45,10 @@ class PageController extends Controller
         }
 
         $pageContent = Page::query()->where('published', 1)->whereHasSlug($slug, false)->firstOrFail();
+
+        if(!$pageContent->isAvailableFor($request->user())) {
+            abort(404);
+        }
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
@@ -82,6 +86,8 @@ class PageController extends Controller
                 return (new ContactController())->index($request);
             case 'testimonials':
                 return (new TestimonialController())->index($request);
+            case 'courses':
+                return (new CourseController())->index($request);
             default:
                 return view('page.show', []);
         }

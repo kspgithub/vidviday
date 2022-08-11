@@ -23,23 +23,35 @@
                 <tr>
                     <th></th>
                     <th>@lang('Template')</th>
+                    <th>@lang('Subject')</th>
                     <th>@lang('View')</th>
+                    <th>@lang('Updated At')</th>
                     <th style="width: 100px">@lang('Actions') </th>
                 </tr>
                 </thead>
                 <tbody x-ref="sortableRef">
-                @foreach($templates as $template => $view)
+                @foreach($templates as $template)
                     <tr>
-                        <td class="handler ps-2"></td>
-                        <td>
-                            {{$template}}
+                        <td class="handler ps-2">
+                            @if($template['exists'])
+                                <i class="fa fa-circle-check text-success"></i>
+                            @endif
                         </td>
                         <td>
-                            {{$view}}
+                            {{$template['mailable']}}
+                        </td>
+                        <td>
+                            {{$template['subject']}}
+                        </td>
+                        <td>
+                            {{$template['view']}}
+                        </td>
+                        <td>
+                            {{$template['updated_at']}}
                         </td>
                         <td class="table-action">
                             <x-utils.edit-button
-                                :href="route('admin.email-templates.edit', Str::replace('\\','-',$template))"
+                                :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))"
                                 text=""/>
                         </td>
                     </tr>
