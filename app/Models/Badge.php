@@ -32,6 +32,13 @@ class Badge extends TranslatableModel
         'slug',
     ];
 
+    protected $hidden = [
+        'id',
+        'pivot',
+        'created_at',
+        'updated_at',
+    ];
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -44,4 +51,6 @@ class Badge extends TranslatableModel
     {
         return $this->belongsToMany(Tour::class, 'tour_badges');
     }
+
+
 }

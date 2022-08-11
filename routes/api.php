@@ -25,6 +25,7 @@ use Illuminate\Support\Str;
 |
 */
 
+require_once base_path('routes/api/v1.php');
 
 Route::group([
     'as' => 'user.',
@@ -124,3 +125,6 @@ Route::get('html-blocks', function (Request $request) {
         ])->toArray()
     ]);
 });
+
+
+

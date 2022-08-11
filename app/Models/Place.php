@@ -124,6 +124,24 @@ class Place extends TranslatableModel implements HasMedia
         ];
     }
 
+    public function asExportPlace()
+    {
+        return [
+            'title' => $this->getTranslations('title'),
+            'text' => $this->getTranslations('text'),
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'video' => $this->video,
+            'rating' => $this->rating,
+            'country' => $this->country->getTranslations('title'),
+            'region' => $this->region->getTranslations('title'),
+            'district' => $this->district->getTranslations('title'),
+            'city' => $this->city->getTranslations('title'),
+            'direction' => $this->direction->getTranslations('title'),
+            'images' => $this->getMedia()->map(fn($it) => $it->getFullUrl()),
+        ];
+    }
+
     public function scopeAutocomplete(Builder $query, $search = '')
     {
         $select = [
