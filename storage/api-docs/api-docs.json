@@ -1,0 +1,1121 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Єкспорт турів",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "paths": {
+        "/tours": {
+            "get": {
+                "tags": [
+                    "Tours"
+                ],
+                "summary": "Список туров разбитый на страницы",
+                "operationId": "8310f753f83b9e4ac3da359d84397ce9",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Токен авторизації",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "request": {
+                                "summary": "Тестовий токен",
+                                "value": "305cc08cecd29d7078a924c8d0eca58b"
+                            },
+                            "empty": {
+                                "summary": "Авторизація за допомогою headers",
+                                "value": ""
+                            }
+                        }
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "Список id турів розділених комою",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "empty": {
+                                "summary": "Любые туры",
+                                "value": ""
+                            },
+                            "request": {
+                                "summary": "Только туры с выбранными ID",
+                                "value": "1,2,3,4,5"
+                            }
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Сторінка",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "empty": {
+                                "summary": "За замовчуванням (1)",
+                                "value": ""
+                            },
+                            "request": {
+                                "summary": "Друга сторінка",
+                                "value": "2"
+                            }
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Турів на сторінку",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "empty": {
+                                "summary": "За замовчуванням (12)",
+                                "value": ""
+                            },
+                            "request": {
+                                "summary": "10 штук",
+                                "value": "10"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/PaginageTourResult"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tour/{id}": {
+            "get": {
+                "tags": [
+                    "Tours"
+                ],
+                "summary": "Подробная информация о туре",
+                "operationId": "7edaa7b0e79713bf73b1fbf29e05a7b8",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Токен авторизації",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "request": {
+                                "summary": "Тестовий токен",
+                                "value": "305cc08cecd29d7078a924c8d0eca58b"
+                            },
+                            "empty": {
+                                "summary": "Авторизація за допомогою headers",
+                                "value": ""
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID туру",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "empty": {
+                                "summary": "Замки Львівщини + Замок Мушкетерів",
+                                "value": "13"
+                            },
+                            "request": {
+                                "summary": "10 родзинок Закарпаття",
+                                "value": "48"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ОК",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TourDetails"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PaginationLink": {
+                "properties": {
+                    "url": {
+                        "title": "URL",
+                        "type": "string",
+                        "example": "https://vidviday.ua/api/v1/tours?page=1"
+                    },
+                    "label": {
+                        "title": "Label",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "active": {
+                        "title": "Active",
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationLinks": {
+                "properties": {
+                    "first": {
+                        "description": "Перша сторінка",
+                        "type": "string"
+                    },
+                    "last": {
+                        "description": "Остання сторінка",
+                        "type": "string"
+                    },
+                    "prev": {
+                        "description": "Попередня сторінка",
+                        "type": "string"
+                    },
+                    "next": {
+                        "description": "Наступна сторінка",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationMeta": {
+                "properties": {
+                    "current_page": {
+                        "title": "Поточна сторінка",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "from": {
+                        "title": "Показано з",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "to": {
+                        "title": "Показано по",
+                        "type": "integer",
+                        "example": "12"
+                    },
+                    "last_page": {
+                        "title": "Остання сторінка",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "links": {
+                        "title": "Посилання на сторінки",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaginationLink"
+                        }
+                    },
+                    "path": {
+                        "title": "Path",
+                        "type": "string",
+                        "example": "https://vidviday.ua/api/v1/tours"
+                    },
+                    "per_page": {
+                        "title": "Кількість обїектів на сторінці",
+                        "type": "integer",
+                        "example": "12"
+                    },
+                    "total": {
+                        "title": "Усього об'єктів",
+                        "type": "integer",
+                        "example": "25"
+                    }
+                },
+                "type": "object"
+            },
+            "Localize": {
+                "description": "Об'єкт локалізації",
+                "properties": {
+                    "ru": {
+                        "description": "Русский",
+                        "type": "string"
+                    },
+                    "uk": {
+                        "description": "Українська",
+                        "type": "string"
+                    },
+                    "en": {
+                        "description": "English",
+                        "type": "string"
+                    },
+                    "pl": {
+                        "description": "Польська",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Place": {
+                "description": "Місце",
+                "properties": {
+                    "id": {
+                        "title": "ID місця",
+                        "type": "integer",
+                        "example": "48"
+                    },
+                    "title": {
+                        "title": "Назва місця",
+                        "type": "object",
+                        "example": {
+                            "uk": "Галицький національний природний парк",
+                            "en": "Halych National Nature Park",
+                            "ru": "Галицкий НПП",
+                            "pl": "Halych National Nature Park"
+                        }
+                    },
+                    "text": {
+                        "title": "Опис місця",
+                        "type": "object",
+                        "example": {
+                            "uk": "10 родзинок Закарпаття, опис",
+                            "en": "10 highlights of Transcarpathia",
+                            "ru": "10 изюминок Закарпатья",
+                            "pl": "10 Rodzynki Zakarpacia"
+                        }
+                    },
+                    "rating": {
+                        "title": "Рейтинг",
+                        "type": "number",
+                        "format": "float",
+                        "example": "4.8"
+                    },
+                    "video": {
+                        "title": "Відео",
+                        "type": "string",
+                        "example": "https://youtu.be/4-9h76MqT3c"
+                    },
+                    "lat": {
+                        "title": "Lattitude",
+                        "type": "number",
+                        "format": "float",
+                        "example": "49.125078547515"
+                    },
+                    "lng": {
+                        "title": "Longitude",
+                        "type": "number",
+                        "format": "float",
+                        "example": "24.724990711236"
+                    },
+                    "images": {
+                        "title": "Зображення",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "https://vidviday.ua/storage/media/place/2146/1618995966607feafe68ad8-1200x1200.jpg"
+                        }
+                    },
+                    "country": {
+                        "title": "Країна",
+                        "type": "object",
+                        "example": {
+                            "uk": "Україна",
+                            "ru": "Украина",
+                            "en": "Ukraine",
+                            "pl": "Ukraina"
+                        }
+                    },
+                    "region": {
+                        "title": "Область",
+                        "type": "object",
+                        "example": {
+                            "uk": "Івано-Франківська область"
+                        }
+                    },
+                    "district": {
+                        "title": "Район",
+                        "type": "object",
+                        "example": {
+                            "uk": "Галицький"
+                        }
+                    },
+                    "city": {
+                        "title": "Населений пункт",
+                        "type": "object",
+                        "example": {
+                            "uk": "Галич"
+                        }
+                    },
+                    "direction": {
+                        "title": "Напрямок",
+                        "type": "object",
+                        "example": {
+                            "uk": "Франківщина"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Schedule": {
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "412"
+                    },
+                    "start_date": {
+                        "title": "Дата виїзду",
+                        "type": "string",
+                        "example": "12.08.2022"
+                    },
+                    "end_date": {
+                        "title": "Дата повернення",
+                        "type": "string",
+                        "example": "14.08.2022"
+                    },
+                    "places_total": {
+                        "title": "Місць усього",
+                        "type": "integer",
+                        "example": "9"
+                    },
+                    "places_available": {
+                        "title": "Місць доступно для замовлення",
+                        "type": "integer",
+                        "example": "9"
+                    },
+                    "price": {
+                        "title": "Вартість туру, з особи",
+                        "type": "integer",
+                        "example": "1445"
+                    },
+                    "accommodation_price": {
+                        "title": "Доплата за поселення",
+                        "description": "Доплата за поселення, у випадку замовлення одномісного номеру",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "comment": {
+                        "title": "Коментар щодо конкретного виїзду",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object"
+            },
+            "TourAccommodation": {
+                "description": "Розміщення туру",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "title": {
+                        "title": "Назва",
+                        "type": "object",
+                        "example": {
+                            "uk": "Готель у с. Поляниця на курорті Буковель",
+                            "ru": "Гостиница в с. Поляница (на курорте Буковель)",
+                            "en": "Hotel in the Polyanytsa village (resort Bukovel)",
+                            "pl": "Hotel we wsi Polanica (w miejscowości Bukowel)"
+                        }
+                    },
+                    "text": {
+                        "title": "Текст",
+                        "type": "object",
+                        "example": {
+                            "uk": "",
+                            "ru": "",
+                            "en": "",
+                            "pl": ""
+                        }
+                    },
+                    "images": {
+                        "title": "Зображення",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TourDiscount": {
+                "description": "Знижка туру",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "title": {
+                        "title": "Назва",
+                        "type": "object",
+                        "example": {
+                            "uk": "Учасникам АТО/ООС (за наявності посвідчення): знижка 30% від вартості туру",
+                            "ru": "Участникам АТО/ООС (при наличии удостоверения): скидка 30% от стоимости тура",
+                            "en": "ATO participants (at the presence of a certificate): discount 30% from the cost of the tour",
+                            "pl": "Uczestnicy ATO (za okazaniem certyfikatu): zniżka 30% z kosztu wycieczki"
+                        }
+                    },
+                    "type": {
+                        "title": "Тип",
+                        "type": "string",
+                        "default": "percent",
+                        "enum": [
+                            "percent",
+                            "value"
+                        ],
+                        "example": "percent"
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "price": {
+                        "title": "Знижка",
+                        "type": "integer",
+                        "example": "30"
+                    },
+                    "category": {
+                        "title": "Категорія",
+                        "type": "string",
+                        "default": "adult",
+                        "enum": [
+                            "all",
+                            "adult",
+                            "children",
+                            "children_young",
+                            "children_older"
+                        ],
+                        "example": "adult"
+                    },
+                    "duration": {
+                        "title": "Знижка за",
+                        "type": "string",
+                        "default": "person",
+                        "enum": [
+                            "order",
+                            "unit",
+                            "day",
+                            "person",
+                            "person-day"
+                        ],
+                        "example": "person"
+                    },
+                    "age_limit": {
+                        "title": "Обмеження за віком",
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "age_start": {
+                        "title": "Вік з",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "age_end": {
+                        "title": "Вік по",
+                        "type": "integer",
+                        "example": "3"
+                    }
+                },
+                "type": "object"
+            },
+            "TourFood": {
+                "description": "Зміст туру",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "day": {
+                        "title": "День",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "time": {
+                        "title": "Час",
+                        "type": "object",
+                        "example": {
+                            "uk": "Сніданок",
+                            "ru": "Завтрак",
+                            "en": "Breakfast",
+                            "pl": "Śniadanie"
+                        }
+                    },
+                    "text": {
+                        "title": "Текст",
+                        "type": "object",
+                        "example": {
+                            "uk": "Можна поснідати вдома, взяти з собою перекус",
+                            "ru": "Можно позавтракать дома или взять бутерброды",
+                            "en": "You can have breakfast at home, bring snacks",
+                            "pl": "Można zjeść śniadanie w domu, wziąć ze sobą przekąski"
+                        }
+                    },
+                    "price": {
+                        "title": "Вартість",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "images": {
+                        "title": "Зображення",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TourDetails": {
+                "description": "Детальна інформація про тур",
+                "properties": {
+                    "id": {
+                        "title": "ID туру",
+                        "type": "integer",
+                        "example": "48"
+                    },
+                    "title": {
+                        "description": "Назва туру",
+                        "type": "object",
+                        "default": {
+                            "uk": "10 родзинок Закарпаття",
+                            "en": "10 highlights of Transcarpathia",
+                            "ru": "10 изюминок Закарпатья",
+                            "pl": "10 Rodzynki Zakarpacia"
+                        },
+                        "example": {
+                            "uk": "10 родзинок Закарпаття",
+                            "en": "10 highlights of Transcarpathia",
+                            "ru": "10 изюминок Закарпатья",
+                            "pl": "10 Rodzynki Zakarpacia"
+                        }
+                    },
+                    "text": {
+                        "title": "Опис туру",
+                        "type": "object",
+                        "example": {
+                            "uk": "10 родзинок Закарпаття, опис",
+                            "en": "10 highlights of Transcarpathia",
+                            "ru": "10 изюминок Закарпатья",
+                            "pl": "10 Rodzynki Zakarpacia"
+                        }
+                    },
+                    "additional_info": {
+                        "title": "Додаткова інформація",
+                        "type": "object",
+                        "example": {
+                            "title": {
+                                "en": "New Year's fun",
+                                "pl": "Noworoczna zabawa",
+                                "ru": "Новогодняя забава",
+                                "uk": "Новорічна забава"
+                            },
+                            "text": {
+                                "uk": "<p>-</p>",
+                                "ru": "<p>-</p>",
+                                "en": "<p>-</p>",
+                                "pl": "<p>-</p>"
+                            }
+                        }
+                    },
+                    "locales": {
+                        "title": "Мови туру",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "uk"
+                        }
+                    },
+                    "duration_format": {
+                        "title": "Формат тривалості",
+                        "description": "0 - дні/ночи, 1 - години",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "duration": {
+                        "title": "Тривалість днів",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "nights": {
+                        "title": "Тривалість ночей",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "time": {
+                        "title": "Тривалість годин",
+                        "type": "integer",
+                        "example": "null"
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "price": {
+                        "title": "Вартість туру, з особи",
+                        "type": "integer",
+                        "example": "1445"
+                    },
+                    "accommodation_price": {
+                        "title": "Доплата за поселення",
+                        "description": "Доплата за поселення, у випадку замовлення одномісного номеру",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "rating": {
+                        "title": "Рейтинг туру",
+                        "type": "number",
+                        "format": "float",
+                        "example": "4.8"
+                    },
+                    "video": {
+                        "title": "Відео туру",
+                        "type": "string",
+                        "example": "https://youtu.be/4-9h76MqT3c"
+                    },
+                    "main_image": {
+                        "title": "Головне зображення",
+                        "type": "string",
+                        "example": "http://vidviday.loc/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg"
+                    },
+                    "thumb": {
+                        "title": "Превью",
+                        "type": "string",
+                        "example": "http://vidviday.loc/storage/media/tour/3759/mukachevo-zamok-palanok-yuriy-krylivets-1x1.jpg"
+                    },
+                    "images": {
+                        "title": "Додаткові зображення",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "http://vidviday.loc/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg"
+                        }
+                    },
+                    "badges": {
+                        "title": "Мітки туру",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Badge"
+                        }
+                    },
+                    "schedules": {
+                        "title": "Дати виїзду",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Schedule"
+                        }
+                    },
+                    "directions": {
+                        "title": "Напрямки",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "example": {
+                                "title": {
+                                    "uk": "Карпати"
+                                }
+                            }
+                        }
+                    },
+                    "types": {
+                        "title": "Типи",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "example": {
+                                "title": {
+                                    "uk": "Походи в гори"
+                                }
+                            }
+                        }
+                    },
+                    "places": {
+                        "title": "Місця",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Place"
+                        }
+                    },
+                    "includes": {
+                        "title": "Зміст туру",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourInclude"
+                        }
+                    },
+                    "plan": {
+                        "title": "План туру",
+                        "type": "object",
+                        "example": {
+                            "uk": "<p><strong>1 день:</strong> виїзд зі Львова (08:00)",
+                            "en": "<p><strong>Day 1:</strong> departure from Lviv (08:00 a.m.)",
+                            "ru": "<p><strong>1 день: </strong>выезд со Львова (08:00)",
+                            "pl": "<p>none</p>"
+                        }
+                    },
+                    "food": {
+                        "title": "Харчування",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourFood"
+                        }
+                    },
+                    "accommodation": {
+                        "title": "Розміщення",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourAccommodation"
+                        }
+                    },
+                    "tickets": {
+                        "title": "Квитки",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourTicket"
+                        }
+                    },
+                    "discounts": {
+                        "title": "Знижки",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourDiscount"
+                        }
+                    },
+                    "landings": {
+                        "title": "Місця посадки",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TourLanding"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TourInclude": {
+                "description": "Зміст туру",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "48"
+                    },
+                    "title": {
+                        "title": "Назва категорії",
+                        "type": "object",
+                        "example": {
+                            "uk": "У вартість туру входить",
+                            "ru": "В стоимость тура входит",
+                            "en": "The tour price includes",
+                            "pl": "Cena wycieczki obejmuje"
+                        }
+                    },
+                    "items": {
+                        "title": "Зміст",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "example": {
+                                "uk": "проїзд комфортабельним автобусом",
+                                "en": "travel by comfortable bus",
+                                "ru": "проезд комфортабельным автобусом",
+                                "pl": "przejazd wygodnym autobusem"
+                            }
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TourLanding": {
+                "description": "Місце посадки",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "48"
+                    },
+                    "title": {
+                        "title": "Назва",
+                        "type": "object",
+                        "example": {
+                            "en": "Lviv, Hotel Lviv",
+                            "pl": "Lwów, Hotel Lwów",
+                            "ru": "Львов, отель Львов",
+                            "uk": "Львів, готель Львів"
+                        }
+                    },
+                    "description": {
+                        "title": "Опис",
+                        "type": "object",
+                        "example": {
+                            "en": "Hotel Lviv, 7 V. Chornovola Ave",
+                            "pl": "Hotel Lviv (al. W. Chornowoła, 7)",
+                            "ru": "Отель Львов (г. Львов, пр. В. Чорновола, 7)",
+                            "uk": "Готель Львів (м. Львів, пр. В. Чорновола, 7)"
+                        }
+                    },
+                    "lat": {
+                        "title": "Lattitude",
+                        "type": "number",
+                        "format": "float",
+                        "example": "49.845347727792"
+                    },
+                    "lng": {
+                        "title": "Longitude",
+                        "type": "number",
+                        "format": "float",
+                        "example": "24.025217470271"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginageTourResult": {
+                "description": "Посторінкове виведення турів",
+                "properties": {
+                    "data": {
+                        "description": "Массив Турів",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Tour"
+                        }
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/PaginationLinks"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                },
+                "type": "object"
+            },
+            "Badge": {
+                "description": "Мітка",
+                "properties": {
+                    "title": {
+                        "title": "Назва туру",
+                        "type": "object",
+                        "example": {
+                            "uk": "Бестселер",
+                            "en": "Bestseller",
+                            "ru": "Бестселлер",
+                            "pl": "Bestseller"
+                        }
+                    },
+                    "color": {
+                        "title": "Колір",
+                        "type": "string",
+                        "example": "#ffb947"
+                    },
+                    "slug": {
+                        "title": "English",
+                        "type": "string",
+                        "example": "bestseler"
+                    }
+                },
+                "type": "object"
+            },
+            "Tour": {
+                "description": "Картка туру",
+                "properties": {
+                    "id": {
+                        "title": "ID туру",
+                        "type": "integer",
+                        "example": "48"
+                    },
+                    "title": {
+                        "title": "Назва туру",
+                        "type": "object",
+                        "example": {
+                            "uk": "10 родзинок Закарпаття",
+                            "en": "10 highlights of Transcarpathia",
+                            "ru": "10 изюминок Закарпатья",
+                            "pl": "10 Rodzynki Zakarpacia"
+                        }
+                    },
+                    "locales": {
+                        "title": "Мови туру",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "uk"
+                        }
+                    },
+                    "duration_format": {
+                        "title": "Формат тривалості",
+                        "description": "0 - дні/ночи, 1 - години",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "duration": {
+                        "title": "Тривалість днів",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "nights": {
+                        "title": "Тривалість ночей",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "time": {
+                        "title": "Тривалість годин",
+                        "type": "integer",
+                        "example": "null"
+                    },
+                    "price": {
+                        "title": "Вартість туру, з особи",
+                        "type": "integer",
+                        "example": "1445"
+                    },
+                    "accommodation_price": {
+                        "title": "Доплата за поселення",
+                        "description": "Доплата за поселення, у випадку замовлення одномісного номеру",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "rating": {
+                        "title": "Рейтинг туру",
+                        "type": "number",
+                        "format": "float",
+                        "example": "4.8"
+                    },
+                    "video": {
+                        "title": "Відео туру",
+                        "type": "string",
+                        "example": "https://youtu.be/4-9h76MqT3c"
+                    },
+                    "main_image": {
+                        "title": "Головне зображення",
+                        "type": "string",
+                        "example": "http://vidviday.loc/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg"
+                    },
+                    "thumb": {
+                        "title": "Превью",
+                        "type": "string",
+                        "example": "http://vidviday.loc/storage/media/tour/3759/mukachevo-zamok-palanok-yuriy-krylivets-1x1.jpg"
+                    },
+                    "badges": {
+                        "title": "Мітки туру",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Badge"
+                        }
+                    },
+                    "schedules": {
+                        "title": "Дати виїзду",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Schedule"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TourTicket": {
+                "description": "Квитки туру",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "title": {
+                        "title": "Назва",
+                        "type": "object",
+                        "example": {
+                            "uk": "Галицький НПП: музей і Центр реабілітації тварин",
+                            "ru": "Галицкий  НПП: музей и центр реабилитации диких животных",
+                            "en": "Halych NNP: museum and the Center for the rehabilitation of wild animals"
+                        }
+                    },
+                    "text": {
+                        "title": "Текст",
+                        "type": "object",
+                        "example": {
+                            "uk": "",
+                            "ru": "",
+                            "en": "",
+                            "pl": ""
+                        }
+                    },
+                    "currency": {
+                        "title": "Валюта",
+                        "type": "string",
+                        "example": "UAH"
+                    },
+                    "price": {
+                        "title": "Вартість",
+                        "type": "integer",
+                        "example": "50"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "305cc08cecd29d7078a924c8d0eca58b",
+                "name": "bearerAuth",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tours",
+            "description": "Тури"
+        }
+    ]
+}

@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\RedirectMiddleware::class,
+        \Fruitcake\Cors\HandleCors::class,
     ];
 
     /**
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auth.bitrix' => BitrixAuth::class,
         'redirects' => RedirectMiddleware::class,
+        'auth.partner' => \App\Http\Middleware\AuthPartnerMiddleware::class,
     ];
 }

@@ -9,6 +9,7 @@ use App\Models\Traits\Relationship\TourRelationship;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\TourScope;
 use App\Models\Traits\Scope\UsePublishedScope;
+use App\Models\Traits\Tour\UseTourExport;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,6 +40,7 @@ class Tour extends TranslatableModel implements HasMedia
     use HasTranslatableSlug;
     use UseSelectBox;
     use JsonLikeScope;
+    use UseTourExport;
 
     const FORMAT_DAYS = 0;
     const FORMAT_TIME = 1;
@@ -184,17 +186,17 @@ class Tour extends TranslatableModel implements HasMedia
 
     public function getFormatDurationAttribute()
     {
-        if($this->duration_format === self::FORMAT_DAYS) {
-            if($this->duration === 1 && !$this->nights) {
+        if ($this->duration_format === self::FORMAT_DAYS) {
+            if ($this->duration === 1 && !$this->nights) {
                 return $this->duration . ' ' . __('tours-section.day');
             } else {
 
-                return $this->duration . __('tours-section.days-letter') . ($this->nights > 0 ? '/ '. $this->nights . __('tours-section.nights-letter') : '');
+                return $this->duration . __('tours-section.days-letter') . ($this->nights > 0 ? '/ ' . $this->nights . __('tours-section.nights-letter') : '');
             }
         }
 
-        if($this->duration_format === self::FORMAT_TIME) {
-            return $this->time.__('tours-section.hours-letter');
+        if ($this->duration_format === self::FORMAT_TIME) {
+            return $this->time . __('tours-section.hours-letter');
         }
     }
 }

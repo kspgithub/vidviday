@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Accommodation\AccommodationTypeController;
 use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Email\EmailTemplateController;
+use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
 use App\Http\Controllers\Admin\Badge\BadgeController;
 use App\Http\Controllers\Admin\Banner\BannerController;
@@ -326,3 +327,5 @@ Route::group([
 Route::get('email-templates', [EmailTemplateController::class, 'index'])->name('email-templates.index');
 Route::get('email-templates/{template}', [EmailTemplateController::class, 'edit'])->name('email-templates.edit');
 Route::patch('email-templates/{template}', [EmailTemplateController::class, 'save'])->name('email-templates.save');
+
+Route::resource('partner', PartnerController::class)->except(['show']);

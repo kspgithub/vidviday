@@ -8,6 +8,7 @@
     'help'=>'',
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
+    'readonly'=>false
 ])
 <div class="form-group row mb-3 align-items-center">
     <div class="m-0 {{$labelCol}} col-form-label">
@@ -25,6 +26,7 @@
             @endif
             <input
                 {{$active ? 'checked' : ''}} name="{{$name}}" value="{{$activeValue}}" type="checkbox"
+                {{$readonly ? 'readonly' : ''}}
                 id="{{$id ?? $name}}"
                 {{ $attributes->merge(['class' => 'form-check-input']) }}
             >

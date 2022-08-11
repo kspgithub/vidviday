@@ -461,6 +461,12 @@
                             class="align-middle">@lang('Achievements')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.partner.*')}}">
+                    <a class="sidebar-link" href="{{route('admin.partner.index')}}">
+                        <i class="align-middle" data-feather="user-check"></i> <span
+                            class="align-middle">@lang('Партнеры')</span>
+                    </a>
+                </li>
             @endif
 
             @if(is_admin())

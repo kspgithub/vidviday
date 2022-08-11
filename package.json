@@ -74,6 +74,7 @@
     },
     "dependencies": {
         "ace-builds": "^1.8.1",
+        "swagger-ui": "^4.13.2",
         "vee-validate": "^4.4.10",
         "vue3-recaptcha-v2": "^1.0.1"
     }
