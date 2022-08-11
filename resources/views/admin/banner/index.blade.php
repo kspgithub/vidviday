@@ -24,6 +24,4 @@
 
         </x-slot>
     </x-bootstrap.card>
-
-    {{$banners->links()}}
 @endsection
