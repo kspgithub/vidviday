@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="swiper-button-prev"><i></i></div>
-            <div class="swiper-pagination relative"></div>
+            <div class="swiper-pagination relative fixed-width"></div>
             <div class="swiper-button-next"><i></i></div>
         </div>
     </div>
