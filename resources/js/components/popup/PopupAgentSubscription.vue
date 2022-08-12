@@ -40,9 +40,14 @@
                             <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                             <div class="spacer-xs"></div>
                             <div class="text-center">
-                                <button type="submit" class="btn type-1" :disabled="request">
-                                    {{ __('forms.subscribe') }}
-                                </button>
+                                <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                                               @verify="verify"
+                                               ref="recaptcha"
+                                >
+                                    <button type="submit" class="btn type-1" :disabled="request">
+                                        {{ __('forms.subscribe') }}
+                                    </button>
+                                </vue-recaptcha>
                             </div>
                         </div>
                     </form>
@@ -67,10 +72,11 @@ import toast from "../../libs/toast";
 import axios from "axios";
 import {getError} from "../../services/api";
 import UtmFields from "../common/UtmFields";
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
     name: "PopupAgentSubscription",
-    components: {UtmFields, FormCsrf, FormInput, Popup},
+    components: { VueRecaptcha, UtmFields, FormCsrf, FormInput, Popup },
     props: {
         action: String,
     },
@@ -78,6 +84,7 @@ export default {
         const store = useStore();
         const popupOpen = computed(() => store.state.userQuestion.popupAgentSubOpen);
         const request = ref(false);
+        const recaptcha = ref(null);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_AGENT_SUB_OPEN', false);
         const user = store.state.user.currentUser
 
@@ -98,10 +105,14 @@ export default {
             utm_content: '',
             utm_medium: '',
             utm_term: '',
+            'g-recaptcha-response': '',
         });
 
         const submitForm = async (event) => {
-            event.preventDefault();
+            if(typeof event === 'object') {
+                event.preventDefault();
+            }
+
             const result = await validate();
             if (!result.valid) {
                 console.log(errors);
@@ -133,12 +144,23 @@ export default {
             }
         }
 
+        const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+
+        const verify = (e) => {
+            data['g-recaptcha-response'] = e
+            submitForm()
+            recaptcha.value.reset()
+        }
+
         return {
             data,
             request,
             popupOpen,
             closePopup,
             submitForm,
+            sitekey,
+            recaptcha,
+            verify,
         }
     }
 }

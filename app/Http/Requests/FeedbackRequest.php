@@ -40,6 +40,7 @@ class FeedbackRequest extends FormRequest
             'utm_medium' => ['nullable'],
             'utm_source' => ['nullable'],
             'utm_term' => ['nullable'],
+            'g-recaptcha-response' => ['required', 'captcha'],
         ];
     }
 }
