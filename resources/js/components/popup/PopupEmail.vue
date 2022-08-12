@@ -43,7 +43,14 @@
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <button type="submit" class="btn type-1" :disabled="request">Надіслати</button>
+                        <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                                       @verify="verify"
+                                       ref="recaptcha"
+                        >
+                            <button type="submit" class="btn type-1" :disabled="request">
+                                {{ __('forms.send') }}
+                            </button>
+                        </vue-recaptcha>
                     </div>
                 </div>
                 <div class="btn-close" @click.prevent.stop="closePopup()">
@@ -67,10 +74,11 @@ import FormTextarea from "../form/FormTextarea";
 import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
 import UtmFields from "../common/UtmFields";
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
     name: "PopupEmail",
-    components: {UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
+    components: {VueRecaptcha, UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
         questionTypes: Array,
     },
@@ -78,6 +86,7 @@ export default {
         const store = useStore();
         const popupOpen = computed(() => store.state.userQuestion.popupMailOpen);
         const request = computed(() => store.state.userQuestion.request);
+        const recaptcha = ref(null);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_MAIL_OPEN', false);
         const user = store.state.user.currentUser
 
@@ -98,6 +107,7 @@ export default {
             email: user ? user.email : '',
             question_type: '',
             comment: '',
+            'g-recaptcha-response': '',
         });
 
         const submitForm = async (event) => {
@@ -125,12 +135,23 @@ export default {
             }
         }
 
+        const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+
+        const verify = (e) => {
+            data['g-recaptcha-response'] = e
+            submitForm()
+            recaptcha.value.reset()
+        }
+
         return {
             data,
             popupOpen,
             request,
             closePopup,
             submitForm,
+            sitekey,
+            recaptcha,
+            verify,
         }
     }
 }

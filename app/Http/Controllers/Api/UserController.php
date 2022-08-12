@@ -67,6 +67,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $subscription = UserSubscription::whereEmail($request->email)->first();
@@ -89,6 +90,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $subscription = AgencySubscription::whereEmail($request->email)->first();
