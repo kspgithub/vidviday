@@ -26,7 +26,6 @@ import directives from "./directives";
 
 app.use(directives);
 
-
 import globalComponents from "./components";
 
 app.use(globalComponents);
