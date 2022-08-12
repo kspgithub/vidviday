@@ -141,7 +141,7 @@ trait TourMethods
 
     public function schedulesForBooking($filter = null)
     {
-        $requestSchedule = (int) request()->get('schedule');
+        $requestSchedule = (int)request()->get('schedule');
 
         $query = $this->scheduleItems()->inFuture();
         if (!empty($filter)) {
