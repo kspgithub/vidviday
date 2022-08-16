@@ -1031,7 +1031,7 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-    &.bottom {
+    +    &.bottom {
         bottom: 15px;
     }
 }
