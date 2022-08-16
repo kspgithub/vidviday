@@ -33,8 +33,16 @@ class TourController extends BaseController
      *         in="query",
      *         name="ids",
      *         @OA\Schema(type="string"),
-     *         @OA\Examples(example="empty", value="", summary="Любые туры"),
-     *         @OA\Examples(example="request", value="1,2,3,4,5", summary="Только туры с выбранными ID"),
+     *         @OA\Examples(example="empty", value="", summary="Будь які турb"),
+     *         @OA\Examples(example="request", value="1,2,3,4,5", summary="Тільки тури з обраними ID"),
+     *     ),
+     *     @OA\Parameter(
+     *         description="Список id місць розділених комою",
+     *         in="query",
+     *         name="places",
+     *         @OA\Schema(type="string"),
+     *         @OA\Examples(example="empty", value="", summary="Будь які місця"),
+     *         @OA\Examples(example="request", value="2,3,4", summary="Тільки тури з обраними ID "),
      *     ),
      *     @OA\Parameter(
      *         description="Сторінка",
@@ -51,6 +59,24 @@ class TourController extends BaseController
      *         @OA\Schema(type="integer"),
      *         @OA\Examples(example="empty", value="", summary="За замовчуванням (12)"),
      *         @OA\Examples(example="request", value="10", summary="10 штук"),
+     *     ),
+     *     @OA\Parameter(
+     *         description="Ціна, з",
+     *         in="query",
+     *         name="price_from",
+     *         @OA\Schema(type="integer"),
+     *     ),
+     *     @OA\Parameter(
+     *         description="Ціна, до",
+     *         in="query",
+     *         name="price_to",
+     *         @OA\Schema(type="integer"),
+     *     ),
+     *     @OA\Parameter(
+     *         description="Пошук по тексту",
+     *         in="query",
+     *         name="q",
+     *         @OA\Schema(type="string"),
      *     ),
      *     @OA\Response(
      *         response=200,

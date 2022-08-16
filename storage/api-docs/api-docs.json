@@ -45,12 +45,30 @@
                         },
                         "examples": {
                             "empty": {
-                                "summary": "Любые туры",
+                                "summary": "Будь які турb",
                                 "value": ""
                             },
                             "request": {
-                                "summary": "Только туры с выбранными ID",
+                                "summary": "Тільки тури з обраними ID",
                                 "value": "1,2,3,4,5"
+                            }
+                        }
+                    },
+                    {
+                        "name": "places",
+                        "in": "query",
+                        "description": "Список id місць розділених комою",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "empty": {
+                                "summary": "Будь які місця",
+                                "value": ""
+                            },
+                            "request": {
+                                "summary": "Тільки тури з обраними ID ",
+                                "value": "2,3,4"
                             }
                         }
                     },
@@ -88,6 +106,30 @@
                                 "summary": "10 штук",
                                 "value": "10"
                             }
+                        }
+                    },
+                    {
+                        "name": "price_from",
+                        "in": "query",
+                        "description": "Ціна, з",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "price_to",
+                        "in": "query",
+                        "description": "Ціна, до",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Пошук по тексту",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -621,14 +663,8 @@
                         "example": "48"
                     },
                     "title": {
-                        "description": "Назва туру",
+                        "title": "Назва туру",
                         "type": "object",
-                        "default": {
-                            "uk": "10 родзинок Закарпаття",
-                            "en": "10 highlights of Transcarpathia",
-                            "ru": "10 изюминок Закарпатья",
-                            "pl": "10 Rodzynki Zakarpacia"
-                        },
                         "example": {
                             "uk": "10 родзинок Закарпаття",
                             "en": "10 highlights of Transcarpathia",
