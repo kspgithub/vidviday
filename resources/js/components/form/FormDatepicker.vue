@@ -3,7 +3,7 @@
          class="datepicker-input vue-datepicker"
          ref="pickerRef" v-click-outside="onClickOutside"
     >
-        <div class="datepicker-placeholder"
+        <div v-show="!open" class="datepicker-placeholder"
              :data-tooltip="errorMessage"
              @click="toggle()">{{ displayLabel }}
         </div>
