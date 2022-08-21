@@ -66,6 +66,7 @@
                     <div class="text-center">
                         <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
                                        @verify="verify"
+                                       @render="render"
                                        ref="recaptcha"
                         >
                             <button type="submit" class="btn type-1" :disabled="request">
@@ -86,7 +87,7 @@
 import Popup from "./Popup";
 import {useStore} from "vuex";
 import FormInput from "../form/FormInput";
-import {computed, reactive, ref} from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import FormSelect from "../form/FormSelect";
 import FormCustomSelect from "../form/FormCustomSelect";
 import FormDatepicker from "../form/FormDatepicker";
@@ -159,9 +160,29 @@ export default {
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
+            const htmlOffset = $('html').css('top')
+
+            if(htmlOffset) {
+                const layout = $('iframe[title*="recaptcha"]').parent().parent()
+                console.log(htmlOffset.replace('-', ''))
+                layout.css('margin-top', htmlOffset.replace('-', ''))
+            }
+
             data['g-recaptcha-response'] = e
             submitForm()
             recaptcha.value.reset()
+        }
+
+        const render = (e) => {
+            setTimeout(() => {
+                const htmlOffset = $('html').css('top')
+
+                if(htmlOffset) {
+                    const layout = $('iframe[title*="recaptcha"]')
+                    layout.css('margin-top', htmlOffset.replace('-', ''))
+                    layout.parent().css('overflow', 'visible')
+                }
+            }, 500)
         }
 
         return {
@@ -173,6 +194,7 @@ export default {
             sitekey,
             recaptcha,
             verify,
+            render,
         }
     }
 }
