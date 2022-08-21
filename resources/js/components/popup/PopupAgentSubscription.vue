@@ -42,6 +42,7 @@
                             <div class="text-center">
                                 <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
                                                @verify="verify"
+                                               @render="render"
                                                ref="recaptcha"
                                 >
                                     <button type="submit" class="btn type-1" :disabled="request">
@@ -152,6 +153,18 @@ export default {
             recaptcha.value.reset()
         }
 
+        const render = (e) => {
+            setTimeout(() => {
+                const htmlOffset = $('html').css('top')
+
+                if(htmlOffset) {
+                    const layout = $('iframe[title*="recaptcha"]')
+                    layout.css('margin-top', htmlOffset.replace('-', ''))
+                    layout.parent().css('overflow', 'visible')
+                }
+            }, 500)
+        }
+
         return {
             data,
             request,
@@ -161,6 +174,7 @@ export default {
             sitekey,
             recaptcha,
             verify,
+            render,
         }
     }
 }

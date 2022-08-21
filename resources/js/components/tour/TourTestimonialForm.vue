@@ -121,9 +121,14 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button type="submit" :disabled="invalid || request" class="btn type-1">
-                        {{ __('forms.leave-feedback') }}
-                    </button>
+                    <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                                   @verify="verify"
+                                   ref="recaptcha"
+                    >
+                        <button type="submit" :disabled="invalid || request" class="btn type-1">
+                            {{ __('forms.leave-feedback') }}
+                        </button>
+                    </vue-recaptcha>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -151,10 +156,11 @@ import FormCustomSelect from "../form/FormCustomSelect";
 import {useStore} from "vuex";
 import useTestimonialForm from "../testimonial/useTestimonialForm";
 import {useForm} from "vee-validate";
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
     name: "TourTestimonialForm",
-    components: { FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: { VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         tour: Object,
         user: Object,
@@ -168,6 +174,7 @@ export default {
         const parentId = computed(() => store.state.testimonials.parentId);
 
         const formRef = ref(null);
+        const recaptcha = ref(null);
 
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
@@ -177,6 +184,7 @@ export default {
             rating: 0,
             guide_id: 0,
             text: '',
+            'g-recaptcha-response': '',
         });
 
         const {validate, errors} = useForm({
@@ -194,12 +202,23 @@ export default {
             await testimonialForm.submitForm()
         };
 
+        const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+
+        const verify = (e) => {
+            data['g-recaptcha-response'] = e
+            onSubmit()
+            recaptcha.value.reset()
+        }
+
         return {
             ...testimonialForm,
             onSubmit,
             formRef,
             data,
             popupOpen,
+            sitekey,
+            recaptcha,
+            verify,
         }
     }
 }
