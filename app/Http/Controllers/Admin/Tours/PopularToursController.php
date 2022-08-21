@@ -18,7 +18,7 @@ class PopularToursController extends Controller
     public function index(Request $request)
     {
         $items = PopularTour::query()->orderBy('position')
-            ->with('tour')->paginate($request->input('per_page', 20));
+            ->with('tour')->get();
 
         return view('admin.popular-tours.index', ['items' => $items]);
     }
