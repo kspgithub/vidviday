@@ -195,11 +195,11 @@ export default {
 
                 innerValue.value = event.target.value
 
-                if(!errorMessage) {
-                    if(event.target.selectionStart === event.target.value.length) {
+                setTimeout(() => {
+                    if(!errorMessage.value) {
                         manualChange(event.target.value)
                     }
-                }
+                }, 50)
             });
 
             // document.addEventListener('click', clickOutside);

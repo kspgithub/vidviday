@@ -125,7 +125,7 @@
                                    @verify="verify"
                                    ref="recaptcha"
                     >
-                        <button type="submit" :disabled="invalid || request" class="btn type-1">
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
@@ -210,6 +210,21 @@ export default {
             recaptcha.value.reset()
         }
 
+        const validateForm = async (e) => {
+            if(e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    console.log(errors);
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
+
         return {
             ...testimonialForm,
             onSubmit,
@@ -219,6 +234,7 @@ export default {
             sitekey,
             recaptcha,
             verify,
+            validateForm,
         }
     }
 }

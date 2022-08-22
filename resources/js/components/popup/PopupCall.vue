@@ -12,13 +12,12 @@
                     <input type="hidden" name="type" :value="data.type">
                 </div>
                 <div class="col-md-6 col-12">
-                    <form-input name="name" v-model="data.name" rules="required" :label="__('forms.your-name')"/>
+                    <form-input name="name" v-model="data.name" :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
-                                rules="tel|required"
                                 v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
 
@@ -27,10 +26,11 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <select name="question_type" required v-model="data.question_type">
-                        <option value="" selected disabled>{{__('common.question-type')}} *</option>
-                        <option v-for="questionType in questionTypes" :value="questionType.value">{{questionType.title}}</option>
-                    </select>
+                    <form-sumo-select name="question_type" v-model="data.question_type"
+                                      :options="questionTypes"
+                                      :label="__('common.question-type')"
+                    >
+                    </form-sumo-select>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -42,19 +42,11 @@
                 <div class="col-md-6 col-12">
                     <div class="timepicker-input">
 
-                        <select name="call_time" v-model="data.call_time" required>
-                            <option value="" selected disabled>{{__('common.call-date')}}</option>
-                            <option value="11:00">11:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="13:00">13:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="15:00">15:00</option>
-                            <option value="16:00">16:00</option>
-                            <option value="17:00">17:00</option>
-                            <option value="18:00">18:00</option>
-                            <option value="19:00">19:00</option>
-                            <option value="20:00">20:00</option>
-                        </select>
+                        <form-sumo-select name="call_time" v-model="data.call_time"
+                                          :options="callTimes"
+                                          :label="__('common.call-date')"
+                        >
+                        </form-sumo-select>
                     </div>
                 </div>
 
@@ -69,7 +61,7 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <button type="submit" class="btn type-1" :disabled="request">
+                            <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
                             </button>
                         </vue-recaptcha>
@@ -96,10 +88,21 @@ import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
 import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
+import FormSumoSelect from '../form/FormSumoSelect.vue'
 
 export default {
     name: "PopupCall",
-    components: { VueRecaptcha, UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
+    components: {
+        FormSumoSelect,
+        VueRecaptcha,
+        UtmFields,
+        FormTextarea,
+        FormDatepicker,
+        FormCustomSelect,
+        FormSelect,
+        FormInput,
+        Popup
+    },
     props: {
         questionTypes: Array,
     },
@@ -115,7 +118,10 @@ export default {
             validationSchema: {
                 name: 'required',
                 phone: 'required|tel',
-                email: 'email',
+                email: 'required|email',
+                question_type: 'required',
+                call_time: 'required',
+                call_date: 'required|date:DD.MM.YYYY',
             },
         });
 
@@ -160,6 +166,7 @@ export default {
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
+            console.log('verify')
             const htmlOffset = $('html').css('top')
 
             if(htmlOffset) {
@@ -177,7 +184,7 @@ export default {
             setTimeout(() => {
                 const htmlOffset = $('html').css('top')
 
-                if(htmlOffset) {
+                if (htmlOffset) {
                     const layout = $('iframe[title*="recaptcha"]')
                     layout.css('margin-top', htmlOffset.replace('-', ''))
                     layout.parent().css('overflow', 'visible')
@@ -185,8 +192,31 @@ export default {
             }, 500)
         }
 
+        const validateForm = async (e) => {
+            if (e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    console.log(errors);
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
+
+        const callTimes = ref([])
+
+        for(let time = 11; time <= 20; time++) {
+            callTimes.value.push({text: `${time}:00`, value: `${time}:00`})
+        }
+
         return {
             data,
+            errors,
+            callTimes,
             popupOpen,
             request,
             closePopup,
@@ -195,6 +225,7 @@ export default {
             recaptcha,
             verify,
             render,
+            validateForm,
         }
     }
 }

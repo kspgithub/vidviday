@@ -1093,7 +1093,10 @@ label.invalid:after {
 }
 
 label.invalid input,
-label.invalid textarea {
+label.invalid textarea,
+select.invalid,
+select.invalid .SumoSelect
+{
     border-color: #cf2020;
 }
 

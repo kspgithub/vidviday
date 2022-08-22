@@ -48,7 +48,7 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <button type="submit" class="btn type-1" :disabled="request">
+                            <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
                             </button>
                         </vue-recaptcha>
@@ -156,6 +156,21 @@ export default {
             }, 500)
         }
 
+        const validateForm = async (e) => {
+            if(e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    console.log(errors);
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
+
         return {
             data,
             popupOpen,
@@ -166,6 +181,7 @@ export default {
             recaptcha,
             verify,
             render,
+            validateForm,
         }
     }
 }
