@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="bottom-part">
-            @foreach($tour->testimonials->where('parent_id', null)->take(2) as $testimonial)
+            @foreach($tour->testimonials->where('rating', '>=', 4)->where('parent_id', null)->take(2) as $testimonial)
                 <x-tour.testimonial :testimonial="$testimonial" :short="true"/>
             @endforeach
             <a href="#reviews-accordion"

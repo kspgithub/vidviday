@@ -116,10 +116,9 @@ class TourController extends Controller
             'manager',
             'landings',
             'testimonials' => function ($q) {
-                return $q->moderated()->where('rating', '>=', 4)
+                return $q->moderated()
                     ->orderBy('rating', 'desc')
-                    ->latest()
-                    ->take(2);
+                    ->latest();
             },
             'questions' => function ($q) {
                 return $q->moderated();
@@ -146,10 +145,9 @@ class TourController extends Controller
 
         $tour->loadCount([
             'testimonials' => function ($q) {
-                return $q->moderated()->where('rating', '>=', 4)
+                return $q->moderated()
                     ->orderBy('rating', 'desc')
-                    ->latest()
-                    ->take(2);
+                    ->latest();
             },
             'votings',
         ]);

@@ -2,7 +2,7 @@
     'testimonial'=>new \App\Models\Testimonial(),
     'short'=> false
 ])
-<div class="review-item">
+<div class="review-item" id="testimonial-{{ $testimonial->id }}">
     <div class="spacer-xs"></div>
     <div class="review">
         <div class="review-header">
@@ -37,7 +37,7 @@
 {{--            </p>--}}
 {{--        </div>--}}
         <div class="seo-text load-more-wrapp p-0 m-0">
-            @if(mb_strlen($testimonial->short_text) === $testimonial::SHORT_TEXT_STR_LIMIT + 3)
+            @if(mb_strlen($testimonial->short_text) <= $testimonial::SHORT_TEXT_STR_LIMIT + 3)
                 <div class="less-info">
                     <p>{!! $testimonial->short_text !!}</p>
                 </div>

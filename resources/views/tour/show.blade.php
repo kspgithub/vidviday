@@ -151,7 +151,6 @@
 
 @endsection
 
-
 @push('after-popups')
     <div v-is="'tour-calendar-popup'"
          :tour='@json($tour->shortInfo())'
@@ -176,4 +175,18 @@
     >
         @csrf
     </div>
+@endpush
+
+@push('after-scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', (e) => {
+            $(function () {
+                if(location.hash.match(/^#testimonial-(\d+)$/)) {
+                    if($(location.hash).length) {
+                        $('#reviews-accordion .accordion-title').click()
+                    }
+                }
+            })
+        })
+    </script>
 @endpush

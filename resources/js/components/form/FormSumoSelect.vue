@@ -1,7 +1,7 @@
 <template>
     <label class="form-label" :data-tooltip="errorMessage" :class="{invalid: errorMessage, 'mb-0':inline}">
         <select :class="{'mb-0':inline}" ref="selectRef" :name="name" :multiple="multiple" v-model="value">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
+            <option v-for="option in options" :value="option.value || option.id">{{ option.text || option.title }}</option>
             <slot/>
         </select>
     </label>
@@ -40,7 +40,7 @@ export default {
         const {required} = useRequiredFormGroup(props);
 
         const {value, errorMessage} = useField(props.name, props.rules, {
-            initialValue: props.modelValue ? props.modelValue : (multiple ? [] : '')
+            initialValue: props.modelValue ? props.modelValue : (props.multiple ? [] : '')
         });
 
 

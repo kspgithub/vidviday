@@ -37,7 +37,7 @@
                     {{ tour.format_duration }}
                 </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">
-                    {{ places > 10 ? '10+' : places }}
+                    {{ places > 10 ? '10+' : '2-10' }}
                     <tooltip v-if="places === 0" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
@@ -112,7 +112,7 @@ export default {
         const price = computed(() => selectedSchedule.value ? selectedSchedule.value.price : props.tour.price);
         const accommPrice = computed(() => selectedSchedule.value ? selectedSchedule.value.accomm_price : props.tour.accomm_price);
         const commission = computed(() => selectedSchedule.value ? selectedSchedule.value.commission : props.tour.commission);
-        const places = computed(() => selectedSchedule.value ? selectedSchedule.value.places : 0);
+        const places = computed(() => selectedSchedule.value ? selectedSchedule.value.places_available : 0);
 
         const action = computed(() => {
             return `/tour/${props.tour.id}/order`;

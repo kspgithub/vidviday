@@ -4,6 +4,7 @@ namespace App\Models\Traits\Attributes;
 
 use App\Models\Order;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 trait TourScheduleAttribute
@@ -146,7 +147,7 @@ trait TourScheduleAttribute
         $price = ceil($this->price);
 
         $title = "Ціна: {$price} грн.";
-        if ($this->commission > 0) {
+        if (Auth::user()?->isTourAgent() && $this->commission > 0) {
             $commission = ceil($this->commission);
             $title .= " | {$commission} грн.";
         }
