@@ -41,12 +41,10 @@
 
                 <div class="col-md-6 col-12">
                     <div class="timepicker-input">
-
                         <form-sumo-select name="call_time" v-model="data.call_time"
                                           :options="callTimes"
                                           :label="__('common.call-date')"
-                        >
-                        </form-sumo-select>
+                        />
                     </div>
                 </div>
 
@@ -166,15 +164,6 @@ export default {
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
-            console.log('verify')
-            const htmlOffset = $('html').css('top')
-
-            if(htmlOffset) {
-                const layout = $('iframe[title*="recaptcha"]').parent().parent()
-                console.log(htmlOffset.replace('-', ''))
-                layout.css('margin-top', htmlOffset.replace('-', ''))
-            }
-
             data['g-recaptcha-response'] = e
             submitForm()
             recaptcha.value.reset()

@@ -30,10 +30,10 @@
                                 v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
                 <div class="col-md-6 col-12">
-                    <select name="question_type" required v-model="data.question_type">
-                        <option value="" selected disabled>Тип запитання *</option>
-                        <option v-for="questionType in questionTypes" :value="questionType.value">{{questionType.title}}</option>
-                    </select>
+                    <form-sumo-select name="question_type" v-model="data.question_type"
+                                      :options="questionTypes"
+                                      :label="__('common.question-type')"
+                    />
                 </div>
 
                 <div class="col-12">
@@ -76,10 +76,13 @@ import {useForm} from "vee-validate";
 import toast from "../../libs/toast";
 import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
+import FormSumoSelect from '../form/FormSumoSelect.vue'
 
 export default {
     name: "PopupEmail",
-    components: {VueRecaptcha, UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
+    components: {
+        FormSumoSelect,
+        VueRecaptcha, UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},
     props: {
         questionTypes: Array,
     },
@@ -95,9 +98,10 @@ export default {
         const {validate, errors, values} = useForm({
             validationSchema: {
                 name: 'required',
-                phone: 'tel',
+                phone: 'required|tel',
                 email: 'required|email',
                 comment: 'required',
+                question_type: 'required',
             },
         });
 
@@ -111,8 +115,7 @@ export default {
             'g-recaptcha-response': '',
         });
 
-        const submitForm = async (event) => {
-            event.preventDefault();
+        const submitForm = async () => {
             const result = await validate();
             if (!result.valid) {
 
