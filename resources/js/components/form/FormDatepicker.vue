@@ -1,10 +1,10 @@
 <template>
-    <div :class="{active: open, disabled: disabled, invalid: errorMessage || customErrorMessage}"
+    <div :class="{active: open, disabled: disabled, invalid: errorMessage}"
          class="datepicker-input vue-datepicker"
          ref="pickerRef" v-click-outside="clickOutside"
     >
         <div class="datepicker-placeholder"
-             :data-tooltip="errorMessage || customErrorMessage"
+             :data-tooltip="errorMessage"
              @click="toggle">
             <input v-show="open"
                    ref="pickerInput"
@@ -81,12 +81,12 @@ export default {
         const pickerInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
-        const customErrorMessage = ref('');
 
         const displayLabel = computed(() => {
             return !innerValue.value
                 ? props.label
-                : (/^([12][0-9]|3[01]|0[1-9])\.(1[012]|0[1-9])\.20[\d]{2}$/.test(innerValue.value) ?
+                : (
+                    !errorMessage ?
                     moment(innerValue.value, props.valueFormat.toUpperCase()).format(props.displayFormat) :
                     innerValue.value
                 );
@@ -159,6 +159,7 @@ export default {
         }
 
         onMounted(() => {
+
             $(pickerEl.value).datepicker({
                 constrainInput: true,
                 inline: true,
@@ -191,21 +192,14 @@ export default {
                     }
                 }
             }).on('input', function (event){
-                customErrorMessage.value = ''
 
-                if(/^([12][0-9]|3[01]|0[1-9])\.(1[012]|0[1-9])\.20[\d]{2}$/.test(event.target.value)) {
+                innerValue.value = event.target.value
+
+                if(!errorMessage) {
                     if(event.target.selectionStart === event.target.value.length) {
                         manualChange(event.target.value)
                     }
-                } else {
-                    innerValue.value = event.target.value
-
-                    if(event.target.selectionStart === event.target.value.length) {
-                        customErrorMessage.value = __('validation.date', {attribute: props.name})
-                    }
                 }
-            }).on('change', function (event) {
-                customErrorMessage.value = ''
             });
 
             // document.addEventListener('click', clickOutside);
@@ -262,7 +256,6 @@ export default {
             innerValue,
             manualChange,
             clickOutside,
-            customErrorMessage,
         }
     },
     watch: {
