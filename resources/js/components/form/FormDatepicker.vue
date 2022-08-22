@@ -1,25 +1,33 @@
 <template>
-    <div :class="{active: open, disabled: disabled, invalid: errorMessage}"
+    <div :class="{active: open, disabled: disabled, invalid: errorMessage || customErrorMessage}"
          class="datepicker-input vue-datepicker"
-         ref="pickerRef" v-click-outside="onClickOutside"
+         ref="pickerRef" v-click-outside="clickOutside"
     >
-        <div v-show="!open" class="datepicker-placeholder"
-             :data-tooltip="errorMessage"
-             @click="toggle()">{{ displayLabel }}
+        <div class="datepicker-placeholder"
+             :data-tooltip="errorMessage || customErrorMessage"
+             @click="toggle">
+            <input v-show="open"
+                   ref="pickerInput"
+                   :name="name"
+                   :value="innerValue"
+                   type="text"
+                   class="dr"
+                   :placeholder="placeholder">
+            <span v-show="!open" v-html="displayLabel"></span>
         </div>
         <div class="datepicker-toggle">
             <div ref="pickerEl" :class="{filled: filled, picked: filled}"></div>
         </div>
-        <input autofocus ref="pickerInput" :name="name" :value="innerValue" type="text" class="dr" :class="{'d-none': !open}">
+
     </div>
 </template>
 
 <script>
-import {computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
-import useFormField from "./composables/useFormField";
 import {useField} from "vee-validate";
+import { __ } from '../../i18n/lang.js'
 
 export default {
     name: "FormDatepicker",
@@ -73,11 +81,15 @@ export default {
         const pickerInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
+        const customErrorMessage = ref('');
 
         const displayLabel = computed(() => {
-            return !props.modelValue
+            return !innerValue.value
                 ? props.label
-                : moment(props.modelValue, props.valueFormat.toUpperCase()).format(props.displayFormat);
+                : (/^([12][0-9]|3[01]|0[1-9])\.(1[012]|0[1-9])\.20[\d]{2}$/.test(innerValue.value) ?
+                    moment(innerValue.value, props.valueFormat.toUpperCase()).format(props.displayFormat) :
+                    innerValue.value
+                );
         });
 
         const filled = computed(() => !!props.modelValue);
@@ -93,15 +105,26 @@ export default {
             }
         }
 
-        const toggle = () => {
+        const toggle = (e) => {
             if (props.disabled) return;
             open.value = !open.value;
+
+            if(open.value){
+                pickerInput.value.focus()
+                setTimeout(() => {
+                    pickerInput.value.focus()
+                }, 50)
+            }
         }
 
         const clickOutside = (event) => {
             const $target = $(event.target);
 
-            if (!$target.closest($(pickerRef.value)).length) {
+            if (open.value && (
+                !$target.closest($(pickerRef.value)).length &&
+                !$($target).closest('.datepicker--nav-title').length &&
+                !$($target).closest('.datepicker--nav-action').length
+            )) {
                 close(event);
             }
         }
@@ -167,10 +190,22 @@ export default {
                         validator: "[0-9]"
                     }
                 }
-            }).on('change', function (event){
-                if(/^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(event.target.value)) {
-                    manualChange(event.target.value)
+            }).on('input', function (event){
+                customErrorMessage.value = ''
+
+                if(/^([12][0-9]|3[01]|0[1-9])\.(1[012]|0[1-9])\.20[\d]{2}$/.test(event.target.value)) {
+                    if(event.target.selectionStart === event.target.value.length) {
+                        manualChange(event.target.value)
+                    }
+                } else {
+                    innerValue.value = event.target.value
+
+                    if(event.target.selectionStart === event.target.value.length) {
+                        customErrorMessage.value = __('validation.date', {attribute: props.name})
+                    }
                 }
+            }).on('change', function (event) {
+                customErrorMessage.value = ''
             });
 
             // document.addEventListener('click', clickOutside);
@@ -213,12 +248,6 @@ export default {
             datepicker.value.destroy();
         })
 
-        const onClickOutside = (event) => {
-            if(open.value) {
-                close(event)
-            }
-        }
-
         return {
             pickerRef,
             pickerEl,
@@ -232,7 +261,8 @@ export default {
             errorMessage,
             innerValue,
             manualChange,
-            onClickOutside,
+            clickOutside,
+            customErrorMessage,
         }
     },
     watch: {
