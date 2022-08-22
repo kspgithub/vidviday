@@ -35,7 +35,7 @@
                                 </p>
                             @endif
                             <div class="seo-text load-more-wrapp p-0 m-0">
-                                @if(mb_strlen($testimonial->short_text) === $testimonial::SHORT_TEXT_STR_LIMIT + 3)
+                                @if(mb_strlen($testimonial->short_text) <= $testimonial::SHORT_TEXT_STR_LIMIT + 3)
                                     <div class="less-info">
                                         <p>{!! $testimonial->short_text !!}</p>
                                     </div>
@@ -43,13 +43,21 @@
                                         <p>{!! $testimonial->text !!}</p>
                                     </div>
 
-                                    <div class="show-more">
-                                        <span>Читати більше</span>
-                                        <span>Сховати текст</span>
-                                    </div>
+                                    @if($testimonial->tour)
+                                        <a class="btn btn-read-more text-bold d-inline" href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
+                                            {{__('common.more')}}
+                                        </a>
+                                    @else
+                                        <div class="show-more">
+                                            <span>{{__('tours-section.show-more')}}</span>
+                                            <span>{{__('common.hide-text')}}</span>
+                                        </div>
+                                    @endif
+
                                 @else
                                     <p>{!! $testimonial->text !!}</p>
                                 @endif
+
                             </div>
                         </div>
                     </div>
