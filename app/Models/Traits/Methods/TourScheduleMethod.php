@@ -108,12 +108,11 @@ trait TourScheduleMethod
     {
         $json = json_encode($this->shortInfo());
 
-
         $data = [
             'id' => $this->id,
             'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->title,
             'start' => $this->start_date->format('Y-m-d'),
-            'end' => $this->end_date->format('Y-m-d'),
+            'end' => $this->end_date->addDay()->format('Y-m-d'),
             'className' => $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
         ];
 

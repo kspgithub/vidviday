@@ -5,7 +5,6 @@ import uk from '@vee-validate/i18n/dist/locale/uk.json';
 
 import AllRules from '@vee-validate/rules';
 
-console.log(AllRules)
 const veeMessages = {
     ru: {
         messages: {

@@ -1,6 +1,5 @@
 <template>
     <div class="calendar-wrapper">
-
         <div class="calendar-header-center" v-if="header">
             <span class="text-sm">10+ {{ t('places') }}</span>
             <span class="text-sm">2 — 10 {{ t('places') }}</span>
