@@ -41,9 +41,9 @@
                         </span>
                         <span class="thumb-info-people text">
                             {{
-                                        currentSchedule && currentSchedule.places > 10 ? '10+' : (currentSchedule ? currentSchedule.places : 0)
-                                    }}
-                            <tooltip v-if="!currentSchedule || currentSchedule.places === 0" variant="black">
+                                currentSchedule?.places_available > 10 ? '10+' : (currentSchedule?.places_available > 0 ? '2-10' : 0)
+                            }}
+                            <tooltip v-if="!currentSchedule || currentSchedule.places_available === 0" variant="black">
                                 {{ __('tours-section.empty-tooltip') }}
                             </tooltip>
                         </span>
