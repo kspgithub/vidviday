@@ -158,11 +158,17 @@ export default {
                     extraParams: props.filter
                 },
                 eventClick: (info) => {
+                    console.log(info)
                     emit('event-click', {
                         id: parseInt(info.event.id),
                         title: info.event.title,
                         url: info.event.url,
                     });
+                },
+                navLinkDayClick: (date) => {
+                    console.log(date)
+
+                    return false
                 },
             }, props.options)
         );
