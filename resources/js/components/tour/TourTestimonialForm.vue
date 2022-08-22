@@ -123,9 +123,10 @@
                 <div class="col-md-6 col-12 text-right text-center-xs">
                     <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
                                    @verify="verify"
+                                   @render="render"
                                    ref="recaptcha"
                     >
-                        <button type="submit" :disabled="invalid || request" class="btn type-1">
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
@@ -191,8 +192,10 @@ export default {
             validationSchema: {
                 first_name: 'required',
                 last_name: 'required',
-                phone: 'tel',
-                email: 'email',
+                phone: 'required|tel',
+                email: 'required|email',
+                text: 'required',
+                rating: 'required|numeric|min_value:1',
             }
         })
 
@@ -210,6 +213,34 @@ export default {
             recaptcha.value.reset()
         }
 
+        const render = (e) => {
+            setTimeout(() => {
+                const htmlOffset = $('html').css('top')
+
+                if (htmlOffset) {
+                    const layout = $('iframe[title*="recaptcha"]')
+                    layout.css('margin-top', htmlOffset.replace('-', ''))
+                    layout.parent().css('overflow', 'visible')
+                }
+            }, 500)
+        }
+
+        const validateForm = async (e) => {
+            if(e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    console.log(errors.value);
+                    console.log(data.rating);
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
+
         return {
             ...testimonialForm,
             onSubmit,
@@ -219,6 +250,8 @@ export default {
             sitekey,
             recaptcha,
             verify,
+            render,
+            validateForm,
         }
     }
 }

@@ -24,7 +24,7 @@ class Popular extends Component
     {
         //
         $this->popularTours = Cache::remember('popular-tours', 1, function () {
-            return TourService::popularTours();
+            return TourService::popularTours(25);
         });
     }
 

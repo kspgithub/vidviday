@@ -36,7 +36,7 @@ class SiteOptionsController extends Controller
                         }
                         break;
                     default:
-                        $option->value = $value;
+                        $option->value = !empty($value) ? $value : '';
                 }
 
                 $option->save();
