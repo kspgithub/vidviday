@@ -181,11 +181,14 @@ export default {
 
             $(pickerInput.value).inputmask({
                 placeholder: props.placeholder,
-                mask: "99.99.9999",
+                mask: "q9.w9.9999",
                 clearMaskOnLostFocus: true,
                 definitions: {
-                    'x': {
-                        validator: "[1-9]"
+                    'q': {
+                        validator: "[0-3]"
+                    },
+                    'w': {
+                        validator: "[0-1]"
                     },
                     '9': {
                         validator: "[0-9]"
@@ -196,7 +199,8 @@ export default {
                 innerValue.value = event.target.value
 
                 setTimeout(() => {
-                    if(!errorMessage.value) {
+                    console.log(moment(event.target.value, props.valueFormat.toUpperCase(), true).isValid())
+                    if(moment(event.target.value, props.valueFormat.toUpperCase(), true).isValid() && !errorMessage.value) {
                         manualChange(event.target.value)
                     }
                 }, 50)
