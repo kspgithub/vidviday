@@ -150,12 +150,15 @@ export default {
             let dayCell = $('.datepicker--cell[data-date="' + d + '"][data-month="' + m + '"][data-year="' + y + '"]')
 
             if (dayCell.length) {
-                dayCell.click()
+                setTimeout(() => {
+                    dayCell.click()
+
+                    if(event && event.target) {
+                        close(event)
+                    }
+                }, 100)
             }
 
-            if(event && event.target) {
-                close(event)
-            }
         }
 
         onMounted(() => {
@@ -199,11 +202,10 @@ export default {
                 innerValue.value = event.target.value
 
                 setTimeout(() => {
-                    console.log(moment(event.target.value, props.valueFormat.toUpperCase(), true).isValid())
                     if(moment(event.target.value, props.valueFormat.toUpperCase(), true).isValid() && !errorMessage.value) {
                         manualChange(event.target.value)
                     }
-                }, 50)
+                }, 100)
             });
 
             // document.addEventListener('click', clickOutside);
