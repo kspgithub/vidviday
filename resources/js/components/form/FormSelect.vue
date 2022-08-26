@@ -1,7 +1,7 @@
 <template>
-    <div v-click-outside="close" :class="{open: open}" class="SumoSelect">
+    <div v-click-outside="close" :class="{open: open}" class="SumoSelect" @click="handleOpen">
         <input :name="name" :value="modelValue" type="hidden">
-        <p :title="selectedText" class="CaptionCont SelectBox" @click="open = !open">
+        <p :title="selectedText" class="CaptionCont SelectBox">
             <span v-html="selectedText"></span>
             <label><i></i></label>
         </p>
@@ -137,6 +137,15 @@ export default {
             emit('update:modelValue', options.join(','))
         }
 
+        const handleOpen = (e) => {
+            if(open.value) {
+                if(!$(e.target).hasClass('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+                    open.value = !open.value
+            } else {
+                open.value = !open.value
+            }
+        }
+
         return {
             selected,
             selectedText,
@@ -146,6 +155,7 @@ export default {
             searchValue,
             filteredOptions,
             selectAll,
+            handleOpen,
         }
     }
 }
