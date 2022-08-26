@@ -14,7 +14,7 @@
                                     <div class="accordion-item active">
                                         <div class="accordion-title">{{$foodTime->time->title}}<i></i></div>
                                         <div class="accordion-inner" style="display: block">
-                                            <div class="accordion-title">{{$foodTime->title}}<i></i></div>
+{{--                                            <div class="accordion-title">{{$foodTime->title}}<i></i></div>--}}
 
                                             <x-swiper-media :slides="$foodTime->getMedia()"/>
 
