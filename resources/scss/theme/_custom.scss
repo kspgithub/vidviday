@@ -13067,5 +13067,14 @@ input[name="viber"]:-ms-input-placeholder {
         cursor: pointer;
         font-size: 16px;
     }
+
+    .datepicker {
+        .datepicker--nav {
+            transform: unset;
+            position: unset;
+            width: 90%;
+        }
+    }
+
 }
 
