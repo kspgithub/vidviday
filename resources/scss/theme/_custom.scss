@@ -8252,7 +8252,7 @@ a.fc-more {
 .datepicker-input.active .datepicker-placeholder {
     //color: transparent;
 }
-.datepicker-input .datepicker-placeholder input {
+.single-datepicker .datepicker-input .datepicker-placeholder input {
     padding: 12px 15px 10px;
 }
 .participant {
@@ -11082,7 +11082,7 @@ footer .accordion-inner .spacer-xs {
 }
 
 .SumoSelect.open {
-    z-index: 71;
+    z-index: 72!important;
 }
 
 .SumoSelect.open .search-txt {
@@ -13067,5 +13067,14 @@ input[name="viber"]:-ms-input-placeholder {
         cursor: pointer;
         font-size: 16px;
     }
+
+    .datepicker {
+        .datepicker--nav {
+            transform: unset;
+            position: unset;
+            width: 90%;
+        }
+    }
+
 }
 

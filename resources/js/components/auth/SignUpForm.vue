@@ -66,9 +66,7 @@ export default {
                 password_confirmation: () => {
                     return values.password === values.password_confirmation ? true : trans('validation.confirmed', {attribute: 'password'})
                 },
-                birthday: () => {
-                    return (/^([12][0-9]|3[01]|0[1-9])\.(1[012]|0[1-9])\.(19|20)[\d]{2}$/.test(values.birthday)) ? true : trans('validation.date', {attribute: 'birthday'})
-                },
+                birthday: 'required|date:DD.MM.YYYY'
             };
 
             if (role.value === 'tour-agent') {
