@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import {computed, reactive, ref} from "vue";
+import { computed, nextTick, reactive, ref } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -222,7 +222,7 @@ export default {
                     layout.css('margin-top', htmlOffset.replace('-', ''))
                     layout.parent().css('overflow', 'visible')
                 }
-            }, 500)
+            }, 1000)
         }
 
         const validateForm = async (e) => {
