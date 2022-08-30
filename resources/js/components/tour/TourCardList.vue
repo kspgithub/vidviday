@@ -25,8 +25,8 @@
                 <div class="text desc">
                     <p>
                         {{ shortText }}
-                        <a :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
                     </p>
+                    <a :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
                 </div>
             </div>
             <div class="thumb-content">
