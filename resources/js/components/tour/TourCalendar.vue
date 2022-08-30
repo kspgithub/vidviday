@@ -1,12 +1,15 @@
 <template>
     <div class="calendar-wrapper">
-        <div class="calendar-header-center" v-if="header">
-            <span class="text-sm">10+ {{ t('places') }}</span>
-            <span class="text-sm">2 — 10 {{ t('places') }}</span>
-            <span class="text-sm">{{ t('noPlaces') }}</span>
-            <span v-if="viewChange" class="text">{{ t('view') }}</span>
-            <form-select v-if="viewChange" v-model="viewType" :options="viewTypes" class="view-change"/>
-        </div>
+        <teleport v-if="calendarHeader" :to="calendarHeader">
+            <div class="calendar-header-center" v-if="header">
+                <span class="text-sm">10+ {{ t('places') }}</span>
+                <span class="text-sm">2 — 10 {{ t('places') }}</span>
+                <span class="text-sm">{{ t('noPlaces') }}</span>
+                <span v-if="viewChange" class="text">{{ t('view') }}</span>
+                <form-select v-if="viewChange" v-model="viewType" :options="viewTypes" class="view-change"/>
+            </div>
+        </teleport>
+
         <full-calendar ref="calendarEl" :options="calendarOptions"/>
         <div class="calendar-footer-center" v-if="footer">
             <span class="text-sm">10+ {{ t('places') }}</span>
@@ -181,11 +184,15 @@ export default {
             calendarOptions.value.events.extraParams = props.filter;
         }, 500));
 
+        const calendarHeader = ref(null)
+
         onMounted(() => {
             const calendar = calendarEl.value.getApi();
             calendar.changeView(viewType.value);
 
             calendarOptions.value.events.extraParams = props.filter;
+
+            calendarHeader.value = document.querySelector('.fc-header-toolbar')
         })
 
         return {
@@ -194,11 +201,36 @@ export default {
             viewType,
             calendarEl,
             calendarOptions,
+            calendarHeader,
         }
     }
 }
 </script>
 
-<style scoped>
+<style>
+.fc-header-toolbar {
+    margin-bottom: 50px!important;
+    position: relative;
+}
+.calendar-header-center {
+    position: absolute!important;
+    left:0!important;
+    right:0!important;
+    top: 0px!important;
+    margin-top: 60px!important;
+    justify-content: space-evenly!important;
+}
+.fc {
+    margin-top: 0px!important;
+}
+.fc .fc-toolbar {
+    justify-content: center!important;
+}
+
+@media (max-width: 767px) {
+    .fc .fc-scrollgrid table {
+        table-layout: unset!important;
+    }
+}
 
 </style>
