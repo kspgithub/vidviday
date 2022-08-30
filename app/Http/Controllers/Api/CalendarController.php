@@ -27,7 +27,7 @@ class CalendarController extends Controller
         }
 
         $event_click = $request->input('event_click', 'url');
-//        $schedules = TourSchedule::transformForBooking($query->get());
+//        $schedules = TourSchedule::transformForBooking($query->get()); // todo: ???
         $schedules = $query->get();
         return $schedules->map->asCalendarEvent($event_click);
     }
