@@ -16,11 +16,7 @@ class CalendarController extends Controller
     {
         $start = Carbon::parse($request->start);
         $end = Carbon::parse($request->end);
-        $query = TourSchedule::between($start, $end)->filter($request->validated())->with(['tour']);
-
-        if($request->get('future')) {
-            $query->inFuture();
-        }
+        $query = TourSchedule::inFuture()->between($start, $end)->filter($request->validated())->with(['tour']);
 
         if ($request->tour_id) {
             $query->where('tour_id', $request->tour_id);
