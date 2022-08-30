@@ -20,8 +20,11 @@
             <div class="thumb-content">
                 <div class="title h4">
                     <a :href="tour.url">{{ tourTitle }}</a>
+                    <tour-rating :count="tour.testimonials_count"
+                                 :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"
+                                 class="d-block d-lg-block mt-20"
+                                 force-count/>
                 </div>
-                <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" class="d-none d-lg-block"/>
                 <div class="text desc">
                     <p>
                         {{ shortText }}
@@ -33,8 +36,10 @@
                 <div v-if="schedules.length" class="datepicker-input d-none d-lg-block">
                     <form-select v-model="scheduleId" :options="schedules"></form-select>
                 </div>
+                <div v-if="schedules.length" class="datepicker-input d-block d-lg-none">
+                    <form-select v-model="scheduleId" :options="schedules"></form-select>
+                </div>
                 <div class="d-flex align-items-center justify-content-between">
-                    <tour-rating :count="tour.testimonials_count" :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" class="d-block d-lg-none"/>
                     <div class="thumb-info ms-10">
                         <span class="thumb-info-time text">
                             {{ tour.format_duration }}
@@ -48,9 +53,6 @@
                             </tooltip>
                         </span>
                     </div>
-                </div>
-                <div v-if="schedules.length" class="datepicker-input d-block d-lg-none">
-                    <form-select v-model="scheduleId" :options="schedules"></form-select>
                 </div>
                 <div class="thumb-price">
                     <span class="text">

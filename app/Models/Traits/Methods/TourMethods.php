@@ -54,6 +54,7 @@ trait TourMethods
             'currency' => $this->currency,
             'rating' => $this->rating,
             'testimonials_count' => $this->testimonials_count ?? 0,
+            'testimonials_avg_rating' => $this->testimonials_avg_rating ?? 0,
             'votings_count' => $this->votings()->published()->count(),
             'duration' => $this->duration,
             'nights' => $this->nights,

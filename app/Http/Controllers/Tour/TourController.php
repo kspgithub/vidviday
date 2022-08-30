@@ -49,7 +49,9 @@ class TourController extends Controller
     public function index(Request $request, TourGroup $group)
     {
         if (!$group->exists) {
-            $tours = Tour::search(false)->filter($request->all())->paginate($request->input('per_page', 12));
+            $query = Tour::search(false)->filter($request->all());
+            $query->withAvg('testimonials', 'rating');
+            $tours = $query->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
 
             if(!$tours->count() && ($q = $request->get('q'))) {
@@ -151,6 +153,12 @@ class TourController extends Controller
             },
             'votings',
         ]);
+
+        $tour->loadAvg(['testimonials' => function ($q) {
+            return $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest();
+        }], 'rating');
 
         $future_events = $tour->schedulesForBooking();
 

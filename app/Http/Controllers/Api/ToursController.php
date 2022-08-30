@@ -26,7 +26,19 @@ class ToursController extends Controller
     {
         $future = (int)$request->input('future', 1) !== 0;
 
-        $paginator = Tour::search($future)->filter($request->validated())->paginate($request->input('per_page', 12));
+        $query = Tour::search($future)->filter($request->validated());
+
+        $query->withAvg(['testimonials' => function ($q) {
+            return $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest();
+        }], 'rating')->withCount(['testimonials' => function ($q) {
+            return $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest();
+        }]);
+
+        $paginator = $query->paginate($request->input('per_page', 12));
 
         $result = $paginator->toArray();
 
