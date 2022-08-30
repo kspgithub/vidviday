@@ -148,7 +148,8 @@ trait TourMethods
         if (!empty($filter)) {
             $query->filter($filter);
         }
-        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->id === $requestSchedule || $value->places_available > 0);
+//        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->id === $requestSchedule || $value->places_available > 0);
+        $schedules = $query->get();
         return TourSchedule::transformForBooking($schedules);
     }
 
