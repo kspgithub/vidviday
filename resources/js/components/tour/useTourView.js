@@ -1,6 +1,5 @@
 import {useStore} from "vuex";
-import {computed} from "vue";
-
+import { computed, nextTick, ref } from "vue";
 
 export const useTourView = () => {
     const store = useStore();
@@ -16,7 +15,11 @@ export const useTourView = () => {
 
     const nextPage = async () => {
         if (fetchRequest.value || currentPage.value >= lastPage.value) return;
+        const currentPos = document.documentElement.scrollTop
         await store.dispatch('tourFilter/fetchTours', Object.assign(params.value, {page: currentPage.value + 1}));
+        nextTick(() => {
+            document.documentElement.scrollTop = currentPos
+        })
     }
 
     return {

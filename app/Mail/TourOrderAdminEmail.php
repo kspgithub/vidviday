@@ -14,7 +14,7 @@ class TourOrderAdminEmail extends BaseTemplateEmail
 
     public static $subjectKey = 'emails.order-tour.subject';
 
-    public static $viewKey = 'emails.order-tour';
+    public static $viewKey = 'emails.order-tour-admin';
 
     /**
      * Create a new message instance.

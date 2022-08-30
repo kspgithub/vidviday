@@ -9,6 +9,7 @@ use App\Mail\RegistrationEmail;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\MailNotificationService;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Auth\Events\Registered;
@@ -92,9 +93,13 @@ class RegisteredUserController extends Controller
 
         try {
             Mail::to($user->email)->send(new RegistrationEmail($user, $password));
-            if ($user->isTourAgent()) {
-                Mail::send(new RegistrationAdminEmail($user));
+
+            // Notify admins
+            $adminEmails = MailNotificationService::getAdminNotifyEmails();
+            foreach ($adminEmails as $email) {
+                Mail::to($email)->send(new RegistrationAdminEmail($user));
             }
+
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
         }

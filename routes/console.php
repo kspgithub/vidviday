@@ -5,6 +5,7 @@ use App\Models\LanguageLine;
 use App\Models\QuestionType;
 use App\Models\Tour;
 use App\Models\UserQuestion;
+use App\Services\MailNotificationService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
@@ -22,11 +23,5 @@ use Illuminate\Support\Facades\Mail;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
-
-    $data= [];
-
-    $userQuestion = UserQuestion::query()->find(13);
-
-    Mail::to($userQuestion->email)->send(new UserQuestionEmail($userQuestion));
 
 })->purpose('Display an inspiring quote');

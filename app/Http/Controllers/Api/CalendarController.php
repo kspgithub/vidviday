@@ -16,14 +16,19 @@ class CalendarController extends Controller
     {
         $start = Carbon::parse($request->start);
         $end = Carbon::parse($request->end);
-        $query = TourSchedule::published()->between($start, $end)->filter($request->validated())->with(['tour']);
+        $query = TourSchedule::between($start, $end)->filter($request->validated())->with(['tour']);
+
+        if($request->get('future')) {
+            $query->inFuture();
+        }
 
         if ($request->tour_id) {
             $query->where('tour_id', $request->tour_id);
         }
 
         $event_click = $request->input('event_click', 'url');
-        $schedules = TourSchedule::transformForBooking($query->get());
+//        $schedules = TourSchedule::transformForBooking($query->get()); // todo: ???
+        $schedules = $query->get();
         return $schedules->map->asCalendarEvent($event_click);
     }
 }
