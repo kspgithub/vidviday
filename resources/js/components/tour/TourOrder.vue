@@ -3,7 +3,7 @@
         <input name="clear" :value="1" type="hidden">
 
 
-        <div class="thumb-price">
+        <div v-if="!isMobile" class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
             <span class="discount" v-if="isTourAgent && commission > 0">
                 {{ currencyCommission }} {{ currencyTitle }}
@@ -43,6 +43,15 @@
                     </tooltip>
                 </span>
             </div>
+
+            <div v-if="isMobile" class="thumb-price">
+                <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
+                <span class="discount" v-if="isTourAgent && commission > 0">
+                    {{ currencyCommission }} {{ currencyTitle }}
+                    <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
+                </span>
+            </div>
+
 
             <template v-if="nearestEvent">
 
@@ -159,6 +168,8 @@ export default {
             }
         }
 
+        const isMobile = window.innerWidth <= 768
+
         return {
             currencyTitle,
             currencyPrice,
@@ -176,6 +187,7 @@ export default {
             showPopup,
             showCalendar,
             orderTour,
+            isMobile,
         }
     }
 }
