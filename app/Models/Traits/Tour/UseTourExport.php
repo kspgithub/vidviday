@@ -70,7 +70,7 @@ trait UseTourExport
                     'items' => []
                 ];
             }
-            $result[$include->type_id]['items'][] = $include->finance->getTranslations('text');
+            $result[$include->type_id]['items'][] = $include->finance ? $include->finance->getTranslations('text') : [];
         }
         return array_values($result);
     }
