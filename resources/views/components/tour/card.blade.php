@@ -37,11 +37,13 @@
             <div class="thumb-info">
                 <span
                     class="thumb-info-time text">{!! $tour->format_duration !!}</span>
-                <span class="thumb-info-people text">{{$schedule->places >= 10 ? '10+' : $schedule->places}}</span>
-                @if($schedule->places <= 2)
-                    <span class="thumb-info-people text">{{$schedule->places}}<span class="tooltip-wrap black">
+                <span class="thumb-info-people text">
+                    {{$schedule->places_available >= 10 ? '10+' : ($schedule->places_available < 2 ? '2-10' : '0')}}
+                </span>
+                @if($schedule->places_available <= 2)
+                    <span class="thumb-info-people text">{{$schedule->places_available}}<span class="tooltip-wrap black">
                         <span
-                            class="tooltip text text-sm light">{{$schedule->places === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
+                            class="tooltip text text-sm light">{{$schedule->places_available === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
                     </span></span>
                 @endif
             </div>
@@ -77,11 +79,13 @@
             <div class="thumb-info">
                 <span
                     class="thumb-info-time text">{!! $tour->format_duration !!}</span>
-                <span class="thumb-info-people text">{{$schedule->places >= 10 ? '10+' : $schedule->places}}</span>
-                @if($schedule->places <= 2)
-                    <span class="thumb-info-people text">{{$schedule->places}}<span class="tooltip-wrap black">
+                <span class="thumb-info-people text">
+                    {{$schedule->places_available >= 10 ? '10+' : ($schedule->places_available < 2 ? '2-10' : '0')}}
+                </span>
+                @if($schedule->places_available <= 2)
+                    <span class="thumb-info-people text">{{$schedule->places_available}}<span class="tooltip-wrap black">
                     <span
-                        class="tooltip text text-sm light">{{$schedule->places === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
+                        class="tooltip text text-sm light">{{$schedule->places_available === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
                 </span></span>
                 @endif
             </div>
