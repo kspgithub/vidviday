@@ -37,7 +37,7 @@
                     {{
                         currentSchedule?.places_available > 10 ? '10+' : (currentSchedule?.places_available < 2 ? '0' : '2-10')
                     }}
-                    <tooltip v-if="!currentSchedule || currentSchedule.places_available === 0" variant="black">
+                    <tooltip v-if="!currentSchedule || currentSchedule?.places_available < 2" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>

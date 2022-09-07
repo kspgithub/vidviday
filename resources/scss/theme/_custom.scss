@@ -4517,9 +4517,11 @@ button.swiper-pagination-bullet {
     padding: 8px 15px 6px;
 }
 
-.thumb-content .tooltip-wrap {
+.thumb-content .tooltip-wrap,
+.thumb-info .tooltip-wrap {
     margin-top: -3px;
     margin-left: 10px;
+    z-index: 999;
 }
 
 .thumb-content .SumoSelect.open {

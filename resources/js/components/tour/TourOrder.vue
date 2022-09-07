@@ -38,7 +38,7 @@
                 </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">
                     {{ places > 10 ? '10+' : (places < 2 ? '0' : '2-10') }}
-                    <tooltip v-if="places === 0" variant="black">
+                    <tooltip v-if="places < 2" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>
