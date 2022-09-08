@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.mobile_phone" rules="required|tel" name="mobile_phone"
+                <form-input v-model="data.mobile_phone" name="mobile_phone"
                             :label="__('forms.mobile-phone')"
                             mask="+38 (099) 999-99-99"/>
             </div>

@@ -122,6 +122,13 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    // Custom
+    'invalid' => 'The :attribute is invalid.',
+    'linkedin' => 'The :attribute must be a valid linkedin link.',
+    'tel' => 'The :attribute must be a valid phone.',
+    'max_count' => 'The :attribute may not have more than :max items.',
+    'min_count' => 'The :attribute must have at least :min items.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

@@ -115,6 +115,13 @@ return [
     'url' => 'Формат поля :attribute неправильний.',
     'uuid' => 'Поле :attribute має бути коректним UUID ідентифікатором.',
 
+    // Custom
+    'invalid' => 'Поле :attribute не коректне.',
+    'linkedin' => 'Поле :attribute має бути посиланням на linkedin.',
+    'tel' => 'Поле :attribute не коректне.',
+    'max_count' => 'The :attribute may not have more than :max items.',
+    'min_count' => 'The :attribute must have at least :min items.',
+
     /*
     |--------------------------------------------------------------------------
     | Додаткові ресурси для перевірки введення
