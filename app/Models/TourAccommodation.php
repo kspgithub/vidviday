@@ -35,6 +35,7 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         'city_id',
         'title',
         'text',
+        'nights',
     ];
 
     public function registerMediaConversions(Media $media = null): void

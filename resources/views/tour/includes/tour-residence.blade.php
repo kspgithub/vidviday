@@ -7,7 +7,15 @@
             <div class="accordion type-2">
                 @foreach($tour->groupTourAccommodations as $residence)
                     <div class="accordion-item active">
-                        <div class="accordion-title">{{$residence->title}} <i></i></div>
+                        <div class="accordion-title">{{$residence->title}}
+                            @if($residence->nights)
+                                <span>(
+                                    {{ $residence->nights }}
+                                    {{trans_choice('tours-section.nights', (int) $residence->nights[strlen($residence->nights) - 1]) }}
+                                )</span>
+                            @endif
+                            <i></i>
+                        </div>
                         <div class="accordion-inner" style="display: block">
                             <x-swiper-media :slides="$residence->getMedia()"/>
 

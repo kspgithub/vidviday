@@ -7,7 +7,13 @@
             <div class="accordion type-2">
                 @foreach($tour->groupTourLandings as $landing)
                     <div class="accordion-item">
-                        <div class="accordion-title">{{$landing->title}}<i></i></div>
+                        <div class="accordion-title">
+                            {{$landing->title}}
+                            @if($landing->time)
+                                <span>({{ $landing->time }})</span>
+                            @endif
+                            <i></i>
+                        </div>
                         <div class="accordion-inner">
                             <div class="text text-md">
                                 {!! $landing->description !!}

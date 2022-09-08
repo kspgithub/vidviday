@@ -9,6 +9,7 @@
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.region_id" name="region_id" :label="__('Region')"
+                          wire:ignore
                           :select2="true"
                           :allowClear="true"
                           autocomplete="/api/location/regions?paginate=1"
@@ -23,6 +24,7 @@
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.city_id" name="city_id" :label="__('City')"
+                          wire:ignore
                           :select2="true"
                           :allowClear="true"
                           autocomplete="/api/location/cities?paginate=1"
@@ -37,6 +39,7 @@
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.accommodation_id" name="accommodation_id" :label="__('Template')"
+                          wire:ignore
                           :select2="true"
                           :allowClear="true"
                           autocomplete="/api/accommodations/select-box"
@@ -60,6 +63,9 @@
 
             <x-forms.html-loc-group name="text" :label="__('Text')"
                                     :value="old('text', $accommodation->getTranslations('text'))"/>
+
+            <x-forms.text-group wire:model="form.nights" name="nights" :label="__('Nights')" />
+
         </div>
     @endif
 
