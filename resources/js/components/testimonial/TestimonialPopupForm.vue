@@ -46,12 +46,17 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <form-input name="first_name" v-model="data.first_name" rules="required"
+                    <form-input v-model="data.first_name"
+                                rules="required"
+                                name="first_name"
                                 :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="last_name" v-model="data.last_name" rules="required"/>
+                    <form-input v-model="data.last_name"
+                                rules="required"
+                                name="last_name"
+                                :label="__('forms.your-last-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -59,7 +64,9 @@
                                 name="phone"
                                 id="testimonial_phone"
                                 rules="tel"
-                                v-model="data.phone" :label="__('forms.your-phone')"/>
+                                v-model="data.phone"
+                                :label="__('forms.your-phone')"
+                    />
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -277,7 +284,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

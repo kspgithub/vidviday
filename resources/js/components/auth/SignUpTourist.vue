@@ -12,11 +12,17 @@
             <input type="hidden" name="role" value="tourist"/>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.last_name" rules="required" name="last_name" :label="__('forms.last-name')"/>
+                <form-input v-model="data.last_name"
+                            rules="required"
+                            name="last_name"
+                            :label="__('forms.last-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.first_name" rules="required" name="first_name" :label="__('forms.name')"/>
+                <form-input v-model="data.first_name"
+                            rules="required"
+                            name="first_name"
+                            :label="__('forms.name')"/>
             </div>
 
             <div class="col-md-6 col-12">

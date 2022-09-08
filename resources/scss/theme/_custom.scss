@@ -1680,8 +1680,8 @@ form.row > div,
 }
 
 .touch-screen label.invalid:after {
-    visibility: hidden;
-    display: none !important;
+    //visibility: hidden;
+    //display: none !important;
 }
 
 .checkbox-accordion .hidden-textarea {
@@ -12553,11 +12553,11 @@ nav,
 }
 
 .order-page label.invalid:before {
-    display: none;
+    //display: none;
 }
 
 .order-page label.invalid:after {
-    display: none;
+    //display: none;
 }
 
 input[name="tel"]::-webkit-input-placeholder {
@@ -13081,119 +13081,12 @@ input[name="viber"]:-ms-input-placeholder {
 
 }
 
-.input-label {
-    display: block;
-    background: #fff;
-    margin-bottom: 20px;
-    transition: background-position linear 0ms;
-    position: relative;
-    z-index: 3;
-    border-radius: 5px;
-
-    & i {
-        top: 8px;
-        left: 10px;
-        padding: 5px;
-        position: absolute;
-        will-change: transform;
-        transform-origin: top left;
-        transition: all 0.44s ease-in-out;
-
-        &:before {
-            left: 0;
-            right: 0;
-            height: 8px;
-            content: "";
-            z-index: -1;
-            position: absolute;
-            top: calc(50% - 4px);
-            background-color: #fff;
-        }
-        &:before {
-            left: 0;
-            right: 0;
-            height: 8px;
-            content: "";
-            z-index: -1;
-            position: absolute;
-            top: calc(50% - 4px);
-            background-color: #fff;
-        }
-    }
-
-    &.active i, &.filled i {
-        transform: translate3d(2px, -20px, 0) scale(0.7);
-    }
-    &.active i, &.filled i {
-        transform: translate3d(2px, -20px, 0) scale(0.7);
-    }
-
-    @media (max-width: 767px) {
-        margin-bottom: 10px;
-    }
-
-    &:before,
-    &:after {
-        z-index: 4;
-        opacity: 0;
-        display: none;
-        position: absolute;
-        transform: scale(0);
-        pointer-events: none;
-        background-color: #dc3545;
-    }
-
-    &:before {
-        content: '';
-        right: 18px;
-        width: 10px;
-        height: 10px;
-        transform: rotate(45deg);
-        bottom: calc(100% - 13px);
-    }
-
-    &:after {
-        z-index: 70;
-        color: #fff;
-        font-size: 12px;
-        padding: 4px 10px;
-        line-height: 22px;
-        border-radius: 3px;
-        white-space: nowrap;
-        left: calc(100% - 23px);
-        bottom: calc(100% - 8px);
-        content: attr(data-tooltip);
-        transform: translateX(-50%);
-    }
-
-    &.invalid {
-        background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
-
-        input{
-            border-color: #CF2020;
-        }
-
-        &:before,
-        &:after {
-            display: block;
-        }
-
-        border-color: #dc3545;
-
-        &:hover {
-            &:before,
-            &:after {
-                opacity: 1;
-            }
-        }
-    }
-}
-
-.input-label,
-.datepicker-placeholder
+// Fix tooltip
+label, .datepicker-placeholder
 {
     &:after {
         left: 100%!important;
         transform: translateX(-100%)!important;
+        margin: 0 20px!important;
     }
 }

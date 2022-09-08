@@ -1,17 +1,7 @@
 <template>
-    <div ref="wrapperRef" v-if="wrapper === 'div'" class="input-label" :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage, focused}">
-        <i v-if="label">{{ label }} <span v-if="required">*</span></i>
-        <input ref="inputRef"
-               class="vue-input"
-               @focus="onFocus"
-               @blur="onBlur"
-               :placeholder="placeholder"
-               :autocomplete="autocomplete"
-               :type="type" v-model="innerValue" :name="name" :id="id || name"
-        >
-        <slot/>
-    </div>
-    <label v-if="wrapper === 'label'" :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage, focused}">
+    <label :data-tooltip="errorMessage"
+           :class="{active: !!innerValue || focused, invalid: errorMessage, focused}"
+    >
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
         <input ref="inputRef"
                class="vue-input"
@@ -27,7 +17,7 @@
 
 <script>
 import useFormField from "./composables/useFormField";
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 export default {
     name: "FormInput",
@@ -40,10 +30,6 @@ export default {
         label: {
             type: String,
             default: '',
-        },
-        wrapper: {
-            type: String,
-            default: 'div',
         },
         placeholder: {
             type: String,
@@ -82,16 +68,9 @@ export default {
     setup(props, {emit}) {
         const field = useFormField(props, emit);
 
-        const wrapperRef = ref(null)
-
         return {
             ...field,
-            wrapperRef,
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>
