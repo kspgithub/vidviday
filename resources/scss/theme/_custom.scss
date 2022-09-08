@@ -10911,6 +10911,7 @@ footer .accordion-inner .spacer-xs {
 .filter-result-bar .SumoSelect > .optWrapper > .options {
     overflow: auto;
     max-height: unset;
+    width: fit-content;
 }
 
 .SumoSelect > .optWrapper > .options::-webkit-scrollbar {
