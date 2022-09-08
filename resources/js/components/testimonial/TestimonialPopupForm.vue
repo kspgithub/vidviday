@@ -223,8 +223,8 @@ export default {
             validationSchema: {
                 first_name: 'required',
                 last_name: 'required',
-                phone: 'tel',
-                email: 'email',
+                phone: 'required|tel',
+                email: 'required|email',
                 tour_id: () => data.tour_id > 0 || __('validation.select-tour'),
             }
         })

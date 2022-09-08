@@ -96,6 +96,12 @@
 
                 </div>
 
+                <div v-if="selectedImages.length >= 5" class="col-12">
+                    <div class="alert alert-danger">
+                        {{__('forms.max-image-count-5')}}
+                    </div>
+                </div>
+
                 <div class="col-md-6 col-12">
                     <div class="img-input-wrap text-center-xs">
                         <div class="img-input tooltip-wrap">

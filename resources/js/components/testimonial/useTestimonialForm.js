@@ -19,14 +19,22 @@ export const useTestimonialForm = (data, action) => {
     const previewImages = () => {
 
         if (imagesRef.value.files.length) {
-            for (let i = 0; i < imagesRef.value.files.length; i++) {
-                if (selectedImages.value.length >= 5) break;
-                const file = imagesRef.value.files[i];
-                const reader = new FileReader();
-                reader.onload = (pe) => {
-                    selectedImages.value = [...selectedImages.value, {preview: pe.target.result, file: file}];
+            const uploadedCount = selectedImages.value.length
+            const remainCount = Math.max(5 - uploadedCount, 0)
+            const limitFiles = [...imagesRef.value.files]
+            limitFiles.splice(remainCount)
+
+            if(limitFiles.length) {
+                for (let i = 0; i < limitFiles.length; i++) {
+                    const file = limitFiles[i];
+                    const reader = new FileReader();
+                    reader.onload = (pe) => {
+                        selectedImages.value = [...selectedImages.value, {preview: pe.target.result, file: file}];
+                    }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
+            } else {
+
             }
 
         } else {
