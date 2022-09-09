@@ -175,6 +175,17 @@
     >
         @csrf
     </div>
+
+    <div v-is="'tour-question-popup-form'"
+         :tour='@json($tour->shortInfo())'
+         :user='@json(current_user())'
+         :captcha="@json(config('captcha.enabled'))"
+         action='{{route('tour.question', $tour)}}'
+         :data-parent="0"
+    >
+        @csrf
+    </div>
+
 @endpush
 
 @push('after-scripts')

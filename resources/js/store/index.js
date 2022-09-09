@@ -22,6 +22,7 @@ const psState = createPersistedState({
 plugins.push(psState);
 
 import tourFilter from './modules/tour-filter';
+import tourQuestion from './modules/tour-question';
 import popupGallery from './modules/popup-gallery';
 import testimonials from './modules/testimonials';
 import orderTour from './modules/order-tour';
@@ -41,6 +42,7 @@ const store = createStore({
     },
     modules: {
         tourFilter,
+        tourQuestion,
         popupGallery,
         testimonials,
         orderTour,

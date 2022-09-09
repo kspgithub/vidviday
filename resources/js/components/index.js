@@ -22,6 +22,7 @@ export default {
         app.component('show-more-text', require('./common/ShowMoreText').default);
         app.component('more-text', require('./common/MoreText').default);
         app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
+        app.component('open-tour-question-form', require('./common/OpenTourQuestionForm').default);
         app.component('feedback-form', require('./common/FeedbackForm').default);
         app.component('share-dropdown', require('./common/ShareDropdown').default);
         app.component('print-btn', require('./common/PrintBtn').default);
@@ -46,6 +47,7 @@ export default {
         app.component('tour-search', require('./tour/TourSearch').default);
         app.component('tour-request-title', require('./tour/TourRequestTitle').default);
         app.component('tour-question-form', require('./tour/TourQuestionForm').default);
+        app.component('tour-question-popup-form', require('./tour/TourQuestionPopupForm').default);
         app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
         app.component('tour-map', require('./tour/TourMap').default);
         app.component('tour-calc', require('./tour/TourCalc').default);
