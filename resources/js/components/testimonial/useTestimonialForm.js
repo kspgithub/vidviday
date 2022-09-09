@@ -141,8 +141,6 @@ export const useTestimonialForm = (data, action) => {
                     }
                 });
 
-            console.log(response)
-
             if (response?.data) {
                 if (response.data.result === 'success') {
                     closePopup();
