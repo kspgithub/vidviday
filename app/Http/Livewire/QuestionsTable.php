@@ -138,12 +138,11 @@ class QuestionsTable extends DataTableComponent
 
     public function saveItem()
     {
-
         $model = TourQuestion::query()->find($this->parent_id);
         if ($model) {
             $this->validate();
             $item = new TourQuestion();
-            $item->tour_id = $model->id;
+            $item->tour_id = $model->tour_id;
             $item->name = $this->name;
             $item->email = $this->email;
             $item->text = $this->text;

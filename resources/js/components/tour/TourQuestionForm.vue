@@ -1,10 +1,9 @@
 <template>
-    <form :action="action" class="row" method="POST" @submit.prevent="onSubmit()" v-show="!submitted">
-        <div class="col-md-6 col-12">
+    <form ref="formRef" :action="action" class="row" method="POST" @submit.prevent="onSubmit">
 
+        <div class="col-md-6 col-12">
             <form-input name="last_name" id="tq_last_name" v-model="data.last_name" rules="required"
                         :label="__('forms.last-name')"/>
-
         </div>
 
         <div class="col-md-6 col-12">
@@ -47,30 +46,40 @@
 </template>
 
 <script>
-import {reactive, ref} from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import {getError} from "../../services/api";
 import toast from '../../libs/toast'
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
 import { useForm } from 'vee-validate'
 import { VueRecaptcha } from 'vue-recaptcha'
+import { useStore } from 'vuex'
 
 export default {
     name: "TourQuestionForm",
     components: {VueRecaptcha, FormTextarea, FormInput},
     props: {
+        tour: Object,
         action: String,
+        dataParent: Number,
     },
     setup(props) {
+        const store = useStore();
+        const user = store.state.user.currentUser
+        const parentId = computed(() => store.state.tourQuestion.parentId);
+
         const submitted = ref(false);
         const recaptcha = ref(null);
+        const formRef = ref(null);
 
         const data = reactive({
-            first_name: '',
-            last_name: '',
-            phone: '',
-            email: '',
+            first_name: user ? user.first_name : '',
+            last_name: user ? user.last_name : '',
+            phone: user ? user.mobile_phone : '',
+            email: user ? user.email : '',
             text: '',
+            parent_id: parentId.value || 0,
+            'g-recaptcha-response': '',
         });
 
         const {validate, errors} = useForm({
@@ -83,6 +92,8 @@ export default {
             }
         })
 
+        watch(data, () => submitted.value && (submitted.value = false))
+
         const onSubmit = async () => {
             submitted.value = true;
             const response = await axios.post(props.action, data)
@@ -91,9 +102,10 @@ export default {
                     toast.error(message);
                 });
 
-
-            if (response?.result === 'success') {
+            if (response?.data?.result === 'success') {
                 if (window._functions) {
+                    // Close accordion
+                    $(formRef.value).closest('.accordion-item').find('.accordion-title').click()
                     window._functions.showPopup('thanks-popup');
                 } else {
                     toast.success(response.message);
@@ -146,6 +158,7 @@ export default {
             verify,
             render,
             validateForm,
+            formRef,
         }
     }
 }

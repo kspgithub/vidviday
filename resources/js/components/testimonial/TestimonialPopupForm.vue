@@ -254,6 +254,8 @@ export default {
 
         const testimonialForm = useTestimonialForm(data, props.action)
 
+        watch(data, () => testimonialForm.request.value && (testimonialForm.request.value = false))
+
         const onSubmit = (event) => {
             testimonialForm.submitForm()
         };

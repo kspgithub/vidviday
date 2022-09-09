@@ -20,7 +20,10 @@
                 @if(!$question->parent_id)
                     <x-tour.star-rating :rating="$question->rating"/>
                 @endif
-                <span class="text">{{ __('forms.reply') }}</span>
+
+                <span class="text" v-is="'open-tour-question-form'"
+                      :parent="{{$question->id}}">@lang('forms.reply')</span>
+
             </div>
         </div>
         <div class="text text-md">
