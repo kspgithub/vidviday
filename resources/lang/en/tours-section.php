@@ -97,6 +97,7 @@ return [
     'landing-places' => 'Місця посадки',
     'transport' => 'Транспорт',
     'persons' => 'person|persons',
+    'nights' => 'night|nights',
     'vote' => 'Проголосувати',
     'want-to-vote' => 'Хочуть повторити тур',
     'voting' => 'Голосування за продовження туру',

@@ -96,7 +96,9 @@ export default {
 
                 emit('update:modelValue', val.join(','))
             } else {
-                open.value = false;
+                setTimeout(() => {
+                    open.value = false
+                }, 100)
 
                 emit('update:modelValue', option.value)
             }

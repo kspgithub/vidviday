@@ -51,6 +51,7 @@ class TourAccommodations extends Component
         'accommodation_id' => 0,
         'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'text' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
+        'nights' => '',
     ];
 
     /**
@@ -248,8 +249,10 @@ class TourAccommodations extends Component
         $this->form['type_id'] = $this->model->type_id === 0 ? ($this->model->food_id > 0 ? TourAccommodation::TYPE_TEMPLATE : TourAccommodation::TYPE_CUSTOM) : $this->model->type_id;
         $this->type = $this->model->type_id;
         $this->form['accommodation_id'] = $this->model->accommodation_id === null ? 0 : $this->model->accommodation_id;
+        $this->accommodation = Accommodation::query()->with(['country', 'region', 'city'])->find($this->model->accommodation_id);
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['text'] = $this->model->getTranslations('text');
+        $this->form['nights'] = $this->model->nights;
         $this->form['country_id'] = $this->model->country_id ?: $this->model->accommodation?->country_id;
         $this->form['region_id'] = $this->model->region_id ?: $this->model->accommodation?->region_id;
         $this->form['city_id'] = $this->model->city_id ?: $this->model->accommodation?->city_id;
@@ -262,6 +265,7 @@ class TourAccommodations extends Component
         $this->model->accommodation_id = $this->form['accommodation_id'] === 0 ? null : $this->form['accommodation_id'];
         $this->model->title = $this->form['title'];
         $this->model->text = $this->form['text'];
+        $this->model->nights = $this->form['nights'];
         $this->model->country_id = $this->form['country_id'] === 0 ? null : $this->form['country_id'];
         $this->model->region_id = $this->form['region_id'] === 0 ? null : $this->form['region_id'];
         $this->model->city_id = $this->form['city_id'] === 0 ? null : $this->form['city_id'];

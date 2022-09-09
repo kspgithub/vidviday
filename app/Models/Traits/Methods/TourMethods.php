@@ -64,6 +64,7 @@ trait TourMethods
             'slug' => $this->slug,
             'url' => $this->url,
             'tour_manager' => $this->tour_manager ? $this->tour_manager->shortInfo() : null,
+            'guides' => $this->guides,
             'corporate_includes' => $this->corporate_includes,
             'active_tabs' => $this->active_tabs,
         ];

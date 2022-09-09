@@ -43,7 +43,7 @@
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                        <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
                                        @verify="verify"
                                        @render="render"
                                        ref="recaptcha"
@@ -52,6 +52,11 @@
                                 {{ __('forms.send') }}
                             </button>
                         </vue-recaptcha>
+                        <template v-if="!useRecaptcha">
+                            <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                                {{ __('forms.send') }}
+                            </button>
+                        </template>
                     </div>
                 </div>
                 <div class="btn-close" @click.prevent.stop="closePopup()">
@@ -139,6 +144,7 @@ export default {
             }
         }
 
+        const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
@@ -180,6 +186,7 @@ export default {
             request,
             closePopup,
             submitForm,
+            useRecaptcha,
             sitekey,
             recaptcha,
             verify,

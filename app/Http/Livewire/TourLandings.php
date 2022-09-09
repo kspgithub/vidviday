@@ -45,6 +45,7 @@ class TourLandings extends Component
         'description' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'lat' => 48.736383466532274,
         'lng' => 31.460746106250006,
+        'time' => '',
     ];
 
     /**
@@ -175,6 +176,7 @@ class TourLandings extends Component
         $this->model->landing_id = $this->form['landing_id'] === 0 ? null : $this->form['landing_id'];
         $this->model->title = $this->form['title'];
         $this->model->description = $this->form['description'];
+        $this->model->time = $this->form['time'];
         $this->model->lat = $this->form['lat'];
         $this->model->lng = $this->form['lng'];
     }
@@ -185,6 +187,7 @@ class TourLandings extends Component
         $this->form['landing_id'] = 0;
         $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
         $this->form['description'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
+        $this->form['time'] = '';
         $this->form['lat'] = 48.736383466532274;
         $this->form['lng'] = 31.460746106250006;
 
@@ -199,6 +202,7 @@ class TourLandings extends Component
         $this->landing = LandingPlace::query()->find($this->form['landing_id']);
         $this->form['title'] = $this->model->getTranslations('title');
         $this->form['description'] = $this->model->getTranslations('description');
+        $this->form['time'] = $this->model->time;
         $this->form['lat'] = $this->model->lat;
         $this->form['lng'] = $this->model->lng;
 

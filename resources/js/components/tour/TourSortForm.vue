@@ -1,6 +1,4 @@
 <template>
-
-
     <div class="filter-result-bar">
         <span class="title h3 only-desktop">{{ searchTitle }} </span>
         <label class="only-desktop">
@@ -9,7 +7,7 @@
         </label>
         <label>
             <span class="text">{{ __('tours-section.sort-by') }}</span>
-            <form-sumo-select v-model="sorting" :options="options.sorting" inline/>
+            <form-sumo-select ref="sortSelectRef" v-model="sorting" :options="options.sorting" inline/>
         </label>
     </div>
 
@@ -17,9 +15,8 @@
 
 <script>
 import {useStore} from "vuex";
-import {computed, nextTick} from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import FormSelect from "../form/FormSelect";
-import * as urlUtils from "../../utils/url";
 import FormSumoSelect from "../form/FormSumoSelect";
 import {pluralizeValue} from "../../utils/string";
 import {trans} from '../../i18n/lang';
@@ -64,12 +61,22 @@ export default {
             return trans('tours-section.available') + ' ' + pluralizeValue(total.value, trans('tours-section.one_tour'), trans('tours-section.two_tours'), trans('tours-section.many_tours'))
         });
 
+        const sortSelectRef = ref(null)
+
+        onMounted(() => {
+            const SelectBox = $(sortSelectRef.value.$el).find('p.SelectBox')
+            const options = SelectBox.next('.optWrapper').find('ul.options')
+            console.log(SelectBox, options)
+            SelectBox.css({width: options.width()})
+        })
+
         return {
             searchTitle,
             options,
             pagination,
             sorting,
             total,
+            sortSelectRef,
         }
     }
 }

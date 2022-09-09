@@ -6,6 +6,8 @@
 
     <x-forms.textarea-loc-group wire:model="form.text" name="text" :label="__('Text')"/>
 
+    <x-forms.text-group wire:model="form.nights" name="nights" :label="__('Nights')" />
+
 {{--    <x-forms.select-group wire:model="form.country_id" name="country_id" :label="__('Country')"--}}
 {{--                          wire:ignore--}}
 {{--                          :select2="true"--}}

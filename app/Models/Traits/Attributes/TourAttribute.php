@@ -74,6 +74,7 @@ trait TourAttribute
         foreach ($tourLandings as $tourLanding) {
             $landing = $tourLanding->landing ?: $tourLanding;
             $landing->original_id = $tourLanding->id;
+            $landing->time = $tourLanding->time;
             $landings[] = $landing;
         }
         return collect($landings);
@@ -113,6 +114,7 @@ trait TourAttribute
         foreach ($tourAccommodations as $tourAccommodation) {
             $accommodation = $tourAccommodation->accommodation ?: $tourAccommodation;
             $accommodation->original_id = $tourAccommodation->id;
+            $accommodation->nights = $tourAccommodation->nights;
             if($tourAccommodation->accommodation) {
 
             }

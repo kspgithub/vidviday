@@ -1,5 +1,7 @@
 <template>
-    <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage, focused}">
+    <label :data-tooltip="errorMessage"
+           :class="{active: !!innerValue || focused, invalid: errorMessage, focused}"
+    >
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
         <input ref="inputRef"
                class="vue-input"
@@ -15,6 +17,7 @@
 
 <script>
 import useFormField from "./composables/useFormField";
+import { ref } from 'vue'
 
 export default {
     name: "FormInput",
@@ -65,14 +68,9 @@ export default {
     setup(props, {emit}) {
         const field = useFormField(props, emit);
 
-
         return {
             ...field,
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>

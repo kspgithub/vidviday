@@ -52,7 +52,9 @@
                     {!! $tour->format_duration !!}
                 </span>
                 <span
-                    class="thumb-info-people text">{{$nearestEvent->places > 00 ? '10+' : $nearestEvent->places}}</span>
+                    class="thumb-info-people text">
+                    {{$nearestEvent->places_available >= 10 ? '10+' : ($nearestEvent->places_available < 2 ? '2-10' : '0')}}
+                </span>
             </div>
             <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
             <span class="btn type-2 btn-block open-popup"
