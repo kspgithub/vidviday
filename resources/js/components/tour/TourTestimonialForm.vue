@@ -83,9 +83,14 @@
                         <span class="text text-sm">
                             <b>{{ __('forms.your-guide') }}</b>
                         </span>
-                    <form-custom-select name="guide_id" id="tt_guide_id" search search-text="Введіть ім'я гіда"
+                    <form-custom-select id="tt_guide_id"
+                                        name="guide_id"
+                                        :placeholder="__('forms.select-from-list')"
+                                        :search="true"
+                                        :search-text="__('forms.enter-guide-name')"
+                                        ref="guideSelectRef"
                                         v-model.number="data.guide_id"
-                                        :placeholder="__('forms.select-from-list')">
+                    >
                         <option v-for="guide in tour.guides" :value="guide.id" :data-img="guide.avatar_url">
                             {{ guide.name }}
                         </option>
@@ -96,8 +101,7 @@
                 <div class="col-12">
                     <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
                                    :label="__('forms.your-feedback')"
-                                   rules="required"
-                                   :tooltip="__('forms.required')"/>
+                                   rules="required"/>
 
                 </div>
 

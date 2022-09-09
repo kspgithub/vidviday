@@ -13118,3 +13118,18 @@ label, .datepicker-placeholder
         margin: auto;
     }
 }
+
+.popup-content {
+    .swiper-slide {
+        display: flex!important;
+        flex-direction: column!important;
+
+        @media (max-width: 768px) {
+            flex-direction: column-reverse!important;
+
+            .text-md {
+                position: relative!important;
+            }
+        }
+    }
+}

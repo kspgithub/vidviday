@@ -1,5 +1,5 @@
 <template>
-    <select class="custom-select" :name="name" :data-search="search"
+    <select :id="$attrs.id" class="custom-select" :name="name" :data-search="search"
             ref="inputRef"
             :data-search-text="searchText">
         <option value="" :selected="!modelValue" disabled>{{ placeholder }}</option>

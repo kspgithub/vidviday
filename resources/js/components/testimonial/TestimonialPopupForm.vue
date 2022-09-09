@@ -44,6 +44,11 @@
                     </div>
                 </div>
             </div>
+
+            <div v-if="errors.avatar" class="col-12">
+                <div class="alert alert-danger">{{ errors.avatar }}</div>
+            </div>
+
             <div class="row">
                 <div class="col-md-6 col-12">
                     <form-input v-model="data.first_name"
@@ -110,18 +115,18 @@
                     <span class="text text-sm">
                         <b>{{ __('forms.your-guide') }}</b>
                     </span>
-                    <form-autocomplete
-                        name="guide_id"
-                        :placeholder="__('forms.enter-guide-name')"
-                        :search="true"
-                        ref="guideSelectRef"
-                        v-model.number="data.guide_id"
-                        @search="searchGuides"
-                        title-field="name"
-                        rules="required"
+                    <form-autocomplete id="t_guide_id"
+                                       name="guide_id"
+                                       :placeholder="__('forms.enter-guide-name')"
+                                       :search="true"
+                                       :search-text="__('forms.enter-guide-name')"
+                                       ref="guideSelectRef"
+                                       v-model.number="data.guide_id"
+                                       @search="searchGuides"
+                                       title-field="name"
+                                       :vue-select="false"
                     >
-                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}
-                        </option>
+                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}</option>
                         <option v-for="guide in guides" :value="guide.id" :data-img="guide.avatar_url">
                             {{ guide.name }}
                         </option>
@@ -131,10 +136,8 @@
                     <form-textarea name="text" v-model="data.text" :label="__('forms.your-feedback')" rules="required"/>
                 </div>
 
-                <div v-if="selectedImages.length >= 5" class="col-12">
-                    <div class="alert alert-danger">
-                        {{__('forms.max-image-count-5')}}
-                    </div>
+                <div v-if="errors.images" class="col-12">
+                    <div class="alert alert-danger">{{ errors.images }}</div>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -163,9 +166,20 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button type="submit" :disabled="invalid || request" class="btn type-1">
-                        {{ __('forms.leave-feedback') }}
-                    </button>
+                    <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
+                                   @verify="verify"
+                                   @render="render"
+                                   ref="recaptcha"
+                    >
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                            {{ __('forms.leave-feedback') }}
+                        </button>
+                    </vue-recaptcha>
+                    <template v-if="!useRecaptcha">
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                            {{ __('forms.leave-feedback') }}
+                        </button>
+                    </template>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -192,11 +206,12 @@ import useTestimonialForm from "./useTestimonialForm";
 import FormAutocomplete from "../form/FormAutocomplete";
 import {autocompleteTours, fetchGuides} from "../../services/tour-service";
 import {useForm} from "vee-validate";
-import {__} from "../../i18n/lang";
+import { __ } from "../../i18n/lang";
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
     name: "TestimonialPopupForm",
-    components: { FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: { VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         user: Object,
         captcha: Boolean,
@@ -206,6 +221,7 @@ export default {
     setup(props) {
         const store = useStore();
         const formRef = ref(null);
+        const recaptcha = ref(null);
         const tourSelectRef = ref(null);
         const guideSelectRef = ref(null);
         const tours = ref([]);
@@ -221,9 +237,8 @@ export default {
             tour_id: tour.value ? tour.value.id : 0,
             guide_id: 0,
             text: '',
+            'g-recaptcha-response': '',
         });
-
-        const testimonialForm = useTestimonialForm(data, props.action)
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -231,13 +246,52 @@ export default {
                 last_name: 'required',
                 phone: 'required|tel',
                 email: 'required|email',
+                text: 'required',
+                rating: 'required|numeric|min_value:1',
                 tour_id: () => data.tour_id > 0 || __('validation.select-tour'),
             }
         })
 
+        const testimonialForm = useTestimonialForm(data, props.action)
+
         const onSubmit = (event) => {
             testimonialForm.submitForm()
         };
+
+        const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
+        const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+
+        const verify = (e) => {
+            data['g-recaptcha-response'] = e
+            onSubmit()
+            recaptcha.value.reset()
+        }
+
+        const render = (e) => {
+            setTimeout(() => {
+                const htmlOffset = $('html').css('top')
+
+                if (htmlOffset) {
+                    const layout = $('iframe[title*="recaptcha"]')
+                    layout.css('margin-top', htmlOffset.replace('-', ''))
+                    layout.parent().css('overflow', 'visible')
+                }
+            }, 1000)
+        }
+
+        const validateForm = async (e) => {
+            if (e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
 
         const searchTours = async (q = '') => {
             const items = await autocompleteTours(q);
@@ -286,6 +340,12 @@ export default {
             searchTours,
             searchGuides,
             guideSelectRef,
+            useRecaptcha,
+            sitekey,
+            recaptcha,
+            verify,
+            render,
+            validateForm,
         }
     }
 }

@@ -53,6 +53,20 @@
                 <p>{!! $testimonial->text !!}</p>
             @endif
         </div>
+        @if($testimonial->gallery)
+            <div class="spacer-xs"></div>
+            <div v-is="'swiper-slider'" key="swp-{{$testimonial->id}}" class="swiper-entry"
+                 :media='@json($testimonial->gallery)'
+                 :buttons="false"
+                 :options="{
+                           slidesPerView: 3,
+                           spaceBetween: 15,
+                           breakpoints: {
+                               992: {slidesPerView: 4, spaceBetween: 22},
+                               1200: {slidesPerView: 5, spaceBetween: 22},
+                           }}"
+            ></div>
+        @endif
     </div>
     @if(!$short && !$testimonial->parent_id && $testimonial->children->count() > 0)
         <div class="load-more-wrapp">
