@@ -10903,7 +10903,8 @@ footer .accordion-inner .spacer-xs {
     margin: 0;
 }
 
-.SumoSelect > .optWrapper > .options {
+.SumoSelect > .optWrapper > .options,
+.datepicker-options {
     overflow: auto;
     max-height: 210px;
 }

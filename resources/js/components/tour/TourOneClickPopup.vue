@@ -44,6 +44,7 @@
 
                 <div class="col-md-6 col-12">
                     <form-number-input v-model="places"
+                                       class="mb-10"
                                        :min="1"
                                        :max="maxPlaces"
                                        name="places"
