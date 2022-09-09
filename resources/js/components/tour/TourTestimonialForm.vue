@@ -7,7 +7,8 @@
         </div>
         <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
               @submit.prevent="onSubmit"
-              ref="formRef">
+              ref="formRef"
+        >
             <slot/>
 
             <div class="have-an-account text-center">

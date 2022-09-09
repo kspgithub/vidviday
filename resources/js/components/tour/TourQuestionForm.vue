@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import {getError} from "../../services/api";
 import toast from '../../libs/toast'
 import FormInput from "../form/FormInput";
@@ -59,11 +59,14 @@ export default {
     name: "TourQuestionForm",
     components: {VueRecaptcha, FormTextarea, FormInput},
     props: {
+        tour: Object,
         action: String,
+        dataParent: Number,
     },
     setup(props) {
         const store = useStore();
         const user = store.state.user.currentUser
+        const parentId = computed(() => store.state.tourQuestion.parentId);
 
         const submitted = ref(false);
         const recaptcha = ref(null);
@@ -75,9 +78,9 @@ export default {
             phone: user ? user.mobile_phone : '',
             email: user ? user.email : '',
             text: '',
+            parent_id: parentId.value || 0,
+            'g-recaptcha-response': '',
         });
-
-        watch(data, () => submitted.value && (submitted.value = false))
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -88,6 +91,8 @@ export default {
                 text: 'required',
             }
         })
+
+        watch(data, () => submitted.value && (submitted.value = false))
 
         const onSubmit = async () => {
             submitted.value = true;
