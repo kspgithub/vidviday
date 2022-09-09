@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-md-6 col-12">
-            <form-input name="phone" id="tq_phone" v-model="data.phone" :label="__('forms.phone')"/>
+            <form-input name="phone" id="tq_phone" mask="+38 (099) 999-99-99" v-model="data.phone" :label="__('forms.phone')"/>
         </div>
 
         <div class="col-12">
@@ -27,9 +27,21 @@
                            rules="required"
                            :tooltip="__('forms.required')"/>
 
-            <button type="submit" class="btn type-1" :disabled="submitted">
-                {{ __('forms.send') }}
-            </button>
+            <vue-recaptcha v-if="useRecaptcha" :sitekey="sitekey"
+                           @verify="verify"
+                           @render="render"
+                           ref="recaptcha"
+            >
+                <button type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                    {{ __('forms.send') }}
+                </button>
+            </vue-recaptcha>
+            <template v-if="!useRecaptcha">
+                <button type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                    {{ __('forms.send') }}
+                </button>
+            </template>
+
         </div>
     </form>
 </template>
@@ -40,15 +52,18 @@ import {getError} from "../../services/api";
 import toast from '../../libs/toast'
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
+import { useForm } from 'vee-validate'
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
     name: "TourQuestionForm",
-    components: {FormTextarea, FormInput},
+    components: {VueRecaptcha, FormTextarea, FormInput},
     props: {
         action: String,
     },
     setup(props) {
         const submitted = ref(false);
+        const recaptcha = ref(null);
 
         const data = reactive({
             first_name: '',
@@ -57,6 +72,16 @@ export default {
             email: '',
             text: '',
         });
+
+        const {validate, errors} = useForm({
+            validationSchema: {
+                first_name: 'required',
+                last_name: 'required',
+                phone: 'required|tel',
+                email: 'required|email',
+                text: 'required',
+            }
+        })
 
         const onSubmit = async () => {
             submitted.value = true;
@@ -67,7 +92,7 @@ export default {
                 });
 
 
-            if (response.result === 'success') {
+            if (response?.result === 'success') {
                 if (window._functions) {
                     window._functions.showPopup('thanks-popup');
                 } else {
@@ -76,10 +101,51 @@ export default {
             }
         }
 
+        const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
+        const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+
+        const verify = (e) => {
+            data['g-recaptcha-response'] = e
+            onSubmit()
+            recaptcha.value.reset()
+        }
+
+        const render = (e) => {
+            setTimeout(() => {
+                const htmlOffset = $('html').css('top')
+
+                if (htmlOffset) {
+                    const layout = $('iframe[title*="recaptcha"]')
+                    layout.css('margin-top', htmlOffset.replace('-', ''))
+                    layout.parent().css('overflow', 'visible')
+                }
+            }, 1000)
+        }
+
+        const validateForm = async (e) => {
+            if(e.isTrusted) {
+                e.stopImmediatePropagation()
+                e.preventDefault()
+
+                const result = await validate();
+                if (!result.valid) {
+                    return false
+                } else {
+                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                }
+            }
+        }
+
         return {
             data,
             submitted,
-            onSubmit
+            onSubmit,
+            useRecaptcha,
+            sitekey,
+            recaptcha,
+            verify,
+            render,
+            validateForm,
         }
     }
 }

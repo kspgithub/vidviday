@@ -16,7 +16,7 @@
 
             <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
 
-            <tour-like-btn v-if="!corporate" :tour="tour"/>
+            <tour-like-btn v-if="!!user && !corporate" :tour="tour"/>
         </div>
 
         <div class="spacer-xs"></div>
@@ -96,6 +96,8 @@ export default {
     },
     setup(props) {
         const store = useStore();
+
+        const user = store.state.user.currentUser
 
         const query = urlUtils.parseQuery();
 
@@ -188,6 +190,7 @@ export default {
             showCalendar,
             orderTour,
             isMobile,
+            user,
         }
     }
 }
