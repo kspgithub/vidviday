@@ -1680,8 +1680,8 @@ form.row > div,
 }
 
 .touch-screen label.invalid:after {
-    visibility: hidden;
-    display: none !important;
+    //visibility: hidden;
+    //display: none !important;
 }
 
 .checkbox-accordion .hidden-textarea {
@@ -4517,9 +4517,11 @@ button.swiper-pagination-bullet {
     padding: 8px 15px 6px;
 }
 
-.thumb-content .tooltip-wrap {
+.thumb-content .tooltip-wrap,
+.thumb-info .tooltip-wrap {
     margin-top: -3px;
     margin-left: 10px;
+    z-index: 999;
 }
 
 .thumb-content .SumoSelect.open {
@@ -10901,7 +10903,8 @@ footer .accordion-inner .spacer-xs {
     margin: 0;
 }
 
-.SumoSelect > .optWrapper > .options {
+.SumoSelect > .optWrapper > .options,
+.datepicker-options {
     overflow: auto;
     max-height: 210px;
 }
@@ -10909,6 +10912,7 @@ footer .accordion-inner .spacer-xs {
 .filter-result-bar .SumoSelect > .optWrapper > .options {
     overflow: auto;
     max-height: unset;
+    width: fit-content;
 }
 
 .SumoSelect > .optWrapper > .options::-webkit-scrollbar {
@@ -12550,11 +12554,11 @@ nav,
 }
 
 .order-page label.invalid:before {
-    display: none;
+    //display: none;
 }
 
 .order-page label.invalid:after {
-    display: none;
+    //display: none;
 }
 
 input[name="tel"]::-webkit-input-placeholder {
@@ -13078,3 +13082,54 @@ input[name="viber"]:-ms-input-placeholder {
 
 }
 
+// Fix tooltip
+label, .datepicker-placeholder
+{
+    &:after {
+        left: 100%!important;
+        transform: translateX(-100%)!important;
+        margin: 0 20px!important;
+    }
+}
+
+.alert {
+    padding: 5px 10px;
+    padding-left: 10px;
+    font-size: 14px;
+    position: relative;
+    width: fit-content;
+    margin: 10px auto;
+    padding-left: 26px;
+
+    &.alert-danger {
+        color: #CF2020;
+    }
+
+    &:before {
+        background: #fff 0 0/16px 16px url(/images/discount.svg?60ddecafb84450627cfac7dd66c9e7a3) no-repeat;
+        position: absolute;
+        content: "";
+        display: block;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        bottom: 0;
+        margin: auto;
+    }
+}
+
+.popup-content {
+    .swiper-slide {
+        display: flex!important;
+        flex-direction: column!important;
+
+        @media (max-width: 768px) {
+            flex-direction: column-reverse!important;
+
+            .text-md {
+                position: relative!important;
+            }
+        }
+    }
+}

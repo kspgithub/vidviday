@@ -1,6 +1,7 @@
 <template>
     <form @submit="onSubmit" :action="action" method="POST" class="sign-up-form">
         <slot/>
+
         <div class="tabs vue-tabs">
             <ul class="tab-toggle">
                 <li class="tab-caption" :class="{active: role === 'tourist'}" @click.stop="role = 'tourist'">
@@ -57,7 +58,7 @@ export default {
 
         const validationSchema = computed(() => {
             const schema = {
-                first_name: 'required',
+                first_name: 'required|email|min_count:10',
                 last_name: 'required',
                 middle_name: 'required',
                 email: 'required|email',

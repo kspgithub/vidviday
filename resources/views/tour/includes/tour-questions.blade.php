@@ -50,35 +50,35 @@
                         <div class="col-md-6 col-12">
                             <label>
                                 <i>Прізвище*</i>
-                                <input type="text" name="last_name" required>
+                                <input type="text" name="last_name"  rules="required">
                             </label>
                         </div>
 
                         <div class="col-md-6 col-12">
                             <label>
                                 <i>Ім’я*</i>
-                                <input type="text" name="first_name" required>
+                                <input type="text" name="first_name"  rules="required">
                             </label>
                         </div>
 
                         <div class="col-md-6 col-12">
                             <label>
                                 <i>Email*</i>
-                                <input type="email" name="email" required>
+                                <input type="email" name="email"  rules="required|email">
                             </label>
                         </div>
 
                         <div class="col-md-6 col-12">
                             <label>
                                 <i>Телефон</i>
-                                <input type="tel" name="phone">
+                                <input type="tel" name="phone" mask="+38 (099) 999-99-99" rules="required|tel">
                             </label>
                         </div>
 
                         <div class="col-12">
                             <label>
                                 <i>Ваш коментар*</i>
-                                <textarea name="text" required></textarea>
+                                <textarea name="text" rules="required"></textarea>
                             </label>
                             <button type="submit"
                                     class="btn type-1 open-popup" data-rel="thanks-popup">Надіслати

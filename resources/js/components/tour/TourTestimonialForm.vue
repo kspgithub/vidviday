@@ -12,7 +12,8 @@
 
             <div class="have-an-account text-center">
                 <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                    <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                    <span class="open-popup" @click="closePopup()"
+                          data-rel="login-popup">{{ __('auth.entrance') }}</span>
                 </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
@@ -40,6 +41,11 @@
                     </div>
                 </div>
             </div>
+
+            <div v-if="errors.avatar" class="col-12">
+                <div class="alert alert-danger">{{errors.avatar}}</div>
+            </div>
+
             <div class="row">
                 <div class="col-md-6 col-12">
                     <form-input name="first_name" id="tt_first_name" v-model="data.first_name" rules="required"
@@ -78,9 +84,14 @@
                         <span class="text text-sm">
                             <b>{{ __('forms.your-guide') }}</b>
                         </span>
-                    <form-custom-select name="guide_id" id="tt_guide_id" search search-text="Введіть ім'я гіда"
+                    <form-custom-select id="tt_guide_id"
+                                        name="guide_id"
+                                        :placeholder="__('forms.select-from-list')"
+                                        :search="true"
+                                        :search-text="__('forms.enter-guide-name')"
+                                        ref="guideSelectRef"
                                         v-model.number="data.guide_id"
-                                        :placeholder="__('forms.select-from-list')">
+                    >
                         <option v-for="guide in tour.guides" :value="guide.id" :data-img="guide.avatar_url">
                             {{ guide.name }}
                         </option>
@@ -91,9 +102,12 @@
                 <div class="col-12">
                     <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
                                    :label="__('forms.your-feedback')"
-                                   rules="required"
-                                   :tooltip="__('forms.required')"/>
+                                   rules="required"/>
 
+                </div>
+
+                <div v-if="errors.images" class="col-12">
+                    <div class="alert alert-danger">{{errors.images}}</div>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -115,13 +129,13 @@
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
                             <img :src="sImage.preview" alt="img">
-                            <div class="btn-delete" @click="deleteImage(idx)"></div>
+                            <div class="btn-delete" @click.stop="deleteImage(idx)"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                    <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
                                    @verify="verify"
                                    @render="render"
                                    ref="recaptcha"
@@ -130,6 +144,11 @@
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
+                    <template v-if="!useRecaptcha">
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                            {{ __('forms.leave-feedback') }}
+                        </button>
+                    </template>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -148,7 +167,7 @@
 </template>
 
 <script>
-import { computed, nextTick, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -182,7 +201,7 @@ export default {
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
             phone: props.user && props.user.phone ? props.user.phone : '',
             email: props.user && props.user.email ? props.user.email : '',
-            rating: 0,
+            rating: 5,
             guide_id: 0,
             text: '',
             'g-recaptcha-response': '',
@@ -205,6 +224,7 @@ export default {
             await testimonialForm.submitForm()
         };
 
+        const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
@@ -232,8 +252,6 @@ export default {
 
                 const result = await validate();
                 if (!result.valid) {
-                    console.log(errors.value);
-                    console.log(data.rating);
                     return false
                 } else {
                     e.target.dispatchEvent(new e.constructor(e.type, e))
@@ -247,6 +265,7 @@ export default {
             formRef,
             data,
             popupOpen,
+            useRecaptcha,
             sitekey,
             recaptcha,
             verify,

@@ -6,6 +6,7 @@
 
     <x-forms.textarea-loc-group wire:model="form.description" name="description" :label="__('Description')"/>
 
+    <x-forms.text-group wire:model="form.time" name="time" :label="__('Time')" />
 
     <div>
         <livewire:location-group :model="$model"

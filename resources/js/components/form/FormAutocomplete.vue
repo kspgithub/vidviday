@@ -1,6 +1,6 @@
 <template>
     <label :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
-        <select class="custom-select vue-select" :name="name" ref="inputRef">
+        <select :id="$attrs.id" class="custom-select" :class="{vueSelect}" :name="name" ref="inputRef">
             <slot/>
         </select>
     </label>
@@ -40,6 +40,10 @@ export default {
         rules: {
             type: [String, Object],
             default: ''
+        },
+        vueSelect: {
+            type: Boolean,
+            default: true,
         },
     },
     emits: ['update:modelValue', 'search'],

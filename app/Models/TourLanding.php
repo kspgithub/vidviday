@@ -41,6 +41,7 @@ class TourLanding extends TranslatableModel
         'lat',
         'lng',
         'type',
+        'time',
     ];
 
     protected $casts = [

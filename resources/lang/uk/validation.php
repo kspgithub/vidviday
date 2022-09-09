@@ -35,7 +35,7 @@ return [
     'different' => 'Поля :attribute та :other повинні бути різними.',
     'digits' => 'Довжина цифрового поля :attribute повинна дорівнювати :digits.',
     'digits_between' => 'Довжина цифрового поля :attribute повинна бути від :min до :max.',
-    'dimensions' => 'Поле :attribute містіть неприпустимі розміри зображення.',
+    'dimensions' => 'Розмір :attribute має бути :width на :height px.',
     'distinct' => 'Поле :attribute містить значення, яке дублюється.',
     'email' => 'Поле :attribute повинне містити коректну електронну адресу.',
     'ends_with' => 'The :attribute must end with one of the following: :values',
@@ -114,6 +114,13 @@ return [
     'uploaded' => 'Завантаження поля :attribute не вдалося.',
     'url' => 'Формат поля :attribute неправильний.',
     'uuid' => 'Поле :attribute має бути коректним UUID ідентифікатором.',
+
+    // Custom
+    'invalid' => 'Поле :attribute не коректне.',
+    'linkedin' => 'Поле :attribute має бути посиланням на linkedin.',
+    'tel' => 'Поле :attribute не коректне.',
+    'max_count' => 'The :attribute may not have more than :max items.',
+    'min_count' => 'The :attribute must have at least :min items.',
 
     /*
     |--------------------------------------------------------------------------

@@ -30,7 +30,14 @@
             <div class="spacer-xs" v-if="item.gallery && item.gallery.length > 0"></div>
             <swiper-slider :key="'swp-'+item.id" class="swiper-entry" :media="item.gallery"
                            v-if="item.gallery.length > 0" :buttons="false"
-                           :options="{slidesPerView: 3, spaceBetween: 15, breakpoints: {992: {slidesPerView: 4, spaceBetween: 22}, 1200: {slidesPerView: 5, spaceBetween: 22}}}"></swiper-slider>
+                           :options="{
+                               slidesPerView: 3,
+                               spaceBetween: 15,
+                               breakpoints: {
+                                   992: {slidesPerView: 4, spaceBetween: 22},
+                                   1200: {slidesPerView: 5, spaceBetween: 22},
+                               }}"
+            ></swiper-slider>
         </div>
         <slide-up-down v-model="answer" :duration="300" :key="'tsma-'+item.id">
             <testimonial-answer :item="item" :key="'answ'+item.id" @cancel="onAnswerCancel" @success="onAnswerSuccess"/>

@@ -16,7 +16,7 @@
 
             <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
 
-            <tour-like-btn v-if="!corporate" :tour="tour"/>
+            <tour-like-btn v-if="!!user && !corporate" :tour="tour"/>
         </div>
 
         <div class="spacer-xs"></div>
@@ -37,8 +37,8 @@
                     {{ tour.format_duration }}
                 </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">
-                    {{ places > 10 ? '10+' : '2-10' }}
-                    <tooltip v-if="places === 0" variant="black">
+                    {{ places > 10 ? '10+' : (places < 2 ? '0' : '2-10') }}
+                    <tooltip v-if="places < 2" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
                 </span>
@@ -96,6 +96,8 @@ export default {
     },
     setup(props) {
         const store = useStore();
+
+        const user = store.state.user.currentUser
 
         const query = urlUtils.parseQuery();
 
@@ -188,6 +190,7 @@ export default {
             showCalendar,
             orderTour,
             isMobile,
+            user,
         }
     }
 }

@@ -46,9 +46,9 @@
                         </span>
                         <span class="thumb-info-people text">
                             {{
-                                currentSchedule?.places_available > 10 ? '10+' : (currentSchedule?.places_available > 0 ? '2-10' : 0)
+                                currentSchedule?.places_available > 10 ? '10+' : (currentSchedule?.places_available < 2 ? '0' : '2-10')
                             }}
-                            <tooltip v-if="!currentSchedule || currentSchedule.places_available === 0" variant="black">
+                            <tooltip v-if="!currentSchedule || currentSchedule.places_available < 2" variant="black">
                                 {{ __('tours-section.empty-tooltip') }}
                             </tooltip>
                         </span>
@@ -66,8 +66,19 @@
                         <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>
                     </span>
                 </div>
-                <a :href="tour.url + '/order?clear=1&schedule='+scheduleId"
-                   class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
+
+                <template v-if="currentSchedule">
+                    <a :href="tour.url + '/order?clear=1&schedule='+scheduleId"
+                       class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
+                </template>
+
+                <template v-else>
+                    <hr>
+                    <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{tour.votings_count}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
+                    <a :href="voteLink" class="btn type-1 btn-block">
+                        {{ __('tours-section.vote') }}
+                    </a>
+                </template>
             </div>
         </div>
     </div>
