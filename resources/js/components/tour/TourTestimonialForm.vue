@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -219,6 +219,8 @@ export default {
         })
 
         const testimonialForm = useTestimonialForm(data, props.action)
+
+        watch(data, () => testimonialForm.request.value && (testimonialForm.request.value = false))
 
         const onSubmit = async (response) => {
             await testimonialForm.submitForm()
