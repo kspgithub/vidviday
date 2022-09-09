@@ -79,7 +79,7 @@
 
     .checkbox {
         margin-right: auto;
-        max-width: 60%;
+        //max-width: 60%;
     }
 
     .number-input {
@@ -166,6 +166,17 @@
 }
 
 @media (min-width: 768px) {
+    .calc-row {
+        .checkbox {
+            flex: 1;
+        }
+        .number-input {
+            flex: 0 auto;
+        }
+        .text-md {
+            flex: 0 120px;
+        }
+    }
 }
 
 @media (max-width: 767px) {
