@@ -131,7 +131,7 @@ export const useTestimonialForm = (data, action) => {
                 .catch(error => {
                     if (!axios.isCancel(error)) {
                         const message = getError(error);
-                        toast.error(message);
+                        // toast.error(message);
 
                         const serverErrors = (error.data || error.response?.data || {errors: {}}).errors
                         for(let key in serverErrors) {
@@ -150,7 +150,7 @@ export const useTestimonialForm = (data, action) => {
                         title: 'Дякуємо за ваш відгук'
                     })
                 } else {
-                    toast.error(response.data.message);
+                    // toast.error(response.data.message);
                 }
 
             }
