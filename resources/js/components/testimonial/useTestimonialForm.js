@@ -1,6 +1,6 @@
 import { computed, ref, watch } from "vue";
 import axios from "axios";
-import {getError} from "../../services/api";
+import { getError } from "../../services/api";
 import toast from "../../libs/toast";
 import {useStore} from "vuex";
 import { __ } from "../../i18n/lang";
@@ -17,8 +17,17 @@ export const useTestimonialForm = (data, action) => {
     const popupOpen = computed(() => store.state.testimonials.popupOpen);
     const request = computed(() => store.state.testimonials.request);
     const maxImages = 5
-    const imagesErrTimeout = 5000
-    const imagesErrMessage = ref('')
+    const errorsTimeout = 5000
+    const errors = ref({})
+
+    watch(errors.value,
+        (value) => {
+            for(let key in value) {
+                setTimeout(() => delete errors.value[key], errorsTimeout)
+            }
+        },
+        {deep: true},
+    )
 
     const previewImages = () => {
         let remainImages = Math.max(maxImages - selectedImages.value.length, 0)
@@ -26,8 +35,7 @@ export const useTestimonialForm = (data, action) => {
         if (imagesRef.value.files.length) {
             for (let i = 0; i < imagesRef.value.files.length; i++) {
                 if (selectedImages.value.length >= 5 || remainImages <= 0) {
-                    imagesErrMessage.value = __('forms.max-image-count-5')
-                    setTimeout(() => imagesErrMessage.value = '', imagesErrTimeout)
+                    errors.value.images = __('forms.max-image-count-5')
                     break;
                 }
                 const file = imagesRef.value.files[i];
@@ -52,8 +60,6 @@ export const useTestimonialForm = (data, action) => {
             dt.items.add(f.file);
         });
         imagesRef.value.files = dt.files;
-
-        console.log(selectedImages.value)
     }
 
     const onDragleave = () => {
@@ -126,9 +132,16 @@ export const useTestimonialForm = (data, action) => {
                     if (!axios.isCancel(error)) {
                         const message = getError(error);
                         toast.error(message);
+
+                        const serverErrors = (error.data || error.response?.data || {errors: {}}).errors
+                        for(let key in serverErrors) {
+                            const attrKey = key.replace('_upload', '').split('.').shift()
+                            errors.value[attrKey] = Array.isArray(serverErrors[key]) ? serverErrors[key].join(',') : serverErrors[key]
+                        }
                     }
                 });
 
+            console.log(response)
 
             if (response?.data) {
                 if (response.data.result === 'success') {
@@ -167,7 +180,7 @@ export const useTestimonialForm = (data, action) => {
         closePopup,
         popupOpen,
         invalid,
-        imagesErrMessage,
+        errors,
     }
 
 }

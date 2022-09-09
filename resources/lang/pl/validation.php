@@ -36,7 +36,7 @@ return [
     'different' => 'Pole :attribute oraz :other muszą się różnić.',
     'digits' => 'Pole :attribute musi składać się z :digits cyfr.',
     'digits_between' => 'Pole :attribute musi mieć od :min do :max cyfr.',
-    'dimensions' => 'Pole :attribute ma niepoprawne wymiary.',
+    'dimensions' => 'Dimensions of :attribute must be :widthx:height px.',
     'distinct' => 'Pole :attribute ma zduplikowane wartości.',
     'email' => 'Pole :attribute nie jest poprawnym adresem e-mail.',
     'ends_with' => 'Pole :attribute musi kończyć się jedną z następujących wartości: :values.',

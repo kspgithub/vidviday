@@ -40,6 +40,11 @@
                     </div>
                 </div>
             </div>
+
+            <div v-if="errors.avatar" class="col-12">
+                <div class="alert alert-danger">{{errors.avatar}}</div>
+            </div>
+
             <div class="row">
                 <div class="col-md-6 col-12">
                     <form-input name="first_name" id="tt_first_name" v-model="data.first_name" rules="required"
@@ -96,8 +101,8 @@
 
                 </div>
 
-                <div v-if="imagesErrMessage" class="col-12">
-                    <div class="alert alert-danger">{{imagesErrMessage}}</div>
+                <div v-if="errors.images" class="col-12">
+                    <div class="alert alert-danger">{{errors.images}}</div>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -125,7 +130,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <vue-recaptcha v-if="popupOpen" :sitekey="sitekey"
+                    <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
                                    @verify="verify"
                                    @render="render"
                                    ref="recaptcha"
@@ -134,6 +139,11 @@
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
+                    <template v-if="!useRecaptcha">
+                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                            {{ __('forms.leave-feedback') }}
+                        </button>
+                    </template>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -209,6 +219,7 @@ export default {
             await testimonialForm.submitForm()
         };
 
+        const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
         const verify = (e) => {
@@ -236,8 +247,6 @@ export default {
 
                 const result = await validate();
                 if (!result.valid) {
-                    console.log(errors.value);
-                    console.log(data.rating);
                     return false
                 } else {
                     e.target.dispatchEvent(new e.constructor(e.type, e))
@@ -251,6 +260,7 @@ export default {
             formRef,
             data,
             popupOpen,
+            useRecaptcha,
             sitekey,
             recaptcha,
             verify,

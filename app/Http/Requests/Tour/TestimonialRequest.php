@@ -37,8 +37,16 @@ class TestimonialRequest extends FormRequest
             'tour_id' => ['sometimes', 'required', 'integer', 'exists:tours,id'],
             'guide_id' => ['nullable', 'integer'],
             'rating' => ['nullable', 'integer'],
-            'avatar_upload' => ['nullable', 'image', 'max:3000'],
-            'images_upload.*' => ['nullable', 'image', 'max:3000'],
+            'avatar_upload' => ['nullable', 'image', 'max:1024', 'dimensions:width=200,height=200'],
+            'images_upload.*' => ['nullable', 'image', 'max:1024'],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'avatar_upload' => 'avatar',
+            'images_upload.*' => 'images',
         ];
     }
 }
