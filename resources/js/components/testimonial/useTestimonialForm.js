@@ -1,12 +1,13 @@
-import {computed, ref} from "vue";
+import { computed, ref, watch } from "vue";
 import axios from "axios";
 import {getError} from "../../services/api";
 import toast from "../../libs/toast";
 import {useStore} from "vuex";
+import { __ } from "../../i18n/lang";
 
 export const useTestimonialForm = (data, action) => {
-    const store = useStore();
 
+    const store = useStore();
     const avatarRef = ref(null);
     const imagesRef = ref(null);
     const selectedAvatar = ref(null);
@@ -15,34 +16,33 @@ export const useTestimonialForm = (data, action) => {
     const parentId = computed(() => store.state.testimonials.parentId);
     const popupOpen = computed(() => store.state.testimonials.popupOpen);
     const request = computed(() => store.state.testimonials.request);
+    const maxImages = 5
+    const imagesErrTimeout = 5000
+    const imagesErrMessage = ref('')
 
     const previewImages = () => {
+        let remainImages = Math.max(maxImages - selectedImages.value.length, 0)
 
         if (imagesRef.value.files.length) {
-            const uploadedCount = selectedImages.value.length
-            const remainCount = Math.max(5 - uploadedCount, 0)
-            const limitFiles = [...imagesRef.value.files]
-            limitFiles.splice(remainCount)
-
-            if(limitFiles.length) {
-                for (let i = 0; i < limitFiles.length; i++) {
-                    const file = limitFiles[i];
-                    const reader = new FileReader();
-                    reader.onload = (pe) => {
-                        selectedImages.value = [...selectedImages.value, {preview: pe.target.result, file: file}];
-                    }
-                    reader.readAsDataURL(file);
+            for (let i = 0; i < imagesRef.value.files.length; i++) {
+                if (selectedImages.value.length >= 5 || remainImages <= 0) {
+                    imagesErrMessage.value = __('forms.max-image-count-5')
+                    setTimeout(() => imagesErrMessage.value = '', imagesErrTimeout)
+                    break;
                 }
-            } else {
-
+                const file = imagesRef.value.files[i];
+                const reader = new FileReader();
+                reader.onload = (pe) => {
+                    selectedImages.value.push({preview: pe.target.result, file: file});
+                }
+                reader.readAsDataURL(file);
+                remainImages--
             }
-
         } else {
             selectedImages.value = [];
             const dt = new DataTransfer();
             imagesRef.value.files = dt.files;
         }
-
     }
 
     const deleteImage = (idx) => {
@@ -52,8 +52,9 @@ export const useTestimonialForm = (data, action) => {
             dt.items.add(f.file);
         });
         imagesRef.value.files = dt.files;
-    }
 
+        console.log(selectedImages.value)
+    }
 
     const onDragleave = () => {
         dragover.value = false;
@@ -77,7 +78,6 @@ export const useTestimonialForm = (data, action) => {
         }
 
     }
-
 
     const onDrop = (event) => {
         event.preventDefault();
@@ -167,6 +167,7 @@ export const useTestimonialForm = (data, action) => {
         closePopup,
         popupOpen,
         invalid,
+        imagesErrMessage,
     }
 
 }

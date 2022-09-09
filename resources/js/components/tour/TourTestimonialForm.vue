@@ -96,10 +96,8 @@
 
                 </div>
 
-                <div v-if="selectedImages.length >= 5" class="col-12">
-                    <div class="alert alert-danger">
-                        {{__('forms.max-image-count-5')}}
-                    </div>
+                <div v-if="imagesErrMessage" class="col-12">
+                    <div class="alert alert-danger">{{imagesErrMessage}}</div>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -121,7 +119,7 @@
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
                             <img :src="sImage.preview" alt="img">
-                            <div class="btn-delete" @click="deleteImage(idx)"></div>
+                            <div class="btn-delete" @click.stop="deleteImage(idx)"></div>
                         </div>
                     </div>
                 </div>
@@ -154,7 +152,7 @@
 </template>
 
 <script>
-import { computed, nextTick, reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -188,7 +186,7 @@ export default {
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
             phone: props.user && props.user.phone ? props.user.phone : '',
             email: props.user && props.user.email ? props.user.email : '',
-            rating: 0,
+            rating: 5,
             guide_id: 0,
             text: '',
             'g-recaptcha-response': '',
