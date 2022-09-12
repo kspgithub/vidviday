@@ -110,7 +110,7 @@
 
                         <span class="vertical-separator"></span>
 
-                        <x-header.lang-dropdown/>
+                        <x-header.lang-dropdown :locale-links="$localeLinks"/>
 
                         <div class="spacer-sm"></div>
                         <hr>
