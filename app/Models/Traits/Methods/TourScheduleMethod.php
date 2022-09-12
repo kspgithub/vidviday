@@ -113,7 +113,7 @@ trait TourScheduleMethod
             'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->title,
             'start' => $this->start_date->format('Y-m-d'),
             'end' => $this->end_date->addDays(($this->tour->duration + $this->tour->nights) <= 2 ? 0 : 1)->format('Y-m-d'),
-            'className' => $this->places >= 10 ? 'have-a-lot' : ($this->places >= 2 ? 'still-have' : 'no-have'),
+            'className' => $this->places_available >= 10 ? 'have-a-lot' : ($this->places_available >= 2 ? 'still-have' : 'no-have'),
         ];
 
         if ($event_click !== false) {

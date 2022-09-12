@@ -123,13 +123,13 @@ html.overflow-menu body {
 
     &.still-have {
         &:before {
-            background-color: $olive;
+            background-color: $pink;
         }
     }
 
     &.have-a-lot {
         &:before {
-            background-color: $pink;
+            background-color: $olive;
         }
     }
 
