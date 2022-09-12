@@ -18,7 +18,7 @@
 
             @foreach($future_events as $event_key=>$future_event)
 
-                <div class="schedule-row still-have {{$event_key > 2 ? 'd-none' : ''}}">
+                <div class="schedule-row {{ $future_event->className }} {{$event_key > 2 ? 'd-none' : ''}}">
                     <span class="text">{{$future_event->title}}</span>
                     <div>
                         <span class="text text-medium">{{$future_event->price}} {{$future_event->currencyTitle}}</span>

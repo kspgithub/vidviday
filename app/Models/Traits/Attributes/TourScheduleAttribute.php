@@ -169,4 +169,9 @@ trait TourScheduleAttribute
     {
         return $this->currencyModel->title;
     }
+
+    public function getClassNameAttribute()
+    {
+        return $this->places_available >= 10 ? 'have-a-lot' : ($this->places_available >= 2 ? 'still-have' : 'no-have');
+    }
 }
