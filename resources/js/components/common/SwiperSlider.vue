@@ -167,7 +167,6 @@ export default {
                 if(parentAccordion.length) {
                     let accordionTitle = $(parentAccordion).find('.accordion-title').get(0)
                     if(accordionTitle && e.explicitOriginalTarget.isSameNode(accordionTitle)) {
-                        alert('ok')
                         setTimeout(() => initDynamicPagination(), 250)
                     }
                 }
