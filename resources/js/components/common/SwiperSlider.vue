@@ -157,12 +157,17 @@ export default {
         }
 
         onMounted(() => {
-            // Fix for invisible slides in accordion
+
+            // todo: Temporary Fix for invisible slides in accordion
             document.addEventListener('AccordionItemToggled', (e) => {
-                let parentAccordion = $(swiperRef.value).closest('.accordion-item').parents('.accordion-item').first()
+                let parentAccordion = $(swiperRef.value).closest('.accordion-item');
+                while($(parentAccordion).parents('.accordion-item').first().length) {
+                    parentAccordion = $(parentAccordion).parents('.accordion-item').first()
+                }
                 if(parentAccordion.length) {
                     let accordionTitle = $(parentAccordion).find('.accordion-title').get(0)
                     if(accordionTitle && e.explicitOriginalTarget.isSameNode(accordionTitle)) {
+                        alert('ok')
                         setTimeout(() => initDynamicPagination(), 250)
                     }
                 }
