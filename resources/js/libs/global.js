@@ -894,7 +894,7 @@ jQuery(function ($) {
     });
     // Show more info
     $('.show-more').on('click', function () {
-        var $container = $(this).parents('.load-more-wrapp');
+        var $container = $(this).parents('.load-more-wrapp').first();
         if ($container.hasClass('vue-load-more')) return;
         $(this).toggleClass('active');
         $container.find('.more-info').slideToggle(440);
