@@ -220,8 +220,6 @@ jQuery(function ($) {
     /*###################*/
 
     const initDynamicPagination = function (swiper) {
-        console.log('initDynamicPagination')
-
         const pagination = swiper.pagination
 
         if(pagination && typeof pagination.bullets !== 'undefined') {
@@ -706,6 +704,7 @@ jQuery(function ($) {
             });
             pageScroll(current);
         }
+        document.dispatchEvent(new Event("AccordionItemToggled", e))
     });
 
     //expand all accordion

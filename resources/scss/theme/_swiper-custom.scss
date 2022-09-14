@@ -181,6 +181,7 @@
     line-height: 0;
     z-index: 2;
     text-align: center;
+    width: auto!important;
 
     &.light {
         .swiper-pagination-bullet {
@@ -1025,6 +1026,8 @@
         &.visible {
             margin-left: 9px;
             margin-right: 9px;
+            left: auto !important;
+            transform: scale(1)!important;
         }
     }
 }

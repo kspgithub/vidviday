@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="show-more">
-                    <span>Читати більше</span>
-                    <span>Сховати текст</span>
+                    <span>{{ __('common.read-more') }}</span>
+                    <span>{{ __('common.hide-text') }}</span>
                 </div>
             @else
                 <p>{!! $testimonial->text !!}</p>

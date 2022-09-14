@@ -2271,7 +2271,7 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-pagination-lock {
-    display: none;
+    //display: none;
 }
 
 .swiper-scrollbar {
@@ -13131,5 +13131,14 @@ label, .datepicker-placeholder
                 position: relative!important;
             }
         }
+    }
+}
+
+// Перенос текста
+wbr {
+    display: inline-block;
+
+    @media (max-width: 768px) {
+        display: block;
     }
 }
