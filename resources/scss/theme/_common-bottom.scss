@@ -77,8 +77,8 @@ html.overflow-menu body {
         display: flex !important;
         opacity: 0;
         height: 0;
-        padding: 0px 20px;
         overflow: hidden;
+        padding: 0 !important;
     }
 }
 

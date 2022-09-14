@@ -270,7 +270,8 @@ class TourController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'question' => $testimonial
+                'question' => $testimonial,
+                'testimonials' => $tour->testimonials,
             ]);
         }
 

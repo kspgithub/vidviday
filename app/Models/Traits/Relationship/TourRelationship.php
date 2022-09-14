@@ -187,7 +187,7 @@ trait TourRelationship
      */
     public function testimonials()
     {
-        return $this->morphMany(Testimonial::class, 'model')->withDepth()->reversed();
+        return $this->morphMany(Testimonial::class, 'model')->withDepth()->reversed()->whereNull('parent_id');
     }
 
     /**

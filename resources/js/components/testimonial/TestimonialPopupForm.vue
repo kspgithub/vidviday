@@ -231,7 +231,7 @@ export default {
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
-            phone: props.user && props.user.phone ? props.user.phone : '',
+            phone: props.user && props.user.mobile_phone ? props.user.mobile_phone : '',
             email: props.user && props.user.email ? props.user.email : '',
             rating: 5,
             tour_id: tour.value ? tour.value.id : 0,
