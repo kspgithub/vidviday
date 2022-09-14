@@ -49,6 +49,8 @@ export default {
         app.component('tour-question-form', require('./tour/TourQuestionForm').default);
         app.component('tour-question-popup-form', require('./tour/TourQuestionPopupForm').default);
         app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
+        app.component('tour-reviews', require('./tour/TourReviews').default);
+        app.component('tour-review', require('./tour/TourReview').default);
         app.component('tour-map', require('./tour/TourMap').default);
         app.component('tour-calc', require('./tour/TourCalc').default);
         app.component('tour-carousel', require('./tour/TourCarousel').default);

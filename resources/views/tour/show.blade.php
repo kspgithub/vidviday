@@ -118,7 +118,6 @@
                                 @include('tour.includes.tour-calc')
                                 @include('tour.includes.tour-questions')
                                 @include('tour.includes.tour-reviews')
-
                             </div>
                             <div class="expand-all-button">
                                 <div class="expand-all open">@lang('tours-section.expand-all')</div>

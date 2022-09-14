@@ -151,6 +151,9 @@ export const useTestimonialForm = (data, action) => {
                     // toast.error(response.data.message);
                 }
 
+                if(response.data.testimonials) {
+                    store.commit('testimonials/SET_TESTIMONIALS', response.data.testimonials)
+                }
             }
 
             request.value = false;

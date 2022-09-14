@@ -77,11 +77,16 @@ class Testimonial extends Model implements HasMedia
         'place',
         'guide',
         'type',
+        'short_text',
     ];
 
     protected $hidden = [
         'media',
         'model',
+    ];
+
+    protected $with = [
+        'children'
     ];
 
     /**
