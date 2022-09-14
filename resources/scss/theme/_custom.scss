@@ -13133,3 +13133,12 @@ label, .datepicker-placeholder
         }
     }
 }
+
+// Перенос текста
+wbr {
+    display: inline-block;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
