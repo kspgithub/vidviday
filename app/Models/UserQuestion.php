@@ -52,7 +52,7 @@ class UserQuestion extends Model
 
     public function questionType()
     {
-        return $this->belongsTo(QuestionType::class, 'question_type');
+        return $this->belongsTo(QuestionType::class, 'type');
     }
 
     public function getAttachmentUrlAttribute()
