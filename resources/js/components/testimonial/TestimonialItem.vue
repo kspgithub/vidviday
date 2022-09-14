@@ -1,5 +1,5 @@
 <template>
-    <div class="review-item">
+    <div class="review-item" :id="'testimonial-'+item.id">
         <div class="spacer-xs"></div>
         <div class="review testimonial clear-bottom">
             <div class="review-header">
@@ -11,6 +11,7 @@
                     <span class="h4">{{ item.name }}</span>
                     <span class="text text-sm">{{ item.date }}</span>
                     <span class="text text-sm">{{ item.time }}</span>
+                    <span v-if="item.on_moderation" class="text text-sm">{{__('tours-section.reviews.in-moderation')}}</span>
                     <star-rating v-if="!item.parent_id" :value="item.rating"/>
                     <span class="text" @click="showAnswerForm">{{ __('forms.reply') }}</span>
                 </div>
@@ -22,10 +23,32 @@
                 <p v-if="!item.parent_id && item.type === 'tour' && item.guide">
                     Гід: <b>{{ item.guide.name }}</b>
                 </p>
-                <p>
-                    <span class="label" v-if="item.parent">{{ item.parent.name }}</span>
-                    {{ item.text }}
-                </p>
+                <div class="seo-text load-more-wrapp p-0 m-0">
+                    <template v-if="item.short_text.length >= (textMaxLength + 3)">
+                        <div class="less-info">
+                            <p>
+                                <span class="label" v-if="item.parent">{{ item.parent.name }}</span>
+                                {{ item.short_text }}
+                            </p>
+                        </div>
+                        <div class="more-info">
+                            <p>
+                                <span class="label" v-if="item.parent">{{ item.parent.name }}</span>
+                                {{ item.text }}
+                            </p>
+                        </div>
+
+                        <div class="show-more">
+                            <span v-text="__('common.read-more')"></span>
+                            <span v-text="__('common.hide-text')"></span>
+                        </div>
+                    </template>
+                    <p v-else>
+                        <span class="label" v-if="item.parent">{{ item.parent.name }}</span>
+                        {{ item.text }}
+                    </p>
+                </div>
+
             </div>
             <div class="spacer-xs" v-if="item.gallery && item.gallery.length > 0"></div>
             <swiper-slider :key="'swp-'+item.id" class="swiper-entry" :media="item.gallery"
@@ -68,10 +91,15 @@ import SlideUpDown from "../common/SlideUpDown";
 export default {
     name: "TestimonialItem",
     components: {SlideUpDown, SwiperSlider, TestimonialAnswer, StarRating, FormStarRating},
+    emits: ['add'],
     props: {
         item: Object,
+        textMaxLength: {
+            type: Number,
+            default: 120,
+        },
     },
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
         const currentUser = computed(() => store.state.user.currentUser);
         const answer = ref(false);
@@ -81,6 +109,30 @@ export default {
         const showAnswerForm = () => {
             if (currentUser.value) {
                 answer.value = true;
+            } else {
+                store.commit('testimonials/SET_PARENT_ID', props.item.id)
+                store.commit('testimonials/SET_POPUP_OPEN', true)
+                store.commit('testimonials/SET_CALLBACK', (response) => {
+
+                    if (response.result === 'success') {
+                        children.value = [response.testimonial || response.question, ...children.value];
+                        answer.value = false;
+
+                        setTimeout(() => {
+
+                            let loadMoreWrap = $('#testimonial-'+(response.testimonial?.id || response.question?.id)).parents('.load-more-wrapp').first()
+
+                            if(loadMoreWrap.length) {
+                                let showMoreBtn = $(loadMoreWrap).find('.show-more-btn')
+                                if(!$(showMoreBtn).hasClass('active')) {
+                                    $(showMoreBtn).click()
+                                }
+                            }
+                        }, 500)
+                    } else {
+                        toast.error(response.message);
+                    }
+                })
             }
         }
 
@@ -96,6 +148,14 @@ export default {
                 await store.dispatch('userQuestion/showThanks', {
                     title: response.message,
                 })
+
+                let loadMoreWrap = $('#testimonial-'+(response.testimonial?.id || response.question?.id)).parents('.load-more-wrapp').first()
+                if(loadMoreWrap.length) {
+                    let showMoreBtn = $(loadMoreWrap).find('.show-more-btn')
+                    if(!$(showMoreBtn).hasClass('active')) {
+                        $(showMoreBtn).click()
+                    }
+                }
             } else {
                 toast.error(response.message);
             }

@@ -85,10 +85,6 @@ class Testimonial extends Model implements HasMedia
         'model',
     ];
 
-    protected $with = [
-        'children'
-    ];
-
     /**
      * @return BelongsTo
      */

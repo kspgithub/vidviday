@@ -10,6 +10,7 @@ export default {
             tour: null,
             currentPage: 1,
             lastPage: 1,
+            callback: false,
         }
     },
     mutations: {
@@ -21,6 +22,9 @@ export default {
         },
         SET_TESTIMONIALS(state, value) {
             state.items = value;
+        },
+        PUSH_TESTIMONIAL(state, value) {
+            state.items.push(value);
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;
@@ -36,6 +40,9 @@ export default {
         },
         SET_LAST_PAGE(state, value) {
             state.lastPage = value;
+        },
+        SET_CALLBACK(state, value) {
+            state.callback = value;
         },
     },
     actions: {
@@ -80,6 +87,12 @@ export default {
             const {data: response} = await axios.get(state.url + '/' + id + '/children');
             commit('SET_REQUEST', false);
             return response;
-        }
+        },
+
+        async callback({commit, state}, data) {
+            let response = typeof state.callback === 'function' && state.callback(data);
+            commit('SET_CALLBACK', false)
+            return response
+        },
     }
 }

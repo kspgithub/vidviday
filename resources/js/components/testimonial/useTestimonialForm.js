@@ -144,15 +144,16 @@ export const useTestimonialForm = (data, action) => {
             if (response?.data) {
                 if (response.data.result === 'success') {
                     closePopup();
+                    await store.dispatch('testimonials/callback', response.data)
                     await store.dispatch('userQuestion/showThanks', {
                         title: 'Дякуємо за ваш відгук'
                     })
+
+                    if(!parentId.value) {
+                        await store.commit('testimonials/PUSH_TESTIMONIAL', response.data.testimonial || response.data.question)
+                    }
                 } else {
                     // toast.error(response.data.message);
-                }
-
-                if(response.data.testimonials) {
-                    store.commit('testimonials/SET_TESTIMONIALS', response.data.testimonials)
                 }
             }
 

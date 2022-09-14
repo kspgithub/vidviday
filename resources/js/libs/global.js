@@ -893,7 +893,7 @@ jQuery(function ($) {
         $(this).closest('.loaded-img').remove();
     });
     // Show more info
-    $('.show-more').on('click', function () {
+    $(document).on('click', '.show-more', function () {
         var $container = $(this).parents('.load-more-wrapp').first();
         if ($container.hasClass('vue-load-more')) return;
         $(this).toggleClass('active');
