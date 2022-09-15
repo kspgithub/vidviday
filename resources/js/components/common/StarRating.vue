@@ -12,7 +12,7 @@
 export default {
     name: "StarRating",
     props: {
-        value: Number
+        value: [Number, String]
     }
 }
 </script>
