@@ -30,9 +30,11 @@
                 <div class="col-xl-9 col-12">
                     <!-- BANNER/INFO -->
                     <div class="section">
+                        @if($media = $group->getFirstMedia())
                         <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{$group->getFirstMedia()->getUrl()}}" alt="{{ $group->title }}">
+                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{$media->getUrl()}}" alt="{{ $media->alt ?: $group->title }}">
                         </div>
+                        @endif
                         <div class="spacer-xs"></div>
                         <div class="row">
                             <div class="col-xl-8 col-12">
