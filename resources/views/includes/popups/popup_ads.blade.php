@@ -34,7 +34,7 @@
 <!-- THANKS POPUP END -->
 
 @push('after-scripts')
-    @if(count($popupAds) > 0)
+    @if(count($popupAds ?? []) > 0)
         <script>
             (function () {
                 window.addEventListener('DOMContentLoaded', () => {

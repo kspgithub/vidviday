@@ -108,6 +108,7 @@ class EventItem extends TranslatableModel implements HasMedia
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('events.show', $slug) : '';
+//        return !empty($slug) ? route('events.show', $slug) : '';
+        return !empty($slug) ? '/' . $slug : '';
     }
 }

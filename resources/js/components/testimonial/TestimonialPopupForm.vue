@@ -115,22 +115,18 @@
                     <span class="text text-sm">
                         <b>{{ __('forms.your-guide') }}</b>
                     </span>
-                    <form-autocomplete id="t_guide_id"
-                                       name="guide_id"
-                                       :placeholder="__('forms.enter-guide-name')"
-                                       :search="true"
-                                       :search-text="__('forms.enter-guide-name')"
-                                       ref="guideSelectRef"
-                                       v-model.number="data.guide_id"
-                                       @search="searchGuides"
-                                       title-field="name"
-                                       :vue-select="false"
+                    <form-custom-select id="t_guide_id"
+                                        name="guide_id"
+                                        :placeholder="__('forms.select-from-list')"
+                                        :search="true"
+                                        :search-text="__('forms.enter-guide-name')"
+                                        ref="guideSelectRef"
+                                        v-model.number="data.guide_id"
                     >
-                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}</option>
                         <option v-for="guide in guides" :value="guide.id" :data-img="guide.avatar_url">
                             {{ guide.name }}
                         </option>
-                    </form-autocomplete>
+                    </form-custom-select>
                 </div>
                 <div class="col-12">
                     <form-textarea name="text" v-model="data.text" :label="__('forms.your-feedback')" rules="required"/>
@@ -315,17 +311,23 @@ export default {
                 data.tour_id = tour.value.id;
                 nextTick(() => {
                     tourSelectRef.value.update(tours.value);
+                    searchGuides(data.tour_id)
                 })
-
             }
         })
 
-        const searchGuides = async (q = '') => {
-            if (guides.value.length === 0) {
-                const items = await fetchGuides();
-                guides.value = items || [];
-            }
-            guideSelectRef.value.update(guides.value);
+        watch(() => data.tour_id, (tour_id) => {
+            nextTick(() => {
+                searchGuides(tour_id)
+            })
+        })
+
+        const searchGuides = async (tour_id = 0) => {
+            const items = await fetchGuides(tour_id);
+            guides.value = items || [];
+            await nextTick(() => {
+                guideSelectRef.value.update(guides.value);
+            })
         }
 
         searchGuides();

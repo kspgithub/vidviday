@@ -10,7 +10,13 @@
                 <li v-if="search">
                     <input v-model="searchValue" ref="search" type="text">
                 </li>
-                <li v-if="multiple" class="opt" @click="selectAll()">
+                <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))" class="opt" @click="selectAll()">
+                    <label class="checkbox" >
+                        <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
+                        <span>Обрати все</span>
+                    </label>
+                </li>
+                <li v-if="multiple && (selected.length && selected.length === (filteredOptions.length - 1))" class="opt" @click="change({value: 0})">
                     <label class="checkbox" >
                         <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
                         <span>Обрати все</span>
@@ -84,7 +90,7 @@ export default {
                 const index = val.indexOf(option.value.toString())
 
                 if(option.value === 0) {
-                    open.value = false;
+                    setTimeout(() => close(), 100)
                     val = []
                 } else {
                     if(index > -1) {
@@ -96,9 +102,7 @@ export default {
 
                 emit('update:modelValue', val.join(','))
             } else {
-                setTimeout(() => {
-                    open.value = false
-                }, 100)
+                setTimeout(() => close(), 100)
 
                 emit('update:modelValue', option.value)
             }
@@ -141,8 +145,12 @@ export default {
 
         const handleOpen = (e) => {
             if(open.value) {
-                if(!$(e.target).hasClass('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+                if(
+                    ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
+                    (!$(e.target).hasClass('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+                ) {
                     open.value = !open.value
+                }
             } else {
                 open.value = !open.value
             }
