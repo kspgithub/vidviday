@@ -58,7 +58,7 @@ export default {
 
         const validationSchema = computed(() => {
             const schema = {
-                first_name: 'required|email|min_count:10',
+                first_name: 'required',
                 last_name: 'required',
                 middle_name: 'required',
                 email: 'required|email',
