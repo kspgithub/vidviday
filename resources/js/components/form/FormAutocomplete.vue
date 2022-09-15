@@ -1,6 +1,6 @@
 <template>
     <label :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
-        <select :id="$attrs.id" class="custom-select" :class="{vueSelect}" :name="name" ref="inputRef">
+        <select :id="$attrs.id" class="custom-select" :class="{'vue-select': vueSelect}" :name="name" ref="inputRef">
             <slot/>
         </select>
     </label>

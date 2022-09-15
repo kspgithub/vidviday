@@ -7,7 +7,7 @@
             <tour-card-list v-for="tour in tours" :key="'tour-'+tour.id" :tour="tour"
                             :like-btn="!!$store.state.user.currentUser"/>
         </div>
-
+        <div class="spacer-xs"></div>
         <div v-if="currentPage < lastPage" class="text-center">
             <a class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</a>
         </div>
