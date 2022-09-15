@@ -22,7 +22,7 @@ class Role extends SpatieRole
 
     public static function toSelectBox()
     {
-        return self::all()->map(fn ($role) => ['value' => $role->id, 'text' => __(Str::ucfirst(str_replace('-', ' ', $role->name)))]);
+        return self::all()->map(fn ($role) => ['value' => $role->name, 'text' => __(Str::ucfirst(str_replace('-', ' ', $role->name)))]);
     }
 
     public function pages()
