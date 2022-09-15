@@ -33,7 +33,7 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img src="{{ asset("img/preloader.png") }}" data-img-src="icon/filter-dark.svg" alt="filter-dark">{{ __("Підбір туру") }}</span>
+                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">{{ __("Підбір туру") }}</span>
                         <div class="spacer-xs"></div>
                     </div>
                     <!-- BANNER/INFO -->

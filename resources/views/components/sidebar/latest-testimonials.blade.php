@@ -35,7 +35,7 @@
                                 </p>
                             @endif
                             <div class="seo-text load-more-wrapp p-0 m-0">
-                                @if(mb_strlen($testimonial->short_text) <= $testimonial::SHORT_TEXT_STR_LIMIT + 3)
+                                @if(mb_strlen($testimonial->short_text) >= $testimonial::SHORT_TEXT_STR_LIMIT + 3)
                                     <div class="less-info">
                                         <p>{!! $testimonial->short_text !!}</p>
                                     </div>

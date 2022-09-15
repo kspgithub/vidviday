@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-12 only-pad-mobile">
                     <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
-                            src="{{ __("img/preloader.png") }}" data-img-src="icon/filter-dark.svg" alt="filter-dark">{{ __("Підбір туру") }}</span>
+                            src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">{{ __("Підбір туру") }}</span>
                     <div class="spacer-xs"></div>
                 </div>
                 <div class="col-xl-8 col-12">
