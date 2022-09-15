@@ -18,6 +18,7 @@
 
             <div class="col-md-6 col-12">
                 <form-input name="phone" id="transport-phone" v-model="data.phone" :label="__('forms.phone')"
+                            mask="+38 (999) 999-99-99"
                             rules="required|tel"/>
             </div>
 

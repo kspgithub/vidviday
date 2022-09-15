@@ -17,6 +17,7 @@ use App\Http\Controllers\TourGuide\TourGuideController;
 use App\Http\Controllers\Transport\TransportController;
 use App\Http\Controllers\TravelAgent\TravelAgentController;
 use App\Http\Controllers\Vacancy\VacancyController;
+use App\Models\EventItem;
 use App\Models\Page;
 use App\Models\Place;
 use App\Models\PopupAd;
@@ -30,6 +31,10 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
+        if (EventItem::existBySlug($slug, false)) {
+            return (new EventController())->show($slug);
+        }
+
         if (Tour::existBySlug($slug, false)) {
             return (new TourController())->show($slug);
         }
