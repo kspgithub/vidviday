@@ -92,12 +92,12 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         try {
-            Mail::to($user->email)->send(new RegistrationEmail($user, $password));
+            Mail::to($user->email)->queue(new RegistrationEmail($user, $password));
 
             // Notify admins
             $adminEmails = MailNotificationService::getAdminNotifyEmails();
             foreach ($adminEmails as $email) {
-                Mail::to($email)->send(new RegistrationAdminEmail($user));
+                Mail::to($email)->queue(new RegistrationAdminEmail($user));
             }
 
         } catch (Exception $exception) {

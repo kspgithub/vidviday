@@ -32,13 +32,13 @@ class UserQuestionObserver
 
         try {
             foreach ($adminEmails as $email) {
-                Mail::to($email)->send(new UserQuestionAdminEmail($userQuestion));
+                Mail::to($email)->queue(new UserQuestionAdminEmail($userQuestion));
             }
             foreach ($managerEmails as $email) {
-                Mail::to($email)->send(new UserQuestionManagerEmail($userQuestion));
+                Mail::to($email)->queue(new UserQuestionManagerEmail($userQuestion));
             }
             foreach ($userEmails as $email) {
-                Mail::to($email)->send(new UserQuestionEmail($userQuestion));
+                Mail::to($email)->queue(new UserQuestionEmail($userQuestion));
             }
         } catch (Exception $e) {
             //

@@ -24,7 +24,8 @@ class MailNotificationService
     public static function adminTourOrder(Order $order)
     {
         try {
-            Mail::send(new TourOrderAdminEmail($order));
+            $adminEmails = MailNotificationService::getAdminNotifyEmails();
+            Mail::to($adminEmails)->queue(new TourOrderAdminEmail($order));
             return true;
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
@@ -36,11 +37,11 @@ class MailNotificationService
     {
         try {
             if (!empty($order->email)) {
-                Mail::to($order->email)->send(new TourOrderEmail($order));
+                Mail::to($order->email)->queue(new TourOrderEmail($order));
             }
 
             if($order->confirmation_type == Order::CONFIRMATION_EMAIL && !empty($order->confirmation_contact)) {
-                Mail::to($order->confirmation_contact)->send(new TourOrderEmail($order));
+                Mail::to($order->confirmation_contact)->queue(new TourOrderEmail($order));
             }
 
             return true;
@@ -53,7 +54,7 @@ class MailNotificationService
     public static function userOrderStatus(Order $order, $notifyEmail, $notifyMessage)
     {
         try {
-            Mail::to($notifyEmail)->send(new OrderStatusEmail($order, $notifyMessage));
+            Mail::to($notifyEmail)->queue(new OrderStatusEmail($order, $notifyMessage));
             return true;
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
@@ -64,7 +65,7 @@ class MailNotificationService
     public static function customMail($email, $message, $subject = 'Нове повідомлення')
     {
         try {
-            Mail::to($email)->send(new CustomEmail($message, $subject));
+            Mail::to($email)->queue(new CustomEmail($message, $subject));
             return true;
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
@@ -89,7 +90,7 @@ class MailNotificationService
     {
         try {
             if (!empty($order->email)) {
-                Mail::to($order->email)->send(new OrderCertificateMail($order));
+                Mail::to($order->email)->queue(new OrderCertificateMail($order));
                 return true;
             }
         } catch (Exception $exception) {
@@ -103,7 +104,7 @@ class MailNotificationService
         try {
             $emails = MailNotificationService::getAdminCertificateEmails();
             if (!empty($emails)) {
-                Mail::to($emails)->send(new OrderCertificateAdminMail($order));
+                Mail::to($emails)->queue(new OrderCertificateAdminMail($order));
                 return true;
             }
         } catch (Exception $exception) {
@@ -135,7 +136,7 @@ class MailNotificationService
     {
         try {
             if (!empty($order->email)) {
-                Mail::to($order->email)->send(new OrderTransportMail($order));
+                Mail::to($order->email)->queue(new OrderTransportMail($order));
                 return true;
             }
         } catch (Exception $exception) {
@@ -150,7 +151,7 @@ class MailNotificationService
         try {
             $emails = MailNotificationService::getAdminTransportEmails();
             if (!empty($emails)) {
-                Mail::to($emails)->send(new OrderTransportAdminMail($order));
+                Mail::to($emails)->queue(new OrderTransportAdminMail($order));
                 return true;
             }
         } catch (Exception $exception) {
