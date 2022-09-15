@@ -34,25 +34,25 @@
 <!-- THANKS POPUP END -->
 
 @push('after-scripts')
-    <script>
-        (function () {
-            window.onload = () => {
-                    @foreach(($popupAds ?? []) as $i => $popupAd) {
+    @if(count($popupAds) > 0)
+        <script>
+            (function () {
+                window.addEventListener('DOMContentLoaded', () => {
+                    @foreach(($popupAds ?? []) as $i => $popupAd)
+                        let showPopup = !localStorage.getItem('popup-ad-{{$popupAd->id}}')
 
-                    let showPopup = !localStorage.getItem('popup-ad-{{$popupAd->id}}')
+                        if (showPopup) {
+                            let timeout = {{ $popupAd->timeout ?: 5000 }}
 
-                    if (showPopup) {
-                        let timeout = {{ $popupAd->timeout ?: 5000 }}
+                            setTimeout(() => {
+                                _functions.showPopup('popup-ad-{{$popupAd->id}}')
 
-                        setTimeout(() => {
-                            _functions.showPopup('popup-ad-{{$popupAd->id}}')
-
-                            localStorage.setItem('popup-ad-{{$popupAd->id}}', true);
-                        }, timeout)
-                    }
-                }
-                @endforeach
-            }
-        })(window)
-    </script>
+                                localStorage.setItem('popup-ad-{{$popupAd->id}}', true);
+                            }, timeout)
+                        }
+                    @endforeach
+                })
+            })(window)
+        </script>
+    @endif
 @endpush
