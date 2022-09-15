@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\CustomEmail;
 use App\Mail\UserQuestionEmail;
 use App\Models\LanguageLine;
 use App\Models\QuestionType;
@@ -23,5 +24,5 @@ use Illuminate\Support\Facades\Mail;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
-
+    Mail::to('maksym.shekhovtsev@gmail.com')->queue(new CustomEmail('test', 'subject test'));
 })->purpose('Display an inspiring quote');
