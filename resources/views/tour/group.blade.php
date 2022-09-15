@@ -31,8 +31,7 @@
                     <!-- BANNER/INFO -->
                     <div class="section">
                         <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("/img/banner-img_3.jpg")}}"
-                                 height="500" alt="banner img 3">
+                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{$group->getFirstMedia()->getUrl()}}" alt="{{ $group->title }}">
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="row">
