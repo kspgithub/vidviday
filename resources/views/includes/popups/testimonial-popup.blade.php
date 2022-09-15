@@ -71,8 +71,8 @@
 					</span>
                     <select class="custom-select" data-search="true" data-search-text="Введіть ім'я гіда">
                         <option value="guid-0" selected disabled>Введіть назву чи оберіть зі списку</option>
-                        <option value="guid-1" data-img="img/user.jpg">Тур 1</option>
-                        <option value="guid-2" data-img="img/user.jpg">Тур 2</option>
+                        <option value="guid-1" data-img="{{ asset('img/user.jpg') }}">Тур 1</option>
+                        <option value="guid-2" data-img="{{ asset('img/user.jpg') }}">Тур 2</option>
                     </select>
                 </div>
 
@@ -82,8 +82,8 @@
 					</span>
                     <select class="custom-select" data-search="true" data-search-text="Введіть ім'я гіда">
                         <option value="guid-0" selected disabled>{{__('forms.select-from-list')}}</option>
-                        <option value="guid-1" data-img="img/user.jpg">Христина Процишин</option>
-                        <option value="guid-2" data-img="img/user.jpg">Марічка Касьянова (Михайлюсь)</option>
+                        <option value="guid-1" data-img="{{ asset('img/user.jpg') }}">Христина Процишин</option>
+                        <option value="guid-2" data-img="{{ asset('img/user.jpg') }}">Марічка Касьянова (Михайлюсь)</option>
                     </select>
                 </div>
 

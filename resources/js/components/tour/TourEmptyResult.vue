@@ -2,7 +2,7 @@
     <div>
         <div class="only-pad-mobile">
             <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                <img alt="filter-dark" src="{{ asset('icon/filter-dark.svg') }}">{{ __('tours-section.search-btn') }}
+                <img alt="filter-dark" src="/icon/filter-dark.svg">{{ __('tours-section.search-btn') }}
             </span>
             <div class="spacer-xs"></div>
         </div>
