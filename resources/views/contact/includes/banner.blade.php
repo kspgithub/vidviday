@@ -53,8 +53,7 @@
                         </a>
                     @endif
                     @if ( !empty($contact->viber))
-                        <a target="_blank"
-                           href="={{viber_link($contact->viber, false)}}">
+                        <a target="_blank" href="{{viber_link($contact->viber, false)}}">
                             {{svg('icon-viber')}}
                         </a>
                     @endif

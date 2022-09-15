@@ -21,7 +21,7 @@
 
             <div class="col-md-4 col-12">
                 <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                    <img alt="filter-dark" src="/icon/filter-dark.svg">
+                    <img alt="filter-dark" src="{{ asset('icon/filter-dark.svg') }}">
                     {{ __('sidebar-section.filter.tour-search') }}
                 </span>
             </div>
