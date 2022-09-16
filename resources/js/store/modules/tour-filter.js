@@ -38,6 +38,7 @@ export default {
                 landing: '',
                 future: 1,
                 lang: 'uk',
+                group_id: 0,
             },
             pagination: {
                 current_page: 1,
@@ -50,7 +51,8 @@ export default {
                 sortDirection: 'asc',
             },
             tours: [],
-            popularTours: []
+            popularTours: [],
+            group: null,
         }
     },
     mutations: {
@@ -97,6 +99,9 @@ export default {
         SET_IN_FUTURE(state, value) {
             state.inFuture = value;
         },
+        SET_GROUP(state, value) {
+            state.group = value
+        },
     },
     getters: {
         //
@@ -121,6 +126,7 @@ export default {
                 sort_dir: 'asc',
                 view: 'gallery',
                 lang: 'uk',
+                group_id: state.group ? state.group.id : 0,
             }
         },
         formData: (state) => {
@@ -143,6 +149,7 @@ export default {
                 sort_by: state.sorting.sortBy,
                 sort_dir: state.sorting.sortDirection,
                 lang: state.formData.lang,
+                group_id: state.formData.group_id,
             }
         },
         filterData: (state) => {
@@ -184,6 +191,7 @@ export default {
                 landing: query.landing || '',
                 subject: query.subject || '',
                 lang: query.lang || document.documentElement.lang || 'uk',
+                group_id: query.group_id || 0,
             };
             commit('UPDATE_FORM_DATA', formData);
 
@@ -224,6 +232,12 @@ export default {
                 params.future = 0
             } else {
                 delete params.future
+            }
+
+            if(state.group && state.group.id) {
+                params.group_id = state.group.id
+            } else {
+                delete params.group_id
             }
 
             const response = await toursService.fetchTours(params);

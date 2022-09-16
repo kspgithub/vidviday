@@ -129,7 +129,8 @@ export default {
             const path = document.location.pathname;
 
             const query = urlUtils.filterParams(params.value, defaultParams.value);
-            if (path !== '/tours') {
+
+            if (path === '/') {
                 document.location.href = urlUtils.makeUrl('/tours', query);
             } else {
                 urlUtils.updateUrl(path, query, true);

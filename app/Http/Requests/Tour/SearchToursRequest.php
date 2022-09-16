@@ -43,6 +43,7 @@ class SearchToursRequest extends FormRequest
             'sort_by' => ['nullable', Rule::in(['price', 'created', 'popular', 'rating', 'created', 'date', 'duration'])],
             'sort_dir' => ['nullable', Rule::in(['asc', 'desc'])],
             'lang' => ['nullable', Rule::in(siteLocales())],
+            'group_id' => ['nullable', 'exists:tour_groups,id'],
         ];
     }
 }

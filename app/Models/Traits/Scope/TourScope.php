@@ -81,6 +81,11 @@ trait TourScope
 
         $query
             ->whereJsonContains('locales', $locale)
+            ->when(!empty($params['group_id']), function (Builder $q) use ($params) {
+                return $q->whereHas('groups', function (Builder $gq) use ($params) {
+                    return $gq->where('tour_groups.id', $params['group_id']);
+                });
+            })
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
                 return $q->whereHas('scheduleItems', function (Builder $sq) use ($params) {
                     return $sq->whereDate('tour_schedules.start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));

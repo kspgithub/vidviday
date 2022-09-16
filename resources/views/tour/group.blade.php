@@ -72,7 +72,7 @@
                     </div>
                     <!-- BANNER/INFO END -->
 
-                    <div v-is="'tour-search'" :in-future="false">
+                    <div v-is="'tour-search'" :in-future="false" :group='@json($group)'>
                         <div class="tabs">
                             @include('tour.includes.tab-nav')
                             <div class="spacer-xs"></div>
