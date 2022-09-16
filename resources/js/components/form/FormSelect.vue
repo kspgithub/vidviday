@@ -150,7 +150,8 @@ export default {
             if(open.value) {
                 if(
                     ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
-                    (!$(e.target).hasClass('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+                    ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length) ||
+                    (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
                 ) {
                     open.value = !open.value
                 }
