@@ -211,13 +211,13 @@ ol {
         }
     }
 
-    > div,
+    > div:not(.loaded-img),
     img,
     blockquote {
         margin: 30px 0;
     }
 
-    > div {
+    > div:not(.loaded-img) {
         overflow: hidden;
         position: relative;
         padding-top: 56.72%;
@@ -583,7 +583,7 @@ ol {
     }
 
     .text {
-        > div {
+        > div:not(.loaded-img) {
             border-radius: 0;
             margin: 30px -15px;
             width: calc(100% + 30px);
