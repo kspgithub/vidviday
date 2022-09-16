@@ -53,7 +53,8 @@ export default {
         inFuture: {
             type: Boolean,
             default: true
-        }
+        },
+        group: {},
     },
     setup(props) {
         const store = useStore();
@@ -68,12 +69,16 @@ export default {
             store.commit('tourFilter/SET_IN_FUTURE', false)
         }
 
+        if (props.group && props.group.id) {
+            store.commit('tourFilter/UPDATE_FORM_DATA', {group_id: props.group.id})
+            store.commit('tourFilter/SET_GROUP', props.group)
+        }
+
         store.dispatch('tourFilter/fetchPopularTours');
 
         const unsubscribe = store.subscribeAction({
             after: async (action, state) => {
                 if (action.type === 'tourFilter/initFilter') {
-
                     const query = urlUtils.filterParams(params.value, defaultParams.value);
                     await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {})});
                     loading.value = false;

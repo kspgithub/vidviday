@@ -137,6 +137,7 @@ class TourService extends BaseService
         $popularTours = Tour::search(false)
             ->whereJsonContains('locales', $locale)
             ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
+            ->where('popular_tours.published', 1)
             ->select('tours.*')
             ->addSelect(DB::raw('popular_tours.position as position'))
             ->orderBy('position')
@@ -155,6 +156,8 @@ class TourService extends BaseService
 
             $popularTours = $popularTours->merge($bestsellerTours);
         }
+
+        $popularTours = $popularTours->unique('id');
 
         return $popularTours;
     }

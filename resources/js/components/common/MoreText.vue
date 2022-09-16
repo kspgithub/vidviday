@@ -4,7 +4,7 @@
              @transitionend="onTransitionEnd()">
             <slot/>
         </div>
-        <div v-if="spacer" :class="spacer"></div>
+        <div v-if="spacer" :class="'spacer-' + spacer"></div>
         <div class="text-right" v-if="showBtn">
             <div class="show-more-btn" :class="{active: isActive}" @click.prevent.stop="toggle()">
                 <span v-if="!isActive">{{ __('common.read-more') }}</span>

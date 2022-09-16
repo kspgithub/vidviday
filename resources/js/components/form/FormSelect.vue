@@ -24,9 +24,9 @@
                 </li>
                 <li v-for="option in filteredOptions"
                     v-show="(!option.value && selected.length) || option.value"
-                    :class="{selected: selected.includes(option.value)}"
+                    :class="{selected: multiple ? selected.includes(option.value) : option.value === modelValue}"
                     class="opt"
-                    @click.prevent="change(option)"
+                    @click="change(option)"
                 >
                     <label v-if="multiple" class="checkbox" >
                         <input type="checkbox" :checked="selected.includes(option.value)">
@@ -67,8 +67,10 @@ export default {
         const selectedText = computed(() => {
             let text = ''
             const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
-            const selected = value.split(',').map(id => parseInt(id)).filter(id => id > 0);
-            let options = props.options.filter(o => selected.includes(o.value));
+
+            const selectedValue = value.split(',').map(id => parseInt(id)).filter(id => id > 0);
+
+            let options = props.options.filter(o => props.multiple ? selectedValue.includes(o.value) : o.value === props.modelValue);
 
             if(!options.length) {
                 options = [props.options[0]]
@@ -103,8 +105,9 @@ export default {
                 emit('update:modelValue', val.join(','))
             } else {
                 setTimeout(() => close(), 100)
+                const value = String(JSON.parse(JSON.stringify(option.value)))
 
-                emit('update:modelValue', option.value)
+                emit('update:modelValue', value)
             }
         }
 
@@ -147,7 +150,8 @@ export default {
             if(open.value) {
                 if(
                     ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
-                    (!$(e.target).hasClass('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+                    ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length) ||
+                    (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
                 ) {
                     open.value = !open.value
                 }
