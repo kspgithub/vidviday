@@ -63,11 +63,7 @@ class TourController extends Controller
 
         $localeLinks = $group->getLocaleLinks();
 
-        $toursQuery = Tour::search(false);
-
-        $toursQuery->whereHas('groups', function ($q) use ($group) {
-            return $q->where('id', $group->id);
-        });
+        $toursQuery = $group->tours()->search(false);
 
         $min_price = (clone $toursQuery)->min('price');
         $max_price = (clone $toursQuery)->max('price');

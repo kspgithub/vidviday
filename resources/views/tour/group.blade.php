@@ -30,10 +30,11 @@
                 <div class="col-xl-9 col-12">
                     <!-- BANNER/INFO -->
                     <div class="section">
+                        @if($media = $group->getFirstMedia())
                         <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("/img/banner-img_3.jpg")}}"
-                                 height="500" alt="banner img 3">
+                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{$media->getUrl()}}" alt="{{ $media->alt ?: $group->title }}">
                         </div>
+                        @endif
                         <div class="spacer-xs"></div>
                         <div class="row">
                             <div class="col-xl-8 col-12">
@@ -44,7 +45,7 @@
                                     <div class="spacer-xs"></div>
                                 </div>
                                 @if($group)
-                                    <div v-is="'more-text'">
+                                    <div v-is="'more-text'" spacer="xs">
                                         {!! $group->text !!}
                                     </div>
                                 @endif
@@ -67,18 +68,11 @@
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="only-pad-mobile">--}}
-{{--                            <div class="spacer-xs"></div>--}}
-{{--                            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">--}}
-{{--                                <img src="{{asset("/img/preloader.png")}}" data-img-src="{{asset("icon/filter-dark.svg")}}" alt="filter-dark">--}}
-{{--                                Підбір туру--}}
-{{--                            </span>--}}
-{{--                            <div class="spacer-xs"></div>--}}
-{{--                        </div>--}}
+                        <div class="spacer-xs"></div>
                     </div>
                     <!-- BANNER/INFO END -->
 
-                    <div v-is="'tour-search'" :in-future="false">
+                    <div v-is="'tour-search'" :in-future="false" :group='@json($group)'>
                         <div class="tabs">
                             @include('tour.includes.tab-nav')
                             <div class="spacer-xs"></div>

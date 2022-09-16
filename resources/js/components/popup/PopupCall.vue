@@ -43,7 +43,7 @@
                     <div class="timepicker-input">
                         <form-sumo-select name="call_time" v-model="data.call_time"
                                           :options="callTimes"
-                                          :label="__('common.call-date')"
+                                          :label="__('common.call-time')"
                         />
                     </div>
                 </div>
