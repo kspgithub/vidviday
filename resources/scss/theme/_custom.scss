@@ -13064,7 +13064,7 @@ input[name="viber"]:-ms-input-placeholder {
         padding: 10px 0;
     }
 
-    nav li > span {
+    nav li > span:not(.dropdown-btn) {
         display: inline-block;
         width: 100%;
         padding: 10px 0;
