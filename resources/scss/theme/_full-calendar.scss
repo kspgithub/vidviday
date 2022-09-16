@@ -1540,6 +1540,10 @@ a {
         margin-bottom: 0;
         margin-left: 10px;
 
+        &.view-change {
+            z-index: 99;
+        }
+
         > .CaptionCont {
             min-width: 100px;
             height: 40px;
