@@ -1,38 +1,52 @@
 <template>
-    <div v-click-outside="close" :class="{open: open}" class="SumoSelect" @click="handleOpen">
+    <div v-click-outside="close" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
+
         <input :name="name" :value="modelValue" type="hidden">
+
         <p :title="selectedText" class="CaptionCont SelectBox">
             <span v-html="selectedText"></span>
             <label><i></i></label>
         </p>
+
         <div class="optWrapper">
             <ul class="options">
                 <li v-if="search">
                     <input v-model="searchValue" ref="search" type="text">
                 </li>
-                <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))" class="opt" @click="selectAll()">
+
+                <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
+                    class="opt"
+                    @click="selectAll()"
+                >
                     <label class="checkbox" >
                         <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
                         <span>Обрати все</span>
                     </label>
                 </li>
-                <li v-if="multiple && (selected.length && selected.length === (filteredOptions.length - 1))" class="opt" @click="change({value: 0})">
+
+                <li v-if="multiple && (selected.length === (filteredOptions.length - 1))"
+                    class="opt"
+                    @click.prevent="change({value: 0}, $event)"
+                >
                     <label class="checkbox" >
                         <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
                         <span>Обрати все</span>
                     </label>
                 </li>
+
                 <li v-for="option in filteredOptions"
                     v-show="(!option.value && selected.length) || option.value"
-                    :class="{selected: multiple ? selected.includes(option.value) : option.value === modelValue}"
+                    :class="{selected: multiple ? selected.includes(option.value) : (option.value === modelValue)}"
                     class="opt"
-                    @click="change(option)"
+                    @click.prevent="change(option, $event)"
                 >
                     <label v-if="multiple" class="checkbox" >
                         <input type="checkbox" :checked="selected.includes(option.value)">
                         <span v-html="option.value === 0 ? 'Не вибрано' : option.text" />
                     </label>
+
                     <label v-else v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+
                 </li>
             </ul>
         </div>
@@ -41,7 +55,7 @@
 </template>
 
 <script>
-import {computed, getCurrentInstance, onMounted, ref, toRefs, watch} from "vue";
+import {computed, getCurrentInstance, onMounted, ref, watch} from "vue";
 
 export default {
     name: "FormSelect",
@@ -60,13 +74,13 @@ export default {
         const searchValue = ref('');
 
         const selected = computed(() => {
-            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
+            const value = String(JSON.parse(JSON.stringify(props.modelValue)))
             return value.split(',').map(id => parseInt(id)).filter(id => id > 0);
         })
 
         const selectedText = computed(() => {
             let text = ''
-            const value = new String(JSON.parse(JSON.stringify(props.modelValue)))
+            const value = String(JSON.parse(JSON.stringify(props.modelValue)))
 
             const selectedValue = value.split(',').map(id => parseInt(id)).filter(id => id > 0);
 
@@ -83,7 +97,8 @@ export default {
             return text
         })
 
-        const change = (option) => {
+        const change = (option, event) => {
+            event.preventDefault()
 
             if(props.multiple) {
                 const value = String(JSON.parse(JSON.stringify(props.modelValue)))
@@ -147,10 +162,13 @@ export default {
         }
 
         const handleOpen = (e) => {
+            console.log($(e.target).parents('.CaptionCont').length)
+            console.log($(e.target).parents('.optWrapper').length)
+            console.log($(e.target).parents('.SumoSelect').length)
             if(open.value) {
                 if(
                     ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
-                    ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length) ||
+                    (!$(e.target).is('.optWrapper') && !$(e.target).parents('.optWrapper').length) ||
                     (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
                 ) {
                     open.value = !open.value

@@ -66,7 +66,6 @@ export default {
         onMounted(() => {
             const SelectBox = $(sortSelectRef.value.$el).find('p.SelectBox')
             const options = SelectBox.next('.optWrapper').find('ul.options')
-            console.log(SelectBox, options)
             SelectBox.css({width: options.width()})
         })
 
