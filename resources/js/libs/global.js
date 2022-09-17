@@ -704,7 +704,6 @@ jQuery(function ($) {
             });
             pageScroll(current);
         }
-        document.dispatchEvent(new Event("AccordionItemToggled", e))
     });
 
     //expand all accordion

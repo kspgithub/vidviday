@@ -106,6 +106,14 @@ export default {
             store.commit('popupGallery/SET_ACTIVE', true);
         }
 
+        var observerHandler = (e) => {
+            console.log('observerUpdate', e)
+            // Update on parent node change
+            if(e.target.contains(swiperRef.value) && e.attributeName === 'style' && e.target.style.display !== 'none') {
+                initDynamicPagination()
+            }
+        }
+
         const initDynamicPagination = function () {
             console.log('initDynamicPagination')
 
@@ -114,6 +122,10 @@ export default {
             if(pagination && typeof pagination.bullets !== 'undefined') {
 
                 const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
+
+                if(bullets.length) {
+                    swiper.value.off('observerUpdate', observerHandler)
+                }
 
                 const totalBullets = bullets.length
 
@@ -152,25 +164,13 @@ export default {
                             $(bullet).removeClass('visible').hide()
                         }
                     })
+
                 }
+
             }
         }
 
         onMounted(() => {
-
-            // todo: Temporary Fix for invisible slides in accordion
-            document.addEventListener('AccordionItemToggled', (e) => {
-                let parentAccordion = $(swiperRef.value).closest('.accordion-item');
-                while($(parentAccordion).parents('.accordion-item').first().length) {
-                    parentAccordion = $(parentAccordion).parents('.accordion-item').first()
-                }
-                if(parentAccordion.length) {
-                    let accordionTitle = $(parentAccordion).find('.accordion-title').get(0)
-                    if(accordionTitle && e.explicitOriginalTarget.isSameNode(accordionTitle)) {
-                        setTimeout(() => initDynamicPagination(), 250)
-                    }
-                }
-            })
 
             swiper.value = new window.Swiper(swiperRef.value, options.value);
 
@@ -187,6 +187,10 @@ export default {
             swiper.value.on('slideChange', () => {
                 initDynamicPagination()
             })
+
+            if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
+                swiper.value.on('observerUpdate', observerHandler)
+            }
 
             initDynamicPagination()
         });
