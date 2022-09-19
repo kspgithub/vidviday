@@ -21,7 +21,7 @@ class VacancyEmail extends BaseTemplateEmail
      */
     public function __construct(UserQuestion $userQuestion = null)
     {
-        $this->userQuestion = $userQuestion ?: new UserQuestion();
+        $this->userQuestion = $userQuestion ?: UserQuestion::random();
     }
 
     public function build()

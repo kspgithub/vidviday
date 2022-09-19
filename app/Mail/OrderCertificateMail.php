@@ -14,6 +14,6 @@ class OrderCertificateMail extends BaseTemplateEmail
 
     public function __construct(OrderCertificate $order = null)
     {
-        $this->order = $order ?: new OrderCertificate();
+        $this->order = $order ?: OrderCertificate::random();
     }
 }

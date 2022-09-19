@@ -17,6 +17,7 @@ use App\Observers\TourObserver;
 use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
 use App\Observers\UserSubscriptionObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -50,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         View::share('questionTypes', QuestionType::query()->published()->get());
+
+        Builder::macro('random', function ($count = 1) {
+            return $this->inRandomOrder()->limit($count)->{$count === 1 ? 'first' : 'get'}();
+        });
 
         // Observers
         Order::observe(OrderObserver::class);

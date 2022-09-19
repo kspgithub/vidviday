@@ -21,6 +21,6 @@ class TourOrderAdminEmail extends BaseTemplateEmail
      */
     public function __construct(Order $order = null)
     {
-        $this->order = $order ?: new Order();
+        $this->order = $order ?: Order::random();
     }
 }
