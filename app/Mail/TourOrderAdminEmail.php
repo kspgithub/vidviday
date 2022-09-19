@@ -23,4 +23,15 @@ class TourOrderAdminEmail extends BaseTemplateEmail
     {
         $this->order = $order ?: Order::random();
     }
+
+    public function getReplaces()
+    {
+        return [
+            'order_id' => $this->order->id,
+            'departure_date' => fn() => $this->order->start_date?->format('d.m.Y'),
+            'tour_name' => $this->order->tour->title,
+            'first_name' => $this->order->first_name,
+            'last_name' => $this->order->last_name,
+        ];
+    }
 }
