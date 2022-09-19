@@ -34,6 +34,7 @@ class BaseTemplateEmail extends Mailable
             foreach ($this->getReplaces() as $key => $value) {
                 $replaceFrom = '{{ ' . $key . ' }}';
                 $replaceTo = is_callable($value) ? $value() : $value;
+                $subject = str_replace($replaceFrom, $replaceTo, $subject);
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
             $mail->subject($subject);
