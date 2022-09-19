@@ -26,7 +26,7 @@ class RegistrationEmail extends BaseTemplateEmail
      */
     public function __construct(User $user = null, string $password = '')
     {
-        $this->user = $user ?: new User();
+        $this->user = $user ?: User::random();
         $this->password = $password;
         $this->contacts = Contact::first();
     }

@@ -14,6 +14,6 @@ class OrderTransportAdminMail extends BaseTemplateEmail
 
     public function __construct(OrderTransport $order = null)
     {
-        $this->order = $order ?: new OrderTransport();
+        $this->order = $order ?: OrderTransport::random();
     }
 }
