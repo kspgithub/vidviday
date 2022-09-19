@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\CRM;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MailNotifyRequest;
-use App\Mail\CustomEmail;
 use App\Services\MailNotificationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

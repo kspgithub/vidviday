@@ -13,7 +13,7 @@
                 <x-email.row title="Телефон">{{$order->phone ?? '-'}}</x-email.row>
                 <x-email.row title="Email">{{$order->email ?? '-'}}</x-email.row>
                 <x-email.row title="Viber">{{$order->viber ?? '-'}}</x-email.row>
-                <x-email.row title="Дата виїзду">{{$order->start_date->format('d.m.Y') ?? '-'}}</x-email.row>
+                <x-email.row title="Дата виїзду">{{$order->start_date?->format('d.m.Y') ?? '-'}}</x-email.row>
                 <x-email.row title="Тривалість">{{$order->duration}}</x-email.row>
                 <x-email.row title="Маршрут">{{$order->route}}</x-email.row>
                 <x-email.row title="Кількість пасажирів">{{$order->places}}</x-email.row>

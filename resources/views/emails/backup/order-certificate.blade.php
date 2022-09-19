@@ -16,7 +16,7 @@
                 @if($order->type === 'sum')
                     <x-email.row title="Сума">{{number_format($order->sum, 0, '', ',')}} грн.</x-email.row>
                 @else
-                    <x-email.row title="Тур">{{$order->tour->title ?? '-'}}</x-email.row>
+                    <x-email.row title="Тур">{{$order->tour?->title ?? '-'}}</x-email.row>
                 @endif
                 <x-email.row title="Дизайн">{{$order->design === 'heart' ? 'У формі серця' : 'Класичний'}}</x-email.row>
                 <x-email.row

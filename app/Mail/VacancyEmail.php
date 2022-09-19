@@ -8,8 +8,6 @@ use Illuminate\Queue\SerializesModels;
 
 class VacancyEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
-
     public UserQuestion $userQuestion;
 
     public static $subjectKey = 'emails.vacancy.subject';
@@ -21,14 +19,19 @@ class VacancyEmail extends BaseTemplateEmail
      *
      * @return void
      */
-    public function __construct(UserQuestion $userQuestion)
+    public function __construct(UserQuestion $userQuestion = null)
     {
-        //
-        $this->userQuestion = $userQuestion;
+        $this->userQuestion = $userQuestion ?: new UserQuestion();
     }
 
     public function build()
     {
-        return parent::build()->attach($this->userQuestion->attachment_url);
+        $build = parent::build();
+
+        if($this->userQuestion->attachment_url) {
+            $build->attach($this->userQuestion->attachment_url);
+        }
+
+        return $build;
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Mail\CustomEmail;
-
-use App\Mail\RegistrationEmail;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +14,7 @@ class MailTest extends Command
      *
      * @var string
      */
-    protected $signature = 'mail:test {--to=} {--message=Hello}';
+    protected $signature = 'mail:test {--to=} {--message=Hello} {--subject=Hello}';
 
     /**
      * The console command description.
@@ -44,9 +42,10 @@ class MailTest extends Command
     {
         $to = $this->option('to');
         $message = $this->option('message');
+        $subject = $this->option('subject');
+
         if (!empty($to)) {
-            $user = User::orderBy('created_at', 'desc')->first();
-            Mail::to($to)->queue(new RegistrationEmail($user, 'sdfsdf'));
+            Mail::to($to)->queue(new CustomEmail($message, $subject));
         }
 
         return 0;

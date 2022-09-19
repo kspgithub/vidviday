@@ -6,17 +6,14 @@ use App\Models\OrderTransport;
 
 class OrderTransportMail extends BaseTemplateEmail
 {
-    public $order;
+    public OrderTransport $order;
 
-    public $showFooter = true;
+    public static $subjectKey = 'emails.order-transport.subject';
 
-    public static $subjectKey = 'emails.registration.subject';
+    public static $viewKey = 'emails.order-transport';
 
-    public static $viewKey = 'emails.registration';
-
-    public function __construct(OrderTransport $order)
+    public function __construct(OrderTransport $order = null)
     {
-        //
-        $this->order = $order;
+        $this->order = $order ?: new OrderTransport();
     }
 }
