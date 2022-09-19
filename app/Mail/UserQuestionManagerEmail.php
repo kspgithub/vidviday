@@ -23,4 +23,11 @@ class UserQuestionManagerEmail extends BaseTemplateEmail
     {
         $this->userQuestion = $userQuestion ?: UserQuestion::random();
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'question_id' => $this->userQuestion->id,
+        ];
+    }
 }

@@ -16,4 +16,11 @@ class OrderCertificateMail extends BaseTemplateEmail
     {
         $this->order = $order ?: OrderCertificate::random();
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'order_id' => $this->order->id,
+        ];
+    }
 }

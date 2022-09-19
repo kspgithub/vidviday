@@ -30,4 +30,11 @@ class RegistrationEmail extends BaseTemplateEmail
         $this->password = $password;
         $this->contacts = Contact::first();
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'user_id' => $this->user->id,
+        ];
+    }
 }
