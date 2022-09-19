@@ -47,7 +47,7 @@ class BaseTemplateEmail extends Mailable
         return $mail;
     }
 
-    public function getReplaces()
+    public function getReplaces(): array
     {
         return [];
     }
