@@ -8,11 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class TourOrderAdminEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
+    public Order $order;
 
-    public $order;
-
-    public static $subjectKey = 'emails.order-tour.subject';
+    public static $subjectKey = 'emails.order-tour-admin.subject';
 
     public static $viewKey = 'emails.order-tour-admin';
 
@@ -21,9 +19,8 @@ class TourOrderAdminEmail extends BaseTemplateEmail
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order = null)
     {
-        //
-        $this->order = $order;
+        $this->order = $order ?: new Order();
     }
 }

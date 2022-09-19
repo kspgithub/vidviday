@@ -9,15 +9,11 @@ use Illuminate\Queue\SerializesModels;
 
 class RegistrationEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
+    public User $user;
 
-    public $user;
+    public string $password;
 
-    public $password;
-
-    public $contacts;
-
-    public $showFooter = true;
+    public Contact $contacts;
 
     public static $subjectKey = 'emails.registration.subject';
 
@@ -28,10 +24,9 @@ class RegistrationEmail extends BaseTemplateEmail
      *
      * @return void
      */
-    public function __construct(User $user, string $password)
+    public function __construct(User $user = null, string $password = '')
     {
-        //
-        $this->user = $user;
+        $this->user = $user ?: new User();
         $this->password = $password;
         $this->contacts = Contact::first();
     }

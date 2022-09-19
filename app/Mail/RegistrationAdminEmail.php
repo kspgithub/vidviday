@@ -8,11 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class RegistrationAdminEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
+    public User $user;
 
-    public $user;
-
-    public static $subjectKey = 'emails.registration.subject';
+    public static $subjectKey = 'emails.registration-admin.subject';
 
     public static $viewKey = 'emails.registration-admin';
 
@@ -21,9 +19,8 @@ class RegistrationAdminEmail extends BaseTemplateEmail
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user = null)
     {
-        //
-        $this->user = $user;
+        $this->user = $user ?: new User();
     }
 }

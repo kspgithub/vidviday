@@ -27,6 +27,23 @@ for(let locale of locales) {
 
     <x-forms.translation-switch/>
 
+    <div class="form-group row mb-3">
+        <label for="subject" class="col-md-2 col-form-label">
+            Доступні змінні
+        </label>
+
+        <div class="col-md-10">
+            <div class="input-group mb-1">
+                @foreach($replaces as $replace)
+                    <div id="replace-{{ $replace }}" class="replace col-12">
+                        <span class="me-1">{{'{{'}} {{ $replace }} }}</span>
+                        <a class="copy" href="#" data-clip-copy="{{'{{'}} {{ $replace }} }}"><i data-feather="copy"></i></a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <x-forms.text-loc-group name="subject" :label="__('Subject')" :value="old('subject', $template->getTranslations('subject'))"/>
 
     @foreach($locales as $locale)
