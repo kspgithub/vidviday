@@ -1958,6 +1958,10 @@ a {
 
 @media (max-width: 767px) {
 
+    .calendar-wrapper {
+        margin-top: 60px;
+    }
+
     .calendar-header-center span.text-sm {
         font-size: 12px;
         line-height: 24px;
@@ -1981,9 +1985,22 @@ a {
 
     .fc-toolbar.fc-header-toolbar {
         margin-bottom: 45px;
+
+        position: absolute;
+        top: -60px;
+
+        .fc-toolbar-chunk{
+            display: flex;
+        }
     }
 
     .fc {
+        overflow: auto;
+
+        .fc-view-harness {
+            width: calc(100%*2*7/6);
+        }
+
         th,
         td {
             min-width: 140px;
@@ -2106,6 +2123,10 @@ a {
 }
 
 .fc {
+
+    .fc-col-header, .fc-daygrid-body, .fc-scrollgrid-sync-table {
+        width: 100%!important;
+    }
 
     .fc-toolbar {
         min-height: 40px;

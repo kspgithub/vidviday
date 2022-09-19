@@ -16,4 +16,11 @@ class OrderTransportAdminMail extends BaseTemplateEmail
     {
         $this->order = $order ?: OrderTransport::random();
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'order_id' => $this->order->id,
+        ];
+    }
 }

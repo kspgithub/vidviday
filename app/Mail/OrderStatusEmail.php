@@ -26,4 +26,11 @@ class OrderStatusEmail extends BaseTemplateEmail
         $this->order = $order ?: Order::random();
         $this->notifyMessage = $notifyMessage;
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'order_id' => $this->order->id,
+        ];
+    }
 }

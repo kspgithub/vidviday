@@ -23,4 +23,11 @@ class RegistrationAdminEmail extends BaseTemplateEmail
     {
         $this->user = $user ?: User::random();
     }
+
+    public function getReplaces(): array
+    {
+        return [
+            'user_id' => $this->user->id,
+        ];
+    }
 }
