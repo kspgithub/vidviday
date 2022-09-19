@@ -8,17 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class OrderStatusEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
+    public Order $order;
 
-    /**
-     * @var Order
-     */
-    public $order;
-
-    /**
-     * @var
-     */
-    public $notifyMessage;
+    public string $notifyMessage;
 
     public static $subjectKey = 'emails.order-status.subject';
 
@@ -29,10 +21,9 @@ class OrderStatusEmail extends BaseTemplateEmail
      *
      * @return void
      */
-    public function __construct(Order $order, string $notifyMessage = '')
+    public function __construct(Order $order = null, string $notifyMessage = '')
     {
-        //
-        $this->order = $order;
+        $this->order = $order ?: new Order();
         $this->notifyMessage = $notifyMessage;
     }
 }

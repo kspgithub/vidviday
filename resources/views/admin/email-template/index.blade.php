@@ -41,7 +41,7 @@
                             {{$template['mailable']}}
                         </td>
                         <td>
-                            {{$template['subject']}}
+                            {{$template['exists'] ? $template['subject'] : __($template['subject'])}}
                         </td>
                         <td>
                             {{$template['view']}}
@@ -50,9 +50,8 @@
                             {{$template['updated_at']}}
                         </td>
                         <td class="table-action">
-                            <x-utils.edit-button
-                                :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))"
-                                text=""/>
+                            <x-utils.edit-button :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))" text=""/>
+                            <x-utils.delete-button :href="route('admin.email-templates.reset', Str::replace('\\','-',$template['mailable']))" text=""/>
                         </td>
                     </tr>
                 @endforeach

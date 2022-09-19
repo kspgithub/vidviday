@@ -6,17 +6,14 @@ use App\Models\OrderCertificate;
 
 class OrderCertificateMail extends BaseTemplateEmail
 {
-    public $order;
-
-    public $showFooter = true;
+    public OrderCertificate $order;
 
     public static $subjectKey = 'emails.order-certificate.subject';
 
     public static $viewKey = 'emails.order-certificate';
 
-    public function __construct(OrderCertificate $order)
+    public function __construct(OrderCertificate $order = null)
     {
-        //
-        $this->order = $order;
+        $this->order = $order ?: new OrderCertificate();
     }
 }

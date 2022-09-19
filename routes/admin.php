@@ -328,6 +328,7 @@ Route::group([
 
 Route::get('email-templates', [EmailTemplateController::class, 'index'])->name('email-templates.index');
 Route::get('email-templates/{template}', [EmailTemplateController::class, 'edit'])->name('email-templates.edit');
+Route::delete('email-templates/{template}', [EmailTemplateController::class, 'reset'])->name('email-templates.reset');
 Route::patch('email-templates/{template}', [EmailTemplateController::class, 'save'])->name('email-templates.save');
 
 Route::resource('partner', PartnerController::class)->except(['show']);

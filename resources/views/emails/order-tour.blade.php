@@ -15,12 +15,12 @@
 
             <br>
             @if(!empty($order->tour))
-                <x-email.title>{{$order->tour->title}}</x-email.title>
-                @if(!empty($order->tour->short_text))
+                <x-email.title>{{$order->tour?->title}}</x-email.title>
+                @if(!empty($order->tour?->short_text))
                     <br>
                     <span
                         style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; color: #626262;">
-                        {!! $order->tour->short_text !!}
+                        {!! $order->tour?->short_text !!}
                     </span>
                 @endif
             @endif
@@ -45,7 +45,7 @@
                     </td>
 
                     <td style="font-family: 'Roboto', sans-serif; font-weight: 700; border-bottom: 1px solid #E9E9E9;">
-                        {{$order->tour->title}}
+                        {{$order->tour?->title}}
                     </td>
                 </tr>
             @else

@@ -8,23 +8,19 @@ use Illuminate\Queue\SerializesModels;
 
 class UserQuestionEmail extends BaseTemplateEmail
 {
-    use Queueable, SerializesModels;
-
-
     public UserQuestion $userQuestion;
 
-    public static $subjectKey = 'emails.user_question.subject';
+    public static $subjectKey = 'emails.user-question.subject';
 
-    public static $viewKey = 'emails.user_question';
+    public static $viewKey = 'emails.user-question';
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(UserQuestion $userQuestion)
+    public function __construct(UserQuestion $userQuestion = null)
     {
-        //
-        $this->userQuestion = $userQuestion;
+        $this->userQuestion = $userQuestion ?: new UserQuestion();
     }
 }
