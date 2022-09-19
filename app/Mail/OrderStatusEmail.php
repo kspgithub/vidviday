@@ -23,7 +23,7 @@ class OrderStatusEmail extends BaseTemplateEmail
      */
     public function __construct(Order $order = null, string $notifyMessage = '')
     {
-        $this->order = $order ?: new Order();
+        $this->order = $order ?: Order::random();
         $this->notifyMessage = $notifyMessage;
     }
 }
