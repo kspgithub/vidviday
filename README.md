@@ -60,6 +60,10 @@ DB_PASSWORD=
 
 После добавления новых ключей в языковых файлах нужно импортировать их в БД:
 ```
+php artisan translations:import
+```
+### Force rewrite existing db entries
+```
 php artisan translations:import --skip-exists
 ```
 
