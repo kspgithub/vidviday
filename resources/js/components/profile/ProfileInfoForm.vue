@@ -23,17 +23,15 @@
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <form-input v-model="formData.company" label="Назва турфірми" name="company"
-                                            rules="required"/>
+                                <form-input v-model="formData.company" label="Назва турфірми" name="company"/>
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <form-input v-model="formData.address" label="Адреса офісу" name="address"
-                                            rules="required"/>
+                                <form-input v-model="formData.address" label="Адреса офісу" name="address"/>
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <form-input v-model="formData.website" label="Веб-сторінка" name="website" rules="url"/>
+                                <form-input v-model="formData.website" label="Веб-сторінка" name="website" />
                             </div>
 
                             <div class="col-md-6 col-12">
@@ -42,8 +40,7 @@
 
                             <div class="col-md-6 col-12">
                                 <form-input v-model="formData.work_email" label="Електронна пошта фірми"
-                                            name="work_email"
-                                            rules="email"/>
+                                            name="work_email"/>
                             </div>
 
                         </div>
@@ -55,13 +52,11 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.last_name" :label="__('forms.last-name')" name="last_name"
-                                    rules="required"/>
+                        <form-input v-model="formData.last_name" :label="__('forms.last-name')" name="last_name"/>
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.first_name" :label="__('forms.name')" name="first_name"
-                                    rules="required"/>
+                        <form-input v-model="formData.first_name" :label="__('forms.name')" name="first_name"/>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -70,20 +65,17 @@
 
                     <div class="col-md-6 col-12">
                         <div class="single-datepicker">
-                            <form-datepicker v-model="formData.birthday" label="Дата народження" name="birthday"
-                                             rules="required"/>
+                            <form-datepicker v-model="formData.birthday" label="Дата народження" name="birthday"/>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.email" :label="__('forms.email')" name="email" id="profile-email"
-                                    rules="required"/>
+                        <form-input v-model="formData.email" :label="__('forms.email')" name="email" id="profile-email"/>
                     </div>
 
                     <div class="col-md-6 col-12">
                         <form-input v-model="formData.mobile_phone" label="Мобільний телефон" name="mobile_phone"
-                                    mask="+38 (099) 999-99-99"
-                                    rules="required"/>
+                                    mask="+38 (099) 999-99-99"/>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -115,7 +107,7 @@
                     <div class="col-md-6 col-12">
                         <form-input v-model="formData.current_password" type="password" label="Теперішній пароль"
                                     autocomplete="none"
-                                    name="current_password" rules="required"/>
+                                    name="current_password"/>
                     </div>
 
                     <div class="col-md-6 col-12"></div>

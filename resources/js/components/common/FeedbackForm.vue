@@ -3,13 +3,11 @@
         <span class="text-md">{{ __('forms.feedback-title') }}</span>
         <form action="/" @submit="submitForm" method="POST">
 
-            <form-input name="name" id="name_feedback" v-model="data.name" rules="required"
+            <form-input name="name" id="name_feedback" v-model="data.name"
                         :label="__('forms.your-name')"/>
-            <form-input name="email" id="email_feedback" v-model="data.email" :label="__('forms.email')"
-                        rules="required|email"/>
+            <form-input name="email" id="email_feedback" v-model="data.email" :label="__('forms.email')" />
             <form-textarea name="comment" id="comment_feedback" v-model="data.comment"
-                           :label="__('forms.you-question')"
-                           rules="required"/>
+                           :label="__('forms.you-question')" />
 
             <utm-fields/>
             <vue-recaptcha v-if="useRecaptcha" :sitekey="sitekey"

@@ -52,14 +52,12 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <form-input v-model="data.first_name"
-                                rules="required"
                                 name="first_name"
                                 :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <form-input v-model="data.last_name"
-                                rules="required"
                                 name="last_name"
                                 :label="__('forms.your-last-name')"/>
                 </div>
@@ -68,7 +66,6 @@
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
                                 id="testimonial_phone"
-                                rules="tel"
                                 v-model="data.phone"
                                 :label="__('forms.your-phone')"
                     />
@@ -98,7 +95,6 @@
                         ref="tourSelectRef"
                         v-model.number="data.tour_id"
                         @search="searchTours"
-                        rules="required"
                     >
                         <option :value="0" :selected="data.tour_id === 0" disabled>
                             {{ __('forms.select-from-list') }}
@@ -129,7 +125,7 @@
                     </form-custom-select>
                 </div>
                 <div class="col-12">
-                    <form-textarea name="text" v-model="data.text" :label="__('forms.your-feedback')" rules="required"/>
+                    <form-textarea name="text" v-model="data.text" :label="__('forms.your-feedback')" />
                 </div>
 
                 <div v-if="errors.images" class="col-12">

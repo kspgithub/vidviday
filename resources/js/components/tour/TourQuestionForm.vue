@@ -23,7 +23,6 @@
         <div class="col-12">
             <form-textarea name="text" id="tq_text" v-model="data.text" class="smile"
                            :label="__('forms.your-comment')"
-                           rules="required"
                            :tooltip="__('forms.required')"/>
 
             <vue-recaptcha v-if="useRecaptcha" :sitekey="sitekey"
