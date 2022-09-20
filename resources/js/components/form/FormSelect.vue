@@ -1,5 +1,5 @@
 <template>
-    <div v-click-outside="close" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
+    <div ref="sumoSelectRef" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
 
         <input :name="name" :value="modelValue" type="hidden">
 
@@ -8,7 +8,7 @@
             <label><i></i></label>
         </p>
 
-        <div class="optWrapper">
+        <div ref="optWrapperRef" class="optWrapper">
             <ul class="options">
                 <li v-if="search">
                     <input v-model="searchValue" ref="search" type="text">
@@ -36,7 +36,7 @@
 
                 <li v-for="option in filteredOptions"
                     v-show="(!option.value && selected.length) || option.value"
-                    :class="{selected: multiple ? selected.includes(option.value) : (option.value === modelValue)}"
+                    :class="{selected: selected.includes(option.value) }"
                     class="opt"
                     @click.prevent="change(option, $event)"
                 >
@@ -68,6 +68,10 @@ export default {
     },
     emits: ['update:modelValue'],
     setup(props, {emit}) {
+
+        const sumoSelectRef = ref(null)
+
+        const optWrapperRef = ref(null)
 
         const open = ref(false);
 
@@ -149,7 +153,11 @@ export default {
             return props.options.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
         })
 
+        const selectAllClicked = ref(false)
+
         const selectAll = () => {
+            selectAllClicked.value = true
+
             close()
 
             let options = []
@@ -162,23 +170,44 @@ export default {
         }
 
         const handleOpen = (e) => {
-            console.log($(e.target).parents('.CaptionCont').length)
-            console.log($(e.target).parents('.optWrapper').length)
-            console.log($(e.target).parents('.SumoSelect').length)
-            if(open.value) {
-                if(
-                    ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
-                    (!$(e.target).is('.optWrapper') && !$(e.target).parents('.optWrapper').length) ||
-                    (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
-                ) {
-                    open.value = !open.value
-                }
+
+            if(selectAllClicked.value) {
+                selectAllClicked.value = false
             } else {
-                open.value = !open.value
+
+                if(!open.value) {
+                    open.value = true
+                } else {
+                    // alert('El: ' + e.target.tagName + ' ' + e.target.className)
+
+                    if(!optWrapperRef.value.contains(e.target) || optWrapperRef.value.isSameNode(e.target)) {
+                        open.value = false
+                    }
+                }
             }
+
+            // if(selectAllClicked.value) {
+            //     selectAllClicked.value = false
+            // } else {
+            //
+            //     if(open.value) {
+            //         if(
+            //             ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
+            //             ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length)
+            //             // ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length) ||
+            //             // (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
+            //         ) {
+            //             open.value = !open.value
+            //         }
+            //     } else {
+            //         open.value = !open.value
+            //     }
+            // }
         }
 
         return {
+            sumoSelectRef,
+            optWrapperRef,
             selected,
             selectedText,
             change,
@@ -192,7 +221,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -3909,7 +3909,7 @@ button.swiper-pagination-bullet {
     }
     #tour-selection-dropdown {
         opacity: 0;
-        z-index: 101;
+        z-index: 9999;
         width: 478px;
         position: fixed;
         visibility: hidden;

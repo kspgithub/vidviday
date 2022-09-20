@@ -188,11 +188,16 @@ export default {
                 initDynamicPagination()
             })
 
-            if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
-                swiper.value.on('observerUpdate', observerHandler)
+            const isVisible = $(swiperRef.value).is(':visible')
+
+            if(isVisible) {
+                initDynamicPagination()
+            } else {
+                if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
+                    swiper.value.on('observerUpdate', observerHandler)
+                }
             }
 
-            initDynamicPagination()
         });
 
         return {
