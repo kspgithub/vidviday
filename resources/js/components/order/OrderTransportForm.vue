@@ -4,28 +4,25 @@
         <div class="spacer-xs"></div>
         <form @submit="onSubmit" :action="action" method="POST" class="row">
             <div class="col-md-6 col-12">
-                <form-input name="last_name" v-model="data.last_name" :label="__('forms.last-name')" rules="required"/>
+                <form-input name="last_name" v-model="data.last_name" :label="__('forms.last-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="first_name" v-model="data.first_name" :label="__('forms.name')" rules="required"/>
+                <form-input name="first_name" v-model="data.first_name" :label="__('forms.name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="email" id="transport-email" v-model="data.email" :label="__('forms.email')"
-                            rules="email"/>
+                <form-input name="email" id="transport-email" v-model="data.email" :label="__('forms.email')"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <form-input name="phone" id="transport-phone" v-model="data.phone" :label="__('forms.phone')"
-                            mask="+38 (999) 999-99-99"
-                            rules="required|tel"/>
+                            mask="+38 (999) 999-99-99"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <div class="single-datepicker">
-                    <form-datepicker name="start_date" v-model="data.start_date" :label="__('forms.departure-date')"
-                                     rules="required"/>
+                    <form-datepicker name="start_date" v-model="data.start_date" :label="__('forms.departure-date')"/>
                     <!--                    <form-date-range-picker v-model="[data.start_date, data.end_date]"-->
                     <!--                                            :label="__('forms.departure-date')"-->
                     <!--                                            rules="required"/>-->
@@ -33,23 +30,21 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="duration" v-model="data.duration" :label="__('forms.duration')" rules="required"/>
+                <form-input name="duration" v-model="data.duration" :label="__('forms.duration')" />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="route" v-model="data.route" :label="__('forms.route')" rules="required"/>
+                <form-input name="route" v-model="data.route" :label="__('forms.route')" />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="places" v-model="data.places" :label="__('forms.number-of-passengers')"
-                            rules="required"/>
+                <form-input name="places" v-model="data.places" :label="__('forms.number-of-passengers')"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <form-sumo-select name="age_group"
                                   v-model="data.age_group"
                                   :label="__('forms.age-group')"
-                                  rules="required"
                                   multiple
                                   :options="ageGroupOptions"/>
             </div>

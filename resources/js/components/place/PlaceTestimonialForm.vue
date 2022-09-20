@@ -39,12 +39,11 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <form-input name="first_name" v-model="data.first_name" rules="required"
-                                :label="__('forms.your-name')"/>
+                    <form-input name="first_name" v-model="data.first_name" :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="last_name" v-model="data.last_name" rules="required"
+                    <form-input name="last_name" v-model="data.last_name"
                                 :label="__('forms.your-last-name')"
                                 :tooltip="__('forms.required')"/>
                 </div>
@@ -52,7 +51,6 @@
                 <div class="col-md-6 col-12">
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
-                                rules="tel"
                                 v-model="data.phone" :label="__('forms.your-phone')"/>
                 </div>
 
@@ -85,7 +83,6 @@
 
                 <div class="col-12">
                     <form-textarea name="text" v-model="data.text" class="smile" :label="__('forms.your-feedback')"
-                                   rules="required"
                                    :tooltip="__('forms.required')"/>
 
                 </div>

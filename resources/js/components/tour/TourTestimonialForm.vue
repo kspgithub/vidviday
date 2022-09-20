@@ -97,8 +97,7 @@
 
                 <div class="col-12">
                     <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
-                                   :label="__('forms.your-feedback')"
-                                   rules="required"/>
+                                   :label="__('forms.your-feedback')"/>
 
                 </div>
 

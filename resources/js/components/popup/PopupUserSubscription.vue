@@ -13,15 +13,14 @@
                         <form-csrf/>
                         <div class="col-12">
                             <form-input name="name" id="name_user_sub"
-                                        v-model="data.name" rules="required"
+                                        v-model="data.name"
                                         :label="__('forms.your-name')"/>
 
                         </div>
 
                         <div class="col-12">
                             <form-input type="email" name="email" id="email_user_sub" v-model="data.email"
-                                        :label="__('forms.email')"
-                                        rules="required|email"/>
+                                        :label="__('forms.email')"/>
                         </div>
 
                         <div class="col-12">
