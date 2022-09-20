@@ -49,12 +49,12 @@
 
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <form-input name="first_name" id="tt_first_name" v-model="data.first_name" rules="required"
+                    <form-input name="first_name" id="tt_first_name" v-model="data.first_name"
                                 :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="last_name" id="tt_last_name" v-model="data.last_name" rules="required"
+                    <form-input name="last_name" id="tt_last_name" v-model="data.last_name"
                                 :label="__('forms.your-last-name')"
                                 :tooltip="__('forms.required')"/>
                 </div>
@@ -63,7 +63,6 @@
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
                                 id="tt_phone"
-                                rules="tel"
                                 v-model="data.phone" :label="__('forms.your-phone')"/>
                 </div>
 
@@ -85,18 +84,14 @@
                         <span class="text text-sm">
                             <b>{{ __('forms.your-guide') }}</b>
                         </span>
-                    <form-custom-select id="tt_guide_id"
-                                        name="guide_id"
-                                        :placeholder="__('forms.select-from-list')"
-                                        :search="true"
-                                        :search-text="__('forms.enter-guide-name')"
-                                        ref="guideSelectRef"
-                                        v-model.number="data.guide_id"
-                    >
-                        <option v-for="guide in tour.guides" :value="guide.id" :data-img="guide.avatar_url">
-                            {{ guide.name }}
-                        </option>
-                    </form-custom-select>
+
+                    <form-select id="tt_guide_id"
+                                 name="guide_id"
+                                 class="custom-select"
+                                 :options="guideOptions"
+                                 ref="guideSelectRef"
+                                 v-model.number="data.guide_id"
+                    />
 
                 </div>
 
@@ -178,10 +173,12 @@ import {useStore} from "vuex";
 import useTestimonialForm from "../testimonial/useTestimonialForm";
 import {useForm} from "vee-validate";
 import { VueRecaptcha } from 'vue-recaptcha'
+import FormSelect from '../form/FormSelect.vue'
+import { __ } from '../../i18n/lang.js'
 
 export default {
     name: "TourTestimonialForm",
-    components: { VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: { FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         tour: Object,
         user: Object,
@@ -262,6 +259,19 @@ export default {
             }
         }
 
+        const guideOptions = computed(() => {
+            return [
+                {
+                   value: '',
+                   text: __('forms.select-from-list'),
+                },
+                ...props.tour.guides.map(g => ({
+                    value: g.id,
+                    text: `<img style='max-height: 40px' src='${g.avatar_url}'> <label>${g.name}</label>`
+                }))
+            ]
+        })
+
         return {
             ...testimonialForm,
             onSubmit,
@@ -274,6 +284,7 @@ export default {
             verify,
             render,
             validateForm,
+            guideOptions,
         }
     }
 }

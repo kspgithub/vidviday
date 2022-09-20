@@ -2,17 +2,17 @@
     <form ref="formRef" :action="action" class="row" method="POST" @submit.prevent="onSubmit">
 
         <div class="col-md-6 col-12">
-            <form-input name="last_name" id="tq_last_name" v-model="data.last_name" rules="required"
+            <form-input name="last_name" id="tq_last_name" v-model="data.last_name"
                         :label="__('forms.last-name')"/>
         </div>
 
         <div class="col-md-6 col-12">
-            <form-input name="first_name" id="tq_first_name" v-model="data.first_name" rules="required"
+            <form-input name="first_name" id="tq_first_name" v-model="data.first_name"
                         :label="__('forms.name')"/>
         </div>
 
         <div class="col-md-6 col-12">
-            <form-input name="email" id="tq_email" v-model="data.email" rules="required"
+            <form-input name="email" id="tq_email" v-model="data.email"
                         :label="__('forms.email')"/>
         </div>
 

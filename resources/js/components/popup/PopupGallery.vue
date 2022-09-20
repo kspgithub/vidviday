@@ -63,7 +63,7 @@ export default {
         }
 
         const initDynamicPagination = function () {
-            console.log('initDynamicPagination')
+            // console.log('initDynamicPagination')
 
             const pagination = swiper.value.pagination
 
