@@ -33,13 +33,18 @@ class EventController extends Controller
 
     public function show(string $slug)
     {
-        $event = EventItem::findBySlugOrFail($slug);
+        $event = EventItem::findBySlugOrFail($slug, false);
+
+        $event->checkSlugLocale($slug);
 
         $tours = $event->tours()->search()->get();
+
+        $localeLinks = $event->getLocaleLinks();
 
         return view('event.show', [
             'event' => $event,
             'tours' => $tours,
+            'localeLinks' => $localeLinks,
         ]);
     }
 }

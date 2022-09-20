@@ -13135,7 +13135,7 @@ label, .datepicker-placeholder
 }
 
 // Перенос текста
-wbr {
+wbr, .wbr {
     display: inline-block;
 
     @media (max-width: 768px) {

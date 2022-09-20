@@ -20,7 +20,17 @@
 
                 <div class="schedule-row {{ $future_event->className }} {{$event_key > 2 ? 'd-none' : ''}}">
                     <span class="text">
-                        {!! Str::replace(',',',<wbr/>',$future_event->title) !!}
+                        @php
+                            $parts = explode(',', $future_event->title);
+                        @endphp
+                        {!! $parts[0] !!}{{ ($parts[1] ?? false) ? ',' : '' }}
+                        @if($parts[1] ?? false)
+                            @if(Str::contains($parts[1], '-'))
+                                <p class="wbr"></p>
+                            @endif
+                            {!! $parts[1] !!}
+                        @endif
+{{--                        {!! Str::replace(',',',<wbr/>',$future_event->title) !!}--}}
                     </span>
                     <div>
                         <span class="text text-medium">{{$future_event->price}} {{$future_event->currencyTitle}}</span>
