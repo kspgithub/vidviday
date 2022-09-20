@@ -12,21 +12,19 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="name" id="name_mail" v-model="data.name" rules="required"
+                    <form-input name="name" id="name_mail" v-model="data.name"
                                 :label="__('forms.your-name')"/>
                 </div>
 
 
                 <div class="col-md-6 col-12">
                     <form-input type="email" name="email" id="email_mail" v-model="data.email"
-                                :label="__('forms.email')"
-                                rules="required|email"/>
+                                :label="__('forms.email')"/>
                 </div>
                 <div class="col-md-6 col-12">
                     <form-input mask="+38 (099) 999-99-99"
                                 name="phone"
                                 id="phone_mail"
-                                rules="tel"
                                 v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
                 <div class="col-md-6 col-12">
@@ -38,8 +36,7 @@
 
                 <div class="col-12">
                     <utm-fields/>
-                    <form-textarea name="comment" id="comment_mail" v-model="data.comment" label="Текст повідомлення"
-                                   rules="required"/>
+                    <form-textarea name="comment" id="comment_mail" v-model="data.comment" label="Текст повідомлення"/>
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">

@@ -11,24 +11,20 @@
                     <form-input :label="__('forms.last-name')"
                                 name="last_name"
                                 v-model="last_name"
-                                id="order-last-name"
-                                rules="required"/>
+                                id="order-last-name"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.name')" name="first_name" v-model="first_name" id="order-first-name"
-                                rules="required"/>
+                    <form-input :label="__('forms.name')" name="first_name" v-model="first_name" id="order-first-name"/>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <form-input :label="__('forms.phone')" name="phone" v-model="phone" id="order-phone"
-                                mask="+38 (099) 999-99-99"
-                                rules="required|tel"/>
+                                mask="+38 (099) 999-99-99"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.email')" name="email" v-model="email" id="order-email"
-                                rules="required|email"/>
+                    <form-input :label="__('forms.email')" name="email" v-model="email" id="order-email"/>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -37,7 +33,6 @@
                                            :options="departureOptions"
                                            name="schedule_id"
                                            :label="__('forms.select-date') + '*'"
-                                           rules="required"
                                            :preselect="false"/>
                     </div>
                 </div>
@@ -48,7 +43,6 @@
                                        :min="1"
                                        :max="maxPlaces"
                                        name="places"
-                                       rules="required"
                                        :title="__('forms.number-of-people') + '*'"/>
                 </div>
 

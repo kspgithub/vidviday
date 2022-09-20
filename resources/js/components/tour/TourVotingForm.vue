@@ -14,13 +14,13 @@
             <div class="spacer-xs"></div>
             <form @submit.prevent="onSubmit">
 
-                <form-input name="name" v-model="form.name" rules="required"
+                <form-input name="name" v-model="form.name"
                             :label="__('forms.your-name')"/>
 
-                <form-input name="tel" v-model="form.phone" rules="required" mask="+38 (999) 999-99-99"
+                <form-input name="tel" v-model="form.phone" mask="+38 (999) 999-99-99"
                             :label="__('forms.your-phone')"/>
 
-                <form-input name="email" v-model="form.email" rules="required"
+                <form-input name="email" v-model="form.email"
                             :label="__('forms.your-email')"/>
 
                 <button type="submit" class="btn type-1 btn-block" :disabled="submitted">
