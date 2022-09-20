@@ -7,6 +7,7 @@
                   :required="required"
                   :placeholder="placeholder"
                   :rows="rows || 3"
+                  @input="innerValue = $event.target.value"
         ></textarea>
     </label>
 </template>
