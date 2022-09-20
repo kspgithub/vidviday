@@ -357,10 +357,46 @@
 }
 
 .custom-select {
+
+    .CaptionCont {
+        display: flex;
+
+        & > span {
+            align-self: center;
+            flex: 1;
+        }
+
+        img,
+        label {
+            max-width: 40px;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        & + .optWrapper {
+            .opt {
+                img,
+                label {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                img {
+                    max-width: 40px;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                }
+                label {}
+            }
+        }
+    }
+
 	& + .CaptionCont {
         img,
         label {
             max-width: 40px;
+            max-height: 40px;
             border-radius: 5px;
             margin-right: 10px;
             display: inline-block;

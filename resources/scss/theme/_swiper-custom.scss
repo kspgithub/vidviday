@@ -1067,3 +1067,22 @@
         margin-right: 7px;
     }
 }
+
+
+@media (min-width: 1200px) {
+
+    .thumbs-carousel {
+        margin-bottom: 50px;
+
+        .swiper-button-prev.bottom,
+        .swiper-button-next.bottom {
+            top: 100%;
+            margin: 0;
+        }
+
+        .swiper-pagination {
+            top: 100%;
+            margin-top: 10px;
+        }
+    }
+}

@@ -11,7 +11,7 @@
         <div ref="optWrapperRef" class="optWrapper">
             <ul class="options">
                 <li v-if="search">
-                    <input v-model="searchValue" ref="search" type="text">
+                    <input v-model="searchValue" ref="search" type="text" @input="searchValue = $event.target.value">
                 </li>
 
                 <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
@@ -185,24 +185,6 @@ export default {
                     }
                 }
             }
-
-            // if(selectAllClicked.value) {
-            //     selectAllClicked.value = false
-            // } else {
-            //
-            //     if(open.value) {
-            //         if(
-            //             ($(e.target).is('.CaptionCont') || $(e.target).parents('.CaptionCont').length) ||
-            //             ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length)
-            //             // ($(e.target).is('.optWrapper') || $(e.target).parents('.optWrapper').length) ||
-            //             // (!$(e.target).is('SumoSelect') && !$(e.target).parents('.SumoSelect').length)
-            //         ) {
-            //             open.value = !open.value
-            //         }
-            //     } else {
-            //         open.value = !open.value
-            //     }
-            // }
         }
 
         return {
