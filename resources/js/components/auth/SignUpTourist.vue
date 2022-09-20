@@ -13,20 +13,18 @@
 
             <div class="col-md-6 col-12">
                 <form-input v-model="data.last_name"
-                            rules="required"
                             name="last_name"
                             :label="__('forms.last-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
                 <form-input v-model="data.first_name"
-                            rules="required"
                             name="first_name"
                             :label="__('forms.name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.middle_name" rules="required" name="middle_name"
+                <form-input v-model="data.middle_name" name="middle_name"
                             :label="__('forms.middle-name')"/>
             </div>
 
@@ -40,7 +38,7 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.email" rules="required|email" name="email" id="tourist-email"
+                <form-input v-model="data.email" name="email" id="tourist-email"
                             :label="__('forms.email')"/>
             </div>
 
@@ -57,12 +55,12 @@
             <div class="col-md-6 col-12"></div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.password" type="password" rules="required" name="password"
+                <form-input v-model="data.password" type="password" name="password"
                             :label="__('forms.password')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.password_confirmation" type="password" rules="required"
+                <form-input v-model="data.password_confirmation" type="password"
                             name="password_confirmation" :label="__('forms.password-confirmation')"/>
             </div>
         </div>

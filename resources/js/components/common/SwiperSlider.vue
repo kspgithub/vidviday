@@ -107,7 +107,7 @@ export default {
         }
 
         var observerHandler = (e) => {
-            console.log('observerUpdate', e)
+            // console.log('observerUpdate', e)
             // Update on parent node change
             if(e.target.contains(swiperRef.value) && e.attributeName === 'style' && e.target.style.display !== 'none') {
                 initDynamicPagination()
@@ -115,7 +115,7 @@ export default {
         }
 
         const initDynamicPagination = function () {
-            console.log('initDynamicPagination')
+            // console.log('initDynamicPagination')
 
             const pagination = swiper.value.pagination
 
@@ -188,11 +188,16 @@ export default {
                 initDynamicPagination()
             })
 
-            if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
-                swiper.value.on('observerUpdate', observerHandler)
+            const isVisible = $(swiperRef.value).is(':visible')
+
+            if(isVisible) {
+                initDynamicPagination()
+            } else {
+                if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
+                    swiper.value.on('observerUpdate', observerHandler)
+                }
             }
 
-            initDynamicPagination()
         });
 
         return {

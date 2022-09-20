@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.company" rules="required" name="company"
+                <form-input v-model="data.company" name="company"
                             :label="__('forms.travel-agency-name')"/>
             </div>
 
@@ -46,15 +46,15 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.last_name" rules="required" name="last_name" :label="__('forms.last-name')"/>
+                <form-input v-model="data.last_name" name="last_name" :label="__('forms.last-name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.first_name" rules="required" name="first_name" :label="__('forms.name')"/>
+                <form-input v-model="data.first_name" name="first_name" :label="__('forms.name')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.middle_name" rules="required" name="middle_name"
+                <form-input v-model="data.middle_name" name="middle_name"
                             :label="__('forms.middle-name')"/>
             </div>
 
@@ -69,18 +69,18 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.email" rules="required|email" name="email" id="touragent-email"
+                <form-input v-model="data.email" name="email" id="touragent-email"
                             :label="__('forms.email')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.mobile_phone" rules="required|tel" name="mobile_phone"
+                <form-input v-model="data.mobile_phone" name="mobile_phone"
                             :label="__('forms.mobile-phone')"
                             mask="+38 (099) 999-99-99"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.work_phone" rules="tel" name="work_phone" :label="__('forms.work-phone')"
+                <form-input v-model="data.work_phone" name="work_phone" :label="__('forms.work-phone')"
                             mask="+38 (099) 999-99-99"/>
             </div>
 
@@ -94,11 +94,11 @@
 
 
             <div class="col-md-6 col-12">
-                <form-input type="password" rules="required" name="password" :label="__('forms.password')"/>
+                <form-input type="password" name="password" :label="__('forms.password')"/>
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input type="password" rules="required" name="password_confirmation"
+                <form-input type="password" name="password_confirmation"
                             :label="__('forms.password-confirmation')"/>
             </div>
         </div>

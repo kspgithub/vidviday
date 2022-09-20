@@ -1915,7 +1915,15 @@ a {
     }
 
     .calendar-header-center {
-        top: 0;
+        top: 10px;
+
+        .SumoSelect {
+            right: 0;
+            top: -57px;
+            z-index: 71;
+            position: absolute;
+            width: calc(100vw - 110px);
+        }
 
         .text {
             right: 0;
@@ -1962,6 +1970,24 @@ a {
         margin-top: 60px;
     }
 
+    .calendar-header-center {
+        right: auto;
+        left: auto;
+        top: 0;
+        margin-top: 20px;
+        position: relative;
+        justify-content: center;
+    }
+
+    .fc-toolbar.fc-header-toolbar {
+        position: absolute;
+        top: -10px;
+
+        .fc-toolbar-chunk{
+            display: flex;
+        }
+    }
+
     .calendar-header-center span.text-sm {
         font-size: 12px;
         line-height: 24px;
@@ -1985,13 +2011,6 @@ a {
 
     .fc-toolbar.fc-header-toolbar {
         margin-bottom: 45px;
-
-        position: absolute;
-        top: -60px;
-
-        .fc-toolbar-chunk{
-            display: flex;
-        }
     }
 
     .fc {
@@ -2079,6 +2098,16 @@ a {
     }
 
     .popup-calendar {
+
+        .fc-toolbar.fc-header-toolbar {
+            position: absolute;
+            top: -60px;
+
+            .fc-toolbar-chunk{
+                display: flex;
+            }
+        }
+
         .fc .fc-toolbar {
             min-height: 40px;
             margin: 15px 0;
