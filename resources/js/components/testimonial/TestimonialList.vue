@@ -31,10 +31,7 @@ export default {
     components: {TestimonialItem},
     props: {
         url: String,
-        items: {
-            type: Array,
-            default: () => [],
-        },
+        items: {},
         page: {
             type: Number,
             default: 1
@@ -55,7 +52,7 @@ export default {
 
         const loadMore = async () => await store.dispatch('testimonials/loadMore');
 
-        if(!testimonials.length) {
+        if(!testimonials.length && typeof props.items === 'undefined') {
             loadItems();
         }
 

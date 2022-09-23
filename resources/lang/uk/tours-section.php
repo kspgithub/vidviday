@@ -42,7 +42,7 @@ return [
     'order-tour' => 'Замовити Тур',
     'order-one-click' => 'Замовити в 1 клік',
     'order-corporate' => 'Замовити корпоратив',
-    'start-cooperation' => 'Start cooperation',
+    'start-cooperation' => 'Розпочати співпрацю',
     'download-tour' => 'Завантажити для друку',
     'popup-date-title' => 'Оберіть дату проведення туру',
     'date-title' => 'Оберіть дату',

@@ -80,12 +80,14 @@ export default {
         })
 
         const update = (items) => {
+
             if (sumo.value) {
                 sumo.value.removeAll();
                 items.forEach(it => {
-                    sumo.value.add(it[props.idField], it[props.titleField]);
+                    sumo.value.add(it[props.idField], '<img src="' + it.img + '">' + it[props.titleField]);
                 })
             }
+
         }
 
         return {

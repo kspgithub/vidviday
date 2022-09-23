@@ -3147,6 +3147,10 @@ button.swiper-pagination-bullet {
     .partners-slider .swiper-pagination {
         display: none;
     }
+    .thumbs-carousel .swiper-wrapper,
+    .default-slider .swiper-wrapper {
+        padding-bottom: 0!important;
+    }
 }
 
 @media (max-width: 1199px) {
@@ -3181,7 +3185,6 @@ button.swiper-pagination-bullet {
     .thumbs-carousel .swiper-wrapper,
     .default-slider .swiper-wrapper {
         text-align: left;
-        padding-bottom: 0;
     }
     .swiper-button-prev.bottom-sm,
     .default-slider .swiper-button-prev.bottom-sm,

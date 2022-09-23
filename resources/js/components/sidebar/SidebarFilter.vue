@@ -130,7 +130,7 @@ export default {
 
             const query = urlUtils.filterParams(params.value, defaultParams.value);
 
-            if (path === '/') {
+            if (path === '/' || $('.error:contains(404)').length ) {
                 document.location.href = urlUtils.makeUrl('/tours', query);
             } else {
                 urlUtils.updateUrl(path, query, true);

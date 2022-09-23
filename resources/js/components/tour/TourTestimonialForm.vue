@@ -85,13 +85,19 @@
                             <b>{{ __('forms.your-guide') }}</b>
                         </span>
 
-                    <form-select id="tt_guide_id"
-                                 name="guide_id"
-                                 class="custom-select"
-                                 :options="guideOptions"
-                                 ref="guideSelectRef"
-                                 v-model.number="data.guide_id"
-                    />
+
+                    <form-autocomplete
+                        name="guide_id"
+                        :placeholder="__('forms.enter-guide-name')"
+                        :search="true"
+                        ref="guideSelectRef"
+                        v-model.number="data.guide_id"
+                    >
+                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}</option>
+                        <option v-for="guide in guides" :value="guide.id" :data-img="guide.img">
+                            {{ guide.title }}
+                        </option>
+                    </form-autocomplete>
 
                 </div>
 
@@ -162,7 +168,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
@@ -174,10 +180,12 @@ import {useForm} from "vee-validate";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSelect from '../form/FormSelect.vue'
 import { __ } from '../../i18n/lang.js'
+import FormAutocomplete from '../form/FormAutocomplete.vue'
+import { fetchGuides } from '../../services/tour-service.js'
 
 export default {
     name: "TourTestimonialForm",
-    components: { FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    components: { FormAutocomplete, FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         tour: Object,
         user: Object,
@@ -189,9 +197,10 @@ export default {
         const store = useStore();
         const popupOpen = computed(() => store.state.testimonials.popupOpen);
         const parentId = computed(() => store.state.testimonials.parentId);
-
+        const guides = ref([])
         const formRef = ref(null);
         const recaptcha = ref(null);
+        const guideSelectRef = ref(null);
 
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
@@ -258,17 +267,9 @@ export default {
             }
         }
 
-        const guideOptions = computed(() => {
-            return [
-                {
-                   value: '',
-                   text: __('forms.select-from-list'),
-                },
-                ...props.tour.guides.map(g => ({
-                    value: g.id,
-                    text: `<img style='max-height: 40px' src='${g.avatar_url}'> <label>${g.name}</label>`
-                }))
-            ]
+        onMounted(() => {
+            guides.value = props.tour.guides.map(it => ({...it, img: it.avatar_url, title: it.name}))
+            guideSelectRef.value.update(guides.value)
         })
 
         return {
@@ -283,7 +284,8 @@ export default {
             verify,
             render,
             validateForm,
-            guideOptions,
+            guideSelectRef,
+            guides,
         }
     }
 }
