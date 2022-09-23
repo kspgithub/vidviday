@@ -88,6 +88,7 @@
                     <span class="text text-sm">
                         <b>{{ __('forms.tour-where-on') }} *</b>
                     </span>
+
                     <form-autocomplete
                         name="tour_id"
                         :placeholder="__('forms.enter-tour-name')"
@@ -99,10 +100,10 @@
                         <option :value="0" :selected="data.tour_id === 0" disabled>
                             {{ __('forms.select-from-list') }}
                         </option>
-                        <option v-if="tour" :value="tour.id" :selected="data.tour_id === tour.id">
+                        <option v-if="tour" :value="tour.id" :selected="data.tour_id === tour.id" :data-img="tour.img">
                             {{ tour.title }}
                         </option>
-                        <option v-for="option in tours" :value="option.id">{{ option.title }}</option>
+                        <option v-for="option in tours" :value="option.id" :data-img="option.img">{{ option.title }}</option>
                     </form-autocomplete>
 
 
@@ -111,18 +112,23 @@
                     <span class="text text-sm">
                         <b>{{ __('forms.your-guide') }}</b>
                     </span>
-                    <form-custom-select id="t_guide_id"
-                                        name="guide_id"
-                                        :placeholder="__('forms.select-from-list')"
-                                        :search="true"
-                                        :search-text="__('forms.enter-guide-name')"
-                                        ref="guideSelectRef"
-                                        v-model.number="data.guide_id"
+
+
+                    <form-autocomplete
+                        name="guide_id"
+                        :placeholder="__('forms.enter-guide-name')"
+                        :search="true"
+                        ref="guideSelectRef"
+                        v-model.number="data.guide_id"
+                        @search="searchGuides"
                     >
-                        <option v-for="guide in guides" :value="guide.id" :data-img="guide.avatar_url">
-                            {{ guide.name }}
+                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}</option>
+                        <option v-for="guide in guides" :value="guide.id" :data-img="guide.img">
+                            {{ guide.title }}
                         </option>
-                    </form-custom-select>
+                    </form-autocomplete>
+
+
                 </div>
                 <div class="col-12">
                     <form-textarea name="text" v-model="data.text" :label="__('forms.your-feedback')" />
@@ -200,10 +206,11 @@ import {autocompleteTours, fetchGuides} from "../../services/tour-service";
 import {useForm} from "vee-validate";
 import { __ } from "../../i18n/lang";
 import { VueRecaptcha } from 'vue-recaptcha'
+import FormSelect from '../form/FormSelect.vue'
 
 export default {
     name: "TestimonialPopupForm",
-    components: { VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    components: { FormSelect, VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         user: Object,
         captcha: Boolean,
@@ -293,7 +300,7 @@ export default {
             if (tour.value) {
                 tourItems = [tour.value, ...tourItems];
             }
-            tours.value = tourItems;
+            tours.value = tourItems.map(ti => ({...ti, img: ti.main_image}));
             await nextTick(() => {
                 tourSelectRef.value.update(tours.value);
             })
@@ -320,7 +327,7 @@ export default {
 
         const searchGuides = async (tour_id = 0) => {
             const items = await fetchGuides(tour_id);
-            guides.value = items || [];
+            guides.value = (items || []).map(it => ({...it, img: it.avatar_url, title: it.name}));
             await nextTick(() => {
                 guideSelectRef.value.update(guides.value);
             })

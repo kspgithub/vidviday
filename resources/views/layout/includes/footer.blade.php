@@ -60,33 +60,11 @@
                             </div>
 
                             <div class="social style-2">
-                                @if ( !empty($contact->skype))
-                                    <a target="_blank" href="{{skype_link($contact->skype)}}">
-                                        {{svg('icon-skype')}}
+                                @foreach(config('contacts.social-contacts')($contact) as $key => $social)
+                                    <a target="_blank" href="{{$social['href']}}">
+                                        {{svg($social['icon'])}}
                                     </a>
-                                @endif
-                                @if ( !empty($contact->viber))
-                                    <a target="_blank"
-                                       href="{{viber_link($contact->viber)}}">
-                                        {{svg('icon-viber')}}
-                                    </a>
-                                @endif
-                                @if ( !empty($contact->telegram))
-                                    <a target="_blank" href="{{tg_link($contact->telegram)}}">
-                                        {{svg('icon-telegram')}}
-                                    </a>
-                                @endif
-                                @if ( !empty($contact->whatsapp))
-                                    <a target="_blank"
-                                       href="{{whatsapp_link($contact->whatsapp,)}}">
-                                        {{svg('icon-whatsapp')}}
-                                    </a>
-                                @endif
-                                @if ( !empty($contact->messenger))
-                                    <a target="_blank" href="{{messenger_link($contact->messenger)}}">
-                                        {{svg('icon-messenger')}}
-                                    </a>
-                                @endif
+                                @endforeach
                             </div>
 
                             <span class="btn type-1"
@@ -167,30 +145,12 @@
                     <div class="social style-1 text-right">
                         <span>{{__('footer-section.be-with-us')}}</span>
 
-                        <a href="https://www.tiktok.com/@vidviday" target="_blank">
-                            {{svg('social-tiktok')}}
-                        </a>
+                        @foreach(config('contacts.social-links') as $social)
+                            <a href="{{$social['href']}}" target="_blank">
+                                {{svg($social['icon'])}}
+                            </a>
+                        @endforeach
 
-                        <a href="https://www.facebook.com/vidviday" target="_blank">
-                            {{svg('social-facebook')}}
-                        </a>
-
-                        <a href="https://www.instagram.com/vidviday/" target="_blank">
-                            {{svg('social-instagram')}}
-                        </a>
-
-                        <a href="https://www.youtube.com/user/vidviday" target="_blank">
-                            {{svg('social-youtube')}}
-                        </a>
-
-                        <a href="https://t.me/vidviday" target="_blank">
-                            {{svg('social-telegram')}}
-                        </a>
-
-                        <a href="https://www.tripadvisor.com/Attraction_Review-g295377-d14176633-Reviews-Vidviday-Lviv_Lviv_Oblast.html"
-                           target="_blank">
-                            {{svg('social-tripadvisor')}}
-                        </a>
                     </div>
                 </div>
             </div>

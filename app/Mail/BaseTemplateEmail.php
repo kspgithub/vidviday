@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Contact;
 use App\Models\EmailTemplate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -18,8 +19,16 @@ class BaseTemplateEmail extends Mailable
 
     public $showFooter = true;
 
+    public Contact $contact;
+
+    public string $showOnMapUrl;
+
     public function build()
     {
+        $this->contact = Contact::first();
+
+        $this->showOnMapUrl = config('contacts.show-on-map-url');
+
         $mail = $this->from(config('mail.from.address'), config('mail.from.name'));
 
         /** @var $template EmailTemplate */

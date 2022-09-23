@@ -54,8 +54,9 @@
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                        <span class="btn type-1 btn-block btn-book-size open-popup calendar-init"
-                              data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</span>
+                        <a class="btn type-1 btn-block btn-book-size"
+                            href="{{ Auth::check() ? (Auth::user()->isTourAgent() ? route('profile.index') : route('auth.register', ['tour_agent' => 1])) : route('auth.register', ['tour_agent' => 1]) }}"
+                        >{{__('tours-section.start-cooperation')}}</a>
                             <div class="spacer-xs"></div>
                         </div>
                         <!-- ACCORDIONS CONTENT -->
@@ -65,7 +66,8 @@
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
                     <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
-                       href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
+                       href="{{ Auth::check() ? (Auth::user()->isTourAgent() ? route('profile.index') : route('auth.register', ['tour_agent' => 1])) : route('auth.register', ['tour_agent' => 1]) }}"
+                    >{{__('tours-section.start-cooperation')}}</a>
                 </div>
                 <div class="col-xl-4 col-12">
                     <!-- THUMBS CAROUSEL -->
