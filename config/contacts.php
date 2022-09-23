@@ -4,29 +4,6 @@ return [
 
     'show-on-map-url' => 'https://www.google.com.ua/maps/place/%D0%B2%D1%83%D0%BB%D0%B8%D1%86%D1%8F+%D0%97%D0%B0%D0%BC%D0%B0%D1%80%D1%81%D1%82%D0%B8%D0%BD%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0,+34,+%D0%9B%D1%8C%D0%B2%D1%96%D0%B2,+%D0%9B%D1%8C%D0%B2%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C,+79000/@49.85046,24.0264711,19z/data=!3m1!4b1!4m5!3m4!1s0x473add0bf678163d:0xf262ca160f7d2864!8m2!3d49.8504591!4d24.0270183?hl=uk&authuser=0',
 
-    'social-contacts' => fn($contact) => [
-        ...($contact?->skype ? ['skype' => [
-            'href' => skype_link($contact->skype),
-            'icon' => 'icon-skype',
-        ]] : []),
-        ...($contact?->viber ? ['viber' => [
-            'href' => viber_link($contact->viber),
-            'icon' => 'icon-viber',
-        ]] : []),
-        ...($contact?->telegram ? ['telegram' => [
-            'href' => tg_link($contact->telegram),
-            'icon' => 'icon-telegram',
-        ]] : []),
-        ...($contact?->whatsapp ? ['whatsapp' => [
-            'href' => whatsapp_link($contact->whatsapp),
-            'icon' => 'icon-whatsapp',
-        ]] : []),
-        ...($contact?->messenger ? ['messenger' => [
-            'href' => messenger_link($contact->messenger),
-            'icon' => 'icon-messenger',
-        ]] : []),
-    ],
-
     'social-links' => [
         'tiktok' => [
             'href' => 'https://www.tiktok.com/@vidviday',

@@ -38,7 +38,7 @@
 
                     <div style="margin-top: 30px;">
 
-                        @foreach(config('contacts.social-contacts')($contact) as $key => $social)
+                        @foreach(social_contacts($contact) as $key => $social)
                             <a href="{{$social['href']}}"
                                style="position: relative; display: inline-block; vertical-align: middle; {{ $loop->last ? '' : 'margin-right: 10px;' }}">
                                 {{svg($social['icon'])}}
