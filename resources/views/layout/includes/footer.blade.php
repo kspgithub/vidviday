@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="social style-2">
-                                @foreach(config('contacts.social-contacts')($contact) as $key => $social)
+                                @foreach(social_contacts($contact) as $key => $social)
                                     <a target="_blank" href="{{$social['href']}}">
                                         {{svg($social['icon'])}}
                                     </a>
