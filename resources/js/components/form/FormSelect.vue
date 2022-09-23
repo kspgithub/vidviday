@@ -1,5 +1,5 @@
 <template>
-    <div ref="sumoSelectRef" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
+    <div ref="sumoSelectRef" v-click-outside="close" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
 
         <input :name="name" :value="modelValue" type="hidden">
 
@@ -187,6 +187,32 @@ export default {
             }
         }
 
+        const update = (items) => {
+
+            console.log($(sumoSelectRef.value)[0].sumo)
+
+            if($(sumoSelectRef.value)[0].sumo) {
+
+                $(sumoSelectRef.value)[0].sumo.reload();
+
+                alert()
+                $(sumoSelectRef.value).each(function () {
+                    let option = $(this).closest('.SumoSelect').find('.opt');
+                    let label = $(this).next('.CaptionCont');
+
+                    $(label).find('span').css('margin', '-9px 0')
+
+                    $(option).each(function () {
+                        let img = $(this).closest('.SumoSelect').find('option').eq($(this).index()).data('img');
+
+                        if (img && !$(this).find('img').length) {
+                            $(this).prepend('<img src="' + img + '">');
+                        }
+                    });
+                });
+            }
+        }
+
         return {
             sumoSelectRef,
             optWrapperRef,
@@ -199,6 +225,7 @@ export default {
             filteredOptions,
             selectAll,
             handleOpen,
+            update,
         }
     }
 }

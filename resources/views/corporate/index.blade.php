@@ -47,15 +47,16 @@
                         <h1 class="h1 title autoheight">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                            <x-page.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
+                            <x-page.social-share :share-url="route('page.show', $pageContent->slug)"
+                                                 :share-title="$pageContent->title"/>
                         </div>
                         <div class="text text-md">
                             <p>{!! $pageContent->text !!}</p>
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                        <span class="btn type-1 btn-block btn-book-size open-popup calendar-init"
-                              data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</span>
+                            <a class="btn type-1 btn-block btn-book-size"
+                               href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
                             <div class="spacer-xs"></div>
                         </div>
                         <!-- ACCORDIONS CONTENT -->
