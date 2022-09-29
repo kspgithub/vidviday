@@ -4,7 +4,7 @@
             <p>{{ __('certificate-section.delivery-description') }}</p>
         </div>
 
-        <certificate-payment-selector/>
+        <certificate-payment-selector :errors="errors"/>
 
         <certificate-comment/>
 
@@ -25,6 +25,12 @@ import CertificateTotal from "./CertificateTotal";
 
 export default {
     name: "CertificateStepTwo",
+    props: {
+        errors: {
+            type: Object,
+            default: () => {},
+        },
+    },
     components: {CertificateTotal, CertificateComment, CertificatePaymentSelector},
     setup() {
         return {

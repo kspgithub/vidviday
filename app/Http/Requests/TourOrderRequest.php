@@ -33,7 +33,7 @@ class TourOrderRequest extends FormRequest
             'last_name' => ['required'],
             'phone' => ['required'],
             'viber' => ['nullable'],
-            'email' => ['required', 'email'],
+//            'email' => ['required', 'email'],
             'group_type' => ['nullable', Rule::in(['0', '1'])],
             'tour_id' => ['nullable', 'integer'],
             'schedule_id' => ['nullable', 'integer'],

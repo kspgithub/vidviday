@@ -84,7 +84,11 @@ export default {
             if (sumo.value) {
                 sumo.value.removeAll();
                 items.forEach(it => {
-                    sumo.value.add(it[props.idField], '<img src="' + it.img + '">' + it[props.titleField]);
+                    if(it.img) {
+                        sumo.value.add(it[props.idField], '<img src="' + it.img + '">' + it[props.titleField]);
+                    } else {
+                        sumo.value.add(it[props.idField], it[props.titleField]);
+                    }
                 })
             }
 

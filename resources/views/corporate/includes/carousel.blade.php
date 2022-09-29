@@ -23,7 +23,7 @@
         <div class="swiper-wrapper">
             @foreach($tours as $tour)
                 <div class="swiper-slide">
-                    <x-tour.card :tour="$tour"/>
+                    <x-tour.card :vue="true" :tour="$tour"/>
                 </div>
             @endforeach
         </div>
