@@ -162,6 +162,12 @@ import CertificateTotal from "./CertificateTotal";
 
 export default {
     name: "CertificateStepOne",
+    props: {
+        errors: {
+            type: Object,
+            default: () => {},
+        },
+    },
     components: {CertificateTotal, FormTourAutocomplete, FormNumberInput, FormInput},
     setup() {
         const locale = locale;

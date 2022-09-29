@@ -117,7 +117,7 @@ export default {
             validationSchema: {
                 first_name: 'required',
                 last_name: 'required',
-                email: 'required|email',
+                // email: 'required|email',
                 phone: 'required|tel',
                 places: () => {
                     return data.value.places > 0 ? true : __('validation.min-place-1')

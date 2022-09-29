@@ -1,5 +1,5 @@
 <template>
-    <form :action="action" class="tabs vue-tabs" method="POST">
+    <form :action="action" class="tabs vue-tabs" method="POST" @submit="handleSubmit">
         <slot/>
         <ul class="tab-toggle">
             <li class="tab-caption" :class="{active: currentStep === 1}" @click="setStep(1)"
@@ -14,11 +14,11 @@
         <div class="spacer-xs"></div>
         <div class="tabs-wrap">
             <!-- TAB #1 -->
-            <certificate-step-one v-show="currentStep === 1"/>
+            <certificate-step-one :errors="errors" v-show="currentStep === 1"/>
             <!-- TAB #1 END -->
 
             <!-- TAB #2 -->
-            <certificate-step-two v-show="currentStep === 2"/>
+            <certificate-step-two :errors="errors" v-show="currentStep === 2"/>
             <!-- TAB #2 END -->
         </div>
         <hr>
@@ -81,9 +81,16 @@ export default {
         const store = useStore();
         store.commit('orderCertificate/SET_PACKINGS', props.packings);
         store.commit('orderCertificate/SET_PAYMENT_TYPES', props.paymentTypes);
+
+        const orderCertificateData = localStorage.getItem('order-cretificate')
+
+        if(orderCertificateData) {
+            console.log(orderCertificateData)
+            store.commit('orderCertificate/SET_DATA', JSON.parse(orderCertificateData));
+        }
+
         const currentStep = computed(() => store.state.orderCertificate.currentStep);
         const formData = computed(() => store.state.orderCertificate.formData);
-
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -122,7 +129,13 @@ export default {
                         return __('validation.select-packaging-type');
                     }
                     return true;
-                }
+                },
+                payment_type: () => {
+                    if (currentStep.value === 2 && !props.paymentTypes.filter(pt => pt.value === formData.value.payment_type).length) {
+                        return __('validation.select-payment-type');
+                    }
+                    return true;
+                },
             },
         });
 
@@ -151,12 +164,24 @@ export default {
             }
         }
 
+        const handleSubmit = async (e) => {
+            e.preventDefault()
+
+            const result = await validate();
+
+            if (result.valid) {
+                localStorage.removeItem('order-cretificate')
+                e.target.submit()
+            }
+        }
+
         return {
             prevStep,
             nextStep,
             setStep,
             currentStep,
             errors,
+            handleSubmit,
         }
     }
 

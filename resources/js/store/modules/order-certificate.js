@@ -43,7 +43,15 @@ export default {
         },
         SET_PAYMENT_TYPES(state, value) {
             state.paymentTypes = value;
-        }
+        },
+        SET_DATA(state, value) {
+            if(value.currentStep) {
+                state.currentStep = value.currentStep;
+            }
+            if(value.formData) {
+                state.formData = value.formData;
+            }
+        },
     },
     actions: {
         setStep({commit}, step) {
@@ -51,6 +59,7 @@ export default {
         },
         nextStep({commit, state}) {
             commit('SET_CURRENT_STEP', state.currentStep + 1);
+            localStorage.setItem('order-cretificate', JSON.stringify(state))
         },
         prevStep({commit, state}) {
             commit('SET_CURRENT_STEP', state.currentStep - 1);

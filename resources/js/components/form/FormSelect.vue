@@ -3,7 +3,7 @@
 
         <input :name="name" :value="modelValue" type="hidden">
 
-        <p :title="selectedText" class="CaptionCont SelectBox">
+        <p class="CaptionCont SelectBox">
             <span v-html="selectedText"></span>
             <label><i></i></label>
         </p>

@@ -82,5 +82,9 @@
                          :value="old('payment_type', $certificate->payment_type)"
                          x-model="payment_type"
                          :options="$paymentTypes"/>
+
+    <x-forms.textarea-group name="comment" :label="__('Comment')"
+                        :value="old('comment', $certificate->comment)"
+                        required></x-forms.textarea-group>
 </div>
 
