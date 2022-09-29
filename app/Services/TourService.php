@@ -264,6 +264,7 @@ class TourService extends BaseService
             }
 
         } catch (Exception $e) {
+            dd($e);
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
             throw new GeneralException(__('There was a problem updating tour.'));
@@ -275,7 +276,7 @@ class TourService extends BaseService
 
     public static function getAvailableDiscounts(Tour $tour)
     {
-        $tourDiscounts = $tour->tourDiscounts()->available()->where('age_limit', 0)->whereNotIn('category', ['children_young', 'children', 'children_older']);
+        $tourDiscounts = $tour->tourDiscounts()->available()->where('tours_discounts.age_limit', 0)->whereNotIn('category', ['children_young', 'children', 'children_older']);
 
         $discounts = $tour->discounts()->available()->where('discounts.age_limit', 0)->whereNotIn('discounts.category', ['children_young', 'children', 'children_older']);
 
@@ -303,7 +304,7 @@ class TourService extends BaseService
         }
 
         if ($filters['age_limit'] ?? false) {
-            $tourDiscounts->where('age_limit', $filters['categories']['age_limit']);
+            $tourDiscounts->where('tours_discounts.age_limit', $filters['categories']['age_limit']);
             $discounts->where('discounts.age_limit', $filters['categories']['age_limit']);
         }
 
