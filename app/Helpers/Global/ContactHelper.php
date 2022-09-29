@@ -7,23 +7,28 @@ if (!function_exists('social_contacts')) {
         return [
             ...($contact?->skype ? ['skype' => [
                 'href' => skype_link($contact->skype),
-                'icon' => 'icon-skype',
+                'icon' => 'skype.png',
+                'svg-icon' => 'icon-skype',
             ]] : []),
             ...($contact?->viber ? ['viber' => [
                 'href' => viber_link($contact->viber),
-                'icon' => 'icon-viber',
+                'icon' => 'viber.png',
+                'svg-icon' => 'icon-viber',
             ]] : []),
             ...($contact?->telegram ? ['telegram' => [
                 'href' => tg_link($contact->telegram),
-                'icon' => 'icon-telegram',
+                'icon' => 'telegram.png',
+                'svg-icon' => 'icon-telegram',
             ]] : []),
             ...($contact?->whatsapp ? ['whatsapp' => [
                 'href' => whatsapp_link($contact->whatsapp),
-                'icon' => 'icon-whatsapp',
+                'icon' => 'whatsapp.png',
+                'svg-icon' => 'icon-whatsapp',
             ]] : []),
             ...($contact?->messenger ? ['messenger' => [
                 'href' => messenger_link($contact->messenger),
-                'icon' => 'icon-messenger',
+                'icon' => 'messenger.png',
+                'svg-icon' => 'icon-messenger',
             ]] : []),
         ];
     }
