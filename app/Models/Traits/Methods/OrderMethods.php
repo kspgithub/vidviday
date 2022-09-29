@@ -180,8 +180,8 @@ trait OrderMethods
             }
         }
 
-        $other_discounts = $tour->discounts()->available()->where('age_limit', 0)
-            ->whereNotIn('category', ['children_young', 'children', 'children_older'])->get();
+        $other_discounts = $tour->discounts()->available()->where('tours_discounts.age_limit', 0)
+            ->whereNotIn('tours_discounts.category', ['children_young', 'children', 'children_older'])->get();
 
         /*
          * Подсчет скидок
