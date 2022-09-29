@@ -237,9 +237,9 @@ export default {
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
                         schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;
-                        schema.start_place = 'required';
+                        // schema.start_place = 'required';
                         schema.end_date = () => !formData.value.start_date ? 'Оберіть дату повернення' : true;
-                        schema.end_place = 'required';
+                        // schema.end_place = 'required';
                     } else {
                         schema.start_date = 'required';
                     }

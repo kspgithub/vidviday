@@ -35,7 +35,7 @@ class CertificateController extends Controller
     {
         $pageContent = Page::published()->where('key', 'certificate-order')->firstOrFail();
         $packings = Packing::all();
-        $paymentTypes = PaymentType::published()->toSelectBox();
+        $paymentTypes = PaymentType::published()->where('slug', '!=', 'online')->toSelectBox();
 
         return view('certificate.order', [
             'packings' => $packings,

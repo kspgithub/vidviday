@@ -26,14 +26,14 @@ class PackingSeeder extends Seeder
             [
                 'title'=>['uk'=>'Коробка', 'ru'=>'Коробка', 'en'=>'Box', 'pl'=>'Skrzynka'],
                 'slug'=>'box',
-                'price'=> 35,
+                'price'=> 95,
                 'currency'=>'UAH',
                 'icon'=>'/icon/box.svg',
             ],
             [
                 'title'=>['uk'=>'Конверт', 'ru'=>'Конверт', 'en'=>'Envelope', 'pl'=>'Koperta'],
                 'slug'=>'envelope',
-                'price'=> 95,
+                'price'=> 40,
                 'currency'=>'UAH',
                 'icon'=>'/icon/letter.svg',
             ],
