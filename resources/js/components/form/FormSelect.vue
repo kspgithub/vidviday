@@ -195,7 +195,6 @@ export default {
 
                 $(sumoSelectRef.value)[0].sumo.reload();
 
-                alert()
                 $(sumoSelectRef.value).each(function () {
                     let option = $(this).closest('.SumoSelect').find('.opt');
                     let label = $(this).next('.CaptionCont');
