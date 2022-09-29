@@ -62,7 +62,7 @@
                             <div class="social style-2">
                                 @foreach(social_contacts($contact) as $key => $social)
                                     <a target="_blank" href="{{$social['href']}}">
-                                        {{svg($social['icon'])}}
+                                        {{svg($social['svg-icon'])}}
                                     </a>
                                 @endforeach
                             </div>
@@ -147,7 +147,7 @@
 
                         @foreach(config('contacts.social-links') as $social)
                             <a href="{{$social['href']}}" target="_blank">
-                                {{svg($social['icon'])}}
+                                {{svg($social['svg-icon'])}}
                             </a>
                         @endforeach
 
