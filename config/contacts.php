@@ -7,27 +7,33 @@ return [
     'social-links' => [
         'tiktok' => [
             'href' => 'https://www.tiktok.com/@vidviday',
-            'icon' => 'social-tiktok',
+            'icon' => 'tiktok.png',
+            'svg-icon' => 'social-tiktok',
         ],
         'facebook' => [
             'href' => 'https://www.facebook.com/vidviday',
-            'icon' => 'social-facebook',
+            'icon' => 'facebook.png',
+            'svg-icon' => 'social-facebook',
         ],
         'instagram' => [
             'href' => 'https://www.instagram.com/vidviday/',
-            'icon' => 'social-instagram',
+            'icon' => 'instagram.png',
+            'svg-icon' => 'social-instagram',
         ],
         'youtube' => [
             'href' => 'https://www.youtube.com/user/vidviday',
-            'icon' => 'social-youtube',
+            'icon' => 'youtube.png',
+            'svg-icon' => 'social-youtube',
         ],
         'telegram' => [
             'href' => 'https://t.me/vidviday',
-            'icon' => 'social-telegram',
+            'icon' => 'telegram.png',
+            'svg-icon' => 'social-telegram',
         ],
         'tripadvisor' => [
             'href' => 'https://www.tripadvisor.com/Attraction_Review-g295377-d14176633-Reviews-Vidviday-Lviv_Lviv_Oblast.html',
-            'icon' => 'social-tripadvisor',
+            'icon' => 'tripadvisor.png',
+            'svg-icon' => 'social-tripadvisor',
         ],
     ],
 ];
