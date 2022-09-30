@@ -135,6 +135,15 @@ export default {
 
         const showCalendar = () => {
             store.commit('orderTour/SET_CALENDAR_OPEN', true);
+
+            setTimeout(() => {
+                let calendarWrapper = $('.calendar-wrapper > .fc')
+
+                if(calendarWrapper.length) {
+                    let width = calendarWrapper.find('.fc-view-harness').width();
+                    calendarWrapper.scrollLeft(width);
+                }
+            }, 0)
         }
 
         const isTourAgent = computed(() => store.getters['user/isTourAgent'])

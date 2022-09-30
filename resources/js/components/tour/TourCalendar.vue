@@ -68,6 +68,7 @@ export default {
     emits: ['event-click'],
     setup(props, {emit}) {
         const calendarEl = ref(null);
+        const calendar = ref(null);
 
         const viewType = ref(props.initialView);
 
@@ -137,6 +138,13 @@ export default {
                     center: '',
                     right: '',
                 } : false,
+                titleFormat: function(value) {
+                    var localeData = moment.localeData();
+                    var format = localeData.longDateFormat('L')
+                    format = format.replace(localeData._longDateFormat.L, 'MMMM YYYY');
+                    var momentTime = moment(value.date);
+                    return momentTime.format(format)
+                },
                 firstDay: 1,
                 contentHeight: "auto",
                 aspectRatio: 2,
@@ -173,8 +181,8 @@ export default {
         );
 
         watch(viewType, () => {
-            const calendar = calendarEl.value.getApi();
-            calendar.changeView(viewType.value);
+            calendar.value = calendarEl.value.getApi();
+            calendar.value.changeView(viewType.value);
         });
 
         watch(() => props.filter, _.debounce(function () {
@@ -182,11 +190,36 @@ export default {
         }, 500));
 
         onMounted(() => {
-            const calendar = calendarEl.value.getApi();
-            calendar.changeView(viewType.value);
+            calendar.value = calendarEl.value.getApi();
+            calendar.value.changeView(viewType.value);
 
             calendarOptions.value.events.extraParams = props.filter;
+
+
+            calendar.value.on('', (e) => {
+                alert('on')
+
+                console.log(e)
+            })
         })
+
+        const onDateSelect = (date) => {
+            console.log(date)
+
+            let selectedDateTitle = $(calendarEl.value.$el).find('.fc-toolbar-title')
+
+            if(selectedDateTitle.length) {
+                setTimeout(() => {
+
+                    let title = selectedDateTitle.text()
+
+                    console.log(title)
+                    // selectedDateTitle.text(selectedDateTitle.text().replace(/^(.*) р\.$/, "$1"))
+
+                }, 100)
+            }
+
+        }
 
         return {
             t,
