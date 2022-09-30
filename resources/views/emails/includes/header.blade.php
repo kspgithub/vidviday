@@ -2,7 +2,7 @@
     $contacts = App\Models\Contact::get();
 @endphp
 
-<div class="header" style="padding: 30px 8%;  background: #fff;  box-shadow: 0 2px 30px rgba(0, 0, 0, .06);">
+<div class="header">
     <a href="{{url('/')}}" class="logo">
         <img src="{{url(asset('img/logo.png'))}}" alt="logo"style="display: block; width: 100%; max-width: 150px">
     </a>
