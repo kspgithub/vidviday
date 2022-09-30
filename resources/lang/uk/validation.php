@@ -162,6 +162,7 @@ return [
     'select-certificate-format' => 'Оберіть формат сертифікату',
     'select-certificate-design' => 'Оберіть дизайн сертифікату',
     'select-packaging-type' => 'Оберіть тип пакування',
+    'select-payment-type' => 'Оберіть тип оплат',
     'min-sum-100' => 'Сума не може бути менше 100',
     'min-place-1' => 'Кількість місць не може бути менше 1',
     'select-tour-date' => 'Оберіть дату туру',
