@@ -1,3 +1,4 @@
+@php use App\Models\Page; @endphp
 @extends("layout.app")
 
 @section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
@@ -10,7 +11,7 @@
     <meta property="og:title" content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
     <meta property="og:description" content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $pageContent->getFirstMedia())
+    @if($pageImage = ($pageContent->getFirstMedia() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia()))
 <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
 <meta property="og:type" content="product">
