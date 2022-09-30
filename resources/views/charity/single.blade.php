@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{ $charitySingle->title }}">
     <meta property="og:description" content="{{ $charitySingle->short_text }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $charitySingle->getFirstMedia())
+    @if($pageImage = $charitySingle->getFirstMedia() ?: AppModelsPage::where('key', 'home')->first()?->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
     <meta property="og:type" content="article">

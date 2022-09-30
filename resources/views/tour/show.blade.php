@@ -11,7 +11,7 @@
     <meta property="og:description"
           content="{{ !empty($tour->seo_description) ? $tour->seo_description : $tour->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $pictures->first())
+    @if($pageImage = $pictures->first() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
     <meta property="og:type" content="product">
