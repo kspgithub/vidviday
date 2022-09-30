@@ -18,6 +18,7 @@
     <x-bootstrap.card>
         <x-slot name="body">
 
+            <div class="table-responsive">
             <table class="table table-responsive table-striped table-sm">
                 <thead>
                 <tr>
@@ -26,7 +27,7 @@
                     <th>@lang('Subject')</th>
                     <th>@lang('View')</th>
                     <th>@lang('Updated At')</th>
-                    <th style="width: 100px">@lang('Actions') </th>
+                    <th style="width: 120px">@lang('Actions') </th>
                 </tr>
                 </thead>
                 <tbody x-ref="sortableRef">
@@ -49,7 +50,12 @@
                         <td>
                             {{$template['updated_at']}}
                         </td>
-                        <td class="table-action">
+                        <td>
+{{--                            <x-utils.view-button :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))" text=""/>--}}
+{{--                            <x-utils.edit-button :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))" text=""/>--}}
+{{--                            <x-utils.delete-button :href="route('admin.email-templates.reset', Str::replace('\\','-',$template['mailable']))" text=""/>--}}
+
+                            <x-utils.view-button :href="route('admin.email-templates.preview', Str::replace('\\','-',$template['mailable']))" text="" target="_blank"/>
                             <x-utils.edit-button :href="route('admin.email-templates.edit', Str::replace('\\','-',$template['mailable']))" text=""/>
                             <x-utils.delete-button :href="route('admin.email-templates.reset', Str::replace('\\','-',$template['mailable']))" text=""/>
                         </td>
@@ -57,6 +63,7 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
         </x-slot>
     </x-bootstrap.card>
 @endsection

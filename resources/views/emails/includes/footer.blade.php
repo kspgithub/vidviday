@@ -1,7 +1,8 @@
-<div style="padding: 40px 8%; background-color: #FAFAFA; border-top: 1px solid #E9E9E9;">
-    <table style="width: 100%; border-collapse: collapse;">
+<div class="footer">
+    <table style="width: 100%;">
+        <tbody>
         <tr>
-            <td style="vertical-align: top; margin: 0; padding: 0;  width: 50%;">
+            <td style="vertical-align: top;">
                 <div>
                     <div
                         style="font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 16px; line-height: 20px; margin-bottom: 10px;">
@@ -56,7 +57,7 @@
                 </div>
             </td>
 
-            <td style="vertical-align: top; margin: 0; padding: 0;  width: 50%;">
+            <td style="vertical-align: top;">
                 <div>
                     <div
                         style="font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 16px; line-height: 20px; margin-bottom: 10px;">
@@ -72,7 +73,7 @@
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
                         <img src="{{url(asset('icon/location.png'))}}" alt="location"
                              style="max-width: 18px; position: absolute; top: 3px; left: 0;">
-                        <a href="geo:49.850562,24.026892"
+                        <a href="geo:{{$contact->lat}},{{$contact->lng}}"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">
                             GPS:{{$contact->lat}} , {{$contact->lng}}</a>
                     </div>
@@ -97,5 +98,7 @@
                 </div>
             </td>
         </tr>
+        </tbody>
     </table>
 </div>
+
