@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="shortcut icon" href="{{url(asset('img/favicon.ico'))}}">
     <title>Відвідай</title>
-
     <style>
         .header {
             text-align: right;
@@ -75,7 +74,7 @@
             width: 50%;
         }
 
-        @media screen and (max-width: 767px) {
+        @media (max-width: 767px) {
 
             .header {
                 padding: 15px;
@@ -91,12 +90,7 @@
             }
 
             .tel-icon + a {
-                margin-bottom: 5px;
-                display: inline-block;
-            }
-
-            .header a + br + a {
-                margin-bottom: 5px;
+                /*margin-bottom: 5px;*/
                 display: inline-block;
             }
 
@@ -150,26 +144,27 @@
                 margin-top: -4px;
             }
         }
-
     </style>
-
 </head>
 <body>
 <div style="max-width: 720px; margin: 0 auto; background-color: #FAFAFA;">
     <!-- HEADER -->
-@include('emails.includes.header')
-<!-- END HEADER  -->
+    @include('emails.includes.header')
+    <!-- END HEADER  -->
 
-    <div style="font-family: 'Roboto', sans-serif;font-size: 16px;line-height: 28px;color: #626262;  padding: 40px 8%;">
+    <div style="font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        line-height: 28px;
+        color: #626262;  padding: 40px 8%;">
         @yield('content')
     </div>
 
 
     <!-- FOOTER -->
-@if(isset($showFooter) && $showFooter === true)
-    @include('emails.includes.footer')
-@endif
-<!-- FOOTER END -->
+    @if(isset($showFooter) && $showFooter === true)
+        @include('emails.includes.footer')
+    @endif
+    <!-- FOOTER END -->
 </div>
 </body>
 </html>
