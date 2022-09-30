@@ -1,8 +1,8 @@
 <template>
-    <div class="datepicker-input datepicker-dropdown" :class="{open: open}"
-         :data-tooltip="errorMessage">
+    <div class="datepicker-input datepicker-dropdown" :class="{open: open, invalid: errorMessage}">
         <input :name="name" v-model="modelValue" type="hidden">
-        <span :title="current ? current.text : ''" class="datepicker-placeholder" @click="open = !open">
+        <span :title="current ? current.text : ''" class="datepicker-placeholder" @click="open = !open"
+              :data-tooltip="errorMessage">
             {{ current ? current.text : label }}
         </span>
         <ul class="datepicker-options">
