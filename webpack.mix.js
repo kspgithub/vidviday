@@ -63,6 +63,10 @@ mix.options({
     }
 })
 
+console.log('=====================================')
+console.log(host)
+console.log('=====================================')
+
 mix.webpackConfig({
     devServer: {
         host,

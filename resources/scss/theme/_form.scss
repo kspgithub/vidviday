@@ -333,21 +333,21 @@ textarea {
 }
 
 .datepicker-dropdown {
-    .datepicker-placeholder {
-        &:after {
-            top: 50%;
-            width: 6px;
-            content: "";
-            height: 6px;
-            margin-top: -5px;
-            position: absolute;
-            transform: rotate(45deg);
-            border-right: 1px solid #626262;
-            border-bottom: 1px solid #626262;
-            right: 15px;
-            transition: rotate ease-in 300ms;
-        }
-    }
+    //.datepicker-placeholder {
+    //    &:after {
+    //        top: 50%;
+    //        width: 6px;
+    //        content: "";
+    //        height: 6px;
+    //        margin-top: -5px;
+    //        position: absolute;
+    //        transform: rotate(45deg);
+    //        border-right: 1px solid #626262;
+    //        border-bottom: 1px solid #626262;
+    //        right: 15px;
+    //        transition: rotate ease-in 300ms;
+    //    }
+    //}
 
     &.open {
         .datepicker-options {
@@ -852,7 +852,7 @@ form,
     }
 }
 
-label {
+label, .datepicker-input {
     &.invalid {
         &:hover, &:focus, &:active, &.focused {
             &:before,
