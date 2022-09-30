@@ -141,7 +141,12 @@ export default {
                 titleFormat: function(value) {
                     var localeData = moment.localeData();
                     var format = localeData.longDateFormat('L')
-                    format = format.replace(localeData._longDateFormat.L, 'MMMM YYYY');
+
+                    if(viewType.value === 'dayGridDay') {
+                        format = format.replace(localeData._longDateFormat.L, 'D MMMM YYYY');
+                    } else {
+                        format = format.replace(localeData._longDateFormat.L, 'MMMM YYYY');
+                    }
                     var momentTime = moment(value.date);
                     return momentTime.format(format)
                 },
@@ -173,9 +178,9 @@ export default {
                     });
                 },
                 navLinkDayClick: (date) => {
-                    console.log(date)
-
-                    return false
+                    viewType.value = 'dayGridDay'
+                    calendar.value.changeView(viewType.value);
+                    calendar.value.gotoDate(date);
                 },
             }, props.options)
         );
