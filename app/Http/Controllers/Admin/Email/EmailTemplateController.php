@@ -19,6 +19,7 @@ use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
 use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionException;
@@ -178,5 +179,40 @@ class EmailTemplateController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function preview($mailable)
+    {
+        $localTemplates = $this->getTemplates();
+
+        $mailable = Str::replace('-', '\\', $mailable);
+
+        if(!in_array($mailable, $localTemplates)) {
+            throw new \Exception('Mailable ' . $mailable .' not found.');
+        }
+
+        $template = EmailTemplate::query()->where('mailable', $mailable)->first();
+
+        $locale = app()->getLocale();
+
+        if($template) {
+            $subject = $template->getTranslation('subject', $locale);
+            $html = $template->getTranslation('html', $locale);
+
+            foreach ($this->getReplaces() as $key => $value) {
+                $replaceFrom = '{{ ' . $key . ' }}';
+                $replaceTo = is_callable($value) ? $value() : $value;
+                $subject = str_replace($replaceFrom, $replaceTo, $subject);
+                $html = str_replace($replaceFrom, $replaceTo, $html);
+            }
+
+            return Blade::render($html, $this->buildViewData());
+        } else {
+
+            /** @var BaseTemplateEmail $mailableClass */
+            $mailableClass = new $mailable;
+
+            return $mailableClass->render();
+        }
     }
 }
