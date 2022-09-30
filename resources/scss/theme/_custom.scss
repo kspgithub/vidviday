@@ -1688,17 +1688,21 @@ form.row > div,
     display: none;
 }
 
+.datepicker-input.invalid:hover:before,
+.datepicker-input.invalid:hover:after,
 label.invalid:hover:before,
 label.invalid:hover:after {
     opacity: 1;
 }
 
+.datepicker-input.invalid:hover:before,
 label.invalid:hover:before {
     -webkit-transform: rotate(45deg) scale(1);
     -ms-transform: rotate(45deg) scale(1);
     transform: rotate(45deg) scale(1);
 }
 
+.datepicker-input.invalid:hover:after,
 label.invalid:hover:after {
     -webkit-transform: translateX(-50%) scale(1);
     -ms-transform: translateX(-50%) scale(1);
@@ -13092,6 +13096,7 @@ label, .datepicker-placeholder
         left: 100%!important;
         transform: translateX(-100%)!important;
         margin: 0 20px!important;
+        display: block!important;
     }
 }
 
