@@ -210,6 +210,14 @@
                     {{$order->confirmation_title}}
                 </td>
             </tr>
+
+            <tr>
+                <td style="font-family: 'Roboto', sans-serif; color: #626262;">Побажання замовника</td>
+
+                <td style="font-family: 'Roboto', sans-serif; font-weight: 700;">
+                    {{$order->comment}}
+                </td>
+            </tr>
         </table>
         <!-- TABLE END -->
 
