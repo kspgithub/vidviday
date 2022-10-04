@@ -10,7 +10,7 @@
     <meta property="og:title" content="{{ $staff->first_name . '' . $staff->last_name . '-' . $staff->position }}">
     <meta property="og:description" content="{{ $staff->text }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $staff->getFirstMedia() ?: AppModelsPage::where('key', 'home')->first()?->getFirstMedia())
+    @if($pageImage = $staff->getFirstMedia() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia())
 <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
 <meta property="og:type" content="product">

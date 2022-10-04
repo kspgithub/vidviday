@@ -200,12 +200,6 @@ export default {
 
             calendarOptions.value.events.extraParams = props.filter;
 
-
-            calendar.value.on('', (e) => {
-                alert('on')
-
-                console.log(e)
-            })
         })
 
         const onDateSelect = (date) => {
