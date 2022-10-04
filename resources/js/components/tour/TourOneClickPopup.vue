@@ -123,7 +123,7 @@ export default {
                     return data.value.places > 0 ? true : __('validation.min-place-1')
                 },
                 schedule_id: () => {
-                    return (data.value.schedule_id && data.value.schedule_id > 0) ? true : __('validation.select-tour-date')
+                    return props.schedules.find(s => s.id === data.value.schedule_id) ? true : __('validation.select-tour-date')
                 },
             },
         });
