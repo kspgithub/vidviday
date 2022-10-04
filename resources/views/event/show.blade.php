@@ -11,7 +11,7 @@
     <meta property="og:description"
           content="{{ !empty($event->seo_description) ? $event->seo_description : $event->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $event->getFirstMedia() ?: AppModelsPage::where('key', 'home')->first()?->getFirstMedia())
+    @if($pageImage = $event->getFirstMedia() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
     <meta property="og:type" content="product">
