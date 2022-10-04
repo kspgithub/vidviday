@@ -190,6 +190,28 @@ export default {
         watch(viewType, () => {
             calendar.value = calendarEl.value.getApi();
             calendar.value.changeView(viewType.value);
+
+            if(viewType.value === 'dayGridDay') {
+                setTimeout(() => {
+                    let calendarWrapper = $('.calendar-wrapper > .fc')
+
+                    if(calendarWrapper.length) {
+                        calendarWrapper.scrollLeft(0);
+                    }
+                }, 0)
+            } else {
+                setTimeout(() => {
+                    let calendarWrapper = $('.calendar-wrapper > .fc')
+
+                    if(calendarWrapper.length) {
+                        if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                            let width = calendarWrapper.find('.fc-view-harness').width();
+                            calendarWrapper.scrollLeft(width);
+                        }
+                    }
+                }, 0)
+            }
+
         });
 
         watch(() => props.filter, _.debounce(function () {
@@ -202,6 +224,16 @@ export default {
 
             calendarOptions.value.events.extraParams = props.filter;
 
+            setTimeout(() => {
+                let calendarWrapper = $('.calendar-wrapper > .fc')
+
+                if(calendarWrapper.length) {
+                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                        let width = calendarWrapper.find('.fc-view-harness').width();
+                        calendarWrapper.scrollLeft(width);
+                    }
+                }
+            }, 0)
         })
 
         const onDateSelect = (date) => {
