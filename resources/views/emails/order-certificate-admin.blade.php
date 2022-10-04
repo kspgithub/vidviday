@@ -24,6 +24,9 @@
                 <x-email.row
                     title="Данні отримувача">{{$order->last_name_recipient}} {{$order->first_name_recipient}}</x-email.row>
                 <x-email.row title="Загальна сума">{{number_format($order->price, 0, '', ',')}} грн.</x-email.row>
+                <x-email.row title="Побажання замовника">
+                    {{ $order->comment }}
+                </x-email.row>
             </x-email.table>
 
         </x-email.card>

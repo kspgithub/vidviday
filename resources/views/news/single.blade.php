@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{ $newsSingle->title }}">
     <meta property="og:description" content="{{ $newsSingle->short_text }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($pageImage = $newsSingle->getFirstMedia() ?: AppModelsPage::where('key', 'home')->first()?->getFirstMedia())
+    @if($pageImage = $newsSingle->getFirstMedia() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
     <meta property="og:type" content="article">
