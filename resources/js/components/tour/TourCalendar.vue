@@ -178,9 +178,11 @@ export default {
                     });
                 },
                 navLinkDayClick: (date) => {
-                    viewType.value = 'dayGridDay'
-                    calendar.value.changeView(viewType.value);
-                    calendar.value.gotoDate(date);
+                    if(props.viewChange) {
+                        viewType.value = 'dayGridDay'
+                        calendar.value.changeView(viewType.value);
+                        calendar.value.gotoDate(date);
+                    }
                 },
             }, props.options)
         );
