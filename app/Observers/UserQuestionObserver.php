@@ -25,7 +25,7 @@ class UserQuestionObserver
         $adminEmails = MailNotificationService::getAdminNotifyEmails();
 
         // Notify managers related to question
-        $managerEmails = (array) $userQuestion->questionType->email ?? [];
+        $managerEmails = (array) $userQuestion->questionType?->email ?? [];
 
         // Notify managers related to question
         $userEmails = (array) $userQuestion->email;

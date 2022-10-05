@@ -86,9 +86,9 @@ export default {
             let text = ''
             const value = String(JSON.parse(JSON.stringify(props.modelValue)))
 
-            const selectedValue = value.split(',').map(id => parseInt(id)).filter(id => id > 0);
+            const selectedValue = value.split(',').filter(id => !!id);
 
-            let options = props.options.filter(o => props.multiple ? selectedValue.includes(o.value) : o.value === props.modelValue);
+            let options = props.options.filter(o => props.multiple ? selectedValue.includes(o.value) : o.value == props.modelValue);
 
             if(!options.length) {
                 options = [props.options[0]]
