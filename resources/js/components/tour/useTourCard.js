@@ -15,7 +15,7 @@ export const useTourCard = (tour) => {
     const scheduleId = ref(tour.schedule_items.length > 0 ? tour.schedule_items[0].id : 0);
 
     const currentSchedule = computed(() => {
-        return tour.schedule_items.find(s => s.id === scheduleId.value);
+        return tour.schedule_items.find(s => s.id == scheduleId.value);
     });
 
     const imageSrc = ref('/img/preloader.png');
