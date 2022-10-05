@@ -2,7 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align">
 
-            <form @submit="submitForm" method="POST" action="/" class="row">
+            <form @submit.prevent="submitForm" method="POST" action="/" class="row">
                 <div class="col-12">
                     <div class="text-center">
                         <span class="h2 title text-medium">Написати листа</span>
