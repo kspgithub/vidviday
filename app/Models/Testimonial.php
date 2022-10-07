@@ -155,12 +155,12 @@ class Testimonial extends Model implements HasMedia
 
     public function getDateAttribute()
     {
-        return $this->created_at->format('d.m.Y');
+        return $this->created_at?->format('d.m.Y');
     }
 
     public function getTimeAttribute()
     {
-        return $this->created_at->format('H:i');
+        return $this->created_at?->format('H:i');
     }
 
     public function getTourAttribute()
