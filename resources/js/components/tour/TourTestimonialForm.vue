@@ -219,7 +219,7 @@ export default {
                 last_name: 'required',
                 phone: 'required|tel',
                 email: 'required|email',
-                text: 'required',
+                text: 'required|max:5000',
                 rating: 'required|numeric|min_value:1',
             }
         })
