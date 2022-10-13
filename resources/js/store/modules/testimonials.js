@@ -53,7 +53,7 @@ export default {
         async loadItems({commit, state}) {
             commit('SET_REQUEST', true);
             const {data: response} = await axios.get(state.url, {
-                data: {
+                params: {
                     page: state.currentPage
                 }
             });
@@ -68,7 +68,7 @@ export default {
         },
 
         async loadMore({commit, state, dispatch}) {
-            commit('SET_CURRENT_PAGE', state.value + 1);
+            commit('SET_CURRENT_PAGE', state.currentPage + 1);
             await dispatch('loadItems');
         },
 

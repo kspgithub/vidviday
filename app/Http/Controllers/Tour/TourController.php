@@ -113,11 +113,6 @@ class TourController extends Controller
             'guides',
             'manager',
             'landings',
-            'testimonials' => function ($q) {
-                return $q->moderated()
-                    ->orderBy('rating', 'desc')
-                    ->latest();
-            },
             'questions' => function ($q) {
                 return $q->moderated();
             },
@@ -225,6 +220,44 @@ class TourController extends Controller
         }
 
         return redirect($tour->url)->withFlashSuccess(__('Thank you for your question!'));
+    }
+
+
+    public function testimonials(Request $request, Tour $tour)
+    {
+        $testimonials = $tour->testimonials()
+            ->moderated()
+            ->whereNull('parent_id')
+            ->with([
+                'user',
+                'parent',
+                'media',
+                'parent.user',
+                'model',
+                'related',
+            ])
+            ->withCount('children')
+            ->orderBy('rating', 'desc')
+            ->latest();
+
+        return $testimonials->paginate(10);
+    }
+
+    public function testimonialChildren(Request $request, Tour $tour, Testimonial $testimonial)
+    {
+        $children = $testimonial->children()
+            ->with([
+                'user',
+                'parent',
+                'media',
+                'parent.user',
+                'model',
+                'related',
+            ])
+            ->withCount('children')
+            ->orderBy('created_at', 'desc')->get();
+
+        return response()->json($children);
     }
 
 

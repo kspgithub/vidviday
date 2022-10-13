@@ -32,7 +32,7 @@ class TestimonialRequest extends FormRequest
             'last_name' => ['required', 'max:100'],
             'email' => ['nullable', 'email'],
             'phone' => ['nullable'],
-            'text' => ['required', 'max:1000'],
+            'text' => ['required', 'max:5000'],
             'parent_id' => ['nullable', 'integer'],
             'tour_id' => ['sometimes', 'required', 'integer', 'exists:tours,id'],
             'guide_id' => ['nullable', 'integer'],

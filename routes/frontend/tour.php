@@ -14,6 +14,8 @@ Route::group([
     Route::post('tour/{tour}/order', [TourController::class, 'orderConfirm'])->name('order-confirm');
     Route::post('tour/{tour}/vote', [TourController::class, 'voting'])->name('voting');
     Route::get('tour/{tour}/vote/{vote}/success', [TourController::class, 'votingSuccess'])->name('voting-success');
+    Route::get('tour/{tour}/testimonials', [TourController::class, 'testimonials'])->name('testimonials');
+    Route::get('tour/{tour}/testimonials/{testimonial}/children', [TourController::class, 'testimonialChildren'])->name('testimonial-children');
 
     Route::post('tour/{tour}/question', [TourController::class, 'question'])->name('question');
     Route::post('tour/{tour}/testimonial', [TourController::class, 'testimonial'])->name('testimonial');
