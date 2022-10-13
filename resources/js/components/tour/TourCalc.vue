@@ -121,7 +121,7 @@ export default {
         const total = computed(() => {
             let totalPrice = 0;
             items.value.filter(it => selected.value.indexOf(it.id) !== -1).forEach((it) => {
-                totalPrice += (it.price + it.commission) * it.quantity;
+                totalPrice += (it.price) * it.quantity;
             })
             return totalPrice;
         });
