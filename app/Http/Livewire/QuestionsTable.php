@@ -49,7 +49,6 @@ class QuestionsTable extends DataTableComponent
 
     public function mount()
     {
-
         $this->name = current_user()->name;
         $this->email = current_user()->email;
         TourQuestion::fixTree();
