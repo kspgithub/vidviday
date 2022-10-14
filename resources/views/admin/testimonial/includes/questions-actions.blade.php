@@ -9,6 +9,7 @@
        wire:click.prevent="publishItem({{$model->id}})" title="Опублікувати"><i class="fa fa-check"></i></a>
 
 @endif
+
 @if($model->status !== \App\Models\TourQuestion::STATUS_BLOCKED)
     <a href="#" class="btn btn-sm btn-outline-danger m-1"
        wire:click.prevent="blockItem({{$model->id}})" title="Заблокувати"><i class="fa fa-lock"></i></a>

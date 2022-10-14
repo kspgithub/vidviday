@@ -166,5 +166,46 @@
     @endif
     <!-- FOOTER END -->
 </div>
+
+@env('local')
+    <script>
+        let styles = ''
+
+        for(let style of document.getElementsByTagName('style')) {
+            styles += style.innerText.replaceAll(/[\n\t\r]+/g, '')
+            style.remove()
+        }
+
+        let cb = document.createElement('input')
+
+        let style
+
+        function toggleStyles(e) {
+            style?.remove()
+            if(e.target.checked) {
+                style = document.createElement('style')
+                style.innerText = styles
+                document.body.appendChild(style)
+            }
+        }
+
+        Object.assign(cb, {
+            type: 'checkbox',
+            checked: false,
+            onchange: toggleStyles
+        })
+
+        let cbWrapper = document.createElement('label')
+
+        Object.assign(cbWrapper, {
+            innerText: 'Toggle styles',
+            style: 'position: fixed;top: 0;right:0;'
+        })
+
+        cbWrapper.append(cb)
+
+        document.body.append(cbWrapper)
+    </script>
+@endenv
 </body>
 </html>
