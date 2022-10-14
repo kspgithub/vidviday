@@ -830,6 +830,10 @@ hr.fc-divider {
     border-bottom-right-radius: 0;
 }
 
+.fc .fc-scrollgrid {
+    border-right-width: 1px!important;
+}
+
 .fc-ltr .fc-h-event .fc-start-resizer,
 .fc-rtl .fc-h-event .fc-end-resizer {
     cursor: w-resize;
@@ -2017,7 +2021,12 @@ a {
         overflow: auto;
 
         .fc-view-harness {
-            width: calc(100%*2*7/6);
+            .fc-dayGridMonth-view {
+                .fc-scrollgrid {
+                    width: calc(100% * 2 * 7 / 6);
+                    max-width: unset;
+                }
+            }
         }
 
         th,

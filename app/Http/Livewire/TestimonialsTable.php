@@ -108,7 +108,7 @@ class TestimonialsTable extends DataTableComponent
 
             Column::make(__('Text'), 'text')
                 ->format(function ($value, $column, $row) {
-                    return nl2br($row->text);
+                    return str_limit(nl2br($row->text), 200);
                 })
                 ->asHtml(),
 

@@ -124,7 +124,6 @@ export default {
             }
         });
 
-
         const calendarOptions = ref(
             Object.assign({
                 plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
@@ -187,29 +186,25 @@ export default {
             }, props.options)
         );
 
+        const scrollToEnd = () => {
+            setTimeout(() => {
+                let calendarWrapper = $('.calendar-wrapper > .fc')
+
+                if(calendarWrapper.length) {
+                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                        let width = calendarWrapper.find('.fc-view .fc-scrollgrid').width();
+                        calendarWrapper.scrollLeft(width);
+                    }
+                }
+            }, 0)
+        }
+
         watch(viewType, () => {
             calendar.value = calendarEl.value.getApi();
             calendar.value.changeView(viewType.value);
 
-            if(viewType.value === 'dayGridDay') {
-                setTimeout(() => {
-                    let calendarWrapper = $('.calendar-wrapper > .fc')
-
-                    if(calendarWrapper.length) {
-                        calendarWrapper.scrollLeft(0);
-                    }
-                }, 0)
-            } else {
-                setTimeout(() => {
-                    let calendarWrapper = $('.calendar-wrapper > .fc')
-
-                    if(calendarWrapper.length) {
-                        if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
-                            let width = calendarWrapper.find('.fc-view-harness').width();
-                            calendarWrapper.scrollLeft(width);
-                        }
-                    }
-                }, 0)
+            if(viewType.value === 'dayGridMonth') {
+                scrollToEnd()
             }
 
         });
@@ -224,35 +219,26 @@ export default {
 
             calendarOptions.value.events.extraParams = props.filter;
 
-            setTimeout(() => {
-                let calendarWrapper = $('.calendar-wrapper > .fc')
-
-                if(calendarWrapper.length) {
-                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
-                        let width = calendarWrapper.find('.fc-view-harness').width();
-                        calendarWrapper.scrollLeft(width);
-                    }
-                }
-            }, 0)
+            scrollToEnd()
         })
 
         const onDateSelect = (date) => {
-            console.log(date)
-
-            let selectedDateTitle = $(calendarEl.value.$el).find('.fc-toolbar-title')
-
-            if(selectedDateTitle.length) {
-                setTimeout(() => {
-
-                    let title = selectedDateTitle.text()
-
-                    console.log(title)
-                    // selectedDateTitle.text(selectedDateTitle.text().replace(/^(.*) р\.$/, "$1"))
-
-                }, 100)
-            }
 
         }
+
+        const handleScroll = (e) => {
+            const scrollPosition = e.target.scrollLeft;
+        }
+
+        onMounted(() => {
+            let calendarWrapper = $('.calendar-wrapper > .fc')
+
+            if(calendarWrapper.length) {
+                // calendarWrapper[0].addEventListener('scroll', handleScroll, false)
+            }
+
+
+        })
 
         return {
             t,
