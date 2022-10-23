@@ -310,12 +310,37 @@
     &.type-4,
     &.type-5 {
         > .accordion-item {
+
+            .swiper-entry {
+                padding: 0 60px;
+
+                .swiper-button-prev {
+                    left: 0;
+                }
+
+                .swiper-button-next {
+                    right: 0;
+                }
+
+                .swiper-slide {
+                    overflow: hidden;
+                }
+            }
+
             > .accordion-title {
                 padding: 21px 40px 22px 0;
 
                 i {
                     right: 0;
                 }
+            }
+        }
+
+        .accordion-inner {
+            .swiper-button-prev,
+            .swiper-button-next {
+                bottom: 0;
+                border: 1px solid $border;
             }
         }
     }

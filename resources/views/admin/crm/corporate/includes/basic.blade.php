@@ -65,7 +65,7 @@
 
             <tr>
                 <th>Дата замовлення</th>
-                <td>{{$order->created_at ? $order->created_at->format('d.m.Y H:i') : '-'}}</td>
+                <td>{{$order->created_at ? $order->created_at?->format('d.m.Y H:i') : '-'}}</td>
             </tr>
             <tr>
                 <th>Тип програми</th>

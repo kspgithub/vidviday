@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\HasTranslatableSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -116,6 +116,14 @@ class Staff extends TranslatableModel implements HasMedia
     }
 
     /**
+     * @return MorphMany
+     */
+    public function relatedTestimonials()
+    {
+        return $this->morphMany(Testimonial::class, 'related');
+    }
+
+    /**
      * @return BelongsTo
      */
     public function user()
@@ -137,6 +145,14 @@ class Staff extends TranslatableModel implements HasMedia
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'tours_staff', 'staff_id', 'tour_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function manageTours()
+    {
+        return $this->hasMany(Tour::class, 'manager_id');
     }
 
     /**
@@ -202,6 +218,6 @@ class Staff extends TranslatableModel implements HasMedia
         } else {
             $prefix = '/office-worker';
         }
-        return !empty($this->slug) ? $prefix . '/' . $this->slug : '';
+        return !empty($this->slug) ? url($prefix . '/' . $this->slug) : '';
     }
 }

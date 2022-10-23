@@ -48,21 +48,16 @@
                     <h1 class="h1 title">{{ $newsSingle->title }}</h1>
                     <div class="spacer-xxs"></div>
                     <span class="text-sm">
-                        {{ $newsSingle->created_at->format("d.m.Y") }}
+                        {{ $newsSingle->created_at?->format("d.m.Y") }}
                     </span>
-                    <div class="spacer-xxs"></div>
-                    <div>
-                        <a href="/document/document.pdf" download print class="download">
-                            <span class="text-md text-medium">Завантажити для друку</span>
-                        </a>
-
-                        <div v-is="'share-dropdown'" share-url="{{url()->current()}}"  share-title="{{ $newsSingle->title }}"></div>
-                    </div>
                     <div class="spacer-xxs"></div>
                     <!-- BANNER/INFO END -->
 
+                    @php
+                        $pictures = $newsSingle->getMedia();
+                    @endphp
 
-                    @if($newsSingle->getMedia()->count() > 0)
+                    @if($pictures->count() > 0 || $newsSingle->video)
                         <div class="spacer-xs"></div>
                         <!-- SLIDER -->
                         <div class="row">
@@ -70,32 +65,36 @@
                                 <div class="default-slider swiper-entry">
                                     <div class="swiper-container"
                                          data-options='{
-                                             "loop": {{ count($newsSingle->media) > 1 ? 'true' : 'false' }},
+                                             "loop": {{ $pictures->count() > 1 ? 'true' : 'false' }},
                                              "autoHeight": true,
                                              "parallax": true,
                                              "spaceBetween": 20
                                          }'>
                                         <div class="swiper-wrapper">
 
-                                            @foreach($newsSingle->media as $media)
-
-
-                                                @if($media->collection_name === "pictures")
-                                                    <div class="swiper-slide">
-                                                        <div class="img img-border">
-                                                            <img
-                                                                src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}"
-                                                                alt="img 28" data-swiper-parallax="30%">
-                                                        </div>
-                                                        <div class="text-center">
-
-                                                            <span
-                                                                class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
-                                                        </div>
+                                            @if($newsSingle->video)
+                                                <div class="swiper-slide">
+                                                    <div class="img img-border">
+                                                        <div class="video"
+                                                             data-frame-src="{{youtube_embed($newsSingle->video)}}"></div>
                                                     </div>
-                                                @endif
-                                            @endforeach
+                                                </div>
+                                            @endif
 
+                                            @foreach($pictures as $media)
+                                                <div class="swiper-slide">
+                                                    <div class="img img-border">
+                                                        <img
+                                                            src="{{ asset('storage/media/news/'.$media->id.'/'.$media->file_name) }}"
+                                                            alt="img 28" data-swiper-parallax="30%">
+                                                    </div>
+                                                    <div class="text-center">
+
+                                                        <span
+                                                            class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="swiper-button-prev outside bottom-sm">
@@ -114,6 +113,17 @@
                 <!-- POST CONTENT -->
                     <div class="text text-md">
                         {!!  $newsSingle->text !!}
+                    </div>
+
+                    <div class="spacer-xs"></div>
+                    <div class="social post-social">
+                        <span>{{ __('Поділитись') }}:</span>
+
+                        <div v-is="'share-dropdown'" share-url="{{url()->current()}}"  share-title="{{ $newsSingle->title }}"></div>
+
+                        <a href="/document/document.pdf" download print class="download only-desktop only">
+                            <span class="text-md text-medium">{{ __('tours-section.download-tour') }}</span>
+                        </a>
                     </div>
 
                     <!-- POST CONTENT END -->

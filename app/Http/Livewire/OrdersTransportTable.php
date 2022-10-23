@@ -16,7 +16,7 @@ class OrdersTransportTable extends DataTableComponent
 {
     public array $bulkActions = [
     ];
-    
+
     /**
      * @var string
      */
@@ -87,7 +87,7 @@ class OrdersTransportTable extends DataTableComponent
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
-                    return $row->created_at ? $row->created_at->format('d.m.Y H:i') : '-';
+                    return $row->created_at ? $row->created_at?->format('d.m.Y H:i') : '-';
                 })
                 ->searchable()
                 ->sortable(),

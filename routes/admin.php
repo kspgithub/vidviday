@@ -70,6 +70,7 @@ use App\Http\Controllers\Admin\TourType\TourTypeController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\Transport\OrderTransportController;
 use App\Http\Controllers\Admin\Transport\TransportController;
+use App\Http\Controllers\Admin\Transport\TransportDurationController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\User\DeactivatedUserController;
 use App\Http\Controllers\Admin\User\DeletedUserController;
@@ -149,6 +150,7 @@ Route::group([
 
 // TRANSPORT
 Route::resource('transport', TransportController::class);
+Route::resource('transport_duration', TransportDurationController::class);
 Route::resource('order-transport', OrderTransportController::class)->only(['index', 'show', 'edit', 'update']);
 
 // NEWS

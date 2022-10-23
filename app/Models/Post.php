@@ -13,8 +13,8 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\HasTranslatableSlug;
+use App\Models\Traits\HasSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -53,6 +53,7 @@ class Post extends TranslatableModel implements HasMedia
         'short_text',
         'slug',
         'published',
+        'video',
     ];
 
     protected $appends = [

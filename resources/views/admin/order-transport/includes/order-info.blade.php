@@ -6,7 +6,7 @@
                 <tr>
                     <th style="width: 300px;">@lang('Created At')</th>
                     <td>
-                        {{$order->created_at ? $order->created_at->format('d.m.Y H:i') : '-'}}
+                        {{$order->created_at ? $order->created_at?->format('d.m.Y H:i') : '-'}}
                     </td>
                 </tr>
                 <tr>

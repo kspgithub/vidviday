@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Sluggable\HasSlug;
+use App\Models\Traits\HasSlug;
 use Spatie\Translatable\HasTranslations;
 
 class Country extends TranslatableModel

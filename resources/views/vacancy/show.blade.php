@@ -41,7 +41,7 @@
                     <!-- CAREER CONTENT -->
                     <h1 class="h1 title">{{!empty($vacancy->seo_h1) ? $vacancy->seo_h1 : $vacancy->title }}</h1>
                     <div class="spacer-xxs"></div>
-                    <span class="text-md">{{$vacancy->created_at->format('d.m.Y')}}</span>
+                    <span class="text-md">{{$vacancy->created_at?->format('d.m.Y')}}</span>
                     <div class="only-pad-mobile">
                         <x-page.social-share :share-url="route('vacancy.show', $vacancy)" :share-title="$vacancy->title"/>
                     </div>

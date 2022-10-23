@@ -62,15 +62,15 @@ DB_PASSWORD=
 ```
 php artisan translations:import
 ```
+Затем опубликовать
+```
+php artisan translations:publish --skip-import
+```
 ### Force rewrite existing db entries
 ```
 php artisan translations:import --skip-exists
 ```
 
-Затем опубликовать
-```
-php artisan translations:publish --skip-import
-```
 
 
 ## Панель администратора

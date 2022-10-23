@@ -2,15 +2,16 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-header" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">{{ __('popup.testimonial.write-guide') }}</span>
+                <span v-if="type === 'guide'" class="h2 title text-medium">{{ __('popup.testimonial.write-guide') }}</span>
+                <span v-if="type === 'worker'" class="h2 title text-medium">{{ __('popup.testimonial.write-worker') }}</span>
             </div>
         </div>
         <form method="post" :action="action" class="popup-align" enctype="multipart/form-data" v-if="showForm">
             <slot/>
             <div class="have-an-account text-center">
-                    <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                        <span class="open-popup" data-rel="login-popup">{{ __('auth.entrance') }}</span>
-                    </span>
+                <span class="text" v-if="!user">{{ __('auth.have-account') }}
+                    <span class="open-popup" @click="closePopup()" data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
                          :class="{uploaded: !!selectedAvatar}"
@@ -160,6 +161,7 @@ export default {
     name: "StaffTestimonialForm",
     components: {FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
+        type: String,
         staff: Object,
         user: Object,
         action: String,

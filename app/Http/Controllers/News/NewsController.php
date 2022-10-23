@@ -24,7 +24,7 @@ class NewsController extends Controller
     public function single($slug)
     {
 
-        $newsSingle = News::findBySlugOrFail($slug);
+        $newsSingle = News::query()->published()->whereHasSlug($slug)->firstOrFail();
 
         return view("news.single", [
             "newsSingle" => $newsSingle,

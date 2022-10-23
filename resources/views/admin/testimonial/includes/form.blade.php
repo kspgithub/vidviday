@@ -12,7 +12,7 @@
 
         <x-forms.textarea-group name="text" :label="__('Text')" :value="old('text', $testimonial->text)"></x-forms.textarea-group>
 
-        <x-forms.datepicker-group name="created_at" :label="__('Created At')" :value="old('created_at', $testimonial->created_at->format('d.m.Y'))"></x-forms.datepicker-group>
+        <x-forms.datepicker-group name="created_at" :label="__('Created At')" :value="old('created_at', $testimonial->created_at?->format('d.m.Y'))"></x-forms.datepicker-group>
 
     </x-slot>
 
