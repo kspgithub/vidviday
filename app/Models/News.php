@@ -73,6 +73,9 @@ class News extends TranslatableModel implements HasMedia
             if (empty($model->short_text)) {
                 $model->short_text = Str::limit(strip_tags($model->text), 500);
             }
+            if (empty($model->created_at)) {
+                $model->created_at = now();
+            }
         });
 
     }
