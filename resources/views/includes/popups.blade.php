@@ -17,8 +17,8 @@
     {{--    @include('includes.popups.one-click-popup')--}}
 
     @include('includes.popups.place-testimonial-popup')
-    @include('includes.popups.guide-testimonial-popup')
-    @include('includes.popups.manager-testimonial-popup')
+{{--    @include('includes.popups.guide-testimonial-popup')--}}
+{{--    @include('includes.popups.manager-testimonial-popup')--}}
     @include('includes.popups.tour-cancel-popup')
 
     @include('includes.popups.popup_ads')

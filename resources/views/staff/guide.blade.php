@@ -94,6 +94,7 @@
 
 @push('after-popups')
     <div v-is="'staff-testimonial-form'"
+         :type='@json('guide')'
          :staff='@json($staff)'
          :user='@json(current_user())'
          action='{{route('staff.testimonial', $staff->id)}}'
