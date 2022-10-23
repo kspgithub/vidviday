@@ -20,7 +20,7 @@
             ></x-forms.textarea-loc-group>
 
             <x-forms.switch-group name="published" :label="__('Published')"
-                                  :active="$post->published"></x-forms.switch-group>
+                                  :active="$post->exists ? $post->published : true"></x-forms.switch-group>
             <x-forms.single-image-upload name="main_image"
                                          :preview="!empty($post->main_image) ? $post->main_image_url : ''"
                                          :value="$post->main_image"
