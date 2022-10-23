@@ -22,7 +22,8 @@
             ></x-forms.textarea-loc-group>
 
             <x-forms.switch-group name="published" :label="__('Published')"
-                                  :active="$news->published"></x-forms.switch-group>
+                                  :active="$news->exists ? $news->published : true"></x-forms.switch-group>
+
             <x-forms.single-image-upload name="main_image"
                                          :preview="!empty($news->main_image) ? $news->main_image_url : ''"
                                          :value="$news->main_image"
