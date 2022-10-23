@@ -44,7 +44,12 @@ class TourGuideController extends Controller
         $testimonials = $staff->testimonials->merge($staff->relatedTestimonials)->sortBy(fn($t) => $t->created_at);
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
-        })->get();
+        })->withAvg('testimonials', 'rating')
+            ->withCount(['testimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            }])->get();
         return view('staff.guide', ['staff' => $staff, 'tours' => $tours, 'testimonials' => $testimonials]);
     }
 }

@@ -42,12 +42,22 @@ class StaffController extends Controller
             'tours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
                     return $q->inFuture();
-                });
+                })->withAvg('testimonials', 'rating')
+                    ->withCount(['testimonials' => function ($q) {
+                        return $q->moderated()
+                            ->orderBy('rating', 'desc')
+                            ->latest();
+                    }]);
             },
             'manageTours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
                     return $q->inFuture();
-                });
+                })->withAvg('testimonials', 'rating')
+                    ->withCount(['testimonials' => function ($q) {
+                        return $q->moderated()
+                            ->orderBy('rating', 'desc')
+                            ->latest();
+                    }]);
             },
         ]);
 
