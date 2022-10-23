@@ -32,7 +32,10 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="duration" v-model="data.duration" :label="__('forms.duration')" />
+                <form-sumo-select name="duration"
+                                  v-model="data.duration"
+                                  :label="__('forms.duration')"
+                                  :options="durations"/>
             </div>
 
             <div class="col-md-6 col-12">
@@ -93,7 +96,11 @@ export default {
         action: {
             type: String,
             default: '/transport'
-        }
+        },
+        durations: {
+            type: Array,
+            default: () => []
+        },
     },
     setup(props) {
         const store = useStore();

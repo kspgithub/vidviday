@@ -66,7 +66,7 @@
 
                         <x-page.contact-block :staff="$pageContent->staff" title="Співпраця з перевізниками"/>
 
-                        <div class="bg-box" id="transport-form" v-is="'order-transport-form'"></div>
+                        <div class="bg-box" id="transport-form" v-is="'order-transport-form'" :durations="{{ json_encode($transportDurations) }}"></div>
 
                     </div>
                     <!-- TRANSPORT CONTENT END -->
