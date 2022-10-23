@@ -48,7 +48,7 @@
                     <h1 class="h1 title">{{ $charitySingle->title }}</h1>
                     <div class="spacer-xxs"></div>
                     <span class="text-sm">
-                        {{ $charitySingle->created_at->format("d.m.Y") }}
+                        {{ $charitySingle->created_at?->format("d.m.Y") }}
                     </span>
                     <div class="spacer-xxs"></div>
                     <div>

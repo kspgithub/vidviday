@@ -42,7 +42,7 @@ return [
     'work-email' => 'Електронна пошта фірми',
     'website' => 'Адреса веб-сторінки',
     'select-from-list' => 'Оберіть зі списку',
-    'tour-where-on' => 'Тур, у якому ви були',
+    'tour-where-on' => 'Тур, який Ви замовляли',
     'evaluate-tour' => 'Оцініть тур',
     'enter-tour-name' => 'Введіть назву тура',
     'add-tour-photo' => 'Додати фото з туру:',

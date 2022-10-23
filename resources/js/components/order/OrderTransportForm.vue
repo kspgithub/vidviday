@@ -22,7 +22,9 @@
 
             <div class="col-md-6 col-12">
                 <div class="single-datepicker">
-                    <form-datepicker name="start_date" v-model="data.start_date" :label="__('forms.departure-date')"/>
+                    <form-datepicker name="start_date" v-model="data.start_date" :label="__('forms.departure-date')"
+                                     :min-date="minDate"
+                    />
                     <!--                    <form-date-range-picker v-model="[data.start_date, data.end_date]"-->
                     <!--                                            :label="__('forms.departure-date')"-->
                     <!--                                            rules="required"/>-->
@@ -30,7 +32,10 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input name="duration" v-model="data.duration" :label="__('forms.duration')" />
+                <form-sumo-select name="duration"
+                                  v-model="data.duration"
+                                  :label="__('forms.duration')"
+                                  :options="durations"/>
             </div>
 
             <div class="col-md-6 col-12">
@@ -82,6 +87,7 @@ import {getError} from "../../services/api";
 import toast from "../../libs/toast";
 import FormDatepicker from "../form/FormDatepicker";
 import {__} from "../../i18n/lang";
+import moment from 'moment/moment.js'
 
 export default {
     name: "OrderTransportForm",
@@ -90,7 +96,11 @@ export default {
         action: {
             type: String,
             default: '/transport'
-        }
+        },
+        durations: {
+            type: Array,
+            default: () => []
+        },
     },
     setup(props) {
         const store = useStore();
@@ -164,11 +174,14 @@ export default {
             }
         }
 
+        const minDate = ref(moment().add(1, "day").format('DD.MM.YYYY'));
+
         return {
             data,
             ageGroupOptions,
             submitted,
             onSubmit,
+            minDate,
         }
     }
 }

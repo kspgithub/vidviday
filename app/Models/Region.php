@@ -7,7 +7,7 @@ use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
-use Spatie\Sluggable\HasSlug;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 

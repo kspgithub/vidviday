@@ -41,7 +41,7 @@
                     <!-- CAREER CONTENT -->
                     <h1 class="h1 title">{{!empty($practice->seo_h1) ? $practice->seo_h1 : $practice->title }}</h1>
                     <div class="spacer-xxs"></div>
-                    <span class="text-md">{{$practice->created_at->format('d.m.Y')}}</span>
+                    <span class="text-md">{{$practice->created_at?->format('d.m.Y')}}</span>
                     <div class="only-pad-mobile">
                         <x-page.social-share :share-url="route('practice.show', $practice)" :share-title="$practice->title"/>
                     </div>

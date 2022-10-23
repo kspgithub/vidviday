@@ -23,8 +23,8 @@
                             </div>
                             <div class="review-title">
                                 <span class="h4">{{$testimonial->name}}</span>
-                                <span class="text text-sm">{{$testimonial->created_at->format('d.m.Y')}}</span>
-                                <span class="text text-sm">{{$testimonial->created_at->format('H:i')}}</span>
+                                <span class="text text-sm">{{$testimonial->created_at?->format('d.m.Y')}}</span>
+                                <span class="text text-sm">{{$testimonial->created_at?->format('H:i')}}</span>
                                 <x-tour.star-rating :rating="$testimonial->rating"/>
                             </div>
                         </div>

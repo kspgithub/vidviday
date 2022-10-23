@@ -43,6 +43,7 @@ class PostBasicRequest extends FormRequest
             'mobile_image' => ['nullable', 'string'],
             'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'video' => ['nullable'],
         ];
     }
 }

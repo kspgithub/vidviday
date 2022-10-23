@@ -60,7 +60,7 @@ abstract class PurchaseAbstract
         ];
         $this->amount = $amount;
         $this->currency = $order->currency;
-        $this->orderDate = !empty($order->created_at) ? $order->created_at->toDateTime() : new \DateTime();
+        $this->orderDate = !empty($order->created_at) ? $order->created_at?->toDateTime() : new \DateTime();
         $this->serviceUrl = url(route('purchase.service'));
     }
 

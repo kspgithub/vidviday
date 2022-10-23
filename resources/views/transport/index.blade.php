@@ -51,7 +51,7 @@
                         <div class="only-pad-mobile">
                             <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
                             <div class="spacer-xs"></div>
-                            <span class="btn type-1 btn-block">Замовити автобус</span>
+                            <a class="btn type-1 btn-block" href="#transport-form">{{ __('order-section.order-bus') }}</a>
                             <div class="spacer-xs"></div>
                         </div>
                         <div class="text text-md">
@@ -66,7 +66,7 @@
 
                         <x-page.contact-block :staff="$pageContent->staff" title="Співпраця з перевізниками"/>
 
-                        <div class="bg-box" id="transport-form" v-is="'order-transport-form'"></div>
+                        <div class="bg-box" id="transport-form" v-is="'order-transport-form'" :durations="{{ json_encode($transportDurations) }}"></div>
 
                     </div>
                     <!-- TRANSPORT CONTENT END -->
@@ -74,7 +74,7 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                @include('page.includes.right-sidebar', ['button'=>['title'=>'Замовити автобус', 'url'=>'#transport-form'], 'pageContent'=>$pageContent])
+                @include('page.includes.right-sidebar', ['button'=>['title'=>__('order-section.order-bus'), 'url'=>'#transport-form'], 'pageContent'=>$pageContent])
                 <!-- SIDEBAR END -->
                 </div>
             </div>

@@ -4,6 +4,8 @@
             <h3>@lang('Basic Information')</h3>
         </x-slot>
         <x-slot name="body">
+            <x-forms.translation-switch />
+
             <x-forms.text-loc-group name="title" :label="__('Title')"
                                     :value="old('title', $news->getTranslations('title'))"
                                     required/>
@@ -20,7 +22,8 @@
             ></x-forms.textarea-loc-group>
 
             <x-forms.switch-group name="published" :label="__('Published')"
-                                  :active="$news->published"></x-forms.switch-group>
+                                  :active="$news->exists ? $news->published : true"></x-forms.switch-group>
+
             <x-forms.single-image-upload name="main_image"
                                          :preview="!empty($news->main_image) ? $news->main_image_url : ''"
                                          :value="$news->main_image"
@@ -33,6 +36,9 @@
                                          help="320x320"
                                          imgstyle="height: 200px; width: 200px; object-fit: cover;"
             />
+
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $news->video)"></x-forms.text-group>
 
             <x-forms.datepicker-group name="created_at"
                                       :label="__('Created At')"

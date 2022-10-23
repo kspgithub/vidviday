@@ -39,10 +39,30 @@ class StaffController extends Controller
             'testimonials' => function ($q) {
                 return $q->moderated();
             },
+            'tours' => function ($q) {
+                return $q->with('scheduleItems', function ($q) {
+                    return $q->inFuture();
+                })->withAvg('testimonials', 'rating')
+                    ->withCount(['testimonials' => function ($q) {
+                        return $q->moderated()
+                            ->orderBy('rating', 'desc')
+                            ->latest();
+                    }]);
+            },
+            'manageTours' => function ($q) {
+                return $q->with('scheduleItems', function ($q) {
+                    return $q->inFuture();
+                })->withAvg('testimonials', 'rating')
+                    ->withCount(['testimonials' => function ($q) {
+                        return $q->moderated()
+                            ->orderBy('rating', 'desc')
+                            ->latest();
+                    }]);
+            },
         ]);
-        $tours = $staff->tours()->with('scheduleItems', function ($q) {
-            return $q->inFuture();
-        })->get();
+
+        $tours = $staff->tours->merge($staff->manageTours);
+
         return view('staff.worker', ['staff' => $staff, 'tours' => $tours]);
     }
 

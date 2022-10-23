@@ -223,10 +223,21 @@
                     </a>
                 </li>
                 <li class="sidebar-item {{routeActiveClass('admin.transport*')}}">
-                    <a class="sidebar-link" href="{{route('admin.transport.index')}}">
-                        <i class="align-middle" data-feather="truck"></i> <span
-                            class="align-middle">@lang('Transport')</span>
+                    <a data-bs-target="#food" data-bs-toggle="collapse" class="sidebar-link">
+                        <i class="align-middle" data-feather="truck"></i>
+                        <span class="align-middle">@lang('Transport')</span>
                     </a>
+
+                    <ul id="transport"
+                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.transport*', 'show', '')}}"
+                        data-bs-parent="#sidebar">
+                        <li class="sidebar-item {{routeActiveClass('admin.transport.index')}}">
+                            <a class="sidebar-link" href="{{route('admin.transport.index')}}">@lang('Transport')</a>
+                        </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.transport_duration.index')}}">
+                            <a class="sidebar-link" href="{{route('admin.transport_duration.index')}}">@lang('Transport durations')</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item {{routeActiveClass('admin.vacancy*')}}">
                     <a class="sidebar-link" href="{{route('admin.vacancy.index')}}">

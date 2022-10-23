@@ -6,7 +6,7 @@ use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Sluggable\HasTranslatableSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 

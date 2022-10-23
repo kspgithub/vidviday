@@ -67,7 +67,7 @@
                                     <div class="title h3">
                                         <a href="{{ route("charity.single", ["slug" => $post->slug]) }}">{{ $post->title }}</a>
                                     </div>
-                                    <span class="text text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
+                                    <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
                                         <a href="{{ route("charity.single", ["slug" => $post->slug]) }}"
