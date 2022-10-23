@@ -37,10 +37,14 @@ class TourGuideController extends Controller
             'testimonials' => function ($q) {
                 return $q->moderated();
             },
+            'relatedTestimonials' => function ($q) {
+                return $q->moderated();
+            },
         ]);
+        $testimonials = $staff->testimonials->merge($staff->relatedTestimonials)->sortBy(fn($t) => $t->created_at);
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
         })->get();
-        return view('staff.guide', ['staff' => $staff, 'tours' => $tours]);
+        return view('staff.guide', ['staff' => $staff, 'tours' => $tours, 'testimonials' => $testimonials]);
     }
 }

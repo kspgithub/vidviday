@@ -59,7 +59,7 @@
                          ])
                         <h1 class="h1 title">{{$staff->first_name}} {{$staff->last_name}}</h1>
 
-                        <x-page.social-share :share-url="route('staff.show', $staff)" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position"/>
+                        <x-page.social-share :share-url="$staff->url" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position"/>
 
                         <div class="text text-md">
                             {!! $staff->text !!}
@@ -73,7 +73,7 @@
                     <div class="accordion type-4">
                         <hr>
                         <x-page.testimonials-accordion
-                            :testimonials="$staff->testimonials"></x-page.testimonials-accordion>
+                            :testimonials="$testimonials"></x-page.testimonials-accordion>
                         <div class="spacer-sm"></div>
                     </div>
                     <!-- ACCORDIONS CONTENT END -->

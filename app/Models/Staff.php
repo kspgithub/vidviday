@@ -116,6 +116,14 @@ class Staff extends TranslatableModel implements HasMedia
     }
 
     /**
+     * @return MorphMany
+     */
+    public function relatedTestimonials()
+    {
+        return $this->morphMany(Testimonial::class, 'related');
+    }
+
+    /**
      * @return BelongsTo
      */
     public function user()
@@ -202,6 +210,6 @@ class Staff extends TranslatableModel implements HasMedia
         } else {
             $prefix = '/office-worker';
         }
-        return !empty($this->slug) ? $prefix . '/' . $this->slug : '';
+        return !empty($this->slug) ? url($prefix . '/' . $this->slug) : '';
     }
 }
