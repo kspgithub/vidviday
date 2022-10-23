@@ -54,7 +54,7 @@
                     <div class="spacer-xs"></div>
                     <h1 class="h1 title">{{ $post->title }}</h1>
                     <div class="spacer-xxs"></div>
-                    <span class="text-sm">{{ $post->created_at->format("d.m.Y") }}</span>
+                    <span class="text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                     <div class="spacer-xxs"></div>
                     <div class="text text-md">
                         {!! $post->short_text !!}

@@ -41,7 +41,7 @@
                     <!-- CAREER CONTENT -->
                     <h1 class="h1 title">{{!empty($course->seo_h1) ? $course->seo_h1 : $course->title }}</h1>
                     <div class="spacer-xxs"></div>
-                    <span class="text-md">{{$course->created_at->format('d.m.Y')}}</span>
+                    <span class="text-md">{{$course->created_at?->format('d.m.Y')}}</span>
                     <div class="only-pad-mobile">
                         <x-page.social-share :share-url="route('course.show', $course)" :share-title="$course->title"/>
                     </div>

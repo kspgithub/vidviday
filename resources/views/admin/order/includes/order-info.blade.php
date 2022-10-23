@@ -6,7 +6,7 @@
                 <tr>
                     <th style="width: 300px;">@lang('Created At')</th>
                     <td>
-                        {{$order->created_at ? $order->created_at->format('d.m.Y H:i') : '-'}}
+                        {{$order->created_at ? $order->created_at>->format('d.m.Y H:i') : '-'}}
                     </td>
                 </tr>
                 <tr>
@@ -406,7 +406,7 @@
                 <tbody>
                 @foreach($notes as $order_note)
                     <tr>
-                        <td style="width: 300px;">{{$order_note->created_at ? $order_note->created_at->format('d.m.Y H:i') : '-'}}</td>
+                        <td style="width: 300px;">{{$order_note->created_at ? $order_note->created_at?->format('d.m.Y H:i') : '-'}}</td>
                         <td>
                             {!! $order_note->text !!}
                         </td>
