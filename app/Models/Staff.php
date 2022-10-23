@@ -150,6 +150,14 @@ class Staff extends TranslatableModel implements HasMedia
     /**
      * @return HasMany
      */
+    public function manageTours()
+    {
+        return $this->hasMany(Tour::class, 'manager_id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function vacansies()
     {
         return $this->hasMany(Vacancy::class);
