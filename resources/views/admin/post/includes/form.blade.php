@@ -33,6 +33,10 @@
                                          help="320x320"
                                          imgstyle="height: 200px; width: 200px; object-fit: cover;"
             />
+
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $post->video)"></x-forms.text-group>
+
         </x-slot>
     </x-bootstrap.card>
 

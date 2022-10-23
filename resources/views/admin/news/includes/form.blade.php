@@ -34,6 +34,9 @@
                                          imgstyle="height: 200px; width: 200px; object-fit: cover;"
             />
 
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $news->video)"></x-forms.text-group>
+
             <x-forms.datepicker-group name="created_at"
                                       :label="__('Created At')"
                                       :value="old('created_at', $news->created_at?->format('d.m.Y'))"

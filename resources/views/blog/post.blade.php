@@ -61,7 +61,12 @@
                     </div>
 
                     <!-- BANNER/INFO END -->
-                    @if($post->getMedia()->count() > 0)
+
+                    @php
+                        $pictures = $post->getMedia();
+                    @endphp
+
+                    @if($pictures->count() > 0 || $post->video)
                     <div class="spacer-xs"></div>
 
                     <!-- SLIDER -->
@@ -69,25 +74,31 @@
                         <div class="col-lg-10 offset-lg-1 col-12">
                             <div class="default-slider swiper-entry">
                                 <div class="swiper-container" data-options='{
-						            "loop": {{ count($post->media) > 1 ? 'true' : 'false' }},
+						            "loop": {{ $pictures->count() > 1 ? 'true' : 'false' }},
                                     "autoHeight": true,
                                     "parallax": true,
                                     "spaceBetween": 20
                                 }'>
                                     <div class="swiper-wrapper">
 
-                                        @foreach($post->media as $media)
-
-                                            @if($media->collection_name === "pictures")
-                                                <div class="swiper-slide">
-                                                    <div class="img img-border">
-                                                        <img src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="img 28" data-swiper-parallax="30%">
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
-                                                    </div>
+                                        @if($post->video)
+                                            <div class="swiper-slide">
+                                                <div class="img img-border">
+                                                    <div class="video"
+                                                         data-frame-src="{{youtube_embed($post->video)}}"></div>
                                                 </div>
-                                            @endif
+                                            </div>
+                                        @endif
+
+                                        @foreach($pictures as $media)
+                                            <div class="swiper-slide">
+                                                <div class="img img-border">
+                                                    <img src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="img 28" data-swiper-parallax="30%">
+                                                </div>
+                                                <div class="text-center">
+                                                    <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
+                                                </div>
+                                            </div>
                                         @endforeach
 
                                     </div>

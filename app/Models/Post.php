@@ -53,6 +53,7 @@ class Post extends TranslatableModel implements HasMedia
         'short_text',
         'slug',
         'published',
+        'video',
     ];
 
     protected $appends = [
