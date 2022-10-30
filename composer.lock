@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff0de66159ad2bef026dba4bcf923cb2",
+    "content-hash": "2c34c2298ca6b01465920292830c8198",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -6198,6 +6198,67 @@
             "time": "2022-03-30T01:55:23+00:00"
         },
         {
+            "name": "renatomarinho/laravel-page-speed",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/renatomarinho/laravel-page-speed.git",
+                "reference": "ac71e0aa2882bfc10d170dc67e591216d02ab859"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/renatomarinho/laravel-page-speed/zipball/ac71e0aa2882bfc10d170dc67e591216d02ab859",
+                "reference": "ac71e0aa2882bfc10d170dc67e591216d02ab859",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "phpunit/phpunit": "^8.5 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RenatoMarinho\\LaravelPageSpeed\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RenatoMarinho\\LaravelPageSpeed\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Renato Marinho",
+                    "email": "renato.marinho@s2move.com"
+                }
+            ],
+            "description": "Laravel Page Speed",
+            "keywords": [
+                "html",
+                "laravel",
+                "minify",
+                "optimize",
+                "page speed"
+            ],
+            "support": {
+                "issues": "https://github.com/renatomarinho/laravel-page-speed/issues",
+                "source": "https://github.com/renatomarinho/laravel-page-speed/tree/2.1.0"
+            },
+            "time": "2022-03-14T18:28:48+00:00"
+        },
+        {
             "name": "sabberworm/php-css-parser",
             "version": "8.4.0",
             "source": {
@@ -9640,16 +9701,16 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.5",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19"
+                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/4348a3a06651827a27d989ad1d13efec6bb49b19",
-                "reference": "4348a3a06651827a27d989ad1d13efec6bb49b19",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/da444caae6aca7a19c0c140f68c6182e337d5b1c",
+                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
                 "shasum": ""
             },
             "require": {
@@ -9687,9 +9748,9 @@
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "support": {
                 "issues": "https://github.com/tijsverkoyen/CssToInlineStyles/issues",
-                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.5"
+                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
-            "time": "2022-09-12T13:28:28+00:00"
+            "time": "2021-12-08T09:12:39+00:00"
         },
         {
             "name": "torann/geoip",

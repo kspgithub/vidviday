@@ -33,6 +33,7 @@
         "owen-it/laravel-auditing": "^12.2",
         "propaganistas/laravel-phone": "^4.3",
         "rappasoft/laravel-livewire-tables": "^1.10",
+        "renatomarinho/laravel-page-speed": "^2.1",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-sitemap": "^6.1",
