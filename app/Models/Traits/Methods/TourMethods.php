@@ -4,6 +4,7 @@ namespace App\Models\Traits\Methods;
 
 use App\Models\Tour;
 use App\Models\TourSchedule;
+use App\Models\TourVoting;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -55,7 +56,7 @@ trait TourMethods
             'rating' => $this->rating,
             'testimonials_count' => $this->testimonials_count ?? 0,
             'testimonials_avg_rating' => $this->testimonials_avg_rating ?? 0,
-            'votings_count' => $this->votings()->published()->count(),
+            'votings_count' => $this->votings->filter(fn($q) => $q->where('status', TourVoting::STATUS_PUBLISHED))->count(),
             'duration' => $this->duration,
             'nights' => $this->nights,
             'time' => $this->nights,

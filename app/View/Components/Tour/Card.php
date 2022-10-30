@@ -39,7 +39,9 @@ class Card extends Component
      */
     public function __construct(Tour $tour, $mode = 'thumb', $vue = false, $history = false)
     {
-        $tour->loadAvg('testimonials', 'rating');
+        if(!array_key_exists('testimonials_avg_rating', $tour->getAttributes())) {
+            $tour->loadAvg('testimonials', 'rating');
+        }
 
         $this->mode = $mode;
         //
@@ -49,7 +51,7 @@ class Card extends Component
 
         $this->history = $history;
 
-        $this->schedule = $tour->scheduleItems()->firstOrNew();
+        $this->schedule = $tour->scheduleItems->first() ?: $tour->scheduleItems()->related->newInstance();
     }
 
     /**
