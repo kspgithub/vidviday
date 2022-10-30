@@ -50,7 +50,7 @@ class BaseTemplateEmail extends Mailable
             $mail->subject($subject);
             $html = Blade::render($html, $this->buildViewData());
         } else {
-            $mail->subject(static::$subjectKey);
+            $mail->subject(trans(static::$subjectKey));
             $mail->view(static::$viewKey);
             $html = Blade::render($mail->buildView(), $mail->buildViewData());
         }
