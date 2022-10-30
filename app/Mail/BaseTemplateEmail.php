@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Blade;
+use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class BaseTemplateEmail extends Mailable
 {
@@ -47,11 +48,18 @@ class BaseTemplateEmail extends Mailable
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
             $mail->subject($subject);
-            $mail->html(Blade::render($html, $this->buildViewData()));
+            $html = Blade::render($html, $this->buildViewData());
         } else {
-            $mail->subject(__(static::$subjectKey))
-                ->view(static::$viewKey);
+            $mail->subject(static::$subjectKey);
+            $mail->view(static::$viewKey);
+            $html = Blade::render($mail->buildView(), $mail->buildViewData());
         }
+
+        $cssToInlineStyles = new CssToInlineStyles();
+
+        $html = $cssToInlineStyles->convert($html);
+
+        $mail->html($html);
 
         return $mail;
     }
