@@ -39,6 +39,7 @@
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-translatable": "^4.6",
         "spatie/laravel-translation-loader": "^2.7",
+        "tijsverkoyen/css-to-inline-styles": "^2.2",
         "verschuur/laravel-robotstxt": "^4.0",
         "wayforpay/php-sdk": "^1.0"
     },
