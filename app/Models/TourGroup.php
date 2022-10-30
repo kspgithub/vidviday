@@ -94,9 +94,9 @@ class TourGroup extends TranslatableModel implements HasMedia
         $slug = $this->getTranslations($slugField)[$this->getLocale()] ?? null;
 
         $hasCustomSlug = $this->hasCustomSlugBeenUsed() && !empty($slug);
-        $hasNonChangedCustomSlug = !$this->slugIsBasedOnTitle() && !empty($slug);
+//        $hasNonChangedCustomSlug = !$this->slugIsBasedOnTitle() && !empty($slug);
 
-        if ($hasCustomSlug || $hasNonChangedCustomSlug) {
+        if ($hasCustomSlug/* || $hasNonChangedCustomSlug*/) {
             $slugString = $slug;
 
             $slugString = Str::replace(' ', $this->slugOptions->slugSeparator, $slugString);
