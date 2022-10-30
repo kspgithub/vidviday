@@ -60,15 +60,11 @@ DB_PASSWORD=
 
 После добавления новых ключей в языковых файлах нужно импортировать их в БД:
 ```
-php artisan translations:import
+php artisan translations:import --skip-exists
 ```
 Затем опубликовать
 ```
 php artisan translations:publish --skip-import
-```
-### Force rewrite existing db entries
-```
-php artisan translations:import --skip-exists
 ```
 
 

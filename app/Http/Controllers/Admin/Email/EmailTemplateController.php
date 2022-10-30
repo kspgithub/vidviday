@@ -17,6 +17,7 @@ use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
+use App\Models\Contact;
 use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
@@ -187,10 +188,18 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
+        /** @var BaseTemplateEmail $mailableClass */
+        $mailableClass = new $mailable;
+
         if(!in_array($mailable, $localTemplates)) {
             throw new \Exception('Mailable ' . $mailable .' not found.');
         }
 
+        $mailableClass->contact = Contact::first();
+
+        $mailableClass->showOnMapUrl = config('contacts.show-on-map-url');
+
+        /** @var EmailTemplate $template */
         $template = EmailTemplate::query()->where('mailable', $mailable)->first();
 
         $locale = app()->getLocale();
@@ -199,18 +208,16 @@ class EmailTemplateController extends Controller
             $subject = $template->getTranslation('subject', $locale);
             $html = $template->getTranslation('html', $locale);
 
-            foreach ($this->getReplaces() as $key => $value) {
+            foreach ($mailableClass->getReplaces() as $key => $value) {
                 $replaceFrom = '{{ ' . $key . ' }}';
                 $replaceTo = is_callable($value) ? $value() : $value;
                 $subject = str_replace($replaceFrom, $replaceTo, $subject);
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
 
-            return Blade::render($html, $this->buildViewData());
+            return Blade::render($html, $mailableClass->buildViewData());
         } else {
 
-            /** @var BaseTemplateEmail $mailableClass */
-            $mailableClass = new $mailable;
 
             return $mailableClass->render();
         }
