@@ -58,6 +58,7 @@ trait TourScope
         $query->published()->with([
             'scheduleItems' => function (HasMany $q) {
                 return $q
+                    ->with('orders')
                     ->where('tour_schedules.start_date', '>=', now())
                     ->whereNull('tour_schedules.deleted_at');
             },
@@ -200,8 +201,6 @@ trait TourScope
                 }
             });
 
-        $query->withAvg('testimonials', 'rating');
-
         $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'date';
         $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
 
@@ -258,6 +257,13 @@ trait TourScope
         foreach ($order as $item) {
             $query->orderBy($item['by'], $item['dir']);
         }
+
+        // With
+        $query->withAvg(['testimonials' => function ($q) {
+            return $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest();
+        }], 'rating');
 
         return $query;
     }

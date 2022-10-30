@@ -28,11 +28,7 @@ class ToursController extends Controller
 
         $query = Tour::search($future)->filter($request->validated());
 
-        $query->withAvg(['testimonials' => function ($q) {
-            return $q->moderated()
-                ->orderBy('rating', 'desc')
-                ->latest();
-        }], 'rating')->withCount(['testimonials' => function ($q) {
+        $query->withCount(['testimonials' => function ($q) {
             return $q->moderated()
                 ->orderBy('rating', 'desc')
                 ->latest();
