@@ -1,6 +1,5 @@
 require('./bootstrap');
 
-
 window.$ = window.jQuery = require('jquery');
 
 require('./libs/jquery-ui.min');

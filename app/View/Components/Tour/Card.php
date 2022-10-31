@@ -51,7 +51,7 @@ class Card extends Component
 
         $this->history = $history;
 
-        $this->schedule = $tour->scheduleItems->first() ?: $tour->scheduleItems()->related->newInstance();
+        $this->schedule = $tour->scheduleItems->first() ?: $tour->scheduleItems()->getRelated()->newInstance();
     }
 
     /**
