@@ -15,9 +15,11 @@
     <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
     <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">
 
-    <link rel="canonical" href="{{ url()->current() }}">
+    @if(request()->getRequestUri() !== '/')
+        <link rel="canonical" href="{{ url()->current() }}">
+        <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
+    @endif
 
-    <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
     @foreach($localeLinks ?? [] as $locale => $link)
         <link rel="alternate" hreflang="{{ $locale }}-UA" href="{{ url($link) }}"/>
     @endforeach
