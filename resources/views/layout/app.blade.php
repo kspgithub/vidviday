@@ -28,6 +28,7 @@
     @include('layout.includes.grid')
     <!-- Styles -->
     @stack('before-styles', false)
+    @livewireStyles
 
     <link href="{{ mix('css/main.css') }}" rel="stylesheet">
 
@@ -73,6 +74,7 @@
 </div>
 
 @stack('before-scripts', false)
+@livewireScripts
 
 <script type="text/javascript">
     window.toastsData = @json(toastData($errors));
