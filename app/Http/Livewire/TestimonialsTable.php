@@ -127,7 +127,7 @@ class TestimonialsTable extends DataTableComponent
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-actions', ['model' => $row]);
+                    return view('admin.tour.includes.testimonial-actions', ['model' => $row]);
                 }),
         ];
     }

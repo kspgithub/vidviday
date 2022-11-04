@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\StaffType;
+use App\Models\Tour;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -33,14 +34,16 @@ class StaffController extends Controller
             ->get()->map(function ($it) {
                 return ['value' => $it->value, 'text' => $it->text];
             });
-        
+
         $staffTypes = StaffType::toSelectBox();
         $staff = new Staff();
+        $tours = Tour::toSelectBox();
 
         return view('admin.staff.create', [
             'staff' => $staff,
             'users' => $users,
-            'staffTypes' => $staffTypes
+            'staffTypes' => $staffTypes,
+            'tours' => $tours,
         ]);
     }
 
@@ -56,6 +59,7 @@ class StaffController extends Controller
         $staff->fill($request->all());
         $staff->save();
         $staff->types()->sync($request->input('types', []));
+        $staff->tours()->sync($request->input('tours', []));
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
@@ -78,11 +82,13 @@ class StaffController extends Controller
             });
 
         $staffTypes = StaffType::toSelectBox();
+        $tours = Tour::toSelectBox();
 
         return view('admin.staff.edit', [
             'staff' => $staff,
             'users' => $users,
-            'staffTypes' => $staffTypes
+            'staffTypes' => $staffTypes,
+            'tours' => $tours,
         ]);
     }
 
@@ -100,6 +106,7 @@ class StaffController extends Controller
         $staff->fill($request->all());
         $staff->save();
         $staff->types()->sync($request->input('types', []));
+        $staff->tours()->sync($request->input('tours', []));
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
