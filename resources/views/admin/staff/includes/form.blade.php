@@ -44,6 +44,12 @@
                                 required
         />
 
+        <x-forms.tag-group name="tours[]"
+                           :label="__('Tours')"
+                           :value="$staff->tours ?  $staff->tours->pluck('id')->toArray() : []"
+                           :options="$tours">
+        </x-forms.tag-group>
+
         <x-forms.single-image-upload
             name="avatar"
             :label="__('Avatar')"
