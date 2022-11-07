@@ -9,6 +9,7 @@
             <th style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-top: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9;">Телефон</th>
             <th style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-top: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9;">Пошта</th>
             <th style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-top: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9; border-right: 1px solid #E9E9E9;">Спосіб підтвердження</th>
+            <th style="font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-top: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9; border-right: 1px solid #E9E9E9;">Побажання замовника</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,12 @@
         </td>
         <td style="text-align: center; font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9; border-right: 1px solid #E9E9E9;">
             {{$order->confirmation_title}}
+        </td>
+        <td style="text-align: center; font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9; border-right: 1px solid #E9E9E9;">
+            {{$order->confirmation_title}}
+        </td>
+        <td style="text-align: center; font-family: 'Roboto', sans-serif; color: #626262; border-bottom: 1px solid #E9E9E9; border-left: 1px solid #E9E9E9; border-right: 1px solid #E9E9E9;">
+            {{$order->comment}}
         </td>
         </tbody>
     </table>
