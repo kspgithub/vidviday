@@ -42,8 +42,8 @@
                             @if($media->collection_name === "main")
                                <img loading="lazy"
                                     src="{{ asset("img/preloader.png") }}"
-                                    width="{{$post->dimensions['thumb']['width']}}"
-                                    height="{{$post->dimensions['thumb']['height']}}"
+                                    width="{{$charitySingle->dimensions['thumb']['width']}}"
+                                    height="{{$charitySingle->dimensions['thumb']['height']}}"
                                     data-img-src="{{ asset('storage/media/charity/'.$media->id.'/'.$media->file_name) }}"
                                     alt="banner img 11">
                             @endif
