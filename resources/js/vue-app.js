@@ -1,4 +1,3 @@
-import '../scss/theme/style.scss';
 import {createApp} from 'vue';
 
 const app = createApp({});
