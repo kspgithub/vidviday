@@ -34,7 +34,7 @@
                          aria-label="Next slide" aria-disabled="false">
                         <i></i>
                     </div>
-                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-autoheight">
                         <div class="swiper-wrapper" style="transition-duration: 0ms;">
                             @foreach($items as $key=>$item)
                                 <div class="swiper-slide">
