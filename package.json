@@ -1,13 +1,15 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev-admin": "mix --mix-config=webpack.mix.admin.js",
+        "dev-app": "mix",
+        "dev": "concurrently \"npm:dev-admin\" \"npm:dev-app\"",
+        "hot-admin": "mix watch --hot --mix-config=webpack.mix.admin.js",
+        "hot-app": "mix watch --hot",
+        "hot": "concurrently \"npm:hot-admin\" \"npm:hot-app\"",
+        "prod-admin": "mix --production --mix-config=webpack.mix.admin.js",
+        "prod-app": "mix --production",
+        "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\""
     },
     "devDependencies": {
         "@fancyapps/ui": "^4.0.0-alpha.4",
@@ -76,5 +78,8 @@
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.0.0",
         "webpack": "^5.41.1"
+    },
+    "dependencies": {
+        "concurrently": "^7.5.0"
     }
 }
