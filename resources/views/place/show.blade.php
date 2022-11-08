@@ -61,9 +61,7 @@
                             'place'=>$place,
                         ])
                         <!-- BANNER TABS END -->
-                        <div class="spacer-xs">
-                            {{--                            @dd($place->getMedia())--}}
-                        </div>
+                        <div class="spacer-xs"></div>
                         <div class="row">
                             <div class="col-xl-8 col-12">
                                 <h1 class="h1 title">{{ $place->title }}</h1>

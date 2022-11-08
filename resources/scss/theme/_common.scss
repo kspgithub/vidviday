@@ -175,9 +175,14 @@ hr {
 
 .img {
     img {
-        width: 100%;
         display: block;
+        width: auto;
+        height: auto;
         max-width: 100%;
+
+        &:not([width]) {
+            width: 100%;
+        }
     }
 
     &.img-border {

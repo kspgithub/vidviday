@@ -37,7 +37,11 @@
                         @foreach($clients as $client)
                             <div class="swiper-slide">
                                 <div class="partner-item">
-                                    <img src="{{$client->image_url}}" alt="{{$client->title}}" class="swiper-lazy">
+                                    <img loading="lazy"
+                                         src="{{$client->image_url}}"
+                                         width="{{$client->dimensions['thumb']['width']}}"
+                                         height="{{$client->dimensions['thumb']['height']}}"
+                                         alt="{{$client->title}}" class="swiper-lazy">
                                     <div class="swiper-lazy-preloader"></div>
                                 </div>
                             </div>

@@ -14,7 +14,10 @@
             </div>
             @if(!empty($advertisement->image))
                 <a href="{{ $advertisement->url }}">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy"
+                         src="{{asset('/img/preloader.png')}}"
+                         width="{{$advertisement->dimensions['thumb']['width']}}"
+                         height="{{$advertisement->dimensions['thumb']['height']}}"
                          data-img-src="{{$advertisement->image_url}}"
                          alt="{{$advertisement->title}}">
                 </a>

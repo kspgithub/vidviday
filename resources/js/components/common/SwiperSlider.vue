@@ -10,7 +10,8 @@
             <div class="swiper-wrapper lightbox-wrap">
                 <div class="swiper-slide" v-for="(slide, idx) in media">
                     <div class="img zoom">
-                        <img :src="slide.thumb" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
+                        {{slide.dimensions.thumb}}
+                        <img loading="lazy" :width="slide.dimensions.thumb.width" :height="slide.dimensions.thumb.height" :src="slide.thumb" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>
                         <div class="full-size" @click="showPopup(idx)"></div>
                     </div>

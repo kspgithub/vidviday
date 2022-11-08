@@ -43,8 +43,8 @@ trait UseNormalizeMedia
         }
         $file_name = $path . '/' . $tmpName;
 
-        $width = $options['width'] ?? 1920;
-        $height = $options['height'] ?? 1920;
+        $width = $options['width'] ?? $this->dimensions['normal']['width'] ?? 1920;
+        $height = $options['height'] ?? $this->dimensions['normal']['height'] ?? 1920;
         $fitMethod = $options['fit'] ?? Manipulations::FIT_MAX;
 
         if (File::exists($file_name)) {
@@ -64,4 +64,16 @@ trait UseNormalizeMedia
         return null;
     }
 
+    public function getDimensionsAttribute()
+    {
+        $this->registerMediaConversions();
+
+        foreach ($this->mediaConversions as $conversion) {
+            $groups = $conversion->getManipulations()->getManipulationSequence()->getGroups();
+            $dimensions[$conversion->getName()]['width'] = $groups[0]['width'] ?? 350;
+            $dimensions[$conversion->getName()]['height'] = $groups[0]['height'] ?? 350;
+        }
+
+        return $dimensions;
+    }
 }

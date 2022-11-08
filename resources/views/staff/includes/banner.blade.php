@@ -26,7 +26,10 @@
                                 <div class="swiper-wrapper lightbox-wrap">
                                     <div class="swiper-slide">
                                         @if ( !empty($pageContent->media))
-                                            <img src="{{ $pageContent->media ?? asset('img/no-image.png') }}"
+                                            <img loading="lazy"
+                                                 src="{{ $pageContent->media ?? asset('img/no-image.png') }}"
+                                                 width="{{$pageContent->dimensions['thumb']['width']}}"
+                                                 height="{{$pageContent->dimensions['thumb']['height']}}"
                                                  alt="{{$pageContent->seo_h1 ?? $pageContent->title}}"
                                                  data-swiper-parallax="30%">
                                             <a href="{{ $pageContent->media ?? asset('img/no-image.png') }}"

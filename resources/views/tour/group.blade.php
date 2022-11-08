@@ -32,7 +32,12 @@
                     <div class="section">
                         @if($media = $group->getFirstMedia())
                         <div class="banner-img">
-                            <img src="{{asset("/img/preloader.png")}}" data-img-src="{{$media->getUrl()}}" alt="{{ $media->alt ?: $group->title }}">
+                            <img loading="lazy"
+                                src="{{asset("/img/preloader.png")}}"
+                                 data-img-src="{{$media->getUrl()}}"
+                                 width="{{$group->dimensions['normal']['width']}}"
+                                 height="{{$group->dimensions['normal']['height']}}"
+                                 alt="{{ $media->alt ?: $group->title }}">
                         </div>
                         @endif
                         <div class="spacer-xs"></div>
