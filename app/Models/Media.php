@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+use Spatie\Image\Image;
+use Spatie\MediaLibrary\Conversions\Conversion;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
 class Media extends SpatieMedia
 {
+    protected $appends = [
+        'title',
+        'alt',
+    ];
+
+    public function getDimensions()
+    {
+
+    }
+
     public function toSwiperSlide()
     {
         return self::asSwiperSlide($this);
@@ -15,6 +28,7 @@ class Media extends SpatieMedia
     {
         $locale = app()->getLocale();
         $conversions = $media->getMediaConversionNames();
+        $media->model->registerMediaConversions();
         $item = [
             'id' => $media->id,
             'url' => $media->getUrl(),
@@ -23,6 +37,15 @@ class Media extends SpatieMedia
         ];
         foreach ($conversions as $conversion) {
             $item[$conversion] = $media->getUrl($conversion);
+            /** @var Conversion $conversionClass */
+            $conversionClass = collect($media->model->mediaConversions)->filter(fn($mc) => $mc->getName() === $conversion)->first();
+            $groups = $conversionClass->getManipulations()->getManipulationSequence()->getGroups();
+            if(!count($groups)) {
+                $image = Image::load($item[$conversion]);
+                $groups[0]['width'] = $image->getWidth();
+                $groups[0]['height'] = $image->getHeight();
+            }
+            $item['dimensions'][$conversion] = Arr::only($groups[0], ['width', 'height']);
         }
 
         return (object)$item;
@@ -46,11 +69,6 @@ class Media extends SpatieMedia
             'published' => $this->getCustomProperty('published'),
         ];
     }
-
-    protected $appends = [
-        'title',
-        'alt',
-    ];
 
     public function getTitleAttribute()
     {

@@ -215,6 +215,7 @@ class TourFullResource extends JsonResource
             'additional_info' => $this->getAdditionalInfoToExport(),
             'main_image' => $this->main_image,
             'thumb' => $this->mobile_image,
+            'dimensions' => $this->dimensions,
             'images' => $this->getImagesToExport(),
             'badges' => $this->badges,
             'schedules' => ScheduleResource::collection($this->scheduleItems),

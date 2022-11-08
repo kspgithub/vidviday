@@ -27,7 +27,12 @@
 											<div class="swiper-container" data-options='{"autoHeight": true, "parallax": true, "speed": 900}'>
 												<div class="swiper-wrapper lightbox-wrap">
 													<div class="swiper-slide">
-                                                        <img src="{{ $pageContent->media ?? asset('/img/no-image.png') }}" alt="{{$pageContent->seo_h1 ?? $pageContent->title}}" data-swiper-parallax="30%">
+                                                        <img loading="lazy"
+                                                             src="{{ $pageContent->media ?? asset('/img/no-image.png') }}"
+                                                             width="{{$pageContent->dimensions['thumb']['width']}}"
+                                                             height="{{$pageContent->dimensions['thumb']['height']}}"
+                                                             alt="{{$pageContent->seo_h1 ?? $pageContent->title}}"
+                                                             data-swiper-parallax="30%">
 														<a href="{{ $pageContent->media ?? asset('/img/no-image.png') }}" class="lightbox full-size" data-caption="{{$pageContent->seo_h1 ?? $pageContent->title}}">
 															<span>{{$pageContent->seo_h1 ?? $pageContent->title}}</span>
 														</a>

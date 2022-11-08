@@ -29,7 +29,6 @@ class Post extends TranslatableModel implements HasMedia
     use PostAttribute;
     use HasJsonSlug;
 
-
     public $translatable = [
         'title',
         'text',
@@ -59,6 +58,7 @@ class Post extends TranslatableModel implements HasMedia
     protected $appends = [
         'main_image_url',
         'mobile_image_url',
+        'dimensions',
     ];
 
     protected $casts = [

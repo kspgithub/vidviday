@@ -4,6 +4,7 @@ namespace App\Models\Traits\Attributes;
 
 use App\Models\IncludeType;
 use App\Models\TourPlan;
+use Spatie\MediaLibrary\Conversions\Conversion;
 
 trait TourAttribute
 {
@@ -32,9 +33,8 @@ trait TourAttribute
         $media = $this->getFirstMedia('mobile');
 
         // TODO: Заменить на no image
-        return $media === null ? asset('img/no-image.png') : $media->getUrl();
+        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
-
 
     public function getTourGuidesAttribute()
     {
