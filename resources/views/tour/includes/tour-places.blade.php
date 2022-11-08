@@ -13,7 +13,7 @@
                         <div class="accordion-inner" style="display: block">
                             @if($place->hasMedia('default', ['published' => true]))
                                 <div class="swiper-entry" v-is="'swiper-slider'"
-                                     key="swiper-place-{{$place->id}}"
+                                     key="swiper-place-{){$place->id}}"
                                      :media="{{json_encode($place->getMedia('default', ['published' => true])->map->toSwiperSlide())}}"
                                      :buttons="true"
                                 >

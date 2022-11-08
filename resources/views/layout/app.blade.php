@@ -30,22 +30,19 @@
     @stack('before-styles', false)
     @livewireStyles
 
-    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/main.css', 'assets/app') }}" rel="stylesheet">
 
     @stack('after-styles', false)
 
-    <link href="{{mix('css/style.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/print.css') }}" media="print" rel="stylesheet">
+    <link href="{{mix('css/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">
+    <link href="{{ mix('css/print.css', 'assets/app') }}" media="print" rel="stylesheet">
 
     @production
         @if($ga = site_option('google_analytics'))
             {!! $ga !!}
         @endif
     @endproduction
-    <script>
-        window.APP_ENV = '{{app()->environment()}}';
-    </script>
 
 </head>
 <body class="{{$body_class ?? ''}}">
@@ -77,14 +74,15 @@
 @livewireScripts
 
 <script type="text/javascript">
+    window.APP_ENV = '{{app()->environment()}}';
     window.toastsData = @json(toastData($errors));
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 
-<script src="{{ mix('js/manifest.js') }}" defer></script>
-<script src="{{ mix('js/vendor.js') }}" defer></script>
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script src="{{ mix('js/manifest.js', 'assets/app') }}" defer></script>
+<script src="{{ mix('js/vendor.js', 'assets/app') }}" defer></script>
+<script src="{{ mix('js/app.js', 'assets/app') }}" defer></script>
 
 @stack('after-scripts', false)
 

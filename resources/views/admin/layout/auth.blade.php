@@ -16,7 +16,8 @@
 
     <!-- Styles -->
     @stack('before-styles', false)
-    <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
+    @livewireStyles
+    <link href="{{ mix('css/admin.css', 'assets/admin') }}" rel="stylesheet">
     @stack('after-styles', false)
 </head>
 <body>
@@ -35,9 +36,10 @@
 </main>
 <!-- Scripts -->
 @stack('before-scripts', false)
-<script src="{{ mix('js/manifest.js') }}" defer></script>
-<script src="{{ mix('js/vendor.js') }}" defer></script>
-<script src="{{ mix('js/admin.js') }}" defer></script>
+@livewireScripts
+<script src="{{ mix('js/manifest.js', 'assets/admin') }}" defer></script>
+<script src="{{ mix('js/vendor.js', 'assets/admin') }}" defer></script>
+<script src="{{ mix('js/admin.js', 'assets/admin') }}" defer></script>
 @stack('after-scripts', false)
 </body>
 </html>

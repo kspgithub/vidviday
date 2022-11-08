@@ -49,7 +49,7 @@
                                 <span class="staff-label btn type-4">{{$staff->label}}</span>
                             </div>
                             <div class="col-auto">
-                                <x-page.social-share :share-url="route('staff.show', $staff)" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position" class="drop-right"/>
+                                <x-page.social-share :share-url="$staff->url" :share-title="$staff->first_name . '' . $staff->last_name . '-' . $staff->position" class="drop-right"/>
                             </div>
                         </div>
 

@@ -11,7 +11,7 @@
     <div class="bottom-part">
         <span class="text-md text-medium">{{$staff->name}}</span>
         <br>
-        <span class="text-sm">{{$staff->title}}</span>
+        <span class="text-sm">{{$staff->position}}</span>
         <div class="spacer-xs"></div>
         <div>
             @foreach($staff->phones as $phone)
@@ -26,7 +26,12 @@
             @endif
         </div>
         @if($staff->avatar)
-            <img class="manager-avatar" src="{{asset('/img/preloader.png')}}" data-img-src="{{$staff->avatar_url}}"
+            <img loading="lazy"
+                 class="manager-avatar"
+                 src="{{asset('/img/preloader.png')}}"
+                 data-img-src="{{$staff->avatar_url}}"
+                 width="{{$staff->dimensions['thumb']['width']}}"
+                 height="{{$staff->dimensions['thumb']['height']}}"
                  alt="{{$staff->title}}">
         @endif
     </div>

@@ -40,7 +40,12 @@
                     <div class="banner-img">
                         @foreach($charitySingle->media as $media)
                             @if($media->collection_name === "main")
-                               <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/charity/'.$media->id.'/'.$media->file_name) }}" alt="banner img 11">
+                               <img loading="lazy"
+                                    src="{{ asset("img/preloader.png") }}"
+                                    width="{{$charitySingle->dimensions['thumb']['width']}}"
+                                    height="{{$charitySingle->dimensions['thumb']['height']}}"
+                                    data-img-src="{{ asset('storage/media/charity/'.$media->id.'/'.$media->file_name) }}"
+                                    alt="banner img 11">
                             @endif
                         @endforeach
                     </div>

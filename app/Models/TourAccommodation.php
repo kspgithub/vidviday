@@ -17,7 +17,6 @@ class TourAccommodation extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use JsonLikeScope;
-
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;
 
@@ -25,7 +24,6 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         'text',
         'title',
     ];
-
     protected $fillable = [
         'type_id',
         'tour_id',
@@ -37,7 +35,6 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         'text',
         'nights',
     ];
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

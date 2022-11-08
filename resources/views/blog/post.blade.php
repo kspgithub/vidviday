@@ -47,7 +47,12 @@
                     <div class="banner-img">
                         @foreach($post->media as $media)
                             @if($media->collection_name === "main")
-                                <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('storage/media/post/'.$media->id.'/'.$media->file_name) }}" alt="banner img 11">
+                                <img loading="lazy"
+                                     src="{{ asset("img/preloader.png") }}"
+                                     data-img-src="{{ $media->getUrl('normal') }}"
+                                     width="{{$post->dimensions['normal']['width']}}"
+                                     height="{{$post->dimensions['normal']['height']}}"
+                                     alt="banner img 11">
                             @endif
                         @endforeach
                     </div>
@@ -93,7 +98,13 @@
                                         @foreach($pictures as $media)
                                             <div class="swiper-slide">
                                                 <div class="img img-border">
-                                                    <img src="{{ asset('storage/media/blog/'.$media->id.'/'.$media->file_name) }}" alt="img 28" data-swiper-parallax="30%">
+                                                    <img loading="lazy"
+                                                         src="{{ asset("img/preloader.png") }}"
+                                                         data-img-src="{{ $media->getUrl('thumb') }}"
+                                                         width="{{$post->dimensions['thumb']['width']}}"
+                                                         height="{{$post->dimensions['thumb']['height']}}"
+                                                         alt="img 28"
+                                                         data-swiper-parallax="30%">
                                                 </div>
                                                 <div class="text-center">
                                                     <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
