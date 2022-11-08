@@ -84,7 +84,7 @@ if (mix.inProduction()) {
     })
 
     console.log('=====================================')
-    console.log(host)
+    console.log('Admin host: ' + host)
     console.log('=====================================')
 
     mix.webpackConfig({

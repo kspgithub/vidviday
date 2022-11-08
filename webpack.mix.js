@@ -88,7 +88,7 @@ if (mix.inProduction()) {
     })
 
     console.log('=====================================')
-    console.log(host)
+    console.log('App host: ' + host)
     console.log('=====================================')
 
     mix.webpackConfig({
