@@ -1,7 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const { resolve } = require('path');
-const fs = require('fs');
 const ip = require('ip');
 
 require('laravel-vue-lang/mix');
