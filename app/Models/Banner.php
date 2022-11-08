@@ -59,14 +59,4 @@ class Banner extends Model
             'height' => 516,
         ];
     }
-
-    public function getImageWidthAttribute()
-    {
-        return $this->imageSize()['width'];
-    }
-
-    public function getImageHeightAttribute()
-    {
-        return $this->imageSize()['height'];
-    }
 }

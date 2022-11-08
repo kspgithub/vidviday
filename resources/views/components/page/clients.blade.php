@@ -39,8 +39,8 @@
                                 <div class="partner-item">
                                     <img loading="lazy"
                                          src="{{$client->image_url}}"
-                                         width="{{$client->dimensions['thumb']['width']}}"
-                                         height="{{$client->dimensions['thumb']['height']}}"
+                                         width="{{$client->image_width}}"
+                                         height="{{$client->image_height}}"
                                          alt="{{$client->title}}" class="swiper-lazy">
                                     <div class="swiper-lazy-preloader"></div>
                                 </div>
