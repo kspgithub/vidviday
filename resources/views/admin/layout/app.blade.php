@@ -20,7 +20,7 @@
     <!-- Styles -->
     @stack('before-styles', false)
     @livewireStyles
-    <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/admin.css', 'assets/admin') }}" rel="stylesheet">
     @stack('after-styles', false)
 </head>
 <body>
@@ -50,9 +50,9 @@
 @stack('before-scripts', false)
 @livewireScripts
 
-<script src="{{ mix('js/manifest.js') }}" defer></script>
-<script src="{{ mix('js/vendor.js') }}" defer></script>
-<script src="{{ mix('js/admin.js') }}" defer></script>
+<script src="{{ mix('js/manifest.js', 'assets/admin') }}" defer></script>
+<script src="{{ mix('js/vendor.js', 'assets/admin') }}" defer></script>
+<script src="{{ mix('js/admin.js', 'assets/admin') }}" defer></script>
 <script defer src="//unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
 @stack('after-scripts', false)
 </body>
