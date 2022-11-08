@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const { resolve } = require('path');
+const fs = require('fs');
 const ip = require('ip');
 
 require('laravel-vue-lang/mix');
@@ -18,13 +19,9 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix.setPublicPath(`public/assets/app`)
-    .js('resources/js/app.js', 'public/assets/app/js/app.js')
-    .sass('resources/scss/app.scss', 'public/assets/app/css/app.css')
-    .sass('resources/scss/theme/main.scss', 'public/assets/app/css/main.css')
-    .sass('resources/scss/theme/print.scss', 'public/assets/app/css/print.css')
-    .sass('resources/scss/theme/style.scss', 'public/assets/app/css/style.css')
-    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css/editor.css')
+mix.setPublicPath(`public/assets/admin`)
+    .js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
+    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')
     .purgeCss()
     .vue()
     .lang()
@@ -78,7 +75,7 @@ if (mix.inProduction()) {
 
 
     const host = ip.address() || '0.0.0.0'
-    const port = 8081
+    const port = 8082
 
     mix.options({
         hmrOptions: {
