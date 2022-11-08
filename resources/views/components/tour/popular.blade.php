@@ -8,6 +8,7 @@
         <div class="swiper-button-next bottom">
             <i></i>
         </div>
+
         <div class="swiper-container" data-options='{
                                 "loop": {{ count($popularTours) > 1 ? 'true' : 'false' }},
 								"lazy": true,
