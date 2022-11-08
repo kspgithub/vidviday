@@ -28,7 +28,9 @@
                     @foreach($achievements as $achievement)
                         <div class="swiper-slide">
                             <div class="partner-item">
-                                <img src="{{$achievement->image_url}}" alt="{{$achievement->title}}"
+                                <img loading="lazy"
+                                     src="{{$achievement->image_url}}"
+                                     alt="{{$achievement->title}}"
                                      class="swiper-lazy">
                                 <div class="swiper-lazy-preloader"></div>
                             </div>

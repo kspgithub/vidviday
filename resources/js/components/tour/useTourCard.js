@@ -19,6 +19,8 @@ export const useTourCard = (tour) => {
     });
 
     const imageSrc = ref('/img/preloader.png');
+    const imageWidth = tour.dimensions.thumb.width
+    const imageHeight = tour.dimensions.thumb.height
 
     const changeSchedule = (evt) => {
         //console.log(evt);
@@ -98,6 +100,8 @@ export const useTourCard = (tour) => {
         toggleFavourite,
         schedules,
         imageSrc,
+        imageWidth,
+        imageHeight,
         inFavourites,
         isTourAgent,
         orderLink,

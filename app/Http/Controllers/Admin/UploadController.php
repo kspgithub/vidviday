@@ -35,8 +35,10 @@ class UploadController extends Controller
         $model = app()->make($request->input('model_type', ['id' => $request->input('model_id')]));
         $model = $model->newQuery()->findOrFail($request->input('model_id'));
         $collection = $request->input('collection', 'default');
+        $conversion = $request->input('conversion', 'normal');
+        $dimensions = $model->dimensions[$conversion];
         /** @var Media $media */
-        $media = $model->storeMedia($request->media_file, $collection);
+        $media = $model->storeMedia($request->media_file, $collection, $dimensions);
         foreach ($request->get('custom_properties', []) as $key => $value) {
             if($key === 'published') {
                 $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
