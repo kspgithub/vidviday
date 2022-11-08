@@ -43,9 +43,6 @@
             {!! $ga !!}
         @endif
     @endproduction
-    <script>
-        window.APP_ENV = '{{app()->environment()}}';
-    </script>
 
 </head>
 <body class="{{$body_class ?? ''}}">
@@ -77,6 +74,7 @@
 @livewireScripts
 
 <script type="text/javascript">
+    window.APP_ENV = '{{app()->environment()}}';
     window.toastsData = @json(toastData($errors));
 </script>
 

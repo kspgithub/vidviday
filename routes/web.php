@@ -20,7 +20,13 @@ use App\Models\User;
 
 // SITE ROUTES
 
-Route::middleware(['laravel-pagespeed'])->group(function () {
+$middleware = [];
+
+if(app()->environment(['production'])) {
+//    $middleware[] = 'laravel-pagespeed';
+}
+
+Route::middleware($middleware)->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 //Route::get('/test-error', [HomeController::class, 'testError'])->name('test-error');

@@ -11,7 +11,7 @@
     <div class="bottom-part">
         <span class="text-md text-medium">{{$staff->name}}</span>
         <br>
-        <span class="text-sm">{{$staff->title}}</span>
+        <span class="text-sm">{{$staff->position}}</span>
         <div class="spacer-xs"></div>
         <div>
             @foreach($staff->phones as $phone)
