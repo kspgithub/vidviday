@@ -21,7 +21,11 @@
                 @foreach($transports as $transport)
                     <div class="swiper-slide">
                         <div class="img img-border img-caption">
-                            <img src="{{asset('/img/preloader.png')}}" data-src="{{$transport->image_url}}"
+                            <img loading="lazy"
+                                 src="{{asset('/img/preloader.png')}}"
+                                 data-src="{{$transport->image_url}}"
+                                 width="{{$transport->dimensions['thumb']['width']}}"
+                                 height="{{$transport->dimensions['thumb']['height']}}"
                                  alt="{{$transport->title}}" class="swiper-lazy">
                             <div class="swiper-lazy-preloader"></div>
                             <div class="img-caption-title">

@@ -66,8 +66,10 @@
                             <div class="item post">
 
                                 <div class="thumb-img">
-                                    <img src="{{ asset("img/preloader.png") }}"
+                                    <img loading="lazy" src="{{ asset("img/preloader.png") }}"
                                          data-img-src="{{ $post->main_image_url }}"
+                                         width="{{$post->dimensions['thumb']['width']}}"
+                                         height="{{$post->dimensions['thumb']['height']}}"
                                          alt="img 25">
                                     <a href="{{ route("blog.post", ['slug' => $post->slug]) }}"
                                        class="full-size"></a>

@@ -112,6 +112,7 @@ class Tour extends TranslatableModel implements HasMedia
     protected $appends = [
         'main_image',
         'mobile_image',
+        'dimensions',
         'url',
         'format_duration',
     ];
