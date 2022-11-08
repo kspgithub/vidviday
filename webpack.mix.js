@@ -6,6 +6,7 @@ const ip = require('ip');
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ mix.js('resources/js/app.js', 'public/js/app.js')
     .sass('resources/scss/theme/style.scss', 'public/css/style.css')
     .sass('resources/scss/theme/editor.scss', 'public/css/editor.css')
     .sass('resources/scss/admin/app.scss', 'public/css/admin.css')
+    .purgeCss()
     .vue()
     .lang()
     .extract()
@@ -57,40 +59,44 @@ mix.webpackConfig({
     ],
 });
 
-const host = ip.address() || '0.0.0.0'
-
-mix.options({
-    hmrOptions: {
-        host,
-        port: 8081
-    }
-})
-
-console.log('=====================================')
-console.log(host)
-console.log('=====================================')
-
-mix.webpackConfig({
-    devServer: {
-        host,
-        port: 8081,
-    },
-});
-
 mix.sourceMaps(false, 'source-map');
 
 if (mix.inProduction()) {
-    mix.minify([
-        'public/js/app.js',
-        'public/js/vendor.js',
-        'public/js/admin.js',
-        'public/css/app.js',
-        'public/css/admin.js',
-    ]);
+    // !!! Dont need to minify.
+    // Laravel Mix automatically minifies js as css files in production
+    // mix.minify([
+    //     'public/js/app.js',
+    //     'public/js/vendor.js',
+    //     'public/js/admin.js',
+    //     'public/css/app.js',
+    //     'public/css/admin.js',
+    // ]);
 
     mix.version();
 } else {
     // Uses source-maps on development
 
     // mix.browserSync(process.env.APP_URL);
+
+
+    const host = ip.address() || '0.0.0.0'
+
+    mix.options({
+        hmrOptions: {
+            host,
+            port: 8081
+        }
+    })
+
+    console.log('=====================================')
+    console.log(host)
+    console.log('=====================================')
+
+    mix.webpackConfig({
+        devServer: {
+            host,
+            port: 8081,
+        },
+    });
+
 }
