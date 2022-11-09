@@ -5,11 +5,8 @@
         </div>
     @endif
     <div class="zoom centered">
-        <img loading="lazy"
-             src="{{asset('img/preloader.png')}}"
+        <img src="{{asset('img/preloader.png')}}"
              data-img-src="{{ $specialist->avatar_url ?? asset('img/no-image.png') }}"
-             width="{{$specialist->dimensions['thumb']['width']}}"
-             height="{{$specialist->dimensions['thumb']['height']}}"
              alt="{{$specialist->first_name}} {{$specialist->last_name}}">
         <a href="{{ $specialist->url }}" class="full-size"></a>
     </div>

@@ -57,10 +57,7 @@
 
                             <div class="item post">
                                 <div class="thumb-img">
-                                    <img loading="lazy"
-                                         src="{{ asset("img/preloader.png") }}"
-                                         width="{{$post->dimensions['thumb']['width']}}"
-                                         height="{{$post->dimensions['thumb']['height']}}"
+                                    <img src="{{ asset("img/preloader.png") }}"
                                          data-img-src="{{ $post->main_image_url }}"
                                          alt="img 25">
                                     <a href="{{ route("charity.single", ["slug" => $post->slug]) }}"

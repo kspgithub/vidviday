@@ -161,7 +161,6 @@ class TourShortResource extends JsonResource
             'video' => $this->video,
             'main_image' => $this->main_image,
             'thumb' => $this->mobile_image,
-            'dimensions' => $this->dimensions,
             'badges' => $this->badges,
             'schedules' => ScheduleResource::collection($this->scheduleItems)
         ];

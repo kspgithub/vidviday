@@ -7,17 +7,14 @@ use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
-
 class Post extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -58,7 +55,6 @@ class Post extends TranslatableModel implements HasMedia
     protected $appends = [
         'main_image_url',
         'mobile_image_url',
-        'dimensions',
     ];
 
     protected $casts = [

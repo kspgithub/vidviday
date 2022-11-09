@@ -26,12 +26,9 @@
             @endif
         </div>
         @if($staff->avatar)
-            <img loading="lazy"
-                 class="manager-avatar"
+            <img class="manager-avatar"
                  src="{{asset('/img/preloader.png')}}"
                  data-img-src="{{$staff->avatar_url}}"
-                 width="{{$staff->dimensions['thumb']['width']}}"
-                 height="{{$staff->dimensions['thumb']['height']}}"
                  alt="{{$staff->title}}">
         @endif
     </div>

@@ -7,7 +7,7 @@
                         :badge="badge"
                         :idx="idx"/>
 
-            <img loading="lazy" :width="imageWidth" :height="imageHeight" :alt="tourTitle" :src="imageSrc">
+            <img :alt="tourTitle" :src="imageSrc">
             <a :href="tour.url" class="full-size"></a>
             <a class="like" href="#" v-if="likeBtn" :class="{active: inFavourites}" @click.prevent="toggleFavourite()">
                 <svg width="13" height="11" viewBox="0 0 13 11" xmlns="http://www.w3.org/2000/svg">

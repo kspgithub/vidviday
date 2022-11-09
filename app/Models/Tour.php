@@ -15,15 +15,12 @@ use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
-
 class Tour extends TranslatableModel implements HasMedia
 {
     use SoftDeletes;
@@ -112,7 +109,6 @@ class Tour extends TranslatableModel implements HasMedia
     protected $appends = [
         'main_image',
         'mobile_image',
-        'dimensions',
         'url',
         'format_duration',
     ];

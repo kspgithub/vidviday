@@ -29,8 +29,6 @@ class MediaLibrary extends Component
 
     public string $collection;
 
-    public string $conversion;
-
     public string $storeUrl;
 
     public string $updateUrl;
@@ -56,13 +54,11 @@ class MediaLibrary extends Component
         $destroyUrl = null,
         $orderUrl = null,
         $collection = 'default',
-        $conversion = 'normal',
         $accept = 'image/jpeg,image/png',
         $customProperties = [],
     ) {
         $this->model = $model;
         $this->collection = $collection;
-        $this->conversion = $conversion;
         $this->items = $items ?: $model->getMedia($collection)->map(fn($model) => (new Media($model->toArray()))->asAlpineData());
         $this->storeUrl = $storeUrl ?: route('admin.media.store', ['model_type' => get_class($model), 'model_id' => $model->id]);
         $this->destroyUrl = $destroyUrl ?: route('admin.media.destroy', 0);

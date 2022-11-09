@@ -4,7 +4,6 @@ namespace App\Models\Traits\Attributes;
 
 use App\Models\IncludeType;
 use App\Models\TourPlan;
-use Spatie\MediaLibrary\Conversions\Conversion;
 
 trait TourAttribute
 {
@@ -12,12 +11,10 @@ trait TourAttribute
 
     protected $tourManager = null;
 
-
     public function getUrlAttribute()
     {
         return !empty($this->slug) ? '/' . $this->slug : '';
     }
-
 
     public function getMainImageAttribute()
     {
@@ -26,7 +23,6 @@ trait TourAttribute
         // TODO: Заменить на no image
         return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
     }
-
 
     public function getMobileImageAttribute()
     {

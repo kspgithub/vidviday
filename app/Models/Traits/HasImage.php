@@ -63,14 +63,4 @@ trait HasImage
             'height' => 300,
         ];
     }
-
-    public function getImageWidthAttribute()
-    {
-        return $this->imageSize()['width'];
-    }
-
-    public function getImageHeightAttribute()
-    {
-        return $this->imageSize()['height'];
-    }
 }

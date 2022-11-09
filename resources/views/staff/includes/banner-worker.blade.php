@@ -33,11 +33,8 @@
                                  data-options='{"lazy": true, "autoHeight": true, "parallax": true, "speed": 900}'>
                                 <div class="swiper-wrapper lightbox-wrap">
                                     <div class="swiper-slide">
-                                        <img loading="lazy"
-                                             src="{{asset('img/preloader.png')}}"
+                                        <img src="{{asset('img/preloader.png')}}"
                                              data-src="{{ $staff->avatar ?? asset('img/no-image.png') }}"
-                                             width="{{$staff->dimensions['thumb']['width']}}"
-                                             height="{{$staff->dimensions['thumb']['height']}}"
                                              alt="{{$staff->first_name}} {{$staff->last_name}}"
                                              data-swiper-parallax="30%" class="swiper-lazy">
                                         <div class="swiper-lazy-preloader"></div>
@@ -47,11 +44,8 @@
                                     </div>
 
                                     <div class="swiper-slide">
-                                        <img loading="lazy"
-                                             src="{{asset('img/preloader.png')}}"
+                                        <img src="{{asset('img/preloader.png')}}"
                                              data-src="{{ $staff->media ?? asset('img/no-image.png') }}"
-                                             width="{{$staff->dimensions['thumb']['width']}}"
-                                             height="{{$staff->dimensions['thumb']['height']}}"
                                              alt="{{$staff->first_name}} {{$staff->last_name}}"
                                              data-swiper-parallax="30%" class="swiper-lazy">
                                         <div class="swiper-lazy-preloader"></div>

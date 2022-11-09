@@ -6,7 +6,7 @@
                         :badge="badge"
                         :idx="idx"/>
 
-            <img loading="lazy" :width="imageWidth" :height="imageHeight" :alt="tourTitle" :src="imageSrc">
+            <img :alt="tourTitle" :src="imageSrc">
 
             <a :href="tour.url" class="full-size"></a>
 

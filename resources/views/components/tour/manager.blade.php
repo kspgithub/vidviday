@@ -5,8 +5,7 @@
     <div class="sidebar-item notice">
         <div class="top-part">
             <div class="title h3 light title-icon">
-                <img loading="lazy"
-                     src="{{asset('/img/preloader.png')}}"
+                <img src="{{asset('/img/preloader.png')}}"
                      data-img-src="{{asset('/icon/headphones.svg')}}"
                      alt="headphones">
                 @lang('tours-section.tour-manager')

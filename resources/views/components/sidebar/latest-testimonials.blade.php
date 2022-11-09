@@ -14,10 +14,8 @@
                         <div class="review-header">
                             <div class="review-img">
                                 @if($testimonial->avatar || empty($testimonial->initials))
-                                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
+                                    <img src="{{asset('/img/preloader.png')}}"
                                          data-img-src="{{$testimonial->avatar_url}}"
-                                         width="{{$testimonial->dimensions['thumb']['width']}}"
-                                         height="{{$testimonial->dimensions['thumb']['height']}}"
                                          alt="user">
                                 @else
                                     <span class="h4 full-size">{{$testimonial->initials}}</span>

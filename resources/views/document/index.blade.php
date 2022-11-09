@@ -53,8 +53,7 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="bordered-box doc">
                                     <a class="img d-block open-popup" data-rel="document-popup" href="{{$document->file}}" target="_blank">
-                                        <img loading="lazy"
-                                             src="{{asset('img/preloader.png')}}"
+                                        <img src="{{asset('img/preloader.png')}}"
                                              data-img-src="{{$document->image ?? asset('img/no-image.png')}}"
                                              alt="{{$document->title}}">
                                     </a>

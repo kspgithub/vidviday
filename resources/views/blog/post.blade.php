@@ -40,18 +40,20 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset("icon/filter-dark.svg") }}" alt="filter-dark">{{ __("Підбір туру") }}</span>
+                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
+                            <img src="{{ asset("img/preloader.png") }}"
+                                 data-img-src="{{ asset("icon/filter-dark.svg") }}"
+                                 alt="filter-dark">
+                            {{ __("Підбір туру") }}
+                        </span>
                         <div class="spacer-xs"></div>
                     </div>
                     <!-- BANNER/INFO -->
                     <div class="banner-img">
                         @foreach($post->media as $media)
                             @if($media->collection_name === "main")
-                                <img loading="lazy"
-                                     src="{{ asset("img/preloader.png") }}"
+                                <img src="{{ asset("img/preloader.png") }}"
                                      data-img-src="{{ $media->getUrl('normal') }}"
-                                     width="{{$post->dimensions['normal']['width']}}"
-                                     height="{{$post->dimensions['normal']['height']}}"
                                      alt="banner img 11">
                             @endif
                         @endforeach
@@ -98,11 +100,8 @@
                                         @foreach($pictures as $media)
                                             <div class="swiper-slide">
                                                 <div class="img img-border">
-                                                    <img loading="lazy"
-                                                         src="{{ asset("img/preloader.png") }}"
+                                                    <img src="{{ asset("img/preloader.png") }}"
                                                          data-img-src="{{ $media->getUrl('thumb') }}"
-                                                         width="{{$post->dimensions['thumb']['width']}}"
-                                                         height="{{$post->dimensions['thumb']['height']}}"
                                                          alt="img 28"
                                                          data-swiper-parallax="30%">
                                                 </div>

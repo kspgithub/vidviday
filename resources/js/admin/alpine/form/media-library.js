@@ -5,7 +5,6 @@ export default (options) => ({
     locale: document.documentElement.lang || 'uk',
     items: options.items || [],
     collection: options.collection || 'default',
-    conversion: options.conversion || 'normal',
     storeUrl: options.storeUrl || '/admin/media/upload',
     updateUrl: options.updateUrl || '/admin/media/0',
     destroyUrl: options.destroyUrl || '/admin/media/0',
@@ -66,7 +65,6 @@ export default (options) => ({
         const formData = new FormData();
         formData.append(this.mediaName, file);
         formData.append('collection', this.collection);
-        formData.append('conversion', this.conversion);
         formData.append('custom_properties[published]', 'true');
         await axios.post(this.storeUrl, formData, {
             headers: {

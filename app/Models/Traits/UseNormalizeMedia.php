@@ -43,8 +43,8 @@ trait UseNormalizeMedia
         }
         $file_name = $path . '/' . $tmpName;
 
-        $width = $options['width'] ?? $this->dimensions['normal']['width'] ?? 1920;
-        $height = $options['height'] ?? $this->dimensions['normal']['height'] ?? 1920;
+        $width = $options['width'] ?? 1920;
+        $height = $options['height'] ?? 1920;
         $fitMethod = $options['fit'] ?? Manipulations::FIT_MAX;
 
         if (File::exists($file_name)) {
