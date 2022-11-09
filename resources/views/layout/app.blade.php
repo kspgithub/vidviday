@@ -1,5 +1,5 @@
 <!doctype html>
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <!-- CSRF Token -->
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
-{{--    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
-{{--    <title>@yield('title', config('app.name', 'Vidviday'))</title>--}}
-{{--    <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">--}}
-{{--    <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">--}}
+    <title>@yield('title', config('app.name', 'Vidviday'))</title>
+    <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
+    <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">
 
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}"/>
