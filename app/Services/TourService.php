@@ -42,14 +42,13 @@ class TourService extends BaseService
     {
         $locale = app()->getLocale();
 
-
         return Cache::remember('filter-options-' . $locale, 1, function () {
             $place_ids = (array) request('place', []);
             $selectedPlaces = Place::whereIn('id', $place_ids)->get();
 
             $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
-                ->limit(10)->orderBy('title->uk')->get()
-            )->sortBy(fn($place) => $place->title)->map->asSelectBox()->toArray();
+                ->orderBy('title->uk')->paginate()->getCollection()
+            )->sortBy(fn($place) => $place->title)->map->asSelectBox('value')->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
 //                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {

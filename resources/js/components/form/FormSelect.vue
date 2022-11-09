@@ -11,7 +11,7 @@
         <div ref="optWrapperRef" class="optWrapper">
             <ul class="options">
                 <li v-if="search">
-                    <input v-model="searchValue" ref="search" type="text" @input="onSearch">
+                    <input v-model="searchValue" ref="search" type="text" @input="searchValue = $event.target.value">
                 </li>
 
                 <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
@@ -152,7 +152,7 @@ export default {
         })
 
         const filteredOptions = computed(() => {
-            return props.options.filter((o, i) => i === 0 || toRaw(o).text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
+            return props.options.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
         })
 
         const selectAllClicked = ref(false)
@@ -191,7 +191,6 @@ export default {
 
         const update = (items) => {
 
-            console.log($(sumoSelectRef.value)[0])
             if($(sumoSelectRef.value)[0].sumo) {
 
                 $(sumoSelectRef.value)[0].sumo.reload();
@@ -213,11 +212,9 @@ export default {
             }
         }
 
-        const onSearch = (e) => {
-            searchValue.value = e.target.value
-
-            emit('search', e.target.value)
-        }
+        watch(searchValue, _.debounce((q) => {
+            emit('search', q)
+        }, 300))
 
         return {
             sumoSelectRef,
@@ -232,7 +229,6 @@ export default {
             selectAll,
             handleOpen,
             update,
-            onSearch,
         }
     }
 }

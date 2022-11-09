@@ -106,10 +106,10 @@ export default {
             }
         }
     },
-    setup(props) {
+    setup({options}) {
         const store = useStore();
 
-        store.commit('tourFilter/SET_OPTIONS', props.options);
+        store.commit('tourFilter/SET_OPTIONS', options);
         store.dispatch('tourFilter/initFilter');
 
         const dateFrom = useFormDataProperty('tourFilter', 'date_from');
@@ -149,12 +149,15 @@ export default {
             // await submit();
         }
 
-        const places = ref(props.options.places);
+        const places = ref(options.places);
         const placeSelectRef = ref(null)
 
         const searchPlaces = async (q) => {
-            const items = await fetchPlaces({q});
-            places.value = [props.options.places[0], ...items?.results || []];
+            const items = await fetchPlaces({
+                q,
+                place: place.value,
+            });
+            places.value = [options.places[0], ...(items?.results || [])];
 
             await nextTick(() => {
                 if (placeSelectRef.value) {

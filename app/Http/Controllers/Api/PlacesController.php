@@ -21,6 +21,7 @@ class PlacesController extends Controller
         $q = Str::lower($request->input('q', ''));
         $region_id = (int)$request->input('region_id', 0);
         $district_id = (int)$request->input('district_id', 0);
+        $place_ids = explode(',', $request->input('place'));
         $query = Place::query();
 
         if ($district_id > 0) {
@@ -30,12 +31,27 @@ class PlacesController extends Controller
             $query->where('region_id', $region_id);
         }
 
-        $paginator = $query->autocomplete($q)->paginate($request->input('limit', 10));
-        $items = [];
+        $items = collect();
+
+        if($place_ids) {
+            $selected = (clone $query)->whereIn('id', $place_ids)->get();
+
+            foreach ($selected as $item) {
+                $items->push($item->asSelectBox('value'));
+            }
+        }
+
+        if($q) {
+            $query->autocomplete($q);
+        }
+
+        $paginator = $query->paginate($request->input('limit', 10));
 
         foreach ($paginator->items() as $item) {
-            $items[] = $item->asSelectBox('value');
+            $items->push($item->asSelectBox('value'));
         }
+
+        $items = $items->unique('value')->toArray();
 
         return [
             'results' => $items,
