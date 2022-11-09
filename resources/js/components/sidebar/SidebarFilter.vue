@@ -43,10 +43,12 @@
                 />
 
                 <form-select v-model="place"
-                             :options="options.places"
+                             ref="placeSelectRef"
+                             :options="places"
                              name="place"
                              :search="true"
                              :multiple="true"
+                             @search="searchPlaces"
                 />
 
                 <form-select v-model="type"
@@ -74,14 +76,16 @@
 import FormDoublePicker from "../form/FormDoublePicker";
 import {useFormDataProperty} from "../../store/composables/useFormData";
 import {useStore} from "vuex";
-import {computed} from "vue";
+import {computed, nextTick, ref} from 'vue'
 import FormRange from "../form/FormRange";
 import FormSelect from "../form/FormSelect";
 import * as urlUtils from "../../utils/url";
+import FormAutocomplete from '../form/FormAutocomplete.vue'
+import {fetchPlaces} from '../../services/places-service'
 
 export default {
     name: "SidebarFilter",
-    components: {FormSelect, FormRange, FormDoublePicker},
+    components: {FormAutocomplete, FormSelect, FormRange, FormDoublePicker},
     props: {
         options: {
             type: Object,
@@ -102,10 +106,10 @@ export default {
             }
         }
     },
-    setup({options}) {
+    setup(props) {
         const store = useStore();
 
-        store.commit('tourFilter/SET_OPTIONS', options);
+        store.commit('tourFilter/SET_OPTIONS', props.options);
         store.dispatch('tourFilter/initFilter');
 
         const dateFrom = useFormDataProperty('tourFilter', 'date_from');
@@ -145,6 +149,20 @@ export default {
             // await submit();
         }
 
+        const places = ref(props.options.places);
+        const placeSelectRef = ref(null)
+
+        const searchPlaces = async (q) => {
+            const items = await fetchPlaces({q});
+            places.value = [props.options.places[0], ...items?.results || []];
+
+            await nextTick(() => {
+                if (placeSelectRef.value) {
+                    placeSelectRef.value.update(places.value);
+                }
+            })
+        }
+
         return {
             dateFrom,
             dateTo,
@@ -157,6 +175,9 @@ export default {
             subject,
             clear,
             submit,
+            placeSelectRef,
+            places,
+            searchPlaces,
         }
     }
 }

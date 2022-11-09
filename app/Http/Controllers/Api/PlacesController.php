@@ -23,10 +23,10 @@ class PlacesController extends Controller
         $district_id = (int)$request->input('district_id', 0);
         $query = Place::query();
 
-
         if ($district_id > 0) {
             $query->where('district_id', $district_id);
-        } elseif ($region_id > 0) {
+        }
+        if($region_id > 0) {
             $query->where('region_id', $region_id);
         }
 
@@ -34,7 +34,7 @@ class PlacesController extends Controller
         $items = [];
 
         foreach ($paginator->items() as $item) {
-            $items[] = $item->asSelectBox();
+            $items[] = $item->asSelectBox('value');
         }
 
         return [

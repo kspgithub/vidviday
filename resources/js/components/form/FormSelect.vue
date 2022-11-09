@@ -11,7 +11,7 @@
         <div ref="optWrapperRef" class="optWrapper">
             <ul class="options">
                 <li v-if="search">
-                    <input v-model="searchValue" ref="search" type="text" @input="searchValue = $event.target.value">
+                    <input v-model="searchValue" ref="search" type="text" @input="onSearch">
                 </li>
 
                 <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import {computed, getCurrentInstance, onMounted, ref, watch} from "vue";
+import {computed, getCurrentInstance, onMounted, ref, toRaw, watch} from 'vue'
 
 export default {
     name: "FormSelect",
@@ -66,7 +66,7 @@ export default {
         search: false,
         multiple: false,
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'search'],
     setup(props, {emit}) {
 
         const sumoSelectRef = ref(null)
@@ -88,14 +88,14 @@ export default {
 
             const selectedValue = value.split(',').filter(id => !!id);
 
-            let options = props.options.filter(o => props.multiple ? selectedValue.includes(o.value) : o.value == props.modelValue);
+            let options = props.options.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
 
             if(!options.length) {
                 options = [props.options[0]]
             }
 
             for(let option of options) {
-                text += (text ? ',' : '') + option.text
+                text += (text ? ',' : '') + toRaw(option).text
             }
 
             return text
@@ -104,27 +104,29 @@ export default {
         const change = (option, event) => {
             event.preventDefault()
 
+            const opt = toRaw(option)
+
             if(props.multiple) {
                 const value = String(JSON.parse(JSON.stringify(props.modelValue)))
 
                 let val = value.split(',').filter(v => !!v)
-                const index = val.indexOf(option.value.toString())
+                const index = val.indexOf(opt.value.toString())
 
-                if(option.value === 0) {
+                if(opt.value === 0) {
                     setTimeout(() => close(), 100)
                     val = []
                 } else {
                     if(index > -1) {
                         val.splice(index, 1)
                     } else {
-                        val.push(option.value)
+                        val.push(opt.value)
                     }
                 }
 
                 emit('update:modelValue', val.join(','))
             } else {
                 setTimeout(() => close(), 100)
-                const value = String(JSON.parse(JSON.stringify(option.value)))
+                const value = String(JSON.parse(JSON.stringify(opt.value)))
 
                 emit('update:modelValue', value)
             }
@@ -150,7 +152,7 @@ export default {
         })
 
         const filteredOptions = computed(() => {
-            return props.options.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
+            return props.options.filter((o, i) => i === 0 || toRaw(o).text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
         })
 
         const selectAllClicked = ref(false)
@@ -189,8 +191,7 @@ export default {
 
         const update = (items) => {
 
-            console.log($(sumoSelectRef.value)[0].sumo)
-
+            console.log($(sumoSelectRef.value)[0])
             if($(sumoSelectRef.value)[0].sumo) {
 
                 $(sumoSelectRef.value)[0].sumo.reload();
@@ -212,6 +213,12 @@ export default {
             }
         }
 
+        const onSearch = (e) => {
+            searchValue.value = e.target.value
+
+            emit('search', e.target.value)
+        }
+
         return {
             sumoSelectRef,
             optWrapperRef,
@@ -225,6 +232,7 @@ export default {
             selectAll,
             handleOpen,
             update,
+            onSearch,
         }
     }
 }

@@ -44,12 +44,12 @@ class TourService extends BaseService
 
 
         return Cache::remember('filter-options-' . $locale, 1, function () {
-            $places = Place::published()->whereHas('tours', function ($sq) {
-//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
-//                });
-                return $sq->where('published', 1);
-            })->orderBy('title->uk')->toSelectBox()->toArray();
+            $place_ids = (array) request('place', []);
+            $selectedPlaces = Place::whereIn('id', $place_ids)->get();
+
+            $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
+                ->limit(10)->orderBy('title->uk')->get()
+            )->sortBy(fn($place) => $place->title)->map->asSelectBox()->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
 //                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
