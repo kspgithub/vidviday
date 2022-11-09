@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
+use Nette\Utils\Html;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
@@ -64,16 +65,40 @@ trait UseNormalizeMedia
         return null;
     }
 
-    public function getDimensionsAttribute()
+    public function img(Media|string $source, string $conversion = '', array $attrs = [], array $options = [])
     {
-        $this->registerMediaConversions();
-
-        foreach ($this->mediaConversions as $conversion) {
-            $groups = $conversion->getManipulations()->getManipulationSequence()->getGroups();
-            $dimensions[$conversion->getName()]['width'] = $groups[0]['width'] ?? 350;
-            $dimensions[$conversion->getName()]['height'] = $groups[0]['height'] ?? 350;
+        if (is_string($source)) {
+            $media = $this->getFirstMedia($source);
         }
 
-        return $dimensions;
+        $image = Image::load($media->getPath($conversion));
+
+        $img = Html::el('img');
+        $img->src($media->getUrl($conversion));
+
+        if (file_exists($media->getPath($conversion))) {
+            $img->width($image->getWidth());
+            $img->height($image->getHeight());
+        }
+
+        if (array_key_exists('name', $this->attributes)) {
+            $img->alt($this->name);
+        }
+        if (array_key_exists('title', $this->attributes)) {
+            $img->alt($this->title);
+        }
+
+        if ($options['lazy'] ?? false) {
+            $img->setAttribute('loading', 'lazy');
+            $img->setAttribute('data-img-src', $img->src);
+//            $img->srcset($media->getUrl($conversion));
+            $img->src(asset('img/preloader.png'));
+        }
+
+        foreach ($attrs as $key => $value) {
+            $img->setAttribute($key, $value);
+        }
+
+        return $img->render();
     }
 }

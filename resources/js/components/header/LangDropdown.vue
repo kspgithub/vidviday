@@ -7,6 +7,7 @@
 <script>
 import {useI18n} from "vue-i18n";
 import moment from "moment";
+import {onMounted} from 'vue'
 
 export default {
     name: "LangDropdown",
@@ -19,7 +20,6 @@ export default {
         if (locale.value !== props.currentLocale) {
             locale.value = props.currentLocale;
         }
-
     }
 }
 </script>

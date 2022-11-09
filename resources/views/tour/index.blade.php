@@ -12,7 +12,7 @@
 
                 <div class="col-xl-9 col-12">
 
-                    <div v-is="'tour-search'" show-title :in-future="false">
+                    <tour-search v-is="'tour-search'" show-title :in-future="false">
                         @if($tours->count() > 0)
                             <!-- MOBILE BUTTONS BAR -->
                             @include('includes.mobile-btns-bar')
@@ -78,7 +78,7 @@
                             </div>
                             <x-tour.popular/>
                         @endif
-                    </div>
+                    </tour-search>
                 </div>
 
             </div>

@@ -26,10 +26,12 @@
         <script>
             window.addEventListener('DOMContentLoaded', () => {
                 if (document.getElementById('seo-shorten-text').offsetHeight > 180) {
-                    moreLess('shorten-text', '150px', {
-                        textMore: '{{ __('Read more') }}',
-                        textLess: '{{ __('Hide text') }}',
-                    });
+                    if('moreLess' in window) {
+                        moreLess('shorten-text', '150px', {
+                            textMore: '{{ __('Read more') }}',
+                            textLess: '{{ __('Hide text') }}',
+                        });
+                    }
                 }
 
             })

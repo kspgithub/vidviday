@@ -5,6 +5,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            initialized: false,
             inFuture: true,
             bannerVisible: false,
             fetchRequest: false,
@@ -41,7 +42,7 @@ export default {
                 group_id: 0,
             },
             pagination: {
-                current_page: 1,
+                current_page: 0,
                 per_page: 12,
                 last_page: 1,
                 total: 0,
@@ -56,6 +57,9 @@ export default {
         }
     },
     mutations: {
+        SET_INITIALIZED(state, value) {
+            state.initialized = value;
+        },
         SET_BANNER_VISIBLE(state, value) {
             state.bannerVisible = value;
         },
@@ -273,6 +277,9 @@ export default {
 
             urlUtils.updateUrl(path, query, true);
             await dispatch('fetchTours', getters.formData);
+        },
+        initialize({commit}) {
+            commit('SET_INITIALIZED', true);
         }
     }
 }

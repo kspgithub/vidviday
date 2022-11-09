@@ -76,7 +76,7 @@
 import FormDoublePicker from "../form/FormDoublePicker";
 import {useFormDataProperty} from "../../store/composables/useFormData";
 import {useStore} from "vuex";
-import {computed, nextTick, ref} from 'vue'
+import {computed, nextTick, ref, watch} from 'vue'
 import FormRange from "../form/FormRange";
 import FormSelect from "../form/FormSelect";
 import * as urlUtils from "../../utils/url";
@@ -110,7 +110,10 @@ export default {
         const store = useStore();
 
         store.commit('tourFilter/SET_OPTIONS', options);
-        store.dispatch('tourFilter/initFilter');
+
+        watch(() => store.state.tourFilter.initialized, (value) => {
+            store.dispatch('tourFilter/initFilter');
+        })
 
         const dateFrom = useFormDataProperty('tourFilter', 'date_from');
         const dateTo = useFormDataProperty('tourFilter', 'date_to');

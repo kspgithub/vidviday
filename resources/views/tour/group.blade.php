@@ -74,7 +74,7 @@
                     </div>
                     <!-- BANNER/INFO END -->
 
-                    <div v-is="'tour-search'" :in-future="false" :group='@json($group)'>
+                    <tour-search v-is="'tour-search'" :in-future="false" :group='@json($group)'>
                         <div class="tabs">
                             @include('tour.includes.tab-nav')
                             <div class="spacer-xs"></div>
@@ -92,7 +92,7 @@
                                 <!-- TAB #3 END -->
                             </div>
                         </div>
-                    </div>
+                    </tour-search>
                 </div>
             </div>
             <div class="spacer-lg"></div>

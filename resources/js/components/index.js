@@ -1,86 +1,87 @@
 // Глобальные компоненты
+import { defineAsyncComponent } from 'vue'
 
 
 export default {
     install: (app) => {
-        app.component('sign-up-form', require('./auth/SignUpForm').default);
+        app.component('sign-up-form', defineAsyncComponent(() => import('./auth/SignUpForm')));
 
-        app.component('lang-dropdown', require('./header/LangDropdown').default);
-        app.component('currency-dropdown', require('./header/CurrencyDropdown').default);
-        app.component('header-search', require('./header/HeaderSearch').default);
-        app.component('header-voice-popup', require('./header/HeaderVoicePopup').default);
-        app.component('user-avatar', require('./header/UserAvatar').default);
+        app.component('lang-dropdown', defineAsyncComponent(() => import('./header/LangDropdown')));
+        app.component('currency-dropdown', defineAsyncComponent(() => import('./header/CurrencyDropdown')));
+        app.component('header-search', defineAsyncComponent(() => import('./header/HeaderSearch')));
+        app.component('header-voice-popup', defineAsyncComponent(() => import('./header/HeaderVoicePopup')));
+        app.component('user-avatar', defineAsyncComponent(() => import('./header/UserAvatar')));
 
-        app.component('sidebar-filter', require('./sidebar/SidebarFilter').default);
-        app.component('sidebar-more-text', require('./sidebar/SidebarMoreText').default);
-        app.component('sidebar-recommendations', require('./sidebar/SidebarRecommendations').default);
+        app.component('sidebar-filter', defineAsyncComponent(() => import('./sidebar/SidebarFilter')));
+        app.component('sidebar-more-text', defineAsyncComponent(() => import('./sidebar/SidebarMoreText')));
+        app.component('sidebar-recommendations', defineAsyncComponent(() => import('./sidebar/SidebarRecommendations')));
 
-        app.component('svg-icon', require('./svg/SvgIcon').default);
+        app.component('svg-icon', defineAsyncComponent(() => import('./svg/SvgIcon')));
 
-        app.component('swiper-slider', require('./common/SwiperSlider').default);
-        app.component('slide-more', require('./common/SlideMore').default);
-        app.component('show-more-text', require('./common/ShowMoreText').default);
-        app.component('more-text', require('./common/MoreText').default);
-        app.component('open-testimonial-form', require('./common/OpenTestimonialForm').default);
-        app.component('open-tour-question-form', require('./common/OpenTourQuestionForm').default);
-        app.component('feedback-form', require('./common/FeedbackForm').default);
-        app.component('share-dropdown', require('./common/ShareDropdown').default);
-        app.component('print-btn', require('./common/PrintBtn').default);
-        app.component('map-route', require('./common/MapRoute').default);
+        app.component('swiper-slider', defineAsyncComponent(() => import('./common/SwiperSlider')));
+        app.component('slide-more', defineAsyncComponent(() => import('./common/SlideMore')));
+        app.component('show-more-text', defineAsyncComponent(() => import('./common/ShowMoreText')));
+        app.component('more-text', defineAsyncComponent(() => import('./common/MoreText')));
+        app.component('open-testimonial-form', defineAsyncComponent(() => import('./common/OpenTestimonialForm')));
+        app.component('open-tour-question-form', defineAsyncComponent(() => import('./common/OpenTourQuestionForm')));
+        app.component('feedback-form', defineAsyncComponent(() => import('./common/FeedbackForm')));
+        app.component('share-dropdown', defineAsyncComponent(() => import('./common/ShareDropdown')));
+        app.component('print-btn', defineAsyncComponent(() => import('./common/PrintBtn')));
+        app.component('map-route', defineAsyncComponent(() => import('./common/MapRoute')));
 
-        app.component('testimonial-list', require('./testimonial/TestimonialList').default);
-        app.component('testimonial-popup-form', require('./testimonial/TestimonialPopupForm').default);
-
-
-        app.component('popup-gallery', require('./popup/PopupGallery').default);
-        app.component('popup-call-btn', require('./popup/PopupCallBtn').default);
-        app.component('popup-call', require('./popup/PopupCall').default);
-        app.component('popup-email-btn', require('./popup/PopupEmailBtn').default);
-        app.component('popup-email', require('./popup/PopupEmail').default);
-        app.component('popup-thanks', require('./popup/PopupThanks').default);
-        app.component('popup-sub-btn', require('./popup/PopupSubBtn').default);
-        app.component('popup-user-sub', require('./popup/PopupUserSubscription').default);
-        app.component('popup-agent-sub', require('./popup/PopupAgentSubscription').default);
-
-        app.component('tour-card', require('./tour/TourCard').default);
-
-        app.component('tour-search', require('./tour/TourSearch').default);
-        app.component('tour-request-title', require('./tour/TourRequestTitle').default);
-        app.component('tour-question-form', require('./tour/TourQuestionForm').default);
-        app.component('tour-question-popup-form', require('./tour/TourQuestionPopupForm').default);
-        app.component('tour-testimonial-form', require('./tour/TourTestimonialForm').default);
-        app.component('tour-map', require('./tour/TourMap').default);
-        app.component('tour-calc', require('./tour/TourCalc').default);
-        app.component('tour-carousel', require('./tour/TourCarousel').default);
-        app.component('tour-order', require('./tour/TourOrder').default);
-        app.component('tour-one-click-popup', require('./tour/TourOneClickPopup').default);
-        app.component('tour-calendar-popup', require('./tour/TourCalendarPopup').default);
-        app.component('tour-like-btn', require('./tour/TourLikeBtn').default);
-        app.component('tour-voting-form', require('./tour/TourVotingForm').default);
-        app.component('tour-order-schedule-button', require('./tour/TourOrderScheduleButton').default);
+        app.component('testimonial-list', defineAsyncComponent(() => import('./testimonial/TestimonialList')));
+        app.component('testimonial-popup-form', defineAsyncComponent(() => import('./testimonial/TestimonialPopupForm')));
 
 
-        app.component('order-form', require('./order/OrderForm').default);
-        app.component('order-testimonial-btn', require('./order/OrderTestimonialBtn').default);
-        app.component('order-cancel-btn', require('./order/OrderCancelBtn').default);
-        app.component('order-cancel-popup', require('./order/OrderCancelPopup').default);
-        app.component('order-notes', require('./order/OrderNotes').default);
-        app.component('order-transport-form', require('./order/OrderTransportForm').default);
+        app.component('popup-gallery', defineAsyncComponent(() => import('./popup/PopupGallery')));
+        app.component('popup-call-btn', defineAsyncComponent(() => import('./popup/PopupCallBtn')));
+        app.component('popup-call', defineAsyncComponent(() => import('./popup/PopupCall')));
+        app.component('popup-email-btn', defineAsyncComponent(() => import('./popup/PopupEmailBtn')));
+        app.component('popup-email', defineAsyncComponent(() => import('./popup/PopupEmail')));
+        app.component('popup-thanks', defineAsyncComponent(() => import('./popup/PopupThanks')));
+        app.component('popup-sub-btn', defineAsyncComponent(() => import('./popup/PopupSubBtn')));
+        app.component('popup-user-sub', defineAsyncComponent(() => import('./popup/PopupUserSubscription')));
+        app.component('popup-agent-sub', defineAsyncComponent(() => import('./popup/PopupAgentSubscription')));
 
-        app.component('place-testimonial-form', require('./place/PlaceTestimonialForm').default);
-        app.component('places-accordion', require('./place/PlacesAccordion').default);
+        app.component('tour-card', defineAsyncComponent(() => import('./tour/TourCard')));
 
-        app.component('staff-testimonial-form', require('./staff/StaffTestimonialForm').default);
+        app.component('tour-search', defineAsyncComponent(() => import('./tour/TourSearch')));
+        app.component('tour-request-title', defineAsyncComponent(() => import('./tour/TourRequestTitle')));
+        app.component('tour-question-form', defineAsyncComponent(() => import('./tour/TourQuestionForm')));
+        app.component('tour-question-popup-form', defineAsyncComponent(() => import('./tour/TourQuestionPopupForm')));
+        app.component('tour-testimonial-form', defineAsyncComponent(() => import('./tour/TourTestimonialForm')));
+        app.component('tour-map', defineAsyncComponent(() => import('./tour/TourMap')));
+        app.component('tour-calc', defineAsyncComponent(() => import('./tour/TourCalc')));
+        app.component('tour-carousel', defineAsyncComponent(() => import('./tour/TourCarousel')));
+        app.component('tour-order', defineAsyncComponent(() => import('./tour/TourOrder')));
+        app.component('tour-one-click-popup', defineAsyncComponent(() => import('./tour/TourOneClickPopup')));
+        app.component('tour-calendar-popup', defineAsyncComponent(() => import('./tour/TourCalendarPopup')));
+        app.component('tour-like-btn', defineAsyncComponent(() => import('./tour/TourLikeBtn')));
+        app.component('tour-voting-form', defineAsyncComponent(() => import('./tour/TourVotingForm')));
+        app.component('tour-order-schedule-button', defineAsyncComponent(() => import('./tour/TourOrderScheduleButton')));
 
-        app.component('profile-info-form', require('./profile/ProfileInfoForm').default);
-        app.component('profile-history', require('./profile/ProfileHistory').default);
-        app.component('profile-favourite-link', require('./profile/ProfileFavouriteLink').default);
-        app.component('profile-favourites', require('./profile/ProfileFavourites').default);
-        app.component('profile-in-favourites', require('./profile/ProfileInFavourites').default);
 
-        app.component('certificate-order-form', require('./certificate/CertificateOrderForm').default);
-        app.component('vacancy-form', require('./vacancy/VacancyForm').default);
+        app.component('order-form', defineAsyncComponent(() => import('./order/OrderForm')));
+        app.component('order-testimonial-btn', defineAsyncComponent(() => import('./order/OrderTestimonialBtn')));
+        app.component('order-cancel-btn', defineAsyncComponent(() => import('./order/OrderCancelBtn')));
+        app.component('order-cancel-popup', defineAsyncComponent(() => import('./order/OrderCancelPopup')));
+        app.component('order-notes', defineAsyncComponent(() => import('./order/OrderNotes')));
+        app.component('order-transport-form', defineAsyncComponent(() => import('./order/OrderTransportForm')));
 
-        app.component('mobile-search', require('./mobile/MobileSearchDropdown').default);
+        app.component('place-testimonial-form', defineAsyncComponent(() => import('./place/PlaceTestimonialForm')));
+        app.component('places-accordion', defineAsyncComponent(() => import('./place/PlacesAccordion')));
+
+        app.component('staff-testimonial-form', defineAsyncComponent(() => import('./staff/StaffTestimonialForm')));
+
+        app.component('profile-info-form', defineAsyncComponent(() => import('./profile/ProfileInfoForm')));
+        app.component('profile-history', defineAsyncComponent(() => import('./profile/ProfileHistory')));
+        app.component('profile-favourite-link', defineAsyncComponent(() => import('./profile/ProfileFavouriteLink')));
+        app.component('profile-favourites', defineAsyncComponent(() => import('./profile/ProfileFavourites')));
+        app.component('profile-in-favourites', defineAsyncComponent(() => import('./profile/ProfileInFavourites')));
+
+        app.component('certificate-order-form', defineAsyncComponent(() => import('./certificate/CertificateOrderForm')));
+        app.component('vacancy-form', defineAsyncComponent(() => import('./vacancy/VacancyForm')));
+
+        app.component('mobile-search', defineAsyncComponent(() => import('./mobile/MobileSearchDropdown')));
     }
 }

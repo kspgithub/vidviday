@@ -54,11 +54,8 @@
                 </div>
             @endif
             @if(!empty($manager->avatar))
-                <img loading="lazy"
-                     class="manager-avatar"
+                <img class="manager-avatar"
                      src="{{$manager->avatar_url}}" data-img-src="{{$manager->avatar_url}}"
-                     width="{{$manager->dimensions['thumb']['width']}}"
-                     height="{{$manager->dimensions['thumb']['height']}}"
                      alt="{{$manager->name}}">
             @endif
         </div>

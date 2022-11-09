@@ -18,13 +18,15 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix.setPublicPath(`public/assets/app`)
-    .js('resources/js/app.js', 'public/assets/app/js/app.js')
-    .sass('resources/scss/app.scss', 'public/assets/app/css/app.css')
-    .sass('resources/scss/theme/main.scss', 'public/assets/app/css/main.css')
-    .sass('resources/scss/theme/print.scss', 'public/assets/app/css/print.css')
-    .sass('resources/scss/theme/style.scss', 'public/assets/app/css/style.css')
-    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css/editor.css')
+mix
+    .setResourceRoot(`/assets/app/`)
+    .setPublicPath(`public/assets/app`)
+    .js('resources/js/app.js', 'public/assets/app/js')
+    .sass('resources/scss/app.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
     .purgeCss()
     .vue()
     .lang()
@@ -32,6 +34,9 @@ mix.setPublicPath(`public/assets/app`)
     .disableNotifications();
 
 mix.webpackConfig({
+    output: {
+        chunkFilename: `../../assets/app/js/chunks/[name].[chunkhash].js`,
+    },
     resolve: {
         alias: {
             '@lang': resolve('./resources/lang'),
@@ -57,6 +62,15 @@ mix.webpackConfig({
     ],
 });
 
+if (Mix.config.hmr) {
+    mix.setResourceRoot(`/`)
+    mix.webpackConfig({
+        output: {
+            chunkFilename: 'js/chunks/[name].[chunkhash].js'
+        }
+    });
+}
+
 mix.sourceMaps(false, 'source-map');
 
 if (mix.inProduction()) {
@@ -75,7 +89,6 @@ if (mix.inProduction()) {
     // Uses source-maps on development
 
     // mix.browserSync(process.env.APP_URL);
-
 
     const host = ip.address() || '0.0.0.0'
     const port = 8081

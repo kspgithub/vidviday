@@ -15,7 +15,11 @@
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
-@section("content")
+@push('after-scripts')
+    <script src="{{ mix('js/libs/sharer', 'assets/app') }}"></script>
+@endpush
+
+@section'("content")
 
     <main>
         <div class="container">

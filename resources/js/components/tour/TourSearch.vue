@@ -1,7 +1,7 @@
 <template>
     <div>
         <spinner v-if="loading"/>
-        <div v-if="total > 0 &&  !loading">
+        <div v-if="total > 0 && !loading">
             <mobile-btns-bar/>
             <template v-if="showTitle">
                 <tour-request-title/>
@@ -31,7 +31,7 @@
 
 <script>
 import TourTabNav from "./TourTabNav";
-import {computed, onUnmounted, ref} from "vue";
+import {computed, onMounted, onUnmounted, ref} from 'vue'
 import {useStore} from "vuex";
 import TourViewGallery from "./TourViewGallery";
 import TourViewList from "./TourViewList";
@@ -58,6 +58,19 @@ export default {
     },
     setup(props) {
         const store = useStore();
+
+        const unsubscribe = store.subscribeAction({
+            after: async (action, state) => {
+                if (action.type === 'tourFilter/initFilter') {
+                    const query = urlUtils.filterParams(params.value, defaultParams.value);
+                    await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {})});
+                    loading.value = false;
+                }
+            }
+        })
+
+        store.dispatch('tourFilter/initialize')
+
         const viewType = computed(() => store.state.tourFilter.viewType);
         const params = computed(() => store.getters['tourFilter/formData']);
         const defaultParams = computed(() => store.getters['tourFilter/defaultData']);
@@ -76,15 +89,6 @@ export default {
 
         store.dispatch('tourFilter/fetchPopularTours');
 
-        const unsubscribe = store.subscribeAction({
-            after: async (action, state) => {
-                if (action.type === 'tourFilter/initFilter') {
-                    const query = urlUtils.filterParams(params.value, defaultParams.value);
-                    await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {})});
-                    loading.value = false;
-                }
-            }
-        })
 
         onUnmounted(() => {
             unsubscribe();
