@@ -22,7 +22,6 @@ mix
     .setResourceRoot(`/assets/app/`)
     .setPublicPath(`public/assets/app`)
     .js('resources/js/app.js', 'public/assets/app/js')
-    .sass('resources/scss/app.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/style.scss', 'public/assets/app/css')

@@ -83,13 +83,13 @@ export default {
             });
         }
 
-        onMounted(() => {
+        onMounted(async () => {
             targetPosition.value = mapLatLng({
                 lat: props.lat,
                 lng: props.lng,
             });
 
-            map.value = initMap(mapRef.value, {
+            map.value = await initMap(mapRef.value, {
                 center: targetPosition.value,
                 zoom: props.zoom,
             });

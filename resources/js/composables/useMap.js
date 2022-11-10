@@ -1,5 +1,13 @@
 export const mapInfoWindow = {};
 export const mapMarkers = [];
+import { Loader } from '@googlemaps/js-api-loader';
+
+const loader = new Loader({
+    apiKey: process.env.MIX_GOOGLE_MAPS_KEY,
+    version: "weekly",
+    libraries: ["places"],
+    language: 'uk',
+});
 
 export const MAP_STYLES = [{
     "featureType": "administrative",
@@ -85,8 +93,7 @@ export const MAP_STYLES = [{
 
 
 export const mapLatLng = (options = {}) => {
-
-    return new google.maps.LatLng(options.lat, options.lng)
+    return 'google' in window ? new google.maps.LatLng(options.lat, options.lng) : {lat: options.lat, lng: options.lng}
 }
 
 export const mapOptions = (options = {}) => {
@@ -118,11 +125,22 @@ export const mapOptions = (options = {}) => {
 
 
 export const initMap = (element, options = {}) => {
-    const styledMap = new google.maps.StyledMapType(MAP_STYLES, {name: "Styled Map"});
-    const map = new google.maps.Map(element, mapOptions(options));
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
-    return map;
+    return new Promise((resolve, reject) => {
+        loader.load()
+            .then((google) => {
+                window.google = google;
+                const styledMap = new google.maps.StyledMapType(MAP_STYLES, {name: "Styled Map"});
+                const map = new google.maps.Map(element, mapOptions(options));
+                map.mapTypes.set('map_style', styledMap);
+                map.setMapTypeId('map_style');
+                resolve(map)
+            })
+            .catch(e => {
+                // do something
+                console.log(e);
+                reject(e)
+            });
+    })
 }
 
 

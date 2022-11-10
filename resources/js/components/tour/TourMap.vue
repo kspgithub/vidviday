@@ -5,7 +5,7 @@
 <script>
 import {computed, onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
-import {mapOptions} from "./useGoogleMap";
+import {initMap, mapOptions} from '../../composables/useMap'
 
 export default {
     name: "TourMap",
@@ -21,9 +21,9 @@ export default {
 
         const apiKey = process.env.MIX_GOOGLE_MAPS_KEY;
 
-        onMounted(() => {
+        onMounted(async () => {
 
-            map.value = new google.maps.Map(mapRef.value, {
+            map.value = await initMap(mapRef.value, {
                 ...mapOptions,
                 center: {lat: 49.822385, lng: 24.023855},
                 zoom: 15,
@@ -81,6 +81,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.gm-style-iw, .gm-style-iw-tc::after {
+    background-color: #333333!important;
+}
 </style>

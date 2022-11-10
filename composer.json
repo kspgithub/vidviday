@@ -36,6 +36,7 @@
         "renatomarinho/laravel-page-speed": "^2.1",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.2",
+        "spatie/laravel-server-side-rendering": "^1.4",
         "spatie/laravel-sitemap": "^6.1",
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-translatable": "^4.6",
