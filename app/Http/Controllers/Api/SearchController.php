@@ -22,7 +22,7 @@ class SearchController extends Controller
         if ($places->count() === 0) {
             $limitTours += $limitPlaces;
         }
-        $tours = Tour::autocomplete($q)->take($limitTours)->get()->map->shortInfo();
+        $tours = Tour::filter($request->all())->take($limitTours)->get()->map->shortInfo();
 
         if(!$tours->count() && !$places->count()) {
             TourService::handleWrongRequest($request);

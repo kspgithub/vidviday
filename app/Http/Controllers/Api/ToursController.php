@@ -24,9 +24,11 @@ class ToursController extends Controller
      */
     public function index(SearchToursRequest $request)
     {
+        $q = $request->input('q', '');
+
         $future = (int)$request->input('future', 1) !== 0;
 
-        $query = Tour::search($future)->filter($request->validated());
+        $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
 
         $query->withCount(['testimonials' => function ($q) {
             return $q->moderated()
@@ -66,7 +68,7 @@ class ToursController extends Controller
         if ($limit == 0) {
             $limit = 1000;
         }
-        return Tour::published()->autocomplete($q)->take($limit)->get()->map->shortInfo();
+        return Tour::filter($request->all())->take($limit)->get()->map->shortInfo();
     }
 
     /**

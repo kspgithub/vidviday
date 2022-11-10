@@ -33,7 +33,7 @@
     @stack('after-styles', false)
 
     <link href="{{mix('css/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
-{{--    <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">--}}
+    <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">
     <link href="{{ mix('css/print.css', 'assets/app') }}" media="print" rel="stylesheet">
 
     @production
