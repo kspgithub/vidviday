@@ -64,41 +64,4 @@ trait UseNormalizeMedia
 
         return null;
     }
-
-    public function img(Media|string $source, string $conversion = '', array $attrs = [], array $options = [])
-    {
-        if (is_string($source)) {
-            $media = $this->getFirstMedia($source);
-        }
-
-        $image = Image::load($media->getPath($conversion));
-
-        $img = Html::el('img');
-        $img->src($media->getUrl($conversion));
-
-        if (file_exists($media->getPath($conversion))) {
-            $img->width($image->getWidth());
-            $img->height($image->getHeight());
-        }
-
-        if (array_key_exists('name', $this->attributes)) {
-            $img->alt($this->name);
-        }
-        if (array_key_exists('title', $this->attributes)) {
-            $img->alt($this->title);
-        }
-
-        if ($options['lazy'] ?? false) {
-            $img->setAttribute('loading', 'lazy');
-            $img->setAttribute('data-img-src', $img->src);
-//            $img->srcset($media->getUrl($conversion));
-            $img->src(asset('img/preloader.png'));
-        }
-
-        foreach ($attrs as $key => $value) {
-            $img->setAttribute($key, $value);
-        }
-
-        return $img->render();
-    }
 }

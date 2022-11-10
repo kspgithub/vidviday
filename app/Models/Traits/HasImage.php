@@ -64,26 +64,4 @@ trait HasImage
             'height' => 300,
         ];
     }
-
-    public function img(array $attrs = ['loading' => 'lazy'])
-    {
-        $logo = $this->getAttributeValue('image');
-        $path = Storage::path($logo);
-        $img = Html::el('img');
-        $img->src = $this->image_url;
-        $image = Image::load($path);
-        $img->width($image->getWidth());
-        $img->height($image->getHeight());
-        if(array_key_exists('name', $this->attributes)) {
-            $img->alt($this->name);
-        }
-        if(array_key_exists('title', $this->attributes)) {
-            $img->alt($this->title);
-        }
-        foreach ($attrs as $key => $value) {
-            $img->setAttribute($key, $value);
-        }
-
-        echo $img->render();
-    }
 }

@@ -114,7 +114,7 @@ trait TourRelationship
      */
     public function scheduleItems()
     {
-        return $this->hasMany(TourSchedule::class);
+        return $this->hasMany(TourSchedule::class)->orderBy('start_date');
     }
 
     /**
