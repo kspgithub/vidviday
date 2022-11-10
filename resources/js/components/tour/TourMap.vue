@@ -81,12 +81,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '../../../scss/theme/map';
+
 .gm-style-iw, .gm-style-iw-tc::after {
     background-color: #333333!important;
     color: white;
 }
 .gm-style-iw {
     top: 5px!important;
+}
+.gm-ui-hover-effect > span {
+    background-color: #fff;
 }
 </style>
