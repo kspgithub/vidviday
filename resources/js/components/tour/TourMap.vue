@@ -84,5 +84,9 @@ export default {
 <style>
 .gm-style-iw, .gm-style-iw-tc::after {
     background-color: #333333!important;
+    color: white;
+}
+.gm-style-iw {
+    top: 5px!important;
 }
 </style>
