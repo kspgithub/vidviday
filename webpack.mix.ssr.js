@@ -4,7 +4,7 @@ const webpackNodeExternals = require('webpack-node-externals')
 
 mix
     .setResourceRoot('/assets/ssr/')
-    .setPublicPath(path.normalize(`public/assets/ssr`))
+    .setPublicPath(`public/assets/ssr`)
     .options({
         manifest: false
     })

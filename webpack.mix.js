@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
-const { resolve } = require('path');
+const path = require("path");
 const ip = require('ip');
 
 require('laravel-vue-lang/mix');
@@ -35,8 +35,8 @@ mix
 mix.webpackConfig({
     resolve: {
         alias: {
-            '@lang': resolve('./resources/lang'),
-            '@publicLang': resolve('./public/storage/lang'),
+            '@lang': path.resolve('./resources/lang'),
+            '@publicLang': path.resolve('./public/storage/lang'),
         },
     },
     module: {
@@ -48,7 +48,7 @@ mix.webpackConfig({
         ],
     },
     output: {
-        chunkFilename: '../../assets/app/js/chunks/[name].[chunkhash].js'
+        chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
     },
     plugins: [
         new webpack.DefinePlugin({

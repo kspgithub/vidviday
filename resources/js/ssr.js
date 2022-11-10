@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 import { renderToString } from 'vue/server-renderer'
 import {createSSRApp, h} from 'vue'
 import { resolveComponent } from "./components";
-import { defineAsyncComponent } from 'vue'
 
 const app = express()
 
@@ -13,21 +12,21 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 app.post('/render', async (req, res) => {
-    // const html = '<div>ssR</div>'
+    try {
+        const component = resolveComponent(req.body.component)
+        const props = req.body.props || {}
 
-    const componentName = req.body.component || 'test-component'
-    const component = resolveComponent(componentName)
-    const props = req.body.props || {}
-    console.log('Got body:', req.body);
-    console.log('component:', component);
+        const app = createSSRApp({
+            render: () => h(component, props)
+        })
 
-    const app = createSSRApp({
-        render: () => h(component, props)
-    })
+        const html = await renderToString(app)
 
-    const html = await renderToString(app)
+        res.status(200).send(html)
+    } catch (e) {
+        res.status(404).send(`Component ${req.body.component} not found.`)
+    }
 
-    res.status(200).send(html)
 })
 
 app.listen(3333)
