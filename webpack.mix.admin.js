@@ -18,11 +18,12 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix.setPublicPath(`public/assets/admin`)
-    .js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
-    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')
+mix
+    .setResourceRoot('/assets/admin/')
+    .setPublicPath(`public/assets/admin`)
+    .js('resources/js/admin/app.js', 'public/assets/admin/js')
+    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css')
     .purgeCss()
-    .vue()
     .lang()
     .extract()
     .disableNotifications();
@@ -42,15 +43,6 @@ mix.webpackConfig({
             },
         ],
     },
-    plugins: [
-        new webpack.DefinePlugin({
-            __VUE_OPTIONS_API__: true,
-            __VUE_PROD_DEVTOOLS__: false,
-            __VUE_I18N_FULL_INSTALL__: true,
-            __VUE_I18N_LEGACY_API__: false,
-            __INTLIFY_PROD_DEVTOOLS__: false,
-        }),
-    ],
 });
 
 mix.sourceMaps(false, 'source-map');

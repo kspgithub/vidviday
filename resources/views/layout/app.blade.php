@@ -43,6 +43,9 @@
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
+
+    <x-vue-component :component="'test-component'" :props='json_encode(["name" => "hhh"])' />
+
     <!-- LOADER -->
     <div id="loader"></div>
 

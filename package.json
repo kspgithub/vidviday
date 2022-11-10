@@ -3,15 +3,20 @@
     "scripts": {
         "dev-admin": "mix --mix-config=webpack.mix.admin.js",
         "dev-app": "mix",
-        "dev": "concurrently \"npm:dev-admin\" \"npm:dev-app\"",
+        "dev": "concurrently \"yarn:dev-admin\" \"yarn:dev-app\"",
         "hot-admin": "mix watch --hot --mix-config=webpack.mix.admin.js",
         "hot-app": "mix watch --hot",
-        "hot": "concurrently \"npm:hot-admin\" \"npm:hot-app\"",
+        "hot": "concurrently \"yarn:hot-admin\" \"yarn:hot-app\"",
         "prod-admin": "mix --production --mix-config=webpack.mix.admin.js",
         "prod-app": "mix --production",
-        "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\""
+        "prod": "concurrently \"yarn:prod-admin\" \"yarn:prod-app\"",
+        "ssr-build": "mix --production --mix-config=webpack.mix.ssr.js",
+        "ssr-start": "node public/assets/ssr/ssr.js",
+        "ssr": "yarn ssr-build && yarn ssr-start"
     },
     "devDependencies": {
+        "@babel/core": "^7.17.5",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "@fancyapps/ui": "^4.0.0-alpha.4",
         "@fortawesome/fontawesome-free": "^6.0.0",
         "@fullcalendar/core": "^5.10.1",
@@ -25,14 +30,17 @@
         "@vee-validate/i18n": "^4.4.7",
         "@vee-validate/rules": "^4.4.7",
         "@vue/compiler-sfc": "^3.2.1",
+        "@vue/server-renderer": "^3.2.44",
         "ace-builds": "^1.8.1",
         "alpine-editor": "^0.3.2",
         "alpinejs": "^3.2.1",
         "awesome-phonenumber": "^2.58.0",
         "axios": "^0.21",
-        "bootstrap": "^5.0.2",
+        "body-parser": "^1.20.1",
+        "bootstrap": "~5.1",
         "chart.js": "^2.9.4",
         "choices.js": "^10.0.0",
+        "concurrently": "^7.5.0",
         "feather-icons": "^4.28.0",
         "flatpickr": "^4.6.9",
         "inputmask": "^5.0.6-beta.57",
@@ -77,9 +85,7 @@
         "vue3-slide-up-down": "^1.2.3",
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.0.0",
-        "webpack": "^5.41.1"
-    },
-    "dependencies": {
-        "concurrently": "^7.5.0"
+        "webpack": "^5.41.1",
+        "webpack-node-externals": "^3.0.0"
     }
 }

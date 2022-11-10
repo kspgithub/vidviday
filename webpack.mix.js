@@ -19,7 +19,7 @@ require('laravel-mix-purgecss');
  */
 
 mix
-    .setResourceRoot(`/assets/app/`)
+    .setResourceRoot('/assets/app/')
     .setPublicPath(`public/assets/app`)
     .js('resources/js/app.js', 'public/assets/app/js')
     .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
@@ -33,9 +33,6 @@ mix
     .disableNotifications();
 
 mix.webpackConfig({
-    output: {
-        chunkFilename: `../../assets/app/js/chunks/[name].[chunkhash].js`,
-    },
     resolve: {
         alias: {
             '@lang': resolve('./resources/lang'),
@@ -50,6 +47,9 @@ mix.webpackConfig({
             },
         ],
     },
+    output: {
+        chunkFilename: '../../assets/app/js/chunks/[name].[chunkhash].js'
+    },
     plugins: [
         new webpack.DefinePlugin({
             __VUE_OPTIONS_API__: true,
@@ -60,9 +60,8 @@ mix.webpackConfig({
         }),
     ],
 });
-
 if (Mix.config.hmr) {
-    mix.setResourceRoot(`/`)
+    mix.setResourceRoot(path.normalize(`/`))
     mix.webpackConfig({
         output: {
             chunkFilename: 'js/chunks/[name].[chunkhash].js'
