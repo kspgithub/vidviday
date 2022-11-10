@@ -19,7 +19,7 @@ require('laravel-mix-purgecss');
  */
 
 mix
-    .setResourceRoot('/assets/admin/')
+    .setResourceRoot(Mix.config.hmr ? path.normalize(`/`) : '/assets/admin/')
     .setPublicPath(`public/assets/admin`)
     .js('resources/js/admin/app.js', 'public/assets/admin/js')
     .sass('resources/scss/admin/app.scss', 'public/assets/admin/css')

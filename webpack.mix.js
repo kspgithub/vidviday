@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const path = require("path");
 const ip = require('ip');
 
+const host = ip.address() || '0.0.0.0'
+const port = 8081
+
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
 require('laravel-mix-purgecss');
@@ -19,7 +22,7 @@ require('laravel-mix-purgecss');
  */
 
 mix
-    .setResourceRoot('/assets/app/')
+    .setResourceRoot(Mix.config.hmr ? path.normalize(`/`) : '/assets/app/')
     .setPublicPath(`public/assets/app`)
     .js('resources/js/app.js', 'public/assets/app/js')
     .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
@@ -27,86 +30,50 @@ mix
     .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
     .purgeCss()
-    .vue()
+    .vue({
+        extractStyles: true,
+    })
     .lang()
     .extract()
-    .disableNotifications();
-
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            '@lang': path.resolve('./resources/lang'),
-            '@publicLang': path.resolve('./public/storage/lang'),
-        },
-    },
-    module: {
-        rules: [
-            {
-                test: /resources[\\\/]lang.+\.(php)$/,
-                loader: 'php-array-loader',
-            },
-        ],
-    },
-    output: {
-        chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            __VUE_OPTIONS_API__: true,
-            __VUE_PROD_DEVTOOLS__: false,
-            __VUE_I18N_FULL_INSTALL__: true,
-            __VUE_I18N_LEGACY_API__: false,
-            __INTLIFY_PROD_DEVTOOLS__: false,
-        }),
-    ],
-});
-if (Mix.config.hmr) {
-    mix.setResourceRoot(path.normalize(`/`))
-    mix.webpackConfig({
-        output: {
-            chunkFilename: 'js/chunks/[name].[chunkhash].js'
-        }
-    });
-}
-
-mix.sourceMaps(false, 'source-map');
-
-if (mix.inProduction()) {
-    // !!! Dont need to minify.
-    // Laravel Mix automatically minifies js as css files in production
-    // mix.minify([
-    //     'public/js/app.js',
-    //     'public/js/vendor.js',
-    //     'public/js/admin.js',
-    //     'public/css/app.css',
-    //     'public/css/admin.css',
-    // ]);
-
-    mix.version();
-} else {
-    // Uses source-maps on development
-
-    // mix.browserSync(process.env.APP_URL);
-
-    const host = ip.address() || '0.0.0.0'
-    const port = 8081
-
-    mix.options({
+    .disableNotifications()
+    .options({
+        processCssUrls: false,
         hmrOptions: {
             host,
             port,
-        }
+        },
     })
-
-    console.log('=====================================')
-    console.log('App host: ' + host)
-    console.log('=====================================')
-
-    mix.webpackConfig({
+    .webpackConfig({
         devServer: {
             host,
             port,
         },
-    });
-
-}
+        resolve: {
+            alias: {
+                '@lang': path.resolve('./resources/lang'),
+                '@publicLang': path.resolve('./public/storage/lang'),
+            },
+        },
+        module: {
+            rules: [
+                {
+                    test: /resources[\\\/]lang.+\.(php)$/,
+                    loader: 'php-array-loader',
+                },
+            ],
+        },
+        output: {
+            chunkFilename: Mix.config.hmr ? 'js/chunks/[name].[chunkhash].js' : path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                __VUE_OPTIONS_API__: true,
+                __VUE_PROD_DEVTOOLS__: false,
+                __VUE_I18N_FULL_INSTALL__: true,
+                __VUE_I18N_LEGACY_API__: false,
+                __INTLIFY_PROD_DEVTOOLS__: false,
+            }),
+        ],
+    })
+    .sourceMaps(false, 'source-map')
+    .version()
