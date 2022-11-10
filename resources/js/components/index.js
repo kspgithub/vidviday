@@ -7,6 +7,7 @@ export const resolveComponent = (component) => defineAsyncComponent(() => import
 export default {
     install: (app) => {
         app.component('test-component', resolveComponent('test-component'));
+        app.component('test-component2', resolveComponent('test-component2'));
         app.component('sign-up-form', resolveComponent('auth/SignUpForm'));
 
         app.component('lang-dropdown', resolveComponent('header/LangDropdown'));

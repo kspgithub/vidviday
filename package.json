@@ -12,7 +12,7 @@
         "prod": "concurrently \"yarn:prod-admin\" \"yarn:prod-app\"",
         "ssr-build": "mix --production --mix-config=webpack.mix.ssr.js",
         "ssr-start": "node public/assets/ssr/ssr.js",
-        "ssr": "yarn ssr-build && yarn ssr-start"
+        "ssr": "yarn prop-app && yarn ssr-build && yarn ssr-start"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",

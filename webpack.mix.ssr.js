@@ -2,12 +2,14 @@ const mix = require("laravel-mix");
 const path = require("path");
 const webpackNodeExternals = require('webpack-node-externals')
 
+require('laravel-vue-lang/mix');
+require('laravel-mix-svg-vue');
+
 mix
-    .setResourceRoot(Mix.config.hmr ? path.normalize(`/`) : '/assets/ssr/')
-    .setPublicPath(`public/assets/ssr`)
+    .setResourceRoot('/assets/app/')
+    .setPublicPath(`public/assets/app`)
     .js(`resources/js/ssr.js`, `public/assets/ssr`)
     .vue({
-        extractStyles: true,
         options: {
             optimizeSSR: true
         }
@@ -17,14 +19,15 @@ mix
         '@publicLang': path.resolve('./public/storage/lang'),
     })
     .options({
-        manifest: false,
         processCssUrls: false,
+        manifest: false,
     })
     .webpackConfig({
         target: 'node',
         externals: [webpackNodeExternals()],
         output: {
-            chunkFilename: Mix.config.hmr ? 'js/chunks/[name].[chunkhash].js' : path.normalize(`../assets/app/js/chunks/[name].[chunkhash].js`)
+            chunkFilename: path.normalize(`../assets/app/js/chunks/[name].[chunkhash].js`)
         },
     })
+    .sourceMaps(false, 'source-map')
     .version()

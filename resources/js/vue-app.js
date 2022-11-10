@@ -10,6 +10,10 @@ app.config.globalProperties.$isProd = store.state.isProd
 app.config.globalProperties.$isDev = store.state.isDev
 app.config.globalProperties.$isLocal = store.state.isLocal
 
+import SvgVue from 'svg-vue3';
+
+app.use(SvgVue)
+
 import i18n from './i18n';
 
 app.use(i18n);

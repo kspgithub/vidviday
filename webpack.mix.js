@@ -1,14 +1,14 @@
-const mix = require('laravel-mix');
-const webpack = require('webpack');
-const path = require("path");
-const ip = require('ip');
+const mix = require('laravel-mix')
+const webpack = require('webpack')
+const path = require('path')
+const ip = require('ip')
 
 const host = ip.address() || '0.0.0.0'
 const port = 8081
 
-require('laravel-vue-lang/mix');
-require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
+require('laravel-vue-lang/mix')
+require('laravel-mix-svg-vue')
+require('laravel-mix-purgecss')
 
 /*
  |--------------------------------------------------------------------------
@@ -22,38 +22,24 @@ require('laravel-mix-purgecss');
  */
 
 mix
-    .setResourceRoot(Mix.config.hmr ? path.normalize(`/`) : '/assets/app/')
+    .setResourceRoot('/assets/app/')
     .setPublicPath(`public/assets/app`)
-    .js('resources/js/app.js', 'public/assets/app/js')
-    .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
-    .purgeCss()
-    .vue({
-        extractStyles: true,
-    })
+    .js('resources/js/app.js', path.normalize('public/assets/app/js'))
+    .sass('resources/scss/theme/main.scss', path.normalize('public/assets/app/css'))
+    .sass('resources/scss/theme/print.scss', path.normalize('public/assets/app/css'))
+    .sass('resources/scss/theme/style.scss', path.normalize('public/assets/app/css'))
+    .sass('resources/scss/theme/editor.scss', path.normalize('public/assets/app/css'))
+    .vue()
     .lang()
     .extract()
     .disableNotifications()
-    .options({
-        processCssUrls: false,
-        hmrOptions: {
-            host,
-            port,
-        },
+    .alias({
+        'svg-files-path': path.resolve(__dirname, 'resources/svg'),
+        '@svg': path.resolve(__dirname, 'resources/svg'),
+        '@lang': path.resolve(__dirname, 'resources/lang'),
+        '@publicLang': path.resolve(__dirname, 'public/storage/lang'),
     })
     .webpackConfig({
-        devServer: {
-            host,
-            port,
-        },
-        resolve: {
-            alias: {
-                '@lang': path.resolve('./resources/lang'),
-                '@publicLang': path.resolve('./public/storage/lang'),
-            },
-        },
         module: {
             rules: [
                 {
@@ -63,7 +49,7 @@ mix
             ],
         },
         output: {
-            chunkFilename: Mix.config.hmr ? 'js/chunks/[name].[chunkhash].js' : path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
+            chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`),
         },
         plugins: [
             new webpack.DefinePlugin({
@@ -74,6 +60,32 @@ mix
                 __INTLIFY_PROD_DEVTOOLS__: false,
             }),
         ],
-    })
-    .sourceMaps(false, 'source-map')
-    .version()
+    });
+
+if (Mix.config.hmr) {
+    mix.setResourceRoot(path.normalize(`/`))
+    mix.webpackConfig({
+        output: {
+            chunkFilename: 'js/chunks/[name].[chunkhash].js'
+        }
+    });
+}
+
+if(mix.inProduction()) {
+    mix.version()
+} else {
+    // Uses source-maps on development
+    mix.sourceMaps(true, 'source-map');
+}
+
+
+mix.options({
+    hmrOptions: {
+        host,
+        port,
+        useLocalIp: true,
+    },
+    devServer: {
+        disableHostCheck: true,
+    }
+});
