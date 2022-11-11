@@ -15,7 +15,7 @@ app.use(
 )
 
 const component = resolveComponent(req.body.component)
-const props = req.body.props || {} || 1
+const props = req.body.props || {}
 
 const root = createSSRApp({
     render: () => h(component, props),
