@@ -28,10 +28,5 @@ module.exports = {
         'vue/no-v-text-v-html-on-component': ['off'],
         'vue/require-default-prop': ['off'],
         'vue/require-prop-types': ['off'],
-
-        '@typescript-eslint/ban-types': ['off'],
-        '@typescript-eslint/no-explicit-any': ['off'],
-        '@typescript-eslint/no-unused-vars': ['off'],
-        '@typescript-eslint/no-empty-function': ['off'],
     },
 }
