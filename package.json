@@ -15,9 +15,7 @@
         "ssr": "yarn prod-app && yarn ssr-build && yarn ssr-start",
         "preview-admin": "vite preview --mix-config=webpack.mix.admin.js",
         "preview-app": "vite preview",
-        "preview": "concurrently \"yarn:preview-admin\" \"yarn:preview-app\"",
-        "lint": "eslint --ext .js,.vue --fix resources/js",
-        "pint": "./vendor/bin/pint"
+        "preview": "concurrently \"yarn:preview-admin\" \"yarn:preview-app\""
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",
