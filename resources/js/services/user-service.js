@@ -1,25 +1,23 @@
-import axios from "axios";
-import apiClient, {getError} from "./api";
-
+import axios from 'axios'
+import apiClient, { getError } from './api'
 
 /**
  * Профиль пользователя
  * @returns {Promise<null|any>}
  */
 export const fetchProfile = async () => {
-
     const response = await apiClient.get('/user').catch(error => {
         if (!axios.isCancel(error)) {
-            const message = getError(error);
-            toast.error(message);
+            const message = getError(error)
+            toast.error(message)
         }
     })
 
     if (response) {
-        return response.data;
+        return response.data
     }
 
-    return null;
+    return null
 }
 
 /**
@@ -27,33 +25,31 @@ export const fetchProfile = async () => {
  * @returns {Promise<null|any>}
  */
 export const fetchFavourites = async () => {
-
     const response = await apiClient.get('/user/favourites').catch(error => {
         if (!axios.isCancel(error)) {
-            const message = getError(error);
-            toast.error(message);
+            const message = getError(error)
+            toast.error(message)
         }
     })
 
     if (response) {
-        return response.data;
+        return response.data
     }
 
-    return [];
+    return []
 }
 
-
-export const toggleFavourite = async (id) => {
+export const toggleFavourite = async id => {
     const response = await apiClient.patch(`/user/favourites/${id}`).catch(error => {
         if (!axios.isCancel(error)) {
-            const message = getError(error);
-            toast.error(message);
+            const message = getError(error)
+            toast.error(message)
         }
     })
 
     if (response) {
-        return response.data;
+        return response.data
     }
 
-    return [];
+    return []
 }

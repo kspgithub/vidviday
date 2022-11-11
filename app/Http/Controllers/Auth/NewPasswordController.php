@@ -27,10 +27,11 @@ class NewPasswordController extends Controller
     /**
      * Handle an incoming new password request.
      *
-     * @param  Request  $request
-     * @return RedirectResponse
+     * @param Request  $request
      *
      * @throws ValidationException
+     *
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {

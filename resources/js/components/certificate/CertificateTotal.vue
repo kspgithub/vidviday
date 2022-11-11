@@ -1,6 +1,6 @@
 <template>
     <div class="order-page">
-        <hr>
+        <hr />
         <div class="spacer-xs"></div>
         <span class="text-sm text-medium title inline">
             {{ __('certificate-section.total-sum') }}
@@ -16,22 +16,20 @@
 </template>
 
 <script>
-import {computed} from "vue";
-import {toAmount} from "../../utils/number";
-import {useStore} from "vuex";
+import { computed } from 'vue'
+import { toAmount } from '../../utils/number'
+import { useStore } from 'vuex'
 
 export default {
-    name: "CertificateTotal",
+    name: 'CertificateTotal',
     setup() {
-        const store = useStore();
-        const totalPrice = computed(() => toAmount(store.getters['orderCertificate/totalPrice'], 0, 'en-UK'));
+        const store = useStore()
+        const totalPrice = computed(() => toAmount(store.getters['orderCertificate/totalPrice'], 0, 'en-UK'))
         return {
             totalPrice,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

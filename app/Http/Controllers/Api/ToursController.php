@@ -18,7 +18,8 @@ class ToursController extends Controller
     /**
      * Поиск туров по параметрам
      *
-     * @param  SearchToursRequest  $request
+     * @param SearchToursRequest  $request
+     *
      * @return JsonResponse
      */
     public function index(SearchToursRequest $request)
@@ -29,11 +30,13 @@ class ToursController extends Controller
 
         $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
 
-        $query->withCount(['testimonials' => function ($q) {
-            return $q->moderated()
+        $query->withCount([
+            'testimonials' => function ($q) {
+                return $q->moderated()
                 ->orderBy('rating', 'desc')
                 ->latest();
-        }]);
+            },
+        ]);
 
         $paginator = $query->paginate($request->input('per_page', 12));
 
@@ -47,7 +50,8 @@ class ToursController extends Controller
     /**
      * Популярные туры
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Tour[]|
      */
     public function popular(Request $request)
@@ -60,7 +64,8 @@ class ToursController extends Controller
     /**
      * Поиск туров по названию (автокомплит)
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return mixed
      */
     public function autocomplete(Request $request)
@@ -77,8 +82,9 @@ class ToursController extends Controller
     /**
      * Расписание тура
      *
-     * @param  Request  $request
-     * @param  Tour  $tour
+     * @param Request  $request
+     * @param Tour  $tour
+     *
      * @return mixed
      */
     public function schedules(SearchEventsRequest $request, Tour $tour)
@@ -89,7 +95,8 @@ class ToursController extends Controller
     /**
      * Поиск туров по названию (selectbox)
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return mixed
      */
     public function selectBox(Request $request)
@@ -145,8 +152,9 @@ class ToursController extends Controller
     /**
      * Расписание тура (для админки)
      *
-     * @param  Request  $request
-     * @param  Tour  $tour
+     * @param Request  $request
+     * @param Tour  $tour
+     *
      * @return mixed
      */
     public function allSchedules($tourId)

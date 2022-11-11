@@ -40,7 +40,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="locales",
  *         title="Мови туру",
  *         type="array",
- *         @OA\Items( type="string", example="uk")
+ *         @OA\Items(    type="string", example="uk")
  *     ),
  *     @OA\Property(
  *         property="duration_format",
@@ -114,43 +114,43 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="images",
  *         title="Додаткові зображення",
  *         type="array",
- *         @OA\Items( type="string", example="http://vidviday.loc/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
+ *         @OA\Items(    type="string", example="http://vidviday.loc/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
  *     ),
  *     @OA\Property(
  *         property="badges",
  *         title="Мітки туру",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/Badge")
+ *         @OA\Items(    ref="#/components/schemas/Badge")
  *     ),
  *     @OA\Property(
  *         property="schedules",
  *         title="Дати виїзду",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/Schedule")
+ *         @OA\Items(    ref="#/components/schemas/Schedule")
  *     ),
  *     @OA\Property(
  *         property="directions",
  *         title="Напрямки",
  *         type="array",
- *         @OA\Items( type="object", example={"title": {"uk": "Карпати"}}),
+ *         @OA\Items(    type="object", example={"title": {"uk": "Карпати"}}),
  *     ),
  *     @OA\Property(
  *         property="types",
  *         title="Типи",
  *         type="array",
- *         @OA\Items( type="object", example={"title": {"uk": "Походи в гори"}}),
+ *         @OA\Items(    type="object", example={"title": {"uk": "Походи в гори"}}),
  *     ),
  *     @OA\Property(
  *         property="places",
  *         title="Місця",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/Place"),
+ *         @OA\Items(    ref="#/components/schemas/Place"),
  *     ),
  *     @OA\Property(
  *         property="includes",
  *         title="Зміст туру",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourInclude"),
+ *         @OA\Items(    ref="#/components/schemas/TourInclude"),
  *     ),
  *     @OA\Property(
  *         property="plan",
@@ -162,38 +162,39 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="food",
  *         title="Харчування",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourFood"),
+ *         @OA\Items(    ref="#/components/schemas/TourFood"),
  *     ),
  *     @OA\Property(
  *         property="accommodation",
  *         title="Розміщення",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourAccommodation"),
+ *         @OA\Items(    ref="#/components/schemas/TourAccommodation"),
  *     ),
  *     @OA\Property(
  *         property="tickets",
  *         title="Квитки",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourTicket"),
+ *         @OA\Items(    ref="#/components/schemas/TourTicket"),
  *     ),
  *     @OA\Property(
  *         property="discounts",
  *         title="Знижки",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourDiscount"),
+ *         @OA\Items(    ref="#/components/schemas/TourDiscount"),
  *     ),
  *     @OA\Property(
  *         property="landings",
  *         title="Місця посадки",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/TourLanding"),
+ *         @OA\Items(    ref="#/components/schemas/TourLanding"),
  *     ),
  * ),
  */
 class TourFullResource extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

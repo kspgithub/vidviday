@@ -16,8 +16,7 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class EventsTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string

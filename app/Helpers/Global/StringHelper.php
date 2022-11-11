@@ -30,8 +30,9 @@ if (! function_exists('clear_phone')) {
 if (! function_exists('str_slug')) {
     /**
      * @param $title
-     * @param  string  $separator
-     * @param  string  $language
+     * @param string  $separator
+     * @param string  $language
+     *
      * @return string
      */
     function str_slug($title, $separator = '-', $language = 'en')
@@ -42,9 +43,10 @@ if (! function_exists('str_slug')) {
 
 if (! function_exists('str_limit')) {
     /**
-     * @param  string  $value
-     * @param  int  $limit
-     * @param  string  $ends
+     * @param string  $value
+     * @param int  $limit
+     * @param string  $ends
+     *
      * @return string
      */
     function str_limit($value, $limit = 100, $ends = '...')
@@ -56,8 +58,9 @@ if (! function_exists('str_limit')) {
 if (! function_exists('to_currency')) {
     /**
      * @param $title
-     * @param  string  $separator
-     * @param  string  $language
+     * @param string  $separator
+     * @param string  $language
+     *
      * @return string
      */
     function to_currency($value, $currency = 'UAH')

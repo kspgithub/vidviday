@@ -10,7 +10,7 @@ use App\Models\UserSubscription;
 class LeadFeedback
 {
     /**
-     * @param  UserQuestion|UserSubscription|AgencySubscription  $question
+     * @param UserQuestion|UserSubscription|AgencySubscription  $question
      */
     public static function createCrmLead($question)
     {
@@ -58,6 +58,7 @@ class LeadFeedback
                     $comment .= "<div><b>Дата:</b> $date</div>";
                     $comment .= "<div><b>Час:</b> $question->call_time</div>";
                     $comment .= "<div><b>Коментар:</b> $question->comment</div>";
+
                     break;
                 case UserQuestion::TYPE_QUESTION:
                     $data[LeadFields::FIELD_TITLE] = 'Нове питання';
@@ -65,6 +66,7 @@ class LeadFeedback
                     $comment .= '<div><b>Нове питання</b></div>';
                     $comment .= "<div><b>Тип:</b> $type</div>";
                     $comment .= "<div><b>Питання:</b> $question->comment</div>";
+
                     break;
                 case UserQuestion::TYPE_VACANCY:
                     $data[LeadFields::FIELD_TITLE] = 'Новий запит вакансії';
@@ -78,6 +80,7 @@ class LeadFeedback
                     $data[LeadFields::FIELD_TITLE] = 'Нове повідомлення';
                     $comment .= '<div><b>Нове повідомлення</b></div>';
                     $comment .= "<div><b>Коментар:</b> $question->comment</div>";
+
                     break;
             }
         }

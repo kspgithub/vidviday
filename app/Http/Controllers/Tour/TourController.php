@@ -29,8 +29,9 @@ use Maatwebsite\Excel\Facades\Excel;
 class TourController extends Controller
 {
     /**
-     * @param  Request  $request
-     * @param  TourGroup|null|mixed  $group
+     * @param Request  $request
+     * @param TourGroup|null|mixed  $group
+     *
      * @return View
      */
     public function index(Request $request, TourGroup $group)
@@ -129,11 +130,13 @@ class TourController extends Controller
             'votings',
         ]);
 
-        $tour->loadAvg(['testimonials' => function ($q) {
-            return $q->moderated()
+        $tour->loadAvg([
+            'testimonials' => function ($q) {
+                return $q->moderated()
                 ->orderBy('rating', 'desc')
                 ->latest();
-        }], 'rating');
+            },
+        ], 'rating');
 
         $future_events = $tour->schedulesForBooking();
 
@@ -318,22 +321,21 @@ class TourController extends Controller
             }
 
             return back()->withFlashError('Помилка при замовлені туру');
-        } else {
-            $order->syncContact();
-            MailNotificationService::adminTourOrder($order);
-            MailNotificationService::userTourOrder($order);
-
-            if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
-                $redirect_route = 'order.purchase';
-            } else {
-                $redirect_route = 'order.success';
-            }
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
-            }
-
-            return redirect()->route($redirect_route, $order);
         }
+        $order->syncContact();
+        MailNotificationService::adminTourOrder($order);
+        MailNotificationService::userTourOrder($order);
+
+        if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
+            $redirect_route = 'order.purchase';
+        } else {
+            $redirect_route = 'order.success';
+        }
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+        }
+
+        return redirect()->route($redirect_route, $order);
     }
 
     public function voting(TourVotingRequest $request, Tour $tour)
@@ -359,9 +361,9 @@ class TourController extends Controller
             $tour->votings()->create($params);
 
             return response()->json(['result' => 'success']);
-        } else {
-            return response()->json(['result' => 'error', 'message' => __('tours-section.already-voted')]);
         }
+
+        return response()->json(['result' => 'error', 'message' => __('tours-section.already-voted')]);
     }
 
     public function votingSuccess(Tour $tour, TourVoting $voting)

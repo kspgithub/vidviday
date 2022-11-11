@@ -94,7 +94,8 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response|RedirectResponse
      */
     public function store(Request $request)
@@ -122,7 +123,8 @@ class PlaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Place  $place
+     * @param Place  $place
+     *
      * @return View
      */
     public function edit(Place $place)
@@ -139,12 +141,13 @@ class PlaceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Place  $place
-     * @return Response|JsonResponse|RedirectResponse
+     * @param Request  $request
+     * @param Place  $place
      *
      * @throws GeneralException
      * @throws Throwable
+     *
+     * @return Response|JsonResponse|RedirectResponse
      */
     public function update(Request $request, Place $place)
     {
@@ -186,8 +189,9 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Request  $request
-     * @param  Place  $place
+     * @param Request  $request
+     * @param Place  $place
+     *
      * @return Response|JsonResponse
      */
     public function destroy(Request $request, Place $place)

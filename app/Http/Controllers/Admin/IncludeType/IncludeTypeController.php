@@ -39,7 +39,8 @@ class IncludeTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  IncludeTypeBasicRequest  $request
+     * @param IncludeTypeBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(IncludeTypeBasicRequest $request)
@@ -56,7 +57,8 @@ class IncludeTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  IncludeType  $includeType
+     * @param IncludeType  $includeType
+     *
      * @return Application|Factory|View
      */
     public function edit(IncludeType $includeType)
@@ -69,11 +71,12 @@ class IncludeTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  IncludeTypeBasicRequest  $request
-     * @param  IncludeType  $includeType
-     * @return mixed
+     * @param IncludeTypeBasicRequest  $request
+     * @param IncludeType  $includeType
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(IncludeTypeBasicRequest $request, IncludeType $includeType)
     {
@@ -87,7 +90,8 @@ class IncludeTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  IncludeType  $includeType
+     * @param IncludeType  $includeType
+     *
      * @return mixed
      */
     public function destroy(IncludeType $includeType)

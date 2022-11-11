@@ -23,7 +23,7 @@ class DeletedUserController extends Controller
     /**
      * DeletedUserController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -39,10 +39,11 @@ class DeletedUserController extends Controller
     }
 
     /**
-     * @param  User  $deletedUser
-     * @return mixed
+     * @param User  $deletedUser
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(User $deletedUser)
     {
@@ -52,10 +53,11 @@ class DeletedUserController extends Controller
     }
 
     /**
-     * @param  User  $deletedUser
-     * @return mixed
+     * @param User  $deletedUser
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function destroy(User $deletedUser)
     {

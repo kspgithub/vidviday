@@ -14,8 +14,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class OrdersTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string

@@ -1,14 +1,20 @@
-const mix = require('laravel-mix');
-const webpack = require('webpack');
-const path = require('path');
-const ip = require('ip');
+const mix = require('laravel-mix')
+const webpack = require('webpack')
+const path = require('path')
+const ip = require('ip')
 
 const host = ip.address() || '0.0.0.0'
 const port = 8082
 
-require('laravel-vue-lang/mix');
-require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
+require('laravel-vue-lang/mix')
+require('laravel-mix-svg-vue')
+require('laravel-mix-purgecss')
+require('laravel-mix-merge-manifest')
+require('laravel-mix-php-manifest')
+
+mix.lang()
+mix.mergeManifest()
+mix.phpManifest()
 
 /*
  |--------------------------------------------------------------------------
@@ -21,20 +27,17 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix
-    .setResourceRoot(Mix.config.hmr ? path.normalize(`/`) : '/assets/admin/')
-    .setPublicPath(`public/assets/admin`)
-    .js('resources/js/admin/app.js', 'public/assets/admin/js')
+mix.js('resources/js/admin/app.js', 'public/assets/admin/js')
     .sass('resources/scss/admin/app.scss', 'public/assets/admin/css')
     .purgeCss()
-    .lang()
     .extract()
     .disableNotifications()
+    .sourceMaps(false, 'source-map')
     .options({
         hmrOptions: {
             host,
             port,
-        }
+        },
     })
     .webpackConfig({
         devServer: {
@@ -43,13 +46,11 @@ mix
         },
         resolve: {
             alias: {
+                '@': path.resolve('./resources'),
                 '@lang': path.resolve('./resources/lang'),
                 '@publicLang': path.resolve('./public/storage/lang'),
                 'svg-files-path': path.resolve('./resources/svg'),
             },
-        },
-        output: {
-            chunkFilename: path.normalize(`../../assets/admin/js/chunks/[name].[chunkhash].js`)
         },
         module: {
             rules: [
@@ -60,6 +61,4 @@ mix
             ],
         },
     })
-    .sourceMaps(false, 'source-map')
     .version()
-

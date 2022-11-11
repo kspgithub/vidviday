@@ -49,7 +49,8 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  NewsBasicRequest  $request
+     * @param NewsBasicRequest  $request
+     *
      * @return JsonResponse|RedirectResponse
      */
     public function store(NewsBasicRequest $request)
@@ -62,7 +63,8 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  News  $news
+     * @param News  $news
+     *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(News $news)
@@ -75,11 +77,12 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  NewsBasicRequest  $request
-     * @param  News  $news
-     * @return mixed
+     * @param NewsBasicRequest  $request
+     * @param News  $news
      *
      * @throws \App\Exceptions\GeneralException
+     *
+     * @return mixed
      */
     public function update(NewsBasicRequest $request, News $news)
     {
@@ -91,7 +94,8 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  News  $news
+     * @param News  $news
+     *
      * @return mixed
      */
     public function destroy(News $news)
@@ -104,8 +108,9 @@ class NewsController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  News  $news
+     * @param Request  $request
+     * @param News  $news
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, News $news)

@@ -15,8 +15,7 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class CitiesTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     public array $perPageAccepted = [30, 50, 100];
 
@@ -57,9 +56,9 @@ class CitiesTable extends DataTableComponent
             ->when(! empty($has_place), function (Builder $q) use ($has_place) {
                 if ($has_place === 'yes') {
                     return $q->whereHas('places');
-                } else {
-                    return $q->doesntHave('places');
                 }
+
+                return $q->doesntHave('places');
             })
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
                 return $q->where('region_id', $region_id);
@@ -119,12 +118,14 @@ class CitiesTable extends DataTableComponent
 
     public function filters(): array
     {
-        $filters = ['has_place' => Filter::make(__('З місцями'))
+        $filters = [
+        'has_place' => Filter::make(__('З місцями'))
             ->select([
                 '' => 'Всі',
                 'yes' => 'З місцями',
                 'no' => 'Без місць',
-            ]), ];
+            ]),
+        ];
 
         if (empty($this->region)) {
             $filters['region_id'] = Filter::make(__('Область'))

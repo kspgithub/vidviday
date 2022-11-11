@@ -140,9 +140,10 @@ class Discount extends TranslatableModel
     /**
      * Подсчитывает скидку
      *
-     * @param  int  $price Цена за единицу
-     * @param  int  $quantity Количество единиц
-     * @param  int  $days Количество дней (для скидок на каждый день)
+     * @param int  $price Цена за единицу
+     * @param int  $quantity Количество единиц
+     * @param int  $days Количество дней (для скидок на каждый день)
+     *
      * @return float|int
      */
     public function calculate($price = 0, $quantity = 1, $days = 1)
@@ -153,15 +154,19 @@ class Discount extends TranslatableModel
             case self::DURATION_PERSON:
             case self::DURATION_UNIT:
                 $total = $amount * $quantity;
+
                 break;
             case self::DURATION_PERSON_DAY:
                 $total = $amount * $quantity * $days;
+
                 break;
             case self::DURATION_DAY:
                 $total = $amount * $days;
+
                 break;
             case self::DURATION_ORDER:
                 $total = $amount;
+
                 break;
         }
 

@@ -14,7 +14,7 @@ class CharityService extends BaseService
     /**
      * CharityService constructor.
      *
-     * @param  Charity  $charity
+     * @param Charity  $charity
      */
     public function __construct(Charity $charity)
     {

@@ -1,8 +1,8 @@
 <template>
-    <popup size="size-1" :active="popupOpen" @hide="closePopup()" :class="{active: recording}">
+    <popup size="size-1" :active="popupOpen" :class="{ active: recording }" @hide="closePopup()">
         <div class="popup-align">
             <div class="img mic-icon" @click="startRecording()">
-                <img src="/icon/big-mic.svg" alt="big mic">
+                <img src="/icon/big-mic.svg" alt="big mic" />
             </div>
             <div class="text-center">
                 <span class="h2 title text-medium">
@@ -24,21 +24,18 @@
 </template>
 
 <script>
-import Popup from "../popup/Popup";
-import useVoiceSearch from "./useVoiceSearch";
+import Popup from '../popup/Popup'
+import useVoiceSearch from './useVoiceSearch'
 
 export default {
-    name: "HeaderVoicePopup",
-    components: {Popup},
+    name: 'HeaderVoicePopup',
+    components: { Popup },
     setup() {
-
         return {
-            ...useVoiceSearch()
+            ...useVoiceSearch(),
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

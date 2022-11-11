@@ -24,7 +24,7 @@ trait HasAvatar
     }
 
     /**
-     * @param  UploadedFile  $fileImage
+     * @param UploadedFile  $fileImage
      *
      * @throws InvalidManipulation
      */

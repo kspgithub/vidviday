@@ -77,6 +77,7 @@ class TestMailable extends Command
             }
         } else {
             $this->error($mailableClass.' class doesnt exists.');
+
             throw new \Exception('Mailable doesnt exists');
         }
 

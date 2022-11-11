@@ -205,7 +205,7 @@ class CRest
      * @return array
      *
      * @var array
-     * @var   int 0 or 1 stop batch on error
+     * @var int 0 or 1 stop batch on error
      *
      * @example $arData:
      * $arData = [
@@ -296,7 +296,7 @@ class CRest
     /**
      * @return bool
      *
-     * @var  bool true if install app by installApp()
+     * @var bool true if install app by installApp()
      * @var array settings application
      */
     private static function setAppSettings($arSettings, $isInstall = false)
@@ -327,8 +327,7 @@ class CRest
         } else {
             $arData = static::getSettingData();
             $isCurrData = false;
-            if (
-                ! empty($arData['access_token']) &&
+            if (! empty($arData['access_token']) &&
                 ! empty($arData['domain']) &&
                 ! empty($arData['refresh_token']) &&
                 ! empty($arData['application_token']) &&
@@ -415,7 +414,7 @@ class CRest
      *
      * @return bool is successes save log data
      *
-     * @var   string to more identification log data
+     * @var string to more identification log data
      * @var array of logs data
      */
     public static function setLog($arData, $type = '')

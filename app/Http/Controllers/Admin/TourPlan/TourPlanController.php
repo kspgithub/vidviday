@@ -43,7 +43,8 @@ class TourPlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TourPlanBasicRequest $request)
@@ -59,7 +60,8 @@ class TourPlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  TourPlan  $tourPlan
+     * @param TourPlan  $tourPlan
+     *
      * @return Application|Factory|View
      */
     public function edit(TourPlan $tourPlan)
@@ -75,11 +77,12 @@ class TourPlanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  TourPlanBasicRequest  $request
-     * @param  TourPlan  $tourPlan
-     * @return mixed
+     * @param TourPlanBasicRequest  $request
+     * @param TourPlan  $tourPlan
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(TourPlanBasicRequest $request, TourPlan $tourPlan)
     {
@@ -92,7 +95,8 @@ class TourPlanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  TourPlan  $tourPlan
+     * @param TourPlan  $tourPlan
+     *
      * @return mixed
      */
     public function destroy(TourPlan $tourPlan)

@@ -66,7 +66,8 @@ class DistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -82,7 +83,8 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Region  $region
+     * @param Region  $region
+     *
      * @return View
      */
     public function edit(District $district)
@@ -102,8 +104,9 @@ class DistrictController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  District  $district
+     * @param Request  $request
+     * @param District  $district
+     *
      * @return Response
      */
     public function update(Request $request, District $district)
@@ -118,7 +121,8 @@ class DistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Region  $region
+     * @param Region  $region
+     *
      * @return Response
      */
     public function destroy(District $district)

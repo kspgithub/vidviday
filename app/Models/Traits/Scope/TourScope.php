@@ -14,7 +14,8 @@ trait TourScope
     /**
      * Будущие туры
      *
-     * @param  Builder  $query
+     * @param Builder  $query
+     *
      * @return Builder
      */
     public function scopeInFuture(Builder $query)
@@ -40,7 +41,7 @@ trait TourScope
             'nights',
             'slug',
             'corporate_includes',
-        ], [
+            ], [
             'media' => function ($sc) {
                 return $sc->whereIn('collection_name', ['main', 'mobile']);
             },
@@ -228,8 +229,7 @@ trait TourScope
                             END
                         )
                         ELSE MIN(tour_schedules.start_date)
-                    END as date'
-                ));
+                    END as date'));
             $query->groupBy('tours.id');
         }
 
@@ -255,11 +255,13 @@ trait TourScope
         }
 
         // With
-        $query->withAvg(['testimonials' => function ($q) {
-            return $q->moderated()
+        $query->withAvg([
+            'testimonials' => function ($q) {
+                return $q->moderated()
                 ->orderBy('rating', 'desc')
                 ->latest();
-        }], 'rating');
+            },
+        ], 'rating');
 
         return $query;
     }

@@ -14,7 +14,7 @@ class NewsService extends BaseService
     /**
      * NewsService constructor.
      *
-     * @param  News  $news
+     * @param News  $news
      */
     public function __construct(News $news)
     {

@@ -40,9 +40,9 @@ class UserController extends Controller
     /**
      * UserController constructor.
      *
-     * @param  UserService  $userService
-     * @param  RoleService  $roleService
-     * @param  PermissionService  $permissionService
+     * @param UserService  $userService
+     * @param RoleService  $roleService
+     * @param PermissionService  $permissionService
      */
     public function __construct(UserService $userService, RoleService $roleService, PermissionService $permissionService)
     {
@@ -73,11 +73,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param  StoreUserRequest  $request
-     * @return mixed
+     * @param StoreUserRequest  $request
      *
      * @throws Throwable
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function store(StoreUserRequest $request)
     {
@@ -91,7 +92,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param  User  $user
+     * @param User  $user
+     *
      * @return mixed
      */
     public function show(User $user)
@@ -101,8 +103,9 @@ class UserController extends Controller
     }
 
     /**
-     * @param  EditUserRequest  $request
-     * @param  User  $user
+     * @param EditUserRequest  $request
+     * @param User  $user
+     *
      * @return mixed
      */
     public function edit(EditUserRequest $request, User $user)
@@ -115,11 +118,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param  UpdateUserRequest  $request
-     * @param  User  $user
-     * @return mixed
+     * @param UpdateUserRequest  $request
+     * @param User  $user
      *
      * @throws Throwable
+     *
+     * @return mixed
      */
     public function update(UpdateUserRequest $request, User $user)
     {
@@ -129,11 +133,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param  DeleteUserRequest  $request
-     * @param  User  $user
-     * @return mixed
+     * @param DeleteUserRequest  $request
+     * @param User  $user
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function destroy(DeleteUserRequest $request, User $user)
     {
@@ -151,11 +156,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param  Request  $request
-     * @param  int  $id
-     * @return mixed
+     * @param Request  $request
+     * @param int  $id
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function forceDelete(Request $request, int $id)
     {

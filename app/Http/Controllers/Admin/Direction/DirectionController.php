@@ -39,7 +39,8 @@ class DirectionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -55,7 +56,8 @@ class DirectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Direction  $direction
+     * @param Direction  $direction
+     *
      * @return View
      */
     public function edit(Direction $direction)
@@ -67,8 +69,9 @@ class DirectionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Direction  $direction
+     * @param Request  $request
+     * @param Direction  $direction
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Direction $direction)
@@ -86,7 +89,8 @@ class DirectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Direction  $direction
+     * @param Direction  $direction
+     *
      * @return Response
      */
     public function destroy(Direction $direction)

@@ -13,8 +13,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class IncludeTypesTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string

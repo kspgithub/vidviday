@@ -46,7 +46,8 @@ class TourGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response|RedirectResponse
      */
     public function store(Request $request)
@@ -85,7 +86,8 @@ class TourGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  TourGroup  $tourGroup
+     * @param TourGroup  $tourGroup
+     *
      * @return View
      */
     public function edit(TourGroup $tourGroup)
@@ -99,8 +101,9 @@ class TourGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  TourGroup  $tourGroup
+     * @param Request  $request
+     * @param TourGroup  $tourGroup
+     *
      * @return Response|JsonResponse|RedirectResponse
      */
     public function update(Request $request, TourGroup $tourGroup)
@@ -145,7 +148,8 @@ class TourGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  TourGroup  $tourGroup
+     * @param TourGroup  $tourGroup
+     *
      * @return Response
      */
     public function destroy(TourGroup $tourGroup)

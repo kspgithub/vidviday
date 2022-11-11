@@ -42,7 +42,8 @@ class FaqController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request, $section)
@@ -56,7 +57,8 @@ class FaqController extends Controller
 
     /**
      * @param $section
-     * @param  FaqItem  $faqItem
+     * @param FaqItem  $faqItem
+     *
      * @return View
      */
     public function edit($section, FaqItem $faqItem)
@@ -68,8 +70,9 @@ class FaqController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  FaqItem  $faqitem
+     * @param Request  $request
+     * @param FaqItem  $faqitem
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, $section, FaqItem $faqItem)
@@ -87,7 +90,8 @@ class FaqController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  FaqItem  $faqitem
+     * @param FaqItem  $faqitem
+     *
      * @return Response
      */
     public function destroy($section, FaqItem $faqItem)

@@ -51,7 +51,8 @@ class FinanceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -61,7 +62,7 @@ class FinanceController extends Controller
         $finance->fill($request->all());
         $finance->save();
         if ($request->hasFile('media')) {
-            foreach ($request->file('media') as  $imageFile) {
+            foreach ($request->file('media') as $imageFile) {
                 $finance->storeMedia($imageFile);
             }
         }
@@ -72,7 +73,8 @@ class FinanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Finance  $finance
+     * @param Finance  $finance
+     *
      * @return View
      */
     public function edit(Finance $finance)
@@ -89,8 +91,9 @@ class FinanceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Finance  $finance
+     * @param Request  $request
+     * @param Finance  $finance
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Finance $finance)
@@ -108,7 +111,8 @@ class FinanceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Finance  $finance
+     * @param Finance  $finance
+     *
      * @return Response
      */
     public function destroy(Finance $finance)

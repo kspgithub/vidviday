@@ -25,7 +25,7 @@ class TourService extends BaseService
     /**
      * TourService constructor.
      *
-     * @param  Tour  $tour
+     * @param Tour  $tour
      */
     public function __construct(Tour $tour)
     {
@@ -41,13 +41,12 @@ class TourService extends BaseService
             $selectedPlaces = Place::whereIn('id', $place_ids)->get();
 
             $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
-                ->orderBy('title->uk')->paginate()->getCollection()
-            )->sortBy(fn ($place) => $place->title)->map->asSelectBox('value')->toArray();
+            ->orderBy('title->uk')->paginate()->getCollection())->sortBy(fn ($place) => $place->title)->map->asSelectBox('value')->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
-//                });
+                //                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+                //                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+                //                });
                 return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
@@ -253,6 +252,7 @@ class TourService extends BaseService
             dd($e);
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
+
             throw new GeneralException(__('There was a problem updating tour.'));
         }
         DB::commit();

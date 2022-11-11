@@ -47,29 +47,28 @@ class ContactService implements StaticServiceInterface
 
         if (! empty($contact)) {
             return $contact->bitrix_id;
-        } else {
-            $contact = new ContactItem([
-                'name' => $data['name'] ?? '',
-                'last_name' => $data['last_name'] ?? '',
-            ]);
-            if (! empty($data['phone'])) {
-                $contact->addPhone($data['phone']);
-            }
-            if (! empty($data['email'])) {
-                $contact->addEmail($data['email']);
-            }
-            if (! empty($data['viber'])) {
-                $contact->addIm($data['viber']);
-            }
-
-            $contact_data = $contact->toArray();
-
-            $response = self::add($contact_data, ['REGISTER_SONET_EVENT' => 'N']);
-            if (! empty($response->result)) {
-                return $response->result;
-            }
-
-            return null;
         }
+        $contact = new ContactItem([
+            'name' => $data['name'] ?? '',
+            'last_name' => $data['last_name'] ?? '',
+        ]);
+        if (! empty($data['phone'])) {
+            $contact->addPhone($data['phone']);
+        }
+        if (! empty($data['email'])) {
+            $contact->addEmail($data['email']);
+        }
+        if (! empty($data['viber'])) {
+            $contact->addIm($data['viber']);
+        }
+
+        $contact_data = $contact->toArray();
+
+        $response = self::add($contact_data, ['REGISTER_SONET_EVENT' => 'N']);
+        if (! empty($response->result)) {
+            return $response->result;
+        }
+
+        return null;
     }
 }

@@ -48,7 +48,8 @@ class AccommodationType extends TranslatableModel
         $value_field = 'slug',
         $value_key = 'value',
         $text_key = 'text'
-    ) {
+    )
+    {
         return self::query()->get(['title', 'short_title', 'slug', 'description'])
             ->map(function ($item) {
                 return [

@@ -12,7 +12,7 @@ class DocumentService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param  Document  $document
+     * @param Document  $document
      */
     public function __construct(Document $document)
     {

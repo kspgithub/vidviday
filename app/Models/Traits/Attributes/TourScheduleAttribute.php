@@ -63,9 +63,9 @@ trait TourScheduleAttribute
 
             if ($start_date === $end_date) {
                 return $start_day_name.', '.$start_date;
-            } else {
-                return $start_date.' - '.$end_date;
             }
+
+            return $start_date.' - '.$end_date;
         }
 
         return '';

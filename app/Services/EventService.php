@@ -13,7 +13,7 @@ class EventService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param  EventItem  $event
+     * @param EventItem  $event
      */
     public function __construct(EventItem $event)
     {

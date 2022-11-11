@@ -6,9 +6,10 @@ if (! function_exists('activeClass')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param    $condition
-     * @param  string  $activeClass
-     * @param  string  $inactiveClass
+     * @param $condition
+     * @param string  $activeClass
+     * @param string  $inactiveClass
+     *
      * @return string
      */
     function activeClass($condition, string $activeClass = 'active', string $inactiveClass = ''): string
@@ -21,7 +22,8 @@ if (! function_exists('routeActive')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param  string|array  $routeName
+     * @param string|array  $routeName
+     *
      * @return bool
      */
     function routeActive($routeName)
@@ -49,9 +51,10 @@ if (! function_exists('routeActiveClass')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param  string|array  $routeName
-     * @param  string  $activeClass
-     * @param  string  $inactiveClass
+     * @param string|array  $routeName
+     * @param string  $activeClass
+     * @param string  $inactiveClass
+     *
      * @return string
      */
     function routeActiveClass($routeName, $activeClass = 'active', $inactiveClass = '')
@@ -75,7 +78,8 @@ if (! function_exists('svg')) {
      * Embed svg icon.
      *
      * @param $icon
-     * @param  string  $class
+     * @param string  $class
+     *
      * @return string
      */
     function svg($icon, $class = '')
@@ -91,7 +95,8 @@ if (! function_exists('svg')) {
 
 if (! function_exists('breadcrumbs')) {
     /**
-     * @param  array  $items
+     * @param array  $items
+     *
      * @return string
      */
     function breadcrumbs($items = [])

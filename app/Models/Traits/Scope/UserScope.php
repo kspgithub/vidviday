@@ -8,6 +8,7 @@ trait UserScope
 {
     /**
      * @param $query
+     *
      * @return mixed
      */
     public function scopeOnlyDeactivated($query)
@@ -17,6 +18,7 @@ trait UserScope
 
     /**
      * @param $query
+     *
      * @return mixed
      */
     public function scopeOnlyActive($query)
@@ -26,6 +28,7 @@ trait UserScope
 
     /**
      * @param $query
+     *
      * @return mixed
      */
     public function scopeOnlyBlocked($query)

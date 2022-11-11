@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class LandingPlaceController extends Controller
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return View
      */
     public function index(Request $request)

@@ -35,9 +35,9 @@ class EditUserRequest extends FormRequest
     /**
      * Handle a failed authorization attempt.
      *
-     * @return void
-     *
      * @throws AuthorizationException
+     *
+     * @return void
      */
     protected function failedAuthorization()
     {

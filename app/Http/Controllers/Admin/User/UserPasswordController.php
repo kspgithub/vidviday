@@ -22,7 +22,7 @@ class UserPasswordController extends Controller
     /**
      * UserPasswordController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -30,8 +30,9 @@ class UserPasswordController extends Controller
     }
 
     /**
-     * @param  EditUserPasswordRequest  $request
-     * @param  User  $user
+     * @param EditUserPasswordRequest  $request
+     * @param User  $user
+     *
      * @return mixed
      */
     public function edit(EditUserPasswordRequest $request, User $user)
@@ -40,11 +41,12 @@ class UserPasswordController extends Controller
     }
 
     /**
-     * @param  UpdateUserPasswordRequest  $request
-     * @param  User  $user
-     * @return mixed
+     * @param UpdateUserPasswordRequest  $request
+     * @param User  $user
      *
      * @throws Throwable
+     *
+     * @return mixed
      */
     public function update(UpdateUserPasswordRequest $request, User $user)
     {

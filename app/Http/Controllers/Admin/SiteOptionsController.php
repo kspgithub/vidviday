@@ -33,6 +33,7 @@ class SiteOptionsController extends Controller
                         } elseif (empty($value)) {
                             $option->value = '';
                         }
+
                         break;
                     default:
                         $option->value = ! empty($value) ? $value : '';

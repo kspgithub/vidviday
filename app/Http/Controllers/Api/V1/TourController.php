@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 class TourController extends BaseController
 {
     /**
-     * @OA\Get (
+     * @OA\Get                                                    (
      *     tags={"Tours"},
      *     path="/tours",
      *     summary="Список туров разбитый на страницы",
@@ -23,40 +23,40 @@ class TourController extends BaseController
      *         in="query",
      *         name="token",
      *         @OA\Schema(type="string"),
-     *         @OA\Examples(example="request", value="305cc08cecd29d7078a924c8d0eca58b", summary="Тестовий токен"),
-     *         @OA\Examples(example="empty", value="", summary="Авторизація за допомогою headers"),
+     *         @OA\Examples(example="request",                            value="305cc08cecd29d7078a924c8d0eca58b", summary="Тестовий токен"),
+     *         @OA\Examples(example="empty",                              value="", summary="Авторизація за допомогою headers"),
      *     ),
      *     @OA\Parameter(
      *         description="Список id турів розділених комою",
      *         in="query",
      *         name="ids",
      *         @OA\Schema(type="string"),
-     *         @OA\Examples(example="empty", value="", summary="Будь які турb"),
-     *         @OA\Examples(example="request", value="1,2,3,4,5", summary="Тільки тури з обраними ID"),
+     *         @OA\Examples(example="empty",                              value="", summary="Будь які турb"),
+     *         @OA\Examples(example="request",                            value="1,2,3,4,5", summary="Тільки тури з обраними ID"),
      *     ),
      *     @OA\Parameter(
      *         description="Список id місць розділених комою",
      *         in="query",
      *         name="places",
      *         @OA\Schema(type="string"),
-     *         @OA\Examples(example="empty", value="", summary="Будь які місця"),
-     *         @OA\Examples(example="request", value="2,3,4", summary="Тільки тури з обраними ID "),
+     *         @OA\Examples(example="empty",                              value="", summary="Будь які місця"),
+     *         @OA\Examples(example="request",                            value="2,3,4", summary="Тільки тури з обраними ID "),
      *     ),
      *     @OA\Parameter(
      *         description="Сторінка",
      *         in="query",
      *         name="page",
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="empty", value="", summary="За замовчуванням (1)"),
-     *         @OA\Examples(example="request", value="2", summary="Друга сторінка"),
+     *         @OA\Examples(example="empty",                              value="", summary="За замовчуванням (1)"),
+     *         @OA\Examples(example="request",                            value="2", summary="Друга сторінка"),
      *     ),
      *     @OA\Parameter(
      *         description="Турів на сторінку",
      *         in="query",
      *         name="per_page",
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="empty", value="", summary="За замовчуванням (12)"),
-     *         @OA\Examples(example="request", value="10", summary="10 штук"),
+     *         @OA\Examples(example="empty",                              value="", summary="За замовчуванням (12)"),
+     *         @OA\Examples(example="request",                            value="10", summary="10 штук"),
      *     ),
      *     @OA\Parameter(
      *         description="Ціна, з",
@@ -105,21 +105,21 @@ class TourController extends BaseController
      *         name="token",
      *         @OA\Schema(type="string"),
      *         @OA\Examples(example="request", value="305cc08cecd29d7078a924c8d0eca58b", summary="Тестовий токен"),
-     *         @OA\Examples(example="empty", value="", summary="Авторизація за допомогою headers"),
+     *         @OA\Examples(example="empty",   value="", summary="Авторизація за допомогою headers"),
      *     ),
      *     @OA\Parameter(
      *         description="ID туру",
      *         in="path",
      *         name="id",
      *         @OA\Schema(type="integer"),
-     *         @OA\Examples(example="empty", value="13", summary="Замки Львівщини + Замок Мушкетерів"),
+     *         @OA\Examples(example="empty",   value="13", summary="Замки Львівщини + Замок Мушкетерів"),
      *         @OA\Examples(example="request", value="48", summary="10 родзинок Закарпаття"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="ОК",
      *         @OA\JsonContent(
-     *             @OA\Property(property="data", type="object", ref="#/components/schemas/TourDetails"),
+     *             @OA\Property(property="data",   type="object", ref="#/components/schemas/TourDetails"),
      *            )
      *         )
      *     )

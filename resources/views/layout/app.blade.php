@@ -26,13 +26,10 @@
     @include('layout.includes.grid')
     <!-- Styles -->
     @stack('before-styles', false)
-
-    <link href="{{ mix('css/main.css', 'assets/app') }}" rel="stylesheet">
-
+    <link href="{{ mix('assets/app/css/main.css') }}" rel="stylesheet">
     @stack('after-styles', false)
-
-    <link href="{{mix('css/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
-    <link href="{{ mix('css/print.css', 'assets/app') }}" media="print" rel="stylesheet">
+    <link href="{{mix('assets/app/css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('assets/app/css/print.css') }}" media="print" rel="stylesheet">
 
     @production
         @if($ga = site_option('google_analytics'))
@@ -43,9 +40,6 @@
 </head>
 <body class="{{$body_class ?? ''}}">
 <div id="app">
-
-    <x-vue-component :component="'test-component2'" :props="['name' => 'hhh']" />
-
     <!-- LOADER -->
     <div id="loader"></div>
 
@@ -95,12 +89,10 @@
 @endproduction
 
 
-<script src="{{ mix('js/manifest.js', 'assets/app') }}"></script>
-<script src="{{ mix('js/vendor.js', 'assets/app') }}"></script>
-<script src="{{ mix('js/app.js', 'assets/app') }}"></script>
-
+<script src="{{ mix('assets/app/js/manifest.js') }}" defer></script>
+<script src="{{ mix('assets/app/js/vendor.js') }}"defer></script>
+<script src="{{ mix('assets/app/js/app.js') }}" defer></script>
 @stack('after-scripts', false)
-
 </body>
 </html>
 

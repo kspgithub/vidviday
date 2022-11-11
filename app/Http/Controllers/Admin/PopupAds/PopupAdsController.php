@@ -46,7 +46,8 @@ class PopupAdsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response|JsonResponse
      */
     public function store(Request $request)
@@ -65,7 +66,8 @@ class PopupAdsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  PopupAd  $popupAd
+     * @param PopupAd  $popupAd
+     *
      * @return View
      */
     public function edit(PopupAd $popupAd)
@@ -82,8 +84,9 @@ class PopupAdsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  PopupAd  $popupAd
+     * @param Request  $request
+     * @param PopupAd  $popupAd
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, PopupAd $popupAd)
@@ -104,7 +107,8 @@ class PopupAdsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  PopupAd  $popupAd
+     * @param PopupAd  $popupAd
+     *
      * @return Response
      */
     public function destroy(PopupAd $popupAd)

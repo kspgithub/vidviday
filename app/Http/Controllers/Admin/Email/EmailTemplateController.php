@@ -94,7 +94,9 @@ class EmailTemplateController extends Controller
             throw new \Exception('Mailable '.$mailable.' not found.');
         }
 
-        /** @var $mailableClass BaseTemplateEmail */
+        /**
+ * @var $mailableClass BaseTemplateEmail
+*/
         $mailableClass = new $mailable;
 
         $mailableView = $mailableClass::$viewKey;
@@ -148,7 +150,7 @@ class EmailTemplateController extends Controller
 
         $emailTemplate = EmailTemplate::query()->where('mailable', $mailable)->firstOrNew([
             'mailable' => $mailable,
-        ], [
+            ], [
             'mailable' => $mailable,
             'view' => $view,
         ]);
@@ -187,7 +189,9 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
-        /** @var BaseTemplateEmail $mailableClass */
+        /**
+ * @var BaseTemplateEmail $mailableClass
+*/
         $mailableClass = new $mailable;
 
         if (! in_array($mailable, $localTemplates)) {
@@ -198,7 +202,9 @@ class EmailTemplateController extends Controller
 
         $mailableClass->showOnMapUrl = config('contacts.show-on-map-url');
 
-        /** @var EmailTemplate $template */
+        /**
+ * @var EmailTemplate $template
+*/
         $template = EmailTemplate::query()->where('mailable', $mailable)->first();
 
         $locale = app()->getLocale();
@@ -215,8 +221,8 @@ class EmailTemplateController extends Controller
             }
 
             return Blade::render($html, $mailableClass->buildViewData());
-        } else {
-            return $mailableClass->render();
         }
+
+        return $mailableClass->render();
     }
 }

@@ -15,8 +15,7 @@ class TourVotings extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var array

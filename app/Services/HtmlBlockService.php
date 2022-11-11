@@ -13,7 +13,7 @@ class HtmlBlockService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param  HtmlBlock  $htmlBlock
+     * @param HtmlBlock  $htmlBlock
      */
     public function __construct(HtmlBlock $htmlBlock)
     {

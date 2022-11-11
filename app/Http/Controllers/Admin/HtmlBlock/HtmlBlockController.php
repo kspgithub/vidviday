@@ -43,7 +43,8 @@ class HtmlBlockController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  HtmlBlockBasicRequest  $request
+     * @param HtmlBlockBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(HtmlBlockBasicRequest $request)
@@ -60,7 +61,8 @@ class HtmlBlockController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  HtmlBlock  $htmlBlock
+     * @param HtmlBlock  $htmlBlock
+     *
      * @return Application|Factory|View
      */
     public function edit(HtmlBlock $htmlBlock)
@@ -73,11 +75,12 @@ class HtmlBlockController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  HtmlBlockBasicRequest  $request
-     * @param  HtmlBlock  $htmlBlock
-     * @return mixed
+     * @param HtmlBlockBasicRequest  $request
+     * @param HtmlBlock  $htmlBlock
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(HtmlBlockBasicRequest $request, HtmlBlock $htmlBlock)
     {
@@ -90,7 +93,8 @@ class HtmlBlockController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  HtmlBlock  $htmlBlock
+     * @param HtmlBlock  $htmlBlock
+     *
      * @return mixed
      */
     public function destroy(HtmlBlock $htmlBlock)

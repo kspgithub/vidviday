@@ -80,7 +80,8 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -96,7 +97,8 @@ class CityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  City  $city
+     * @param City  $city
+     *
      * @return View
      */
     public function edit(City $city)
@@ -117,8 +119,9 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  City  $city
+     * @param Request  $request
+     * @param City  $city
+     *
      * @return Response
      */
     public function update(Request $request, City $city)
@@ -133,7 +136,8 @@ class CityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  City  $city
+     * @param City  $city
+     *
      * @return Response
      */
     public function destroy(City $city)
@@ -145,7 +149,8 @@ class CityController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return mixed
      */
     public function search(Request $request)

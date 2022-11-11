@@ -45,11 +45,13 @@ class TourGuideController extends Controller
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
         })->withAvg('testimonials', 'rating')
-            ->withCount(['testimonials' => function ($q) {
-                return $q->moderated()
+            ->withCount([
+                'testimonials' => function ($q) {
+                    return $q->moderated()
                     ->orderBy('rating', 'desc')
                     ->latest();
-            }])->get();
+                },
+            ])->get();
 
         return view('staff.guide', ['staff' => $staff, 'tours' => $tours, 'testimonials' => $testimonials]);
     }

@@ -39,7 +39,8 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response|RedirectResponse
      */
     public function store(Request $request)
@@ -65,7 +66,8 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Country  $country
+     * @param Country  $country
+     *
      * @return View
      */
     public function edit(Country $country)
@@ -78,8 +80,9 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Country  $country
+     * @param Request  $request
+     * @param Country  $country
+     *
      * @return Response|RedirectResponse
      */
     public function update(Request $request, Country $country)
@@ -104,7 +107,8 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Country  $country
+     * @param Country  $country
+     *
      * @return Response
      */
     public function destroy(Country $country)

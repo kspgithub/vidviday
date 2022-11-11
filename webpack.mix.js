@@ -9,6 +9,12 @@ const port = 8081
 require('laravel-vue-lang/mix')
 require('laravel-mix-svg-vue')
 require('laravel-mix-purgecss')
+require('laravel-mix-merge-manifest')
+require('laravel-mix-php-manifest')
+
+mix.lang()
+mix.mergeManifest()
+mix.phpManifest()
 
 /*
  |--------------------------------------------------------------------------
@@ -21,23 +27,24 @@ require('laravel-mix-purgecss')
  |
  */
 
-mix
-    .setResourceRoot('/assets/app/')
-    .setPublicPath(`public/assets/app`)
-    .js('resources/js/app.js', path.normalize('public/assets/app/js'))
-    .sass('resources/scss/theme/main.scss', path.normalize('public/assets/app/css'))
-    .sass('resources/scss/theme/print.scss', path.normalize('public/assets/app/css'))
-    .sass('resources/scss/theme/style.scss', path.normalize('public/assets/app/css'))
-    .sass('resources/scss/theme/editor.scss', path.normalize('public/assets/app/css'))
+mix.js('resources/js/app.js', 'public/assets/app/js')
+    .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
+    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
     .vue()
-    .lang()
     .extract()
     .disableNotifications()
+    .sourceMaps(false, 'source-map')
     .alias({
         'svg-files-path': path.resolve(__dirname, 'resources/svg'),
+        '@': path.resolve(__dirname, 'resources'),
         '@svg': path.resolve(__dirname, 'resources/svg'),
         '@lang': path.resolve(__dirname, 'resources/lang'),
         '@publicLang': path.resolve(__dirname, 'public/storage/lang'),
+    })
+    .autoload({
+        jquery: ['$', 'jQuery', 'window.jQuery'],
     })
     .webpackConfig({
         module: {
@@ -48,9 +55,6 @@ mix
                 },
             ],
         },
-        output: {
-            chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`),
-        },
         plugins: [
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: true,
@@ -58,34 +62,8 @@ mix
                 __VUE_I18N_FULL_INSTALL__: true,
                 __VUE_I18N_LEGACY_API__: false,
                 __INTLIFY_PROD_DEVTOOLS__: false,
+                __DATA__: JSON.stringify({ name: 'Dewrw' }),
             }),
         ],
-    });
-
-if (Mix.config.hmr) {
-    mix.setResourceRoot(path.normalize(`/`))
-    mix.webpackConfig({
-        output: {
-            chunkFilename: 'js/chunks/[name].[chunkhash].js'
-        }
-    });
-}
-
-if(mix.inProduction()) {
-    mix.version()
-} else {
-    // Uses source-maps on development
-    mix.sourceMaps(true, 'source-map');
-}
-
-
-mix.options({
-    hmrOptions: {
-        host,
-        port,
-        useLocalIp: true,
-    },
-    devServer: {
-        disableHostCheck: true,
-    }
-});
+    })
+    .version()

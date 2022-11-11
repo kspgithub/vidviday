@@ -17,11 +17,13 @@ class DocumentController extends Controller
 
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
-        return view('document.index',
+        return view(
+            'document.index',
             [
                 'documents' => $documents,
                 'pageContent' => $pageContent,
                 'popupAds' => $popupAds,
-            ]);
+            ]
+        );
     }
 }

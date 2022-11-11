@@ -70,7 +70,8 @@ class Food extends TranslatableModel implements HasMedia
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    ) {
+    )
+    {
         return self::query()->get(['id', 'title', 'price', 'currency'])
             ->map(function ($item) use ($value_field, $value_key, $text_key) {
                 return [$value_key => $item->{$value_field}, $text_key => $item->title.', '.$item->price.$item->currency];
@@ -95,7 +96,8 @@ class Food extends TranslatableModel implements HasMedia
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    ) {
+    )
+    {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

@@ -24,7 +24,7 @@ class DeactivatedUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -40,12 +40,13 @@ class DeactivatedUserController extends Controller
     }
 
     /**
-     * @param  Request  $request
-     * @param  User  $user
+     * @param Request  $request
+     * @param User  $user
      * @param $status
-     * @return mixed
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(Request $request, User $user, $status)
     {

@@ -39,7 +39,9 @@ class TransactionHelper
         'reasonCode',
     ];
 
-    /** @var array */
+    /**
+ * @var array
+*/
     protected $keysForSignature = [
         'merchantAccount',
         'merchantDomainName',
@@ -55,6 +57,7 @@ class TransactionHelper
     /**
      * @param $option
      * @param $keys
+     *
      * @return string
      */
     public function getSignature($option, $keys)
@@ -82,6 +85,7 @@ class TransactionHelper
 
     /**
      * @param $options
+     *
      * @return string
      */
     public function getRequestSignature($options)
@@ -91,6 +95,7 @@ class TransactionHelper
 
     /**
      * @param $options
+     *
      * @return string
      */
     public function getResponseSignature($options)

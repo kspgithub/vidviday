@@ -33,5 +33,5 @@ class LeadFields
 
     public const FIELD_UTM_SOURCE = 'UTM_SOURCE'; // Тип трафика
 
-    public const FIELD_UTM_TERM = 'UTM_TERM'; // 	Рекламная система
+    public const FIELD_UTM_TERM = 'UTM_TERM'; //    Рекламная система
 }

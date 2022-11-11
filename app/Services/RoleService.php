@@ -16,7 +16,7 @@ class RoleService extends BaseService
     /**
      * RoleService constructor.
      *
-     * @param  Role  $role
+     * @param Role  $role
      */
     public function __construct(Role $role)
     {
@@ -24,11 +24,12 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  array  $data
-     * @return Role
+     * @param array  $data
      *
      * @throws GeneralException
      * @throws Throwable
+     *
+     * @return Role
      */
     public function store(array $data = []): Role
     {
@@ -51,12 +52,13 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  Role  $role
-     * @param  array  $data
-     * @return Role
+     * @param Role  $role
+     * @param array  $data
      *
      * @throws GeneralException
      * @throws Throwable
+     *
+     * @return Role
      */
     public function update(Role $role, array $data = []): Role
     {
@@ -79,10 +81,11 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  Role  $role
-     * @return bool
+     * @param Role  $role
      *
      * @throws GeneralException
+     *
+     * @return bool
      */
     public function destroy(Role $role): bool
     {

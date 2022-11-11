@@ -50,7 +50,8 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostBasicRequest  $request
+     * @param PostBasicRequest  $request
+     *
      * @return RedirectResponse
      */
     public function store(PostBasicRequest $request)
@@ -63,7 +64,8 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Post  $post
+     * @param Post  $post
+     *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(Post $post)
@@ -76,11 +78,12 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  PostBasicRequest  $request
-     * @param  Post  $post
-     * @return mixed
+     * @param PostBasicRequest  $request
+     * @param Post  $post
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(PostBasicRequest $request, Post $post)
     {
@@ -92,7 +95,8 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Post  $post
+     * @param Post  $post
+     *
      * @return mixed
      */
     public function destroy(Post $post)
@@ -105,8 +109,9 @@ class PostController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  Post  $post
+     * @param Request  $request
+     * @param Post  $post
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Post $post)

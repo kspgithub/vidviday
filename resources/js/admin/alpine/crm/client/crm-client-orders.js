@@ -1,7 +1,7 @@
-import loadItems from "../../composables/load-items";
-import moment from "moment";
+import loadItems from '../../composables/load-items'
+import moment from 'moment'
 
-export default ({client, params = {}}) => ({
+export default ({ client, params = {} }) => ({
     loading: false,
     client: client,
     links: [],
@@ -10,13 +10,13 @@ export default ({client, params = {}}) => ({
     sort: params.order || 'created_at:desc',
     status: params.status || '',
     init() {
-        this.$store.orders.current_page = parseInt(params.page) || 1;
-        this.$store.orders.sort = parseInt(params.sort) || 1;
-        this.$store.orders.status = arams.status || '';
-        this.$store.orders.loadItems(false);
+        this.$store.orders.current_page = parseInt(params.page) || 1
+        this.$store.orders.sort = parseInt(params.sort) || 1
+        this.$store.orders.status = arams.status || ''
+        this.$store.orders.loadItems(false)
     },
     loadItems(updateUrl = true) {
-        this.loading = true;
+        this.loading = true
 
         loadItems({
             url: '',
@@ -31,27 +31,27 @@ export default ({client, params = {}}) => ({
                 order: 'created_at:desc',
                 page: 1,
             },
-            onSuccess: (response) => {
-                this.items = response.data;
-                this.links = response.links;
-                this.loading = false;
+            onSuccess: response => {
+                this.items = response.data
+                this.links = response.links
+                this.loading = false
             },
-            onError: (error) => {
-                this.loading = false;
-            }
-        });
+            onError: error => {
+                this.loading = false
+            },
+        })
     },
     formatDate(dateString) {
-        return !dateString ? '-' : moment(dateString).format('DD.MM.YYYY HH:mm');
+        return !dateString ? '-' : moment(dateString).format('DD.MM.YYYY HH:mm')
     },
     statusText(status) {
-        const orderStatus = this.statuses.find(s => s.value === status);
-        return orderStatus ? orderStatus.text : status;
+        const orderStatus = this.statuses.find(s => s.value === status)
+        return orderStatus ? orderStatus.text : status
     },
     contactName(order) {
-        return order.last_name + ' ' + order.first_name;
+        return order.last_name + ' ' + order.first_name
     },
     tourFirm(order) {
-        return order.agency_data ? order.agency_data.title : '-';
-    }
-});
+        return order.agency_data ? order.agency_data.title : '-'
+    },
+})

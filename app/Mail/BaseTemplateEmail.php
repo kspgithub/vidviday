@@ -32,7 +32,9 @@ class BaseTemplateEmail extends Mailable
 
         $mail = $this->from(config('mail.from.address'), config('mail.from.name'));
 
-        /** @var $template EmailTemplate */
+        /**
+ * @var $template EmailTemplate
+*/
         $template = EmailTemplate::query()->where('mailable', static::class)->first();
 
         $locale = app()->getLocale();

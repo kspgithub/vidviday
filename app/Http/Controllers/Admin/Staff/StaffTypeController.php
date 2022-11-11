@@ -39,7 +39,8 @@ class StaffTypeController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -55,7 +56,8 @@ class StaffTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  StaffType  $staffTypes
+     * @param StaffType  $staffTypes
+     *
      * @return View
      */
     public function edit(StaffType $staffType)
@@ -68,8 +70,9 @@ class StaffTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Staff  $staffTypes
+     * @param Request  $request
+     * @param Staff  $staffTypes
+     *
      * @return Response
      */
     public function update(Request $request, StaffType $staffType)
@@ -84,7 +87,8 @@ class StaffTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Staff  $staffTypes
+     * @param Staff  $staffTypes
+     *
      * @return Response
      */
     public function destroy(StaffType $staffType)

@@ -31,9 +31,11 @@ class BitrixTour
                     if (count($parts) > 0) {
                         $fillData[$modelKey] = $parts[0];
                     }
+
                     break;
                 default:
                     $fillData[$modelKey] = $value;
+
                     break;
             }
         }
@@ -76,6 +78,7 @@ class BitrixTour
     public static function createOrUpdate($bitrixID, object $item_data)
     {
         $tour = Tour::whereBitrixId($bitrixID)->first();
+
         try {
             if ($tour === null) {
                 $tour = new Tour();

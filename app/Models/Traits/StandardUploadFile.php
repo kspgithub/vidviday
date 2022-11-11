@@ -9,7 +9,8 @@ trait StandardUploadFile
 {
     /**
      * @param $file
-     * @param  string  $folderStorage
+     * @param string  $folderStorage
+     *
      * @return string
      */
     public function storeFile(UploadedFile $file, string $folderStorage)
@@ -19,7 +20,8 @@ trait StandardUploadFile
 
     /**
      * @param $file
-     * @param  string  $folderStorage
+     * @param string  $folderStorage
+     *
      * @return string
      */
     public function storeFileAs($file, string $folderStorage, string $name)
@@ -28,8 +30,9 @@ trait StandardUploadFile
     }
 
     /**
-     * @param  string  $file_url
-     * @param  string  $directory
+     * @param string  $file_url
+     * @param string  $directory
+     *
      * @return string|bool
      */
     public function storeFileFromUrl(string $file_url, string $directory = 'public/uploads/files/')

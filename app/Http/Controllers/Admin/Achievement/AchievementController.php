@@ -39,7 +39,8 @@ class AchievementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -58,7 +59,8 @@ class AchievementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Achievement  $achievement
+     * @param Achievement  $achievement
+     *
      * @return View
      */
     public function edit(Achievement $achievement)
@@ -70,8 +72,9 @@ class AchievementController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Achievement  $achievement
+     * @param Request  $request
+     * @param Achievement  $achievement
+     *
      * @return Response
      */
     public function update(Request $request, Achievement $achievement)
@@ -88,7 +91,8 @@ class AchievementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Achievement  $achievement
+     * @param Achievement  $achievement
+     *
      * @return Response
      */
     public function destroy(Achievement $achievement)

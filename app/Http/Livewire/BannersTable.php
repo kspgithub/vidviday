@@ -15,8 +15,7 @@ class BannersTable extends DataTableComponent
 {
     public bool $reordering = true;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string

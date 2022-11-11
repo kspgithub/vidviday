@@ -51,7 +51,8 @@ class DiscountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DiscountBasicRequest  $request
+     * @param DiscountBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(DiscountBasicRequest $request)
@@ -68,7 +69,8 @@ class DiscountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Discount  $discount
+     * @param Discount  $discount
+     *
      * @return Application|Factory|View
      */
     public function edit(Discount $discount)
@@ -90,11 +92,12 @@ class DiscountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  DiscountBasicRequest  $request
-     * @param  Discount  $discount
-     * @return mixed
+     * @param DiscountBasicRequest  $request
+     * @param Discount  $discount
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(DiscountBasicRequest $request, Discount $discount)
     {
@@ -111,7 +114,8 @@ class DiscountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Discount  $discount
+     * @param Discount  $discount
+     *
      * @return mixed
      */
     public function destroy(Discount $discount)

@@ -38,7 +38,8 @@ class EventGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EventGroupBasicRequest  $request
+     * @param EventGroupBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(EventGroupBasicRequest $request)
@@ -54,7 +55,8 @@ class EventGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  EventGroup  $eventGroup
+     * @param EventGroup  $eventGroup
+     *
      * @return Application|Factory|View
      */
     public function edit(EventGroup $eventGroup)
@@ -65,8 +67,9 @@ class EventGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  EventGroupBasicRequest  $request
-     * @param  EventGroup  $eventGroup
+     * @param EventGroupBasicRequest  $request
+     * @param EventGroup  $eventGroup
+     *
      * @return mixed
      */
     public function update(EventGroupBasicRequest $request, EventGroup $eventGroup)
@@ -80,7 +83,8 @@ class EventGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  EventGroup  $eventGroup
+     * @param EventGroup  $eventGroup
+     *
      * @return mixed
      */
     public function destroy(EventGroup $eventGroup)

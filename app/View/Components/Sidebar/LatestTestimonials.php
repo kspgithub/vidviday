@@ -37,6 +37,7 @@ class LatestTestimonials extends Component
         switch ($type) {
             default:
                 $class = Tour::class;
+
                 break;
         }
 

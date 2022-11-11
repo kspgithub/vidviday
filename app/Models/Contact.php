@@ -51,9 +51,11 @@ class Contact extends TranslatableModel
             if ($published) {
                 $q->where('published', 1);
             }
-            $items = $q->withCount(['testimonials' => function ($q) {
-                return $q->moderated();
-            }])->get()->sortBy(fn ($it) => array_search($it->id, $ids));
+            $items = $q->withCount([
+                'testimonials' => function ($q) {
+                    return $q->moderated();
+                },
+            ])->get()->sortBy(fn ($it) => array_search($it->id, $ids));
 
             return $items;
         }
@@ -69,9 +71,11 @@ class Contact extends TranslatableModel
             if ($published) {
                 $q->where('published', 1);
             }
-            $items = $q->withCount(['testimonials' => function ($q) {
-                return $q->moderated();
-            }])->get()->sortBy(fn ($it) => array_search($it->id, $ids));
+            $items = $q->withCount([
+                'testimonials' => function ($q) {
+                    return $q->moderated();
+                },
+            ])->get()->sortBy(fn ($it) => array_search($it->id, $ids));
 
             return $items;
         }

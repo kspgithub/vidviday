@@ -1,8 +1,11 @@
 // Глобальные компоненты
 import { defineAsyncComponent } from 'vue'
 
-export const resolveComponent = () =>
-    defineAsyncComponent(() => import(/* webpackChunkName: "[name]" */ `./${name}.vue`))
+export const resolveComponent = ctx => {
+    const component = () => import(/* webpackChunkName: "chunks/[request]" */ `./${ctx.component}`)
+
+    return defineAsyncComponent(component)
+}
 
 export default {
     install: app => {

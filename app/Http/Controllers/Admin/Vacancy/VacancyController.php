@@ -45,7 +45,8 @@ class VacancyController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -61,7 +62,8 @@ class VacancyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Vacancy  $vacancy
+     * @param Vacancy  $vacancy
+     *
      * @return View
      */
     public function edit(Vacancy $vacancy)
@@ -79,8 +81,9 @@ class VacancyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Vacancy  $vacancy
+     * @param Request  $request
+     * @param Vacancy  $vacancy
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Vacancy $vacancy)
@@ -98,7 +101,8 @@ class VacancyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Vacancy  $vacancy
+     * @param Vacancy  $vacancy
+     *
      * @return Response
      */
     public function destroy(Vacancy $vacancy)

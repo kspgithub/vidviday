@@ -34,7 +34,9 @@ class UploadController extends Controller
         $model = app()->make($request->input('model_type', ['id' => $request->input('model_id')]));
         $model = $model->newQuery()->findOrFail($request->input('model_id'));
         $collection = $request->input('collection', 'default');
-        /** @var Media $media */
+        /**
+ * @var Media $media
+*/
         $media = $model->storeMedia($request->media_file, $collection);
         foreach ($request->get('custom_properties', []) as $key => $value) {
             if ($key === 'published') {

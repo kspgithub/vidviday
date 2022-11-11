@@ -168,20 +168,20 @@ class Tour extends TranslatableModel implements HasMedia
             $locale = getLocale();
 
             return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug);
-        } else {
-            return $query->where(function ($sq) use ($slug) {
-                $first = true;
-                $locales = siteLocales();
-                foreach ($locales as $locale) {
-                    if ($first) {
-                        $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
-                        $first = false;
-                    } else {
-                        $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
-                    }
-                }
-            });
         }
+
+        return $query->where(function ($sq) use ($slug) {
+            $first = true;
+            $locales = siteLocales();
+            foreach ($locales as $locale) {
+                if ($first) {
+                    $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
+                    $first = false;
+                } else {
+                    $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
+                }
+            }
+        });
     }
 
     public function getFormatDurationAttribute()
@@ -189,9 +189,9 @@ class Tour extends TranslatableModel implements HasMedia
         if ($this->duration_format === self::FORMAT_DAYS) {
             if ($this->duration === 1 && ! $this->nights) {
                 return $this->duration.' '.__('tours-section.day');
-            } else {
-                return $this->duration.__('tours-section.days-letter').($this->nights > 0 ? '/ '.$this->nights.__('tours-section.nights-letter') : '');
             }
+
+            return $this->duration.__('tours-section.days-letter').($this->nights > 0 ? '/ '.$this->nights.__('tours-section.nights-letter') : '');
         }
 
         if ($this->duration_format === self::FORMAT_TIME) {

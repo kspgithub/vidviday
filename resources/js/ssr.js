@@ -14,18 +14,18 @@ app.use(
     }),
 )
 
-const component = resolveComponent(req.body.component)
-const props = req.body.props || {}
+const component = resolveComponent(context.component)
+const props = context.props || {}
 
 const root = createSSRApp({
     render: () => h(component, props),
 })
 
-renderToString({
-    render: () => h(component, props),
-}).then(html => {
+renderToString(root).then(html => {
+    console.log('===========================')
     console.log(html)
 })
+
 //
 // app.post('/render', async (req, res) => {
 //     try {

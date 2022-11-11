@@ -24,9 +24,11 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        $menus = Menu::query()->with(['items' => function ($q) {
-            return $q->where('parent_id', 0);
-        }, 'items.children'])->get();
+        $menus = Menu::query()->with([
+            'items' => function ($q) {
+                return $q->where('parent_id', 0);
+            }, 'items.children'
+        ])->get();
 
         return view('admin.site-menu.index', [
             'menus' => $menus,
@@ -59,7 +61,8 @@ class MenuItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  MenuItemBasicRequest  $request
+     * @param MenuItemBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(MenuItemBasicRequest $request, Menu $menu)
@@ -79,7 +82,8 @@ class MenuItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  MenuItem  $item
+     * @param MenuItem  $item
+     *
      * @return View
      */
     public function edit(MenuItem $item)
@@ -97,11 +101,12 @@ class MenuItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  MenuItemBasicRequest  $request
-     * @param  MenuItem  $item
-     * @return mixed
+     * @param MenuItemBasicRequest  $request
+     * @param MenuItem  $item
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(MenuItemBasicRequest $request, MenuItem $item)
     {
@@ -114,7 +119,8 @@ class MenuItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  MenuItem  $item
+     * @param MenuItem  $item
+     *
      * @return Response|JsonResponse
      */
     public function destroy(Request $request, MenuItem $item)

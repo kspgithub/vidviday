@@ -13,7 +13,7 @@ class HomePageBannerService extends BaseService
     /**
      * TourService constructor.
      *
-     * @param  HomePageBanner  $homePageBanner
+     * @param HomePageBanner  $homePageBanner
      */
     public function __construct(HomePageBanner $homePageBanner)
     {

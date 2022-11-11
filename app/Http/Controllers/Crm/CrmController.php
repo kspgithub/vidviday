@@ -25,7 +25,8 @@ class CrmController extends Controller
     /**
      * Bitrix 24: Вихідний вебхук: Контакти - створення/оновлення/видалення - для сайту
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return JsonResponse
      */
     public function contactUpdate(Request $request)
@@ -47,10 +48,12 @@ class CrmController extends Controller
                     } else {
                         Log::error($response->error_description, (array) $response);
                     }
+
                     break;
                 case 'ONCRMCONTACTDELETE':
                     $bitrix_id = $data['FIELDS']['ID'];
                     BitrixContact::whereBitrixId($bitrix_id)->delete();
+
                     break;
                 default:
                     return response()->json(['result' => 'ERROR', 'message' => 'Unauthorized event '.$event], 403);
@@ -67,7 +70,8 @@ class CrmController extends Controller
     /**
      * Bitrix 24: Вихідний вебхук: угода створення/оновлення/видалення - для сайту
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return JsonResponse
      */
     public function dealUpdate(Request $request)
@@ -88,6 +92,7 @@ class CrmController extends Controller
                         switch ((int) $response->result[DealFields::FIELD_CATEGORY_ID]) {
                             case DealOrder::CATEGORY_ID:
                                 DealOrder::createOrUpdate($bitrix_id, $response->result);
+
                                 break;
                         }
                     } else {
@@ -102,11 +107,13 @@ class CrmController extends Controller
                         switch ((int) $response->result[DealFields::FIELD_CATEGORY_ID]) {
                             case DealOrder::CATEGORY_ID:
                                 Order::whereBitrixId($bitrix_id)->delete();
+
                                 break;
                         }
                     } else {
                         Log::error($response->error_description, (array) $response);
                     }
+
                     break;
                 default:
                     return response()->json(['result' => 'ERROR', 'message' => 'Unauthorized event '.$event], 403);
@@ -138,12 +145,14 @@ class CrmController extends Controller
                         if (! empty($data)) {
                             BitrixTour::createOrUpdate($itemId, $data);
                         }
+
                         break;
                     case 'TOUR_SCHEDULE_UPDATE':
                         $data = BitrixTourSchedule::get($itemId);
                         if (! empty($data)) {
                             BitrixTourSchedule::createOrUpdate($itemId, $data);
                         }
+
                         break;
                 }
             } else {

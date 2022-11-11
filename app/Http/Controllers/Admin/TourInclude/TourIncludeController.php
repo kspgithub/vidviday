@@ -47,7 +47,8 @@ class TourIncludeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  TourIncludeBasicRequest  $request
+     * @param TourIncludeBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(TourIncludeBasicRequest $request)
@@ -64,7 +65,8 @@ class TourIncludeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  TourInclude  $tourInclude
+     * @param TourInclude  $tourInclude
+     *
      * @return Application|Factory|View
      */
     public function edit(TourInclude $tourInclude)
@@ -83,11 +85,12 @@ class TourIncludeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  TourIncludeBasicRequest  $request
-     * @param  TourInclude  $tourInclude
-     * @return mixed
+     * @param TourIncludeBasicRequest  $request
+     * @param TourInclude  $tourInclude
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(TourIncludeBasicRequest $request, TourInclude $tourInclude)
     {
@@ -101,7 +104,8 @@ class TourIncludeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  TourInclude  $tourInclude
+     * @param TourInclude  $tourInclude
+     *
      * @return mixed
      */
     public function destroy(TourInclude $tourInclude)

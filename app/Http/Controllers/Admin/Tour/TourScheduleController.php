@@ -86,14 +86,17 @@ class TourScheduleController extends Controller
                 case 'daily':
                     $start_date = $startDate->addDays($i)->format('d.m.Y');
                     $end_date = $endDate->addDays($i)->format('d.m.Y');
+
                     break;
                 case 'weekly':
                     $start_date = $startDate->addWeeks($i)->format('d.m.Y');
                     $end_date = $endDate->addWeeks($i)->format('d.m.Y');
+
                     break;
                 case 'fortnightly':
                     $start_date = $startDate->addWeeks($i * 2)->format('d.m.Y');
                     $end_date = $endDate->addWeeks($i * 2)->format('d.m.Y');
+
                     break;
                 case 'custom':
                     $interval = $request->input('repeat_custom_interval');
@@ -113,10 +116,12 @@ class TourScheduleController extends Controller
                         $start_date = $startDateModified->format('d.m.Y');
                         $end_date = $endDateModified->format('d.m.Y');
                     }
+
                     break;
                 default:
                     $start_date = $startDate->format('d.m.Y');
                     $end_date = $endDate->format('d.m.Y');
+
                     break;
             }
             $schedule->start_date = $start_date;

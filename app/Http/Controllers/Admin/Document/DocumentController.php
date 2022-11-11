@@ -43,7 +43,8 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param  DocumentBasicRequest  $request
+     * @param DocumentBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(DocumentBasicRequest $request)
@@ -55,7 +56,8 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param  Document  $document
+     * @param Document  $document
+     *
      * @return Application|Factory|View
      */
     public function edit(Document $document)
@@ -66,11 +68,12 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param  DocumentBasicRequest  $request
-     * @param  Document  $document
-     * @return mixed
+     * @param DocumentBasicRequest  $request
+     * @param Document  $document
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(DocumentBasicRequest $request, Document $document)
     {
@@ -80,7 +83,8 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param  Document  $document
+     * @param Document  $document
+     *
      * @return mixed
      */
     public function destroy(Document $document)
@@ -93,8 +97,9 @@ class DocumentController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  Document  $document
+     * @param Request  $request
+     * @param Document  $document
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Document $document)

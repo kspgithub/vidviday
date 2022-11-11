@@ -36,7 +36,8 @@ class BadgeController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -50,7 +51,8 @@ class BadgeController extends Controller
     }
 
     /**
-     * @param  Badge  $badge
+     * @param Badge  $badge
+     *
      * @return View
      */
     public function edit(Badge $badge)
@@ -62,8 +64,9 @@ class BadgeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Badge  $badge
+     * @param Request  $request
+     * @param Badge  $badge
+     *
      * @return Response
      */
     public function update(Request $request, Badge $badge)
@@ -78,7 +81,8 @@ class BadgeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Badge  $badge
+     * @param Badge  $badge
+     *
      * @return Response
      */
     public function destroy(Badge $badge)

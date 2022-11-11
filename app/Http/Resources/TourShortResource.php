@@ -31,7 +31,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         example="bestseler"
  *     ),
  * ),
- *
  * @OA\Schema(
  *     schema="Tour",
  *     type="object",
@@ -52,7 +51,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="locales",
  *         title="Мови туру",
  *         type="array",
- *         @OA\Items( type="string", example="uk")
+ *         @OA\Items(    type="string", example="uk")
  *     ),
  *     @OA\Property(
  *         property="duration_format",
@@ -126,20 +125,21 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="badges",
  *         title="Мітки туру",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/Badge")
+ *         @OA\Items(    ref="#/components/schemas/Badge")
  *     ),
  *     @OA\Property(
  *         property="schedules",
  *         title="Дати виїзду",
  *         type="array",
- *         @OA\Items( ref="#/components/schemas/Schedule")
+ *         @OA\Items(    ref="#/components/schemas/Schedule")
  *     ),
  * ),
  */
 class TourShortResource extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

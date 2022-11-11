@@ -16,8 +16,7 @@ class WrongRequestsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     public array $perPageAccepted = [30, 50, 100];
 

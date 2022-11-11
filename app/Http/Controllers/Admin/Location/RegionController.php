@@ -61,7 +61,8 @@ class RegionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -77,7 +78,8 @@ class RegionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Region  $region
+     * @param Region  $region
+     *
      * @return View
      */
     public function edit(Region $region)
@@ -95,8 +97,9 @@ class RegionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Region  $region
+     * @param Request  $request
+     * @param Region  $region
+     *
      * @return Response
      */
     public function update(Request $request, Region $region)
@@ -111,7 +114,8 @@ class RegionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Region  $region
+     * @param Region  $region
+     *
      * @return Response
      */
     public function destroy(Region $region)

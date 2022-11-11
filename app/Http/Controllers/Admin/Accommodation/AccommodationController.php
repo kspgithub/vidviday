@@ -47,7 +47,8 @@ class AccommodationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -75,7 +76,8 @@ class AccommodationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Accommodation  $accommodation
+     * @param Accommodation  $accommodation
+     *
      * @return View
      */
     public function edit(Accommodation $accommodation)
@@ -93,8 +95,9 @@ class AccommodationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Accommodation  $accommodation
+     * @param Request  $request
+     * @param Accommodation  $accommodation
+     *
      * @return Response
      */
     public function update(Request $request, Accommodation $accommodation)
@@ -121,7 +124,8 @@ class AccommodationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Accommodation  $accommodation
+     * @param Accommodation  $accommodation
+     *
      * @return Response
      */
     public function destroy(Accommodation $accommodation)
@@ -135,8 +139,9 @@ class AccommodationController extends Controller
     /**
      * Update the specified resource status.
      *
-     * @param  Request  $request
-     * @param  Accommodation  $accommodation
+     * @param Request  $request
+     * @param Accommodation  $accommodation
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Accommodation $accommodation)

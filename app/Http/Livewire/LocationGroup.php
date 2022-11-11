@@ -69,7 +69,8 @@ class LocationGroup extends Component
         $lat = null,
         $lng = null,
         $map = null,
-    ): void {
+    ): void
+    {
         $this->model = $model;
 
         $attributes = $model->getFillable();

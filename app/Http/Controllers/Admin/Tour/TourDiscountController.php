@@ -13,7 +13,8 @@ class TourDiscountController extends Controller
     /**
      * Display a listing of the resource discounts.
      *
-     * @param  Tour  $tour
+     * @param Tour  $tour
+     *
      * @return Application|Factory|View
      */
     public function index(Tour $tour)

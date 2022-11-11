@@ -49,7 +49,8 @@ class CharityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CharityBasicRequest  $request
+     * @param CharityBasicRequest  $request
+     *
      * @return JsonResponse|RedirectResponse
      */
     public function store(CharityBasicRequest $request)
@@ -62,7 +63,8 @@ class CharityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Charity  $charity
+     * @param Charity  $charity
+     *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(Charity $charity)
@@ -75,11 +77,12 @@ class CharityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  CharityBasicRequest  $request
-     * @param  Charity  $charity
-     * @return mixed
+     * @param CharityBasicRequest  $request
+     * @param Charity  $charity
      *
      * @throws \App\Exceptions\GeneralException
+     *
+     * @return mixed
      */
     public function update(CharityBasicRequest $request, Charity $charity)
     {
@@ -91,7 +94,8 @@ class CharityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Charity  $charity
+     * @param Charity  $charity
+     *
      * @return mixed
      */
     public function destroy(Charity $charity)
@@ -104,8 +108,9 @@ class CharityController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  Charity  $charity
+     * @param Request  $request
+     * @param Charity  $charity
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Charity $charity)

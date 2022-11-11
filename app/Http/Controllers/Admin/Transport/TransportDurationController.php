@@ -36,7 +36,8 @@ class TransportDurationController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -50,7 +51,8 @@ class TransportDurationController extends Controller
     }
 
     /**
-     * @param  TransportDuration  $transportDuration
+     * @param TransportDuration  $transportDuration
+     *
      * @return View
      */
     public function edit(TransportDuration $transportDuration)
@@ -62,8 +64,9 @@ class TransportDurationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  TransportDuration  $transportDuration
+     * @param Request  $request
+     * @param TransportDuration  $transportDuration
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, TransportDuration $transportDuration)
@@ -82,7 +85,8 @@ class TransportDurationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  TransportDuration  $transportDuration
+     * @param TransportDuration  $transportDuration
+     *
      * @return Response
      */
     public function destroy(TransportDuration $transportDuration)

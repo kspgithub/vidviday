@@ -14,8 +14,7 @@ class UserSubscriptionsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var array
@@ -169,8 +168,6 @@ class UserSubscriptionsTable extends DataTableComponent
 
     public function filters(): array
     {
-        return [
-
-        ];
+        return [];
     }
 }

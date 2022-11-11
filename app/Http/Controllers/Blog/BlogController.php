@@ -25,6 +25,7 @@ class BlogController extends Controller
 
     /**
      * @param $slug
+     *
      * @return View
      */
     public function post($slug)

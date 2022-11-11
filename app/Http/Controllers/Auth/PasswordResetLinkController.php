@@ -24,10 +24,11 @@ class PasswordResetLinkController extends Controller
     /**
      * Handle an incoming password reset link request.
      *
-     * @param  Request  $request
-     * @return RedirectResponse
+     * @param Request  $request
      *
      * @throws ValidationException
+     *
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {

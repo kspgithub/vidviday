@@ -28,14 +28,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="items",
  *         title="Зміст",
  *         type="array",
- *         @OA\Items( type="object", example={"uk": "проїзд комфортабельним автобусом", "en": "travel by comfortable bus", "ru": "проезд комфортабельным автобусом",  "pl": "przejazd wygodnym autobusem" }),
+ *         @OA\Items(    type="object", example={"uk": "проїзд комфортабельним автобусом", "en": "travel by comfortable bus", "ru": "проезд комфортабельным автобусом",  "pl": "przejazd wygodnym autobusem" }),
  *     ),
  * ),
  */
 class TourIncludeResource extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

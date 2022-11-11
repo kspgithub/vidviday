@@ -50,7 +50,8 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  TicketBasicRequest  $request
+     * @param TicketBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(TicketBasicRequest $request)
@@ -66,7 +67,8 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Ticket  $ticket
+     * @param Ticket  $ticket
+     *
      * @return Application|Factory|View
      */
     public function edit(Ticket $ticket)
@@ -84,11 +86,12 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  TicketBasicRequest  $request
-     * @param  Ticket  $ticket
-     * @return mixed
+     * @param TicketBasicRequest  $request
+     * @param Ticket  $ticket
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(TicketBasicRequest $request, Ticket $ticket)
     {
@@ -101,7 +104,8 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Ticket  $ticket
+     * @param Ticket  $ticket
+     *
      * @return mixed
      */
     public function destroy(Ticket $ticket)
@@ -114,8 +118,9 @@ class TicketController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  Ticket  $ticket
+     * @param Request  $request
+     * @param Ticket  $ticket
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Ticket $ticket)

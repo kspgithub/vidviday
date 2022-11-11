@@ -71,7 +71,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ScheduleResource extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

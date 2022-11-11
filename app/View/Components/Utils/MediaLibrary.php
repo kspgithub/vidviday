@@ -53,7 +53,8 @@ class MediaLibrary extends Component
         $collection = 'default',
         $accept = 'image/jpeg,image/png',
         $customProperties = [],
-    ) {
+    )
+    {
         $this->model = $model;
         $this->collection = $collection;
         $this->items = $items ?: $model->getMedia($collection)->map(fn ($model) => (new Media($model->toArray()))->asAlpineData());

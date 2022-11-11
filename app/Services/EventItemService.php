@@ -14,7 +14,7 @@ class EventItemService extends BaseService
     /**
      * TourService constructor.
      *
-     * @param  EventItem  $eventItem
+     * @param EventItem  $eventItem
      */
     public function __construct(EventItem $eventItem)
     {

@@ -49,7 +49,8 @@ class PriceItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PriceItemBasicRequest  $request
+     * @param PriceItemBasicRequest  $request
+     *
      * @return mixed
      */
     public function store(PriceItemBasicRequest $request)
@@ -66,7 +67,8 @@ class PriceItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  PriceItem  $priceItem
+     * @param PriceItem  $priceItem
+     *
      * @return Application|Factory|View
      */
     public function edit(PriceItem $priceItem)
@@ -85,11 +87,12 @@ class PriceItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  PriceItemBasicRequest  $request
-     * @param  PriceItem  $priceItem
-     * @return mixed
+     * @param PriceItemBasicRequest  $request
+     * @param PriceItem  $priceItem
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(PriceItemBasicRequest $request, PriceItem $priceItem)
     {
@@ -102,7 +105,8 @@ class PriceItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PriceItem  $priceItem
+     * @param \App\Models\PriceItem  $priceItem
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(PriceItem $priceItem)

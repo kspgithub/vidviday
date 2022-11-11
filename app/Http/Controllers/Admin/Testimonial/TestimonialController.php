@@ -52,7 +52,8 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function update(Request $request, Testimonial $testimonial)
@@ -82,7 +83,8 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function updateQuestion(Request $request, TourQuestion $testimonial)
@@ -96,7 +98,8 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function updateUserQuestion(Request $request, UserQuestion $testimonial)
@@ -110,7 +113,8 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function updateUserSubscription(Request $request, UserSubscription $testimonial)
@@ -124,7 +128,8 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function updateAgencySubscription(Request $request, AgencySubscription $testimonial)

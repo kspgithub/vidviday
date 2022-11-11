@@ -39,7 +39,8 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -55,7 +56,8 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Order  $order
+     * @param Order  $order
+     *
      * @return View|JsonResponse
      */
     public function show(Request $request, Order $order)
@@ -81,7 +83,8 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Order  $order
+     * @param Order  $order
+     *
      * @return View
      */
     public function edit(Order $order)
@@ -95,8 +98,9 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Order  $order
+     * @param Request  $request
+     * @param Order  $order
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Order $order)
@@ -126,7 +130,8 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Order  $order
+     * @param Order  $order
+     *
      * @return Response
      */
     public function destroy(Order $order)

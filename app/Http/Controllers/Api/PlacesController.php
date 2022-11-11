@@ -14,7 +14,8 @@ class PlacesController extends Controller
     /**
      * Поиск мест по названию (select box)
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return mixed
      */
     public function selectBox(Request $request)

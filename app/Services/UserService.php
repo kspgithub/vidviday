@@ -27,7 +27,7 @@ class UserService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param  User  $user
+     * @param User  $user
      */
     public function __construct(User $user)
     {
@@ -36,7 +36,8 @@ class UserService extends BaseService
 
     /**
      * @param $type
-     * @param  bool|int  $perPage
+     * @param bool|int  $perPage
+     *
      * @return mixed
      */
     public function getByType($type, $perPage = false)
@@ -49,10 +50,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
-     * @return mixed
+     * @param array  $data
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function registerUser(array $data = []): User
     {
@@ -75,9 +77,10 @@ class UserService extends BaseService
     /**
      * @param $info
      * @param $provider
-     * @return mixed
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function registerProvider($info, $provider): User
     {
@@ -85,6 +88,7 @@ class UserService extends BaseService
 
         if (! $user) {
             DB::beginTransaction();
+
             try {
                 $nameParts = array_filter(explode(' ', $info->name));
                 $user = $this->createUser([
@@ -111,11 +115,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
-     * @return User
+     * @param array  $data
      *
      * @throws Throwable
      * @throws GeneralException
+     *
+     * @return User
      */
     public function store(array $data = []): User
     {
@@ -160,11 +165,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @param  array  $data
-     * @return User
+     * @param User  $user
+     * @param array  $data
      *
      * @throws Throwable
+     *
+     * @return User
      */
     public function update(User $user, array $data = []): User
     {
@@ -205,8 +211,9 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @param  array  $data
+     * @param User  $user
+     * @param array  $data
+     *
      * @return User
      */
     public function updateProfile(User $user, array $data = []): User
@@ -224,12 +231,13 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
+     * @param User  $user
      * @param $data
-     * @param  bool  $expired
-     * @return User
+     * @param bool  $expired
      *
      * @throws Throwable
+     *
+     * @return User
      */
     public function updatePassword(User $user, $data, $expired = false): User
     {
@@ -251,11 +259,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
+     * @param User  $user
      * @param $status
-     * @return User
      *
      * @throws GeneralException
+     *
+     * @return User
      */
     public function mark(User $user, $status): User
     {
@@ -279,10 +288,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @return User
+     * @param User  $user
      *
      * @throws GeneralException
+     *
+     * @return User
      */
     public function delete(User $user): User
     {
@@ -300,10 +310,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @return User
+     * @param User  $user
      *
      * @throws GeneralException
+     *
+     * @return User
      */
     public function restore(User $user): User
     {
@@ -317,10 +328,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  User  $user
-     * @return bool
+     * @param User  $user
      *
      * @throws GeneralException
+     *
+     * @return bool
      */
     public function destroy(User $user): bool
     {
@@ -334,7 +346,8 @@ class UserService extends BaseService
     }
 
     /**
-     * @param  array  $data
+     * @param array  $data
+     *
      * @return User
      */
     protected function createUser(array $data = []): User
@@ -357,6 +370,7 @@ class UserService extends BaseService
     {
         DB::beginTransaction();
         $user = $this->model->find($id);
+
         try {
             $user->email = 'deleted_'.$id.'@vidviday.ua';
             $user->first_name = 'User';

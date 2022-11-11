@@ -48,7 +48,8 @@ class StaffController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -69,7 +70,8 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Staff  $staff
+     * @param Staff  $staff
+     *
      * @return View
      */
     public function edit(Staff $staff)
@@ -93,8 +95,9 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Staff  $staff
+     * @param Request  $request
+     * @param Staff  $staff
+     *
      * @return Response
      */
     public function update(Request $request, Staff $staff)
@@ -114,7 +117,8 @@ class StaffController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Staff  $staff
+     * @param Staff  $staff
+     *
      * @return Response
      */
     public function destroy(Staff $staff)

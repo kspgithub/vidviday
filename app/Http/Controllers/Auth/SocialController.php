@@ -18,6 +18,7 @@ class SocialController extends Controller
 {
     /**
      * @param $provider
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function redirect($provider)
@@ -27,10 +28,11 @@ class SocialController extends Controller
 
     /**
      * @param $provider
-     * @param  UserService  $userService
-     * @return RedirectResponse
+     * @param UserService  $userService
      *
      * @throws GeneralException
+     *
+     * @return RedirectResponse
      */
     public function callback($provider, UserService $userService)
     {

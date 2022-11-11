@@ -15,7 +15,8 @@ class LanguageLine extends SpatieLanguageLine
     }
 
     /**
-     * @param  string  $locale
+     * @param string  $locale
+     *
      * @return bool
      */
     public function hasTranslation(string $locale)

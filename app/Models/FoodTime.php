@@ -39,7 +39,8 @@ class FoodTime extends TranslatableModel
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    ) {
+    )
+    {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

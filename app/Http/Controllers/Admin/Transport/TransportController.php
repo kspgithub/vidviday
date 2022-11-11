@@ -36,7 +36,8 @@ class TransportController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -53,7 +54,8 @@ class TransportController extends Controller
     }
 
     /**
-     * @param  Transport  $transport
+     * @param Transport  $transport
+     *
      * @return View
      */
     public function edit(Transport $transport)
@@ -65,8 +67,9 @@ class TransportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Transport  $transport
+     * @param Request  $request
+     * @param Transport  $transport
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Transport $transport)
@@ -89,7 +92,8 @@ class TransportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Transport  $transport
+     * @param Transport  $transport
+     *
      * @return Response
      */
     public function destroy(Transport $transport)

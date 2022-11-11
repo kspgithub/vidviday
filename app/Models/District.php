@@ -77,7 +77,8 @@ class District extends TranslatableModel
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    ) {
+    )
+    {
         return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
             ->map(function ($item) use ($value_key, $text_key) {
                 return [$value_key => $item->id, $text_key => json_prepare($item->title.' ('.$item->region->title.')')];
@@ -101,7 +102,8 @@ class District extends TranslatableModel
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    ) {
+    )
+    {
         return [
             $value_key => $this->id,
             $text_key => $this->title.($this->region ? ' ('.$this->region->title.')' : ''),

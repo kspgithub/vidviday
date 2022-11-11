@@ -96,15 +96,19 @@ trait TourScheduleScope
         switch ($tab) {
             case 'recruited':
                 $query->whereDate('start_date', '>', Carbon::today())->where('published', 1);
+
                 break;
             case 'progress':
                 $query->whereDate('start_date', '<=', Carbon::today())->whereDate('end_date', '>=', Carbon::today())->where('published', 1);
+
                 break;
             case 'finished':
                 $query->whereDate('end_date', '<', Carbon::today())->where('published', 1);
+
                 break;
             case 'canceled':
                 $query->where('published', 0);
+
                 break;
         }
 

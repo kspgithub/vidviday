@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -42,7 +42,8 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      *
-     * @param  string|null  $role
+     * @param string|null  $role
+     *
      * @return View|RedirectResponse
      */
     public function create(Request $request): View
@@ -61,8 +62,9 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  RegisterRequest  $request
-     * @param  string  $role
+     * @param RegisterRequest  $request
+     * @param string  $role
+     *
      * @return RedirectResponse
      */
     public function store(RegisterRequest $request)

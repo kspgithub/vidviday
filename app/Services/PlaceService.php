@@ -14,7 +14,7 @@ class PlaceService extends BaseService
     /**
      * PlaceService constructor.
      *
-     * @param  Place  $place
+     * @param Place  $place
      */
     public function __construct(Place $place)
     {
@@ -22,10 +22,11 @@ class PlaceService extends BaseService
     }
 
     /**
-     * @param  array  $params
-     * @return Place
+     * @param array  $params
      *
      * @throws GeneralException
+     *
+     * @return Place
      */
     public function store(array $params = [])
     {
@@ -38,12 +39,13 @@ class PlaceService extends BaseService
     }
 
     /**
-     * @param  Place  $place
-     * @param  array  $params
-     * @return Place
+     * @param Place  $place
+     * @param array  $params
      *
      * @throws GeneralException
      * @throws \Throwable
+     *
+     * @return Place
      */
     public function update(Place $place, array $params = [])
     {
@@ -87,7 +89,7 @@ class PlaceService extends BaseService
     }
 
     /**
-     * @param  Place  $place
+     * @param Place  $place
      */
     public function destroy(Place $place)
     {

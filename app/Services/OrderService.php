@@ -16,7 +16,7 @@ class OrderService extends BaseService
     /**
      * OrderService constructor.
      *
-     * @param  Order  $order
+     * @param Order  $order
      */
     public function __construct(Order $order)
     {
@@ -213,12 +213,15 @@ class OrderService extends BaseService
             switch ((int) $order_params['confirmation_type']) {
                 case 1:
                     $order_params['confirmation_contact'] = $params['confirmation_email'] ?? '';
+
                     break;
                 case 2:
                     $order_params['confirmation_contact'] = $params['confirmation_viber'] ?? '';
+
                     break;
                 case 3:
                     $order_params['confirmation_contact'] = $params['confirmation_phone'] ?? '';
+
                     break;
             }
             $order_params['payment_type'] = $params['payment_type'] ?? 0;

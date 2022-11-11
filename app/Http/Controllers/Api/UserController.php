@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function feedback(FeedbackRequest $request)
     {
-        $question = new  UserQuestion();
+        $question = new UserQuestion();
         $question->fill($request->validated());
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');

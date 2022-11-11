@@ -45,14 +45,17 @@ class BitrixTourSchedule
                     if (count($parts) > 0) {
                         $fillData[$modelKey] = $parts[0];
                     }
+
                     break;
                 case BitrixTourScheduleFields::FIELD_STATUS:
                     if ($value && array_key_exists($value, self::STATUSES_MAP)) {
                         $fillData[$modelKey] = self::STATUSES_MAP[$value];
                     }
+
                     break;
                 default:
                     $fillData[$modelKey] = $value;
+
                     break;
             }
         }

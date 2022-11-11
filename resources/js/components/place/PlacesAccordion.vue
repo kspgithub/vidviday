@@ -11,14 +11,20 @@
                 <div class="accordion-inner">
                     <div class="accordion type-2">
                         <div v-for="region in getRegions(country)" class="accordion-item">
-                            <div class="accordion-title" @click="loadDistricts(region)"
-                                 v-html="region.text + '<i></i>'"></div>
+                            <div
+                                class="accordion-title"
+                                @click="loadDistricts(region)"
+                                v-html="region.text + '<i></i>'"
+                            ></div>
 
                             <div class="accordion-inner">
                                 <div class="accordion type-2" style="margin-left: 15px">
                                     <div v-for="district in getDistricts(region)" class="accordion-item">
-                                        <div class="accordion-title" @click="loadPlaces(district)"
-                                             v-html="district.text + '<i></i>'"></div>
+                                        <div
+                                            class="accordion-title"
+                                            @click="loadPlaces(district)"
+                                            v-html="district.text + '<i></i>'"
+                                        ></div>
 
                                         <div class="accordion-inner">
                                             <div class="accordion type-2" style="margin-left: 15px">
@@ -28,7 +34,6 @@
                                                     <!--                                                                              :district="district"-->
                                                     <!--                                                                              @load-place="loadPlace"/>-->
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -44,16 +49,15 @@
             <div class="expand-all close">Згорнути все</div>
         </div>
     </div>
-
 </template>
 
 <script>
-import apiClient from "../../services/api";
-import PlaceAccordionItem from "./PlaceAccordionItem";
+import apiClient from '../../services/api'
+import PlaceAccordionItem from './PlaceAccordionItem'
 
 export default {
-    name: "PlacesAccordion",
-    components: {PlaceAccordionItem},
+    name: 'PlacesAccordion',
+    components: { PlaceAccordionItem },
     props: {
         countries: {
             type: Array,
@@ -87,48 +91,56 @@ export default {
             return this.districts[region.value] || []
         },
         getPlaces(district) {
-            return this.places[district.value] || [];
+            return this.places[district.value] || []
         },
 
         async loadRegions(country) {
-            const response = await apiClient.get('/location/regions', {
-                params: {country_id: country.value},
-            }).catch(error => {
-                console.error(error)
-            })
+            const response = await apiClient
+                .get('/location/regions', {
+                    params: { country_id: country.value },
+                })
+                .catch(error => {
+                    console.error(error)
+                })
 
             if (response) {
                 this.regions[country.value] = response.data
             }
         },
         async loadDistricts(region) {
-            const response = await apiClient.get('/location/districts', {
-                params: {region_id: region.value},
-            }).catch(error => {
-                console.error(error)
-            })
+            const response = await apiClient
+                .get('/location/districts', {
+                    params: { region_id: region.value },
+                })
+                .catch(error => {
+                    console.error(error)
+                })
 
             if (response) {
                 this.districts[region.value] = response.data
             }
         },
         async loadPlaces(district) {
-            const response = await apiClient.get('/places/select-box', {
-                params: {district_id: district.value, text: 'title', url: 1},
-            }).catch(error => {
-                console.error(error)
-            })
+            const response = await apiClient
+                .get('/places/select-box', {
+                    params: { district_id: district.value, text: 'title', url: 1 },
+                })
+                .catch(error => {
+                    console.error(error)
+                })
 
             if (response) {
                 this.places[district.value] = response.data.results
             }
         },
-        async loadPlace({district, place}) {
-            const response = await apiClient.get('/places/find', {
-                params: {place_id: place.id},
-            }).catch(error => {
-                console.error(error)
-            })
+        async loadPlace({ district, place }) {
+            const response = await apiClient
+                .get('/places/find', {
+                    params: { place_id: place.id },
+                })
+                .catch(error => {
+                    console.error(error)
+                })
 
             if (response) {
                 let index = this.places[district.value].indexOf(place)
@@ -138,6 +150,6 @@ export default {
                 }
             }
         },
-    }
+    },
 }
 </script>

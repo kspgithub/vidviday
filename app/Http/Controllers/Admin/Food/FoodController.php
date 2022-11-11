@@ -75,7 +75,8 @@ class FoodController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -96,7 +97,8 @@ class FoodController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Food  $food
+     * @param Food  $food
+     *
      * @return View
      */
     public function edit(Food $food)
@@ -119,8 +121,9 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Food  $food
+     * @param Request  $request
+     * @param Food  $food
+     *
      * @return Response
      */
     public function update(Request $request, Food $food)
@@ -135,7 +138,8 @@ class FoodController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Food  $food
+     * @param Food  $food
+     *
      * @return Response
      */
     public function destroy(Food $food)

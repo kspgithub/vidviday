@@ -10,20 +10,20 @@ trait HasJsonSlug
     {
         if ($strict) {
             return $query->whereJsonContains('slug->'.getLocale(), $slug);
-        } else {
-            return $query->where(function ($sq) use ($slug) {
-                $first = true;
-                $locales = siteLocales();
-                foreach ($locales as $locale) {
-                    if ($first) {
-                        $sq->whereJsonContains('slug->'.$locale, $slug);
-                        $first = false;
-                    } else {
-                        $sq->orWhereJsonContains('slug->'.$locale, $slug);
-                    }
-                }
-            });
         }
+
+        return $query->where(function ($sq) use ($slug) {
+            $first = true;
+            $locales = siteLocales();
+            foreach ($locales as $locale) {
+                if ($first) {
+                    $sq->whereJsonContains('slug->'.$locale, $slug);
+                    $first = false;
+                } else {
+                    $sq->orWhereJsonContains('slug->'.$locale, $slug);
+                }
+            }
+        });
     }
 
     public static function existBySlug(string $slug, bool $strict = true)

@@ -52,14 +52,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="images",
  *         title="Зображення",
  *         type="array",
- *         @OA\Items( type="string", example="https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
+ *         @OA\Items(    type="string", example="https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
  *     ),
  * ),
  */
 class TourFoodResource extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

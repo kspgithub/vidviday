@@ -24,9 +24,10 @@ if (! function_exists('carbon')) {
      * Create a new Carbon instance from a time.
      *
      * @param $time
-     * @return Carbon
      *
      * @throws Exception
+     *
+     * @return Carbon
      */
     function carbon($time)
     {
@@ -179,10 +180,10 @@ if (! function_exists('validation_errors')) {
     function validation_errors($clear = true)
     {
         if ($clear) {
-            return request()->session()->pull('errors') ?: new  ViewErrorBag;
+            return request()->session()->pull('errors') ?: new ViewErrorBag;
         }
 
-        return request()->session()->get('errors') ?: new  ViewErrorBag;
+        return request()->session()->get('errors') ?: new ViewErrorBag;
     }
 }
 

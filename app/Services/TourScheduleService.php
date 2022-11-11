@@ -9,7 +9,7 @@ class TourScheduleService extends BaseService
     /**
      * TourScheduleService constructor.
      *
-     * @param  TourSchedule  $model
+     * @param TourSchedule  $model
      */
     public function __construct(TourSchedule $model)
     {

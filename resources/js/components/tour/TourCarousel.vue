@@ -29,30 +29,31 @@
                 :space-between="swiperOptions.spaceBetween"
                 :auto-height="true"
                 @swiper="setController"
-
-
             >
                 <swiper-slide v-for="tour in tours">
-                    <tour-card :key="'tour-slide-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
+                    <tour-card
+                        :key="'tour-slide-' + tour.id"
+                        :tour="tour"
+                        :like-btn="!!$store.state.user.currentUser"
+                    />
                 </swiper-slide>
             </swiper>
-
         </div>
     </div>
 </template>
 
 <script>
-import TourCard from "./TourCard";
-import {ref} from "vue";
+import TourCard from './TourCard'
+import { ref } from 'vue'
 
-import SwiperCore, {Navigation, Pagination, Controller} from 'swiper';
+import SwiperCore, { Navigation, Pagination, Controller } from 'swiper'
 
-SwiperCore.use([Navigation, Pagination, Controller]);
-import {Swiper, SwiperSlide} from 'swiper/vue';
+SwiperCore.use([Navigation, Pagination, Controller])
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
 export default {
-    name: "TourSlider",
-    components: {TourCard, Swiper, SwiperSlide},
+    name: 'TourSlider',
+    components: { TourCard, Swiper, SwiperSlide },
     props: {
         tours: Array,
         title: String,
@@ -60,58 +61,62 @@ export default {
             type: Object,
             default() {
                 return {}
-            }
-        }
+            },
+        },
     },
     setup(props) {
-        const swiper = ref(null);
+        const swiper = ref(null)
 
-        const swiperOptions = ref(Object.assign({
-            loop: true,
-            lazy: {loadPrevNext: true},
-            preloadImages: true,
-            updateOnImagesReady: true,
-            roundLengths: true,
-            updateOnWindowResize: true,
-            resizeObserver: true,
-            observer: true,
-            observeParents: true,
-            watchOverflow: true,
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-            centerInsufficientSlides: false,
-            speed: 900,
-            slidesPerView: 1,
-            slidesPerGroup: 1,
-            spaceBetween: 20,
-            breakpoints: {
-                1200: {
-                    slidesPerGroup: 3,
-                    slidesPerView: 3,
+        const swiperOptions = ref(
+            Object.assign(
+                {
+                    loop: true,
+                    lazy: { loadPrevNext: true },
+                    preloadImages: true,
+                    updateOnImagesReady: true,
+                    roundLengths: true,
+                    updateOnWindowResize: true,
+                    resizeObserver: true,
+                    observer: true,
+                    observeParents: true,
+                    watchOverflow: true,
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    centerInsufficientSlides: false,
+                    speed: 900,
+                    slidesPerView: 1,
+                    slidesPerGroup: 1,
                     spaceBetween: 20,
+                    breakpoints: {
+                        1200: {
+                            slidesPerGroup: 3,
+                            slidesPerView: 3,
+                            spaceBetween: 20,
+                        },
+                        992: {
+                            slidesPerGroup: 3,
+                            slidesPerView: 3,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerGroup: 2,
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                    },
+                    pagination: {
+                        clickable: true,
+                        // dynamicBullets: true,
+                        // dynamicMainBullets: 5,
+                    },
+                    navigation: true,
                 },
-                992: {
-                    slidesPerGroup: 3,
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                },
-                768: {
-                    slidesPerGroup: 2,
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                }
-            },
-            pagination: {
-                clickable: true,
-                // dynamicBullets: true,
-                // dynamicMainBullets: 5,
-            },
-            navigation: true,
+                props.options,
+            ),
+        )
 
-        }, props.options));
-
-        const setController = (instance) => {
-            swiper.value = instance;
+        const setController = instance => {
+            swiper.value = instance
 
             const paginator = $(swiper.value.el).find('.swiper-pagination')
 
@@ -121,11 +126,11 @@ export default {
         }
 
         const nextSlide = () => {
-            swiper.value.slideNext();
+            swiper.value.slideNext()
         }
 
         const prevSlide = () => {
-            swiper.value.slidePrev();
+            swiper.value.slidePrev()
         }
         return {
             swiperOptions,
@@ -133,10 +138,8 @@ export default {
             nextSlide,
             prevSlide,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -95,9 +95,10 @@ class TourDiscount extends Model
     /**
      * Подсчитывает скидку
      *
-     * @param  int  $price Цена за единицу
-     * @param  int  $quantity Количество единиц
-     * @param  int  $days Количество дней (для скидок на каждый день)
+     * @param int  $price Цена за единицу
+     * @param int  $quantity Количество единиц
+     * @param int  $days Количество дней (для скидок на каждый день)
+     *
      * @return float|int
      */
     public function calculate($price = 0, $quantity = 1, $days = 1)
@@ -108,15 +109,19 @@ class TourDiscount extends Model
             case Discount::DURATION_PERSON:
             case Discount::DURATION_UNIT:
                 $total = $amount * $quantity;
+
                 break;
             case Discount::DURATION_PERSON_DAY:
                 $total = $amount * $quantity * $days;
+
                 break;
             case Discount::DURATION_DAY:
                 $total = $amount * $days;
+
                 break;
             case Discount::DURATION_ORDER:
                 $total = $amount;
+
                 break;
         }
 

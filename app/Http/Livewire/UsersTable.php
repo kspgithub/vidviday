@@ -13,8 +13,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class UsersTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string
@@ -35,7 +34,7 @@ class UsersTable extends DataTableComponent
     ];
 
     /**
-     * @param  string  $status
+     * @param string  $status
      */
     public function mount($status = 'active'): void
     {

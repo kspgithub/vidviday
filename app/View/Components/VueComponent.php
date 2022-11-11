@@ -8,16 +8,12 @@ use Illuminate\View\Component;
 
 class VueComponent extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
     public function __construct(
         public string $component,
         public array $props = [],
         public array $options = [],
-    ) {
+    )
+    {
     }
 
     /**
@@ -42,17 +38,19 @@ class VueComponent extends Component
                     'props' => $props,
                 ])
                 ->render();
-        } else {
-            return view('components.vue-component', [
-                'component' => $component,
-                'props' => $props,
-            ]);
         }
+
+        return view('components.vue-component', [
+            'component' => $component,
+            'props' => $props,
+        ]);
     }
 
     private function guessName()
     {
-        $replaces = [];
+        $replaces = [
+            '.' => '/',
+        ];
 
         $name = Str::replace(array_keys($replaces), array_values($replaces), Str::kebab($this->component));
 

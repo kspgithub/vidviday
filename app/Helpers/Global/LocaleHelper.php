@@ -69,6 +69,7 @@ if (! function_exists('setLocaleReadingDirection')) {
 if (! function_exists('getLocaleName')) {
     /**
      * @param $locale
+     *
      * @return mixed
      */
     function getLocaleName($locale)

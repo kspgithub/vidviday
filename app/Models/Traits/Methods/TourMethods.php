@@ -13,7 +13,8 @@ trait TourMethods
     /**
      * Похожие туры
      *
-     * @param  int  $count
+     * @param int  $count
+     *
      * @return Tour[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection
      */
     public function getSimilarTours(int $count = 4)

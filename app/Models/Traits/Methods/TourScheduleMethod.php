@@ -19,7 +19,8 @@ trait TourScheduleMethod
     }
 
     /**
-     * @param  TourSchedule[]|Collection  $schedules
+     * @param TourSchedule[]|Collection  $schedules
+     *
      * @return \Illuminate\Support\Collection
      */
     public static function transformForBooking($schedules)
@@ -65,10 +66,9 @@ trait TourScheduleMethod
         if ($this->auto_booking) {
             if ($this->auto_limit >= ($this->places_booked + $places)) {
                 return true;
-            } else {
-                $this->auto_booking = false;
-                $this->save();
             }
+            $this->auto_booking = false;
+            $this->save();
         }
 
         return false;

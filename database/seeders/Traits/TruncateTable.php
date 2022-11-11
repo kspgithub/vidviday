@@ -11,6 +11,7 @@ trait TruncateTable
 {
     /**
      * @param $table
+     *
      * @return bool|void
      */
     protected function truncate($table)

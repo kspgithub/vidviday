@@ -14,7 +14,7 @@ class BlogService extends BaseService
     /**
      * NewsService constructor.
      *
-     * @param  Post  $blog
+     * @param Post  $blog
      */
     public function __construct(Post $blog)
     {

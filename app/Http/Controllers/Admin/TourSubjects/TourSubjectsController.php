@@ -39,7 +39,8 @@ class TourSubjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -55,7 +56,8 @@ class TourSubjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  TourSubject  $tourSubject
+     * @param TourSubject  $tourSubject
+     *
      * @return View
      */
     public function edit(TourSubject $tourSubject)
@@ -67,8 +69,9 @@ class TourSubjectsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  TourSubject  $tourSubject
+     * @param Request  $request
+     * @param TourSubject  $tourSubject
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, TourSubject $tourSubject)
@@ -86,7 +89,8 @@ class TourSubjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  TourSubject  $tourSubject
+     * @param TourSubject  $tourSubject
+     *
      * @return Response
      */
     public function destroy(TourSubject $tourSubject)

@@ -59,8 +59,9 @@ class DealSchedule
             foreach (self::FIELDS_MAP as $bitrixKey => $modelKey) {
                 if (isset($data[$bitrixKey])) {
                     switch ($bitrixKey) {
-                        case  DealFields::FIELD_STAGE_ID:
+                        case DealFields::FIELD_STAGE_ID:
                             $fillData[$modelKey] = self::STATUSES_MAP[$data[$bitrixKey]];
+
                             break;
                         case DealFields::FIELD_PRICE:
                         case DealFields::FIELD_COMMISSION:
@@ -68,6 +69,7 @@ class DealSchedule
                             if (count($parts) > 0) {
                                 $fillData[$modelKey] = $parts[0];
                             }
+
                             break;
                         case DealFields::FIELD_ID:
                         case DealFields::FIELD_SCHEDULE_TOUR_ID:
@@ -76,9 +78,11 @@ class DealSchedule
                             $fillData[$modelKey] = empty($data[$bitrixKey])
                                 ? Carbon::parse($data[DealFields::FIELD_START_DATE])->addDays($tour->duration)
                                 : $data[$bitrixKey];
+
                             break;
                         default:
                             $fillData[$modelKey] = empty($data[$bitrixKey]) ? null : $data[$bitrixKey];
+
                             break;
                     }
                 }

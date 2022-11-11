@@ -49,22 +49,21 @@ class OrderController extends Controller
             }
 
             return back()->withFlashError('Помилка при замовлені туру');
-        } else {
-            $order->syncContact();
-            MailNotificationService::userTourOrder($order);
-            MailNotificationService::adminTourOrder($order);
-
-            if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
-                $redirect_route = 'order.purchase';
-            } else {
-                $redirect_route = 'order.success';
-            }
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
-            }
-
-            return redirect()->route($redirect_route, $order);
         }
+        $order->syncContact();
+        MailNotificationService::userTourOrder($order);
+        MailNotificationService::adminTourOrder($order);
+
+        if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
+            $redirect_route = 'order.purchase';
+        } else {
+            $redirect_route = 'order.success';
+        }
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+        }
+
+        return redirect()->route($redirect_route, $order);
     }
 
     public function purchase(Request $request, Order $order)
@@ -88,6 +87,7 @@ class OrderController extends Controller
         $user = current_user();
         $order = $user->orders()->findOrFail($id);
         $order->cancel($request->only(['cause', 'comment']));
+
         try {
             DealOrder::cancelDeal($order);
         } catch (Exception $e) {

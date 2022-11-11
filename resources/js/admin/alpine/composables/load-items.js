@@ -1,34 +1,34 @@
-import axios from "axios";
-import * as UrlUtils from "../../../utils/url";
-import handleError from "./handle-error";
+import axios from 'axios'
+import * as UrlUtils from '../../../utils/url'
+import handleError from './handle-error'
 
-let cancelTokenSource = null;
+let cancelTokenSource = null
 
-
-export default ({url, params = {}, updateUrl = true, defaultParams = {}, onSuccess = null, onError = null}) => {
+export default ({ url, params = {}, updateUrl = true, defaultParams = {}, onSuccess = null, onError = null }) => {
     if (cancelTokenSource) {
-        cancelTokenSource.cancel();
+        cancelTokenSource.cancel()
     }
-    cancelTokenSource = axios.CancelToken.source();
+    cancelTokenSource = axios.CancelToken.source()
 
     if (updateUrl) {
-        const updateParams = UrlUtils.filterParams(params, defaultParams);
-        UrlUtils.updateUrl(document.location.pathname, updateParams, false);
+        const updateParams = UrlUtils.filterParams(params, defaultParams)
+        UrlUtils.updateUrl(document.location.pathname, updateParams, false)
     }
 
-    axios.get(url, {
-        cancelToken: cancelTokenSource.token,
-        params: params
-    })
-        .then(({data: response}) => {
+    axios
+        .get(url, {
+            cancelToken: cancelTokenSource.token,
+            params: params,
+        })
+        .then(({ data: response }) => {
             if (onSuccess) {
-                onSuccess(response);
+                onSuccess(response)
             }
         })
         .catch(error => {
-            handleError(error);
+            handleError(error)
             if (onError) {
-                onError(error);
+                onError(error)
             }
         })
 }

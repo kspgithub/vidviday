@@ -45,7 +45,8 @@ class PracticeController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -61,7 +62,8 @@ class PracticeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Practice  $practice
+     * @param Practice  $practice
+     *
      * @return View
      */
     public function edit(Practice $practice)
@@ -79,8 +81,9 @@ class PracticeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Practice  $practice
+     * @param Request  $request
+     * @param Practice  $practice
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Practice $practice)
@@ -98,7 +101,8 @@ class PracticeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Practice  $practice
+     * @param Practice  $practice
+     *
      * @return Response
      */
     public function destroy(Practice $practice)

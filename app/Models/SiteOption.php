@@ -60,11 +60,11 @@ class SiteOption extends Model
     /**
      * Создает опцию
      *
-     * @param  string  $key ключ
-     * @param  mixed  $value значение
-     * @param  string  $title описание
-     * @param  bool  $primary если true, то админ не может удалить эту опцию
-     * @param  null|string  $type тип значения, если не указан то определиться автоматически
+     * @param string  $key ключ
+     * @param mixed  $value значение
+     * @param string  $title описание
+     * @param bool  $primary если true, то админ не может удалить эту опцию
+     * @param null|string  $type тип значения, если не указан то определиться автоматически
      */
     public static function createOption(string $key, $value, string $title = '', bool $primary = false, string $type = null)
     {

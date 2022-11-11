@@ -19,14 +19,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait UseNormalizeMedia
 {
     /**
-     * @param  string|UploadedFile|TemporaryUploadedFile  $file
-     * @param  string|null  $collection
-     * @param  array  $options
-     * @return FileAdder|Media
+     * @param string|UploadedFile|TemporaryUploadedFile  $file
+     * @param string|null  $collection
+     * @param array  $options
      *
      * @throws InvalidManipulation
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
+     *
+     * @return FileAdder|Media
      */
     public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {

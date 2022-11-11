@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Cache;
 class PopularToursController extends Controller
 {
     /**
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return View
      */
     public function index(Request $request)

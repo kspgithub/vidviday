@@ -40,7 +40,8 @@ class AdvertisementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request  $request
+     *
      * @return Response|JsonResponse
      */
     public function store(Request $request)
@@ -59,7 +60,8 @@ class AdvertisementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Advertisement  $advertisement
+     * @param Advertisement  $advertisement
+     *
      * @return View
      */
     public function edit(Advertisement $advertisement)
@@ -71,8 +73,9 @@ class AdvertisementController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Advertisement  $advertisement
+     * @param Request  $request
+     * @param Advertisement  $advertisement
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Advertisement $advertisement)
@@ -93,7 +96,8 @@ class AdvertisementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Advertisement  $advertisement
+     * @param Advertisement  $advertisement
+     *
      * @return Response
      */
     public function destroy(Advertisement $advertisement)

@@ -52,8 +52,9 @@ class Client
     }
 
     /**
-     * @param  string  $bitrixMethod
-     * @param  array  $params
+     * @param string  $bitrixMethod
+     * @param array  $params
+     *
      * @return BitrixResponse
      */
     public static function call($bitrixMethod, $params = [])

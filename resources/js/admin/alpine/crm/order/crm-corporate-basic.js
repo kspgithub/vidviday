@@ -1,10 +1,10 @@
-import axios from "axios";
-import tinymce from "tinymce";
-import {toast} from "../../../../libs/toast";
-import flatpickr from "flatpickr";
-import {Ukrainian} from "flatpickr/dist/l10n/uk";
+import axios from 'axios'
+import tinymce from 'tinymce'
+import { toast } from '../../../../libs/toast'
+import flatpickr from 'flatpickr'
+import { Ukrainian } from 'flatpickr/dist/l10n/uk'
 
-export default ({order, statuses, includes}) => ({
+export default ({ order, statuses, includes }) => ({
     editor: null,
     statuses: statuses || [],
     includes: includes || [],
@@ -38,7 +38,7 @@ export default ({order, statuses, includes}) => ({
     tour: order.tour || null,
     init() {
         setTimeout(() => {
-            const tourSelectBox = document.getElementById('tourSelectBox');
+            const tourSelectBox = document.getElementById('tourSelectBox')
             jQuery(tourSelectBox).select2({
                 theme: 'bootstrap-5',
                 ajax: {
@@ -48,39 +48,39 @@ export default ({order, statuses, includes}) => ({
                         return {
                             q: params.term,
                             page: params.page || 1,
-                            limit: 20
-                        };
+                            limit: 20,
+                        }
                     },
-                }
-            });
-            jQuery(tourSelectBox).on('select2:select', (e) => {
-                this.data.tour_id = e.params.data.id;
+                },
+            })
+            jQuery(tourSelectBox).on('select2:select', e => {
+                this.data.tour_id = e.params.data.id
             })
 
-            this.$watch('notifyEmail', (value) => {
+            this.$watch('notifyEmail', value => {
                 if (value) {
                     this.editor = tinymce.init({
                         selector: '#notify-message',
                         language: 'uk',
 
-                        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                        toolbar:
+                            'undo redo | bold italic | alignleft aligncenter alignright alignjustify | ' +
                             'bullist numlist outdent indent ' +
                             'emoticons ',
                         menubar: '',
-                        setup: (editor) => {
-                            editor.on('Input', (evt) => {
-                                this.notifyMessage = editor.getContent();
+                        setup: editor => {
+                            editor.on('Input', evt => {
+                                this.notifyMessage = editor.getContent()
                             })
-                            editor.on('Change', (evt) => {
-                                this.notifyMessage = editor.getContent();
+                            editor.on('Change', evt => {
+                                this.notifyMessage = editor.getContent()
                             })
-                        }
+                        },
                         //content_css: 'css/content.css'
-                    });
+                    })
                 } else {
                     if (this.editor) {
-                        this.editor.destroy();
-
+                        this.editor.destroy()
                     }
                 }
             })
@@ -88,37 +88,37 @@ export default ({order, statuses, includes}) => ({
             const startPicker = flatpickr(this.$refs.startDateRef, {
                 locale: Ukrainian,
                 dateFormat: 'd.m.Y',
-
-            });
+            })
 
             const endPicker = flatpickr(this.$refs.endDateRef, {
                 locale: Ukrainian,
                 dateFormat: 'd.m.Y',
-            });
-        }, 200);
-
+            })
+        }, 200)
     },
     get basicModal() {
-        return bootstrap.Modal.getOrCreateInstance(document.getElementById('edit-basic-modal'));
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('edit-basic-modal'))
     },
     get clientName() {
-        return this.data.last_name + ' ' + this.data.first_name;
+        return this.data.last_name + ' ' + this.data.first_name
     },
     get statusText() {
-        const statusOption = this.statuses.find(s => s.value === this.status);
-        return statusOption ? statusOption.text : '-';
+        const statusOption = this.statuses.find(s => s.value === this.status)
+        return statusOption ? statusOption.text : '-'
     },
     get totalPlaces() {
-        let total = this.data.places;
+        let total = this.data.places
         if (this.data.children) {
-            total += this.data.children_young;
-            total += this.data.children_older;
+            total += this.data.children_young
+            total += this.data.children_older
         }
-        return total;
+        return total
     },
     get includeTitle() {
-        return this.includes.filter(inc => this.data.price_include.indexOf(inc.value) !== -1)
-            .map(inc => inc.text).join(', ');
+        return this.includes
+            .filter(inc => this.data.price_include.indexOf(inc.value) !== -1)
+            .map(inc => inc.text)
+            .join(', ')
     },
     resetData() {
         this.data = {
@@ -143,36 +143,37 @@ export default ({order, statuses, includes}) => ({
             program_comment: this.order.program_comment || '',
             price_include: this.order.price_include || [],
         }
-        this.status = this.order.status;
+        this.status = this.order.status
     },
 
     updateOrder() {
-        axios.patch(`/admin/order/${this.order.id}`, this.data)
-            .then(({data: response}) => {
-                this.basicModal.hide();
-                this.order = response.model;
-                this.status = response.model.status;
-                this.tour = response.model.tour || null;
-                toast.success(response.message);
+        axios
+            .patch(`/admin/order/${this.order.id}`, this.data)
+            .then(({ data: response }) => {
+                this.basicModal.hide()
+                this.order = response.model
+                this.status = response.model.status
+                this.tour = response.model.tour || null
+                toast.success(response.message)
             })
             .catch(error => {
-                console.log(error);
+                console.log(error)
             })
     },
     updateOrderStatus() {
-        axios.patch(`/admin/order/${this.order.id}/update-status`, {
-            status: this.status,
-            notifySend: this.notifySend,
-            notifyEmail: this.notifyEmail,
-            notifyMessage: this.notifyMessage,
-        })
-            .then(({data: response}) => {
-                toast.success(response.message);
-                this.status = response.model.status;
-
+        axios
+            .patch(`/admin/order/${this.order.id}/update-status`, {
+                status: this.status,
+                notifySend: this.notifySend,
+                notifyEmail: this.notifyEmail,
+                notifyMessage: this.notifyMessage,
+            })
+            .then(({ data: response }) => {
+                toast.success(response.message)
+                this.status = response.model.status
             })
             .catch(error => {
-                console.log(error);
+                console.log(error)
             })
     },
-});
+})

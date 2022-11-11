@@ -82,10 +82,11 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  TourBasicRequest  $request
-     * @return Response
+     * @param TourBasicRequest  $request
      *
      * @throws GeneralException
+     *
+     * @return Response
      */
     public function store(TourBasicRequest $request)
     {
@@ -143,7 +144,8 @@ class TourController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Tour  $tour
+     * @param Tour  $tour
+     *
      * @return View
      */
     public function edit(Tour $tour)
@@ -182,8 +184,9 @@ class TourController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  Tour  $tour
+     * @param Request  $request
+     * @param Tour  $tour
+     *
      * @return Response
      */
     public function update(TourBasicRequest $request, Tour $tour)
@@ -237,7 +240,8 @@ class TourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tour  $tour
+     * @param Tour  $tour
+     *
      * @return Response
      */
     public function destroy(Tour $tour)
@@ -251,8 +255,9 @@ class TourController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param  Request  $request
-     * @param  Tour  $tour
+     * @param Request  $request
+     * @param Tour  $tour
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Tour $tour)
