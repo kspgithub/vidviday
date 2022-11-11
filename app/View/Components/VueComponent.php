@@ -35,8 +35,6 @@ class VueComponent extends Component
 
         $chunkPath = $prefix.'js/chunks/'.$name.'-vue';
 
-        $f = 5;
-
         if (File::exists(public_path($chunkPath))) {
             return ssr('assets/ssr/ssr.js')
                 ->context([
