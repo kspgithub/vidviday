@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\Page;
 use App\Models\PopupAd;
-use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
@@ -25,5 +24,4 @@ class DocumentController extends Controller
                 'popupAds' => $popupAds,
             ]);
     }
-
 }

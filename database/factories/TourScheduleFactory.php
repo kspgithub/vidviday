@@ -24,20 +24,21 @@ class TourScheduleFactory extends Factory
     public function definition()
     {
         $start_date = Carbon::now()->addDays(30);
+
         return [
             //
             'tour_id' => Tour::factory(),
             'start_date' => $start_date,
-            'end_date' =>  function (array $attributes) use ($start_date) {
+            'end_date' => function (array $attributes) {
                 return $attributes['start_date']->addDays(Tour::find($attributes['tour_id'])->duration);
             },
             'places' => $this->faker->randomElement([5, 10, 15]),
-            'price' => function (array $attributes) use ($start_date) {
+            'price' => function (array $attributes) {
                 return Tour::find($attributes['tour_id'])->price;
             },
             'commission' => $this->faker->randomElement([0, 20, 30]),
             'currency' => 'UAH',
-            'published' => 1
+            'published' => 1,
         ];
     }
 }

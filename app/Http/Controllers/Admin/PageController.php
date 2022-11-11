@@ -14,11 +14,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PageController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -53,8 +51,7 @@ class PageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response|RedirectResponse
      */
     public function store(Request $request)
@@ -94,8 +91,7 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Page $page
-     *
+     * @param  Page  $page
      * @return View
      */
     public function edit(Page $page)
@@ -114,9 +110,8 @@ class PageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Page $page
-     *
+     * @param  Request  $request
+     * @param  Page  $page
      * @return Response|RedirectResponse|JsonResponse
      */
     public function update(Request $request, Page $page)
@@ -126,7 +121,7 @@ class PageController extends Controller
 
         if (count($params) === 1 && isset($params['published'])) {
             $validator = Validator::make($params, [
-                'published' => 'required|boolean'
+                'published' => 'required|boolean',
             ]);
         } else {
             $validator = Validator::make($params, [
@@ -163,8 +158,7 @@ class PageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Page $page
-     *
+     * @param  Page  $page
      * @return Response
      */
     public function destroy(Page $page)

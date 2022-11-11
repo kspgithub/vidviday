@@ -32,7 +32,6 @@ class AddAdditionalFieldsToToursTicketsTable extends Migration
     public function down()
     {
         Schema::table('tours_tickets', function (Blueprint $table) {
-
             $table->dropForeign('tours_tickets_region_id_foreign');
 
             $table->dropColumn([
@@ -45,4 +44,3 @@ class AddAdditionalFieldsToToursTicketsTable extends Migration
         });
     }
 }
-

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -26,7 +25,9 @@ class Testimonial extends Model implements HasMedia
     use HasAvatar;
 
     public const STATUS_NEW = 0;
+
     public const STATUS_PUBLISHED = 1;
+
     public const STATUS_BLOCKED = 2;
 
     public const SHORT_TEXT_STR_LIMIT = 120;
@@ -93,7 +94,6 @@ class Testimonial extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
     /**
      * @return MorphTo
      */
@@ -120,7 +120,8 @@ class Testimonial extends Model implements HasMedia
         if (count($name_parts) > 1) {
             $initials .= Str::upper(Str::substr($name_parts[1], 0, 1));
         }
-        return !empty($initials) ? $initials : 'N/A';
+
+        return ! empty($initials) ? $initials : 'N/A';
     }
 
     /**
@@ -130,12 +131,11 @@ class Testimonial extends Model implements HasMedia
     {
         $avatar = $this->getAttributeValue('avatar');
 
-        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
+        return ! empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
     }
 
     public function getTypeAttribute()
     {
-
         switch ($this->model_type) {
             case Tour::class:
                 $type = 'tour';
@@ -150,6 +150,7 @@ class Testimonial extends Model implements HasMedia
                 $type = 'other';
                 break;
         }
+
         return $type;
     }
 
@@ -171,6 +172,7 @@ class Testimonial extends Model implements HasMedia
         if ($this->related_type == Tour::class && $this->related) {
             return $this->related->shortInfo();
         }
+
         return null;
     }
 
@@ -187,6 +189,7 @@ class Testimonial extends Model implements HasMedia
         if ($this->related_type == Staff::class) {
             return $this->related->shortInfo();
         }
+
         return null;
     }
 

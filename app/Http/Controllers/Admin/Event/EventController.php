@@ -57,22 +57,20 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param EventBasicRequest $request
-     *
+     * @param  EventBasicRequest  $request
      * @return mixed
      */
     public function store(EventBasicRequest $request)
     {
         $event = $this->service->store($request->validated());
+
         return redirect()->route('admin.event.edit', $event)->withFlashSuccess(__('Record Created'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param EventItem $event
-     *
+     * @param  EventItem  $event
      * @return Application|Factory|View
      */
     public function edit(EventItem $event)
@@ -92,10 +90,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EventBasicRequest $request
-     *
-     * @param EventItem $event
-     *
+     * @param  EventBasicRequest  $request
+     * @param  EventItem  $event
      * @return mixed
      *
      * @throws GeneralException
@@ -103,26 +99,26 @@ class EventController extends Controller
     public function update(EventBasicRequest $request, EventItem $event)
     {
         $this->service->update($event, $request->validated());
+
         return redirect()->route('admin.event.edit', $event)->withFlashSuccess(__('Record Updated'));
     }
-
 
     public function updateStatus(Request $request, EventItem $event)
     {
         if ($request->has('published')) {
             $event->published = $request->published;
             $event->save();
+
             return response()->json(['result' => 'success']);
         }
+
         return response()->json(['result' => 'error']);
     }
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param EventItem $event
-     *
+     * @param  EventItem  $event
      * @return mixed
      */
     public function destroy(EventItem $event)

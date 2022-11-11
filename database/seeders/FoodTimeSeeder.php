@@ -9,7 +9,6 @@ use Illuminate\Database\Seeder;
 
 class FoodTimeSeeder extends Seeder
 {
-
     use TruncateTable, DisableForeignKeys;
 
     /**

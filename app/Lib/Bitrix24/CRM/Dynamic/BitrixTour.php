@@ -17,11 +17,10 @@ class BitrixTour
         BitrixTourFields::FIELD_COMMISSION => 'commission',
     ];
 
-
     public static function createFromData($data)
     {
         $fillData = [
-            'currency' => 'UAH'
+            'currency' => 'UAH',
         ];
         foreach (self::FIELDS_MAP as $bitrixKey => $modelKey) {
             $value = $data[$bitrixKey] ?? null;
@@ -36,10 +35,10 @@ class BitrixTour
                 default:
                     $fillData[$modelKey] = $value;
                     break;
-
             }
         }
-        return (object)$fillData;
+
+        return (object) $fillData;
     }
 
     public static function getAll()
@@ -47,28 +46,30 @@ class BitrixTour
         $items = [];
         $response = BitrixTourService::list();
 
-        if (!$response->error) {
-            if (!empty($response->result['items'])) {
+        if (! $response->error) {
+            if (! empty($response->result['items'])) {
                 foreach ($response->result['items'] as $data) {
                     $items[] = self::createFromData($data);
                 }
             }
         } else {
-            Log::error($response->error_description, (array)$response);
+            Log::error($response->error_description, (array) $response);
         }
+
         return $items;
     }
 
     public static function get($id)
     {
         $response = BitrixTourService::get($id);
-        if (!$response->error) {
-            if (!empty($response->result['item'])) {
+        if (! $response->error) {
+            if (! empty($response->result['item'])) {
                 return self::createFromData($response->result['item']);
             }
         } else {
-            Log::error($response->error_description, (array)$response);
+            Log::error($response->error_description, (array) $response);
         }
+
         return null;
     }
 

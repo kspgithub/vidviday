@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Rules\UnusedPassword;
 use App\Rules\PasswordRules;
+use App\Rules\UnusedPassword;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,7 +33,7 @@ class UpdateUserPasswordRequest extends FormRequest
             'password' => array_merge(
                 [
                     'max:100',
-                    new UnusedPassword((int)$this->segment(4)),
+                    new UnusedPassword((int) $this->segment(4)),
                 ],
                 PasswordRules::changePassword($this->email)
             ),
@@ -44,8 +44,8 @@ class UpdateUserPasswordRequest extends FormRequest
      * Handle a failed authorization attempt.
      *
      * @return void
-     * @throws AuthorizationException
      *
+     * @throws AuthorizationException
      */
     protected function failedAuthorization()
     {

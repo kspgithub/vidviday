@@ -28,7 +28,6 @@ class TourBasicRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules = [
             //
             'locales' => ['required', 'array'],
@@ -77,9 +76,9 @@ class TourBasicRequest extends FormRequest
         ];
 
         foreach ($this->locales as $locale) {
-            $rules['title.' . $locale] = ['required'];
-            $rules['text.' . $locale] = ['required'];
-            $rules['slug.' . $locale] = ['required', new UniqueSlugRule('tours', 'slug', $this->tour->id ?? 0)];
+            $rules['title.'.$locale] = ['required'];
+            $rules['text.'.$locale] = ['required'];
+            $rules['slug.'.$locale] = ['required', new UniqueSlugRule('tours', 'slug', $this->tour->id ?? 0)];
         }
 
         return $rules;

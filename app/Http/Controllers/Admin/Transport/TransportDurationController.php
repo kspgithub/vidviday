@@ -19,7 +19,8 @@ class TransportDurationController extends Controller
     public function index()
     {
         $transportDurations = TransportDuration::query()->get();
-        return view('admin.transport_duration.index', ['transportDurations'=>$transportDurations]);
+
+        return view('admin.transport_duration.index', ['transportDurations' => $transportDurations]);
     }
 
     /**
@@ -31,12 +32,11 @@ class TransportDurationController extends Controller
     {
         $transportDuration = new TransportDuration();
 
-        return view('admin.transport_duration.create', ['transportDuration'=>$transportDuration]);
+        return view('admin.transport_duration.create', ['transportDuration' => $transportDuration]);
     }
 
     /**
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -45,27 +45,25 @@ class TransportDurationController extends Controller
         $transportDuration = new TransportDuration();
         $transportDuration->fill($request->all());
         $transportDuration->save();
+
         return redirect()->route('admin.transport_duration.edit', $transportDuration)->withFlashSuccess(__('Record Created'));
     }
 
     /**
-     *
-     * @param TransportDuration  $transportDuration
-     *
+     * @param  TransportDuration  $transportDuration
      * @return View
      */
-    public function edit(TransportDuration  $transportDuration)
+    public function edit(TransportDuration $transportDuration)
     {
         //
-        return view('admin.transport_duration.edit', ['transportDuration'=>$transportDuration]);
+        return view('admin.transport_duration.edit', ['transportDuration' => $transportDuration]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param TransportDuration $transportDuration
-     *
+     * @param  Request  $request
+     * @param  TransportDuration  $transportDuration
      * @return Response|JsonResponse
      */
     public function update(Request $request, TransportDuration $transportDuration)
@@ -77,21 +75,21 @@ class TransportDurationController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.transport_duration.edit', $transportDuration)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param TransportDuration $transportDuration
-     *
+     * @param  TransportDuration  $transportDuration
      * @return Response
      */
     public function destroy(TransportDuration $transportDuration)
     {
         //
         $transportDuration->delete();
+
         return redirect()->route('admin.transport_duration.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

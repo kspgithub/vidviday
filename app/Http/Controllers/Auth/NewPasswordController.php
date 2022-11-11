@@ -21,17 +21,16 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request, $token)
     {
-        return view('auth.passwords.reset', ['request' => $request, 'token'=>$token]);
+        return view('auth.passwords.reset', ['request' => $request, 'token' => $token]);
     }
 
     /**
      * Handle an incoming new password request.
      *
-     * @param Request $request
+     * @param  Request  $request
+     * @return RedirectResponse
      *
      * @throws ValidationException
-     *
-     * @return RedirectResponse
      */
     public function store(Request $request)
     {

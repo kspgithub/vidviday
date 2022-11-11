@@ -59,7 +59,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TourFoodResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -71,7 +71,7 @@ class TourFoodResource extends JsonResource
             'day' => $this->day,
             'price' => $this->food->price,
             'currency' => $this->food->currency,
-            'images' => $this->food->getMedia()->map(fn($it) => $it->getFullUrl('normal'))
+            'images' => $this->food->getMedia()->map(fn ($it) => $it->getFullUrl('normal')),
         ];
     }
 }

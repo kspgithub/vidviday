@@ -44,7 +44,7 @@
 <body class="{{$body_class ?? ''}}">
 <div id="app">
 
-    <x-vue-component :component="'test-component2'" :props='json_encode(["name" => "hhh"])' />
+    <x-vue-component :component="'test-component2'" :props="['name' => 'hhh']" />
 
     <!-- LOADER -->
     <div id="loader"></div>
@@ -76,12 +76,6 @@
 
 @stack('before-scripts', false)
 
-<script src="{{ mix('js/manifest.js', 'assets/app') }}"></script>
-<script src="{{ mix('js/vendor.js', 'assets/app') }}"></script>
-<script src="{{ mix('js/app.js', 'assets/app') }}"></script>
-
-@stack('after-scripts', false)
-
 @production
 <div style="display: none">
     <div id="mailerlite-tourist">
@@ -99,6 +93,13 @@
         {!! $fb !!}
     @endif
 @endproduction
+
+
+<script src="{{ mix('js/manifest.js', 'assets/app') }}"></script>
+<script src="{{ mix('js/vendor.js', 'assets/app') }}"></script>
+<script src="{{ mix('js/app.js', 'assets/app') }}"></script>
+
+@stack('after-scripts', false)
 
 </body>
 </html>

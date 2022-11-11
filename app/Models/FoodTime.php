@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
@@ -40,8 +39,7 @@ class FoodTime extends TranslatableModel
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    )
-    {
+    ) {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

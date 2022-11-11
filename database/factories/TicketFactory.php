@@ -23,12 +23,12 @@ class TicketFactory extends Factory
     {
         return [
             //
-            'region_id' => $this->faker->randomElement([1,2, 8, 13]),
+            'region_id' => $this->faker->randomElement([1, 2, 8, 13]),
             'title' => 'Квиток '.$this->faker->realText(50),
             'text' => $this->faker->realText(),
             'price' => $this->faker->numberBetween(1, 10) * 10,
             'currency' => 'UAH',
-            'published' => 1
+            'published' => 1,
         ];
     }
 }

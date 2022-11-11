@@ -19,6 +19,7 @@ class BadgeController extends Controller
     {
         //
         $badges = Badge::all();
+
         return view('admin.badge.index', compact('badges'));
     }
 
@@ -31,12 +32,11 @@ class BadgeController extends Controller
     {
         $badge = new Badge();
 
-        return view('admin.badge.create', ['badge'=>$badge]);
+        return view('admin.badge.create', ['badge' => $badge]);
     }
 
     /**
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -50,23 +50,20 @@ class BadgeController extends Controller
     }
 
     /**
-     *
-     * @param Badge  $badge
-     *
+     * @param  Badge  $badge
      * @return View
      */
-    public function edit(Badge  $badge)
+    public function edit(Badge $badge)
     {
         //
-        return view('admin.badge.edit', ['badge'=>$badge]);
+        return view('admin.badge.edit', ['badge' => $badge]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Badge  $badge
-     *
+     * @param  Request  $request
+     * @param  Badge  $badge
      * @return Response
      */
     public function update(Request $request, Badge $badge)
@@ -81,8 +78,7 @@ class BadgeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Badge $badge
-     *
+     * @param  Badge  $badge
      * @return Response
      */
     public function destroy(Badge $badge)

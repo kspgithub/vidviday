@@ -15,6 +15,7 @@ class UsersTable extends DataTableComponent
 {
     public array $bulkActions = [
     ];
+
     /**
      * @var string
      */
@@ -34,7 +35,7 @@ class UsersTable extends DataTableComponent
     ];
 
     /**
-     * @param string $status
+     * @param  string  $status
      */
     public function mount($status = 'active'): void
     {
@@ -87,14 +88,14 @@ class UsersTable extends DataTableComponent
                 ->searchable()
                 ->sortable()
                 ->format(function ($value) {
-                    return '<a href="' . $value . '">' . $value . '</a>';
+                    return '<a href="'.$value.'">'.$value.'</a>';
                 })
                 ->asHtml(),
             Column::make(__('Phone'), 'mobile_phone')
                 ->searchable()
                 ->sortable()
                 ->format(function ($value) {
-                    return '<a href="' . $value . '">' . $value . '</a>';
+                    return '<a href="'.$value.'">'.$value.'</a>';
                 })
                 ->asHtml(),
             Column::make(__('Verified'), 'email_verified_at')
@@ -106,7 +107,7 @@ class UsersTable extends DataTableComponent
             Column::make(__('Roles'), 'roles_label')
                 ->searchable(function ($builder, $term) {
                     return $builder->orWhereHas('roles', function ($query) use ($term) {
-                        return $query->where('name', 'like', '%' . $term . '%');
+                        return $query->where('name', 'like', '%'.$term.'%');
                     });
                 })
                 ->format(function ($value) {

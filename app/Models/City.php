@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -62,7 +62,6 @@ class City extends TranslatableModel
             ->saveSlugsTo('slug');
     }
 
-
     public function asChoose()
     {
         return [
@@ -75,36 +74,36 @@ class City extends TranslatableModel
             'region_title' => $this->region->title,
             'district_title' => $this->district->title,
             'value' => $this->id,
-            'text' => $this->title . ' (' . $this->region->title . ', ' . $this->district->title . ' р-н)',
+            'text' => $this->title.' ('.$this->region->title.', '.$this->district->title.' р-н)',
         ];
     }
 
     public function getFullTitleAttribute()
     {
         $title = $this->title;
-        if ((!empty($this->region) || !empty($this->district))) {
+        if ((! empty($this->region) || ! empty($this->district))) {
             $title .= ' (';
         }
-        if (!empty($this->region)) {
-            $title .= $this->region->title . ' обл.';
+        if (! empty($this->region)) {
+            $title .= $this->region->title.' обл.';
         }
-        if (!empty($this->district)) {
-            $title .= ', ' . $this->district->title . ' рн.';
+        if (! empty($this->district)) {
+            $title .= ', '.$this->district->title.' рн.';
         }
-        if ((!empty($this->region) || !empty($this->district))) {
+        if ((! empty($this->region) || ! empty($this->district))) {
             $title .= ')';
         }
+
         return $title;
     }
 
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    )
-    {
+    ) {
         return [
             $value_key => $this->id,
-            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : ''),
+            $text_key => $this->title.($this->region ? ' ('.$this->region->title.($this->district ? ', '.$this->district->title : '').')' : ''),
         ];
     }
 }

@@ -9,11 +9,9 @@ use App\Models\HtmlBlock;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class HtmlBlockController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +21,8 @@ class HtmlBlockController extends Controller
     {
         $htmlBlocks = HtmlBlock::query()->latest()->get();
 
-        return view("admin.html-block.index", [
-            "htmlBlocks" => $htmlBlocks
+        return view('admin.html-block.index', [
+            'htmlBlocks' => $htmlBlocks,
         ]);
     }
 
@@ -37,16 +35,15 @@ class HtmlBlockController extends Controller
     {
         $htmlBlock = new HtmlBlock();
 
-        return view("admin.html-block.create", [
-            "htmlBlock" => $htmlBlock
+        return view('admin.html-block.create', [
+            'htmlBlock' => $htmlBlock,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param HtmlBlockBasicRequest $request
-     *
+     * @param  HtmlBlockBasicRequest  $request
      * @return mixed
      */
     public function store(HtmlBlockBasicRequest $request)
@@ -56,33 +53,28 @@ class HtmlBlockController extends Controller
         $htmlBlock->fill($request->all());
         $htmlBlock->save();
 
-        return redirect()->route('admin.html-block.index', ["htmlBlock" => $htmlBlock])
+        return redirect()->route('admin.html-block.index', ['htmlBlock' => $htmlBlock])
                          ->withFlashSuccess(__('Record created.'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param HtmlBlock $htmlBlock
-     *
+     * @param  HtmlBlock  $htmlBlock
      * @return Application|Factory|View
      */
     public function edit(HtmlBlock $htmlBlock)
     {
         return view('admin.html-block.edit', [
-            'htmlBlock'=> $htmlBlock
+            'htmlBlock' => $htmlBlock,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param HtmlBlockBasicRequest $request
-     *
-     * @param HtmlBlock $htmlBlock
-     *
+     * @param  HtmlBlockBasicRequest  $request
+     * @param  HtmlBlock  $htmlBlock
      * @return mixed
      *
      * @throws GeneralException
@@ -98,8 +90,7 @@ class HtmlBlockController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param HtmlBlock $htmlBlock
-     *
+     * @param  HtmlBlock  $htmlBlock
      * @return mixed
      */
     public function destroy(HtmlBlock $htmlBlock)

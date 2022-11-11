@@ -91,12 +91,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         example={ "uk": "Франківщина" }
  *     ),
  * ),
- *
  */
 class PlaceResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)

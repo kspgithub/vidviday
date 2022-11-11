@@ -19,6 +19,7 @@ class AccommodationTypeController extends Controller
     {
         //
         $types = AccommodationType::all();
+
         return view('admin.accommodation-type.index', ['types' => $types]);
     }
 
@@ -31,13 +32,14 @@ class AccommodationTypeController extends Controller
     {
         //
         $type = new AccommodationType();
+
         return view('admin.accommodation-type.create', ['type' => $type]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -51,14 +53,14 @@ class AccommodationTypeController extends Controller
         $type = new AccommodationType();
         $type->fill($request->only(['title', 'description', 'slug']));
         $type->save();
+
         return redirect()->route('admin.accommodation-type.index')->withFlashSuccess(__('Record Crated'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AccommodationType $accommodationType
+     * @param  AccommodationType  $accommodationType
      * @return View
      */
     public function edit(AccommodationType $accommodationType)
@@ -70,8 +72,8 @@ class AccommodationTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param AccommodationType $accommodationType
+     * @param  Request  $request
+     * @param  AccommodationType  $accommodationType
      * @return Response
      */
     public function update(Request $request, AccommodationType $accommodationType)
@@ -83,19 +85,21 @@ class AccommodationTypeController extends Controller
 
         $accommodationType->fill($request->only(['title', 'description', 'slug']));
         $accommodationType->save();
+
         return redirect()->route('admin.accommodation-type.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param AccommodationType $accommodationType
+     * @param  AccommodationType  $accommodationType
      * @return Response
      */
     public function destroy(AccommodationType $accommodationType)
     {
         //
         $accommodationType->delete();
+
         return redirect()->route('admin.accommodation-type.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

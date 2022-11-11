@@ -4,10 +4,7 @@ namespace App\Http\Controllers\TravelAgent;
 
 use App\Http\Controllers\Controller;
 use App\Models\FaqItem;
-use App\Models\Page;
-use App\Models\PopupAd;
 use App\Models\Tour;
-use Illuminate\Http\Request;
 
 class TravelAgentController extends Controller
 {
@@ -19,7 +16,7 @@ class TravelAgentController extends Controller
         $tours = Tour::search()->paginate(12);
 
         return view('travel-agent.index', [
-            'faqItems'=>$faqItems,
+            'faqItems' => $faqItems,
             'tours' => $tours,
         ]);
     }

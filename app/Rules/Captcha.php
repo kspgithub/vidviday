@@ -16,10 +16,9 @@ class Captcha implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
+     * @return bool
      *
      * @throws GuzzleException
-     *
-     * @return bool
      */
     public function passes($attribute, $value)
     {

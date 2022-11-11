@@ -6,10 +6,7 @@ use App\Models\Traits\Attributes\MenuItemAttribute;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use App\Models\Traits\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class MenuItem extends TranslatableModel
@@ -30,6 +27,7 @@ class MenuItem extends TranslatableModel
     }
 
     public const SIDE_LEFT = 'left';
+
     public const SIDE_RIGHT = 'right';
 
     public static function sides()
@@ -44,7 +42,6 @@ class MenuItem extends TranslatableModel
         'title',
         'slug',
     ];
-
 
     protected $fillable = [
         'title',
@@ -61,7 +58,6 @@ class MenuItem extends TranslatableModel
     protected $casts = [
         'published' => 'boolean',
     ];
-
 
     public function menu()
     {

@@ -17,7 +17,7 @@ class EditUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return !($this->user->isMasterAdmin() && !$this->user()->isMasterAdmin());
+        return ! ($this->user->isMasterAdmin() && ! $this->user()->isMasterAdmin());
     }
 
     /**
@@ -36,8 +36,8 @@ class EditUserRequest extends FormRequest
      * Handle a failed authorization attempt.
      *
      * @return void
-     * @throws AuthorizationException
      *
+     * @throws AuthorizationException
      */
     protected function failedAuthorization()
     {

@@ -26,11 +26,11 @@ class TourIncludeBasicRequest extends FormRequest
     {
         return [
 
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
-            'tour_id'=>['required', 'integer'],
-            'type_id'=>['required', 'integer'],
-            'published'=>['nullable', Rule::in(['1', '0'])],
+            'title' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
+            'tour_id' => ['required', 'integer'],
+            'type_id' => ['required', 'integer'],
+            'published' => ['nullable', Rule::in(['1', '0'])],
 
         ];
     }

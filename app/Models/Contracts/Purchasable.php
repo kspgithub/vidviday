@@ -4,7 +4,6 @@ namespace App\Models\Contracts;
 
 use App\Lib\WayForPay\PurchaseAbstract;
 use App\Models\PurchaseTransaction;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 interface Purchasable
 {

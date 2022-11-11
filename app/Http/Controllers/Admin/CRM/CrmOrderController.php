@@ -23,7 +23,7 @@ class CrmOrderController extends Controller
                 ->with(['tour', 'tour.manager', 'schedule']);
 
             if (current_user()->isTourManager()) {
-                $orderQ->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
+                $orderQ->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
             }
 
             $orderQ->filter($request);
@@ -45,7 +45,7 @@ class CrmOrderController extends Controller
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $statuses = arrayToSelectBox(Order::statuses());
         if (current_user()->isTourManager()) {
-            $tours = Tour::query()->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id))->toSelectBox();
+            $tours = Tour::query()->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id))->toSelectBox();
         } else {
             $tours = Tour::toSelectBox();
         }
@@ -142,7 +142,7 @@ class CrmOrderController extends Controller
 
         $tour = $order->tour;
         $schedules = $tour ? $tour->scheduleItems()->get()->map->shortInfo() : [];
-        $schedule = $order->schedule ? (object)$order->schedule->asCrmSchedule() : null;
+        $schedule = $order->schedule ? (object) $order->schedule->asCrmSchedule() : null;
         $audits = [];
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
 
@@ -193,16 +193,17 @@ class CrmOrderController extends Controller
         $discounts = $order->tour->discounts->map->asAlpineData()->all();
         $schedule = null;
         $tour = null;
-        if (!empty($order->schedule)) {
+        if (! empty($order->schedule)) {
             $schedule = $order->schedule->asCrmSchedule();
         }
-        if (!empty($order->tour)) {
+        if (! empty($order->tour)) {
             $tour = $order->tour->shortInfo();
         }
         $order->makeHidden(['tour', 'schedule', 'tour_manager']);
         if (empty($order->utm_data)) {
             $order->utm_data = ['customer_source' => '', 'customer_device' => ''];
         }
+
         return view('admin.crm.order.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -226,6 +227,7 @@ class CrmOrderController extends Controller
         }
         $order->save();
         $order->syncContact();
+
         return redirect()->route('admin.crm.order.edit', $order)->withFlashSuccess(__('Record Updated'));
     }
 
@@ -241,10 +243,10 @@ class CrmOrderController extends Controller
     {
         //
         $status = array_filter(explode('|', $request->input('status', 'new')));
-        $group_type = (int)$request->input('group_type', 0);
+        $group_type = (int) $request->input('group_type', 0);
         $query = Order::where('group_type', $group_type)->whereIn('status', $status);
         if (current_user()->isTourManager() && $group_type === 0) {
-            $query->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
+            $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
         }
 
         return $query->count();
@@ -263,14 +265,14 @@ class CrmOrderController extends Controller
             if (isset($item->new_values['tour_id']) && isset($item->old_values['tour_id'])) {
                 $tour = Tour::query()->find($item->old_values['tour_id']);
                 $newTour = Tour::query()->find($item->new_values['tour_id']);
-                $data['old_values']['tour_id'] = '<a href="' . route('admin.tour.show', $tour->id) . '">' . $tour->title . '</a>';
-                $data['new_values']['tour_id'] = '<a href="' . route('admin.tour.show', $newTour->id) . '">' . $newTour->title . '</a>';
+                $data['old_values']['tour_id'] = '<a href="'.route('admin.tour.show', $tour->id).'">'.$tour->title.'</a>';
+                $data['new_values']['tour_id'] = '<a href="'.route('admin.tour.show', $newTour->id).'">'.$newTour->title.'</a>';
             }
             if (isset($item->new_values['schedule_id']) && isset($item->old_values['schedule_id'])) {
                 $schedule = TourSchedule::query()->find($item->old_values['schedule_id']);
                 $newSchedule = TourSchedule::query()->find($item->new_values['schedule_id']);
-                $data['old_values']['schedule_id'] = '<a href="' . route('admin.crm.schedule.show', $schedule->id) . '">' . $schedule->title . '</a>';
-                $data['new_values']['schedule_id'] = '<a href="' . route('admin.crm.schedule.show', $newSchedule->id) . '">' . $newSchedule->title . '</a>';
+                $data['old_values']['schedule_id'] = '<a href="'.route('admin.crm.schedule.show', $schedule->id).'">'.$schedule->title.'</a>';
+                $data['new_values']['schedule_id'] = '<a href="'.route('admin.crm.schedule.show', $newSchedule->id).'">'.$newSchedule->title.'</a>';
             }
 
             return $data;

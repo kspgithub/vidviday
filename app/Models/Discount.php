@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\UseSelectBox;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -19,22 +18,29 @@ class Discount extends TranslatableModel
     use HasSlug;
     use UseSelectBox;
 
-
     public const TYPE_VALUE = 'value';
+
     public const TYPE_PERCENT = 'percent';
 
     public const CATEGORY_ALL = 'all';
+
     public const CATEGORY_ADULT = 'adult';
+
     public const CATEGORY_CHILDREN = 'children';
+
     public const CATEGORY_CHILDREN_YOUNG = 'children_young';
+
     public const CATEGORY_CHILDREN_OLDER = 'children_older';
 
     public const DURATION_ORDER = 'order';
-    public const DURATION_UNIT = 'unit';
-    public const DURATION_DAY = 'day';
-    public const DURATION_PERSON = 'person';
-    public const DURATION_PERSON_DAY = 'person-day';
 
+    public const DURATION_UNIT = 'unit';
+
+    public const DURATION_DAY = 'day';
+
+    public const DURATION_PERSON = 'person';
+
+    public const DURATION_PERSON_DAY = 'person-day';
 
     public static $types = [
         self::TYPE_VALUE => 'грн',
@@ -66,17 +72,16 @@ class Discount extends TranslatableModel
         'title',
     ];
 
-
     protected $fillable = [
-        "title",
-        "admin_title",
-        "type",
-        "category",
-        "duration",
-        "age_limit",
-        "age_start",
-        "age_end",
-        "slug",
+        'title',
+        'admin_title',
+        'type',
+        'category',
+        'duration',
+        'age_limit',
+        'age_start',
+        'age_end',
+        'slug',
         'price',
         'currency',
         'start_date',
@@ -124,7 +129,6 @@ class Discount extends TranslatableModel
         return $this->belongsToMany(Tour::class, 'tours_discounts', 'tour_id', 'discount_id');
     }
 
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -135,14 +139,14 @@ class Discount extends TranslatableModel
 
     /**
      * Подсчитывает скидку
-     * @param int $price Цена за единицу
-     * @param int $quantity Количество единиц
-     * @param int $days Количество дней (для скидок на каждый день)
+     *
+     * @param  int  $price Цена за единицу
+     * @param  int  $quantity Количество единиц
+     * @param  int  $days Количество дней (для скидок на каждый день)
      * @return float|int
      */
     public function calculate($price = 0, $quantity = 1, $days = 1)
     {
-
         $amount = ($this->type === self::TYPE_VALUE ? ($this->price) : (round($price / 100 * $this->price)));
         $total = 0;
         switch ($this->duration) {
@@ -160,6 +164,7 @@ class Discount extends TranslatableModel
                 $total = $amount;
                 break;
         }
+
         return $total;
     }
 
@@ -168,6 +173,7 @@ class Discount extends TranslatableModel
         $data = $this->toArray();
         $data['title'] = json_prepare($this->title);
         $data['admin_title'] = json_prepare($this->admin_title);
+
         return $data;
     }
 }

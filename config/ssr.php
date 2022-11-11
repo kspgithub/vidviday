@@ -4,7 +4,12 @@ return [
     /*
      * Enable or disable the server renderer. Enabled in production by default.
      */
-    'enabled' => env('SSR_ENABLED',env('APP_ENV') === 'production'),
+    'enabled' => env('SSR_ENABLED', env('APP_ENV') === 'production'),
+
+    /*
+     * SSR url.
+     */
+    'url' => env('SSR_URL', 'http://127.0.0.1:6666/render'),
 
     /*
      * When server side rendering goes wrong, nothing will be rendered so the

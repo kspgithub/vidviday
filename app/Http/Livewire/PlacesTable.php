@@ -40,7 +40,6 @@ class PlacesTable extends DataTableComponent
 
     public function mount(): void
     {
-
     }
 
     /**

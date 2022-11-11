@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\DB;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,7 +21,6 @@ class Region extends TranslatableModel
     {
         return 'slug';
     }
-
 
     public function getSlugOptions(): SlugOptions
     {
@@ -71,8 +68,7 @@ class Region extends TranslatableModel
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    )
-    {
+    ) {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

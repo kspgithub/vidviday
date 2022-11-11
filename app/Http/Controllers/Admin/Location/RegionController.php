@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
-use App\Models\Region;
 use App\Models\Country;
+use App\Models\Region;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class RegionController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +18,6 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-
         $query = Region::query();
         $country_id = $request->input('country_id', 0);
         $country = null;
@@ -51,8 +49,8 @@ class RegionController extends Controller
         if ($country_id > 0) {
             $country = Country::findOrFail($country_id);
             $region->country_id = $country->id;
-
         }
+
         return view('admin.region.create', [
             'country' => $country,
             'region' => $region,
@@ -63,8 +61,7 @@ class RegionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -80,8 +77,7 @@ class RegionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Region $region
-     *
+     * @param  Region  $region
      * @return View
      */
     public function edit(Region $region)
@@ -99,14 +95,12 @@ class RegionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Region $region
-     *
+     * @param  Request  $request
+     * @param  Region  $region
      * @return Response
      */
     public function update(Request $request, Region $region)
     {
-
         //
         $region->fill($request->all());
         $region->save();
@@ -117,8 +111,7 @@ class RegionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Region $region
-     *
+     * @param  Region  $region
      * @return Response
      */
     public function destroy(Region $region)
@@ -128,5 +121,4 @@ class RegionController extends Controller
 
         return redirect()->route('admin.region.index', ['country_id' => $region->country_id])->withFlashSuccess(__('Region deleted.'));
     }
-
 }

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
-
 use App\Models\Post;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +14,7 @@ class BlogService extends BaseService
     /**
      * NewsService constructor.
      *
-     * @param Post $blog
+     * @param  Post  $blog
      */
     public function __construct(Post $blog)
     {

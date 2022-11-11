@@ -2,9 +2,9 @@
 
 namespace App\View\Components;
 
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
-use Spatie\Ssr\Facades\Ssr;
 
 class VueComponent extends Component
 {
@@ -14,38 +14,48 @@ class VueComponent extends Component
      * @return void
      */
     public function __construct(
-        public $component,
-        public $props = [],
-    ){}
+        public string $component,
+        public array $props = [],
+        public array $options = [],
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|\Closure|string
      */
     public function render()
     {
-        try {
-            $ssrUrl = 'http://127.0.0.1:3333/render';
+        $name = $this->guessName();
 
-            $response = Http::post($ssrUrl, [
-                'component' => $this->component,
-                'props' => $this->props,
+        $prefix = 'assets/app/';
+        $component = $this->component ?: 'test-component';
+        $props = $this->props ?: [];
+
+        $chunkPath = $prefix.'js/chunks/'.$name.'-vue';
+
+        if (File::exists(public_path($chunkPath))) {
+            return ssr('assets/ssr/ssr.js')
+                ->context([
+                    'component' => $component,
+                    'props' => $props,
+                ])
+                ->render();
+        } else {
+            return view('components.vue-component', [
+                'component' => $component,
+                'props' => $props,
             ]);
-
-            $html = $response->body();
-
-            return $html;
-        } catch (\Exception) {
-            try {
-                $ssr = Ssr::entry('assets/ssr/ssr.js')
-                    ->context('component', $this->component)
-                    ->context('props', $this->props);
-
-                return $ssr->render();
-            } catch (\Exception $e) {
-                return view('components.vue-component');
-            }
         }
+    }
+
+    private function guessName()
+    {
+        $replaces = [];
+
+        $name = Str::replace(array_keys($replaces), array_values($replaces), Str::kebab($this->component));
+
+        return $name;
     }
 }

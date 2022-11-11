@@ -2,17 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
-use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,7 +16,6 @@ class Course extends TranslatableModel
     use UsePublishedScope;
     use HasJsonSlug;
     use UseSelectBox;
-
 
     public $translatable = [
         'title',
@@ -59,7 +51,7 @@ class Course extends TranslatableModel
 
     protected $casts = [
         'published' => 'boolean',
-        'similar' => 'array'
+        'similar' => 'array',
     ];
 
     protected $dates = [
@@ -84,15 +76,17 @@ class Course extends TranslatableModel
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('course.show', $slug) : '';
+
+        return ! empty($slug) ? route('course.show', $slug) : '';
     }
 
     public function getSimilarCoursesAttribute()
     {
         $ids = $this->similar ?? [];
-        if (!empty($ids)) {
+        if (! empty($ids)) {
             return self::query()->whereIn('id', $ids)->get();
         }
+
         return collect([]);
     }
 }

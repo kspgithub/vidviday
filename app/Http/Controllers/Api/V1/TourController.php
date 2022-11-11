@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Resources\TourFullResource;
 use App\Http\Resources\TourShortCollection;
 use App\Models\Tour;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -14,7 +13,6 @@ use Illuminate\Support\Carbon;
  */
 class TourController extends BaseController
 {
-
     /**
      * @OA\Get (
      *     tags={"Tours"},
@@ -92,9 +90,9 @@ class TourController extends BaseController
     public function index(Request $request)
     {
         $tours = Tour::search()->filter($request->all())->paginate($request->input('per_page', 12));
+
         return new TourShortCollection($tours);
     }
-
 
     /**
      * @OA\Get(
@@ -129,7 +127,6 @@ class TourController extends BaseController
      */
     public function details(Tour $tour)
     {
-
         $tour->load([
             'scheduleItems' => function ($sc) {
                 return $sc->whereDate('tour_schedules.start_date', '>=', Carbon::now());
@@ -164,6 +161,7 @@ class TourController extends BaseController
             'landings',
             'media',
         ]);
+
         return new TourFullResource($tour);
     }
 }

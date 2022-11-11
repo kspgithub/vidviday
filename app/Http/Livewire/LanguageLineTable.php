@@ -59,6 +59,7 @@ class LanguageLineTable extends DataTableComponent
                 $groups[$group] = Str::ucfirst(str_replace('-', ' ', $group));
             }
         }
+
         return [
             'group' => Filter::make(__('Group'))->select($groups),
         ];

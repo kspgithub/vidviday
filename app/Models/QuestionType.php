@@ -30,7 +30,7 @@ class QuestionType extends Model
         parent::boot();
 
         self::saving(function (self $questionType) {
-            if(!$questionType->email && $questionType->manager) {
+            if (! $questionType->email && $questionType->manager) {
                 $questionType->email = $questionType->manager->email;
             }
         });
@@ -44,8 +44,7 @@ class QuestionType extends Model
     public function asSelectBox(
         $value_key = 'value',
         $text_key = 'title'
-    )
-    {
+    ) {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

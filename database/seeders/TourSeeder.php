@@ -71,7 +71,6 @@ class TourSeeder extends Seeder
             return $q->where('slug', 'excursion-leader');
         })->get();
 
-
         $dates = collect();
         for ($i = 1; $i < 300; $i += 1) {
             $dates->add($i);
@@ -89,8 +88,6 @@ class TourSeeder extends Seeder
                 $dates,
                 $managers,
                 $leaders,
-                $foods,
-                $tickets,
                 $faker
             ) {
                 $item->directions()->attach($directions->random(2)->pluck('id')->toArray());

@@ -7,7 +7,6 @@ use App\Http\Requests\CertificateOrderRequest;
 use App\Models\OrderCertificate;
 use App\Models\Packing;
 use App\Models\PaymentType;
-use Illuminate\Http\Request;
 
 class CertificateController extends Controller
 {
@@ -16,7 +15,6 @@ class CertificateController extends Controller
     {
         return view('admin.certificate.index');
     }
-
 
     public function edit(OrderCertificate $certificate)
     {
@@ -27,12 +25,12 @@ class CertificateController extends Controller
         $paymentTypes = PaymentType::toSelectBox();
 
         return view('admin.certificate.edit', [
-            'certificate'=>$certificate,
-            'types'=>$types,
-            'formats'=>$formats,
-            'designs'=>$designs,
-            'packing'=>$packing,
-            'paymentTypes'=>$paymentTypes,
+            'certificate' => $certificate,
+            'types' => $types,
+            'formats' => $formats,
+            'designs' => $designs,
+            'packing' => $packing,
+            'paymentTypes' => $paymentTypes,
         ]);
     }
 

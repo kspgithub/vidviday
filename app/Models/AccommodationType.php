@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -19,7 +19,6 @@ class AccommodationType extends TranslatableModel
         'description',
     ];
 
-
     protected $fillable = [
         'title',
         'short_title',
@@ -31,7 +30,6 @@ class AccommodationType extends TranslatableModel
         'slug_key',
     ];
 
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -39,7 +37,6 @@ class AccommodationType extends TranslatableModel
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
-
 
     public function getSlugKeyAttribute()
     {

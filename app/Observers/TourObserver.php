@@ -10,7 +10,7 @@ class TourObserver
     /**
      * генерируем короткий текст если он не было передан
      *
-     * @param \App\Models\Tour $tour
+     * @param  \App\Models\Tour  $tour
      * @return void
      */
     public function creating(Tour $tour)
@@ -23,7 +23,7 @@ class TourObserver
     /**
      * Handle the TourVoting "updated" event.
      *
-     * @param \App\Models\Tour $tour
+     * @param  \App\Models\Tour  $tour
      * @return void
      */
     public function updating(Tour $tour)
@@ -44,7 +44,7 @@ class TourObserver
     /**
      * Handle the TourVoting "updated" event.
      *
-     * @param \App\Models\Tour $tour
+     * @param  \App\Models\Tour  $tour
      * @return void
      */
     public function updated(Tour $tour)
@@ -56,5 +56,4 @@ class TourObserver
             }
         }
     }
-
 }

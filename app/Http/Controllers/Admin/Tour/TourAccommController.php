@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Admin\Tour;
 
 use App\Http\Controllers\Controller;
-use App\Models\Accommodation;
-use App\Models\AccommodationType;
 use App\Models\Tour;
-use App\Models\TourAccommodation;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TourAccommController extends Controller
@@ -24,5 +20,4 @@ class TourAccommController extends Controller
             'tour' => $tour,
         ]);
     }
-
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Exceptions\GeneralException;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -43,10 +43,9 @@ class DeactivatedUserController extends Controller
      * @param  Request  $request
      * @param  User  $user
      * @param $status
+     * @return mixed
      *
      * @throws GeneralException
-     *
-     * @return mixed
      */
     public function update(Request $request, User $user, $status)
     {

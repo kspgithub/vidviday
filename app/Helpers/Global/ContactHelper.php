@@ -1,7 +1,6 @@
 <?php
 
-if (!function_exists('social_contacts')) {
-
+if (! function_exists('social_contacts')) {
     function social_contacts($contact)
     {
         return [

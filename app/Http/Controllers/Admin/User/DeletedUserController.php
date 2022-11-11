@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Exceptions\GeneralException;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -40,10 +40,9 @@ class DeletedUserController extends Controller
 
     /**
      * @param  User  $deletedUser
+     * @return mixed
      *
      * @throws GeneralException
-     *
-     * @return mixed
      */
     public function update(User $deletedUser)
     {
@@ -54,10 +53,9 @@ class DeletedUserController extends Controller
 
     /**
      * @param  User  $deletedUser
+     * @return mixed
      *
      * @throws GeneralException
-     *
-     * @return mixed
      */
     public function destroy(User $deletedUser)
     {

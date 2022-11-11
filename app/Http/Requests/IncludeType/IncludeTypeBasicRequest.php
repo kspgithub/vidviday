@@ -24,8 +24,8 @@ class IncludeTypeBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'slug'=>['nullable', 'string'],
+            'title' => ['required', 'string'],
+            'slug' => ['nullable', 'string'],
         ];
     }
 }

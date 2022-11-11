@@ -16,15 +16,15 @@ class AddFieldsToToursPlacesTable extends Migration
     {
         $conn = Schema::getConnection()->getDoctrineSchemaManager();
 
-        $foreignKeys = array_map(function(ForeignKeyConstraint $foreignKey) {
+        $foreignKeys = array_map(function (ForeignKeyConstraint $foreignKey) {
             return $foreignKey->getName();
         }, $conn->listTableForeignKeys('tours_places'));
 
         Schema::table('tours_places', function (Blueprint $table) use ($foreignKeys) {
-            if(in_array('tour_places_tour_id_foreign', $foreignKeys)) {
+            if (in_array('tour_places_tour_id_foreign', $foreignKeys)) {
                 $table->dropForeign('tour_places_tour_id_foreign');
             }
-            if(in_array('tour_places_place_id_foreign', $foreignKeys)) {
+            if (in_array('tour_places_place_id_foreign', $foreignKeys)) {
                 $table->dropForeign('tour_places_place_id_foreign');
             }
             $table->dropPrimary(['tour_id', 'place_id']);

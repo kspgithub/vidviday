@@ -11,10 +11,12 @@ use Illuminate\View\Component;
 class LatestTestimonials extends Component
 {
     public $title = '';
-    public $btnText = '';
-    public $btnUrl = '';
-    public $type = '';
 
+    public $btnText = '';
+
+    public $btnUrl = '';
+
+    public $type = '';
 
     public $testimonials = [];
 
@@ -39,7 +41,7 @@ class LatestTestimonials extends Component
         }
 
         $this->testimonials = Cache::remember(
-            'latest__testimonials_' . $type,
+            'latest__testimonials_'.$type,
             60,
             fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->where('model_type', $class))
                 ->where('rating', '>=', 4)

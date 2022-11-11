@@ -8,7 +8,6 @@ use Illuminate\View\Component;
 
 class CurrencyDropdown extends Component
 {
-
     public $currencies = [];
 
     public $current = null;
@@ -35,7 +34,6 @@ class CurrencyDropdown extends Component
         $this->current = $this->currencies->where('iso', $this->currentCurrencyISO)->first();
         $this->currentCurrencySymbol = $this->current->symbol ?? 'UAH';
         $this->currentCurrencyRate = $this->current->course ?? 1.0;
-
     }
 
     /**

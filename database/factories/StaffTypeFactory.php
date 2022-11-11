@@ -26,8 +26,8 @@ class StaffTypeFactory extends Factory
 
         return [
             //
-           'title' => $title,
-           'slug' => Str::slug($title),
+            'title' => $title,
+            'slug' => Str::slug($title),
         ];
     }
 }

@@ -12,7 +12,12 @@
         "prod": "concurrently \"yarn:prod-admin\" \"yarn:prod-app\"",
         "ssr-build": "mix --production --mix-config=webpack.mix.ssr.js",
         "ssr-start": "node public/assets/ssr/ssr.js",
-        "ssr": "yarn prop-app && yarn ssr-build && yarn ssr-start"
+        "ssr": "yarn prod-app && yarn ssr-build && yarn ssr-start",
+        "preview-admin": "vite preview --mix-config=webpack.mix.admin.js",
+        "preview-app": "vite preview",
+        "preview": "concurrently \"yarn:preview-admin\" \"yarn:preview-app\"",
+        "lint": "eslint --ext .js,.vue --fix resources/js",
+        "pint": "./vendor/bin/pint"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",
@@ -41,8 +46,13 @@
         "chart.js": "^2.9.4",
         "choices.js": "^10.0.0",
         "concurrently": "^7.5.0",
+        "eslint": "^8.25.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-vue": "^9.6.0",
         "feather-icons": "^4.28.0",
         "flatpickr": "^4.6.9",
+        "husky": "^8.0.1",
         "inputmask": "^5.0.6-beta.57",
         "intersection-observer": "^0.12.0",
         "ip": "^1.1.8",
@@ -54,12 +64,14 @@
         "laravel-mix-purgecss": "^6.0.0",
         "laravel-mix-svg-vue": "^0.4.1",
         "laravel-vue-lang": "^3.1.3",
+        "lint-staged": "^13.0.3",
         "livewire-sortable": "^0.2.2",
         "lodash": "^4.17.19",
         "moment": "^2.29.1",
         "perfect-scrollbar": "^1.5.3",
         "pikaday": "^1.8.2",
         "postcss": "^8.1.14",
+        "prettier": "^2.7.1",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.35.1",
         "sass-loader": "^12.1.0",
@@ -86,6 +98,11 @@
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.0.0",
         "webpack": "^5.41.1",
-        "webpack-node-externals": "^3.0.0"
+        "webpack-node-externals": "^3.0.0",
+        "vue-eslint-parser": "^9.1.0"
+    },
+    "lint-staged": {
+        "*.{js,vue}": "eslint --cache --fix",
+        "*.{php}": "./vendor/bin/pint"
     }
 }

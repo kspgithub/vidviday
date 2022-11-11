@@ -13,7 +13,8 @@ class LandingsController extends Controller
 
     /**
      * Поиск мест по названию (select box)
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return mixed
      */
     public function selectBox(Request $request)
@@ -30,14 +31,14 @@ class LandingsController extends Controller
         return [
             'results' => $items,
             'pagination' => [
-                'more' => $paginator->hasMorePages()
-            ]
+                'more' => $paginator->hasMorePages(),
+            ],
         ];
     }
 
     public function show(Request $request)
     {
-        $landing_id = (int)$request->input('landing_id', 0);
+        $landing_id = (int) $request->input('landing_id', 0);
 
         $landing = LandingPlace::query()->findOrFail($landing_id);
 
@@ -50,7 +51,7 @@ class LandingsController extends Controller
 
     public function get(Request $request)
     {
-        $landing_id = (int)$request->input('landing_id', 0);
+        $landing_id = (int) $request->input('landing_id', 0);
 
         $landing = LandingPlace::query()->findOrFail($landing_id);
 

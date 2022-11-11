@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
-
 use App\Models\EventItem;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +13,7 @@ class EventService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param EventItem $event
+     * @param  EventItem  $event
      */
     public function __construct(EventItem $event)
     {

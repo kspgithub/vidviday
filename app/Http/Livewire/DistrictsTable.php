@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\City;
-use App\Models\Country;
 use App\Models\District;
 use App\Models\Region;
-use App\Models\Place;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -43,8 +40,7 @@ class DistrictsTable extends DataTableComponent
      */
     public function query(): Builder|Relation
     {
-
-        $region_id = !empty($this->region) ? $this->region->id : $this->getFilter('region_id');
+        $region_id = ! empty($this->region) ? $this->region->id : $this->getFilter('region_id');
 
         $query = District::query()->with(['country', 'region'])
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
@@ -81,9 +77,9 @@ class DistrictsTable extends DataTableComponent
                 })
                 ->sortable(),
 
-//            Column::make(__('Slug'), 'slug')
-//                ->searchable()
-//                ->sortable(),
+            //            Column::make(__('Slug'), 'slug')
+            //                ->searchable()
+            //                ->sortable(),
 
             Column::make(__('Links'))
                 ->format(function ($value, $column, $row) {
@@ -101,9 +97,10 @@ class DistrictsTable extends DataTableComponent
         if (empty($this->region)) {
             return [
                 'region_id' => Filter::make(__('Область'))
-                    ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
+                    ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
             ];
         }
+
         return [];
     }
 }

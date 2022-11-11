@@ -42,12 +42,12 @@ class CrmScheduleController extends Controller
                 $query->whereHas('orders');
             }
             $dates = $request->input('dates', '');
-            if (!empty($dates)) {
+            if (! empty($dates)) {
                 $dateParts = array_filter(explode('-', $dates));
-                if (!empty($dateParts[0])) {
+                if (! empty($dateParts[0])) {
                     $query->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $dateParts[0]));
                 }
-                if (!empty($dateParts[1])) {
+                if (! empty($dateParts[1])) {
                     $query->whereDate('start_date', '<=', Carbon::createFromFormat('d.m.Y', $dateParts[1]));
                 }
             }
@@ -101,7 +101,7 @@ class CrmScheduleController extends Controller
         if ($request->ajax() || $request->input('export', 0) == 1) {
             $ordersQ = $schedule->orders();
 
-            if($ids = json_decode($request->input('orders', '[]'), true)) {
+            if ($ids = json_decode($request->input('orders', '[]'), true)) {
                 $ordersQ->whereIn('id', $ids);
             }
 
@@ -138,7 +138,7 @@ class CrmScheduleController extends Controller
 
             return response()->json([
                 'orders' => $orders,
-                'countOrders' => $count_items
+                'countOrders' => $count_items,
             ]);
         }
 
@@ -161,7 +161,7 @@ class CrmScheduleController extends Controller
             'tour' => $schedule->tour,
             'statuses' => arrayToSelectBox(Order::statuses()),
             'roomTypes' => $roomTypes,
-            'countOrders' => $count_items
+            'countOrders' => $count_items,
         ]);
     }
 
@@ -173,7 +173,7 @@ class CrmScheduleController extends Controller
         return response()->json([
             'result' => 'success',
             'message' => __('Record Updated'),
-            'schedule' => $schedule->asCrmSchedule()
+            'schedule' => $schedule->asCrmSchedule(),
         ]);
     }
 
@@ -181,11 +181,11 @@ class CrmScheduleController extends Controller
     {
         if ($infoSheet = $request->file('info_sheet')) {
             $fileName = Str::replace(' ', '%20', $infoSheet->getClientOriginalName());
-            $infoSheetFile = Storage::url($schedule->storeFileAs($infoSheet, "uploads/files", $fileName));
+            $infoSheetFile = Storage::url($schedule->storeFileAs($infoSheet, 'uploads/files', $fileName));
         } else {
-            if($schedule->info_sheet) {
+            if ($schedule->info_sheet) {
                 $path = Str::replace('/storage', '', $schedule->info_sheet);
-                if(Storage::disk('public')->get($path)) {
+                if (Storage::disk('public')->get($path)) {
                     Storage::disk('public')->delete($path);
                 }
             }
@@ -198,7 +198,7 @@ class CrmScheduleController extends Controller
         return response()->json([
             'result' => 'success',
             'message' => __('Record Updated'),
-            'schedule' => $schedule->asCrmSchedule()
+            'schedule' => $schedule->asCrmSchedule(),
         ]);
     }
 

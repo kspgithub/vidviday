@@ -2,7 +2,6 @@
 
 namespace App\Models\Traits\Methods;
 
-use App\Models\Order;
 use App\Models\TourSchedule;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -15,11 +14,12 @@ trait TourScheduleMethod
         foreach ($orders as $order) {
             $places += $order->total_places;
         }
+
         return $places;
     }
 
     /**
-     * @param TourSchedule[]|Collection $schedules
+     * @param  TourSchedule[]|Collection  $schedules
      * @return \Illuminate\Support\Collection
      */
     public static function transformForBooking($schedules)
@@ -37,9 +37,9 @@ trait TourScheduleMethod
                 $items[$start_date]->places_booked += $schedule->places_booked;
             }
         }
+
         return collect(array_values($items));
     }
-
 
     public function availableForBooking($places)
     {
@@ -70,6 +70,7 @@ trait TourScheduleMethod
                 $this->save();
             }
         }
+
         return false;
     }
 
@@ -89,14 +90,13 @@ trait TourScheduleMethod
             'currency' => $this->currency,
             'published' => $this->published,
         ];
-        if (!empty($additional)) {
+        if (! empty($additional)) {
             foreach ($additional as $attribute) {
                 $data[$attribute] = $this->getAttribute($attribute);
             }
         }
 
         return $data;
-
     }
 
     public function asCrmSchedule()
@@ -121,6 +121,7 @@ trait TourScheduleMethod
                 ? "javascript:selectTourEvent({$json})"
                 : $this->tour->url;
         }
+
         return $data;
     }
 

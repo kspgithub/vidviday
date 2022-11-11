@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\TourGuide;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Staff;
-use App\Models\Page;
 
 class TourGuideController extends Controller
 {
@@ -41,7 +41,7 @@ class TourGuideController extends Controller
                 return $q->moderated();
             },
         ]);
-        $testimonials = $staff->testimonials->merge($staff->relatedTestimonials)->sortBy(fn($t) => $t->created_at);
+        $testimonials = $staff->testimonials->merge($staff->relatedTestimonials)->sortBy(fn ($t) => $t->created_at);
         $tours = $staff->tours()->with('scheduleItems', function ($q) {
             return $q->inFuture();
         })->withAvg('testimonials', 'rating')
@@ -50,6 +50,7 @@ class TourGuideController extends Controller
                     ->orderBy('rating', 'desc')
                     ->latest();
             }])->get();
+
         return view('staff.guide', ['staff' => $staff, 'tours' => $tours, 'testimonials' => $testimonials]);
     }
 }

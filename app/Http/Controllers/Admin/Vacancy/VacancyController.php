@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Vacancy;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vacancy;
 use App\Models\Staff;
+use App\Models\Vacancy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class VacancyController extends Controller
         $vacancies = Vacancy::query()->paginate(20);
 
         return view('admin.vacancy.index', [
-            'vacancies' => $vacancies
+            'vacancies' => $vacancies,
         ]);
     }
 
@@ -45,8 +45,7 @@ class VacancyController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -62,15 +61,14 @@ class VacancyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Vacancy $vacancy
-     *
+     * @param  Vacancy  $vacancy
      * @return View
      */
     public function edit(Vacancy $vacancy)
     {
-
         $staffs = Staff::toSelectBox();
         $vacancies = Vacancy::where('id', '<>', $vacancy->id)->toSelectBox();
+
         return view('admin.vacancy.edit', [
             'vacancy' => $vacancy,
             'staffs' => $staffs,
@@ -81,14 +79,12 @@ class VacancyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Vacancy $vacancy
-     *
+     * @param  Request  $request
+     * @param  Vacancy  $vacancy
      * @return Response|JsonResponse
      */
     public function update(Request $request, Vacancy $vacancy)
     {
-
         //
         $vacancy->fill($request->all());
         $vacancy->save();
@@ -102,8 +98,7 @@ class VacancyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Vacancy $vacancy
-     *
+     * @param  Vacancy  $vacancy
      * @return Response
      */
     public function destroy(Vacancy $vacancy)

@@ -11,30 +11,35 @@ trait TourScheduleAttribute
 {
     /**
      * Дата начала
+     *
      * @return string
      */
     public function getStartTitleAttribute()
     {
         if ($this->start_date) {
-            return $this->start_date->translatedFormat('D') . ', ' . $this->start_date->format('d.m.Y');
+            return $this->start_date->translatedFormat('D').', '.$this->start_date->format('d.m.Y');
         }
+
         return '';
     }
 
     /**
      * Дата начала
+     *
      * @return string
      */
     public function getEndTitleAttribute()
     {
         if ($this->end_date) {
-            return $this->end_date->translatedFormat('D') . ', ' . $this->end_date->format('d.m.Y');
+            return $this->end_date->translatedFormat('D').', '.$this->end_date->format('d.m.Y');
         }
+
         return '';
     }
 
     /**
      * Дата проведения
+     *
      * @return string
      */
     public function getTitleAttribute()
@@ -51,22 +56,24 @@ trait TourScheduleAttribute
             $end_day_name = Str::ucfirst($this->end_date->translatedFormat('D'));
 
             if ($diff > 0 && $start_day_name !== $end_day_name) {
-                return $start_day_name . ' - ' .
-                    $end_day_name .
-                    ', ' . $start_day . ' - ' . $end_date;
+                return $start_day_name.' - '.
+                    $end_day_name.
+                    ', '.$start_day.' - '.$end_date;
             }
 
-            if($start_date === $end_date) {
-                return $start_day_name . ', ' . $start_date;
+            if ($start_date === $end_date) {
+                return $start_day_name.', '.$start_date;
             } else {
-                return $start_date . ' - ' . $end_date;
+                return $start_date.' - '.$end_date;
             }
         }
+
         return '';
     }
 
     /**
      * Кол-во новых мест
+     *
      * @return int
      */
     public function getPlacesNewAttribute()
@@ -79,11 +86,13 @@ trait TourScheduleAttribute
         foreach ($orders as $order) {
             $total += $order->total_places;
         }
+
         return $total;
     }
 
     /**
      * Кол-во забронированных мест
+     *
      * @return int
      */
     public function getPlacesBookedAttribute()
@@ -96,11 +105,13 @@ trait TourScheduleAttribute
         foreach ($orders as $order) {
             $total += $order->total_places;
         }
+
         return $total;
     }
 
     /**
      * Количество проплаченных мест
+     *
      * @return int
      */
     public function getPlacesPayedAttribute()
@@ -113,11 +124,13 @@ trait TourScheduleAttribute
         foreach ($orders as $order) {
             $total += $order->total_places;
         }
+
         return $total;
     }
 
     /**
      * Количество мест в резерве
+     *
      * @return int
      */
     public function getPlacesReservedAttribute()
@@ -130,11 +143,13 @@ trait TourScheduleAttribute
         foreach ($orders as $order) {
             $total += $order->total_places;
         }
+
         return $total;
     }
 
     /**
      * Количество доступных мест
+     *
      * @return int
      */
     public function getPlacesAvailableAttribute()
@@ -151,9 +166,9 @@ trait TourScheduleAttribute
             $commission = ceil($this->commission);
             $title .= " | {$commission} грн.";
         }
+
         return $title;
     }
-
 
     public function getManagerAttribute()
     {

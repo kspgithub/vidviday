@@ -10,10 +10,9 @@ class PurchaseCertificate extends PurchaseAbstract
     {
         parent::__construct($order);
 
-        $this->orderNumber = 'CERT' . $order->order_number;
-        $this->orderReference = 'CERT' . $order->order_number . '-' . md5(microtime());
+        $this->orderNumber = 'CERT'.$order->order_number;
+        $this->orderReference = 'CERT'.$order->order_number.'-'.md5(microtime());
         $this->returnUrl = route('certificate.order.success', $order->id);
-
 
         $this->createNewTransaction();
     }

@@ -24,25 +24,25 @@ class PackingSeeder extends Seeder
 
         $items = [
             [
-                'title'=>['uk'=>'Коробка', 'ru'=>'Коробка', 'en'=>'Box', 'pl'=>'Skrzynka'],
-                'slug'=>'box',
-                'price'=> 95,
-                'currency'=>'UAH',
-                'icon'=>'/icon/box.svg',
+                'title' => ['uk' => 'Коробка', 'ru' => 'Коробка', 'en' => 'Box', 'pl' => 'Skrzynka'],
+                'slug' => 'box',
+                'price' => 95,
+                'currency' => 'UAH',
+                'icon' => '/icon/box.svg',
             ],
             [
-                'title'=>['uk'=>'Конверт', 'ru'=>'Конверт', 'en'=>'Envelope', 'pl'=>'Koperta'],
-                'slug'=>'envelope',
-                'price'=> 40,
-                'currency'=>'UAH',
-                'icon'=>'/icon/letter.svg',
+                'title' => ['uk' => 'Конверт', 'ru' => 'Конверт', 'en' => 'Envelope', 'pl' => 'Koperta'],
+                'slug' => 'envelope',
+                'price' => 40,
+                'currency' => 'UAH',
+                'icon' => '/icon/letter.svg',
             ],
             [
-                'title'=>['uk'=>'Пляшка', 'ru'=>'Бутылка', 'en'=>'Bottle', 'pl'=>'Butelka'],
-                'slug'=>'bottle',
-                'price'=> 150,
-                'currency'=>'UAH',
-                'icon'=>'/icon/butl.svg',
+                'title' => ['uk' => 'Пляшка', 'ru' => 'Бутылка', 'en' => 'Bottle', 'pl' => 'Butelka'],
+                'slug' => 'bottle',
+                'price' => 150,
+                'currency' => 'UAH',
+                'icon' => '/icon/butl.svg',
             ],
         ];
 

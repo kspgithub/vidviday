@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
 
-
 /**
  * @OA\Server(
  *      url="/api/v1",
@@ -151,7 +150,6 @@ use App\Models\Partner;
  *         type="string",
  *     ),
  * ),
- *
  */
 class BaseController extends Controller
 {
@@ -160,6 +158,5 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->partner = Partner::where('token', request()->input('token', request()->bearerToken()))->first();
-
     }
 }

@@ -23,7 +23,6 @@ class AdditionalRolesSeeder extends Seeder
                 'name' => 'tour-manager',
                 'guard_name' => 'web',
             ]);
-
         }
 
         $dutyManager = Role::where('name', 'duty-manager')->where('guard_name', 'web')->first();
@@ -32,7 +31,6 @@ class AdditionalRolesSeeder extends Seeder
                 'name' => 'duty-manager',
                 'guard_name' => 'web',
             ]);
-
         }
 
         $tourManager->givePermissionTo($viewAdmin);

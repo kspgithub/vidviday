@@ -5,7 +5,6 @@ namespace App\Observers;
 use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
-use App\Mail\VacancyEmail;
 use App\Models\UserQuestion;
 use App\Services\MailNotificationService;
 use Exception;

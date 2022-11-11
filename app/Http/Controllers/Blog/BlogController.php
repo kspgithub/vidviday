@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\Post;
-use App\Models\Page;
-use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
+use App\Models\Post;
+use Illuminate\Contracts\View\View;
 
 class BlogController extends Controller
 {
@@ -14,7 +14,6 @@ class BlogController extends Controller
      */
     public function index()
     {
-
         $posts = Post::published()->orderBy('id', 'desc')->paginate(9);
         $pageContent = Page::published()->where('key', 'blog')->firstOrFail();
 
@@ -36,5 +35,4 @@ class BlogController extends Controller
             'post' => $post,
         ]);
     }
-
 }

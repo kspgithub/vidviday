@@ -9,11 +9,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class CountryController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +19,6 @@ class CountryController extends Controller
      */
     public function index()
     {
-
         $countries = Country::paginate(20);
 
         return view('admin.country.index', ['countries' => $countries]);
@@ -35,15 +32,14 @@ class CountryController extends Controller
     public function create()
     {
         $country = new Country();
+
         return view('admin.country.create', ['country' => $country]);
     }
-
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response|RedirectResponse
      */
     public function store(Request $request)
@@ -69,23 +65,21 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Country $country
-     *
+     * @param  Country  $country
      * @return View
      */
     public function edit(Country $country)
     {
         return view('admin.country.edit', [
-            'country' => $country
+            'country' => $country,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Country $country
-     *
+     * @param  Request  $request
+     * @param  Country  $country
      * @return Response|RedirectResponse
      */
     public function update(Request $request, Country $country)
@@ -93,8 +87,8 @@ class CountryController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|array',
             'title.uk' => 'required|string',
-            'iso' => 'required|string|max:10|unique:countries,iso,' . $country->id,
-            'slug' => 'required|string|max:10|unique:countries,slug,' . $country->id,
+            'iso' => 'required|string|max:10|unique:countries,iso,'.$country->id,
+            'slug' => 'required|string|max:10|unique:countries,slug,'.$country->id,
         ]);
         // Failed
         if ($validator->fails()) {
@@ -110,8 +104,7 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Country $country
-     *
+     * @param  Country  $country
      * @return Response
      */
     public function destroy(Country $country)
@@ -121,5 +114,4 @@ class CountryController extends Controller
 
         return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

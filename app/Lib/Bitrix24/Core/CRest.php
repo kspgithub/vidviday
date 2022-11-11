@@ -9,21 +9,22 @@ use Illuminate\Support\Facades\Storage;
 class CRest
 {
     const VERSION = '1.36';
-    const BATCH_COUNT = 50;//count batch 1 query
-    const TYPE_TRANSPORT = 'json';// json or xml
+
+    const BATCH_COUNT = 50; //count batch 1 query
+
+    const TYPE_TRANSPORT = 'json'; // json or xml
 
     /**
      * call where install application even url
      * only for rest application, not webhook
      */
-
     public static function installApp($params)
     {
         $result = [
             'rest_only' => true,
-            'install' => false
+            'install' => false,
         ];
-        if ($_REQUEST['event'] == 'ONAPPINSTALL' && !empty($params['auth'])) {
+        if ($_REQUEST['event'] == 'ONAPPINSTALL' && ! empty($params['auth'])) {
             $result['install'] = static::setAppSettings($params['auth'], true);
         } elseif ($params['PLACEMENT'] == 'DEFAULT') {
             $result['rest_only'] = false;
@@ -43,17 +44,18 @@ class CRest
         static::setLog(
             [
                 'request' => $params,
-                'result' => $result
+                'result' => $result,
             ],
             'installApp'
         );
+
         return $result;
     }
 
     /**
      * @return mixed array|string|boolean curl-return or error
      *
-     * @var $arParams array
+     * @var array
      * $arParams = [
      *      'method'    => 'some rest method',
      *      'params'    => []//array params of method
@@ -61,10 +63,10 @@ class CRest
      */
     protected static function callCurl($arParams)
     {
-        if (!function_exists('curl_init')) {
+        if (! function_exists('curl_init')) {
             return [
                 'error' => 'error_php_lib_curl',
-                'error_description' => 'need install curl lib'
+                'error_description' => 'need install curl lib',
             ];
         }
         $arSettings = static::getAppSettings();
@@ -73,7 +75,7 @@ class CRest
             if (isset($arParams['this_auth']) && $arParams['this_auth'] == 'Y') {
                 $url = 'https://oauth.bitrix.info/oauth/token/';
             } else {
-                $url = $arSettings["client_endpoint"] . $arParams['method'] . '.' . static::TYPE_TRANSPORT;
+                $url = $arSettings['client_endpoint'].$arParams['method'].'.'.static::TYPE_TRANSPORT;
                 if (empty($arSettings['is_web_hook']) || $arSettings['is_web_hook'] != 'Y') {
                     $arParams['params']['auth'] = $arSettings['access_token'];
                 }
@@ -86,7 +88,7 @@ class CRest
                 curl_setopt($obCurl, CURLOPT_URL, $url);
                 curl_setopt($obCurl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($obCurl, CURLOPT_POSTREDIR, 10);
-                curl_setopt($obCurl, CURLOPT_USERAGENT, 'Bitrix24 CRest PHP ' . static::VERSION);
+                curl_setopt($obCurl, CURLOPT_USERAGENT, 'Bitrix24 CRest PHP '.static::VERSION);
                 if ($sPostFields) {
                     curl_setopt($obCurl, CURLOPT_POST, true);
                     curl_setopt($obCurl, CURLOPT_POSTFIELDS, $sPostFields);
@@ -106,14 +108,14 @@ class CRest
                 if (curl_errno($obCurl)) {
                     $info['curl_error'] = curl_error($obCurl);
                 }
-                if (static::TYPE_TRANSPORT == 'xml' && (!isset($arParams['this_auth']) || $arParams['this_auth'] != 'Y')) {//auth only json support
+                if (static::TYPE_TRANSPORT == 'xml' && (! isset($arParams['this_auth']) || $arParams['this_auth'] != 'Y')) {//auth only json support
                     $result = $out;
                 } else {
                     $result = static::expandData($out);
                 }
                 curl_close($obCurl);
 
-                if (!empty($result['error'])) {
+                if (! empty($result['error'])) {
                     if ($result['error'] == 'expired_token' && empty($arParams['this_auth'])) {
                         $result = static::GetNewAuth($arParams);
                     } else {
@@ -125,14 +127,14 @@ class CRest
                             'QUERY_LIMIT_EXCEEDED' => 'Too many requests, maximum 2 query by second',
                             'ERROR_METHOD_NOT_FOUND' => 'Method not found! You can see the permissions of the application: CRest::call(\'scope\')',
                             'NO_AUTH_FOUND' => 'Some setup error b24, check in table "b_module_to_module" event "OnRestCheckAuth"',
-                            'INTERNAL_SERVER_ERROR' => 'Server down, try later'
+                            'INTERNAL_SERVER_ERROR' => 'Server down, try later',
                         ];
-                        if (!empty($arErrorInform[$result['error']])) {
+                        if (! empty($arErrorInform[$result['error']])) {
                             $result['error_description'] = $arErrorInform[$result['error']];
                         }
                     }
                 }
-                if (!empty($info['curl_error'])) {
+                if (! empty($info['curl_error'])) {
                     $result['error'] = 'curl_error';
                     $result['error_description'] = $info['curl_error'];
                 }
@@ -142,7 +144,7 @@ class CRest
                         'url' => $url,
                         'info' => $info,
                         'params' => $arParams,
-                        'result' => $result
+                        'result' => $result,
                     ],
                     'callCurl'
                 );
@@ -154,7 +156,7 @@ class CRest
                         'message' => $e->getMessage(),
                         'code' => $e->getCode(),
                         'trace' => $e->getTrace(),
-                        'params' => $arParams
+                        'params' => $arParams,
                     ],
                     'exceptionCurl'
                 );
@@ -168,7 +170,7 @@ class CRest
         } else {
             static::setLog(
                 [
-                    'params' => $arParams
+                    'params' => $arParams,
                 ],
                 'emptySetting'
             );
@@ -176,7 +178,7 @@ class CRest
 
         return [
             'error' => 'no_install_app',
-            'error_description' => 'error install app, pls install local application '
+            'error_description' => 'error install app, pls install local application ',
         ];
     }
 
@@ -184,25 +186,27 @@ class CRest
      * Generate a request for callCurl()
      *
      * @return mixed array|string|boolean curl-return or error
-     * @var $params array method params
-     * @var $method string
+     *
+     * @var array method params
+     * @var string
      */
-
     public static function call($method, $params = [])
     {
         $arPost = [
             'method' => $method,
-            'params' => $params
+            'params' => $params,
         ];
         $result = static::callCurl($arPost);
+
         return $result;
     }
 
     /**
      * @return array
      *
-     * @var $arData array
-     * @var $halt   integer 0 or 1 stop batch on error
+     * @var array
+     * @var   int 0 or 1 stop batch on error
+     *
      * @example $arData:
      * $arData = [
      *      'find_contact' => [
@@ -218,9 +222,7 @@ class CRest
      *          'params' => [ "id" => '$result[get_contact][COMPANY_ID]', "select" => ["*"],]
      *      ]
      * ];
-     *
      */
-
     public static function callBatch($arData, $halt = 0)
     {
         $arResult = [];
@@ -228,25 +230,26 @@ class CRest
             $arDataRest = [];
             $i = 0;
             foreach ($arData as $key => $data) {
-                if (!empty($data['method'])) {
+                if (! empty($data['method'])) {
                     $i++;
                     if (static::BATCH_COUNT >= $i) {
                         $arDataRest['cmd'][$key] = $data['method'];
-                        if (!empty($data['params'])) {
-                            $arDataRest['cmd'][$key] .= '?' . http_build_query($data['params']);
+                        if (! empty($data['params'])) {
+                            $arDataRest['cmd'][$key] .= '?'.http_build_query($data['params']);
                         }
                     }
                 }
             }
-            if (!empty($arDataRest)) {
+            if (! empty($arDataRest)) {
                 $arDataRest['halt'] = $halt;
                 $arPost = [
                     'method' => 'batch',
-                    'params' => $arDataRest
+                    'params' => $arDataRest,
                 ];
                 $arResult = static::callCurl($arPost);
             }
         }
+
         return $arResult;
     }
 
@@ -255,9 +258,8 @@ class CRest
      *
      * @return array query result from $arParams
      *
-     * @var $arParams array request when authorization error returned
+     * @var array request when authorization error returned
      */
-
     private static function GetNewAuth($arParams)
     {
         $result = [];
@@ -265,13 +267,12 @@ class CRest
         if ($arSettings !== false) {
             $arParamsAuth = [
                 'this_auth' => 'Y',
-                'params' =>
-                    [
-                        'client_id' => $arSettings['C_REST_CLIENT_ID'],
-                        'grant_type' => 'refresh_token',
-                        'client_secret' => $arSettings['C_REST_CLIENT_SECRET'],
-                        'refresh_token' => $arSettings["refresh_token"],
-                    ]
+                'params' => [
+                    'client_id' => $arSettings['C_REST_CLIENT_ID'],
+                    'grant_type' => 'refresh_token',
+                    'client_secret' => $arSettings['C_REST_CLIENT_SECRET'],
+                    'refresh_token' => $arSettings['refresh_token'],
+                ],
             ];
             $newData = static::callCurl($arParamsAuth);
             if (isset($newData['C_REST_CLIENT_ID'])) {
@@ -288,49 +289,50 @@ class CRest
                 $result = static::callCurl($arParams);
             }
         }
+
         return $result;
     }
 
     /**
-     * @return boolean
-     * @var $isInstall  boolean true if install app by installApp()
-     * @var $arSettings array settings application
+     * @return bool
+     *
+     * @var  bool true if install app by installApp()
+     * @var array settings application
      */
-
     private static function setAppSettings($arSettings, $isInstall = false)
     {
         $return = false;
         if (is_array($arSettings)) {
             $oldData = static::getAppSettings();
-            if ($isInstall != true && !empty($oldData) && is_array($oldData)) {
+            if ($isInstall != true && ! empty($oldData) && is_array($oldData)) {
                 $arSettings = array_merge($oldData, $arSettings);
             }
             $return = static::setSettingData($arSettings);
         }
+
         return $return;
     }
 
     /**
      * @return mixed setting application for query
      */
-
     private static function getAppSettings()
     {
-        if (!empty(config('services.bitrix24.client_webhook'))) {
+        if (! empty(config('services.bitrix24.client_webhook'))) {
             $arData = [
                 'client_endpoint' => config('services.bitrix24.client_webhook'),
-                'is_web_hook' => 'Y'
+                'is_web_hook' => 'Y',
             ];
             $isCurrData = true;
         } else {
             $arData = static::getSettingData();
             $isCurrData = false;
             if (
-                !empty($arData['access_token']) &&
-                !empty($arData['domain']) &&
-                !empty($arData['refresh_token']) &&
-                !empty($arData['application_token']) &&
-                !empty($arData['client_endpoint'])
+                ! empty($arData['access_token']) &&
+                ! empty($arData['domain']) &&
+                ! empty($arData['refresh_token']) &&
+                ! empty($arData['application_token']) &&
+                ! empty($arData['client_endpoint'])
             ) {
                 $isCurrData = true;
             }
@@ -344,7 +346,6 @@ class CRest
      *
      * @return array setting for getAppSettings()
      */
-
     protected static function getSettingData()
     {
         $settings = BitrixAppSettings::query()->first();
@@ -354,15 +355,15 @@ class CRest
             $return['C_REST_CLIENT_ID'] = config('services.bitrix24.client_id');
             $return['C_REST_CLIENT_SECRET'] = config('services.bitrix24.client_secret');
         }
+
         return $return;
     }
 
-
     /**
      * @return string json_encode with encoding
-     * @var $debag boolean
      *
-     * @var $data mixed
+     * @var bool
+     * @var mixed
      */
     protected static function wrapData($data, $debag = false)
     {
@@ -382,9 +383,9 @@ class CRest
 
     /**
      * @return string json_decode with encoding
-     * @var $debag boolean
      *
-     * @var $data mixed
+     * @var bool
+     * @var mixed
      */
     protected static function expandData($data)
     {
@@ -394,10 +395,10 @@ class CRest
     /**
      * Can overridden this method to change the data storage location.
      *
-     * @return boolean is successes save data for setSettingData()
-     * @var $arSettings array settings application
+     * @return bool is successes save data for setSettingData()
+     *
+     * @var array settings application
      */
-
     protected static function setSettingData($arSettings)
     {
         $settings = BitrixAppSettings::query()->first();
@@ -405,17 +406,18 @@ class CRest
             $settings = new BitrixAppSettings();
         }
         $settings->fill($arSettings);
+
         return $settings->save();
     }
 
     /**
      * Can overridden this method to change the log data storage location.
      *
-     * @return boolean is successes save log data
-     * @var $type   string to more identification log data
-     * @var $arData array of logs data
+     * @return bool is successes save log data
+     *
+     * @var   string to more identification log data
+     * @var array of logs data
      */
-
     public static function setLog($arData, $type = '')
     {
         $return = false;
@@ -424,67 +426,71 @@ class CRest
             Storage::makeDirectory('bitrix');
         }
         if (config('services.bitrix24.client_block_log')) {
-            $path = '/logs/' . date("Y-m-d/H");
+            $path = '/logs/'.date('Y-m-d/H');
 
-            if (!file_exists($path)) {
+            if (! file_exists($path)) {
                 Storage::makeDirectory($path);
             }
 
-            $path .= '/' . time() . '_' . $type . '_' . rand(1, 9999999) . 'log';
-            if (!config('services.bitrix24.client_log_type_dump')) {
+            $path .= '/'.time().'_'.$type.'_'.rand(1, 9999999).'log';
+            if (! config('services.bitrix24.client_log_type_dump')) {
                 $jsonLog = static::wrapData($arData);
                 if ($jsonLog === false) {
-                    $return = Storage::put($path . '_backup.txt', var_export($arData, true));
+                    $return = Storage::put($path.'_backup.txt', var_export($arData, true));
                 } else {
-                    $return = Storage::put($path . '.json', $jsonLog);
+                    $return = Storage::put($path.'.json', $jsonLog);
                 }
             } else {
-                $return = Storage::put($path . '.txt', var_export($arData, true));
+                $return = Storage::put($path.'.txt', var_export($arData, true));
             }
         }
+
         return $return;
     }
 
     /**
      * check minimal settings server to work CRest
+     *
      * @return array of errors
-     * @var $print boolean
+     *
+     * @var bool
      */
     public static function checkServer($print = true)
     {
         $return = [];
 
         //check curl lib install
-        if (!function_exists('curl_init')) {
+        if (! function_exists('curl_init')) {
             $return['curl_error'] = 'Need install curl lib.';
         }
 
         //creat setting file
         Storage::put('bitrix/settings_check.json', static::wrapData(['test' => 'data']));
 
-        if (!Storage::exists('bitrix/settings_check.json')) {
+        if (! Storage::exists('bitrix/settings_check.json')) {
             $return['setting_creat_error'] = 'Check permission! Recommended: folders: 775, files: 664';
         }
         Storage::delete('bitrix/settings_check.json');
 
         //creat logs folder and files
-        $path = 'bitrix/logs/' . date("Y-m-d/H");
-        if (!Storage::exists($path)) {
+        $path = 'bitrix/logs/'.date('Y-m-d/H');
+        if (! Storage::exists($path)) {
             Storage::makeDirectory($path);
         }
-        if (!Storage::exists($path)) {
+        if (! Storage::exists($path)) {
             $return['logs_folder_creat_error'] = 'Check permission! Recommended: folders: 775, files: 664';
         } else {
-            Storage::put($path . '/test.txt', var_export(['test' => 'data']));
-            if (!Storage::exists($path . '/test.txt')) {
+            Storage::put($path.'/test.txt', var_export(['test' => 'data']));
+            if (! Storage::exists($path.'/test.txt')) {
                 $return['logs_file_creat_error'] = 'check permission! recommended: folders: 775, files: 664';
             }
-            Storage::delete($path . '/test.txt');
+            Storage::delete($path.'/test.txt');
         }
 
         if (empty($return)) {
             $return['success'] = 'Success!';
         }
+
         return $return;
     }
 }

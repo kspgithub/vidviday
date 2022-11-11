@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
 use App\Models\HtmlBlock;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -16,6 +15,7 @@ class HtmlBlocksTable extends DataTableComponent
 {
     public array $bulkActions = [
     ];
+
     /**
      * @var string
      */

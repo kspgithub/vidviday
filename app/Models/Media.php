@@ -13,7 +13,6 @@ class Media extends SpatieMedia
 
     public function getDimensions()
     {
-
     }
 
     public function toSwiperSlide()
@@ -28,25 +27,25 @@ class Media extends SpatieMedia
         $item = [
             'id' => $media->id,
             'url' => $media->getUrl(),
-            'alt' => $media->getCustomProperty('alt_' . $locale) ?? $media->model->title,
-            'title' => $media->getCustomProperty('title_' . $locale) ?? $media->model->title,
+            'alt' => $media->getCustomProperty('alt_'.$locale) ?? $media->model->title,
+            'title' => $media->getCustomProperty('title_'.$locale) ?? $media->model->title,
         ];
         foreach ($conversions as $conversion) {
             $item[$conversion] = $media->getUrl($conversion);
         }
 
-        return (object)$item;
+        return (object) $item;
     }
-
 
     public function asAlpineData()
     {
         $alts = [];
         $titles = [];
         foreach (siteLocales() as $locale) {
-            $alts[$locale] = $this->getCustomProperty('alt_' . $locale) ?? '';
-            $titles[$locale] = $this->getCustomProperty('title_' . $locale) ?? '';
+            $alts[$locale] = $this->getCustomProperty('alt_'.$locale) ?? '';
+            $titles[$locale] = $this->getCustomProperty('title_'.$locale) ?? '';
         }
+
         return [
             'id' => $this->id,
             'url' => $this->getUrl(),
@@ -59,11 +58,11 @@ class Media extends SpatieMedia
 
     public function getTitleAttribute()
     {
-        return $this->getCustomProperty('title_' . app()->getLocale()) ?? $this->getCustomProperty('title_uk');
+        return $this->getCustomProperty('title_'.app()->getLocale()) ?? $this->getCustomProperty('title_uk');
     }
 
     public function getAltAttribute()
     {
-        return $this->getCustomProperty('alt_' . app()->getLocale()) ?? $this->getCustomProperty('alt_uk');
+        return $this->getCustomProperty('alt_'.app()->getLocale()) ?? $this->getCustomProperty('alt_uk');
     }
 }

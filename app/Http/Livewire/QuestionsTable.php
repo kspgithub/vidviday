@@ -6,7 +6,6 @@ use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -26,12 +25,9 @@ class QuestionsTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
-
     public $parent_id = 0;
 
-
     public $edit = false;
-
 
     public $name = '';
 
@@ -39,13 +35,11 @@ class QuestionsTable extends DataTableComponent
 
     public $text = '';
 
-
     protected $rules = [
         'name' => ['required'],
         'email' => ['required', 'email'],
         'text' => ['required'],
     ];
-
 
     public function mount()
     {
@@ -60,12 +54,11 @@ class QuestionsTable extends DataTableComponent
 
         return TourQuestion::query()
             ->with(['tour', 'user'])
-            ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
+            ->when(! is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
             })
             ->orderBy('created_at', 'desc');
     }
-
 
     public function columns(): array
     {
@@ -81,7 +74,7 @@ class QuestionsTable extends DataTableComponent
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
-                    return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
+                    return $row->name.'<br>'.$row->email.'<br>'.$row->phone;
                 })
                 ->asHtml(),
             Column::make(__('Text'), 'text')
@@ -91,7 +84,6 @@ class QuestionsTable extends DataTableComponent
                 ->asHtml(),
 
             Column::make(__('Rating'), 'rating'),
-
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -134,7 +126,6 @@ class QuestionsTable extends DataTableComponent
         $this->edit = true;
     }
 
-
     public function saveItem()
     {
         $model = TourQuestion::query()->find($this->parent_id);
@@ -149,7 +140,6 @@ class QuestionsTable extends DataTableComponent
             $item->avatar = current_user()->avatar;
             $item->save();
         }
-
 
         $this->parent_id = 0;
         $this->text = '';
@@ -172,7 +162,7 @@ class QuestionsTable extends DataTableComponent
             return view('admin.tour.includes.question-form');
         }
 
-        return view('livewire-tables::' . config('livewire-tables.theme') . '.datatable')
+        return view('livewire-tables::'.config('livewire-tables.theme').'.datatable')
             ->with([
                 'columns' => $this->columns(),
                 'rowView' => $this->rowView(),

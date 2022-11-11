@@ -26,8 +26,8 @@ class RegionFactory extends Factory
 
         return [
             //
-            'title'=>$region,
-            'slug'=>Str::slug($region),
+            'title' => $region,
+            'slug' => Str::slug($region),
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Role;
 use App\Exceptions\GeneralException;
+use App\Models\Role;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -25,11 +25,10 @@ class RoleService extends BaseService
 
     /**
      * @param  array  $data
+     * @return Role
      *
      * @throws GeneralException
      * @throws Throwable
-     *
-     * @return Role
      */
     public function store(array $data = []): Role
     {
@@ -54,11 +53,10 @@ class RoleService extends BaseService
     /**
      * @param  Role  $role
      * @param  array  $data
+     * @return Role
      *
      * @throws GeneralException
      * @throws Throwable
-     *
-     * @return Role
      */
     public function update(Role $role, array $data = []): Role
     {
@@ -82,10 +80,9 @@ class RoleService extends BaseService
 
     /**
      * @param  Role  $role
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function destroy(Role $role): bool
     {

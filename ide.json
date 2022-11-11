@@ -1,0 +1,17 @@
+{
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+    "completions": [
+        {
+            "complete": "directoryFiles",
+            "options": {
+                "directory": "/resources/js/components"
+            },
+            "condition": [
+                {
+                    "functionNames": ["vue"],
+                    "parameters": [1]
+                }
+            ]
+        }
+    ]
+}

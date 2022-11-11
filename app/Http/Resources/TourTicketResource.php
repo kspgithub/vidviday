@@ -43,12 +43,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         example="50",
  *     ),
  * ),
- *
  */
 class TourTicketResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)

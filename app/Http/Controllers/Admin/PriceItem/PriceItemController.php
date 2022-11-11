@@ -14,7 +14,6 @@ use Illuminate\Contracts\View\View;
 
 class PriceItemController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -40,19 +39,17 @@ class PriceItemController extends Controller
 
         $tours = Tour::toSelectBox('title', 'id');
 
-
         return view('admin.price-item.create', [
-            'priceItem'=> $priceItem,
-            'currencies'=> $currencies,
-            "tours" => $tours,
+            'priceItem' => $priceItem,
+            'currencies' => $currencies,
+            'tours' => $tours,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PriceItemBasicRequest $request
-     *
+     * @param  PriceItemBasicRequest  $request
      * @return mixed
      */
     public function store(PriceItemBasicRequest $request)
@@ -62,17 +59,14 @@ class PriceItemController extends Controller
         $priceItem->fill($request->all());
         $priceItem->save();
 
-        return redirect()->route('admin.price-item.index', ['priceItem'=> $priceItem])
+        return redirect()->route('admin.price-item.index', ['priceItem' => $priceItem])
                          ->withFlashSuccess(__('Record created.'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param PriceItem $priceItem
-     *
+     * @param  PriceItem  $priceItem
      * @return Application|Factory|View
      */
     public function edit(PriceItem $priceItem)
@@ -81,21 +75,18 @@ class PriceItemController extends Controller
 
         $tours = Tour::toSelectBox('title', 'id');
 
-
         return view('admin.price-item.edit', [
-            'priceItem'=> $priceItem,
-            'currencies'=> $currencies,
-            "tours" => $tours,
+            'priceItem' => $priceItem,
+            'currencies' => $currencies,
+            'tours' => $tours,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param PriceItemBasicRequest $request
-     *
-     * @param PriceItem $priceItem
-     *
+     * @param  PriceItemBasicRequest  $request
+     * @param  PriceItem  $priceItem
      * @return mixed
      *
      * @throws GeneralException
@@ -112,7 +103,6 @@ class PriceItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\PriceItem  $priceItem
-     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(PriceItem $priceItem)

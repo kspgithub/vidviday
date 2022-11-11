@@ -28,7 +28,8 @@ class DiscountFactory extends Factory
         $start_date = $this->faker->randomElement([null, Carbon::now()->addDays($this->faker->randomElement([-10, 10]))]);
         $category = $this->faker->randomElement(array_keys(Discount::$categories));
         $duration = $this->faker->randomElement(array_keys(Discount::$durations));
-        $title = 'Знижка ' . $price . Discount::$types[$type] . ', ' . Discount::$categories[$category] . ', ' . Discount::$durations[$duration];
+        $title = 'Знижка '.$price.Discount::$types[$type].', '.Discount::$categories[$category].', '.Discount::$durations[$duration];
+
         return [
             //
             'type' => $type,

@@ -13,7 +13,6 @@ use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -81,8 +80,7 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -91,14 +89,14 @@ class CityController extends Controller
         $city = new City();
         $city->fill($request->all());
         $city->save();
+
         return redirect()->route('admin.city.edit', ['city' => $city])->withFlashSuccess(__('Record Created'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param City $city
-     *
+     * @param  City  $city
      * @return View
      */
     public function edit(City $city)
@@ -119,14 +117,12 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param City $city
-     *
+     * @param  Request  $request
+     * @param  City  $city
      * @return Response
      */
     public function update(Request $request, City $city)
     {
-
         //
         $city->fill($request->all());
         $city->save();
@@ -137,19 +133,19 @@ class CityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param City $city
-     *
+     * @param  City  $city
      * @return Response
      */
     public function destroy(City $city)
     {
         //
         $city->delete();
+
         return redirect()->route('admin.city.index')->withFlashSuccess(__('Record Deleted'));
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return mixed
      */
     public function search(Request $request)
@@ -157,12 +153,12 @@ class CityController extends Controller
         $country_id = $request->input('country_id', Country::DEFAULT_COUNTRY_ID);
         $cityQuery = City::query()->where('cities.country_id', $country_id)->with(['region', 'country']);
 
-        $region_id = (int)$request->input('region_id', 0);
+        $region_id = (int) $request->input('region_id', 0);
         if ($region_id > 0) {
             $cityQuery->where('cities.region_id', $region_id);
         }
 
-        $district_id = (int)$request->input('district_id', 0);
+        $district_id = (int) $request->input('district_id', 0);
         if ($district_id > 0) {
             $cityQuery->where('cities.district_id', $district_id);
         }
@@ -170,10 +166,9 @@ class CityController extends Controller
         $q = $request->input('q', '');
         $limit = $request->input('limit', 20);
 
-        if (!empty($q)) {
-            $cityQuery->where('cities.title', 'LIKE', '%"' . $q . '%');
+        if (! empty($q)) {
+            $cityQuery->where('cities.title', 'LIKE', '%"'.$q.'%');
         }
-
 
         return $cityQuery->take($limit)->get()->map->asChoose();
     }

@@ -4,12 +4,9 @@ namespace App\Lib\WayForPay;
 
 use App\Models\PurchaseTransaction;
 use WayForPay\SDK\Credential\AccountSecretCredential;
-use WayForPay\SDK\Handler\ServiceUrlHandler;
 
 class TransactionHelper
 {
-
-
     const SIGNATURE_SEPARATOR = ';';
 
     protected $data;
@@ -21,7 +18,6 @@ class TransactionHelper
         $this->data = $data;
     }
 
-
     protected function getCredential()
     {
         return new AccountSecretCredential(config('services.wayforpay.login'), config('services.wayforpay.secret'));
@@ -32,8 +28,7 @@ class TransactionHelper
         return $this->getCredential()->getSecret();
     }
 
-
-    protected $keysForResponseSignature = array(
+    protected $keysForResponseSignature = [
         'merchantAccount',
         'orderReference',
         'amount',
@@ -41,11 +36,11 @@ class TransactionHelper
         'authCode',
         'cardPan',
         'transactionStatus',
-        'reasonCode'
-    );
+        'reasonCode',
+    ];
 
     /** @var array */
-    protected $keysForSignature = array(
+    protected $keysForSignature = [
         'merchantAccount',
         'merchantDomainName',
         'orderReference',
@@ -54,9 +49,8 @@ class TransactionHelper
         'currency',
         'productName',
         'productCount',
-        'productPrice'
-    );
-
+        'productPrice',
+    ];
 
     /**
      * @param $option
@@ -65,10 +59,11 @@ class TransactionHelper
      */
     public function getSignature($option, $keys)
     {
-        $hash = array();
+        $hash = [];
         foreach ($keys as $dataKey) {
-            if (!isset($option[$dataKey])) {
+            if (! isset($option[$dataKey])) {
                 $hash[] = '';
+
                 continue;
             }
             if (is_array($option[$dataKey])) {
@@ -76,14 +71,14 @@ class TransactionHelper
                     $hash[] = $v;
                 }
             } else {
-                $hash [] = $option[$dataKey];
+                $hash[] = $option[$dataKey];
             }
         }
 
         $hash = implode(self::SIGNATURE_SEPARATOR, $hash);
+
         return hash_hmac('md5', $hash, $this->getSecretKey());
     }
-
 
     /**
      * @param $options
@@ -107,7 +102,7 @@ class TransactionHelper
     {
         $response = $this->data;
 
-        if (!isset($response['merchantSignature']) && isset($response['reason'])) {
+        if (! isset($response['merchantSignature']) && isset($response['reason'])) {
             return $response['reason'];
         }
 
@@ -127,25 +122,24 @@ class TransactionHelper
             return 'Transaction in processing';
         }
 
-        if (!empty($response['transactionStatus'])) {
+        if (! empty($response['transactionStatus'])) {
             return $response['transactionStatus'];
         }
 
         return 'Unknown Error';
     }
 
-
     public function getSuccessResponse()
     {
         $time = time();
-        $responseToGateway = array(
+        $responseToGateway = [
             'orderReference' => $this->data['orderReference'],
             'status' => 'accept',
-            'time' => $time
-        );
-        $sign = array();
+            'time' => $time,
+        ];
+        $sign = [];
         foreach ($responseToGateway as $dataKey => $dataValue) {
-            $sign [] = $dataValue;
+            $sign[] = $dataValue;
         }
         $sign = implode(self::SIGNATURE_SEPARATOR, $sign);
         $sign = hash_hmac('md5', $sign, $this->getSecretKey());

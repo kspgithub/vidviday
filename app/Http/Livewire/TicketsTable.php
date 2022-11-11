@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
 use App\Models\Region;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,10 +15,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class TicketsTable extends DataTableComponent
 {
-
     public array $bulkActions = [
     ];
-    
+
     /**
      * @var string
      */
@@ -42,7 +40,6 @@ class TicketsTable extends DataTableComponent
      */
     public function query(): Builder|Relation
     {
-
         $region_id = $this->getFilter('region_id');
 
         $query = Ticket::query()
@@ -75,7 +72,7 @@ class TicketsTable extends DataTableComponent
 
             Column::make(__('Price'), 'price')
                 ->format(function ($value, $column, $row) {
-                    return $row->price . ' ' . $row->currency;
+                    return $row->price.' '.$row->currency;
                 })
                 ->sortable(),
 
@@ -96,7 +93,7 @@ class TicketsTable extends DataTableComponent
     {
         return [
             'region_id' => Filter::make(__('Regions'))
-                ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray()))
+                ->select(array_merge([0 => 'Всі'], Region::select(['id', 'title'])->pluck('title', 'id')->toArray())),
         ];
     }
 }

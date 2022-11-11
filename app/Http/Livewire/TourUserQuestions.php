@@ -7,7 +7,6 @@ use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -32,12 +31,9 @@ class TourUserQuestions extends DataTableComponent
      */
     public $tour;
 
-
     public $parent_id = 0;
 
-
     public $edit = false;
-
 
     public $name = '';
 
@@ -45,13 +41,11 @@ class TourUserQuestions extends DataTableComponent
 
     public $text = '';
 
-
     protected $rules = [
         'name' => ['required'],
         'email' => ['required', 'email'],
         'text' => ['required'],
     ];
-
 
     public function mount(Tour $tour)
     {
@@ -66,11 +60,10 @@ class TourUserQuestions extends DataTableComponent
         $status = $this->getFilter('status');
 
         return $this->tour->questions()
-            ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
+            ->when(! is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
             });
     }
-
 
     public function columns(): array
     {
@@ -82,7 +75,7 @@ class TourUserQuestions extends DataTableComponent
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
-                    return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
+                    return $row->name.'<br>'.$row->email.'<br>'.$row->phone;
                 })
                 ->asHtml(),
 
@@ -93,7 +86,6 @@ class TourUserQuestions extends DataTableComponent
                 ->asHtml(),
 
             Column::make(__('Rating'), 'rating'),
-
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -136,10 +128,8 @@ class TourUserQuestions extends DataTableComponent
         $this->edit = true;
     }
 
-
     public function saveItem()
     {
-
         $this->validate();
         $item = new TourQuestion();
         $item->tour_id = $this->tour->id;
@@ -171,7 +161,7 @@ class TourUserQuestions extends DataTableComponent
             return view('admin.tour.includes.question-form');
         }
 
-        return view('livewire-tables::' . config('livewire-tables.theme') . '.datatable')
+        return view('livewire-tables::'.config('livewire-tables.theme').'.datatable')
             ->with([
                 'columns' => $this->columns(),
                 'rowView' => $this->rowView(),

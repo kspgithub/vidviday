@@ -17,7 +17,7 @@ class LocationController extends Controller
         //
         $query = Country::query()->orderBy('title->uk');
 
-        if($request->paginate) {
+        if ($request->paginate) {
             $paginator = $query->paginate($request->input('limit', 10));
             $items = [];
             foreach ($paginator->items() as $item) {
@@ -27,8 +27,8 @@ class LocationController extends Controller
             return [
                 'results' => $items,
                 'pagination' => [
-                    'more' => $paginator->hasMorePages()
-                ]
+                    'more' => $paginator->hasMorePages(),
+                ],
             ];
         }
 
@@ -44,15 +44,15 @@ class LocationController extends Controller
             $query->where('country_id', $country_id);
         }
 
-        if($search = Str::lower($request->get('q'))){
+        if ($search = Str::lower($request->get('q'))) {
             $query->jsonLike('title', "%$search%");
         }
 
-        if($limit = $request->get('limit')){
+        if ($limit = $request->get('limit')) {
             $query->limit($limit);
         }
 
-        if($request->paginate) {
+        if ($request->paginate) {
             $paginator = $query->paginate($request->input('limit', 10));
             $items = [];
             foreach ($paginator->items() as $item) {
@@ -62,8 +62,8 @@ class LocationController extends Controller
             return [
                 'results' => $items,
                 'pagination' => [
-                    'more' => $paginator->hasMorePages()
-                ]
+                    'more' => $paginator->hasMorePages(),
+                ],
             ];
         }
 
@@ -84,15 +84,15 @@ class LocationController extends Controller
             $query->where('region_id', $region_id);
         }
 
-        if($search = Str::lower($request->get('q'))){
+        if ($search = Str::lower($request->get('q'))) {
             $query->jsonLike('title', "%$search%");
         }
 
-        if($limit = $request->get('limit')){
+        if ($limit = $request->get('limit')) {
             $query->limit($limit);
         }
 
-        if($request->paginate) {
+        if ($request->paginate) {
             $paginator = $query->paginate($request->input('limit', 10));
             $items = [];
             foreach ($paginator->items() as $item) {
@@ -102,8 +102,8 @@ class LocationController extends Controller
             return [
                 'results' => $items,
                 'pagination' => [
-                    'more' => $paginator->hasMorePages()
-                ]
+                    'more' => $paginator->hasMorePages(),
+                ],
             ];
         }
 
@@ -128,15 +128,15 @@ class LocationController extends Controller
             $query->where('district_id', $district_id);
         }
 
-        if($search = Str::lower($request->get('q'))){
+        if ($search = Str::lower($request->get('q'))) {
             $query->jsonLike('title', "%$search%");
         }
 
-        if($limit = $request->get('limit')){
+        if ($limit = $request->get('limit')) {
             $query->limit($limit);
         }
 
-        if($request->paginate) {
+        if ($request->paginate) {
             $paginator = $query->paginate($request->input('limit', 10));
             $items = [];
             foreach ($paginator->items() as $item) {
@@ -146,12 +146,12 @@ class LocationController extends Controller
             return [
                 'results' => $items,
                 'pagination' => [
-                    'more' => $paginator->hasMorePages()
-                ]
+                    'more' => $paginator->hasMorePages(),
+                ],
             ];
         }
 
-        return $query->get()->map(fn($item) => [
+        return $query->get()->map(fn ($item) => [
             'value' => $item['id'],
             'text' => $item['fullTitle'],
         ]);

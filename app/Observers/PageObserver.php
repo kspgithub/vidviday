@@ -10,7 +10,7 @@ class PageObserver
     /**
      * Handle the Page "updated" event.
      *
-     * @param \App\Models\Page $page
+     * @param  \App\Models\Page  $page
      * @return void
      */
     public function updated(Page $page)

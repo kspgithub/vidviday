@@ -39,8 +39,8 @@ class ClearUserSessionRequest extends FormRequest
      * Handle a failed authorization attempt.
      *
      * @return void
-     * @throws AuthorizationException
      *
+     * @throws AuthorizationException
      */
     protected function failedAuthorization()
     {

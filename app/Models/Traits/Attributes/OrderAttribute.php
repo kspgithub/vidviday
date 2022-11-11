@@ -11,30 +11,33 @@ trait OrderAttribute
         if ($this->start_date && $this->end_date) {
             if ($this->start_date->month === $this->end_date->month && $this->start_date->year === $this->end_date->year &&
                 $this->start_date->translatedFormat('D') !== $this->end_date->translatedFormat('D')) {
-                return Str::ucfirst($this->start_date->translatedFormat('D')) . ' - ' .
-                    Str::ucfirst($this->end_date->translatedFormat('D')) .
-                    ', ' . $this->start_date->format('d') . ' - ' . $this->end_date->format('d.m.Y');
+                return Str::ucfirst($this->start_date->translatedFormat('D')).' - '.
+                    Str::ucfirst($this->end_date->translatedFormat('D')).
+                    ', '.$this->start_date->format('d').' - '.$this->end_date->format('d.m.Y');
             }
-            return $this->start_date->format('d.m.Y') . ' - ' . $this->end_date->format('d.m.Y');
+
+            return $this->start_date->format('d.m.Y').' - '.$this->end_date->format('d.m.Y');
         }
 
         if ($this->start_date) {
-            return $this->start_date->translatedFormat('D') . ', ' . $this->start_date->format('d.m.Y');
+            return $this->start_date->translatedFormat('D').', '.$this->start_date->format('d.m.Y');
         }
+
         return '';
     }
-
 
     public function getEventTitleAttribute()
     {
         if ($this->start_date) {
-            return $this->start_date->translatedFormat('D') . ', ' . $this->start_date->format('d.m.Y');
+            return $this->start_date->translatedFormat('D').', '.$this->start_date->format('d.m.Y');
         }
+
         return '';
     }
 
     /**
      * Продолжительность дней
+     *
      * @return int|mixed
      */
     public function getDurationAttribute()
@@ -52,6 +55,7 @@ trait OrderAttribute
 
     /**
      * Количество мест
+     *
      * @return int|mixed
      */
     public function getTotalPlacesAttribute()
@@ -61,11 +65,13 @@ trait OrderAttribute
             $total += $this->children_young;
             $total += $this->children_older;
         }
+
         return $total;
     }
 
     /**
      * Количество детей
+     *
      * @return int|mixed
      */
     public function getTotalChildrenAttribute()
@@ -75,22 +81,25 @@ trait OrderAttribute
             $total += $this->children_young;
             $total += $this->children_older;
         }
+
         return $total;
     }
 
     /**
      * Общая стоимость с учетом скидок и доплат
+     *
      * @return int|mixed|null
      */
     public function getTotalPriceAttribute(): int
     {
         $total = $this->price - $this->discount + $this->accomm_price;
+
         return $this->is_tour_agent ? $total - $this->commission : $total;
     }
 
-
     /**
      * Заглавие типа оплаты
+     *
      * @return mixed|string
      */
     public function getPaymentTitleAttribute()
@@ -100,6 +109,7 @@ trait OrderAttribute
 
     /**
      * Менеджер тура
+     *
      * @return object|null
      */
     public function getTourManagerAttribute()
@@ -107,9 +117,9 @@ trait OrderAttribute
         return $this->tour && $this->tour->manager ? $this->tour->manager->shortInfo() : null;
     }
 
-
     /**
      * Дособирать
+     *
      * @return int|mixed|null
      */
     public function getPaymentGetAttribute()
@@ -129,7 +139,8 @@ trait OrderAttribute
         } else {
             $title .= ' за побажанням кліента';
         }
-        $title .= ($this->start_date ? ', ' . $this->start_date->format('d.m.Y') : '');
+        $title .= ($this->start_date ? ', '.$this->start_date->format('d.m.Y') : '');
+
         return $title;
     }
 }

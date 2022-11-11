@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\StaffType;
 use App\Models\Staff;
+use App\Models\StaffType;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,21 +25,21 @@ class StaffTypeController extends Controller
     }
 
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return View
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     */
     public function create()
     {
         $staffType = new StaffType();
+
         return view('admin.staff-type.create', [
-            'staffType'=>$staffType,
+            'staffType' => $staffType,
         ]);
     }
 
     /**
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -51,11 +51,11 @@ class StaffTypeController extends Controller
 
         return redirect()->route('admin.staff-type.index')->withFlashSuccess(__('Record Created'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param StaffType $staffTypes
-     *
+     * @param  StaffType  $staffTypes
      * @return View
      */
     public function edit(StaffType $staffType)
@@ -68,14 +68,12 @@ class StaffTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Staff $staffTypes
-     *
+     * @param  Request  $request
+     * @param  Staff  $staffTypes
      * @return Response
      */
     public function update(Request $request, StaffType $staffType)
     {
-
         //
         $staffType->fill($request->only(['title', 'slug']));
         $staffType->save();
@@ -86,8 +84,7 @@ class StaffTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Staff $staffTypes
-     *
+     * @param  Staff  $staffTypes
      * @return Response
      */
     public function destroy(StaffType $staffType)

@@ -2,21 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class SiteOption extends Model
 {
     public const TYPE_STRING = 'string';
+
     public const TYPE_TEXT = 'text';
+
     public const TYPE_INTEGER = 'integer';
+
     public const TYPE_DOUBLE = 'double';
+
     public const TYPE_BOOLEAN = 'boolean';
+
     public const TYPE_ARRAY = 'array';
+
     public const TYPE_OBJECT = 'object';
+
     public const TYPE_NULL = 'NULL';
+
     public const TYPE_FILE = 'file';
+
     public const TYPE_IMAGE = 'image';
 
     public static array $types = [
@@ -52,11 +60,11 @@ class SiteOption extends Model
     /**
      * Создает опцию
      *
-     * @param string $key ключ
-     * @param mixed $value значение
-     * @param string $title описание
-     * @param bool $primary если true, то админ не может удалить эту опцию
-     * @param null|string $type тип значения, если не указан то определиться автоматически
+     * @param  string  $key ключ
+     * @param  mixed  $value значение
+     * @param  string  $title описание
+     * @param  bool  $primary если true, то админ не может удалить эту опцию
+     * @param  null|string  $type тип значения, если не указан то определиться автоматически
      */
     public static function createOption(string $key, $value, string $title = '', bool $primary = false, string $type = null)
     {
@@ -125,15 +133,15 @@ class SiteOption extends Model
 
                 break;
             case self::TYPE_DOUBLE:
-                $value = (float)$this->value;
+                $value = (float) $this->value;
 
                 break;
             case self::TYPE_INTEGER:
-                $value = (int)$this->value;
+                $value = (int) $this->value;
 
                 break;
             case self::TYPE_BOOLEAN:
-                $value = (bool)$this->value;
+                $value = (bool) $this->value;
 
                 break;
             case self::TYPE_NULL:

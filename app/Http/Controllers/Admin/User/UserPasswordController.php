@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\EditUserPasswordRequest;
 use App\Http\Requests\Admin\User\UpdateUserPasswordRequest;
 use App\Models\User;
-
-use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Throwable;
 
@@ -23,7 +22,7 @@ class UserPasswordController extends Controller
     /**
      * UserPasswordController constructor.
      *
-     * @param UserService $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -31,9 +30,8 @@ class UserPasswordController extends Controller
     }
 
     /**
-     * @param EditUserPasswordRequest $request
-     * @param User $user
-     *
+     * @param  EditUserPasswordRequest  $request
+     * @param  User  $user
      * @return mixed
      */
     public function edit(EditUserPasswordRequest $request, User $user)
@@ -42,12 +40,11 @@ class UserPasswordController extends Controller
     }
 
     /**
-     * @param UpdateUserPasswordRequest $request
-     * @param User $user
-     *
+     * @param  UpdateUserPasswordRequest  $request
+     * @param  User  $user
      * @return mixed
-     * @throws Throwable
      *
+     * @throws Throwable
      */
     public function update(UpdateUserPasswordRequest $request, User $user)
     {

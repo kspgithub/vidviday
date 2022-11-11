@@ -11,7 +11,6 @@ class DealSchedule
 {
     public const CATEGORY_ID = 7;
 
-
     protected const FIELDS_MAP = [
         DealFields::FIELD_ID => 'id',
         DealFields::FIELD_STAGE_ID => 'status',
@@ -26,7 +25,6 @@ class DealSchedule
         DealFields::FIELD_SCHEDULE_TOUR_ID => 'tour_id',
         DealFields::FIELD_PLACES_BOOKED => 'places_booked',
     ];
-
 
     protected const STATUSES_MAP = [
         'C7:NEW' => 0, // Нова
@@ -45,7 +43,8 @@ class DealSchedule
             $schedule = TourSchedule::whereBitrixId($bitrix_id)->first();
             $tour = Tour::whereBitrixId($data[DealFields::FIELD_SCHEDULE_TOUR_ID])->first();
             if ($tour === null) {
-                Log::error('Tour with bitrix_id = ' . $data[DealFields::FIELD_SCHEDULE_TOUR_ID] . ' not found');
+                Log::error('Tour with bitrix_id = '.$data[DealFields::FIELD_SCHEDULE_TOUR_ID].' not found');
+
                 return;
             }
 

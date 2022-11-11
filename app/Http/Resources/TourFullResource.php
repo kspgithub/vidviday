@@ -193,7 +193,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TourFullResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -219,7 +219,7 @@ class TourFullResource extends JsonResource
             'badges' => $this->badges,
             'schedules' => ScheduleResource::collection($this->scheduleItems),
             'directions' => $this->getDirectionsToExport(),
-//            'subjects' => $this->getSubjectsToExport(),
+            //            'subjects' => $this->getSubjectsToExport(),
             'types' => $this->getTypesToExport(),
             'places' => $this->getPlacesToExport(),
             'includes' => $this->getIncludesToExport(),

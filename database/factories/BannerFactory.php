@@ -22,7 +22,7 @@ class BannerFactory extends Factory
     public function definition()
     {
         \Storage::makeDirectory('public/banners');
-        $image =  $this->faker->image('storage/app/public/banners', 948, 516, null, false);
+        $image = $this->faker->image('storage/app/public/banners', 948, 516, null, false);
 
         return [
             //

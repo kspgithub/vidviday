@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return !($this->user->isMasterAdmin() && !$this->user()->isMasterAdmin());
+        return ! ($this->user->isMasterAdmin() && ! $this->user()->isMasterAdmin());
     }
 
     /**
@@ -49,10 +49,10 @@ class UpdateUserRequest extends FormRequest
             'website' => ['url', 'nullable'],
             'avatar_upload' => ['mimes:jpg,png'],
             'role' => ['required', Rule::exists('roles', 'name')],
-//            'roles' => ['sometimes', 'array'],
-//            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],
-//            'permissions' => ['sometimes', 'array'],
-//            'permissions.*' => [Rule::exists('permissions', 'id')->where('name', $this->permissions)],
+            //            'roles' => ['sometimes', 'array'],
+            //            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],
+            //            'permissions' => ['sometimes', 'array'],
+            //            'permissions.*' => [Rule::exists('permissions', 'id')->where('name', $this->permissions)],
         ];
     }
 
@@ -63,10 +63,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'role.exists' => __('Role not found or are not allowed to be associated with this user.'),
-            'roles.*.exists' =>
-                __('One or more roles were not found or are not allowed to be associated with this user type.'),
-            'permissions.*.exists' =>
-                __('One or more permissions were not found or are not allowed to be associated with this user type.'),
+            'roles.*.exists' => __('One or more roles were not found or are not allowed to be associated with this user type.'),
+            'permissions.*.exists' => __('One or more permissions were not found or are not allowed to be associated with this user type.'),
         ];
     }
 
@@ -74,8 +72,8 @@ class UpdateUserRequest extends FormRequest
      * Handle a failed authorization attempt.
      *
      * @return void
-     * @throws AuthorizationException
      *
+     * @throws AuthorizationException
      */
     protected function failedAuthorization()
     {

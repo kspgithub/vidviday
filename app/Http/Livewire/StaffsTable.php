@@ -34,7 +34,7 @@ class StaffsTable extends DataTableComponent
     public function query(): Builder|Relation
     {
         $type = $this->getFilter('type');
-        $query = Staff::query()->when(!empty($type), fn ($query) => $query->whereHas('types', fn ($q) => $q->where('slug', $type)))
+        $query = Staff::query()->when(! empty($type), fn ($query) => $query->whereHas('types', fn ($q) => $q->where('slug', $type)))
             ->withCount(['tours']);
 
         return $query;
@@ -47,7 +47,6 @@ class StaffsTable extends DataTableComponent
         'bootstrap.container' => false,
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
-
 
     /**
      * @return array
@@ -72,9 +71,8 @@ class StaffsTable extends DataTableComponent
                     $query->whereRaw("CONCAT_WS(' ', last_name, first_name) LIKE '%$searchTerm%'");
                 })
                 ->format(function ($value, $column, $row) {
-                    return $row->last_name . ' ' . $row->first_name;
+                    return $row->last_name.' '.$row->first_name;
                 }),
-
 
             Column::make(__('Type'), 'type')
                 ->format(function ($value, $column, $row) {

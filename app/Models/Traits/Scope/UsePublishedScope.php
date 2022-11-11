@@ -6,6 +6,6 @@ trait UsePublishedScope
 {
     public function scopePublished($query)
     {
-        return $query->where($this->getTable() . '.published', 1);
+        return $query->where($this->getTable().'.published', 1);
     }
 }

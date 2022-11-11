@@ -39,17 +39,18 @@ trait DirectionRelationship
         $groups = [];
         foreach ($this->events as $event) {
             foreach ($event->groups as $group) {
-                if (!isset($groups[$group->id])) {
-                    $groups[$group->id] = (object)[
+                if (! isset($groups[$group->id])) {
+                    $groups[$group->id] = (object) [
                         'id' => $group->id,
                         'title' => $group->title,
                         'slug' => $group->slug,
-                        'events' => collect()
+                        'events' => collect(),
                     ];
                 }
                 $groups[$group->id]->events->push($event);
             }
         }
+
         return collect(array_values($groups));
     }
 }

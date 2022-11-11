@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Admin\User;
 
 use App\Models\User;
+use App\Rules\PasswordRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Rules\PasswordRules;
 
 /**
  * Class StoreUserRequest.
@@ -52,10 +52,10 @@ class StoreUserRequest extends FormRequest
             'email_verified' => ['integer', 'nullable'],
             'send_confirmation_email' => ['integer', 'nullable'],
             'role' => ['required', Rule::exists('roles', 'name')],
-//            'roles' => ['sometimes', 'array'],
-//            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],
-//            'permissions' => ['sometimes', 'array'],
-//            'permissions.*' => [Rule::exists('permissions', 'id')->where('name', $this->permissions)],
+            //            'roles' => ['sometimes', 'array'],
+            //            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],
+            //            'permissions' => ['sometimes', 'array'],
+            //            'permissions.*' => [Rule::exists('permissions', 'id')->where('name', $this->permissions)],
         ];
     }
 
@@ -66,10 +66,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'role.exists' => __('Role not found or are not allowed to be associated with this user.'),
-            'roles.*.exists' =>
-                __('One or more roles were not found or are not allowed to be associated with this user type.'),
-            'permissions.*.exists' =>
-                __('One or more permissions were not found or are not allowed to be associated with this user type.'),
+            'roles.*.exists' => __('One or more roles were not found or are not allowed to be associated with this user type.'),
+            'permissions.*.exists' => __('One or more permissions were not found or are not allowed to be associated with this user type.'),
         ];
     }
 }

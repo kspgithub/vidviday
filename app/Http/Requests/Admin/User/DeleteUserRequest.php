@@ -20,7 +20,7 @@ class DeleteUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return !$this->user->isMasterAdmin();
+        return ! $this->user->isMasterAdmin();
     }
 
     /**
@@ -39,8 +39,8 @@ class DeleteUserRequest extends FormRequest
      * Handle a failed authorization attempt.
      *
      * @return void
-     * @throws AuthorizationException
      *
+     * @throws AuthorizationException
      */
     protected function failedAuthorization()
     {

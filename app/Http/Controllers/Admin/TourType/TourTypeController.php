@@ -40,8 +40,7 @@ class TourTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -57,8 +56,7 @@ class TourTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param TourType $tourType
-     *
+     * @param  TourType  $tourType
      * @return View
      */
     public function edit(TourType $tourType)
@@ -70,9 +68,8 @@ class TourTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param TourType $tourType
-     *
+     * @param  Request  $request
+     * @param  TourType  $tourType
      * @return Response|JsonResponse
      */
     public function update(Request $request, TourType $tourType)
@@ -83,14 +80,14 @@ class TourTypeController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.tour-type.edit', $tourType)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param TourType $tourType
-     *
+     * @param  TourType  $tourType
      * @return Response
      */
     public function destroy(TourType $tourType)
@@ -100,5 +97,4 @@ class TourTypeController extends Controller
 
         return redirect()->route('admin.tour-type.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

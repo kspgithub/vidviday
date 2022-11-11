@@ -37,12 +37,12 @@ class BaseTemplateEmail extends Mailable
 
         $locale = app()->getLocale();
 
-        if($template) {
+        if ($template) {
             $subject = $template->getTranslation('subject', $locale);
             $html = $template->getTranslation('html', $locale);
 
             foreach ($this->getReplaces() as $key => $value) {
-                $replaceFrom = '{{ ' . $key . ' }}';
+                $replaceFrom = '{{ '.$key.' }}';
                 $replaceTo = is_callable($value) ? $value() : $value;
                 $subject = str_replace($replaceFrom, $replaceTo, $subject);
                 $html = str_replace($replaceFrom, $replaceTo, $html);

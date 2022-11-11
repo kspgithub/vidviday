@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Mail\CustomEmail;
-use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -44,7 +43,7 @@ class MailTest extends Command
         $message = $this->option('message');
         $subject = $this->option('subject');
 
-        if (!empty($to)) {
+        if (! empty($to)) {
             Mail::to($to)->queue(new CustomEmail($message, $subject));
         }
 

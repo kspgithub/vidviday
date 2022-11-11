@@ -14,8 +14,6 @@ use Illuminate\Http\UploadedFile;
  * @property string $title
  * @property string $alt
  * @property UploadedFile $media_file
- *
- * @package App\Http\Requests
  */
 class UploadMediaRequest extends FormRequest
 {
@@ -38,19 +36,19 @@ class UploadMediaRequest extends FormRequest
     {
         return [
             //
-            'model_type'=>['required', 'string'],
-            'model_id'=>['required', 'integer'],
-            'media_file'=>['required', 'file'],
-            'collection'=>['nullable', 'string'],
-            'title'=>['nullable', 'string'],
-            'alt'=>['nullable', 'string'],
+            'model_type' => ['required', 'string'],
+            'model_id' => ['required', 'integer'],
+            'media_file' => ['required', 'file'],
+            'collection' => ['nullable', 'string'],
+            'title' => ['nullable', 'string'],
+            'alt' => ['nullable', 'string'],
         ];
     }
 
     public function messages()
     {
         return array_merge(parent::messages(), [
-            'media_file'=>__('No file'),
+            'media_file' => __('No file'),
         ]);
     }
 }

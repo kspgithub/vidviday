@@ -10,13 +10,14 @@ use Illuminate\Http\Request;
 class LandingPlaceController extends Controller
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return View
      */
     public function index(Request $request)
     {
         //
         $items = LandingPlace::query()->paginate($request->input('per_page', 20));
+
         return view('admin.landing-place.index', ['items' => $items]);
     }
 
@@ -27,8 +28,8 @@ class LandingPlaceController extends Controller
     {
         //
         $landingPlace = new LandingPlace();
-        return view('admin.landing-place.create', ['model' => $landingPlace]);
 
+        return view('admin.landing-place.create', ['model' => $landingPlace]);
     }
 
     public function store(Request $request)
@@ -40,9 +41,9 @@ class LandingPlaceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Created'), 'model' => $landingPlace]);
         }
+
         return redirect()->route('admin.landing-place.index')->withFlashSuccess(__('Record Created'));
     }
-
 
     public function edit(LandingPlace $landingPlace)
     {
@@ -58,6 +59,7 @@ class LandingPlaceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $landingPlace]);
         }
+
         return redirect()->route('admin.landing-place.index')->withFlashSuccess(__('Record Updated'));
     }
 
@@ -68,6 +70,7 @@ class LandingPlaceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Deleted'), 'model' => $landingPlace]);
         }
+
         return redirect()->route('admin.landing-place.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

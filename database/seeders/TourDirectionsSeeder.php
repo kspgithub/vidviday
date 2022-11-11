@@ -10,6 +10,7 @@ use Illuminate\Database\Seeder;
 class TourDirectionsSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
+
     /**
      * Run the database seeds.
      *
@@ -22,12 +23,12 @@ class TourDirectionsSeeder extends Seeder
         $this->truncate('directions');
         $lorem = lipsum(10);
         $items = [
-            ['title'=>['uk'=>'Волинь'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Буковина'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Галичина'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Карпати'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Херсонщина'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Львівщина'], 'text'=>['uk'=>$lorem],  'published'=>1],
+            ['title' => ['uk' => 'Волинь'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Буковина'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Галичина'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Карпати'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Херсонщина'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Львівщина'], 'text' => ['uk' => $lorem],  'published' => 1],
         ];
 
         foreach ($items as $item) {

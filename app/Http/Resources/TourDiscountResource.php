@@ -83,7 +83,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TourDiscountResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -96,7 +96,7 @@ class TourDiscountResource extends JsonResource
             'currency' => $this->currency,
             'category' => $this->category,
             'duration' => $this->duration,
-            'age_limit' => !!$this->age_limit,
+            'age_limit' => (bool) $this->age_limit,
             'age_start' => $this->age_start,
             'age_end' => $this->age_end,
         ];

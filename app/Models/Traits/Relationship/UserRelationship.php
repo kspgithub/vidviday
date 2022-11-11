@@ -7,12 +7,10 @@ use App\Models\Tour;
 
 trait UserRelationship
 {
-
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id')->orderBy('created_at', 'desc');
     }
-
 
     public function tourHistory()
     {

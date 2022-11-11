@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
-use App\Models\Direction;
 use App\Models\EventGroup;
 use App\Models\EventItem;
 use App\Models\Page;
 use App\Models\PopupAd;
-
 
 class EventController extends Controller
 {
@@ -29,7 +27,6 @@ class EventController extends Controller
             'popupAds' => $popupAds,
         ]);
     }
-
 
     public function show(string $slug)
     {

@@ -14,8 +14,6 @@ use Illuminate\Contracts\View\View;
 
 class TourIncludeController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +21,7 @@ class TourIncludeController extends Controller
      */
     public function index()
     {
-        return view("admin.tour-include.index");
+        return view('admin.tour-include.index');
     }
 
     /**
@@ -39,18 +37,17 @@ class TourIncludeController extends Controller
 
         $includeTypes = IncludeType::toSelectBox('title', 'id');
 
-        return view("admin.tour-include.create", [
-            "tourInclude" => $tourInclude,
-            'includeTypes'=> $includeTypes,
-            'tours'=> $tours,
+        return view('admin.tour-include.create', [
+            'tourInclude' => $tourInclude,
+            'includeTypes' => $includeTypes,
+            'tours' => $tours,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TourIncludeBasicRequest $request
-     *
+     * @param  TourIncludeBasicRequest  $request
      * @return mixed
      */
     public function store(TourIncludeBasicRequest $request)
@@ -60,17 +57,14 @@ class TourIncludeController extends Controller
         $tourInclude->fill($request->all());
         $tourInclude->save();
 
-        return redirect()->route('admin.tour-include.index', ["tourInclude" => $tourInclude])
+        return redirect()->route('admin.tour-include.index', ['tourInclude' => $tourInclude])
                          ->withFlashSuccess(__('Record created.'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param TourInclude $tourInclude
-     *
+     * @param  TourInclude  $tourInclude
      * @return Application|Factory|View
      */
     public function edit(TourInclude $tourInclude)
@@ -80,19 +74,17 @@ class TourIncludeController extends Controller
         $includeTypes = IncludeType::toSelectBox('title', 'id');
 
         return view('admin.tour-include.edit', [
-            'tourInclude'=> $tourInclude,
-            'includeTypes'=> $includeTypes,
-            'tours'=> $tours,
+            'tourInclude' => $tourInclude,
+            'includeTypes' => $includeTypes,
+            'tours' => $tours,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param TourIncludeBasicRequest $request
-     *
-     * @param TourInclude $tourInclude
-     *
+     * @param  TourIncludeBasicRequest  $request
+     * @param  TourInclude  $tourInclude
      * @return mixed
      *
      * @throws GeneralException
@@ -109,8 +101,7 @@ class TourIncludeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param TourInclude $tourInclude
-     *
+     * @param  TourInclude  $tourInclude
      * @return mixed
      */
     public function destroy(TourInclude $tourInclude)

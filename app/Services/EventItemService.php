@@ -32,8 +32,6 @@ class EventItemService extends BaseService
     {
         DB::beginTransaction();
 
-
-
         try {
             $eventItem->fill($params);
             $eventItem->save();
@@ -49,9 +47,9 @@ class EventItemService extends BaseService
             }
             if (isset($params['mobile_image_upload'])) {
                 $eventItem->storeMedia($params['mobile_image_upload'], 'mobile', [
-                    'width'=>320,
-                    'height'=>320,
-                    'fit'=>Manipulations::FIT_CROP,
+                    'width' => 320,
+                    'height' => 320,
+                    'fit' => Manipulations::FIT_CROP,
                 ]);
             }
         } catch (Exception $e) {

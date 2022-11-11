@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Vacancy\VacancyController;
 
 Route::get('/vacancies', [VacancyController::class, 'index'])->name('vacancy.index');

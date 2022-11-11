@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
 /**
  * @mixin \App\Models\Tour
  *
@@ -136,12 +135,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         @OA\Items( ref="#/components/schemas/Schedule")
  *     ),
  * ),
- *
  */
 class TourShortResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -162,7 +160,7 @@ class TourShortResource extends JsonResource
             'main_image' => $this->main_image,
             'thumb' => $this->mobile_image,
             'badges' => $this->badges,
-            'schedules' => ScheduleResource::collection($this->scheduleItems)
+            'schedules' => ScheduleResource::collection($this->scheduleItems),
         ];
     }
 }

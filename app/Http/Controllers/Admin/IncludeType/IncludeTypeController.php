@@ -12,8 +12,6 @@ use Illuminate\Contracts\View\View;
 
 class IncludeTypeController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +19,7 @@ class IncludeTypeController extends Controller
      */
     public function index()
     {
-        return view("admin.include-type.index");
+        return view('admin.include-type.index');
     }
 
     /**
@@ -33,16 +31,15 @@ class IncludeTypeController extends Controller
     {
         $includeType = new IncludeType();
 
-        return view("admin.include-type.create", [
-            "includeType" => $includeType
+        return view('admin.include-type.create', [
+            'includeType' => $includeType,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param IncludeTypeBasicRequest $request
-     *
+     * @param  IncludeTypeBasicRequest  $request
      * @return mixed
      */
     public function store(IncludeTypeBasicRequest $request)
@@ -52,32 +49,28 @@ class IncludeTypeController extends Controller
         $includeType->fill($request->all());
         $includeType->save();
 
-        return redirect()->route('admin.include-type.index', ["includeType" => $includeType])
+        return redirect()->route('admin.include-type.index', ['includeType' => $includeType])
                          ->withFlashSuccess(__('Record created.'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param IncludeType $includeType
-     *
+     * @param  IncludeType  $includeType
      * @return Application|Factory|View
      */
     public function edit(IncludeType $includeType)
     {
-        return view("admin.include-type.edit", [
-            "includeType" => $includeType
+        return view('admin.include-type.edit', [
+            'includeType' => $includeType,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param IncludeTypeBasicRequest $request
-     *
-     * @param IncludeType $includeType
-     *
+     * @param  IncludeTypeBasicRequest  $request
+     * @param  IncludeType  $includeType
      * @return mixed
      *
      * @throws GeneralException
@@ -94,8 +87,7 @@ class IncludeTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param IncludeType $includeType
-     *
+     * @param  IncludeType  $includeType
      * @return mixed
      */
     public function destroy(IncludeType $includeType)

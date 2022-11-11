@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +23,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view("admin.ticket.index");
+        return view('admin.ticket.index');
     }
 
     /**
@@ -41,18 +40,17 @@ class TicketController extends Controller
         $currencies = Currency::toSelectBox('iso', 'iso');
         $regions = Region::toSelectBox();
 
-        return view("admin.ticket.create", [
-            "ticket" => $ticket,
-            "currencies" => $currencies,
-            "regions" => $regions,
+        return view('admin.ticket.create', [
+            'ticket' => $ticket,
+            'currencies' => $currencies,
+            'regions' => $regions,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TicketBasicRequest $request
-     *
+     * @param  TicketBasicRequest  $request
      * @return mixed
      */
     public function store(TicketBasicRequest $request)
@@ -62,15 +60,13 @@ class TicketController extends Controller
         $ticket->fill($request->all());
         $ticket->save();
 
-        return redirect()->route('admin.ticket.index', ["ticket" => $ticket])->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.ticket.index', ['ticket' => $ticket])->withFlashSuccess(__('Record Created'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Ticket $ticket
-     *
+     * @param  Ticket  $ticket
      * @return Application|Factory|View
      */
     public function edit(Ticket $ticket)
@@ -80,18 +76,16 @@ class TicketController extends Controller
 
         return view('admin.ticket.edit', [
             'ticket' => $ticket,
-            "currencies" => $currencies,
-            "regions" => $regions,
+            'currencies' => $currencies,
+            'regions' => $regions,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param TicketBasicRequest $request
-     *
-     * @param Ticket $ticket
-     *
+     * @param  TicketBasicRequest  $request
+     * @param  Ticket  $ticket
      * @return mixed
      *
      * @throws GeneralException
@@ -107,8 +101,7 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Ticket $ticket
-     *
+     * @param  Ticket  $ticket
      * @return mixed
      */
     public function destroy(Ticket $ticket)
@@ -118,18 +111,18 @@ class TicketController extends Controller
         return redirect()->route('admin.ticket.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-
     /**
      * Update status the specified resource.
      *
-     * @param Request $request
-     * @param Ticket $ticket
+     * @param  Request  $request
+     * @param  Ticket  $ticket
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Ticket $ticket)
     {
-        $ticket->published = (int)$request->input('published');
+        $ticket->published = (int) $request->input('published');
         $ticket->save();
+
         return response()->json(['result' => 'Success']);
     }
 }

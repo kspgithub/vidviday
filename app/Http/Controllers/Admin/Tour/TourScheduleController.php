@@ -33,19 +33,19 @@ class TourScheduleController extends Controller
         if ($request->ajax()) {
             $query = $tour->scheduleItems()->with(['orders']);
 
-
             $sort = $request->input('order', 'start_date:desc');
             $sortParts = explode(':', $sort);
             $query->orderBy($sortParts[0] ?? 'start_date', $sortParts[1] ?? 'desc');
 
             $paginator = $query->paginate($request->input('per_page', 20));
-            $paginator->getCollection()->transform(fn($item) => $item->asCrmSchedule());
+            $paginator->getCollection()->transform(fn ($item) => $item->asCrmSchedule());
 
             return response()->json($paginator);
         }
 
         $currencies = Currency::toSelectBox('iso', 'iso');
         $can_edit = $tour->userCanEditTour(current_user());
+
         return view('admin.tour-schedule.index', ['tour' => $tour, 'currencies' => $currencies, 'can_edit' => $can_edit]);
     }
 
@@ -69,7 +69,6 @@ class TourScheduleController extends Controller
             $schedule->auto_booking = $request->input('auto_booking', false);
             $schedule->auto_limit = $request->input('auto_limit', 10);
 
-
             $totalDayNights = $tour->duration + $tour->nights;
             if ($tour->duration > $tour->nights) {
                 $duration = floor($totalDayNights / 2);
@@ -81,7 +80,7 @@ class TourScheduleController extends Controller
             $end = $request->input('end_date', null);
 
             $startDate = Carbon::createFromFormat('d.m.Y', $start);
-            $endDate = !empty($end) ? Carbon::createFromFormat('d.m.Y', $end) : $startDate->addDays($duration);
+            $endDate = ! empty($end) ? Carbon::createFromFormat('d.m.Y', $end) : $startDate->addDays($duration);
 
             switch ($repeat) {
                 case 'daily':
@@ -103,7 +102,7 @@ class TourScheduleController extends Controller
                         $start_date = $startDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
                         $end_date = $endDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
                     } else {
-                        $interval = (int)$interval;
+                        $interval = (int) $interval;
                         $startDateModified = $startDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
                         $endDateModified = $endDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
                         while ($startDateModified->lessThan($start)) {
@@ -127,7 +126,6 @@ class TourScheduleController extends Controller
             $schedules[] = $schedule->asCrmSchedule();
         }
 
-
         return response()->json([
             'result' => 'success',
             'message' => __('Record Created'),
@@ -135,12 +133,12 @@ class TourScheduleController extends Controller
         ]);
     }
 
-
     public function update(Request $request, Tour $tour, TourSchedule $schedule)
     {
         Gate::allows('update', $schedule);
         $schedule->fill($request->all());
         $schedule->save();
+
         return response()->json([
             'result' => 'success',
             'message' => __('Record Updated'),
@@ -148,11 +146,11 @@ class TourScheduleController extends Controller
         ]);
     }
 
-
     public function destroy(Request $request, Tour $tour, TourSchedule $schedule)
     {
         Gate::allows('delete', $schedule);
         $schedule->delete();
+
         return response()->json([
             'result' => 'success',
             'message' => __('Record Deleted'),

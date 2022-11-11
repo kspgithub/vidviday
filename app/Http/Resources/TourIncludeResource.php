@@ -35,12 +35,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TourIncludeResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
-
         return [
             'id' => $this->type_id,
             'title' => $this->type->getTranslations('title'),

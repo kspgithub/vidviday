@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Tour;
 use App\Models\TourVoting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

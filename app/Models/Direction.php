@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\DirectionRelationship;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -40,7 +38,6 @@ class Direction extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-
     public $translatable = [
         'title',
         'text',
@@ -65,7 +62,7 @@ class Direction extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -75,6 +72,4 @@ class Direction extends TranslatableModel implements HasMedia
             //->usingLanguage('uk')
             ->saveSlugsTo('slug');
     }
-
-
 }

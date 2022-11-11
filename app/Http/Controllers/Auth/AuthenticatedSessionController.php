@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -25,8 +24,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      *
-     * @param LoginRequest $request
-     *
+     * @param  LoginRequest  $request
      * @return RedirectResponse
      */
     public function store(LoginRequest $request)
@@ -37,11 +35,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
-        if($user->isTourAgent()) {
-            if(!$user->isVerified()) {
+        if ($user->isTourAgent()) {
+            if (! $user->isVerified()) {
                 return $this->destroy($request)->withFlashDanger(__('E-mail Verification Failure'));
             }
-            if(!$user->isActive()) {
+            if (! $user->isActive()) {
                 return $this->destroy($request)->withFlashDanger(__('E-mail Verification is pending'));
             }
         }
@@ -52,8 +50,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function destroy(Request $request)

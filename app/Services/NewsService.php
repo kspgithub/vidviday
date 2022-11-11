@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
-
 use App\Models\News;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +14,7 @@ class NewsService extends BaseService
     /**
      * NewsService constructor.
      *
-     * @param News $news
+     * @param  News  $news
      */
     public function __construct(News $news)
     {
@@ -48,9 +47,9 @@ class NewsService extends BaseService
             }
             if (isset($params['mobile_image_upload'])) {
                 $news->storeMedia($params['mobile_image_upload'], 'mobile', [
-                    'width'=>320,
-                    'height'=>320,
-                    'fit'=>Manipulations::FIT_CROP,
+                    'width' => 320,
+                    'height' => 320,
+                    'fit' => Manipulations::FIT_CROP,
                 ]);
             }
         } catch (Exception $e) {

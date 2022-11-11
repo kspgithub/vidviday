@@ -9,11 +9,10 @@ trait UsePaymentOnline
 {
     public function paymentOnline(PurchaseTransaction $transaction, array $data = [])
     {
-        $amount = (int)$data['amount'];
+        $amount = (int) $data['amount'];
         if ($transaction->notApproved() &&
             ($data['transactionStatus'] === PurchaseTransaction::ORDER_APPROVED ||
                 $data['transactionStatus'] === PurchaseTransaction::ORDER_HOLD_APPROVED)) {
-
             $this->payment_online += $amount;
             $this->payment_status = self::PAYMENT_COMPLETE;
             $payment_data = empty($this->payment_data) ? [] : $this->payment_data;
@@ -29,7 +28,7 @@ trait UsePaymentOnline
             $this->save();
         } elseif ($transaction->notRefunded() && $data['transactionStatus'] === PurchaseTransaction::ORDER_REFUNDED) {
             $amount = -$amount;
-            $this->payment_online -= (int)$data['amount'];
+            $this->payment_online -= (int) $data['amount'];
             $this->payment_status = self::PAYMENT_RETURNED;
             $payment_data = empty($this->payment_data) ? [] : $this->payment_data;
             $payment_data[] = [
@@ -49,5 +48,4 @@ trait UsePaymentOnline
 
         $this->transactions()->where('transactionStatus', 'New')->forceDelete();
     }
-
 }

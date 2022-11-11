@@ -23,9 +23,9 @@ class FaqItemFactory extends Factory
     {
         return [
             //
-            'section'=> $this->faker->randomElement(array_keys(FaqItem::$sections)),
-            'question'=> $this->faker->realText(50),
-            'answer'=> $this->faker->realText(500),
+            'section' => $this->faker->randomElement(array_keys(FaqItem::$sections)),
+            'question' => $this->faker->realText(50),
+            'answer' => $this->faker->realText(500),
         ];
     }
 }

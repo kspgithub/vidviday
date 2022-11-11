@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-
 /** @see \App\Models\Tour
  * @OA\Schema(
  *     schema="PaginageTourResult",
@@ -34,7 +33,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class TourShortCollection extends ResourceCollection
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)

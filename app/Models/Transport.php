@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasImage;
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -10,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -39,7 +39,7 @@ class Transport extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -61,12 +61,10 @@ class Transport extends TranslatableModel implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'
-    )
-    {
+    ) {
         return [
             $value_key => $this->id,
             $text_key => $this->title,

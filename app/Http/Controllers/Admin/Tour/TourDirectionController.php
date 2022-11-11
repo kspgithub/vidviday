@@ -16,9 +16,9 @@ class TourDirectionController extends Controller
         $selected_ids = $tour->directions()->pluck('id')->toArray();
 
         return view('admin.tour.directions', [
-            'tour'=>$tour,
-            'options'=>$options,
-            'selected_ids'=>$selected_ids,
+            'tour' => $tour,
+            'options' => $options,
+            'selected_ids' => $selected_ids,
         ]);
     }
 

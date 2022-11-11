@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Corporate;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\FaqItem;
-use App\Models\Tour;
+use App\Models\Page;
 use App\Services\TourService;
 
 class CorporateController extends Controller
@@ -20,8 +19,7 @@ class CorporateController extends Controller
         return view('corporate.index', [
             'pageContent' => $pageContent,
             'faqItems' => $faqItems,
-            'tours' => $tours
+            'tours' => $tours,
         ]);
-
     }
 }
