@@ -14,7 +14,6 @@ use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourGroup;
 use App\Models\TourPlan;
-use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
@@ -55,7 +54,6 @@ class TourBitrixSeeder extends Seeder
         Media::where('model_type', Tour::class)->delete();
         Testimonial::where('model_type', Tour::class)->orWhere('related_type', Tour::class)->delete();
 
-
         $directions = Direction::select('id')->get();
         $badges = Badge::select('id')->get();
         $groups = TourGroup::select('id')->get();
@@ -70,7 +68,6 @@ class TourBitrixSeeder extends Seeder
         $leaders = Staff::query()->whereHas('types', function (Builder $q) {
             return $q->where('slug', 'excursion-leader');
         })->get();
-
 
         $dates = collect();
         for ($i = 1; $i < 300; $i += 1) {
@@ -127,6 +124,5 @@ class TourBitrixSeeder extends Seeder
                 ]));
             }
         }
-
     }
 }

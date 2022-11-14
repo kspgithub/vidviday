@@ -8,52 +8,40 @@ use App\Http\Requests\Tour\TestimonialRequest;
 use App\Http\Requests\Tour\TourQuestionRequest;
 use App\Http\Requests\TourOrderRequest;
 use App\Http\Requests\TourVotingRequest;
-use App\Lib\Bitrix24\CRM\Deal\DealOrder;
-use App\Mail\TourOrderAdminEmail;
-use App\Mail\TourOrderEmail;
 use App\Models\AccommodationType;
 use App\Models\FaqItem;
-use App\Models\IncludeType;
 use App\Models\Order;
 use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
-use App\Models\TourDiscount;
 use App\Models\TourGroup;
 use App\Models\TourQuestion;
-use App\Models\TourSchedule;
 use App\Models\TourVoting;
-use App\Models\WrongQuery;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\TourService;
-use Exception;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-
 
 class TourController extends Controller
 {
     /**
-     * @param Request $request
-     * @param TourGroup|null|mixed $group
+     * @param Request  $request
+     * @param TourGroup|null|mixed  $group
+     *
      * @return View
      */
     public function index(Request $request, TourGroup $group)
     {
-        if (!$group->exists) {
+        if (! $group->exists) {
             $query = Tour::search(false)->filter($request->all());
             $tours = $query->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
 
-            if(!$tours->count() && ($q = $request->get('q'))) {
+            if (! $tours->count() && ($q = $request->get('q'))) {
                 TourService::handleWrongRequest($request);
             }
 
@@ -78,10 +66,8 @@ class TourController extends Controller
         ]);
     }
 
-
     public function show(string $slug)
     {
-
         /**
          * @var Tour $tour
          */
@@ -121,13 +107,13 @@ class TourController extends Controller
 
                 $q->where('ip', $ip);
 
-                if($user && $user->id) {
+                if ($user && $user->id) {
                     $q->orWhere('user_id', $user->id);
                 }
-                if($user && $user->email) {
+                if ($user && $user->email) {
                     $q->orWhere('email', $user->email);
                 }
-                if($user && $user->phone) {
+                if ($user && $user->phone) {
                     $q->orWhere('phone', $user->phone);
                 }
 
@@ -144,11 +130,13 @@ class TourController extends Controller
             'votings',
         ]);
 
-        $tour->loadAvg(['testimonials' => function ($q) {
-            return $q->moderated()
+        $tour->loadAvg([
+            'testimonials' => function ($q) {
+                return $q->moderated()
                 ->orderBy('rating', 'desc')
                 ->latest();
-        }], 'rating');
+            },
+        ], 'rating');
 
         $future_events = $tour->schedulesForBooking();
 
@@ -168,7 +156,7 @@ class TourController extends Controller
         $pictures = $tour->getMedia('main');
         $tourPictures = $tour->getMedia('pictures', ['published' => true]);
 
-        if($tourPictures->count()) {
+        if ($tourPictures->count()) {
             $pictures = $pictures->merge($tourPictures);
         }
 
@@ -191,17 +179,16 @@ class TourController extends Controller
         return view('tour.show', $viewData);
     }
 
-
     public function question(TourQuestionRequest $request, Tour $tour)
     {
         $question = new TourQuestion();
         $question->fill($request->validated());
-        $question->name = $request->last_name . ' ' . $request->first_name;
+        $question->name = $request->last_name.' '.$request->first_name;
         $question->tour_id = $tour->id;
         $user = current_user();
         if ($user) {
             $question->user_id = $user->id;
-            if (!empty($user->avatar)) {
+            if (! empty($user->avatar)) {
                 $question->avatar = $user->avatar;
             }
         }
@@ -214,13 +201,12 @@ class TourController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thank you for your question!'),
-                'question' => $question
+                'question' => $question,
             ]);
         }
 
         return redirect($tour->url)->withFlashSuccess(__('Thank you for your question!'));
     }
-
 
     public function testimonials(Request $request, Tour $tour)
     {
@@ -259,24 +245,23 @@ class TourController extends Controller
         return response()->json($children);
     }
 
-
     public function testimonial(TestimonialRequest $request, Tour $tour)
     {
         $testimonial = new Testimonial();
         $testimonial->model_type = Tour::class;
         $testimonial->model_id = $tour->id;
         $testimonial->fill($request->validated());
-        $testimonial->name = $request->last_name . ' ' . $request->first_name;
+        $testimonial->name = $request->last_name.' '.$request->first_name;
         $user = current_user();
 
-        if ((int)$request->guide_id > 0) {
+        if ((int) $request->guide_id > 0) {
             $testimonial->related_type = Staff::class;
-            $testimonial->related_id = (int)$request->guide_id;
+            $testimonial->related_id = (int) $request->guide_id;
         }
 
         if ($user) {
             $testimonial->user_id = $user->id;
-            if (!empty($user->avatar)) {
+            if (! empty($user->avatar)) {
                 $testimonial->avatar = $user->avatar;
             }
         }
@@ -298,7 +283,7 @@ class TourController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'question' => $testimonial
+                'question' => $testimonial,
             ]);
         }
 
@@ -330,27 +315,27 @@ class TourController extends Controller
         $params['tour_id'] = $tour->id;
         $order = OrderService::createOrder($params);
 
-
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);
             }
-            return back()->withFlashError('Помилка при замовлені туру');
-        } else {
-            $order->syncContact();
-            MailNotificationService::adminTourOrder($order);
-            MailNotificationService::userTourOrder($order);
 
-            if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
-                $redirect_route = 'order.purchase';
-            } else {
-                $redirect_route = 'order.success';
-            }
-            if ($request->ajax()) {
-                return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
-            }
-            return redirect()->route($redirect_route, $order);
+            return back()->withFlashError('Помилка при замовлені туру');
         }
+        $order->syncContact();
+        MailNotificationService::adminTourOrder($order);
+        MailNotificationService::userTourOrder($order);
+
+        if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
+            $redirect_route = 'order.purchase';
+        } else {
+            $redirect_route = 'order.success';
+        }
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
+        }
+
+        return redirect()->route($redirect_route, $order);
     }
 
     public function voting(TourVotingRequest $request, Tour $tour)
@@ -372,25 +357,22 @@ class TourController extends Controller
             return $q;
         });
 
-        if (!$existing->count()) {
+        if (! $existing->count()) {
             $tour->votings()->create($params);
 
             return response()->json(['result' => 'success']);
-        } else {
-
-            return response()->json(['result' => 'error', 'message' => __('tours-section.already-voted')]);
         }
+
+        return response()->json(['result' => 'error', 'message' => __('tours-section.already-voted')]);
     }
 
     public function votingSuccess(Tour $tour, TourVoting $voting)
     {
-
         return view('tour.success', ['tour' => $tour, 'voting' => $voting]);
     }
 
     public function download()
     {
         return Excel::download(new ScheduleExport(), 'tours.xlsx');
-
     }
 }

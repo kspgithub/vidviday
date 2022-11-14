@@ -60,7 +60,7 @@ class News extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     public static function boot()
@@ -77,7 +77,6 @@ class News extends TranslatableModel implements HasMedia
                 $model->created_at = now();
             }
         });
-
     }
 
     public function registerMediaConversions(Media $media = null): void

@@ -20,14 +20,13 @@ class UserController extends Controller
         return current_user();
     }
 
-
     public function feedback(FeedbackRequest $request)
     {
-        $question = new  UserQuestion();
+        $question = new UserQuestion();
         $question->fill($request->validated());
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
-            $file_name = md5(time() . rand(0, 1000)) . '.' . $file->getClientOriginalExtension();
+            $file_name = md5(time().rand(0, 1000)).'.'.$file->getClientOriginalExtension();
             $question->attachment_name = $file->getClientOriginalName();
             $question->attachment = $file->storeAs('public/uploads/user', $file_name);
         }
@@ -41,13 +40,13 @@ class UserController extends Controller
         return response()->json(['result' => 'success', 'message' => __('Thanks for your feedback!')]);
     }
 
-
     public function favourites()
     {
         $user = current_user();
         if ($user) {
             return array_values($user->tourFavourites()->get(['id'])->pluck('id')->toArray());
         }
+
         return [];
     }
 
@@ -56,11 +55,12 @@ class UserController extends Controller
         $user = current_user();
         if ($user) {
             $user->tourFavourites()->toggle($id);
+
             return array_values($user->tourFavourites()->get(['id'])->pluck('id')->toArray());
         }
+
         return [];
     }
-
 
     public function subscription(Request $request)
     {

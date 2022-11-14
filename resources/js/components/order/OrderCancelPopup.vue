@@ -11,8 +11,7 @@
                         <span class="text">Зверніть будь ласка увагу на наші <a href="#">Умови скасування</a></span>
                     </div>
                     <div class="spacer-xs"></div>
-                    <form @submit.prevent="onSubmit" :action="actionURL" method="post"
-                          class="row">
+                    <form :action="actionURL" method="post" class="row" @submit.prevent="onSubmit">
                         <div class="col-12">
                             <select v-model="cause">
                                 <option value="0" selected disabled>Причина скасування*</option>
@@ -28,10 +27,10 @@
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" class="btn type-1 btn-block" :disabled="request">Погоджуюсь на умови
-                                скасування
+                            <button type="submit" class="btn type-1 btn-block" :disabled="request">
+                                Погоджуюсь на умови скасування
                             </button>
-                            <div class="text text-sm">{{__('forms.required-fields')}}</div>
+                            <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                         </div>
                     </form>
                 </div>
@@ -44,46 +43,45 @@
 </template>
 
 <script>
-import Popup from "../popup/Popup";
-import {useStore} from "vuex";
-import {computed, ref} from "vue";
-import axios from "axios";
+import Popup from '../popup/Popup'
+import { useStore } from 'vuex'
+import { computed, ref } from 'vue'
+import axios from 'axios'
 
 export default {
-    name: "OrderCancelPopup",
+    name: 'OrderCancelPopup',
     components: {
-        Popup
+        Popup,
     },
     setup() {
-        const store = useStore();
-        const popupOpen = computed(() => store.state.profileOrders.popupOpen);
-        const order = computed(() => store.state.profileOrders.order);
-        const request = ref(false);
-        const cause = ref(0);
-        const comment = ref('');
+        const store = useStore()
+        const popupOpen = computed(() => store.state.profileOrders.popupOpen)
+        const order = computed(() => store.state.profileOrders.order)
+        const request = ref(false)
+        const cause = ref(0)
+        const comment = ref('')
 
         const closePopup = () => {
-            store.commit('profileOrders/SET_POPUP_OPEN', false);
+            store.commit('profileOrders/SET_POPUP_OPEN', false)
         }
 
-        const tour = computed(() => order.value && order.value.tour ? order.value.tour : null);
-        const actionURL = computed(() => order.value ? `/order/${order.value.id}/cancel` : '')
+        const tour = computed(() => (order.value && order.value.tour ? order.value.tour : null))
+        const actionURL = computed(() => (order.value ? `/order/${order.value.id}/cancel` : ''))
 
         const onSubmit = async () => {
-            request.value = true;
-            const {data: response} = await axios.post(`/order/${order.value.id}/cancel`, {
+            request.value = true
+            const { data: response } = await axios.post(`/order/${order.value.id}/cancel`, {
                 cause: cause.value,
                 comment: comment.value,
-            });
+            })
             if (response.result === 'success') {
-                closePopup();
+                closePopup()
                 await store.dispatch('userQuestion/showThanks', {
-                    title: 'Запит відправлено'
+                    title: 'Запит відправлено',
                 })
             }
-            request.value = false;
+            request.value = false
         }
-
 
         return {
             closePopup,
@@ -96,10 +94,8 @@ export default {
             comment,
             request,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

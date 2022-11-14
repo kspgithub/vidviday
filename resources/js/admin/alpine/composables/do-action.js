@@ -1,5 +1,5 @@
-import axios from "axios";
-import handleError from "./handle-error";
+import axios from 'axios'
+import handleError from './handle-error'
 
 export default (url, params = {}, callback = null) => {
     Swal.fire({
@@ -7,16 +7,17 @@ export default (url, params = {}, callback = null) => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Так',
-        cancelButtonText: 'Відмінити'
-    }).then((result) => {
+        cancelButtonText: 'Відмінити',
+    }).then(result => {
         if (result.value) {
-            axios.post(url, params)
-                .then(({data: response}) => {
-                    if (callback) callback(response);
-                    toast.success(response.message);
+            axios
+                .post(url, params)
+                .then(({ data: response }) => {
+                    if (callback) callback(response)
+                    toast.success(response.message)
                 })
-                .catch((error) => {
-                    handleError(error);
+                .catch(error => {
+                    handleError(error)
                 })
         }
     })

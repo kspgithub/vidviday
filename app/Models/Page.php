@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -48,9 +47,8 @@ class Page extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? '/' . $this->slug : '';
+        return ! empty($this->slug) ? '/'.$this->slug : '';
     }
-
 
     public function getRouteKeyName()
     {
@@ -93,7 +91,6 @@ class Page extends TranslatableModel implements HasMedia
         'sidebar_items' => 'array',
     ];
 
-
     public function sections()
     {
         return $this->hasMany(PageSection::class, 'page_id')->orderBy('position');
@@ -110,7 +107,8 @@ class Page extends TranslatableModel implements HasMedia
         if ($page) {
             return $page->url;
         }
-        return '/' . $key;
+
+        return '/'.$key;
     }
 
     public function recommendations()
@@ -127,7 +125,7 @@ class Page extends TranslatableModel implements HasMedia
     {
         $roles = $this->roles->pluck('name')->toArray();
 
-        if($roles) {
+        if ($roles) {
             return $user && $user->hasRole([$roles]);
         }
 

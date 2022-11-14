@@ -26,8 +26,8 @@ class CountryFactory extends Factory
 
         return [
             //
-            'title'=>$country,
-            'slug'=>Str::slug($country),
+            'title' => $country,
+            'slug' => Str::slug($country),
         ];
     }
 }

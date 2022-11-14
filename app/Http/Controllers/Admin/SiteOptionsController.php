@@ -14,9 +14,8 @@ class SiteOptionsController extends Controller
     {
         $site_options = SiteOption::all();
 
-        return view('admin.site-options.index', ['site_options'=>$site_options]);
+        return view('admin.site-options.index', ['site_options' => $site_options]);
     }
-
 
     public function update(Request $request)
     {
@@ -27,16 +26,17 @@ class SiteOptionsController extends Controller
             if ($option) {
                 switch ($option->type) {
                     case SiteOption::TYPE_IMAGE:
-                        $image = $request->file('options.' . $key . '_upload');
-                        if($image instanceof UploadedFile) {
-                            $fileName = $key . '.' . $image->extension();
-                            $option->value = $image->storeAs('site_options', $fileName,"public");
+                        $image = $request->file('options.'.$key.'_upload');
+                        if ($image instanceof UploadedFile) {
+                            $fileName = $key.'.'.$image->extension();
+                            $option->value = $image->storeAs('site_options', $fileName, 'public');
                         } elseif (empty($value)) {
                             $option->value = '';
                         }
+
                         break;
                     default:
-                        $option->value = !empty($value) ? $value : '';
+                        $option->value = ! empty($value) ? $value : '';
                 }
 
                 $option->save();

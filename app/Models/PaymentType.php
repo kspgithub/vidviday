@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -18,7 +16,6 @@ class PaymentType extends TranslatableModel
     use HasTranslations;
     use UsePublishedScope;
     use UseSelectBox;
-
 
     public $translatable = [
         'title',

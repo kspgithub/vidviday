@@ -6,20 +6,20 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use App\Models\TourVoting;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 trait TourMethods
 {
-
     /**
      * Похожие туры
-     * @param int $count
+     *
+     * @param int  $count
+     *
      * @return Tour[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection
      */
     public function getSimilarTours(int $count = 4)
     {
-        if (!empty($this->similar)) {
+        if (! empty($this->similar)) {
             $similar = implode(', ', $this->similar);
             $query = Tour::search()->whereIn('id', $this->similar)->orderByRaw("FIELD(id,  $similar)");
             if ($count > 0) {
@@ -28,14 +28,14 @@ trait TourMethods
 
             return $query->get();
         }
+
         return collect([]);
     }
-
 
     public function shortInfo()
     {
         $full_title = $this->title;
-        $price_title = $this->title . " ($this->price $this->currency)";
+        $price_title = $this->title." ($this->price $this->currency)";
 
         if ($this->commission > 0) {
             $full_title .= " ($this->price $this->currency + $this->commission $this->currency)";
@@ -43,8 +43,7 @@ trait TourMethods
             $full_title .= " ($this->price $this->currency)";
         }
 
-
-        return (object)[
+        return (object) [
             'id' => $this->id,
             'title' => $this->title,
             'price_title' => json_prepare($price_title),
@@ -56,7 +55,7 @@ trait TourMethods
             'rating' => $this->rating,
             'testimonials_count' => $this->testimonials_count ?? 0,
             'testimonials_avg_rating' => $this->testimonials_avg_rating ?? 0,
-            'votings_count' => $this->votings->filter(fn($q) => $q->where('status', TourVoting::STATUS_PUBLISHED))->count(),
+            'votings_count' => $this->votings->filter(fn ($q) => $q->where('status', TourVoting::STATUS_PUBLISHED))->count(),
             'duration' => $this->duration,
             'nights' => $this->nights,
             'time' => $this->nights,
@@ -75,28 +74,30 @@ trait TourMethods
     {
         return [
             'id' => $this->id,
-            'text' => $this->title . ', ' . $this->price . ' ' . $this->currency,
+            'text' => $this->title.', '.$this->price.' '.$this->currency,
         ];
     }
 
     public function isChildrenFree()
     {
         $discount = $this->discounts->where('children')->first();
-        return $discount && $discount->type === 1 && (int)$discount->price === 100;
+
+        return $discount && $discount->type === 1 && (int) $discount->price === 100;
     }
 
     public function isYoungChildrenFree()
     {
         $discount = $this->discounts->where('category', '=', 'children_young')->first();
-        return $discount && $discount->type === 1 && (int)$discount->price === 100;
+
+        return $discount && $discount->type === 1 && (int) $discount->price === 100;
     }
 
     public function isOlderChildrenFree()
     {
         $discount = $this->discounts->where('category', '=', 'children_older')->first();
-        return $discount && $discount->type === 1 && (int)$discount->price === 100;
-    }
 
+        return $discount && $discount->type === 1 && (int) $discount->price === 100;
+    }
 
     public function calcItems()
     {
@@ -106,21 +107,20 @@ trait TourMethods
 
         foreach ($this->priceItems as $priceItem) {
             $items[] = [
-                'id' => 'pi_' . $priceItem->id,
+                'id' => 'pi_'.$priceItem->id,
                 'title' => $priceItem->title,
-                'price' => (int)$priceItem->price,
+                'price' => (int) $priceItem->price,
                 'currency' => $priceItem->currency,
                 'limited' => $priceItem->limited,
                 'places' => $priceItem->places,
             ];
         }
 
-
         foreach ($this->tickets as $ticket) {
             $items[] = [
-                'id' => 't_' . $ticket->id,
+                'id' => 't_'.$ticket->id,
                 'title' => $ticket->title,
-                'price' => (int)$ticket->price,
+                'price' => (int) $ticket->price,
                 'currency' => $ticket->currency,
                 'limited' => false,
                 'places' => 0,
@@ -129,9 +129,9 @@ trait TourMethods
 
         foreach ($foodItems as $foodItem) {
             $items[] = [
-                'id' => 'f_' . $foodItem->id,
+                'id' => 'f_'.$foodItem->id,
                 'title' => $foodItem->calc_title,
-                'price' => $foodItem->food ? (int)$foodItem->food->price : 0,
+                'price' => $foodItem->food ? (int) $foodItem->food->price : 0,
                 'currency' => $foodItem->currency,
                 'limited' => false,
                 'places' => 0,
@@ -141,26 +141,26 @@ trait TourMethods
         return $items;
     }
 
-
     public function schedulesForBooking($filter = null)
     {
-        $requestSchedule = (int)request()->get('schedule');
+        $requestSchedule = (int) request()->get('schedule');
 
         $query = $this->scheduleItems()->inFuture();
-        if (!empty($filter)) {
+        if (! empty($filter)) {
             $query->filter($filter);
         }
 //        $schedules = $query->get()->filter(fn(TourSchedule $value, $key) => $value->id === $requestSchedule || $value->places_available > 0);
         $schedules = $query->get();
+
         return TourSchedule::transformForBooking($schedules);
     }
-
 
     public function userCanEditTour(User $user)
     {
         $staff_ids = $user->staffs()->pluck('id')->toArray();
         $tourManager = $this->manager;
-        $manager_id = !empty($tourManager) ? $tourManager->id : 0;
+        $manager_id = ! empty($tourManager) ? $tourManager->id : 0;
+
         return $user->isAdmin() || ($user->isTourManager() && in_array($manager_id, $staff_ids));
     }
 }

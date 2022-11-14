@@ -69,7 +69,6 @@ Route::group([
         ->name('social.callback');
 });
 
-
 Route::get('/register/success', [RegisteredUserController::class, 'success'])
     ->name('register.success');
 

@@ -13,7 +13,7 @@ trait TourAttribute
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? '/' . $this->slug : '';
+        return ! empty($this->slug) ? '/'.$this->slug : '';
     }
 
     public function getMainImageAttribute()
@@ -37,6 +37,7 @@ trait TourAttribute
         if ($this->tourGuides === null) {
             $this->tourGuides = $this->staff()->onlyExcursionLeaders()->get();
         }
+
         return $this->tourGuides;
     }
 
@@ -50,11 +51,10 @@ trait TourAttribute
         return $this->manager;
     }
 
-
     public function getGroupTourIncludesAttribute()
     {
         return collect(IncludeType::all()->map(function ($type) {
-            return (object)[
+            return (object) [
                 'id' => $type->id,
                 'title' => $type->title,
                 'items' => $this->tourIncludes->where('type_id', $type->id),
@@ -73,6 +73,7 @@ trait TourAttribute
             $landing->time = $tourLanding->time;
             $landings[] = $landing;
         }
+
         return collect($landings);
     }
 
@@ -86,6 +87,7 @@ trait TourAttribute
             $place->original_id = $tourPlace->id;
             $places[] = $place;
         }
+
         return collect($places);
     }
 
@@ -99,6 +101,7 @@ trait TourAttribute
             $ticket->original_id = $tourTicket->id;
             $tickets[] = $ticket;
         }
+
         return collect($tickets);
     }
 
@@ -111,11 +114,11 @@ trait TourAttribute
             $accommodation = $tourAccommodation->accommodation ?: $tourAccommodation;
             $accommodation->original_id = $tourAccommodation->id;
             $accommodation->nights = $tourAccommodation->nights;
-            if($tourAccommodation->accommodation) {
-
+            if ($tourAccommodation->accommodation) {
             }
             $accommodations[] = $accommodation;
         }
+
         return collect($accommodations);
     }
 
@@ -127,11 +130,12 @@ trait TourAttribute
         foreach ($tourTransports as $tourTransport) {
             $transport = $tourTransport->transport ?: $tourTransport;
             $transport->original_id = $tourTransport->id;
-            if($tourTransport->transport) {
-                $transport->title = $tourTransport->title . ' ' . $transport->title;
+            if ($tourTransport->transport) {
+                $transport->title = $tourTransport->title.' '.$transport->title;
             }
             $transports[] = $transport;
         }
+
         return collect($transports);
     }
 
@@ -143,12 +147,13 @@ trait TourAttribute
         foreach ($foodItems as $tourFood) {
             $food = $tourFood->food ?: $tourFood;
             $food->original_id = $tourFood->id;
-            if($tourFood->food) {
+            if ($tourFood->food) {
                 $food->day = $tourFood->day;
-                $food->title = $tourFood->title . ' ' . $food->title;
+                $food->title = $tourFood->title.' '.$food->title;
             }
             $foods[] = $food;
         }
+
         return collect($foods);
     }
 
@@ -160,11 +165,11 @@ trait TourAttribute
         foreach ($tourDiscounts as $tourDiscount) {
             $discount = $tourDiscount->discount ?: $tourDiscount;
             $discount->original_id = $tourDiscount->id;
-            if($tourDiscount->discount) {
-
+            if ($tourDiscount->discount) {
             }
             $discounts[] = $discount;
         }
+
         return collect($discounts);
     }
 
@@ -176,24 +181,25 @@ trait TourAttribute
         $days = [];
         foreach ($foodItems as $foodItem) {
             $item = $foodItem->food ?: $foodItem;
-            if (!isset($days[$foodItem->day])) {
-                $days[$foodItem->day] = (object)[
-                    'title' => $foodItem->day . (in_array($locale, ['uk', 'ru']) ? '-й день' : __('day')),
+            if (! isset($days[$foodItem->day])) {
+                $days[$foodItem->day] = (object) [
+                    'title' => $foodItem->day.(in_array($locale, ['uk', 'ru']) ? '-й день' : __('day')),
                     'times' => collect([]),
                 ];
             }
             $days[$foodItem->day]->times->add($item);
         }
+
         return collect($days);
     }
-
 
     public function getDiscountTitleAttribute()
     {
         $title = [];
         foreach ($this->discounts as $discount) {
-            $title[] = !empty($discount->admin_title) ? $discount->admin_title : $discount->title;
+            $title[] = ! empty($discount->admin_title) ? $discount->admin_title : $discount->title;
         }
+
         return implode('<br> ', $title);
     }
 
@@ -211,5 +217,4 @@ trait TourAttribute
     {
         return $this->currencyModel->title;
     }
-
 }

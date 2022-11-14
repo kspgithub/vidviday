@@ -1,12 +1,14 @@
 <template>
     <div class="accordion-item">
-        <div class="accordion-title" @click="$emit('load-place', {district, place})"
-             v-html="place.text + '<i></i>'"></div>
+        <div
+            class="accordion-title"
+            @click="$emit('load-place', { district, place })"
+            v-html="place.text + '<i></i>'"
+        ></div>
 
         <div class="accordion-inner">
-
             <template v-if="place.media">
-                <swiper-slider :media="place.media" class="swiper-entry"/>
+                <swiper-slider :media="place.media" class="swiper-entry" />
                 <div class="spacer-xs"></div>
             </template>
 
@@ -20,19 +22,17 @@
 </template>
 
 <script>
-import SwiperSlider from "../common/SwiperSlider";
+import SwiperSlider from '../common/SwiperSlider'
 
 export default {
-    name: "PlaceAccordionItem",
-    components: {SwiperSlider},
+    name: 'PlaceAccordionItem',
+    components: { SwiperSlider },
     props: {
         place: Object,
         district: Object,
     },
-    emits: ['load-place']
+    emits: ['load-place'],
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

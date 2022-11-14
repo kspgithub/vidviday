@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
-use App\Models\Traits\HasSlug;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -29,10 +26,10 @@ class TourPlan extends TranslatableModel
         'tour_id',
         'text',
     ];
-    protected $casts = [
-        'published' => 'boolean'
-    ];
 
+    protected $casts = [
+        'published' => 'boolean',
+    ];
 
     public static function boot()
     {

@@ -1,26 +1,26 @@
 <template>
-    <label :data-tooltip="errorMessage" :class="{active: !!innerValue || focused, invalid: errorMessage}">
+    <label :data-tooltip="errorMessage" :class="{ active: !!innerValue || focused, invalid: errorMessage }">
         <i>{{ label }} <span v-if="required">*</span></i>
-        <textarea v-model="innerValue"
-                  :name="name"
-                  :id="id || name"
-                  :required="required"
-                  :placeholder="placeholder"
-                  :rows="rows || 3"
-                  @input="innerValue = $event.target.value"
+        <textarea
+            :id="id || name"
+            v-model="innerValue"
+            :name="name"
+            :required="required"
+            :placeholder="placeholder"
+            :rows="rows || 3"
+            @input="innerValue = $event.target.value"
         ></textarea>
     </label>
 </template>
 
 <script>
-
-import useFormField from "./composables/useFormField";
+import useFormField from './composables/useFormField'
 
 export default {
-    name: "FormTextarea",
+    name: 'FormTextarea',
     props: {
         modelValue: {
-            type: [Number, String, null]
+            type: [Number, String, null],
         },
         label: {
             type: String,
@@ -40,21 +40,19 @@ export default {
         },
         rules: {
             type: [String, Object],
-            default: ''
+            default: '',
         },
-        rows: [String, Number]
+        rows: [String, Number],
     },
     emits: ['update:modelValue'],
-    setup(props, {emit}) {
-        const field = useFormField(props, emit);
+    setup(props, { emit }) {
+        const field = useFormField(props, emit)
 
         return {
             ...field,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

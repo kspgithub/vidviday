@@ -17,7 +17,6 @@ use Illuminate\Http\Response;
 
 class MenuItemController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +24,14 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        $menus = Menu::query()->with(['items' => function ($q) {
-            return $q->where('parent_id', 0);
-        }, 'items.children'])->get();
+        $menus = Menu::query()->with([
+            'items' => function ($q) {
+                return $q->where('parent_id', 0);
+            }, 'items.children'
+        ])->get();
 
         return view('admin.site-menu.index', [
-            "menus" => $menus
+            'menus' => $menus,
         ]);
     }
 
@@ -48,18 +49,19 @@ class MenuItemController extends Controller
 
         $pages = Page::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
-        return view("admin.site-menu.menu-item.create", [
-            "item" => $item,
-            "menu" => $menu,
+
+        return view('admin.site-menu.menu-item.create', [
+            'item' => $item,
+            'menu' => $menu,
             'pages' => $pages,
-            "sides" => $sides,
+            'sides' => $sides,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param MenuItemBasicRequest $request
+     * @param MenuItemBasicRequest  $request
      *
      * @return mixed
      */
@@ -77,11 +79,10 @@ class MenuItemController extends Controller
             ->withFlashSuccess(__('Record Created'));
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param MenuItem $item
+     * @param MenuItem  $item
      *
      * @return View
      */
@@ -89,35 +90,37 @@ class MenuItemController extends Controller
     {
         $pages = Page::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
+
         return view('admin.site-menu.menu-item.edit', [
             'item' => $item,
             'pages' => $pages,
-            "sides" => $sides,
+            'sides' => $sides,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param MenuItemBasicRequest $request
-     *
-     * @param MenuItem $item
-     *
-     * @return mixed
+     * @param MenuItemBasicRequest  $request
+     * @param MenuItem  $item
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(MenuItemBasicRequest $request, MenuItem $item)
     {
         $item->fill($request->validated());
         $item->save();
+
         return redirect()->route('admin.site-menu.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param MenuItem $item
+     * @param MenuItem  $item
+     *
      * @return Response|JsonResponse
      */
     public function destroy(Request $request, MenuItem $item)
@@ -126,9 +129,9 @@ class MenuItemController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Deleted')]);
         }
+
         return redirect()->route('admin.site-menu.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 
     public function sort(Request $request)
     {
@@ -136,13 +139,15 @@ class MenuItemController extends Controller
         foreach ($sortData as $data) {
             MenuItem::whereKey($data['id'])->update(['position' => $data['position']]);
         }
+
         return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
     }
 
     public function status(Request $request, MenuItem $item)
     {
-        $item->published = !$item->published;
+        $item->published = ! $item->published;
         $item->save();
+
         return response()->json(['result' => 'success', 'message' => $item->published ? __('Record Published') : __('Record Unpublish')]);
     }
 }

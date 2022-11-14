@@ -39,14 +39,12 @@ Route::group([
     Route::patch('favourites/{id}', [UserController::class, 'favouritesToggle'])->name('favourites.toggle');
 });
 
-
 Route::group([
     'as' => 'calendar.',
     'prefix' => 'calendar',
 ], function () {
     Route::get('events', [CalendarController::class, 'events'])->name('events');
 });
-
 
 Route::group([
     'as' => 'tours.',
@@ -115,16 +113,14 @@ Route::group([
 Route::get('html-blocks', function (Request $request) {
     $q = Str::lower($request->input('q', ''));
     $htmlBlocks = HtmlBlock::query()
-        ->orWhere('slug', 'like', '%' . $q . '%')
-        ->orWhere('title', 'like', '%' . $q . '%')
+        ->orWhere('slug', 'like', '%'.$q.'%')
+        ->orWhere('title', 'like', '%'.$q.'%')
         ->get();
+
     return response()->json([
-        'results' => $htmlBlocks->map(fn($html) => [
+        'results' => $htmlBlocks->map(fn ($html) => [
             'id' => $html->slug,
             'text' => $html->title,
-        ])->toArray()
+        ])->toArray(),
     ]);
 });
-
-
-

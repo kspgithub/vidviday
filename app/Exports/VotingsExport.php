@@ -2,11 +2,8 @@
 
 namespace App\Exports;
 
-use App\Models\AccommodationType;
-use App\Models\Order;
 use App\Models\TourVoting;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -21,14 +18,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class VotingsExport extends DefaultValueBinder implements
-    FromCollection,
-    WithHeadings,
-    WithColumnFormatting,
-    WithStyles,
-    ShouldAutoSize,
-    WithCustomValueBinder,
-    WithEvents
+class VotingsExport extends DefaultValueBinder implements FromCollection, WithHeadings, WithColumnFormatting, WithStyles, ShouldAutoSize, WithCustomValueBinder, WithEvents
 {
     protected $items;
 
@@ -36,7 +26,7 @@ class VotingsExport extends DefaultValueBinder implements
     {
         $this->items = $votings->map(function (TourVoting $voting) {
             return [
-                'id' => (string)$voting->id,
+                'id' => (string) $voting->id,
                 'status' => $voting->status_text,
                 'name' => $voting->name,
                 'email' => $voting->email,
@@ -114,17 +104,16 @@ class VotingsExport extends DefaultValueBinder implements
 
     /**
      * Write code on Method
-     *
      */
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $worksheet = $event->getSheet()->getDelegate();
-                $worksheet->getStyle('D1:D' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('E1:E' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('F1:F' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('G1:G' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('D1:D'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('E1:E'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('F1:F'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('G1:G'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
             },
         ];
     }

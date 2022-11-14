@@ -38,6 +38,5 @@ class ProdSeeder extends Seeder
         $this->call(PackingSeeder::class);
         $this->call(OurClientSeeder::class);
         $this->call(DocumentsSeeder::class);
-
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Role;
 use App\Exceptions\GeneralException;
+use App\Models\Role;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -16,7 +16,7 @@ class RoleService extends BaseService
     /**
      * RoleService constructor.
      *
-     * @param  Role  $role
+     * @param Role  $role
      */
     public function __construct(Role $role)
     {
@@ -24,7 +24,7 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  array  $data
+     * @param array  $data
      *
      * @throws GeneralException
      * @throws Throwable
@@ -52,8 +52,8 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  Role  $role
-     * @param  array  $data
+     * @param Role  $role
+     * @param array  $data
      *
      * @throws GeneralException
      * @throws Throwable
@@ -81,7 +81,7 @@ class RoleService extends BaseService
     }
 
     /**
-     * @param  Role  $role
+     * @param Role  $role
      *
      * @throws GeneralException
      *

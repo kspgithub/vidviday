@@ -1,5 +1,5 @@
 ﻿import MarkerClusterer from '@googlemaps/markerclustererplus';
-import './infobox';
+import './infobox.min';
 
 jQuery(function ($) {
 

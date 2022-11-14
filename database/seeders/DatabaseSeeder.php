@@ -53,7 +53,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PackingSeeder::class);
         $this->call(DocumentsSeeder::class);
 
-
         // Last
         $this->call(TourSeeder::class);
     }

@@ -1,7 +1,7 @@
-import apiClient, {getError} from "./api";
-import axios from 'axios';
+import apiClient, { getError } from './api'
+import axios from 'axios'
 
-let fetchRequestSource = axios.CancelToken.source();
+let fetchRequestSource = axios.CancelToken.source()
 
 /**
  * Поиск мест
@@ -10,26 +10,27 @@ let fetchRequestSource = axios.CancelToken.source();
  */
 export const fetchPlaces = async (params = {}) => {
     try {
-        fetchRequestSource.cancel('abort');
-    } catch (e) {
-    }
-    fetchRequestSource = axios.CancelToken.source();
+        fetchRequestSource.cancel('abort')
+    } catch (e) {}
+    fetchRequestSource = axios.CancelToken.source()
 
-    const response = await apiClient.get('/places/select-box', {
-        params: params,
-        cancelToken: fetchRequestSource.token
-    }).catch(error => {
-        if (!axios.isCancel(error)) {
-            const message = getError(error);
-            toast.error(message);
-        }
-    })
+    const response = await apiClient
+        .get('/places/select-box', {
+            params: params,
+            cancelToken: fetchRequestSource.token,
+        })
+        .catch(error => {
+            if (!axios.isCancel(error)) {
+                const message = getError(error)
+                toast.error(message)
+            }
+        })
 
     if (response) {
-        return response.data;
+        return response.data
     }
 
-    return null;
+    return null
 }
 
 export default {

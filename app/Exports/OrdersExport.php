@@ -20,14 +20,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OrdersExport extends DefaultValueBinder implements
-    FromCollection,
-    WithHeadings,
-    WithColumnFormatting,
-    WithStyles,
-    ShouldAutoSize,
-    WithCustomValueBinder,
-    WithEvents
+class OrdersExport extends DefaultValueBinder implements FromCollection, WithHeadings, WithColumnFormatting, WithStyles, ShouldAutoSize, WithCustomValueBinder, WithEvents
 {
     protected $items;
 
@@ -38,20 +31,20 @@ class OrdersExport extends DefaultValueBinder implements
         $this->roomTypes = AccommodationType::all();
         $this->items = $orders->map(function (Order $order) {
             return [
-                'id' => (string)$order->id,
+                'id' => (string) $order->id,
                 'status' => $order->status_text,
-                'total_places' => (string)$order->total_places,
+                'total_places' => (string) $order->total_places,
                 'participants' => $this->getParticipantsText($order),
                 'dates' => $this->getParticipantsBirthday($order),
                 'contacts' => $this->getContactsText($order),
                 'phones' => $this->getPhonesText($order),
                 'emails' => $this->getEmailsText($order),
                 'accommodation' => $this->getAccommodationText($order),
-                'sum_total' => (string)$order->total_price,
-                'payment_fop' => (string)$order->payment_fop,
-                'payment_tov' => (string)$order->payment_tov,
-                'payment_office' => (string)$order->payment_office,
-                'payment_get' => (string)$order->payment_get,
+                'sum_total' => (string) $order->total_price,
+                'payment_fop' => (string) $order->payment_fop,
+                'payment_tov' => (string) $order->payment_tov,
+                'payment_office' => (string) $order->payment_office,
+                'payment_get' => (string) $order->payment_get,
                 'admin_comment' => $order->admin_comment,
             ];
         });
@@ -89,8 +82,8 @@ class OrdersExport extends DefaultValueBinder implements
     protected function getParticipantsText(Order $order)
     {
         $rows = [];
-        $participants = (object)$order->participants ?? [];
-        if (!empty($participants->items)) {
+        $participants = (object) $order->participants ?? [];
+        if (! empty($participants->items)) {
             foreach ($participants->items as $item) {
                 $rows[] = "{$item['last_name']} {$item['first_name']} {$item['middle_name']}";
             }
@@ -102,8 +95,8 @@ class OrdersExport extends DefaultValueBinder implements
     protected function getParticipantsBirthday(Order $order)
     {
         $rows = [];
-        $participants = (object)$order->participants ?? [];
-        if (!empty($participants->items)) {
+        $participants = (object) $order->participants ?? [];
+        if (! empty($participants->items)) {
             foreach ($participants->items as $item) {
                 $birthday = $item['birthday'] ?? '-';
                 $rows[] = "$birthday";
@@ -117,18 +110,18 @@ class OrdersExport extends DefaultValueBinder implements
     {
         $rows = [];
 
-        if (!($order->participants['customer'] ?? false)) {
+        if (! ($order->participants['customer'] ?? false)) {
             $rows[] = "{$order->last_name} {$order->first_name}";
         }
 
-        if (!empty($order->agency_data) && !empty($order->agency_data['title'])) {
+        if (! empty($order->agency_data) && ! empty($order->agency_data['title'])) {
             $rows[] = '----------------';
-            $agencyData = (object)$order->agency_data;
-            $rows[] = !empty($agencyData->affiliate) ? "$agencyData->title ($agencyData->affiliate)" : $agencyData->title;
+            $agencyData = (object) $order->agency_data;
+            $rows[] = ! empty($agencyData->affiliate) ? "$agencyData->title ($agencyData->affiliate)" : $agencyData->title;
             $rows[] = $agencyData->manager_name;
             $rows[] = $agencyData->manager_phone;
             $rows[] = "{$agencyData->manager_phone}";
-            if (!empty($agencyData->manager_email)) {
+            if (! empty($agencyData->manager_email)) {
                 $rows[] = "{$agencyData->manager_email}";
             }
         }
@@ -140,7 +133,7 @@ class OrdersExport extends DefaultValueBinder implements
     {
         $rows = [];
         $rows[] = "{$order->phone}";
-        if (!empty($order->viber)) {
+        if (! empty($order->viber)) {
             $rows[] = "{$order->viber}";
         }
 
@@ -150,7 +143,7 @@ class OrdersExport extends DefaultValueBinder implements
     protected function getEmailsText(Order $order)
     {
         $rows = [];
-        if (!empty($order->email)) {
+        if (! empty($order->email)) {
             $rows[] = "{$order->email}";
         }
 
@@ -160,14 +153,14 @@ class OrdersExport extends DefaultValueBinder implements
     public function getAccommodationText(Order $order)
     {
         $rows = [];
-        if (!empty($order->accommodation)) {
+        if (! empty($order->accommodation)) {
             foreach ($order->accommodation as $key => $value) {
-                if ($key !== 'other' && $key !== 'other_text' && (int)$value > 0) {
+                if ($key !== 'other' && $key !== 'other_text' && (int) $value > 0) {
                     $slug = Str::slug(trim($key));
                     $accom = $this->roomTypes->where('slug', '=', $slug)->first();
-                    $rows[] = !empty($accom) ? "$accom->short_title: $value" : "$key: $value";
+                    $rows[] = ! empty($accom) ? "$accom->short_title: $value" : "$key: $value";
                 }
-                if ($key === 'other_text' && !empty($value)) {
+                if ($key === 'other_text' && ! empty($value)) {
                     $rows[] = "Інше: $value";
                 }
             }
@@ -222,17 +215,16 @@ class OrdersExport extends DefaultValueBinder implements
 
     /**
      * Write code on Method
-     *
      */
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $worksheet = $event->getSheet()->getDelegate();
-                $worksheet->getStyle('D1:D' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('E1:E' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('F1:F' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('G1:G' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('D1:D'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('E1:E'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('F1:F'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('G1:G'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
             },
         ];
     }

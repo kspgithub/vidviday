@@ -9,13 +9,13 @@ export default {
     },
     mutations: {
         SET_MEDIA(state, value) {
-            state.media = value;
+            state.media = value
         },
         SET_ACTIVE(state, value) {
-            state.active = value;
+            state.active = value
         },
         SET_CURRENT_SLIDE(state, value) {
-            state.currentSlide = value;
+            state.currentSlide = value
         },
     },
 }

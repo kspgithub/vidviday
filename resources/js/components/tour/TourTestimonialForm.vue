@@ -5,35 +5,50 @@
                 <span class="h2 title text-medium">Написати відгук про тур</span>
             </div>
         </div>
-        <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"
-              @submit.prevent="onSubmit"
-              ref="formRef"
+        <form
+            ref="formRef"
+            method="post"
+            :action="action"
+            class="popup-align"
+            enctype="multipart/form-data"
+            @submit.prevent="onSubmit"
         >
-            <slot/>
+            <slot />
 
             <div class="have-an-account text-center">
-                <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                    <span class="open-popup" @click="closePopup()"
-                          data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                <span v-if="!user" class="text"
+                    >{{ __('auth.have-account') }}
+                    <span class="open-popup" data-rel="login-popup" @click="closePopup()">{{
+                        __('auth.entrance')
+                    }}</span>
                 </span>
                 <div class="img-input-wrap">
-                    <div class="img-input img-input-avatar"
-                         :class="{uploaded: !!selectedAvatar}"
-                         @dragleave="onDragleave"
-                         @dragover="onDragover"
-                         @drop="onDrop">
-                        <input type="file" class="vue-action" name="avatar_upload" ref="avatarRef"
-                               accept=".jpg,.jpeg,.png"
-                               @change.stop="onAvatarChange()">
-                        <div class="text" v-if="!selectedAvatar">
-                            <span><b>{{ __('forms.avatar-title') }}</b> {{ __('forms.avatar-note') }}</span>
-                            <br>
+                    <div
+                        class="img-input img-input-avatar"
+                        :class="{ uploaded: !!selectedAvatar }"
+                        @dragleave="onDragleave"
+                        @dragover="onDragover"
+                        @drop="onDrop"
+                    >
+                        <input
+                            ref="avatarRef"
+                            type="file"
+                            class="vue-action"
+                            name="avatar_upload"
+                            accept=".jpg,.jpeg,.png"
+                            @change.stop="onAvatarChange()"
+                        />
+                        <div v-if="!selectedAvatar" class="text">
+                            <span
+                                ><b>{{ __('forms.avatar-title') }}</b> {{ __('forms.avatar-note') }}</span
+                            >
+                            <br />
                             <span v-html="__('forms.avatar-requirements')"></span>
                         </div>
 
-                        <div class="text" v-if="selectedAvatar">
+                        <div v-if="selectedAvatar" class="text">
                             <div class="loaded-img">
-                                <img :src="selectedAvatar.preview" alt="img">
+                                <img :src="selectedAvatar.preview" alt="img" />
                                 <div class="btn-delete" @click="deleteAvatar()"></div>
                             </div>
 
@@ -44,71 +59,89 @@
             </div>
 
             <div v-if="errors.avatar" class="col-12">
-                <div class="alert alert-danger">{{errors.avatar}}</div>
+                <div class="alert alert-danger">{{ errors.avatar }}</div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <form-input name="first_name" id="tt_first_name" v-model="data.first_name"
-                                :label="__('forms.your-name')"/>
+                    <form-input
+                        id="tt_first_name"
+                        v-model="data.first_name"
+                        name="first_name"
+                        :label="__('forms.your-name')"
+                    />
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="last_name" id="tt_last_name" v-model="data.last_name"
-                                :label="__('forms.your-last-name')"
-                                :tooltip="__('forms.required')"/>
+                    <form-input
+                        id="tt_last_name"
+                        v-model="data.last_name"
+                        name="last_name"
+                        :label="__('forms.your-last-name')"
+                        :tooltip="__('forms.required')"
+                    />
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input mask="+38 (099) 999-99-99"
-                                name="phone"
-                                id="tt_phone"
-                                v-model="data.phone" :label="__('forms.your-phone')"/>
+                    <form-input
+                        id="tt_phone"
+                        v-model="data.phone"
+                        mask="+38 (099) 999-99-99"
+                        name="phone"
+                        :label="__('forms.your-phone')"
+                    />
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input type="email" id="tt_email" name="email" v-model="data.email"
-                                :label="__('forms.email')"/>
-
-                </div>
-
-
-                <div class="col-md-6 col-12">
-					    <span class="text text-sm">
-                            <b>{{ __('forms.evaluate-tour') }}</b>
-                        </span>
-                    <form-star-rating v-model="data.rating"/>
+                    <form-input
+                        id="tt_email"
+                        v-model="data.email"
+                        type="email"
+                        name="email"
+                        :label="__('forms.email')"
+                    />
                 </div>
 
                 <div class="col-md-6 col-12">
-                        <span class="text text-sm">
-                            <b>{{ __('forms.your-guide') }}</b>
-                        </span>
+                    <span class="text text-sm">
+                        <b>{{ __('forms.evaluate-tour') }}</b>
+                    </span>
+                    <form-star-rating v-model="data.rating" />
+                </div>
 
+                <div class="col-md-6 col-12">
+                    <span class="text text-sm">
+                        <b>{{ __('forms.your-guide') }}</b>
+                    </span>
 
                     <form-autocomplete
+                        ref="guideSelectRef"
+                        v-model.number="data.guide_id"
                         name="guide_id"
                         :placeholder="__('forms.enter-guide-name')"
                         :search="true"
-                        ref="guideSelectRef"
-                        v-model.number="data.guide_id"
                     >
-                        <option :value="0" :selected="data.guide_id === 0" disabled>{{ __('forms.select-from-list') }}</option>
+                        <option :value="0" :selected="data.guide_id === 0" disabled>
+                            {{ __('forms.select-from-list') }}
+                        </option>
                         <option v-for="guide in guides" :value="guide.id" :data-img="guide.img">
                             {{ guide.title }}
                         </option>
                     </form-autocomplete>
-
                 </div>
 
                 <div class="col-12">
-                    <form-textarea name="text" id="tt_text" v-model="data.text" class="smile"
-                                   :label="__('forms.your-feedback')"/>
-
+                    <form-textarea
+                        id="tt_text"
+                        v-model="data.text"
+                        name="text"
+                        class="smile"
+                        :label="__('forms.your-feedback')"
+                    />
                 </div>
 
                 <div v-if="errors.images" class="col-12">
-                    <div class="alert alert-danger">{{errors.images}}</div>
+                    <div class="alert alert-danger">{{ errors.images }}</div>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -123,23 +156,31 @@
                                     </ul>
                                 </div>
                             </div>
-                            <input class="vue-action" type="file" ref="imagesRef" multiple name="images_upload[]"
-                                   accept=".jpg,.jpeg,.png"
-                                   @change.stop="previewImages()">
+                            <input
+                                ref="imagesRef"
+                                class="vue-action"
+                                type="file"
+                                multiple
+                                name="images_upload[]"
+                                accept=".jpg,.jpeg,.png"
+                                @change.stop="previewImages()"
+                            />
                         </div>
 
-                        <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
-                            <img :src="sImage.preview" alt="img">
+                        <div v-for="(sImage, idx) in selectedImages" class="loaded-img">
+                            <img :src="sImage.preview" alt="img" />
                             <div class="btn-delete" @click.stop="deleteImage(idx)"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
-                                   @verify="verify"
-                                   @render="render"
-                                   ref="recaptcha"
+                    <vue-recaptcha
+                        v-if="useRecaptcha && popupOpen"
+                        ref="recaptcha"
+                        :sitekey="sitekey"
+                        @verify="verify"
+                        @render="render"
                     >
                         <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
@@ -161,22 +202,19 @@
                 <span></span>
             </div>
         </form>
-
     </popup>
-
-
 </template>
 
 <script>
-import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
-import FormStarRating from "../form/FormStarRating";
-import FormInput from "../form/FormInput";
-import FormTextarea from "../form/FormTextarea";
-import Popup from "../popup/Popup";
-import FormCustomSelect from "../form/FormCustomSelect";
-import {useStore} from "vuex";
-import useTestimonialForm from "../testimonial/useTestimonialForm";
-import {useForm} from "vee-validate";
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
+import FormStarRating from '../form/FormStarRating'
+import FormInput from '../form/FormInput'
+import FormTextarea from '../form/FormTextarea'
+import Popup from '../popup/Popup'
+import FormCustomSelect from '../form/FormCustomSelect'
+import { useStore } from 'vuex'
+import useTestimonialForm from '../testimonial/useTestimonialForm'
+import { useForm } from 'vee-validate'
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSelect from '../form/FormSelect.vue'
 import { __ } from '../../i18n/lang.js'
@@ -184,8 +222,17 @@ import FormAutocomplete from '../form/FormAutocomplete.vue'
 import { fetchGuides } from '../../services/tour-service.js'
 
 export default {
-    name: "TourTestimonialForm",
-    components: { FormAutocomplete, FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    name: 'TourTestimonialForm',
+    components: {
+        FormAutocomplete,
+        FormSelect,
+        VueRecaptcha,
+        FormCustomSelect,
+        Popup,
+        FormTextarea,
+        FormInput,
+        FormStarRating,
+    },
     props: {
         tour: Object,
         user: Object,
@@ -194,13 +241,13 @@ export default {
         dataParent: Number,
     },
     setup(props) {
-        const store = useStore();
-        const popupOpen = computed(() => store.state.testimonials.popupOpen);
-        const parentId = computed(() => store.state.testimonials.parentId);
+        const store = useStore()
+        const popupOpen = computed(() => store.state.testimonials.popupOpen)
+        const parentId = computed(() => store.state.testimonials.parentId)
         const guides = ref([])
-        const formRef = ref(null);
-        const recaptcha = ref(null);
-        const guideSelectRef = ref(null);
+        const formRef = ref(null)
+        const recaptcha = ref(null)
+        const guideSelectRef = ref(null)
 
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
@@ -211,9 +258,9 @@ export default {
             guide_id: 0,
             text: '',
             'g-recaptcha-response': '',
-        });
+        })
 
-        const {validate, errors} = useForm({
+        const { validate, errors } = useForm({
             validationSchema: {
                 first_name: 'required',
                 last_name: 'required',
@@ -221,27 +268,27 @@ export default {
                 email: 'required|email',
                 text: 'required|max:5000',
                 rating: 'required|numeric|min_value:1',
-            }
+            },
         })
 
         const testimonialForm = useTestimonialForm(data, props.action)
 
         watch(data, () => testimonialForm.request.value && (testimonialForm.request.value = false))
 
-        const onSubmit = async (response) => {
+        const onSubmit = async response => {
             await testimonialForm.submitForm()
-        };
+        }
 
         const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
-        const verify = (e) => {
+        const verify = e => {
             data['g-recaptcha-response'] = e
             onSubmit()
             recaptcha.value.reset()
         }
 
-        const render = (e) => {
+        const render = e => {
             setTimeout(() => {
                 const htmlOffset = $('html').css('top')
 
@@ -253,12 +300,12 @@ export default {
             }, 1000)
         }
 
-        const validateForm = async (e) => {
-            if(e.isTrusted) {
+        const validateForm = async e => {
+            if (e.isTrusted) {
                 e.stopImmediatePropagation()
                 e.preventDefault()
 
-                const result = await validate();
+                const result = await validate()
                 if (!result.valid) {
                     return false
                 } else {
@@ -268,7 +315,7 @@ export default {
         }
 
         onMounted(() => {
-            guides.value = props.tour.guides.map(it => ({...it, img: it.avatar_url, title: it.name}))
+            guides.value = props.tour.guides.map(it => ({ ...it, img: it.avatar_url, title: it.name }))
             guideSelectRef.value.update(guides.value)
         })
 
@@ -287,10 +334,8 @@ export default {
             guideSelectRef,
             guides,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

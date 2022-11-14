@@ -9,6 +9,7 @@ class Accordion extends Component
     public $items;
 
     public $expand = 'first';
+
     /**
      * Create a new component instance.
      *

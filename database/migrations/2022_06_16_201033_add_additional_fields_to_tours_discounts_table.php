@@ -1,11 +1,9 @@
 <?php
 
 use App\Models\Discount;
-use App\Models\TourDiscount;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AddAdditionalFieldsToToursDiscountsTable extends Migration
@@ -19,7 +17,7 @@ class AddAdditionalFieldsToToursDiscountsTable extends Migration
     {
         $conn = Schema::getConnection()->getDoctrineSchemaManager();
 
-        $foreignKeys = array_map(function(ForeignKeyConstraint $foreignKey) {
+        $foreignKeys = array_map(function (ForeignKeyConstraint $foreignKey) {
             return $foreignKey->getName();
         }, $conn->listTableForeignKeys('tours_discounts'));
 
@@ -27,15 +25,16 @@ class AddAdditionalFieldsToToursDiscountsTable extends Migration
         $primaryColumns = $primary?->getColumns() ?? null;
 
         Schema::table('tours_discounts', function (Blueprint $table) use ($foreignKeys, $primaryColumns) {
-            if(in_array('discounts_tours_discount_id_foreign', $foreignKeys)) {
+            if (in_array('discounts_tours_discount_id_foreign', $foreignKeys)) {
                 $table->dropForeign('discounts_tours_discount_id_foreign');
             }
-            if(in_array('discounts_tours_tour_id_foreign', $foreignKeys)) {
+            if (in_array('discounts_tours_tour_id_foreign', $foreignKeys)) {
                 $table->dropForeign('discounts_tours_tour_id_foreign');
             }
 
-            if($primaryColumns)
+            if ($primaryColumns) {
                 $table->dropPrimary($primaryColumns);
+            }
         });
 
         Schema::table('tours_discounts', function (Blueprint $table) {

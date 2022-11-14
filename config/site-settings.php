@@ -3,7 +3,7 @@
  * Технические настройки сайта
  */
 return [
-    'user'=>[
+    'user' => [
         /*
         * Whether or not a user can change their email address after
         * their account has already been created
@@ -15,16 +15,16 @@ return [
          */
         'only_roles' => true,
 
-        'permanently_delete'=>true,
+        'permanently_delete' => true,
 
-        'password_history'=>env('PASSWORD_HISTORY', 3),
+        'password_history' => env('PASSWORD_HISTORY', 3),
     ],
-    'access'=>[
-        'captcha'=>[
+    'access' => [
+        'captcha' => [
             'configs' => [
-                'site_key'   => env('INVISIBLE_RECAPTCHA_SITEKEY'),
+                'site_key' => env('INVISIBLE_RECAPTCHA_SITEKEY'),
                 'secret_key' => env('INVISIBLE_RECAPTCHA_SECRETKEY'),
-                'options'   => [
+                'options' => [
                     'hidden' => false,
                     'location' => 'bottomright',
                     'timeout' => 5,
@@ -33,17 +33,17 @@ return [
             /*
              *
              */
-            'registration'=>env('CAPTCHA_REGISTRATION_ENABLED', false),
+            'registration' => env('CAPTCHA_REGISTRATION_ENABLED', false),
             /*
              *
              */
-            'login'=>env('CAPTCHA_LOGIN_ENABLED', false),
+            'login' => env('CAPTCHA_LOGIN_ENABLED', false),
         ],
     ],
-    'locale'=>[
-        'status'=>true,
-        'multi'=>true,
-        'languages'=>[
+    'locale' => [
+        'status' => true,
+        'multi' => true,
+        'languages' => [
             'uk' => ['name' => 'Українська', 'short_name' => 'Укр', 'rtl' => false],
             'ru' => ['name' => 'Русский', 'short_name' => 'Рус', 'rtl' => false],
             'en' => ['name' => 'English', 'short_name' => 'Eng', 'rtl' => false],

@@ -30,39 +30,39 @@ class OrderForm extends Component
 
     public $includeTypes = [];
 
-
     public $currencies = [];
-
 
     public $discounts = [];
 
     public $discountTitle = '';
-    public $discountValue = '';
 
+    public $discountValue = '';
 
     public $participants = [];
 
-
     public $participantPhone = '';
+
     public $participantFirstName = '';
+
     public $participantLastName = '';
+
     public $participantMiddleName = '';
+
     public $participantBirthday = '';
 
     public $accommodation = [];
 
     public $priceInclude = [];
 
-
     public function mount(Order $order): void
     {
         $this->order = $order;
         $this->discounts = $this->order->discounts ?? [];
         $this->accommodation = $this->order->accommodation ?? [];
-        $this->participants = !empty($this->order->participants) && !empty($this->order->participants['items'])
+        $this->participants = ! empty($this->order->participants) && ! empty($this->order->participants['items'])
             ? $this->order->participants['items'] : [];
 
-        $this->participantPhone = !empty($this->order->participants) && !empty($this->order->participants['participant_phone'])
+        $this->participantPhone = ! empty($this->order->participants) && ! empty($this->order->participants['participant_phone'])
             ? $this->order->participants['participant_phone'] : '';
 
         $this->priceInclude = $this->order->price_include ?? [];
@@ -136,6 +136,7 @@ class OrderForm extends Component
     public function getTotalProperty()
     {
         $total = $this->order->price - $this->order->discount;
+
         return $this->order->is_tour_agent ? $total - $this->order->commission : $total;
     }
 
@@ -144,10 +145,9 @@ class OrderForm extends Component
         return view('admin.order.includes.order-form');
     }
 
-
     public function addDiscount()
     {
-        $discountValue = (int)$this->discountValue;
+        $discountValue = (int) $this->discountValue;
         $this->discounts[] = [
             'title' => $this->discountTitle,
             'value' => $discountValue,
@@ -160,7 +160,7 @@ class OrderForm extends Component
 
     public function removeDiscount($index)
     {
-        $discountValue = (int)$this->discounts[$index]['value'];
+        $discountValue = (int) $this->discounts[$index]['value'];
         $this->order->discount -= $discountValue;
         unset($this->discounts[$index]);
     }
@@ -183,7 +183,6 @@ class OrderForm extends Component
     {
         unset($this->participants[$index]);
     }
-
 
     public function save()
     {

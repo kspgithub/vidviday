@@ -1,20 +1,20 @@
 <template>
-    <span @click="openPopup()"><slot/></span>
+    <span @click="openPopup()"><slot /></span>
 </template>
 
 <script>
-import {useStore} from "vuex";
+import { useStore } from 'vuex'
 
 export default {
-    name: "PopupEmailBtn",
+    name: 'PopupEmailBtn',
     props: {
         parent: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
     },
     setup(props) {
-        const store = useStore();
+        const store = useStore()
 
         const openPopup = () => {
             store.commit('userQuestion/SET_POPUP_MAIL_OPEN', true)
@@ -23,10 +23,8 @@ export default {
         return {
             openPopup,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

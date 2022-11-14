@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\TourAttribute;
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Methods\TourMethods;
 use App\Models\Traits\Relationship\TourRelationship;
@@ -18,9 +19,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
+
 class Tour extends TranslatableModel implements HasMedia
 {
     use SoftDeletes;
@@ -40,6 +41,7 @@ class Tour extends TranslatableModel implements HasMedia
     use UseTourExport;
 
     const FORMAT_DAYS = 0;
+
     const FORMAT_TIME = 1;
 
     public $translatable = [
@@ -151,7 +153,6 @@ class Tour extends TranslatableModel implements HasMedia
             ->performOnCollections('main', 'pictures');
     }
 
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -165,36 +166,36 @@ class Tour extends TranslatableModel implements HasMedia
     {
         if ($strict) {
             $locale = getLocale();
-            return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug);
-        } else {
-            return $query->where(function ($sq) use ($slug) {
-                $first = true;
-                $locales = siteLocales();
-                foreach ($locales as $locale) {
-                    if ($first) {
-                        $sq->where(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
-                        $first = false;
-                    } else {
-                        $sq->orWhere(fn($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->' . $locale, $slug));
-                    }
-                }
-            });
+
+            return $query->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug);
         }
+
+        return $query->where(function ($sq) use ($slug) {
+            $first = true;
+            $locales = siteLocales();
+            foreach ($locales as $locale) {
+                if ($first) {
+                    $sq->where(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
+                    $first = false;
+                } else {
+                    $sq->orWhere(fn ($ssq) => $ssq->whereJsonContains('locales', $locale)->whereJsonContains('slug->'.$locale, $slug));
+                }
+            }
+        });
     }
 
     public function getFormatDurationAttribute()
     {
         if ($this->duration_format === self::FORMAT_DAYS) {
-            if ($this->duration === 1 && !$this->nights) {
-                return $this->duration . ' ' . __('tours-section.day');
-            } else {
-
-                return $this->duration . __('tours-section.days-letter') . ($this->nights > 0 ? '/ ' . $this->nights . __('tours-section.nights-letter') : '');
+            if ($this->duration === 1 && ! $this->nights) {
+                return $this->duration.' '.__('tours-section.day');
             }
+
+            return $this->duration.__('tours-section.days-letter').($this->nights > 0 ? '/ '.$this->nights.__('tours-section.nights-letter') : '');
         }
 
         if ($this->duration_format === self::FORMAT_TIME) {
-            return $this->time . __('tours-section.hours-letter');
+            return $this->time.__('tours-section.hours-letter');
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Charity;
 
-use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

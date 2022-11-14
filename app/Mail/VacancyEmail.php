@@ -3,8 +3,6 @@
 namespace App\Mail;
 
 use App\Models\UserQuestion;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
 
 class VacancyEmail extends BaseTemplateEmail
 {
@@ -35,7 +33,7 @@ class VacancyEmail extends BaseTemplateEmail
     {
         $build = parent::build();
 
-        if($this->userQuestion->attachment_url) {
+        if ($this->userQuestion->attachment_url) {
             $build->attach($this->userQuestion->attachment_url);
         }
 

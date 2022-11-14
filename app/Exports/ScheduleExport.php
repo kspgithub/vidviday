@@ -13,10 +13,8 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
 class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatting, WithStyles, ShouldAutoSize
 {
-
     /**
      * @return \Illuminate\Support\Collection
      */
@@ -70,18 +68,17 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
 
     /**
      * Write code on Method
-     *
      */
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $worksheet = $event->getSheet()->getDelegate();
-                $worksheet->getStyle('A1:A' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('B1:B' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('C1:C' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('D1:D' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $worksheet->getStyle('E1:E' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('A1:A'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('B1:B'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('C1:C'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('D1:D'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $worksheet->getStyle('E1:E'.$worksheet->getHighestRow())->getAlignment()->setWrapText(true);
             },
         ];
     }

@@ -4,42 +4,40 @@
             <p>{{ __('certificate-section.delivery-description') }}</p>
         </div>
 
-        <certificate-payment-selector :errors="errors"/>
+        <certificate-payment-selector :errors="errors" />
 
-        <certificate-comment/>
+        <certificate-comment />
 
         <div class="row">
             <div class="col-12">
-                <certificate-total/>
+                <certificate-total />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import CertificatePaymentSelector from "./CertificatePaymentSelector";
-import {useFormDataProperty} from "../../store/composables/useFormData";
-import CertificateComment from "./CertificateComment";
+import CertificatePaymentSelector from './CertificatePaymentSelector'
+import { useFormDataProperty } from '../../store/composables/useFormData'
+import CertificateComment from './CertificateComment'
 
-import CertificateTotal from "./CertificateTotal";
+import CertificateTotal from './CertificateTotal'
 
 export default {
-    name: "CertificateStepTwo",
+    name: 'CertificateStepTwo',
+    components: { CertificateTotal, CertificateComment, CertificatePaymentSelector },
     props: {
         errors: {
             type: Object,
             default: () => {},
         },
     },
-    components: {CertificateTotal, CertificateComment, CertificatePaymentSelector},
     setup() {
         return {
             comment: useFormDataProperty('orderCertificate', 'comment'),
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

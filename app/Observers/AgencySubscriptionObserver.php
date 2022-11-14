@@ -9,7 +9,8 @@ class AgencySubscriptionObserver
     /**
      * Handle the AgencySubscription "created" event.
      *
-     * @param  \App\Models\AgencySubscription  $agencySubscription
+     * @param \App\Models\AgencySubscription  $agencySubscription
+     *
      * @return void
      */
     public function created(AgencySubscription $agencySubscription)
@@ -20,7 +21,8 @@ class AgencySubscriptionObserver
     /**
      * Handle the AgencySubscription "updated" event.
      *
-     * @param  \App\Models\AgencySubscription  $agencySubscription
+     * @param \App\Models\AgencySubscription  $agencySubscription
+     *
      * @return void
      */
     public function updated(AgencySubscription $agencySubscription)
@@ -31,7 +33,8 @@ class AgencySubscriptionObserver
     /**
      * Handle the AgencySubscription "deleted" event.
      *
-     * @param  \App\Models\AgencySubscription  $agencySubscription
+     * @param \App\Models\AgencySubscription  $agencySubscription
+     *
      * @return void
      */
     public function deleted(AgencySubscription $agencySubscription)
@@ -42,7 +45,8 @@ class AgencySubscriptionObserver
     /**
      * Handle the AgencySubscription "restored" event.
      *
-     * @param  \App\Models\AgencySubscription  $agencySubscription
+     * @param \App\Models\AgencySubscription  $agencySubscription
+     *
      * @return void
      */
     public function restored(AgencySubscription $agencySubscription)
@@ -53,7 +57,8 @@ class AgencySubscriptionObserver
     /**
      * Handle the AgencySubscription "force deleted" event.
      *
-     * @param  \App\Models\AgencySubscription  $agencySubscription
+     * @param \App\Models\AgencySubscription  $agencySubscription
+     *
      * @return void
      */
     public function forceDeleted(AgencySubscription $agencySubscription)

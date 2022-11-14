@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Traits\HasImage;
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Advertisement extends TranslatableModel
@@ -36,7 +35,6 @@ class Advertisement extends TranslatableModel
     protected $casts = [
         'published' => 'boolean',
     ];
-
 
     public function imageSize()
     {

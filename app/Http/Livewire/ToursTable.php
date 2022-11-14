@@ -54,8 +54,8 @@ class ToursTable extends DataTableComponent
 
         $locales = (array) $this->getFilter('locale') ?? [];
 
-        $query->when($locales, function ($q) use ($locales){
-            return $q->where(function ($q) use ($locales){
+        $query->when($locales, function ($q) use ($locales) {
+            return $q->where(function ($q) use ($locales) {
                 foreach ($locales as $locale) {
                     $q->whereJsonContains('locales', $locale);
                 }
@@ -88,7 +88,7 @@ class ToursTable extends DataTableComponent
 
             Column::make(__('Manager'))
                 ->format(function ($value, $column, $row) {
-                    return !empty($row->tourManager) ? $row->tourManager->name : '-';
+                    return ! empty($row->tourManager) ? $row->tourManager->name : '-';
                 }),
 
             Column::make(__('Published'), 'published')
@@ -111,6 +111,7 @@ class ToursTable extends DataTableComponent
         foreach ($availableLocales as $locale) {
             $locales[$locale] = $locale;
         }
+
         return [
             'locale' => Filter::make(__('locale'))->multiSelect($locales),
         ];

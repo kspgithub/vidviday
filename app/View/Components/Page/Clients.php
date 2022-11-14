@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 
 class Clients extends Component
 {
-     public $clients = [];
+    public $clients = [];
 
     /**
      * Create a new component instance.

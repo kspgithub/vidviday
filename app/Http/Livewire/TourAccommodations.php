@@ -93,27 +93,26 @@ class TourAccommodations extends Component
     {
         $rules = [];
 
-        if($this->form['type_id'] == TourAccommodation::TYPE_TEMPLATE) {
+        if ($this->form['type_id'] == TourAccommodation::TYPE_TEMPLATE) {
             $rules = [
                 'form.type_id' => 'required',
                 'form.accommodation_id' => ['required', 'int', 'min:1'],
             ];
         }
 
-        if($this->form['type_id'] == TourAccommodation::TYPE_CUSTOM) {
+        if ($this->form['type_id'] == TourAccommodation::TYPE_CUSTOM) {
             $rules = [
                 'form.type_id' => 'required',
-//            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
-//            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
-//            'form.city_id' => ['required', 'integer', Rule::exists('cities', 'id')],
+                //            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
+                //            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
+                //            'form.city_id' => ['required', 'integer', Rule::exists('cities', 'id')],
             ];
 
             $locales = $this->tour->locales;
 
             foreach ($locales as $locale) {
-                $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourAccommodation::TYPE_CUSTOM, ['required', 'string']);
+                $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourAccommodation::TYPE_CUSTOM, ['required', 'string']);
             }
-
         }
 
         return $rules;
@@ -146,9 +145,9 @@ class TourAccommodations extends Component
         $this->form['region_id'] = 0;
         $this->form['city_id'] = 0;
 
-
-        if($this->model->accommodation?->country_id)
+        if ($this->model->accommodation?->country_id) {
             $this->form['accommodation_id'] = 0;
+        }
 
         $this->dispatchBrowserEvent('initLocation', []);
     }
@@ -162,8 +161,9 @@ class TourAccommodations extends Component
 
         $this->form['city_id'] = 0;
 
-        if($this->model->accommodation?->region_id)
+        if ($this->model->accommodation?->region_id) {
             $this->form['accommodation_id'] = 0;
+        }
 
         $this->dispatchBrowserEvent('initLocation', []);
     }
@@ -176,8 +176,9 @@ class TourAccommodations extends Component
             $this->form['country_id'] = $city->country_id;
         }
 
-        if($this->model->accommodation?->city_id)
+        if ($this->model->accommodation?->city_id) {
             $this->form['accommodation_id'] = 0;
+        }
 
         $this->dispatchBrowserEvent('initLocation', []);
     }
@@ -194,11 +195,11 @@ class TourAccommodations extends Component
 
     public function updatedFormTypeId($type_id)
     {
-        if($type_id == TourAccommodation::TYPE_CUSTOM) {
+        if ($type_id == TourAccommodation::TYPE_CUSTOM) {
             $this->form['accommodation_id'] = 0;
         }
 
-        if(!$this->type) {
+        if (! $this->type) {
             $this->type = $type_id;
 
             $this->form['country_id'] = 0;
@@ -232,7 +233,7 @@ class TourAccommodations extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if($index !== false) {
+        if ($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -273,7 +274,7 @@ class TourAccommodations extends Component
 
     public function updatedAccommodationId($id)
     {
-        if($id) {
+        if ($id) {
             $this->accommodation = Accommodation::query()->with(['country', 'region', 'city'])->find($id);
             $this->form['country_id'] = $this->accommodation->country_id ?: $this->accommodation->region?->country_id;
             $this->form['region_id'] = $this->accommodation->region_id ?: $this->accommodation->city?->region_id;

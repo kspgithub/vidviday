@@ -11,6 +11,7 @@ use Illuminate\Database\Seeder;
 class CurrencySeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
+
     /**
      * Run the database seeds.
      *

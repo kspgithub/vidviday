@@ -25,7 +25,9 @@ class User extends Authenticatable
     use SoftDeletes;
 
     public const STATUS_INACTIVE = 0;
+
     public const STATUS_ACTIVE = 1;
+
     public const STATUS_BLOCKED = 2;
 
     /**
@@ -93,11 +95,11 @@ class User extends Authenticatable
         return $this->hasMany(Staff::class);
     }
 
-
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string  $token
+     *
      * @return void
      */
     public function sendPasswordResetNotification($token)

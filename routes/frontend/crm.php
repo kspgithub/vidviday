@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Crm\CrmController;
 
 Route::group([
@@ -15,4 +14,3 @@ Route::group([
     Route::any('/app-install', [CrmController::class, 'appInstall'])->name('app.install');
     Route::get('/app-check-server', [CrmController::class, 'appCheckServer'])->name('app.check-server');
 });
-

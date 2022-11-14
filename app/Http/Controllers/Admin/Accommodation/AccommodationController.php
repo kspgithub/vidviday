@@ -22,6 +22,7 @@ class AccommodationController extends Controller
     public function index()
     {
         $items = Accommodation::all();
+
         return view('admin.accommodation.index', ['items' => $items]);
     }
 
@@ -38,25 +39,25 @@ class AccommodationController extends Controller
 
         return view('admin.accommodation.create', [
             'accommodation' => $accommodation,
-            "countries" => $countries,
-            "regions" => $regions,
+            'countries' => $countries,
+            'regions' => $regions,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'max:100'],
-//            'title_where' => ['required', 'array'],
-//            'title_where.uk' => ['required', 'max:100'],
+            //            'title_where' => ['required', 'array'],
+            //            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
             'country_id' => ['nullable', 'integer'],
@@ -68,14 +69,15 @@ class AccommodationController extends Controller
         $accommodation = new Accommodation();
         $accommodation->fill($request->all());
         $accommodation->save();
+
         return redirect()->route('admin.accommodation.edit', $accommodation)->withFlashSuccess(__('Record Created'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Accommodation $accommodation
+     * @param Accommodation  $accommodation
+     *
      * @return View
      */
     public function edit(Accommodation $accommodation)
@@ -85,16 +87,17 @@ class AccommodationController extends Controller
 
         return view('admin.accommodation.edit', [
             'accommodation' => $accommodation,
-            "countries" => $countries,
-            "regions" => $regions
+            'countries' => $countries,
+            'regions' => $regions,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Accommodation $accommodation
+     * @param Request  $request
+     * @param Accommodation  $accommodation
+     *
      * @return Response
      */
     public function update(Request $request, Accommodation $accommodation)
@@ -102,8 +105,8 @@ class AccommodationController extends Controller
         $request->validate([
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'max:100'],
-//            'title_where' => ['required', 'array'],
-//            'title_where.uk' => ['required', 'max:100'],
+            //            'title_where' => ['required', 'array'],
+            //            'title_where.uk' => ['required', 'max:100'],
             'text' => ['required', 'array'],
             'text.uk' => ['nullable', 'max:500'],
             'country_id' => ['nullable', 'integer'],
@@ -114,28 +117,31 @@ class AccommodationController extends Controller
 
         $accommodation->fill($request->all());
         $accommodation->save();
+
         return redirect()->route('admin.accommodation.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Accommodation $accommodation
+     * @param Accommodation  $accommodation
+     *
      * @return Response
      */
     public function destroy(Accommodation $accommodation)
     {
         //
         $accommodation->delete();
+
         return redirect()->route('admin.accommodation.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 
     /**
      * Update the specified resource status.
      *
-     * @param Request $request
-     * @param Accommodation $accommodation
+     * @param Request  $request
+     * @param Accommodation  $accommodation
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Accommodation $accommodation)
@@ -143,8 +149,9 @@ class AccommodationController extends Controller
         $request->validate([
             'published' => ['nullable', 'integer', Rule::in([0, 1])],
         ]);
-        $accommodation->published = (int)$request->published;
+        $accommodation->published = (int) $request->published;
         $accommodation->save();
+
         return response()->json(['result' => 'success']);
     }
 }

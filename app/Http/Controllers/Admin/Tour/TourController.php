@@ -63,6 +63,7 @@ class TourController extends Controller
             ['value' => Tour::FORMAT_DAYS, 'text' => __('Дні / Ночі')],
             ['value' => Tour::FORMAT_TIME, 'text' => __('Час')],
         ];
+
         return view('admin.tour.create', [
             'tour' => $tour,
             'currencies' => $currencies,
@@ -81,11 +82,11 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param TourBasicRequest $request
+     * @param TourBasicRequest  $request
      *
-     * @return Response
      * @throws GeneralException
      *
+     * @return Response
      */
     public function store(TourBasicRequest $request)
     {
@@ -96,7 +97,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('main');
             if ($media) {
                 foreach ($main_image_alts as $locale => $alt) {
-                    $media->setCustomProperty('alt_' . $locale, $alt);
+                    $media->setCustomProperty('alt_'.$locale, $alt);
                 }
                 $media->save();
             }
@@ -106,7 +107,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('main');
             if ($media) {
                 foreach ($main_image_titles as $locale => $title) {
-                    $media->setCustomProperty('title_' . $locale, $title);
+                    $media->setCustomProperty('title_'.$locale, $title);
                 }
                 $media->save();
             }
@@ -116,7 +117,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('mobile');
             if ($media) {
                 foreach ($mobile_image_alts as $locale => $alt) {
-                    $media->setCustomProperty('alt_' . $locale, $alt);
+                    $media->setCustomProperty('alt_'.$locale, $alt);
                 }
                 $media->save();
             }
@@ -126,7 +127,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('mobile');
             if ($media) {
                 foreach ($mobile_image_titles as $locale => $title) {
-                    $media->setCustomProperty('title_' . $locale, $title);
+                    $media->setCustomProperty('title_'.$locale, $title);
                 }
                 $media->save();
             }
@@ -143,7 +144,7 @@ class TourController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Tour $tour
+     * @param Tour  $tour
      *
      * @return View
      */
@@ -183,8 +184,8 @@ class TourController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Tour $tour
+     * @param Request  $request
+     * @param Tour  $tour
      *
      * @return Response
      */
@@ -197,7 +198,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('main');
             if ($media) {
                 foreach ($main_image_alts as $locale => $alt) {
-                    $media->setCustomProperty('alt_' . $locale, $alt);
+                    $media->setCustomProperty('alt_'.$locale, $alt);
                 }
                 $media->save();
             }
@@ -207,7 +208,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('main');
             if ($media) {
                 foreach ($main_image_titles as $locale => $title) {
-                    $media->setCustomProperty('title_' . $locale, $title);
+                    $media->setCustomProperty('title_'.$locale, $title);
                 }
                 $media->save();
             }
@@ -217,7 +218,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('mobile');
             if ($media) {
                 foreach ($mobile_image_alts as $locale => $alt) {
-                    $media->setCustomProperty('alt_' . $locale, $alt);
+                    $media->setCustomProperty('alt_'.$locale, $alt);
                 }
                 $media->save();
             }
@@ -227,7 +228,7 @@ class TourController extends Controller
             $media = $tour->getFirstMedia('mobile');
             if ($media) {
                 foreach ($mobile_image_titles as $locale => $title) {
-                    $media->setCustomProperty('title_' . $locale, $title);
+                    $media->setCustomProperty('title_'.$locale, $title);
                 }
                 $media->save();
             }
@@ -239,7 +240,7 @@ class TourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Tour $tour
+     * @param Tour  $tour
      *
      * @return Response
      */
@@ -251,19 +252,19 @@ class TourController extends Controller
         return redirect()->route('admin.tour.index')->withFlashSuccess(__('Record Deleted'));
     }
 
-
     /**
      * Update status the specified resource.
      *
-     * @param Request $request
-     * @param Tour $tour
+     * @param Request  $request
+     * @param Tour  $tour
      *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Tour $tour)
     {
-        $tour->published = (int)$request->input('published');
+        $tour->published = (int) $request->input('published');
         $tour->save();
+
         return response()->json(['result' => 'Success']);
     }
 }

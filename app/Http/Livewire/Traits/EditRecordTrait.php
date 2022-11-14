@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire\Traits;
 
-use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait EditRecordTrait
 {
@@ -30,7 +27,6 @@ trait EditRecordTrait
 
     public function delete()
     {
-
         $model = $this->query()->find($this->deleteId);
         if (method_exists($model, 'clearMediaCollection')) {
             $model->clearMediaCollection();
@@ -48,7 +44,6 @@ trait EditRecordTrait
         $this->afterModelInit();
         $this->edit = true;
     }
-
 
     public function cancelEdit()
     {
@@ -74,7 +69,6 @@ trait EditRecordTrait
         $this->selectedId = 0;
     }
 
-
     public function beforeSaveItem()
     {
     }
@@ -94,7 +88,6 @@ trait EditRecordTrait
      */
     abstract public function query();
 
-
     public function getLocales()
     {
         return array_keys(config('site-settings.locale.languages'));
@@ -105,7 +98,7 @@ trait EditRecordTrait
         $locales = $this->getLocales();
         $translations = $this->model->getTranslations($key);
         foreach ($locales as $locale) {
-            $this->{$key . '_' . $locale} = $translations[$locale] ?? '';
+            $this->{$key.'_'.$locale} = $translations[$locale] ?? '';
         }
     }
 
@@ -114,7 +107,7 @@ trait EditRecordTrait
         $translations = [];
         $locales = $this->getLocales();
         foreach ($locales as $locale) {
-            $translations[$locale] = $this->{$key . '_' . $locale} ?? '';
+            $translations[$locale] = $this->{$key.'_'.$locale} ?? '';
         }
         $this->model->setTranslations($key, $translations);
     }
@@ -144,11 +137,11 @@ trait EditRecordTrait
         $this->shortenModelAttributesInsideValidator($ruleKeysToShorten, $validator);
 
         $customValues = $this->getValidationCustomValues();
-        if (!empty($customValues)) {
+        if (! empty($customValues)) {
             $validator->addCustomValues($customValues);
         }
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             $this->dispatchBrowserEvent('displayErrors', ['errors' => $validator->errors()->getMessages()]);
         }
 

@@ -3,10 +3,9 @@
 namespace App\Models\Traits\Scope;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 trait JsonLikeScope
 {
@@ -19,9 +18,10 @@ trait JsonLikeScope
     {
         $parts = explode('.', $field);
 
-        if(count($parts) > 1) {
+        if (count($parts) > 1) {
             $table = $parts[0];
             $field = $parts[1];
+
             return "REPLACE(REPLACE(REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(`$table`.`$field`, '$.\"$locale\"'))), '\'', ''), '+', ''), ' ', '')";
         }
 
@@ -29,10 +29,10 @@ trait JsonLikeScope
     }
 
     /**
-     * @param QueryBuilder|EloquentBuilder|Relation $query
-     * @param string $field
-     * @param string $value
-     * @param array $locales
+     * @param  QueryBuilder|EloquentBuilder|Relation  $query
+     * @param  string  $field
+     * @param  string  $value
+     * @param  array  $locales
      * return QueryBuilder|EloquentBuilder
      */
     private function buildJsonLikeQuery($query, $field, $value, $locales = [])
@@ -43,37 +43,38 @@ trait JsonLikeScope
         $value = self::prepareLikeValue($value);
 
         foreach ($locales as $locale) {
-            $query->orWhereRaw(self::prepareLikeSelectQuery($field, $locale) . " LIKE '$value'");
+            $query->orWhereRaw(self::prepareLikeSelectQuery($field, $locale)." LIKE '$value'");
         }
+
         return $query;
     }
 
     /**
-     * @param QueryBuilder|EloquentBuilder|Relation $builder
-     * @param string $field
-     * @param string $value
-     * @param array $locales
+     * @param  QueryBuilder|EloquentBuilder|Relation  $builder
+     * @param  string  $field
+     * @param  string  $value
+     * @param  array  $locales
      * return QueryBuilder|EloquentBuilder
      */
     public function scopeJsonLike($builder, $field, $value, $locales = [])
     {
-        return $builder->where(fn($sq) => $this->buildJsonLikeQuery($sq, $field, $value, $locales));
+        return $builder->where(fn ($sq) => $this->buildJsonLikeQuery($sq, $field, $value, $locales));
     }
 
     /**
-     * @param QueryBuilder|EloquentBuilder|Relation $builder
-     * @param string $field
-     * @param string $value
-     * @param array $locales
+     * @param  QueryBuilder|EloquentBuilder|Relation  $builder
+     * @param  string  $field
+     * @param  string  $value
+     * @param  array  $locales
      * return QueryBuilder|EloquentBuilder
      */
     public function scopeOrJsonLike($builder, $field, $value, $locales = [])
     {
-        return $builder->orWhere(fn($sq) => $this->buildJsonLikeQuery($sq, $field, $value, $locales));
+        return $builder->orWhere(fn ($sq) => $this->buildJsonLikeQuery($sq, $field, $value, $locales));
     }
 
     /**
-     * @param QueryBuilder|EloquentBuilder|Relation $builder
+     * @param  QueryBuilder|EloquentBuilder|Relation  $builder
      * @param $search
      * return QueryBuilder|EloquentBuilder
      */
@@ -102,6 +103,7 @@ trait JsonLikeScope
         foreach ($locales as $locale) {
             $builder->orderBy("relevant_$locale");
         }
+
         return $builder;
     }
 
@@ -113,9 +115,9 @@ trait JsonLikeScope
         foreach ($locales as $locale) {
             $builder->orderBy("{$field}->{$locale}");
         }
+
         return $builder;
     }
-
 
     public function scopeJsonAutocomplete($builder, $search, $select = null, $with = null, $field = 'title', $locales = [])
     {
@@ -124,20 +126,21 @@ trait JsonLikeScope
         }
 
         $search = strtolower(urldecode(trim($search)));
-        if (!empty($with)) {
+        if (! empty($with)) {
             $builder->with($with);
         }
-        if (!empty($select)) {
+        if (! empty($select)) {
             $builder->select($select);
         }
 
-        $builder->where(fn($q) => $q->jsonLike($field, "%$search%", $locales));
+        $builder->where(fn ($q) => $q->jsonLike($field, "%$search%", $locales));
 
-        if (!empty($search)) {
+        if (! empty($search)) {
             $builder->orderByRelevant($search);
         } else {
             $builder->orderByJsonDefault($field, $locales);
         }
+
         return $builder;
     }
 }

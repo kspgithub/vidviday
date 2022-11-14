@@ -7,14 +7,13 @@ use App\Models\HomePageBanner;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Spatie\Image\Manipulations;
 
 class HomePageBannerService extends BaseService
 {
     /**
      * TourService constructor.
      *
-     * @param  HomePageBanner  $homePageBanner
+     * @param HomePageBanner  $homePageBanner
      */
     public function __construct(HomePageBanner $homePageBanner)
     {
@@ -46,7 +45,6 @@ class HomePageBannerService extends BaseService
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
-
 
             throw new GeneralException(__('There was a problem updating record.'));
         }

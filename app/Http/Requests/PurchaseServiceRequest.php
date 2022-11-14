@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use \Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -11,7 +11,6 @@ use Illuminate\Validation\ValidationException;
  */
 class PurchaseServiceRequest extends FormRequest
 {
-
 //    protected function prepareForValidation()
 //    {
 //        $data = json_decode($this->getContent(), true);
@@ -55,7 +54,7 @@ class PurchaseServiceRequest extends FormRequest
     {
         $response = response()->json([
             'status' => 400,
-            'errors' => $validator->errors()//$validator->errors()
+            'errors' => $validator->errors(), //$validator->errors()
         ]);
 
         throw (new ValidationException($validator, $response))

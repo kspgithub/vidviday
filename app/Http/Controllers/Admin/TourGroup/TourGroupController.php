@@ -46,7 +46,7 @@ class TourGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response|RedirectResponse
      */
@@ -86,7 +86,7 @@ class TourGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param TourGroup $tourGroup
+     * @param TourGroup  $tourGroup
      *
      * @return View
      */
@@ -94,14 +94,15 @@ class TourGroupController extends Controller
     {
         //
         $tours = Tour::toSelectBox();
+
         return view('admin.tour-group.edit', compact('tourGroup', 'tours'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param TourGroup $tourGroup
+     * @param Request  $request
+     * @param TourGroup  $tourGroup
      *
      * @return Response|JsonResponse|RedirectResponse
      */
@@ -110,7 +111,7 @@ class TourGroupController extends Controller
         //
         $params = $request->all();
 
-        if (!$request->ajax()) {
+        if (! $request->ajax()) {
             $validator = Validator::make($params, [
                 'title' => ['required', 'array'],
                 'title.uk' => ['required'],
@@ -132,7 +133,7 @@ class TourGroupController extends Controller
 
         $tourGroup->fill($params);
         $tourGroup->save();
-        
+
         if (isset($params['tours'])) {
             $tourGroup->tours()->sync($params['tours']);
         }
@@ -140,13 +141,14 @@ class TourGroupController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.tour-group.edit', $tourGroup)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param TourGroup $tourGroup
+     * @param TourGroup  $tourGroup
      *
      * @return Response
      */
@@ -157,5 +159,4 @@ class TourGroupController extends Controller
 
         return redirect()->route('admin.tour-group.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

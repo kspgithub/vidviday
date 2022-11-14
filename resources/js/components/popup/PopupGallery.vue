@@ -5,20 +5,20 @@
                 <span class="text-bold">{{ activeIndex }}</span> / <span>{{ media.length }}</span>
             </div>
             <div class="swiper-entry popup-gallery-slider">
-                <div class="swiper-container swiper-vue" ref="swiperRef">
+                <div ref="swiperRef" class="swiper-container swiper-vue">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="(slide, idx) in media">
-                            <img :src="slide.url" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
+                        <div v-for="(slide, idx) in media" class="swiper-slide">
+                            <img :src="slide.url" :title="slide.title" :alt="slide.alt" class="swiper-lazy" />
                             <div class="swiper-lazy-preloader"></div>
                             <span class="text-md text-medium">{{ slide.title }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-button-prev" ref="prevRef" @click="prevSlide()">
+                <div ref="prevRef" class="swiper-button-prev" @click="prevSlide()">
                     <i></i>
                 </div>
-                <div class="swiper-pagination" ref="paginationRef"></div>
-                <div class="swiper-button-next" ref="nextRef" @click="nextSlide()">
+                <div ref="paginationRef" class="swiper-pagination"></div>
+                <div ref="nextRef" class="swiper-button-next" @click="nextSlide()">
                     <i></i>
                 </div>
             </div>
@@ -27,39 +27,37 @@
             </div>
         </div>
     </popup>
-
-
 </template>
 
 <script>
-import Popup from "./Popup";
-import {computed, onMounted, ref, watch} from "vue";
-import {useStore} from "vuex";
+import Popup from './Popup'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
-    name: "PopupGallery",
-    components: {Popup},
+    name: 'PopupGallery',
+    components: { Popup },
     props: {},
     setup(props) {
-        const store = useStore();
-        const visible = computed(() => store.state.popupGallery.active);
-        const media = computed(() => store.state.popupGallery.media);
-        const currentSlide = computed(() => store.state.popupGallery.currentSlide);
+        const store = useStore()
+        const visible = computed(() => store.state.popupGallery.active)
+        const media = computed(() => store.state.popupGallery.media)
+        const currentSlide = computed(() => store.state.popupGallery.currentSlide)
 
-        const swiper = ref(null);
-        const swiperRef = ref(null);
-        const slider = ref(null);
-        const paginationRef = ref(null);
-        const nextRef = ref(null);
-        const prevRef = ref(null);
-        const activeIndex = ref(1);
+        const swiper = ref(null)
+        const swiperRef = ref(null)
+        const slider = ref(null)
+        const paginationRef = ref(null)
+        const nextRef = ref(null)
+        const prevRef = ref(null)
+        const activeIndex = ref(1)
 
         const nextSlide = () => {
-            swiper.value.slideNext();
+            swiper.value.slideNext()
         }
 
         const prevSlide = () => {
-            swiper.value.slidePrev();
+            swiper.value.slidePrev()
         }
 
         const initDynamicPagination = function () {
@@ -67,22 +65,24 @@ export default {
 
             const pagination = swiper.value.pagination
 
-            if(pagination && typeof pagination.bullets !== 'undefined') {
-
+            if (pagination && typeof pagination.bullets !== 'undefined') {
                 const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
 
                 const totalBullets = bullets.length
 
-                if(totalBullets > 5) {
+                if (totalBullets > 5) {
                     const maxIndex = totalBullets - 1
-                    const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
+                    const activeIndex = bullets.findIndex((bullet, i) =>
+                        bullet.classList.contains('swiper-pagination-bullet-active'),
+                    )
 
-                    const visibleIndexes = [activeIndex];
+                    const visibleIndexes = [activeIndex]
 
-                    for(let i = 1; i < 3; i++) {
-                        let index, currentIndex = activeIndex + i;
+                    for (let i = 1; i < 3; i++) {
+                        let index,
+                            currentIndex = activeIndex + i
 
-                        if(currentIndex >= maxIndex) {
+                        if (currentIndex >= maxIndex) {
                             index = currentIndex - maxIndex
                         } else {
                             index = currentIndex
@@ -90,10 +90,11 @@ export default {
                         visibleIndexes.push(index)
                     }
 
-                    for(let i = 1; i < 3; i++) {
-                        let index, currentIndex = activeIndex - i;
+                    for (let i = 1; i < 3; i++) {
+                        let index,
+                            currentIndex = activeIndex - i
 
-                        if(currentIndex < 0) {
+                        if (currentIndex < 0) {
                             index = maxIndex + currentIndex + 1
                         } else {
                             index = currentIndex
@@ -102,7 +103,7 @@ export default {
                     }
 
                     $(bullets).each((index, bullet) => {
-                        if(visibleIndexes.includes(index)) {
+                        if (visibleIndexes.includes(index)) {
                             $(bullet).addClass('visible').show()
                         } else {
                             $(bullet).removeClass('visible').hide()
@@ -115,7 +116,7 @@ export default {
         onMounted(() => {
             swiper.value = new window.Swiper(swiperRef.value, {
                 loop: true,
-                lazy: {loadPrevNext: true},
+                lazy: { loadPrevNext: true },
                 preloadImages: false,
                 roundLengths: false,
                 observer: true,
@@ -132,32 +133,29 @@ export default {
                 pagination: {
                     clickable: true,
                     el: paginationRef.value,
-
                 },
-
-            });
+            })
 
             slider.value = $(swiperRef.value).closest('.swiper-entry')
 
             swiper.value.on('slideChangeTransitionStart', () => {
                 if (slider.value.hasClass('popup-gallery-slider')) {
                     let customFraction = slider.value.closest('.popup-align').find('.pagination-fraction .text-bold'),
-                        activeSlideIndex = slider.value.find('.swiper-slide-active').index();
-                    $(customFraction).html(activeSlideIndex + 1);
+                        activeSlideIndex = slider.value.find('.swiper-slide-active').index()
+                    $(customFraction).html(activeSlideIndex + 1)
                 }
             })
 
             swiper.value.on('slideChange', () => {
-                activeIndex.value = swiper.value.realIndex + 1;
+                activeIndex.value = swiper.value.realIndex + 1
 
                 initDynamicPagination()
             })
-
-        });
+        })
 
         watch(currentSlide, () => {
-            swiper.value.slideTo(currentSlide.value, 0);
-            activeIndex.value = currentSlide.value + 1;
+            swiper.value.slideTo(currentSlide.value, 0)
+            activeIndex.value = currentSlide.value + 1
         })
 
         watch(visible, () => {
@@ -165,7 +163,7 @@ export default {
         })
 
         const hide = () => {
-            store.commit('popupGallery/SET_ACTIVE', false);
+            store.commit('popupGallery/SET_ACTIVE', false)
         }
 
         return {
@@ -181,10 +179,8 @@ export default {
             visible,
             media,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -10,5 +10,4 @@ trait HomePageBannerAttribute
 
         return $media === null ? '' : $media->getUrl();
     }
-
 }

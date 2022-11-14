@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Traits\UseSelectBox;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Traits\HasSlug;
+use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -31,7 +30,6 @@ class IncludeType extends TranslatableModel
     {
         return $this->hasMany(TourInclude::class);
     }
-
 
     public function getSlugOptions(): SlugOptions
     {

@@ -19,7 +19,8 @@ class TransportController extends Controller
     public function index()
     {
         $transports = Transport::query()->get();
-        return view('admin.transport.index', ['transports'=>$transports]);
+
+        return view('admin.transport.index', ['transports' => $transports]);
     }
 
     /**
@@ -31,11 +32,11 @@ class TransportController extends Controller
     {
         $transport = new Transport();
 
-        return view('admin.transport.create', ['transport'=>$transport]);
+        return view('admin.transport.create', ['transport' => $transport]);
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -48,26 +49,26 @@ class TransportController extends Controller
         if ($request->hasFile('image_upload')) {
             $transport->uploadImage($request->file('image_upload'));
         }
+
         return redirect()->route('admin.transport.edit', $transport)->withFlashSuccess(__('Record Created'));
     }
 
     /**
-     *
      * @param Transport  $transport
      *
      * @return View
      */
-    public function edit(Transport  $transport)
+    public function edit(Transport $transport)
     {
         //
-        return view('admin.transport.edit', ['transport'=>$transport]);
+        return view('admin.transport.edit', ['transport' => $transport]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Transport $transport
+     * @param Request  $request
+     * @param Transport  $transport
      *
      * @return Response|JsonResponse
      */
@@ -84,13 +85,14 @@ class TransportController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.transport.edit', $transport)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Transport $transport
+     * @param Transport  $transport
      *
      * @return Response
      */
@@ -98,7 +100,7 @@ class TransportController extends Controller
     {
         //
         $transport->delete();
+
         return redirect()->route('admin.transport.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

@@ -6,15 +6,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class TranslatableSlugRule implements Rule
 {
-
-
     public function passes($attribute, $value): bool
     {
         $items = [];
-        if (!empty($value)) {
+        if (! empty($value)) {
             foreach ($value as $locale => $slug) {
                 $slug = trim($slug);
-                if (!empty($slug)) {
+                if (! empty($slug)) {
                     if (in_array($slug, $items)) {
                         return false;
                     }
@@ -22,6 +20,7 @@ class TranslatableSlugRule implements Rule
                 }
             }
         }
+
         return true;
     }
 

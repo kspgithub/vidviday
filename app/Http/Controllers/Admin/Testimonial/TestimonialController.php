@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Testimonial;
 
 use App\Http\Controllers\Controller;
 use App\Models\AgencySubscription;
-use App\Models\Contact;
 use App\Models\Testimonial;
 use App\Models\TourQuestion;
 use App\Models\UserQuestion;
@@ -53,7 +52,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -84,7 +83,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -99,7 +98,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -114,7 +113,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -129,7 +128,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */

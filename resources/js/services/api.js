@@ -1,25 +1,24 @@
 export const apiClient = axios.create({
-    baseURL: "/api",
-    withCredentials: true // required to handle the CSRF token
-});
+    baseURL: '/api',
+    withCredentials: true, // required to handle the CSRF token
+})
 
-
-export const getError = (error) => {
-    let errorMessages = [];
-    let data = error.data || error.response.data || null;
+export const getError = error => {
+    let errorMessages = []
+    let data = error.data || error.response.data || null
     if (data) {
         if (data.errors) {
             for (let key in data.errors) {
                 if (data.errors.hasOwnProperty(key)) {
-                    errorMessages.push(data.errors[key]);
+                    errorMessages.push(data.errors[key])
                 }
             }
         } else {
             errorMessages.push(data.message)
         }
     }
-    return errorMessages.length ? errorMessages.join('<br>') : error;
-};
+    return errorMessages.length ? errorMessages.join('<br>') : error
+}
 
 /**
  * Add a request interceptor
@@ -27,16 +26,15 @@ export const getError = (error) => {
  */
 apiClient.interceptors.request.use(
     function (config) {
-        const token = window.localStorage.getItem("token");
+        const token = window.localStorage.getItem('token')
         if (token != null) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`
         }
-        return config;
+        return config
     },
     function (error) {
-        return Promise.reject(error.response);
-    }
-);
+        return Promise.reject(error.response)
+    },
+)
 
-
-export default apiClient;
+export default apiClient

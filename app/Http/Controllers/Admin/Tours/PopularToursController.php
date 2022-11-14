@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Cache;
 class PopularToursController extends Controller
 {
     /**
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return View
      */
     public function index(Request $request)
@@ -33,13 +34,12 @@ class PopularToursController extends Controller
 
         $ids = PopularTour::query()->pluck('tour_id')->toArray();
 
-        $tours = Tour::toSelectBox()->filter(fn($tour) => !in_array($tour['value'], $ids));
+        $tours = Tour::toSelectBox()->filter(fn ($tour) => ! in_array($tour['value'], $ids));
 
         return view('admin.popular-tours.create', [
             'model' => $popularTour,
             'tours' => $tours,
         ]);
-
     }
 
     public function store(Request $request)
@@ -54,6 +54,7 @@ class PopularToursController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Created'), 'model' => $popularTour]);
         }
+
         return redirect()->route('admin.popular-tours.index')->withFlashSuccess(__('Record Created'));
     }
 
@@ -68,6 +69,7 @@ class PopularToursController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $popularTour]);
         }
+
         return redirect()->route('admin.popular-tours.index')->withFlashSuccess(__('Record Updated'));
     }
 
@@ -81,6 +83,7 @@ class PopularToursController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Deleted'), 'model' => $popularTour]);
         }
+
         return redirect()->route('admin.popular-tours.index')->withFlashSuccess(__('Record Deleted'));
     }
 

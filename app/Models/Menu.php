@@ -5,9 +5,6 @@ namespace App\Models;
 use App\Models\Traits\Attributes\MenuAttribute;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class Menu extends TranslatableModel
@@ -33,10 +30,8 @@ class Menu extends TranslatableModel
         'slug',
     ];
 
-
     public function items()
     {
         return $this->hasMany(MenuItem::class, 'menu_id')->orderBy('position');
     }
-
 }

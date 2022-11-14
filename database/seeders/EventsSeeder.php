@@ -12,6 +12,7 @@ use Illuminate\Database\Seeder;
 class EventsSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
+
     /**
      * Run the database seeds.
      *
@@ -32,17 +33,14 @@ class EventsSeeder extends Seeder
 
         $eventGroups = [
             [
-                'title'=>['uk'=>'Бринза'],
+                'title' => ['uk' => 'Бринза'],
             ],
             [
-                'title'=>['uk'=>'Новий рік в карпатах'],
-            ]
+                'title' => ['uk' => 'Новий рік в карпатах'],
+            ],
         ];
 
-
         $groups = collect();
-
-
 
         foreach ($eventGroups as $eventGroup) {
             $group = EventGroup::create($eventGroup);
@@ -55,6 +53,5 @@ class EventsSeeder extends Seeder
             $event->groups()->attach($groups->random(1));
             $event->directions()->attach($directions->random(1));
         }
-
     }
 }

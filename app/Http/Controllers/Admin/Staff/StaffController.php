@@ -48,7 +48,7 @@ class StaffController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -63,19 +63,19 @@ class StaffController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
+
         return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Record Created'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Staff $staff
+     * @param Staff  $staff
      *
      * @return View
      */
     public function edit(Staff $staff)
     {
-
         $users = User::onlyAdmins()->selectRaw("CONCAT_WS(' ', last_name, first_name) as text, id as value")
             ->get()->map(function ($it) {
                 return ['value' => $it->value, 'text' => $it->text];
@@ -95,8 +95,8 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Staff $staff
+     * @param Request  $request
+     * @param Staff  $staff
      *
      * @return Response
      */
@@ -110,13 +110,14 @@ class StaffController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
+
         return redirect()->route('admin.staff.edit', $staff)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Staff $staff
+     * @param Staff  $staff
      *
      * @return Response
      */

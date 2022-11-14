@@ -11,7 +11,6 @@ class DealSchedule
 {
     public const CATEGORY_ID = 7;
 
-
     protected const FIELDS_MAP = [
         DealFields::FIELD_ID => 'id',
         DealFields::FIELD_STAGE_ID => 'status',
@@ -26,7 +25,6 @@ class DealSchedule
         DealFields::FIELD_SCHEDULE_TOUR_ID => 'tour_id',
         DealFields::FIELD_PLACES_BOOKED => 'places_booked',
     ];
-
 
     protected const STATUSES_MAP = [
         'C7:NEW' => 0, // Нова
@@ -45,7 +43,8 @@ class DealSchedule
             $schedule = TourSchedule::whereBitrixId($bitrix_id)->first();
             $tour = Tour::whereBitrixId($data[DealFields::FIELD_SCHEDULE_TOUR_ID])->first();
             if ($tour === null) {
-                Log::error('Tour with bitrix_id = ' . $data[DealFields::FIELD_SCHEDULE_TOUR_ID] . ' not found');
+                Log::error('Tour with bitrix_id = '.$data[DealFields::FIELD_SCHEDULE_TOUR_ID].' not found');
+
                 return;
             }
 
@@ -60,8 +59,9 @@ class DealSchedule
             foreach (self::FIELDS_MAP as $bitrixKey => $modelKey) {
                 if (isset($data[$bitrixKey])) {
                     switch ($bitrixKey) {
-                        case  DealFields::FIELD_STAGE_ID:
+                        case DealFields::FIELD_STAGE_ID:
                             $fillData[$modelKey] = self::STATUSES_MAP[$data[$bitrixKey]];
+
                             break;
                         case DealFields::FIELD_PRICE:
                         case DealFields::FIELD_COMMISSION:
@@ -69,6 +69,7 @@ class DealSchedule
                             if (count($parts) > 0) {
                                 $fillData[$modelKey] = $parts[0];
                             }
+
                             break;
                         case DealFields::FIELD_ID:
                         case DealFields::FIELD_SCHEDULE_TOUR_ID:
@@ -77,9 +78,11 @@ class DealSchedule
                             $fillData[$modelKey] = empty($data[$bitrixKey])
                                 ? Carbon::parse($data[DealFields::FIELD_START_DATE])->addDays($tour->duration)
                                 : $data[$bitrixKey];
+
                             break;
                         default:
                             $fillData[$modelKey] = empty($data[$bitrixKey]) ? null : $data[$bitrixKey];
+
                             break;
                     }
                 }

@@ -42,7 +42,7 @@ class TestMailable extends Command
     {
         $mailableClass = $this->option('class');
 
-        if($mailableClass === 'all') {
+        if ($mailableClass === 'all') {
             $emailTemplateController = new EmailTemplateController();
 
             $mailables = $emailTemplateController->getTemplates();
@@ -51,9 +51,8 @@ class TestMailable extends Command
                 $this->send($mailable);
             }
         } else {
-
-            if(!Str::startsWith($mailableClass, ['App\Mail', 'App\\Mail'])) {
-                $mailableClass = 'App\Mail\\' . $mailableClass;
+            if (! Str::startsWith($mailableClass, ['App\Mail', 'App\\Mail'])) {
+                $mailableClass = 'App\Mail\\'.$mailableClass;
             }
 
             $this->send($mailableClass);
@@ -66,18 +65,19 @@ class TestMailable extends Command
     {
         $to = $this->option('to') ?: config('mail.from.address');
 
-        if(class_exists($mailableClass)) {
+        if (class_exists($mailableClass)) {
             $mailable = new $mailableClass();
 
             try {
-                $this->info('Sending ' . $mailableClass . '...');
+                $this->info('Sending '.$mailableClass.'...');
                 Mail::to($to)->send($mailable);
-                $this->info($mailableClass . ' sent.');
+                $this->info($mailableClass.' sent.');
             } catch (\Exception $e) {
-                $this->error($mailableClass . ' failed: ' . $e->getMessage());
+                $this->error($mailableClass.' failed: '.$e->getMessage());
             }
         } else {
-            $this->error($mailableClass . ' class doesnt exists.');
+            $this->error($mailableClass.' class doesnt exists.');
+
             throw new \Exception('Mailable doesnt exists');
         }
 

@@ -10,8 +10,9 @@ class BitrixAuth
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request  $request
+     * @param \Closure  $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -22,13 +23,16 @@ class BitrixAuth
         switch ($route_name) {
             case 'crm.contact.update':
                 $token = config('services.bitrix24.contact-token');
+
                 break;
             case 'crm.deal.update':
                 $token = config('services.bitrix24.deal-token');
+
                 break;
             case 'crm.app.install':
             case 'crm.app.check-server':
                 return $next($request);
+
                 break;
             default:
                 return response()->json(['message' => 'Unauthorized'], 401);

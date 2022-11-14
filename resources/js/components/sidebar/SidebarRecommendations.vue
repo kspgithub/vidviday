@@ -1,41 +1,38 @@
 <template>
     <div ref="elRef" class="sidebar-recommendations">
-        <slot/>
+        <slot />
     </div>
 </template>
 
 <script>
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from 'vue'
 
 export default {
-    name: "SidebarRecommendations",
+    name: 'SidebarRecommendations',
     setup(props) {
-        const elRef = ref(null);
-        const btn = ref(null);
+        const elRef = ref(null)
+        const btn = ref(null)
 
         onMounted(() => {
-            btn.value = elRef.value.querySelector('.show_more');
-            btn.value.addEventListener('click', (evt) => {
-                evt.preventDefault();
-                btn.value.classList.add('hidden');
-                const items = elRef.value.querySelectorAll('.d-none');
-                items.forEach((it) => {
-                    it.classList.remove('d-none');
+            btn.value = elRef.value.querySelector('.show_more')
+            btn.value.addEventListener('click', evt => {
+                evt.preventDefault()
+                btn.value.classList.add('hidden')
+                const items = elRef.value.querySelectorAll('.d-none')
+                items.forEach(it => {
+                    it.classList.remove('d-none')
                 })
-                const reviews = elRef.value.querySelectorAll('.review');
-                reviews.forEach((it) => {
-                    it.classList.remove('hidden');
+                const reviews = elRef.value.querySelectorAll('.review')
+                reviews.forEach(it => {
+                    it.classList.remove('hidden')
                 })
             })
-
         })
         return {
-            elRef
+            elRef,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

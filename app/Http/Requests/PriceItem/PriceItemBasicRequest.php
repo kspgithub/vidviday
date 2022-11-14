@@ -26,13 +26,13 @@ class PriceItemBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'string'],
-            'limited'=>['required', Rule::in(['1', '0'])],
-            'published'=>['required', Rule::in(['1', '0'])],
-            'price'=>['nullable', 'integer'],
-            'places'=>['nullable', 'integer'],
-            'tour_id'=>['required', 'integer'],
-            'currency'=>['required', Rule::in(Currency::isoNames())],
+            'title' => ['required', 'string'],
+            'limited' => ['required', Rule::in(['1', '0'])],
+            'published' => ['required', Rule::in(['1', '0'])],
+            'price' => ['nullable', 'integer'],
+            'places' => ['nullable', 'integer'],
+            'tour_id' => ['required', 'integer'],
+            'currency' => ['required', Rule::in(Currency::isoNames())],
         ];
     }
 }

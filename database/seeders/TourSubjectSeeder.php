@@ -23,13 +23,13 @@ class TourSubjectSeeder extends Seeder
         $this->truncate('tour_subjects');
         $lorem = lipsum(10);
         $items = [
-            ['title'=>['uk'=>'Історичні екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Природознавчі екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Мистецтвознавчі екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Літературні екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Виробничі екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Архітектурні екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
-            ['title'=>['uk'=>'Культово-релігійні екскурсії'], 'text'=>['uk'=>$lorem],  'published'=>1],
+            ['title' => ['uk' => 'Історичні екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Природознавчі екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Мистецтвознавчі екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Літературні екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Виробничі екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Архітектурні екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title' => ['uk' => 'Культово-релігійні екскурсії'], 'text' => ['uk' => $lorem],  'published' => 1],
         ];
 
         foreach ($items as $item) {

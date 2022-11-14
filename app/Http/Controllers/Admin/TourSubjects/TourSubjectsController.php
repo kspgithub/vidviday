@@ -8,12 +8,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\SlugOptions;
 
 class TourSubjectsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +20,7 @@ class TourSubjectsController extends Controller
     {
         $tourSubjects = TourSubject::query()->withCount(['media'])->get();
         //
-        return view('admin.tour_subjects.index', ['tourSubjects'=>$tourSubjects]);
+        return view('admin.tour_subjects.index', ['tourSubjects' => $tourSubjects]);
     }
 
     /**
@@ -36,13 +33,13 @@ class TourSubjectsController extends Controller
         //
         $tourSubject = new TourSubject();
 
-        return view('admin.tour_subjects.create', ['tourSubject'=>$tourSubject]);
+        return view('admin.tour_subjects.create', ['tourSubject' => $tourSubject]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -59,21 +56,21 @@ class TourSubjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param TourSubject $tourSubject
+     * @param TourSubject  $tourSubject
      *
      * @return View
      */
     public function edit(TourSubject $tourSubject)
     {
         //
-        return view('admin.tour_subjects.edit', ['tourSubject'=>$tourSubject]);
+        return view('admin.tour_subjects.edit', ['tourSubject' => $tourSubject]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param TourSubject $tourSubject
+     * @param Request  $request
+     * @param TourSubject  $tourSubject
      *
      * @return Response|JsonResponse
      */
@@ -85,13 +82,14 @@ class TourSubjectsController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject updated.'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param TourSubject $tourSubject
+     * @param TourSubject  $tourSubject
      *
      * @return Response
      */
@@ -102,5 +100,4 @@ class TourSubjectsController extends Controller
 
         return redirect()->route('admin.tour-subjects.index')->withFlashSuccess(__('Tour Subject deleted.'));
     }
-
 }

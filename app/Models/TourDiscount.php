@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
 
 class TourDiscount extends Model
@@ -18,6 +17,7 @@ class TourDiscount extends Model
     protected $table = 'tours_discounts';
 
     const TYPE_TEMPLATE = 1;
+
     const TYPE_CUSTOM = 2;
 
     public $translatable = [
@@ -94,31 +94,37 @@ class TourDiscount extends Model
 
     /**
      * Подсчитывает скидку
-     * @param int $price Цена за единицу
-     * @param int $quantity Количество единиц
-     * @param int $days Количество дней (для скидок на каждый день)
+     *
+     * @param int  $price Цена за единицу
+     * @param int  $quantity Количество единиц
+     * @param int  $days Количество дней (для скидок на каждый день)
+     *
      * @return float|int
      */
     public function calculate($price = 0, $quantity = 1, $days = 1)
     {
-
         $amount = ($this->type === Discount::TYPE_VALUE ? ($this->price) : (round($price / 100 * $this->price)));
         $total = 0;
         switch ($this->duration) {
             case Discount::DURATION_PERSON:
             case Discount::DURATION_UNIT:
                 $total = $amount * $quantity;
+
                 break;
             case Discount::DURATION_PERSON_DAY:
                 $total = $amount * $quantity * $days;
+
                 break;
             case Discount::DURATION_DAY:
                 $total = $amount * $days;
+
                 break;
             case Discount::DURATION_ORDER:
                 $total = $amount;
+
                 break;
         }
+
         return $total;
     }
 
@@ -127,6 +133,7 @@ class TourDiscount extends Model
         $data = $this->toArray();
         $data['title'] = json_prepare($this->title);
         $data['admin_title'] = json_prepare($this->admin_title);
+
         return $data;
     }
 }

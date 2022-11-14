@@ -1,13 +1,13 @@
 <template>
     <div class="thumb-wrap row">
-        <div class="col-lg-4 col-sm-6 col-12" v-for="tour in tours">
-            <tour-card :tour="tour" like-btn/>
+        <div v-for="tour in tours" class="col-lg-4 col-sm-6 col-12">
+            <tour-card :tour="tour" like-btn />
         </div>
 
-        <div class="col-12" v-if="!request && tours.length === 0">
+        <div v-if="!request && tours.length === 0" class="col-12">
             <span class="text text-md">{{ __('tours-section.no-tours') }}</span>
         </div>
-        <div class="col-12" v-if="currentPage < lastPage">
+        <div v-if="currentPage < lastPage" class="col-12">
             <div class="spacer-xs"></div>
             <div class="text-center">
                 <button class="btn type-2" :disabled="request" @click.prevent="loadMore()">
@@ -19,35 +19,35 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import TourCard from "../tour/TourCard";
-import axios from "axios";
+import { ref } from 'vue'
+import TourCard from '../tour/TourCard'
+import axios from 'axios'
 
 export default {
-    name: "ProfileHistory",
-    components: {TourCard},
+    name: 'ProfileHistory',
+    components: { TourCard },
     setup() {
-        const request = ref(false);
-        const tours = ref([]);
-        const currentPage = ref(1);
-        const lastPage = ref(1);
+        const request = ref(false)
+        const tours = ref([])
+        const currentPage = ref(1)
+        const lastPage = ref(1)
 
         const loadTours = async (page = 1) => {
-            request.value = true;
-            const {data: response} = await axios.get('/profile/favourites?page=' + page);
+            request.value = true
+            const { data: response } = await axios.get('/profile/favourites?page=' + page)
             if (response) {
-                tours.value = [...tours.value, ...response.data];
-                currentPage.value = response.current_page;
-                lastPage.value = response.last_page;
+                tours.value = [...tours.value, ...response.data]
+                currentPage.value = response.current_page
+                lastPage.value = response.last_page
             }
-            request.value = false;
+            request.value = false
         }
 
         const loadMore = async () => {
-            await loadTours(currentPage.value + 1);
+            await loadTours(currentPage.value + 1)
         }
 
-        loadTours();
+        loadTours()
 
         return {
             request,
@@ -56,10 +56,8 @@ export default {
             lastPage,
             loadMore,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

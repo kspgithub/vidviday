@@ -11,7 +11,9 @@ class TourVoting extends Model
     use HasFactory;
 
     public const STATUS_NEW = 0;
+
     public const STATUS_PUBLISHED = 1;
+
     public const STATUS_BLOCKED = 2;
 
     protected $fillable = [

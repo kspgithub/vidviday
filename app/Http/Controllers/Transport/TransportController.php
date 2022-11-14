@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 
 class TransportController extends Controller
 {
-
     public function index()
     {
         //
@@ -33,7 +32,6 @@ class TransportController extends Controller
         ]);
     }
 
-
     public function order(Request $request)
     {
         $order = new OrderTransport();
@@ -48,6 +46,7 @@ class TransportController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Thanks for your order!')]);
         }
+
         return redirect(pageUrlByKey('transport'))->withFlashSuccess(__('Thanks for your order!'));
     }
 }

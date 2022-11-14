@@ -3,21 +3,19 @@
 </template>
 
 <script>
-import {useStore} from "vuex";
-import {computed} from "vue";
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
 export default {
-    name: "ProfileInFavourites",
+    name: 'ProfileInFavourites',
     setup() {
-        const store = useStore();
-        const count = computed(() => store.getters['user/countFavourites']);
+        const store = useStore()
+        const count = computed(() => store.getters['user/countFavourites'])
         return {
-            count
+            count,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

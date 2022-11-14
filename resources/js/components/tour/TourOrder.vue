@@ -1,43 +1,48 @@
 <template>
     <form method="get" :action="action" @submit.prevent="orderTour">
-        <input name="clear" :value="1" type="hidden">
-
+        <input name="clear" :value="1" type="hidden" />
 
         <div v-if="!isMobile" class="thumb-price">
-            <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
-            <span class="discount" v-if="isTourAgent && commission > 0">
+            <span class="text"
+                >{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span
+                ><i>{{ currencyTitle }}</i></span
+            >
+            <span v-if="isTourAgent && commission > 0" class="discount">
                 {{ currencyCommission }} {{ currencyTitle }}
                 <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
         </div>
 
         <div class="only-desktop hidden-print">
-            <tour-rating :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" :count="tour.testimonials_count" force-count/>
+            <tour-rating
+                :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"
+                :count="tour.testimonials_count"
+                force-count
+            />
 
-            <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
+            <share-dropdown v-if="!corporate" :title="__('Share') + ':'" />
 
-            <tour-like-btn v-if="!!user && !corporate" :tour="tour"/>
+            <tour-like-btn v-if="!!user && !corporate" :tour="tour" />
         </div>
 
         <div class="spacer-xs"></div>
 
         <div class="sidebar-item">
-            <div class="single-datepicker" v-if="!corporate && nearestEvent">
-                <input name="schedule" :value="schedule_id" type="hidden">
+            <div v-if="!corporate && nearestEvent" class="single-datepicker">
+                <input name="schedule" :value="schedule_id" type="hidden" />
 
                 <div class="datepicker-input datepicker-dropdown">
-                     <span class="datepicker-placeholder" @click.stop="showCalendar()">
+                    <span class="datepicker-placeholder" @click.stop="showCalendar()">
                         {{ selectedSchedule ? selectedSchedule.title : __('tours-section.date-title') }}
                     </span>
                 </div>
-
             </div>
             <div class="thumb-info">
                 <span class="thumb-info-time text">
                     {{ tour.format_duration }}
                 </span>
-                <span class="thumb-info-people text" v-if="departureOptions.length > 0">
-                    {{ places > 10 ? '10+' : (places < 2 ? '0' : '2-10') }}
+                <span v-if="departureOptions.length > 0" class="thumb-info-people text">
+                    {{ places > 10 ? '10+' : places < 2 ? '0' : '2-10' }}
                     <tooltip v-if="places < 2" variant="black">
                         {{ __('tours-section.empty-tooltip') }}
                     </tooltip>
@@ -45,134 +50,149 @@
             </div>
 
             <div v-if="isMobile" class="thumb-price">
-                <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
-                <span class="discount" v-if="isTourAgent && commission > 0">
+                <span class="text"
+                    >{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span
+                    ><i>{{ currencyTitle }}</i></span
+                >
+                <span v-if="isTourAgent && commission > 0" class="discount">
                     {{ currencyCommission }} {{ currencyTitle }}
                     <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
                 </span>
             </div>
 
-
             <template v-if="nearestEvent">
-
-                <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
+                <button v-if="!corporate" type="submit" class="btn type-1 btn-block hidden-print">
                     {{ __('tours-section.order-tour') }}
                 </button>
 
-                <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
-                      v-if="!corporate">{{ __('tours-section.order-one-click') }}</span>
-
+                <span v-if="!corporate" class="btn type-2 btn-block hidden-print" @click="showPopup()">{{
+                    __('tours-section.order-one-click')
+                }}</span>
             </template>
 
-            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
+            <a v-if="corporate" :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block hidden-print">
                 {{ __('tours-section.order-corporate') }}
             </a>
-
         </div>
     </form>
 </template>
 
 <script>
-import {computed, ref} from "vue";
-import TourRating from "./TourRating";
-import ShareDropdown from "../common/ShareDropdown";
-import TourLikeBtn from "./TourLikeBtn";
-import FormSelectEvent from "../form/FormSelectEvent";
-import Tooltip from "../common/Tooltip";
-import {useStore} from "vuex";
-import {useFormDataProperty} from "../../store/composables/useFormData";
+import { computed, ref } from 'vue'
+import TourRating from './TourRating'
+import ShareDropdown from '../common/ShareDropdown'
+import TourLikeBtn from './TourLikeBtn'
+import FormSelectEvent from '../form/FormSelectEvent'
+import Tooltip from '../common/Tooltip'
+import { useStore } from 'vuex'
+import { useFormDataProperty } from '../../store/composables/useFormData'
 import * as urlUtils from '../../utils/url.js'
 
 export default {
-    name: "TourOrder",
-    components: {Tooltip, FormSelectEvent, TourLikeBtn, ShareDropdown, TourRating},
+    name: 'TourOrder',
+    components: { Tooltip, FormSelectEvent, TourLikeBtn, ShareDropdown, TourRating },
     props: {
         tour: Object,
         corporate: Boolean,
         nearestEvent: {
             type: Number,
             default: 0,
-        }
+        },
     },
     setup(props) {
-        const store = useStore();
+        const store = useStore()
 
         const user = store.state.user.currentUser
 
-        const query = urlUtils.parseQuery();
+        const query = urlUtils.parseQuery()
 
-        const schedule_id = useFormDataProperty('orderTour', 'schedule_id');
+        const schedule_id = useFormDataProperty('orderTour', 'schedule_id')
 
-        const schedules = computed(() => store.state.orderTour.schedules);
-        const departureOptions = computed(() => store.getters['orderTour/departureOptions']('title'));
+        const schedules = computed(() => store.state.orderTour.schedules)
+        const departureOptions = computed(() => store.getters['orderTour/departureOptions']('title'))
 
-        if(query.schedule && schedules.value.length && schedules.value.find(s => s.id == query.schedule)) {
-            schedule_id.value = query.schedule;
+        if (query.schedule && schedules.value.length && schedules.value.find(s => s.id == query.schedule)) {
+            schedule_id.value = query.schedule
         } else if (props.nearestEvent > 0) {
-            schedule_id.value = props.nearestEvent;
+            schedule_id.value = props.nearestEvent
         }
 
         const selectedSchedule = computed(() => {
-            return store.getters['orderTour/selectedSchedule'] || (schedules.value.length ? (query.schedule ? (schedules.value.find(s => s.id == query.schedule) || schedules.value[0]) : schedules.value[0]) : null)
-        });
+            return (
+                store.getters['orderTour/selectedSchedule'] ||
+                (schedules.value.length
+                    ? query.schedule
+                        ? schedules.value.find(s => s.id == query.schedule) || schedules.value[0]
+                        : schedules.value[0]
+                    : null)
+            )
+        })
 
         if (selectedSchedule.value && selectedSchedule.value.id !== schedule_id.value) {
-            schedule_id.value = selectedSchedule.value.id;
+            schedule_id.value = selectedSchedule.value.id
         }
 
-        const price = computed(() => selectedSchedule.value ? selectedSchedule.value.price : props.tour.price);
-        const accommPrice = computed(() => selectedSchedule.value ? selectedSchedule.value.accomm_price : props.tour.accomm_price);
-        const commission = computed(() => selectedSchedule.value ? selectedSchedule.value.commission : props.tour.commission);
-        const places = computed(() => selectedSchedule.value ? selectedSchedule.value.places_available : 0);
+        const price = computed(() => (selectedSchedule.value ? selectedSchedule.value.price : props.tour.price))
+        const accommPrice = computed(() =>
+            selectedSchedule.value ? selectedSchedule.value.accomm_price : props.tour.accomm_price,
+        )
+        const commission = computed(() =>
+            selectedSchedule.value ? selectedSchedule.value.commission : props.tour.commission,
+        )
+        const places = computed(() => (selectedSchedule.value ? selectedSchedule.value.places_available : 0))
 
         const action = computed(() => {
-            return `/tour/${props.tour.id}/order`;
+            return `/tour/${props.tour.id}/order`
         })
 
         const showPopup = () => {
-            store.commit('orderTour/SET_POPUP_OPEN', true);
+            store.commit('orderTour/SET_POPUP_OPEN', true)
         }
 
         const showCalendar = () => {
-            store.commit('orderTour/SET_CALENDAR_OPEN', true);
+            store.commit('orderTour/SET_CALENDAR_OPEN', true)
 
             setTimeout(() => {
                 let calendarWrapper = $('.calendar-wrapper > .fc')
 
-                if(calendarWrapper.length) {
-                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
-                        let width = calendarWrapper.find('.fc-view-harness').width();
-                        calendarWrapper.scrollLeft(width);
+                if (calendarWrapper.length) {
+                    if (calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                        let width = calendarWrapper.find('.fc-view-harness').width()
+                        calendarWrapper.scrollLeft(width)
                     }
                 }
             }, 0)
         }
 
         const isTourAgent = computed(() => store.getters['user/isTourAgent'])
-        const currencyTitle = computed(() => store.getters['currency/title']);
-        const currencyRate = computed(() => store.getters['currency/rate']);
+        const currencyTitle = computed(() => store.getters['currency/title'])
+        const currencyRate = computed(() => store.getters['currency/rate'])
         const currencyPrice = computed(() => {
-            let sum = ((price.value || 0) / currencyRate.value);
-            return (sum).toFixed(0);
+            let sum = (price.value || 0) / currencyRate.value
+            return sum.toFixed(0)
         })
         const currencyCommission = computed(() => {
-            return (commission.value / currencyRate.value).toFixed(0);
+            return (commission.value / currencyRate.value).toFixed(0)
         })
 
         const currencyAccomm = computed(() => {
-            return (accommPrice.value / currencyRate.value).toFixed(0);
+            return (accommPrice.value / currencyRate.value).toFixed(0)
         })
 
-        if(query.quick) {
+        if (query.quick) {
             showPopup()
         }
 
         const onlyQuick = computed(() => {
-            return selectedSchedule.value && (selectedSchedule.value.places_available === 0 || (selectedSchedule.value.places_available >= 2 && selectedSchedule.value.places_available <= 10))
+            return (
+                selectedSchedule.value &&
+                (selectedSchedule.value.places_available === 0 ||
+                    (selectedSchedule.value.places_available >= 2 && selectedSchedule.value.places_available <= 10))
+            )
         })
 
-        const orderTour = (event) => {
-            if(onlyQuick.value) {
+        const orderTour = event => {
+            if (onlyQuick.value) {
                 event.preventDefault()
 
                 showPopup()
@@ -203,10 +223,8 @@ export default {
             isMobile,
             user,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use App\Models\Order;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ChangeOrderStatusColumnToOrdersTable extends Migration
 {
@@ -19,7 +19,6 @@ class ChangeOrderStatusColumnToOrdersTable extends Migration
             //
             $table->string('status')->default('new')->change();
         });
-
 
         DB::table('orders')->where('status', '0')->update(['status' => Order::STATUS_NEW]);
         DB::table('orders')->where('status', '1')->update(['status' => Order::STATUS_BOOKED]);
@@ -50,6 +49,5 @@ class ChangeOrderStatusColumnToOrdersTable extends Migration
             //
             $table->integer('status')->default(0)->change();
         });
-
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\SearchEventsRequest;
 use App\Models\TourSchedule;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class CalendarController extends Controller
@@ -25,6 +24,7 @@ class CalendarController extends Controller
         $event_click = $request->input('event_click', 'url');
 //        $schedules = TourSchedule::transformForBooking($query->get()); // todo: ???
         $schedules = $query->get();
+
         return $schedules->map->asCalendarEvent($event_click);
     }
 }

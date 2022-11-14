@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class Recommendations extends Component
 {
     public $items;
+
     public $testimonialsUrl;
 
     public function __construct(Page $page)
@@ -18,7 +19,6 @@ class Recommendations extends Component
         $testimonialsPage = Page::query()->where('key', 'testimonials')->first();
 
         $this->testimonialsUrl = $testimonialsPage ? $testimonialsPage->url : route('testimonials.index');
-
     }
 
     public function render(): View

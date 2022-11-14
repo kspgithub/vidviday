@@ -16,7 +16,6 @@ use App\Models\PriceItem;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Ticket;
-use App\Models\Tour;
 use App\Models\TourAccommodation;
 use App\Models\TourDiscount;
 use App\Models\TourFaq;
@@ -62,6 +61,7 @@ trait TourRelationship
         return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id')
             ->orderByPivot('position');
     }
+
     public function tourPlaces()
     {
         return $this->hasMany(TourPlace::class)->orderBy('position');
@@ -159,7 +159,6 @@ trait TourRelationship
             ->orderBy('position');
     }
 
-
     /**
      * Размещение
      *
@@ -234,6 +233,7 @@ trait TourRelationship
 
     /**
      * Менеджер тура
+     *
      * @return BelongsTo
      */
     public function manager()
@@ -261,6 +261,7 @@ trait TourRelationship
         return $this->belongsToMany(Discount::class, 'tours_discounts', 'tour_id', 'discount_id')
             ->orderByPivot('position');
     }
+
     public function tourDiscounts()
     {
         return $this->hasMany(TourDiscount::class)->orderBy('tours_discounts.position');
@@ -275,6 +276,7 @@ trait TourRelationship
     {
         return $this->belongsToMany(Ticket::class, 'tours_tickets', 'tour_id', 'ticket_id');
     }
+
     public function tourTickets()
     {
         return $this->hasMany(TourTicket::class)->orderBy('position');

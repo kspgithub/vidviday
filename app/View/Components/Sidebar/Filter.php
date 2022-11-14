@@ -9,9 +9,7 @@ use Illuminate\View\Component;
 
 class Filter extends Component
 {
-
     public $options;
-
 
     /**
      * Create a new component instance.

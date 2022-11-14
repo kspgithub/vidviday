@@ -26,15 +26,10 @@
     @include('layout.includes.grid')
     <!-- Styles -->
     @stack('before-styles', false)
-    @livewireStyles
-
-    <link href="{{ mix('css/main.css', 'assets/app') }}" rel="stylesheet">
-
+    <link href="{{ mix('assets/app/css/main.css') }}" rel="stylesheet">
     @stack('after-styles', false)
-
-    <link href="{{mix('css/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
-    <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">
-    <link href="{{ mix('css/print.css', 'assets/app') }}" media="print" rel="stylesheet">
+    <link href="{{mix('assets/app/css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('assets/app/css/print.css') }}" media="print" rel="stylesheet">
 
     @production
         @if($ga = site_option('google_analytics'))
@@ -68,21 +63,12 @@
     @include('layout.includes.toast-notifications')
 </div>
 
-@stack('before-scripts', false)
-@livewireScripts
-
 <script type="text/javascript">
     window.APP_ENV = '{{app()->environment()}}';
     window.toastsData = @json(toastData($errors));
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
-
-<script src="{{ mix('js/manifest.js', 'assets/app') }}" defer></script>
-<script src="{{ mix('js/vendor.js', 'assets/app') }}" defer></script>
-<script src="{{ mix('js/app.js', 'assets/app') }}" defer></script>
-
-@stack('after-scripts', false)
+@stack('before-scripts', false)
 
 @production
 <div style="display: none">
@@ -102,6 +88,11 @@
     @endif
 @endproduction
 
+
+<script src="{{ mix('assets/app/js/manifest.js') }}" defer></script>
+<script src="{{ mix('assets/app/js/vendor.js') }}"defer></script>
+<script src="{{ mix('assets/app/js/app.js') }}" defer></script>
+@stack('after-scripts', false)
 </body>
 </html>
 

@@ -1,13 +1,12 @@
 <?php
 
-
 use App\Http\Controllers\Profile\ProfileController;
 
 Route::group([
     'prefix' => 'profile',
     'as' => 'profile.',
     'middleware' => 'auth',
-], function() {
+], function () {
     Route::get('', [ProfileController::class, 'index'])->name('index');
     Route::patch('', [ProfileController::class, 'update'])->name('update');
     Route::get('orders', [ProfileController::class, 'orders'])->name('orders');

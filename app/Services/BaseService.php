@@ -164,7 +164,7 @@ abstract class BaseService
     /**
      * @param $item
      * @param $column
-     * @param  array  $columns
+     * @param array  $columns
      *
      * @return Builder|Model|object|null
      */
@@ -196,7 +196,7 @@ abstract class BaseService
     /**
      * Set the query limit.
      *
-     * @param int $limit
+     * @param int  $limit
      *
      * @return $this
      */
@@ -210,8 +210,8 @@ abstract class BaseService
     /**
      * Set an ORDER BY clause.
      *
-     * @param string $column
-     * @param string $direction
+     * @param string  $column
+     * @param string  $direction
      *
      * @return $this
      */
@@ -223,10 +223,10 @@ abstract class BaseService
     }
 
     /**
-     * @param int    $limit
+     * @param int  $limit
      * @param array  $columns
-     * @param string $pageName
-     * @param null   $page
+     * @param string  $pageName
+     * @param null  $page
      *
      * @return LengthAwarePaginator
      */
@@ -244,9 +244,9 @@ abstract class BaseService
     /**
      * Add a simple where clause to the query.
      *
-     * @param string $column
-     * @param string $value
-     * @param string $operator
+     * @param string  $column
+     * @param string  $value
+     * @param string  $operator
      *
      * @return $this
      */
@@ -260,7 +260,7 @@ abstract class BaseService
     /**
      * Add a simple where in clause to the query.
      *
-     * @param string $column
+     * @param string  $column
      * @param mixed  $values
      *
      * @return $this
