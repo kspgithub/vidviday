@@ -21,12 +21,14 @@ trait PostAttribute
     public function getMainImageUrlAttribute()
     {
         $image = $this->getMainImageAttribute();
+
         return $image ?: asset('img/no-image.png');
     }
 
     public function getMobileImageUrlAttribute()
     {
         $image = $this->getMobileImageAttribute();
+
         return $image ?: asset('img/no-image.png');
     }
 }

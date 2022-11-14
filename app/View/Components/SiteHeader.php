@@ -2,11 +2,9 @@
 
 namespace App\View\Components;
 
-use App\Models\Currency;
-use App\Models\Menu;
-use App\Models\MenuItem;
-use App\Models\TourGroup;
 use App\Models\Contact;
+use App\Models\Menu;
+use App\Models\TourGroup;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
@@ -15,8 +13,11 @@ use Illuminate\View\Component;
 class SiteHeader extends Component
 {
     public $localeLinks = [];
+
     public $tourGroups = [];
+
     public $contacts = [];
+
     public $menu = [];
 
     /**
@@ -42,7 +43,6 @@ class SiteHeader extends Component
                 ])->first();
         });
     }
-
 
     /**
      * Get the view / contents that represent the component.

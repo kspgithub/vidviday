@@ -90,11 +90,13 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
-        if(!in_array($mailable, $localTemplates)) {
-            throw new \Exception('Mailable ' . $mailable .' not found.');
+        if (! in_array($mailable, $localTemplates)) {
+            throw new \Exception('Mailable '.$mailable.' not found.');
         }
 
-        /** @var $mailableClass BaseTemplateEmail */
+        /**
+ * @var $mailableClass BaseTemplateEmail
+*/
         $mailableClass = new $mailable;
 
         $mailableView = $mailableClass::$viewKey;
@@ -105,8 +107,7 @@ class EmailTemplateController extends Controller
 
         $template = EmailTemplate::query()->where('mailable', $mailable)->firstOrNew();
 
-        if (!$template->exists) {
-
+        if (! $template->exists) {
             $viewContent = File::get(view($mailableView)->getPath());
 
             $template->html = array_combine($locales, array_map(function ($locale) use ($viewContent) {
@@ -139,8 +140,8 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
-        if(!in_array($mailable, $localTemplates)) {
-            throw new \Exception('Mailable ' . $mailable .' not found.');
+        if (! in_array($mailable, $localTemplates)) {
+            throw new \Exception('Mailable '.$mailable.' not found.');
         }
 
         $mailableClass = new $mailable;
@@ -149,7 +150,7 @@ class EmailTemplateController extends Controller
 
         $emailTemplate = EmailTemplate::query()->where('mailable', $mailable)->firstOrNew([
             'mailable' => $mailable,
-        ], [
+            ], [
             'mailable' => $mailable,
             'view' => $view,
         ]);
@@ -169,13 +170,13 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
-        if(!in_array($mailable, $localTemplates)) {
-            throw new \Exception('Mailable ' . $mailable .' not found.');
+        if (! in_array($mailable, $localTemplates)) {
+            throw new \Exception('Mailable '.$mailable.' not found.');
         }
 
         $emailTemplate = EmailTemplate::query()->where('mailable', $mailable)->first();
 
-        if($emailTemplate) {
+        if ($emailTemplate) {
             $emailTemplate->delete();
         }
 
@@ -188,38 +189,40 @@ class EmailTemplateController extends Controller
 
         $mailable = Str::replace('-', '\\', $mailable);
 
-        /** @var BaseTemplateEmail $mailableClass */
+        /**
+ * @var BaseTemplateEmail $mailableClass
+*/
         $mailableClass = new $mailable;
 
-        if(!in_array($mailable, $localTemplates)) {
-            throw new \Exception('Mailable ' . $mailable .' not found.');
+        if (! in_array($mailable, $localTemplates)) {
+            throw new \Exception('Mailable '.$mailable.' not found.');
         }
 
         $mailableClass->contact = Contact::first();
 
         $mailableClass->showOnMapUrl = config('contacts.show-on-map-url');
 
-        /** @var EmailTemplate $template */
+        /**
+ * @var EmailTemplate $template
+*/
         $template = EmailTemplate::query()->where('mailable', $mailable)->first();
 
         $locale = app()->getLocale();
 
-        if($template) {
+        if ($template) {
             $subject = $template->getTranslation('subject', $locale);
             $html = $template->getTranslation('html', $locale);
 
             foreach ($mailableClass->getReplaces() as $key => $value) {
-                $replaceFrom = '{{ ' . $key . ' }}';
+                $replaceFrom = '{{ '.$key.' }}';
                 $replaceTo = is_callable($value) ? $value() : $value;
                 $subject = str_replace($replaceFrom, $replaceTo, $subject);
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
 
             return Blade::render($html, $mailableClass->buildViewData());
-        } else {
-
-
-            return $mailableClass->render();
         }
+
+        return $mailableClass->render();
     }
 }

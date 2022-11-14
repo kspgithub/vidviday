@@ -18,7 +18,6 @@ class ContactItem implements Arrayable, Jsonable
 {
     use HasAttributes;
 
-
     public function __construct($attributes = [])
     {
         $this->fill($attributes);

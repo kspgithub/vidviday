@@ -13,7 +13,6 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 class FoodTable extends DataTableComponent
 {
-
     /**
      * @var string
      */
@@ -38,8 +37,8 @@ class FoodTable extends DataTableComponent
 
     public function query(): Builder
     {
-        $region_id = (int)$this->getFilter('region_id');
-        $time_id = (int)$this->getFilter('time_id');
+        $region_id = (int) $this->getFilter('region_id');
+        $time_id = (int) $this->getFilter('time_id');
 
         $query = Food::query()->with(['region', 'time'])->withCount('media')
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
@@ -67,19 +66,19 @@ class FoodTable extends DataTableComponent
 
             Column::make(__('Time'), 'time_id')
                 ->format(function ($value, $column, $row) {
-                    return !empty($row->time) ? $row->time->title : '-';
+                    return ! empty($row->time) ? $row->time->title : '-';
                 })
                 ->sortable(),
 
             Column::make(__('Region'), 'region_id')
                 ->format(function ($value, $column, $row) {
-                    return !empty($row->region) ? $row->region->title : '-';
+                    return ! empty($row->region) ? $row->region->title : '-';
                 })
                 ->sortable(),
 
             Column::make(__('Country'), 'country_id')
                 ->format(function ($value, $column, $row) {
-                    return !empty($row->country) ? $row->country->title : '-';
+                    return ! empty($row->country) ? $row->country->title : '-';
                 })
                 ->sortable(),
 
@@ -91,7 +90,7 @@ class FoodTable extends DataTableComponent
 
             Column::make(__('Price'), 'price')
                 ->format(function ($value, $column, $row) {
-                    return ($row->price ?? '0') . ' ' . $row->currency;
+                    return ($row->price ?? '0').' '.$row->currency;
                 })
                 ->sortable(),
 

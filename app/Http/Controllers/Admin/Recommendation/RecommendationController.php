@@ -13,6 +13,7 @@ class RecommendationController extends Controller
     public function index(Request $request, Page $page)
     {
         $recommendations = $page->recommendations()->paginate(10);
+
         return view('admin.recommendation.index', compact('page', 'recommendations'));
     }
 
@@ -20,6 +21,7 @@ class RecommendationController extends Controller
     {
         $recommendation = new Recommendation();
         $recommendation->rating = 5;
+
         return view('admin.recommendation.create', compact('page', 'recommendation'));
     }
 
@@ -32,9 +34,9 @@ class RecommendationController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $recommendation->uploadAvatar($request->file('avatar_upload'));
         }
+
         return redirect()->route('admin.page.recommendation.edit', [$page, $recommendation])->withFlashSuccess(__('Record Created'));
     }
-
 
     public function edit(Request $request, Page $page, Recommendation $recommendation)
     {
@@ -48,6 +50,7 @@ class RecommendationController extends Controller
         if ($request->hasFile('avatar_upload')) {
             $recommendation->uploadAvatar($request->file('avatar_upload'));
         }
+
         return redirect()->route('admin.page.recommendation.edit', [$page, $recommendation])->withFlashSuccess(__('Record Updated'));
     }
 
@@ -55,6 +58,7 @@ class RecommendationController extends Controller
     {
         $recommendation->deleteAvatar();
         $recommendation->save();
+
         return redirect()->route('admin.page.recommendation.index', $page)->withFlashSuccess(__('Record Deleted'));
     }
 

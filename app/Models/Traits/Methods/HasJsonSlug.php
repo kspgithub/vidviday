@@ -9,21 +9,21 @@ trait HasJsonSlug
     public function scopeWhereHasSlug(Builder $query, $slug, bool $strict = true)
     {
         if ($strict) {
-            return $query->whereJsonContains('slug->' . getLocale(), $slug);
-        } else {
-            return $query->where(function ($sq) use ($slug) {
-                $first = true;
-                $locales = siteLocales();
-                foreach ($locales as $locale) {
-                    if ($first) {
-                        $sq->whereJsonContains('slug->' . $locale, $slug);
-                        $first = false;
-                    } else {
-                        $sq->orWhereJsonContains('slug->' . $locale, $slug);
-                    }
-                }
-            });
+            return $query->whereJsonContains('slug->'.getLocale(), $slug);
         }
+
+        return $query->where(function ($sq) use ($slug) {
+            $first = true;
+            $locales = siteLocales();
+            foreach ($locales as $locale) {
+                if ($first) {
+                    $sq->whereJsonContains('slug->'.$locale, $slug);
+                    $first = false;
+                } else {
+                    $sq->orWhereJsonContains('slug->'.$locale, $slug);
+                }
+            }
+        });
     }
 
     public static function existBySlug(string $slug, bool $strict = true)
@@ -41,7 +41,6 @@ trait HasJsonSlug
         return self::whereHasSlug($slug, $strict)->firstOrFail();
     }
 
-
     public function getLocaleBySlug($slug)
     {
         $translations = $this->getTranslations('slug');
@@ -50,6 +49,7 @@ trait HasJsonSlug
                 return $locale;
             }
         }
+
         return 'uk';
     }
 
@@ -68,7 +68,8 @@ trait HasJsonSlug
     public function getUrlByLocale($locale): string
     {
         $translations = $this->getTranslations('slug');
-        return !empty($translations[$locale]) ? '/' . $translations[$locale] : '';
+
+        return ! empty($translations[$locale]) ? '/'.$translations[$locale] : '';
     }
 
     public function getLocaleLinks()
@@ -77,15 +78,15 @@ trait HasJsonSlug
         $links = [];
         foreach ($locales as $locale) {
             $url = $this->getUrlByLocale($locale);
-            if (!empty($url)) {
+            if (! empty($url)) {
                 if (in_array($url, $links)) {
-                    $links[$locale] = $url . '?lang=' . $locale;
+                    $links[$locale] = $url.'?lang='.$locale;
                 } else {
                     $links[$locale] = $url;
                 }
-
             }
         }
+
         return $links;
     }
 }

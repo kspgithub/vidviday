@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 /**
  * Class WrongRequestsTable.
@@ -17,14 +16,13 @@ class WrongRequestsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     public array $perPageAccepted = [30, 50, 100];
 
     public $region;
-    public $district;
 
+    public $district;
 
     /**
      * @var array
@@ -38,7 +36,6 @@ class WrongRequestsTable extends DataTableComponent
 
     public function mount($region = null, $district = null): void
     {
-
     }
 
     /**

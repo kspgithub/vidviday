@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
@@ -27,7 +26,7 @@ class TourInclude extends Model
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     /**

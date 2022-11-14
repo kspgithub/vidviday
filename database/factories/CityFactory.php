@@ -26,8 +26,8 @@ class CityFactory extends Factory
 
         return [
             //
-            'title'=>$city,
-            'slug'=>Str::slug($city),
+            'title' => $city,
+            'slug' => Str::slug($city),
         ];
     }
 }

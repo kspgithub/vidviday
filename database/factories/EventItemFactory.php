@@ -25,12 +25,13 @@ class EventItemFactory extends Factory
     {
         $title = $this->faker->realText(50);
         $indefinite = $this->faker->randomElement([0, 1]);
+
         return [
             //
             'title' => $title,
             'slug' => Str::slug($title),
             'text' => $this->faker->realText(1500),
-            'indefinite' =>$indefinite,
+            'indefinite' => $indefinite,
             'start_date' => $indefinite ? Carbon::now()->addDays(30) : null,
             'end_date' => $indefinite ? Carbon::now()->addDays(37) : null,
             'published' => 1,

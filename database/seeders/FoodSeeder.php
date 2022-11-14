@@ -22,9 +22,7 @@ class FoodSeeder extends Seeder
         //
         $this->truncate('food');
 
-
         Food::factory()->count(5)->create();
         $this->enableForeignKeys();
-
     }
 }

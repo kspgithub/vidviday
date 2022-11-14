@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -58,7 +57,6 @@ class District extends TranslatableModel
             ->saveSlugsTo('slug');
     }
 
-
     public function asChoose()
     {
         return [
@@ -69,7 +67,7 @@ class District extends TranslatableModel
             'country_title' => $this->country->title,
             'region_title' => $this->region->title,
             'value' => $this->id,
-            'text' => json_prepare($this->title . ' (' . $this->region->title . ')'),
+            'text' => json_prepare($this->title.' ('.$this->region->title.')'),
         ];
     }
 
@@ -79,10 +77,11 @@ class District extends TranslatableModel
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    ) {
+    )
+    {
         return $query->with(['region'])->orderBy('region_id')->orderBy('title')->get(['id', 'title', 'region_id'])
             ->map(function ($item) use ($value_key, $text_key) {
-                return [$value_key => $item->id, $text_key => json_prepare($item->title . ' (' . $item->region->title . ')')];
+                return [$value_key => $item->id, $text_key => json_prepare($item->title.' ('.$item->region->title.')')];
             });
     }
 
@@ -94,8 +93,9 @@ class District extends TranslatableModel
         $query = self::query();
         $items = $query->with(['region'])->get($fields);
         foreach ($items as $item) {
-            $result[$item->{$value_field}] = json_prepare($item->title . ' (' . $item->region->title . ')');
+            $result[$item->{$value_field}] = json_prepare($item->title.' ('.$item->region->title.')');
         }
+
         return $result;
     }
 
@@ -106,7 +106,7 @@ class District extends TranslatableModel
     {
         return [
             $value_key => $this->id,
-            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
+            $text_key => $this->title.($this->region ? ' ('.$this->region->title.')' : ''),
         ];
     }
 }

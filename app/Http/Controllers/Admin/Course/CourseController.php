@@ -22,7 +22,7 @@ class CourseController extends Controller
         $courses = Course::query()->paginate(20);
 
         return view('admin.course.index', [
-            'courses' => $courses
+            'courses' => $courses,
         ]);
     }
 
@@ -45,7 +45,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      */
@@ -62,15 +62,15 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Course $course
+     * @param Course  $course
      *
      * @return View
      */
     public function edit(Course $course)
     {
-
         $staffs = Staff::toSelectBox();
         $courses = Course::where('id', '<>', $course->id)->toSelectBox();
+
         return view('admin.course.edit', [
             'course' => $course,
             'staffs' => $staffs,
@@ -81,14 +81,13 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Course $course
+     * @param Request  $request
+     * @param Course  $course
      *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Course $course)
     {
-
         //
         $course->fill($request->all());
         $course->save();
@@ -102,7 +101,7 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Course $course
+     * @param Course  $course
      *
      * @return Response
      */

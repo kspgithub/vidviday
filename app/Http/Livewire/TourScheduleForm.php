@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Currency;
 use App\Models\Tour;
 use App\Models\TourSchedule;
-use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
 class TourScheduleForm extends Component
@@ -63,13 +62,10 @@ class TourScheduleForm extends Component
         $this->schedule = new TourSchedule();
         $this->schedule->tour_id = $this->tour->id;
 
-
         session()->flash('success', $isUpdate ? 'Record updated.' : 'Record created.');
 
         $this->emitUp('recordSaved');
-
     }
-
 
     public function cancel()
     {

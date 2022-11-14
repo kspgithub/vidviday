@@ -3,25 +3,40 @@
         <h2 class="h3">{{ __('order-section.confirmation.question') }}</h2>
         <div class="spacer-xxs"></div>
         <div>
-            <div class="radio-accordion" v-for="(conf, idx) in confirmationTypes" :key="'conf-' + conf.value">
-                <form-radio v-model="confirmation_type"
-                            name="confirmation_type"
-                            :value="conf.value"
-                            :label="conf.text"/>
-                <div class="radio-accordion-toggle"
-                     :style="{display: confirmation_type === conf.value ? 'block' : 'none'}">
+            <div v-for="(conf, idx) in confirmationTypes" :key="'conf-' + conf.value" class="radio-accordion">
+                <form-radio
+                    v-model="confirmation_type"
+                    name="confirmation_type"
+                    :value="conf.value"
+                    :label="conf.text"
+                />
+                <div
+                    class="radio-accordion-toggle"
+                    :style="{ display: confirmation_type === conf.value ? 'block' : 'none' }"
+                >
+                    <form-input
+                        v-if="conf.value === 1"
+                        v-model="email"
+                        name="confirmation_email"
+                        :rules="confirmation_type === 1 ? 'required|email' : ''"
+                        :label="__('forms.your-email')"
+                    />
 
-                    <form-input v-if="conf.value === 1" v-model="email" name="confirmation_email"
-                                :rules="confirmation_type === 1 ? 'required|email' : ''"
-                                :label="__('forms.your-email')"/>
+                    <form-input
+                        v-if="conf.value === 2"
+                        v-model="viber"
+                        name="confirmation_viber"
+                        :rules="confirmation_type === 2 ? 'required|tel' : ''"
+                        :label="__('forms.viber')"
+                    />
 
-                    <form-input v-if="conf.value === 2" v-model="viber" name="confirmation_viber"
-                                :rules="confirmation_type === 2 ? 'required|tel' : ''"
-                                :label="__('forms.viber')"/>
-
-                    <form-input v-if="conf.value === 3" v-model="phone" name="confirmation_phone"
-                                :rules="confirmation_type === 3 ? 'required|tel' : ''"
-                                :label="__('forms.your-phone')"/>
+                    <form-input
+                        v-if="conf.value === 3"
+                        v-model="phone"
+                        name="confirmation_phone"
+                        :rules="confirmation_type === 3 ? 'required|tel' : ''"
+                        :label="__('forms.your-phone')"
+                    />
                 </div>
             </div>
         </div>
@@ -29,22 +44,22 @@
 </template>
 
 <script>
-import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
-import {useStore} from "vuex";
-import {computed, ref} from "vue";
-import FormRadio from "../form/FormRadio";
-import FormInput from "../form/FormInput";
+import { useDebounceFormDataProperty, useFormDataProperty } from '../../store/composables/useFormData'
+import { useStore } from 'vuex'
+import { computed, ref } from 'vue'
+import FormRadio from '../form/FormRadio'
+import FormInput from '../form/FormInput'
 
 export default {
-    name: "OrderConfirmation",
-    components: {FormInput, FormRadio},
+    name: 'OrderConfirmation',
+    components: { FormInput, FormRadio },
     setup() {
-        const store = useStore();
-        const confirmationTypes = computed(() => store.state.orderTour.confirmationTypes);
-        const confirmation_type = useFormDataProperty('orderTour', 'confirmation_type');
-        const email = useDebounceFormDataProperty('orderTour', 'confirmation_email');
-        const viber = useDebounceFormDataProperty('orderTour', 'confirmation_viber');
-        const phone = useDebounceFormDataProperty('orderTour', 'confirmation_phone');
+        const store = useStore()
+        const confirmationTypes = computed(() => store.state.orderTour.confirmationTypes)
+        const confirmation_type = useFormDataProperty('orderTour', 'confirmation_type')
+        const email = useDebounceFormDataProperty('orderTour', 'confirmation_email')
+        const viber = useDebounceFormDataProperty('orderTour', 'confirmation_viber')
+        const phone = useDebounceFormDataProperty('orderTour', 'confirmation_phone')
 
         return {
             email,
@@ -53,10 +68,8 @@ export default {
             confirmationTypes,
             confirmation_type,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

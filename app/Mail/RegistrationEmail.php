@@ -4,8 +4,6 @@ namespace App\Mail;
 
 use App\Models\Contact;
 use App\Models\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
 
 class RegistrationEmail extends BaseTemplateEmail
 {

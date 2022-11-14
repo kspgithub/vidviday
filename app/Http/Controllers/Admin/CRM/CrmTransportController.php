@@ -12,6 +12,7 @@ class CrmTransportController extends Controller
     {
         $status = $request->input('status', 'new');
         $query = OrderTransport::where('status', $status);
+
         return $query->count();
     }
 }

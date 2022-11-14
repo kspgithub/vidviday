@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\Finance;
 use App\Models\IncludeType;
@@ -25,17 +24,23 @@ class TourFinance extends Component
     public $tour;
 
     public $types = [];
+
     public $tourIncludeOptions = [];
+
     public $tourExcludeOptions = [];
 
     public $locales = [];
 
     public $text_uk = '';
+
     public $text_ru = '';
+
     public $text_en = '';
+
     public $text_pl = '';
 
     public $type_id = 1;
+
     public $finance_id = 0;
 
     protected function rules()
@@ -80,7 +85,7 @@ class TourFinance extends Component
     {
         $this->model->tour_id = $this->tour->id;
         $this->model->type_id = $this->type_id;
-        $this->model->finance_id = (int)$this->finance_id === 0 ? null : $this->finance_id;
+        $this->model->finance_id = (int) $this->finance_id === 0 ? null : $this->finance_id;
         $this->setTranslations('text');
     }
 
@@ -91,7 +96,7 @@ class TourFinance extends Component
 
     public function getFinanceOptionsProperty()
     {
-        switch ((int)$this->type_id) {
+        switch ((int) $this->type_id) {
             case 1:
                 return $this->tourIncludeOptions;
             case 2:

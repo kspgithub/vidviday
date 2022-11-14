@@ -71,7 +71,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ScheduleResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -85,7 +86,7 @@ class ScheduleResource extends JsonResource
             'price' => $this->price,
             'accommodation_price' => $this->accomm_price,
             'currency' => $this->currency,
-//            'comment' => $this->comment,
+            //            'comment' => $this->comment,
         ];
     }
 }

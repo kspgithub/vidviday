@@ -8,8 +8,10 @@ use App\Http\Controllers\Admin\Tour\TourController;
 use App\Http\Controllers\Admin\Tour\TourCorporateIncludesController;
 use App\Http\Controllers\Admin\Tour\TourDirectionController;
 use App\Http\Controllers\Admin\Tour\TourDiscountController;
+use App\Http\Controllers\Admin\Tour\TourFinanceController;
 use App\Http\Controllers\Admin\Tour\TourFoodController;
 use App\Http\Controllers\Admin\Tour\TourGroupController;
+use App\Http\Controllers\Admin\Tour\TourLandingController;
 use App\Http\Controllers\Admin\Tour\TourPictureController;
 use App\Http\Controllers\Admin\Tour\TourPlacesController;
 use App\Http\Controllers\Admin\Tour\TourPlanController;
@@ -19,8 +21,6 @@ use App\Http\Controllers\Admin\Tour\TourSubjectController;
 use App\Http\Controllers\Admin\Tour\TourTicketController;
 use App\Http\Controllers\Admin\Tour\TourTransportController;
 use App\Http\Controllers\Admin\Tour\TourTypeController;
-use App\Http\Controllers\Admin\Tour\TourFinanceController;
-use App\Http\Controllers\Admin\Tour\TourLandingController;
 use App\Http\Controllers\Admin\Tour\TourVotingController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +47,6 @@ Route::group([
 
     Route::get('{tour}/directions', [TourDirectionController::class, 'index'])->name('direction.index');
     Route::patch('{tour}/directions', [TourDirectionController::class, 'update'])->name('direction.update');
-
 
     Route::get('{tour}/schedule', [TourScheduleController::class, 'index'])->name('schedule.index');
     Route::post('{tour}/schedule', [TourScheduleController::class, 'store'])->name('schedule.store');

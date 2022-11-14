@@ -11,7 +11,7 @@ class AddShortTitleToAccommodationTypes extends Migration
     {
         Schema::table('accommodation_types', function (Blueprint $table) {
             //
-            
+
             $table->string('short_title')->nullable()->after('title');
         });
 

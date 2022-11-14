@@ -10,12 +10,9 @@ use App\Models\Discount;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +51,7 @@ class DiscountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param DiscountBasicRequest $request
+     * @param DiscountBasicRequest  $request
      *
      * @return mixed
      */
@@ -72,17 +69,17 @@ class DiscountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Discount $discount
+     * @param Discount  $discount
      *
      * @return Application|Factory|View
      */
     public function edit(Discount $discount)
     {
-
         $currencies = Currency::toSelectBox('iso', 'iso');
         $types = arrayToSelectBox(Discount::$types);
         $categories = arrayToSelectBox(Discount::$categories);
         $durations = arrayToSelectBox(Discount::$durations);
+
         return view('admin.discount.edit', [
             'discount' => $discount,
             'currencies' => $currencies,
@@ -95,13 +92,12 @@ class DiscountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param DiscountBasicRequest $request
-     *
-     * @param Discount $discount
-     *
-     * @return mixed
+     * @param DiscountBasicRequest  $request
+     * @param Discount  $discount
      *
      * @throws GeneralException
+     *
+     * @return mixed
      */
     public function update(DiscountBasicRequest $request, Discount $discount)
     {
@@ -111,13 +107,14 @@ class DiscountController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success']);
         }
+
         return redirect()->route('admin.discount.index', $discount)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Discount $discount
+     * @param Discount  $discount
      *
      * @return mixed
      */

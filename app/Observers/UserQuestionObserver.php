@@ -5,7 +5,6 @@ namespace App\Observers;
 use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
-use App\Mail\VacancyEmail;
 use App\Models\UserQuestion;
 use App\Services\MailNotificationService;
 use Exception;
@@ -16,7 +15,8 @@ class UserQuestionObserver
     /**
      * Handle the UserQuestion "created" event.
      *
-     * @param  \App\Models\UserQuestion  $userQuestion
+     * @param \App\Models\UserQuestion  $userQuestion
+     *
      * @return void
      */
     public function created(UserQuestion $userQuestion)
@@ -48,7 +48,8 @@ class UserQuestionObserver
     /**
      * Handle the UserQuestion "updated" event.
      *
-     * @param  \App\Models\UserQuestion  $userQuestion
+     * @param \App\Models\UserQuestion  $userQuestion
+     *
      * @return void
      */
     public function updated(UserQuestion $userQuestion)
@@ -59,7 +60,8 @@ class UserQuestionObserver
     /**
      * Handle the UserQuestion "deleted" event.
      *
-     * @param  \App\Models\UserQuestion  $userQuestion
+     * @param \App\Models\UserQuestion  $userQuestion
+     *
      * @return void
      */
     public function deleted(UserQuestion $userQuestion)
@@ -70,7 +72,8 @@ class UserQuestionObserver
     /**
      * Handle the UserQuestion "restored" event.
      *
-     * @param  \App\Models\UserQuestion  $userQuestion
+     * @param \App\Models\UserQuestion  $userQuestion
+     *
      * @return void
      */
     public function restored(UserQuestion $userQuestion)
@@ -81,7 +84,8 @@ class UserQuestionObserver
     /**
      * Handle the UserQuestion "force deleted" event.
      *
-     * @param  \App\Models\UserQuestion  $userQuestion
+     * @param \App\Models\UserQuestion  $userQuestion
+     *
      * @return void
      */
     public function forceDeleted(UserQuestion $userQuestion)

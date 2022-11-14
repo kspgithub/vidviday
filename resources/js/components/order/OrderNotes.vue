@@ -2,18 +2,27 @@
     <div class="additional-block py-20">
         <div v-for="note in innerNotes" class="order-note">
             <div class="text">{{ formatDate(note.created_at) }}</div>
-            <more-text :key="'note-'+note.id" :min-height="90" text-size="text-normal">
+            <more-text :key="'note-' + note.id" :min-height="90" text-size="text-normal">
                 {{ note.text }}
             </more-text>
         </div>
         <div class="add-note pb-0">
             <transition name="fade">
-                <form @submit.prevent="onSubmit()" method="POST" :action="action" class="add-note-toggle d-block"
-                      v-if="showForm">
+                <form
+                    v-if="showForm"
+                    method="POST"
+                    :action="action"
+                    class="add-note-toggle d-block"
+                    @submit.prevent="onSubmit()"
+                >
                     <div class="add-note-input">
-                        <form-textarea v-model="text" :id="'note-text-'+order.id"
-                                       :label="__('order-section.notes.label')"
-                                       rows="3" name="text"/>
+                        <form-textarea
+                            :id="'note-text-' + order.id"
+                            v-model="text"
+                            :label="__('order-section.notes.label')"
+                            rows="3"
+                            name="text"
+                        />
                     </div>
                     <div class="add-note-btns">
                         <button class="btn type-2" type="submit" :disabled="!text || request">
@@ -26,53 +35,52 @@
                 </form>
             </transition>
             <transition name="fade">
-                <a @click.prevent="showForm = true" class="add-note-btn text text-sm" v-if="!showForm">
+                <a v-if="!showForm" class="add-note-btn text text-sm" @click.prevent="showForm = true">
                     <b class="text-bold">{{ __('order-section.notes.add-note') }}</b>
                 </a>
             </transition>
         </div>
-
     </div>
 </template>
 
 <script>
-import ShowMoreText from "../common/ShowMoreText";
-import FormTextarea from "../form/FormTextarea";
-import {ref} from "vue";
-import SlideUpDown from "../common/SlideUpDown";
-import axios from "axios";
-import moment from "moment";
-import MoreText from "../common/MoreText";
+import ShowMoreText from '../common/ShowMoreText'
+import FormTextarea from '../form/FormTextarea'
+import { ref } from 'vue'
+import SlideUpDown from '../common/SlideUpDown'
+import axios from 'axios'
+import moment from 'moment'
+import MoreText from '../common/MoreText'
 
 export default {
-    name: "OrderNotes",
-    components: {MoreText, SlideUpDown, FormTextarea, ShowMoreText},
+    name: 'OrderNotes',
+    components: { MoreText, SlideUpDown, FormTextarea, ShowMoreText },
     props: {
         action: String,
         order: Object,
         notes: Array,
     },
     setup(props) {
-        const text = ref('');
-        const request = ref(false);
-        const showForm = ref(false);
-        const innerNotes = ref(props.notes || []);
+        const text = ref('')
+        const request = ref(false)
+        const showForm = ref(false)
+        const innerNotes = ref(props.notes || [])
 
         const onSubmit = async () => {
-            request.value = true;
-            const {data: response} = await axios.post('/profile/orders/add-note', {
+            request.value = true
+            const { data: response } = await axios.post('/profile/orders/add-note', {
                 text: text.value,
-                order_id: props.order.id
+                order_id: props.order.id,
             })
             if (response.result === 'success') {
-                innerNotes.value = [response.note, ...innerNotes.value];
+                innerNotes.value = [response.note, ...innerNotes.value]
             }
-            showForm.value = false;
-            request.value = false;
+            showForm.value = false
+            request.value = false
         }
 
-        const formatDate = (date) => {
-            return date ? moment(date).format('d.m.Y') : '';
+        const formatDate = date => {
+            return date ? moment(date).format('d.m.Y') : ''
         }
 
         return {
@@ -83,10 +91,8 @@ export default {
             formatDate,
             request,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

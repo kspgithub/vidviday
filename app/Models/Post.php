@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\PostAttribute;
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
@@ -12,9 +13,9 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
+
 class Post extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -58,7 +59,7 @@ class Post extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     public static function boot()
@@ -72,7 +73,6 @@ class Post extends TranslatableModel implements HasMedia
                 $model->short_text = Str::limit(strip_tags($model->text), 500);
             }
         });
-
     }
 
     public function registerMediaConversions(Media $media = null): void

@@ -58,7 +58,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="images",
  *         title="Зображення",
  *         type="array",
- *         @OA\Items( type="string", example="https://vidviday.ua/storage/media/place/2146/1618995966607feafe68ad8-1200x1200.jpg")
+ *         @OA\Items(    type="string", example="https://vidviday.ua/storage/media/place/2146/1618995966607feafe68ad8-1200x1200.jpg")
  *     ),
  *     @OA\Property(
  *         property="country",
@@ -91,12 +91,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         example={ "uk": "Франківщина" }
  *     ),
  * ),
- *
  */
 class PlaceResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return array
      */
     public function toArray($request)

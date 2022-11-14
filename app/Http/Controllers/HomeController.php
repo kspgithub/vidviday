@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use App\Models\Banner;
-use App\Models\News;
-use App\Models\OurClient;
 use App\Models\Page;
 use App\Models\PopupAd;
-use App\Models\Testimonial;
 use App\Models\Tour;
-use App\Models\TourSchedule;
-use App\Services\TourService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -35,7 +29,6 @@ class HomeController extends Controller
             'popupAds' => $popupAds,
         ]);
     }
-
 
     public function testError()
     {

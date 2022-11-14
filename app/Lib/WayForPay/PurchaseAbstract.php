@@ -2,11 +2,9 @@
 
 namespace App\Lib\WayForPay;
 
-use App\Models\Order;
 use App\Models\PurchaseTransaction;
 use WayForPay\SDK\Collection\ProductCollection;
 use WayForPay\SDK\Credential\AccountSecretCredential;
-use WayForPay\SDK\Credential\AccountSecretTestCredential;
 use WayForPay\SDK\Domain\Client;
 use WayForPay\SDK\Domain\MerchantTypes;
 use WayForPay\SDK\Domain\Product;
@@ -36,9 +34,7 @@ abstract class PurchaseAbstract
 
     protected $currency;
 
-
     protected $domain;
-
 
     public function __construct($order)
     {
@@ -56,11 +52,11 @@ abstract class PurchaseAbstract
         $amount = config('services.wayforpay.test') ? 1 : $order->total_price;
 
         $this->products = [
-            ['title' => $order->title, 'price' => $amount, 'count' => 1]
+            ['title' => $order->title, 'price' => $amount, 'count' => 1],
         ];
         $this->amount = $amount;
         $this->currency = $order->currency;
-        $this->orderDate = !empty($order->created_at) ? $order->created_at?->toDateTime() : new \DateTime();
+        $this->orderDate = ! empty($order->created_at) ? $order->created_at?->toDateTime() : new \DateTime();
         $this->serviceUrl = url(route('purchase.service'));
     }
 
@@ -96,7 +92,6 @@ abstract class PurchaseAbstract
         $this->orderDate = $orderDate;
     }
 
-
     public function getOrderNumber()
     {
         return $this->orderNumber;
@@ -107,7 +102,6 @@ abstract class PurchaseAbstract
         $this->orderNumber = $number;
     }
 
-
     public function getOrderReference()
     {
         return $this->orderReference;
@@ -117,7 +111,6 @@ abstract class PurchaseAbstract
     {
         $this->orderReference = $number;
     }
-
 
     public function getAmount()
     {
@@ -184,7 +177,6 @@ abstract class PurchaseAbstract
         return new AccountSecretCredential(config('services.wayforpay.login'), config('services.wayforpay.secret'));
     }
 
-
     public function setClient($data)
     {
         $this->client = new Client(
@@ -212,12 +204,12 @@ abstract class PurchaseAbstract
         foreach ($this->products as $product) {
             $products[] = new Product($product['title'], $product['price'], $product['count'] ?? 1);
         }
+
         return new ProductCollection($products);
     }
 
     public function getWizard()
     {
-
         return PurchaseWizard::get($this->getCredential())
             ->setOrderNo($this->getOrderNumber())
             ->setOrderReference($this->getOrderReference())
@@ -236,7 +228,6 @@ abstract class PurchaseAbstract
     {
         return $this->getWizard()->getForm();
     }
-
 
     public function getFormAsString()
     {

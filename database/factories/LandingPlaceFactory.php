@@ -12,8 +12,6 @@ class LandingPlaceFactory extends Factory
 
     public function definition(): array
     {
-
-
         return [
             'title' => ['uk' => implode(' ', $this->faker->words)],
             'description' => $this->faker->realText(),

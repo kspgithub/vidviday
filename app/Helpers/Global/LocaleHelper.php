@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Currency;
 use Carbon\Carbon;
 
-if (!function_exists('setAllLocale')) {
-
+if (! function_exists('setAllLocale')) {
     /**
      * @param $locale
      */
@@ -17,8 +15,7 @@ if (!function_exists('setAllLocale')) {
     }
 }
 
-if (!function_exists('setAppLocale')) {
-
+if (! function_exists('setAppLocale')) {
     /**
      * @param $locale
      */
@@ -28,8 +25,7 @@ if (!function_exists('setAppLocale')) {
     }
 }
 
-if (!function_exists('setPHPLocale')) {
-
+if (! function_exists('setPHPLocale')) {
     /**
      * @param $locale
      */
@@ -39,8 +35,7 @@ if (!function_exists('setPHPLocale')) {
     }
 }
 
-if (!function_exists('setCarbonLocale')) {
-
+if (! function_exists('setCarbonLocale')) {
     /**
      * @param $locale
      */
@@ -50,8 +45,7 @@ if (!function_exists('setCarbonLocale')) {
     }
 }
 
-if (!function_exists('setLocaleReadingDirection')) {
-
+if (! function_exists('setLocaleReadingDirection')) {
     /**
      * @param $locale
      */
@@ -61,7 +55,7 @@ if (!function_exists('setLocaleReadingDirection')) {
          * Set the session variable for whether or not the app is using RTL support
          * For use in the blade directive in BladeServiceProvider
          */
-        if (!app()->runningInConsole()) {
+        if (! app()->runningInConsole()) {
             if (array_key_exists($locale, config('site-settings.locale.languages')) &&
                 config('site-settings.locale.languages')[$locale]['rtl']) {
                 session(['lang-rtl' => true]);
@@ -72,8 +66,7 @@ if (!function_exists('setLocaleReadingDirection')) {
     }
 }
 
-if (!function_exists('getLocaleName')) {
-
+if (! function_exists('getLocaleName')) {
     /**
      * @param $locale
      *
@@ -87,22 +80,21 @@ if (!function_exists('getLocaleName')) {
     }
 }
 
-if (!function_exists('trans')) {
+if (! function_exists('trans')) {
     function trans($key, $replace = [])
     {
         return Lang::get($key, $replace);
     }
 }
 
-if (!function_exists('getLocale')) {
+if (! function_exists('getLocale')) {
     function getLocale()
     {
         return app()->getLocale();
     }
 }
 
-
-if (!function_exists('siteLocales')) {
+if (! function_exists('siteLocales')) {
     function siteLocales()
     {
         return array_keys(config('site-settings.locale.languages'));

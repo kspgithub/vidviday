@@ -27,7 +27,7 @@ class FoodFactory extends Factory
             'text' => $this->faker->realText(),
             'price' => $this->faker->numberBetween(1, 10) * 10,
             'currency' => 'UAH',
-            'published' => 1
+            'published' => 1,
         ];
     }
 }

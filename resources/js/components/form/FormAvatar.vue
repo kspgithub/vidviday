@@ -1,26 +1,32 @@
 <template>
     <div class="img-input-wrap">
         <div class="img">
-            <img :src="preview" class="profile-avatar" alt="Avatar">
+            <img :src="preview" class="profile-avatar" alt="Avatar" />
         </div>
         <label class="img-input btn type-2">
             Змінити фото
-            <input type="file" class="full-size" accept=".png,.jpg,.jpeg" :name="name" ref="inputRef"
-                   @change="onChange">
+            <input
+                ref="inputRef"
+                type="file"
+                class="full-size"
+                accept=".png,.jpg,.jpeg"
+                :name="name"
+                @change="onChange"
+            />
         </label>
     </div>
 </template>
 
 <script>
-import {ref} from "vue";
+import { ref } from 'vue'
 
 export default {
-    name: "FormAvatar",
+    name: 'FormAvatar',
     props: {
         modelValue: null,
         avatarUrl: {
             type: String,
-            default: '/icon/login.svg'
+            default: '/icon/login.svg',
         },
         name: {
             type: String,
@@ -28,29 +34,29 @@ export default {
         },
         rules: {
             type: [String, Object],
-            default: ''
+            default: '',
         },
     },
     emits: ['update:modelValue'],
-    setup(props, {emit}) {
-        const inputRef = ref(null);
+    setup(props, { emit }) {
+        const inputRef = ref(null)
 
-        const preview = ref(props.avatarUrl);
+        const preview = ref(props.avatarUrl)
 
         const clear = () => {
-            inputRef.value.value = null;
-            preview.value = props.avatarUrl;
+            inputRef.value.value = null
+            preview.value = props.avatarUrl
         }
 
-        const onChange = (evt) => {
+        const onChange = evt => {
             if (inputRef.value.files && inputRef.value.files[0]) {
-                const reader = new FileReader();
+                const reader = new FileReader()
                 reader.onload = function (e) {
-                    preview.value = e.target.result;
-                };
-                reader.readAsDataURL(inputRef.value.files[0]);
+                    preview.value = e.target.result
+                }
+                reader.readAsDataURL(inputRef.value.files[0])
             } else {
-                preview.value = props.avatarUrl;
+                preview.value = props.avatarUrl
             }
         }
 
@@ -60,10 +66,8 @@ export default {
             clear,
             onChange,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

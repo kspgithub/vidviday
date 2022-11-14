@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Vacancy;
-use Illuminate\Http\Request;
 
 class VacancyController extends Controller
 {
@@ -16,12 +15,12 @@ class VacancyController extends Controller
     {
         $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancies = Vacancy::published()->orderBy('created_at', 'desc')->paginate(20);
-        $popupAds = PopupAd::query()->whereJsonContains('pages',  $pageContent->key)->get();
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
         return view('vacancy.index', [
-            'pageContent'=>$pageContent,
-            'vacancies'=>$vacancies,
-            'popupAds'=>$popupAds,
+            'pageContent' => $pageContent,
+            'vacancies' => $vacancies,
+            'popupAds' => $popupAds,
         ]);
     }
 
@@ -29,13 +28,12 @@ class VacancyController extends Controller
     {
         $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancy = Vacancy::findBySlugOrFail($slug);
-        $popupAds = PopupAd::query()->whereJsonContains('pages',  $pageContent->key)->get();
+        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('vacancy.show', [
-            'pageContent'=>$pageContent,
-            'vacancy'=>$vacancy,
-            'popupAds'=>$popupAds,
+            'pageContent' => $pageContent,
+            'vacancy' => $vacancy,
+            'popupAds' => $popupAds,
         ]);
     }
-
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\News;
 
-use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

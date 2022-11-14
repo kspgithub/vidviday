@@ -33,7 +33,6 @@ class AddAdditionalFieldsToTourFoodTable extends Migration
     public function down()
     {
         Schema::table('tour_food', function (Blueprint $table) {
-
             $table->dropForeign('tour_food_country_id_foreign');
             $table->dropForeign('tour_food_region_id_foreign');
 
@@ -48,4 +47,3 @@ class AddAdditionalFieldsToTourFoodTable extends Migration
         });
     }
 }
-

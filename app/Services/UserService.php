@@ -8,9 +8,9 @@ use App\Events\User\UserDestroyed;
 use App\Events\User\UserRestored;
 use App\Events\User\UserStatusChanged;
 use App\Events\User\UserUpdated;
+use App\Exceptions\GeneralException;
 use App\Models\Role;
 use App\Models\User;
-use App\Exceptions\GeneralException;
 use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +27,7 @@ class UserService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param User $user
+     * @param User  $user
      */
     public function __construct(User $user)
     {
@@ -36,7 +36,7 @@ class UserService extends BaseService
 
     /**
      * @param $type
-     * @param bool|int $perPage
+     * @param bool|int  $perPage
      *
      * @return mixed
      */
@@ -50,11 +50,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param array $data
+     * @param array  $data
      *
-     * @return mixed
      * @throws GeneralException
      *
+     * @return mixed
      */
     public function registerUser(array $data = []): User
     {
@@ -78,16 +78,17 @@ class UserService extends BaseService
      * @param $info
      * @param $provider
      *
-     * @return mixed
      * @throws GeneralException
      *
+     * @return mixed
      */
     public function registerProvider($info, $provider): User
     {
         $user = User::where('email', $info->email)->first();
 
-        if (!$user) {
+        if (! $user) {
             DB::beginTransaction();
+
             try {
                 $nameParts = array_filter(explode(' ', $info->name));
                 $user = $this->createUser([
@@ -114,12 +115,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param array $data
+     * @param array  $data
+     *
+     * @throws Throwable
+     * @throws GeneralException
      *
      * @return User
-     * @throws Throwable
-     *
-     * @throws GeneralException
      */
     public function store(array $data = []): User
     {
@@ -131,18 +132,18 @@ class UserService extends BaseService
             }
 
             $user = User::create($data);
-            if (isset($data['email_verified']) && (int)$data['email_verified'] === 1) {
+            if (isset($data['email_verified']) && (int) $data['email_verified'] === 1) {
                 $user->email_verified_at = Carbon::now();
                 $user->save();
             }
 
-            if (!empty($data['avatar_upload'])) {
+            if (! empty($data['avatar_upload'])) {
                 $user->uploadAvatar($data['avatar_upload']);
             }
 
             $user->syncRoles($data['role'] ?? []);
 
-            if (!config('site-settings.user.only_roles')) {
+            if (! config('site-settings.user.only_roles')) {
                 $user->syncPermissions($data['permissions'] ?? []);
             }
         } catch (Exception $e) {
@@ -156,7 +157,7 @@ class UserService extends BaseService
         DB::commit();
 
         // They didn't want to auto verify the email, but do they want to send the confirmation email to do so?
-        if (isset($data['send_confirmation_email']) && (int)$data['send_confirmation_email'] === 1) {
+        if (isset($data['send_confirmation_email']) && (int) $data['send_confirmation_email'] === 1) {
             $user->sendEmailVerificationNotification();
         }
 
@@ -164,35 +165,35 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
-     * @param array $data
+     * @param User  $user
+     * @param array  $data
      *
-     * @return User
      * @throws Throwable
      *
+     * @return User
      */
     public function update(User $user, array $data = []): User
     {
         DB::beginTransaction();
 
         try {
-            if (empty($data['avatar']) && !empty($user->avatar)) {
+            if (empty($data['avatar']) && ! empty($user->avatar)) {
                 $user->deleteAvatar();
             }
 
             $user->update($data);
 
-            if (!empty($data['avatar_upload'])) {
+            if (! empty($data['avatar_upload'])) {
                 $user->uploadAvatar($data['avatar_upload']);
             }
 
-            if (!$user->isMasterAdmin()) {
+            if (! $user->isMasterAdmin()) {
                 // Replace selected roles/permissions
-                if (!empty($data['role'])) {
+                if (! empty($data['role'])) {
                     $user->syncRoles($data['role']);
                 }
 
-                if (!config('site-settings.user.only_roles')) {
+                if (! config('site-settings.user.only_roles')) {
                     $user->syncPermissions($data['permissions'] ?? []);
                 }
             }
@@ -210,8 +211,8 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
-     * @param array $data
+     * @param User  $user
+     * @param array  $data
      *
      * @return User
      */
@@ -230,19 +231,19 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
+     * @param User  $user
      * @param $data
-     * @param bool $expired
+     * @param bool  $expired
      *
-     * @return User
      * @throws Throwable
      *
+     * @return User
      */
     public function updatePassword(User $user, $data, $expired = false): User
     {
         if (isset($data['current_password'])) {
             throw_if(
-                !Hash::check($data['current_password'], $user->password),
+                ! Hash::check($data['current_password'], $user->password),
                 new GeneralException(__('That is not your old password.'))
             );
         }
@@ -258,12 +259,12 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
+     * @param User  $user
      * @param $status
      *
-     * @return User
      * @throws GeneralException
      *
+     * @return User
      */
     public function mark(User $user, $status): User
     {
@@ -287,11 +288,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
+     * @param User  $user
      *
-     * @return User
      * @throws GeneralException
      *
+     * @return User
      */
     public function delete(User $user): User
     {
@@ -309,11 +310,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
+     * @param User  $user
      *
-     * @return User
      * @throws GeneralException
      *
+     * @return User
      */
     public function restore(User $user): User
     {
@@ -327,11 +328,11 @@ class UserService extends BaseService
     }
 
     /**
-     * @param User $user
+     * @param User  $user
      *
-     * @return bool
      * @throws GeneralException
      *
+     * @return bool
      */
     public function destroy(User $user): bool
     {
@@ -345,7 +346,7 @@ class UserService extends BaseService
     }
 
     /**
-     * @param array $data
+     * @param array  $data
      *
      * @return User
      */
@@ -369,9 +370,9 @@ class UserService extends BaseService
     {
         DB::beginTransaction();
         $user = $this->model->find($id);
-        try {
 
-            $user->email = 'deleted_' . $id . '@vidviday.ua';
+        try {
+            $user->email = 'deleted_'.$id.'@vidviday.ua';
             $user->first_name = 'User';
             $user->last_name = 'Deleted';
             $user->middle_name = '';
@@ -389,15 +390,15 @@ class UserService extends BaseService
             $user->deleteAvatar();
             $user->save();
             $user->delete();
-
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
+
             return false;
         }
         DB::commit();
         event(new UserDeleted($user));
-        return true;
 
+        return true;
     }
 }

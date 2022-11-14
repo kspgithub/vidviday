@@ -10,7 +10,6 @@ use App\Models\PaymentType;
 use App\Models\Staff;
 use App\Models\Tour;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class CrmCorporateController extends Controller
 {
@@ -27,6 +26,7 @@ class CrmCorporateController extends Controller
                     'admin_comment',
                     'agency_data',
                 ]);
+
                 return $val;
             });
 
@@ -36,6 +36,7 @@ class CrmCorporateController extends Controller
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $statuses = arrayToSelectBox(Order::statuses());
         $tours = Tour::toSelectBox();
+
         return view('admin.crm.corporate.index', [
             'managers' => $managers,
             'statuses' => $statuses,
@@ -58,6 +59,7 @@ class CrmCorporateController extends Controller
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
         $roomTypes = AccommodationType::toSelectBox();
         $includes = arrayToSelectBox(Order::includes());
+
         return view('admin.crm.corporate.create', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -75,6 +77,7 @@ class CrmCorporateController extends Controller
         $order = new Order();
         $order->fill($request->all());
         $order->save();
+
         return redirect()->route('admin.crm.corporate.edit', $order)->withFlashSuccess(__('Record Created'));
     }
 
@@ -95,6 +98,7 @@ class CrmCorporateController extends Controller
         $includes = arrayToSelectBox(Order::includes());
         $tour = $order->tour;
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
+
         return view('admin.crm.corporate.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
             'order' => $order,
@@ -123,6 +127,7 @@ class CrmCorporateController extends Controller
         $paymentStatuses = arrayToSelectBox(Order::$paymentStatuses);
         $roomTypes = AccommodationType::toSelectBox();
         $includes = arrayToSelectBox(Order::includes());
+
         return view('admin.crm.corporate.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -147,7 +152,7 @@ class CrmCorporateController extends Controller
     {
         //
         $order->delete();
+
         return redirect()->route('admin.crm.corporate.index')->withFlashSuccess(__('Record Deleted'));
     }
-
 }

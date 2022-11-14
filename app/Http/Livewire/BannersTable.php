@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
 use App\Models\Banner;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -14,11 +13,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class BannersTable extends DataTableComponent
 {
-
     public bool $reordering = true;
 
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string
@@ -62,7 +59,7 @@ class BannersTable extends DataTableComponent
 
             Column::make(__('Image'), 'image_url')
                 ->format(function ($value, $column, $row) {
-                    return '<img src="' . $value . '" alt="'. $value .'" style="height: 80px;">';
+                    return '<img src="'.$value.'" alt="'.$value.'" style="height: 80px;">';
                 })->asHtml(),
 
             Column::make(__('Title'), 'title'),
@@ -84,7 +81,7 @@ class BannersTable extends DataTableComponent
     public function reorder($items): void
     {
         foreach ($items as $item) {
-            Banner::query()->find((int)$item['value'])->update(['position' => (int)$item['order']]);
+            Banner::query()->find((int) $item['value'])->update(['position' => (int) $item['order']]);
         }
     }
 }

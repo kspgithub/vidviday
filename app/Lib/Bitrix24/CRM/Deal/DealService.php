@@ -14,10 +14,10 @@ class DealService implements StaticServiceInterface
         return 'crm.deal';
     }
 
-
     public static function getByCategory($id, array $select = ['*', 'UF_*'], array $filter = [], array $order = [], $start = null)
     {
         $filter = array_merge($filter, ['CATEGORY_ID' => [$id]]);
+
         return self::list($select, $filter, $order, $start);
     }
 }

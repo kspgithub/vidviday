@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Event;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class EventGroupBasicRequest extends FormRequest
 {

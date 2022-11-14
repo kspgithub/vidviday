@@ -1,22 +1,27 @@
 <template>
     <div class="number-input vue-number-input">
-        <span class="text-sm text-medium title inline" v-if="title">{{ title }}</span>
+        <span v-if="title" class="text-sm text-medium title inline">{{ title }}</span>
         <div class="number-input-btns">
             <button type="button" class="decrement" :disabled="disabled" @click.prevent="decrement()"></button>
-            <input type="number" :name="name" :value="disabled || !modelValue ? 0 : modelValue" readonly
-                   :required="required">
+            <input
+                type="number"
+                :name="name"
+                :value="disabled || !modelValue ? 0 : modelValue"
+                readonly
+                :required="required"
+            />
             <button type="button" class="increment" :disabled="disabled" @click.prevent="increment()"></button>
         </div>
-        <span class="text-sm text-medium suffix inline" v-if="suffix">{{ suffix }}</span>
+        <span v-if="suffix" class="text-sm text-medium suffix inline">{{ suffix }}</span>
     </div>
 </template>
 
 <script>
-import {computed, watch} from "vue";
-import useFormField from "./composables/useFormField";
+import { computed, watch } from 'vue'
+import useFormField from './composables/useFormField'
 
 export default {
-    name: "FormNumberInput",
+    name: 'FormNumberInput',
     props: {
         modelValue: Number,
         name: String,
@@ -37,34 +42,32 @@ export default {
         disabled: Boolean,
         rules: {
             type: [String, Object],
-            default: ''
+            default: '',
         },
     },
     emits: ['update:modelValue'],
-    setup(props, {emit}) {
-        const field = useFormField(props, emit);
+    setup(props, { emit }) {
+        const field = useFormField(props, emit)
 
         const decrement = () => {
             if (props.modelValue > props.min) {
-                emit('update:modelValue', props.modelValue - props.step);
+                emit('update:modelValue', props.modelValue - props.step)
             }
         }
 
         const increment = () => {
             if (props.modelValue < props.max) {
-                emit('update:modelValue', props.modelValue + props.step);
+                emit('update:modelValue', props.modelValue + props.step)
             }
         }
 
         return {
             decrement,
             increment,
-            ...field
+            ...field,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

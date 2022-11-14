@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
-use App\Models\News;
 use App\Models\Order;
 use App\Models\PaymentType;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,8 +14,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class OrdersTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
+    public array $bulkActions = [];
 
     /**
      * @var string
@@ -28,7 +25,6 @@ class OrdersTable extends DataTableComponent
      * @var string
      */
     public string $defaultSortDirection = 'desc';
-
 
     /**
      * @var array
@@ -87,12 +83,12 @@ class OrdersTable extends DataTableComponent
 
             Column::make(__('Places'), 'places')
                 ->format(function ($value, $column, $row) {
-                    return $row->places . ($row->children == 1 ? ' (' . ($row->children_older + $row->children_young) . 'д)' : '');
+                    return $row->places.($row->children == 1 ? ' ('.($row->children_older + $row->children_young).'д)' : '');
                 })
                 ->sortable(),
             Column::make(__('Total'), 'price')
                 ->format(function ($value, $column, $row) {
-                    return '<span class="text-nowrap">' . number_format($row->total_price) . ' ' . $row->currency . '</span>';
+                    return '<span class="text-nowrap">'.number_format($row->total_price).' '.$row->currency.'</span>';
                 })
                 ->asHtml()
                 ->sortable(),
@@ -103,7 +99,6 @@ class OrdersTable extends DataTableComponent
                 })
                 ->asHtml()
                 ->sortable(),
-
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -127,12 +122,10 @@ class OrdersTable extends DataTableComponent
         ];
     }
 
-
     public function changeStatus($order_id, $status)
     {
         $order = Order::find($order_id);
-        $order->status = (int)$status;
+        $order->status = (int) $status;
         $order->save();
-
     }
 }

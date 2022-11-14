@@ -19,29 +19,27 @@ trait HasAvatar
         if (str_starts_with($avatar, 'http')) {
             return $avatar;
         }
-        return !empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
+
+        return ! empty($avatar) ? Storage::url($avatar) : asset('/icon/login.svg');
     }
 
     /**
-     * @param UploadedFile $fileImage
+     * @param UploadedFile  $fileImage
      *
      * @throws InvalidManipulation
      */
     public function uploadAvatar(UploadedFile $fileImage)
     {
-        $path = 'public/' . $fileImage->store("/user/{$this->id}/avatar", 'public');
+        $path = 'public/'.$fileImage->store("/user/{$this->id}/avatar", 'public');
         $image_path = Storage::path($path);
         Image::load($image_path)->width(200)->height(200)->save();
         $this->avatar = $path;
         $this->save();
     }
 
-    /**
-     *
-     */
     public function deleteAvatar()
     {
-        if (!empty($this->avatar)) {
+        if (! empty($this->avatar)) {
             Storage::delete($this->avatar);
         }
     }

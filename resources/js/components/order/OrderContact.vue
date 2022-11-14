@@ -4,46 +4,56 @@
         <div class="spacer-xs"></div>
         <div class="form row">
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.your-name')" name="first_name" v-model="first_name" rules="required"/>
+                <form-input v-model="first_name" :label="__('forms.your-name')" name="first_name" rules="required" />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.your-last-name')" name="last_name" v-model="last_name" rules="required"/>
+                <form-input v-model="last_name" :label="__('forms.your-last-name')" name="last_name" rules="required" />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.phone-number')" name="phone" id="order-phone" v-model="phone"
-                            mask="+38 (099) 999-99-99"
-                            rules="required|tel"/>
+                <form-input
+                    id="order-phone"
+                    v-model="phone"
+                    :label="__('forms.phone-number')"
+                    name="phone"
+                    mask="+38 (099) 999-99-99"
+                    rules="required|tel"
+                />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.email')" name="email" id="order-email" v-model="email"
-                            rules="required|email"/>
+                <form-input
+                    id="order-email"
+                    v-model="email"
+                    :label="__('forms.email')"
+                    name="email"
+                    rules="required|email"
+                />
             </div>
 
-            <div class="col-md-6 col-12" v-if="isTourAgent">
-                <form-input :label="__('forms.travel-agency')" name="company" v-model="company"/>
+            <div v-if="isTourAgent" class="col-md-6 col-12">
+                <form-input v-model="company" :label="__('forms.travel-agency')" name="company" />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.viber')" name="viber" v-model="viber"/>
+                <form-input v-model="viber" :label="__('forms.viber')" name="viber" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import {useFormDataProperty} from "../../store/composables/useFormData";
-import {computed} from "vue";
-import {useStore} from "vuex";
-import FormInput from "../form/FormInput";
+import { useFormDataProperty } from '../../store/composables/useFormData'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import FormInput from '../form/FormInput'
 
 export default {
-    name: "OrderContact",
-    components: {FormInput},
+    name: 'OrderContact',
+    components: { FormInput },
     setup() {
-        const store = useStore();
+        const store = useStore()
         return {
             first_name: useFormDataProperty('orderTour', 'first_name'),
             last_name: useFormDataProperty('orderTour', 'last_name'),
@@ -53,10 +63,8 @@ export default {
             viber: useFormDataProperty('orderTour', 'viber'),
             isTourAgent: computed(() => store.getters['orderTour/isTourAgent']),
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

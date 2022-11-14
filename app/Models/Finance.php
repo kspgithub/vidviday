@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -23,7 +22,6 @@ class Finance extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
-
 
     public $translatable = [
         'title',
@@ -42,7 +40,6 @@ class Finance extends TranslatableModel implements HasMedia
         'published' => 'boolean',
     ];
 
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -54,14 +51,12 @@ class Finance extends TranslatableModel implements HasMedia
             ->height(180);
     }
 
-
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom(['title'])
             ->saveSlugsTo('slug');
     }
-
 
     public function type()
     {

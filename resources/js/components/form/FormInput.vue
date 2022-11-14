@@ -1,26 +1,28 @@
 <template>
-    <label :data-tooltip="errorMessage"
-           :class="{active: !!innerValue || focused, invalid: errorMessage, focused}"
-    >
+    <label :data-tooltip="errorMessage" :class="{ active: !!innerValue || focused, invalid: errorMessage, focused }">
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
-        <input ref="inputRef"
-               class="vue-input"
-               @focus="onFocus"
-               @blur="onBlur"
-               :placeholder="placeholder"
-               :autocomplete="autocomplete"
-               :type="type" v-model="innerValue" :name="name" :id="id || name"
-        >
-        <slot/>
+        <input
+            ref="inputRef"
+            v-model="innerValue"
+            class="vue-input"
+            :placeholder="placeholder"
+            :autocomplete="autocomplete"
+            :id="id || name"
+            :type="type"
+            :name="name"
+            @focus="onFocus"
+            @blur="onBlur"
+        />
+        <slot />
     </label>
 </template>
 
 <script>
-import useFormField from "./composables/useFormField";
+import useFormField from './composables/useFormField'
 import { ref } from 'vue'
 
 export default {
-    name: "FormInput",
+    name: 'FormInput',
     props: {
         modelValue: null,
         name: {
@@ -42,18 +44,10 @@ export default {
         id: null,
         type: {
             type: String,
-            default: "text",
+            default: 'text',
             validator(value) {
-                return [
-                    "url",
-                    "text",
-                    "password",
-                    "tel",
-                    "search",
-                    "number",
-                    "email",
-                ].includes(value);
-            }
+                return ['url', 'text', 'password', 'tel', 'search', 'number', 'email'].includes(value)
+            },
         },
         mask: {
             type: String,
@@ -61,16 +55,16 @@ export default {
         },
         rules: {
             type: [String, Object],
-            default: ''
+            default: '',
         },
     },
     emits: ['update:modelValue'],
-    setup(props, {emit}) {
-        const field = useFormField(props, emit);
+    setup(props, { emit }) {
+        const field = useFormField(props, emit)
 
         return {
             ...field,
         }
-    }
+    },
 }
 </script>

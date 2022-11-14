@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
-
 use App\Models\Charity;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +14,7 @@ class CharityService extends BaseService
     /**
      * CharityService constructor.
      *
-     * @param Charity $charity
+     * @param Charity  $charity
      */
     public function __construct(Charity $charity)
     {
@@ -48,9 +47,9 @@ class CharityService extends BaseService
             }
             if (isset($params['mobile_image_upload'])) {
                 $charity->storeMedia($params['mobile_image_upload'], 'mobile', [
-                    'width'=>320,
-                    'height'=>320,
-                    'fit'=>Manipulations::FIT_CROP,
+                    'width' => 320,
+                    'height' => 320,
+                    'fit' => Manipulations::FIT_CROP,
                 ]);
             }
         } catch (Exception $e) {

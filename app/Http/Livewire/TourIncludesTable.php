@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-
-use App\Models\IncludeType;
 use App\Models\TourInclude;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -15,9 +13,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class TourIncludesTable extends DataTableComponent
 {
-    public array $bulkActions = [
-    ];
-    
+    public array $bulkActions = [];
+
     /**
      * @var string
      */
@@ -61,7 +58,6 @@ class TourIncludesTable extends DataTableComponent
 
             Column::make(__('Published'), 'published')
                 ->sortable(),
-
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {

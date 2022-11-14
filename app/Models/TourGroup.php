@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -56,7 +55,7 @@ class TourGroup extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean'
+        'published' => 'boolean',
     ];
 
     /**
@@ -93,7 +92,7 @@ class TourGroup extends TranslatableModel implements HasMedia
 
         $slug = $this->getTranslations($slugField)[$this->getLocale()] ?? null;
 
-        $hasCustomSlug = $this->hasCustomSlugBeenUsed() && !empty($slug);
+        $hasCustomSlug = $this->hasCustomSlugBeenUsed() && ! empty($slug);
 //        $hasNonChangedCustomSlug = !$this->slugIsBasedOnTitle() && !empty($slug);
 
         if ($hasCustomSlug/* || $hasNonChangedCustomSlug*/) {
@@ -112,8 +111,8 @@ class TourGroup extends TranslatableModel implements HasMedia
                     $lastLetter = mb_substr($part, -1);
                     $word = substr($part, 1);
                     $resultSlug .= $firstLetter
-                        . Str::slug($word, $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage)
-                        . (in_array($lastLetter, ['-', '_']) ? $lastLetter : '');
+                        .Str::slug($word, $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage)
+                        .(in_array($lastLetter, ['-', '_']) ? $lastLetter : '');
                 }
             }
 
@@ -125,7 +124,6 @@ class TourGroup extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? '/' . $this->slug : '';
+        return ! empty($this->slug) ? '/'.$this->slug : '';
     }
-
 }

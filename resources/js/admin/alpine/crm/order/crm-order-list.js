@@ -1,15 +1,14 @@
-import moment from "moment";
-import flatpickr from "flatpickr";
-import {Ukrainian} from "flatpickr/dist/l10n/uk";
-import axios from "axios";
-import * as UrlUtils from "../../../../utils/url";
+import moment from 'moment'
+import flatpickr from 'flatpickr'
+import { Ukrainian } from 'flatpickr/dist/l10n/uk'
+import axios from 'axios'
+import * as UrlUtils from '../../../../utils/url'
 
-let cancelTokenSource = null;
+let cancelTokenSource = null
 
-Ukrainian.rangeSeparator = '-';
+Ukrainian.rangeSeparator = '-'
 
-
-export default (options) => ({
+export default options => ({
     loading: false,
     links: [],
     items: [],
@@ -21,33 +20,32 @@ export default (options) => ({
     tour_id: parseInt(options.params.tour_id) || 0,
     status: options.params.status || '',
     init() {
-        this.loadItems(false);
+        this.loadItems(false)
         if (this.$refs.datesRef) {
             const picker = flatpickr(this.$refs.datesRef, {
                 mode: 'range',
                 locale: Ukrainian,
                 dateFormat: 'd.m.Y',
                 defaultDate: this.dates,
-            });
+            })
         }
-
     },
     clearDates() {
-        this.dates = '';
-        this.filterChange();
+        this.dates = ''
+        this.filterChange()
     },
     setPage(url) {
-        const params = UrlUtils.parseQuery(url);
-        this.current_page = params['page'] || 1;
-        this.loadItems(true);
+        const params = UrlUtils.parseQuery(url)
+        this.current_page = params['page'] || 1
+        this.loadItems(true)
     },
     setSorting(sorting) {
-        this.sort = sorting;
-        this.loadItems(true);
+        this.sort = sorting
+        this.loadItems(true)
     },
     filterChange() {
-        this.current_page = 1;
-        this.loadItems();
+        this.current_page = 1
+        this.loadItems()
     },
     get filterData() {
         return {
@@ -71,43 +69,44 @@ export default (options) => ({
     },
     loadItems(updateUrl = true) {
         if (cancelTokenSource) {
-            cancelTokenSource.cancel();
+            cancelTokenSource.cancel()
         }
-        cancelTokenSource = axios.CancelToken.source();
-        this.loading = true;
+        cancelTokenSource = axios.CancelToken.source()
+        this.loading = true
 
-        const params = this.filterData;
+        const params = this.filterData
 
         if (updateUrl) {
-            const updateParams = UrlUtils.filterParams(params, this.defaultFilter);
-            UrlUtils.updateUrl(document.location.pathname, updateParams, false);
+            const updateParams = UrlUtils.filterParams(params, this.defaultFilter)
+            UrlUtils.updateUrl(document.location.pathname, updateParams, false)
         }
 
-        axios.get('', {
-            cancelToken: cancelTokenSource.token,
-            params: params
-        })
-            .then(({data: response}) => {
-                this.items = response.data;
-                this.links = response.links;
-                this.loading = false;
+        axios
+            .get('', {
+                cancelToken: cancelTokenSource.token,
+                params: params,
+            })
+            .then(({ data: response }) => {
+                this.items = response.data
+                this.links = response.links
+                this.loading = false
             })
             .catch(error => {
-                console.log(error);
-                this.loading = false;
+                console.log(error)
+                this.loading = false
             })
     },
     formatDate(dateString) {
-        return !dateString ? '-' : moment(dateString).format('DD.MM.YYYY HH:mm');
+        return !dateString ? '-' : moment(dateString).format('DD.MM.YYYY HH:mm')
     },
     statusText(status) {
-        const orderStatus = this.statuses.find(s => s.value === status);
-        return orderStatus ? orderStatus.text : status;
+        const orderStatus = this.statuses.find(s => s.value === status)
+        return orderStatus ? orderStatus.text : status
     },
     contactName(order) {
-        return order.last_name + ' ' + order.first_name;
+        return order.last_name + ' ' + order.first_name
     },
     tourFirm(order) {
-        return order.agency_data ? order.agency_data.title : '-';
-    }
-});
+        return order.agency_data ? order.agency_data.title : '-'
+    },
+})

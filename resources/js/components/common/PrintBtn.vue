@@ -1,30 +1,28 @@
 <template>
     <a :href="url" @click.prevent="print()">
-        <slot/>
+        <slot />
     </a>
 </template>
 
 <script>
 export default {
-    name: "PrintBtn",
+    name: 'PrintBtn',
     props: {
         href: String,
     },
     setup(props) {
-        const url = props.href || document.location.href;
+        const url = props.href || document.location.href
 
         const print = () => {
-            window.print();
+            window.print()
         }
 
         return {
             url,
             print,
         }
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

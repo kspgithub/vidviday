@@ -1,11 +1,20 @@
-const mix = require('laravel-mix');
-const webpack = require('webpack');
-const { resolve } = require('path');
-const ip = require('ip');
+const mix = require('laravel-mix')
+const webpack = require('webpack')
+const path = require('path')
+const ip = require('ip')
 
-require('laravel-vue-lang/mix');
-require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
+const host = ip.address() || '0.0.0.0'
+const port = 8082
+
+require('laravel-vue-lang/mix')
+require('laravel-mix-svg-vue')
+require('laravel-mix-purgecss')
+require('laravel-mix-merge-manifest')
+require('laravel-mix-php-manifest')
+
+mix.lang()
+mix.mergeManifest()
+mix.phpManifest()
 
 /*
  |--------------------------------------------------------------------------
@@ -18,80 +27,38 @@ require('laravel-mix-purgecss');
  |
  */
 
-mix.setPublicPath(`public/assets/admin`)
-    .js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
-    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')
+mix.js('resources/js/admin/app.js', 'public/assets/admin/js')
+    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css')
     .purgeCss()
-    .vue()
-    .lang()
     .extract()
-    .disableNotifications();
-
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            '@lang': resolve('./resources/lang'),
-            '@publicLang': resolve('./public/storage/lang'),
-        },
-    },
-    module: {
-        rules: [
-            {
-                test: /resources[\\\/]lang.+\.(php)$/,
-                loader: 'php-array-loader',
-            },
-        ],
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            __VUE_OPTIONS_API__: true,
-            __VUE_PROD_DEVTOOLS__: false,
-            __VUE_I18N_FULL_INSTALL__: true,
-            __VUE_I18N_LEGACY_API__: false,
-            __INTLIFY_PROD_DEVTOOLS__: false,
-        }),
-    ],
-});
-
-mix.sourceMaps(false, 'source-map');
-
-if (mix.inProduction()) {
-    // !!! Dont need to minify.
-    // Laravel Mix automatically minifies js as css files in production
-    // mix.minify([
-    //     'public/js/app.js',
-    //     'public/js/vendor.js',
-    //     'public/js/admin.js',
-    //     'public/css/app.css',
-    //     'public/css/admin.css',
-    // ]);
-
-    mix.version();
-} else {
-    // Uses source-maps on development
-
-    // mix.browserSync(process.env.APP_URL);
-
-
-    const host = ip.address() || '0.0.0.0'
-    const port = 8082
-
-    mix.options({
+    .disableNotifications()
+    .sourceMaps(false, 'source-map')
+    .options({
         hmrOptions: {
             host,
             port,
-        }
+        },
     })
-
-    console.log('=====================================')
-    console.log('Admin host: ' + host)
-    console.log('=====================================')
-
-    mix.webpackConfig({
+    .webpackConfig({
         devServer: {
             host,
             port,
         },
-    });
-
-}
+        resolve: {
+            alias: {
+                '@': path.resolve('./resources'),
+                '@lang': path.resolve('./resources/lang'),
+                '@publicLang': path.resolve('./public/storage/lang'),
+                'svg-files-path': path.resolve('./resources/svg'),
+            },
+        },
+        module: {
+            rules: [
+                {
+                    test: /resources[\\\/]lang.+\.(php)$/,
+                    loader: 'php-array-loader',
+                },
+            ],
+        },
+    })
+    .version()

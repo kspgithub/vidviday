@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->json('config')->nullable();
             $table->timestamps();
         });
-
     }
 
     public function down()

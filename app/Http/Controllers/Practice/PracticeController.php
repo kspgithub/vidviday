@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Practice;
-use Illuminate\Http\Request;
 
 class PracticeController extends Controller
 {
@@ -20,8 +19,8 @@ class PracticeController extends Controller
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
         return view('practice.index', [
-            'pageContent'=>$pageContent,
-            'practices'=>$practices,
+            'pageContent' => $pageContent,
+            'practices' => $practices,
             'popupAds' => $popupAds,
         ]);
     }
@@ -30,11 +29,10 @@ class PracticeController extends Controller
     {
         $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practice = Practice::findBySlugOrFail($slug);
+
         return view('practice.show', [
-            'pageContent'=>$pageContent,
-            'practice'=>$practice,
+            'pageContent' => $pageContent,
+            'practice' => $practice,
         ]);
     }
-
-
 }

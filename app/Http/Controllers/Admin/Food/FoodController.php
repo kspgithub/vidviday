@@ -75,7 +75,8 @@ class FoodController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -89,14 +90,15 @@ class FoodController extends Controller
                 $food->storeMedia($imageFile);
             }
         }
+
         return redirect()->route('admin.food.index')->withFlashSuccess(__('Record Created'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Food $food
+     * @param Food  $food
+     *
      * @return View
      */
     public function edit(Food $food)
@@ -119,8 +121,9 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Food $food
+     * @param Request  $request
+     * @param Food  $food
+     *
      * @return Response
      */
     public function update(Request $request, Food $food)
@@ -128,19 +131,22 @@ class FoodController extends Controller
         //
         $food->fill($request->all());
         $food->save();
+
         return redirect()->route('admin.food.index')->withFlashSuccess(__('Record updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Food $food
+     * @param Food  $food
+     *
      * @return Response
      */
     public function destroy(Food $food)
     {
         //
         $food->delete();
+
         return redirect()->route('admin.food.index')->withFlashSuccess(__('Record deleted'));
     }
 }

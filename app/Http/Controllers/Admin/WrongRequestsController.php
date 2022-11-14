@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\WrongQuery;
-use Illuminate\Http\Request;
 
 class WrongRequestsController extends Controller
 {

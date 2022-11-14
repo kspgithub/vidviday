@@ -18,10 +18,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return view('admin.banner.index', [
-
-        ]);
-
+        return view('admin.banner.index', []);
     }
 
     /**
@@ -34,13 +31,15 @@ class BannerController extends Controller
         //
         $banner = new Banner();
         $banner->show_price = true;
-        return view('admin.banner.create', ['banner'=>$banner]);
+
+        return view('admin.banner.create', ['banner' => $banner]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -52,27 +51,29 @@ class BannerController extends Controller
         if ($request->hasFile('image_upload')) {
             $banner->uploadImage($request->file('image_upload'));
         }
+
         return redirect()->route('admin.banner.edit', $banner)->withFlashSuccess(__('Record Created'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Banner $banner
+     * @param Banner  $banner
+     *
      * @return View
      */
     public function edit(Banner $banner)
     {
         //
-        return view('admin.banner.edit', ['banner'=>$banner]);
+        return view('admin.banner.edit', ['banner' => $banner]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Banner $banner
+     * @param Request  $request
+     * @param Banner  $banner
+     *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Banner $banner)
@@ -85,15 +86,17 @@ class BannerController extends Controller
             $banner->uploadImage($request->file('image_upload'));
         }
         if ($request->ajax()) {
-            return response()->json(['result'=>'success', 'message'=>__('Record Updated')]);
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
+
         return redirect()->route('admin.banner.edit', $banner)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Banner $banner
+     * @param Banner  $banner
+     *
      * @return Response
      */
     public function destroy(Banner $banner)
@@ -101,20 +104,23 @@ class BannerController extends Controller
         //
         $banner->deleteImage();
         $banner->delete();
+
         return redirect()->route('admin.banner.index')->withFlashSuccess(__('Record Deleted'));
     }
 
     /**
      * Update status the specified resource.
      *
-     * @param Request $request
-     * @param Banner $banner
+     * @param Request  $request
+     * @param Banner  $banner
+     *
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Banner $banner)
     {
-        $banner->published = (int)$request->input('published');
+        $banner->published = (int) $request->input('published');
         $banner->save();
+
         return response()->json(['result' => 'success']);
     }
 }

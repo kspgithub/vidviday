@@ -2,7 +2,6 @@
 
 namespace App\Lib\Bitrix24\CRM\Lead;
 
-use App\Lib\Bitrix24\Core\Client;
 use App\Lib\Bitrix24\Core\StaticServiceInterface;
 use App\Lib\Bitrix24\Core\UseStaticService;
 

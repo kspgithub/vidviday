@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\Page;
 use App\Models\PopupAd;
-use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
@@ -18,12 +17,13 @@ class DocumentController extends Controller
 
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
-        return view('document.index',
+        return view(
+            'document.index',
             [
                 'documents' => $documents,
                 'pageContent' => $pageContent,
                 'popupAds' => $popupAds,
-            ]);
+            ]
+        );
     }
-
 }

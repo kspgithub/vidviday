@@ -14,7 +14,6 @@ class AddManagerIdToTours extends Migration
             $table->foreignId('manager_id')->after('id')->nullable()->constrained('staff')->nullOnDelete();
         });
 
-
         Tour::all()->each(function ($tour) {
             $tourManager = $tour->staff()->whereHas('types', fn ($t) => $t->where('slug', 'tour-manager'))->first();
             if ($tourManager) {

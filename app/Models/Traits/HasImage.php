@@ -4,13 +4,11 @@ namespace App\Models\Traits;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Nette\Utils\Html;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 
 trait HasImage
 {
-
     /**
      * @return string
      */
@@ -18,7 +16,7 @@ trait HasImage
     {
         $logo = $this->getAttributeValue('image');
         $logo_url = asset('/images/no-logo.svg');
-        if (!empty($logo)) {
+        if (! empty($logo)) {
             if (str_starts_with($logo, 'public/')) {
                 $logo_url = Storage::url($logo);
             } else {
@@ -30,14 +28,14 @@ trait HasImage
     }
 
     /**
-     * @param UploadedFile $fileImage
+     * @param UploadedFile  $fileImage
      *
      * @throws InvalidManipulation
      */
     public function uploadImage(UploadedFile $fileImage)
     {
         $date = date('Ymd');
-        $path = 'public/' . $fileImage->store("/upload/{$date}", 'public');
+        $path = 'public/'.$fileImage->store("/upload/{$date}", 'public');
         $image_path = Storage::path($path);
         if ($fileImage->getClientMimeType() !== 'image/svg') {
             $size = $this->imageSize();
@@ -47,12 +45,9 @@ trait HasImage
         $this->save();
     }
 
-    /**
-     *
-     */
     public function deleteImage()
     {
-        if (!empty($this->image)) {
+        if (! empty($this->image)) {
             Storage::delete($this->image);
         }
     }
