@@ -96,7 +96,6 @@
                         v-model="places"
                         :title="__('certificate-section.number-of-people')"
                         :min="1"
-                        :min="1"
                         :max="999"
                         name="places"
                     />
@@ -160,7 +159,7 @@
                         ><b>{{ __('certificate-section.packing-variant') }}</b></span
                     >
                     <br />
-                    <label v-for="packing in packings" class="radio">
+                    <label v-for="(packing, i) in packings" :key="i" class="radio">
                         <input v-model="packing_type" type="radio" :value="packing.slug" name="packing_type" />
 
                         <span>
