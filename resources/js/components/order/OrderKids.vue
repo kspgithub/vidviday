@@ -13,7 +13,6 @@
                 <form-number-input
                     v-model="children_young"
                     :min="0"
-                    :min="0"
                     name="children_young"
                     :title="young_title"
                     :suffix="__('order-section.kids.with-place')"
@@ -22,7 +21,6 @@
             <div class="mb-10">
                 <form-number-input
                     v-model="without_place_count"
-                    :min="0"
                     :min="0"
                     name="without_place_count"
                     :title="__('order-section.kids.up-6')"

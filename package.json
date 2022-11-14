@@ -105,7 +105,6 @@
     },
     "lint-staged": {
         "*.{js,vue}": "eslint --cache --fix",
-        "*.{php}": "./vendor/bin/pint",
-        "*.{php}": "./vendor/bin/phpcbf"
+        "*.{php}": "./vendor/bin/pint"
     }
 }

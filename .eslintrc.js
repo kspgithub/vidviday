@@ -28,5 +28,6 @@ module.exports = {
         'vue/no-v-text-v-html-on-component': ['off'],
         'vue/require-default-prop': ['off'],
         'vue/require-prop-types': ['off'],
+        'vue/require-v-for-key': ['off'],
     },
 }
