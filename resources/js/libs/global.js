@@ -461,7 +461,7 @@ jQuery(function ($) {
         }
     });
     // Mobile menu dropdown
-    $('.dropdown-btn, .dropdown-title').on('click', function (e) {
+    $(document).on('click', '.dropdown-btn, .dropdown-title', function (e) {
         e.preventDefault();
 
         let dropdown = $(this).closest('.dropdown'),
