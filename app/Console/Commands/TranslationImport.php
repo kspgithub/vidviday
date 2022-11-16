@@ -54,7 +54,8 @@ class TranslationImport extends Command
         }
 
         $this->locales = array_keys(config('site-settings.locale.languages'));
-        $languagePath = resource_path('lang');
+        $languagePath = resource_path("lang");
+
 
         $this->allLines = LanguageLine::orderBy('group')->get();
 
@@ -86,6 +87,7 @@ class TranslationImport extends Command
         }
     }
 
+
     public function importDirectory($path)
     {
         $locale = basename($path);
@@ -108,7 +110,7 @@ class TranslationImport extends Command
     public function importArray($group, $parentKey, $locale, $array)
     {
         foreach ($array as $key => $value) {
-            $subKey = $parentKey.'.'.$key;
+            $subKey = $parentKey . '.' . $key;
             if (is_array($value)) {
                 $this->importArray($group, $subKey, $locale, $value);
             } else {

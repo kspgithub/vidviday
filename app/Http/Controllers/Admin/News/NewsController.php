@@ -29,7 +29,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index');
+
+        return view("admin.news.index");
     }
 
     /**
@@ -39,62 +40,68 @@ class NewsController extends Controller
      */
     public function create()
     {
+
         $news = new News();
 
-        return view('admin.news.create', [
-            'news' => $news,
+        return view("admin.news.create", [
+            "news" => $news
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param NewsBasicRequest  $request
+     * @param NewsBasicRequest $request
      *
      * @return JsonResponse|RedirectResponse
      */
     public function store(NewsBasicRequest $request)
     {
+
         $news = $this->service->store($request->validated());
 
         return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Created'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param News  $news
+     * @param News $news
      *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(News $news)
     {
         return view('admin.news.edit', [
-            'news' => $news,
+            'news' => $news
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param NewsBasicRequest  $request
-     * @param News  $news
+     * @param NewsBasicRequest $request
      *
-     * @throws \App\Exceptions\GeneralException
+     * @param News $news
      *
      * @return mixed
+     *
+     * @throws \App\Exceptions\GeneralException
      */
     public function update(NewsBasicRequest $request, News $news)
     {
+
         $this->service->update($news, $request->validated());
 
         return redirect()->route('admin.news.edit', $news)->withFlashSuccess(__('Record Updated'));
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param News  $news
+     * @param News $news
      *
      * @return mixed
      */
@@ -108,16 +115,14 @@ class NewsController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param Request  $request
-     * @param News  $news
-     *
+     * @param Request $request
+     * @param News $news
      * @return JsonResponse
      */
     public function updateStatus(Request $request, News $news)
     {
-        $news->published = (int) $request->input('published');
+        $news->published = (int)$request->input('published');
         $news->save();
-
         return response()->json(['result' => 'success']);
     }
 }

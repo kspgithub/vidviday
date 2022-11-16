@@ -9,7 +9,6 @@ use Illuminate\Database\Seeder;
 class BannerSeeder extends Seeder
 {
     use TruncateTable;
-
     /**
      * Run the database seeds.
      *
@@ -23,6 +22,7 @@ class BannerSeeder extends Seeder
             $banner->deleteImage();
         }
         $this->truncate('banners');
+
 
         Banner::factory()->count(3)->create();
     }

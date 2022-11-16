@@ -8,7 +8,7 @@ trait UserAttributes
 {
     public function getNameAttribute()
     {
-        return trim($this->first_name.' '.$this->last_name);
+        return trim($this->first_name . ' ' . $this->last_name);
     }
 
     public function getRoleAttribute()
@@ -18,8 +18,7 @@ trait UserAttributes
 
     public function getInitialsAttribute()
     {
-        $initials = Str::upper(Str::substr($this->last_name, 0, 1).Str::substr($this->first_name, 0, 1));
-
+        $initials = Str::upper(Str::substr($this->last_name, 0, 1) . Str::substr($this->first_name, 0, 1));
         return $initials ?: 'N/A';
     }
 

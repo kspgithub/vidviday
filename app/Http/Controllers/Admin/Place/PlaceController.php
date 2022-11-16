@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Place;
 
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Direction;
 use App\Models\District;
@@ -41,7 +42,7 @@ class PlaceController extends Controller
             $query = Place::query()->with(['region', 'district', 'city']);
 
             $q = $request->input('q', '');
-            if (! empty($q)) {
+            if (!empty($q)) {
                 $query->jsonLike('title', "%$q%");
             }
 
@@ -64,12 +65,10 @@ class PlaceController extends Controller
             $query->orderBy($order[0] ?? 'title->uk', $order[1] ?? 'asc');
 
             $paginator = $query->paginate($perPage);
-
             return response()->json($paginator);
         }
 
         $regions = Region::toSelectBox();
-
         return view('admin.place.index', ['regions' => $regions]);
     }
 
@@ -94,7 +93,7 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response|RedirectResponse
      */
@@ -116,14 +115,13 @@ class PlaceController extends Controller
                 ->withInput($params);
         }
         $place = $this->service->store($params);
-
         return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Created'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Place  $place
+     * @param Place $place
      *
      * @return View
      */
@@ -134,26 +132,24 @@ class PlaceController extends Controller
         $countries = Country::toSelectBox();
         $regions = Region::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
         $districts = District::query()->where('country_id', Country::DEFAULT_COUNTRY_ID)->toSelectBox();
-
         return view('admin.place.edit', compact('place', 'directions', 'countries', 'regions', 'districts'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param Place  $place
-     *
-     * @throws GeneralException
-     * @throws Throwable
+     * @param Request $request
+     * @param Place $place
      *
      * @return Response|JsonResponse|RedirectResponse
+     * @throws GeneralException
+     * @throws Throwable
      */
     public function update(Request $request, Place $place)
     {
         //
         $params = $request->all();
-        if (! $request->ajax()) {
+        if (!$request->ajax()) {
             $validator = Validator::make($params, [
                 'title' => ['required', 'array'],
                 'title.uk' => ['required'],
@@ -177,20 +173,20 @@ class PlaceController extends Controller
             }
         }
 
+
         $this->service->update($place, $params);
 
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Updated')]);
         }
-
         return redirect()->route('admin.place.edit', $place)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request  $request
-     * @param Place  $place
+     * @param Request $request
+     * @param Place $place
      *
      * @return Response|JsonResponse
      */
@@ -200,7 +196,7 @@ class PlaceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'model' => $place, 'message' => __('Record Deleted')]);
         }
-
         return redirect()->route('admin.place.index')->withFlashSuccess(__('Record Deleted'));
     }
+
 }

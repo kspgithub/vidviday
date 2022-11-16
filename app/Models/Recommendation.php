@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Recommendation extends TranslatableModel
@@ -11,6 +12,7 @@ class Recommendation extends TranslatableModel
     use HasFactory;
     use HasAvatar;
     use HasTranslations;
+
 
     public $translatable = [
         'name',
@@ -35,9 +37,11 @@ class Recommendation extends TranslatableModel
         'time',
     ];
 
+
     protected $casts = [
-        'published' => 'boolean',
+        'published' => 'boolean'
     ];
+
 
     public function page()
     {

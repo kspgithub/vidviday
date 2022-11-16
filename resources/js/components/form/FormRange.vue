@@ -1,24 +1,20 @@
 <template>
     <div class="range">
         <label :for="name">{{ label }}</label>
-        <input :id="name" :name="name" :value="modelValue.join(',')" type="hidden" />
+        <input :id="name" :name="name" :value="modelValue.join(',')" type="hidden">
         <div ref="rangeEl" class="slider-range vue-range"></div>
         <div class="text">
-            <span
-                >{{ __('sidebar-section.filter.from') }} <span class="range-min">{{ leftText }}</span></span
-            >
-            <span
-                >{{ __('sidebar-section.filter.to') }} <span class="range-max">{{ rightText }}</span></span
-            >
+            <span>{{ __('sidebar-section.filter.from') }} <span class="range-min">{{ leftText }}</span></span>
+            <span>{{ __('sidebar-section.filter.to') }} <span class="range-max">{{ rightText }}</span></span>
         </div>
     </div>
 </template>
 
 <script>
-import { computed, onMounted, ref, watch } from 'vue'
+import {computed, onMounted, ref, watch} from "vue";
 
 export default {
-    name: 'FormRange',
+    name: "FormRange",
     props: {
         label: {
             type: String,
@@ -29,7 +25,7 @@ export default {
         modelValue: {
             type: Array,
             default() {
-                return []
+                return [];
             },
         },
         min: {
@@ -46,11 +42,11 @@ export default {
         },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const slider = ref(null)
-        const rangeEl = ref(null)
-        const leftText = computed(() => props.modelValue[0] || props.min)
-        const rightText = computed(() => props.modelValue[1]) || props.max
+    setup(props, {emit}) {
+        const slider = ref(null);
+        const rangeEl = ref(null);
+        const leftText = computed(() => props.modelValue[0] || props.min);
+        const rightText = computed(() => props.modelValue[1]) || props.max;
 
         onMounted(() => {
             $(rangeEl.value).slider({
@@ -60,28 +56,27 @@ export default {
                 step: props.step,
                 values: props.modelValue,
                 slide: function (event, ui) {
-                    emit('update:modelValue', ui.values)
-                },
-            })
-            slider.value = $(rangeEl.value).slider('instance')
-        })
-
-        watch(
-            () => props.modelValue,
-            () => {
-                if (slider.value) {
-                    slider.value.values(props.modelValue)
+                    emit('update:modelValue', ui.values);
                 }
-            },
-        )
+            });
+            slider.value = $(rangeEl.value).slider("instance");
+        });
+
+        watch(() => props.modelValue, () => {
+            if (slider.value) {
+                slider.value.values(props.modelValue);
+            }
+        })
 
         return {
             rangeEl,
             leftText,
             rightText,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -1,3 +1,4 @@
+
 const DEFAULT_VALUES = {
     tour_id: 0,
     user_id: null,
@@ -15,21 +16,21 @@ export default {
             popupOpen: false,
             tour: null,
             user: null,
-            formData: { ...DEFAULT_VALUES },
+            formData: {...DEFAULT_VALUES}
         }
     },
     mutations: {
         INIT(state, payload) {
-            state.user = payload.user || null
+            state.user = payload.user || null;
         },
         SET_TOUR(state, value) {
-            state.tour = value
-            Object.assign(state.formData, { tour_id: value ? value.id : 0 })
+            state.tour = value;
+            Object.assign(state.formData, {tour_id: value ? value.id : 0});
         },
         SET_USER(state, value) {
-            state.user = value
+            state.user = value;
 
-            if (value.id) {
+            if(value.id) {
                 state.formData.user_id = value.id
                 state.formData.first_name = value.first_name
                 state.formData.last_name = value.last_name
@@ -38,10 +39,10 @@ export default {
             }
         },
         SET_POPUP_OPEN(state, value) {
-            state.popupOpen = value
+            state.popupOpen = value;
         },
         UPDATE_FORM_DATA(state, value) {
-            state.formData = { ...state.formData, ...value }
+            state.formData = {...state.formData, ...value};
         },
     },
     getters: {
@@ -58,8 +59,8 @@ export default {
         },
     },
     actions: {
-        clearForm({ commit }) {
-            commit('UPDATE_FORM_DATA', { ...DEFAULT_VALUES })
+        clearForm({commit}) {
+            commit('UPDATE_FORM_DATA', {...DEFAULT_VALUES});
         },
-    },
+    }
 }

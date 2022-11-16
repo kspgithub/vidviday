@@ -46,13 +46,12 @@ class PageController extends Controller
         $tourGroup = TourGroup::findBySlug($slug, false);
         if ($tourGroup !== null) {
             $tourGroup->checkSlugLocale($slug);
-
             return (new TourController())->index($request, $tourGroup);
         }
 
         $pageContent = Page::query()->where('published', 1)->whereHasSlug($slug, false)->firstOrFail();
 
-        if (! $pageContent->isAvailableFor($request->user())) {
+        if(!$pageContent->isAvailableFor($request->user())) {
             abort(404);
         }
 
@@ -67,7 +66,7 @@ class PageController extends Controller
 
         switch ($pageContent->key) {
             case 'home':
-                return redirect('/?lang='.getLocale(), 301);
+                return redirect('/?lang=' . getLocale(), 301);
             case 'guides':
                 return (new TourGuideController())->index();
             case 'office-workers':
@@ -97,5 +96,7 @@ class PageController extends Controller
             default:
                 return view('page.show', []);
         }
+
+
     }
 }

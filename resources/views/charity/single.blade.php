@@ -16,7 +16,7 @@
 @endpush
 
 @push('after-scripts')
-    <script src="{{ mix('assets/app/js/libs/sharer') }}"></script>
+    <script src="{{ mix('js/libs/sharer', 'assets/app') }}"></script>
 @endpush
 
 @section'("content")

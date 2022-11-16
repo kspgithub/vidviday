@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\TourGroup;
-use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
+use Database\Seeders\Traits\DisableForeignKeys;
 use Illuminate\Database\Seeder;
 
 class MenuSeeder extends Seeder
@@ -109,28 +109,28 @@ class MenuSeeder extends Seeder
                         'slug' => pageUrlByKey('blog'),
                         'side' => 'right',
                     ],
-                ],
+                ]
             ],
             [
                 'title' => ['uk' => 'Тури', 'ru' => 'Туры', 'en' => 'Tours', 'pl' => 'Tours'],
                 'slug' => pageUrlByKey('tours'),
-                'children' => $tourGroups,
+                'children' => $tourGroups
             ],
             [
                 'title' => ['uk' => 'Замовити тур', 'ru' => 'Заказать тур', 'en' => 'Book a tour', 'pl' => 'Book a tour'],
                 'slug' => pageUrlByKey('order'),
                 'class_name' => 'only-pad-mobile',
-                'children' => [],
+                'children' => []
             ],
             [
                 'title' => ['uk' => 'Місця', 'ru' => 'Места', 'en' => 'Places', 'pl' => 'Places'],
                 'slug' => pageUrlByKey('places'),
-                'children' => [],
+                'children' => []
             ],
             [
                 'title' => ['uk' => 'Події', 'ru' => 'События', 'en' => 'Events', 'pl' => 'Events'],
                 'slug' => pageUrlByKey('events'),
-                'children' => [],
+                'children' => []
             ],
             [
                 'title' => ['uk' => 'Пропозиції', 'ru' => 'Предложения', 'en' => 'Suggestions', 'pl' => 'Propozycje'],
@@ -171,25 +171,26 @@ class MenuSeeder extends Seeder
                         'slug' => pageUrlByKey('accommodation'),
                         'side' => 'left',
                     ],
-                ],
+                ]
             ],
             [
                 'title' => ['uk' => 'Є питання?', 'ru' => 'Есть вопросы?', 'en' => 'Have a question?', 'pl' => 'Mam pytanie?'],
                 'slug' => pageUrlByKey('faq'),
-                'children' => [],
+                'children' => []
             ],
             [
                 'title' => ['uk' => 'Контакти', 'ru' => 'Контакты', 'en' => 'Contacts', 'pl' => 'Łączność'],
                 'slug' => pageUrlByKey('contacts'),
-                'children' => [],
+                'children' => []
             ],
         ];
+
 
         $footer_menu_items = [
             [
                 'title' => ['uk' => 'Тури', 'ru' => 'Туры', 'en' => 'Tours', 'pl' => 'Tours'],
                 'slug' => pageUrlByKey('tours'),
-                'children' => $tourGroups,
+                'children' => $tourGroups
             ],
             [
                 'title' => ['uk' => 'Пропозиції', 'ru' => 'Предложения', 'en' => 'Suggestions', 'pl' => 'Propozycje'],
@@ -220,7 +221,7 @@ class MenuSeeder extends Seeder
                         'slug' => pageUrlByKey('testimonials'),
                         'side' => 'left',
                     ],
-                ],
+                ]
             ],
         ];
 
@@ -229,7 +230,7 @@ class MenuSeeder extends Seeder
             $children = $data['children'];
             unset($data['children']);
             $menuItem = MenuItem::create($data);
-            if (! empty($children)) {
+            if (!empty($children)) {
                 foreach ($children as $pos => $child) {
                     $data = array_merge($child, ['published' => 1, 'menu_id' => 1, 'parent_id' => $menuItem->id, 'position' => $pos]);
                     $menuChildren = MenuItem::create($data);
@@ -237,12 +238,13 @@ class MenuSeeder extends Seeder
             }
         }
 
+
         foreach ($footer_menu_items as $position => $menu_item) {
             $data = array_merge($menu_item, ['published' => 1, 'menu_id' => 2, 'parent_id' => 0, 'position' => $position]);
             $children = $data['children'];
             unset($data['children']);
             $menuItem = MenuItem::create($data);
-            if (! empty($children)) {
+            if (!empty($children)) {
                 foreach ($children as $pos => $child) {
                     $data = array_merge($child, ['published' => 1, 'menu_id' => 2, 'parent_id' => $menuItem->id, 'position' => $pos]);
                     $menuChildren = MenuItem::create($data);

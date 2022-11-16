@@ -42,6 +42,7 @@ class TourTickets extends Component
      */
     public $tickets;
 
+
     public array $form = [
         'type_id' => null,
         'ticket_id' => 0,
@@ -83,13 +84,13 @@ class TourTickets extends Component
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.ticket_id' => Rule::when(fn () => $this->form['type_id'] == TourTicket::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.ticket_id' => Rule::when(fn() => $this->form['type_id'] == TourTicket::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourTicket::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourTicket::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -107,17 +108,17 @@ class TourTickets extends Component
         }
 
         return view('admin.tour.ticket.livewire', [
-            'items' => $this->tour->groupTourTickets,
+            'items' => $this->tour->groupTourTickets
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourTicket::TYPE_CUSTOM) {
+        if($type_id == TourTicket::TYPE_CUSTOM) {
             $this->form['ticket_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->form['region_id'] = 0;
@@ -134,13 +135,14 @@ class TourTickets extends Component
 
     public function updatedFormRegionId($region_id)
     {
+
     }
 
     public function updatedFormTicketId($ticket_id)
     {
         if ($ticket_id) {
             $this->ticket = Ticket::query()->find($this->form['ticket_id']);
-            $this->form['region_id'] = $this->ticket->region_id;
+            $this->form['region_id'] = $this->ticket->region_id ;
         }
     }
 
@@ -164,7 +166,7 @@ class TourTickets extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if ($index !== false) {
+        if($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -208,6 +210,7 @@ class TourTickets extends Component
         $this->form['region_id'] = $this->model->region_id === null ? 0 : $this->model->region_id;
 
         $this->dispatchBrowserEvent('initLocation', []);
+
     }
 
     public function syncType($type_id)

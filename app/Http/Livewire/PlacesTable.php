@@ -17,7 +17,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class PlacesTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -39,6 +40,7 @@ class PlacesTable extends DataTableComponent
 
     public function mount(): void
     {
+
     }
 
     /**

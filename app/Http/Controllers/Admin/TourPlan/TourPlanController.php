@@ -13,6 +13,8 @@ use Illuminate\Contracts\View\View;
 
 class TourPlanController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -36,14 +38,14 @@ class TourPlanController extends Controller
 
         return view('admin.tour-plan.create', [
             'tourPlan' => $tourPlan,
-            'tours' => $tours,
+            'tours'=> $tours,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,10 +59,12 @@ class TourPlanController extends Controller
         return redirect()->route('admin.tour-plan.index')->withFlashSuccess(__('Record Created'));
     }
 
+
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param TourPlan  $tourPlan
+     * @param TourPlan $tourPlan
      *
      * @return Application|Factory|View
      */
@@ -70,19 +74,20 @@ class TourPlanController extends Controller
 
         return view('admin.tour-plan.edit', [
             'tourPlan' => $tourPlan,
-            'tours' => $tours,
+            'tours'=> $tours,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param TourPlanBasicRequest  $request
-     * @param TourPlan  $tourPlan
+     * @param TourPlanBasicRequest $request
      *
-     * @throws GeneralException
+     * @param TourPlan $tourPlan
      *
      * @return mixed
+     *
+     * @throws GeneralException
      */
     public function update(TourPlanBasicRequest $request, TourPlan $tourPlan)
     {
@@ -95,7 +100,7 @@ class TourPlanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param TourPlan  $tourPlan
+     * @param TourPlan $tourPlan
      *
      * @return mixed
      */

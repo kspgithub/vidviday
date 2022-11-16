@@ -4,12 +4,12 @@ namespace App\Models;
 
 use App\Models\Traits\Attributes\UserAttributes;
 use App\Models\Traits\HasAvatar;
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -83,9 +84,9 @@ class Staff extends TranslatableModel implements HasMedia
 
     public static function toSelectBox()
     {
-        return self::query()->selectRaw('last_name, first_name, id')
+        return self::query()->selectRaw("last_name, first_name, id")
             ->get()->map(function ($it) {
-                return ['value' => $it->id, 'text' => $it->last_name.' '.$it->first_name.' ('.$it->types->implode('title', ', ').')'];
+                return ['value' => $it->id, 'text' => $it->last_name . ' ' . $it->first_name . ' (' . $it->types->implode('title', ', ') . ')'];
             })->toArray();
     }
 
@@ -99,6 +100,7 @@ class Staff extends TranslatableModel implements HasMedia
             ->width(315)
             ->height(180);
     }
+
 
     public function getPhonesAttribute()
     {
@@ -161,6 +163,7 @@ class Staff extends TranslatableModel implements HasMedia
         return $this->hasMany(Vacancy::class);
     }
 
+
     public function scopeOnlyExcursionLeaders(Builder $query)
     {
         return $query->whereHas('types', function (Builder $q) {
@@ -179,13 +182,13 @@ class Staff extends TranslatableModel implements HasMedia
     {
         return [
             'value' => $this->id,
-            'text' => $this->last_name.' '.$this->first_name,
+            'text' => $this->last_name . ' ' . $this->first_name,
         ];
     }
 
     public function shortInfo()
     {
-        return (object) [
+        return (object)[
             'id' => $this->id,
             'user_id' => $this->user_id,
             'name' => $this->name,
@@ -194,7 +197,7 @@ class Staff extends TranslatableModel implements HasMedia
             'avatar' => $this->avatar,
             'initials' => $this->initials,
             'avatar_url' => $this->avatar_url,
-            'label' => $this->label,
+            'label' => $this->label
         ];
     }
 
@@ -207,6 +210,7 @@ class Staff extends TranslatableModel implements HasMedia
             ->preventOverwrite();
     }
 
+
     public function getUrlAttribute()
     {
         if ($this->types()->where('slug', 'excursion-leader')->count() > 0) {
@@ -214,7 +218,6 @@ class Staff extends TranslatableModel implements HasMedia
         } else {
             $prefix = '/office-worker';
         }
-
-        return ! empty($this->slug) ? url($prefix.'/'.$this->slug) : '';
+        return !empty($this->slug) ? url($prefix . '/' . $this->slug) : '';
     }
 }

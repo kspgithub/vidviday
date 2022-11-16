@@ -26,8 +26,8 @@ class TestimonialAnswerRequest extends FormRequest
     {
         return [
             //
-            'parent_id' => ['required', 'integer'],
-            'text' => ['required', 'string'],
+            'parent_id'=>['required', 'integer'],
+            'text'=>['required', 'string'],
         ];
     }
 }

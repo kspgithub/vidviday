@@ -1,18 +1,17 @@
-import axios from 'axios'
-import handleError from './handle-error'
+import axios from "axios";
+import handleError from "./handle-error";
 
-export default ({ url, params = {}, onSuccess = null, onError = null }) => {
-    axios
-        .patch(url, params)
-        .then(({ data: response }) => {
+export default ({url, params = {}, onSuccess = null, onError = null}) => {
+    axios.patch(url, params)
+        .then(({data: response}) => {
             if (onSuccess) {
-                onSuccess(response)
+                onSuccess(response);
             }
         })
         .catch(error => {
-            handleError(error)
+            handleError(error);
             if (onError) {
-                onError(error)
+                onError(error);
             }
         })
 }

@@ -1,88 +1,89 @@
 export const parseQuery = function (url = null) {
-    let query
+    let query;
     if (url) {
-        let parts = url.split('?')
-        query = parts.length > 1 ? parts[1] : ''
+        let parts = url.split('?');
+        query = parts.length > 1 ? parts[1] : '';
     } else {
-        query = document.location.search.replace('?', '')
+        query = document.location.search.replace('?', '');
     }
 
-    let queryParts = query.split('&') || []
-    let params = {}
+    let queryParts = query.split('&') || [];
+    let params = {};
     queryParts.forEach(function (item) {
-        let itemParts = item.split('=')
+        let itemParts = item.split('=');
         if (itemParts[0].length) {
-            params[itemParts[0]] = decodeURIComponent(itemParts[1])
+            params[itemParts[0]] = decodeURIComponent(itemParts[1]);
         }
-    })
-    return params
+    });
+    return params;
 }
 
 export const getQueryParam = function (name, defaultValue = null) {
-    const params = parseQuery()
-    return params[name] || defaultValue
+    const params = parseQuery();
+    return params[name] || defaultValue;
 }
 
 export const serialize = function (obj, prefix) {
     let str = [],
-        p
+        p;
     for (p in obj) {
         if (obj.hasOwnProperty(p)) {
-            let k = prefix ? prefix + '[' + p + ']' : p,
-                v = obj[p]
-            if (v !== null && typeof v === 'object') {
-                let ser = serialize(v, k)
+            let k = prefix ? prefix + "[" + p + "]" : p,
+                v = obj[p];
+            if ((v !== null && typeof v === "object")) {
+                let ser = serialize(v, k);
                 if (ser.length) {
-                    str.push(ser)
+                    str.push(ser);
                 }
             } else {
-                str.push(encodeURIComponent(k) + '=' + encodeURIComponent(v))
+                str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
             }
+
         }
     }
-    return str.join('&')
+    return str.join("&");
 }
 
 export const filterParams = (params = {}, etalon = {}) => {
-    const filtered = {}
+    const filtered = {};
     for (let key in params) {
         if (params[key]) {
-            if (etalon.hasOwnProperty(key) && etalon[key] === params[key]) continue
+            if (etalon.hasOwnProperty(key) && etalon[key] === params[key]) continue;
 
-            filtered[key] = params[key]
+            filtered[key] = params[key];
         }
     }
-    return filtered
+    return filtered;
 }
 
 export const currentUrl = function () {
-    return document.location.pathname + document.location.search
+    return document.location.pathname + document.location.search;
 }
 
 export const makeUrl = function (path, params = {}) {
-    let searchQuery = serialize(params)
+    let searchQuery = serialize(params);
     if (searchQuery.length > 0) {
-        path += '?' + searchQuery
+        path += '?' + searchQuery;
     }
-    return path
+    return path;
 }
 
 export const updateUrl = function (path, params = {}, checkChange = false, replace = false) {
-    const url = decodeURIComponent(makeUrl(path, params))
+    const url = decodeURIComponent(makeUrl(path, params));
 
     if (checkChange && url === currentUrl()) {
-        return false
+        return false;
     }
     if (replace) {
-        window.history.replaceState(null, null, url)
+        window.history.replaceState(null, null, url);
     } else {
-        window.history.pushState(null, null, url)
+        window.history.pushState(null, null, url);
     }
 
-    return url
+    return url;
 }
 
 export const updateUrlQuery = function (params = {}, checkChange = true, replace = false) {
-    const newParams = filterParams(Object.assign(parseQuery(), params))
-    updateUrl(document.location.pathname, newParams, checkChange, replace)
+    const newParams = filterParams(Object.assign(parseQuery(), params));
+    updateUrl(document.location.pathname, newParams, checkChange, replace);
 }

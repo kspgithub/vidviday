@@ -22,7 +22,7 @@ class FinanceFactory extends Factory
     public function definition()
     {
         $html = '<ul>';
-        for ($i = 0; $i < 5; $i++) {
+        for ($i =0; $i < 5; $i++) {
             $text = $this->faker->realText(20);
             $html .= "<li>$text</li>";
         }
@@ -30,10 +30,10 @@ class FinanceFactory extends Factory
 
         return [
             //
-            'type_id' => $this->faker->randomElement([1, 2]),
+            'type_id'=>$this->faker->randomElement([1,2]),
             'title' => $this->faker->realText(50),
             'text' => $html,
-            'published' => 1,
+            'published' => 1
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+
 use App\Models\OrderTransport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -13,7 +14,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class OrdersTransportTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -25,6 +27,7 @@ class OrdersTransportTable extends DataTableComponent
      */
     public string $defaultSortDirection = 'desc';
 
+
     /**
      * @var array
      */
@@ -33,8 +36,10 @@ class OrdersTransportTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
+
     public function mount(): void
     {
+
     }
 
     /**
@@ -64,11 +69,13 @@ class OrdersTransportTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
 
+
             Column::make(__('Places'), 'places')
                 ->format(function ($value, $column, $row) {
-                    return $row->places.($row->children == 1 ? ' ('.($row->children_older + $row->children_young).'д)' : '');
+                    return $row->places . ($row->children == 1 ? ' (' . ($row->children_older + $row->children_young) . 'д)' : '');
                 })
                 ->sortable(),
+
 
             Column::make(__('User'), 'last_name')
                 ->format(function ($value, $column, $row) {
@@ -76,6 +83,7 @@ class OrdersTransportTable extends DataTableComponent
                 })
                 ->asHtml()
                 ->sortable(),
+
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -96,10 +104,12 @@ class OrdersTransportTable extends DataTableComponent
         ];
     }
 
+
     public function changeStatus($order_id, $status)
     {
         $order = OrderTransport::find($order_id);
         $order->status = $status;
         $order->save();
+
     }
 }

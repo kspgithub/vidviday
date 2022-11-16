@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Transport;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderTransport;
+use Illuminate\Http\Request;
 
 class OrderTransportController extends Controller
 {
@@ -15,11 +16,11 @@ class OrderTransportController extends Controller
 
     public function show(OrderTransport $orderTransport)
     {
-        return view('admin.order-transport.show', ['order' => $orderTransport]);
+        return view('admin.order-transport.show', ['order'=>$orderTransport]);
     }
 
     public function edit(OrderTransport $orderTransport)
     {
-        return view('admin.order-transport.edit', ['order' => $orderTransport]);
+        return view('admin.order-transport.edit', ['order'=>$orderTransport]);
     }
 }

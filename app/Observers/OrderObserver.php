@@ -54,9 +54,10 @@ class OrderObserver
         if ($order->isDirty('participants')) {
             $participantsOriginal = $order->getOriginal('participants');
             $participants = $order->participants;
-            if ($participantsOriginal &&
+            if (
+                $participantsOriginal &&
                 $participants['customer'] && $participantsOriginal['customer'] &&
-                ! empty($participants['items'][0]) && ! empty($participantsOriginal['items'][0]) &&
+                !empty($participants['items'][0]) && !empty($participantsOriginal['items'][0]) &&
                 $participantsOriginal['items'][0]['birthday'] !== $participants['items'][0]['birthday']
             ) {
                 $order->birthday = $participants['items'][0]['birthday'];

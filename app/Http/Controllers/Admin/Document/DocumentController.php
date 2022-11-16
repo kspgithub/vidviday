@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DocumentController extends Controller
 {
@@ -27,7 +28,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return view('admin.document.index');
+        return view("admin.document.index");
     }
 
     /**
@@ -37,27 +38,26 @@ class DocumentController extends Controller
     {
         $document = new Document();
 
-        return view('admin.document.create', [
-            'document' => $document,
+        return view("admin.document.create", [
+            "document" => $document,
         ]);
     }
 
     /**
-     * @param DocumentBasicRequest  $request
-     *
+     * @param DocumentBasicRequest $request
      * @return mixed
      */
     public function store(DocumentBasicRequest $request)
     {
         $document = $this->service->store($request->validated());
 
-        return redirect()->route('admin.document.index', ['document' => $document])
+        return redirect()->route('admin.document.index', ["document" => $document])
             ->withFlashSuccess(__('Record Created'));
     }
 
+
     /**
-     * @param Document  $document
-     *
+     * @param Document $document
      * @return Application|Factory|View
      */
     public function edit(Document $document)
@@ -68,12 +68,10 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param DocumentBasicRequest  $request
-     * @param Document  $document
-     *
-     * @throws GeneralException
-     *
+     * @param DocumentBasicRequest $request
+     * @param Document $document
      * @return mixed
+     * @throws GeneralException
      */
     public function update(DocumentBasicRequest $request, Document $document)
     {
@@ -83,8 +81,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * @param Document  $document
-     *
+     * @param Document $document
      * @return mixed
      */
     public function destroy(Document $document)
@@ -94,19 +91,18 @@ class DocumentController extends Controller
         return redirect()->route('admin.document.index')->withFlashSuccess(__('Record Deleted'));
     }
 
+
     /**
      * Update status the specified resource.
      *
-     * @param Request  $request
-     * @param Document  $document
-     *
+     * @param Request $request
+     * @param Document $document
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Document $document)
     {
         $document->published = (int) $request->input('published');
         $document->save();
-
         return response()->json(['result' => 'success']);
     }
 }

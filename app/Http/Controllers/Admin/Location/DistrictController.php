@@ -66,7 +66,7 @@ class DistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -83,7 +83,7 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Region  $region
+     * @param Region $region
      *
      * @return View
      */
@@ -97,20 +97,21 @@ class DistrictController extends Controller
             'region' => $district->region,
             'district' => $district,
             'regions' => $regions,
-            'countries' => $countries,
+            'countries' => $countries
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param District  $district
+     * @param Request $request
+     * @param District $district
      *
      * @return Response
      */
     public function update(Request $request, District $district)
     {
+
         //
         $district->fill($request->all());
         $district->save();
@@ -121,7 +122,7 @@ class DistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Region  $region
+     * @param Region $region
      *
      * @return Response
      */
@@ -133,11 +134,12 @@ class DistrictController extends Controller
         return redirect()->route('admin.district.index')->withFlashSuccess(__('Record Deleted'));
     }
 
+
     public function search(Request $request)
     {
         $country_id = $request->input('country_id', Country::DEFAULT_COUNTRY_ID);
         $query = District::query()->where('districts.country_id', $country_id)->with(['region', 'country']);
-        $region_id = (int) $request->input('region_id', 0);
+        $region_id = (int)$request->input('region_id', 0);
 
         if ($region_id > 0) {
             $query->where('districts.region_id', $region_id);
@@ -146,9 +148,11 @@ class DistrictController extends Controller
         $q = $request->input('q', '');
         $limit = $request->input('limit', 20);
 
-        if (! empty($q)) {
-            $query->where('districts.title', 'LIKE', '%"'.$q.'%');
+
+        if (!empty($q)) {
+            $query->where('districts.title', 'LIKE', '%"' . $q . '%');
         }
+
 
         return $query->take($limit)->get()->map->asChoose();
     }

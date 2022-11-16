@@ -16,6 +16,7 @@ class TestimonialController extends Controller
 {
     //
 
+
     public function index(Request $request)
     {
         $testimonials = Testimonial::moderated()->whereNull('parent_id')
@@ -44,23 +45,24 @@ class TestimonialController extends Controller
         ]);
     }
 
+
     public function store(TestimonialRequest $request)
     {
         $testimonial = new Testimonial();
         $testimonial->model_type = Tour::class;
         $testimonial->model_id = $request->tour_id;
         $testimonial->fill($request->validated());
-        $testimonial->name = $request->last_name.' '.$request->first_name;
+        $testimonial->name = $request->last_name . ' ' . $request->first_name;
         $user = current_user();
 
-        if ((int) $request->guide_id > 0) {
+        if ((int)$request->guide_id > 0) {
             $testimonial->related_type = Staff::class;
-            $testimonial->related_id = (int) $request->guide_id;
+            $testimonial->related_id = (int)$request->guide_id;
         }
 
         if ($user) {
             $testimonial->user_id = $user->id;
-            if (! empty($user->avatar)) {
+            if (!empty($user->avatar)) {
                 $testimonial->avatar = $user->avatar;
             }
         }
@@ -82,7 +84,7 @@ class TestimonialController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'testimonial' => $testimonial,
+                'testimonial' => $testimonial
             ]);
         }
 
@@ -112,12 +114,12 @@ class TestimonialController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'testimonial' => $testimonial,
+                'testimonial' => $testimonial
             ]);
         }
-
         return back()->withFlashSuccess(__('Thanks for your feedback!'));
     }
+
 
     public function children(Testimonial $testimonial)
     {

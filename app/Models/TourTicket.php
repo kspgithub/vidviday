@@ -14,7 +14,6 @@ class TourTicket extends Model
     use JsonLikeScope;
 
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
 
     protected $table = 'tours_tickets';

@@ -46,8 +46,7 @@ class PopupAdsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return Response|JsonResponse
      */
     public function store(Request $request)
@@ -59,15 +58,14 @@ class PopupAdsController extends Controller
             $popupAd->deleteImage();
             $popupAd->uploadImage($request->file('image_upload'));
         }
-
         return redirect()->route('admin.popup_ads.edit', $popupAd)->withFlashSuccess(__('Record created'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param PopupAd  $popupAd
-     *
+     * @param PopupAd $popupAd
      * @return View
      */
     public function edit(PopupAd $popupAd)
@@ -84,9 +82,8 @@ class PopupAdsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param PopupAd  $popupAd
-     *
+     * @param Request $request
+     * @param PopupAd $popupAd
      * @return Response|JsonResponse
      */
     public function update(Request $request, PopupAd $popupAd)
@@ -100,15 +97,13 @@ class PopupAdsController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
         }
-
         return redirect()->route('admin.popup_ads.edit', $popupAd)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param PopupAd  $popupAd
-     *
+     * @param PopupAd $popupAd
      * @return Response
      */
     public function destroy(PopupAd $popupAd)
@@ -116,7 +111,6 @@ class PopupAdsController extends Controller
         //
         $popupAd->deleteImage();
         $popupAd->delete();
-
         return redirect()->route('admin.popup_ads.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

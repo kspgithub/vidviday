@@ -1,20 +1,11 @@
-const mix = require('laravel-mix')
-const webpack = require('webpack')
-const path = require('path')
-const ip = require('ip')
+const mix = require('laravel-mix');
+const webpack = require('webpack');
+const { resolve } = require('path');
+const ip = require('ip');
 
-const host = ip.address() || '0.0.0.0'
-const port = 8081
-
-require('laravel-vue-lang/mix')
-require('laravel-mix-svg-vue')
-require('laravel-mix-purgecss')
-require('laravel-mix-merge-manifest')
-require('laravel-mix-php-manifest')
-
-mix.lang()
-mix.mergeManifest()
-mix.phpManifest()
+require('laravel-vue-lang/mix');
+require('laravel-mix-svg-vue');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -27,43 +18,97 @@ mix.phpManifest()
  |
  */
 
-mix.js('resources/js/app.js', 'public/assets/app/js')
+mix
+    .setResourceRoot(`/assets/app/`)
+    .setPublicPath(`public/assets/app`)
+    .js('resources/js/app.js', 'public/assets/app/js')
+    .sass('resources/scss/app.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
+    .purgeCss()
     .vue()
+    .lang()
     .extract()
-    .disableNotifications()
-    .sourceMaps(false, 'source-map')
-    .alias({
-        'svg-files-path': path.resolve(__dirname, 'resources/svg'),
-        '@': path.resolve(__dirname, 'resources'),
-        '@svg': path.resolve(__dirname, 'resources/svg'),
-        '@lang': path.resolve(__dirname, 'resources/lang'),
-        '@publicLang': path.resolve(__dirname, 'public/storage/lang'),
-    })
-    .autoload({
-        jquery: ['$', 'jQuery', 'window.jQuery'],
-    })
-    .webpackConfig({
-        module: {
-            rules: [
-                {
-                    test: /resources[\\\/]lang.+\.(php)$/,
-                    loader: 'php-array-loader',
-                },
-            ],
+    .disableNotifications();
+
+mix.webpackConfig({
+    output: {
+        chunkFilename: `../../assets/app/js/chunks/[name].[chunkhash].js`,
+    },
+    resolve: {
+        alias: {
+            '@lang': resolve('./resources/lang'),
+            '@publicLang': resolve('./public/storage/lang'),
         },
-        plugins: [
-            new webpack.DefinePlugin({
-                __VUE_OPTIONS_API__: true,
-                __VUE_PROD_DEVTOOLS__: false,
-                __VUE_I18N_FULL_INSTALL__: true,
-                __VUE_I18N_LEGACY_API__: false,
-                __INTLIFY_PROD_DEVTOOLS__: false,
-                __DATA__: JSON.stringify({ name: 'Dewrw' }),
-            }),
+    },
+    module: {
+        rules: [
+            {
+                test: /resources[\\\/]lang.+\.(php)$/,
+                loader: 'php-array-loader',
+            },
         ],
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+            __VUE_I18N_FULL_INSTALL__: true,
+            __VUE_I18N_LEGACY_API__: false,
+            __INTLIFY_PROD_DEVTOOLS__: false,
+        }),
+    ],
+});
+
+if (Mix.config.hmr) {
+    mix.setResourceRoot(`/`)
+    mix.webpackConfig({
+        output: {
+            chunkFilename: 'js/chunks/[name].[chunkhash].js'
+        }
+    });
+}
+
+mix.sourceMaps(false, 'source-map');
+
+if (mix.inProduction()) {
+    // !!! Dont need to minify.
+    // Laravel Mix automatically minifies js as css files in production
+    // mix.minify([
+    //     'public/js/app.js',
+    //     'public/js/vendor.js',
+    //     'public/js/admin.js',
+    //     'public/css/app.css',
+    //     'public/css/admin.css',
+    // ]);
+
+    mix.version();
+} else {
+    // Uses source-maps on development
+
+    // mix.browserSync(process.env.APP_URL);
+
+    const host = ip.address() || '0.0.0.0'
+    const port = 8081
+
+    mix.options({
+        hmrOptions: {
+            host,
+            port,
+        }
     })
-    .version()
+
+    console.log('=====================================')
+    console.log('App host: ' + host)
+    console.log('=====================================')
+
+    mix.webpackConfig({
+        devServer: {
+            host,
+            port,
+        },
+    });
+
+}

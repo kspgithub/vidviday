@@ -22,37 +22,37 @@ class QuestionTypeSeeder extends Seeder
             [
                 'id' => 1,
                 'type' => UserQuestion::TYPE_CALL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Запитання що до туру', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Запитання що до туру', $locales)),
                 'published' => 1,
             ],
             [
                 'id' => 2,
                 'type' => UserQuestion::TYPE_CALL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Запитання що до сертифікату', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Запитання що до сертифікату', $locales)),
                 'published' => 1,
             ],
             [
                 'id' => 3,
                 'type' => UserQuestion::TYPE_CALL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Інше', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Інше', $locales)),
                 'published' => 1,
             ],
             [
                 'id' => 4,
                 'type' => UserQuestion::TYPE_EMAIL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Запитання що до туру', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Запитання що до туру', $locales)),
                 'published' => 1,
             ],
             [
                 'id' => 5,
                 'type' => UserQuestion::TYPE_EMAIL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Запитання що до сертифікату', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Запитання що до сертифікату', $locales)),
                 'published' => 1,
             ],
             [
                 'id' => 6,
                 'type' => UserQuestion::TYPE_EMAIL,
-                'title' => array_combine($locales, array_map(fn ($locale) => 'Інше', $locales)),
+                'title' => array_combine($locales, array_map(fn($locale) => 'Інше', $locales)),
                 'published' => 1,
             ],
         ];

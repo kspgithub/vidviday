@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
 
+
 /**
  * @OA\Server(
  *      url="/api/v1",
  * )
+ *
  * @OA\Info(
  *      title="Єкспорт турів",
  *      version="1.0.0",
  * )
+ *
  * @OA\SecurityScheme(
  *      securityScheme="bearerAuth",
  *      in="header",
@@ -21,6 +24,7 @@ use App\Models\Partner;
  *      scheme="bearer",
  *      description="305cc08cecd29d7078a924c8d0eca58b",
  * ),
+ *
  * @OA\Schema(
  *     schema="PaginationLink",
  *     type="object",
@@ -43,6 +47,7 @@ use App\Models\Partner;
  *         example=true
  *     ),
  * ),
+ *
  * @OA\Schema(
  *     schema="PaginationLinks",
  *     type="object",
@@ -67,6 +72,7 @@ use App\Models\Partner;
  *         type="string",
  *     ),
  * ),
+ *
  * @OA\Schema(
  *     schema="PaginationMeta",
  *     type="object",
@@ -98,7 +104,7 @@ use App\Models\Partner;
  *         property="links",
  *         title="Посилання на сторінки",
  *         type="array",
- *         @OA\Items(          ref="#/components/schemas/PaginationLink")
+ *         @OA\Items( ref="#/components/schemas/PaginationLink")
  *     ),
  *     @OA\Property(
  *         property="path",
@@ -119,6 +125,7 @@ use App\Models\Partner;
  *         example="25"
  *     ),
  * ),
+ *
  * @OA\Schema(
  *     schema="Localize",
  *     type="object",
@@ -144,6 +151,7 @@ use App\Models\Partner;
  *         type="string",
  *     ),
  * ),
+ *
  */
 class BaseController extends Controller
 {
@@ -152,5 +160,6 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->partner = Partner::where('token', request()->input('token', request()->bearerToken()))->first();
+
     }
 }

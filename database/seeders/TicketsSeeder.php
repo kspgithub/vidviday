@@ -22,7 +22,9 @@ class TicketsSeeder extends Seeder
         //
         $this->truncate('tickets');
 
+
         Ticket::factory()->count(10)->create();
         $this->enableForeignKeys();
+
     }
 }

@@ -1,36 +1,34 @@
-import { ref, watch } from 'vue'
-import { useField } from 'vee-validate'
-import Inputmask from 'inputmask'
+import {ref, watch} from "vue";
+import {useField} from "vee-validate";
+import Inputmask from "inputmask";
 
 const useFormField = (props, emit) => {
-    const inputRef = ref(null)
-    const focused = ref(false)
+    const inputRef = ref(null);
+    const focused = ref(false);
 
-    const { value: innerValue, errorMessage } = useField(props.name, props.rules, {
+    const {value: innerValue, errorMessage} = useField(props.name, props.rules, {
         initialValue: props.modelValue,
         validateOnMount: false,
-    })
+    });
 
-    watch(innerValue, val => emit('update:modelValue', val))
-    watch(
-        () => props.modelValue,
-        val => {
-            if (innerValue.value !== val) {
-                innerValue.value = val
-            }
-        },
-    )
 
-    const onFocus = e => {
-        focused.value = true
+    watch(innerValue, (val) => emit('update:modelValue', val));
+    watch(() => props.modelValue, (val) => {
+        if (innerValue.value !== val) {
+            innerValue.value = val;
+        }
+    });
+
+    const onFocus = (e) => {
+        focused.value = true;
         if (props.mask && !inputRef.value.inputmask) {
-            Inputmask(props.mask).mask(inputRef.value)
+            Inputmask(props.mask).mask(inputRef.value);
         }
     }
-    const onBlur = e => {
-        focused.value = false
+    const onBlur = (e) => {
+        focused.value = false;
         if (props.mask && inputRef.value.inputmask) {
-            inputRef.value.inputmask.remove()
+            inputRef.value.inputmask.remove();
         }
     }
 
@@ -41,16 +39,16 @@ const useFormField = (props, emit) => {
         onFocus,
         onBlur,
         errorMessage,
-        ...useRequiredFormGroup(props),
+        ...useRequiredFormGroup(props)
     }
 }
 
-export const useRequiredFormGroup = props => {
-    let rules = typeof props.rules === 'object' ? Object.keys(props.rules) : props.rules.split('|')
-    const required = rules.indexOf('required') !== -1
+export const useRequiredFormGroup = (props) => {
+    let rules = typeof (props.rules) === 'object' ? Object.keys(props.rules) : props.rules.split('|');
+    const required = rules.indexOf('required') !== -1;
     return {
-        required,
+        required
     }
 }
 
-export default useFormField
+export default useFormField;

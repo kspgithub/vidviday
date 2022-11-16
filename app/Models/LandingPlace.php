@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
@@ -10,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -73,15 +73,15 @@ class LandingPlace extends TranslatableModel
                 'slug',
             ]);
 
-        if (! empty($search)) {
+        if (!empty($search)) {
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
                 ->orderBy('relevant');
         } else {
             $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
         }
-
         return $query;
     }
+
 
     public function asSelectBox(
         $value_key = 'id',
@@ -93,4 +93,5 @@ class LandingPlace extends TranslatableModel
             $text_key => $this->title,
         ];
     }
+
 }

@@ -42,6 +42,7 @@ trait UserMethod
         return $this->hasRole('duty-manager');
     }
 
+
     /**
      * @return bool
      */
@@ -55,7 +56,7 @@ trait UserMethod
      */
     public function isActive(): bool
     {
-        return (int) $this->status === self::STATUS_ACTIVE;
+        return (int)$this->status === self::STATUS_ACTIVE;
     }
 
     /**
@@ -65,6 +66,7 @@ trait UserMethod
     {
         return false;
     }
+
 
     public static function toSelectBox()
     {
@@ -76,7 +78,7 @@ trait UserMethod
 
     public function basicInfo()
     {
-        return (object) [
+        return (object)[
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -91,7 +93,7 @@ trait UserMethod
 
     public function asCrmUser()
     {
-        return (object) [
+        return (object)[
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -121,6 +123,7 @@ trait UserMethod
 //        }
     }
 
+
     public function isManagerOfOrder(Order $order)
     {
         return $this->isTourManager() && $order->tour_manager && $order->tour_manager->user_id === $this->id;
@@ -131,7 +134,7 @@ trait UserMethod
         $emails = array_filter([$this->email]);
 
         $phones = array_filter(array_unique([$this->mobile_phone, clear_phone($this->mobile_phone, false), clear_phone($this->mobile_phone, true)]));
-        if (! empty($emails) || ! empty($phones)) {
+        if (!empty($emails) || !empty($phones)) {
             $query = BitrixContact::query();
             $first = true;
             foreach ($phones as $phone) {
@@ -159,7 +162,6 @@ trait UserMethod
                 $contact->first_name = $this->first_name;
                 $contact->last_name = $this->last_name;
                 $contact->save();
-
                 return true;
             }
         }

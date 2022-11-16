@@ -1,8 +1,16 @@
 <?php
 
+use App\Mail\CustomEmail;
+use App\Mail\UserQuestionEmail;
+use App\Models\LanguageLine;
+use App\Models\QuestionType;
+use App\Models\Tour;
+use App\Models\UserQuestion;
+use App\Services\MailNotificationService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +38,9 @@ Artisan::command('inspire', function () {
         $value = '';
         $type = $param->getType();
 
-        if (class_exists($type)) {
+        if(class_exists($type)) {
             $class = app($type);
-            if ($class instanceof Model) {
+            if($class instanceof Model) {
                 $value = $class->random();
             }
         }
@@ -40,4 +48,5 @@ Artisan::command('inspire', function () {
         $params[$param->getName()] = $value;
     }
     dd($params);
+
 })->purpose('Display an inspiring quote');

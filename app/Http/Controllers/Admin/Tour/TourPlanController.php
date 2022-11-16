@@ -20,9 +20,9 @@ class TourPlanController extends Controller
 
         $locales = array_keys(config('site-settings.locale.languages'));
         $translations = $plan->getTranslations('text') ?? [];
-
         return view('admin.tour.plan', ['tour' => $tour, 'locales' => $locales, 'translations' => $translations]);
     }
+
 
     public function update(Request $request, Tour $tour)
     {
@@ -33,7 +33,6 @@ class TourPlanController extends Controller
         }
         $plan->text = $request->input('text', []);
         $plan->save();
-
         return redirect()->route('admin.tour.plan.index', $tour)->withFlashSuccess(__('Updated'));
     }
 }

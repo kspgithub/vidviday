@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Exceptions\GeneralException;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class DeactivatedUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param UserService  $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -40,8 +40,8 @@ class DeactivatedUserController extends Controller
     }
 
     /**
-     * @param Request  $request
-     * @param User  $user
+     * @param  Request  $request
+     * @param  User  $user
      * @param $status
      *
      * @throws GeneralException

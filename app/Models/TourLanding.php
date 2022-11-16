@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -18,7 +19,6 @@ class TourLanding extends TranslatableModel
     use UsePublishedScope;
 
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
 
     protected $table = 'tours_landings';
@@ -29,6 +29,7 @@ class TourLanding extends TranslatableModel
         'description',
         'slug',
     ];
+
 
     protected $fillable = [
         'tour_id',

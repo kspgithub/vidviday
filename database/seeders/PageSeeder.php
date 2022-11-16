@@ -28,6 +28,7 @@ class PageSeeder extends Seeder
         $enFaker = FakerFactory::create('en_US');
         $plFaker = FakerFactory::create('pl_PL');
 
+
         $pages = [
             [
                 'title' => ['en' => 'Home', 'ru' => 'Главная', 'uk' => 'Головна', 'pl' => 'Dom'],
@@ -60,9 +61,9 @@ class PageSeeder extends Seeder
             ],
             [
                 'title' => ['en' => 'Our Documents', 'ru' => 'Наши Документы',
-                    'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty', ],
+                    'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty'],
                 'seo_h1' => ['en' => 'Our Documents', 'ru' => 'Наши Документы',
-                    'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty', ],
+                    'uk' => 'Наші документи', 'pl' => 'Nasze dokumenty'],
                 'text' => [
                     'uk' => $ukFaker->realText(500),
                     'ru' => $ruFaker->realText(500),
@@ -91,9 +92,9 @@ class PageSeeder extends Seeder
             ],
             [
                 'title' => ['en' => 'Office workers', 'ru' => 'Офисные работники',
-                    'uk' => 'Офісні працівники', 'pl' => 'Pracownicy biurowi', ],
+                    'uk' => 'Офісні працівники', 'pl' => 'Pracownicy biurowi'],
                 'seo_h1' => ['en' => 'Office workers', 'ru' => 'Офисные работники',
-                    'uk' => 'Офісні працівники', 'pl' => 'Pracownicy biurowi', ],
+                    'uk' => 'Офісні працівники', 'pl' => 'Pracownicy biurowi'],
                 'key' => 'office-workers',
                 'text' => [
                     'uk' => $ukFaker->realText(500),
@@ -122,13 +123,13 @@ class PageSeeder extends Seeder
                     'en' => 'Charity',
                     'ru' => 'Благотворительность',
                     'uk' => 'Благодійність',
-                    'pl' => 'Dobroczynność',
+                    'pl' => 'Dobroczynność'
                 ],
                 'seo_h1' => [
                     'en' => 'Charity',
                     'ru' => 'Благотворительность',
                     'uk' => 'Благодійність',
-                    'pl' => 'Dobroczynność',
+                    'pl' => 'Dobroczynność'
                 ],
                 'key' => 'charity',
                 'main' => 1,
@@ -139,9 +140,9 @@ class PageSeeder extends Seeder
             ],
             [
                 'title' => ['en' => 'Awards and honors', 'ru' => 'Награды и отличия',
-                    'uk' => 'Нагороди та відзнаки', 'pl' => 'Nagrody i wyróżnienia', ],
+                    'uk' => 'Нагороди та відзнаки', 'pl' => 'Nagrody i wyróżnienia'],
                 'seo_h1' => ['en' => 'Awards and honors', 'ru' => 'Награды и отличия',
-                    'uk' => 'Нагороди та відзнаки', 'pl' => 'Nagrody i wyróżnienia', ],
+                    'uk' => 'Нагороди та відзнаки', 'pl' => 'Nagrody i wyróżnienia'],
                 'key' => 'awards-and-honors',
                 'main' => 1,
                 'published' => 1,
@@ -228,13 +229,13 @@ class PageSeeder extends Seeder
                     'uk' => 'Є питання?',
                     'ru' => 'Есть вопросы?',
                     'en' => 'Have a question?',
-                    'pl' => 'Mam pytanie?',
+                    'pl' => 'Mam pytanie?'
                 ],
                 'seo_h1' => [
                     'uk' => '20 основних питань і відповідей щодо успішної співпраці ТО «Відвідай» з партнерами (турагентами)',
                     'ru' => '20 основных вопросов и ответов по успешного сотрудничества ТО «Відвідай» с партнерами (турагентами)',
                     'en' => '20 main questions and answers about the successful cooperation of TO "Vidviday" with partners (travel agents)',
-                    'pl' => '20 głównych pytań i odpowiedzi na temat udanej współpracy TO „Vidviday” z partnerami (biurami podróży)',
+                    'pl' => '20 głównych pytań i odpowiedzi na temat udanej współpracy TO „Vidviday” z partnerami (biurami podróży)'
                 ],
                 'text' => [
                     'uk' => 'Якщо Вам сподобалися наші тури, то Ви із задоволенням можете продавати їх Вашим туристам. Співпраця з нами дуже проста. Нижче наводимо відповіді на найпопулярніші питання.',
@@ -261,19 +262,19 @@ class PageSeeder extends Seeder
                     'en' => 'Gift certificate',
                     'ru' => 'Подарочный сертификат',
                     'uk' => 'Подарунковий сертифікат',
-                    'pl' => 'Bon upominkowy',
+                    'pl' => 'Bon upominkowy'
                 ],
                 'seo_h1' => [
                     'en' => 'Gift certificate',
                     'ru' => 'Подарочный сертификат',
                     'uk' => 'Подарунковий сертифікат',
-                    'pl' => 'Bon upominkowy',
+                    'pl' => 'Bon upominkowy'
                 ],
                 'text' => [
                     'en' => '<p>A gift certificate is a document that you can buy from us if you need to give a loved one a good trip to Ukraine and make it beautiful.</p>',
                     'ru' => '<p>Подарочный сертификат, это документ, который Вы можете приобрести у нас, если нужно подарить дорогому человеку хорошую путешествие по Украине и красиво это оформить.</p>',
                     'uk' => '<p>Подарунковий сертифікат, це документ, який Ви можете придбати в нас, якщо потрібно подарувати дорогій людині гарну подорож Україною та красиво це оформити.</p>',
-                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>',
+                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
                 ],
                 'key' => 'certificate',
                 'main' => 1,
@@ -287,19 +288,19 @@ class PageSeeder extends Seeder
                     'uk' => 'Замовлення сертифікату',
                     'en' => 'Order a certificate',
                     'ru' => 'Заказ сертификата',
-                    'pl' => 'Zamów certyfikat',
+                    'pl' => 'Zamów certyfikat'
                 ],
                 'seo_h1' => [
                     'uk' => 'Замовлення сертифікату',
                     'en' => 'Order a certificate',
                     'ru' => 'Заказ сертификата',
-                    'pl' => 'Zamów certyfikat',
+                    'pl' => 'Zamów certyfikat'
                 ],
                 'text' => [
                     'en' => '<p>A gift certificate is a document that you can buy from us if you need to give a loved one a good trip to Ukraine and make it beautiful.</p>',
                     'ru' => '<p>Подарочный сертификат, это документ, который Вы можете приобрести у нас, если нужно подарить дорогому человеку хорошую путешествие по Украине и красиво это оформить.</p>',
                     'uk' => '<p>Подарунковий сертифікат, це документ, який Ви можете придбати в нас, якщо потрібно подарувати дорогій людині гарну подорож Україною та красиво це оформити.</p>',
-                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>',
+                    'pl' => '<p>Bon podarunkowy to dokument, który możesz u nas kupić, jeśli chcesz zapewnić bliskiej osobie udaną podróż na Ukrainę i sprawić, by była piękna.</p>'
                 ],
                 'key' => 'certificate-order',
                 'main' => 1,
@@ -440,12 +441,13 @@ class PageSeeder extends Seeder
                 $pageModel->save();
             }
 
-            if (! empty($images)) {
+            if (!empty($images)) {
                 foreach ($images as $image) {
                     $pageModel->addMediaFromUrl($image);
                 }
             }
         }
+
 
         $this->enableForeignKeys();
     }

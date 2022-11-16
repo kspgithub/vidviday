@@ -35,23 +35,25 @@ class PlaceFactory extends Factory
      */
     public function definition()
     {
+
         $city = $this->randomCity();
 
         $direction = $this->randomDirection();
 
         return [
             //
-            'country_id' => $city->country_id,
-            'region_id' => $city->region_id,
-            'city_id' => $city->id,
-            'direction_id' => $direction->id,
-            'title' => $this->faker->text(20),
-            'text' => $this->faker->text(1000),
-            'lat' => $this->faker->latitude(48.000000, 50.000000),
-            'lng' => $this->faker->longitude(22.800000, 26.000000),
-            'published' => 1,
+            'country_id'=>$city->country_id,
+            'region_id'=>$city->region_id,
+            'city_id'=>$city->id,
+            'direction_id'=>$direction->id,
+            'title'=>$this->faker->text(20),
+            'text'=>$this->faker->text(1000),
+            'lat'=>$this->faker->latitude(48.000000, 50.000000),
+            'lng'=>$this->faker->longitude(22.800000, 26.000000),
+            'published' => 1
         ];
     }
+
 
     public function configure()
     {
@@ -70,6 +72,7 @@ class PlaceFactory extends Factory
     {
         return City::query()->whereIn('region_id', [2, 8, 13, 21])->inRandomOrder()->first();
     }
+
 
     /**
      * @return Direction|null|Model

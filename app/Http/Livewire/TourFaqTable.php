@@ -3,8 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\EditRecordTrait;
+use App\Models\Ticket;
 use App\Models\Tour;
 use App\Models\TourFaq;
+use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +28,7 @@ class TourFaqTable extends Component
 
     public $answer = '';
 
+
     protected $rules = [
         'question' => ['required'],
         'answer' => ['required'],
@@ -46,6 +49,7 @@ class TourFaqTable extends Component
         return TourFaq::class;
     }
 
+
     public function updateOrder($items)
     {
         foreach ($items as $item) {
@@ -57,7 +61,7 @@ class TourFaqTable extends Component
 
     public function beforeSaveItem()
     {
-        if (! $this->model) {
+        if (!$this->model) {
             $this->model = new TourFaq();
         }
         $this->model->tour_id = $this->tour->id;

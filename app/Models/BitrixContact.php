@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Lib\Bitrix24\CRM\Contact\ContactService;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,6 +20,7 @@ class BitrixContact extends Model
         'phone',
     ];
 
+
     protected $casts = [
         'email' => 'array',
         'phone' => 'array',
@@ -26,6 +29,7 @@ class BitrixContact extends Model
     protected $appends = [
         'orders_count',
     ];
+
 
     public static function createOrUpdate($bitrix_id, $contactData = [])
     {
@@ -47,6 +51,7 @@ class BitrixContact extends Model
         }
         $bitrixContact->phone = array_filter(array_unique($phones));
 
+
         $emails = $bitrixContact->email ?? [];
         if (isset($contactData['EMAIL'])) {
             foreach ($contactData['EMAIL'] as $emailData) {
@@ -61,10 +66,12 @@ class BitrixContact extends Model
     {
     }
 
+
     public function orders()
     {
         return $this->hasMany(Order::class, 'contact_id');
     }
+
 
     public function getOrdersCountAttribute()
     {
@@ -73,10 +80,9 @@ class BitrixContact extends Model
 
     public function getFullNameAttribute()
     {
-        $name = trim($this->last_name.' '.$this->first_name);
+        $name = trim($this->last_name . ' ' . $this->first_name);
         $phone = $this->phone[0] ?? '';
         $email = $this->email[0] ?? '';
-
-        return ! empty($name) ? $name : (! empty($phone) ? $phone : $email);
+        return !empty($name) ? $name : (!empty($phone) ? $phone : $email);
     }
 }

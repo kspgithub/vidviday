@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\Models\Order;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
 
 class OrderStatusEmail extends BaseTemplateEmail
 {

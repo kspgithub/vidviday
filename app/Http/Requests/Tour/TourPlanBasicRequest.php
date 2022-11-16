@@ -26,13 +26,13 @@ class TourPlanBasicRequest extends FormRequest
     {
         return [
 
-            'title' => ['required', 'string'],
-            'slug' => ['nullable', 'string'],
-            'text' => ['nullable', 'string'],
-            'tour_id' => ['required', 'integer'],
-            'lat' => ['nullable', 'string'],
-            'lng' => ['nullable', 'string'],
-            'published' => ['nullable', Rule::in(['1', '0'])],
+            'title'=>['required', 'string'],
+            'slug'=>['nullable', 'string'],
+            'text'=>['nullable', 'string'],
+            'tour_id'=>['required', 'integer'],
+            'lat'=>['nullable', 'string'],
+            'lng'=>['nullable', 'string'],
+            'published'=>['nullable', Rule::in(['1', '0'])],
 
         ];
     }

@@ -13,7 +13,7 @@ class EmailVerificationNotificationController extends Controller
     /**
      * Send a new email verification notification.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return RedirectResponse
      */

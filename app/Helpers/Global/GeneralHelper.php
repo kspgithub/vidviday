@@ -4,10 +4,11 @@ use App\Models\Currency;
 use App\Models\Page;
 use App\Models\SiteOption;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 
-if (! function_exists('appName')) {
+if (!function_exists('appName')) {
     /**
      * Helper to grab the application name.
      *
@@ -19,15 +20,15 @@ if (! function_exists('appName')) {
     }
 }
 
-if (! function_exists('carbon')) {
+if (!function_exists('carbon')) {
     /**
      * Create a new Carbon instance from a time.
      *
      * @param $time
      *
+     * @return Carbon
      * @throws Exception
      *
-     * @return Carbon
      */
     function carbon($time)
     {
@@ -35,7 +36,7 @@ if (! function_exists('carbon')) {
     }
 }
 
-if (! function_exists('homeRoute')) {
+if (!function_exists('homeRoute')) {
     /**
      * Return the route to the "home" page depending on authentication/authorization status.
      *
@@ -57,14 +58,14 @@ if (! function_exists('homeRoute')) {
     }
 }
 
-if (! function_exists('storage_url')) {
+if (!function_exists('storage_url')) {
     function storage_url($path)
     {
         return \Illuminate\Support\Facades\Storage::url($path);
     }
 }
 
-if (! function_exists('current_user')) {
+if (!function_exists('current_user')) {
     /**
      * Текущий авторизованный пользователь
      *
@@ -80,11 +81,11 @@ if (! function_exists('current_user')) {
     }
 }
 
-if (! function_exists('is_admin')) {
+if (!function_exists('is_admin')) {
     /**
      * Является текущий авторизованный пользователь админом
      *
-     * @return bool
+     * @return boolean
      */
     function is_admin()
     {
@@ -96,11 +97,11 @@ if (! function_exists('is_admin')) {
     }
 }
 
-if (! function_exists('is_manager')) {
+if (!function_exists('is_manager')) {
     /**
      * Является текущий авторизованный пользователь админом
      *
-     * @return bool
+     * @return boolean
      */
     function is_manager()
     {
@@ -112,11 +113,11 @@ if (! function_exists('is_manager')) {
     }
 }
 
-if (! function_exists('is_tour_manager')) {
+if (!function_exists('is_tour_manager')) {
     /**
      * Является текущий авторизованный пользователь админом
      *
-     * @return bool
+     * @return boolean
      */
     function is_tour_manager()
     {
@@ -128,11 +129,11 @@ if (! function_exists('is_tour_manager')) {
     }
 }
 
-if (! function_exists('is_duty_manager')) {
+if (!function_exists('is_duty_manager')) {
     /**
      * Является текущий авторизованный пользователь админом
      *
-     * @return bool
+     * @return boolean
      */
     function is_duty_manager()
     {
@@ -144,11 +145,11 @@ if (! function_exists('is_duty_manager')) {
     }
 }
 
-if (! function_exists('is_tourist')) {
+if (!function_exists('is_tourist')) {
     /**
      * Является текущий авторизованный пользователь туристом
      *
-     * @return bool
+     * @return boolean
      */
     function is_tourist()
     {
@@ -160,11 +161,11 @@ if (! function_exists('is_tourist')) {
     }
 }
 
-if (! function_exists('is_tour_agent')) {
+if (!function_exists('is_tour_agent')) {
     /**
      * Является текущий авторизованный пользователь Тур агентом
      *
-     * @return bool
+     * @return boolean
      */
     function is_tour_agent()
     {
@@ -176,18 +177,18 @@ if (! function_exists('is_tour_agent')) {
     }
 }
 
-if (! function_exists('validation_errors')) {
+if (!function_exists('validation_errors')) {
     function validation_errors($clear = true)
     {
         if ($clear) {
-            return request()->session()->pull('errors') ?: new ViewErrorBag;
+            return request()->session()->pull('errors') ?: new  ViewErrorBag;
         }
 
-        return request()->session()->get('errors') ?: new ViewErrorBag;
+        return request()->session()->get('errors') ?: new  ViewErrorBag;
     }
 }
 
-if (! function_exists('site_option')) {
+if (!function_exists('site_option')) {
     /**
      * Является ли текущий пользователь админом
      *
@@ -199,7 +200,7 @@ if (! function_exists('site_option')) {
     }
 }
 
-if (! function_exists('request_filter_array')) {
+if (!function_exists('request_filter_array')) {
     /**
      * Является ли текущий пользователь админом
      *
@@ -211,7 +212,7 @@ if (! function_exists('request_filter_array')) {
     }
 }
 
-if (! function_exists('prepare_filter_param')) {
+if (!function_exists('prepare_filter_param')) {
     /**
      * @return array
      */
@@ -227,7 +228,10 @@ if (! function_exists('prepare_filter_param')) {
     }
 }
 
-if (! function_exists('pusherEvent')) {
+if (!function_exists('pusherEvent')) {
+    /**
+     *
+     */
     function pusherEvent(...$events)
     {
         try {
@@ -238,33 +242,35 @@ if (! function_exists('pusherEvent')) {
     }
 }
 
-if (! function_exists('currency_title')) {
+
+if (!function_exists('currency_title')) {
     function currency_title($iso)
     {
         return Currency::currencyTitle($iso);
     }
 }
 
-if (! function_exists('arrayToSelectBox')) {
+
+if (!function_exists('arrayToSelectBox')) {
     function arrayToSelectBox($array = [])
     {
         $result = [];
         foreach ($array as $value => $text) {
             $result[] = ['value' => $value, 'text' => json_prepare($text)];
         }
-
         return $result;
     }
 }
 
-if (! function_exists('pageUrlByKey')) {
+
+if (!function_exists('pageUrlByKey')) {
     function pageUrlByKey($key)
     {
         return Page::urlByKey($key);
     }
 }
 
-if (! function_exists('toastData')) {
+if (!function_exists('toastData')) {
     function toastData($errors = null)
     {
         $data = [];
@@ -279,33 +285,34 @@ if (! function_exists('toastData')) {
                 $data[] = ['type' => 'danger', 'message' => $message];
             }
         }
-
         return $data;
     }
 }
 
-if (! function_exists('currency_options')) {
+if (!function_exists('currency_options')) {
     function currency_options()
     {
         return Currency::toSelectBox('iso', 'iso');
     }
 }
 
-if (! function_exists('user_roles')) {
+
+if (!function_exists('user_roles')) {
     function user_roles()
     {
         $roles = ['guest'];
         $user = current_user();
-        if (! empty($user)) {
+        if (!empty($user)) {
             $roles = $user->roles->pluck('name')->toArray();
         }
-
         return $roles;
     }
 }
 
-if (! function_exists('routeSlug')) {
+
+if (!function_exists('routeSlug')) {
     function routeSlug(string $name, array $params = [])
     {
+
     }
 }

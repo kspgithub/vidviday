@@ -21,7 +21,7 @@ class AddSlugColumnToStaffTable extends Migration
 
         $items = Staff::all();
         foreach ($items as $item) {
-            $item->slug = ['uk' => \Illuminate\Support\Str::slug($item->last_name.' '.$item->first_name)];
+            $item->slug = ['uk' => \Illuminate\Support\Str::slug($item->last_name . ' ' . $item->first_name)];
             $item->save();
         }
     }

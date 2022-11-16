@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\TourQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -15,7 +17,9 @@ class TourTestimonials extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [];
+
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array
@@ -30,9 +34,12 @@ class TourTestimonials extends DataTableComponent
      */
     public $tour;
 
+
     public $parent_id = 0;
 
+
     public $edit = false;
+
 
     public $name = '';
 
@@ -40,11 +47,13 @@ class TourTestimonials extends DataTableComponent
 
     public $text = '';
 
+
     protected $rules = [
         'name' => ['required'],
         'email' => ['required', 'email'],
         'text' => ['required'],
     ];
+
 
     public function mount(Tour $tour)
     {
@@ -60,10 +69,11 @@ class TourTestimonials extends DataTableComponent
 
         return $this->tour->testimonials()
             ->with(['user'])
-            ->when(! is_null($status) && $status !== '', function ($query) use ($status) {
+            ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
             })->orderBy('created_at', 'desc');
     }
+
 
     public function columns(): array
     {
@@ -75,7 +85,7 @@ class TourTestimonials extends DataTableComponent
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
-                    return $row->name.'<br>'.$row->email.'<br>'.$row->phone;
+                    return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
                 })
                 ->asHtml(),
 
@@ -86,6 +96,7 @@ class TourTestimonials extends DataTableComponent
                 ->asHtml(),
 
             Column::make(__('Rating'), 'rating'),
+
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -128,8 +139,10 @@ class TourTestimonials extends DataTableComponent
         $this->edit = true;
     }
 
+
     public function saveItem()
     {
+
         $this->validate();
         $item = new Testimonial();
         $item->model_type = Tour::class;
@@ -162,7 +175,7 @@ class TourTestimonials extends DataTableComponent
             return view('admin.tour.includes.question-form');
         }
 
-        return view('livewire-tables::'.config('livewire-tables.theme').'.datatable')
+        return view('livewire-tables::' . config('livewire-tables.theme') . '.datatable')
             ->with([
                 'columns' => $this->columns(),
                 'rowView' => $this->rowView(),

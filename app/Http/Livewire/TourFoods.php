@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Http\Livewire\Traits\EditRecordTrait;
 use App\Models\Country;
 use App\Models\Currency;
@@ -10,6 +11,7 @@ use App\Models\FoodTime;
 use App\Models\Region;
 use App\Models\Tour;
 use App\Models\TourFood;
+use Foo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
@@ -78,8 +80,8 @@ class TourFoods extends Component
             ['value' => TourFood::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
             ['value' => TourFood::TYPE_CUSTOM, 'text' => __('Свій тип')],
         ]);
-        for ($day = 1; $day <= $tour->duration; $day++) {
-            $this->days[] = ['value' => $day, 'text' => $day.'-й день'];
+        for($day = 1; $day <= $tour->duration; $day++) {
+            $this->days[] = ['value' => $day, 'text' => $day . '-й день'];
         }
 
         $this->foodTimes = FoodTime::toSelectBox();
@@ -108,29 +110,30 @@ class TourFoods extends Component
     {
         $rules = [];
 
-        if ($this->form['type_id'] == TourFood::TYPE_TEMPLATE) {
+        if($this->form['type_id'] == TourFood::TYPE_TEMPLATE) {
             $rules = [
                 'form.type_id' => 'required',
-                'form.day' => ['required', 'numeric', 'min:1', 'max:'.$this->tour->duration],
-                //            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
-                //            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
+                'form.day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
+//            'form.country_id' => ['required', 'integer', Rule::exists('countries', 'id')],
+//            'form.region_id' => ['required', 'integer', Rule::exists('regions', 'id')],
                 'form.food_id' => ['required', 'int', 'min:1'],
                 'form.time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
             ];
         }
 
-        if ($this->form['type_id'] == TourFood::TYPE_CUSTOM) {
+        if($this->form['type_id'] == TourFood::TYPE_CUSTOM) {
             $rules = [
                 'form.type_id' => 'required',
-                'form.day' => ['required', 'numeric', 'min:1', 'max:'.$this->tour->duration],
+                'form.day' => ['required', 'numeric', 'min:1', 'max:' . $this->tour->duration],
                 'form.time_id' => ['required', 'integer', Rule::exists('food_times', 'id')],
             ];
 
             $locales = $this->tour->locales;
 
             foreach ($locales as $locale) {
-                $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourFood::TYPE_CUSTOM, ['required', 'string']);
+                $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourFood::TYPE_CUSTOM, ['required', 'string']);
             }
+
         }
 
         return $rules;
@@ -155,7 +158,7 @@ class TourFoods extends Component
     {
         $foodQuery = Food::query();
 
-        if ($this->form['region_id']) {
+        if($this->form['region_id']) {
             $foodQuery = Food::query()->where('region_id', $this->form['region_id']);
         }
         $this->foodItems = $foodQuery->toSelectBox();
@@ -191,11 +194,11 @@ class TourFoods extends Component
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourFood::TYPE_CUSTOM) {
+        if($type_id == TourFood::TYPE_CUSTOM) {
             $this->form['food_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->form['country_id'] = 0;
@@ -227,7 +230,7 @@ class TourFoods extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if ($index !== false) {
+        if($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -272,7 +275,7 @@ class TourFoods extends Component
 
     public function updatedFoodId($id)
     {
-        if ($id) {
+        if($id) {
             $food = Food::query()->with(['country', 'region'])->find($id);
             $this->form['country_id'] = $food->country_id ?: $food->region?->country_id;
             $this->form['region_id'] = $food->region_id;

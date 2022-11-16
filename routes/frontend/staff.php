@@ -7,3 +7,5 @@ use App\Http\Controllers\TourGuide\TourGuideController;
 Route::get('guide/{slug}', [TourGuideController::class, 'show'])->name('guide.show');
 Route::get('office-worker/{slug}', [StaffController::class, 'show'])->name('staff.show');
 Route::post('staff/{staff}', [StaffController::class, 'testimonial'])->name('staff.testimonial');
+
+

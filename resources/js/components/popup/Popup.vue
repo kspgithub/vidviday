@@ -1,21 +1,22 @@
 <template>
-    <div class="popup-wrap" :class="{ active: visible }">
+    <div class="popup-wrap" :class="{active: visible}">
         <div class="bg-layer"></div>
-        <div ref="popupRef" class="popup-content vue-popup" :class="{ active: visible }">
+        <div class="popup-content vue-popup" :class="{active: visible}" ref="popupRef">
             <div class="layer-close" @click.stop="hide()"></div>
 
             <div class="popup-container" :class="size">
-                <slot />
+
+                <slot/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import {ref, watch} from "vue";
 
 export default {
-    name: 'Popup',
+    name: "Popup",
     props: {
         active: {
             type: Boolean,
@@ -23,40 +24,41 @@ export default {
         },
         size: {
             type: String,
-            default: '',
-        },
+            default: ''
+        }
     },
     emits: ['hide'],
-    setup(props, { emit }) {
-        const popupRef = ref(null)
-        const visible = ref(props.active)
+    setup(props, {emit}) {
+
+        const popupRef = ref(null);
+        const visible = ref(props.active);
 
         const hide = () => {
-            visible.value = false
-            emit('hide')
+            visible.value = false;
+            emit('hide');
         }
 
-        watch(
-            () => props.active,
-            () => {
-                if (props.active !== visible.value) {
-                    visible.value = props.active
-                }
-                if (props.active) {
-                    window.removeScroll()
-                } else {
-                    window.addScroll()
-                }
-            },
-        )
+        watch(() => props.active, () => {
+            if (props.active !== visible.value) {
+                visible.value = props.active;
+            }
+            if (props.active) {
+                window.removeScroll();
+
+            } else {
+                window.addScroll();
+            }
+        })
 
         return {
             popupRef,
             hide,
             visible,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

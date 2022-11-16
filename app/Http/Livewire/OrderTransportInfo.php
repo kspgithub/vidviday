@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AccommodationType;
 use App\Models\Order;
+use App\Models\OrderNote;
 use App\Models\OrderTransport;
+use App\Models\PaymentType;
 use Livewire\Component;
 
 class OrderTransportInfo extends Component
@@ -15,9 +18,10 @@ class OrderTransportInfo extends Component
 
     public $orderStatuses = [];
 
-    public $editOrderStatus = false;
 
+    public $editOrderStatus = false;
     public $orderStatus = '';
+
 
     public function mount(OrderTransport $order): void
     {
@@ -27,6 +31,7 @@ class OrderTransportInfo extends Component
 
     public function render()
     {
+
         return view('admin.order-transport.includes.order-info');
     }
 
@@ -39,7 +44,7 @@ class OrderTransportInfo extends Component
     public function saveStatus()
     {
         $this->editOrderStatus = false;
-        $this->order->status = (int) $this->orderStatus;
+        $this->order->status = (int)$this->orderStatus;
         $this->order->save();
     }
 
@@ -47,4 +52,6 @@ class OrderTransportInfo extends Component
     {
         $this->editOrderStatus = false;
     }
+
+
 }

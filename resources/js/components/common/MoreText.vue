@@ -1,18 +1,12 @@
 <template>
     <div class="load-more-wrapp vue-load-more">
-        <div
-            ref="textRef"
-            v-observe-visibility="visibilityChanged"
-            class="text"
-            :class="textSize"
-            :style="style"
-            @transitionend="onTransitionEnd()"
-        >
-            <slot />
+        <div class="text" :class="textSize" ref="textRef" v-observe-visibility="visibilityChanged" :style="style"
+             @transitionend="onTransitionEnd()">
+            <slot/>
         </div>
         <div v-if="spacer" :class="'spacer-' + spacer"></div>
-        <div v-if="showBtn" class="text-right">
-            <div class="show-more-btn" :class="{ active: isActive }" @click.prevent.stop="toggle()">
+        <div class="text-right" v-if="showBtn">
+            <div class="show-more-btn" :class="{active: isActive}" @click.prevent.stop="toggle()">
                 <span v-if="!isActive">{{ __('common.read-more') }}</span>
                 <span v-if="isActive">{{ __('common.hide-text') }}</span>
             </div>
@@ -21,15 +15,15 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from 'vue'
+import {onMounted, reactive, ref} from "vue";
 
 export default {
-    name: 'MoreText',
+    name: "MoreText",
     props: {
         active: Boolean,
         minHeight: {
             type: Number,
-            default: 125,
+            default: 125
         },
         duration: {
             type: Number,
@@ -45,49 +39,53 @@ export default {
         },
     },
     setup(props) {
-        const inited = ref(false)
-        const showBtn = ref(false)
-        const isVisible = ref(false)
-        const textRef = ref(null)
-        const isActive = ref(!!props.active)
-        const minHeight = ref(props.minHeight)
-        const maxHeight = ref(props.minHeight)
-        const style = reactive({})
+        const inited = ref(false);
+        const showBtn = ref(false);
+        const isVisible = ref(false);
+        const textRef = ref(null);
+        const isActive = ref(!!props.active);
+        const minHeight = ref(props.minHeight);
+        const maxHeight = ref(props.minHeight);
+        const style = reactive({});
 
         const toggle = () => {
-            isActive.value = !isActive.value
-            const div = textRef.value
-            div.style.height = (isActive.value ? maxHeight.value : minHeight.value) + 'px'
+            isActive.value = !isActive.value;
+            const div = textRef.value;
+            div.style.height = (isActive.value ? maxHeight.value : minHeight.value) + 'px';
         }
 
-        const onTransitionEnd = () => {}
+        const onTransitionEnd = () => {
+
+        }
 
         const calcHeight = () => {
             if (isVisible.value && !inited.value) {
-                const div = textRef.value
-                maxHeight.value = div.offsetHeight
+                const div = textRef.value;
+                maxHeight.value = div.offsetHeight;
                 if (minHeight.value > maxHeight.value) {
-                    minHeight.value = maxHeight.value
+                    minHeight.value = maxHeight.value;
+
                 } else {
-                    showBtn.value = true
+                    showBtn.value = true;
                 }
 
-                div.style.height = (isActive.value ? maxHeight.value : minHeight.value) + 'px'
-                inited.value = true
+
+                div.style.height = (isActive.value ? maxHeight.value : minHeight.value) + 'px';
+                inited.value = true;
             }
         }
 
-        const visibilityChanged = visible => {
-            isVisible.value = visible
-            calcHeight()
+        const visibilityChanged = (visible) => {
+            isVisible.value = visible;
+            calcHeight();
         }
 
         onMounted(() => {
-            const div = textRef.value
-            div.style.transitionProperty = 'height'
-            div.style.transitionDuration = props.duration + 'ms'
-            calcHeight()
-        })
+            const div = textRef.value;
+            div.style.transitionProperty = 'height';
+            div.style.transitionDuration = props.duration + 'ms';
+            calcHeight();
+        });
 
         return {
             toggle,
@@ -98,7 +96,7 @@ export default {
             onTransitionEnd,
             visibilityChanged,
         }
-    },
+    }
 }
 </script>
 

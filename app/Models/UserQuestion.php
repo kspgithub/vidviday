@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class UserQuestion extends Model
 {
     public const STATUS_NEW = 0;
-
     public const STATUS_RESOLVED = 1;
-
     public const STATUS_ARCHIVED = 2;
 
     public const TYPE_CALL = 0;
-
     public const TYPE_EMAIL = 1;
-
     public const TYPE_QUESTION = 2;
-
     public const TYPE_VACANCY = 3;
 
     public const QUESTION_TYPES = [
@@ -61,6 +57,6 @@ class UserQuestion extends Model
 
     public function getAttachmentUrlAttribute()
     {
-        return ! empty($this->attachment) ? url(Storage::url($this->attachment)) : '';
+        return !empty($this->attachment) ? url(Storage::url($this->attachment)) : '';
     }
 }

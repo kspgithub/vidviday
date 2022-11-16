@@ -18,7 +18,7 @@ class AddLocalesColumnToToursTable extends Migration
             $table->json('locales')->nullable()->after('slug');
         });
 
-        \Illuminate\Support\Facades\DB::table('tours')->update(['locales' => json_encode(['uk'])]);
+        \Illuminate\Support\Facades\DB::table('tours')->update(['locales' => json_encode(["uk"])]);
     }
 
     /**

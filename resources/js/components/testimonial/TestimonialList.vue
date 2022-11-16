@@ -2,9 +2,9 @@
     <div>
         <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
-        <hr />
-        <testimonial-item v-for="item in testimonials" :key="'tm-' + item.id" :item="item" @add="" />
-        <hr />
+        <hr>
+        <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" @add=""/>
+        <hr>
         <div class="spacer-xs"></div>
         <div class="row">
             <div class="col-xl-6 col-12">
@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-xl-6 col-12 text-right">
-                <span v-if="currentPage < lastPage" class="btn type-2 btn-block-sm btn-block-xs" @click="loadMore()">
+                <span class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">
                     {{ __('common.show-more-10') }}
                 </span>
             </div>
@@ -22,41 +22,41 @@
 </template>
 
 <script>
-import TestimonialItem from './TestimonialItem'
-import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import TestimonialItem from "./TestimonialItem";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
 
 export default {
-    name: 'TestimonialList',
-    components: { TestimonialItem },
+    name: "TestimonialList",
+    components: {TestimonialItem},
     props: {
         url: String,
         items: {},
         page: {
             type: Number,
-            default: 1,
-        },
+            default: 1
+        }
     },
     setup(props) {
-        const store = useStore()
-        store.commit('testimonials/SET_URL', props.url)
-        store.commit('testimonials/SET_TESTIMONIALS', props.items)
-        store.dispatch('user/loadProfile')
+        const store = useStore();
+        store.commit('testimonials/SET_URL', props.url);
+        store.commit('testimonials/SET_TESTIMONIALS', props.items);
+        store.dispatch('user/loadProfile');
 
-        const testimonials = computed(() => store.state.testimonials.items)
-        const currentPage = computed(() => store.state.testimonials.currentPage)
-        const lastPage = computed(() => store.state.testimonials.lastPage)
-        const request = computed(() => store.state.testimonials.request)
+        const testimonials = computed(() => store.state.testimonials.items);
+        const currentPage = computed(() => store.state.testimonials.currentPage);
+        const lastPage = computed(() => store.state.testimonials.lastPage);
+        const request = computed(() => store.state.testimonials.request);
 
-        const loadItems = async () => await store.dispatch('testimonials/loadItems')
+        const loadItems = async () => await store.dispatch('testimonials/loadItems');
 
-        const loadMore = async () => await store.dispatch('testimonials/loadMore')
+        const loadMore = async () => await store.dispatch('testimonials/loadMore');
 
-        if (!testimonials.value.length && typeof props.items === 'undefined') {
-            loadItems()
+        if(!testimonials.length && typeof props.items === 'undefined') {
+            loadItems();
         }
 
-        const showPopup = () => store.dispatch('testimonials/openPopup')
+        const showPopup = () => store.dispatch('testimonials/openPopup');
 
         return {
             testimonials,
@@ -66,8 +66,10 @@ export default {
             loadMore,
             showPopup,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

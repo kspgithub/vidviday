@@ -77,6 +77,9 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     *
+     */
     protected function mapWebRoutes()
     {
         Route::middleware('web')
@@ -88,6 +91,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/frontend/auth.php'));
     }
 
+
     protected function mapApiRoutes()
     {
         Route::prefix('api')
@@ -95,6 +99,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
+
 
     protected function mapAdminWebRoutes()
     {
@@ -113,6 +118,8 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }
+
+
 
     protected function mapSitePageRoute()
     {

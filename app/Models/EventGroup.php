@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use App\Models\Traits\Attributes\EventAttribute;
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Traits\HasSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -25,6 +28,7 @@ class EventGroup extends TranslatableModel implements HasMedia
     use UseNormalizeMedia;
     use UseSelectBox;
     use EventAttribute;
+
 
     public $translatable = [
         'title',
@@ -52,7 +56,7 @@ class EventGroup extends TranslatableModel implements HasMedia
     ];
 
     protected $casts = [
-        'published' => 'boolean',
+        'published' => 'boolean'
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -87,6 +91,7 @@ class EventGroup extends TranslatableModel implements HasMedia
         $this->addMediaCollection('pictures')
             ->acceptsMimeTypes(['image/jpeg', 'image/png']);
     }
+
 
     /**
      * @return BelongsToMany

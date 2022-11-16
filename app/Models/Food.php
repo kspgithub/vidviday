@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -24,6 +25,7 @@ class Food extends TranslatableModel implements HasMedia
     use UseNormalizeMedia;
     use UseSelectBox;
     use JsonLikeScope;
+
 
     public $translatable = [
         'title',
@@ -47,6 +49,7 @@ class Food extends TranslatableModel implements HasMedia
         'price' => 'float',
     ];
 
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -57,6 +60,7 @@ class Food extends TranslatableModel implements HasMedia
             ->width(315)
             ->height(180);
     }
+
 
     public function getSlugOptions(): SlugOptions
     {
@@ -70,11 +74,10 @@ class Food extends TranslatableModel implements HasMedia
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    )
-    {
+    ) {
         return self::query()->get(['id', 'title', 'price', 'currency'])
-            ->map(function ($item) use ($value_field, $value_key, $text_key) {
-                return [$value_key => $item->{$value_field}, $text_key => $item->title.', '.$item->price.$item->currency];
+            ->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
+                return [$value_key => $item->{$value_field}, $text_key => $item->title . ', ' . $item->price . $item->currency];
             });
     }
 
@@ -92,7 +95,6 @@ class Food extends TranslatableModel implements HasMedia
     {
         return $this->belongsTo(FoodTime::class, 'time_id');
     }
-
     public function asSelectBox(
         $value_key = 'id',
         $text_key = 'text'

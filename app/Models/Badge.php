@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -14,6 +15,7 @@ class Badge extends TranslatableModel
     use HasSlug;
     use HasTranslations;
     use UseSelectBox;
+
 
     public function getRouteKeyName()
     {
@@ -49,4 +51,6 @@ class Badge extends TranslatableModel
     {
         return $this->belongsToMany(Tour::class, 'tour_badges');
     }
+
+
 }

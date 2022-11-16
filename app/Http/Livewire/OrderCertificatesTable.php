@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\News;
+use App\Models\Order;
 use App\Models\OrderCertificate;
 use App\Models\PaymentType;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +16,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class OrderCertificatesTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -25,6 +29,7 @@ class OrderCertificatesTable extends DataTableComponent
      * @var string
      */
     public string $defaultSortDirection = 'desc';
+
 
     /**
      * @var array
@@ -79,17 +84,19 @@ class OrderCertificatesTable extends DataTableComponent
                     return view('admin.certificate.includes.info', ['order' => $row]);
                 }),
 
+
             Column::make(__('Places'), 'places')
                 ->format(function ($value, $column, $row) {
-                    return $row->places.($row->children == 1 ? ' ('.($row->children_older + $row->children_young).'д)' : '');
+                    return $row->places . ($row->children == 1 ? ' (' . ($row->children_older + $row->children_young) . 'д)' : '');
                 })
                 ->sortable(),
             Column::make(__('Total'), 'price')
                 ->format(function ($value, $column, $row) {
-                    return '<span class="text-nowrap">'.number_format($row->price).' '.$row->currency.'</span>';
+                    return '<span class="text-nowrap">' . number_format($row->price) . ' ' . $row->currency . '</span>';
                 })
                 ->asHtml()
                 ->sortable(),
+
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
@@ -113,10 +120,11 @@ class OrderCertificatesTable extends DataTableComponent
         ];
     }
 
+
     public function changeStatus($order_id, $status)
     {
         $order = OrderCertificate::find($order_id);
-        $order->status = (int) $status;
+        $order->status = (int)$status;
         $order->save();
     }
 }

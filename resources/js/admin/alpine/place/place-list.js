@@ -1,9 +1,9 @@
-import loadItems from '../composables/load-items'
-import axios from 'axios'
-import deleteItem from '../composables/delete-item'
-import * as UrlUtils from '../../../utils/url'
+import loadItems from "../composables/load-items";
+import axios from "axios";
+import deleteItem from "../composables/delete-item";
+import * as UrlUtils from "../../../utils/url";
 
-export default props => ({
+export default (props) => ({
     request: false,
     baseUrl: props.baseUrl || document.location.href,
     q: props.request.q || '',
@@ -17,22 +17,22 @@ export default props => ({
     items: [],
     links: [],
     init() {
-        this.loadItems(false)
+        this.loadItems(false);
         if (this.region_id > 0) {
-            this.loadDistricts()
+            this.loadDistricts();
         }
     },
     setPage(url) {
-        const params = UrlUtils.parseQuery(url)
-        this.current_page = params['page'] || 1
-        this.loadItems(true)
+        const params = UrlUtils.parseQuery(url);
+        this.current_page = params['page'] || 1;
+        this.loadItems(true);
     },
     setSorting(sorting) {
-        this.sort = sorting
-        this.loadItems(true)
+        this.sort = sorting;
+        this.loadItems(true);
     },
     loadItems(updateUrl = true) {
-        this.request = true
+        this.request = true;
         loadItems({
             url: this.baseUrl,
             params: {
@@ -52,43 +52,46 @@ export default props => ({
                 per_page: 20,
                 order: 'title->uk:desc',
             },
-            onSuccess: response => {
-                this.items = response.data
-                this.links = response.links
-                this.request = false
+            onSuccess: (response) => {
+                this.items = response.data;
+                this.links = response.links;
+                this.request = false;
             },
             onError: () => {
-                this.request = false
-            },
+                this.request = false;
+            }
         })
     },
     loadDistricts() {
-        axios.get('/api/location/districts?region_id=' + this.region_id).then(({ data }) => {
-            this.districts = data
-        })
+        axios.get('/api/location/districts?region_id=' + this.region_id)
+            .then(({data}) => {
+                this.districts = data;
+            });
     },
     regionsChange() {
-        this.page = 1
-        this.district_id = 0
+        this.page = 1;
+        this.district_id = 0;
         if (this.region_id > 0) {
-            this.loadDistricts()
+            this.loadDistricts();
         } else {
-            this.districts = []
+            this.districts = [];
         }
-        this.loadItems()
+        this.loadItems();
     },
     filterChange() {
-        this.current_page = 1
-        this.loadItems()
+        this.current_page = 1;
+        this.loadItems();
     },
     updateItem(id, params) {
-        axios.patch('/admin/place/' + id, params).then(({ data }) => {
-            toast.success(data.message)
-        })
+        axios.patch('/admin/place/' + id, params)
+            .then(({data}) => {
+                toast.success(data.message);
+            })
     },
     deleteItem(id) {
-        deleteItem(`/admin/place/${id}`, data => {
-            this.loadItems(false)
+        deleteItem(`/admin/place/${id}`, (data) => {
+            this.loadItems(false);
         })
-    },
-})
+    }
+
+});

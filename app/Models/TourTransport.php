@@ -19,7 +19,6 @@ class TourTransport extends Model implements HasMedia
     use UseNormalizeMedia;
 
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
 
     public $translatable = [

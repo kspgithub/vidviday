@@ -1,3 +1,3 @@
-import Sortable from 'sortablejs/modular/sortable.complete.esm.js'
+import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 
-window.Sortable = Sortable
+window.Sortable = Sortable;

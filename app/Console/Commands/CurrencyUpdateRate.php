@@ -42,23 +42,24 @@ class CurrencyUpdateRate extends Command
     public function handle()
     {
         $url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json';
-
         try {
             $currencies = Currency::all();
             $rates = collect(json_decode(file_get_contents($url), true));
 
-            foreach ($currencies as $currency) {
+            foreach ($currencies as  $currency) {
                 $rate = $rates->where('cc', $currency->iso)->first();
-                if (! empty($rate)) {
+                if (!empty($rate)) {
                     $currency->course = $rate['rate'];
                     $currency->save();
                 }
             }
 
             Cache::forget('currencies');
+
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
         }
+
 
         return 0;
     }

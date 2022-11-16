@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
+
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -14,6 +15,7 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
+
     /**
      * Display the login view.
      *
@@ -27,7 +29,7 @@ class LoginController extends Controller
     /**
      * Handle an incoming authentication request.
      *
-     * @param LoginRequest  $request
+     * @param LoginRequest $request
      *
      * @return RedirectResponse
      */
@@ -43,7 +45,7 @@ class LoginController extends Controller
     /**
      * Destroy an authenticated session.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return RedirectResponse
      */

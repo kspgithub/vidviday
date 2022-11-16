@@ -21,7 +21,7 @@ class UpdateProfileRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'birthday' => ! empty($this->birthday) ? Carbon::createFromFormat('d.m.Y', $this->birthday) : null,
+            'birthday' => !empty($this->birthday) ? Carbon::createFromFormat('d.m.Y', $this->birthday) : null,
         ]);
     }
 
@@ -43,8 +43,8 @@ class UpdateProfileRequest extends FormRequest
             'viber' => ['nullable'],
             'avatar_upload' => ['mimes:jpg,jpeg,png', 'max:2048'],
             'new_password' => ['nullable', 'same:password_confirmation'],
-            'current_password' => ['nullable', Rule::requiredIf(! empty($this->new_password))],
-            'password_confirmation' => ['nullable', Rule::requiredIf(! empty($this->new_password))],
+            'current_password' => ['nullable', Rule::requiredIf(!empty($this->new_password))],
+            'password_confirmation' => ['nullable', Rule::requiredIf(!empty($this->new_password))],
             'company' => ['nullable', Rule::requiredIf(current_user()->role === 'tour-agent')],
             'address' => ['nullable', Rule::requiredIf(current_user()->role === 'tour-agent')],
             'position' => ['nullable'],

@@ -3,21 +3,18 @@
         <h2 class="h3 mb-30">{{ __('order-section.participants.title') }}</h2>
 
         <div class="mb-30">
-            <form-checkbox
-                v-model="isCustomerParticipant"
-                class="small"
-                name="is_tourist"
-                :label="__('order-section.is-tourist')"
-            />
+            <form-checkbox class="small"
+                           v-model="isCustomerParticipant"
+                           name="is_tourist"
+                           :label="__('order-section.is-tourist')"/>
         </div>
 
-        <order-participant
-            v-for="(participant, idx) in participants"
-            :key="'participant-' + idx"
-            :participant="participant"
-            :index="idx"
-            @update="updateParticipant"
-            @delete="deleteParticipant(idx)"
+        <order-participant v-for="(participant, idx) in participants"
+                           :key="'participant-'+idx"
+                           :participant="participant"
+                           :index="idx"
+                           @update="updateParticipant"
+                           @delete="deleteParticipant(idx)"
         />
 
         <div class="text-right text-center-xs">
@@ -29,12 +26,11 @@
         <div class="participant phone-number">
             <span class="h4"></span>
             <div class="form">
-                <form-input
-                    v-model="participant_phone"
-                    name="participant_phone"
-                    mask="+38 (099) 999-99-99"
-                    :label="__('order-section.participants.phone-label')"
-                    rules="required|tel"
+                <form-input v-model="participant_phone"
+                            name="participant_phone"
+                            mask="+38 (099) 999-99-99"
+                            :label="__('order-section.participants.phone-label')"
+                            rules="required|tel"
                 />
                 <span class="text">{{ __('order-section.participants.phone-description') }}</span>
             </div>
@@ -43,41 +39,41 @@
 </template>
 
 <script>
-import OrderParticipant from './OrderParticipant'
-import FormInput from '../form/FormInput'
-import { useStore } from 'vuex'
-import { useDebounceFormDataProperty, useFormDataProperty } from '../../store/composables/useFormData'
-import { computed, getCurrentInstance, ref, watch } from 'vue'
-import FormCheckbox from '../form/FormCheckbox'
+import OrderParticipant from "./OrderParticipant";
+import FormInput from "../form/FormInput";
+import {useStore} from "vuex";
+import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
+import {computed, getCurrentInstance, ref, watch} from "vue";
+import FormCheckbox from "../form/FormCheckbox";
 
 export default {
-    name: 'OrderTourParticipants',
-    components: { FormCheckbox, FormInput, OrderParticipant },
+    name: "OrderTourParticipants",
+    components: {FormCheckbox, FormInput, OrderParticipant},
     setup() {
-        const store = useStore()
-        const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant')
-        const formData = computed(() => store.state.orderTour.formData)
-        const participants = computed(() => store.state.orderTour.formData.participants)
-        const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone')
+        const store = useStore();
+        const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant');
+        const formData = computed(() => store.state.orderTour.formData);
+        const participants = computed(() => store.state.orderTour.formData.participants);
+        const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
 
         const vm = getCurrentInstance()
 
         // let form = vm.ctx.$.provides[Object.getOwnPropertySymbols(vm.ctx.$.provides)[1]]
 
-        const updateParticipant = data => {
-            store.dispatch('orderTour/updateParticipant', data)
+        const updateParticipant = (data) => {
+            store.dispatch('orderTour/updateParticipant', data);
         }
 
-        const prependParticipant = data => {
-            store.dispatch('orderTour/prependParticipant', data)
+        const prependParticipant = (data) => {
+            store.dispatch('orderTour/prependParticipant', data);
         }
 
-        const deleteParticipant = idx => {
-            store.dispatch('orderTour/deleteParticipant', idx)
+        const deleteParticipant = (idx) => {
+            store.dispatch('orderTour/deleteParticipant', idx);
         }
 
         const addParticipant = () => {
-            store.dispatch('orderTour/addParticipant')
+            store.dispatch('orderTour/addParticipant');
         }
 
         const updateParticipantPhone = () => {
@@ -86,16 +82,16 @@ export default {
             })
         }
 
-        watch(isCustomerParticipant, val => {
+        watch(isCustomerParticipant, (val) => {
             if (val) {
                 updateParticipant({
-                    idx: 0,
-                    data: {
+                    idx: 0, data: {
                         first_name: formData.value.first_name,
                         last_name: formData.value.last_name,
                         middle_name: '',
                         birthday: '',
-                    },
+
+                    }
                 })
                 // form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
                 // form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
@@ -104,16 +100,16 @@ export default {
                 }
             } else {
                 updateParticipant({
-                    idx: 0,
-                    data: {
+                    idx: 0, data: {
                         first_name: '',
                         last_name: '',
                         middle_name: '',
                         birthday: '',
-                    },
+                    }
                 })
             }
         })
+
 
         return {
             isCustomerParticipant,
@@ -123,8 +119,10 @@ export default {
             deleteParticipant,
             addParticipant,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

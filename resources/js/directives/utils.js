@@ -23,7 +23,7 @@ export function throttle(callback, delay, options = {}) {
         if (typeof leading === 'function') {
             leading = leading(state, lastState)
         }
-        if ((!timeout || state !== lastState) && leading) {
+        if ((!timeout || (state !== lastState)) && leading) {
             callback(state, ...currentArgs)
         }
         lastState = state

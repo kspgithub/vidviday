@@ -29,7 +29,7 @@ class MenuFactory extends Factory
             //
             'title' => $title,
             'slug' => $slug,
-            'description' => $this->faker->realText(225),
+            'description'=>$this->faker->realText(225),
         ];
     }
 }

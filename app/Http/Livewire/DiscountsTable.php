@@ -13,8 +13,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class DiscountsTable extends DataTableComponent
 {
-    public array $bulkActions = [];
-
+    public array $bulkActions = [
+    ];
     /**
      * @var string
      */
@@ -54,7 +54,7 @@ class DiscountsTable extends DataTableComponent
 
             Column::make(__('Title'), 'admin_title')
                 ->format(function ($value, $column, $row) {
-                    return ! empty($row->admin_title) ? $row->admin_title : $row->title;
+                    return !empty($row->admin_title) ? $row->admin_title : $row->title;
                 })
                 ->searchable()
                 ->sortable(),
@@ -73,6 +73,7 @@ class DiscountsTable extends DataTableComponent
                     return $row->type === Discount::TYPE_PERCENT ? '' : $row->currency;
                 })
                 ->sortable(),
+
 
             Column::make(__('Published'), 'published')
                 ->format(function ($value, $column, $row) {

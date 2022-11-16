@@ -28,6 +28,6 @@ return [
         'title' => 'Newsletter',
         'tourist' => 'I\'m a tourist',
         'tour-agent' => 'I am a travel agent',
-    ],
+    ]
 
 ];

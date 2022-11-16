@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Place;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Place\TestimonialRequest;
 use App\Models\Country;
-use App\Models\Page;
 use App\Models\Place;
+use App\Models\Region;
+use App\Models\City;
 use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\Badge;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PlaceController extends Controller
@@ -61,23 +64,24 @@ class PlaceController extends Controller
         ]);
     }
 
+
     public function testimonial(TestimonialRequest $request, Place $place)
     {
         $testimonial = new Testimonial();
         $testimonial->model_type = Place::class;
         $testimonial->model_id = $place->id;
         $testimonial->fill($request->validated());
-        $testimonial->name = $request->last_name.' '.$request->first_name;
+        $testimonial->name = $request->last_name . ' ' . $request->first_name;
         $user = current_user();
 
-        if ((int) $request->tour_id > 0) {
+        if ((int)$request->tour_id > 0) {
             $testimonial->related_type = Tour::class;
-            $testimonial->related_id = (int) $request->tour_id;
+            $testimonial->related_id = (int)$request->tour_id;
         }
 
         if ($user) {
             $testimonial->user_id = $user->id;
-            if (! empty($user->avatar)) {
+            if (!empty($user->avatar)) {
                 $testimonial->avatar = $user->avatar;
             }
         }
@@ -99,7 +103,7 @@ class PlaceController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'question' => $testimonial,
+                'question' => $testimonial
             ]);
         }
 

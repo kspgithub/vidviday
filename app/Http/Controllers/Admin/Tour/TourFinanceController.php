@@ -27,7 +27,6 @@ class TourFinanceController extends Controller
         $includeOptions = Finance::query()->where('type_id', 1)->toSelectBox();
         $excludeOptions = Finance::query()->where('type_id', 2)->toSelectBox();
         $finances = Finance::query()->get();
-
         return view('admin.tour.finance.create', [
             'model' => $model,
             'tour' => $tour,
@@ -43,7 +42,7 @@ class TourFinanceController extends Controller
         $model = new TourInclude();
         $model->fill($request->all());
         $model->tour_id = $tour->id;
-        if ((int) $model->finance_id === 0) {
+        if ((int)$model->finance_id === 0) {
             $model->finance_id = null;
         }
         $model->save();
@@ -57,7 +56,6 @@ class TourFinanceController extends Controller
         $includeOptions = Finance::query()->where('type_id', 1)->toSelectBox();
         $excludeOptions = Finance::query()->where('type_id', 2)->toSelectBox();
         $finances = Finance::query()->get();
-
         return view('admin.tour.finance.edit', [
             'model' => $model,
             'tour' => $tour,
@@ -72,11 +70,10 @@ class TourFinanceController extends Controller
     {
         $model->fill($request->all());
         $model->tour_id = $tour->id;
-        if ((int) $model->finance_id === 0) {
+        if ((int)$model->finance_id === 0) {
             $model->finance_id = null;
         }
         $model->save();
-
         return redirect()->route('admin.tour.finance.index', $tour)->withFlashSuccess(__('Record Updated'));
     }
 }

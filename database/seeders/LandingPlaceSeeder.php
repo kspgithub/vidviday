@@ -16,7 +16,7 @@ class LandingPlaceSeeder extends Seeder
         //
         $this->disableForeignKeys();
         $this->truncate('landing_places');
-
+        
         LandingPlace::factory()->count(10)->create();
 
         $this->enableForeignKeys();

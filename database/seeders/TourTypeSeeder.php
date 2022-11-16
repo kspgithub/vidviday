@@ -23,9 +23,9 @@ class TourTypeSeeder extends Seeder
         $this->truncate('tour_types');
         $lorem = lipsum(10);
         $items = [
-            ['title' => ['uk' => 'Походи в гори'], 'text' => ['uk' => $lorem],  'published' => 1],
-            ['title' => ['uk' => 'Тури на море'], 'text' => ['uk' => $lorem],  'published' => 1],
-            ['title' => ['uk' => 'Тури вихідного дня'], 'text' => ['uk' => $lorem],  'published' => 1],
+            ['title'=>['uk'=>'Походи в гори'], 'text'=>['uk'=>$lorem],  'published'=>1],
+            ['title'=>['uk'=>'Тури на море'], 'text'=>['uk'=>$lorem],  'published'=>1],
+            ['title'=>['uk'=>'Тури вихідного дня'], 'text'=>['uk'=>$lorem],  'published'=>1],
         ];
 
         foreach ($items as $item) {

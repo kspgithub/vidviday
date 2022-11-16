@@ -1,5 +1,5 @@
-import Inputmask from 'inputmask'
+import Inputmask from "inputmask";
 
-export default (el, { expression }) => {
-    Inputmask(expression).mask(el)
+export default (el, {expression}) => {
+    Inputmask(expression).mask(el);
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
@@ -10,10 +9,13 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Traits\HasSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -35,6 +37,7 @@ class Accommodation extends TranslatableModel implements HasMedia
         'text',
         'slug',
     ];
+
 
     public $fillable = [
         'title',
@@ -81,6 +84,8 @@ class Accommodation extends TranslatableModel implements HasMedia
         return $this->belongsTo(City::class);
     }
 
+
+
     public function scopeAutocomplete(Builder $query, $search = '')
     {
         $search = strtolower(urldecode(trim($search)));
@@ -97,13 +102,12 @@ class Accommodation extends TranslatableModel implements HasMedia
                 'slug',
             ]);
 
-        if (! empty($search)) {
+        if (!empty($search)) {
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
                 ->orderBy('relevant');
         } else {
             $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
         }
-
         return $query;
     }
 
@@ -114,7 +118,7 @@ class Accommodation extends TranslatableModel implements HasMedia
     {
         return [
             $value_key => $this->id,
-            $text_key => $this->title.($this->region ? ' ('.$this->region->title.')' : ''),
+            $text_key => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
         ];
     }
 }

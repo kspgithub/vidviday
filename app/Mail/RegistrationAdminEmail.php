@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
 
 class RegistrationAdminEmail extends BaseTemplateEmail
 {

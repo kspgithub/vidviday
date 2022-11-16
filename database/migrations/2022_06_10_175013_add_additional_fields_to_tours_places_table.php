@@ -38,6 +38,7 @@ class AddAdditionalFieldsToToursPlacesTable extends Migration
     public function down()
     {
         Schema::table('tours_places', function (Blueprint $table) {
+
             $table->dropForeign('tours_places_country_id_foreign');
             $table->dropForeign('tours_places_region_id_foreign');
             $table->dropForeign('tours_places_district_id_foreign');

@@ -117,13 +117,13 @@ class TourPlaces extends Component
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.place_id' => Rule::when(fn () => $this->form['type_id'] == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.place_id' => Rule::when(fn() => $this->form['type_id'] == TourPlace::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourPlace::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourPlace::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -153,17 +153,17 @@ class TourPlaces extends Component
         }
 
         return view('admin.tour.places.livewire', [
-            'items' => $this->tour->groupTourPlaces,
+            'items' => $this->tour->groupTourPlaces
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourPlace::TYPE_CUSTOM) {
+        if($type_id == TourPlace::TYPE_CUSTOM) {
             $this->form['place_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->form['country_id'] = 0;
@@ -279,7 +279,7 @@ class TourPlaces extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if ($index !== false) {
+        if($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -339,6 +339,7 @@ class TourPlaces extends Component
         $this->form['lng'] = $this->model->lng;
 
         $this->dispatchBrowserEvent('initLocation', []);
+
     }
 
     public function syncLocation(array $location = [

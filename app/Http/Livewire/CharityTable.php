@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+
 use App\Models\Charity;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -13,7 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class CharityTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string

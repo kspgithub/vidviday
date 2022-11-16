@@ -1,31 +1,31 @@
 <template>
     <a href="#" @click.prevent="openPopup">
-        <slot />
+        <slot/>
     </a>
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import {useStore} from "vuex";
 import store from '../../store/index.js'
 
 export default {
-    name: 'PopupSubBtn',
+    name: "PopupSubBtn",
     props: {
-        type: String,
+        type: String
     },
     setup(props) {
-        const store = useStore()
+        const store = useStore();
         const openPopup = () => {
             if (props.type === 'tourist') {
                 const mailerLiteTourist = $('#mailerlite-tourist')
-                if (mailerLiteTourist.length && store.state.isProd) {
+                if(mailerLiteTourist.length && store.state.isProd) {
                     mailerLiteTourist.find('button').click()
                 } else {
                     store.commit('userQuestion/SET_POPUP_USER_SUB_OPEN', true)
                 }
             } else {
                 const mailerLiteAgent = $('#mailerlite-agent')
-                if (mailerLiteAgent.length && store.state.isProd) {
+                if(mailerLiteAgent.length && store.state.isProd) {
                     mailerLiteAgent.find('button').click()
                 } else {
                     store.commit('userQuestion/SET_POPUP_AGENT_SUB_OPEN', true)
@@ -35,8 +35,10 @@ export default {
         return {
             openPopup,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

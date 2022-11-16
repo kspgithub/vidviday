@@ -1,71 +1,66 @@
 <template>
-    <div class="datepicker-input datepicker-dropdown" :class="{ open: open, invalid: errorMessage }">
-        <input v-model="modelValue" :name="name" type="hidden" />
-        <span
-            :title="current ? current.text : ''"
-            class="datepicker-placeholder"
-            :data-tooltip="errorMessage"
-            @click="open = !open"
-        >
+    <div class="datepicker-input datepicker-dropdown" :class="{open: open, invalid: errorMessage}">
+        <input :name="name" v-model="modelValue" type="hidden">
+        <span :title="current ? current.text : ''" class="datepicker-placeholder" @click="open = !open"
+              :data-tooltip="errorMessage">
             {{ current ? current.text : label }}
         </span>
         <ul class="datepicker-options">
-            <li
-                v-for="option in options"
-                :class="{ selected: option.value === modelValue }"
+            <li v-for="option in options"
+                :class="{selected: option.value === modelValue}"
                 class="opt"
-                @click="change(option)"
-            >
-                <label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+                @click="change(option)"><label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import useFormField from './composables/useFormField'
+import {computed, ref} from "vue";
+import useFormField from "./composables/useFormField";
 
 export default {
-    name: 'FormSelectEvent',
+    name: "FormSelectEvent",
     props: {
         name: String,
         label: {
             type: String,
-            default: '',
+            default: ''
         },
         modelValue: null,
         options: Array,
         rules: {
             type: [String, Object],
-            default: '',
+            default: ''
         },
         preselect: {
             type: Boolean,
-            default: true,
+            default: true
         },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const field = useFormField(props, emit)
+    setup(props, {emit}) {
+        const field = useFormField(props, emit);
 
-        const open = ref(false)
+        const open = ref(false);
 
         const current = computed(() => {
-            const option = props.options.find(o => o.value === props.modelValue)
-            return option ? option : props.preselect ? props.options[0] : null
+            const option = props.options.find(o => o.value === props.modelValue);
+            return option ? option : (props.preselect ? props.options[0] : null);
         })
 
-        const change = option => {
-            open.value = false
+        const change = (option) => {
+            open.value = false;
             emit('update:modelValue', option.value)
         }
 
         const close = () => {
             if (open.value) {
-                open.value = false
+                open.value = false;
             }
+
         }
+
 
         return {
             current,
@@ -74,8 +69,10 @@ export default {
             open,
             ...field,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

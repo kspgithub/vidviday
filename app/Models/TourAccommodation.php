@@ -9,7 +9,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
-
 class TourAccommodation extends TranslatableModel implements HasMedia
 {
     use HasFactory;
@@ -17,16 +16,12 @@ class TourAccommodation extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use JsonLikeScope;
-
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
-
     public $translatable = [
         'text',
         'title',
     ];
-
     protected $fillable = [
         'type_id',
         'tour_id',
@@ -38,7 +33,6 @@ class TourAccommodation extends TranslatableModel implements HasMedia
         'text',
         'nights',
     ];
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -54,12 +48,10 @@ class TourAccommodation extends TranslatableModel implements HasMedia
     {
         return $this->belongsTo(Tour::class, 'tour_id');
     }
-
     public function accommodation()
     {
         return $this->belongsTo(Accommodation::class, 'accommodation_id');
     }
-
     public function types()
     {
         return $this->belongsToMany(AccommodationType::class, 'tour_accomm_types', 'accomm_id', 'type_id');

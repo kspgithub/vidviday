@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
 use App\Models\OrderTransport;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +22,16 @@ use Illuminate\Support\Facades\Route;
 
 $middleware = [];
 
-if (app()->environment(['production'])) {
+if(app()->environment(['production'])) {
 //    $middleware[] = 'laravel-pagespeed';
 }
 
 Route::middleware($middleware)->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    //Route::get('/test-error', [HomeController::class, 'testError'])->name('test-error');
 
-    // Switch between the included languages
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+//Route::get('/test-error', [HomeController::class, 'testError'])->name('test-error');
+
+// Switch between the included languages
     Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 
     Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('currency.change');
@@ -56,6 +58,7 @@ Route::middleware($middleware)->group(function () {
     require base_path('routes/frontend/crm.php');
     require base_path('routes/frontend/purchase.php');
 });
+
 
 //Route::get('/mail/html', function () {
 //    return view('emails.order-transport', ['order' => OrderTransport::find(1), 'showFooter' => true]);

@@ -10,7 +10,6 @@ use Illuminate\Database\Seeder;
 class FinanceSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
-
     /**
      * Run the database seeds.
      *
@@ -22,6 +21,7 @@ class FinanceSeeder extends Seeder
         $this->disableForeignKeys();
         //
         $this->truncate('finances');
+
 
         Finance::factory()->count(10)->create();
         $this->enableForeignKeys();

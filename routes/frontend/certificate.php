@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Certificate\CertificateController;
 
 Route::group([
@@ -12,3 +13,4 @@ Route::group([
     Route::get('/order/{order}/purchase', [CertificateController::class, 'purchase'])->name('order.purchase');
     Route::get('/order/{order}/success', [CertificateController::class, 'orderSuccess'])->name('order.success');
 });
+

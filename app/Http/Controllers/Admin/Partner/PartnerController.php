@@ -13,7 +13,6 @@ class PartnerController extends Controller
     public function index(Request $request)
     {
         $partners = Partner::query()->get();
-
         return view('admin.partner.index', ['partners' => $partners]);
     }
 
@@ -22,7 +21,6 @@ class PartnerController extends Controller
         $partner = new Partner();
         $partner->status = 'active';
         $tours = Tour::toSelectBox();
-
         return view('admin.partner.create', ['partner' => $partner, 'tours' => $tours]);
     }
 
@@ -47,10 +45,10 @@ class PartnerController extends Controller
         return redirect()->route('admin.partner.index')->withFlashSuccess(__('Record Created'));
     }
 
+
     public function edit(Partner $partner)
     {
         $tours = Tour::toSelectBox();
-
         return view('admin.partner.edit', ['partner' => $partner, 'tours' => $tours]);
     }
 
@@ -66,14 +64,12 @@ class PartnerController extends Controller
         $partner->tours = $request->tours ?? [];
         $partner->config = $request->config ?? null;
         $partner->save();
-
         return redirect()->route('admin.partner.index')->withFlashSuccess(__('Record Updated'));
     }
 
     public function destroy(Partner $partner)
     {
         $partner->delete();
-
         return redirect()->route('admin.partner.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

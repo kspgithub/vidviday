@@ -1,36 +1,38 @@
-export default schedule => ({
+export default (schedule) => ({
     request: false,
     schedule: schedule,
     tour: schedule.tour || null,
     manager: schedule.manager || null,
     orders: schedule.orders || [],
-    init() {},
+    init() {
+
+    },
     get placesAvailable() {
-        return Math.max(schedule.places - schedule.places_booked, 0)
+        return Math.max(schedule.places - schedule.places_booked, 0);
     },
     get scheduleUrl() {
-        return `/admin/crm/schedules/${this.schedule.id}`
+        return `/admin/crm/schedules/${this.schedule.id}`;
     },
     get tourUrl() {
-        return this.tour ? `/admin/tour/${this.tour.id}/schedule` : '#'
+        return this.tour ? `/admin/tour/${this.tour.id}/schedule` : '#';
     },
     get tourTitle() {
-        return this.tour ? this.tour.title.uk : ''
+        return this.tour ? this.tour.title.uk : '';
     },
     get tourManager() {
-        return this.manager ? this.manager.name : '-'
+        return this.manager ? this.manager.name : '-';
     },
     updateSchedule(params) {
-        this.request = true
-        axios
-            .patch(`/admin/crm/schedules/${this.schedule.id}`, params)
-            .then(({ data }) => {
+        this.request = true;
+        axios.patch(`/admin/crm/schedules/${this.schedule.id}`, params)
+            .then(({data}) => {
                 //console.log(data);
 
-                this.request = false
+                this.request = false;
             })
-            .catch(err => {
-                this.request = false
+            .catch((err) => {
+
+                this.request = false;
             })
-    },
+    }
 })

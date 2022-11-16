@@ -32,8 +32,6 @@
 
                     @include('home.includes.banner')
 
-                    <x-vue-component :component="'test-component'" :props="['name' => 'Yyy']" />
-
                     <div v-is="'tour-search'">
                         <!-- MOBILE BUTTONS BAR -->
                         @include('includes.mobile-btns-bar')

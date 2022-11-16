@@ -19,6 +19,7 @@ class Role extends SpatieRole
         'guard_name',
     ];
 
+
     public static function toSelectBox()
     {
         return self::all()->map(fn ($role) => ['value' => $role->name, 'text' => __(Str::ucfirst(str_replace('-', ' ', $role->name)))]);

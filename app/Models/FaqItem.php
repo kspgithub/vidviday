@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Scope\UsePublishedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class FaqItem extends TranslatableModel
@@ -13,27 +14,22 @@ class FaqItem extends TranslatableModel
     use UsePublishedScope;
 
     public const SECTION_COMMON = 'common';
-
     public const SECTION_CORPORATE = 'corporate';
-
     public const SECTION_TOURIST = 'tourist';
-
     public const SECTION_TOUR_AGENT = 'tour-agent';
-
     public const SECTION_CERTIFICATE = 'certificate';
-
     public const SECTION_TOUR = 'tour';
-
     public const SECTION_SCHOOL = 'school';
 
+
     public static $sections = [
-        //        self::SECTION_COMMON => 'Загальні питання',
+//        self::SECTION_COMMON => 'Загальні питання',
         self::SECTION_CORPORATE => 'Корпоративному клієнту',
         self::SECTION_TOURIST => 'Туристу',
         self::SECTION_TOUR_AGENT => 'Турагенту',
         self::SECTION_CERTIFICATE => 'Сертифікат',
         self::SECTION_SCHOOL => 'Школам',
-        //        self::SECTION_TOUR => 'Тур',
+//        self::SECTION_TOUR => 'Тур',
     ];
 
     public static $sectionTitles = [
@@ -98,11 +94,10 @@ class FaqItem extends TranslatableModel
     {
         $locale = app()->getLocale();
         $items = self::query()->published()->where('section', $section)->orderBy('sort_order')->get();
-
-        return (object) [
+        return (object)[
             'slug' => $section,
             'title' => self::$sectionTitles[$section][$locale],
-            'items' => $items->where('section', $section),
+            'items' => $items->where("section", $section)
         ];
     }
 
@@ -112,13 +107,12 @@ class FaqItem extends TranslatableModel
         $locale = app()->getLocale();
         $section_items = [];
         foreach ($sections as $section) {
-            $section_items[] = (object) [
+            $section_items[] = (object)[
                 'slug' => $section,
                 'title' => self::$sectionTitles[$section][$locale],
-                'items' => $items->where('section', $section),
+                'items' => $items->where("section", $section)
             ];
         }
-
         return collect($section_items);
     }
 }

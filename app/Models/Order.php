@@ -10,8 +10,8 @@ use App\Models\Traits\Scope\OrderScope;
 use App\Models\Traits\UseOrderConstants;
 use App\Models\Traits\UsePaymentOnline;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 class Order extends TranslatableModel implements Auditable, Purchasable
 {
@@ -25,43 +25,28 @@ class Order extends TranslatableModel implements Auditable, Purchasable
     use UsePaymentOnline;
 
     public const STATUS_NEW = 'new';
-
     public const STATUS_BOOKED = 'booked'; // Бронь
-
     public const STATUS_NOT_SENT = 'not-sent'; // Не надіслано
-
     public const STATUS_INTERESTED = 'interested';  // Цікавились
-
     public const STATUS_RESERVE = 'reserve';  // Резерв
-
     public const STATUS_DEPOSIT = 'deposit'; // Завдаток
-
     public const STATUS_PAYED = 'payed'; // Оплата
-
     public const STATUS_PENDING_CANCEL = 'pending-cancel'; // Очікує скасування
-
     public const STATUS_CANCELED = 'canceled'; // Скасовано
-
     public const STATUS_COMPLETED = 'completed'; // Виконано
 
     public const CONFIRMATION_EMAIL = 1;
-
     public const CONFIRMATION_VIBER = 2;
-
     public const CONFIRMATION_PHONE = 3;
 
     public const GROUP_TEAM = 0;
-
     public const GROUP_CORPORATE = 1;
 
     public const PAYMENT_PENDING = 0;
-
     public const PAYMENT_COMPLETE = 1;
-
     public const PAYMENT_RETURNED = 2;
 
     public const PROGRAM_EXISTS = 0;
-
     public const PROGRAM_CUSTOM = 1;
 
     protected $fillable = [

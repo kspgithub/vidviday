@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+
+use App\Lib\Bitrix24\Core\CRest;
 use App\Lib\Bitrix24\CRM\Dynamic\BitrixTourSchedule;
 use Illuminate\Console\Command;
 
@@ -39,7 +41,6 @@ class BitrixDebug extends Command
     public function handle()
     {
         $data = BitrixTourSchedule::get(18);
-
         return 0;
     }
 }

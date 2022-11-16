@@ -20,12 +20,15 @@ class Card extends Component
      */
     public $tour;
 
+
     /**
      * @var TourSchedule
      */
     public $schedule;
 
+
     public $vue = false;
+
 
     public $history = false;
 
@@ -36,7 +39,7 @@ class Card extends Component
      */
     public function __construct(Tour $tour, $mode = 'thumb', $vue = false, $history = false)
     {
-        if (! array_key_exists('testimonials_avg_rating', $tour->getAttributes())) {
+        if(!array_key_exists('testimonials_avg_rating', $tour->getAttributes())) {
             $tour->loadAvg('testimonials', 'rating');
         }
 
@@ -59,7 +62,6 @@ class Card extends Component
     public function render()
     {
         debug($this->tour->testimonials_avg_rating);
-
         return view('components.tour.card');
     }
 }

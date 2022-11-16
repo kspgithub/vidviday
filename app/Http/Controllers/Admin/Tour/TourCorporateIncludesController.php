@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class TourCorporateIncludesController extends Controller
 {
+
     public function index(Tour $tour)
     {
         $corporateIncludes = [

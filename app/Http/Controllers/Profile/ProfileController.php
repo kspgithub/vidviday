@@ -26,6 +26,7 @@ class ProfileController extends Controller
         return view('profile.index');
     }
 
+
     public function update(UpdateProfileRequest $request)
     {
         $user = current_user();
@@ -38,7 +39,6 @@ class ProfileController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'OK']);
         }
-
         return redirect()->back()->withFlashSuccess('Профіль оновлено');
     }
 
@@ -46,16 +46,16 @@ class ProfileController extends Controller
     {
         $user = current_user();
         $orders = $user->orders()->with(['tour', 'notes'])->paginate(20);
-
         return view('profile.orders', ['orders' => $orders]);
     }
+
 
     public function addNote(Request $request)
     {
         $request->validate(['text' => 'required']);
         $user = current_user();
         $text = $request->input('text', '');
-        if (! empty($text)) {
+        if (!empty($text)) {
             /**
              * @var Order $order
              */
@@ -68,12 +68,13 @@ class ProfileController extends Controller
                 return response()->json(['result' => 'success', 'note' => $note]);
             }
         }
-
         return redirect()->back()->withFlashSuccess(__('Notes added'));
     }
 
+
     public function history(Request $request)
     {
+
         $user = current_user();
         if ($request->ajax()) {
             return $user->tourHistory()->search()->paginate(12);
@@ -82,18 +83,20 @@ class ProfileController extends Controller
         return view('profile.history');
     }
 
+
     public function favourites(Request $request)
     {
         $user = current_user();
         if ($request->ajax()) {
             return $user->tourFavourites()->search()->paginate(12);
         }
-
         return view('profile.favourites');
     }
 
+
     public function deleteAccount()
     {
+
         return view('profile.delete');
     }
 

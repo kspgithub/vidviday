@@ -4,11 +4,14 @@ namespace App\Models\Traits\Relationship;
 
 use App\Models\Direction;
 use App\Models\EventGroup;
+use App\Models\EventItem;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait EventRelationship
 {
+
     /**
      * Направления
      *
@@ -38,4 +41,5 @@ trait EventRelationship
     {
         return $this->belongsToMany(Tour::class, 'tour_event');
     }
+
 }

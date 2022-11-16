@@ -66,5 +66,5 @@ return [
         'secret' => env('WFP_SECRET', ''),
         'test' => env('WFP_TEST', true),
         'domain' => env('WFP_DOMAIN', 'https://dev.vidviday.org.ua'),
-    ],
+    ]
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\CRM;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class StoreUserRequest.

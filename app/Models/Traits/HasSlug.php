@@ -15,7 +15,7 @@ trait HasSlug
         }
 
         if ($this->slugOptions->preventOverwrite) {
-            if (! empty($this->{$this->slugOptions->slugField})) {
+            if (!empty($this->{$this->slugOptions->slugField})) {
                 return;
             }
         }

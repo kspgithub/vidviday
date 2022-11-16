@@ -22,7 +22,6 @@ class TourFood extends TranslatableModel implements HasMedia
     use JsonLikeScope;
 
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
 
     public $translatable = [
@@ -48,6 +47,7 @@ class TourFood extends TranslatableModel implements HasMedia
     protected $appends = [
         'calc_title',
     ];
+
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -96,7 +96,7 @@ class TourFood extends TranslatableModel implements HasMedia
     {
         $translations = $this->getTranslations('text');
 
-        return $translations[app()->getLocale()] ?? ($this->time ? $this->time->title.' '.__('helpers.at_N_day', ['day' => ordinal_number($this->day, app()->getLocale())]) : '');
+        return $translations[app()->getLocale()] ?? ($this->time ? $this->time->title . ' ' . __('helpers.at_N_day', ['day' => ordinal_number($this->day, app()->getLocale())]) : '');
     }
 
 //    public function getTextAttribute()

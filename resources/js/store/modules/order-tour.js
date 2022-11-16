@@ -1,5 +1,5 @@
-import { calcChildDiscount } from '../../composables/useDiscount'
-import { autocompleteTours, fetchTourSchedules } from '../../services/tour-service'
+import {calcChildDiscount} from "../../composables/useDiscount";
+import {autocompleteTours, fetchTourSchedules} from "../../services/tour-service";
 
 const DEFAULT_VALUES = {
     tour_id: 0,
@@ -63,33 +63,33 @@ export default {
             paymentTypes: [],
             confirmationTypes: [],
             rooms: [],
-            formData: { ...DEFAULT_VALUES },
+            formData: {...DEFAULT_VALUES}
         }
     },
     mutations: {
         INIT(state, payload) {
-            state.currentStep = payload.currentStep || 1
-            state.user = payload.user || null
-            state.schedules = payload.schedules || []
-            state.discounts = payload.discounts || []
-            state.rooms = payload.rooms || []
-            state.paymentTypes = payload.paymentTypes || []
-            state.confirmationTypes = payload.confirmationTypes || []
+            state.currentStep = payload.currentStep || 1;
+            state.user = payload.user || null;
+            state.schedules = payload.schedules || [];
+            state.discounts = payload.discounts || [];
+            state.rooms = payload.rooms || [];
+            state.paymentTypes = payload.paymentTypes || [];
+            state.confirmationTypes = payload.confirmationTypes || [];
         },
         SET_CURRENT_STEP(state, value) {
-            state.currentStep = value
+            state.currentStep = value;
         },
         SET_ADDITIONAL(state, value) {
-            state.additional = value
+            state.additional = value;
         },
         SET_TOUR(state, value) {
-            state.tour = value
-            Object.assign(state.formData, { tour_id: value ? value.id : 0 })
+            state.tour = value;
+            Object.assign(state.formData, {tour_id: value ? value.id : 0});
         },
         SET_USER(state, value) {
-            state.user = value
+            state.user = value;
 
-            if (value.id) {
+            if(value.id) {
                 state.formData.first_name = value.first_name
                 state.formData.last_name = value.last_name
                 state.formData.email = value.email
@@ -97,164 +97,145 @@ export default {
             }
         },
         SET_SCHEDULES_REQUEST(state, value) {
-            state.fetchSchedulesRequest = value
+            state.fetchSchedulesRequest = value;
         },
         SET_SCHEDULES(state, value) {
-            state.schedules = value
+            state.schedules = value;
         },
         SET_DISCOUNTS(state, value) {
-            state.discounts = value
+            state.discounts = value;
         },
         UPDATE_FORM_DATA(state, value) {
-            state.formData = { ...state.formData, ...value }
+            state.formData = {...state.formData, ...value};
         },
         SET_POPUP_OPEN(state, value) {
-            state.popupOpen = value
+            state.popupOpen = value;
         },
         SET_CALENDAR_OPEN(state, value) {
-            state.calendarOpen = value
+            state.calendarOpen = value;
         },
     },
     getters: {
-        departureOptions:
-            state =>
-            (text = 'start_title', value = 'id') => {
-                return state.schedules.map(sch => {
-                    return {
-                        value: sch[value],
-                        text: sch[text],
-                    }
-                })
-            },
+        departureOptions: state => (text = 'start_title', value = 'id') => {
+            return state.schedules.map((sch) => {
+                return {
+                    value: sch[value],
+                    text: sch[text],
+                }
+            })
+        },
         isTourAgent: state => state.user && state.user.type === 'tour-agent',
         // Выбранная дата проведения тура (сборная группа)
         selectedSchedule: state => state.schedules.find(sch => sch.id === state.formData.schedule_id),
         // Продолжительность тура, дней
-        tourDays: state => (state.tour ? state.tour.duration : 0),
+        tourDays: (state) => state.tour ? state.tour.duration : 0,
         // Стоимость места в выбранном туре
-        tourPrice: (state, getters) =>
-            getters.selectedSchedule ? getters.selectedSchedule.price : state.tour ? state.tour.price : 0,
+        tourPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.price : (state.tour ? state.tour.price : 0),
         // Что входит в цену корпоратива
-        tourCorporateIncludes: (state, getters) => (state.tour ? state.tour.corporate_includes : []),
+        tourCorporateIncludes: (state, getters) => state.tour ? state.tour.corporate_includes : [],
 
-        accommodationPrice: (state, getters) =>
-            getters.selectedSchedule ? getters.selectedSchedule.accomm_price : state.tour ? state.tour.accomm_price : 0,
+        accommodationPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.accomm_price : (state.tour ? state.tour.accomm_price : 0),
         // Скидки на детей
-        childrenDiscounts: state => state.discounts.filter(d => d.category.includes('children')),
+        childrenDiscounts: (state) => state.discounts.filter(d => d.category.includes('children')),
         // Дети до 6 бесплатно?
         childrenYoungFree: (state, getters) => {
-            return !!getters.childrenDiscounts.find(
-                d => (d.category === 'children_young' || d.category === 'children') && d.type === 1 && d.price === 100,
-            )
+            return !!getters.childrenDiscounts.find(d => (d.category === 'children_young' || d.category === 'children') && d.type === 1 && d.price === 100);
         },
         // Дети до 12 бесплатно?
         childrenOlderFree: (state, getters) => {
-            return !!getters.childrenDiscounts.find(
-                d => (d.category === 'children_older' || d.category === 'children') && d.type === 1 && d.price === 100,
-            )
+            return !!getters.childrenDiscounts.find(d => (d.category === 'children_older' || d.category === 'children') && d.type === 1 && d.price === 100);
         },
         //Скидка для детей до 6 лет
         childrenYoungDiscount: (state, getters) => {
-            let total = 0
+            let total = 0;
             if (state.formData.children && state.formData.children_young > 0 && !getters.childrenYoungFree) {
-                const discount =
-                    getters.childrenDiscounts.find(d => d.category === 'children_young') ||
-                    getters.childrenDiscounts.find(d => d.category === 'children')
+                const discount = getters.childrenDiscounts.find(d => d.category === 'children_young') ||
+                    getters.childrenDiscounts.find(d => d.category === 'children');
                 if (discount) {
-                    let places = state.formData.children_young
+                    let places = state.formData.children_young;
                     total = calcChildDiscount(getters.tourPrice, places, getters.tourDays, discount)
                 }
             }
-            return total
+            return total;
         },
         // Скидка для детей 6-12 лет
         childrenOlderDiscount: (state, getters) => {
-            let total = 0
+            let total = 0;
             if (state.formData.children && state.formData.children_older > 0 && !getters.childrenOlderFree) {
-                const discount =
-                    getters.childrenDiscounts.find(d => d.category === 'children_older') ||
-                    getters.childrenDiscounts.find(d => d.category === 'children')
+                const discount = getters.childrenDiscounts.find(d => d.category === 'children_older') ||
+                    getters.childrenDiscounts.find(d => d.category === 'children');
 
                 if (discount) {
-                    total = calcChildDiscount(
-                        getters.tourPrice,
-                        state.formData.children_older,
-                        getters.tourDays,
-                        discount,
-                    )
+                    total = calcChildDiscount(getters.tourPrice, state.formData.children_older, getters.tourDays, discount);
                 }
             }
-            return total
+            return total;
         },
         // Всего мест вместе с детьми
         totalPlaces: (state, getters) => {
-            let total = state.formData.places
+            let total = state.formData.places;
             if (state.formData.children) {
-                total += state.formData.children_young
-                total += state.formData.children_older
+                total += state.formData.children_young;
+                total += state.formData.children_older;
             }
-            return total
+            return total;
         },
         // Всего мест которые оплачиваются
         totalPayedPlaces: (state, getters) => {
-            let total = state.formData.places
+            let total = state.formData.places;
             if (state.formData.children && !getters.childrenYoungFree) {
-                total += state.formData.children_young
+                total += state.formData.children_young;
             }
             if (state.formData.children && !getters.childrenOlderFree) {
-                total += state.formData.children_older
+                total += state.formData.children_older;
             }
-            return total
+            return total;
         },
         // Стоимость тура без скидок
         tourTotalPrice: (state, getters) => {
-            return getters.totalPlaces * getters.tourPrice
+            return getters.totalPlaces * getters.tourPrice;
         },
         // Скидки на детей
         totalChildrenDiscount: (state, getters) => {
-            let total = 0
+            let total = 0;
             if (state.formData.children) {
-                total += getters.childrenYoungDiscount
-                total += getters.childrenOlderDiscount
+                total += getters.childrenYoungDiscount;
+                total += getters.childrenOlderDiscount;
             }
-            return total
+            return total;
         },
+
 
         // Комиссия агента
         totalCommission: (state, getters, rootState, rootGetters) => {
-            if (rootGetters['user/isTourAgent']) {
-                const price = getters.selectedSchedule
-                    ? getters.selectedSchedule.commission
-                    : state.tour
-                    ? state.tour.commission
-                    : 0
-                return price * getters.totalPayedPlaces
+            if (rootGetters["user/isTourAgent"]) {
+                const price = getters.selectedSchedule ? getters.selectedSchedule.commission : (state.tour ? state.tour.commission : 0);
+                return price * getters.totalPayedPlaces;
             }
-            return 0
+            return 0;
         },
         // Доплата за размещение
         totalAccommodation: (state, getters, rootState, rootGetters) => {
-            const price = getters.accommodationPrice
-            return price * (state.formData.accommodation['1o_sgl'] || 0)
+            const price = getters.accommodationPrice;
+            return price * (state.formData.accommodation['1o_sgl'] || 0);
         },
         // Общая стоимость со скидками
         totalTour: (state, getters) => {
-            const price = getters.tourPrice
-            let total = price * getters.totalPayedPlaces
-            total -= getters.totalChildrenDiscount
-            return total
+            const price = getters.tourPrice;
+            let total = price * getters.totalPayedPlaces;
+            total -= getters.totalChildrenDiscount;
+            return total;
         },
         // Общая стоимость со скидками и комиссией
         totalTourComm: (state, getters) => {
-            return getters.totalTour - getters.totalCommission
+            return getters.totalTour - getters.totalCommission;
         },
         // Общая стоимость с доплатами, скидками и комиссией
         totalPrice: (state, getters) => {
-            return getters.totalTourComm + getters.totalAccommodation
+            return getters.totalTourComm + getters.totalAccommodation;
         },
-        maxPlaces: (state, getters) =>
-            state.formData.group_type === 1 ? 999 : getters.selectedSchedule ? getters.selectedSchedule.places : 100,
-        participants: state => state.formData.participants || [],
+        maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
+        participants: (state) => state.formData.participants || [],
         oneClickData: state => {
             return {
                 first_name: state.formData.first_name,
@@ -271,102 +252,103 @@ export default {
         },
     },
     actions: {
-        clearForm({ commit }) {
-            commit('UPDATE_FORM_DATA', { ...DEFAULT_VALUES })
-            commit('SET_ADDITIONAL', 1)
+        clearForm({commit}) {
+            commit('UPDATE_FORM_DATA', {...DEFAULT_VALUES});
+            commit('SET_ADDITIONAL', 1);
+
         },
-        setStep({ commit }, step) {
-            commit('SET_CURRENT_STEP', step)
+        setStep({commit}, step) {
+            commit('SET_CURRENT_STEP', step);
         },
-        nextStep({ commit, state }) {
-            commit('SET_CURRENT_STEP', state.currentStep + 1)
+        nextStep({commit, state}) {
+            commit('SET_CURRENT_STEP', state.currentStep + 1);
         },
-        prevStep({ commit, state }) {
-            commit('SET_CURRENT_STEP', state.currentStep - 1)
+        prevStep({commit, state}) {
+            commit('SET_CURRENT_STEP', state.currentStep - 1);
         },
-        setAccommodation({ commit, state }) {
+        setAccommodation({commit, state}) {
             const accomm = {
                 other: 0,
                 other_text: '',
-            }
+            };
             state.rooms.forEach(r => {
-                const slug = r.slug.replace('-', '_')
-                accomm[slug] = state.formData.accommodation[slug] || 0
+                const slug = r.slug.replace('-', '_');
+                accomm[slug] = state.formData.accommodation[slug] || 0;
             })
-            commit('UPDATE_FORM_DATA', { accommodation: accomm })
+            commit('UPDATE_FORM_DATA', {accommodation: accomm});
         },
-        resetAccommodation({ commit, state }) {
+        resetAccommodation({commit, state}) {
             const accomm = {
                 other: 0,
                 other_text: '',
-            }
+            };
             state.rooms.forEach(r => {
-                const slug = r.slug.replace('-', '_')
-                accomm[slug] = 0
+                const slug = r.slug.replace('-', '_');
+                accomm[slug] = 0;
             })
-            commit('UPDATE_FORM_DATA', { accommodation: accomm })
+            commit('UPDATE_FORM_DATA', {accommodation: accomm});
         },
-        setParticipants({ commit, state }) {
-            let total = state.formData.places
-            const items = []
+        setParticipants({commit, state}) {
+            let total = state.formData.places;
+            const items = [];
 
             if (state.formData.children && state.formData.children_older > 0) {
-                total += state.formData.children_older
+                total += state.formData.children_older;
             }
             if (state.formData.children && state.formData.children_young > 0) {
-                total += state.formData.children_young
+                total += state.formData.children_young;
             }
             if (state.formData.children && state.formData.without_place_count > 0) {
-                total += state.formData.without_place_count
+                total += state.formData.without_place_count;
             }
             for (let i = 0; i < total; i++) {
                 if (state.formData.participants[i]) {
-                    items.push(state.formData.participants[i])
+                    items.push(state.formData.participants[i]);
                 } else {
                     items.push({
                         first_name: '',
                         last_name: '',
                         middle_name: '',
                         birthday: '',
-                    })
+                    });
                 }
             }
-            commit('UPDATE_FORM_DATA', { participants: items })
+            commit('UPDATE_FORM_DATA', {participants: items});
         },
-        addParticipant({ commit, state }) {
-            const items = state.formData.participants || []
+        addParticipant({commit, state}) {
+            const items = state.formData.participants || [];
             items.push({
                 first_name: '',
                 last_name: '',
                 middle_name: '',
                 birthday: '',
-            })
-            commit('UPDATE_FORM_DATA', { participants: items })
+            });
+            commit('UPDATE_FORM_DATA', {participants: items});
         },
-        prependParticipant({ commit, state }, payload) {
-            const items = state.formData.participants || []
-            items.unshift(payload)
-            commit('UPDATE_FORM_DATA', { participants: items })
+        prependParticipant({commit, state}, payload) {
+            const items = state.formData.participants || [];
+            items.unshift(payload);
+            commit('UPDATE_FORM_DATA', {participants: items});
         },
-        updateParticipant({ commit, state }, payload) {
-            const items = state.formData.participants || []
-            items[payload.idx] = payload.data
-            commit('UPDATE_FORM_DATA', { participants: items })
+        updateParticipant({commit, state}, payload) {
+            const items = state.formData.participants || [];
+            items[payload.idx] = payload.data;
+            commit('UPDATE_FORM_DATA', {participants: items});
         },
-        deleteParticipant({ commit, state }, idx) {
-            const items = state.formData.participants || []
-            items.splice(idx, 1)
-            commit('UPDATE_FORM_DATA', { participants: items })
+        deleteParticipant({commit, state}, idx) {
+            const items = state.formData.participants || [];
+            items.splice(idx, 1);
+            commit('UPDATE_FORM_DATA', {participants: items});
         },
-        updateParticipantPhone({ commit, state }) {
-            commit('UPDATE_FORM_DATA', { participant_phone: state.formData.phone })
+        updateParticipantPhone({commit, state}) {
+            commit('UPDATE_FORM_DATA', {participant_phone: state.formData.phone});
         },
-        async fetchSchedules({ commit }, tourId) {
-            commit('SET_SCHEDULES_REQUEST', true)
-            const schedules = await fetchTourSchedules(tourId)
-            commit('SET_SCHEDULES', schedules || [])
-            commit('UPDATE_FORM_DATA', { schedule_id: schedules && schedules.length ? schedules[0].id : 0 })
-            commit('SET_SCHEDULES_REQUEST', false)
-        },
-    },
+        async fetchSchedules({commit}, tourId) {
+            commit('SET_SCHEDULES_REQUEST', true);
+            const schedules = await fetchTourSchedules(tourId);
+            commit('SET_SCHEDULES', schedules || []);
+            commit('UPDATE_FORM_DATA', {schedule_id: schedules && schedules.length ? schedules[0].id : 0})
+            commit('SET_SCHEDULES_REQUEST', false);
+        }
+    }
 }

@@ -1,55 +1,63 @@
-const clickEventType = document.ontouchstart !== null ? 'click' : 'touchstart'
+const clickEventType = document.ontouchstart !== null ? "click" : "touchstart";
 
-const UNIQUE_ID = '__vue_click_outside__'
+const UNIQUE_ID = "__vue_click_outside__";
 
 const onMounted = (el, binding, vnode) => {
-    onUnmounted(el)
+    onUnmounted(el);
 
-    let vm = vnode.context
-    let callback = binding.value
+    let vm = vnode.context;
+    let callback = binding.value;
 
-    let nextTick = false
+    let nextTick = false;
     setTimeout(function () {
-        nextTick = true
-    }, 0)
+        nextTick = true;
+    }, 0);
 
-    el[UNIQUE_ID] = event => {
-        if ((!el || !el.contains(event.target)) && callback && nextTick && typeof callback === 'function') {
-            return callback.call(vm, event)
+    el[UNIQUE_ID] = (event) => {
+        if (
+            (!el || !el.contains(event.target)) &&
+            callback &&
+            nextTick &&
+            typeof callback === "function"
+        ) {
+            return callback.call(vm, event);
         }
-    }
+    };
 
-    document.addEventListener(clickEventType, el[UNIQUE_ID], false)
-}
+    document.addEventListener(clickEventType, el[UNIQUE_ID], false);
+};
 
-const onUnmounted = el => {
-    document.removeEventListener(clickEventType, el[UNIQUE_ID], false)
-    delete el[UNIQUE_ID]
-}
+const onUnmounted = (el) => {
+    document.removeEventListener(clickEventType, el[UNIQUE_ID], false);
+    delete el[UNIQUE_ID];
+};
 
 const onUpdated = (el, binding, vnode) => {
     if (binding.value === binding.oldValue) {
-        return
+        return;
     }
-    onMounted(el, binding, vnode)
-}
+    onMounted(el, binding, vnode);
+};
 
 const plugin = {
-    install: app => {
+    install: (app) => {
         app.directive('click-outside', directive)
-    },
+    }
 }
 
 const directive = {
     mounted: onMounted,
     updated: onUpdated,
     unmounted: onUnmounted,
-}
+};
 
 const mixin = {
-    directives: { ClickOutside: directive },
+    directives: {ClickOutside: directive},
+};
+
+export {
+    directive,
+    mixin
 }
 
-export { directive, mixin }
-
-export default plugin
+export default plugin;

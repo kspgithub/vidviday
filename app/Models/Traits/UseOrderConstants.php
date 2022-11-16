@@ -4,6 +4,7 @@ namespace App\Models\Traits;
 
 trait UseOrderConstants
 {
+
     public static $confirmations = [
         self::CONFIRMATION_EMAIL => [
             'uk' => 'Електронна пошта',
@@ -22,8 +23,9 @@ trait UseOrderConstants
             'ru' => 'Телефонный звонок',
             'en' => 'Telephone call',
             'pl' => 'Rozmowa telefoniczna',
-        ],
+        ]
     ];
+
 
     public static function confirmationSelectBox()
     {
@@ -35,7 +37,6 @@ trait UseOrderConstants
                 'text' => $title[$locale] ?? $title['uk'],
             ];
         }
-
         return $items;
     }
 
@@ -95,16 +96,16 @@ trait UseOrderConstants
     public static function orderInclude($key)
     {
         $includes = self::includes();
-
         return array_key_exists($key, $includes) ? $includes[$key] : $key;
     }
+
 
     public function getConfirmationTitleAttribute()
     {
         $locale = app()->getLocale();
-
         return $this->confirmation_type > 0 ? self::$confirmations[$this->confirmation_type][$locale] : '';
     }
+
 
     public function getStatusTextAttribute()
     {

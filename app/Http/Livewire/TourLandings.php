@@ -37,6 +37,7 @@ class TourLandings extends Component
      */
     public $landings;
 
+
     public array $form = [
         'type_id' => null,
         'landing_id' => 0,
@@ -79,13 +80,13 @@ class TourLandings extends Component
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.landing_id' => Rule::when(fn () => $this->form['type_id'] == TourLanding::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.landing_id' => Rule::when(fn() => $this->form['type_id'] == TourLanding::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourLanding::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourLanding::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -99,17 +100,17 @@ class TourLandings extends Component
         }
 
         return view('admin.tour.landing.livewire', [
-            'items' => $this->tour->groupTourLandings,
+            'items' => $this->tour->groupTourLandings
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourLanding::TYPE_CUSTOM) {
+        if($type_id == TourLanding::TYPE_CUSTOM) {
             $this->form['landing_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->dispatchBrowserEvent('initLocation', ['type_id' => $type_id]);
@@ -156,7 +157,7 @@ class TourLandings extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if ($index !== false) {
+        if($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -206,6 +207,7 @@ class TourLandings extends Component
         $this->form['lng'] = $this->model->lng;
 
         $this->dispatchBrowserEvent('initLocation', []);
+
     }
 
     public function syncLocation(array $location = [

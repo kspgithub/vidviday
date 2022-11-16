@@ -10,6 +10,8 @@ return new class extends Migration {
         Schema::table('contacts', function (Blueprint $table) {
             $table->json('managers_corporate')->nullable()->after('lng');
             $table->json('managers_agency')->nullable()->after('managers_corporate');
+
+
         });
 
         $corpIds = \App\Models\Staff::whereHas('types', function ($q) {
@@ -22,7 +24,7 @@ return new class extends Migration {
 
         \App\Models\Contact::where('id', 1)->update([
             'managers_corporate' => json_encode($corpIds),
-            'managers_agency' => json_encode($agencyIds),
+            'managers_agency' => json_encode($agencyIds)
         ]);
     }
 

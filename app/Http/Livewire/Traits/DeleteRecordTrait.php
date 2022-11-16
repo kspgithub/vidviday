@@ -11,6 +11,7 @@ trait DeleteRecordTrait
 
     abstract public function query(): Builder|Relation;
 
+
     public function deleteId($id)
     {
         $this->deleteId = $id;

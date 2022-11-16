@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
+
 use App\Models\HtmlBlock;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class HtmlBlockService extends BaseService
     /**
      * UserService constructor.
      *
-     * @param HtmlBlock  $htmlBlock
+     * @param HtmlBlock $htmlBlock
      */
     public function __construct(HtmlBlock $htmlBlock)
     {
@@ -23,6 +24,7 @@ class HtmlBlockService extends BaseService
     public function store($params)
     {
         $htmlBlock = new HtmlBlock();
+
 
         return $this->update($htmlBlock, $params);
     }
@@ -34,6 +36,7 @@ class HtmlBlockService extends BaseService
         try {
             $htmlBlock->fill($params);
             $htmlBlock->save();
+
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());

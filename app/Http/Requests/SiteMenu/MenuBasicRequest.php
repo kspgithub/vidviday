@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\SiteMenu;
 
+use App\Models\Menu;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MenuBasicRequest extends FormRequest
 {
@@ -24,9 +26,9 @@ class MenuBasicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'slug' => ['nullable', 'string'],
-            'description' => ['nullable', 'string'],
+            'title'=>['required', 'string'],
+            'slug'=>['nullable', 'string'],
+            'description'=>['nullable', 'string'],
         ];
     }
 }

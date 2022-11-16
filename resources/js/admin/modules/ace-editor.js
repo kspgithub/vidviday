@@ -1,3 +1,3 @@
-import ace from 'ace-builds'
+import ace from 'ace-builds';
 
 window.ace = ace

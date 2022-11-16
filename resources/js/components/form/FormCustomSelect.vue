@@ -1,25 +1,20 @@
 <template>
-    <select
-        :id="$attrs.id"
-        ref="inputRef"
-        class="custom-select"
-        :class="{ 'vue-select': vueSelect }"
-        :name="name"
-        :data-search="search"
-        :data-search-text="searchText"
-    >
+    <select :id="$attrs.id" class="custom-select" :class="{'vue-select': vueSelect}" :name="name" :data-search="search"
+            ref="inputRef"
+            :data-search-text="searchText">
         <option value="" :selected="!modelValue" disabled>{{ placeholder }}</option>
 
-        <slot />
+        <slot/>
+
     </select>
 </template>
 
 <script>
-import useFormField from './composables/useFormField'
-import { onMounted, onUnmounted, ref } from 'vue'
+import useFormField from "./composables/useFormField";
+import { onMounted, onUnmounted, ref } from "vue";
 
 export default {
-    name: 'FormCustomSelect',
+    name: "FormCustomSelect",
     props: {
         modelValue: null,
         name: {
@@ -28,11 +23,11 @@ export default {
         },
         search: {
             type: Boolean,
-            default: false,
+            default: false
         },
         searchText: {
             type: String,
-            default: '',
+            default: ''
         },
         placeholder: {
             type: String,
@@ -40,7 +35,7 @@ export default {
         },
         rules: {
             type: [String, Object],
-            default: '',
+            default: ''
         },
         vueSelect: {
             type: Boolean,
@@ -48,52 +43,54 @@ export default {
         },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const field = useFormField(props, emit)
-        const { inputRef } = field
+    setup(props, {emit}) {
+        const field = useFormField(props, emit);
+        const {inputRef} = field;
 
         onMounted(() => {
-            inputRef.value.addEventListener('sumo:change', event => {
-                emit('update:modelValue', event.target.value)
+            inputRef.value.addEventListener('sumo:change', (event) => {
+                emit('update:modelValue', event.target.value);
 
-                let option = $(inputRef.value).closest('.SumoSelect').find('.opt.selected')
+                let option = $(inputRef.value).closest('.SumoSelect').find('.opt.selected');
                 let label = $(inputRef.value).next('.CaptionCont')
 
                 $(label).find('span').css('margin', '-9px 0')
 
-                if (option.length && label.length) {
+                if(option.length && label.length) {
                     $(label).find('span').html($(option).html())
                 }
             })
-            inputRef.value.addEventListener('sumo:opened', event => {
+            inputRef.value.addEventListener('sumo:opened', (event) => {
                 //console.log('sumo:opened');
             })
         })
 
         onUnmounted(() => {
             if (inputRef.value && $(inputRef.value)[0].sumo) {
-                $(inputRef.value)[0].sumo.unload()
+                $(inputRef.value)[0].sumo.unload();
             }
         })
 
-        const update = items => {
-            if ($(inputRef.value)[0].sumo) {
-                $(inputRef.value)[0].sumo.reload()
+        const update = (items) => {
+
+            if($(inputRef.value)[0].sumo) {
+
+                $(inputRef.value)[0].sumo.reload();
 
                 $(inputRef.value).each(function () {
-                    let option = $(this).closest('.SumoSelect').find('.opt')
-                    let label = $(this).next('.CaptionCont')
+                    let option = $(this).closest('.SumoSelect').find('.opt');
+                    let label = $(this).next('.CaptionCont');
 
                     $(label).find('span').css('margin', '-9px 0')
 
                     $(option).each(function () {
-                        let img = $(this).closest('.SumoSelect').find('option').eq($(this).index()).data('img')
+                        let img = $(this).closest('.SumoSelect').find('option').eq($(this).index()).data('img');
 
                         if (img && !$(this).find('img').length) {
-                            $(this).prepend('<img src="' + img + '">')
+                            $(this).prepend('<img src="' + img + '">');
                         }
-                    })
-                })
+                    });
+                });
             }
         }
 
@@ -101,8 +98,10 @@ export default {
             ...field,
             update,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

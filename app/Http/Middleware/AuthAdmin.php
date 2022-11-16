@@ -10,8 +10,8 @@ class AuthAdmin
     /**
      * Handle an incoming request.
      *
-     * @param Request  $request
-     * @param Closure  $next
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
      */
@@ -22,7 +22,7 @@ class AuthAdmin
         if ($user && ($user->isAdmin() || $user->isManager() || $user->isDutyManager() || $user->isTourManager())) {
             return $next($request);
         }
-
+        
         if ($request->ajax()) {
             abort(401, __('You do not have access to do that.'));
         }

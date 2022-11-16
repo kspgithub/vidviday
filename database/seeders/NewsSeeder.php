@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 class NewsSeeder extends Seeder
 {
     use TruncateTable;
-
+    
     /**
      * Run the database seeds.
      *

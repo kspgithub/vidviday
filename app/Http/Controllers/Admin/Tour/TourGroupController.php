@@ -17,9 +17,9 @@ class TourGroupController extends Controller
         $selected_ids = $tour->groups()->pluck('id')->toArray();
 
         return view('admin.tour.groups', [
-            'tour' => $tour,
-            'options' => $options,
-            'selected_ids' => $selected_ids,
+            'tour'=>$tour,
+            'options'=>$options,
+            'selected_ids'=>$selected_ids,
         ]);
     }
 

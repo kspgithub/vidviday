@@ -25,27 +25,27 @@ class StaffTypeSeeder extends Seeder
         $staff_types = [
             [
                 'title' => ['uk' => 'Менеджер туру', 'ru' => 'Менеджер тура',
-                    'en' => 'Tour manager', 'pl' => 'Kierownik wycieczki', ],
+                    'en' => 'Tour manager', 'pl' => 'Kierownik wycieczki'],
                 'slug' => 'tour-manager',
             ],
             [
                 'title' => ['uk' => 'Керівник єкскурсійних груп', 'ru' => 'Руководитель экскурсионных групп',
-                    'en' => 'Excursion groups leader', 'pl' => 'Kierownik grup wycieczkowych', ],
+                    'en' => 'Excursion groups leader', 'pl' => 'Kierownik grup wycieczkowych'],
                 'slug' => 'excursion-leader',
             ],
             [
                 'title' => ['uk' => 'Офісний працівник', 'ru' => 'Офисный работник',
-                    'en' => 'Office worker', 'pl' => 'Pracownik biurowy', ],
+                    'en' => 'Office worker', 'pl' => 'Pracownik biurowy'],
                 'slug' => 'official',
             ],
             [
                 'title' => ['uk' => 'Спеціаліст з бронювання', 'ru' => 'Специалист по бронированию',
-                    'en' => 'Booking specialist', 'pl' => 'Specjalista rezerwacji', ],
+                    'en' => 'Booking specialist', 'pl' => 'Specjalista rezerwacji'],
                 'slug' => 'booking-manager',
             ],
             [
                 'title' => ['uk' => 'Менеджер з персоналу', 'ru' => 'Менеджер по персоналу',
-                    'en' => 'HR Manager', 'pl' => 'Menedżer HR', ],
+                    'en' => 'HR Manager', 'pl' => 'Menedżer HR'],
                 'slug' => 'hr-manager',
             ],
             [
@@ -53,7 +53,7 @@ class StaffTypeSeeder extends Seeder
                     'uk' => 'Менеджер з продажу подарункових сертифікатів',
                     'ru' => 'Менеджер по продажам подарочных сертификатов',
                     'en' => 'Gift Certificate Sales Manager',
-                    'pl' => 'Menedżer sprzedaży bonów upominkowych',
+                    'pl' => 'Menedżer sprzedaży bonów upominkowych'
                 ],
                 'slug' => 'certificate-manager',
             ],
@@ -62,7 +62,7 @@ class StaffTypeSeeder extends Seeder
                     'uk' => 'Корпоративні замовлення',
                     'ru' => 'Корпоративные заказы',
                     'en' => 'Corporate orders',
-                    'pl' => 'Zlecenia korporacyjne',
+                    'pl' => 'Zlecenia korporacyjne'
                 ],
                 'slug' => 'corporate-order',
             ],
@@ -71,7 +71,7 @@ class StaffTypeSeeder extends Seeder
                     'uk' => 'Співпраця з туристичними агенціями',
                     'ru' => 'Сотрудничество с туристическими агентствами',
                     'en' => 'Cooperation with travel agencies',
-                    'pl' => 'Współpraca z biurami podróży',
+                    'pl' => 'Współpraca z biurami podróży'
                 ],
                 'slug' => 'travel-agencies',
             ],

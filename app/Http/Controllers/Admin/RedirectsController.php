@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RedirectsRequest;
 use App\Models\Redirect;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
@@ -36,6 +37,7 @@ class RedirectsController extends Controller
         ]);
     }
 
+
     public function update(RedirectsRequest $request)
     {
         $data = $request->validated();
@@ -45,7 +47,7 @@ class RedirectsController extends Controller
         Redirect::query()->whereNotIn('id', $ids)->delete();
 
         foreach ($data['redirects'] as $item) {
-            if ($id = ($item['id'] ?? false)) {
+            if($id = ($item['id'] ?? false)) {
                 $redirect = Redirect::query()->find($id);
             } else {
                 $redirect = new Redirect();

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\LanguageLine;
 use Illuminate\Console\Command;
+use App\Models\LanguageLine;
 
 class TranslationExport extends Command
 {

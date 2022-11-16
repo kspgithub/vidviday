@@ -21,7 +21,7 @@ class AdvertisementController extends Controller
         //
         $advertisements = Advertisement::paginate(20);
 
-        return view('admin.advertisement.index', ['advertisements' => $advertisements]);
+        return view('admin.advertisement.index', ['advertisements'=>$advertisements]);
     }
 
     /**
@@ -34,14 +34,13 @@ class AdvertisementController extends Controller
         //
         $advertisement = new Advertisement();
 
-        return view('admin.advertisement.create', ['advertisement' => $advertisement]);
+        return view('admin.advertisement.create', ['advertisement'=>$advertisement]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return Response|JsonResponse
      */
     public function store(Request $request)
@@ -53,29 +52,27 @@ class AdvertisementController extends Controller
             $advertisement->deleteImage();
             $advertisement->uploadImage($request->file('image_upload'));
         }
-
         return redirect()->route('admin.advertisement.edit', $advertisement)->withFlashSuccess(__('Record created'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Advertisement  $advertisement
-     *
+     * @param Advertisement $advertisement
      * @return View
      */
     public function edit(Advertisement $advertisement)
     {
         //
-        return view('admin.advertisement.edit', ['advertisement' => $advertisement]);
+        return view('admin.advertisement.edit', ['advertisement'=>$advertisement]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param Advertisement  $advertisement
-     *
+     * @param Request $request
+     * @param Advertisement $advertisement
      * @return Response|JsonResponse
      */
     public function update(Request $request, Advertisement $advertisement)
@@ -87,17 +84,15 @@ class AdvertisementController extends Controller
             $advertisement->uploadImage($request->file('image_upload'));
         }
         if ($request->ajax()) {
-            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+            return response()->json(['result'=>'success', 'message'=>__('Record Updated')]);
         }
-
         return redirect()->route('admin.advertisement.edit', $advertisement)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Advertisement  $advertisement
-     *
+     * @param Advertisement $advertisement
      * @return Response
      */
     public function destroy(Advertisement $advertisement)
@@ -105,7 +100,6 @@ class AdvertisementController extends Controller
         //
         $advertisement->deleteImage();
         $advertisement->delete();
-
         return redirect()->route('admin.advertisement.index')->withFlashSuccess(__('Record Deleted'));
     }
 }
