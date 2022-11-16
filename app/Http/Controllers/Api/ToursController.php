@@ -28,7 +28,9 @@ class ToursController extends Controller
 
         $future = (int)$request->input('future', 1) !== 0;
 
-        $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
+        $query = Tour::search($future)->filter($request->validated());
+
+//        $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
 
         $query->withCount(['testimonials' => function ($q) {
             return $q->moderated()
