@@ -9,8 +9,8 @@ use Illuminate\Database\Seeder;
 
 class PlaceSeeder extends Seeder
 {
-    use TruncateTable, DisableForeignKeys;
 
+    use TruncateTable, DisableForeignKeys;
     /**
      * Run the database seeds.
      *

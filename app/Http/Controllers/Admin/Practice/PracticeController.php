@@ -22,7 +22,7 @@ class PracticeController extends Controller
         $practices = Practice::query()->paginate(20);
 
         return view('admin.practice.index', [
-            'practices' => $practices,
+            'practices' => $practices
         ]);
     }
 
@@ -45,7 +45,7 @@ class PracticeController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -62,15 +62,15 @@ class PracticeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Practice  $practice
+     * @param Practice $practice
      *
      * @return View
      */
     public function edit(Practice $practice)
     {
+
         $staffs = Staff::toSelectBox();
         $practices = Practice::where('id', '<>', $practice->id)->toSelectBox();
-
         return view('admin.practice.edit', [
             'practice' => $practice,
             'staffs' => $staffs,
@@ -81,13 +81,14 @@ class PracticeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param Practice  $practice
+     * @param Request $request
+     * @param Practice $practice
      *
      * @return Response|JsonResponse
      */
     public function update(Request $request, Practice $practice)
     {
+
         //
         $practice->fill($request->all());
         $practice->save();
@@ -101,7 +102,7 @@ class PracticeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Practice  $practice
+     * @param Practice $practice
      *
      * @return Response
      */

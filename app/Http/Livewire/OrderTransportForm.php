@@ -2,7 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AccommodationType;
+use App\Models\Currency;
+use App\Models\Order;
 use App\Models\OrderTransport;
+use App\Models\PaymentType;
+use App\Models\Tour;
+use App\Models\TourSchedule;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -16,6 +22,7 @@ class OrderTransportForm extends Component
     public $orderStatuses = [];
 
     public $ageGroups = [];
+
 
     public function mount(OrderTransport $order): void
     {

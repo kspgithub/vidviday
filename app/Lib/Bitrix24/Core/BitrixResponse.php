@@ -4,15 +4,16 @@ namespace App\Lib\Bitrix24\Core;
 
 class BitrixResponse
 {
+
     public function __construct($data = [])
     {
-        if (! empty($data['time'])) {
-            $this->time = (object) $data['time'];
+        if (!empty($data['time'])) {
+            $this->time = (object)$data['time'];
         }
-        if (! empty($data['result'])) {
+        if (!empty($data['result'])) {
             $this->result = $data['result'];
         }
-        if (! empty($data['error'])) {
+        if (!empty($data['error'])) {
             $this->error = $data['error'];
         }
 
@@ -39,6 +40,7 @@ class BitrixResponse
      * @var bool|string
      */
     public $error = false;
+
 
     /**
      * @var string

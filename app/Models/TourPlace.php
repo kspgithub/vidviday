@@ -19,7 +19,6 @@ class TourPlace extends TranslatableModel implements HasMedia
     use JsonLikeScope;
 
     const TYPE_TEMPLATE = 1;
-
     const TYPE_CUSTOM = 2;
 
     public $timestamps = false;

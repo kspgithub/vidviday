@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 
 class ContactsController extends Controller
 {
+
     /**
      * @return View
      */
@@ -23,6 +24,7 @@ class ContactsController extends Controller
             $contact = new Contact();
         }
 
+
         $managerOptions = Staff::with(['types'])->get()->map->asSelectBox();
 
         return view('admin.contact.edit', ['contact' => $contact, 'managerOptions' => $managerOptions]);
@@ -31,7 +33,7 @@ class ContactsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */

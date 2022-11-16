@@ -60,12 +60,13 @@ class PaymentTypeSeeder extends Seeder
                 ],
                 'published' => 1,
                 'slug' => 'online',
-            ],
+            ]
         ];
 
         foreach ($types as $type) {
             PaymentType::create($type);
         }
+
 
         $this->enableForeignKeys();
     }

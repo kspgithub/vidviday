@@ -1,19 +1,18 @@
-import axios from 'axios'
+import axios from "axios";
 
-export default status => ({
+export default (status) => ({
     count: 0,
     init() {
-        this.checkCount()
+        this.checkCount();
     },
     checkCount() {
-        axios
-            .get('/admin/crm/certificate/count', {
-                params: {
-                    status: status,
-                },
+        axios.get('/admin/crm/certificate/count', {
+            params: {
+                status: status,
+            }
+        })
+            .then(({data}) => {
+                this.count = data;
             })
-            .then(({ data }) => {
-                this.count = data
-            })
-    },
-})
+    }
+});

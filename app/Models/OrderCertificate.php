@@ -6,6 +6,7 @@ use App\Lib\WayForPay\PurchaseAbstract;
 use App\Lib\WayForPay\PurchaseCertificate;
 use App\Models\Contracts\Purchasable;
 use App\Models\Traits\UsePaymentOnline;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -16,37 +17,25 @@ class OrderCertificate extends Model implements Purchasable
     use UsePaymentOnline;
 
     public const STATUS_NEW = 0;
-
     public const STATUS_PROCESSING = 1;
-
     public const STATUS_PENDING_PAYMENT = 2;
-
     public const STATUS_PAYED = 3;
-
     public const STATUS_COMPLETED = 4;
-
     public const STATUS_MAINTENANCE = 5;
-
     public const STATUS_PENDING_REJECT = 6;
-
     public const STATUS_REJECTED = 7;
 
     public const TYPE_SUM = 'sum';
-
     public const TYPE_TOUR = 'tour';
 
     public const FORMAT_PRINTED = 'printed';
-
     public const FORMAT_ELECTRONIC = 'electronic';
 
     public const DESIGN_CLASSIC = 'classic';
-
     public const DESIGN_HEART = 'heart';
 
     public const PAYMENT_PENDING = 0;
-
     public const PAYMENT_COMPLETE = 1;
-
     public const PAYMENT_RETURNED = 2;
 
     protected static function boot()
@@ -180,6 +169,7 @@ class OrderCertificate extends Model implements Purchasable
         return $total;
     }
 
+
     public function getTotalPriceAttribute(): int
     {
         return $this->calcPrice();
@@ -189,13 +179,13 @@ class OrderCertificate extends Model implements Purchasable
     {
         $title = 'Cертификат на ';
         if ($this->type == self::TYPE_SUM) {
-            $title .= 'сумму '.$this->sum.$this->currency;
+            $title .= 'сумму ' . $this->sum . $this->currency;
         } else {
-            $title .= 'мандрівку '.$this->tour->title;
+            $title .= 'мандрівку ' . $this->tour->title;
         }
-
         return $title;
     }
+
 
     public function purchaseWizard(): PurchaseAbstract
     {

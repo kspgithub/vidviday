@@ -1,75 +1,63 @@
 <template>
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align">
-            <form method="POST" action="/" class="row" @submit.prevent="submitForm">
+
+            <form @submit.prevent="submitForm" method="POST" action="/" class="row">
+
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">{{ __('common.order-call') }}</span>
+                        <span class="h2 title text-medium">{{__('common.order-call')}}</span>
                     </div>
                     <div class="spacer-xs"></div>
-                    <input type="hidden" name="type" :value="data.type" />
+                    <input type="hidden" name="type" :value="data.type">
                 </div>
                 <div class="col-md-6 col-12">
-                    <form-input v-model="data.name" name="name" :label="__('forms.your-name')" />
-                </div>
-
-                <div class="col-md-6 col-12">
-                    <form-input
-                        v-model="data.phone"
-                        mask="+38 (099) 999-99-99"
-                        name="phone"
-                        :label="__('forms.phone-number')"
-                    />
+                    <form-input name="name" v-model="data.name" :label="__('forms.your-name')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input v-model="data.email" type="email" name="email" :label="__('forms.email')" />
+                    <form-input mask="+38 (099) 999-99-99"
+                                name="phone"
+                                v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-sumo-select
-                        v-model="data.question_type"
-                        name="question_type"
-                        :options="questionTypes"
-                        :label="__('common.question-type')"
+                    <form-input type="email" name="email" v-model="data.email" :label="__('forms.email')"/>
+                </div>
+
+                <div class="col-md-6 col-12">
+                    <form-sumo-select name="question_type" v-model="data.question_type"
+                                      :options="questionTypes"
+                                      :label="__('common.question-type')"
                     >
                     </form-sumo-select>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <div class="single-datepicker">
-                        <form-datepicker
-                            v-model="data.call_date"
-                            name="call_date"
-                            required
-                            :label="__('common.call-date')"
-                        />
+                        <form-datepicker name="call_date" v-model="data.call_date" required :label="__('common.call-date')"/>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12">
                     <div class="timepicker-input">
-                        <form-sumo-select
-                            v-model="data.call_time"
-                            name="call_time"
-                            :options="callTimes"
-                            :label="__('common.call-time')"
+                        <form-sumo-select name="call_time" v-model="data.call_time"
+                                          :options="callTimes"
+                                          :label="__('common.call-time')"
                         />
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <utm-fields />
-                    <form-textarea v-model="data.comment" name="comment" :label="__('certificate-section.notes')" />
+                    <utm-fields/>
+                    <form-textarea name="comment" v-model="data.comment" :label="__('certificate-section.notes')"/>
                     <div class="text text-sm">{{ __('forms.required-fields') }}</div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <vue-recaptcha
-                            v-if="useRecaptcha && popupOpen"
-                            ref="recaptcha"
-                            :sitekey="sitekey"
-                            @verify="verify"
-                            @render="render"
+                        <vue-recaptcha v-if="useRecaptcha && popupOpen" :sitekey="sitekey"
+                                       @verify="verify"
+                                       @render="render"
+                                       ref="recaptcha"
                         >
                             <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
@@ -91,22 +79,22 @@
 </template>
 
 <script>
-import Popup from './Popup'
-import { useStore } from 'vuex'
-import FormInput from '../form/FormInput'
-import { computed, onMounted, reactive, ref } from 'vue'
-import FormSelect from '../form/FormSelect'
-import FormCustomSelect from '../form/FormCustomSelect'
-import FormDatepicker from '../form/FormDatepicker'
-import FormTextarea from '../form/FormTextarea'
-import { useForm } from 'vee-validate'
-import toast from '../../libs/toast'
-import UtmFields from '../common/UtmFields'
+import Popup from "./Popup";
+import {useStore} from "vuex";
+import FormInput from "../form/FormInput";
+import { computed, onMounted, reactive, ref } from "vue";
+import FormSelect from "../form/FormSelect";
+import FormCustomSelect from "../form/FormCustomSelect";
+import FormDatepicker from "../form/FormDatepicker";
+import FormTextarea from "../form/FormTextarea";
+import {useForm} from "vee-validate";
+import toast from "../../libs/toast";
+import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSumoSelect from '../form/FormSumoSelect.vue'
 
 export default {
-    name: 'PopupCall',
+    name: "PopupCall",
     components: {
         FormSumoSelect,
         VueRecaptcha,
@@ -116,20 +104,20 @@ export default {
         FormCustomSelect,
         FormSelect,
         FormInput,
-        Popup,
+        Popup
     },
     props: {
         questionTypes: Array,
     },
     setup(props) {
-        const store = useStore()
-        const popupOpen = computed(() => store.state.userQuestion.popupCallOpen)
-        const request = computed(() => store.state.userQuestion.request)
-        const recaptcha = ref(null)
-        const closePopup = () => store.commit('userQuestion/SET_POPUP_CALL_OPEN', false)
+        const store = useStore();
+        const popupOpen = computed(() => store.state.userQuestion.popupCallOpen);
+        const request = computed(() => store.state.userQuestion.request);
+        const recaptcha = ref(null);
+        const closePopup = () => store.commit('userQuestion/SET_POPUP_CALL_OPEN', false);
         const user = store.state.user.currentUser
 
-        const { validate, errors, values } = useForm({
+        const {validate, errors, values} = useForm({
             validationSchema: {
                 name: 'required',
                 phone: 'required|tel',
@@ -138,11 +126,11 @@ export default {
                 call_time: 'required',
                 call_date: 'required|date:DD.MM.YYYY',
             },
-        })
+        });
 
         const data = reactive({
             type: 0,
-            name: user ? user.first_name + ' ' + user.last_name : '',
+            name: user ? (user.first_name + ' ' + user.last_name) : '',
             phone: user ? user.mobile_phone : '',
             email: user ? user.email : '',
             question_type: '',
@@ -150,39 +138,44 @@ export default {
             call_time: '',
             comment: '',
             'g-recaptcha-response': '',
-        })
+        });
 
         const submitForm = async () => {
-            const result = await validate()
+            const result = await validate();
             if (!result.valid) {
-                console.log(errors)
+
+                console.log(errors);
             } else {
-                const response = await store.dispatch('userQuestion/send', data)
+
+                const response = await store.dispatch('userQuestion/send', data);
 
                 if (response?.data) {
                     if (response.data.result === 'success') {
-                        closePopup()
+                        closePopup();
                         await store.dispatch('userQuestion/showThanks', {
                             title: 'Дякуємо за повідомлення',
-                            message: 'Ми передзвонимо у обраний Вами час',
+                            message: 'Ми передзвонимо у обраний Вами час'
                         })
+
                     } else {
-                        toast.error(response.data.message)
+                        toast.error(response.data.message);
                     }
+
                 }
+
             }
         }
 
         const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
 
-        const verify = e => {
+        const verify = (e) => {
             data['g-recaptcha-response'] = e
             submitForm()
             recaptcha.value.reset()
         }
 
-        const render = e => {
+        const render = (e) => {
             setTimeout(() => {
                 const htmlOffset = $('html').css('top')
 
@@ -194,14 +187,14 @@ export default {
             }, 500)
         }
 
-        const validateForm = async e => {
+        const validateForm = async (e) => {
             if (e.isTrusted) {
                 e.stopImmediatePropagation()
                 e.preventDefault()
 
-                const result = await validate()
+                const result = await validate();
                 if (!result.valid) {
-                    console.log(errors)
+                    console.log(errors);
                     return false
                 } else {
                     e.target.dispatchEvent(new e.constructor(e.type, e))
@@ -211,8 +204,8 @@ export default {
 
         const callTimes = ref([])
 
-        for (let time = 11; time <= 20; time++) {
-            callTimes.value.push({ text: `${time}:00`, value: `${time}:00` })
+        for(let time = 11; time <= 20; time++) {
+            callTimes.value.push({text: `${time}:00`, value: `${time}:00`})
         }
 
         return {
@@ -230,8 +223,10 @@ export default {
             render,
             validateForm,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

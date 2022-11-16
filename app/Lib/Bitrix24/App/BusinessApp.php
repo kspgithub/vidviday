@@ -2,6 +2,9 @@
 
 namespace App\Lib\Bitrix24\App;
 
+use App\Lib\Bitrix24\Core\BaseService;
+use App\Lib\Bitrix24\Core\StaticServiceInterface;
+use App\Lib\Bitrix24\Core\UseStaticService;
 use Illuminate\Support\Facades\Log;
 
 class BusinessApp
@@ -16,14 +19,14 @@ class BusinessApp
                 'Description' => 'ID запису',
                 'Type' => 'string',
                 'Multiple' => 'N',
-                'Default' => null,
+                'Default' => null
             ],
         ],
         'DOCUMENT_TYPE' => [
-            'crm',
+            "crm",
             "Bitrix\Crm\Integration\BizProc\Document\Dynamic",
-            'DYNAMIC_167',
-        ],
+            "DYNAMIC_167"
+        ]
 
     ];
 
@@ -37,29 +40,31 @@ class BusinessApp
                 'Description' => 'ID запису',
                 'Type' => 'string',
                 'Multiple' => 'N',
-                'Default' => null,
+                'Default' => null
             ],
         ],
         'DOCUMENT_TYPE' => [
-            'crm',
+            "crm",
             "Bitrix\Crm\Integration\BizProc\Document\Dynamic",
-            'DYNAMIC_168',
-        ],
+            "DYNAMIC_168"
+        ]
     ];
+
 
     /**
      * @var BusinessApp
      */
     protected static $instance;
 
+
     public static function instance()
     {
-        if (! self::$instance) {
+        if (!self::$instance) {
             self::$instance = new self();
         }
-
         return self::$instance;
     }
+
 
     public static function registerActivity()
     {
@@ -79,14 +84,16 @@ class BusinessApp
                 self::addActivity($activity);
             }
         }
+
     }
+
 
     public static function addActivity($params = [])
     {
         $params = self::prepareParams($params);
         Log::info('Add Activity params', $params);
         $response = ActivityService::add($params);
-        Log::info('Add Activity result', (array) $response);
+        Log::info('Add Activity result', (array)$response);
     }
 
     public static function updateActivity($params = [])
@@ -94,7 +101,7 @@ class BusinessApp
         $params = self::prepareParams($params);
         Log::info('Update Activity params', $params);
         $response = ActivityService::update($params);
-        Log::info('Update Activity result', (array) $response);
+        Log::info('Update Activity result', (array)$response);
     }
 
     public static function prepareParams($params = [])

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
@@ -14,7 +15,7 @@ class PlaceService extends BaseService
     /**
      * PlaceService constructor.
      *
-     * @param Place  $place
+     * @param Place $place
      */
     public function __construct(Place $place)
     {
@@ -22,49 +23,45 @@ class PlaceService extends BaseService
     }
 
     /**
-     * @param array  $params
-     *
-     * @throws GeneralException
-     *
+     * @param array $params
      * @return Place
+     * @throws GeneralException
      */
     public function store(array $params = [])
     {
         $place = new Place();
-        if (! isset($params['published'])) {
+        if (!isset($params['published'])) {
             $place->published = 0;
         }
-
         return $this->update($place, $params);
     }
 
     /**
-     * @param Place  $place
-     * @param array  $params
-     *
+     * @param Place $place
+     * @param array $params
+     * @return Place
      * @throws GeneralException
      * @throws \Throwable
-     *
-     * @return Place
      */
     public function update(Place $place, array $params = [])
     {
         DB::beginTransaction();
 
+
         try {
-            if ((int) $params['direction_id'] === 0) {
+            if ((int)$params['direction_id'] === 0) {
                 $params['direction_id'] = null;
             }
-            if ((int) $params['country_id'] === 0) {
+            if ((int)$params['country_id'] === 0) {
                 $params['country_id'] = null;
             }
-            if ((int) $params['region_id'] === 0) {
+            if ((int)$params['region_id'] === 0) {
                 $params['region_id'] = null;
             }
-            if ((int) $params['district_id'] === 0) {
+            if ((int)$params['district_id'] === 0) {
                 $params['district_id'] = null;
             }
-            if ((int) $params['city_id'] === 0) {
+            if ((int)$params['city_id'] === 0) {
                 $params['city_id'] = null;
             }
             $place->fill($params);
@@ -80,16 +77,15 @@ class PlaceService extends BaseService
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
 
-            throw new GeneralException(__('There was a problem updating place.').' '.$e->getMessage());
+            throw new GeneralException(__('There was a problem updating place.') . ' ' . $e->getMessage());
         }
 
         DB::commit();
-
         return $place;
     }
 
     /**
-     * @param Place  $place
+     * @param Place $place
      */
     public function destroy(Place $place)
     {

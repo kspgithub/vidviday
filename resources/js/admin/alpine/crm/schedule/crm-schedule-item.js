@@ -1,29 +1,30 @@
-import { toast } from '../../../../libs/toast'
-import moment from 'moment'
-import flatpickr from 'flatpickr'
-import { Ukrainian } from 'flatpickr/dist/l10n/uk'
-import handleError from '../../composables/handle-error'
-import loadItems from '../../composables/load-items'
-import roomTitle from '../../composables/room-title'
-import updateItem from '../../composables/update-item'
-import rangePlugin from 'flatpickr/dist/plugins/rangePlugin'
-import { cleanPhoneNumber } from '../../../../utils/string'
-import axios from 'axios'
+import {toast} from "../../../../libs/toast";
+import moment from "moment";
+import flatpickr from "flatpickr";
+import {Ukrainian} from "flatpickr/dist/l10n/uk";
+import handleError from "../../composables/handle-error";
+import loadItems from "../../composables/load-items";
+import roomTitle from "../../composables/room-title";
+import updateItem from "../../composables/update-item";
+import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
+import {cleanPhoneNumber} from "../../../../utils/string";
+import axios from "axios";
 
 const rooms = {
-    '1o_plus': 0,
-    '1o_sgl': 0,
-    '2o_twn': 0,
-    '2p_dbl': 0,
-    '3o_trpl': 0,
-    '2p_1o_trpl': 0,
-    '4o_qdpl': 0,
-    '2p_2p_qdpl': 0,
-    other: false,
-    other_text: '',
+    "1o_plus": 0,
+    "1o_sgl": 0,
+    "2o_twn": 0,
+    "2p_dbl": 0,
+    "3o_trpl": 0,
+    "2p_1o_trpl": 0,
+    "4o_qdpl": 0,
+    "2p_2p_qdpl": 0,
+    "other": false,
+    "other_text": '',
 }
 
-export default options => ({
+
+export default (options) => ({
     edit: false,
     loader: false,
     schedule: options.schedule,
@@ -33,7 +34,7 @@ export default options => ({
     currentTab: options.params.tab || 'common',
     sort: options.params.order || 'id:asc',
     countOrders: options.countOrders,
-    accommodation: { ...rooms },
+    accommodation: {...rooms},
     participants: {
         items: [],
         participant_phone: '',
@@ -49,7 +50,7 @@ export default options => ({
         affiliate: '',
         manager_name: '',
         manager_email: '',
-        manager_phone: '',
+        manager_phone: ''
     },
     selectedOrder: {
         id: null,
@@ -59,7 +60,7 @@ export default options => ({
         phone: '',
         email: '',
     },
-    scheduleData: { ...options.schedule },
+    scheduleData: {...options.schedule},
     selectedOrders: [],
     init() {
         setTimeout(() => {
@@ -67,8 +68,8 @@ export default options => ({
                 flatpickr(this.$refs.pickerInput, {
                     locale: Ukrainian,
                     allowInput: true,
-                    dateFormat: 'd.m.Y',
-                })
+                    dateFormat: 'd.m.Y'
+                });
             }
             flatpickr(this.$refs.startDateRef, {
                 locale: Ukrainian,
@@ -76,21 +77,23 @@ export default options => ({
                 dateFormat: 'd.m.Y',
                 // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
                 onChange: (selectedDates, dateStr, instance) => {
-                    const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null
-                    const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null
-                    console.log(start_date, end_date)
-                    this.scheduleData = { ...this.scheduleData, start_date: start_date, end_date: end_date }
-                },
-            })
-        }, 500)
-        this.loadOrders(false)
+                    const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
+                    const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null;
+                    console.log(start_date, end_date);
+                    this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
+                }
+            });
+
+
+        }, 500);
+        this.loadOrders(false);
     },
     setTab(tab) {
-        this.currentTab = tab
-        this.loadOrders()
+        this.currentTab = tab;
+        this.loadOrders();
     },
     loadOrders(updateUrl = true) {
-        this.loader = true
+        this.loader = true;
 
         loadItems({
             url: '',
@@ -101,101 +104,99 @@ export default options => ({
             updateUrl: updateUrl,
             defaultParams: {
                 tab: 'common',
-                order: 'id:asc',
+                order: 'id:asc'
             },
-            onSuccess: data => {
-                this.orders = data.orders
-                this.countOrders = data.countOrders
-                this.loader = false
+            onSuccess: (data) => {
+                this.orders = data.orders;
+                this.countOrders = data.countOrders;
+                this.loader = false;
             },
-            onError: error => {
-                handleError(error)
-                this.loader = false
+            onError: (error) => {
+                handleError(error);
+                this.loader = false;
             },
-        })
+        });
+
     },
     statusText(value) {
-        const status = this.statuses.find(s => s.value === value)
-        return status ? status.text : value
+        const status = this.statuses.find(s => s.value === value);
+        return status ? status.text : value;
     },
     formatDate(value) {
         return moment(value, 'DD.MM.YYYY').format('DD.MM.YYYY')
     },
     roomTitle(key) {
-        return roomTitle(key, this.roomTypes)
+        return roomTitle(key, this.roomTypes);
     },
     paymentGet(order) {
-        return 1 * (order.total_price - order.payment_fop - order.payment_tov - order.payment_office)
+        return 1*(order.total_price - order.payment_fop - order.payment_tov - order.payment_office);
     },
     updateOrder(id, params) {
         updateItem({
             url: `/admin/order/${id}`,
             params: params,
-            onSuccess: response => {
+            onSuccess: (response) => {
                 if (params.status) {
-                    this.loadOrders(false)
+                    this.loadOrders(false);
                 } else {
-                    const idx = this.orders.findIndex(o => o.id === id)
-                    this.orders[idx] = response.model
+                    const idx = this.orders.findIndex(o => o.id === id);
+                    this.orders[idx] = response.model;
                 }
             },
             onError: () => {
-                this.loadOrders(false)
-            },
+                this.loadOrders(false);
+            }
         })
     },
     get scheduleModal() {
-        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editScheduleModal'))
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editScheduleModal'));
     },
     editSchedule() {
-        this.scheduleData = { ...this.schedule }
-        this.scheduleModal.show()
+        this.scheduleData = {...this.schedule};
+        this.scheduleModal.show();
     },
     cancelSchedule() {
-        this.scheduleModal.hide()
+        this.scheduleModal.hide();
     },
     saveSchedule() {
-        const params = { ...this.scheduleData }
-        this.updateSchedule(params, response => {
-            this.scheduleModal.hide()
+        const params = {...this.scheduleData};
+        this.updateSchedule(params, (response) => {
+            this.scheduleModal.hide();
         })
     },
     updateSchedule(params = {}, callback = null) {
-        this.loader = true
+        this.loader = true;
         updateItem({
             url: `/admin/crm/schedules/${this.schedule.id}`,
             params: params,
-            onSuccess: response => {
+            onSuccess: (response) => {
                 if (callback) {
-                    callback(response)
+                    callback(response);
                 }
-                this.schedule = response.schedule
-                toast.success(response.message)
-                this.loader = false
+                this.schedule = response.schedule;
+                toast.success(response.message);
+                this.loader = false;
             },
             onError: () => {
-                this.loader = false
-            },
+                this.loader = false;
+            }
         })
     },
 
     togglePublished() {
-        this.updateSchedule(
-            {
-                published: this.schedule.published,
-            },
-            () => {
-                if (this.schedule.published) {
-                    toast.success('Виїзд опубліковано')
-                } else {
-                    toast.success('Виїзд скасовано')
-                }
-            },
-        )
+        this.updateSchedule({
+            published: this.schedule.published
+        }, () => {
+            if (this.schedule.published) {
+                toast.success('Виїзд опубліковано');
+            } else {
+                toast.success('Виїзд скасовано');
+            }
+        })
     },
     setSorting(sorting) {
-        this.sort = sorting
-        this.loadOrders(true)
+        this.sort = sorting;
+        this.loadOrders(true);
     },
     editOrder(order) {
         this.selectedOrder = {
@@ -207,17 +208,18 @@ export default options => ({
             phone: order.phone || '',
             email: order.email || '',
             viber: order.viber || '',
-        }
+        };
 
         const accomm = {}
         if (order.accommodation) {
+
             for (let key in order.accommodation) {
-                const val = order.accommodation[key]
-                const normalKey = key.trim().replaceAll('-', '_').replaceAll(' ', '_')
-                accomm[normalKey] = key === 'other' ? !!val : val
+                const val = order.accommodation[key];
+                const normalKey = key.trim().replaceAll('-', '_').replaceAll(' ', '_');
+                accomm[normalKey] = key === 'other' ? !!val : val;
             }
         }
-        this.accommodation = { ...rooms, ...accomm }
+        this.accommodation = {...rooms, ...accomm};
 
         this.agencyData = {
             title: order.agency_data && order.agency_data.title ? order.agency_data.title : '',
@@ -226,27 +228,27 @@ export default options => ({
             manager_email: order.agency_data && order.agency_data.manager_email ? order.agency_data.manager_email : '',
             manager_phone: order.agency_data && order.agency_data.manager_phone ? order.agency_data.manager_phone : '',
         }
-        this.edit = true
+        this.edit = true;
     },
     cancelEdit() {
-        this.edit = false
+        this.edit = false;
     },
     saveOrder() {
-        this.edit = false
+        this.edit = false;
         const params = {
             ...this.selectedOrder,
-            accommodation: { ...this.accommodation },
-            agency_data: { ...this.agencyData },
-        }
+            accommodation: {...this.accommodation},
+            agency_data: {...this.agencyData}
+        };
         //console.log(params)
-        this.updateOrder(this.selectedOrder.id, params)
+        this.updateOrder(this.selectedOrder.id, params);
     },
 
     get participantsModal() {
-        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editParticipantsModal'))
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editParticipantsModal'));
     },
     get isCustomerParticipant() {
-        return this.participants && !!this.participants.customer
+        return this.participants && !!this.participants.customer;
     },
     set isCustomerParticipant(value) {
         if (!this.participants) {
@@ -256,31 +258,31 @@ export default options => ({
                 customer: value,
             }
         } else {
-            this.participants.customer = value
+            this.participants.customer = value;
         }
     },
     participantNames(order) {
-        const items = []
+        const items = [];
         if (order.participants && order.participants.items) {
             order.participants.items.forEach(p => {
-                let item = `${p.last_name || ''} ${p.first_name || ''} ${p.middle_name || ''}`.trim()
-                items.push(`<div>${item}</div>`)
+                let item = `${p.last_name || ''} ${p.first_name || ''} ${p.middle_name || ''}`.trim();
+                items.push(`<div>${item}</div>`);
             })
         }
-        return items.join('')
+        return items.join('');
     },
     participantDates(order) {
-        const items = []
+        const items = [];
         if (order.participants && order.participants.items) {
             order.participants.items.forEach(p => {
-                let item = '&nbsp;'
+                let item = '&nbsp;';
                 if (p.birthday) {
-                    item = this.formatDate(p.birthday)
+                    item = this.formatDate(p.birthday);
                 }
-                items.push(`<div>${item}</div>`)
+                items.push(`<div>${item}</div>`);
             })
         }
-        return items.join('')
+        return items.join('');
     },
     editParticipants(order) {
         this.selectedOrder = {
@@ -295,42 +297,35 @@ export default options => ({
             without_place_count: order.without_place_count ? order.without_place_count : 0,
             children_young: order.children ? order.children_young : 0,
             children_older: order.children ? order.children_older : 0,
-        }
+        };
         this.participants = {
-            items:
-                order.participants && order.participants.items
-                    ? order.participants.items.map(p => {
-                          return Object.assign(
-                              {
-                                  first_name: '',
-                                  last_name: '',
-                                  middle_name: '',
-                                  birthday: '',
-                              },
-                              p,
-                          )
-                      })
-                    : [],
-            participant_phone:
-                order.participants && order.participants.participant_phone ? order.participants.participant_phone : '',
+            items: order.participants && order.participants.items ? order.participants.items.map(p => {
+                return Object.assign({
+                    first_name: '',
+                    last_name: '',
+                    middle_name: '',
+                    birthday: '',
+                }, p);
+            }) : [],
+            participant_phone: order.participants && order.participants.participant_phone ? order.participants.participant_phone : '',
             customer: order.participants && order.participants.customer,
-        }
-        this.participantsModal.show()
+        };
+        this.participantsModal.show();
     },
     cancelParticipants() {
-        this.participantsModal.hide()
+        this.participantsModal.hide();
     },
     saveParticipants() {
         if (this.selectedOrder.id > 0) {
             this.updateOrder(this.selectedOrder.id, {
                 ...this.selectedOrder,
-                participants: { ...this.participants },
+                participants: {...this.participants}
             })
         }
-        this.participantsModal.hide()
+        this.participantsModal.hide();
     },
     removeParticipant(idx) {
-        this.participants.items.splice(idx, 1)
+        this.participants.items.splice(idx, 1);
     },
     addParticipant() {
         if (!this.participants) {
@@ -340,7 +335,7 @@ export default options => ({
             }
         }
         if (this.participantData.first_name) {
-            this.participants.items.push({ ...this.participantData })
+            this.participants.items.push({...this.participantData});
             this.participantData = {
                 first_name: '',
                 last_name: '',
@@ -350,88 +345,88 @@ export default options => ({
         }
     },
     get statusModal() {
-        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editStatusModal'))
+        return bootstrap.Modal.getOrCreateInstance(document.getElementById('editStatusModal'));
     },
     editStatus(order) {
         this.selectedOrder = {
             id: order.id,
             status: order.status,
             total_places: order.total_places,
-        }
-        this.statusModal.show()
+        };
+        this.statusModal.show();
     },
     cancelStatus() {
-        this.statusModal.hide()
+        this.statusModal.hide();
     },
     saveStatus() {
-        this.updateOrder(this.selectedOrder.id, { status: this.selectedOrder.status })
-        this.statusModal.hide()
-        this.loadOrders(false)
+        this.updateOrder(this.selectedOrder.id, {status: this.selectedOrder.status});
+        this.statusModal.hide();
+        this.loadOrders(false);
     },
     get totalPlaces() {
-        let total = 0
-        this.orders.forEach(o => (total += o.total_places))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += o.total_places)
+        return total;
     },
     get totalSum() {
-        let total = 0
-        this.orders.forEach(o => (total += 1 * o.total_price))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += 1*o.total_price)
+        return total;
     },
     get totalSumFop() {
-        let total = 0
-        this.orders.forEach(o => (total += 1 * o.payment_fop))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += 1*o.payment_fop)
+        return total;
     },
     get totalSumTov() {
-        let total = 0
-        this.orders.forEach(o => (total += 1 * o.payment_tov))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += 1*o.payment_tov)
+        return total;
     },
     get totalSumOffice() {
-        let total = 0
-        this.orders.forEach(o => (total += 1 * o.payment_office))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += 1*o.payment_office)
+        return total;
     },
     get totalSumGet() {
-        let total = 0
-        this.orders.forEach(o => (total += this.paymentGet(o)))
-        return total
+        let total = 0;
+        this.orders.forEach(o => total += this.paymentGet(o))
+        return total;
     },
     clearPhone(phone) {
-        return '+' + cleanPhoneNumber(phone)
+        return '+' + cleanPhoneNumber(phone);
     },
     get disabledBookedStatus() {
-        return this.currentTab === 'reserve' && this.selectedOrder.total_places > this.schedule.places_available
+        return this.currentTab === 'reserve' && this.selectedOrder.total_places > this.schedule.places_available;
     },
     selectAllOrders(e) {
         this.selectedOrders = e.target.checked ? this.orders.map(o => o.id) : []
     },
     exportOrders(e) {
         let url = e.target.href
-        if (this.selectedOrders.length) {
+        if(this.selectedOrders.length){
             url += '&orders=[' + this.selectedOrders.join(',') + ']'
         }
         window.open(url)
     },
     async uploadInfoList(e) {
-        const formData = new FormData()
+        const formData = new FormData();
         const fileInput = document.getElementsByName('info_sheet_upload')[0]
 
         const file = fileInput.files[0] || null
-        formData.append('info_sheet', file)
+        formData.append('info_sheet', file);
         const response = await axios.post(`/admin/crm/schedules/${this.schedule.id}/info_sheet`, formData, {
             headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+                'Content-Type': 'multipart/form-data'
+            }
         })
 
         if (response.data) {
             if (response.data.result === 'success') {
-                toast.success(response.data.message)
+                toast.success(response.data.message);
             } else {
-                toast.error(response.data.message)
+                toast.error(response.data.message);
             }
         }
-    },
+    }
 })

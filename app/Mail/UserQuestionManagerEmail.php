@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\Models\UserQuestion;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
 
 class UserQuestionManagerEmail extends BaseTemplateEmail
 {

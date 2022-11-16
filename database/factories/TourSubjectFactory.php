@@ -29,7 +29,7 @@ class TourSubjectFactory extends Factory
             //
             'title' => $title,
             'slug' => $slug,
-            'published' => 1,
+            'published' => 1
         ];
     }
 }

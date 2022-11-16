@@ -37,24 +37,21 @@ class TourSchedulePolicy
     {
         //
         $tour = $tourSchedule->tour;
-
-        return ! empty($tour) && $tour->userCanEditTour($user);
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function delete(User $user, TourSchedule $tourSchedule): bool
     {
         //
         $tour = $tourSchedule->tour;
-
-        return ! empty($tour) && $tour->userCanEditTour($user);
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function restore(User $user, TourSchedule $tourSchedule): bool
     {
         //
         $tour = $tourSchedule->tour;
-
-        return ! empty($tour) && $tour->userCanEditTour($user);
+        return !empty($tour) && $tour->userCanEditTour($user);
     }
 
     public function forceDelete(User $user, TourSchedule $tourSchedule): bool

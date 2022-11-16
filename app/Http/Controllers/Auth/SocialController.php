@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Exceptions\GeneralException;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -28,11 +28,11 @@ class SocialController extends Controller
 
     /**
      * @param $provider
-     * @param UserService  $userService
-     *
-     * @throws GeneralException
+     * @param UserService $userService
      *
      * @return RedirectResponse
+     * @throws GeneralException
+     *
      */
     public function callback($provider, UserService $userService)
     {
@@ -48,7 +48,7 @@ class SocialController extends Controller
 //        }
 
             $user = $userService->registerProvider($data, $provider);
-            if (! $user) {
+            if (!$user) {
                 return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
             }
 //            if ($user->status !== User::STATUS_ACTIVE) {
@@ -61,8 +61,8 @@ class SocialController extends Controller
             return redirect()->route(homeRoute());
         } catch (Exception $e) {
             Log::error($e->getMessage());
-
             return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
         }
+
     }
 }

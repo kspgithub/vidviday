@@ -15,8 +15,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class TourSchedulesTable extends DataTableComponent
 {
-    public array $bulkActions = [];
-
+    public array $bulkActions = [
+    ];
+    
     /**
      * @var Tour
      */
@@ -42,7 +43,9 @@ class TourSchedulesTable extends DataTableComponent
      */
     public string $defaultSortDirection = 'desc';
 
+
     protected $listeners = ['recordSaved'];
+
 
     /**
      * @var array
@@ -132,6 +135,7 @@ class TourSchedulesTable extends DataTableComponent
                     return view('admin.tour-schedule.includes.publish-switch', ['model' => $row]);
                 })
                 ->sortable(),
+
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {

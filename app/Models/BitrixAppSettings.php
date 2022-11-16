@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BitrixAppSettings extends Model
 {
+
     protected $fillable = [
         'access_token',
         'expires',
@@ -20,4 +22,6 @@ class BitrixAppSettings extends Model
         'refresh_token',
         'application_token',
     ];
+
+
 }

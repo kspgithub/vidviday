@@ -29,7 +29,8 @@ class CharityController extends Controller
      */
     public function index()
     {
-        return view('admin.charity.index');
+
+        return view("admin.charity.index");
     }
 
     /**
@@ -39,62 +40,68 @@ class CharityController extends Controller
      */
     public function create()
     {
+
         $charity = new Charity();
 
-        return view('admin.charity.create', [
-            'charity' => $charity,
+        return view("admin.charity.create", [
+            "charity" => $charity
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CharityBasicRequest  $request
+     * @param CharityBasicRequest $request
      *
      * @return JsonResponse|RedirectResponse
      */
     public function store(CharityBasicRequest $request)
     {
+
         $charity = $this->service->store($request->validated());
 
         return redirect()->route('admin.charity.edit', $charity)->withFlashSuccess(__('Record Created'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Charity  $charity
+     * @param Charity $charity
      *
      * @return Application|Factory|View|RedirectResponse
      */
     public function edit(Charity $charity)
     {
         return view('admin.charity.edit', [
-            'charity' => $charity,
+            'charity'=> $charity
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param CharityBasicRequest  $request
-     * @param Charity  $charity
+     * @param CharityBasicRequest $request
      *
-     * @throws \App\Exceptions\GeneralException
+     * @param Charity $charity
      *
      * @return mixed
+     *
+     * @throws \App\Exceptions\GeneralException
      */
     public function update(CharityBasicRequest $request, Charity $charity)
     {
+
         $this->service->update($charity, $request->validated());
 
         return redirect()->route('admin.charity.edit', $charity)->withFlashSuccess(__('Record Updated'));
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param Charity  $charity
+     * @param Charity $charity
      *
      * @return mixed
      */
@@ -108,16 +115,14 @@ class CharityController extends Controller
     /**
      * Update status the specified resource.
      *
-     * @param Request  $request
-     * @param Charity  $charity
-     *
+     * @param Request $request
+     * @param Charity $charity
      * @return JsonResponse
      */
     public function updateStatus(Request $request, Charity $charity)
     {
-        $charity->published = (int) $request->input('published');
+        $charity->published = (int)$request->input('published');
         $charity->save();
-
         return response()->json(['result' => 'success']);
     }
 }

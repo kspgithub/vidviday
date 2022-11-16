@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusEmail;
+use App\Models\AccommodationType;
 use App\Models\Order;
+use App\Models\PaymentType;
+use App\Notifications\OrderStatusChanged;
 use App\Services\MailNotificationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -32,15 +38,13 @@ class OrderController extends Controller
     {
         //
         $order = new Order();
-
         return view('admin.order.create', ['order' => $order]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -49,15 +53,13 @@ class OrderController extends Controller
         $order = new Order();
         $order->fill($request->all());
         $order->syncContact();
-
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Order  $order
-     *
+     * @param Order $order
      * @return View|JsonResponse
      */
     public function show(Request $request, Order $order)
@@ -73,34 +75,30 @@ class OrderController extends Controller
                 'agency_data',
                 'utm_data',
             ]);
-
             return response()->json($order);
         }
-
         return view('admin.order.show', ['order' => $order]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Order  $order
-     *
+     * @param Order $order
      * @return View
      */
     public function edit(Order $order)
     {
         //
         return view('admin.order.edit', [
-            'order' => $order,
+            'order' => $order
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param Order  $order
-     *
+     * @param Request $request
+     * @param Order $order
      * @return Response|JsonResponse
      */
     public function update(Request $request, Order $order)
@@ -120,27 +118,24 @@ class OrderController extends Controller
                 'utm_data',
             ]);
             $order->loadMissing(['tour', 'schedule']);
-
             return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
         }
-
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Order  $order
-     *
+     * @param Order $order
      * @return Response
      */
     public function destroy(Order $order)
     {
         //
         $order->delete();
-
         return redirect()->route('admin.order.index')->withFlashSuccess(__('Record Deleted'));
     }
+
 
     public function updateStatus(Request $request, Order $order)
     {
@@ -151,7 +146,7 @@ class OrderController extends Controller
 
         if ($notify) {
             $notifyEmail = $request->input('notifyEmail', $order->email);
-            if (! empty($notifyEmail)) {
+            if (!empty($notifyEmail)) {
                 $notifyMessage = $request->input('notifyMessage', '');
                 MailNotificationService::userOrderStatus($order, $notifyEmail, $notifyMessage);
             }
@@ -167,8 +162,8 @@ class OrderController extends Controller
             'utm_data',
         ]);
         $order->loadMissing(['tour', 'schedule']);
-
         return response()->json(['result' => 'success', 'message' => __('Record Updated'), 'model' => $order]);
+
     }
 
     public function accomm(Request $request, Order $order)

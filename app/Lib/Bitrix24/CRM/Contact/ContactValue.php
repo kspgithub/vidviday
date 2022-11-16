@@ -15,14 +15,13 @@ class ContactValue implements Arrayable, Jsonable
     use HasAttributes;
 
     public const FIELD_VALUE = 'VALUE';
-
     public const FIELD_VALUE_TYPE = 'VALUE_TYPE';
 
+
     public const CONTACT_TYPE_MOBILE = 'MOBILE';
-
     public const CONTACT_TYPE_WORK = 'WORK';
-
     public const CONTACT_TYPE_HOME = 'HOME';
+
 
     protected $fillable = [
         'value',

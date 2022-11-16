@@ -1,5 +1,6 @@
-import { processOptions, throttle, deepEqual } from './utils'
-import { nextTick } from 'vue'
+import {processOptions, throttle, deepEqual} from './utils'
+import {nextTick} from "vue";
+
 
 class VisibilityState {
     constructor(el, options, vnode) {
@@ -10,9 +11,7 @@ class VisibilityState {
     }
 
     get threshold() {
-        return this.options.intersection && typeof this.options.intersection.threshold === 'number'
-            ? this.options.intersection.threshold
-            : 0
+        return this.options.intersection && typeof this.options.intersection.threshold === 'number' ? this.options.intersection.threshold : 0
     }
 
     createObserver(options, vnode) {
@@ -33,9 +32,9 @@ class VisibilityState {
         }
         // Throttle
         if (this.callback && this.options.throttle) {
-            const { leading } = this.options.throttleOptions || {}
+            const {leading} = this.options.throttleOptions || {}
             this.callback = throttle(this.callback, this.options.throttle, {
-                leading: state => {
+                leading: (state) => {
                     return leading === 'both' || (leading === 'visible' && state) || (leading === 'hidden' && !state)
                 },
             })
@@ -85,27 +84,25 @@ class VisibilityState {
     }
 }
 
-const onMounted = (el, { value }, vnode) => {
+const onMounted = (el, {value}, vnode) => {
     if (!value) return
     if (typeof IntersectionObserver === 'undefined') {
-        console.warn(
-            '[vue-observe-visibility] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill',
-        )
+        console.warn('[vue-observe-visibility] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill')
     } else {
         const state = new VisibilityState(el, value, vnode)
         el._vue_visibilityState = state
     }
-}
+};
 
-const onUnmounted = el => {
+const onUnmounted = (el) => {
     const state = el._vue_visibilityState
     if (state) {
         state.destroyObserver()
         delete el._vue_visibilityState
     }
-}
+};
 
-const onUpdated = (el, { value, oldValue }, vnode) => {
+const onUpdated = (el, {value, oldValue}, vnode) => {
     if (deepEqual(value, oldValue)) return
     const state = el._vue_visibilityState
     if (!value) {
@@ -115,26 +112,29 @@ const onUpdated = (el, { value, oldValue }, vnode) => {
     if (state) {
         state.createObserver(value, vnode)
     } else {
-        onMounted(el, { value }, vnode)
+        onMounted(el, {value}, vnode)
     }
 }
 
 const plugin = {
-    install: app => {
+    install: (app) => {
         app.directive('observe-visibility', directive)
-    },
+    }
 }
 
 const directive = {
     mounted: onMounted,
     updated: onUpdated,
     unmounted: onUnmounted,
-}
+};
 
 const mixin = {
-    directives: { ObserveVisibility: directive },
+    directives: {ObserveVisibility: directive},
+};
+
+export {
+    directive,
+    mixin
 }
 
-export { directive, mixin }
-
-export default plugin
+export default plugin;

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -13,11 +14,11 @@ class HtmlBlock extends TranslatableModel
     use HasSlug;
     use HasTranslations;
 
+
     public $translatable = [
         'title',
         'text',
     ];
-
     protected $fillable = [
         'title',
         'text',

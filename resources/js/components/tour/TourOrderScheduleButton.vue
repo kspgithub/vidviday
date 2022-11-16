@@ -1,37 +1,33 @@
 <template>
     <a :href="orderLink" @click="orderTour">
-        {{ __('tours-section.order') }}
+        {{__('tours-section.order')}}
     </a>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
 
 export default {
-    name: 'TourOrderScheduleButton',
+    name: "TourOrderScheduleButton",
     props: {
         tour: Object,
         corporate: Boolean,
         schedule: Object,
     },
     setup(props) {
-        const store = useStore()
+        const store = useStore();
 
         const showPopup = () => {
-            store.commit('orderTour/SET_POPUP_OPEN', true)
+            store.commit('orderTour/SET_POPUP_OPEN', true);
         }
 
         const onlyQuick = computed(() => {
-            return (
-                props.schedule &&
-                (props.schedule.places_available === 0 ||
-                    (props.schedule.places_available >= 2 && props.schedule.places_available <= 10))
-            )
+            return props.schedule && (props.schedule.places_available === 0 || (props.schedule.places_available >= 2 && props.schedule.places_available <= 10))
         })
 
-        const orderTour = event => {
-            if (onlyQuick.value) {
+        const orderTour = (event) => {
+            if(onlyQuick.value) {
                 event.preventDefault()
 
                 showPopup()
@@ -47,8 +43,10 @@ export default {
             orderTour,
             orderLink,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

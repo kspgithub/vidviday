@@ -16,12 +16,12 @@ class MakeAccommodationIdNullableInTourAccommodationsTable extends Migration
     {
         $conn = Schema::getConnection()->getDoctrineSchemaManager();
 
-        $foreignKeys = array_map(function (ForeignKeyConstraint $foreignKey) {
+        $foreignKeys = array_map(function(ForeignKeyConstraint $foreignKey) {
             return $foreignKey->getName();
         }, $conn->listTableForeignKeys('tour_accommodations'));
 
         Schema::table('tour_accommodations', function (Blueprint $table) use ($foreignKeys) {
-            if (in_array('tour_accommodations_accommodation_id_foreign', $foreignKeys)) {
+            if(in_array('tour_accommodations_accommodation_id_foreign', $foreignKeys)) {
                 $table->dropForeign('tour_accommodations_accommodation_id_foreign');
             }
         });
@@ -39,6 +39,7 @@ class MakeAccommodationIdNullableInTourAccommodationsTable extends Migration
     public function down()
     {
         Schema::table('tour_accommodations', function (Blueprint $table) {
+
         });
     }
 }

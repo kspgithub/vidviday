@@ -32,19 +32,17 @@ class BaseTemplateEmail extends Mailable
 
         $mail = $this->from(config('mail.from.address'), config('mail.from.name'));
 
-        /**
- * @var $template EmailTemplate
-*/
+        /** @var $template EmailTemplate */
         $template = EmailTemplate::query()->where('mailable', static::class)->first();
 
         $locale = app()->getLocale();
 
-        if ($template) {
+        if($template) {
             $subject = $template->getTranslation('subject', $locale);
             $html = $template->getTranslation('html', $locale);
 
             foreach ($this->getReplaces() as $key => $value) {
-                $replaceFrom = '{{ '.$key.' }}';
+                $replaceFrom = '{{ ' . $key . ' }}';
                 $replaceTo = is_callable($value) ? $value() : $value;
                 $subject = str_replace($replaceFrom, $replaceTo, $subject);
                 $html = str_replace($replaceFrom, $replaceTo, $html);

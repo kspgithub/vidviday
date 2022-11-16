@@ -14,8 +14,8 @@ class Captcha implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param string  $attribute
-     * @param mixed  $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      *
      * @throws GuzzleException
      *
@@ -29,12 +29,12 @@ class Captcha implements Rule
 
         $response = json_decode((new Client([
             'timeout' => config('captcha.options.timeout'),
-            ]))->post('https://www.google.com/recaptcha/api/siteverify', [
-                'form_params' => [
+        ]))->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
                 'secret' => config('captcha.secretKey'),
                 'remoteip' => request()->getClientIp(),
                 'response' => $value,
-                ],
+            ],
         ])->getBody(), true);
 
         return isset($response['success']) && $response['success'] === true;

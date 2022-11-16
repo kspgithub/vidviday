@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Exceptions\GeneralException;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -23,7 +23,7 @@ class DeletedUserController extends Controller
     /**
      * DeletedUserController constructor.
      *
-     * @param UserService  $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -39,7 +39,7 @@ class DeletedUserController extends Controller
     }
 
     /**
-     * @param User  $deletedUser
+     * @param  User  $deletedUser
      *
      * @throws GeneralException
      *
@@ -53,7 +53,7 @@ class DeletedUserController extends Controller
     }
 
     /**
-     * @param User  $deletedUser
+     * @param  User  $deletedUser
      *
      * @throws GeneralException
      *

@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\Traits\HasImage;
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\UsePublishedScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -14,6 +15,7 @@ class Achievement extends TranslatableModel
     use HasSlug;
     use UsePublishedScope;
     use HasImage;
+
 
     public $translatable = [
         'title',

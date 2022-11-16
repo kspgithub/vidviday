@@ -2,11 +2,12 @@
     <div class="spinner-wrapper">
         <div class="spinner-border text-warning" role="status"></div>
     </div>
+
 </template>
 
 <script>
 export default {
-    name: 'Spinner',
+    name: "spinner"
 }
 </script>
 

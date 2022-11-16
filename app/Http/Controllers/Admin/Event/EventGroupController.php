@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 
 class EventGroupController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +31,7 @@ class EventGroupController extends Controller
      */
     public function create()
     {
+
         $eventGroup = new EventGroup();
 
         return view('admin.event-group.create', compact('eventGroup'));
@@ -38,7 +40,7 @@ class EventGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param EventGroupBasicRequest  $request
+     * @param EventGroupBasicRequest $request
      *
      * @return mixed
      */
@@ -52,10 +54,11 @@ class EventGroupController extends Controller
         return redirect()->route('admin.event-group.edit', $eventGroup)->withFlashSuccess(__('Record Created'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param EventGroup  $eventGroup
+     * @param EventGroup $eventGroup
      *
      * @return Application|Factory|View
      */
@@ -67,8 +70,9 @@ class EventGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EventGroupBasicRequest  $request
-     * @param EventGroup  $eventGroup
+     * @param EventGroupBasicRequest $request
+     *
+     * @param EventGroup $eventGroup
      *
      * @return mixed
      */
@@ -83,7 +87,7 @@ class EventGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param EventGroup  $eventGroup
+     * @param EventGroup $eventGroup
      *
      * @return mixed
      */

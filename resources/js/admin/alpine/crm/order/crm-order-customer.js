@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { toast } from '../../../../libs/toast'
+import axios from "axios";
+import {toast} from "../../../../libs/toast";
 
-export default params => ({
+export default (params) => ({
     order: params.order || {},
     attributes: params.attributes || [],
     attributeIds: [],
@@ -16,8 +16,10 @@ export default params => ({
         viber: params.order.viber || '',
         company: params.order.company || '',
     },
-    init() {},
-    isEditable(id) {
+    init() {
+
+    },
+    isEditable(id){
         // console.log(id)
         return this.editableIds.indexOf(id) > -1
     },
@@ -31,27 +33,26 @@ export default params => ({
         // console.log('saveAttribute', id)
         this.updateAttribute(id, this.customer[id]).then(() => {
             if (this.isEditable(id)) {
-                this.editableIds.splice(this.editableIds.indexOf(id))
+                this.editableIds.splice(this.editableIds.indexOf(id));
             }
         })
     },
     cancelAttribute(id) {
         // console.log('cancelAttribute', id)
         if (this.isEditable(id)) {
-            this.editableIds.splice(this.editableIds.indexOf(id))
+            this.editableIds.splice(this.editableIds.indexOf(id));
         }
-        this.customer[id] = this.order[id]
+        this.customer[id] = this.order[id];
     },
 
     updateAttribute(id, value) {
-        return axios
-            .patch(`/admin/order/${this.order.id}`, { [id]: value })
-            .then(({ data: response }) => {
-                this.order = response.model
-                toast.success(response.message)
+        return axios.patch(`/admin/order/${this.order.id}`, {[id]: value})
+            .then(({data: response}) => {
+                this.order = response.model;
+                toast.success(response.message);
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
             })
-    },
+    }
 })

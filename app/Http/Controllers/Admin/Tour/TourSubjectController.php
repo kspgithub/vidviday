@@ -17,9 +17,9 @@ class TourSubjectController extends Controller
         $selected_ids = $tour->subjects()->pluck('id')->toArray();
 
         return view('admin.tour.subjects', [
-            'tour' => $tour,
-            'options' => $options,
-            'selected_ids' => $selected_ids,
+            'tour'=>$tour,
+            'options'=>$options,
+            'selected_ids'=>$selected_ids,
         ]);
     }
 

@@ -3,12 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\EditRecordTrait;
+use App\Models\Region;
+use App\Models\Transport;
 use App\Models\Tour;
 use App\Models\TourTransport;
-use App\Models\Transport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -35,6 +37,7 @@ class TourTransports extends Component
      * @var Collection
      */
     public $transports;
+
 
     public array $form = [
         'type_id' => null,
@@ -75,13 +78,13 @@ class TourTransports extends Component
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.transport_id' => Rule::when(fn () => $this->form['type_id'] == TourTransport::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.transport_id' => Rule::when(fn() => $this->form['type_id'] == TourTransport::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourTransport::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourTransport::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -90,17 +93,17 @@ class TourTransports extends Component
     public function render()
     {
         return view('admin.tour.transport.livewire', [
-            'items' => $this->tour->groupTourTransport,
+            'items' => $this->tour->groupTourTransport
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourTransport::TYPE_CUSTOM) {
+        if($type_id == TourTransport::TYPE_CUSTOM) {
             $this->form['transport_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->form['transport_id'] = 0;
@@ -139,7 +142,7 @@ class TourTransports extends Component
 
         $index = array_search($tab, $active_tabs);
 
-        if ($index !== false) {
+        if($index !== false) {
             array_splice($active_tabs, $index);
         } else {
             $active_tabs[] = $tab;
@@ -180,6 +183,7 @@ class TourTransports extends Component
         $this->form['text'] = $this->model->getTranslations('text');
 
         $this->dispatchBrowserEvent('initLocation', []);
+
     }
 
     public function syncType($type_id)

@@ -10,33 +10,30 @@
 </template>
 
 <script>
-import { pluralizeValue } from '../../utils/string'
-import { trans } from '../../i18n/lang'
+import {pluralizeValue} from "../../utils/string";
+import {trans} from '../../i18n/lang';
 export default {
-    name: 'TourRating',
+    name: "TourRating",
     props: {
         rating: {
             type: Number,
-            default: 0,
+            default: 0
         },
         count: {
             type: Number,
-            default: 0,
+            default: 0
         },
-        forceCount: Boolean,
+        forceCount: Boolean
     },
     setup(props) {
-        const title = pluralizeValue(
-            props.count,
-            trans('tours-section.one_review'),
-            trans('tours-section.two_reviews'),
-            trans('tours-section.many_reviews'),
-        )
+        const title = pluralizeValue(props.count, trans('tours-section.one_review'), trans('tours-section.two_reviews'), trans('tours-section.many_reviews'));
         return {
             title,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasSlug;
 use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Traits\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class Ticket extends TranslatableModel
 {
+
     use HasFactory;
     use HasSlug;
     use HasTranslations;
@@ -25,6 +27,7 @@ class Ticket extends TranslatableModel
 //    {
 //        return 'slug';
 //    }
+
 
     public $translatable = [
         'title',
@@ -43,8 +46,9 @@ class Ticket extends TranslatableModel
 
     protected $casts = [
         'published' => 'boolean',
-        'price' => 'float',
+        'price' => 'float'
     ];
+
 
     public function getSlugOptions(): SlugOptions
     {
@@ -59,6 +63,7 @@ class Ticket extends TranslatableModel
         return $this->belongsTo(Region::class);
     }
 
+
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'tours_tickets', 'ticket_id', 'tour_id');
@@ -68,8 +73,8 @@ class Ticket extends TranslatableModel
     {
         $search = strtolower(urldecode(trim($search)));
         $query = $query->published()->with(['region'])
-            ->whereRaw('LOWER(title->"$.uk") like ?', '%'.$search.'%')
-            ->orWhereRaw('LOWER(title->"$.en") like ?', '%'.$search.'%')
+            ->whereRaw('LOWER(title->"$.uk") like ?', '%' . $search . '%')
+            ->orWhereRaw('LOWER(title->"$.en") like ?', '%' . $search . '%')
             ->select([
                 'id',
                 'region_id',
@@ -77,13 +82,12 @@ class Ticket extends TranslatableModel
                 'slug',
             ]);
 
-        if (! empty($search)) {
+        if (!empty($search)) {
             $query->addSelect(DB::raw("LOCATE('$search', title) as relevant"))
                 ->orderBy('relevant');
         } else {
             $query->addSelect(DB::raw("JSON_EXTRACT(title, '$.uk') AS titleUk"))->orderBy('titleUk');
         }
-
         return $query;
     }
 
@@ -95,7 +99,7 @@ class Ticket extends TranslatableModel
             ->get()->map(function (Ticket $item) {
                 return [
                     'value' => $item->id,
-                    'text' => $item->title.' ('.$item->region->title.')',
+                    'text' => $item->title . ' (' . $item->region->title . ')',
                 ];
             });
     }
@@ -104,7 +108,7 @@ class Ticket extends TranslatableModel
     {
         return [
             'id' => $this->id,
-            'text' => $this->title.($this->region ? ' ('.$this->region->title.')' : ''),
+            'text' => $this->title . ($this->region ? ' (' . $this->region->title . ')' : ''),
         ];
     }
 }

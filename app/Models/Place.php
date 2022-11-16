@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasTranslatableSlug;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\PlaceRelationship;
 use App\Models\Traits\Scope\JsonLikeScope;
@@ -11,9 +10,13 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Traits\HasSlug;
+use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -91,14 +94,16 @@ class Place extends TranslatableModel implements HasMedia
             ->preventOverwrite();
     }
 
+
     public function getUrlAttribute()
     {
-        return ! empty($this->slug) ? '/'.$this->slug : '';
+        return !empty($this->slug) ? '/' . $this->slug : '';
     }
+
 
     public function asMapMarker()
     {
-        return (object) [
+        return (object)[
             'title' => $this->title,
             'lat' => $this->lat,
             'lng' => $this->lng,
@@ -108,7 +113,7 @@ class Place extends TranslatableModel implements HasMedia
 
     public function shortInfo()
     {
-        return (object) [
+        return (object)[
             'id' => $this->id,
             'title' => $this->title,
             'rating' => $this->rating,
@@ -133,7 +138,7 @@ class Place extends TranslatableModel implements HasMedia
             'district' => $this->district->getTranslations('title'),
             'city' => $this->city->getTranslations('title'),
             'direction' => $this->direction->getTranslations('title'),
-            'images' => $this->getMedia()->map(fn ($it) => $it->getFullUrl()),
+            'images' => $this->getMedia()->map(fn($it) => $it->getFullUrl()),
         ];
     }
 
@@ -148,13 +153,14 @@ class Place extends TranslatableModel implements HasMedia
             'slug',
         ];
         $with = ['region', 'media'];
-
         return $query->published()->jsonAutocomplete($search, $select, $with);
+
     }
+
 
     public function asSelectBox($value_key = 'id', $text_key = 'text', $titleSource = 'default', $appendUrl = false)
     {
-        $title = $titleSource === 'default' ? $this->title.($this->region ? ' ('.$this->region->title.($this->district ? ', '.$this->district->title : '').')' : '') : $this->{$titleSource};
+        $title = $titleSource === 'default' ? $this->title . ($this->region ? ' (' . $this->region->title . ($this->district ? ', ' . $this->district->title : '') . ')' : '') : $this->{$titleSource};
         $data = [
             $value_key => $this->id,
             $text_key => $title,
@@ -162,7 +168,6 @@ class Place extends TranslatableModel implements HasMedia
         if ($appendUrl) {
             $data['url'] = $this->getUrlAttribute();
         }
-
         return $data;
     }
 

@@ -39,7 +39,7 @@ class SiteOptionsSeeder extends Seeder
         foreach ($site_options as $option) {
             $setting = SiteOption::getValue($option['key']);
 
-            if (! $setting) {
+            if(!$setting) {
                 SiteOption::createOption($option['key'], $option['value'], $option['title'], $option['primary'] ?? false, $option['type'] ?? null);
             }
         }

@@ -1,57 +1,50 @@
 <template>
     <div class="container">
         <div class="spacer-sm"></div>
-        <h1 v-if="schedules.length > 0 && !orderCorporate && tourSelected" class="h1">
+        <h1 class="h1" v-if="(schedules.length > 0 && !orderCorporate) && tourSelected ">
             <span v-if="tour">{{ __('order-section.booking-tour') }}:</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
-            <template v-else>{{ __('order-section.booking-tour') }}</template>
+            <template v-else>{{__('order-section.booking-tour')}}</template>
         </h1>
-        <h1 v-if="(schedules.length === 0 || orderCorporate) && tourSelected" class="h1">
+        <h1 class="h1" v-if="(schedules.length === 0 || orderCorporate) && tourSelected">
             <span v-if="tour">{{ __('order-section.booking-corporate') }}:</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
-            <template v-else>{{ __('order-section.booking-corporate') }}</template>
+            <template v-else>{{__('order-section.booking-corporate')}}</template>
         </h1>
-        <h1 v-if="!tourSelected && !orderCorporate" class="h1">{{ __('order-section.booking-tour') }}</h1>
-        <h1 v-if="!tourSelected && orderCorporate" class="h1">{{ __('order-section.booking-corporate') }}</h1>
+        <h1 class="h1" v-if="!tourSelected && !orderCorporate">{{ __('order-section.booking-tour') }}</h1>
+        <h1 class="h1" v-if="!tourSelected && orderCorporate">{{ __('order-section.booking-corporate') }}</h1>
         <div class="spacer-xs"></div>
         <form :action="action" class="tabs vue-tabs" method="post">
-            <slot />
+            <slot/>
             <ul class="tab-toggle mb-40">
-                <li class="tab-caption" :class="{ active: currentStep === 1 }" @click="setStep(1)">
+                <li class="tab-caption" :class="{active: currentStep === 1}"
+                    @click="setStep(1)">
                     <span>1</span> {{ __('order-section.tabs.common') }}
                 </li>
-                <li
-                    class="tab-caption"
-                    :class="{
-                        active: currentStep === 2,
-                        disabled: currentStep < 2 || (group_type === 0 && additional === 0),
-                    }"
-                    @click="setStep(2)"
-                >
+                <li class="tab-caption"
+                    :class="{active: currentStep === 2, disabled: currentStep < 2 || (group_type === 0 && additional === 0)}"
+                    @click="setStep(2)">
                     <span>2</span> {{ __('order-section.tabs.additional') }}
                 </li>
-                <li
-                    class="tab-caption"
-                    :class="{ active: currentStep === 3, disabled: currentStep < 3 }"
-                    @click="setStep(3)"
-                >
+                <li class="tab-caption" :class="{active: currentStep === 3, disabled: currentStep < 3}"
+                    @click="setStep(3)">
                     <span>3</span> {{ __('order-section.tabs.confirmation') }}
                 </li>
             </ul>
 
             <div class="tabs-wrap">
                 <!-- TAB #1 -->
-                <order-step-one v-if="!orderCorporate" :tour-selected="tourSelected" :active="currentStep === 1" />
-                <order-step-one-corp v-if="orderCorporate" :tour-selected="tourSelected" :active="currentStep === 1" />
+                <order-step-one v-if="!orderCorporate" :tour-selected="tourSelected" :active="currentStep === 1"/>
+                <order-step-one-corp v-if="orderCorporate" :tour-selected="tourSelected" :active="currentStep === 1"/>
                 <!-- TAB #1 END -->
 
                 <!-- TAB #2 -->
-                <order-step-two v-if="group_type === 0" :active="currentStep === 2" :tour="tour" />
-                <order-step-two-corp v-if="group_type === 1" :active="currentStep === 2" />
+                <order-step-two v-if="group_type === 0" :active="currentStep === 2" :tour="tour"/>
+                <order-step-two-corp v-if="group_type === 1" :active="currentStep === 2"/>
                 <!-- TAB #2 END -->
 
                 <!-- TAB #3 -->
-                <order-step-three :active="currentStep === 3" />
+                <order-step-three :active="currentStep === 3"/>
                 <!-- TAB #3 END -->
             </div>
             <div class="spacer-xs"></div>
@@ -59,60 +52,55 @@
                 <span class="text-sm">{{ __('forms.required-fields') }}</span>
                 <div class="spacer-sm"></div>
             </div>
-            <hr />
+            <hr>
             <div class="spacer-xs"></div>
             <div class="relative">
                 <div class="row align-items-center">
+
                     <div class="col-4">
-                        <span
-                            v-if="currentStep !== 1"
-                            class="btn btn-read-more left-arrow text-bold"
-                            @click="prevStep()"
-                            >{{ __('forms.back') }}</span
-                        >
+                        <span class="btn btn-read-more left-arrow text-bold" v-if="currentStep !== 1"
+                              @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
 
-                    <div v-if="currentStep !== 3" class="col-md-6 col-8 text-right">
+                    <div class="col-md-6 col-8 text-right" v-if="currentStep !== 3">
                         <span class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
                     </div>
 
-                    <div v-if="currentStep === 3" class="col-8 justify-content-end align-items-center d-flex">
-                        <form-checkbox
-                            v-model="conditions"
-                            class="small only-desktop-pad checkbox-cond"
-                            name="conditions"
-                            :label="__('forms.read-and-accept')"
-                        />
+                    <div class="col-8 justify-content-end align-items-center d-flex" v-if="currentStep === 3">
+                        <form-checkbox class="small only-desktop-pad checkbox-cond" name="conditions"
+                                       v-model="conditions" :label="__('forms.read-and-accept')"/>
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
                         </span>
-                        <button type="submit" class="btn type-1 ms-30" @click="submit($event)">
+                        <button type="submit" @click="submit($event)" class="btn type-1  ms-30">
                             {{ __('order-section.order-btn') }}
                         </button>
                     </div>
                 </div>
+
+
             </div>
         </form>
     </div>
 </template>
 
 <script>
-import OrderStepOne from './OrderStepOne'
-import { computed, watch } from 'vue'
-import OrderStepTwo from './OrderStepTwo'
-import OrderStepThree from './OrderStepThree'
-import { useStore } from 'vuex'
-import { useFormDataProperty } from '../../store/composables/useFormData'
-import FormCheckbox from '../form/FormCheckbox'
-import { useForm } from 'vee-validate'
-import * as UrlUtils from '../../utils/url'
-import { scrollToEl } from '../../utils/functions'
-import OrderStepTwoCorp from './OrderStepTwoCorp'
-import OrderStepOneCorp from './OrderStepOneCorp'
+import OrderStepOne from "./OrderStepOne";
+import {computed, watch} from "vue";
+import OrderStepTwo from "./OrderStepTwo";
+import OrderStepThree from "./OrderStepThree";
+import {useStore} from "vuex";
+import {useFormDataProperty} from "../../store/composables/useFormData";
+import FormCheckbox from "../form/FormCheckbox";
+import {useForm} from "vee-validate";
+import * as UrlUtils from "../../utils/url";
+import {scrollToEl} from "../../utils/functions";
+import OrderStepTwoCorp from "./OrderStepTwoCorp";
+import OrderStepOneCorp from "./OrderStepOneCorp";
 
 export default {
-    name: 'OrderForm',
-    components: { OrderStepOneCorp, OrderStepTwoCorp, FormCheckbox, OrderStepThree, OrderStepTwo, OrderStepOne },
+    name: "OrderForm",
+    components: {OrderStepOneCorp, OrderStepTwoCorp, FormCheckbox, OrderStepThree, OrderStepTwo, OrderStepOne},
     props: {
         action: String,
         currentStep: {
@@ -120,65 +108,65 @@ export default {
         },
         tour: {
             default() {
-                return null
-            },
+                return null;
+            }
         },
         user: {
             default() {
-                return null
-            },
+                return null;
+            }
         },
         tourSelected: {
             type: Boolean,
             default() {
-                return false
-            },
+                return false;
+            }
         },
         orderCorporate: {
             type: Boolean,
             default() {
-                return false
-            },
+                return false;
+            }
         },
         scheduleId: {
-            default: 0,
+            default: 0
         },
         schedules: {
             type: Array,
             default() {
-                return []
-            },
+                return [];
+            }
         },
         discounts: {
             type: Array,
             default() {
-                return []
-            },
+                return [];
+            }
         },
         rooms: {
             type: Array,
             default() {
-                return []
-            },
+                return [];
+            }
         },
         paymentTypes: {
             type: Array,
             default() {
-                return []
-            },
+                return [];
+            }
         },
         confirmationTypes: {
             type: Array,
             default() {
-                return []
-            },
+                return [];
+            }
         },
         clear: {
-            default: 0,
+            default: 0
         },
     },
     setup(props) {
-        const store = useStore()
+        const store = useStore();
 
         store.commit('orderTour/INIT', {
             user: props.user,
@@ -194,15 +182,15 @@ export default {
         if (props.currentStep === 1) {
             // Очищаем форму при первом заходе
             if (props.clear) {
-                store.dispatch('orderTour/clearForm')
-                UrlUtils.updateUrlQuery({ clear: null }, false, true)
+                store.dispatch('orderTour/clearForm');
+                UrlUtils.updateUrlQuery({clear: null}, false, true);
             }
 
-            store.commit('orderTour/SET_TOUR', props.tour)
+            store.commit('orderTour/SET_TOUR', props.tour);
 
             const params = {
                 tour_id: props.tour ? props.tour.id : 0,
-                schedule_id: props.scheduleId,
+                schedule_id: props.scheduleId
             }
 
             if (props.orderCorporate !== null) {
@@ -212,22 +200,24 @@ export default {
             if (!props.tourSelected) {
                 params.children = 0
             }
-            store.commit('orderTour/UPDATE_FORM_DATA', params)
+            store.commit('orderTour/UPDATE_FORM_DATA', params);
         }
 
-        const currentStep = computed(() => store.state.orderTour.currentStep)
-        const additional = computed(() => store.state.orderTour.additional)
-        const schedules = computed(() => store.state.orderTour.schedules)
 
-        const group_type = computed(() => store.state.orderTour.formData.group_type)
-        const program_type = computed(() => store.state.orderTour.formData.program_type)
-        const tour_id = computed(() => store.state.orderTour.formData.tour_id)
-        const formData = computed(() => store.state.orderTour.formData)
+        const currentStep = computed(() => store.state.orderTour.currentStep);
+        const additional = computed(() => store.state.orderTour.additional);
+        const schedules = computed(() => store.state.orderTour.schedules);
 
-        const conditions = useFormDataProperty('orderTour', 'conditions')
+        const group_type = computed(() => store.state.orderTour.formData.group_type);
+        const program_type = computed(() => store.state.orderTour.formData.program_type);
+        const tour_id = computed(() => store.state.orderTour.formData.tour_id);
+        const formData = computed(() => store.state.orderTour.formData);
+
+
+        const conditions = useFormDataProperty('orderTour', 'conditions');
 
         const validationSchema = computed(() => {
-            let schema = {}
+            let schema = {};
             if (currentStep.value === 1) {
                 schema = {
                     first_name: 'required',
@@ -237,83 +227,85 @@ export default {
                     places: 'required|min:1',
                 }
                 if (!props.tourSelected && program_type.value === 0) {
-                    schema.tour_id = () => (tour_id.value > 0 ? true : 'Оберіть тур')
+                    schema.tour_id = () => tour_id.value > 0 ? true : 'Оберіть тур';
                 }
                 if (!props.tourSelected && program_type.value === 1) {
-                    schema.tour_plan = 'required'
+                    schema.tour_plan = 'required';
                 }
                 if (group_type.value === 0 && schedules.value.length > 0) {
-                    schema.schedule_id = 'required'
+                    schema.schedule_id = 'required';
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
-                        schema.start_date = () => (!formData.value.start_date ? 'Оберіть дату виїзду' : true)
+                        schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;
                         // schema.start_place = 'required';
-                        schema.end_date = () => (!formData.value.start_date ? 'Оберіть дату повернення' : true)
+                        schema.end_date = () => !formData.value.start_date ? 'Оберіть дату повернення' : true;
                         // schema.end_place = 'required';
                     } else {
-                        schema.start_date = 'required'
+                        schema.start_date = 'required';
                     }
                 }
             }
             if (currentStep.value === 2 && group_type.value === 0) {
-                schema.participant_phone = 'required|tel'
+                schema.participant_phone = 'required|tel';
             }
             if (currentStep.value === 3) {
                 schema.conditions = () => {
-                    return conditions.value === 1 ? true : 'Ви повинні прийняти умови правил бронювання.'
-                }
+                    return conditions.value === 1 ? true : 'Ви повинні прийняти умови правил бронювання.';
+                };
             }
-            return schema
-        })
+            return schema;
+        });
 
-        const { validate, errors } = useForm({
+        const {validate, errors} = useForm({
             validationSchema: validationSchema,
-        })
+        });
 
-        const submit = async event => {
-            const result = await validate()
+
+        const submit = async (event) => {
+            const result = await validate();
             if (result.valid) {
+
             } else {
-                console.log(errors.value)
-                event.preventDefault()
+                console.log(errors.value);
+                event.preventDefault();
             }
         }
 
         const nextStep = async () => {
-            const result = await validate()
+            const result = await validate();
             if (result.valid) {
                 if (currentStep.value === 1 && group_type.value === 0) {
-                    await store.dispatch('orderTour/setParticipants')
-                    await store.dispatch('orderTour/resetAccommodation')
+                    await store.dispatch('orderTour/setParticipants');
+                    await store.dispatch('orderTour/resetAccommodation');
                 }
                 if (currentStep.value === 1 && group_type.value === 0 && additional.value === 0) {
-                    await store.dispatch('orderTour/setStep', 3)
+                    await store.dispatch('orderTour/setStep', 3);
                 } else {
-                    await store.dispatch('orderTour/nextStep')
+                    await store.dispatch('orderTour/nextStep');
                 }
-                scrollToEl('.h1', -110)
+                scrollToEl('.h1', -110);
             } else {
                 console.log(errors.value)
-                const first_error = Object.keys(errors.value)[0]
-                scrollToEl(`[name="${first_error}"]`, -150)
+                const first_error = Object.keys(errors.value)[0];
+                scrollToEl(`[name="${first_error}"]`, -150);
             }
         }
 
         const prevStep = async () => {
             if (currentStep.value === 3 && group_type.value === 0 && additional.value === 0) {
-                await store.dispatch('orderTour/setStep', 1)
+                await store.dispatch('orderTour/setStep', 1);
             } else {
                 await store.dispatch('orderTour/prevStep')
             }
-            scrollToEl('.h1', -110)
+            scrollToEl('.h1', -110);
         }
 
         watch(currentStep, () => {
-            UrlUtils.updateUrlQuery({ step: currentStep.value === 1 ? null : currentStep.value })
-        })
+            UrlUtils.updateUrlQuery({step: currentStep.value === 1 ? null : currentStep.value});
+        });
 
         return {
-            setStep: step => store.dispatch('orderTour/setStep', step),
+            setStep: (step) => store.dispatch('orderTour/setStep', step),
             prevStep,
             nextStep,
             group_type,
@@ -323,8 +315,10 @@ export default {
             additional,
             errors,
         }
-    },
+    }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+</style>

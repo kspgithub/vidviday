@@ -1,22 +1,24 @@
 <template>
     <div class="img">
-        <img :src="user.avatar_url" alt="user" />
+        <img :src="user.avatar_url" alt="user">
     </div>
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import {useStore} from "vuex";
 
 export default {
-    name: 'UserAvatar',
+    name: "UserAvatar",
     props: {
         user: Object,
     },
     setup(props) {
-        const store = useStore()
-        store.commit('user/SET_PROFILE', props.user)
-    },
+        const store = useStore();
+        store.commit('user/SET_PROFILE', props.user);
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

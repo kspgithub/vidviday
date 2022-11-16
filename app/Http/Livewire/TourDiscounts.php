@@ -54,10 +54,11 @@ class TourDiscounts extends Component
 
     public $currencies = [];
 
+
     public array $form = [
         'type_id' => null,
         'discount_id' => 0,
-        //        'title_admin' => '',
+//        'title_admin' => '',
         'title' => ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''],
         'type' => null,
         'price' => 0,
@@ -85,11 +86,11 @@ class TourDiscounts extends Component
             ['value' => TourDiscount::TYPE_TEMPLATE, 'text' => __('Вибрати з шаблону')],
             ['value' => TourDiscount::TYPE_CUSTOM, 'text' => __('Свій тип')],
         ]);
-        $this->discountTypes = array_map(fn ($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$types), Discount::$types);
-        $this->durations = array_map(fn ($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$durations), Discount::$durations);
-        $this->categories = array_map(fn ($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$categories), Discount::$categories);
+        $this->discountTypes = array_map(fn($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$types), Discount::$types);
+        $this->durations = array_map(fn($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$durations), Discount::$durations);
+        $this->categories = array_map(fn($key, $value) => ['value' => $key, 'text' => $value], array_keys(Discount::$categories), Discount::$categories);
         $this->currencies = Currency::toSelectBox('iso', 'iso');
-        $this->discounts = Discount::query()->orderBy('title')->toSelectBox();
+        $this->discounts    = Discount::query()->orderBy('title')->toSelectBox();
         $this->discount = null;
     }
 
@@ -107,13 +108,13 @@ class TourDiscounts extends Component
     {
         $rules = [
             'form.type_id' => 'required',
-            'form.discount_id' => Rule::when(fn () => $this->form['type_id'] == TourDiscount::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
+            'form.discount_id' => Rule::when(fn() => $this->form['type_id'] == TourDiscount::TYPE_TEMPLATE, ['required', 'int', 'min:1']),
         ];
 
         $locales = $this->tour->locales;
 
         foreach ($locales as $locale) {
-            $rules['form.title.'.$locale] = Rule::when(fn () => $this->form['type_id'] == TourDiscount::TYPE_CUSTOM, ['required', 'string']);
+            $rules['form.title.' . $locale] = Rule::when(fn() => $this->form['type_id'] == TourDiscount::TYPE_CUSTOM, ['required', 'string']);
         }
 
         return $rules;
@@ -122,18 +123,18 @@ class TourDiscounts extends Component
     public function render()
     {
         return view('admin.tour.discount.livewire', [
-            //            'items' => $this->query()->orderBy('position')->get(),
+//            'items' => $this->query()->orderBy('position')->get(),
             'items' => $this->tour->groupTourDiscounts,
         ]);
     }
 
     public function updatedFormTypeId($type_id)
     {
-        if ($type_id == TourDiscount::TYPE_CUSTOM) {
+        if($type_id == TourDiscount::TYPE_CUSTOM) {
             $this->form['discount_id'] = 0;
         }
 
-        if (! $this->type) {
+        if(!$this->type) {
             $this->type = $type_id;
 
             $this->form['discount_id'] = 0;
@@ -225,6 +226,7 @@ class TourDiscounts extends Component
         $this->form['end_date'] = $this->model->end_date;
 
         $this->dispatchBrowserEvent('DOMContentLoaded', []);
+
     }
 
     public function syncType($type_id)

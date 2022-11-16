@@ -3,16 +3,21 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
+
 use App\Models\Document;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Spatie\Image\Manipulations;
 
 class DocumentService extends BaseService
 {
     /**
      * UserService constructor.
      *
-     * @param Document  $document
+     * @param Document $document
      */
     public function __construct(Document $document)
     {
@@ -22,7 +27,6 @@ class DocumentService extends BaseService
     public function store($params)
     {
         $document = new Document();
-
         return $this->update($document, $params);
     }
 
@@ -30,10 +34,10 @@ class DocumentService extends BaseService
     {
         try {
             if (isset($params['file_upload'])) {
-                $params['file'] = Storage::url($document->storeFile($params['file_upload'], 'uploads/files'));
+                $params["file"] = Storage::url($document->storeFile($params["file_upload"], "uploads/files"));
             }
             if (isset($params['image_upload'])) {
-                $params['image'] = Storage::url($document->storeFile($params['image_upload'], 'uploads/files'));
+                $params['image'] = Storage::url($document->storeFile($params["image_upload"], "uploads/files"));
             }
             $document->fill($params);
             $document->save();

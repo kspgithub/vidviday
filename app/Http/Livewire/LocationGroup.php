@@ -17,47 +17,31 @@ class LocationGroup extends Component
     public Model $model;
 
     public bool $useCountry;
-
     public bool $useRegion;
-
     public bool $useDistrict;
-
     public bool $useCity;
-
     public bool $useCoords;
-
     public bool $useMap;
 
     public Collection $countries;
-
     public Collection $regions;
-
     public Collection $districts;
-
     public Collection $cities;
 
     public Country|null $country = null;
-
     public Region|null $region = null;
-
     public District|null $district = null;
-
     public City|null $city = null;
 
     public $selectedCountry;
-
     public $selectedRegion;
-
     public $selectedDistrict;
-
     public $city_id;
 
     public $lat;
-
     public $lng;
 
     public string $latName = 'lat';
-
     public string $lngName = 'lng';
 
     public function mount(
@@ -69,8 +53,7 @@ class LocationGroup extends Component
         $lat = null,
         $lng = null,
         $map = null,
-    ): void
-    {
+    ): void {
         $this->model = $model;
 
         $attributes = $model->getFillable();
@@ -114,13 +97,12 @@ class LocationGroup extends Component
             $city = City::query()->find($this->city_id);
             $this->cities = collect([$city->asSelectBox()]);
         }
-
         return view('livewire.location-group');
     }
 
     public function updatedSelectedCountry($country): void
     {
-        $this->selectedCountry = $country ? (int) Arr::first((array) $country) : 0;
+        $this->selectedCountry = $country ? (int)Arr::first((array)$country) : 0;
 
         if ($this->selectedCountry) {
             $this->country = Country::query()->find($this->selectedCountry);
@@ -164,7 +146,7 @@ class LocationGroup extends Component
 
     public function updatedSelectedRegion($region): void
     {
-        $this->selectedRegion = $region ? (int) Arr::first((array) $region) : 0;
+        $this->selectedRegion = $region ? (int)Arr::first((array)$region) : 0;
 
         if ($this->selectedRegion) {
             $this->region = Region::query()->with(['country'])->find($this->selectedRegion);
@@ -207,7 +189,7 @@ class LocationGroup extends Component
 
     public function updatedSelectedDistrict($district): void
     {
-        $this->selectedDistrict = $district ? (int) Arr::first((array) $district) : 0;
+        $this->selectedDistrict = $district ? (int)Arr::first((array)$district) : 0;
 
         if ($this->selectedDistrict) {
             $this->district = District::query()->with(['region', 'country'])->find($this->selectedDistrict);
@@ -249,7 +231,7 @@ class LocationGroup extends Component
 
     public function updatedCityId($city): void
     {
-        $this->city_id = $city ? (int) Arr::first((array) $city) : 0;
+        $this->city_id = $city ? (int)Arr::first((array)$city) : 0;
 
         if ($this->city_id) {
             $this->city = City::query()->with(['district', 'region', 'country'])->find($this->city_id);

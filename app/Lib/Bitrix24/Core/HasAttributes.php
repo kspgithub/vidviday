@@ -8,6 +8,7 @@ trait HasAttributes
 {
     protected $attributes = [];
 
+
     public function fill($attributes = [])
     {
         foreach ($attributes as $key => $value) {
@@ -19,19 +20,20 @@ trait HasAttributes
 
     public function getAttribute($key)
     {
-        if (! empty($key)) {
+
+        if (!empty($key)) {
             $key = strtoupper($key);
             if (array_key_exists($key, $this->attributes)) {
                 return $this->attributes[$key];
             }
-        }
 
+        }
         return null;
     }
 
     public function setAttribute($key, $value)
     {
-        if (! empty($key)) {
+        if (!empty($key)) {
             $key = strtoupper($key);
             $this->attributes[$key] = $value;
         }
@@ -62,7 +64,6 @@ trait HasAttributes
                 $props[$key] = $value;
             }
         }
-
         return $props;
     }
 

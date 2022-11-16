@@ -8,7 +8,6 @@ use Illuminate\View\Component;
 class LatestNews extends Component
 {
     public $news = [];
-
     /**
      * Create a new component instance.
      *
@@ -17,7 +16,7 @@ class LatestNews extends Component
     public function __construct()
     {
         //
-        $this->news = News::published()->latest()->take(3)->get();
+        $this->news =  News::published()->latest()->take(3)->get();
     }
 
     /**

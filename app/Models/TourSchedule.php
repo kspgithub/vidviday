@@ -7,11 +7,14 @@ use App\Models\Traits\Methods\TourScheduleMethod;
 use App\Models\Traits\Scope\TourScheduleScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\StandardUploadFile;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class TourSchedule extends Model
 {
@@ -24,13 +27,9 @@ class TourSchedule extends Model
     use StandardUploadFile;
 
     const STATUS_PLANNED = 0;
-
     const STATUS_WAITING = 1;
-
     const STATUS_PERFORMED = 2;
-
     const STATUS_SUCCESS = 3;
-
     const STATUS_FAIL = 4;
 
     protected $fillable = [
@@ -139,4 +138,5 @@ class TourSchedule extends Model
     {
         return $this->belongsTo(Currency::class, 'currency', 'iso');
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,11 +11,8 @@ class OrderTransport extends Model
     use SoftDeletes;
 
     public const STATUS_NEW = 'new';
-
     public const STATUS_PROCESSING = 'processing';
-
     public const STATUS_COMPLETED = 'completed';
-
     public const STATUS_REJECTED = 'rejected';
 
     public static function statuses()
@@ -68,6 +66,7 @@ class OrderTransport extends Model
         'deleted_at',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -81,7 +80,6 @@ class OrderTransport extends Model
         foreach ($ageGroups as $ageGroup) {
             $title[] = isset($availableGroups[$ageGroup]) ? $availableGroups[$ageGroup] : $ageGroup;
         }
-
         return implode(', ', $title);
     }
 }

@@ -135,7 +135,7 @@ label {
     }
 
     &.invalid {
-        background: #fff calc(100% - 15px) 16px/16px 16px url('~@svg/discount.svg') no-repeat;
+        background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
 
         &:before,
         &:after {
@@ -149,7 +149,7 @@ label {
 
         .CaptionCont {
             transition: background-position linear 0ms;
-            background: #fff calc(100% - 15px) 16px/16px 16px url('~@svg/discount.svg') no-repeat;
+            background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
         }
     }
 
@@ -161,7 +161,7 @@ label {
         bottom: 12px;
         position: absolute;
         pointer-events: none;
-        background: center / 94% url('~@svg/smile.svg') no-repeat;
+        background: center / 94% url('../../svg/smile.svg') no-repeat;
     }
 
     .tooltip-wrap {
@@ -237,7 +237,7 @@ textarea {
         height: 18px;
         position: absolute;
         background: center / contain no-repeat;
-        background-image: url('~@svg/clock.svg');
+        background-image: url('../../svg/clock.svg');
     }
 
 
@@ -269,7 +269,7 @@ textarea {
     }
 
     &:before {
-        background-image: url('~@svg/calendar.svg');
+        background-image: url('../../svg/calendar.svg');
     }
 
     &.active {
@@ -392,7 +392,7 @@ textarea {
             margin-bottom: 0;
 
             &:before {
-                background-image: url('~@svg/departure-date.svg');
+                background-image: url('../../svg/departure-date.svg');
             }
 
             .datepicker-placeholder {
@@ -411,7 +411,7 @@ textarea {
 
         &.date-arrival {
             &:before {
-                background-image: url('~@svg/arrival-date.svg');
+                background-image: url('../../svg/arrival-date.svg');
             }
 
             .datepicker-placeholder {
@@ -488,7 +488,7 @@ form,
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        background: center / contain url('~@svg/download.svg') no-repeat;
+        background: center / contain url('../../svg/download.svg') no-repeat;
     }
 
     .text-md {
@@ -513,7 +513,7 @@ form,
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        background: center / contain url('~@svg/staple.svg') no-repeat;
+        background: center / contain url('../../svg/staple.svg') no-repeat;
     }
 
     span {
@@ -754,7 +754,7 @@ form,
         content: '';
         position: absolute;
         pointer-events: none;
-        background: center / 60% url('~@svg/camera.svg') no-repeat;
+        background: center / 60% url('../../svg/camera.svg') no-repeat;
     }
 
     input {
@@ -1011,7 +1011,7 @@ label, .datepicker-input {
     &.invalid {
         .datepicker-placeholder {
 
-            background: #fff calc(100% - 15px) 16px/16px 16px url('~@svg/discount.svg') no-repeat;
+            background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
 
             &:before,
             &:after {

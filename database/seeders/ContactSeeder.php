@@ -22,7 +22,7 @@ class ContactSeeder extends Seeder
 
         $contacts = [
             [
-                'title' => ['en' => 'Contacts', 'ru' => 'Контакты', 'uk' => 'Контакти', 'pl' => 'Kontakty'],
+                'title' => ['en' => 'Contacts', 'ru' => 'Контакты', 'uk' => 'Контакти', 'pl' => 'Kontakty',],
                 'address' => [
                     'en' => 'Lviv, street Zamarstynivska, 34',
                     'ru' => 'Львов, ул. Замарстиновськая, 34',

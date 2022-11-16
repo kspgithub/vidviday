@@ -12,7 +12,6 @@ class CrmCertificateController extends Controller
     {
         $status = $request->input('status', 'new');
         $query = OrderCertificate::where('status', $status);
-
         return $query->count();
     }
 }

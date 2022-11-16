@@ -283,13 +283,13 @@ nav li.dropdown > span {
 
 .tel {
     &:before {
-        background: center / contain url('~@svg/call.svg') no-repeat;
+        background: center / contain url('../../svg/call.svg') no-repeat;
     }
 }
 
 .log-in {
     &:before {
-        background: center / contain url('~@svg/login.svg') no-repeat;
+        background: center / contain url('../../svg/login.svg') no-repeat;
     }
 
     &.log-inned {
@@ -357,7 +357,7 @@ nav li.dropdown > span {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: center / contain url('~@svg/heart.svg') no-repeat;
+    background: center / contain url('../../svg/heart.svg') no-repeat;
 
     span {
         top: -6px;

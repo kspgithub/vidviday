@@ -34,15 +34,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         property="images",
  *         title="Зображення",
  *         type="array",
- *         @OA\Items(    type="string", example="https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
+ *         @OA\Items( type="string", example="https://vidviday.ua/storage/media/tour/3758/conversions/mukachevo-zamok-palanok-yuriy-krylivets-thumb.jpg",)
  *     ),
  * ),
  */
 class TourAccommodationResource extends JsonResource
 {
     /**
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -51,7 +50,7 @@ class TourAccommodationResource extends JsonResource
             'id' => $this->accommodation->id,
             'title' => $this->accommodation->getTranslations('title'),
             'text' => $this->accommodation->getTranslations('text'),
-            'images' => $this->accommodation->getMedia()->map(fn ($it) => $it->getFullUrl('normal')),
+            'images' => $this->accommodation->getMedia()->map(fn($it) => $it->getFullUrl('normal'))
         ];
     }
 }

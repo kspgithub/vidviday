@@ -16,7 +16,7 @@ class OrderService extends BaseService
     /**
      * OrderService constructor.
      *
-     * @param Order  $order
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -39,10 +39,10 @@ class OrderService extends BaseService
             'last_name' => $params['last_name'] ?? '',
             'phone' => $params['phone'] ?? '',
             'email' => $params['email'] ?? '',
-            'group_type' => (int) $params['group_type'],
-            'places' => (int) $params['places'],
+            'group_type' => (int)$params['group_type'],
+            'places' => (int)$params['places'],
             'tour_id' => $params['tour_id'] ?? null,
-            'schedule_id' => isset($params['schedule_id']) && (int) $params['schedule_id'] > 0 ? (int) $params['schedule_id'] : null,
+            'schedule_id' => isset($params['schedule_id']) && (int)$params['schedule_id'] > 0 ? (int)$params['schedule_id'] : null,
             'user_id' => $params['user_id'] ?? null,
             'comment' => $params['comment'] ?? '',
             'act_is_needed' => $params['act_is_needed'] ?? 0,
@@ -52,6 +52,7 @@ class OrderService extends BaseService
             'duty_comment' => '',
         ];
 
+
         // Сборная группа
         if ($order_params['group_type'] === 0) {
             $total_places = $order_params['places'];
@@ -60,7 +61,7 @@ class OrderService extends BaseService
 
             $schedule = TourSchedule::find($order_params['schedule_id']);
 
-            if ($schedule->info_sheet) {
+            if($schedule->info_sheet) {
                 $order_params['info_sheet'] = $schedule->info_sheet;
             }
 
@@ -68,10 +69,11 @@ class OrderService extends BaseService
 
             $tour_commission = $schedule ? $schedule->commission : $tour->commission;
             $tour_currency = $schedule ? $schedule->currency : $tour->currency;
-            $places = (int) $order_params['places'];
+            $places = (int)$order_params['places'];
             $days = $tour->duration;
             $order_price = $tour_price * $places;
             $order_commission = $tour_commission * $places;
+
 
             $order_discounts = [];
             $total_discount = 0;
@@ -85,35 +87,36 @@ class OrderService extends BaseService
                 $order_params['end_date'] = $schedule->end_date->format('d.m.Y');
             }
 
+
             $order_params['children'] = $params['children'] ?? 0;
-            if ((int) $order_params['children'] === 1) {
-                $order_params['children_young'] = (int) $params['children_young'] ?? 0;
-                $order_params['children_older'] = (int) $params['children_older'] ?? 0;
-                $order_params['without_place_count'] = (int) $params['without_place_count'] ?? 0;
+            if ((int)$order_params['children'] === 1) {
+                $order_params['children_young'] = (int)$params['children_young'] ?? 0;
+                $order_params['children_older'] = (int)$params['children_older'] ?? 0;
+                $order_params['without_place_count'] = (int)$params['without_place_count'] ?? 0;
                 $order_params['without_place'] = $order_params['without_place_count'] > 0 ? 1 : 0;
                 $total_places += $order_params['children_young'];
                 $total_places += $order_params['children_older'];
 
-                if (! $tour->isYoungChildrenFree() && ! $tour->isChildrenFree()) {
-                    $order_price += $tour_price * (int) $params['children_young'];
-                    $order_commission += $tour_commission * (int) $params['children_young'];
+                if (!$tour->isYoungChildrenFree() && !$tour->isChildrenFree()) {
+                    $order_price += $tour_price * (int)$params['children_young'];
+                    $order_commission += $tour_commission * (int)$params['children_young'];
                     $discount = TourService::getFilteredAvailableDiscounts($tour, [
                         'categories' => ['in' => ['children_older', 'children']],
                     ])->first();
                     if ($discount) {
-                        $children_discount += $discount->calculate($tour_price, (int) $params['children_young'], $days);
+                        $children_discount += $discount->calculate($tour_price, (int)$params['children_young'], $days);
                     }
                 }
-                if (! $tour->isOlderChildrenFree() && ! $tour->isChildrenFree()) {
-                    $order_price += $tour_price * (int) $params['children_older'];
-                    $order_commission += $tour_commission * (int) $params['children_older'];
+                if (!$tour->isOlderChildrenFree() && !$tour->isChildrenFree()) {
+                    $order_price += $tour_price * (int)$params['children_older'];
+                    $order_commission += $tour_commission * (int)$params['children_older'];
 
                     $discount = TourService::getFilteredAvailableDiscounts($tour, [
                         'categories' => ['in' => ['children_older', 'children']],
                     ])->first();
 
                     if ($discount) {
-                        $children_discount += $discount->calculate($tour_price, (int) $params['children_older'], $days);
+                        $children_discount += $discount->calculate($tour_price, (int)$params['children_older'], $days);
                     }
                 }
 
@@ -123,7 +126,7 @@ class OrderService extends BaseService
                 }
             }
 
-            if (isset($params['additional']) && (int) $params['additional'] === 1) {
+            if (isset($params['additional']) && (int)$params['additional'] === 1) {
                 $order_params['participants'] = [
                     'customer' => $params['is_tourist'] ?? 0,
                     'without_place' => $order_params['without_place'] ?? 0,
@@ -137,13 +140,13 @@ class OrderService extends BaseService
                     foreach ($params['accommodation'] as $key => $value) {
                         $accomm_slug = str_replace('-', '_', $key);
 
-                        if ((int) $value > 0 && $key !== 'other' && $key !== 'other_text') {
-                            $items[$accomm_slug] = (int) $value;
+                        if ((int)$value > 0 && $key !== 'other' && $key !== 'other_text') {
+                            $items[$accomm_slug] = (int)$value;
                             if ($accomm_slug === '1o_sgl' && $value > 0) {
-                                $total_accomm = $accomm_price * (int) $value;
+                                $total_accomm = $accomm_price * (int)$value;
                             }
                         }
-                        if ($key === 'other' && (int) $value === 1) {
+                        if ($key === 'other' && (int)$value === 1) {
                             $items['other'] = $params['accommodation']['other_text'] ?? '';
                         }
                     }
@@ -189,6 +192,7 @@ class OrderService extends BaseService
             }
 
             $order_params['schedule_id'] = $schedule->id;
+
         }
 
         // Корпоративная группа
@@ -203,25 +207,23 @@ class OrderService extends BaseService
             $order_params['price_include'] = $params['price_include'] ?? [];
             $order_params['offer_date'] = $params['offer_date'] ?? null;
 
-            if ((int) $order_params['program_type'] === 1) {
+
+            if ((int)$order_params['program_type'] === 1) {
                 $order_params['tour_plan'] = $params['tour_plan'] ?? '';
             }
         }
 
-        if (! $params['is_tour_agent']) {
+        if (!$params['is_tour_agent']) {
             $order_params['confirmation_type'] = $params['confirmation_type'] ?? 0;
-            switch ((int) $order_params['confirmation_type']) {
+            switch ((int)$order_params['confirmation_type']) {
                 case 1:
                     $order_params['confirmation_contact'] = $params['confirmation_email'] ?? '';
-
                     break;
                 case 2:
                     $order_params['confirmation_contact'] = $params['confirmation_viber'] ?? '';
-
                     break;
                 case 3:
                     $order_params['confirmation_contact'] = $params['confirmation_phone'] ?? '';
-
                     break;
             }
             $order_params['payment_type'] = $params['payment_type'] ?? 0;
@@ -236,7 +238,6 @@ class OrderService extends BaseService
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
             DB::rollBack();
-
             return false;
         }
 

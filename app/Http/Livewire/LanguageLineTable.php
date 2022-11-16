@@ -12,7 +12,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
 
 class LanguageLineTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     public function columns(): array
     {
@@ -58,7 +59,6 @@ class LanguageLineTable extends DataTableComponent
                 $groups[$group] = Str::ucfirst(str_replace('-', ' ', $group));
             }
         }
-
         return [
             'group' => Filter::make(__('Group'))->select($groups),
         ];

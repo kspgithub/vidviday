@@ -39,9 +39,8 @@ class FinanceController extends Controller
     {
         //
         $finance = new Finance();
-        $finance->type_id = (int) $request->input('type_id', 1);
+        $finance->type_id = (int)$request->input('type_id', 1);
         $types = IncludeType::toSelectBox();
-
         return view('admin.finance.create', [
             'model' => $finance,
             'types' => $types,
@@ -51,8 +50,7 @@ class FinanceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -62,26 +60,24 @@ class FinanceController extends Controller
         $finance->fill($request->all());
         $finance->save();
         if ($request->hasFile('media')) {
-            foreach ($request->file('media') as $imageFile) {
+            foreach ($request->file('media') as  $imageFile) {
                 $finance->storeMedia($imageFile);
             }
         }
-
         return redirect()->route('admin.finance.edit', $finance)->withFlashSuccess(__('Record Created'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Finance  $finance
-     *
+     * @param Finance $finance
      * @return View
      */
     public function edit(Finance $finance)
     {
         //
         $types = IncludeType::toSelectBox();
-
         return view('admin.finance.edit', [
             'model' => $finance,
             'types' => $types,
@@ -91,9 +87,8 @@ class FinanceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param Finance  $finance
-     *
+     * @param Request $request
+     * @param Finance $finance
      * @return Response|JsonResponse
      */
     public function update(Request $request, Finance $finance)
@@ -104,22 +99,19 @@ class FinanceController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'OK']);
         }
-
         return redirect()->route('admin.finance.index')->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Finance  $finance
-     *
+     * @param Finance $finance
      * @return Response
      */
     public function destroy(Finance $finance)
     {
         //
         $finance->delete();
-
         return redirect()->route('admin.finance.index')->withFlashSuccess(__('Record Deleted'));
     }
 }

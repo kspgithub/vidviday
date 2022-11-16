@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
+use Nette\Utils\Html;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
@@ -19,29 +20,29 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait UseNormalizeMedia
 {
     /**
-     * @param string|UploadedFile|TemporaryUploadedFile  $file
-     * @param string|null  $collection
-     * @param array  $options
-     *
-     * @throws InvalidManipulation
-     * @throws FileDoesNotExist
-     * @throws FileIsTooBig
+     * @param string|UploadedFile|TemporaryUploadedFile $file
+     * @param string|null $collection
+     * @param array $options
      *
      * @return FileAdder|Media
+     * @throws InvalidManipulation
+     * @throws FileDoesNotExist
+     *
+     * @throws FileIsTooBig
      */
     public function storeMedia($file, ?string $collection = 'default', array $options = [])
     {
         $path = storage_path('app/tmp/uploads');
         $original_extension = $file->getClientOriginalExtension();
-        $original_name = Str::slug(str_replace('.'.$original_extension, '', $file->getClientOriginalName()));
-        $tmpName = md5(uniqid().rand(0, 100)).'.'.trim($file->getClientOriginalExtension());
-        $name = $original_name.'.'.trim($original_extension);
+        $original_name = Str::slug(str_replace('.' . $original_extension, '', $file->getClientOriginalName()));
+        $tmpName = md5(uniqid() . rand(0, 100)) . '.' . trim($file->getClientOriginalExtension());
+        $name = $original_name . '.' . trim($original_extension);
         if ($file instanceof TemporaryUploadedFile) {
             $file->storeAs('tmp/uploads', $tmpName);
         } else {
             $file->move($path, $tmpName);
         }
-        $file_name = $path.'/'.$tmpName;
+        $file_name = $path . '/' . $tmpName;
 
         $width = $options['width'] ?? 1920;
         $height = $options['height'] ?? 1920;
@@ -54,11 +55,11 @@ trait UseNormalizeMedia
                 $image->save();
                 $media = $this->addMedia($file_name)->usingName($original_name)->usingFileName($name)->toMediaCollection($collection);
                 @unlink($file_name);
-
                 return $media;
             } catch (Exception $e) {
                 Log::error($e->getMessage());
             }
+
         }
 
         return null;

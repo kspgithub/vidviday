@@ -1,6 +1,7 @@
 <?php
 
-if (! function_exists('alpineSortLink')) {
+
+if (!function_exists('alpineSortLink')) {
     function alpineSortLink($column, $title = '')
     {
         $html = "<a href='#' class='text-nowrap' @click.prevent=\"setSorting(sort === '$column:asc' ? '$column:desc': '$column:asc')\">
@@ -14,7 +15,7 @@ $title
     }
 }
 
-if (! function_exists('alpinePagination')) {
+if (!function_exists('alpinePagination')) {
     function alpinePagination()
     {
         return '<template x-if="links.length">

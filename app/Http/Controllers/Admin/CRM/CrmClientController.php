@@ -18,7 +18,7 @@ class CrmClientController extends Controller
             $query = BitrixContact::query();
             $search = $request->input('q', '');
 
-            if (! empty($search)) {
+            if (!empty($search)) {
                 $query
                     ->whereRaw("CONCAT_WS(' ', last_name, first_name) LIKE '%$search%'")
                     ->orWhereRaw("phone LIKE '%$search%'")
@@ -34,11 +34,13 @@ class CrmClientController extends Controller
         return view('admin.crm.client.index');
     }
 
+
     public function show(Request $request, BitrixContact $client, $type = 'team')
     {
         $group_type = $type === 'corporate' ? Order::GROUP_CORPORATE : Order::GROUP_TEAM;
 
         if ($request->ajax()) {
+
             $orderQ = $client->orders()->where('group_type', $group_type)->filter($request)->with(['tour', 'tour.manager', 'schedule']);
 
             $paginator = $orderQ->paginate($request->input('per_page', 20));
@@ -48,7 +50,6 @@ class CrmClientController extends Controller
                     'admin_comment',
                     'agency_data',
                 ]);
-
                 return $val;
             });
 
@@ -57,7 +58,6 @@ class CrmClientController extends Controller
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $statuses = arrayToSelectBox(Order::statuses());
         $tours = Tour::toSelectBox();
-
         return view('admin.crm.client.show', [
             'client' => $client,
             'group_type' => $group_type,
@@ -72,7 +72,6 @@ class CrmClientController extends Controller
         $client = new BitrixContact();
         $client->fill($request->validated());
         $client->save();
-
         return response()->json(['result' => 'success', 'message' => __('Record Created')]);
     }
 
@@ -80,14 +79,13 @@ class CrmClientController extends Controller
     {
         $client->fill($request->all());
         $client->save();
-
         return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
     }
 
     public function delete(BitrixContact $client)
     {
         $client->delete();
-
         return response()->json(['result' => 'success', 'message' => __('Record Deleted')]);
     }
+
 }

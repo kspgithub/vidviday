@@ -7,6 +7,7 @@ use App\Models\UserQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Carbon;
+use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -15,7 +16,8 @@ class UserQuestionsTable extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array
@@ -25,9 +27,12 @@ class UserQuestionsTable extends DataTableComponent
         'bootstrap.classes.table' => 'table table-striped table-responsive',
     ];
 
+
     public $parent_id = 0;
 
+
     public $edit = false;
+
 
     public $name = '';
 
@@ -35,11 +40,13 @@ class UserQuestionsTable extends DataTableComponent
 
     public $text = '';
 
+
     protected $rules = [
         'name' => ['required'],
         'email' => ['required', 'email'],
         'text' => ['required'],
     ];
+
 
     public function mount()
     {
@@ -52,11 +59,12 @@ class UserQuestionsTable extends DataTableComponent
         $type = $this->getFilter('type');
 
         return UserQuestion::query()
-            ->when(! is_null($type) && $type !== '', function ($query) use ($type) {
+            ->when(!is_null($type) && $type !== '', function ($query) use ($type) {
                 return $query->where('type', $type);
             })
             ->orderBy('created_at', 'desc');
     }
+
 
     public function columns(): array
     {
@@ -71,20 +79,20 @@ class UserQuestionsTable extends DataTableComponent
                 }),
 
             Column::make(__('Question Type'), 'question_type')
-                ->format(function ($value, $column, $row) {
+                ->format(function ($value, $column, $row) use ($types) {
                     return $row->questionType->title ?? $value;
                 }),
 
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
-                    return $row->name.'<br>'.$row->email.'<br>'.$row->phone;
+                    return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
                 })
                 ->asHtml(),
 
             Column::make(__('Time'), 'call_date')
                 ->format(function ($value, $column, $row) {
-                    return Carbon::parse($row->call_date)->format('d.m.Y').' '.$row->call_time;
+                    return Carbon::parse($row->call_date)->format('d.m.Y') . ' ' . $row->call_time;
                 })
                 ->asHtml(),
 
@@ -137,6 +145,7 @@ class UserQuestionsTable extends DataTableComponent
 
     public function saveItem()
     {
+
         $model = UserQuestion::query()->find($this->parent_id);
         if ($model) {
             $this->validate();
@@ -146,6 +155,7 @@ class UserQuestionsTable extends DataTableComponent
             $item->text = $this->text;
             $item->save();
         }
+
 
         $this->parent_id = 0;
         $this->text = '';
@@ -168,7 +178,7 @@ class UserQuestionsTable extends DataTableComponent
             return view('admin.tour.includes.question-form');
         }
 
-        return view('livewire-tables::'.config('livewire-tables.theme').'.datatable')
+        return view('livewire-tables::' . config('livewire-tables.theme') . '.datatable')
             ->with([
                 'columns' => $this->columns(),
                 'rowView' => $this->rowView(),

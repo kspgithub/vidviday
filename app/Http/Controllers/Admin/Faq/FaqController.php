@@ -20,7 +20,6 @@ class FaqController extends Controller
     {
         //
         $faqitems = FaqItem::query()->where('section', $section)->orderBy('sort_order')->get();
-
         return view('admin.faqitem.index', compact('faqitems', 'section'));
     }
 
@@ -35,15 +34,13 @@ class FaqController extends Controller
         $faqItem = new FaqItem();
         $faqItem->published = 1;
         $faqItem->section = $section;
-
         return view('admin.faqitem.create', ['faqitem' => $faqItem, 'section' => $section]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request, $section)
@@ -56,9 +53,9 @@ class FaqController extends Controller
     }
 
     /**
-     * @param $section
-     * @param FaqItem  $faqItem
      *
+     * @param $section
+     * @param FaqItem $faqItem
      * @return View
      */
     public function edit($section, FaqItem $faqItem)
@@ -70,8 +67,8 @@ class FaqController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request  $request
-     * @param FaqItem  $faqitem
+     * @param Request $request
+     * @param FaqItem $faqitem
      *
      * @return Response|JsonResponse
      */
@@ -83,14 +80,13 @@ class FaqController extends Controller
         if ($request->ajax()) {
             return response()->json(['result' => 'success']);
         }
-
         return redirect()->route('admin.faqitem.index', $section)->withFlashSuccess(__('Record Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param FaqItem  $faqitem
+     * @param FaqItem $faqitem
      *
      * @return Response
      */

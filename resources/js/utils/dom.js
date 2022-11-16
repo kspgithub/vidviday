@@ -1,34 +1,34 @@
-import * as func from './functions'
+import * as func from './functions';
 
-const EVENT_LISTENER_LIST = 'eventListenerList'
+const EVENT_LISTENER_LIST = 'eventListenerList';
 
 export const detectIE = () => {
-    const ua = window.navigator.userAgent
-    const msie = ua.indexOf('MSIE ')
+    const ua = window.navigator.userAgent;
+    const msie = ua.indexOf('MSIE ');
 
     if (msie > 0) {
-        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10)
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
     }
 
-    const trident = ua.indexOf('Trident/')
+    const trident = ua.indexOf('Trident/');
 
     if (trident > 0) {
-        const rv = ua.indexOf('rv:')
+        const rv = ua.indexOf('rv:');
 
-        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10)
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     }
 
-    const edge = ua.indexOf('Edge/')
+    const edge = ua.indexOf('Edge/');
 
     if (edge > 0) {
-        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10)
+        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
 
-    return false
-}
+    return false;
+};
 
-const ieVersion = detectIE()
-const eventCaptureParams = window.PointerEvent && !ieVersion ? { passive: false } : false
+const ieVersion = detectIE();
+const eventCaptureParams = window.PointerEvent && !ieVersion ? {passive: false} : false;
 
 /**
  * Check if a `element` is visible in the DOM
@@ -36,7 +36,9 @@ const eventCaptureParams = window.PointerEvent && !ieVersion ? { passive: false 
  * @param  {Element}  element
  * @return {Boolean}
  */
-export const isHidden = element => element.offsetWidth === 0 || element.offsetHeight === 0 || element.open === false
+export const isHidden = (element) => (
+    element.offsetWidth === 0 || element.offsetHeight === 0 || element.open === false
+);
 
 /**
  * Get hidden parentNodes of an `element`
@@ -44,16 +46,16 @@ export const isHidden = element => element.offsetWidth === 0 || element.offsetHe
  * @param {Element} element
  * @return {Element[]}
  */
-export const getHiddenParentNodes = element => {
-    const parents = []
-    let node = element.parentNode
+export const getHiddenParentNodes = (element) => {
+    const parents = [];
+    let node = element.parentNode;
 
     while (node && isHidden(node)) {
-        parents.push(node)
-        node = node.parentNode
+        parents.push(node);
+        node = node.parentNode;
     }
-    return parents
-}
+    return parents;
+};
 
 /**
  * Returns dimensions for an element even if it is not visible in the DOM.
@@ -63,17 +65,17 @@ export const getHiddenParentNodes = element => {
  * @return {Number}
  */
 export const getDimension = (element, key) => {
-    const hiddenParentNodes = getHiddenParentNodes(element)
-    const hiddenParentNodesLength = hiddenParentNodes.length
-    const hiddenParentNodesStyle = []
-    let dimension = element[key]
+    const hiddenParentNodes = getHiddenParentNodes(element);
+    const hiddenParentNodesLength = hiddenParentNodes.length;
+    const hiddenParentNodesStyle = [];
+    let dimension = element[key];
 
     // Used for native `<details>` elements
-    const toggleOpenProperty = element => {
+    const toggleOpenProperty = (element) => {
         if (typeof element.open !== 'undefined') {
-            element.open = !element.open
+            element.open = !element.open;
         }
-    }
+    };
 
     if (hiddenParentNodesLength) {
         for (let i = 0; i < hiddenParentNodesLength; i++) {
@@ -82,28 +84,28 @@ export const getDimension = (element, key) => {
                 display: hiddenParentNodes[i].style.display,
                 height: hiddenParentNodes[i].style.height,
                 overflow: hiddenParentNodes[i].style.overflow,
-                visibility: hiddenParentNodes[i].style.visibility,
-            })
+                visibility: hiddenParentNodes[i].style.visibility
+            });
 
-            hiddenParentNodes[i].style.display = 'block'
-            hiddenParentNodes[i].style.height = '0'
-            hiddenParentNodes[i].style.overflow = 'hidden'
-            hiddenParentNodes[i].style.visibility = 'hidden'
-            toggleOpenProperty(hiddenParentNodes[i])
+            hiddenParentNodes[i].style.display = 'block';
+            hiddenParentNodes[i].style.height = '0';
+            hiddenParentNodes[i].style.overflow = 'hidden';
+            hiddenParentNodes[i].style.visibility = 'hidden';
+            toggleOpenProperty(hiddenParentNodes[i]);
         }
 
-        dimension = element[key]
+        dimension = element[key];
 
         for (let j = 0; j < hiddenParentNodesLength; j++) {
-            toggleOpenProperty(hiddenParentNodes[j])
-            hiddenParentNodes[j].style.display = hiddenParentNodesStyle[j].display
-            hiddenParentNodes[j].style.height = hiddenParentNodesStyle[j].height
-            hiddenParentNodes[j].style.overflow = hiddenParentNodesStyle[j].overflow
-            hiddenParentNodes[j].style.visibility = hiddenParentNodesStyle[j].visibility
+            toggleOpenProperty(hiddenParentNodes[j]);
+            hiddenParentNodes[j].style.display = hiddenParentNodesStyle[j].display;
+            hiddenParentNodes[j].style.height = hiddenParentNodesStyle[j].height;
+            hiddenParentNodes[j].style.overflow = hiddenParentNodesStyle[j].overflow;
+            hiddenParentNodes[j].style.visibility = hiddenParentNodesStyle[j].visibility;
         }
     }
-    return dimension
-}
+    return dimension;
+};
 
 /**
  *
@@ -113,17 +115,17 @@ export const getDimension = (element, key) => {
  */
 export const setCss = (el, cssObj) => {
     for (const key in cssObj) {
-        el.style[key] = cssObj[key]
+        el.style[key] = cssObj[key];
     }
-    return el.style
-}
+    return el.style;
+};
 
 /**
  *
  * @param {HTMLElement} elem
  * @param {string} className
  */
-export const hasClass = (elem, className) => new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ')
+export const hasClass = (elem, className) => new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
 
 /**
  *
@@ -132,9 +134,9 @@ export const hasClass = (elem, className) => new RegExp(' ' + className + ' ').t
  */
 export const addClass = (elem, className) => {
     if (!hasClass(elem, className)) {
-        elem.className += ' ' + className
+        elem.className += ' ' + className;
     }
-}
+};
 
 /**
  *
@@ -142,15 +144,15 @@ export const addClass = (elem, className) => {
  * @param {string} className
  */
 export const removeClass = (elem, className) => {
-    let newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' '
+    let newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
 
     if (hasClass(elem, className)) {
         while (newClass.indexOf(' ' + className + ' ') >= 0) {
-            newClass = newClass.replace(' ' + className + ' ', ' ')
+            newClass = newClass.replace(' ' + className + ' ', ' ');
         }
-        elem.className = newClass.replace(/^\s+|\s+$/g, '')
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
     }
-}
+};
 
 /**
  *
@@ -161,15 +163,15 @@ export const removeClass = (elem, className) => {
  */
 export const forEachAncestors = (el, callback, andForElement) => {
     if (andForElement) {
-        callback(el)
+        callback(el);
     }
 
     while (el.parentNode && !callback(el)) {
-        el = el.parentNode
+        el = el.parentNode;
     }
 
-    return el
-}
+    return el;
+};
 
 /**
  *
@@ -179,24 +181,24 @@ export const forEachAncestors = (el, callback, andForElement) => {
  */
 export const triggerEvent = (el, name, data) => {
     if (!func.isString(name)) {
-        throw new TypeError('event name must be String')
+        throw new TypeError('event name must be String');
     }
     if (!(el instanceof HTMLElement)) {
-        throw new TypeError('element must be HTMLElement')
+        throw new TypeError('element must be HTMLElement');
     }
-    name = name.trim()
-    const event = document.createEvent('CustomEvent')
+    name = name.trim();
+    const event = document.createEvent('CustomEvent');
 
-    event.initCustomEvent(name, false, false, data)
-    el.dispatchEvent(event)
-}
+    event.initCustomEvent(name, false, false, data);
+    el.dispatchEvent(event);
+};
 
 /**
  * @param {Object} referenceNode after this
  * @param {Object} newNode insert this
  */
 export const insertAfter = (referenceNode, newNode) =>
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 
 /**
  * Add event listeners and push them to el[EVENT_LISTENER_LIST]
@@ -205,20 +207,24 @@ export const insertAfter = (referenceNode, newNode) =>
  * @param {Function} listener
  */
 export const addEventListeners = (el, events, listener) => {
-    events.forEach(eventName => {
+    events.forEach((eventName) => {
         if (!el[EVENT_LISTENER_LIST]) {
-            el[EVENT_LISTENER_LIST] = {}
+            el[EVENT_LISTENER_LIST] = {};
         }
         if (!el[EVENT_LISTENER_LIST][eventName]) {
-            el[EVENT_LISTENER_LIST][eventName] = []
+            el[EVENT_LISTENER_LIST][eventName] = [];
         }
 
-        el.addEventListener(eventName, listener, eventCaptureParams)
+        el.addEventListener(
+            eventName,
+            listener,
+            eventCaptureParams
+        );
         if (el[EVENT_LISTENER_LIST][eventName].indexOf(listener) < 0) {
-            el[EVENT_LISTENER_LIST][eventName].push(listener)
+            el[EVENT_LISTENER_LIST][eventName].push(listener);
         }
-    })
-}
+    });
+};
 
 /**
  * Remove event listeners and remove them from el[EVENT_LISTENER_LIST]
@@ -227,20 +233,22 @@ export const addEventListeners = (el, events, listener) => {
  * @param {Function} listener
  */
 export const removeEventListeners = (el, events, listener) => {
-    events.forEach(eventName => {
-        let index
+    events.forEach((eventName) => {
+        let index;
 
-        el.removeEventListener(eventName, listener, false)
+        el.removeEventListener(
+            eventName,
+            listener,
+            false
+        );
 
-        if (
-            el[EVENT_LISTENER_LIST] &&
-            el[EVENT_LISTENER_LIST][eventName] &&
+        if (el[EVENT_LISTENER_LIST] && el[EVENT_LISTENER_LIST][eventName] &&
             (index = el[EVENT_LISTENER_LIST][eventName].indexOf(listener)) > -1
         ) {
-            el[EVENT_LISTENER_LIST][eventName].splice(index, 1)
+            el[EVENT_LISTENER_LIST][eventName].splice(index, 1);
         }
-    })
-}
+    });
+};
 
 /**
  * Remove ALL event listeners which exists in el[EVENT_LISTENER_LIST]
@@ -249,7 +257,7 @@ export const removeEventListeners = (el, events, listener) => {
  */
 export const removeAllListenersFromEl = (instance, el) => {
     if (!el[EVENT_LISTENER_LIST]) {
-        return
+        return;
     }
 
     /* jshint ignore:start */
@@ -261,29 +269,30 @@ export const removeAllListenersFromEl = (instance, el) => {
      */
     function rm(listener) {
         if (listener === instance._startEventListener) {
-            this.el.removeEventListener(this.eventName, listener, false)
+            this.el.removeEventListener(this.eventName, listener, false);
         }
     }
 
     for (const eventName in el[EVENT_LISTENER_LIST]) {
-        el[EVENT_LISTENER_LIST][eventName].forEach(rm, { eventName: eventName, el: el })
+        el[EVENT_LISTENER_LIST][eventName].forEach(rm, {eventName: eventName, el: el});
     }
 
-    el[EVENT_LISTENER_LIST] = {}
+    el[EVENT_LISTENER_LIST] = {};
     /* jshint ignore:end */
-}
+};
 
 /**
  * Range feature detection
  * @return {Boolean}
  */
 export const supportsRange = () => {
-    const input = document.createElement('input')
+    const input = document.createElement('input');
 
-    input.setAttribute('type', 'range')
-    return input.type !== 'text'
-}
+    input.setAttribute('type', 'range');
+    return input.type !== 'text';
+};
 
-export const createElement = (tagName, options = null) => {
+
+export const createElement = (tagName, options = null)=>{
     return document.createElement(tagName, options)
 }

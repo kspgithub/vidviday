@@ -5,6 +5,7 @@ namespace App\Http\Requests\Tour;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
+ *
  * @property string $first_name
  * @property string $last_name
  * @property string $email
@@ -38,7 +39,7 @@ class TourQuestionRequest extends FormRequest
             'email' => ['required', 'email'],
             'phone' => ['nullable'],
             'text' => ['required', 'max:1000'],
-            'parent_id' => ['nullable', 'integer'],
+            'parent_id' => ['nullable', 'integer']
         ];
     }
 }

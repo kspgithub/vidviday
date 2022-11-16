@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Accommodation;
 use App\Models\Country;
 use App\Models\Region;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -16,7 +17,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class AccommodationsTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -40,8 +42,9 @@ class AccommodationsTable extends DataTableComponent
      */
     public function query(): Builder|Relation
     {
-        $country_id = (int) $this->getFilter('country_id');
-        $region_id = (int) $this->getFilter('region_id');
+
+        $country_id = (int)$this->getFilter('country_id');
+        $region_id = (int)$this->getFilter('region_id');
 
         $query = Accommodation::query()
             ->when($country_id > 0, function (Builder $q) use ($country_id) {

@@ -82,6 +82,7 @@ class DiscountsSeeder extends Seeder
             'duration' => Discount::DURATION_PERSON_DAY,
         ]);
 
+
         $this->enableForeignKeys();
     }
 }

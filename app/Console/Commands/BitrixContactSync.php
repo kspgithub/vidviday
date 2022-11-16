@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Lib\Bitrix24\CRM\Contact\ContactService;
 use App\Models\BitrixContact;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class BitrixContactSync extends Command
 {
@@ -45,18 +46,22 @@ class BitrixContactSync extends Command
         $contactID = 0;
         $finish = false;
 
-        while (! $finish) {
+        while (!$finish) {
             $filter = ['>ID' => $contactID];
             $response = ContactService::list($fields, $filter, $order, -1);
-            if (! $response->error && ! empty($response->result) > 0) {
+            if (!$response->error && !empty($response->result) > 0) {
+
                 foreach ($response->result as $contactData) {
                     $contactID = $contactData['ID'];
                     BitrixContact::createOrUpdate($contactID, $contactData);
                 }
+
             } else {
                 $finish = true;
             }
         }
+
+
 
         return 0;
     }

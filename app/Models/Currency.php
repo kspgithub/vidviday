@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Currency extends TranslatableModel
@@ -47,14 +48,12 @@ class Currency extends TranslatableModel
             }
             self::$currencies = $array;
         }
-
         return self::$currencies;
     }
 
     public static function currencyTitle($iso)
     {
         $currencies = self::allCached();
-
         return array_key_exists($iso, $currencies) ? $currencies[$iso]->title : $iso;
     }
 }

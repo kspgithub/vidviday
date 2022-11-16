@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\HtmlBlock;
 
+use App\Models\HtmlBlock;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class HtmlBlockBasicRequest extends FormRequest
 {
@@ -25,9 +27,9 @@ class HtmlBlockBasicRequest extends FormRequest
     {
         return [
 
-            'title' => ['required', 'string'],
-            'text' => ['required', 'string'],
-            'slug' => ['nullable', 'string'],
+            'title'=>['required', 'string'],
+            'text'=>['required', 'string'],
+            'slug'=>['nullable', 'string'],
         ];
     }
 }

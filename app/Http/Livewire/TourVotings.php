@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\Traits\DeleteRecordTrait;
+use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\TourQuestion;
 use App\Models\TourVoting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filter;
@@ -15,7 +18,8 @@ class TourVotings extends DataTableComponent
 {
     use DeleteRecordTrait;
 
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var array
@@ -40,10 +44,11 @@ class TourVotings extends DataTableComponent
         $status = $this->getFilter('status');
 
         return $this->tour->votings()
-            ->when(! is_null($status) && $status !== '', function ($query) use ($status) {
+            ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
             })->orderBy('created_at', 'desc');
     }
+
 
     public function columns(): array
     {
@@ -53,7 +58,7 @@ class TourVotings extends DataTableComponent
             Column::make(__('User'), 'name')
                 ->searchable()
                 ->format(function ($value, $column, $row) {
-                    return $row->name.'<br>'.$row->email.'<br>'.$row->phone;
+                    return $row->name . '<br>' . $row->email . '<br>' . $row->phone;
                 })
                 ->asHtml(),
 
@@ -99,7 +104,7 @@ class TourVotings extends DataTableComponent
      */
     public function render()
     {
-        return view('livewire-tables::'.config('livewire-tables.theme').'.datatable')
+        return view('livewire-tables::' . config('livewire-tables.theme') . '.datatable')
             ->with([
                 'columns' => $this->columns(),
                 'rowView' => $this->rowView(),

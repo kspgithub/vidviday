@@ -34,7 +34,7 @@ class BitrixTourSchedule
     public static function createFromData($data)
     {
         $fillData = [
-            'currency' => 'UAH',
+            'currency' => 'UAH'
         ];
         foreach (self::FIELDS_MAP as $bitrixKey => $modelKey) {
             $value = $data[$bitrixKey] ?? null;
@@ -45,22 +45,19 @@ class BitrixTourSchedule
                     if (count($parts) > 0) {
                         $fillData[$modelKey] = $parts[0];
                     }
-
                     break;
                 case BitrixTourScheduleFields::FIELD_STATUS:
                     if ($value && array_key_exists($value, self::STATUSES_MAP)) {
                         $fillData[$modelKey] = self::STATUSES_MAP[$value];
                     }
-
                     break;
                 default:
                     $fillData[$modelKey] = $value;
-
                     break;
+
             }
         }
-
-        return (object) $fillData;
+        return (object)$fillData;
     }
 
     public static function getAll()
@@ -68,30 +65,30 @@ class BitrixTourSchedule
         $items = [];
         $response = BitrixTourScheduleService::list();
 
-        if (! $response->error) {
-            if (! empty($response->result['items'])) {
+        if (!$response->error) {
+            if (!empty($response->result['items'])) {
                 foreach ($response->result['items'] as $data) {
                     $items[] = self::createFromData($data);
                 }
             }
-        } else {
-            Log::error($response->error_description, (array) $response);
-        }
 
+
+        } else {
+            Log::error($response->error_description, (array)$response);
+        }
         return $items;
     }
 
     public static function get($id)
     {
         $response = BitrixTourScheduleService::get($id);
-        if (! $response->error) {
-            if (! empty($response->result['item'])) {
+        if (!$response->error) {
+            if (!empty($response->result['item'])) {
                 return self::createFromData($response->result['item']);
             }
         } else {
-            Log::error($response->error_description, (array) $response);
+            Log::error($response->error_description, (array)$response);
         }
-
         return null;
     }
 
@@ -109,14 +106,15 @@ class BitrixTourSchedule
                     $schedule->bitrix_id = $bitrixID;
                 }
 
-                if ($schedule !== null && (int) $scheduleData->price > 0 && ! empty($scheduleData->start_date) && ! empty($scheduleData->end_date)) {
-                    $data = (array) $scheduleData;
+                if ($schedule !== null && (int)$scheduleData->price > 0 && !empty($scheduleData->start_date) && !empty($scheduleData->end_date)) {
+                    $data = (array)$scheduleData;
                     $schedule->fill($data);
                     $schedule->saveOrFail();
                 }
             } catch (Exception $e) {
                 Log::error($e->getMessage(), $e->getTrace());
             }
+
         }
 
         return $schedule;

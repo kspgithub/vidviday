@@ -7,8 +7,8 @@ use Illuminate\View\Component;
 
 class Ads extends Component
 {
-    public $advertisement = [];
 
+    public $advertisement = [];
     /**
      * Create a new component instance.
      *

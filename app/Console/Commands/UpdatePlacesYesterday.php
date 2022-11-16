@@ -47,9 +47,9 @@ class UpdatePlacesYesterday extends Command
             }
         });
 
-        $this->info($schedulesUpdated.' schedules updated.');
+        $this->info($schedulesUpdated . ' schedules updated.');
 
-        Log::info($schedulesUpdated.' schedules updated.');
+        Log::info($schedulesUpdated . ' schedules updated.');
 
         return 0;
     }

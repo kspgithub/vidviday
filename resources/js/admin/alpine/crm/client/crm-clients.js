@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
-let cancelTokenSource = null
-import * as UrlUtils from '../../../../utils/url'
-import { toast } from '../../../../libs/toast'
+let cancelTokenSource = null;
+import * as UrlUtils from '../../../../utils/url';
+import {toast} from "../../../../libs/toast";
 
-export default options => ({
+export default (options) => ({
     links: [],
     clients: [],
     edit: false,
@@ -15,59 +15,59 @@ export default options => ({
     current_page: parseInt(options.params.page) || 1,
     selectedClient: null,
     init() {
-        this.loadClients(false)
+        this.loadClients(false);
         this.$watch('search', () => {
-            this.current_page = 1
+            this.current_page = 1;
             this.loadClients(true)
         })
     },
     loadClients(updateUrl = true) {
         if (cancelTokenSource) {
-            cancelTokenSource.cancel()
+            cancelTokenSource.cancel();
         }
-        cancelTokenSource = axios.CancelToken.source()
-        this.loader = true
+        cancelTokenSource = axios.CancelToken.source();
+        this.loader = true;
         const params = {
             q: this.search,
             order: this.sort,
             page: this.current_page,
-        }
+        };
 
         if (updateUrl) {
-            const updateParams = UrlUtils.filterParams(params, { q: '', order: 'bitrix_id:asc', page: 1 })
-            UrlUtils.updateUrl(document.location.pathname, updateParams, false)
+            const updateParams = UrlUtils.filterParams(params, {q: '', order: 'bitrix_id:asc', page: 1});
+            UrlUtils.updateUrl(document.location.pathname, updateParams, false);
         }
 
-        axios
-            .get('', {
-                cancelToken: cancelTokenSource.token,
-                params: params,
-            })
-            .then(({ data: response }) => {
-                this.clients = response.data
-                this.links = response.links
-                this.loader = false
+        axios.get('', {
+            cancelToken: cancelTokenSource.token,
+            params: params
+        })
+            .then(({data: response}) => {
+                this.clients = response.data;
+                this.links = response.links;
+                this.loader = false;
             })
             .catch(error => {
-                console.log(error)
-                this.loader = false
+                console.log(error);
+                this.loader = false;
             })
+
     },
     setPage(url) {
-        const params = UrlUtils.parseQuery(url)
-        this.current_page = params['page'] || 1
-        this.loadClients(true)
+        const params = UrlUtils.parseQuery(url);
+        this.current_page = params['page'] || 1;
+        this.loadClients(true);
     },
     setSorting(sorting) {
-        this.sort = sorting
-        this.loadClients(true)
+        this.sort = sorting;
+        this.loadClients(true);
     },
     cancelEdit() {
-        this.edit = false
+        this.edit = false;
     },
     editClient(client) {
-        this.selectedClient = client
-        this.edit = true
+        this.selectedClient = client;
+        this.edit = true;
     },
     createClient() {
         this.selectedClient = {
@@ -77,32 +77,32 @@ export default options => ({
             last_name: '',
             email: [],
             phone: [],
-        }
-        this.create = true
+        };
+        this.create = true;
     },
     cancelCreate() {
-        this.create = false
+        this.create = false;
     },
     deleteClient(client) {
+
         Swal.fire({
             text: 'Ви впевнені?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Так',
-            cancelButtonText: 'Відмінити',
-        }).then(result => {
+            cancelButtonText: 'Відмінити'
+        }).then((result) => {
             if (result.value) {
-                axios
-                    .delete(`/admin/crm/clients/${client.id}`)
-                    .then(({ data }) => {
+                axios.delete(`/admin/crm/clients/${client.id}`)
+                    .then(({data}) => {
                         if (data.result === 'success') {
-                            toast.success(data.message)
-                            this.loadClients(true)
+                            toast.success(data.message);
+                            this.loadClients(true);
                         }
                     })
                     .catch(err => {
-                        console.log(err)
-                        toast.error(err.message)
+                        console.log(err);
+                        toast.error(err.message);
                     })
             }
         })
@@ -115,20 +115,19 @@ export default options => ({
             last_name: this.selectedClient.last_name,
             email: this.selectedClient.email,
             phone: this.selectedClient.phone,
-        }
+        };
 
-        axios
-            .patch(`/admin/crm/clients/${data.id}`, data)
-            .then(({ data }) => {
+        axios.patch(`/admin/crm/clients/${data.id}`, data)
+            .then(({data}) => {
                 if (data.result === 'success') {
-                    toast.success(data.message)
-                    this.loadClients(true)
-                    this.edit = false
+                    toast.success(data.message);
+                    this.loadClients(true);
+                    this.edit = false;
                 }
             })
             .catch(err => {
-                console.log(err)
-                toast.error(err.message)
+                console.log(err);
+                toast.error(err.message);
             })
     },
     storeClient() {
@@ -139,40 +138,39 @@ export default options => ({
             last_name: this.selectedClient.last_name,
             email: this.selectedClient.email,
             phone: this.selectedClient.phone,
-        }
+        };
 
-        axios
-            .post(`/admin/crm/clients`, data)
-            .then(({ data }) => {
+        axios.post(`/admin/crm/clients`, data)
+            .then(({data}) => {
                 if (data.result === 'success') {
-                    toast.success(data.message)
-                    this.loadClients(true)
-                    this.create = false
+                    toast.success(data.message);
+                    this.loadClients(true);
+                    this.create = false;
                 }
             })
             .catch(err => {
-                console.log(err)
-                toast.error(err.message)
+                console.log(err);
+                toast.error(err.message);
             })
     },
     addEmail() {
         if (this.selectedClient) {
-            this.selectedClient.email.push('')
+            this.selectedClient.email.push('');
         }
     },
     removeEmail(idx) {
         if (this.selectedClient) {
-            this.selectedClient.email.splice(idx, 1)
+            this.selectedClient.email.splice(idx, 1);
         }
     },
     addPhone() {
         if (this.selectedClient) {
-            this.selectedClient.phone.push('')
+            this.selectedClient.phone.push('');
         }
     },
     removePhone(idx) {
         if (this.selectedClient) {
-            this.selectedClient.phone.splice(idx, 1)
+            this.selectedClient.phone.splice(idx, 1);
         }
-    },
+    }
 })

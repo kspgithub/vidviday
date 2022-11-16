@@ -17,4 +17,6 @@ interface StaticServiceInterface
     public static function add(array $fields, array $params);
 
     public static function update($id, $fields, $params);
+
+
 }

@@ -16,6 +16,7 @@ class UniqueSlugRule implements Rule
 
     protected $attr;
 
+
     public function __construct($table, $attr = 'slug', $exceptId = 0)
     {
         //
@@ -26,9 +27,10 @@ class UniqueSlugRule implements Rule
 
     public function passes($attribute, $value): bool
     {
-        if (! empty($value)) {
+
+        if (!empty($value)) {
             foreach ($this->tables as $table) {
-                $query = DB::table($table)->where(function ($q) use ($value) {
+                $query = DB::table($table)->where(function ($q) use ($attribute, $value) {
                     foreach (siteLocales() as $idx => $locale) {
                         if ($idx === 0) {
                             $q->where("{$this->attr}->{$locale}", $value);
@@ -48,12 +50,11 @@ class UniqueSlugRule implements Rule
                 }
             }
         }
-
         return true;
     }
 
     public function message(): string
     {
-        return 'Запис з таким значенням :attribute вже існує';
+        return "Запис з таким значенням :attribute вже існує";
     }
 }

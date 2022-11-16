@@ -45,13 +45,14 @@ class TranslationPublish extends Command
      */
     public function handle()
     {
-        if (! $this->option('skip-import')) {
+        if (!$this->option('skip-import')) {
             if (LanguageLine::query()->count() === 0) {
                 Artisan::call('translations:import');
             } else {
                 Artisan::call('translations:import --skip-exists');
             }
         }
+
 
         $this->locales = array_keys(config('site-settings.locale.languages'));
         $this->groups = LanguageLine::select('group')->distinct()->pluck('group')->toArray();
@@ -61,9 +62,9 @@ class TranslationPublish extends Command
         }
 
         $this->info('Translations published!');
-
         return Command::SUCCESS;
     }
+
 
     public function processGroup($group)
     {
@@ -81,9 +82,12 @@ class TranslationPublish extends Command
                     $array[$line->key] = $line->key;
                 }
             }
-            $file_name = $group === '*' ? $locale.'.json' : $locale.'/'.$group.'.json';
+            $file_name = $group === '*' ? $locale . '.json' : $locale . '/' . $group . '.json';
 
-            Storage::put('public/lang/'.$file_name, json_encode($array, JSON_PRETTY_PRINT));
+            Storage::put('public/lang/' . $file_name, json_encode($array, JSON_PRETTY_PRINT));
+
         }
+
+
     }
 }

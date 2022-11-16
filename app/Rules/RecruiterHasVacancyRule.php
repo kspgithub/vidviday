@@ -9,7 +9,6 @@ use Illuminate\Contracts\Validation\Rule;
 class RecruiterHasVacancyRule implements Rule
 {
     protected User $user;
-
     /**
      * Create a new rule instance.
      *
@@ -24,8 +23,8 @@ class RecruiterHasVacancyRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param string  $attribute
-     * @param mixed  $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      *
      * @return bool
      */

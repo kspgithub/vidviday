@@ -12,15 +12,13 @@ class TicketsController extends Controller
 
     /**
      * Поиск мест по названию (select box)
-     *
-     * @param Request  $request
-     *
+     * @param Request $request
      * @return mixed
      */
     public function selectBox(Request $request)
     {
         $q = $request->input('q', '');
-        $region_id = (int) $request->input('region_id', 0);
+        $region_id = (int)$request->input('region_id', 0);
         $query = Ticket::query();
 
         if ($region_id > 0) {
@@ -35,14 +33,14 @@ class TicketsController extends Controller
         return [
             'results' => $items,
             'pagination' => [
-                'more' => $paginator->hasMorePages(),
-            ],
+                'more' => $paginator->hasMorePages()
+            ]
         ];
     }
 
     public function get(Request $request)
     {
-        $place_id = (int) $request->input('ticket_id', 0);
+        $place_id = (int)$request->input('ticket_id', 0);
 
         $place = Ticket::query()->findOrFail($place_id);
 

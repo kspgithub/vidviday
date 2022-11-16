@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -32,7 +33,7 @@ class RegisteredUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param UserService  $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -42,17 +43,16 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      *
-     * @param string|null  $role
+     * @param string|null $role
      *
      * @return View|RedirectResponse
      */
     public function create(Request $request): View
     {
-        if ($request->get('force_logout') && $request->user()) {
+        if($request->get('force_logout') && $request->user()) {
             $redirect = route('auth.register', $request->except('force_logout'));
             $request->merge(['redirect' => $redirect]);
             $authController = app(AuthenticatedSessionController::class);
-
             return $authController->destroy($request->merge(['redirect' => $redirect]));
         }
 
@@ -62,8 +62,8 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param RegisterRequest  $request
-     * @param string  $role
+     * @param RegisterRequest $request
+     * @param string $role
      *
      * @return RedirectResponse
      */
@@ -73,7 +73,7 @@ class RegisteredUserController extends Controller
         $params = $request->validated();
         $params['password'] = Hash::make($request->password);
         $role = $request->role;
-        if ($role === 'tour-agent') {
+        if($role === 'tour-agent') {
             $params['status'] = 0;
         }
         /**
@@ -99,15 +99,16 @@ class RegisteredUserController extends Controller
             foreach ($adminEmails as $email) {
                 Mail::to($email)->queue(new RegistrationAdminEmail($user));
             }
+
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
         }
 
-        if ($user->isTourAgent()) {
-            if (! $user->isVerified()) {
+        if($user->isTourAgent()) {
+            if(!$user->isVerified()) {
                 $user->sendEmailVerificationNotification();
             }
-            if (! $user->isActive()) {
+            if(!$user->isActive()) {
                 Auth::logout();
             }
         }
@@ -117,7 +118,7 @@ class RegisteredUserController extends Controller
 
     public function success()
     {
-        if (! $user = Session::get('newUser')) {
+        if(!$user = Session::get('newUser')) {
             return redirect(RouteServiceProvider::HOME);
         }
 

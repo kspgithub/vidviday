@@ -14,17 +14,20 @@ class PublishSwitcher extends Component
     public function mount(Model $model)
     {
         $this->model = $model;
-        $this->published = (bool) $model->published;
+        $this->published = (bool)$model->published;
     }
+
 
     public function update()
     {
         $this->model->published = $this->published;
         $this->model->save();
+
     }
 
     public function render()
     {
         return view('admin.partials.publish-switcher');
     }
+
 }

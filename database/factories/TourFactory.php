@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Currency;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class TourFactory extends Factory
 {
@@ -22,7 +24,6 @@ class TourFactory extends Factory
     public function definition()
     {
         $duration = $this->faker->randomElement([1, 3, 5, 7, 10]);
-
         return [
             //
             'title' => ['uk' => $this->faker->text(30)],

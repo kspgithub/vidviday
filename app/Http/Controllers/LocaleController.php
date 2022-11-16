@@ -8,7 +8,7 @@ class LocaleController extends Controller
     public function change(string $locale)
     {
         $locales = array_keys(config('site-settings.locale.languages'));
-        if (! in_array($locale, $locales)) {
+        if (!in_array($locale, $locales)) {
             $locale = 'en';
         }
 

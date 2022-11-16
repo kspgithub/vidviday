@@ -4,14 +4,18 @@ namespace App\Services;
 
 use App\Exceptions\GeneralException;
 use App\Models\Direction;
+use App\Models\Discount;
 use App\Models\LandingPlace;
 use App\Models\Place;
 use App\Models\Tour;
+use App\Models\TourDiscount;
+use App\Models\TourSchedule;
 use App\Models\TourSubject;
 use App\Models\TourType;
 use App\Models\WrongQuery;
 use Cache;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -22,10 +26,12 @@ use Spatie\Image\Manipulations;
 
 class TourService extends BaseService
 {
+
+
     /**
      * TourService constructor.
      *
-     * @param Tour  $tour
+     * @param Tour $tour
      */
     public function __construct(Tour $tour)
     {
@@ -36,17 +42,18 @@ class TourService extends BaseService
     {
         $locale = app()->getLocale();
 
-        return Cache::remember('filter-options-'.$locale, 1, function () {
+        return Cache::remember('filter-options-' . $locale, 1, function () {
             $place_ids = (array) request('place', []);
             $selectedPlaces = Place::whereIn('id', $place_ids)->get();
 
             $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
-            ->orderBy('title->uk')->paginate()->getCollection())->sortBy(fn ($place) => $place->title)->map->asSelectBox('value')->toArray();
+                ->orderBy('title->uk')->paginate()->getCollection()
+            )->sortBy(fn($place) => $place->title)->map->asSelectBox('value')->toArray();
 
             $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-                //                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-                //                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
-                //                });
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
                 return $sq->where('published', 1);
             })->orderBy('title->uk')->toSelectBox()->toArray();
 
@@ -58,9 +65,9 @@ class TourService extends BaseService
                 'date_from' => Carbon::now()->format('d.m.Y'),
                 'date_to' => Carbon::now()->addYears(1)->format('d.m.Y'),
                 'duration_from' => 0,
-                'duration_to' => (int) Tour::query()->max('duration') ?? 14,
+                'duration_to' => (int)Tour::query()->max('duration') ?? 14,
                 'price_from' => 0,
-                'price_to' => (int) Tour::query()->max('price') ?? 10000,
+                'price_to' => (int)Tour::query()->max('price') ?? 10000,
                 'directions' => array_merge([['value' => 0, 'text' => __('tours-section.direction')]], $directions),
                 'types' => array_merge([['value' => 0, 'text' => __('tours-section.type')]], $types),
                 'subjects' => array_merge([['value' => 0, 'text' => __('tours-section.subject')]], $subjects),
@@ -69,10 +76,10 @@ class TourService extends BaseService
                 'sorting' => [
                     ['value' => 'date-asc', 'text' => __('tours-section.sorting.date-asc')],
                     ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
-                    //                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+//                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
                     ['value' => 'popular-desc', 'text' => __('tours-section.sorting.popular-desc')],
                     ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
-                    //                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
+//                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
                     ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
                     ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
                     ['value' => 'duration-desc', 'text' => __('tours-section.sorting.duration-desc')],
@@ -93,28 +100,27 @@ class TourService extends BaseService
         $title = [];
         $limit = 3;
 
-        if (! empty($params['q'])) {
+        if (!empty($params['q'])) {
             $title[] = urldecode($params['q']);
         }
-        if (! empty($params['direction'])) {
+        if (!empty($params['direction'])) {
             $directions = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->limit($limit)->get();
             foreach ($directions as $i => $direction) {
-                $title[] = $i < ($limit - 1) ? $direction->title : '...';
+                $title[] = $i < ($limit-1) ? $direction->title : '...';
             }
         }
-        if (! empty($params['type'])) {
+        if (!empty($params['type'])) {
             $types = TourType::whereIn('id', explode(',', $params['type']))->select('title')->limit($limit)->get();
             foreach ($types as $i => $type) {
-                $title[] = $i < ($limit - 1) ? $type->title : '...';
+                $title[] = $i < ($limit-1) ? $type->title : '...';
             }
         }
-        if (! empty($params['subject'])) {
+        if (!empty($params['subject'])) {
             $subjects = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->limit($limit)->get();
             foreach ($subjects as $i => $subject) {
-                $title[] = $i < ($limit - 1) ? $subject->title : '...';
+                $title[] = $i < ($limit-1) ? $subject->title : '...';
             }
         }
-
         return implode(', ', $title);
     }
 
@@ -138,7 +144,7 @@ class TourService extends BaseService
 
         $remains = $count - $popularTours->count();
 
-        if ($remains > 0) {
+        if($remains > 0) {
             $bestsellerTours = Tour::search()
                 ->whereJsonContains('locales', $locale)
                 ->whereNotIn('id', $popularTours->pluck('id')->toArray())
@@ -190,6 +196,7 @@ class TourService extends BaseService
 
             if (array_key_exists('staff', $params)) {
                 $staff = array_filter($params['staff']);
+
             } else {
                 $staff = [];
             }
@@ -198,6 +205,7 @@ class TourService extends BaseService
 
             if (array_key_exists('badges', $params)) {
                 $badges = array_filter($params['badges']);
+
             } else {
                 $badges = [];
             }
@@ -206,6 +214,7 @@ class TourService extends BaseService
 
             if (array_key_exists('groups', $params)) {
                 $groups = array_filter($params['groups']);
+
             } else {
                 $groups = [];
             }
@@ -214,6 +223,7 @@ class TourService extends BaseService
 
             if (array_key_exists('events', $params)) {
                 $events = array_filter($params['events']);
+
             } else {
                 $events = [];
             }
@@ -222,6 +232,7 @@ class TourService extends BaseService
 
             if (array_key_exists('types', $params)) {
                 $types = array_filter($params['types']);
+
             } else {
                 $types = [];
             }
@@ -230,6 +241,7 @@ class TourService extends BaseService
 
             if (array_key_exists('subjects', $params)) {
                 $subjects = array_filter($params['subjects']);
+
             } else {
                 $subjects = [];
             }
@@ -238,6 +250,7 @@ class TourService extends BaseService
 
             if (array_key_exists('directions', $params)) {
                 $directions = array_filter($params['directions']);
+
             } else {
                 $directions = [];
             }
@@ -248,11 +261,11 @@ class TourService extends BaseService
                 $plan = array_filter($params['plan']);
                 $tour->planItems()->updateOrCreate(['tour_id' => $tour->id], $plan);
             }
+
         } catch (Exception $e) {
             dd($e);
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
-
             throw new GeneralException(__('There was a problem updating tour.'));
         }
         DB::commit();
@@ -302,10 +315,10 @@ class TourService extends BaseService
         $q = $request->get('q');
 
         RateLimiter::attempt(
-            'wrong-requests.'.$q.'.'.$request->ip(),
+            'wrong-requests.' . $q . '.' . $request->ip(),
             1,
-            function () use ($q) {
-                $wrongQuery = WrongQuery::query()->firstOrNew(['query' => $q], ['query' => $q, 'count' => 0]);
+            function() use ($q) {
+                $wrongQuery = WrongQuery::query()->firstOrNew(['query' => $q],['query' => $q, 'count' => 0]);
                 $wrongQuery->count++;
                 $wrongQuery->save();
             }

@@ -12,8 +12,7 @@ trait UseSelectBox
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    ): Collection
-    {
+    ): Collection {
         $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
 
         return self::query()->get($fields)
@@ -25,10 +24,9 @@ trait UseSelectBox
     public static function toSelectWithOthersOptionsBox(
         $text_field = 'title',
         $value_field = 'id',
-        $price_filed = 'price',
-        $currency_filed = 'currency'
-    )
-    {
+        $price_filed = "price",
+        $currency_filed = "currency"
+    ) {
         $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
 
         $fields[] = $price_filed;
@@ -38,7 +36,7 @@ trait UseSelectBox
             ->map(function ($item) use ($value_field, $text_field, $price_filed, $currency_filed) {
                 return [
                     'value' => $item->{$value_field},
-                    'text' => json_prepare("{$item->{$text_field}}({$item->{$price_filed ?? ''}} {$item->{$currency_filed ?? ''}})"),
+                    'text' => json_prepare("{$item->{$text_field}}({$item->{$price_filed ?? ""}} {$item->{$currency_filed ?? ""}})")
                 ];
             });
     }
@@ -49,10 +47,8 @@ trait UseSelectBox
         $value_field = 'id',
         $value_key = 'value',
         $text_key = 'text'
-    )
-    {
+    ) {
         $fields = $text_field === $value_field ? [$text_field] : [$value_field, $text_field];
-
         return $query->get($fields)->map(function ($item) use ($value_field, $text_field, $value_key, $text_key) {
             return [$value_key => $item->{$value_field}, $text_key => json_prepare($item->{$text_field})];
         });
@@ -66,7 +62,6 @@ trait UseSelectBox
         foreach ($items as $item) {
             $result[$item->{$value_field}] = json_prepare($item->{$text_field});
         }
-
         return $result;
     }
 }

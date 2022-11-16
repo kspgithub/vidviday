@@ -1,16 +1,19 @@
 <template>
-    <label class="checkbox vue-checkbox" :class="{ active: innerValue === trueValue }">
-        <input v-model="innerValue" type="checkbox" :true-value="trueValue" :false-value="falseValue" />
+    <label class="checkbox vue-checkbox" :class="{active: innerValue === trueValue}">
+        <input type="checkbox"
+               v-model="innerValue"
+               :true-value="trueValue"
+               :false-value="falseValue">
         <span>{{ label }}</span>
-        <input type="hidden" :name="name" :value="innerValue" />
+        <input type="hidden" :name="name" :value="innerValue">
     </label>
 </template>
 
 <script>
-import { computed } from 'vue'
+import {computed} from "vue";
 
 export default {
-    name: 'FormCheckbox',
+    name: "FormCheckbox",
     props: {
         modelValue: Number,
         name: String,
@@ -20,23 +23,26 @@ export default {
         },
         falseValue: {
             default: 0,
-        },
+        }
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
+    setup(props, {emit}) {
         const innerValue = computed({
             get() {
-                return props.modelValue
+                return props.modelValue;
             },
             set(val) {
-                emit('update:modelValue', val)
-            },
+                emit('update:modelValue', val);
+            }
         })
         return {
             innerValue,
         }
-    },
+    }
+
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

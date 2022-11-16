@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MailNotifyRequest;
 use App\Services\MailNotificationService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CrmNotificationsController extends Controller
 {
     /**
      * Отправка сообщений
-     *
-     * @param MailNotifyRequest  $request
-     *
+     * @param MailNotifyRequest $request
      * @return JsonResponse
      */
     public function notifyEmail(MailNotifyRequest $request)
@@ -24,8 +24,9 @@ class CrmNotificationsController extends Controller
         $message = $request->message;
         if (MailNotificationService::customMail($email, $message, $subject)) {
             return response()->json(['result' => 'success', 'message' => __('Mail Sent')]);
+        } else {
+            return response()->json(['result' => 'error', 'message' => 'Сталася помилка під час відправки повідомлення']);
         }
 
-        return response()->json(['result' => 'error', 'message' => 'Сталася помилка під час відправки повідомлення']);
     }
 }

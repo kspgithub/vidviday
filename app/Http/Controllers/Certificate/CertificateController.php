@@ -23,7 +23,6 @@ class CertificateController extends Controller
         $localeLinks = $pageContent->getLocaleLinks();
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
         $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
-
         return view('certificate.index', [
             'pageContent' => $pageContent,
             'localeLinks' => $localeLinks,
@@ -45,6 +44,7 @@ class CertificateController extends Controller
         ]);
     }
 
+
     public function orderStore(CertificateOrderRequest $request)
     {
         $order = new OrderCertificate();
@@ -57,12 +57,11 @@ class CertificateController extends Controller
 
         MailNotificationService::userCertificateEmail($order);
         MailNotificationService::adminCertificateEmail($order);
-        if ((int) $order->payment_type === PaymentType::TYPE_ONLINE) {
+        if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
             $redirectRoute = 'certificate.order.purchase';
         } else {
             $redirectRoute = 'certificate.order.success';
         }
-
         return redirect()->route($redirectRoute, $order);
     }
 
@@ -80,7 +79,6 @@ class CertificateController extends Controller
     public function orderSuccess(OrderCertificate $order)
     {
         $pageContent = Page::where('key', 'certificate-order')->first();
-
         return view('certificate.success', ['order' => $order, 'pageContent' => $pageContent]);
     }
 }

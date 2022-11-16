@@ -5,24 +5,26 @@ export default {
             order: null,
             request: false,
             popupOpen: false,
+
         }
     },
     mutations: {
         SET_ORDER(state, value) {
-            state.order = value
+            state.order = value;
         },
         SET_REQUEST(state, value) {
-            state.request = value
+            state.request = value;
         },
         SET_POPUP_OPEN(state, value) {
-            state.popupOpen = value
+            state.popupOpen = value;
         },
     },
     actions: {
-        async cancel({ commit, state }) {
+        async cancel({commit, state}) {
             commit('SET_REQUEST', true)
 
+
             commit('SET_REQUEST', false)
-        },
-    },
+        }
+    }
 }

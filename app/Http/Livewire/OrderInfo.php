@@ -28,18 +28,15 @@ class OrderInfo extends Component
     public $noteText = '';
 
     public $editOrderStatus = false;
-
     public $orderStatus = 0;
-
     public $orderStatusNotice = 0;
 
     public $editConfirmationStatus = false;
-
     public $confirmationStatus = 0;
 
     public $editPaymentStatus = false;
-
     public $paymentStatus = 0;
+
 
     public function mount(Order $order): void
     {
@@ -55,9 +52,9 @@ class OrderInfo extends Component
     public function render()
     {
         $notes = OrderNote::where('order_id', $this->order->id)->orderBy('created_at')->get();
-
-        return view('admin.order.includes.order-info', ['notes' => $notes]);
+        return view('admin.order.includes.order-info', ['notes'=>$notes]);
     }
+
 
     public function addNote()
     {
@@ -74,6 +71,7 @@ class OrderInfo extends Component
         $note->delete();
     }
 
+
     public function changeStatus()
     {
         $this->orderStatus = $this->order->status;
@@ -83,10 +81,10 @@ class OrderInfo extends Component
     public function saveStatus()
     {
         $this->editOrderStatus = false;
-        $this->order->status = (int) $this->orderStatus;
+        $this->order->status = (int)$this->orderStatus;
         $this->order->save();
 
-        if ((int) $this->orderStatusNotice === 1) {
+        if ((int)$this->orderStatusNotice === 1) {
             //TODO: Уведомляем пользователя о смене статуса
         }
         $this->orderStatusNotice = 0;
@@ -97,6 +95,7 @@ class OrderInfo extends Component
         $this->editOrderStatus = false;
     }
 
+
     public function changeConfirmationStatus()
     {
         $this->confirmationStatus = $this->order->confirmation_status;
@@ -106,7 +105,7 @@ class OrderInfo extends Component
     public function saveConfirmationStatus()
     {
         $this->editConfirmationStatus = false;
-        $this->order->confirmation_status = (int) $this->confirmationStatus;
+        $this->order->confirmation_status = (int)$this->confirmationStatus;
         $this->order->save();
     }
 
@@ -124,7 +123,7 @@ class OrderInfo extends Component
     public function savePaymentStatus()
     {
         $this->editPaymentStatus = false;
-        $this->order->payment_status = (int) $this->paymentStatus;
+        $this->order->payment_status = (int)$this->paymentStatus;
         $this->order->save();
     }
 

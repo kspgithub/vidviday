@@ -12,7 +12,9 @@ use Illuminate\Validation\Rule;
  * @property string $password
  * @property string $role
  * @property string $password_confirmation
- * @property bool $agree
+ * @property boolean $agree
+ *
+ * @package App\Http\Requests\Auth
  */
 class RegisterRequest extends FormRequest
 {

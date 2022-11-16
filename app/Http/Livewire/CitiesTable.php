@@ -3,7 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\City;
+use App\Models\Country;
+use App\Models\District;
 use App\Models\Region;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -15,13 +18,15 @@ use Rappasoft\LaravelLivewireTables\Views\Filter;
  */
 class CitiesTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+
+    public array $bulkActions = [
+    ];
 
     public array $perPageAccepted = [30, 50, 100];
 
     public $region;
-
     public $district;
+
 
     /**
      * @var array
@@ -33,12 +38,14 @@ class CitiesTable extends DataTableComponent
 
     public function mount($region = null, $district = null): void
     {
-        if (! empty($district)) {
+
+        if (!empty($district)) {
             $this->district = $district;
             $this->region = $district->region;
-        } elseif (! empty($region)) {
+        } elseif (!empty($region)) {
             $this->region = $region;
         }
+
     }
 
     /**
@@ -53,12 +60,12 @@ class CitiesTable extends DataTableComponent
         $district_id = $this->district ? $this->district->id : $this->getFilter('district_id');
 
         $query = $query->withCount(['places'])->with(['country', 'region', 'district'])
-            ->when(! empty($has_place), function (Builder $q) use ($has_place) {
+            ->when(!empty($has_place), function (Builder $q) use ($has_place) {
                 if ($has_place === 'yes') {
                     return $q->whereHas('places');
+                } else {
+                    return $q->doesntHave('places');
                 }
-
-                return $q->doesntHave('places');
             })
             ->when($region_id > 0, function (Builder $q) use ($region_id) {
                 return $q->where('region_id', $region_id);
@@ -102,12 +109,13 @@ class CitiesTable extends DataTableComponent
                 })
                 ->sortable(),
 
-            //            Column::make(__('Slug'), 'slug')
-            //                ->searchable()
-            //                ->sortable(),
+//            Column::make(__('Slug'), 'slug')
+//                ->searchable()
+//                ->sortable(),
 
             Column::make(__('Places'), 'places_count')
                 ->sortable(),
+
 
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
@@ -118,14 +126,12 @@ class CitiesTable extends DataTableComponent
 
     public function filters(): array
     {
-        $filters = [
-        'has_place' => Filter::make(__('З місцями'))
+        $filters = ['has_place' => Filter::make(__('З місцями'))
             ->select([
                 '' => 'Всі',
                 'yes' => 'З місцями',
                 'no' => 'Без місць',
-            ]),
-        ];
+            ])];
 
         if (empty($this->region)) {
             $filters['region_id'] = Filter::make(__('Область'))

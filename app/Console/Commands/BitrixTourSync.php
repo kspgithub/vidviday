@@ -39,26 +39,29 @@ class BitrixTourSync extends Command
      */
     public function handle()
     {
+
         $lastID = 0;
         $finish = false;
         $select = ['*', 'UF_*'];
         $order = ['id' => 'ASC'];
 
-        while (! $finish) {
+        while (!$finish) {
             $filter = ['>id' => $lastID];
 
             $response = BitrixTourService::list($select, $filter, $order, -1);
 
-            if (! $response->error && ! empty($response->result['items']) > 0) {
+            if (!$response->error && !empty($response->result['items']) > 0) {
+
                 foreach ($response->result['items'] as $scheduleData) {
                     $lastID = $scheduleData['id'];
                     BitrixTour::createOrUpdate($lastID, BitrixTour::createFromData($scheduleData));
                 }
+
             } else {
                 $finish = true;
             }
         }
-
         return 0;
+
     }
 }

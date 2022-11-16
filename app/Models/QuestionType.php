@@ -30,7 +30,7 @@ class QuestionType extends Model
         parent::boot();
 
         self::saving(function (self $questionType) {
-            if (! $questionType->email && $questionType->manager) {
+            if(!$questionType->email && $questionType->manager) {
                 $questionType->email = $questionType->manager->email;
             }
         });

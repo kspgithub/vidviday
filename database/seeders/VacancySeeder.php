@@ -9,7 +9,6 @@ use Illuminate\Database\Seeder;
 class VacancySeeder extends Seeder
 {
     use TruncateTable;
-
     /**
      * Run the database seeds.
      *
@@ -21,5 +20,6 @@ class VacancySeeder extends Seeder
         $this->truncate('vacancies');
 
         Vacancy::factory()->count(10)->create();
+
     }
 }

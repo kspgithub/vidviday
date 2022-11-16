@@ -23,9 +23,8 @@ class RedirectMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -34,17 +33,17 @@ class RedirectMiddleware
 
         $redirect = null;
 
-        if ($full = $this->redirects->where('type', Redirect::TYPE_FULL)->where('from', $uri)->first()) {
+        if($full = $this->redirects->where('type', Redirect::TYPE_FULL)->where('from', $uri)->first()) {
             $redirect = $full->to;
         }
 
-        if ($particular = $this->redirects->where('type', Redirect::TYPE_PARTIAL)->filter(function (Redirect $r) use ($uri) {
+        if($particular = $this->redirects->where('type', Redirect::TYPE_PARTIAL)->filter(function (Redirect $r) use($uri) {
             return Str::contains($uri, $r->from);
         })->first()) {
             $redirect = Str::replace($particular->from, $particular->to, $uri);
         }
 
-        if ($regex = $this->redirects->where('type', Redirect::TYPE_REGEX)->filter(function (Redirect $r) use ($uri) {
+        if($regex = $this->redirects->where('type', Redirect::TYPE_REGEX)->filter(function (Redirect $r) use($uri) {
             try {
                 return preg_match($r->from, $uri);
             } catch (\Exception $e) {
@@ -54,13 +53,13 @@ class RedirectMiddleware
             $redirect = preg_replace($regex->from, $regex->to, $uri);
         }
 
-        if ($redirect) {
+        if($redirect) {
             return redirect()->to(htmlspecialchars($redirect));
         }
 
         $response = $next($request);
 
-        if ($request->get('lang')) {
+        if($request->get('lang')) {
             $url = $request->fullUrlWithoutQuery(['lang']);
 
             return redirect($url);

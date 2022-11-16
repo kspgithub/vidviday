@@ -10,24 +10,25 @@ use App\Http\Resources\TourTicketResource;
 
 trait UseTourExport
 {
+
     public function getImagesToExport()
     {
-        return $this->getMedia('pictures')->map(fn ($it) => $it->getFullUrl('normal'));
+        return $this->getMedia('pictures')->map(fn($it) => $it->getFullUrl('normal'));
     }
 
     public function getTypesToExport()
     {
-        return $this->types->map(fn ($it) => ['title' => $it->getTranslations('title')]);
+        return $this->types->map(fn($it) => ['title' => $it->getTranslations('title')]);
     }
 
     public function getSubjectsToExport()
     {
-        return $this->subjects->map(fn ($it) => ['title' => $it->getTranslations('title')]);
+        return $this->subjects->map(fn($it) => ['title' => $it->getTranslations('title')]);
     }
 
     public function getDirectionsToExport()
     {
-        return $this->directions->map(fn ($it) => ['title' => $it->getTranslations('title')]);
+        return $this->directions->map(fn($it) => ['title' => $it->getTranslations('title')]);
     }
 
     public function getAdditionalInfoToExport()
@@ -36,6 +37,7 @@ trait UseTourExport
             ? ['title' => $this->getTranslations('hutsul_fun_title'), 'text' => $this->getTranslations('hutsul_fun_text')]
             : null;
     }
+
 
     public function getPlacesToExport()
     {
@@ -52,7 +54,7 @@ trait UseTourExport
                 'district' => $it->district ? $it->district->getTranslations('title') : null,
                 'city' => $it->city ? $it->city->getTranslations('title') : null,
                 'direction' => $it->direction ? $it->direction->getTranslations('title') : null,
-                'images' => $it->getMedia()->map(fn ($media) => $media->getFullUrl()),
+                'images' => $it->getMedia()->map(fn($media) => $media->getFullUrl()),
             ];
         });
     }
@@ -61,30 +63,32 @@ trait UseTourExport
     {
         $result = [];
         foreach ($this->tourIncludes as $include) {
-            if (! isset($result[$include->type_id])) {
+            if (!isset($result[$include->type_id])) {
                 $result[$include->type_id] = [
                     'id' => $include->type_id,
                     'title' => $include->type->getTranslations('title'),
-                    'items' => [],
+                    'items' => []
                 ];
             }
             if ($include->finance) {
                 $result[$include->type_id]['items'][] = $include->finance->getTranslations('text');
             }
-        }
 
+        }
         return array_values($result);
     }
 
+
     public function getPlanToExport()
     {
-        return $this->planItems->where('published', '=', true)->map(fn ($it) => $it->getTranslations('text'))->first();
+        return $this->planItems->where('published', '=', true)->map(fn($it) => $it->getTranslations('text'))->first();
     }
 
     public function getFoodToExport()
     {
         return TourFoodResource::collection($this->foodItems);
     }
+
 
     public function getAccommodationToExport()
     {
@@ -100,6 +104,7 @@ trait UseTourExport
     {
         return TourDiscountResource::collection($this->discounts);
     }
+
 
     public function getLandingsToExport()
     {

@@ -25,19 +25,20 @@ class AccommodationsSeeder extends Seeder
         $accommodations = [
             [
                 'title' => [
-                    'uk' => 'Садиби зеленого туризму Берегівського р-ну',
+                    'uk' => 'Садиби зеленого туризму Берегівського р-ну'
                 ],
             ],
             [
                 'title' => [
-                    'uk' => 'Садиби зеленого туризму Верховинського р-ну',
+                    'uk' => 'Садиби зеленого туризму Верховинського р-ну'
                 ],
-            ],
+            ]
         ];
 
         foreach ($accommodations as $accommodation) {
             Accommodation::create($accommodation);
         }
+
 
         $this->enableForeignKeys();
     }

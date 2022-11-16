@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -13,7 +14,8 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
  */
 class RolesTable extends DataTableComponent
 {
-    public array $bulkActions = [];
+    public array $bulkActions = [
+    ];
 
     /**
      * @var string
@@ -46,6 +48,8 @@ class RolesTable extends DataTableComponent
             Column::make(__('Type'), 'type')
                 ->sortable()
                 ->format(function ($value, $column, $row) {
+
+
                     return 'N/A';
                 }),
             Column::make(__('Name'), 'name')
@@ -54,7 +58,7 @@ class RolesTable extends DataTableComponent
             Column::make(__('Permissions'), 'permissions_label')
                 ->searchable(function ($builder, $term) {
                     return $builder->orWhereHas('permissions', function ($query) use ($term) {
-                        return $query->where('name', 'like', '%'.$term.'%');
+                        return $query->where('name', 'like', '%' . $term . '%');
                     });
                 }),
             Column::make(__('Number of Users'), 'users_count')

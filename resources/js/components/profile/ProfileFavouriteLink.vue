@@ -1,29 +1,31 @@
 <template>
     <a :href="href">
-        <slot />
+        <slot/>
         &nbsp;<span v-if="count > 0">{{ count }}</span>
     </a>
 </template>
 
 <script>
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
-    name: 'ProfileFavouriteLink',
+    name: "ProfileFavouriteLink",
     props: {
-        href: String,
+        href: String
     },
     setup(props) {
-        const store = useStore()
-        const count = computed(() => store.getters['user/countFavourites'])
-        store.dispatch('user/loadFavourites')
+        const store = useStore();
+        const count = computed(() => store.getters['user/countFavourites']);
+        store.dispatch('user/loadFavourites');
 
         return {
             count,
         }
-    },
+    }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -8,5 +8,6 @@ class RecommendationSeeder extends Seeder
 {
     public function run()
     {
+
     }
 }

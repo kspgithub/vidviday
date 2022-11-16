@@ -24,62 +24,62 @@ export default {
                 packing: null,
                 packing_type: '',
                 payment_type: 0,
-                comment: '',
-            },
+                comment: ''
+            }
         }
     },
     mutations: {
         SET_CURRENT_STEP(state, value) {
-            state.currentStep = value
+            state.currentStep = value;
         },
         UPDATE_FORM_DATA(state, value) {
-            Object.assign(state.formData, value)
+            Object.assign(state.formData, value);
         },
         SET_TOUR(state, value) {
-            state.tour = value
+            state.tour = value;
         },
         SET_PACKINGS(state, value) {
-            state.packings = value
+            state.packings = value;
         },
         SET_PAYMENT_TYPES(state, value) {
-            state.paymentTypes = value
+            state.paymentTypes = value;
         },
         SET_DATA(state, value) {
-            if (value.currentStep) {
-                state.currentStep = value.currentStep
+            if(value.currentStep) {
+                state.currentStep = value.currentStep;
             }
-            if (value.formData) {
-                state.formData = value.formData
+            if(value.formData) {
+                state.formData = value.formData;
             }
         },
     },
     actions: {
-        setStep({ commit }, step) {
-            commit('SET_CURRENT_STEP', step)
+        setStep({commit}, step) {
+            commit('SET_CURRENT_STEP', step);
         },
-        nextStep({ commit, state }) {
-            commit('SET_CURRENT_STEP', state.currentStep + 1)
+        nextStep({commit, state}) {
+            commit('SET_CURRENT_STEP', state.currentStep + 1);
             localStorage.setItem('order-cretificate', JSON.stringify(state))
         },
-        prevStep({ commit, state }) {
-            commit('SET_CURRENT_STEP', state.currentStep - 1)
+        prevStep({commit, state}) {
+            commit('SET_CURRENT_STEP', state.currentStep - 1);
         },
     },
     getters: {
-        selectedPacking: state => state.packings.find(p => p.slug === state.formData.packing_type),
+        selectedPacking: (state) => state.packings.find(p => p.slug === state.formData.packing_type),
         totalPrice: (state, getters) => {
-            let total = 0
+            let total = 0;
             if (state.formData.type === 'sum') {
-                total += state.formData.sum || 0
+                total += state.formData.sum || 0;
             }
             if (state.formData.type === 'tour' && state.tour) {
                 // total += ((state.tour.price || 0) + (state.tour.commission || 0)) * state.formData.places;
-                total += (state.tour.price || 0) * state.formData.places
+                total += (state.tour.price || 0) * state.formData.places;
             }
             if (state.formData.packing === 1) {
-                total += getters.selectedPacking ? getters.selectedPacking.price : 0
+                total += getters.selectedPacking ? getters.selectedPacking.price : 0;
             }
-            return total
-        },
-    },
+            return total;
+        }
+    }
 }

@@ -15,13 +15,14 @@ use App\Http\Controllers\Admin\Accommodation\AccommodationController;
 use App\Http\Controllers\Admin\Accommodation\AccommodationTypeController;
 use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
+use App\Http\Controllers\Admin\Email\EmailTemplateController;
+use App\Http\Controllers\Admin\Partner\PartnerController;
+use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
 use App\Http\Controllers\Admin\Badge\BadgeController;
 use App\Http\Controllers\Admin\Banner\BannerController;
 use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Certificate\CertificateController;
-use App\Http\Controllers\Admin\Charity\CharityController;
 use App\Http\Controllers\Admin\ContactsController;
-use App\Http\Controllers\Admin\Course\CourseController;
 use App\Http\Controllers\Admin\CRM\CrmCertificateController;
 use App\Http\Controllers\Admin\CRM\CrmClientController;
 use App\Http\Controllers\Admin\CRM\CrmCorporateController;
@@ -33,7 +34,6 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Direction\DirectionController;
 use App\Http\Controllers\Admin\Discount\DiscountController;
 use App\Http\Controllers\Admin\Document\DocumentController;
-use App\Http\Controllers\Admin\Email\EmailTemplateController;
 use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\Event\EventGroupController;
 use App\Http\Controllers\Admin\Faq\FaqController;
@@ -47,13 +47,11 @@ use App\Http\Controllers\Admin\Location\CountryController;
 use App\Http\Controllers\Admin\Location\DistrictController;
 use App\Http\Controllers\Admin\Location\RegionController;
 use App\Http\Controllers\Admin\News\NewsController;
+use App\Http\Controllers\Admin\Charity\CharityController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
-use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\Place\PlaceController;
-use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
-use App\Http\Controllers\Admin\Practice\PracticeController;
 use App\Http\Controllers\Admin\PriceItem\PriceItemController;
 use App\Http\Controllers\Admin\Recommendation\RecommendationController;
 use App\Http\Controllers\Admin\RedirectsController;
@@ -79,6 +77,8 @@ use App\Http\Controllers\Admin\User\DeletedUserController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserPasswordController;
 use App\Http\Controllers\Admin\Vacancy\VacancyController;
+use App\Http\Controllers\Admin\Practice\PracticeController;
+use App\Http\Controllers\Admin\Course\CourseController;
 use App\Http\Controllers\Admin\WrongRequestsController;
 use Illuminate\Support\Facades\Route;
 
@@ -133,6 +133,7 @@ Route::group([
     });
 });
 
+
 // FAQ
 Route::group([
     'prefix' => 'faq',
@@ -162,7 +163,7 @@ Route::resource('charity', CharityController::class)->except('show');
 
 // BLOG
 Route::patch('post/{post}/update-status', [PostController::class, 'updateStatus'])->name('post.update-status');
-Route::resource('post', PostController::class)->except('show');
+Route::resource("post", PostController::class)->except('show');
 
 // VACANCY
 Route::resource('vacancy', VacancyController::class)->except('show');
@@ -181,7 +182,7 @@ Route::resource('accommodation-type', AccommodationTypeController::class);
 
 // DOCUMENTS
 Route::patch('document/{document}/update-status', [DocumentController::class, 'updateStatus'])->name('document.update-status');
-Route::resource('document', DocumentController::class)->except('show');
+Route::resource("document", DocumentController::class)->except('show');
 
 // TICKETS
 Route::patch('ticket/{ticket}/update-status', [TicketController::class, 'updateStatus'])->name('ticket.update-status');
@@ -193,8 +194,8 @@ Route::resource('event', EventController::class)->except('show');
 Route::resource('event-group', EventGroupController::class)->except('show');
 
 // TOUR INCLUDE
-Route::resource('include-type', IncludeTypeController::class)->except('show');
-Route::resource('tour-include', TourIncludeController::class)->except('show');
+Route::resource("include-type", IncludeTypeController::class)->except('show');
+Route::resource("tour-include", TourIncludeController::class)->except('show');
 
 // ORDERS
 Route::patch('order/{order}/update-status', [OrderController::class, 'updateStatus'])->name('order.update-status');
@@ -227,6 +228,7 @@ Route::group([
     Route::patch('{item}/status', [MenuItemController::class, 'status'])->name('item.status');
     Route::delete('{item}/delete', [MenuItemController::class, 'destroy'])->name('item.destroy');
 });
+
 
 // TESTIMONIALS AND QUESTIONS
 Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial.index');
@@ -292,6 +294,7 @@ Route::post('popular-tours/sort', [PopularToursController::class, 'sort'])->name
 
 require_once base_path('routes/admin/tour.php');
 
+
 Route::group([
     'prefix' => 'crm',
     'as' => 'crm.',
@@ -301,6 +304,7 @@ Route::group([
     Route::post('clients', [CrmClientController::class, 'store'])->name('client.store');
     Route::patch('clients/{client}', [CrmClientController::class, 'update'])->name('client.update');
     Route::delete('clients/{client}', [CrmClientController::class, 'delete'])->name('client.destroy');
+
 
     Route::get('schedules', [CrmScheduleController::class, 'index'])->name('schedule.index');
     Route::get('schedules/{schedule}', [CrmScheduleController::class, 'show'])->name('schedule.show');
@@ -320,7 +324,7 @@ Route::group([
 
     Route::resource('order', CrmOrderController::class);
     Route::resource('corporate', CrmCorporateController::class)->parameters([
-        'corporate' => 'order',
+        'corporate' => 'order'
     ]);
 });
 

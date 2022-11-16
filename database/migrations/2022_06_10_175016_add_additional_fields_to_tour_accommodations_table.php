@@ -32,6 +32,7 @@ class AddAdditionalFieldsToTourAccommodationsTable extends Migration
     public function down()
     {
         Schema::table('tour_accommodations', function (Blueprint $table) {
+
             $table->dropForeign('tour_accommodations_country_id_foreign');
             $table->dropForeign('tour_accommodations_region_id_foreign');
             $table->dropForeign('tour_accommodations_city_id_foreign');
@@ -47,3 +48,4 @@ class AddAdditionalFieldsToTourAccommodationsTable extends Migration
         });
     }
 }
+

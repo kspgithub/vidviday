@@ -11,9 +11,7 @@ class Redirect extends Model
     use HasFactory;
 
     const TYPE_FULL = 'full';
-
     const TYPE_PARTIAL = 'partial';
-
     const TYPE_REGEX = 'regex';
 
     protected $fillable = [
