@@ -23,9 +23,10 @@
             @for($i=1; $i <=5; $i++)
                 <i class="select-icon {{($tour->rating ?: $tour->testimonials_avg_rating) >= $i ? 'icon-star' : 'icon-star-empty'}}"></i>
             @endfor
-            @if($tour->count_testimonials > 0)
-                <span
-                    class="text">{{$tour->testimonials_count}} {{plural_form($tour->testimonials_count, ['відгук', 'відгука', 'відгуків'])}}</span>
+            @if($tour->testimonials_count > 0)
+                <a class="text" href="#testimonials">
+                    <span class="text">{{$tour->testimonials_count}} {{plural_form($tour->testimonials_count, ['відгук', 'відгука', 'відгуків'])}}</span>
+                </a>
             @endif
         </span>
         @if($mode === 'thumb')

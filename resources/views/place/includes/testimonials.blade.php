@@ -2,7 +2,7 @@
     <div class="spacer-xs"></div>
     <hr>
     <div class="accordion-item">
-        <div class="accordion-title">Відгуки ({{$place->testimonials->count()}})<i></i></div>
+        <div id="testimonials" class="accordion-title">Відгуки ({{$place->testimonials->count()}})<i></i></div>
         <div class="accordion-inner">
             <div></div>
             <span class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"

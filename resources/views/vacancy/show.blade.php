@@ -47,6 +47,15 @@
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text text-md">
+                        {!! $vacancy->short_text !!}
+                    </div>
+
+                    {{--CV--}}
+                    <div class="spacer-xs"></div>
+                    <a href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</a>
+
+                    <div class="spacer-xs"></div>
+                    <div class="text text-md">
                         {!! $vacancy->text !!}
                     </div>
 
@@ -59,7 +68,7 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
-                    <x-page.right-sidebar :pageContent="$pageContent">
+                    <x-page.right-sidebar :pageContent="$pageContent" :share-url="route('vacancy.show', $vacancy->slug)">
                         <div class="sidebar-item" id="vacancy-form" v-is="'vacancy-form'"
                              form-title="{{ __('common.vacancy.form-title-single') }}"
                              form-sub-title="{{ __('common.vacancy.form-sub-title-single') }}"

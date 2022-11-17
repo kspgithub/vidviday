@@ -65,8 +65,10 @@
                         <div class="row">
                             <div class="col-xl-8 col-12">
                                 <h1 class="h1 title">{{ $place->title }}</h1>
-                                <x-tour.star-rating :rating="4" :count="0"/>
+                                <div class="spacer-xs"></div>
+                                <x-tour.star-rating :rating="$place->testimonials_avg_rating" :count="$place->testimonials_count"/>
 
+                                <div class="spacer-xs"></div>
                                 <x-sidebar.social-share :share-url="$place->url" :share-title="$place->title"
                                                         class="only-pad-mobile inline-block"/>
                                 <div class="seo-text load-more-wrapp">

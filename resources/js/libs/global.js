@@ -390,6 +390,10 @@ jQuery(function ($) {
             $('html, body').animate({
                 scrollTop: $(anchorLink).offset().top - $('header').outerHeight()
             }, 730);
+
+            if($(anchorLink).hasClass('accordion-title')) {
+                $(anchorLink).click();
+            }
         }
 
 
