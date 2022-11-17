@@ -1,5 +1,5 @@
 <template>
-    <div class="vacancy-form">
+    <div id="vacancy-form" class="vacancy-form">
         <span class="h3">{{ formTitle || __('common.vacancy.form-title') }}</span>
         <div class="spacer-xs"></div>
         <div class="text">

@@ -49,6 +49,11 @@
                     <div class="text text-md">
                         {!! $practice->short_text !!}
                     </div>
+
+                    {{--CV--}}
+                    <div class="spacer-xs"></div>
+                    <a href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</a>
+
                     <div class="spacer-xs"></div>
                     <div class="text text-md">
                         {!! $practice->text !!}
