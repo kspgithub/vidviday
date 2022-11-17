@@ -59,7 +59,12 @@ class PlaceController extends Controller
             ])
             ->loadAvg('testimonials', 'rating');
 
-        $tours = $place->tours()->published()->paginate(6);
+        $tours = $place->tours()->published()
+            ->withCount(['testimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            }])->paginate(6);
         $price_from = $place->tours()->published()->min('price');
         $price_to = $place->tours()->published()->max('price');
 
