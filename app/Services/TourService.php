@@ -140,6 +140,11 @@ class TourService extends BaseService
             ->select('tours.*')
             ->addSelect(DB::raw('popular_tours.position as position'))
             ->orderBy('position')
+            ->withCount(['testimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            }])
             ->take($count)->get();
 
         $remains = $count - $popularTours->count();

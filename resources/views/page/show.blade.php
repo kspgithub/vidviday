@@ -42,6 +42,11 @@
                 ])
                 <!-- BANNER TABS END -->
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
+                    <div class="spacer-xs"></div>
+                    <div class="only-pad-mobile">
+                        <x-page.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
+                        <div class="spacer-xs"></div>
+                    </div>
                     <div class="text text-md">
                         {!! $pageContent->text !!}
                     </div>
