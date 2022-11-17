@@ -47,6 +47,10 @@
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text text-md">
+                        {!! $course->short_text !!}
+                    </div>
+                    <div class="spacer-xs"></div>
+                    <div class="text text-md">
                         {!! $course->text !!}
                     </div>
 

@@ -29,7 +29,11 @@ class PracticeController extends Controller
     public function show($slug)
     {
         $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
-        $practice = Practice::findBySlugOrFail($slug);
+        if(is_numeric($slug)) {
+            $practice = Practice::findOrFail($slug);
+        } else {
+            $practice = Practice::findBySlugOrFail($slug);
+        }
         return view('practice.show', [
             'pageContent'=>$pageContent,
             'practice'=>$practice,
