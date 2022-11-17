@@ -49,7 +49,15 @@ class PlaceController extends Controller
             'testimonials' => function ($q) {
                 return $q->moderated();
             },
-        ]);
+        ])
+            ->loadCount([
+                'testimonials' => function ($q) {
+                    return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+                },
+            ])
+            ->loadAvg('testimonials', 'rating');
 
         $tours = $place->tours()->published()->paginate(6);
         $price_from = $place->tours()->published()->min('price');
@@ -74,9 +82,9 @@ class PlaceController extends Controller
         $testimonial->name = $request->last_name . ' ' . $request->first_name;
         $user = current_user();
 
-        if ((int)$request->tour_id > 0) {
+        if ((int) $request->tour_id > 0) {
             $testimonial->related_type = Tour::class;
-            $testimonial->related_id = (int)$request->tour_id;
+            $testimonial->related_id = (int) $request->tour_id;
         }
 
         if ($user) {
@@ -103,7 +111,7 @@ class PlaceController extends Controller
             return response()->json([
                 'result' => 'success',
                 'message' => __('Thanks for your feedback!'),
-                'question' => $testimonial
+                'question' => $testimonial,
             ]);
         }
 
