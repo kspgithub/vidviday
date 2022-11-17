@@ -1,6 +1,7 @@
 @props([
     'button'=>null,
     'pageContent'=> new \App\Models\Page(),
+    'shareUrl' => null,
 ])
 <div class="right-sidebar">
     <div class="right-sidebar-inner">
@@ -13,7 +14,7 @@
             <div class="bordered-box only-desktop-pad">
                 <x-sidebar.download-print/>
                 <hr>
-                <x-sidebar.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
+                <x-sidebar.social-share :share-url="$shareUrl ?: route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
             </div>
         @endif
         @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
