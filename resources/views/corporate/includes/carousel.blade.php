@@ -2,6 +2,12 @@
 <h2 class="h1 title text-center">{{__('tours-section.most-popular-corporate')}}</h2>
 <div class="spacer-xs"></div>
 <div class="thumbs-carousel swiper-entry">
+    <div class="swiper-button-prev bottom">
+        <i></i>
+    </div>
+    <div class="swiper-button-next bottom">
+        <i></i>
+    </div>
     <div class="swiper-container" data-options='{
         "loop": {{ count($tours) > 1 ? 'true' : 'false' }},
         "lazy": true,
@@ -28,11 +34,5 @@
             @endforeach
         </div>
     </div>
-    <div class="swiper-button-prev bottom-sm only-pad-mobile">
-        <i></i>
-    </div>
     <div class="swiper-pagination"></div>
-    <div class="swiper-button-next bottom-sm only-pad-mobile">
-        <i></i>
-    </div>
 </div>

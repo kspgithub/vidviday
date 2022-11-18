@@ -4,6 +4,12 @@
         <h2 class="h1 title text-center">@lang('tours-section.similar-tours')</h2>
         <div class="spacer-xs"></div>
         <div class="thumbs-carousel swiper-entry">
+            <div class="swiper-button-prev bottom">
+                <i></i>
+            </div>
+            <div class="swiper-button-next bottom">
+                <i></i>
+            </div>
             <div class="swiper-container" data-options='{
 						"loop": {{ count($similar_tours) > 1 ? 'true' : 'false' }},
 						"lazy": true,
@@ -32,13 +38,7 @@
                 </div>
 
             </div>
-            <div class="swiper-button-prev bottom-sm">
-                <i></i>
-            </div>
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-next bottom-sm">
-                <i></i>
-            </div>
         </div>
         <div class="spacer-xs only-tab-mobile"></div>
     </div>
