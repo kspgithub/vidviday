@@ -132,6 +132,12 @@ class TourController extends Controller
             }
         }
 
+        // Update manager tours
+        // todo: ??? sync with $staff->manageTours ???
+        if($tour->manager && !$tour->manager->tours()->where('id', $tour->id)->count()) {
+            $tour->manager->tours()->attach($tour->id);
+        }
+
         return redirect()->route('admin.tour.picture.index', ['tour' => $tour])->withFlashSuccess(__('Record Created'));
     }
 
@@ -231,6 +237,12 @@ class TourController extends Controller
                 }
                 $media->save();
             }
+        }
+
+        // Update manager tours
+        // todo: ??? sync with $staff->manageTours ???
+        if($tour->manager && !$tour->manager->tours()->where('id', $tour->id)->count()) {
+            $tour->manager->tours()->attach($tour->id);
         }
 
         return redirect()->route('admin.tour.edit', $tour)->withFlashSuccess(__('Record Updated'));

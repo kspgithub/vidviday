@@ -1,12 +1,18 @@
-.gm-style-iw {
-    top: 5px!important;
-    background-color: #333!important;
+.gm-style-iw, .gm-style-iw-tc::after {
+    background-color: #333333!important;
     color: white;
 }
-
-.gm-style-iw-tc::after {
-    background: #333!important;
+.gm-style-iw {
+    top: 5px!important;
 }
 
-
-
+.gm-style-iw-d {
+    overflow: auto!important;
+    padding: 12px 20px!important;
+}
+.gm-style-iw.gm-style-iw-c {
+    padding: 0!important;
+}
+button[title="Close"] > span {
+    background-color: #fff!important;
+}

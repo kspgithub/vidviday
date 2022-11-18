@@ -3,10 +3,6 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const ip = require('ip');
 
-require('laravel-vue-lang/mix');
-require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -21,9 +17,6 @@ require('laravel-mix-purgecss');
 mix.setPublicPath(`public/assets/admin`)
     .js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
     .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')
-    .purgeCss()
-    .vue()
-    .lang()
     .extract()
     .disableNotifications();
 

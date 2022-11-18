@@ -20,6 +20,8 @@ class BaseTemplateEmail extends Mailable
 
     public $showFooter = true;
 
+    public $attachment = null;
+
     public Contact $contact;
 
     public string $showOnMapUrl;
@@ -60,6 +62,10 @@ class BaseTemplateEmail extends Mailable
         $html = $cssToInlineStyles->convert($html);
 
         $mail->html($html);
+
+        if($this->attachment) {
+            $mail->attach($this->attachment);
+        }
 
         return $mail;
     }

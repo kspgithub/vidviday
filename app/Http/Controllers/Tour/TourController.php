@@ -81,7 +81,6 @@ class TourController extends Controller
 
     public function show(string $slug)
     {
-
         /**
          * @var Tour $tour
          */
@@ -96,42 +95,63 @@ class TourController extends Controller
             'media',
             'places',
             'places.media',
+            'tourPlaces',
+            'tourPlaces.media',
+            'tourPlaces.place',
+            'tourPlaces.place.media',
             'tourIncludes',
             'tourIncludes.finance',
             'planItems',
             'foodItems',
+            'foodItems.time',
             'foodItems.food',
             'foodItems.food.media',
-            'foodItems.time',
+            'foodItems.food.time',
             'tourAccommodations',
             'tourAccommodations.media',
-            'tickets' => function ($q) {
-                return $q->orderBy('position');
-            },
+            'tourAccommodations.accommodation',
+            'tourAccommodations.accommodation.media',
+            'tickets',
+            'tourTickets',
+            'tourTickets.ticket',
             'discounts',
+            'tourDiscounts',
+            'tourDiscounts.discount',
             'guides',
             'manager',
+            'manager.types',
             'landings',
             'questions' => function ($q) {
                 return $q->moderated();
             },
-            'votings' => function ($q) {
-                $ip = request()->ip();
-                $user = request()->user();
-
-                $q->where('ip', $ip);
-
-                if($user && $user->id) {
-                    $q->orWhere('user_id', $user->id);
-                }
-                if($user && $user->email) {
-                    $q->orWhere('email', $user->email);
-                }
-                if($user && $user->phone) {
-                    $q->orWhere('phone', $user->phone);
-                }
-
-                return $q;
+//            'votings' => function ($q) {
+//                $ip = request()->ip();
+//                $user = request()->user();
+//
+//                $q->where('ip', $ip);
+//
+//                if($user && $user->id) {
+//                    $q->orWhere('user_id', $user->id);
+//                }
+//                if($user && $user->email) {
+//                    $q->orWhere('email', $user->email);
+//                }
+//                if($user && $user->phone) {
+//                    $q->orWhere('phone', $user->phone);
+//                }
+//
+//                return $q;
+//            },
+            'votings',
+            'testimonials' => function ($q) {
+                return $q->moderated()
+                    ->with([
+                        'media',
+                        'model',
+                        'related',
+                    ])
+                    ->orderBy('rating', 'desc')
+                    ->latest();
             },
         ]);
 
@@ -182,6 +202,9 @@ class TourController extends Controller
             'localeLinks' => $localeLinks,
             'pictures' => $pictures,
         ];
+        foreach ($tour->testimonials as $testimonial) {
+//            $testimonial->tour = $tour;
+        }
 
 //        if ((int)request()->input('print', 0) === 1) {
 //            $pdf = PDF::loadView('tour.show', $viewData);

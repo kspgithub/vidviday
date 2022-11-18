@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Image\Exceptions\InvalidManipulation;
 
 class StaffController extends Controller
 {
@@ -51,6 +52,7 @@ class StaffController extends Controller
      * @param Request $request
      *
      * @return Response
+     * @throws InvalidManipulation
      */
     public function store(Request $request)
     {
@@ -60,6 +62,17 @@ class StaffController extends Controller
         $staff->save();
         $staff->types()->sync($request->input('types', []));
         $staff->tours()->sync($request->input('tours', []));
+        // Set tour manager_id
+        // todo: ??? sync with $staff->manageTours ???
+        $staff->manageTours()->each(function (Tour $tour) {
+            $tour->manager_id = null;
+            $tour->save();
+        });
+        $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
+        foreach ($tours as $tour) {
+            $tour->manager_id = $staff->id;
+            $tour->save();
+        }
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
@@ -107,6 +120,17 @@ class StaffController extends Controller
         $staff->save();
         $staff->types()->sync($request->input('types', []));
         $staff->tours()->sync($request->input('tours', []));
+        // Set tour manager_id
+        // todo: ??? sync with $staff->manageTours ???
+        $staff->manageTours()->each(function (Tour $tour) {
+            $tour->manager_id = null;
+            $tour->save();
+        });
+        $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
+        foreach ($tours as $tour) {
+            $tour->manager_id = $staff->id;
+            $tour->save();
+        }
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }

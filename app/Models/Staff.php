@@ -210,14 +210,21 @@ class Staff extends TranslatableModel implements HasMedia
             ->preventOverwrite();
     }
 
-
     public function getUrlAttribute()
     {
-        if ($this->types()->where('slug', 'excursion-leader')->count() > 0) {
+        if ($this->types->where('slug', 'excursion-leader')->count() > 0) {
             $prefix = '/guide';
         } else {
             $prefix = '/office-worker';
         }
         return !empty($this->slug) ? url($prefix . '/' . $this->slug) : '';
+    }
+
+    public function getAllToursAttribute()
+    {
+        $tours = $this->tours;
+        $manageTours = $this->manageTours;
+
+        return $tours->merge($manageTours)->unique('id');
     }
 }

@@ -22,6 +22,10 @@ class UserQuestionAdminEmail extends BaseTemplateEmail
     public function __construct(UserQuestion $userQuestion = null)
     {
         $this->userQuestion = $userQuestion ?: UserQuestion::random();
+
+        if($this->userQuestion->attachment_url) {
+            $this->attachment = 'https://vidviday.org.ua/icon/login.svg';
+        }
     }
 
     public function getReplaces(): array

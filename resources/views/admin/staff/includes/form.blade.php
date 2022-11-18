@@ -46,7 +46,7 @@
 
         <x-forms.tag-group name="tours[]"
                            :label="__('Tours')"
-                           :value="$staff->tours ?  $staff->tours->pluck('id')->toArray() : []"
+                           :value="$staff->tours ? $staff->allTours->pluck('id')->toArray() : []"
                            :options="$tours">
         </x-forms.tag-group>
 

@@ -7,6 +7,7 @@ use App\Models\UserQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -99,6 +100,13 @@ class UserQuestionsTable extends DataTableComponent
             Column::make(__('Comment'), 'comment')
                 ->format(function ($value, $column, $row) {
                     return nl2br($row->comment);
+                })
+                ->asHtml(),
+
+            Column::make(__('File'), 'attachment_url')
+                ->format(function ($value, $column, $row) {
+                    $name = File::basename($value);
+                    return '<a href="'.$value.'">'.$name.'</a>';
                 })
                 ->asHtml(),
 
