@@ -1,7 +1,7 @@
 <div {{$attributes->merge(['class'=> $mode])}}
      @if($vue)
      v-is="'tour-card'"
-     :tour='@json($tour)'
+     :tour="{{ json_encode($tour) }}"
      {{ Auth::check() ? 'like-btn' : '' }}
      :history="{{$history ? 'true' : 'false'}}"
     @endif
