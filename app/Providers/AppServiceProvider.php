@@ -53,7 +53,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('questionTypes', QuestionType::query()->published()->get());
 
         Builder::macro('random', function ($count = 1) {
-            return $this->inRandomOrder()->limit($count)->{$count === 1 ? 'first' : 'get'}();
+            $q = $this->inRandomOrder()->limit($count);
+            return $count === 1 ? $q->first() : $q->get();
         });
 
         // Observers

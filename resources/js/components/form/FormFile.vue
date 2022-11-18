@@ -1,12 +1,12 @@
 <template>
     <label class="add-file">
         <span>{{ title }} <span v-if="required && title === label">*</span></span>
-        <input type="file" ref="inputRef" :name="name" :accept="accept" @change="onChange">
+        <input type="file" ref="inputRef" :name="name" :accept="mapAccept" @change="onChange">
     </label>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import {computed, ref, watch} from "vue";
 import {useRequiredFormGroup} from "./composables/useFormField";
 
 export default {
@@ -49,11 +49,16 @@ export default {
 
         }
 
+        const mapAccept = computed(() => {
+            return props.accept.split(',').map(a => '.'+a)
+        })
+
         return {
             inputRef,
             required,
             onChange,
             title,
+            mapAccept,
         }
     }
 }

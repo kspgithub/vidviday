@@ -59,13 +59,14 @@ export default {
     setup(props) {
         const store = useStore();
         const submitted = ref(false);
+        const user = store.state.user.currentUser
 
         const defaultData = {
             type: 3,
-            first_name: '',
-            last_name: '',
-            phone: '',
-            email: '',
+            first_name: user ? user.first_name : '',
+            last_name: user ? user.last_name : '',
+            phone: user ? user.mobile_phone : '',
+            email: user ? user.email : '',
             comment: '',
             attachment: null,
         }
