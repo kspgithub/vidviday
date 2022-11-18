@@ -51,7 +51,7 @@ SwiperCore.use([Navigation, Pagination, Controller]);
 import {Swiper, SwiperSlide} from 'swiper/vue';
 
 export default {
-    name: "TourSlider",
+    name: "TourCarousel",
     components: {TourCard, Swiper, SwiperSlide},
     props: {
         tours: Array,
@@ -115,9 +115,9 @@ export default {
 
             const paginator = $(swiper.value.el).find('.swiper-pagination')
 
-            $(paginator).addClass('relative fixed-width bottom')
+            // $(paginator).addClass('relative fixed-width bottom')
 
-            paginator.appendTo(paginator.parents('.swiper-container').first())
+            paginator.appendTo(paginator.parents('.swiper-entry').first())
         }
 
         const nextSlide = () => {

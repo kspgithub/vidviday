@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="bottom-part">
-            <div class="only-desktop" v-is="'sidebar-recommendations'">
+            <div v-is="'sidebar-recommendations'">
 
                 <x-sidebar.recommendation-item :item="$items->first()"/>
 
@@ -22,31 +22,6 @@
                         @endif
                     @endforeach
                 @endif
-            </div>
-
-            <div class="only-pad-mobile">
-                <div class="swiper-entry">
-                    <div class="swiper-button-prev inner bottom-2 only-mobile" tabindex="0" role="button"
-                         aria-label="Previous slide" aria-disabled="false">
-                        <i></i>
-                    </div>
-                    <div class="swiper-button-next inner bottom-2 only-mobile" tabindex="0" role="button"
-                         aria-label="Next slide" aria-disabled="false">
-                        <i></i>
-                    </div>
-                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-autoheight">
-                        <div class="swiper-wrapper" style="transition-duration: 0ms;">
-                            @foreach($items as $key=>$item)
-                                <div class="swiper-slide">
-                                    <x-sidebar.recommendation-item :item="$item"/>
-                                </div>
-                            @endforeach
-
-                        </div>
-                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-                    </div>
-                    <div class="swiper-pagination relative swiper-pagination-clickable swiper-pagination-bullets"></div>
-                </div>
             </div>
         </div>
     </div>
