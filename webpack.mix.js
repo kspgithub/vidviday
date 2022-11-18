@@ -27,7 +27,7 @@ mix
     .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
     .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
-    .purgeCss()
+    // .purgeCss()
     .vue()
     .lang()
     .extract()
