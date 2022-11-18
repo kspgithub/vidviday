@@ -212,7 +212,7 @@ class Staff extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        if ($this->types()->where('slug', 'excursion-leader')->count() > 0) {
+        if ($this->types->where('slug', 'excursion-leader')->count() > 0) {
             $prefix = '/guide';
         } else {
             $prefix = '/office-worker';

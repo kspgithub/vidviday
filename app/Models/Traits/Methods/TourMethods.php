@@ -81,7 +81,7 @@ trait TourMethods
 
     public function isChildrenFree()
     {
-        $discount = $this->discounts->where('children')->first();
+        $discount = $this->discounts->where('category', '=', 'children_free')->first();
         return $discount && $discount->type === 1 && (int)$discount->price === 100;
     }
 
@@ -102,7 +102,7 @@ trait TourMethods
     {
         $items = [];
 
-        $foodItems = $this->foodItems()->whereHas('food')->get();
+        $foodItems = $this->foodItems->filter(fn($fi) => !!$fi->food)->all();
 
         foreach ($this->priceItems as $priceItem) {
             $items[] = [

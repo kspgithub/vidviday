@@ -65,7 +65,7 @@ trait TourAttribute
     public function getGroupTourLandingsAttribute()
     {
         $landings = [];
-        $tourLandings = $this->tourLandings()->orderBy('position')->get();
+        $tourLandings = $this->tourLandings->sortBy('position')->all();
 
         foreach ($tourLandings as $tourLanding) {
             $landing = $tourLanding->landing ?: $tourLanding;
@@ -79,7 +79,7 @@ trait TourAttribute
     public function getGroupTourPlacesAttribute()
     {
         $places = [];
-        $tourPlaces = $this->tourPlaces()->orderBy('position')->get();
+        $tourPlaces = $this->tourPlaces->sortBy('position')->all();
 
         foreach ($tourPlaces as $tourPlace) {
             $place = $tourPlace->place ?: $tourPlace;
@@ -92,7 +92,7 @@ trait TourAttribute
     public function getGroupTourTicketsAttribute()
     {
         $tickets = [];
-        $tourTickets = $this->tourTickets()->orderBy('position')->get();
+        $tourTickets = $this->tourTickets->sortBy('position')->all();
 
         foreach ($tourTickets as $tourTicket) {
             $ticket = $tourTicket->ticket ?: $tourTicket;
@@ -105,7 +105,7 @@ trait TourAttribute
     public function getGroupTourAccommodationsAttribute()
     {
         $accommodations = [];
-        $tourAccommodations = $this->tourAccommodations()->orderBy('position')->get();
+        $tourAccommodations = $this->tourAccommodations->sortBy('position')->all();
 
         foreach ($tourAccommodations as $tourAccommodation) {
             $accommodation = $tourAccommodation->accommodation ?: $tourAccommodation;
@@ -122,7 +122,7 @@ trait TourAttribute
     public function getGroupTourTransportAttribute()
     {
         $transports = [];
-        $tourTransports = $this->tourTransports()->orderBy('position')->get();
+        $tourTransports = $this->tourTransports->sortBy('position')->all();
 
         foreach ($tourTransports as $tourTransport) {
             $transport = $tourTransport->transport ?: $tourTransport;
@@ -138,7 +138,7 @@ trait TourAttribute
     public function getGroupTourFoodAttribute()
     {
         $foods = [];
-        $foodItems = $this->foodItems()->orderBy('position')->get();
+        $foodItems = $this->foodItems->sortBy('position')->all();
 
         foreach ($foodItems as $tourFood) {
             $food = $tourFood->food ?: $tourFood;
@@ -155,7 +155,7 @@ trait TourAttribute
     public function getGroupTourDiscountsAttribute()
     {
         $discounts = [];
-        $tourDiscounts = $this->tourDiscounts()->orderBy('position')->get();
+        $tourDiscounts = $this->tourDiscounts->sortBy('position')->all();
 
         foreach ($tourDiscounts as $tourDiscount) {
             $discount = $tourDiscount->discount ?: $tourDiscount;
@@ -171,7 +171,7 @@ trait TourAttribute
     public function getGroupFoodItemsAttribute()
     {
         $locale = app()->getLocale();
-        $foodItems = $this->foodItems()->orderBy('position')->get();
+        $foodItems = $this->foodItems->sortBy('position')->all();
 
         $days = [];
         foreach ($foodItems as $foodItem) {
