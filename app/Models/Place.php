@@ -97,7 +97,7 @@ class Place extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? '/' . $this->slug : '';
+        return url(!empty($this->slug) ? '/' . $this->slug : '');
     }
 
 
