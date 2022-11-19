@@ -2,6 +2,19 @@
 
 @section('title', $group ? $group->seo_title : 'Пошук турів')
 
+@push('meta-fields')
+    {{--    <meta property="fb:app_id" content="">--}}
+    {{--    <meta property="og:admins" content="">--}}
+    <meta property="og:title" content="{{ !empty($group->seo_title) ? $group->seo_title : $group->title }}">
+    <meta property="og:description" content="{{ !empty($group->seo_description) ? $group->seo_description : $group->title }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @if($pageImage = $group->getFirstMedia())
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+    @endif
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
 @section('content')
     <main>
         <div class="container">

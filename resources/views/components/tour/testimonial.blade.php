@@ -37,21 +37,17 @@
 {{--            </p>--}}
 {{--        </div>--}}
         <div class="seo-text load-more-wrapp p-0 m-0">
-            @if(mb_strlen($testimonial->short_text) >= $testimonial::SHORT_TEXT_STR_LIMIT + 3)
-                <div class="less-info">
-                    <p>{!! $testimonial->short_text !!}</p>
-                </div>
-                <div class="more-info">
-                    <p>{!! $testimonial->text !!}</p>
-                </div>
-
-                <div class="show-more">
-                    <span>{{ __('common.read-more') }}</span>
-                    <span>{{ __('common.hide-text') }}</span>
-                </div>
-            @else
+            <div class="less-info">
+                <p>{!! $testimonial->short_text !!}</p>
+            </div>
+            <div class="more-info">
                 <p>{!! $testimonial->text !!}</p>
-            @endif
+            </div>
+
+            <div class="show-more">
+                <span>{{ __('common.read-more') }}</span>
+                <span>{{ __('common.hide-text') }}</span>
+            </div>
         </div>
         @if($testimonial->gallery->count())
             <div class="spacer-xs"></div>
