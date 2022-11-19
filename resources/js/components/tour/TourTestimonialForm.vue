@@ -2,7 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-header">
             <div class="text-center">
-                <span class="h2 title text-medium">Написати відгук про тур</span>
+                <span class="h2 title text-medium">{{ __('tours-section.write-testimonial') }}</span>
             </div>
         </div>
         <form method="post" :action="action" class="popup-align" enctype="multipart/form-data"

@@ -10,8 +10,10 @@ use App\Models\Tour;
 use App\Models\TourSchedule;
 use App\Services\TourService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Str;
 
 class ToursController extends Controller
 {
@@ -39,6 +41,19 @@ class ToursController extends Controller
                     ->latest();
             },
         ]);
+
+        $votingsCountIncluded = false;
+
+        /** @var Expression|string $column */
+        foreach ($query->getQuery()->columns as $column) {
+            if($column instanceof Expression && Str::contains($column->getValue(), 'votings_count')) {
+                $votingsCountIncluded = true;
+            }
+        }
+
+        if(!$votingsCountIncluded) {
+            $query->withCount(['votings' => fn($q) => $q->published() ]);
+        }
 
         $paginator = $query->paginate($request->input('per_page', 12));
 

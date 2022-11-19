@@ -4,7 +4,7 @@
         <input :name="name" :value="modelValue" type="hidden">
 
         <p class="CaptionCont SelectBox">
-            <span v-html="selectedText"></span>
+            <span v-html="selectedText + (multiple && selected.length ? ' ('+selected.length+')' : '')"></span>
             <label><i></i></label>
         </p>
 
