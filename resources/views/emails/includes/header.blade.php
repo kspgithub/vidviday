@@ -4,7 +4,7 @@
 
 <div class="header">
     <a href="{{url('/')}}" class="logo">
-        <img src="{{url(asset('img/logo.png'))}}" alt="logo"style="display: block; width: 100%; max-width: 150px">
+        <img src="{{url(asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png'))}}" alt="logo"style="display: block; width: 100%; max-width: 150px">
     </a>
 
     <div style="display: inline-block; position: relative; padding-left: 55px;">

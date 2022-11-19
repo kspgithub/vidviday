@@ -3,7 +3,7 @@
         <tr>
             <td style="width: 50%; vertical-align: middle; padding: 0;">
                 <a href="{{url('/')}}">
-                    <img src="{{url(asset('img/logo.png'))}}" alt="logo"
+                    <img src="{{url(asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png'))}}" alt="logo"
                          style="display: block; width: 100%; max-width: 150px">
                 </a>
             </td>

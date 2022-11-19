@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/img/logo.png')}}" alt="Vidviay">
+            <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="Vidviay">
         </a>
         <div class="row hidden-print">
             <div class="col-xl-6 col">
