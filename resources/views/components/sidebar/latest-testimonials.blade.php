@@ -1,3 +1,4 @@
+@php use App\Models\Staff;use App\Models\Tour; @endphp
 @if($testimonials->count() > 0)
     <div class="sidebar-item p-0">
         <div class="top-part b-border">
@@ -29,9 +30,13 @@
                             </div>
                         </div>
                         <div class="text">
-                            @if($testimonial->tour)
+                            @if($testimonial->related instanceof Tour)
                                 <p>@lang('Tour'): <a
-                                        href="{{$testimonial->tour->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->tour->title)), 50)}}</a>
+                                        href="{{$testimonial->related->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->related->title)), 50)}}</a>
+                                </p>
+                            @elseif($testimonial->model instanceof Staff)
+                                <p>@lang('Guide'): <a
+                                        href="{{$testimonial->model->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->model->name)), 50)}}</a>
                                 </p>
                             @endif
                             <div class="seo-text load-more-wrapp p-0 m-0">
@@ -43,7 +48,8 @@
                                 </div>
 
                                 @if($testimonial->tour)
-                                    <a class="btn btn-read-more text-bold d-inline" href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
+                                    <a class="btn btn-read-more text-bold d-inline"
+                                       href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
                                         {{__('common.more')}}
                                     </a>
                                 @else
