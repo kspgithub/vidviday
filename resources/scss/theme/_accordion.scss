@@ -29,7 +29,7 @@
 .accordion {
     z-index: 1;
 
-    .accordion-item {
+    .accordion-item:not(.deep) {
         border-bottom: 1px solid $border;
 
         &:first-child {
@@ -458,9 +458,7 @@
     }
 
     .tickets {
-        padding: 15px 0;
         margin-left: 20px;
-        border-bottom: 1px solid #E9E9E9;
 
         &:first-child {
             padding-top: 0;

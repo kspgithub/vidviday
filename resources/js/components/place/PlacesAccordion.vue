@@ -23,7 +23,9 @@
                                         <div class="accordion-inner">
                                             <div class="accordion type-2" style="margin-left: 15px">
                                                 <div v-for="place in getPlaces(district)" class="tickets text text-md">
-                                                    <place-accordion-item :key="'place-'+(place.id || place.value)" :place="place"
+                                                    <place-accordion-item :key="'place-'+(place.id || place.value)"
+                                                                          class="deep"
+                                                                          :place="place"
                                                                           :district="district"
                                                                           @load-place="loadPlace"
                                                     />
