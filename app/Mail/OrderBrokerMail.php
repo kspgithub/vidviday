@@ -14,7 +14,7 @@ class OrderBrokerMail extends BaseTemplateEmail
 
     public function __construct(OrderBroker $order = null)
     {
-        $this->order = $order ?: OrderBroker::random();
+        $this->order = $order ?: OrderBroker::random() ?: new OrderBroker;
     }
 
     public function getReplaces(): array
