@@ -338,6 +338,13 @@
                         <x-alp.new-transport/>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.order-broker*')}}">
+                    <a class="sidebar-link" href="{{route('admin.order-broker.index')}}">
+                        <i class="align-middle" data-feather="truck"></i>
+                        <span class="align-middle">@lang('Broker Consult')</span>
+                        <x-alp.new-broker/>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.certificate*')}}">
                     <a class="sidebar-link" href="{{route('admin.certificate.index')}}">
                         <i class="align-middle" data-feather="shopping-cart"></i>

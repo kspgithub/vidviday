@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\Accommodation\AccommodationController;
 use App\Http\Controllers\Admin\Accommodation\AccommodationTypeController;
 use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
+use App\Http\Controllers\Admin\Broker\OrderBrokerController;
+use App\Http\Controllers\Admin\CRM\CrmBrokerController;
 use App\Http\Controllers\Admin\Email\EmailTemplateController;
 use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
@@ -152,6 +154,9 @@ Route::group([
 Route::resource('transport', TransportController::class);
 Route::resource('transport_duration', TransportDurationController::class);
 Route::resource('order-transport', OrderTransportController::class)->only(['index', 'show', 'edit', 'update']);
+
+// BROKER
+Route::resource('order-broker', OrderBrokerController::class)->only(['index', 'show', 'edit', 'update']);
 
 // NEWS
 Route::patch('news/{news}/update-status', [NewsController::class, 'updateStatus'])->name('news.update-status');
@@ -316,6 +321,7 @@ Route::group([
     Route::post('notify/email', [CrmNotificationsController::class, 'notifyEmail'])->name('notify.email.send');
 
     Route::get('transport/count', [CrmTransportController::class, 'count'])->name('transport.count');
+    Route::get('broker/count', [CrmBrokerController::class, 'count'])->name('broker.count');
 
     Route::get('certificate/count', [CrmCertificateController::class, 'count'])->name('certificate.count');
 
