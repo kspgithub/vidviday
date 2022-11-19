@@ -76,7 +76,7 @@
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
                     <x-page.right-sidebar :pageContent="$pageContent">
-                        <div class="sidebar-item" v-is="'course-form'"
+                        <div class="sidebar-item" v-is="'vacancy-form'"
                              form-title="{{ __('common.course.form-title') }}"
                              form-sub-title="{{ __('common.course.form-sub-title') }}"
                         ></div>

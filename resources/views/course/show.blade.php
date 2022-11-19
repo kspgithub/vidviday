@@ -51,8 +51,10 @@
                     </div>
 
                     {{--CV--}}
-                    <div class="spacer-xs"></div>
-                    <a href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</a>
+                    <div class="only-pad-mobile">
+                        <div class="spacer-xs"></div>
+                        <a href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</a>
+                    </div>
 
                     <div class="spacer-xs"></div>
                     <div class="text text-md">
@@ -69,7 +71,7 @@
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
                     <x-page.right-sidebar :pageContent="$pageContent">
-                        <div class="sidebar-item" id="course-form" v-is="'course-form'"
+                        <div class="sidebar-item" id="vacancy-form" v-is="'vacancy-form'"
                              form-title="{{ __('common.course.form-title-single') }}"
                              form-sub-title="{{ __('common.course.form-sub-title-single') }}"
                         ></div>

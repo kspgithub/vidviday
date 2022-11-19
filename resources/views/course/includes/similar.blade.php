@@ -1,8 +1,9 @@
 @if($course->similar_courses->count() > 0)
     <div class="section">
         <div class="container">
-            <h2 class="h1 text-center">Схожі вакансії</h2>
+            <h2 class="h1 text-center">Схожі курси</h2>
             <div class="spacer-xs"></div>
+
             <div class="thumbs-carousel swiper-entry vac">
                 <div class="swiper-button-prev inner vac">
                     <i></i>
@@ -30,7 +31,7 @@
                     <div class="swiper-wrapper">
                         @foreach($course->similar_courses as $similar)
                             <div class="swiper-slide">
-                                <div class="bordered-box course">
+                                <div class="bordered-box vacancy">
                                     <h2 class="h3"><a href="{{$similar->url}}">{{$similar->title}}</a></h2>
                                     <div class="text">
                                         <p>{{!empty($similar->short_text) ? $similar->short_text : str_limit(strip_tags(html_entity_decode($similar->text)), 500)}}</p>

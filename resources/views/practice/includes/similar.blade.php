@@ -30,7 +30,7 @@
                     <div class="swiper-wrapper">
                         @foreach($practice->similar_practices as $similar)
                             <div class="swiper-slide">
-                                <div class="bordered-box practice">
+                                <div class="bordered-box vacancy">
                                     <h2 class="h3"><a href="{{$similar->url}}">{{$similar->title}}</a></h2>
                                     <div class="text">
                                         <p>{{!empty($similar->short_text) ? $similar->short_text : str_limit(strip_tags(html_entity_decode($similar->text)), 500)}}</p>
