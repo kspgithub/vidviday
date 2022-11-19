@@ -100,7 +100,7 @@ class TourTestimonials extends DataTableComponent
 
             Column::make(__('Created At'), 'created_at')
                 ->format(function ($value, $column, $row) {
-                    return $row->created_at ? $row->created_at?->format('d.m.Y H:s') : '-';
+                    return $row->created_at ? $row->created_at?->format('d.m.Y H:i') : '-';
                 }),
 
             Column::make(__('Status'))

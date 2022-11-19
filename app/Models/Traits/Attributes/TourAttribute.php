@@ -29,7 +29,7 @@ trait TourAttribute
         $media = $this->getFirstMedia('mobile');
 
         // TODO: Заменить на no image
-        return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
+        return $media === null ? asset('img/no-image.png') : $media->getUrl();
     }
 
     public function getTourGuidesAttribute()
