@@ -32,6 +32,9 @@
                                       :value="old('text', $vacancy->getTranslations('text'))"
                                       maxlength="100"/>
 
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $vacancy->video)"></x-forms.text-group>
+
             <x-forms.switch-group name="published" :label="__('Published')" :active="$vacancy->published"/>
 
             <x-forms.datepicker-group name="created_at"
@@ -65,5 +68,27 @@
         </x-slot>
     </x-bootstrap.card>
 
+
+    @if($vacancy->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Pictures')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-utils.media-library :model="$vacancy"></x-utils.media-library>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
+
+    @if($vacancy->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Gallery')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-utils.media-library :model="$vacancy" collection="gallery"></x-utils.media-library>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
 
 </div>

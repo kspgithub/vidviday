@@ -16,7 +16,7 @@ use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Vacancy extends TranslatableModel
+class Vacancy extends TranslatableModel implements HasMedia
 {
     use HasFactory;
     use HasTranslatableSlug;
@@ -24,7 +24,28 @@ class Vacancy extends TranslatableModel
     use UsePublishedScope;
     use HasJsonSlug;
     use UseSelectBox;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('pictures')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+
+        $this->addMediaCollection('gallery')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('normal')
+            ->width(840)
+            ->height(480);
+
+        $this->addMediaConversion('thumb')
+            ->width(315)
+            ->height(180);
+    }
 
     public $translatable = [
         'title',

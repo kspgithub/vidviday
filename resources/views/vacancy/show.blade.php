@@ -33,8 +33,8 @@
                 <div class="col-xl-8 col-12">
                     <!-- BANNER TABS -->
                 @include('page.includes.banner-tabs', [
-                   'pictures'=>$pageContent->getMedia(),
-                   'video'=>$pageContent->video
+                   'pictures'=>$vacancy->getMedia(),
+                   'video'=>$vacancy->video
                ])
                 <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
