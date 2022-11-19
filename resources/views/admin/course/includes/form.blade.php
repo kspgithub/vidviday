@@ -32,6 +32,9 @@
                                       :value="old('text', $course->getTranslations('text'))"
                                       maxlength="100"/>
 
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $course->video)"></x-forms.text-group>
+
             <x-forms.switch-group name="published" :label="__('Published')" :active="$course->published"/>
 
             <x-forms.tag-group name="similar[]"
@@ -60,5 +63,26 @@
         </x-slot>
     </x-bootstrap.card>
 
+    @if($course->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Pictures')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-utils.media-library :model="$course"></x-utils.media-library>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
+
+    @if($course->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Gallery')</h3>
+            </x-slot>
+            <x-slot name="body">
+                <x-utils.media-library :model="$course" collection="gallery"></x-utils.media-library>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
 
 </div>
