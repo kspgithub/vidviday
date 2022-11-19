@@ -384,12 +384,13 @@ class TourController extends Controller
         $params['user_id'] = $request->user() ? $request->user()->id : null;
 
         $existing = $tour->votings()->where(function (Builder $q) use ($params) {
-            $q->where('ip', $params['ip'])
+            $q
+//                ->where('ip', $params['ip'])
                 ->orWhere('email', $params['email'])
                 ->orWhere('phone', $params['phone']);
 
             if ($params['user_id']) {
-                $q->orWhere('user_id', $params['user_id']);
+//                $q->orWhere('user_id', $params['user_id']);
             }
 
             return $q;

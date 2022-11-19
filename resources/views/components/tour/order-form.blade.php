@@ -57,12 +57,8 @@
                 </span>
             </div>
             <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
-
-            @if(!is_tour_agent())
-                <span class="btn type-2 btn-block open-popup"
-                      data-rel="one-click-popup">@lang('tours-section.order-one-click')</span>
-            @endif
-
+            <span class="btn type-2 btn-block open-popup"
+                  data-rel="one-click-popup">@lang('tours-section.order-one-click')</span>
             <div class="thumb-info">
                 <span class="thumb-info-time text">{{$tour->duration}}д / {{$tour->nights}}н</span>
             </div>

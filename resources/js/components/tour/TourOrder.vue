@@ -60,7 +60,8 @@
                 </button>
 
                 <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
-                      v-if="!corporate && !isTourAgent">{{ __('tours-section.order-one-click') }}</span>
+                      v-if="!corporate"
+                >{{ __('tours-section.order-one-click') }}</span>
 
             </template>
 

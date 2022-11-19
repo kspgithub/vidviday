@@ -49,7 +49,7 @@
                     <span>{{ currencyPrice }}</span>
                     <i>{{ currencyTitle }}</i>
                 </span>
-                <span v-if="isTourAgent && currentSchedule.commission > 0" class="discount">
+                <span v-if="isTourAgent && currentSchedule?.commission > 0" class="discount">
                     {{ currencyCommission }} {{ currencyTitle }}
                     <tooltip class="red">{{ __('tours-section.commission') }}</tooltip>
                 </span>
