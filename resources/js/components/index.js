@@ -67,6 +67,7 @@ export default {
         app.component('order-cancel-popup', defineAsyncComponent(() => import('./order/OrderCancelPopup')));
         app.component('order-notes', defineAsyncComponent(() => import('./order/OrderNotes')));
         app.component('order-transport-form', defineAsyncComponent(() => import('./order/OrderTransportForm')));
+        app.component('order-broker-form', defineAsyncComponent(() => import('./order/OrderBrokerForm')));
 
         app.component('place-testimonial-form', defineAsyncComponent(() => import('./place/PlaceTestimonialForm')));
         app.component('places-accordion', defineAsyncComponent(() => import('./place/PlacesAccordion')));

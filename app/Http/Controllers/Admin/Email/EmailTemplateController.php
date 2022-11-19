@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Email;
 
 use App\Http\Controllers\Controller;
 use App\Mail\BaseTemplateEmail;
+use App\Mail\OrderBrokerAdminMail;
+use App\Mail\OrderBrokerMail;
 use App\Mail\OrderCertificateAdminMail;
 use App\Mail\OrderCertificateMail;
 use App\Mail\OrderStatusEmail;
@@ -35,6 +37,8 @@ class EmailTemplateController extends Controller
             OrderStatusEmail::class,
             OrderTransportAdminMail::class,
             OrderTransportMail::class,
+            OrderBrokerAdminMail::class,
+            OrderBrokerMail::class,
             RegistrationAdminEmail::class,
             RegistrationEmail::class,
             TourOrderAdminEmail::class,

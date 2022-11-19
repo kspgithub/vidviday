@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Broker\BrokerController;
 use App\Http\Controllers\Certificate\CertificateController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\Course\CourseController;
@@ -77,6 +78,8 @@ class PageController extends Controller
                 return (new EventController())->index();
             case 'transport':
                 return (new TransportController())->index($request);
+            case 'broker':
+                return (new BrokerController())->index($request);
             case 'for-travel-agents':
                 return (new TravelAgentController())->index($request);
             case 'vacancies':

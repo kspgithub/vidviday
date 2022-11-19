@@ -12,6 +12,7 @@ use App\Mail\TourOrderAdminEmail;
 use App\Mail\TourOrderEmail;
 use App\Models\HtmlBlock;
 use App\Models\Order;
+use App\Models\OrderBroker;
 use App\Models\OrderCertificate;
 use App\Models\OrderTransport;
 use App\Models\Staff;
@@ -152,6 +153,34 @@ class MailNotificationService
             $emails = MailNotificationService::getAdminTransportEmails();
             if (!empty($emails)) {
                 Mail::to($emails)->queue(new OrderTransportAdminMail($order));
+                return true;
+            }
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+        }
+        return false;
+    }
+
+    public static function userBrokerEmail(OrderBroker $order)
+    {
+        try {
+            if (!empty($order->email)) {
+                Mail::to($order->email)->queue(new OrderBrokerMail($order));
+                return true;
+            }
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+        }
+        return false;
+    }
+
+
+    public static function adminBrokerEmail(OrderBroker $order)
+    {
+        try {
+            $emails = MailNotificationService::getAdminTransportEmails();
+            if (!empty($emails)) {
+                Mail::to($emails)->queue(new OrderBrokerAdminMail($order));
                 return true;
             }
         } catch (Exception $exception) {
