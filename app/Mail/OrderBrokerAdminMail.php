@@ -3,11 +3,10 @@
 namespace App\Mail;
 
 use App\Models\OrderBroker;
-use App\Models\OrderTransport;
 
 class OrderBrokerAdminMail extends BaseTemplateEmail
 {
-    public OrderTransport $order;
+    public OrderBroker $order;
 
     public static $subjectKey = 'emails.order-broker-admin.subject';
 

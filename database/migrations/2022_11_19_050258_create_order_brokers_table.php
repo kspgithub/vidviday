@@ -17,7 +17,7 @@ class CreateOrderBrokersTable extends Migration
         Schema::create('order_brokers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('status')->default(OrderBroker::STATUS_NEW)->change();
+            $table->string('status')->nullable()->default(OrderBroker::STATUS_NEW);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');

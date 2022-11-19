@@ -25,16 +25,6 @@ class OrderBroker extends Model
         ];
     }
 
-    public static function ageGroups()
-    {
-        return [
-            'to-6' => 'До 6 років',
-            '6-12' => 'Від 6 до 12 років',
-            '12-18' => 'Від 12 до 18 років',
-            'from-18' => 'Від 18 років',
-        ];
-    }
-
     protected $fillable = [
         'user_id',
         'status',
@@ -43,24 +33,10 @@ class OrderBroker extends Model
         'email',
         'phone',
         'viber',
-        'route',
-        'start_date',
-        'end_date',
-        'duration',
-        'places',
-        'age_group',
         'comment',
     ];
 
-    protected $casts = [
-        'age_group' => 'array',
-        'start_date' => 'date:d.m.Y',
-        'end_date' => 'date:d.m.Y',
-    ];
-
     protected $dates = [
-        'start_date',
-        'end_date',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -70,16 +46,5 @@ class OrderBroker extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function getAgeGroupTitleAttribute()
-    {
-        $availableGroups = self::ageGroups();
-        $title = [];
-        $ageGroups = $this->age_group ?? [];
-        foreach ($ageGroups as $ageGroup) {
-            $title[] = isset($availableGroups[$ageGroup]) ? $availableGroups[$ageGroup] : $ageGroup;
-        }
-        return implode(', ', $title);
     }
 }

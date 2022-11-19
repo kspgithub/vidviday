@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Mail\CustomEmail;
+use App\Mail\OrderBrokerAdminMail;
+use App\Mail\OrderBrokerMail;
 use App\Mail\OrderCertificateAdminMail;
 use App\Mail\OrderCertificateMail;
 use App\Mail\OrderStatusEmail;
