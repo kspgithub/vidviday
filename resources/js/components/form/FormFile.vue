@@ -1,8 +1,17 @@
 <template>
-    <label class="add-file">
-        <span>{{ title }} <span v-if="required && title === label">*</span></span>
-        <input type="file" ref="inputRef" :name="name" :accept="mapAccept" @change="onChange">
-    </label>
+    <div class="img-input-wrap text-center-xs">
+        <div class="img-input doc tooltip-wrap">
+            <div class="tooltip"><span class="text-medium">{{ fileTooltip }}:</span>
+                <div class="text text-sm">
+                    <ul>
+                        <li>макс. розмір зображення {{ fileSize }}</li>
+                    </ul>
+                </div>
+            </div>
+            <input type="file" ref="inputRef" class="vue-action" :name="name" :accept="mapAccept" @change="onChange">
+        </div>
+        <span class="mx-15">{{ title }} <span v-if="required && title === label">*</span></span>
+    </div>
 </template>
 
 <script>
@@ -15,6 +24,8 @@ export default {
         modelValue: Object,
         label: String,
         name: String,
+        fileTooltip: String,
+        fileSize: String,
         rules: {
             type: [String, Object],
             default: ''

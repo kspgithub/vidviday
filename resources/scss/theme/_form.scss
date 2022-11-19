@@ -757,6 +757,14 @@ form,
         background: center / 60% url('../../svg/camera.svg') no-repeat;
     }
 
+    &.avatar.svg:after {
+        background: center / 60% url('../../svg/avatar.svg') no-repeat;
+    }
+
+    &.doc:after {
+        background: center / 60% url('../../svg/staple.svg') no-repeat;
+    }
+
     input {
         width: 100%;
         height: 100%;

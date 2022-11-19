@@ -3,7 +3,7 @@
         <div class="img">
             <img :src="preview" class="profile-avatar" alt="Avatar">
         </div>
-        <label class="img-input btn type-2">
+        <label class="img-input avatar btn type-2">
             Змінити фото
             <input type="file" class="full-size" accept=".png,.jpg,.jpeg" :name="name" ref="inputRef"
                    @change="onChange">

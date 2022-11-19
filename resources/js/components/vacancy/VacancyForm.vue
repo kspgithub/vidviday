@@ -18,7 +18,10 @@
                         :label="__('forms.email')"/>
             <form-textarea name="comment" id="vacancy_comment" v-model="data.comment"
                            :label="__('forms.your-comment')"/>
-            <form-file name="attachment" v-model="data.attachment" :label="__('common.vacancy.attach-resume')"
+            <form-file name="attachment" v-model="data.attachment"
+                       :label="__('common.vacancy.attach-resume')"
+                       :file-tooltip="__('common.vacancy.resume-tooltip')"
+                       :file-size="__('3 МБ')"
                        accept="pdf,doc,docx"/>
             <utm-fields/>
             <button class="btn type-1 btn-block" :disabled="submitted">
