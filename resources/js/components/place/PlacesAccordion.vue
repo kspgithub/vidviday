@@ -23,8 +23,7 @@
                                         <div class="accordion-inner">
                                             <div class="accordion type-2" style="margin-left: 15px">
                                                 <div v-for="place in getPlaces(district)" class="tickets text text-md">
-                                                    <a :href="place.url" class="accordion-title">{{ place.text }}</a>
-                                                    <place-accordion-item :key="'place-'+place.id" :place="place"
+                                                    <place-accordion-item :key="'place-'+(place.id || place.value)" :place="place"
                                                                           :district="district"
                                                                           @load-place="loadPlace"
                                                     />
