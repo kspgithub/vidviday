@@ -20,8 +20,8 @@ require('./libs/global');
 
 // require('./libs/markerclusterer');
 // require('./libs/infobox');
-// require('./libs/map');
-// require('./libs/map-route');
+require('./libs/map');
+require('./libs/map-route');
 require('./libs/toast');
 require('./libs/sharer');
 require('./libs/moreLess');

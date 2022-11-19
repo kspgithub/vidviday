@@ -24,9 +24,10 @@
                                             <div class="accordion type-2" style="margin-left: 15px">
                                                 <div v-for="place in getPlaces(district)" class="tickets text text-md">
                                                     <a :href="place.url" class="accordion-title">{{ place.text }}</a>
-                                                    <!--                                                        <place-accordion-item :key="'place-'+place.id" :place="place"-->
-                                                    <!--                                                                              :district="district"-->
-                                                    <!--                                                                              @load-place="loadPlace"/>-->
+                                                    <place-accordion-item :key="'place-'+place.id" :place="place"
+                                                                          :district="district"
+                                                                          @load-place="loadPlace"
+                                                    />
                                                 </div>
 
                                             </div>
@@ -124,8 +125,12 @@ export default {
             }
         },
         async loadPlace({district, place}) {
+            console.log('==============')
+            console.log(place)
+            console.log(place.value)
+            console.log('==============')
             const response = await apiClient.get('/places/find', {
-                params: {place_id: place.id},
+                params: {place_id: place.id || place.value},
             }).catch(error => {
                 console.error(error)
             })
