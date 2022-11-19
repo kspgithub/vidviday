@@ -35,6 +35,7 @@ return [
     'website' => 'Адреса веб-сторінки',
     'select-from-list' => 'Оберіть зі списку',
     'tour-where-on' => 'Тур, який Ви замовляли',
+    'tour-visited' => 'Тур, який Ви відвідали',
     'evaluate-tour' => 'Оцініть тур',
     'enter-tour-name' => 'Введіть назву тура',
     'add-tour-photo' => 'Додати фото з туру:',

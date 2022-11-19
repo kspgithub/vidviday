@@ -55,6 +55,7 @@ export default {
             default: true
         },
         group: {},
+        place: {},
     },
     setup(props) {
         const store = useStore();
@@ -63,7 +64,7 @@ export default {
             after: async (action, state) => {
                 if (action.type === 'tourFilter/initFilter') {
                     const query = urlUtils.filterParams(params.value, defaultParams.value);
-                    await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {})});
+                    await store.dispatch('tourFilter/fetchTours', {...query, ...(props.inFuture === false ? {future: 0} : {}), ...{place: props.place}});
                     loading.value = false;
                 }
             }
@@ -85,6 +86,11 @@ export default {
         if (props.group && props.group.id) {
             store.commit('tourFilter/UPDATE_FORM_DATA', {group_id: props.group.id})
             store.commit('tourFilter/SET_GROUP', props.group)
+        }
+
+        if (props.place && props.place.id) {
+            store.commit('tourFilter/UPDATE_FORM_DATA', {place: props.place.id})
+            store.commit('tourFilter/SET_PLACE', props.place)
         }
 
         store.dispatch('tourFilter/fetchPopularTours');

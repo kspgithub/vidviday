@@ -63,7 +63,7 @@
 
             <template v-else>
                 <hr>
-                <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{tour.votings_count}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
+                <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{tour.votings_count||'0'}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
                 <a :href="voteLink" class="btn type-1 btn-block">
                     {{ __('tours-section.vote') }}
                 </a>

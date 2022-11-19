@@ -63,13 +63,14 @@
 
                 <div class="col-12">
                         <span class="text text-sm">
-                            <b>{{ __('forms.tour-where-on') }}</b>
+                            <b v-if="type === 'guide'">{{ __('forms.tour-visited') }}</b>
+                            <b v-else>{{ __('forms.tour-where-on') }}</b>
                         </span>
                     <form-custom-select name="tour_id" search
                                         v-model.number="data.tour_id"
                                         :search-text="__('forms.enter-tour-name')"
                                         :placeholder="__('forms.select-from-list')">
-                        <option v-for="tour in tours" :value="tour.id">
+                        <option v-for="tour in tours" :value="tour.id" :data-img="tour.main_image">
                             {{ tour.title }}
                         </option>
                     </form-custom-select>

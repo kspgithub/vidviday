@@ -54,6 +54,7 @@ export default {
             tours: [],
             popularTours: [],
             group: null,
+            place: null,
         }
     },
     mutations: {
@@ -105,6 +106,9 @@ export default {
         },
         SET_GROUP(state, value) {
             state.group = value
+        },
+        SET_PLACE(state, value) {
+            state.place = value
         },
     },
     getters: {
@@ -191,7 +195,7 @@ export default {
                 ],
                 direction: query.direction || '',
                 type: query.type || '',
-                place: query.place || '',
+                place: state.place ? state.place.id : (query.place || ''),
                 landing: query.landing || '',
                 subject: query.subject || '',
                 lang: query.lang || document.documentElement.lang || 'uk',
@@ -242,6 +246,10 @@ export default {
                 params.group_id = state.group.id
             } else {
                 delete params.group_id
+            }
+
+            if(state.place && state.place.id) {
+                params.place = state.place.id
             }
 
             const response = await toursService.fetchTours(params);

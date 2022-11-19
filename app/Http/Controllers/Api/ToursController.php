@@ -32,11 +32,13 @@ class ToursController extends Controller
 
 //        $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
 
-        $query->withCount(['testimonials' => function ($q) {
-            return $q->moderated()
-                ->orderBy('rating', 'desc')
-                ->latest();
-        }]);
+        $query->withCount([
+            'testimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            },
+        ]);
 
         $paginator = $query->paginate($request->input('per_page', 12));
 
