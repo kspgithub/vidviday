@@ -61,6 +61,7 @@ export default {
                 if (response) {
                     commit('SET_TOURS', response.tours);
                     commit('SET_PLACES', response.places);
+                    commit('SET_ACTIVE', true)
                 }
             }
             commit('SET_REQUEST', false)

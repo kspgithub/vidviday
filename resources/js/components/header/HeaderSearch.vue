@@ -1,5 +1,5 @@
 <template>
-    <form action="/tours" class="header-search" :class="{active: active}" ref="formRef" @mouseleave="active = false">
+    <form action="/tours" class="header-search" :class="{active}" ref="formRef" @mouseleave="active = false">
         <input type="text" name="q" v-model="searchText" :placeholder="__('header-section.find-tour-dots')"
                class="input-search"
                ref="searchRef"
