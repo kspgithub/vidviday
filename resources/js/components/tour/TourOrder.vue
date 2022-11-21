@@ -12,7 +12,8 @@
         </div>
 
         <div class="only-desktop hidden-print">
-            <tour-rating :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)" :count="tour.testimonials_count" force-count/>
+            <tour-rating :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"
+                         :count="tour.testimonials_count" force-count/>
 
             <share-dropdown v-if="!corporate" :title="__('Share')+':'"/>
 
@@ -45,7 +46,9 @@
             </div>
 
             <div v-if="isMobile" class="thumb-price">
-                <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
+                <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{
+                        currencyTitle
+                    }}</i></span>
                 <span class="discount" v-if="isTourAgent && commission > 0">
                     {{ currencyCommission }} {{ currencyTitle }}
                     <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
@@ -59,8 +62,9 @@
                     {{ __('tours-section.order-tour') }}
                 </button>
 
-                <span class="btn type-2 btn-block hidden-print" @click="showPopup()"
-                      v-if="!corporate"
+                <span v-if="canOrderOneClick"
+                      class="btn type-2 btn-block hidden-print"
+                      @click="showPopup()"
                 >{{ __('tours-section.order-one-click') }}</span>
 
             </template>
@@ -74,14 +78,14 @@
 </template>
 
 <script>
-import {computed, ref} from "vue";
+import { computed, ref } from "vue";
 import TourRating from "./TourRating";
 import ShareDropdown from "../common/ShareDropdown";
 import TourLikeBtn from "./TourLikeBtn";
 import FormSelectEvent from "../form/FormSelectEvent";
 import Tooltip from "../common/Tooltip";
-import {useStore} from "vuex";
-import {useFormDataProperty} from "../../store/composables/useFormData";
+import { useStore } from "vuex";
+import { useFormDataProperty } from "../../store/composables/useFormData";
 import * as urlUtils from '../../utils/url.js'
 
 export default {
@@ -107,7 +111,7 @@ export default {
         const schedules = computed(() => store.state.orderTour.schedules);
         const departureOptions = computed(() => store.getters['orderTour/departureOptions']('title'));
 
-        if(query.schedule && schedules.value.length && schedules.value.find(s => s.id == query.schedule)) {
+        if (query.schedule && schedules.value.length && schedules.value.find(s => s.id == query.schedule)) {
             schedule_id.value = query.schedule;
         } else if (props.nearestEvent > 0) {
             schedule_id.value = props.nearestEvent;
@@ -140,8 +144,8 @@ export default {
             setTimeout(() => {
                 let calendarWrapper = $('.calendar-wrapper > .fc')
 
-                if(calendarWrapper.length) {
-                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                if (calendarWrapper.length) {
+                    if (calendarWrapper.find('.fc-dayGridMonth-view').length) {
                         let width = calendarWrapper.find('.fc-view-harness').width();
                         calendarWrapper.scrollLeft(width);
                     }
@@ -164,16 +168,23 @@ export default {
             return (accommPrice.value / currencyRate.value).toFixed(0);
         })
 
-        if(query.quick) {
+        if (query.quick) {
             showPopup()
         }
 
         const onlyQuick = computed(() => {
-            return selectedSchedule.value && (selectedSchedule.value.places_available === 0 || (selectedSchedule.value.places_available >= 2 && selectedSchedule.value.places_available <= 10))
+            return canOrderOneClick.value && (
+                selectedSchedule.value && (
+                    selectedSchedule.value.places_available === 0 || (
+                        selectedSchedule.value.places_available >= 2 &&
+                        selectedSchedule.value.places_available <= 10
+                    )
+                )
+            )
         })
 
         const orderTour = (event) => {
-            if(onlyQuick.value) {
+            if (onlyQuick.value) {
                 event.preventDefault()
 
                 showPopup()
@@ -183,6 +194,11 @@ export default {
         }
 
         const isMobile = window.innerWidth <= 768
+
+        const canOrderOneClick = computed(() => isTourAgent.value ? (
+                places.value > 10
+            ) : !props.corporate
+        )
 
         return {
             currencyTitle,
@@ -203,6 +219,7 @@ export default {
             orderTour,
             isMobile,
             user,
+            canOrderOneClick,
         }
     }
 }

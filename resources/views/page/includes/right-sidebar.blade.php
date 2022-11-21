@@ -17,6 +17,15 @@
                                         :share-title="$pageContent->title"/>
             </div>
         @endif
+
+            <div class="only-mobile">
+                <div class="spacer-sm"></div>
+                <a href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
+                    @lang('order-section.certificate.order')
+                </a>
+                <div class="spacer-sm"></div>
+            </div>
+
         @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
             <x-sidebar.contact :staff="$pageContent->contact"/>
         @endif
