@@ -83,6 +83,7 @@ const Lang = {
                 __: trans,
             },
         });
+        app.config.globalProperties.__ = trans
     },
 };
 exports.default = Lang;

@@ -25,7 +25,7 @@
     @if($seoText)
         <script>
             window.addEventListener('DOMContentLoaded', () => {
-                if (document.getElementById('seo-shorten-text').offsetHeight > 180) {
+                if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
                     if('moreLess' in window) {
                         moreLess('shorten-text', '150px', {
                             textMore: '{{ __('Read more') }}',
@@ -33,8 +33,7 @@
                         });
                     }
                 }
-
             })
         </script>
     @endif
-@endpush()
+@endpush
