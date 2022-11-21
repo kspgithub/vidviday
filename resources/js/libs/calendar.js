@@ -15,7 +15,13 @@ function selectTourEvent(event)
 
 window.selectTourEvent = selectTourEvent;
 
-document.addEventListener('DOMContentLoaded', function () {
+if(window.vm) {
+    initCalendar()
+} else {
+    window.addEventListener("vueMounted", initCalendar);
+}
+
+function initCalendar() {
     const calendarEl = document.getElementById('calendar');
     if (calendarEl) {
         const filter = JSON.parse(calendarEl.dataset.filter || '{}');
@@ -77,5 +83,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
-
-});
+}

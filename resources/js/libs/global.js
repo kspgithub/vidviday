@@ -34,10 +34,6 @@ function addScroll() {
 
 window.addScroll = addScroll;
 
-window.addEventListener("vueMounted", (e) => {
-    initGlobalJs()
-});
-
 function initGlobalJs() {
     jQuery(function ($) {
 
@@ -411,13 +407,19 @@ function initGlobalJs() {
         });
 
         if (location.hash && location.hash !== '#') {
+
             let offset = $(location.hash).offset()
             let outerHeight = $('header').outerHeight()
 
             if(offset && outerHeight) {
-                $('html, body').animate({
-                    scrollTop: offset.top - outerHeight
-                }, 500);
+
+                let title = $(location.hash).parents('#reviews-accordion').find('.accordion-title').first()
+
+                if(title && title.length && !title.hasClass('active')) {
+                    setTimeout(() => {
+                        title.click()
+                    }, 0)
+                }
             }
         }
 
@@ -1114,3 +1116,6 @@ function initGlobalJs() {
 
 }
 
+_functions.initGlobalJs = function () {
+    initGlobalJs()
+}

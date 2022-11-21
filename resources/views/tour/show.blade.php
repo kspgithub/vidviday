@@ -188,15 +188,6 @@
 @endpush
 
 @push('after-scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', (e) => {
-            $(function () {
-                if(location.hash.match(/^#testimonial-(\d+)$/)) {
-                    if($(location.hash).length) {
-                        $('#reviews-accordion .accordion-title').click()
-                    }
-                }
-            })
-        })
-    </script>
+    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
+    <script src="{{ mix('js/libs/calendar.js', 'assets/app') }}" defer></script>
 @endpush

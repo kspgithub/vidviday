@@ -1,13 +1,10 @@
 ﻿import MarkerClusterer from '@googlemaps/markerclustererplus';
 import './infobox';
 
-window.addEventListener("vueMounted", (e) => {
-    initMap()
-});
-
 if(window.vm) {
-    window.dispatchEvent(new CustomEvent("vueMounted"));
-    window.vm.$forceUpdate()
+    initMap()
+} else {
+    window.addEventListener("vueMounted", initMap);
 }
 
 function initMap() {

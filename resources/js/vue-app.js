@@ -2,9 +2,10 @@ import {createApp} from 'vue';
 
 const app = createApp({
     mounted() {
-        console.log('vueMounted Triggered!')
-        window.dispatchEvent(new CustomEvent("vueMounted"));
-    }
+        window.dispatchEvent(new CustomEvent('vueMounted'))
+
+        window._functions.initGlobalJs()
+    },
 });
 
 import store from "./store";
@@ -37,6 +38,5 @@ app.use(globalComponents);
 
 require('./validation/rules');
 
-const vm = app.mount('#app');
+window.vm = app.mount('#app')
 
-window.vm = vm;

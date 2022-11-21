@@ -2,7 +2,7 @@
     'testimonial'=>new \App\Models\Testimonial(),
     'short'=> false
 ])
-<div class="review-item" id="testimonial-{{ $testimonial->id }}">
+<div class="review-item" id="testimonial-{{ $testimonial->id }}" :data-id="{{ $testimonial->id }}">
     <div class="spacer-xs"></div>
     <div class="review">
         <div class="review-header">

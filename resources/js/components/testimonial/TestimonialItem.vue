@@ -1,5 +1,5 @@
 <template>
-    <div class="review-item" :id="'testimonial-'+item.id">
+    <div class="review-item" :id="'testimonial-' + item.id" :data-id="item.id">
         <div class="spacer-xs"></div>
         <div class="review testimonial clear-bottom">
             <div class="review-header">
@@ -20,7 +20,7 @@
                 <p v-if="!item.parent_id && item.type === 'tour' && item.tour">
                     Тур: <a :href="item.tour.url">{{ item.tour.title }}</a>
                 </p>
-                <p v-if="!item.parent_id && item.type === 'tour' && item.guide">
+                <p v-if="!item.parent_id && item.type === 'guide' && item.guide">
                     Гід: <b>{{ item.guide.name }}</b>
                 </p>
                 <div class="seo-text load-more-wrapp p-0 m-0">
