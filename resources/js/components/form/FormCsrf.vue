@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
+
 export default {
     name: "FormCsrf",
     props: {
@@ -12,7 +14,11 @@ export default {
         }
     },
     setup() {
-        const token = document.head.querySelector('meta[name="csrf-token"]').content || '';
+        const token = ref('')
+
+        onMounted(() => {
+            token.value = typeof document !== 'undefined' ? document.head.querySelector('meta[name="csrf-token"]')?.content : ''
+        })
         return {
             token
         }

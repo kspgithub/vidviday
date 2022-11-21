@@ -272,6 +272,7 @@ jQuery(function ($) {
     }
 
     $('.map-init').on('click', function () {
+        alert(1123)
         $('.map-wrapper.hidden-map').each(function () {
             initialize($(this));
         });

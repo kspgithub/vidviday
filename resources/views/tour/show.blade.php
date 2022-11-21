@@ -4,6 +4,10 @@
 @section('seo_description', !empty($tour->seo_description) ? $tour->seo_description : $tour->title)
 @section('seo_keywords', !empty($tour->seo_keywords) ? $tour->seo_keywords : $tour->title)
 
+@push('after-scripts')
+    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
+@endpush
+
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}

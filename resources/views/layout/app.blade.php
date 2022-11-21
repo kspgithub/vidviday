@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
     <title>@yield('title', config('app.name', 'Vidviday'))</title>
@@ -29,13 +29,13 @@
     @stack('before-styles', false)
     @livewireStyles
 
-    <link href="{{ mix('css/main.css', 'assets/app') }}" rel="stylesheet">
+    <link href="{{ mix('css/theme/main.css', 'assets/app') }}" rel="stylesheet">
 
     @stack('after-styles', false)
 
-    <link href="{{mix('css/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
+    <link href="{{mix('css/theme/style.css', 'assets/app')}}" rel="stylesheet" type="text/css">
     <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">
-    <link href="{{ mix('css/print.css', 'assets/app') }}" media="print" rel="stylesheet">
+    <link href="{{ mix('css/theme/print.css', 'assets/app') }}" media="print" rel="stylesheet">
 
     @production
         @if($ga = site_option('google_analytics'))
@@ -79,8 +79,8 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 
-<script src="{{ mix('js/manifest.js', 'assets/app') }}" defer></script>
-<script src="{{ mix('js/vendor.js', 'assets/app') }}" defer></script>
+<script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>
+<script src="{{ mix('js/libs/vendor.js', 'assets/app') }}" defer></script>
 <script src="{{ mix('js/app.js', 'assets/app') }}" defer></script>
 
 @stack('after-scripts', false)

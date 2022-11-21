@@ -23,14 +23,13 @@ import Popup from "../popup/Popup";
 import {useStore} from "vuex";
 import {computed, defineAsyncComponent, onMounted} from 'vue'
 // import TourCalendar from './TourCalendar'
-const TourCalendar = defineAsyncComponent({
-    loader: () => import('./TourCalendar.vue'),
-})
+const TourCalendar = defineAsyncComponent(() => import('./TourCalendar.vue'))
+
 export default {
     name: "TourCalendarPopup",
     components: {
         Popup,
-        TourCalendar: defineAsyncComponent(() => import('./TourCalendar.vue')),
+        TourCalendar,
     },
     props: {
         tour: Object,

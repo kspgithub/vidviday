@@ -15,6 +15,10 @@
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
+@push('after-scripts')
+    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
+@endpush
+
 @section('content')
     <main>
         <div class="container">

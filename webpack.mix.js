@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ip = require('ip');
+const path = require('path');
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
@@ -18,15 +19,21 @@ require('laravel-mix-purgecss');
  |
  */
 
+const buildPath = path.normalize('public/assets/app')
+
+mix.sourceMaps(false, 'source-map');
+
 mix
     .setResourceRoot(`/assets/app/`)
     .setPublicPath(`public/assets/app`)
-    .js('resources/js/app.js', 'public/assets/app/js')
-    .sass('resources/scss/app.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/main.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/print.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/style.scss', 'public/assets/app/css')
-    .sass('resources/scss/theme/editor.scss', 'public/assets/app/css')
+    .js( 'resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
+    .js( 'resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
+    .js( 'resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
+    .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))
+    .sass('resources/scss/theme/main.scss', path.resolve(buildPath, '..', 'app/css/theme/main.css'))
+    .sass('resources/scss/theme/print.scss', path.resolve(buildPath, '..', 'app/css/theme/print.css'))
+    .sass('resources/scss/theme/style.scss', path.resolve(buildPath, '..', 'app/css/theme/style.css'))
+    .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'))
     // .purgeCss()
     .vue()
     .lang()
@@ -35,7 +42,7 @@ mix
 
 mix.webpackConfig({
     output: {
-        chunkFilename: `../../assets/app/js/chunks/[name].[chunkhash].js`,
+        chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
     },
     resolve: {
         alias: {
@@ -63,7 +70,7 @@ mix.webpackConfig({
 });
 
 if (Mix.config.hmr) {
-    mix.setResourceRoot(`/`)
+    mix.setResourceRoot(path.normalize(`/`))
     mix.webpackConfig({
         output: {
             chunkFilename: 'js/chunks/[name].[chunkhash].js'
@@ -71,7 +78,6 @@ if (Mix.config.hmr) {
     });
 }
 
-mix.sourceMaps(false, 'source-map');
 
 if (mix.inProduction()) {
     // !!! Dont need to minify.
@@ -85,7 +91,9 @@ if (mix.inProduction()) {
     // ]);
 
     mix.version();
-} else {
+}
+
+if (!mix.inProduction()) {
     // Uses source-maps on development
 
     // mix.browserSync(process.env.APP_URL);
