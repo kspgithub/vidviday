@@ -51,11 +51,20 @@
                 <!-- TAB #2 -->
                 <div class="tab">
                     <div class="banner-tab-map">
-                        <div id="map-canvas" class="map-wrapper hidden-map full-size" data-lat="49.822385"
-                             data-lng="24.023855" data-zoom="15" data-img-cluster="img/cluster.png"></div>
-                        <a class="marker" data-rel="map-canvas-1" data-lat="49.822385" data-lng="24.023855"
+                        <div id="map-canvas"
+                             class="map-wrapper hidden-map full-size"
+                             data-lat="49.822385"
+                             data-lng="24.023855"
+                             data-zoom="15"
+                             data-img-cluster="img/cluster.png"
+                        ></div>
+                        <a class="marker"
+                           data-rel="map-canvas-1"
+                           data-lat="49.822385"
+                           data-lng="24.023855"
                            data-image="{{asset('img/marker.png')}}"
-                           data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"></a>
+                           data-string="<h5>Головний офіс</h5><p>Україна, 79018, м. Львів, вул. Вулиця, 555</p>"
+                        ></a>
                     </div>
                 </div>
                 <!-- TAB #2 END -->

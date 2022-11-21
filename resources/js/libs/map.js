@@ -1,7 +1,17 @@
 ﻿import MarkerClusterer from '@googlemaps/markerclustererplus';
 import './infobox';
 
-jQuery(function ($) {
+window.addEventListener("vueMounted", (e) => {
+    initMap()
+});
+
+if(window.vm) {
+    window.dispatchEvent(new CustomEvent("vueMounted"));
+    window.vm.$forceUpdate()
+}
+
+function initMap() {
+    jQuery(function ($) {
 
     var winWidth = $(window).width();
 
@@ -271,8 +281,7 @@ jQuery(function ($) {
         });
     }
 
-    $('.map-init').on('click', function () {
-        alert(1123)
+    $(document).on('click', '.map-init', function (e) {
         $('.map-wrapper.hidden-map').each(function () {
             initialize($(this));
         });
@@ -285,3 +294,4 @@ jQuery(function ($) {
         });
     }, 300);
 });
+}

@@ -4,10 +4,6 @@
 @section('seo_description', !empty($place->seo_description) ? $place->seo_description : $place->title)
 @section('seo_keywords', !empty($place->seo_keywords) ? $place->seo_keywords : $place->title)
 
-@push('after-scripts')
-    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
-@endpush
-
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
@@ -20,6 +16,10 @@
     @endif
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
+@endpush
+
+@push('after-scripts')
+    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
 @endpush
 
 @section('content')

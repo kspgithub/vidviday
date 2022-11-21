@@ -1,6 +1,11 @@
 import {createApp} from 'vue';
 
-const app = createApp({});
+const app = createApp({
+    mounted() {
+        console.log('vueMounted Triggered!')
+        window.dispatchEvent(new CustomEvent("vueMounted"));
+    }
+});
 
 import store from "./store";
 
