@@ -27,6 +27,7 @@ class Media extends SpatieMedia
         $item = [
             'id' => $media->id,
             'url' => $media->getUrl(),
+            'thumb' => $media->getUrl('thumb'),
             'alt' => $media->getCustomProperty('alt_' . $locale) ?? $media->model->title,
             'title' => $media->getCustomProperty('title_' . $locale) ?? $media->model->title,
         ];

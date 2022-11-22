@@ -1,4 +1,4 @@
-import toursService from "../../services/tour-service";
+import { fetchTours, fetchPopularTours } from "../../services/tour-service";
 import * as urlUtils from "../../utils/url";
 
 export default {
@@ -252,7 +252,7 @@ export default {
                 params.place = state.place.id
             }
 
-            const response = await toursService.fetchTours(params);
+            const response = await fetchTours(params);
 
             if (response) {
                 if (params && params.page > 1) {
@@ -273,7 +273,7 @@ export default {
         },
         async fetchPopularTours({commit}) {
 
-            const response = await toursService.fetchPopularTours();
+            const response = await fetchPopularTours();
 
             if (response) {
                 commit('SET_POPULAR_TOURS', response);
