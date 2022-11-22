@@ -47,7 +47,11 @@ trait TourScheduleMethod
         $availableItems = self::published()
             ->where('tour_id', $this->tour_id)
             ->whereDate('start_date', $this->start_date)
-            ->orderBy('id')->get();
+            ->orderBy('id')
+            ->with([
+                'orders',
+                'tour.manager',
+            ])->get();
 
         foreach ($availableItems as $item) {
             if (($item->places_available - $item->places_new) >= $places) {

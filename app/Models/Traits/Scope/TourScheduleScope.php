@@ -36,6 +36,13 @@ trait TourScheduleScope
     public function scopeFilter(Builder $query, $params = [])
     {
         $query
+            ->with([
+                'tour.types',
+                'tour.subjects',
+                'tour.places',
+                'tour.directions',
+                'tour.media',
+            ])
             ->when(!empty($params['date_from']), function (Builder $q) use ($params) {
                 return $q->whereDate('start_date', '>=', Carbon::createFromFormat('d.m.Y', $params['date_from']));
             })

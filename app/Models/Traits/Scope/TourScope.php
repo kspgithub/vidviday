@@ -65,10 +65,14 @@ trait TourScope
             'media' => function ($q) {
                 return $q->whereIn('collection_name', ['main', 'mobile']);
             },
-            'badges'
+            'badges',
         ]);
 
-        $query->withCount(['testimonials']);
+        $query->withCount(['testimonials' => function ($q) {
+            return $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest();
+        }]);
 
         return $query;
     }

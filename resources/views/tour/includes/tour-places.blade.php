@@ -11,9 +11,9 @@
                     <div class="accordion-item active">
                         <div class="accordion-title">{{$place->title}}<i></i></div>
                         <div class="accordion-inner" style="display: block">
-                            @if($place->hasMedia('default', ['published' => true]))
+                            @if($place->getMedia('default', ['published' => true])->count())
                                 <div class="swiper-entry" v-is="'swiper-slider'"
-                                     key="swiper-place-{{$place->id}}"
+                                     key="swiper-place-{){$place->id}}"
                                      :media="{{$place->getMedia('default', ['published' => true])->values()->map->toSwiperSlide()}}"
                                      :buttons="true"
                                 >

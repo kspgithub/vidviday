@@ -142,13 +142,12 @@ class TourController extends Controller
 //
 //                return $q;
 //            },
-            'votings',
             'testimonials' => function ($q) {
                 return $q->moderated()
                     ->with([
                         'media',
-                        'model',
-                        'related',
+                        'model.media',
+                        'related.media',
                     ])
                     ->orderBy('rating', 'desc')
                     ->latest();
@@ -202,9 +201,7 @@ class TourController extends Controller
             'localeLinks' => $localeLinks,
             'pictures' => $pictures,
         ];
-        foreach ($tour->testimonials as $testimonial) {
-//            $testimonial->tour = $tour;
-        }
+
 
 //        if ((int)request()->input('print', 0) === 1) {
 //            $pdf = PDF::loadView('tour.show', $viewData);

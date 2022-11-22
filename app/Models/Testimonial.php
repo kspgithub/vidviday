@@ -165,10 +165,10 @@ class Testimonial extends Model implements HasMedia
 
     public function getTourAttribute()
     {
-        if ($this->model_type == Tour::class && $this->model) {
+        if ($this->model instanceof Tour) {
             return $this->model->shortInfo();
         }
-        if ($this->related_type == Tour::class && $this->related) {
+        if ($this->related instanceof Tour) {
             return $this->related->shortInfo();
         }
         return null;
@@ -176,15 +176,15 @@ class Testimonial extends Model implements HasMedia
 
     public function getPlaceAttribute()
     {
-        return $this->model_type == Place::class ? $this->model->shortInfo() : null;
+        return $this->model instanceof Place ? $this->model->shortInfo() : null;
     }
 
     public function getGuideAttribute()
     {
-        if ($this->model_type == Staff::class) {
+        if ($this->model instanceof Staff) {
             return $this->model->shortInfo();
         }
-        if ($this->related_type == Staff::class) {
+        if ($this->related instanceof Staff) {
             return $this->related->shortInfo();
         }
         return null;
@@ -202,7 +202,7 @@ class Testimonial extends Model implements HasMedia
 
     public function scopeModerated(Builder $query)
     {
-        return $query->withDepth()->where(function ($q) {
+        return $query->where(function ($q) {
             $q->whereIn('status', site_option('moderate_testimonials', false) === true ? [1] : [0, 1]);
 //            if (current_user() !== null) {
 //                $q->orWhere('user_id', current_user()->id);
@@ -218,6 +218,6 @@ class Testimonial extends Model implements HasMedia
 
     public function getGalleryAttribute()
     {
-        return $this->media->map->toSwiperSlide();
+        return $this->getMedia()->map->toSwiperSlide();
     }
 }

@@ -77,7 +77,7 @@
                                                         <div class="swiper-entry" v-is="'swiper-slider'"
                                                              key="swiper-event-{{$event->id}}"
                                                              :buttons='{{count($event->getMedia()) > 4 ? 'true' : 'false'}}'
-                                                             :media='@json($event->getMedia()->map->toSwiperSlide())'
+                                                             :media='@json($event->getMedia()->values()->map->toSwiperSlide())'
                                                         >
                                                         </div>
                                                         <div class="spacer-xs"></div>

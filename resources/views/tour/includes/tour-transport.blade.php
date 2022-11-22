@@ -12,7 +12,7 @@
                             @if($transport->hasMedia())
                                 <div class="swiper-entry" v-is="'swiper-slider'"
                                      key="swiper-place-{{$transport->id}}"
-                                     :media='@json($transport->getMedia('default', ['published' => true])->map->toSwiperSlide())'
+                                     :media='@json($transport->getMedia('default', ['published' => true])->values()->map->toSwiperSlide())'
                                 >
                                 </div>
                                 <div class="spacer-xs"></div>

@@ -44,9 +44,12 @@ class TourService extends BaseService
 
         return Cache::remember('filter-options-' . $locale, 1, function () {
             $place_ids = (array) request('place', []);
-            $selectedPlaces = Place::whereIn('id', $place_ids)->get();
+            $selectedPlaces = Place::whereIn('id', $place_ids)
+                ->with(['region'])
+                ->get();
 
             $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
+                ->with(['region'])
                 ->orderBy('title->uk')->paginate()->getCollection()
             )->sortBy(fn($place) => $place->title)->map->asSelectBox('value')->toArray();
 

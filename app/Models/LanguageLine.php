@@ -10,6 +10,11 @@ class LanguageLine extends SpatieLanguageLine
 {
     use JsonLikeScope;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function asJson($value)
     {
         return json_encode($value, JSON_UNESCAPED_UNICODE);
