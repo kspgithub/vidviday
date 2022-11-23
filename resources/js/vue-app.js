@@ -3,8 +3,6 @@ import {createApp} from 'vue';
 const app = createApp({
     mounted() {
         window.dispatchEvent(new CustomEvent('vueMounted'))
-
-        window._functions.initGlobalJs()
     },
 });
 

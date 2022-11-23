@@ -20,6 +20,7 @@
 @section('content')
     <main>
         <div class="container">
+
             <ul class="bread-crumbs">
                 <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                     <a href="{{ route('home') }}" itemprop="url">
@@ -33,14 +34,15 @@
                     <span itemprop="title">{{ $pageContent->title }}</span>
                 </li>
             </ul>
+
             <div class="row">
                 <div class="col-12 {{$pageContent->sidebar ? 'col-xl-8' : ''}}">
                     <!-- BANNER TABS -->
-                @include('page.includes.banner-tabs', [
-                    'pictures'=>$pageContent->getMedia(),
-                    'video'=>$pageContent->video
-                ])
-                <!-- BANNER TABS END -->
+                    @include('page.includes.banner-tabs', [
+                        'pictures'=>$pageContent->getMedia(),
+                        'video'=>$pageContent->video
+                    ])
+                    <!-- BANNER TABS END -->
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
@@ -54,7 +56,7 @@
                     @if($pageContent->hasMedia('gallery'))
                         <div class="swiper-entry" v-is="'swiper-slider'"
                              key="swiper-place-{{$pageContent->id}}"
-                             :media='@json($pageContent->getMedia('gallery'/*, ['published' => true]*/)->values()->map->toSwiperSlide())'
+                             :media='@json($pageContent->getMedia('gallery', ['published' => true])->values()->map->toSwiperSlide())'
                         >
                         </div>
                         <div class="spacer-xs"></div>

@@ -59,6 +59,7 @@ export default {
         app.component('tour-like-btn', defineAsyncComponent(() => import('./tour/TourLikeBtn')));
         app.component('tour-voting-form', defineAsyncComponent(() => import('./tour/TourVotingForm')));
         app.component('tour-order-schedule-button', defineAsyncComponent(() => import('./tour/TourOrderScheduleButton')));
+        app.component('tour-schedule-accordion', defineAsyncComponent(() => import('./tour/TourScheduleAccordion')));
 
 
         app.component('order-form', defineAsyncComponent(() => import('./order/OrderForm')));
