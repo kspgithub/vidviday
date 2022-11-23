@@ -27,20 +27,3 @@ require('./libs/sharer');
 require('./libs/moreLess');
 
 window.vm = require('./vue-app');
-
-window.addEventListener('load', function (event) {
-    console.log('Event: window.load')
-})
-
-if('moreLess' in window) {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('Event: document.DOMContentLoaded')
-
-        if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
-                moreLess('shorten-text', '150px', {
-                    textMore: window.vm.__('Read more'),
-                    textLess: window.vm.__('Hide text'),
-                });
-        }
-    })
-}

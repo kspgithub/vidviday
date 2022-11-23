@@ -142,25 +142,14 @@ class TourController extends Controller
 //
 //                return $q;
 //            },
-            'testimonials' => function ($q) {
-                return $q->moderated()
-                    ->with([
-                        'media',
-                        'model.media',
-                        'related.media',
-                    ])
-                    ->orderBy('rating', 'desc')
-                    ->latest();
-            },
         ]);
 
         $tour->loadCount([
-            'testimonials' => function ($q) {
-                return $q->moderated()
+            'testimonials' => fn ($q) => $q->moderated()
                     ->orderBy('rating', 'desc')
-                    ->latest();
-            },
-            'votings',
+                    ->latest(),
+
+            'votings' => fn ($q) => $q->published(),
         ]);
 
         $tour->loadAvg(['testimonials' => function ($q) {

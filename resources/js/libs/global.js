@@ -1,6 +1,4 @@
 var winScr,
-    winWidth = $(window).width(),
-    winHeight = $(window).height(),
     is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
     is_Edge = /Edge\/\d+/.test(navigator.userAgent),
     is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
@@ -170,6 +168,55 @@ function goUpButtonScrolled() {
     }
 }
 
+
+const initDynamicPagination = function (swiper) {
+    const pagination = swiper.pagination
+
+    if (pagination && typeof pagination.bullets !== 'undefined') {
+
+        const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
+
+        const totalBullets = bullets.length
+
+        if (totalBullets > 5) {
+            const maxIndex = totalBullets - 1
+            const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
+
+            const visibleIndexes = [activeIndex];
+
+            for (let i = 1; i < 3; i++) {
+                let index, currentIndex = activeIndex + i;
+
+                if (currentIndex >= maxIndex) {
+                    index = currentIndex - maxIndex
+                } else {
+                    index = currentIndex
+                }
+                visibleIndexes.push(index)
+            }
+
+            for (let i = 1; i < 3; i++) {
+                let index, currentIndex = activeIndex - i;
+
+                if (currentIndex < 0) {
+                    index = maxIndex + currentIndex + 1
+                } else {
+                    index = currentIndex
+                }
+                visibleIndexes.push(index)
+            }
+
+            $(bullets).each((index, bullet) => {
+                if (visibleIndexes.includes(index)) {
+                    $(bullet).addClass('visible').show()
+                } else {
+                    $(bullet).removeClass('visible').hide()
+                }
+            })
+        }
+    }
+}
+
 /**
  *
  * @param context
@@ -222,6 +269,9 @@ jQuery(function ($) {
     headerScrolled();
     goUpButtonScrolled();
 
+
+    _functions.initSwiper
+
     /*/////////////////////////*/
     /* FUNCTION ON PAGE SCROLL */
     /*/////////////////////////*/
@@ -240,54 +290,6 @@ jQuery(function ($) {
     /*###################*/
     /* 04 SWIPER SLIDERS */
     /*###################*/
-
-    const initDynamicPagination = function (swiper) {
-        const pagination = swiper.pagination
-
-        if (pagination && typeof pagination.bullets !== 'undefined') {
-
-            const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
-
-            const totalBullets = bullets.length
-
-            if (totalBullets > 5) {
-                const maxIndex = totalBullets - 1
-                const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
-
-                const visibleIndexes = [activeIndex];
-
-                for (let i = 1; i < 3; i++) {
-                    let index, currentIndex = activeIndex + i;
-
-                    if (currentIndex >= maxIndex) {
-                        index = currentIndex - maxIndex
-                    } else {
-                        index = currentIndex
-                    }
-                    visibleIndexes.push(index)
-                }
-
-                for (let i = 1; i < 3; i++) {
-                    let index, currentIndex = activeIndex - i;
-
-                    if (currentIndex < 0) {
-                        index = maxIndex + currentIndex + 1
-                    } else {
-                        index = currentIndex
-                    }
-                    visibleIndexes.push(index)
-                }
-
-                $(bullets).each((index, bullet) => {
-                    if (visibleIndexes.includes(index)) {
-                        $(bullet).addClass('visible').show()
-                    } else {
-                        $(bullet).removeClass('visible').hide()
-                    }
-                })
-            }
-        }
-    }
 
     _functions.getSwOptions = function (swiper) {
         var options = swiper.data('options');
@@ -444,45 +446,7 @@ jQuery(function ($) {
         }
     }
 
-    function headerLayerClose() {
-        $('#header-layer-close').removeClass('active');
-    }
 
-    function headerLayerOpen() {
-        $('#header-layer-close').addClass('active');
-    }
-
-    function mobileMenuClose() {
-        $('nav').removeClass('active');
-    }
-
-    function mobileMenuOpen() {
-        $('nav').addClass('active');
-    }
-
-    function menuBtnClose() {
-        $('#menu-btn').removeClass('active');
-    }
-
-    function menuBtnOpen() {
-        $('#menu-btn').addClass('active');
-    }
-
-    function searchDropdownClose() {
-        $('#search-dropdown').removeClass('active');
-    }
-
-    function searchDropdownOpen() {
-        $('#search-dropdown').addClass('active');
-    }
-
-    function tourSelectionClose() {
-        $('#tour-selection-dropdown').removeClass('active');
-    }
-
-    function tourSelectionOpen() {
-        $('#tour-selection-dropdown').addClass('active');
-    }
 
     // Mobile menu button
     $('#menu-btn').on('click', function () {
@@ -664,6 +628,56 @@ jQuery(function ($) {
     // Popup
 
 
+    function headerLayerClose() {
+        $('#header-layer-close').removeClass('active');
+    }
+
+    function headerLayerOpen() {
+        $('#header-layer-close').addClass('active');
+    }
+
+    function mobileMenuClose() {
+        $('nav').removeClass('active');
+    }
+
+    function mobileMenuOpen() {
+        $('nav').addClass('active');
+    }
+
+    function menuBtnClose() {
+        $('#menu-btn').removeClass('active');
+    }
+
+    function menuBtnOpen() {
+        $('#menu-btn').addClass('active');
+    }
+
+    function searchDropdownClose() {
+        $('#search-dropdown').removeClass('active');
+    }
+
+    function searchDropdownOpen() {
+        $('#search-dropdown').addClass('active');
+    }
+
+    function tourSelectionClose() {
+        $('#tour-selection-dropdown').removeClass('active');
+    }
+
+    function tourSelectionOpen() {
+        $('#tour-selection-dropdown').addClass('active');
+    }
+
+    //accordion
+    function pageScroll(current) {
+
+        $('html, body').animate({
+            scrollTop: current.offset().top - ($('header').outerHeight() + 40)
+        }, 420);
+
+        return false;
+    }
+
     _functions.openPopup = function (popup) {
         $('.popup-content').removeClass('active');
         $(popup + ', #popup-wrap').addClass('active');
@@ -724,16 +738,6 @@ jQuery(function ($) {
         $('.video-popup-container iframe').attr('src', 'about:blank');
         e.preventDefault();
     });
-
-    //accordion
-    function pageScroll(current) {
-
-        $('html, body').animate({
-            scrollTop: current.offset().top - ($('header').outerHeight() + 40)
-        }, 420);
-
-        return false;
-    }
 
     $(document).on('click', '.accordion-title', function (e) {
         var current = $(this);
@@ -944,32 +948,6 @@ jQuery(function ($) {
 
     });
 
-    // Remove participant
-    // $('.participant .btn-delete').on('click', function () {
-    //     $(this).closest('.participant').remove();
-    //     $('.participant').each(function () {
-    //         $(this).find('.h4 span').html($(this).index() + 1);
-    //     });
-    // });
-    // participant datepicker
-    // $('.participant .datepicker-input input').on('blur', function () {
-    //     if ($(this).closest('.datepicker-input').hasClass('vue-datepicker')) return;
-    //     if ($(this).val()) {
-    //         $(this).closest('.datepicker-input').addClass('filled');
-    //     } else {
-    //         $(this).closest('.datepicker-input').removeClass('filled');
-    //     }
-    // });
-
-    // $('.participant .single-datepicker').on('mouseleave', function () {
-    //     if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
-    //     if ($(this).find('input').val()) {
-    //         $(this).find('.datepicker-input').addClass('filled');
-    //     } else {
-    //         $(this).find('.datepicker-input').removeClass('filled');
-    //     }
-    // });
-    // Apartment form
     $(document).on('click', '.apartment-option .number-input button', function () {
         var val = parseInt($(this).parent().find('input').val());
         if (val > 0) {
@@ -1061,34 +1039,47 @@ jQuery(function ($) {
     });
 });
 
+$(document).on('click', '.show-more-events', function (e) {
+    var $btn = $(e.currentTarget);
+    var $container = $btn.parents('.accordion-inner').eq(0);
+    var $items = $container.find('.schedule-row');
+    $items.each(function () {
+        $(this).removeClass('d-none');
+    });
+    $btn.addClass('d-none');
+    $container.find('.hide-more-events').removeClass('d-none');
+});
+
+$(document).on('click', '.hide-more-events', function (e) {
+    var $btn = $(e.currentTarget);
+    var $container = $btn.parents('.accordion-inner').eq(0);
+    var $items = $container.find('.schedule-row');
+    $items.each(function (idx, el) {
+        if (idx > 2) {
+            $(this).addClass('d-none');
+        }
+    });
+    $btn.addClass('d-none');
+    $container.find('.show-more-events').removeClass('d-none');
+});
+
+$(document).on('click', 'a[print]', function (e) {
+    e.preventDefault()
+    window.print();
+})
+
+
 $(function () {
-    $(document).on('click', '.show-more-events', function (e) {
-        var $btn = $(e.currentTarget);
-        var $container = $btn.parents('.accordion-inner').eq(0);
-        var $items = $container.find('.schedule-row');
-        $items.each(function () {
-            $(this).removeClass('d-none');
-        });
-        $btn.addClass('d-none');
-        $container.find('.hide-more-events').removeClass('d-none');
-    });
+    if('moreLess' in window) {
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Event: document.DOMContentLoaded')
 
-    $(document).on('click', '.hide-more-events', function (e) {
-        var $btn = $(e.currentTarget);
-        var $container = $btn.parents('.accordion-inner').eq(0);
-        var $items = $container.find('.schedule-row');
-        $items.each(function (idx, el) {
-            if (idx > 2) {
-                $(this).addClass('d-none');
+            if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
+                moreLess('shorten-text', '150px', {
+                    textMore: window.vm.__('Read more'),
+                    textLess: window.vm.__('Hide text'),
+                });
             }
-        });
-        $btn.addClass('d-none');
-        $container.find('.show-more-events').removeClass('d-none');
-    });
-
-    $(document).on('click', 'a[print]', function (e) {
-        e.preventDefault()
-        window.print();
-    })
-
+        })
+    }
 });
