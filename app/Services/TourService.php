@@ -38,138 +38,6 @@ class TourService extends BaseService
         $this->model = $tour;
     }
 
-    public static function filterOptions()
-    {
-        $locale = app()->getLocale();
-
-        return Cache::remember('filter-options-' . $locale, 1, function () {
-            $place_ids = (array) request('place', []);
-            $selectedPlaces = Place::whereIn('id', $place_ids)
-                ->with(['region'])
-                ->get();
-
-            $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
-                ->with(['region'])
-                ->orderBy('title->uk')->paginate()->getCollection()
-            )->sortBy(fn($place) => $place->title)->map->asSelectBox('value')->toArray();
-
-            $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
-//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
-//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
-//                });
-                return $sq->where('published', 1);
-            })->orderBy('title->uk')->toSelectBox()->toArray();
-
-            $subjects = TourSubject::published()->toSelectBox()->toArray();
-            $types = TourType::published()->toSelectBox()->toArray();
-            $directions = Direction::published()->toSelectBox()->toArray();
-
-            return [
-                'date_from' => Carbon::now()->format('d.m.Y'),
-                'date_to' => Carbon::now()->addYears(1)->format('d.m.Y'),
-                'duration_from' => 0,
-                'duration_to' => (int)Tour::query()->max('duration') ?? 14,
-                'price_from' => 0,
-                'price_to' => (int)Tour::query()->max('price') ?? 10000,
-                'directions' => array_merge([['value' => 0, 'text' => __('tours-section.direction')]], $directions),
-                'types' => array_merge([['value' => 0, 'text' => __('tours-section.type')]], $types),
-                'subjects' => array_merge([['value' => 0, 'text' => __('tours-section.subject')]], $subjects),
-                'places' => array_merge([['value' => 0, 'text' => __('tours-section.places')]], $places),
-                'landings' => array_merge([['value' => 0, 'text' => __('tours-section.landing-places')]], $landings),
-                'sorting' => [
-                    ['value' => 'date-asc', 'text' => __('tours-section.sorting.date-asc')],
-                    ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
-//                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
-                    ['value' => 'popular-desc', 'text' => __('tours-section.sorting.popular-desc')],
-                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
-//                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
-                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
-                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
-                    ['value' => 'duration-desc', 'text' => __('tours-section.sorting.duration-desc')],
-                    ['value' => 'duration-asc', 'text' => __('tours-section.sorting.duration-asc')],
-                ],
-                'pagination' => [
-                    ['value' => 12, 'text' => '12'],
-                    ['value' => 24, 'text' => '24'],
-                    ['value' => 48, 'text' => '48'],
-                    ['value' => 1000, 'text' => __('tours-section.all-tours')],
-                ],
-            ];
-        });
-    }
-
-    public static function searchRequestTitle($params)
-    {
-        $title = [];
-        $limit = 3;
-
-        if (!empty($params['q'])) {
-            $title[] = urldecode($params['q']);
-        }
-        if (!empty($params['direction'])) {
-            $directions = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->limit($limit)->get();
-            foreach ($directions as $i => $direction) {
-                $title[] = $i < ($limit-1) ? $direction->title : '...';
-            }
-        }
-        if (!empty($params['type'])) {
-            $types = TourType::whereIn('id', explode(',', $params['type']))->select('title')->limit($limit)->get();
-            foreach ($types as $i => $type) {
-                $title[] = $i < ($limit-1) ? $type->title : '...';
-            }
-        }
-        if (!empty($params['subject'])) {
-            $subjects = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->limit($limit)->get();
-            foreach ($subjects as $i => $subject) {
-                $title[] = $i < ($limit-1) ? $subject->title : '...';
-            }
-        }
-        return implode(', ', $title);
-    }
-
-    public static function getByIds(array $ids = [], $locale = 'uk')
-    {
-        return Tour::search(false)
-            ->whereJsonContains('locales', $locale)
-            ->whereIn('id', $ids)->get();
-    }
-
-    public static function popularTours($count = 12, $locale = 'uk')
-    {
-        $popularTours = Tour::search(false)
-            ->whereJsonContains('locales', $locale)
-            ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
-            ->where('popular_tours.published', 1)
-            ->select('tours.*')
-            ->addSelect(DB::raw('popular_tours.position as position'))
-            ->orderBy('position')
-            ->withCount([
-                'votings' => fn ($q) => $q->published(),
-                'testimonials' => fn ($q) => $q->moderated()
-                    ->orderBy('rating', 'desc')
-                    ->latest()
-            ])
-            ->take($count)->get();
-
-        $remains = $count - $popularTours->count();
-
-        if($remains > 0) {
-            $bestsellerTours = Tour::search()
-                ->whereJsonContains('locales', $locale)
-                ->whereNotIn('id', $popularTours->pluck('id')->toArray())
-                ->whereHas('badges', function (Builder $q) {
-                    return $q->where('slug', 'bestseler');
-                })
-                ->take($remains)->get();
-
-            $popularTours = $popularTours->merge($bestsellerTours);
-        }
-
-        $popularTours = $popularTours->unique('id');
-
-        return $popularTours;
-    }
-
     public function store($params)
     {
         $tour = new Tour();
@@ -332,5 +200,137 @@ class TourService extends BaseService
                 $wrongQuery->save();
             }
         );
+    }
+
+    public static function filterOptions()
+    {
+        $locale = app()->getLocale();
+
+        return Cache::remember('filter-options-' . $locale, 1, function () {
+            $place_ids = (array) request('place', []);
+            $selectedPlaces = Place::whereIn('id', $place_ids)
+                ->with(['region'])
+                ->get();
+
+            $places = $selectedPlaces->merge(Place::whereNotIn('id', $place_ids)
+                ->with(['region'])
+                ->orderBy('title->uk')->paginate()->getCollection()
+            )->sortBy(fn($place) => $place->title)->map->asSelectBox('value')->toArray();
+
+            $landings = LandingPlace::published()->whereHas('tours', function ($sq) {
+//                return $sq->where('published', 1)->whereHas('scheduleItems', function ($ssq) {
+//                    return $ssq->where('published', 1)->whereDate('start_date', '>=', Carbon::now());
+//                });
+                return $sq->where('published', 1);
+            })->orderBy('title->uk')->toSelectBox()->toArray();
+
+            $subjects = TourSubject::published()->toSelectBox()->toArray();
+            $types = TourType::published()->toSelectBox()->toArray();
+            $directions = Direction::published()->toSelectBox()->toArray();
+
+            return [
+                'date_from' => Carbon::now()->format('d.m.Y'),
+                'date_to' => Carbon::now()->addYears(1)->format('d.m.Y'),
+                'duration_from' => 0,
+                'duration_to' => (int)Tour::query()->max('duration') ?? 14,
+                'price_from' => 0,
+                'price_to' => (int)Tour::query()->max('price') ?? 10000,
+                'directions' => array_merge([['value' => 0, 'text' => __('tours-section.direction')]], $directions),
+                'types' => array_merge([['value' => 0, 'text' => __('tours-section.type')]], $types),
+                'subjects' => array_merge([['value' => 0, 'text' => __('tours-section.subject')]], $subjects),
+                'places' => array_merge([['value' => 0, 'text' => __('tours-section.places')]], $places),
+                'landings' => array_merge([['value' => 0, 'text' => __('tours-section.landing-places')]], $landings),
+                'sorting' => [
+                    ['value' => 'date-asc', 'text' => __('tours-section.sorting.date-asc')],
+                    ['value' => 'created-desc', 'text' => __('tours-section.sorting.created-desc')],
+//                    ['value' => 'created-asc', 'text' => __('tours-section.sorting.created-asc')],
+                    ['value' => 'popular-desc', 'text' => __('tours-section.sorting.popular-desc')],
+                    ['value' => 'rating-desc', 'text' => __('tours-section.sorting.rating-desc')],
+//                    ['value' => 'rating-asc', 'text' => __('tours-section.sorting.rating-asc')],
+                    ['value' => 'price-asc', 'text' => __('tours-section.sorting.price-asc')],
+                    ['value' => 'price-desc', 'text' => __('tours-section.sorting.price-desc')],
+                    ['value' => 'duration-desc', 'text' => __('tours-section.sorting.duration-desc')],
+                    ['value' => 'duration-asc', 'text' => __('tours-section.sorting.duration-asc')],
+                ],
+                'pagination' => [
+                    ['value' => 12, 'text' => '12'],
+                    ['value' => 24, 'text' => '24'],
+                    ['value' => 48, 'text' => '48'],
+                    ['value' => 1000, 'text' => __('tours-section.all-tours')],
+                ],
+            ];
+        });
+    }
+
+    public static function searchRequestTitle($params)
+    {
+        $title = [];
+        $limit = 3;
+
+        if (!empty($params['q'])) {
+            $title[] = urldecode($params['q']);
+        }
+        if (!empty($params['direction'])) {
+            $directions = Direction::whereIn('id', explode(',', $params['direction']))->select('title')->limit($limit)->get();
+            foreach ($directions as $i => $direction) {
+                $title[] = $i < ($limit-1) ? $direction->title : '...';
+            }
+        }
+        if (!empty($params['type'])) {
+            $types = TourType::whereIn('id', explode(',', $params['type']))->select('title')->limit($limit)->get();
+            foreach ($types as $i => $type) {
+                $title[] = $i < ($limit-1) ? $type->title : '...';
+            }
+        }
+        if (!empty($params['subject'])) {
+            $subjects = TourSubject::whereIn('id', explode(',', $params['subject']))->select('title')->limit($limit)->get();
+            foreach ($subjects as $i => $subject) {
+                $title[] = $i < ($limit-1) ? $subject->title : '...';
+            }
+        }
+        return implode(', ', $title);
+    }
+
+    public static function getByIds(array $ids = [], $locale = 'uk')
+    {
+        return Tour::search(false)
+            ->whereJsonContains('locales', $locale)
+            ->whereIn('id', $ids)->get();
+    }
+
+    public static function popularTours($count = 12, $locale = 'uk')
+    {
+        $popularTours = Tour::search(false)
+            ->whereJsonContains('locales', $locale)
+            ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
+            ->where('popular_tours.published', 1)
+            ->select('tours.*')
+            ->addSelect(DB::raw('popular_tours.position as position'))
+            ->orderBy('position')
+            ->withCount([
+                'votings' => fn ($q) => $q->published(),
+                'testimonials' => fn ($q) => $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest()
+            ])
+            ->take($count)->get();
+
+        $remains = $count - $popularTours->count();
+
+        if($remains > 0) {
+            $bestsellerTours = Tour::search()
+                ->whereJsonContains('locales', $locale)
+                ->whereNotIn('id', $popularTours->pluck('id')->toArray())
+                ->whereHas('badges', function (Builder $q) {
+                    return $q->where('slug', 'bestseler');
+                })
+                ->take($remains)->get();
+
+            $popularTours = $popularTours->merge($bestsellerTours);
+        }
+
+        $popularTours = $popularTours->unique('id');
+
+        return $popularTours;
     }
 }

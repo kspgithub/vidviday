@@ -26,4 +26,6 @@ require('./libs/toast');
 require('./libs/sharer');
 require('./libs/moreLess');
 
-window.vm = require('./vue-app');
+const { vm } = require('./vue-app');
+
+window.vm = vm

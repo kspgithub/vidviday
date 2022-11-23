@@ -1,3 +1,5 @@
+import { h } from "vue";
+
 var winScr,
     is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
     is_Edge = /Edge\/\d+/.test(navigator.userAgent),
@@ -217,11 +219,7 @@ const initDynamicPagination = function (swiper) {
     }
 }
 
-/**
- *
- * @param context
- */
-_functions.refreshStatic = (context) => {
+_functions.refreshStatic = () => {
     lazyLoadImg();
     lazyLoadBg();
     lazyLoadVideo();
@@ -248,9 +246,22 @@ _functions.refreshStatic = (context) => {
 window.removeScroll = removeScroll;
 window.addScroll = addScroll;
 
-window.addEventListener('vueMounted', (context) => {
-    console.log(context)
-    _functions.refreshStatic(context)
+window.addEventListener('vueMounted', (event) => {
+
+    console.log('========================================================')
+    console.log('=========== *** Vue Component Mounted *** ==============')
+    console.log('========================================================')
+
+    const app = event.detail
+
+    _functions.refreshStatic(app)
+
+    const component = app.$.appContext.app._component
+    const result = h(component)
+
+    return result
+    console.log(component)
+    console.log(result)
 })
 
 jQuery(function ($) {

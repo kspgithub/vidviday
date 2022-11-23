@@ -1,7 +1,9 @@
 @if(in_array('landings', $tour->active_tabs))
     <div class="accordion-item">
         <div class="accordion-title">
-            <span class="accordion-icon">{{svg('bus')}}</span> @lang('tours-section.landing-places')<i></i>
+            <span class="accordion-icon">{{svg('bus')}}</span>
+            @lang('tours-section.landing-places')
+            <i></i>
         </div>
         <div class="accordion-inner">
             <div class="accordion type-2">

@@ -12,7 +12,7 @@ const port = 8081
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
-// require('laravel-mix-purgecss');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -25,25 +25,21 @@ require('laravel-mix-svg-vue');
  |
  */
 
-
-/**
- * *********************
- * Config
- * *********************
- */
 mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .setPublicPath(`public/assets/app`)
     .webpackConfig({
         devServer: {host, port},
         output: {
             chunkFilename: mix.inProduction()
-                ? 'js/chunks/[name].[chunkhash].js'
-                : path.normalize(`js/chunks/[name].[chunkhash].js`)
+                ? path.normalize(`../../js/chunks/[name].[chunkhash].js`)
+                : 'js/chunks/[name].[chunkhash].js'
         },
         resolve: {
             alias: {
+                '@': resolve('./resources/lang'),
                 '@lang': resolve('./resources/lang'),
                 '@publicLang': resolve('./public/storage/lang'),
+                'vue': 'vue/dist/vue.esm-bundler.js',
             },
         },
         module: {
@@ -56,11 +52,11 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
         },
         plugins: [
             new webpack.DefinePlugin({
-                __VUE_OPTIONS_API__: true,
-                __VUE_PROD_DEVTOOLS__: false,
-                __VUE_I18N_FULL_INSTALL__: true,
-                __VUE_I18N_LEGACY_API__: false,
-                __INTLIFY_PROD_DEVTOOLS__: false,
+                __VUE_OPTIONS_API__: JSON.stringify(true),
+                __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+                __VUE_I18N_FULL_INSTALL__: JSON.stringify(true),
+                __VUE_I18N_LEGACY_API__: JSON.stringify(false),
+                __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
             }),
         ],
     })
@@ -77,7 +73,7 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
  * Assets
  * *********************
  */
-mix.js('resources/js/app.js', path.resolve(buildPath, 'app/js/app.js'))
+mix.js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
     .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
     .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
     .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
@@ -94,3 +90,4 @@ mix.js('resources/js/app.js', path.resolve(buildPath, 'app/js/app.js'))
     .sourceMaps(false, 'source-map')
     .disableNotifications()
     .extract()
+    // .purgeCss()

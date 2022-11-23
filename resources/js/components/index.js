@@ -1,89 +1,95 @@
 // Глобальные компоненты
-import { defineAsyncComponent } from 'vue'
+
+import { compile, createHydrationRenderer, createRenderer, defineAsyncComponent, h } from "vue";
+import { createContext } from "@fullcalendar/core";
 
 
 export default {
     install: (app) => {
-        app.component('sign-up-form', defineAsyncComponent(() => import('./auth/SignUpForm')));
+        function asyncRouteComponent(path) {
+            return defineAsyncComponent(() => import(`./${path}.vue`))
+        }
 
-        app.component('lang-dropdown', defineAsyncComponent(() => import('./header/LangDropdown')));
-        app.component('currency-dropdown', defineAsyncComponent(() => import('./header/CurrencyDropdown')));
-        app.component('header-search', defineAsyncComponent(() => import('./header/HeaderSearch')));
-        app.component('header-voice-popup', defineAsyncComponent(() => import('./header/HeaderVoicePopup')));
-        app.component('user-avatar', defineAsyncComponent(() => import('./header/UserAvatar')));
+        app.component('sign-up-form', asyncRouteComponent('auth/SignUpForm'));
 
-        app.component('sidebar-filter', defineAsyncComponent(() => import('./sidebar/SidebarFilter')));
-        app.component('sidebar-more-text', defineAsyncComponent(() => import('./sidebar/SidebarMoreText')));
-        app.component('sidebar-recommendations', defineAsyncComponent(() => import('./sidebar/SidebarRecommendations')));
+        app.component('lang-dropdown', asyncRouteComponent('header/LangDropdown'));
+        app.component('currency-dropdown', asyncRouteComponent('header/CurrencyDropdown'));
+        app.component('header-search', asyncRouteComponent('header/HeaderSearch'));
+        app.component('header-voice-popup', asyncRouteComponent('header/HeaderVoicePopup'));
+        app.component('user-avatar', asyncRouteComponent('header/UserAvatar'));
 
-        app.component('svg-icon', defineAsyncComponent(() => import('./svg/SvgIcon')));
+        app.component('sidebar-filter', asyncRouteComponent('sidebar/SidebarFilter'));
+        app.component('sidebar-more-text', asyncRouteComponent('sidebar/SidebarMoreText'));
+        app.component('sidebar-recommendations', asyncRouteComponent('sidebar/SidebarRecommendations'));
 
-        app.component('swiper-slider', defineAsyncComponent(() => import('./common/SwiperSlider')));
-        app.component('slide-more', defineAsyncComponent(() => import('./common/SlideMore')));
-        app.component('show-more-text', defineAsyncComponent(() => import('./common/ShowMoreText')));
-        app.component('more-text', defineAsyncComponent(() => import('./common/MoreText')));
-        app.component('open-testimonial-form', defineAsyncComponent(() => import('./common/OpenTestimonialForm')));
-        app.component('open-tour-question-form', defineAsyncComponent(() => import('./common/OpenTourQuestionForm')));
-        app.component('feedback-form', defineAsyncComponent(() => import('./common/FeedbackForm')));
-        app.component('share-dropdown', defineAsyncComponent(() => import('./common/ShareDropdown')));
-        app.component('print-btn', defineAsyncComponent(() => import('./common/PrintBtn')));
-        app.component('map-route', defineAsyncComponent(() => import('./common/MapRoute')));
+        app.component('svg-icon', asyncRouteComponent('svg/SvgIcon'));
 
-        app.component('testimonial-list', defineAsyncComponent(() => import('./testimonial/TestimonialList')));
-        app.component('testimonial-popup-form', defineAsyncComponent(() => import('./testimonial/TestimonialPopupForm')));
+        app.component('swiper-slider', asyncRouteComponent('common/SwiperSlider'));
+        app.component('slide-more', asyncRouteComponent('common/SlideMore'));
+        app.component('show-more-text', asyncRouteComponent('common/ShowMoreText'));
+        app.component('more-text', asyncRouteComponent('common/MoreText'));
+        app.component('open-testimonial-form', asyncRouteComponent('common/OpenTestimonialForm'));
+        app.component('open-tour-question-form', asyncRouteComponent('common/OpenTourQuestionForm'));
+        app.component('feedback-form', asyncRouteComponent('common/FeedbackForm'));
+        app.component('share-dropdown', asyncRouteComponent('common/ShareDropdown'));
+        app.component('print-btn', asyncRouteComponent('common/PrintBtn'));
+        app.component('map-route', asyncRouteComponent('common/MapRoute'));
 
-
-        app.component('popup-gallery', defineAsyncComponent(() => import('./popup/PopupGallery')));
-        app.component('popup-call-btn', defineAsyncComponent(() => import('./popup/PopupCallBtn')));
-        app.component('popup-call', defineAsyncComponent(() => import('./popup/PopupCall')));
-        app.component('popup-email-btn', defineAsyncComponent(() => import('./popup/PopupEmailBtn')));
-        app.component('popup-email', defineAsyncComponent(() => import('./popup/PopupEmail')));
-        app.component('popup-thanks', defineAsyncComponent(() => import('./popup/PopupThanks')));
-        app.component('popup-sub-btn', defineAsyncComponent(() => import('./popup/PopupSubBtn')));
-        app.component('popup-user-sub', defineAsyncComponent(() => import('./popup/PopupUserSubscription')));
-        app.component('popup-agent-sub', defineAsyncComponent(() => import('./popup/PopupAgentSubscription')));
-
-        app.component('tour-card', defineAsyncComponent(() => import('./tour/TourCard')));
-
-        app.component('tour-search', defineAsyncComponent(() => import('./tour/TourSearch')));
-        app.component('tour-request-title', defineAsyncComponent(() => import('./tour/TourRequestTitle')));
-        app.component('tour-question-form', defineAsyncComponent(() => import('./tour/TourQuestionForm')));
-        app.component('tour-question-popup-form', defineAsyncComponent(() => import('./tour/TourQuestionPopupForm')));
-        app.component('tour-testimonial-form', defineAsyncComponent(() => import('./tour/TourTestimonialForm')));
-        app.component('tour-map', defineAsyncComponent(() => import('./tour/TourMap')));
-        app.component('tour-calc', defineAsyncComponent(() => import('./tour/TourCalc')));
-        app.component('tour-carousel', defineAsyncComponent(() => import('./tour/TourCarousel')));
-        app.component('tour-order', defineAsyncComponent(() => import('./tour/TourOrder')));
-        app.component('tour-one-click-popup', defineAsyncComponent(() => import('./tour/TourOneClickPopup')));
-        app.component('tour-calendar-popup', defineAsyncComponent(() => import('./tour/TourCalendarPopup')));
-        app.component('tour-like-btn', defineAsyncComponent(() => import('./tour/TourLikeBtn')));
-        app.component('tour-voting-form', defineAsyncComponent(() => import('./tour/TourVotingForm')));
-        app.component('tour-order-schedule-button', defineAsyncComponent(() => import('./tour/TourOrderScheduleButton')));
-        app.component('tour-schedule-accordion', defineAsyncComponent(() => import('./tour/TourScheduleAccordion')));
+        app.component('testimonial-list', asyncRouteComponent('testimonial/TestimonialList'));
+        app.component('testimonial-popup-form', asyncRouteComponent('testimonial/TestimonialPopupForm'));
 
 
-        app.component('order-form', defineAsyncComponent(() => import('./order/OrderForm')));
-        app.component('order-testimonial-btn', defineAsyncComponent(() => import('./order/OrderTestimonialBtn')));
-        app.component('order-cancel-btn', defineAsyncComponent(() => import('./order/OrderCancelBtn')));
-        app.component('order-cancel-popup', defineAsyncComponent(() => import('./order/OrderCancelPopup')));
-        app.component('order-notes', defineAsyncComponent(() => import('./order/OrderNotes')));
-        app.component('order-transport-form', defineAsyncComponent(() => import('./order/OrderTransportForm')));
-        app.component('order-broker-form', defineAsyncComponent(() => import('./order/OrderBrokerForm')));
+        app.component('popup-gallery', asyncRouteComponent('popup/PopupGallery'));
+        app.component('popup-call-btn', asyncRouteComponent('popup/PopupCallBtn'));
+        app.component('popup-call', asyncRouteComponent('popup/PopupCall'));
+        app.component('popup-email-btn', asyncRouteComponent('popup/PopupEmailBtn'));
+        app.component('popup-email', asyncRouteComponent('popup/PopupEmail'));
+        app.component('popup-thanks', asyncRouteComponent('popup/PopupThanks'));
+        app.component('popup-sub-btn', asyncRouteComponent('popup/PopupSubBtn'));
+        app.component('popup-user-sub', asyncRouteComponent('popup/PopupUserSubscription'));
+        app.component('popup-agent-sub', asyncRouteComponent('popup/PopupAgentSubscription'));
 
-        app.component('place-testimonial-form', defineAsyncComponent(() => import('./place/PlaceTestimonialForm')));
-        app.component('places-accordion', defineAsyncComponent(() => import('./place/PlacesAccordion')));
+        app.component('tour-card', asyncRouteComponent('tour/TourCard'));
 
-        app.component('staff-testimonial-form', defineAsyncComponent(() => import('./staff/StaffTestimonialForm')));
+        app.component('tour-search', asyncRouteComponent('tour/TourSearch'));
+        app.component('tour-request-title', asyncRouteComponent('tour/TourRequestTitle'));
+        app.component('tour-question-form', asyncRouteComponent('tour/TourQuestionForm'));
+        app.component('tour-question-popup-form', asyncRouteComponent('tour/TourQuestionPopupForm'));
+        app.component('tour-testimonial-form', asyncRouteComponent('tour/TourTestimonialForm'));
+        app.component('tour-map', asyncRouteComponent('tour/TourMap'));
+        app.component('tour-calc', asyncRouteComponent('tour/TourCalc'));
+        app.component('tour-carousel', asyncRouteComponent('tour/TourCarousel'));
+        app.component('tour-order', asyncRouteComponent('tour/TourOrder'));
+        app.component('tour-one-click-popup', asyncRouteComponent('tour/TourOneClickPopup'));
+        app.component('tour-calendar-popup', asyncRouteComponent('tour/TourCalendarPopup'));
+        app.component('tour-like-btn', asyncRouteComponent('tour/TourLikeBtn'));
+        app.component('tour-voting-form', asyncRouteComponent('tour/TourVotingForm'));
+        app.component('tour-order-schedule-button', asyncRouteComponent('tour/TourOrderScheduleButton'));
+        app.component('tour-schedule-accordion', asyncRouteComponent('tour/TourScheduleAccordion'));
 
-        app.component('profile-info-form', defineAsyncComponent(() => import('./profile/ProfileInfoForm')));
-        app.component('profile-history', defineAsyncComponent(() => import('./profile/ProfileHistory')));
-        app.component('profile-favourite-link', defineAsyncComponent(() => import('./profile/ProfileFavouriteLink')));
-        app.component('profile-favourites', defineAsyncComponent(() => import('./profile/ProfileFavourites')));
-        app.component('profile-in-favourites', defineAsyncComponent(() => import('./profile/ProfileInFavourites')));
 
-        app.component('certificate-order-form', defineAsyncComponent(() => import('./certificate/CertificateOrderForm')));
-        app.component('vacancy-form', defineAsyncComponent(() => import('./vacancy/VacancyForm')));
+        app.component('order-form', asyncRouteComponent('order/OrderForm'));
+        app.component('order-testimonial-btn', asyncRouteComponent('order/OrderTestimonialBtn'));
+        app.component('order-cancel-btn', asyncRouteComponent('order/OrderCancelBtn'));
+        app.component('order-cancel-popup', asyncRouteComponent('order/OrderCancelPopup'));
+        app.component('order-notes', asyncRouteComponent('order/OrderNotes'));
+        app.component('order-transport-form', asyncRouteComponent('order/OrderTransportForm'));
+        app.component('order-broker-form', asyncRouteComponent('order/OrderBrokerForm'));
 
-        app.component('mobile-search', defineAsyncComponent(() => import('./mobile/MobileSearchDropdown')));
+        app.component('place-testimonial-form', asyncRouteComponent('place/PlaceTestimonialForm'));
+        app.component('places-accordion', asyncRouteComponent('place/PlacesAccordion'));
+
+        app.component('staff-testimonial-form', asyncRouteComponent('staff/StaffTestimonialForm'));
+
+        app.component('profile-info-form', asyncRouteComponent('profile/ProfileInfoForm'));
+        app.component('profile-history', asyncRouteComponent('profile/ProfileHistory'));
+        app.component('profile-favourite-link', asyncRouteComponent('profile/ProfileFavouriteLink'));
+        app.component('profile-favourites', asyncRouteComponent('profile/ProfileFavourites'));
+        app.component('profile-in-favourites', asyncRouteComponent('profile/ProfileInFavourites'));
+
+        app.component('certificate-order-form', asyncRouteComponent('certificate/CertificateOrderForm'));
+        app.component('vacancy-form', asyncRouteComponent('vacancy/VacancyForm'));
+
+        app.component('mobile-search', asyncRouteComponent('mobile/MobileSearchDropdown'));
     }
 }
