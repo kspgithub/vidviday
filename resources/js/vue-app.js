@@ -4,7 +4,6 @@ const app = createApp({
     mounted() {
         window.dispatchEvent(new CustomEvent('vueMounted', {
             detail: this,
-            composed: true,
         }))
     },
 });

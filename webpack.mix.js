@@ -40,7 +40,13 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 '@lang': resolve('./resources/lang'),
                 '@publicLang': resolve('./public/storage/lang'),
                 'vue': 'vue/dist/vue.esm-bundler.js',
+                'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
+        },
+        optimization: {
+            providedExports: false,
+            sideEffects: false,
+            usedExports: false
         },
         module: {
             rules: [
@@ -52,11 +58,11 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
         },
         plugins: [
             new webpack.DefinePlugin({
-                __VUE_OPTIONS_API__: JSON.stringify(true),
-                __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
-                __VUE_I18N_FULL_INSTALL__: JSON.stringify(true),
-                __VUE_I18N_LEGACY_API__: JSON.stringify(false),
-                __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
+                __VUE_OPTIONS_API__: true,
+                __VUE_PROD_DEVTOOLS__: false,
+                __VUE_I18N_FULL_INSTALL__: true,
+                __VUE_I18N_LEGACY_API__: false,
+                __INTLIFY_PROD_DEVTOOLS__: false,
             }),
         ],
     })
@@ -91,3 +97,7 @@ mix.js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
     .disableNotifications()
     .extract()
     // .purgeCss()
+
+if (mix.inProduction ()) {
+    mix.version ();
+}

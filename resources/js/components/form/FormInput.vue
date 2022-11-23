@@ -4,12 +4,15 @@
     >
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
         <input ref="inputRef"
+               v-model="innerValue"
                class="vue-input"
                @focus="onFocus"
                @blur="onBlur"
                :placeholder="placeholder"
                :autocomplete="autocomplete"
-               :type="type" v-model="innerValue" :name="name" :id="id || name"
+               :type="type"
+               :name="name"
+               :id="'input-' + (id || name)"
         >
         <slot/>
     </label>

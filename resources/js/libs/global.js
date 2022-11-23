@@ -248,6 +248,7 @@ window.addScroll = addScroll;
 
 window.addEventListener('vueMounted', (event) => {
 
+
     console.log('========================================================')
     console.log('=========== *** Vue Component Mounted *** ==============')
     console.log('========================================================')

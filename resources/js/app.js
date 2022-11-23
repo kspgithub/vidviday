@@ -10,7 +10,7 @@ require('./libs/jquery.sumoselect.min');
 
 require('./libs/jquery.inputmask.min');
 
-require('./libs/SmoothScroll');
+// require('./libs/SmoothScroll');
 
 require('./libs/datepicker.min');
 
