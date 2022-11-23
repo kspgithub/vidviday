@@ -5,12 +5,6 @@
             <div class="spacer-xs"></div>
 
             <div class="thumbs-carousel swiper-entry vac">
-                <div class="swiper-button-prev inner vac">
-                    <i></i>
-                </div>
-                <div class="swiper-button-next inner vac">
-                    <i></i>
-                </div>
                 <div class="swiper-container" data-options='{
 						"loop": {{ count($course->similar_courses) > 1 ? 'true' : 'false' }},
 						"slidesPerView": 1,
@@ -42,7 +36,13 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="swiper-button-prev">
+                    <i></i>
+                </div>
                 <div class="swiper-pagination"></div>
+                <div class="swiper-button-next">
+                    <i></i>
+                </div>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ const path = require('path');
 
 const buildPath = path.normalize('public/assets/app')
 
-const host = ip.address() || '0.0.0.0'
+const host = '127.0.0.1'//ip.address() || '0.0.0.0'
 const port = 8081
 
 
@@ -28,7 +28,6 @@ require('laravel-mix-purgecss');
 mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .setPublicPath(`public/assets/app`)
     .webpackConfig({
-        devServer: {host, port},
         output: {
             chunkFilename: mix.inProduction()
                 ? path.normalize(`../../js/chunks/[name].[chunkhash].js`)
@@ -65,12 +64,13 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 __INTLIFY_PROD_DEVTOOLS__: false,
             }),
         ],
+        // devServer: {host, port},
     })
     .options({
-        hmrOptions: {
-            host,
-            port,
-        }
+        // hmrOptions: {
+            // host,
+            // port,
+        // }
     })
 
 

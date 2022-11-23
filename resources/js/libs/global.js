@@ -248,21 +248,13 @@ window.addScroll = addScroll;
 
 window.addEventListener('vueMounted', (event) => {
 
-
     console.log('========================================================')
     console.log('=========== *** Vue Component Mounted *** ==============')
     console.log('========================================================')
 
     const app = event.detail
 
-    _functions.refreshStatic(app)
-
-    const component = app.$.appContext.app._component
-    const result = h(component)
-
-    return result
-    console.log(component)
-    console.log(result)
+    _functions.refreshStatic()
 })
 
 jQuery(function ($) {
@@ -282,7 +274,7 @@ jQuery(function ($) {
     goUpButtonScrolled();
 
 
-    _functions.initSwiper
+    _functions.initSwiper()
 
     /*/////////////////////////*/
     /* FUNCTION ON PAGE SCROLL */
