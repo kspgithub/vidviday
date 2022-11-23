@@ -1,8 +1,16 @@
-var _functions = {},
-    popupTop = 0,
-    winWidth;
+var winScr,
+    winWidth = $(window).width(),
+    winHeight = $(window).height(),
+    is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
+    is_Edge = /Edge\/\d+/.test(navigator.userAgent),
+    is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
 
-window._functions = _functions;
+    is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
+    isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
+
+var _functions = {}
+window._functions = _functions
+var popupTop = 0
 
 function removeScroll() {
 
@@ -23,8 +31,6 @@ function removeScroll() {
     }, 200)
 }
 
-window.removeScroll = removeScroll;
-
 function addScroll() {
     $('html').css({
         "position": "static"
@@ -32,9 +38,143 @@ function addScroll() {
     window.scroll(0, popupTop);
 }
 
-window.addScroll = addScroll;
+function lazyLoadImg() {
 
-function initStaticScripts(context) {
+    let img = document.querySelectorAll('[data-img-src]'),
+        observer = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    let lazyImg = entry.target
+
+                    lazyImg.src = lazyImg.dataset.imgSrc;
+                    observer.unobserve(lazyImg)
+                }
+            })
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+    img.forEach(i => {
+        observer.observe(i)
+    })
+}
+
+function lazyLoadBg() {
+
+    let bg = document.querySelectorAll('[data-bg-src]'),
+        observer = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    let lazyBg = entry.target,
+                        lazyBgSrc = 'url("' + lazyBg.dataset.bgSrc + '")';
+
+                    lazyBg.style.backgroundImage = lazyBgSrc;
+                    observer.unobserve(lazyBg)
+                }
+            })
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+    bg.forEach(i => {
+        observer.observe(i)
+    })
+}
+
+function lazyLoadVideo() {
+
+    let video = document.querySelectorAll('[data-video-src]'),
+        videoMarkup,
+        observer = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+                    let lazyVideo = entry.target,
+                        videoSrc = lazyVideo.dataset.videoSrc;
+
+                    if (lazyVideo.classList.contains('autoplay')) {
+                        videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted autoplay inline loop><source src="' + videoSrc + '" type="video/mp4"></video>';
+                    } else {
+                        videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' controls inline><source src="' + videoSrc + '" type="video/mp4"></video>';
+                    }
+
+                    lazyVideo.innerHTML = videoMarkup;
+                    observer.unobserve(lazyVideo)
+                }
+            })
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+    video.forEach(i => {
+        observer.observe(i)
+    })
+}
+
+function lazyLoadFrames() {
+
+    let frame = document.querySelectorAll('[data-frame-src]'),
+        frameMarkup,
+        observer = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+                    let lazyFrame = entry.target,
+                        frameSrc = lazyFrame.dataset.frameSrc;
+
+                    frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
+                    lazyFrame.innerHTML = frameMarkup;
+                    observer.unobserve(lazyFrame)
+                }
+            })
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+    frame.forEach(i => {
+        observer.observe(i)
+    })
+}
+
+function headerScrolled() {
+    if (winScr >= $('header').outerHeight()) {
+        $('header').addClass('scrolled');
+    } else {
+        $('header').removeClass('scrolled');
+    }
+
+    if (winScr >= 1 && $('.step-page').length) {
+        $('.step-page').addClass('scrolled');
+    } else {
+        $('.step-page').removeClass('scrolled');
+    }
+}
+
+function goUpButtonScrolled() {
+    if (winScr >= $('header').outerHeight()) {
+        $('.btn-to-top').addClass('active');
+    } else {
+        $('.btn-to-top').removeClass('active');
+    }
+}
+
+/**
+ *
+ * @param context
+ */
+_functions.refreshStatic = (context) => {
     lazyLoadImg();
     lazyLoadBg();
     lazyLoadVideo();
@@ -58,24 +198,17 @@ function initStaticScripts(context) {
     });
 }
 
-_functions.initStaticScripts = initStaticScripts
+window.removeScroll = removeScroll;
+window.addScroll = addScroll;
+
+window.addEventListener('vueMounted', (context) => {
+    console.log(context)
+    _functions.refreshStatic(context)
+})
 
 jQuery(function ($) {
 
     "use strict";
-
-    /*##############*/
-    /* 01 VARIABLES */
-    /*##############*/
-    var winScr,
-        winWidth = $(window).width(),
-        winHeight = $(window).height(),
-        is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
-        is_Edge = /Edge\/\d+/.test(navigator.userAgent),
-        is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
-
-        is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
-        isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
 
     /*###############################*/
     /* 02 FUNCTION ON DOCUMENT READY */
@@ -89,117 +222,6 @@ jQuery(function ($) {
     headerScrolled();
     goUpButtonScrolled();
 
-    // Lazy loadings for images, backgrounds adn videos
-    function lazyLoadImg() {
-
-        let img = document.querySelectorAll('[data-img-src]'),
-            observer = new IntersectionObserver((entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        let lazyImg = entry.target
-
-                        lazyImg.src = lazyImg.dataset.imgSrc;
-                        observer.unobserve(lazyImg)
-                    }
-                })
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
-            });
-
-        img.forEach(i => {
-            observer.observe(i)
-        })
-    }
-
-    function lazyLoadBg() {
-
-        let bg = document.querySelectorAll('[data-bg-src]'),
-            observer = new IntersectionObserver((entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        let lazyBg = entry.target,
-                            lazyBgSrc = 'url("' + lazyBg.dataset.bgSrc + '")';
-
-                        lazyBg.style.backgroundImage = lazyBgSrc;
-                        observer.unobserve(lazyBg)
-                    }
-                })
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
-            });
-
-        bg.forEach(i => {
-            observer.observe(i)
-        })
-    }
-
-    function lazyLoadVideo() {
-
-        let video = document.querySelectorAll('[data-video-src]'),
-            videoMarkup,
-            observer = new IntersectionObserver((entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-                        let lazyVideo = entry.target,
-                            videoSrc = lazyVideo.dataset.videoSrc;
-
-                        if (lazyVideo.classList.contains('autoplay')) {
-                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted autoplay inline loop><source src="' + videoSrc + '" type="video/mp4"></video>';
-                        } else {
-                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' controls inline><source src="' + videoSrc + '" type="video/mp4"></video>';
-                        }
-
-                        lazyVideo.innerHTML = videoMarkup;
-                        observer.unobserve(lazyVideo)
-                    }
-                })
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
-            });
-
-        video.forEach(i => {
-            observer.observe(i)
-        })
-    }
-
-    function lazyLoadFrames() {
-
-        let frame = document.querySelectorAll('[data-frame-src]'),
-            frameMarkup,
-            observer = new IntersectionObserver((entries, observer) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-                        let lazyFrame = entry.target,
-                            frameSrc = lazyFrame.dataset.frameSrc;
-
-                        frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
-                        lazyFrame.innerHTML = frameMarkup;
-                        observer.unobserve(lazyFrame)
-                    }
-                })
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
-            });
-
-        frame.forEach(i => {
-            observer.observe(i)
-        })
-    }
-
     /*/////////////////////////*/
     /* FUNCTION ON PAGE SCROLL */
     /*/////////////////////////*/
@@ -207,7 +229,6 @@ jQuery(function ($) {
         _functions.scrollCall();
     });
 
-    var prev_scroll = 0;
     _functions.scrollCall = function () {
         winScr = $(window).scrollTop();
         headerScrolled();
@@ -661,6 +682,7 @@ jQuery(function ($) {
     };
 
     _functions.showPopup = function (target) {
+        alert()
         headerLayerClose();
         mobileMenuClose();
         menuBtnClose();
@@ -1031,33 +1053,6 @@ jQuery(function ($) {
             accordion = $(link).find('.accordion-title');
         $(accordion).click();
     });
-
-    /*////////////*/
-    /* ANIMATIONS */
-
-    /*////////////*/
-    function headerScrolled() {
-        if (winScr >= $('header').outerHeight()) {
-            $('header').addClass('scrolled');
-        } else {
-            $('header').removeClass('scrolled');
-        }
-
-        if (winScr >= 1 && $('.step-page').length) {
-            $('.step-page').addClass('scrolled');
-        } else {
-            $('.step-page').removeClass('scrolled');
-        }
-    }
-
-    function goUpButtonScrolled() {
-        if (winScr >= $('header').outerHeight()) {
-            $('.btn-to-top').addClass('active');
-        } else {
-            $('.btn-to-top').removeClass('active');
-        }
-    }
-
 
     // 09 Comments stars rank
     $('.rating-picker .select-icon').on('click', function () {

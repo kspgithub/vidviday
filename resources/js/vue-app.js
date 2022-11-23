@@ -2,7 +2,7 @@ import {createApp} from 'vue';
 
 const app = createApp({
     mounted() {
-        window.dispatchEvent(new CustomEvent('vueMounted'))
+        window.dispatchEvent(new CustomEvent('vueMounted', {detail: this}))
     },
 });
 
@@ -38,6 +38,4 @@ require('./validation/rules');
 
 const vm = app.mount('#app')
 
-window.vm = vm
-
-export { vm, store, i18n }
+export default vm

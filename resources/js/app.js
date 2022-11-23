@@ -26,22 +26,21 @@ require('./libs/toast');
 require('./libs/sharer');
 require('./libs/moreLess');
 
-const { vm, store } = require('./vue-app');
-console.log(vm.__('Read more'))
+window.vm = require('./vue-app');
 
 window.addEventListener('load', function (event) {
     console.log('Event: window.load')
 })
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Event: document.DOMContentLoaded')
+if('moreLess' in window) {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Event: document.DOMContentLoaded')
 
-    if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
-        if('moreLess' in window) {
-            moreLess('shorten-text', '150px', {
-                textMore: vm.__('Read more'),
-                textLess: vm.__('Hide text'),
-            });
+        if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
+                moreLess('shorten-text', '150px', {
+                    textMore: window.vm.__('Read more'),
+                    textLess: window.vm.__('Hide text'),
+                });
         }
-    }
-})
+    })
+}

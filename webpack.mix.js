@@ -12,7 +12,7 @@ const port = 8081
 
 require('laravel-vue-lang/mix');
 require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
+// require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -28,34 +28,17 @@ require('laravel-mix-purgecss');
 
 /**
  * *********************
- * Assets
+ * Config
  * *********************
  */
-mix
-    .js('resources/js/app.js', path.resolve(buildPath, 'app/js/app.js'))
-    .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
-    .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
-    .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
-    .js('resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
-    .js('resources/js/libs/map-route.js', path.resolve(buildPath, '..', 'app/js/libs/map-route.js'))
-    .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))
-    .sass('resources/scss/theme/main.scss', path.resolve(buildPath, '..', 'app/css/theme/main.css'))
-    .sass('resources/scss/theme/print.scss', path.resolve(buildPath, '..', 'app/css/theme/print.css'))
-    .sass('resources/scss/theme/style.scss', path.resolve(buildPath, '..', 'app/css/theme/style.css'))
-    .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'));
-
-
-/**
- * *********************
- * Common Settings
- * *********************
- */
-mix
-    .setResourceRoot(`/assets/app/`)
+mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .setPublicPath(`public/assets/app`)
     .webpackConfig({
+        devServer: {host, port},
         output: {
-            chunkFilename: path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
+            chunkFilename: mix.inProduction()
+                ? 'js/chunks/[name].[chunkhash].js'
+                : path.normalize(`js/chunks/[name].[chunkhash].js`)
         },
         resolve: {
             alias: {
@@ -81,54 +64,33 @@ mix
             }),
         ],
     })
+    .options({
+        hmrOptions: {
+            host,
+            port,
+        }
+    })
+
+
+/**
+ * *********************
+ * Assets
+ * *********************
+ */
+mix.js('resources/js/app.js', path.resolve(buildPath, 'app/js/app.js'))
+    .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
+    .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
+    .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
+    .js('resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
+    .js('resources/js/libs/map-route.js', path.resolve(buildPath, '..', 'app/js/libs/map-route.js'))
+    .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))
+    .sass('resources/scss/theme/main.scss', path.resolve(buildPath, '..', 'app/css/theme/main.css'))
+    .sass('resources/scss/theme/print.scss', path.resolve(buildPath, '..', 'app/css/theme/print.css'))
+    .sass('resources/scss/theme/style.scss', path.resolve(buildPath, '..', 'app/css/theme/style.css'))
+    .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'))
     .vue()
     .lang()
-    .extract()
+    .version()
     .sourceMaps(false, 'source-map')
-    .disableNotifications();
-
-
-/**
- * *********************
- * Production Settings
- * *********************
- */
-if (mix.inProduction()) {
-    // !!! Dont need to minify.
-    // Laravel Mix automatically minifies js as css files in production
-    // mix.minify([
-    //     'public/js/app.js',
-    //     'public/js/vendor.js',
-    //     'public/js/admin.js',
-    //     'public/css/app.css',
-    //     'public/css/admin.css',
-    // ]);
-
-    mix.version();
-}
-
-/**
- * *********************
- * Development Settings
- * *********************
- */
-if (!mix.inProduction() && Mix.config.hmr) {
-
-    console.log('=====================================')
-    console.log('App host: ' + host)
-    console.log('=====================================')
-
-    mix
-        .options({
-            hmrOptions: {
-                host,
-                port,
-            }
-        })
-        .setResourceRoot(path.normalize(`/`))
-        .webpackConfig({
-            output: {chunkFilename: 'js/chunks/[name].[chunkhash].js'},
-            devServer: {host, port}
-        });
-
-}
+    .disableNotifications()
+    .extract()
