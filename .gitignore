@@ -1,6 +1,9 @@
 /node_modules
 /public/assets
+/public/css
+/public/js
 /public/fonts
+/public/hot
 /public/storage
 /public/assets/**/*/mix-manifest.json
 /public/robots.txt
