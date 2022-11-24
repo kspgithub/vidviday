@@ -2,12 +2,22 @@
     <div id="search-dropdown" :class="{active: mobileActive}">
         <div class="search-dropdown-close full-size" @click="mobileActive = false"></div>
 
-        <form action="/tours" class="header-search search-dropdown-form" ref="formRef" >
-            <input type="text" name="q" v-model="searchText" :placeholder="__('header-section.find-tour-dots')"
+        <form action="/tours"
+              class="header-search search-dropdown-form"
+              :class="{active: mobileActive}"
+              @mouseleave="active = false"
+              ref="formRef" >
+
+            <input type="text"
+                   name="q"
+                   v-model="searchText"
+                   :placeholder="__('header-section.find-tour-dots')"
                    class="input-search"
                    ref="searchRef"
-                   @input="debounce(() => search())"
-                   autocomplete="off">
+                   autocomplete="off"
+                   autofocus
+                   @input="searchText = $event.target.value"
+            >
 
             <div class="search-toggle">
                 <ul>
@@ -87,12 +97,23 @@
 <script>
 import useSearch from "../header/useSearch";
 import useVoiceSearch from "../header/useVoiceSearch";
+import { watch } from "vue";
 
 export default {
     name: "MobileSearchDropdown",
     setup() {
+        const search = useSearch()
+
+        watch(search.mobileActive, (active) => {
+            search.debounce(() => $(search.searchRef.value).focus())
+        })
+
+        watch(search.searchText, (text) => {
+            search.debounce(() => search.search())
+        })
+
         return {
-            ...useSearch(),
+            ...search,
             ...useVoiceSearch(),
         }
     }

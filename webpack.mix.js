@@ -6,7 +6,7 @@ const path = require('path');
 
 const buildPath = path.normalize('public/assets/app')
 
-const host = '127.0.0.1'//ip.address() || '0.0.0.0'
+const host = ip.address() || '0.0.0.0'
 const port = 8081
 
 
@@ -64,14 +64,24 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 __INTLIFY_PROD_DEVTOOLS__: false,
             }),
         ],
-        // devServer: {host, port},
     })
-    .options({
-        // hmrOptions: {
-            // host,
-            // port,
-        // }
-    })
+
+if (!mix.inProduction ()) {
+    mix
+        .webpackConfig({
+            devServer: {host, port},
+        })
+        .options({
+            hmrOptions: {
+                host,
+                port,
+            }
+        })
+}
+
+if (mix.inProduction ()) {
+    mix.version ();
+}
 
 
 /**
@@ -97,7 +107,3 @@ mix.js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
     .disableNotifications()
     .extract()
     // .purgeCss()
-
-if (mix.inProduction ()) {
-    mix.version ();
-}
