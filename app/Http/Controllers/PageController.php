@@ -84,7 +84,7 @@ class PageController extends Controller
                 return (new TravelAgentController())->index($request);
             case 'vacancies':
                 return (new VacancyController())->index($request);
-            case 'practice':
+            case 'praktyka':
                 return (new PracticeController())->index($request);
             case 'schools':
                 return (new SchoolController())->index($request);

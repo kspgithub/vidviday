@@ -1066,10 +1066,16 @@
 .thumbs-carousel {
     margin-bottom: 50px;
 
-    .swiper-button-prev.bottom,
-    .swiper-button-next.bottom {
-        top: 100%;
-        margin: 0;
+    .swiper-button-prev,
+    .swiper-button-next {
+        &.bottom {
+            top: 100%;
+            margin: 0;
+        }
+        &.inner {
+            margin: auto;
+            bottom: 0;
+        }
     }
 
     .swiper-pagination {
