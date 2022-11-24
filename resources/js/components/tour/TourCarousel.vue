@@ -115,10 +115,16 @@ export default {
             swiper.value = instance;
 
             const paginator = $(swiper.value.el).find('.swiper-pagination')
+            const paginatorPlaceholder = $(swiper.value.el).parent().find('.swiper-pagination')
 
+            alert(paginator.length)
             // $(paginator).addClass('relative fixed-width bottom')
 
-            paginator.appendTo(paginator.parents('.swiper-entry').first())
+            if(paginatorPlaceholder.length) {
+                paginatorPlaceholder.replaceWith(paginator)
+            } else {
+                paginator.appendTo(paginator.parents('.swiper-entry').first())
+            }
 
             _functions.initDynamicPagination(swiper.value)
 
