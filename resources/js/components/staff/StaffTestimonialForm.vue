@@ -165,7 +165,7 @@ import FormSelect from "../form/FormSelect";
 
 export default {
     name: "StaffTestimonialForm",
-    components: {FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: {FormSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         type: String,
         staff: Object,

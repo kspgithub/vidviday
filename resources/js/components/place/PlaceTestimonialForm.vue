@@ -9,7 +9,9 @@
             <slot/>
             <div class="have-an-account text-center">
                     <span class="text" v-if="!user">{{ __('auth.have-account') }}
-                        <span class="open-popup" @click="closePopup()" data-rel="login-popup">{{ __('auth.entrance') }}</span>
+                        <span class="open-popup" @click="closePopup()" data-rel="login-popup">{{
+                                __('auth.entrance')
+                            }}</span>
                     </span>
                 <div class="img-input-wrap">
                     <div class="img-input img-input-avatar"
@@ -71,14 +73,12 @@
                         <span class="text text-sm">
                             <b>{{ __('popup.testimonial.place-tour') }}</b>
                         </span>
-                    <form-custom-select name="tour_id" search search-text="Введіть назву тура"
-                                        v-model.number="data.tour_id"
-                                        :placeholder="__('forms.select-from-list')">
-                        <option v-for="tour in tours" :value="tour.id">
-                            {{ tour.title }}
-                        </option>
-                    </form-custom-select>
-
+                    <form-select name="tour_id" search
+                                 class="custom-select vue-select"
+                                 search-text="Введіть назву тура"
+                                 v-model.number="data.tour_id"
+                                 :options="tourOptions"
+                                 :placeholder="__('forms.select-from-list')"/>
                 </div>
 
                 <div class="col-12">
@@ -148,20 +148,21 @@
 </template>
 
 <script>
-import {computed, reactive, ref} from "vue";
+import { computed, reactive, ref } from "vue";
 import FormStarRating from "../form/FormStarRating";
 import FormInput from "../form/FormInput";
 import FormTextarea from "../form/FormTextarea";
 import axios from "axios";
-import {getError} from "../../services/api";
+import { getError } from "../../services/api";
 import toast from "../../libs/toast";
 import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
-import {useStore} from "vuex";
+import { useStore } from "vuex";
+import FormSelect from "../form/FormSelect";
 
 export default {
     name: "TourTestimonialForm",
-    components: {FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: {FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         place: Object,
         user: Object,
@@ -323,6 +324,11 @@ export default {
             showThanks.value = false;
         }
 
+        const tourOptions = computed(() => props.tours.map(tour => ({
+            text: tour.title,
+            value: tour.id,
+            img: tour.main_image
+        })))
 
         return {
             avatarRef,
@@ -344,6 +350,7 @@ export default {
             showThanks,
             closePopup,
             popupOpen,
+            tourOptions,
         }
     }
 }

@@ -1,5 +1,6 @@
 <template>
-    <div ref="sumoSelectRef" v-click-outside="close" :class="{open: open}" class="SumoSelect" @click.prevent="handleOpen">
+    <div ref="sumoSelectRef" v-click-outside="close" :class="{open: open}" class="SumoSelect"
+         @click.prevent="handleOpen">
 
         <input :name="name" :value="modelValue" type="hidden">
 
@@ -18,7 +19,7 @@
                     class="opt"
                     @click="selectAll()"
                 >
-                    <label class="checkbox" >
+                    <label class="checkbox">
                         <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
                         <span>Обрати все</span>
                     </label>
@@ -28,7 +29,7 @@
                     class="opt"
                     @click.prevent="change({value: 0}, $event)"
                 >
-                    <label class="checkbox" >
+                    <label class="checkbox">
                         <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
                         <span>Обрати все</span>
                     </label>
@@ -40,13 +41,13 @@
                     class="opt"
                     @click.prevent="change(option, $event)"
                 >
-                    <label v-if="multiple" class="checkbox" >
+                    <label v-if="multiple" class="checkbox">
                         <input type="checkbox" :checked="selected.includes(option.value)">
-                        <span v-html="option.value === 0 ? 'Не вибрано' : option.text" />
+                        <span v-html="option.value === 0 ? 'Не вибрано' : option.text"/>
                     </label>
 
                     <template v-else>
-                        <img v-if="option.img" :src="option.img" />
+                        <img v-if="option.img" :src="option.img"/>
                         <label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
                     </template>
 
@@ -58,7 +59,7 @@
 </template>
 
 <script>
-import {computed, getCurrentInstance, onMounted, ref, toRaw, watch} from 'vue'
+import { computed, getCurrentInstance, onMounted, ref, toRaw, watch } from 'vue'
 
 export default {
     name: "FormSelect",
@@ -68,6 +69,10 @@ export default {
         options: Array,
         search: false,
         multiple: false,
+        placeholder: {
+            type: String,
+            default: '',
+        },
     },
     emits: ['update:modelValue', 'search'],
     setup(props, {emit}) {
@@ -93,11 +98,14 @@ export default {
 
             let options = props.options.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
 
-            if(!options.length) {
-                options = [props.options[0]]
+            if (!options.length) {
+                options = [props.options[0].value ? {
+                    value: '',
+                    text: props.placeholder,
+                } : props.options[0]]
             }
 
-            for(let option of options) {
+            for (let option of options) {
                 text += (text ? ',' : '') + toRaw(option).text
             }
 
@@ -109,17 +117,17 @@ export default {
 
             const opt = toRaw(option)
 
-            if(props.multiple) {
+            if (props.multiple) {
                 const value = String(JSON.parse(JSON.stringify(props.modelValue)))
 
                 let val = value.split(',').filter(v => !!v)
                 const index = val.indexOf(opt.value.toString())
 
-                if(opt.value === 0) {
+                if (opt.value === 0) {
                     setTimeout(() => close(), 100)
                     val = []
                 } else {
-                    if(index > -1) {
+                    if (index > -1) {
                         val.splice(index, 1)
                     } else {
                         val.push(opt.value)
@@ -141,11 +149,11 @@ export default {
 
         onMounted(() => {
             let vm = getCurrentInstance();
-            if(props.search && vm.ctx.$refs && vm.ctx.$refs.search) {
+            if (props.search && vm.ctx.$refs && vm.ctx.$refs.search) {
                 let searchInput = vm.ctx.$refs.search
 
                 watch(open, (val) => {
-                    if(val) {
+                    if (val) {
                         setTimeout(() => {
                             searchInput.focus()
                         }, 300)
@@ -167,7 +175,7 @@ export default {
 
             let options = []
             for (let option of props.options) {
-                if(option.value)
+                if (option.value)
                     options.push(option.value)
             }
 
@@ -176,16 +184,16 @@ export default {
 
         const handleOpen = (e) => {
 
-            if(selectAllClicked.value) {
+            if (selectAllClicked.value) {
                 selectAllClicked.value = false
             } else {
 
-                if(!open.value) {
+                if (!open.value) {
                     open.value = true
                 } else {
                     // alert('El: ' + e.target.tagName + ' ' + e.target.className)
 
-                    if(!optWrapperRef.value.contains(e.target) || optWrapperRef.value.isSameNode(e.target)) {
+                    if (!optWrapperRef.value.contains(e.target) || optWrapperRef.value.isSameNode(e.target)) {
                         open.value = false
                     }
                 }
@@ -194,7 +202,7 @@ export default {
 
         const update = (items) => {
 
-            if($(sumoSelectRef.value)[0].sumo) {
+            if ($(sumoSelectRef.value)[0].sumo) {
 
                 $(sumoSelectRef.value)[0].sumo.reload();
 
