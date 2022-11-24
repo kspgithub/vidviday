@@ -45,7 +45,10 @@
                         <span v-html="option.value === 0 ? 'Не вибрано' : option.text" />
                     </label>
 
-                    <label v-else v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+                    <template v-else>
+                        <img v-if="option.img" :src="option.img" />
+                        <label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+                    </template>
 
                 </li>
             </ul>

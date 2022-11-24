@@ -22,6 +22,10 @@ class UserQuestionEmail extends BaseTemplateEmail
     public function __construct(UserQuestion $userQuestion = null)
     {
         $this->userQuestion = $userQuestion ?: UserQuestion::random();
+
+        if($this->userQuestion->attachment_url) {
+            $this->attachment = $this->userQuestion->attachment_url;
+        }
     }
 
     public function getReplaces(): array

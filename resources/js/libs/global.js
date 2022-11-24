@@ -1,5 +1,3 @@
-import { h } from "vue";
-
 var winScr,
     is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
     is_Edge = /Edge\/\d+/.test(navigator.userAgent),
@@ -170,7 +168,7 @@ function goUpButtonScrolled() {
     }
 }
 
-const initDynamicPagination = function (swiper) {
+_functions.initDynamicPagination = function (swiper) {
     const pagination = swiper.pagination
 
     if (pagination && typeof pagination.bullets !== 'undefined') {
@@ -288,7 +286,7 @@ _functions.getSwOptions = function (swiper) {
             }
         },
         slideChange: function () {
-            initDynamicPagination(this)
+            _functions.initDynamicPagination(this)
         },
     };
 
@@ -316,7 +314,7 @@ _functions.getSwOptions = function (swiper) {
 _functions.initSwiper = function (el) {
     var swiper = new Swiper(el[0], _functions.getSwOptions(el))
 
-    initDynamicPagination(swiper)
+    _functions.initDynamicPagination(swiper)
 };
 
 _functions.openPopup = function (popup) {

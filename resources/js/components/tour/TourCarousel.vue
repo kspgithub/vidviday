@@ -119,6 +119,12 @@ export default {
             // $(paginator).addClass('relative fixed-width bottom')
 
             paginator.appendTo(paginator.parents('.swiper-entry').first())
+
+            _functions.initDynamicPagination(swiper.value)
+
+            instance.on('slideChange', (e) => {
+                _functions.initDynamicPagination(swiper.value)
+            })
         }
 
         const nextSlide = () => {
@@ -128,6 +134,7 @@ export default {
         const prevSlide = () => {
             swiper.value.slidePrev();
         }
+
         return {
             swiperOptions,
             setController,
