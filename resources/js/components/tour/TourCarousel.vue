@@ -33,7 +33,7 @@
             <div class="swiper-button-prev bottom" @click="prevSlide()">
                 <i></i>
             </div>
-            <div class="swiper-pagination"></div>
+            <div class="swiper-pagination-placeholder"></div>
             <div class="swiper-button-next bottom" @click="nextSlide()">
                 <i></i>
             </div>
@@ -115,9 +115,8 @@ export default {
             swiper.value = instance;
 
             const paginator = $(swiper.value.el).find('.swiper-pagination')
-            const paginatorPlaceholder = $(swiper.value.el).parent().find('.swiper-pagination')
+                const paginatorPlaceholder = $(swiper.value.el).parent().find('.swiper-pagination-placeholder')
 
-            alert(paginator.length)
             // $(paginator).addClass('relative fixed-width bottom')
 
             if(paginatorPlaceholder.length) {
