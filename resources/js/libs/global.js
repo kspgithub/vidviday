@@ -170,7 +170,6 @@ function goUpButtonScrolled() {
     }
 }
 
-
 const initDynamicPagination = function (swiper) {
     const pagination = swiper.pagination
 
@@ -243,6 +242,110 @@ _functions.refreshStatic = () => {
     });
 }
 
+_functions.scrollCall = function () {
+    winScr = $(window).scrollTop();
+    headerScrolled();
+    goUpButtonScrolled();
+}
+
+_functions.swiperConfig = function (el) {
+    var slides = $(el).find('.swiper-slide:not(.swiper-slide-duplicate)'),
+        visibleSlides = $(el).find('.swiper-slide-visible:not(.swiper-slide-duplicate)');
+    if ($(slides).length <= $(visibleSlides).length) {
+        $(el).parent().addClass('no-swipe');
+    }
+};
+
+_functions.getSwOptions = function (swiper) {
+    var options = swiper.data('options');
+
+    options = (!options || typeof options !== 'object') ? {} : options;
+    let $slider = swiper.closest('.swiper-entry'),
+        slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
+
+    if (!options.pagination) options.pagination = {
+        el: $slider.find('.swiper-pagination')[0],
+        clickable: true,
+    };
+
+    if (!options.navigation) options.navigation = {
+        nextEl: $slider.find('.swiper-button-next')[0],
+        prevEl: $slider.find('.swiper-button-prev')[0]
+    };
+
+    options.preloadImages = false;
+    options.lazy = {loadPrevNext: true};
+    options.observer = true;
+    options.observeParents = true;
+    options.watchOverflow = true;
+    options.watchSlidesVisibility = true;
+    options.on = {
+        slideChangeTransitionStart: function () {
+            if ($slider.hasClass('popup-gallery-slider')) {
+                let customFraction = $slider.closest('.popup-align').find('.pagination-fraction .text-bold'),
+                    activeSlideIndex = $slider.find('.swiper-slide-active').index();
+                $(customFraction).html(activeSlideIndex + 1);
+            }
+        },
+        slideChange: function () {
+            initDynamicPagination(this)
+        },
+    };
+
+    if (!options.speed) options.speed = 500;
+
+    options.roundLengths = false;
+
+    if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
+
+    if (options.customFraction) {
+        $p.addClass('custom-fraction-swiper');
+        if (slidesLength > 1 && slidesLength < 10) {
+            $p.find('.custom-current').text('01');
+            $p.find('.custom-total').text('0' + slidesLength);
+        } else if (slidesLength > 1) {
+            $p.find('.custom-current').text('01');
+            $p.find('.custom-total').text(slidesLength);
+        }
+    }
+    if (isTouchScreen) options.direction = "horizontal";
+
+    return options;
+};
+
+_functions.initSwiper = function (el) {
+    var swiper = new Swiper(el[0], _functions.getSwOptions(el))
+
+    initDynamicPagination(swiper)
+};
+
+_functions.openPopup = function (popup) {
+    $('.popup-content').removeClass('active');
+    $(popup + ', #popup-wrap').addClass('active');
+    removeScroll();
+};
+
+_functions.closePopup = function () {
+    $('#popup-wrap, .popup-content').removeClass('active');
+    addScroll();
+};
+
+_functions.textPopup = function (title, description) {
+    $('#text-popup .text-popup-title').html(title);
+    $('#text-popup .text-popup-description').html(description);
+    _functions.openPopup('#text-popup');
+};
+
+_functions.showPopup = function (target) {
+    alert()
+    headerLayerClose();
+    mobileMenuClose();
+    menuBtnClose();
+    tourSelectionClose();
+    $('.dropdown').removeClass('active');
+    _functions.openPopup('.popup-content[data-rel="' + target + '"]');
+}
+
 window.removeScroll = removeScroll;
 window.addScroll = addScroll;
 
@@ -273,9 +376,6 @@ jQuery(function ($) {
     headerScrolled();
     goUpButtonScrolled();
 
-
-    _functions.initSwiper()
-
     /*/////////////////////////*/
     /* FUNCTION ON PAGE SCROLL */
     /*/////////////////////////*/
@@ -283,97 +383,18 @@ jQuery(function ($) {
         _functions.scrollCall();
     });
 
-    _functions.scrollCall = function () {
-        winScr = $(window).scrollTop();
-        headerScrolled();
-        goUpButtonScrolled();
-    }
-
     _functions.scrollCall();
 
     /*###################*/
     /* 04 SWIPER SLIDERS */
     /*###################*/
 
-    _functions.getSwOptions = function (swiper) {
-        var options = swiper.data('options');
-
-        options = (!options || typeof options !== 'object') ? {} : options;
-        let $slider = swiper.closest('.swiper-entry'),
-            slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
-
-        if (!options.pagination) options.pagination = {
-            el: $slider.find('.swiper-pagination')[0],
-            clickable: true,
-        };
-
-        if (!options.navigation) options.navigation = {
-            nextEl: $slider.find('.swiper-button-next')[0],
-            prevEl: $slider.find('.swiper-button-prev')[0]
-        };
-
-        options.preloadImages = false;
-        options.lazy = {loadPrevNext: true};
-        options.observer = true;
-        options.observeParents = true;
-        options.watchOverflow = true;
-        options.watchSlidesVisibility = true;
-        options.on = {
-            slideChangeTransitionStart: function () {
-                if ($slider.hasClass('popup-gallery-slider')) {
-                    let customFraction = $slider.closest('.popup-align').find('.pagination-fraction .text-bold'),
-                        activeSlideIndex = $slider.find('.swiper-slide-active').index();
-                    $(customFraction).html(activeSlideIndex + 1);
-                }
-            },
-            slideChange: function () {
-                initDynamicPagination(this)
-            },
-        };
-
-        if (!options.speed) options.speed = 500;
-
-        options.roundLengths = false;
-
-        if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
-
-        if (options.customFraction) {
-            $p.addClass('custom-fraction-swiper');
-            if (slidesLength > 1 && slidesLength < 10) {
-                $p.find('.custom-current').text('01');
-                $p.find('.custom-total').text('0' + slidesLength);
-            } else if (slidesLength > 1) {
-                $p.find('.custom-current').text('01');
-                $p.find('.custom-total').text(slidesLength);
-            }
-        }
-        if (isTouchScreen) options.direction = "horizontal";
-
-        return options;
-    };
-
-    _functions.initSwiper = function (el) {
-        var swiper = new Swiper(el[0], _functions.getSwOptions(el))
-
-        initDynamicPagination(swiper)
-    };
-
     $('.swiper-entry:not(.swiper-vue) .swiper-container').each(function () {
         if (!$(this).hasClass('swiper-vue')) {
             _functions.initSwiper($(this));
-            swiperConfig($(this));
+            _functions.swiperConfig($(this));
         }
     });
-
-    function swiperConfig(el) {
-        var slides = $(el).find('.swiper-slide:not(.swiper-slide-duplicate)'),
-            visibleSlides = $(el).find('.swiper-slide-visible:not(.swiper-slide-duplicate)');
-        if ($(slides).length <= $(visibleSlides).length) {
-            $(el).parent().addClass('no-swipe');
-        }
-    }
-
-    _functions.swiperConfig = swiperConfig;
 
     $('.swiper-thumbs').each(function () {
         var top = $(this).find('.swiper-container.swiper-thumbs-top')[0].swiper,
@@ -680,33 +701,6 @@ jQuery(function ($) {
         }, 420);
 
         return false;
-    }
-
-    _functions.openPopup = function (popup) {
-        $('.popup-content').removeClass('active');
-        $(popup + ', #popup-wrap').addClass('active');
-        removeScroll();
-    };
-
-    _functions.closePopup = function () {
-        $('#popup-wrap, .popup-content').removeClass('active');
-        addScroll();
-    };
-
-    _functions.textPopup = function (title, description) {
-        $('#text-popup .text-popup-title').html(title);
-        $('#text-popup .text-popup-description').html(description);
-        _functions.openPopup('#text-popup');
-    };
-
-    _functions.showPopup = function (target) {
-        alert()
-        headerLayerClose();
-        mobileMenuClose();
-        menuBtnClose();
-        tourSelectionClose();
-        $('.dropdown').removeClass('active');
-        _functions.openPopup('.popup-content[data-rel="' + target + '"]');
     }
 
     $(document).on('click', '.open-popup', function (e) {
