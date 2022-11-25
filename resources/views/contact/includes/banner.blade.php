@@ -105,7 +105,7 @@
                     <div class="img">
                         {{svg('time')}}
                     </div>
-                    <span>{{$contact->opening_hours}}</span>
+                    <span>{!! Str::replace("\n", '<br>', $contact->opening_hours) !!}</span>
                 </div>
             </div>
         </div>

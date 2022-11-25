@@ -38,11 +38,12 @@ class EventBasicRequest extends FormRequest
             'short_text' => ['nullable', 'array'],
             'groups' => ['required', 'array'],
             'tours' => ['required', 'array'],
-            'directions' => ['required', 'array'],
+//            'directions' => ['required', 'array'],
             'published' => ['nullable', Rule::in(['1', '0'])],
             'indefinite' => ['nullable', Rule::in(['1', '0'])],
             'start_date' => ['nullable', 'date_format:Y-m-d'],
             'end_date' => ['nullable', 'date_format:Y-m-d'],
+            'video' => ['nullable'],
         ];
     }
 }

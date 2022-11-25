@@ -79,6 +79,7 @@ class EventItem extends TranslatableModel implements HasMedia
         'indefinite',
         'start_date',
         'end_date',
+        'video',
     ];
 
     protected $appends = [

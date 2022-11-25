@@ -40,7 +40,7 @@
                          class="map-wrapper full-size"
                          data-lat="{{$place->lat}}"
                          data-lng="{{$place->lng}}"
-                         data-zoom="13"
+                         data-zoom="8"
                          data-img-cluster="{{asset('icon/cluster.svg')}}?"
                     ></div>
                     <div class="marker"

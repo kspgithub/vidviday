@@ -18,11 +18,11 @@
                                         :value="old('short_text', $event->getTranslations('short_text'))"
                                         rows="5"/>
 
-            <x-forms.tag-group name="directions[]"
-                               :label="__('Directions')"
-                               :value="$event->directions ?  $event->directions->pluck('id')->toArray() : []"
-                               :options="$directions">
-            </x-forms.tag-group>
+{{--            <x-forms.tag-group name="directions[]"--}}
+{{--                               :label="__('Directions')"--}}
+{{--                               :value="$event->directions ?  $event->directions->pluck('id')->toArray() : []"--}}
+{{--                               :options="$directions">--}}
+{{--            </x-forms.tag-group>--}}
 
             <x-forms.tag-group name="groups[]"
                                :label="__('Groups')"
@@ -52,6 +52,10 @@
                 placeholder="{{ __('End Date')}}"
                 value="{{$event->end_date}}"
             />
+
+            <x-forms.text-group name="video" :label="__('Youtube Video')"
+                                :value="old('video', $event->video)"></x-forms.text-group>
+
 
             <x-forms.switch-group name="published" :label="__('Published')"
                                   :active="$event->published"></x-forms.switch-group>
