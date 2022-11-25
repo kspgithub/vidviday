@@ -49,7 +49,7 @@
                     <!-- BANNER/INFO END -->
 
                     <!-- THUMBS CAROUSEL -->
-                    <x-tour.popular :model="$pageContent"/>
+                    <x-tour.popular />
                     <!-- THUMBS CAROUSEL END -->
 
 

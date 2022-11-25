@@ -32,13 +32,9 @@ class PopularToursController extends Controller
         $query = PopularTour::query()->orderBy('position')
             ->with('tour');
 
-        if($type) {
             $query->type($type);
-        }
 
-        if($id) {
             $query->model($id);
-        }
 
         $items = $query->get();
 

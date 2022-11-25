@@ -29,15 +29,23 @@ class PopularTour extends Model
         return $this->morphTo();
     }
 
-    public function scopeType(Builder $q, $type)
+    public function scopeType(Builder $q, $type = null)
     {
+        if(is_null($type)) {
+            return $q->whereNull('model_type');
+        }
+
         $class = Str::startsWith($type, 'App\\Models\\') ? $type : 'App\\Models\\' . ucwords($type);
 
         return $q->where('model_type', $class);
     }
 
-    public function scopeModel(Builder $q, $id)
+    public function scopeModel(Builder $q, $id = null)
     {
+        if(is_null($id)) {
+            return $q->whereNull('model_id');
+        }
+
         return $q->where('model_id', $id);
     }
 }

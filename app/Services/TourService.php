@@ -318,7 +318,9 @@ class TourService extends BaseService
                     ->latest()
             ])
             ->when($type, fn($q) => $q->where('popular_tours.model_type', $type))
+            ->when(is_null($type), fn($q) => $q->whereNull('popular_tours.model_type'))
             ->when($id, fn($q) => $q->where('popular_tours.model_id', $id))
+            ->when(is_null($id), fn($q) => $q->whereNull('popular_tours.model_id'))
             ->take($count);
 
         $popularTours = $query->get();
