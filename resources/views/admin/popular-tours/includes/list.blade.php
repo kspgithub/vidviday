@@ -24,7 +24,7 @@
                             <td>@include('admin.partials.published', ['model'=>$item, 'updateUrl'=>route('admin.popular-tours.update', $item)])</td>
                             <td class="table-action">
                                 <x-utils.delete-button
-                                    :href="route('admin.popular-tours.destroy', $item)"
+                                    :href="route('admin.popular-tours.destroy', [$item])"
                                     text=""/>
                             </td>
                         </tr>

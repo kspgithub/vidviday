@@ -11,7 +11,7 @@
 
     <x-page.edit :title="__('Create').' '.__('Place')"
                  :backUrl="route('admin.popular-tours.index')"
-                 :updateUrl="route('admin.popular-tours.store')"
+                 :updateUrl="route('admin.popular-tours.store', request()->only('scope'))"
     >
         @include('admin.popular-tours.includes.form')
     </x-page.edit>

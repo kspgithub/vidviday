@@ -133,4 +133,9 @@ class Page extends TranslatableModel implements HasMedia
 
         return true;
     }
+
+    public function popularTours()
+    {
+        return $this->morphMany(PopularTour::class, 'model');
+    }
 }

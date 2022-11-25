@@ -68,7 +68,7 @@
                     <hr>
                     <div class="spacer-sm"></div>
                     <!-- THUMBS CAROUSEL -->
-                    <x-tour.popular/>
+                    <x-tour.popular :model="$pageContent"/>
                     <!-- THUMBS CAROUSEL END -->
                 </div>
             </div>

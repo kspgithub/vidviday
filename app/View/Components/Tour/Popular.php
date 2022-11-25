@@ -8,7 +8,9 @@ use App\Services\TourService;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class Popular extends Component
@@ -20,11 +22,19 @@ class Popular extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Model $model = null)
     {
         //
-        $this->popularTours = Cache::remember('popular-tours', 1, function () {
-            return TourService::popularTours(25, app()->getLocale());
+        $keys = ['popular-tours'];
+        if($model && $model->model_type) {
+            $keys[] = Str::snake($model->model_type);
+        }
+        if($model && $model->model_id) {
+            $keys[] = $model->model_id;
+        }
+
+        $this->popularTours = Cache::remember(implode('_', $keys), 1, function () use ($model) {
+            return TourService::popularTours($model, 25, app()->getLocale());
         });
     }
 

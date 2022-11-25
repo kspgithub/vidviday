@@ -13,8 +13,19 @@
         <h1>@lang('Popular Tours')</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.popular-tours.create')}}" class="btn btn-sm btn-outline-info"><i
+            <a href="{{route('admin.popular-tours.create', request()->only(['scope']))}}" class="btn btn-sm btn-outline-info"><i
                     data-feather="plus"></i> @lang('Create record')</a>
+        </div>
+
+        <div>
+            <form>
+                <select name="scope" onchange="this.form.submit()">
+                    <option value=""> --- </option>
+                    @foreach($scopes as $id => $name)
+                        <option value="{{$id}}" {{ request('scope') === $id ? 'selected="selected"' : '' }}>{{$name}}</option>
+                    @endforeach
+                </select>
+            </form>
         </div>
 
     </div>

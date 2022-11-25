@@ -13,7 +13,7 @@ trait UserAttributes
 
     public function getRoleAttribute()
     {
-        return $this->roles ? $this->roles->first()->name : '';
+        return $this->roles ? $this->roles->first()?->name : '';
     }
 
     public function getInitialsAttribute()

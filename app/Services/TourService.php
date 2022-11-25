@@ -17,6 +17,7 @@ use Cache;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -298,9 +299,12 @@ class TourService extends BaseService
             ->whereIn('id', $ids)->get();
     }
 
-    public static function popularTours($count = 12, $locale = 'uk')
+    public static function popularTours($model = null, $count = 12, $locale = 'uk')
     {
-        $popularTours = Tour::search(false)
+        $type = $model instanceof Model ? get_class($model) : (class_exists($model) ? $model : null);
+        $id = $model instanceof Model ? $model->id : null;
+
+        $query = Tour::search(false)
             ->whereJsonContains('locales', $locale)
             ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
             ->where('popular_tours.published', 1)
@@ -313,7 +317,11 @@ class TourService extends BaseService
                     ->orderBy('rating', 'desc')
                     ->latest()
             ])
-            ->take($count)->get();
+            ->when($type, fn($q) => $q->where('popular_tours.model_type', $type))
+            ->when($id, fn($q) => $q->where('popular_tours.model_id', $id))
+            ->take($count);
+
+        $popularTours = $query->get();
 
         $remains = $count - $popularTours->count();
 
@@ -329,8 +337,6 @@ class TourService extends BaseService
             $popularTours = $popularTours->merge($bestsellerTours);
         }
 
-        $popularTours = $popularTours->unique('id');
-
-        return $popularTours;
+        return $popularTours->unique('id');
     }
 }
