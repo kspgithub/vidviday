@@ -77,6 +77,11 @@ export default {
             }
         });
 
+        const selectAllSync = computed(() =>
+            selected.value.length === items.value.length
+                && items.value.every(item => item.quantity === items.value[0].quantity)
+        )
+
         const selected = ref([]);
 
         const {locale} = useI18n({useScope: 'global'});
@@ -114,7 +119,13 @@ export default {
         const changeQuantity = (payload) => {
             const item = items.value.find(it => it.id === payload.id);
             if (item) {
-                item.quantity = payload.quantity;
+                if(selectAllSync.value && payload.id === items.value[0].id) {
+                    for(let i in items.value) {
+                        items.value[i].quantity = payload.quantity
+                    }
+                } else {
+                    item.quantity = payload.quantity
+                }
             }
         }
 
@@ -145,6 +156,7 @@ export default {
             changeItem,
             changeQuantity,
             total,
+            selectAllSync,
         }
     }
 }
