@@ -30,7 +30,7 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .webpackConfig({
         output: {
             chunkFilename: mix.inProduction()
-                ? path.normalize(`../../js/chunks/[name].[chunkhash].js`)
+                ? path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
                 : 'js/chunks/[name].[chunkhash].js'
         },
         resolve: {
