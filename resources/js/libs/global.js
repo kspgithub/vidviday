@@ -1,14 +1,14 @@
-var winScr,
-    is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
-    is_Edge = /Edge\/\d+/.test(navigator.userAgent),
-    is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
+var _functions = {},
+    popupTop = 0,
+    winWidth;
 
-    is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
-    isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
+window._functions = _functions;
 
-var _functions = {}
-window._functions = _functions
-var popupTop = 0
+window.lozad = require('lozad/dist/lozad.min')
+
+window.observer = lozad('.lozad', {
+
+});
 
 function removeScroll() {
 
@@ -29,338 +29,34 @@ function removeScroll() {
     }, 200)
 }
 
+window.removeScroll = removeScroll;
+
+
 function addScroll() {
     $('html').css({
         "position": "static"
     });
     window.scroll(0, popupTop);
 }
-
-function lazyLoadImg() {
-
-    let img = document.querySelectorAll('[data-img-src]'),
-        observer = new IntersectionObserver((entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    let lazyImg = entry.target
-
-                    lazyImg.src = lazyImg.dataset.imgSrc;
-                    observer.unobserve(lazyImg)
-                }
-            })
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
-        });
-
-    img.forEach(i => {
-        observer.observe(i)
-    })
-}
-
-function lazyLoadBg() {
-
-    let bg = document.querySelectorAll('[data-bg-src]'),
-        observer = new IntersectionObserver((entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    let lazyBg = entry.target,
-                        lazyBgSrc = 'url("' + lazyBg.dataset.bgSrc + '")';
-
-                    lazyBg.style.backgroundImage = lazyBgSrc;
-                    observer.unobserve(lazyBg)
-                }
-            })
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
-        });
-
-    bg.forEach(i => {
-        observer.observe(i)
-    })
-}
-
-function lazyLoadVideo() {
-
-    let video = document.querySelectorAll('[data-video-src]'),
-        videoMarkup,
-        observer = new IntersectionObserver((entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-                    let lazyVideo = entry.target,
-                        videoSrc = lazyVideo.dataset.videoSrc;
-
-                    if (lazyVideo.classList.contains('autoplay')) {
-                        videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted autoplay inline loop><source src="' + videoSrc + '" type="video/mp4"></video>';
-                    } else {
-                        videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' controls inline><source src="' + videoSrc + '" type="video/mp4"></video>';
-                    }
-
-                    lazyVideo.innerHTML = videoMarkup;
-                    observer.unobserve(lazyVideo)
-                }
-            })
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
-        });
-
-    video.forEach(i => {
-        observer.observe(i)
-    })
-}
-
-function lazyLoadFrames() {
-
-    let frame = document.querySelectorAll('[data-frame-src]'),
-        frameMarkup,
-        observer = new IntersectionObserver((entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-                    let lazyFrame = entry.target,
-                        frameSrc = lazyFrame.dataset.frameSrc;
-
-                    frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
-                    lazyFrame.innerHTML = frameMarkup;
-                    observer.unobserve(lazyFrame)
-                }
-            })
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
-        });
-
-    frame.forEach(i => {
-        observer.observe(i)
-    })
-}
-
-function headerScrolled() {
-    if (winScr >= $('header').outerHeight()) {
-        $('header').addClass('scrolled');
-    } else {
-        $('header').removeClass('scrolled');
-    }
-
-    if (winScr >= 1 && $('.step-page').length) {
-        $('.step-page').addClass('scrolled');
-    } else {
-        $('.step-page').removeClass('scrolled');
-    }
-}
-
-function goUpButtonScrolled() {
-    if (winScr >= $('header').outerHeight()) {
-        $('.btn-to-top').addClass('active');
-    } else {
-        $('.btn-to-top').removeClass('active');
-    }
-}
-
-_functions.initDynamicPagination = function (swiper) {
-    const pagination = swiper.pagination
-
-    if (pagination && typeof pagination.bullets !== 'undefined') {
-
-        const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
-
-        const totalBullets = bullets.length
-
-        if (totalBullets > 5) {
-            const maxIndex = totalBullets - 1
-            const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
-
-            const visibleIndexes = [activeIndex];
-
-            for (let i = 1; i < 3; i++) {
-                let index, currentIndex = activeIndex + i;
-
-                if (currentIndex >= maxIndex) {
-                    index = currentIndex - maxIndex
-                } else {
-                    index = currentIndex
-                }
-                visibleIndexes.push(index)
-            }
-
-            for (let i = 1; i < 3; i++) {
-                let index, currentIndex = activeIndex - i;
-
-                if (currentIndex < 0) {
-                    index = maxIndex + currentIndex + 1
-                } else {
-                    index = currentIndex
-                }
-                visibleIndexes.push(index)
-            }
-
-            $(bullets).each((index, bullet) => {
-                if (visibleIndexes.includes(index)) {
-                    $(bullet).addClass('visible').show()
-                } else {
-                    $(bullet).removeClass('visible').hide()
-                }
-            })
-        }
-    }
-}
-
-_functions.refreshStatic = () => {
-    lazyLoadImg();
-    lazyLoadBg();
-    lazyLoadVideo();
-    lazyLoadFrames();
-
-    $(".slider-range").each(function () {
-        if (!$(this).hasClass('vue-range')) {
-            var $range = $(this),
-                $input = $(this).parent().find('input');
-            $(this).slider({
-                range: true,
-                min: $(this).data('min'),
-                max: $(this).data('max'),
-                values: $(this).data('values'),
-                slide: function (event, ui) {
-                    $(this).parent().find('.range-min').text(ui.values[0]);
-                    $(this).parent().find('.range-max').text(ui.values[1]);
-                }
-            });
-        }
-    });
-}
-
-_functions.scrollCall = function () {
-    winScr = $(window).scrollTop();
-    headerScrolled();
-    goUpButtonScrolled();
-}
-
-_functions.swiperConfig = function (el) {
-    var slides = $(el).find('.swiper-slide:not(.swiper-slide-duplicate)'),
-        visibleSlides = $(el).find('.swiper-slide-visible:not(.swiper-slide-duplicate)');
-    if ($(slides).length <= $(visibleSlides).length) {
-        $(el).parent().addClass('no-swipe');
-    }
-};
-
-_functions.getSwOptions = function (swiper) {
-    var options = swiper.data('options');
-
-    options = (!options || typeof options !== 'object') ? {} : options;
-    let $slider = swiper.closest('.swiper-entry'),
-        slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
-
-    if (!options.pagination) options.pagination = {
-        el: $slider.find('.swiper-pagination')[0],
-        clickable: true,
-    };
-
-    if (!options.navigation) options.navigation = {
-        nextEl: $slider.find('.swiper-button-next')[0],
-        prevEl: $slider.find('.swiper-button-prev')[0]
-    };
-
-    options.preloadImages = false;
-    options.lazy = {loadPrevNext: true};
-    options.observer = true;
-    options.observeParents = true;
-    options.watchOverflow = true;
-    options.watchSlidesVisibility = true;
-    options.on = {
-        slideChangeTransitionStart: function () {
-            if ($slider.hasClass('popup-gallery-slider')) {
-                let customFraction = $slider.closest('.popup-align').find('.pagination-fraction .text-bold'),
-                    activeSlideIndex = $slider.find('.swiper-slide-active').index();
-                $(customFraction).html(activeSlideIndex + 1);
-            }
-        },
-        slideChange: function () {
-            _functions.initDynamicPagination(this)
-        },
-    };
-
-    if (!options.speed) options.speed = 500;
-
-    options.roundLengths = false;
-
-    if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
-
-    if (options.customFraction) {
-        $p.addClass('custom-fraction-swiper');
-        if (slidesLength > 1 && slidesLength < 10) {
-            $p.find('.custom-current').text('01');
-            $p.find('.custom-total').text('0' + slidesLength);
-        } else if (slidesLength > 1) {
-            $p.find('.custom-current').text('01');
-            $p.find('.custom-total').text(slidesLength);
-        }
-    }
-    if (isTouchScreen) options.direction = "horizontal";
-
-    return options;
-};
-
-_functions.initSwiper = function (el) {
-    var swiper = new Swiper(el[0], _functions.getSwOptions(el))
-
-    _functions.initDynamicPagination(swiper)
-};
-
-_functions.openPopup = function (popup) {
-    $('.popup-content').removeClass('active');
-    $(popup + ', #popup-wrap').addClass('active');
-    removeScroll();
-};
-
-_functions.closePopup = function () {
-    $('#popup-wrap, .popup-content').removeClass('active');
-    addScroll();
-};
-
-_functions.textPopup = function (title, description) {
-    $('#text-popup .text-popup-title').html(title);
-    $('#text-popup .text-popup-description').html(description);
-    _functions.openPopup('#text-popup');
-};
-
-_functions.showPopup = function (target) {
-    alert()
-    headerLayerClose();
-    mobileMenuClose();
-    menuBtnClose();
-    tourSelectionClose();
-    $('.dropdown').removeClass('active');
-    _functions.openPopup('.popup-content[data-rel="' + target + '"]');
-}
-
-window.removeScroll = removeScroll;
 window.addScroll = addScroll;
-
-window.addEventListener('vueMounted', (event) => {
-
-    console.log('========================================================')
-    console.log('=========== *** Vue Component Mounted *** ==============')
-    console.log('========================================================')
-
-    const app = event.detail
-
-    _functions.refreshStatic()
-})
 
 jQuery(function ($) {
 
     "use strict";
+
+    /*##############*/
+    /* 01 VARIABLES */
+    /*##############*/
+    var winScr,
+        winWidth = $(window).width(),
+        winHeight = $(window).height(),
+        is_Mac = navigator.platform.toUpperCase().indexOf('MAC') >= 0,
+        is_Edge = /Edge\/\d+/.test(navigator.userAgent),
+        is_IE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent),
+
+        is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
+        isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
+
 
     /*###############################*/
     /* 02 FUNCTION ON DOCUMENT READY */
@@ -374,6 +70,141 @@ jQuery(function ($) {
     headerScrolled();
     goUpButtonScrolled();
 
+    setTimeout(function () {
+        lazyLoadImg();
+        lazyLoadBg();
+        lazyLoadVideo();
+        lazyLoadFrames();
+
+        $(".slider-range").each(function () {
+            if (!$(this).hasClass('vue-range')) {
+                var $range = $(this),
+                    $input = $(this).parent().find('input');
+                $(this).slider({
+                    range: true,
+                    min: $(this).data('min'),
+                    max: $(this).data('max'),
+                    values: $(this).data('values'),
+                    slide: function (event, ui) {
+                        $(this).parent().find('.range-min').text(ui.values[0]);
+                        $(this).parent().find('.range-max').text(ui.values[1]);
+                    }
+                });
+            }
+        });
+    }, 200);
+
+    // Lazy loadings for images, backgrounds adn videos
+    function lazyLoadImg() {
+
+        let img = document.querySelectorAll('[data-img-src]'),
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        let lazyImg = entry.target
+
+                        lazyImg.src = lazyImg.dataset.imgSrc;
+                        observer.unobserve(lazyImg)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        img.forEach(i => {
+            observer.observe(i)
+        })
+    }
+
+    function lazyLoadBg() {
+
+        let bg = document.querySelectorAll('[data-bg-src]'),
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        let lazyBg = entry.target,
+                            lazyBgSrc = 'url("' + lazyBg.dataset.bgSrc + '")';
+
+                        lazyBg.style.backgroundImage = lazyBgSrc;
+                        observer.unobserve(lazyBg)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        bg.forEach(i => {
+            observer.observe(i)
+        })
+    }
+
+    function lazyLoadVideo() {
+
+        let video = document.querySelectorAll('[data-video-src]'),
+            videoMarkup,
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        let lazyVideo = entry.target,
+                            videoSrc = lazyVideo.dataset.videoSrc;
+
+                        if (lazyVideo.classList.contains('autoplay')) {
+                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' muted autoplay inline loop><source src="' + videoSrc + '" type="video/mp4"></video>';
+                        } else {
+                            videoMarkup = '<video ' + ($(this).is('[data-autoplay]') ? 'autoplay' : '') + ' controls inline><source src="' + videoSrc + '" type="video/mp4"></video>';
+                        }
+
+                        lazyVideo.innerHTML = videoMarkup;
+                        observer.unobserve(lazyVideo)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        video.forEach(i => {
+            observer.observe(i)
+        })
+    }
+
+    function lazyLoadFrames() {
+
+        let frame = document.querySelectorAll('[data-frame-src]'),
+            frameMarkup,
+            observer = new IntersectionObserver((entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        let lazyFrame = entry.target,
+                            frameSrc = lazyFrame.dataset.frameSrc;
+
+                        frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
+                        lazyFrame.innerHTML = frameMarkup;
+                        observer.unobserve(lazyFrame)
+                    }
+                })
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+        frame.forEach(i => {
+            observer.observe(i)
+        })
+    }
+
     /*/////////////////////////*/
     /* FUNCTION ON PAGE SCROLL */
     /*/////////////////////////*/
@@ -381,18 +212,145 @@ jQuery(function ($) {
         _functions.scrollCall();
     });
 
+    var prev_scroll = 0;
+    _functions.scrollCall = function () {
+        winScr = $(window).scrollTop();
+        headerScrolled();
+        goUpButtonScrolled();
+    }
+
     _functions.scrollCall();
 
     /*###################*/
     /* 04 SWIPER SLIDERS */
     /*###################*/
+    _functions.getSwOptions = function (swiper) {
+        var options = swiper.data('options');
+
+        options = (!options || typeof options !== 'object') ? {} : options;
+        let $slider = swiper.closest('.swiper-entry'),
+            slidesLength = swiper.find('>.swiper-wrapper>.swiper-slide').length;
+
+        if (!options.pagination) options.pagination = {
+            el: $slider.find('.swiper-pagination')[0],
+            clickable: true,
+        };
+
+        if (!options.navigation) options.navigation = {
+            nextEl: $slider.find('.swiper-button-next')[0],
+            prevEl: $slider.find('.swiper-button-prev')[0]
+        };
+
+        options.preloadImages = false;
+        options.lazy = {loadPrevNext: true};
+        options.observer = true;
+        options.observeParents = true;
+        options.watchOverflow = true;
+        options.watchSlidesVisibility = true;
+        options.on = {
+            slideChangeTransitionStart: function () {
+                if ($slider.hasClass('popup-gallery-slider')) {
+                    let customFraction = $slider.closest('.popup-align').find('.pagination-fraction .text-bold'),
+                        activeSlideIndex = $slider.find('.swiper-slide-active').index();
+                    $(customFraction).html(activeSlideIndex + 1);
+                }
+            },
+            slideChange: function () {
+                _functions.initDynamicPagination(this)
+            },
+        };
+
+        if (!options.speed) options.speed = 500;
+
+        options.roundLengths = false;
+
+        if (!options.centerInsufficientSlides) options.centerInsufficientSlides = false;
+
+        if (options.customFraction) {
+            $p.addClass('custom-fraction-swiper');
+            if (slidesLength > 1 && slidesLength < 10) {
+                $p.find('.custom-current').text('01');
+                $p.find('.custom-total').text('0' + slidesLength);
+            } else if (slidesLength > 1) {
+                $p.find('.custom-current').text('01');
+                $p.find('.custom-total').text(slidesLength);
+            }
+        }
+        if (isTouchScreen) options.direction = "horizontal";
+
+        return options;
+    };
+
+    _functions.initSwiper = function (el) {
+        var swiper = new Swiper(el[0], _functions.getSwOptions(el))
+
+        _functions.initDynamicPagination(swiper)
+    };
+
+    _functions.initDynamicPagination = function (swiper) {
+        const pagination = swiper.pagination
+
+        if (pagination && typeof pagination.bullets !== 'undefined') {
+
+            const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
+
+            const totalBullets = bullets.length
+
+            if (totalBullets > 5) {
+                const maxIndex = totalBullets - 1
+                const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
+
+                const visibleIndexes = [activeIndex];
+
+                for (let i = 1; i < 3; i++) {
+                    let index, currentIndex = activeIndex + i;
+
+                    if (currentIndex >= maxIndex) {
+                        index = currentIndex - maxIndex
+                    } else {
+                        index = currentIndex
+                    }
+                    visibleIndexes.push(index)
+                }
+
+                for (let i = 1; i < 3; i++) {
+                    let index, currentIndex = activeIndex - i;
+
+                    if (currentIndex < 0) {
+                        index = maxIndex + currentIndex + 1
+                    } else {
+                        index = currentIndex
+                    }
+                    visibleIndexes.push(index)
+                }
+
+                $(bullets).each((index, bullet) => {
+                    if (visibleIndexes.includes(index)) {
+                        $(bullet).addClass('visible').show()
+                    } else {
+                        $(bullet).removeClass('visible').hide()
+                    }
+                })
+            }
+        }
+    }
 
     $('.swiper-entry:not(.swiper-vue) .swiper-container').each(function () {
         if (!$(this).hasClass('swiper-vue')) {
             _functions.initSwiper($(this));
-            _functions.swiperConfig($(this));
+            swiperConfig($(this));
         }
     });
+
+    function swiperConfig(el) {
+        var slides = $(el).find('.swiper-slide:not(.swiper-slide-duplicate)'),
+            visibleSlides = $(el).find('.swiper-slide-visible:not(.swiper-slide-duplicate)');
+        if ($(slides).length <= $(visibleSlides).length) {
+            $(el).parent().addClass('no-swipe');
+        }
+    }
+
+    _functions.swiperConfig = swiperConfig;
 
     $('.swiper-thumbs').each(function () {
         var top = $(this).find('.swiper-container.swiper-thumbs-top')[0].swiper,
@@ -469,7 +427,45 @@ jQuery(function ($) {
         }
     }
 
+    function headerLayerClose() {
+        $('#header-layer-close').removeClass('active');
+    }
 
+    function headerLayerOpen() {
+        $('#header-layer-close').addClass('active');
+    }
+
+    function mobileMenuClose() {
+        $('nav').removeClass('active');
+    }
+
+    function mobileMenuOpen() {
+        $('nav').addClass('active');
+    }
+
+    function menuBtnClose() {
+        $('#menu-btn').removeClass('active');
+    }
+
+    function menuBtnOpen() {
+        $('#menu-btn').addClass('active');
+    }
+
+    function searchDropdownClose() {
+        $('#search-dropdown').removeClass('active');
+    }
+
+    function searchDropdownOpen() {
+        $('#search-dropdown').addClass('active');
+    }
+
+    function tourSelectionClose() {
+        $('#tour-selection-dropdown').removeClass('active');
+    }
+
+    function tourSelectionOpen() {
+        $('#tour-selection-dropdown').addClass('active');
+    }
 
     // Mobile menu button
     $('#menu-btn').on('click', function () {
@@ -649,56 +645,31 @@ jQuery(function ($) {
         $input.val(temp <= max ? temp : max);
     });
     // Popup
+    _functions.openPopup = function (popup) {
+        $('.popup-content').removeClass('active');
+        $(popup + ', #popup-wrap').addClass('active');
+        removeScroll();
+    };
 
+    _functions.closePopup = function () {
+        $('#popup-wrap, .popup-content').removeClass('active');
+        addScroll();
+    };
 
-    function headerLayerClose() {
-        $('#header-layer-close').removeClass('active');
-    }
+    _functions.textPopup = function (title, description) {
+        $('#text-popup .text-popup-title').html(title);
+        $('#text-popup .text-popup-description').html(description);
+        _functions.openPopup('#text-popup');
+    };
 
-    function headerLayerOpen() {
-        $('#header-layer-close').addClass('active');
-    }
-
-    function mobileMenuClose() {
-        $('nav').removeClass('active');
-    }
-
-    function mobileMenuOpen() {
-        $('nav').addClass('active');
-    }
-
-    function menuBtnClose() {
-        $('#menu-btn').removeClass('active');
-    }
-
-    function menuBtnOpen() {
-        $('#menu-btn').addClass('active');
-    }
-
-    function searchDropdownClose() {
-        $('#search-dropdown').removeClass('active');
-    }
-
-    function searchDropdownOpen() {
-        $('#search-dropdown').addClass('active');
-    }
-
-    function tourSelectionClose() {
-        $('#tour-selection-dropdown').removeClass('active');
-    }
-
-    function tourSelectionOpen() {
-        $('#tour-selection-dropdown').addClass('active');
-    }
-
-    //accordion
-    function pageScroll(current) {
-
-        $('html, body').animate({
-            scrollTop: current.offset().top - ($('header').outerHeight() + 40)
-        }, 420);
-
-        return false;
+    _functions.showPopup = function (target) {
+        alert()
+        headerLayerClose();
+        mobileMenuClose();
+        menuBtnClose();
+        tourSelectionClose();
+        $('.dropdown').removeClass('active');
+        _functions.openPopup('.popup-content[data-rel="' + target + '"]');
     }
 
     $(document).on('click', '.open-popup', function (e) {
@@ -734,6 +705,16 @@ jQuery(function ($) {
         $('.video-popup-container iframe').attr('src', 'about:blank');
         e.preventDefault();
     });
+
+    //accordion
+    function pageScroll(current) {
+
+        $('html, body').animate({
+            scrollTop: current.offset().top - ($('header').outerHeight() + 40)
+        }, 420);
+
+        return false;
+    }
 
     $(document).on('click', '.accordion-title', function (e) {
         var current = $(this);
@@ -944,6 +925,33 @@ jQuery(function ($) {
 
     });
 
+    // Remove participant
+    // $('.participant .btn-delete').on('click', function () {
+    //     $(this).closest('.participant').remove();
+    //     $('.participant').each(function () {
+    //         $(this).find('.h4 span').html($(this).index() + 1);
+    //     });
+    // });
+    // participant datepicker
+    // $('.participant .datepicker-input input').on('blur', function () {
+    //     if ($(this).closest('.datepicker-input').hasClass('vue-datepicker')) return;
+    //     if ($(this).val()) {
+    //         $(this).closest('.datepicker-input').addClass('filled');
+    //     } else {
+    //         $(this).closest('.datepicker-input').removeClass('filled');
+    //     }
+    // });
+
+    // $('.participant .single-datepicker').on('mouseleave', function () {
+    //     if ($(this).find('.datepicker-input').hasClass('vue-datepicker')) return;
+    //     if ($(this).find('input').val()) {
+    //         $(this).find('.datepicker-input').addClass('filled');
+    //     } else {
+    //         $(this).find('.datepicker-input').removeClass('filled');
+    //     }
+    // });
+
+    // Apartment form
     $(document).on('click', '.apartment-option .number-input button', function () {
         var val = parseInt($(this).parent().find('input').val());
         if (val > 0) {
@@ -1028,6 +1036,31 @@ jQuery(function ($) {
         $(accordion).click();
     });
 
+    /*////////////*/
+    /* ANIMATIONS */
+    /*////////////*/
+    function headerScrolled() {
+        if (winScr >= $('header').outerHeight()) {
+            $('header').addClass('scrolled');
+        } else {
+            $('header').removeClass('scrolled');
+        }
+
+        if (winScr >= 1 && $('.step-page').length) {
+            $('.step-page').addClass('scrolled');
+        } else {
+            $('.step-page').removeClass('scrolled');
+        }
+    }
+
+    function goUpButtonScrolled() {
+        if (winScr >= $('header').outerHeight()) {
+            $('.btn-to-top').addClass('active');
+        } else {
+            $('.btn-to-top').removeClass('active');
+        }
+    }
+
     // 09 Comments stars rank
     $('.rating-picker .select-icon').on('click', function () {
         $(this).addClass('active').siblings().removeClass('active');
@@ -1035,47 +1068,113 @@ jQuery(function ($) {
     });
 });
 
-$(document).on('click', '.show-more-events', function (e) {
-    var $btn = $(e.currentTarget);
-    var $container = $btn.parents('.accordion-inner').eq(0);
-    var $items = $container.find('.schedule-row');
-    $items.each(function () {
-        $(this).removeClass('d-none');
+/*********************************************/
+$(function () {
+    $('.scroll-top').on('scroll', function (e) {
+        $('.scroll-bottom').scrollLeft($('.scroll-top').scrollLeft());
     });
-    $btn.addClass('d-none');
-    $container.find('.hide-more-events').removeClass('d-none');
-});
-
-$(document).on('click', '.hide-more-events', function (e) {
-    var $btn = $(e.currentTarget);
-    var $container = $btn.parents('.accordion-inner').eq(0);
-    var $items = $container.find('.schedule-row');
-    $items.each(function (idx, el) {
-        if (idx > 2) {
-            $(this).addClass('d-none');
-        }
+    $('.scroll-bottom').on('scroll', function (e) {
+        $('.scroll-top').scrollLeft($('.scroll-bottom').scrollLeft());
     });
-    $btn.addClass('d-none');
-    $container.find('.show-more-events').removeClass('d-none');
-});
 
-$(document).on('click', 'a[print]', function (e) {
-    e.preventDefault()
-    window.print();
+    $(document).on('click', '.show-more-events', function (e) {
+        var $btn = $(e.currentTarget);
+        var $container = $btn.parents('.accordion-inner').eq(0);
+        var $items = $container.find('.schedule-row');
+        $items.each(function () {
+            $(this).removeClass('d-none');
+        });
+        $btn.addClass('d-none');
+        $container.find('.hide-more-events').removeClass('d-none');
+    });
+
+    $(document).on('click', '.hide-more-events', function (e) {
+        var $btn = $(e.currentTarget);
+        var $container = $btn.parents('.accordion-inner').eq(0);
+        var $items = $container.find('.schedule-row');
+        $items.each(function (idx, el) {
+            if (idx > 2) {
+                $(this).addClass('d-none');
+            }
+        });
+        $btn.addClass('d-none');
+        $container.find('.show-more-events').removeClass('d-none');
+    });
+
+    $(document).on('click', 'a[print]', function (e) {
+        e.preventDefault()
+        window.print();
+    })
+
 })
 
 
-$(function () {
-    if('moreLess' in window) {
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Event: document.DOMContentLoaded')
+/*###################*/
+/* 02 CUSTOM SCRIPTS */
+/*###################*/
 
-            if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
-                moreLess('shorten-text', '150px', {
-                    textMore: window.vm.__('Read more'),
-                    textLess: window.vm.__('Hide text'),
+$(function() {
+    if(typeof $.fn.SumoSelect === 'function') {
+
+        if ($('select:not(.phpdebugbar-datasets-switcher)').length) {
+
+            $('select').each(function () {
+                console.log("Sumo select:", this)
+                if (!$(this).hasClass('vue-select') && !$(this).hasClass('phpdebugbar-datasets-switcher')) {
+                    $(this).SumoSelect({
+                        search: $(this).data('search'),
+                        searchText: $(this).data('search-text'),
+                        floatWidth: 0,
+                    });
+                    $(this).on('change', function () {
+                        if ("createEvent" in document) {
+                            var evt = document.createEvent("HTMLEvents");
+                            evt.initEvent("sumo:change", false, true);
+                            this.dispatchEvent(evt);
+                        } else {
+                            this.fireEvent("sumo:change");
+                        }
+                    });
+                }
+
+            });
+
+            $('.custom-select').each(function () {
+                console.log("Sumo custom-select:", this)
+                if ($(this).hasClass('vue-select') || $(this).hasClass('phpdebugbar-datasets-switcher')) return;
+                let option = $(this).closest('.SumoSelect').find('.opt');
+
+                $(option).each(function () {
+                    let img = $(this).closest('.SumoSelect').find('option').eq($(this).index()).data('img');
+
+                    if (img && !$(this).find('img').length) {
+                        $(this).prepend('<img src="' + img + '">');
+                    }
                 });
-            }
-        })
+            });
+        }
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Event: document.DOMContentLoaded')
+
+    if('moreLess' in window) {
+
+        if (document.getElementById('seo-shorten-text')?.offsetHeight > 180) {
+            moreLess('shorten-text', '150px', {
+                textMore: window.vm.__('Read more'),
+                textLess: window.vm.__('Hide text'),
+            });
+        }
+    }
+})
+
+window.addEventListener('vueMounted', (event) => {
+
+    console.log('========================================================')
+    console.log('=========== *** Vue Component Mounted *** ==============')
+    console.log('========================================================')
+
+})

@@ -58,6 +58,7 @@ export default {
                 search: props.search,
                 searchText: props.searchText,
                 noMatch: 'Нічого не знайдено для "{0}"',
+                floatWidth: 0,
 
             }).sumo;
 

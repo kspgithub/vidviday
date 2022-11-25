@@ -50,6 +50,7 @@ import SwiperCore, {Navigation, Pagination, Controller} from 'swiper';
 
 SwiperCore.use([Navigation, Pagination, Controller]);
 import {Swiper, SwiperSlide} from 'swiper/vue';
+import { initDynamicPagination } from "../../composables/useSwiper";
 
 export default {
     name: "TourCarousel",
@@ -108,7 +109,6 @@ export default {
                 // dynamicMainBullets: 5,
             },
             navigation: true,
-
         }, props.options));
 
         const setController = (instance) => {
@@ -125,10 +125,10 @@ export default {
                 paginator.appendTo(paginator.parents('.swiper-entry').first())
             }
 
-            _functions.initDynamicPagination(swiper.value)
+            initDynamicPagination(instance)
 
             instance.on('slideChange', (e) => {
-                _functions.initDynamicPagination(swiper.value)
+                initDynamicPagination(instance)
             })
         }
 

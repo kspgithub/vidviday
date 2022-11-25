@@ -2,10 +2,16 @@
 
 import { defineAsyncComponent } from "vue";
 
+const lazyLoad = false;
+
 export default {
     install: (app) => {
         function lazyLoadComponent(component) {
-            return defineAsyncComponent(() => import(`./${component}.vue`))
+            if(lazyLoad) {
+                return defineAsyncComponent(() => import(`./${component}.vue`))
+            } else {
+                return require(`./${component}.vue`).default
+            }
         }
 
         app.component('sign-up-form', lazyLoadComponent('auth/SignUpForm'));

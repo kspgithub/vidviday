@@ -49,6 +49,7 @@ export default {
                 search: props.search || false,
                 searchText: props.searchText,
                 placeholder: required ? props.label + ' *' : props.label,
+                floatWidth: 0,
             });
 
             sumoSelect = selectRef.value.sumo;

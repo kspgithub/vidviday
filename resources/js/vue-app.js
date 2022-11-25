@@ -38,6 +38,6 @@ app.use(globalComponents);
 
 require('./validation/rules');
 
-const vm = app.mount('#app')
+const vm = app.mount('#app');
 
-export { vm }
+window.vm = vm;
