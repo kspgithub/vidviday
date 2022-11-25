@@ -14,27 +14,31 @@ use Illuminate\Support\Str;
 
 class PopularToursController extends Controller
 {
+    private function getScopes()
+    {
+        $scopeKeys = ['corporates', 'schools', 'for-travel-agents'];
+
+        return Arr::undot(Arr::dot(Page::query()->whereIn('key', $scopeKeys)
+            ->pluck('title', 'id')
+            ->toArray(), 'page_')
+        );
+    }
     /**
      * @param Request $request
      * @return View
      */
     public function index(Request $request)
     {
-        $scopeKeys = ['corporates', 'schools', 'for-travel-agents'];
-        $scopes = Arr::undot(Arr::dot(Page::query()->whereIn('key', $scopeKeys)
-            ->pluck('title', 'id')
-            ->toArray(), 'page_')
-        );
+        $scopes = $this->getScopes();
         $parts = explode('_', $request->get('scope'));
         $type = ($parts[0] ?? null) ?: null;
         $id = $parts[1] ?? null;
 
-        $query = PopularTour::query()->orderBy('position')
-            ->with('tour');
-
-            $query->type($type);
-
-            $query->model($id);
+        $query = PopularTour::query()
+            ->type($type)
+            ->model($id)
+            ->with('tour')
+            ->orderBy('position');
 
         $items = $query->get();
 
@@ -49,17 +53,22 @@ class PopularToursController extends Controller
      */
     public function create(Request $request)
     {
+        $scopes = $this->getScopes();
         $parts = explode('_', $request->get('scope'));
         $type = ($parts[0] ?? null) ?: null;
         $id = $parts[1] ?? null;
 
         $popularTour = new PopularTour();
 
-        $ids = PopularTour::query()->pluck('tour_id')->toArray();
+        $ids = PopularTour::query()
+            ->type($type)
+            ->model($id)
+            ->pluck('tour_id')->toArray();
 
         $tours = Tour::toSelectBox()->filter(fn($tour) => !in_array($tour['value'], $ids));
 
         return view('admin.popular-tours.create', [
+            'scopes' => $scopes,
             'model' => $popularTour,
             'tours' => $tours,
         ]);
