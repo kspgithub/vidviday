@@ -39,7 +39,7 @@ class LocationController extends Controller
     {
         //
         $query = Region::query()->orderBy('title->uk');
-        $country_id = $request->input('country_id', 1);
+        $country_id = $request->input('country_id', 0);
         if ($country_id > 0) {
             $query->where('country_id', $country_id);
         }
@@ -114,7 +114,7 @@ class LocationController extends Controller
     {
         //
         $query = City::query()->orderBy('title->uk');
-        $country_id = $request->input('country_id', 1);
+        $country_id = $request->input('country_id', 0);
 
         if ($country_id > 0) {
             $query->where('country_id', $country_id);
