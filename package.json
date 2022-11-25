@@ -7,8 +7,8 @@
         "hot-admin": "mix watch --hot --mix-config=webpack.mix.admin.js",
         "hot-app": "mix watch --hot",
         "hot": "concurrently \"npm:hot-admin\" \"npm:hot-app\"",
-        "prod-admin": "rm -rf public/assets/admin && mix --production --mix-config=webpack.mix.admin.js",
-        "prod-app": "rm -rf public/assets/app && mix --production",
+        "prod-admin": "mix --production --mix-config=webpack.mix.admin.js",
+        "prod-app": "mix --production",
         "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\""
     },
     "devDependencies": {
