@@ -30,13 +30,13 @@
                             </div>
                         </div>
                         <div class="text">
-                            @if($testimonial->related instanceof Tour)
-                                <p>@lang('Tour'): <a
-                                        href="{{$testimonial->related->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->related->title)), 50)}}</a>
+                            @if($testimonial->type === 'guide' && $testimonial->guide)
+                                <p>
+                                    @lang('Guide'): <a href="{{$testimonial->guide->url}}">{{$testimonial->guide->name}}</a>
                                 </p>
-                            @elseif($testimonial->model instanceof Staff)
-                                <p>@lang('Guide'): <a
-                                        href="{{$testimonial->model->url}}">{{str_limit(strip_tags(html_entity_decode($testimonial->model->name)), 50)}}</a>
+                            @elseif($testimonial->tour)
+                                <p>
+                                    @lang('Tour'): <a href="{{$testimonial->tour->url}}">{{$testimonial->tour->title}}</a>
                                 </p>
                             @endif
                             <div class="seo-text load-more-wrapp p-0 m-0">

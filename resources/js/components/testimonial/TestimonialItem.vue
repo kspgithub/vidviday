@@ -17,11 +17,11 @@
                 </div>
             </div>
             <div class="text text-md">
-                <p v-if="!item.parent_id && item.type === 'tour' && item.tour">
-                    Тур: <a :href="item.tour.url">{{ item.tour.title }}</a>
+                <p v-if="!item.parent_id && item.type === 'staff' && item.guide">
+                    Гід: <a :href="item.guide.url">{{ item.guide.name }}</a>
                 </p>
-                <p v-if="!item.parent_id && item.type === 'guide' && item.guide">
-                    Гід: <b>{{ item.guide.name }}</b>
+                <p v-else-if="!item.parent_id && item.tour">
+                    Тур: <a :href="item.tour.url">{{ item.tour.title }}</a>
                 </p>
                 <div class="seo-text load-more-wrapp p-0 m-0">
                     <template v-if="item.short_text.length >= (textMaxLength + 3)">

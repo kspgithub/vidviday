@@ -191,6 +191,7 @@ class Staff extends TranslatableModel implements HasMedia
         return (object)[
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'url' => $this->url,
             'name' => $this->name,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
