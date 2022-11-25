@@ -1070,7 +1070,7 @@
     .swiper-button-next {
         &.bottom {
             top: 100%;
-            margin: 0;
+            margin-top: 10px!important;
         }
         &.inner {
             margin: auto;
