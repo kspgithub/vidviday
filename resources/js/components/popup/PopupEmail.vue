@@ -5,7 +5,7 @@
             <form @submit.prevent="submitForm" method="POST" action="/" class="row">
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">Написати листа</span>
+                        <span class="h2 title text-medium">{{ __('common.write-email') }}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <input type="hidden" name="type" :value="data.type">
