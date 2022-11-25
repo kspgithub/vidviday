@@ -40,7 +40,7 @@
             <div class="banner-tab-map">
                 <div class="map-wrapper hidden-map full-size"
                      v-is="'tour-map'"
-                     :tour='@json($tour)'
+                     :places='@json($tour->places)'
                 ></div>
             </div>
         </div>

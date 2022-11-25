@@ -7,29 +7,31 @@
         </div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @foreach($tour->groupTourLandings as $landing)
-                    <div class="accordion-item">
-                        <div class="accordion-title">
-                            {{$landing->title}}
-                            @if($landing->time)
-                                <span>({{ $landing->time }})</span>
-                            @endif
-                            <i></i>
-                        </div>
-                        <div class="accordion-inner">
-                            <div class="text text-md">
-                                {!! $landing->description !!}
+                @if($sync = false)
+                    @foreach($tour->groupTourLandings as $landing)
+                        <div class="accordion-item">
+                            <div class="accordion-title">
+                                {{$landing->title}}
+                                @if($landing->time)
+                                    <span>({{ $landing->time }})</span>
+                                @endif
+                                <i></i>
                             </div>
+                            <div class="accordion-inner">
+                                <div class="text text-md">
+                                    {!! $landing->description !!}
+                                </div>
 
-                            <div v-is="'map-route'"
-                                 :lat='{{$landing->lat?:0}}'
-                                 :lng='{{$landing->lng?:0}}'
-                                 marker='/img/marker-bus.png'
-                                 :address='"{{$landing->title}}"'
-                            ></div>
+                                <div v-is="'map-route'"
+                                     :lat='{{$landing->lat?:0}}'
+                                     :lng='{{$landing->lng?:0}}'
+                                     marker='/img/marker-bus.png'
+                                     :address='"{{$landing->title}}"'
+                                ></div>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

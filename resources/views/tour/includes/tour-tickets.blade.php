@@ -5,11 +5,13 @@
                                                 alt="tickets"></span>@lang('tours-section.entrance-tickets')<i></i>
         </div>
         <div class="accordion-inner">
-            @foreach($tour->groupTourTickets as $ticket)
-                <div class="tickets text text-md">
-                    <p><b>{{$ticket->title}}:</b> {!! strip_tags($ticket->text) !!}</p>
-                </div>
-            @endforeach
+            @if($sync = false)
+                @foreach($tour->groupTourTickets as $ticket)
+                    <div class="tickets text text-md">
+                        <p><b>{{$ticket->title}}:</b> {!! strip_tags($ticket->text) !!}</p>
+                    </div>
+                @endforeach
+            @endif
 
         </div>
     </div>

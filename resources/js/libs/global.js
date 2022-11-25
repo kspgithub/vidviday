@@ -4,11 +4,12 @@ var _functions = {},
 
 window._functions = _functions;
 
-window.lozad = require('lozad/dist/lozad.min')
-
-window.observer = lozad('.lozad', {
-
-});
+// todo: replace lazyLoad with lozad
+// window.lozad = require('lozad/dist/lozad.min')
+//
+// window.observer = lozad('.lozad', {
+//
+// });
 
 function removeScroll() {
 

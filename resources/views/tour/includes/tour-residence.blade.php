@@ -5,26 +5,28 @@
                                                 alt="keys"></span>@lang('tours-section.accommodation')<i></i></div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @foreach($tour->groupTourAccommodations as $residence)
-                    <div class="accordion-item active">
-                        <div class="accordion-title">{{$residence->title}}
-                            @if($residence->nights)
-                                <span>(
-                                    {{ $residence->nights }}
-                                    {{trans_choice('tours-section.nights', (int) $residence->nights[strlen($residence->nights) - 1]) }}
-                                )</span>
-                            @endif
-                            <i></i>
-                        </div>
-                        <div class="accordion-inner" style="display: block">
-                            <x-swiper-media :slides="$residence->getMedia()"/>
+                @if($sync = false)
+                    @foreach($tour->groupTourAccommodations as $residence)
+                        <div class="accordion-item active">
+                            <div class="accordion-title">{{$residence->title}}
+                                @if($residence->nights)
+                                    <span>(
+                                        {{ $residence->nights }}
+                                        {{trans_choice('tours-section.nights', (int) $residence->nights[strlen($residence->nights) - 1]) }}
+                                    )</span>
+                                @endif
+                                <i></i>
+                            </div>
+                            <div class="accordion-inner" style="display: block">
+                                <x-swiper-media :slides="$residence->getMedia()"/>
 
-                            <div class="text text-md">
-                                <p>{!! $residence->text!!}</p>
+                                <div class="text text-md">
+                                    <p>{!! $residence->text!!}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

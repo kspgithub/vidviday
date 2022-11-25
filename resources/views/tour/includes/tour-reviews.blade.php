@@ -10,9 +10,11 @@
     </div>
     <div class="accordion-inner">
 
-        <div v-is="'testimonial-list'"
-             url="{{route('tour.testimonials', $tour)}}"
-        ></div>
+        @if($sync = false)
+            <div v-is="'testimonial-list'"
+                 url="{{route('tour.testimonials', $tour)}}"
+            ></div>
+        @endif
 
     </div>
 </div>

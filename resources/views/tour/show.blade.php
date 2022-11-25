@@ -18,6 +18,10 @@
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
+@push('after-scripts')
+    <script src="{{ mix('js/libs/calendar.js', 'assets/app') }}" async></script>
+@endpush
+
 @section('content')
     <main>
         <div class="container">

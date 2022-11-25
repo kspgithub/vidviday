@@ -11,7 +11,7 @@ export default {
     name: "TourMap",
 
     props: {
-        tour: Object,
+        places: Array,
     },
     setup(props) {
         const {locale} = useI18n({useScope: 'global'});
@@ -33,8 +33,8 @@ export default {
 
             const infoWindows = {}
 
-            for (let i = 0; i < props.tour.places.length; i++) {
-                const place = props.tour.places[i];
+            for (let i = 0; i < props.places.length; i++) {
+                const place = props.places[i];
                 const position = {lat: place.lat, lng: place.lng};
                 const marker = new google.maps.Marker({
                     position: position,
