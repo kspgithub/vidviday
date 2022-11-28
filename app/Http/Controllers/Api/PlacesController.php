@@ -48,7 +48,7 @@ class PlacesController extends Controller
         $paginator = $query->paginate($request->input('limit', 10));
 
         foreach ($paginator->items() as $item) {
-            $items->push($item->asSelectBox('value'));
+            $items->push($item->asSelectBox());
         }
 
         $items = $items->unique('value')->toArray();
