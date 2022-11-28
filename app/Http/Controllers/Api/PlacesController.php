@@ -37,7 +37,7 @@ class PlacesController extends Controller
             $selected = (clone $query)->whereIn('id', $place_ids)->get();
 
             foreach ($selected as $item) {
-                $items->push($item->asSelectBox('value'));
+                $items->push($item->asSelectBox());
             }
         }
 
@@ -51,7 +51,7 @@ class PlacesController extends Controller
             $items->push($item->asSelectBox());
         }
 
-        $items = $items->unique('value')->toArray();
+        $items = $items->unique('id')->toArray();
 
         return [
             'results' => $items,
