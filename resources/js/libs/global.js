@@ -664,7 +664,6 @@ jQuery(function ($) {
     };
 
     _functions.showPopup = function (target) {
-        alert()
         headerLayerClose();
         mobileMenuClose();
         menuBtnClose();
