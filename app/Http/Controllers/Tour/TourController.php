@@ -180,6 +180,12 @@ class TourController extends Controller
             $pictures = $pictures->merge($tourPictures);
         }
 
+        $testimonials = $tour->testimonials()
+            ->where('rating', '>=', 4)
+            ->where('parent_id', null)
+            ->limit(2)
+            ->get();
+
         $viewData = [
             'tour' => $tour,
             'future_events' => $future_events,
@@ -189,6 +195,7 @@ class TourController extends Controller
             'price_items' => $price_items,
             'localeLinks' => $localeLinks,
             'pictures' => $pictures,
+            'testimonials' => $testimonials,
         ];
 
 
