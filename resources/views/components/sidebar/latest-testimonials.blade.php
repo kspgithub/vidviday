@@ -30,13 +30,17 @@
                             </div>
                         </div>
                         <div class="text">
-                            @if($testimonial->type === 'guide' && $testimonial->guide)
+                            @if($testimonial->guide)
                                 <p>
                                     @lang('Guide'): <a href="{{$testimonial->guide->url}}">{{$testimonial->guide->name}}</a>
                                 </p>
                             @elseif($testimonial->tour)
                                 <p>
                                     @lang('Tour'): <a href="{{$testimonial->tour->url}}">{{$testimonial->tour->title}}</a>
+                                </p>
+                            @elseif($testimonial->place)
+                                <p>
+                                    @lang('Place'): <a href="{{$testimonial->place->url}}">{{$testimonial->place->title}}</a>
                                 </p>
                             @endif
                             <div class="seo-text load-more-wrapp p-0 m-0">

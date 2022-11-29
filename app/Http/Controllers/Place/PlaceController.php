@@ -120,6 +120,6 @@ class PlaceController extends Controller
             ]);
         }
 
-        return redirect()->route('place.show', $place->slug)->withFlashSuccess(__('Thanks for your feedback!'));
+        return redirect()->to($place->url)->withFlashSuccess(__('Thanks for your feedback!'));
     }
 }

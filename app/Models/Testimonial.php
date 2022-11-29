@@ -176,7 +176,13 @@ class Testimonial extends Model implements HasMedia
 
     public function getPlaceAttribute()
     {
-        return $this->model instanceof Place ? $this->model->shortInfo() : null;
+        if ($this->model instanceof Place) {
+            return $this->model->shortInfo();
+        }
+        if ($this->related instanceof Place) {
+            return $this->related->shortInfo();
+        }
+        return null;
     }
 
     public function getGuideAttribute()

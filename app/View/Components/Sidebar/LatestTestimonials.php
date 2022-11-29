@@ -3,6 +3,8 @@
 namespace App\View\Components\Sidebar;
 
 use App\Models\Page;
+use App\Models\Place;
+use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Support\Facades\Cache;
@@ -23,7 +25,7 @@ class LatestTestimonials extends Component
      *
      * @return void
      */
-    public function __construct($title = 'Відгуки', $btnText = 'Показати всі відгуки', $type = 'tour')
+    public function __construct($title = 'Відгуки', $btnText = 'Показати всі відгуки', $type = 'all')
     {
         //
         $this->title = $title;
@@ -33,15 +35,24 @@ class LatestTestimonials extends Component
         $this->type = $type;
 
         switch ($type) {
+            case 'tour':
+                $class = [Tour::class];
+                break;
+            case 'place':
+                $class = [Place::class];
+                break;
+            case 'all':
+                $class = [Tour::class, Place::class, Staff::class];
+                break;
             default:
-                $class = Tour::class;
+                $class = [Tour::class, Place::class, Staff::class];
                 break;
         }
 
         $this->testimonials = Cache::remember(
             'latest__testimonials_' . $type,
             60,
-            fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->where('model_type', $class))
+            fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->whereIn('model_type', $class))
                 ->where('rating', '>=', 4)
                 ->orderBy('rating', 'desc')
                 ->latest()
