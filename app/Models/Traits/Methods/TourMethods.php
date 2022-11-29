@@ -164,4 +164,9 @@ trait TourMethods
         $manager_id = !empty($tourManager) ? $tourManager->id : 0;
         return $user->isAdmin() || ($user->isTourManager() && in_array($manager_id, $staff_ids));
     }
+
+    public function userCanDeleteTour(User $user)
+    {
+        return $user->isAdmin();
+    }
 }

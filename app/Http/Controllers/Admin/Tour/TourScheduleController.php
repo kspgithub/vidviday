@@ -46,7 +46,8 @@ class TourScheduleController extends Controller
 
         $currencies = Currency::toSelectBox('iso', 'iso');
         $can_edit = $tour->userCanEditTour(current_user());
-        return view('admin.tour-schedule.index', ['tour' => $tour, 'currencies' => $currencies, 'can_edit' => $can_edit]);
+        $can_delete = $tour->userCanDeleteTour(current_user());
+        return view('admin.tour-schedule.index', ['tour' => $tour, 'currencies' => $currencies, 'can_edit' => $can_edit, 'can_delete' => $can_delete]);
     }
 
     public function store(Request $request, Tour $tour)

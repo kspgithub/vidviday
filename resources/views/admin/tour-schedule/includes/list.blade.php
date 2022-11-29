@@ -2,6 +2,7 @@
     params: @json(request()->all()),
     tour: @json($tour->shortInfo()),
     canEdit: {{$can_edit ? 'true' : 'false'}},
+    canDelete: {{$can_delete ? 'true' : 'false'}},
 })'>
     <div class="row mb-3">
         <div class="col-6"></div>
@@ -68,7 +69,7 @@
                                     </a>
                                 </template>
 
-                                <template x-if="canEdit">
+                                <template x-if="canDelete">
                                     <a href="#" class="btn btn-sm my-1 me-2 btn-outline-danger"
                                        x-bind:readonly="!$store.crmUser.isTourManager && !$store.crmUser.isAdmin"
                                        @click.prevent="deleteSchedule(item)">

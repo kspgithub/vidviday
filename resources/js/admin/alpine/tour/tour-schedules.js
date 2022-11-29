@@ -29,6 +29,7 @@ const DEFAULT_SCHEDULE = {
 export default (props) => ({
     tour: props.tour,
     canEdit: props.canEdit || false,
+    canDelete: props.canDelete || false,
     scheduleData: {...DEFAULT_SCHEDULE},
     q: props.params.q || '',
     sort: props.params.order || 'start_date:desc',
