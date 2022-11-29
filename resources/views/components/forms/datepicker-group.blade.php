@@ -8,10 +8,17 @@
     'options'=>[],
     'labelCol'=>'col-md-2',
     'inputCol'=>'col-md-10',
-    'groupClass'=>'row'
+    'groupClass'=>'row',
+    'time'=>'false',
+    'closeOnChange'=>'true',
 ])
 
-<div class="form-group {{$groupClass}} mb-3 date-picker-group" x-data="{date: '{{$value}}'}">
+<div class="form-group {{$groupClass}} mb-3 date-picker-group"
+     data-date-format="{{$format}}"
+     data-time="{{$time}}"
+     data-close-on-change="{{$closeOnChange}}"
+     x-data="{date: '{{$value}}'}"
+>
     <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)</label>
 
     <div class="{{$inputCol}}">

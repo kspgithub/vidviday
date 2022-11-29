@@ -11,14 +11,17 @@ const DatePickerComponent = function () {
         const pickerElements = document.querySelectorAll('.date-picker-group');
         pickerElements.forEach((element) => {
             const dateFormat = element.dataset.dateFormat || 'd.m.Y';
+            const enableTime = element.dataset.time || false;
+            const closeOnChange = element.dataset.closeOnChange || true;
             const input = element.querySelector('.flatpicker');
             flatpickr(input, {
                 wrap: true,
                 locale: Ukrainian,
                 dateFormat: dateFormat,
+                enableTime: enableTime,
                 allowInput: true,
                 onChange: function (selectedDates, dateStr, instance) {
-                    instance.close()
+                    (closeOnChange === 'true' || !closeOnChange) && instance.close()
                     instance._input.blur()
                 },
             });
