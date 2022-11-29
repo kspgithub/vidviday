@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\PopupAds;
 
 use App\Http\Controllers\Controller;
+use App\Models\EventItem;
 use App\Models\Page;
 use App\Models\PopupAd;
+use App\Models\Tour;
+use App\Models\TourGroup;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,6 +15,16 @@ use Illuminate\Http\Response;
 
 class PopupAdsController extends Controller
 {
+    private function getTypes()
+    {
+        return [
+            ['value' => Page::class, 'text' => __('Page')],
+            ['value' => Tour::class, 'text' => __('Tour')],
+            ['value' => TourGroup::class, 'text' => __('Tour Group')],
+            ['value' => EventItem::class, 'text' => __('Event')],
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -71,11 +84,16 @@ class PopupAdsController extends Controller
     public function edit(PopupAd $popupAd)
     {
         //
+        $popupAd->loadMissing(['rules.model']);
+
+        $types = $this->getTypes();
+
         $pages = Page::toSelectBox('title', 'key');
 
         return view('admin.popup_ads.edit', [
             'advertisement' => $popupAd,
             'pages' => $pages,
+            'types' => $types,
         ]);
     }
 
@@ -112,5 +130,21 @@ class PopupAdsController extends Controller
         $popupAd->deleteImage();
         $popupAd->delete();
         return redirect()->route('admin.popup_ads.index')->withFlashSuccess(__('Record Deleted'));
+    }
+
+    public function addRule(PopupAd $popupAd, Request $request)
+    {
+        $popupAd->rules()->create($request->get('rule'));
+
+        return response()->json(['result' => 'success']);
+    }
+
+    public function removeRule(PopupAd $popupAd, Request $request)
+    {
+        $rule = $popupAd->rules()->findOrFail($request->get('id'));
+
+        $rule->delete();
+
+        return response()->json(['result' => 'success']);
     }
 }

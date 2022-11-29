@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Methods\HasJsonSlug;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -25,6 +26,7 @@ class Page extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -137,5 +139,13 @@ class Page extends TranslatableModel implements HasMedia
     public function popularTours()
     {
         return $this->morphMany(PopularTour::class, 'model');
+    }
+
+    public function asSelectBox()
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->title,
+        ];
     }
 }

@@ -19,15 +19,10 @@ class CertificateController extends Controller
 
     public function index()
     {
-        $pageContent = Page::published()->where('key', 'certificate')->firstOrFail();
-        $localeLinks = $pageContent->getLocaleLinks();
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
         return view('certificate.index', [
-            'pageContent' => $pageContent,
-            'localeLinks' => $localeLinks,
             'faqItems' => $faqItems,
-            'popupAds' => $popupAds,
         ]);
     }
 

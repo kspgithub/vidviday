@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AccommodationController;
 use App\Http\Controllers\Api\CalendarController;
 use App\Http\Controllers\Api\LandingsController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\PageTypesController;
 use App\Http\Controllers\Api\PlacesController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TicketsController;
@@ -127,4 +128,9 @@ Route::get('html-blocks', function (Request $request) {
 });
 
 
-
+Route::group([
+    'as' => 'page_types.',
+    'prefix' => 'page_types',
+], function () {
+    Route::get('/', [PageTypesController::class, 'index'])->name('index');
+});

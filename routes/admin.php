@@ -279,6 +279,8 @@ Route::resource('banner', BannerController::class)->except('show');
 Route::patch('banner/{banner}/update-status', [BannerController::class, 'updateStatus'])->name('banner.update-status');
 Route::resource('advertisement', AdvertisementController::class)->except('show');
 Route::resource('popup_ads', PopupAdsController::class)->except('show');
+Route::patch('popup_ads/{popupAd}/add_rule', [PopupAdsController::class, 'addRule'])->name('popup-ads.add-rule');
+Route::delete('popup_ads/{popup_ad}/remove_rule', [PopupAdsController::class, 'removeRule'])->name('popup-ads.remove-rule');
 Route::resource('achievement', AchievementController::class)->except('show');
 Route::resource('our-client', OurClientController::class)->except('show');
 

@@ -75,7 +75,7 @@
                         quietMillis: 500,
                         data: function (params) {
                             self.prevQuery = params
-                            return {
+                            let filters = {
                                 q: params.term,
                                 page: params.page || 1,
                                 limit: 20,
@@ -83,9 +83,19 @@
                                 {{ $key }}: '{{ $value }}',
                                 @endforeach
                             };
+                            let selectFilters = JSON.parse(jQuery(inputRef).attr('filters') || '{}')
+                            console.log(selectFilters)
+                            for(let key in selectFilters) {
+                                filters[key] = selectFilters[key]
+                            }
+                            return filters
                         },
                         processResults: function (data) {
-                            return data.results ? data : {results: data.map(item => ({id: item.id||item.value, text: item.text})), pagination: {more: false}};
+                            let paginator = data.results ? data : {results: data.map(item => ({id: item.id||item.value, text: item.text})), pagination: {more: false}};
+                            @if($placeholder)
+                            paginator.results = [{id: '0',text: '{{ $placeholder }}'}, ...paginator.results]
+                            @endif
+                            return paginator
                         },
                         success: function (data) {
                             console.log(data)

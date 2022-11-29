@@ -21,14 +21,9 @@ class StaffController extends Controller
         $specialists = Staff::published()->whereHas('types', function ($q) {
             return $q->where('slug', 'official');
         })->withCount(['testimonials', 'tours'])->get();
-        $pageContent = Page::select()->where('key', 'office-workers')->first();
-
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
 
         return view('staff.index', [
             'specialists' => $specialists,
-            'pageContent' => $pageContent,
-            'popupAds' => $popupAds,
         ]);
     }
 

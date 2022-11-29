@@ -58,7 +58,16 @@ class PageController extends Controller
 
         $pageContent->checkSlugLocale($slug);
         $localeLinks = $pageContent->getLocaleLinks();
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+
+        $popupAds = PopupAd::query()
+            ->join('popup_ad_rules', 'popup_ads.id', '=', 'popup_ad_rules.popup_ad_id')
+            ->where('popup_ad_rules.model_type', Page::class)
+            ->where(function ($q) use ($pageContent){
+                $q->where('popup_ad_rules.model_id', $pageContent->id)->orWhere('popup_ad_rules.model_id', 0);
+            })
+            ->orderBy('popup_ad_rules.model_id', 'desc')
+            ->limit(1)
+            ->get();
 
         // todo: pageContent, localeLinks & popupAds are shared to View. No need to fetch it again in certain page controller. (e.g. TourGuideController:19)
         View::share('pageContent', $pageContent);

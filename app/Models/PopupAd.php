@@ -50,6 +50,11 @@ class PopupAd extends Model
         ];
     }
 
+    public function rules()
+    {
+        return $this->hasMany(PopupAdRule::class);
+    }
+
     public function getStartsAtAttribute($starts_at)
     {
         return Carbon::parse($starts_at)->format('d.m.Y');

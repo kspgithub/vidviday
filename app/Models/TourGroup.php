@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Methods\HasJsonSlug;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -27,6 +28,7 @@ class TourGroup extends TranslatableModel implements HasMedia
     use InteractsWithMedia;
     use UseNormalizeMedia;
     use UseSelectBox;
+    use JsonLikeScope;
 
     public $translatable = [
         'title',
@@ -126,6 +128,14 @@ class TourGroup extends TranslatableModel implements HasMedia
     public function getUrlAttribute()
     {
         return !empty($this->slug) ? '/' . $this->slug : '';
+    }
+
+    public function asSelectBox()
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->title,
+        ];
     }
 
 }

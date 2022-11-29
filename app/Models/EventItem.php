@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Attributes\EventAttribute;
 use App\Models\Traits\Methods\HasJsonSlug;
 use App\Models\Traits\Relationship\EventRelationship;
+use App\Models\Traits\Scope\JsonLikeScope;
 use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
@@ -30,6 +31,7 @@ class EventItem extends TranslatableModel implements HasMedia
     use EventRelationship;
     use UseSelectBox;
     use HasJsonSlug;
+    use JsonLikeScope;
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -111,5 +113,13 @@ class EventItem extends TranslatableModel implements HasMedia
         $slug = $this->slug;
 //        return !empty($slug) ? route('events.show', $slug) : '';
         return !empty($slug) ? '/' . $slug : '';
+    }
+
+    public function asSelectBox()
+    {
+        return [
+            'id' => $this->id,
+            'text' => $this->title,
+        ];
     }
 }

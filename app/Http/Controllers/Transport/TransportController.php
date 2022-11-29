@@ -17,19 +17,13 @@ class TransportController extends Controller
     public function index()
     {
         //
-        $pageContent = Page::published()->where('key', 'transport')->firstOrFail();
-
         $transports = Transport::published()->get();
 
         $transportDurations = TransportDuration::published()->toSelectBox('title', 'value');
 
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
-
         return view('transport.index', [
-            'pageContent' => $pageContent,
             'transports' => $transports,
             'transportDurations' => $transportDurations,
-            'popupAds' => $popupAds,
         ]);
     }
 

@@ -16,16 +16,10 @@ class TourGuideController extends Controller
             return $q->where('slug', 'excursion-leader');
         })->withCount(['testimonials', 'tours'])->get();
 
-        $pageContent = Page::select()->where('key', 'guides')->first();
-
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
-
         return view(
             'tour-guide.index',
             [
                 'specialists' => $specialists,
-                'pageContent' => $pageContent,
-                'popupAds' => $popupAds,
             ]
         );
     }
