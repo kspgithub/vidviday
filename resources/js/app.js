@@ -14,14 +14,14 @@ require('./libs/jquery.inputmask.min');
 
 require('./libs/datepicker.min');
 
-// require('./libs/calendar');
+require('./libs/calendar');
 
 require('./libs/global');
 
-// require('./libs/markerclusterer');
-// require('./libs/infobox');
-// require('./libs/map');
-// require('./libs/map-route');
+require('./libs/markerclusterer');
+require('./libs/infobox');
+require('./libs/map');
+require('./libs/map-route');
 require('./libs/toast');
 require('./libs/sharer');
 require('./libs/moreLess');

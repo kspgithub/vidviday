@@ -18,10 +18,6 @@
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
-@push('after-scripts')
-    <script src="{{ mix('js/libs/calendar.js', 'assets/app') }}" async></script>
-@endpush
-
 @section('content')
     <main>
         <div class="container">
@@ -189,9 +185,4 @@
         @csrf
     </div>
 
-@endpush
-
-@push('after-scripts')
-    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
-    <script src="{{ mix('js/libs/calendar.js', 'assets/app') }}" defer></script>
 @endpush

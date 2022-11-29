@@ -111,7 +111,3 @@
         <!-- SEO TEXT END -->
     </main>
 @endsection
-
-@push('after-scripts')
-    <script src="{{ mix('js/libs/map-route.js', 'assets/app') }}" defer></script>
-@endpush
