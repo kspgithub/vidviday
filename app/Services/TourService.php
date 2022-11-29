@@ -327,7 +327,7 @@ class TourService extends BaseService
 
         $remains = $count - $popularTours->count();
 
-        if($remains > 0) {
+        if(!$popularTours->count() || (!$type && $remains > 0)) {
             $bestsellerTours = Tour::search()
                 ->whereJsonContains('locales', $locale)
                 ->whereNotIn('id', $popularTours->pluck('id')->toArray())
