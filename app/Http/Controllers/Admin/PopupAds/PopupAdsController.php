@@ -45,14 +45,10 @@ class PopupAdsController extends Controller
      */
     public function create()
     {
-        //
         $popupAd = new PopupAd();
-
-        $pages = Page::toSelectBox('title', 'key');
 
         return view('admin.popup_ads.create', [
             'advertisement' => $popupAd,
-            'pages' => $pages,
         ]);
     }
 
@@ -88,11 +84,8 @@ class PopupAdsController extends Controller
 
         $types = $this->getTypes();
 
-        $pages = Page::toSelectBox('title', 'key');
-
         return view('admin.popup_ads.edit', [
             'advertisement' => $popupAd,
-            'pages' => $pages,
             'types' => $types,
         ]);
     }
