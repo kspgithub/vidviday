@@ -4,7 +4,7 @@
                                             alt="faq"></span>@lang('tours-section.q-and-a')<i></i>
     </div>
     <div class="accordion-inner">
-        @if($sync = false)
+        @if($sync = true)
             <div class="accordion type-2">
                 <div class="accordion-item">
                     <div class="accordion-title">@lang('tours-section.faq.section-common-questions')<i></i></div>

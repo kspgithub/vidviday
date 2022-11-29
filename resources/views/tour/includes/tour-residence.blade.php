@@ -5,7 +5,7 @@
                                                 alt="keys"></span>@lang('tours-section.accommodation')<i></i></div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @if($sync = false)
+                @if($sync = true)
                     @foreach($tour->groupTourAccommodations as $residence)
                         <div class="accordion-item active">
                             <div class="accordion-title">{{$residence->title}}

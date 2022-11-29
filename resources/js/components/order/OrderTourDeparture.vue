@@ -3,13 +3,14 @@
         <span class="text-sm text-medium title">{{ __('order-section.details.departure-date') }}*</span>
         <div class="single-datepicker">
 
-            <form-select-event
+            <form-select
                 name="schedule_id"
+                class="datepicker-input"
                 v-if="group_type === 0 && schedules.length > 0 && !request"
-                v-model="schedule_id" :options="departureOptions"
+                v-model.number="schedule_id" :options="departureOptions"
                 :preselect="false"
                 :label="__('order-section.details.select-date')+'*'"
-            ></form-select-event>
+            ></form-select>
 
             <form-datepicker
                 name="start_date"
@@ -27,10 +28,11 @@ import FormSelectEvent from "../form/FormSelectEvent";
 import FormDatepicker from "../form/FormDatepicker";
 import {useStore} from "vuex";
 import {computed} from "vue";
+import FormSelect from "../form/FormSelect";
 
 export default {
     name: "OrderTourDeparture",
-    components: {FormDatepicker, FormSelectEvent},
+    components: {FormSelect, FormDatepicker, FormSelectEvent},
     setup() {
         const store = useStore();
         const tour = computed(() => store.state.orderTour.tour);

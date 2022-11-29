@@ -5,7 +5,7 @@
         </div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @if($sync = false)
+                @if($sync = true)
                     @foreach($tour->groupTourTransport as $transport)
                         <div class="accordion-item">
                             <div class="accordion-title">{{$transport->title}} <i></i></div>

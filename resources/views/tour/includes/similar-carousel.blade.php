@@ -1,5 +1,5 @@
 @if($similar_tours->count() > 0)
-<section class="section">
+<section class="section hidden-print">
     <div class="container">
         <h2 class="h1 title text-center">@lang('tours-section.similar-tours')</h2>
         <div class="spacer-xs"></div>

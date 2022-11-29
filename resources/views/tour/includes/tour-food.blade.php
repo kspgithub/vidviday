@@ -5,7 +5,7 @@
                                                 alt="meal"></span>@lang('tours-section.food')<i></i></div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @if($sync = false)
+                @if($sync = true)
                     @foreach($tour->group_food_items as $foodDay)
                         <div class="accordion-item active">
                             <div class="accordion-title">{{$foodDay->title}}<i></i></div>

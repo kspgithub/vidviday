@@ -60,6 +60,7 @@
 
 <script>
 import { computed, getCurrentInstance, onMounted, ref, toRaw, watch } from 'vue'
+import useFormField from "./composables/useFormField";
 
 export default {
     name: "FormSelect",
@@ -73,9 +74,14 @@ export default {
             type: String,
             default: '',
         },
+        rules: {
+            type: [String, Object],
+            default: ''
+        },
     },
     emits: ['update:modelValue', 'search'],
     setup(props, {emit}) {
+        useFormField(props, emit);
 
         const sumoSelectRef = ref(null)
 
@@ -240,6 +246,7 @@ export default {
             selectAll,
             handleOpen,
             update,
+            // ...field,
         }
     }
 }

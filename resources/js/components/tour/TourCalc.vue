@@ -3,7 +3,10 @@
         <div class="text-sm">{{ __('tours-section.departure-date') }}*</div>
 
         <div class="single-datepicker">
-            <form-select-event v-model="eventId" :options="eventOptions"/>
+            <form-select v-model="eventId"
+                               class="datepicker-input"
+                               :options="eventOptions"
+            />
         </div>
         <div class="text">
             <p>{{ __('tours-section.price-description') }}</p>

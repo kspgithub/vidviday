@@ -4,7 +4,7 @@
                                             alt="wallet"></span>@lang('tours-section.finances')<i></i></div>
     <div class="accordion-inner">
         <div class="accordion type-2">
-            @if($sync = false)
+            @if($sync = true)
 
                 @foreach($tour->group_tour_includes as $idx => $type)
                     @if($type->items->count() > 0)

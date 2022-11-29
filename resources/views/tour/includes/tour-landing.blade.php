@@ -7,7 +7,7 @@
         </div>
         <div class="accordion-inner">
             <div class="accordion type-2">
-                @if($sync = false)
+                @if($sync = true)
                     @foreach($tour->groupTourLandings as $landing)
                         <div class="accordion-item">
                             <div class="accordion-title">

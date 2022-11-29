@@ -29,9 +29,10 @@
 
                 <div class="col-md-6 col-12">
                     <div class="single-datepicker">
-                        <form-select-event v-model="schedule_id"
+                        <form-select v-model.number="schedule_id"
                                            :options="departureOptions"
                                            name="schedule_id"
+                                           class="datepicker-input"
                                            :label="__('forms.select-date') + '*'"
                                            :preselect="false"/>
                     </div>
@@ -99,10 +100,11 @@ import {getError} from "../../services/api";
 import toast from "../../libs/toast";
 import {useForm} from "vee-validate";
 import {__} from "../../i18n/lang";
+import FormSelect from "../form/FormSelect";
 
 export default {
     name: "TourOneClickPopup",
-    components: {FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
+    components: {FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
     props: {
         tour: Object,
         schedules: Array,
@@ -191,8 +193,8 @@ export default {
             email: useDebounceFormDataProperty('orderTour', 'email'),
             phone: useDebounceFormDataProperty('orderTour', 'phone'),
             comment: useDebounceFormDataProperty('orderTour', 'comment'),
-            places: useFormDataProperty('orderTour', 'places'),
-            schedule_id: useFormDataProperty('orderTour', 'schedule_id'),
+            places: useDebounceFormDataProperty('orderTour', 'places'),
+            schedule_id: useDebounceFormDataProperty('orderTour', 'schedule_id'),
             maxPlaces,
             popupOpen,
             closePopup,

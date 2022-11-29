@@ -5,7 +5,7 @@
                                                 alt="tickets"></span>@lang('tours-section.entrance-tickets')<i></i>
         </div>
         <div class="accordion-inner">
-            @if($sync = false)
+            @if($sync = true)
                 @foreach($tour->groupTourTickets as $ticket)
                     <div class="tickets text text-md">
                         <p><b>{{$ticket->title}}:</b> {!! strip_tags($ticket->text) !!}</p>
