@@ -2,14 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\TestimonialExport;
 use App\Http\Livewire\Traits\DeleteRecordTrait;
 use App\Models\Place;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourQuestion;
+use Excel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -21,6 +24,7 @@ class TestimonialsTable extends DataTableComponent
     use DeleteRecordTrait;
 
     public array $bulkActions = [
+        'export' => '1'
     ];
 
     /**
@@ -49,8 +53,15 @@ class TestimonialsTable extends DataTableComponent
         'text' => ['required'],
     ];
 
+    public function export()
+    {
+        $items = $this->selected ? $this->rows->whereIn('id', $this->selected) : $this->rows;
 
-    public function mount()
+        return Excel::download(new TestimonialExport($items), 'testimonials.xlsx');
+    }
+
+
+    public function mount(Request $request)
     {
         $this->name = current_user()->name;
         $this->email = current_user()->email;
