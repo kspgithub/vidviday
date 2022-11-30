@@ -127,6 +127,11 @@ class PopupAdsController extends Controller
 
     public function addRule(PopupAd $popupAd, Request $request)
     {
+        $this->validate($request, [
+            'rule.model_type' => 'required',
+            'rule.model_id' => 'required',
+        ]);
+
         $popupAd->rules()->create($request->get('rule'));
 
         return response()->json(['result' => 'success']);

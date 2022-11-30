@@ -5,8 +5,8 @@
 
         <div x-data='{
                         items: @json($advertisement->rules),
-                        model_type: "0",
-                        model_id: "0",
+                        model_type: "",
+                        model_id: "",
                         init(){
                             this.$watch("model_type", (type) => {
                                 this.model_id = "0"
@@ -34,6 +34,7 @@
                 <div>
                     <x-forms.select-group name="model_type" :label="__('Type')"
                                           x-model="model_type"
+                                          required
                                           :select2="true"
                                           :allowClear="true"
                                           :placeholder="__('Не вибрано')"

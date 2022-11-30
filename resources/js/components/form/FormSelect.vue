@@ -105,10 +105,14 @@ export default {
             let options = props.options.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
 
             if (!options.length) {
-                options = [props.options[0].value ? {
-                    value: '',
-                    text: props.placeholder,
-                } : props.options[0]]
+                if(props.options.length && !props.options[0].value) {
+                    options = [props.options[0]]
+                } else if(props.placeholder) {
+                    options = [{
+                        value: '',
+                        text: props.placeholder,
+                    }]
+                }
             }
 
             for (let option of options) {
@@ -246,7 +250,6 @@ export default {
             selectAll,
             handleOpen,
             update,
-            // ...field,
         }
     }
 }

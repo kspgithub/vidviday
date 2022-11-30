@@ -21,32 +21,34 @@
     <x-bootstrap.card>
         <x-slot name="body">
 
-            <table class="table table-responsive table-striped table-sm">
-                <thead>
-                <tr>
-                    <th>@lang('Title')</th>
-                    <th>@lang('Description')</th>
-                    <th>@lang('Key')</th>
-                    <th>@lang('Actions') </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($types as $type)
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
                     <tr>
-                        <td>{{$type->title}}</td>
-                        <td>{{$type->description}}</td>
-                        <td>{{$type->slug}}</td>
-                        <td class="table-action">
-                            <x-utils.edit-button :href="route('admin.accommodation-type.edit', $type)" text=""/>
-                            @if(current_user()->isMasterAdmin())
-                                <x-utils.delete-button :href="route('admin.accommodation-type.destroy', $type)"
-                                                       text=""/>
-                            @endif
-                        </td>
+                        <th>@lang('Title')</th>
+                        <th>@lang('Description')</th>
+                        <th>@lang('Key')</th>
+                        <th>@lang('Actions') </th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($types as $type)
+                        <tr>
+                            <td>{{$type->title}}</td>
+                            <td>{{$type->description}}</td>
+                            <td>{{$type->slug}}</td>
+                            <td class="table-action">
+                                <x-utils.edit-button :href="route('admin.accommodation-type.edit', $type)" text=""/>
+                                @if(current_user()->isMasterAdmin())
+                                    <x-utils.delete-button :href="route('admin.accommodation-type.destroy', $type)"
+                                                           text=""/>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </x-slot>
     </x-bootstrap.card>
 @endsection

@@ -37,17 +37,30 @@
     @if(count($popupAds ?? []) > 0)
         <script>
             (function () {
-                window.addEventListener('DOMContentLoaded', () => {
+                document.addEventListener('DOMContentLoaded', () => {
+                    let showPopup,
+                        timeout;
+
                     @foreach(($popupAds ?? []) as $i => $popupAd)
-                        let showPopup = !localStorage.getItem('popup-ad-{{$popupAd->id}}')
+                        showPopup = !localStorage.getItem('popup-ad-{{$popupAd->id}}')
 
                         if (showPopup) {
-                            let timeout = {{ $popupAd->timeout ?: 5000 }}
+                            timeout = {{ ($popupAd->timeout ?: 5000) * ($i+1) }};
+
+                            function openPopup() {
+                                if(!$('.popup-content[data-rel*="popup-ad-"].active').length) {
+                                    _functions.showPopup('popup-ad-{{$popupAd->id}}')
+
+                                    localStorage.setItem('popup-ad-{{$popupAd->id}}', true);
+                                } else {
+                                    setTimeout(function () {
+                                        openPopup()
+                                    }, 5000)
+                                }
+                            }
 
                             setTimeout(() => {
-                                _functions.showPopup('popup-ad-{{$popupAd->id}}')
-
-                                localStorage.setItem('popup-ad-{{$popupAd->id}}', true);
+                                openPopup()
                             }, timeout)
                         }
                     @endforeach

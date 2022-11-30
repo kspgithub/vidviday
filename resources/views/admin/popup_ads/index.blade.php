@@ -19,37 +19,39 @@
 
     <x-bootstrap.card>
         <x-slot name="body">
-            <table class="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>@lang('Image')</th>
-                    <th>@lang('Title')</th>
-                    <th>@lang('Url')</th>
-                    <th>@lang('Published')</th>
-                    <th>@lang('Actions')</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($advertisements as $advertisement)
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
                     <tr>
-                        <td>{{$advertisement->id}}</td>
-                        <td><img src="{{$advertisement->image_url}}" alt="{{$advertisement->image_alt}}"
-                                 style="height: 80px;"></td>
-                        <td>{{$advertisement->title}}</td>
-                        <td>{{$advertisement->url}}</td>
-                        <td>
-                            @include('admin.partials.published', ['model' => $advertisement, 'updateUrl' => route('admin.popup_ads.update', $advertisement)])
-                        </td>
-                        <td class="table-action">
-                            <x-utils.edit-button :href="route('admin.popup_ads.edit', $advertisement)" text=""/>
-                            <x-utils.delete-button :href="route('admin.popup_ads.destroy', $advertisement)"
-                                                   text=""/>
-                        </td>
+                        <th>ID</th>
+                        <th>@lang('Image')</th>
+                        <th>@lang('Title')</th>
+                        <th>@lang('Url')</th>
+                        <th>@lang('Published')</th>
+                        <th>@lang('Actions')</th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($advertisements as $advertisement)
+                        <tr>
+                            <td>{{$advertisement->id}}</td>
+                            <td><img src="{{$advertisement->image_url}}" alt="{{$advertisement->image_alt}}"
+                                     style="height: 80px;"></td>
+                            <td>{{$advertisement->title}}</td>
+                            <td>{{$advertisement->url}}</td>
+                            <td>
+                                @include('admin.partials.published', ['model' => $advertisement, 'updateUrl' => route('admin.popup_ads.update', $advertisement)])
+                            </td>
+                            <td class="table-action">
+                                <x-utils.edit-button :href="route('admin.popup_ads.edit', $advertisement)" text=""/>
+                                <x-utils.delete-button :href="route('admin.popup_ads.destroy', $advertisement)"
+                                                       text=""/>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </x-slot>
     </x-bootstrap.card>
 

@@ -89,15 +89,7 @@ class TourController extends Controller
         $tour->checkSlugLocale($slug);
         $localeLinks = $tour->getLocaleLinks();
 
-        $popupAds = PopupAd::query()
-            ->join('popup_ad_rules', 'popup_ads.id', '=', 'popup_ad_rules.popup_ad_id')
-            ->where('popup_ad_rules.model_type', Tour::class)
-            ->where(function ($q) use ($tour){
-                $q->where('popup_ad_rules.model_id', $tour->id)->orWhere('popup_ad_rules.model_id', 0);
-            })
-            ->orderBy('popup_ad_rules.model_id', 'desc')
-            ->limit(1)
-            ->get();
+        $popupAds = PopupAd::query()->forModel($tour)->get();
 
         view()->share('popupAds', $popupAds);
 

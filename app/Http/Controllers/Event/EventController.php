@@ -29,15 +29,7 @@ class EventController extends Controller
     {
         $event = EventItem::findBySlugOrFail($slug, false);
 
-        $popupAds = PopupAd::query()
-            ->join('popup_ad_rules', 'popup_ads.id', '=', 'popup_ad_rules.popup_ad_id')
-            ->where('popup_ad_rules.model_type', EventItem::class)
-            ->where(function ($q) use ($event){
-                $q->where('popup_ad_rules.model_id', $event->id)->orWhere('popup_ad_rules.model_id', 0);
-            })
-            ->orderBy('popup_ad_rules.model_id', 'desc')
-            ->limit(1)
-            ->get();
+        $popupAds = PopupAd::query()->forModel($event)->get();
 
         view()->share('popupAds', $popupAds);
 

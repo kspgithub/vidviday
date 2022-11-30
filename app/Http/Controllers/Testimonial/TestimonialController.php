@@ -36,7 +36,7 @@ class TestimonialController extends Controller
         }
         $pageContent = Page::query()->where('key', 'testimonials')->first();
 
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+        $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
         return view('contact.testimonials', [
             'pageContent' => $pageContent,

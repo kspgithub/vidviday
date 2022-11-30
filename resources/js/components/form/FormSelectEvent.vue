@@ -46,7 +46,7 @@ export default {
 
         const current = computed(() => {
             const option = props.options.find(o => o.value === props.modelValue);
-            return option ? option : (props.preselect ? props.options[0] : null);
+            return option ? option : ((props.preselect && props.options.length) ? props.options[0] : null);
         })
 
         const change = (option) => {

@@ -28,7 +28,7 @@ class HomeController extends Controller
         $banners = Banner::published()->orderBy('position')->get();
         $achievements = Achievement::published()->get();
         $pageContent = Page::where('key', 'home')->first();
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+        $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
         return view('home.index', [
             'pageContent' => $pageContent,

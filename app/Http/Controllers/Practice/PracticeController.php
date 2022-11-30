@@ -16,8 +16,7 @@ class PracticeController extends Controller
     {
         $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practices = Practice::published()->orderBy('created_at', 'desc')->paginate(20);
-
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+        $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
         return view('practice.index', [
             'pageContent'=>$pageContent,

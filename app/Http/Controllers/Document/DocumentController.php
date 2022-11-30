@@ -15,8 +15,7 @@ class DocumentController extends Controller
         //
         $documents = Document::all();
         $pageContent = Page::published()->where('key', 'our-documents')->firstOrFail();
-
-        $popupAds = PopupAd::query()->whereJsonContains('pages', $pageContent->key)->get();
+        $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
         return view('document.index',
             [
