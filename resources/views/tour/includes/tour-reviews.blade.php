@@ -6,7 +6,7 @@
                  alt="rating">
         </span>
         @lang('tours-section.reviews.title')
-        ({{$tour->testimonials_count}})<i></i>
+        ({{$tour->testimonials_count + $tour->related_testimonials_count}})<i></i>
     </div>
     <div class="accordion-inner">
 

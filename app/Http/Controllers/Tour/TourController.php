@@ -153,6 +153,9 @@ class TourController extends Controller
             'testimonials' => fn ($q) => $q->moderated()
                     ->orderBy('rating', 'desc')
                     ->latest(),
+            'relatedTestimonials' => fn ($q) => $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest(),
 
             'votings' => fn ($q) => $q->published(),
         ]);
@@ -185,7 +188,15 @@ class TourController extends Controller
             $pictures = $pictures->merge($tourPictures);
         }
 
-        $testimonials = $tour->testimonials()
+        $testimonials = Testimonial::query()
+            ->where(function ($q) use ($tour) {
+                $q->where('model_type', Tour::class)
+                    ->where('model_id', $tour->id);
+            })
+            ->orWhere(function ($q) use ($tour) {
+                $q->where('related_type', Tour::class)
+                    ->where('related_id', $tour->id);
+            })
             ->where('rating', '>=', 4)
             ->where('parent_id', null)
             ->limit(2)
@@ -245,7 +256,15 @@ class TourController extends Controller
 
     public function testimonials(Request $request, Tour $tour)
     {
-        $testimonials = $tour->testimonials()
+        $testimonials = Testimonial::query()
+            ->where(function ($q) use ($tour) {
+                $q->where('model_type', Tour::class)
+                    ->where('model_id', $tour->id);
+            })
+            ->orWhere(function ($q) use ($tour) {
+                $q->where('related_type', Tour::class)
+                    ->where('related_id', $tour->id);
+            })
             ->moderated()
             ->whereNull('parent_id')
             ->with([

@@ -17,7 +17,7 @@
         <x-tour.manager :manager="$tour->tour_manager"/>
 
         @if(!$nearest_event)
-            <div v-is="'tour-voting-form'" :tour='@json($tour->shortInfo())'/>
+            <div v-is="'tour-voting-form'" :tour='@json($tour->shortInfo())'></div>
         @endif
 
         <div class="sidebar-item only-desktop hidden-print">
@@ -28,16 +28,16 @@
 
         @include('tour.includes.sidebar-reviews')
 
-        <div class="only-mobile hidden-print">
-
-            <a v-is="'tour-order-schedule-button'"
-               href="{{route('tour.order', $tour)}}"
-               :tour='@json($tour)'
-               :schedule='@json($nearest_event)'
-               class="btn type-1 btn-block"
-            ></a>
-
-        </div>
+        @if($nearest_event)
+            <div class="only-mobile hidden-print">
+                <a v-is="'tour-order-schedule-button'"
+                   href="{{route('tour.order', $tour)}}"
+                   :tour='@json($tour)'
+                   :schedule='@json($nearest_event)'
+                   class="btn type-1 btn-block"
+                ></a>
+            </div>
+        @endif
     </div>
 
 </div>
