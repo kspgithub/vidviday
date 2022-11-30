@@ -60,6 +60,12 @@
                                 <h1 class="h1 title">{{!empty($tour->seo_h1) ? $tour->seo_h1 : $tour->title}}</h1>
                                 <div class="spacer-xs"></div>
 
+                                @if(!is_tour_agent())
+                                    <div class="only-print">
+                                        <a href="{{$tour->url}}" title="{{$tour->title}}">{{url($tour->url)}}</a>
+                                    </div>
+                                @endif
+
                                 <div class="only-pad-mobile hidden-print">
 
                                     <x-tour.star-rating :rating="$tour->rating"

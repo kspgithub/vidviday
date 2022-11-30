@@ -77,7 +77,7 @@ export const mapStyles = [{
 }];
 
 
-export const mapOptions = {
+export const mapOptions = 'google' in window ? {
     center: {lat: 49.822385, lng: 24.023855},
     zoom: 15,
     panControl: false,
@@ -93,4 +93,4 @@ export const mapOptions = {
     },
     streetViewControl: false,
     styles: mapStyles,
-};
+} : {};

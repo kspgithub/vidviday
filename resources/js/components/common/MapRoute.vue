@@ -111,7 +111,7 @@ export default {
             const userLocation = autocompletePlaces(userLocationRef.value);
 
 
-            google.maps.event.addListener(userLocation, 'place_changed', () => {
+            'google' in window && google.maps.event.addListener(userLocation, 'place_changed', () => {
                 const place = userLocation.getPlace();
 
                 map.value.panTo(targetPosition.value);

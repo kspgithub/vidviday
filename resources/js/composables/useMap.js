@@ -86,7 +86,7 @@ export const MAP_STYLES = [{
 
 export const mapLatLng = (options = {}) => {
 
-    return new google.maps.LatLng(options.lat, options.lng)
+    return 'google' in window && new google.maps.LatLng(options.lat, options.lng)
 }
 
 export const mapOptions = (options = {}) => {
@@ -118,19 +118,21 @@ export const mapOptions = (options = {}) => {
 
 
 export const initMap = (element, options = {}) => {
-    const styledMap = new google.maps.StyledMapType(MAP_STYLES, {name: "Styled Map"});
-    const map = new google.maps.Map(element, mapOptions(options));
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
-    return map;
+    if ('google' in window) {
+        const styledMap = new google.maps.StyledMapType(MAP_STYLES, {name: "Styled Map"});
+        const map = new google.maps.Map(element, mapOptions(options));
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
+        return map;
+    }
 }
 
 
 export const addMarker = (map, options = {}) => {
-    const position = options.position || new google.maps.LatLng(options.lat || 49.850562, options.lng || 24.026892);
+    const position = options.position || 'google' in window && new google.maps.LatLng(options.lat || 49.850562, options.lng || 24.026892);
     const id = mapMarkers.length;
     const name = 'map_marker_' + id;
-    const marker = new google.maps.Marker({
+    const marker = 'google' in window && new google.maps.Marker({
         position: position,
         map: map,
         icon: options.icon,
@@ -141,27 +143,29 @@ export const addMarker = (map, options = {}) => {
 }
 
 export const addInfoWindow = (marker, options = {}) => {
-    const map = options.map || marker.map;
-    const infoWindow = new google.maps.InfoWindow({
-        content: options.content
-    });
-    google.maps.event.addListener(marker, 'click', function () {
-        mapMarkers.forEach(mrkr => mapInfoWindow[mrkr.name].close())
-        mapInfoWindow[marker.name].open(map, this);
-        map.setCenter(marker.getPosition());
-    });
+    if('google' in window) {
+        const map = options.map || marker.map;
+        const infoWindow = 'google' in window && new google.maps.InfoWindow({
+            content: options.content
+        });
+        'google' in window && google.maps.event.addListener(marker, 'click', function () {
+            mapMarkers.forEach(mrkr => mapInfoWindow[mrkr.name].close())
+            mapInfoWindow[marker.name].open(map, this);
+            map.setCenter(marker.getPosition());
+        });
 
-    mapInfoWindow[marker.name] = infoWindow;
-    return infoWindow;
+        mapInfoWindow[marker.name] = infoWindow;
+        return infoWindow;
+    }
 }
 
 export const directionsService = (options = {}) => {
-    return new google.maps.DirectionsService(options);
+    return 'google' in window && new google.maps.DirectionsService(options);
 }
 
 export const directionsDisplay = (options = {}) => {
-    const center = options.center || new google.maps.LatLng(options.lat || 49.850562, options.lng || 24.026892);
-    return new google.maps.DirectionsRenderer({
+    const center = options.center || 'google' in window && new google.maps.LatLng(options.lat || 49.850562, options.lng || 24.026892);
+    return 'google' in window && new google.maps.DirectionsRenderer({
         suppressMarkers: true,
         polylineOptions: {
             geodesic: true,
@@ -175,5 +179,5 @@ export const directionsDisplay = (options = {}) => {
 
 export const autocompletePlaces = (element, options) => {
     options = {types: ['geocode'], componentRestrictions: {country: "ua"}, ...options};
-    return new google.maps.places.Autocomplete(element, options);
+    return 'google' in window && new google.maps.places.Autocomplete(element, options);
 }

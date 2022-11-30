@@ -69,6 +69,12 @@
 
             </template>
 
+            <template v-if="!nearestEvent">
+                <a href="#tour-voting-form" class="btn type-1 btn-block only-mobile hidden-print">
+                    {{ __('tours-section.repeat-tour') }}
+                </a>
+            </template>
+
             <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
                 {{ __('tours-section.order-corporate') }}
             </a>
