@@ -56,9 +56,9 @@
                 </div>
                 <div class="thumb-price">
                     <span class="text">
-                         {{ __('tours-section.price') }}
-                        <span>{{ currentSchedule ? currentSchedule?.price : tour.price }}</span>
-                        <i>грн</i>
+                        {{ __('tours-section.price') }}
+                        <span>{{ currencyPrice }}</span>
+                        <i>{{ currencyTitle }}</i>
                     </span>
                     <span v-if="isTourAgent && currentSchedule?.commission > 0" class="discount">
                         {{ currentSchedule?.commission }} {{ __('common.currency.uah-dot') }}
@@ -74,7 +74,8 @@
 
                 <template v-else>
                     <hr>
-                    <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{tour.votings_count}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
+                    <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{ tour.votings_count }}
+                        {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
                     <a :href="voteLink" class="btn type-1 btn-block">
                         {{ __('tours-section.vote') }}
                     </a>
@@ -88,7 +89,7 @@
 <script>
 import TourBadge from "./TourBadge";
 import TourRating from "./TourRating";
-import {useTourCard} from "./useTourCard";
+import { useTourCard } from "./useTourCard";
 import FormSelect from "../form/FormSelect";
 import Tooltip from "../common/Tooltip";
 
