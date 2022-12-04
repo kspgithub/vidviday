@@ -61,8 +61,8 @@
 
                                     <div>
                                         @if($banner->show_price)
-                                            <span class="h1">{{$banner->price}}
-                                                <span class="text light">/ {{currency_title($banner->currency)}}</span>
+                                            <span class="h1">{{currency_value($banner->price, $banner->currency)}}
+                                                <span class="text light">/ {{current_currency($banner->currency)}}</span>
                                             </span>
                                             <span class="text-sm light">{{$banner->price_comment}}</span>
                                         @endif

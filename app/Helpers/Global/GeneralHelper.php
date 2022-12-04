@@ -250,6 +250,21 @@ if (!function_exists('currency_title')) {
     }
 }
 
+if (!function_exists('current_currency')) {
+    function current_currency(string $iso = null)
+    {
+        return Currency::currencyTitle(session('currency', $iso ?: 'UAH'));
+    }
+}
+
+
+if (!function_exists('currency_value')) {
+    function currency_value($value, $iso)
+    {
+        return Currency::toLocal($value, $iso);
+    }
+}
+
 
 if (!function_exists('arrayToSelectBox')) {
     function arrayToSelectBox($array = [])

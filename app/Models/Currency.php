@@ -56,4 +56,20 @@ class Currency extends TranslatableModel
         $currencies = self::allCached();
         return array_key_exists($iso, $currencies) ? $currencies[$iso]->title : $iso;
     }
+
+    public static function toLocal(int $value, string $currency = 'UAH')
+    {
+        $currencies = self::allCached();
+        $iso = session('currency', 'UAH');
+        $currentCurrency = $currencies[$iso] ?? null;
+        $modelCurrency = $currencies[$currency] ?? null;
+
+        if($currentCurrency && $modelCurrency) {
+            $currentValue = round(($value * $modelCurrency->course) / $currentCurrency->course, 2);
+
+            return $currentValue;
+        }
+
+        throw new \Exception('Unknown Currency.');
+    }
 }
