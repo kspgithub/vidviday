@@ -57,6 +57,7 @@ class TourBasicRequest extends FormRequest
             'bestseller' => ['nullable', Rule::in(['1', '0'])],
             'published' => ['nullable', Rule::in(['1', '0'])],
             'home_disabled' => ['nullable', Rule::in(['1', '0'])],
+            'priority' => ['nullable'],
             'show_map' => ['nullable', Rule::in(['1', '0'])],
             'main_image' => ['nullable', 'string'],
             'badges' => ['nullable', 'array'],

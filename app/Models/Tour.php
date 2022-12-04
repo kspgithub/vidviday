@@ -92,6 +92,7 @@ class Tour extends TranslatableModel implements HasMedia
         'corporate_includes',
         'active_tabs',
         'home_disabled',
+        'priority',
     ];
 
     protected $casts = [

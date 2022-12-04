@@ -248,29 +248,38 @@ trait TourScope
                         )
                         ELSE MIN(tour_schedules.start_date)
                     END as date'
+                ))
+                ->addSelect(DB::raw('
+                    CASE WHEN tours.priority IS NULL
+                        THEN (SELECT MAX(tours.priority) FROM tours)+1
+                        ELSE tours.priority
+                    END as sort_order'
                 ));
             $query->groupBy('tours.id');
+
+            $order[] = ['by' => 'date'];
+            $order[] = ['by' => 'sort_order', 'desc'];
         }
 
         if ($sort_by === 'created') {
-            $sort_by = 'created_at';
+            $order[] = ['by' => 'created_at'];
         }
         if ($sort_by === 'rating') {
-            $sort_by = 'testimonials_avg_rating';
+            $order[] = ['by' => 'testimonials_avg_rating'];
         }
         if ($sort_by === 'popular') {
             $query->withCount('views');
-            $sort_by = 'views_count';
+
+            $order[] = ['by' => 'views_count'];
         }
         if ($sort_by === 'duration') {
             $query->addSelect(DB::raw('((IFNULL(tours.duration, 0) * 16) + (IFNULL(tours.nights, 0) * 8) + IFNULL(tours.time, 0)) as duration_hours'));
-            $sort_by = 'duration_hours';
+
+            $order[] = ['by' => 'duration_hours'];
         }
 
-        $query->orderBy($sort_by, $sort_dir);
-
         foreach ($order as $item) {
-            $query->orderBy($item['by'], $item['dir']);
+            $query->orderBy($item['by'] ?? $sort_by, $item['dir'] ?? $sort_dir);
         }
 
         // With

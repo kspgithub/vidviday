@@ -7,6 +7,9 @@
 
         <x-forms.switch-group name="home_disabled" label="Відключити показ на головній" :active="old('home_disabled', $tour->home_disabled)"/>
 
+        <x-forms.text-group name="priority" :label="__('Priority')" :value="old('priority', $tour->priority)"
+                            type="number"></x-forms.text-group>
+
         <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
         <x-forms.locales :value="$tour->locales ?? ['uk']" :use-fallback="false"/>
