@@ -278,4 +278,22 @@ class TourController extends Controller
         $tour->save();
         return response()->json(['result' => 'Success']);
     }
+
+    public function updateActiveTabs(Tour $tour, $tab)
+    {
+        $active_tabs = $tour->active_tabs;
+
+        $index = array_search($tab, $active_tabs);
+
+        if($index !== false) {
+            array_splice($active_tabs, $index);
+        } else {
+            $active_tabs[] = $tab;
+        }
+
+        $tour->active_tabs = $active_tabs;
+        $tour->save();
+
+        return response()->json(['type' => 'success', 'message' => 'Updated']);
+    }
 }
