@@ -250,9 +250,14 @@ trait TourScope
                     END as date'
                 ))
                 ->addSelect(DB::raw('
-                    CASE WHEN tours.priority IS NULL
+                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
                         THEN (SELECT MAX(tours.priority) FROM tours)+1
-                        ELSE tours.priority
+                        ELSE (
+                            CASE WHEN tours.priority IS NULL
+                                THEN (SELECT MAX(tours.priority) FROM tours)+1
+                                ELSE tours.priority
+                            END
+                        )
                     END as sort_order'
                 ));
             $query->groupBy('tours.id');
