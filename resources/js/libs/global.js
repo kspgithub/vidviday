@@ -1119,7 +1119,6 @@ $(function() {
         if ($('select:not(.phpdebugbar-datasets-switcher)').length) {
 
             $('select').each(function () {
-                console.log("Sumo select:", this)
                 if (!$(this).hasClass('vue-select') && !$(this).hasClass('phpdebugbar-datasets-switcher')) {
                     $(this).SumoSelect({
                         search: $(this).data('search'),

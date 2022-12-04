@@ -26,13 +26,15 @@ class ToursController extends Controller
      */
     public function index(SearchToursRequest $request)
     {
-        $q = $request->input('q', '');
-
         $future = (int)$request->input('future', 1) !== 0;
 
         $query = Tour::search($future)->filter($request->validated());
 
-//        $query = Tour::autocomplete($q)->search($future)->filter($request->validated());
+        $prev = trim(url()->previous(), '/');
+
+        if($prev === route('home')) {
+            $query->where('home_disabled', '!=', true);
+        }
 
         $query->withCount([
             'testimonials' => function ($q) {

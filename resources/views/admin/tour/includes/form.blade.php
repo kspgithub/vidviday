@@ -5,6 +5,8 @@
     <x-slot name="body">
         <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $tour->published)"/>
 
+        <x-forms.switch-group name="home_disabled" label="Відключити показ на головній" :active="old('home_disabled', $tour->home_disabled)"/>
+
         <x-forms.switch-group name="show_map" label="Показати карту" :active="old('show_map', $tour->show_map)"/>
 
         <x-forms.locales :value="$tour->locales ?? ['uk']" :use-fallback="false"/>
