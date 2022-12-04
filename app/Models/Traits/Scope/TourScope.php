@@ -80,7 +80,7 @@ trait TourScope
 
     public function scopeFilter(Builder $query, $params)
     {
-        $locale = $params['lang'] ?? 'uk';
+        $locale = $params['lang'] ?? app()->getLocale();
 
         $order = [];
 
