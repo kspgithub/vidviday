@@ -72,4 +72,17 @@ class Currency extends TranslatableModel
 
         throw new \Exception('Unknown Currency.');
     }
+
+    public static function currentCourse()
+    {
+        $currencies = self::allCached();
+        $iso = session('currency', 'UAH');
+        $currentCurrency = $currencies[$iso] ?? null;
+
+        if($currentCurrency) {
+            return $currentCurrency->course;
+        }
+
+        throw new \Exception('Unknown Currency.');
+    }
 }

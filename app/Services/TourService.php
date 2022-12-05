@@ -228,6 +228,8 @@ class TourService extends BaseService
             $subjects = TourSubject::published()->toSelectBox()->toArray();
             $types = TourType::published()->toSelectBox()->toArray();
             $directions = Direction::published()->toSelectBox()->toArray();
+            $tourWithMaxPrice = Tour::query()->orderBy('price', 'desc')->first();
+            $maxPrice = currency_value((int) $tourWithMaxPrice->price, $tourWithMaxPrice->currency);
 
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
@@ -235,7 +237,7 @@ class TourService extends BaseService
                 'duration_from' => 0,
                 'duration_to' => (int)Tour::query()->max('duration') ?? 14,
                 'price_from' => 0,
-                'price_to' => (int)Tour::query()->max('price') ?? 10000,
+                'price_to' => $maxPrice,
                 'directions' => array_merge([['value' => 0, 'text' => __('tours-section.direction')]], $directions),
                 'types' => array_merge([['value' => 0, 'text' => __('tours-section.type')]], $types),
                 'subjects' => array_merge([['value' => 0, 'text' => __('tours-section.subject')]], $subjects),

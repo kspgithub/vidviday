@@ -83,6 +83,7 @@ trait TourScope
         $locale = $params['lang'] ?? app()->getLocale();
 
         $order = [];
+        $selects = [];
 
         $query
             ->whereJsonContains('locales', $locale)
@@ -107,11 +108,22 @@ trait TourScope
             ->when(!empty($params['duration_to']), function (Builder $q) use ($params) {
                 return $q->where('tours.duration', '<=', $params['duration_to']);
             })
+            ->when(!empty($params['price_from']) || !empty($params['price_to']), function (Builder $q) use ($params, &$selects) {
+                return $q->leftJoin('currencies', function (JoinClause $join) {
+                    $join->on('tours.currency', '=', 'currencies.iso');
+                });
+            })
             ->when(!empty($params['price_from']), function (Builder $q) use ($params) {
-                return $q->where('tours.price', '>=', $params['price_from']);
+                $currency = session('currency', 'UAH');
+                $value = currency_value($params['price_from'], $currency);
+                $course = currency_course();
+                return $q->whereRaw('( (tours.price / currencies.course) / '.$course.' ) >= "' . $value . '"');
             })
             ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
-                return $q->where('tours.price', '<=', $params['price_to']);
+                $currency = session('currency', 'UAH');
+                $value = currency_value($params['price_to'], $currency);
+                $course = currency_course();
+                return $q->whereRaw('( (tours.price / currencies.course) / '.$course.' ) <= "' . $value . '"');
             })
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
                 return $q->whereHas('directions', function (Builder $sq) use ($params) {
@@ -285,6 +297,10 @@ trait TourScope
 
         foreach ($order as $item) {
             $query->orderBy($item['by'] ?? $sort_by, $item['dir'] ?? $sort_dir);
+        }
+
+        foreach ($selects as $key => $value) {
+            $query->addSelect($value);
         }
 
         // With

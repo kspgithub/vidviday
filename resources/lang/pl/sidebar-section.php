@@ -17,7 +17,7 @@ return [
         'from-date' => 'Дата Виїзду',
         'to-date' => 'Дата Приїзду',
         'duration' => 'Тривалість днів',
-        'price' => 'Вартість, грн',
+        'price' => 'Вартість, :currency',
         'direction' => 'Напрямок',
         'type' => 'Тип',
         'subject' => 'Тематика',

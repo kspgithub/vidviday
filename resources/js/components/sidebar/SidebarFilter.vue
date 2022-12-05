@@ -30,8 +30,8 @@
                 <form-range v-model="price"
                             :max="options.price_to"
                             :min="options.price_from"
-                            :step="100"
-                            :label="__('sidebar-section.filter.price')"
+                            :step="Math.ceil(100 / currencyRate)"
+                            :label="__('sidebar-section.filter.price', {currency: currencyTitle})"
                             name="price"
                 />
 
@@ -114,7 +114,6 @@ export default {
         watch(() => store.state.tourFilter.initialized, (value) => {
             store.dispatch('tourFilter/initFilter');
         })
-
         const dateFrom = useFormDataProperty('tourFilter', 'date_from');
         const dateTo = useFormDataProperty('tourFilter', 'date_to');
         const duration = useFormDataProperty('tourFilter', 'duration');
@@ -169,6 +168,9 @@ export default {
             })
         }
 
+        const currencyTitle = computed(() => store.getters['currency/title']);
+        const currencyRate = computed(() => store.getters['currency/rate']);
+
         return {
             dateFrom,
             dateTo,
@@ -184,6 +186,8 @@ export default {
             placeSelectRef,
             places,
             searchPlaces,
+            currencyTitle,
+            currencyRate,
         }
     }
 }

@@ -50,6 +50,7 @@ trait TourMethods
             'price_title' => json_prepare($price_title),
             'full_title' => json_prepare($full_title),
             'price' => $this->price,
+            'pprice' => $this->pprice,
             'commission' => $this->commission,
             'accomm_price' => $this->accomm_price,
             'currency' => $this->currency,

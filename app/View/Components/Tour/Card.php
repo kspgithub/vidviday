@@ -61,7 +61,6 @@ class Card extends Component
      */
     public function render()
     {
-        debug($this->tour->testimonials_avg_rating);
         return view('components.tour.card');
     }
 }

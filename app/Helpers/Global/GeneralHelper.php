@@ -266,6 +266,14 @@ if (!function_exists('currency_value')) {
 }
 
 
+if (!function_exists('currency_course')) {
+    function currency_course()
+    {
+        return Currency::currentCourse();
+    }
+}
+
+
 if (!function_exists('arrayToSelectBox')) {
     function arrayToSelectBox($array = [])
     {

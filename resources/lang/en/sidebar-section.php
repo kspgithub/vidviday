@@ -17,7 +17,7 @@ return [
         'from-date' => 'Departure date',
         'to-date' => 'Arrival date',
         'duration' => 'Duration, days',
-        'price' => 'Cost, UAH',
+        'price' => 'Cost, :currency',
         'direction' => 'Direction',
         'type' => 'Type',
         'subject' => 'Subject',
