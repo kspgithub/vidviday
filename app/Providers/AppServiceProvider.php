@@ -6,6 +6,7 @@ use App\Models\AgencySubscription;
 use App\Models\Order;
 use App\Models\Page;
 use App\Models\QuestionType;
+use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourVoting;
 use App\Models\UserQuestion;
@@ -13,6 +14,7 @@ use App\Models\UserSubscription;
 use App\Observers\AgencySubscriptionObserver;
 use App\Observers\OrderObserver;
 use App\Observers\PageObserver;
+use App\Observers\TestimonialObserver;
 use App\Observers\TourObserver;
 use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
@@ -65,5 +67,6 @@ class AppServiceProvider extends ServiceProvider
         Tour::observe(TourObserver::class);
         TourVoting::observe(TourVotingObserver::class);
         Page::observe(PageObserver::class);
+        Testimonial::observe(TestimonialObserver::class);
     }
 }

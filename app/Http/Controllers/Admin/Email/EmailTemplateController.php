@@ -13,6 +13,7 @@ use App\Mail\OrderTransportAdminMail;
 use App\Mail\OrderTransportMail;
 use App\Mail\RegistrationAdminEmail;
 use App\Mail\RegistrationEmail;
+use App\Mail\TestimonialAdminEmail;
 use App\Mail\TourOrderAdminEmail;
 use App\Mail\TourOrderEmail;
 use App\Mail\UserQuestionAdminEmail;
@@ -47,6 +48,7 @@ class EmailTemplateController extends Controller
             UserQuestionEmail::class,
             UserQuestionManagerEmail::class,
             VacancyEmail::class,
+            TestimonialAdminEmail::class,
         ];
     }
 

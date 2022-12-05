@@ -74,7 +74,7 @@ export default {
 
         async answer({commit, state}, payload) {
             commit('SET_REQUEST', true);
-            const {data: response} = await axios.patch(state.url + '/answer', payload)
+            const {data: response} = await axios.patch('/testimonials/answer', payload)
                 .catch((error) => {
                     console.log(error);
                 });

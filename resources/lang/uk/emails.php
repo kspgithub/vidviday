@@ -51,4 +51,8 @@ return [
         'subject' => 'Новий відгук на вакансію на Vidviday.ua',
     ],
 
+    'testimonial-admin' => [
+        'subject' => 'Новий відгук',
+    ],
+
 ];
