@@ -34,12 +34,13 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'facebook_chat', 'value' => '', 'title' => 'Facebook chat', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
             ['key' => 'complaints_image', 'value' => '', 'title' => 'Complaints image', 'primary' => true, 'type' => SiteOption::TYPE_IMAGE],
             ['key' => 'menu_column_items', 'value' => 7, 'title' => 'Menu items per column', 'primary' => true, 'type' => SiteOption::TYPE_INTEGER],
+            ['key' => 'working_hours', 'value' => '10:00 - 22:00', 'title' => 'Working hours', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
         ];
 
         foreach ($site_options as $option) {
             $setting = SiteOption::getValue($option['key']);
 
-            if(!$setting) {
+            if(is_null($setting)) {
                 SiteOption::createOption($option['key'], $option['value'], $option['title'], $option['primary'] ?? false, $option['type'] ?? null);
             }
         }

@@ -266,6 +266,27 @@ if (!function_exists('currency_value')) {
 }
 
 
+if (!function_exists('getCallTimes')) {
+    function getCallTimes()
+    {
+        $times = [];
+        $working_hours = site_option('working_hours', '10:00 - 22:00');
+        $parts = explode("\r\n", $working_hours);
+
+        foreach ($parts as $part) {
+            $parts = array_map(fn($time) => preg_replace('/([\d]{2}):[\d]{2}/', '$1', trim($time)), explode('-', $part));
+
+            for($i = (int) $parts[0]; $i <= $parts[1]; $i++) {
+                $text = (strlen($i) === 1 ? ('0' . $i) : $i) . ':00';
+                $times[] = ['text' => $text, 'value' => $text];
+            }
+        }
+
+        return $times;
+    }
+}
+
+
 if (!function_exists('currency_course')) {
     function currency_course()
     {

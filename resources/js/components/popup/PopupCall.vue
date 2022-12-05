@@ -108,6 +108,7 @@ export default {
     },
     props: {
         questionTypes: Array,
+        timeOptions: Array,
     },
     setup(props) {
         const store = useStore();
@@ -202,10 +203,12 @@ export default {
             }
         }
 
-        const callTimes = ref([])
+        const callTimes = ref(props.timeOptions || [])
 
-        for(let time = 11; time <= 20; time++) {
-            callTimes.value.push({text: `${time}:00`, value: `${time}:00`})
+        if(!callTimes.value.length){
+            for(let time = 11; time <= 20; time++) {
+                callTimes.value.push({text: `${time}:00`, value: `${time}:00`})
+            }
         }
 
         return {

@@ -22,7 +22,10 @@
 <div v-is="'popup-gallery'"></div>
 <div v-is="'popup-user-sub'"></div>
 <div v-is="'popup-agent-sub'"></div>
-<div v-is="'popup-call'" :question-types='@json($questionTypes->where('type', App\Models\UserQuestion::TYPE_CALL)->values()->map->asSelectBox())'></div>
+<div v-is="'popup-call'"
+     :question-types='@json($questionTypes->where('type', App\Models\UserQuestion::TYPE_CALL)->values()->map->asSelectBox())'
+     :time-options='@json(getCallTimes())'
+></div>
 <div v-is="'popup-email'" :question-types='@json($questionTypes->where('type', App\Models\UserQuestion::TYPE_EMAIL)->values()->map->asSelectBox())'></div>
 <div v-is="'popup-thanks'"></div>
 <div v-is="'header-voice-popup'"></div>
