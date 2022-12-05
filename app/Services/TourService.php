@@ -229,7 +229,7 @@ class TourService extends BaseService
             $types = TourType::published()->toSelectBox()->toArray();
             $directions = Direction::published()->toSelectBox()->toArray();
             $tourWithMaxPrice = Tour::query()->orderBy('price', 'desc')->first();
-            $maxPrice = currency_value((int) $tourWithMaxPrice->price, $tourWithMaxPrice->currency);
+            $maxPrice = (int) currency_value($tourWithMaxPrice->price, $tourWithMaxPrice->currency);
 
             return [
                 'date_from' => Carbon::now()->format('d.m.Y'),
