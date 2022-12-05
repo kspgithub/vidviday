@@ -577,7 +577,8 @@ jQuery(function ($) {
     //     $(this).removeClass('active');
     // });
     // Tooltip
-    $('.tooltip-wrap.red, .tooltip-wrap.black, .tooltip-wrap.light').on('click', function () {
+    $(document).on('click', '.tooltip-wrap.red, .tooltip-wrap.black, .tooltip-wrap.light', function (e) {
+        e.preventDefault();
         $(this).toggleClass('active');
     });
 

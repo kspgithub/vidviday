@@ -149,8 +149,7 @@ trait TourScheduleAttribute
         $title = "Ціна: {$price} грн.";
         if (true) {
             $commission = ceil($this->commission);
-            $title .= " | {$commission} грн. <tooltip variant='red'>commission</tooltip>
-";
+            $title .= " | {$commission} грн. <span class='tooltip-wrap red''><span class='tooltip text text-sm placement-center''>Комісія агента</span></span>";
         }
         return $title;
     }
