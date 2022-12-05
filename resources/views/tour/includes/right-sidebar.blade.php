@@ -14,7 +14,9 @@
 
         <div class="spacer-xs"></div>
 
-        <x-tour.manager :manager="$tour->tour_manager"/>
+        @if($tour->tour_manager)
+            <x-tour.manager :manager="$tour->tour_manager"/>
+        @endif
 
         @if(!$nearest_event)
             <div v-is="'tour-voting-form'" :tour='@json($tour->shortInfo())'></div>
