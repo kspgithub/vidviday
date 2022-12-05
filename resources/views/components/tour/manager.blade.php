@@ -14,7 +14,7 @@
         <div class="bottom-part">
             <span class="text-md text-medium">{{$manager->name}}</span>
             <div class="spacer-xs"></div>
-            <div>
+            <div class="contact">
                 @foreach($manager->phones as $phone)
                     <a href="tel:{{clear_phone($phone)}}" class="text" target="_blank">{{$phone}}</a>
                     <br>

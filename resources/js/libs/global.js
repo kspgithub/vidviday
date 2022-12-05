@@ -401,8 +401,13 @@ jQuery(function ($) {
                     scrollTop: offset.top - outerHeight
                 }, 730);
 
-                if ($(anchorLink).hasClass('accordion-title')) {
-                    $(anchorLink).click();
+
+                let title = $(anchorLink).hasClass('accordion-title') ? $(anchorLink) : $(anchorLink).find('.accordion-title').first()
+
+                if (title && title.length && !title.hasClass('active')) {
+                    setTimeout(() => {
+                        title.click()
+                    }, 0)
                 }
             }
         }
