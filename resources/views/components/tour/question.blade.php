@@ -1,5 +1,6 @@
 @props([
-    'question'=>new \App\Models\TourQuestion()
+    'question'=>new \App\Models\TourQuestion(),
+    'rating' => true,
 ])
 <div class="review-item">
     <div class="spacer-xs"></div>
@@ -17,7 +18,7 @@
                 <span class="h4">{{$question->name}}</span>
                 <span class="text text-sm">{{$question->created_at?->format('d.m.Y')}}</span>
                 <span class="text text-sm">{{$question->created_at?->format('H:i')}}</span>
-                @if(!$question->parent_id)
+                @if($rating && !$question->parent_id)
                     <x-tour.star-rating :rating="$question->rating"/>
                 @endif
 

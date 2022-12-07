@@ -55,4 +55,8 @@ return [
         'subject' => 'Новий відгук',
     ],
 
+    'testimonial-answer' => [
+        'subject' => 'Нова відповідь на відгук',
+    ],
+
 ];

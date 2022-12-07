@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div style="text-align: center;">
-            <x-email.title>Відгук</x-email.title>
+            <x-email.title>Відповідь на ваше повідомлення.</x-email.title>
         </div>
 
         <x-email.card>
@@ -20,10 +20,19 @@
                     @lang('Place'): <a href="{{$testimonial->place->url}}">{{$testimonial->place->title}}</a>
                 </p>
             @endif
+
+            @if($testimonial->parent)
+                <hr>
+                <p>Ваше повідомлення: {{ $testimonial->parent->comment }}</p>
+                <p>Час: {{ $testimonial->parent->created_at }}</p>
+                <hr>
+            @endif
+
             <p>Ім'я: {{ $testimonial->name }}</p>
             <p>Телефон: {{ $testimonial->phone }}</p>
             <p>Email: {{ $testimonial->email }}</p>
             <p>Коментар: {{ $testimonial->comment }}</p>
+            <p>Час: {{ $testimonial->created_at }}</p>
         </x-email.card>
 
         <x-email.thanks>Дякуємо за те, що обрали нас!</x-email.thanks>

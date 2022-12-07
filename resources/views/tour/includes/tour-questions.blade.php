@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 @foreach($tour->questions->toTree() as $question)
-                    <x-tour.question :question="$question"/>
+                    <x-tour.question :question="$question" :rating="false"/>
                 @endforeach
             @endif
         </div>

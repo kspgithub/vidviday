@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Mail\TestimonialAdminEmail;
+use App\Mail\TestimonialAnswerEmail;
 use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
@@ -27,9 +28,14 @@ class TestimonialObserver
         $adminEmails = MailNotificationService::getAdminNotifyEmails();
 
         try {
-            foreach ($adminEmails as $email) {
-                Mail::to($email)->queue(new TestimonialAdminEmail($testimonial));
+            if($testimonial->parent) {
+                Mail::to($testimonial->parent->email)->queue(new TestimonialAnswerEmail($testimonial));
+            } else {
+                foreach ($adminEmails as $email) {
+                    Mail::to($email)->queue(new TestimonialAdminEmail($testimonial));
+                }
             }
+
         } catch (Exception $e) {
             //
         }
