@@ -90,9 +90,10 @@
                         </div>
                     </div>
                 </div>
-                @foreach($tour->questions->toTree() as $question)
-                    <x-tour.question :question="$question" :rating="false"/>
-                @endforeach
+                <div v-is="'testimonial-list'"
+                     :items='@json($tour->questions->toTree())'
+                     url="{{route('tour.testimonials', $tour)}}"
+                ></div>
             @endif
         </div>
     </div>

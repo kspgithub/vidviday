@@ -31,7 +31,7 @@ export default {
     components: {TestimonialItem},
     props: {
         url: String,
-        items: {},
+        items: Array,
         page: {
             type: Number,
             default: 1

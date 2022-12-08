@@ -13,6 +13,7 @@ use App\Models\Tour;
 use App\Models\Badge;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
@@ -122,4 +123,26 @@ class PlaceController extends Controller
 
         return redirect()->to($place->url)->withFlashSuccess(__('Thanks for your feedback!'));
     }
+
+
+    public function testimonials(Request $request, Place $place)
+    {
+        $testimonials = Testimonial::query()
+            ->moderated()
+            ->whereNull('parent_id')
+            ->with([
+                'user',
+                'parent',
+                'media',
+                'parent.user',
+                'model',
+                'related',
+            ])
+            ->withCount('children')
+            ->orderBy('rating', 'desc')
+            ->latest();
+
+        return $testimonials->paginate(10);
+    }
+
 }

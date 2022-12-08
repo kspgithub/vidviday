@@ -7,7 +7,6 @@
                   :tour='@json($tour->shortInfo())'
                   :nearest-event='@json($nearest_event->id ?? 0)'
                   :corporate="{{(!app()->environment('production') && !$future_events->count()) ? 'true' : 'false'}}"
-                  :corporate="false"
             ></form>
 
         </div>

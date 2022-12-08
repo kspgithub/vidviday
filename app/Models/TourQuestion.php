@@ -25,6 +25,8 @@ class TourQuestion extends Model implements HasMedia
     public const STATUS_PUBLISHED = 1;
     public const STATUS_BLOCKED = 2;
 
+    public const SHORT_TEXT_STR_LIMIT = 120;
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -55,6 +57,8 @@ class TourQuestion extends Model implements HasMedia
     protected $appends = [
         'initials',
         'avatar_url',
+        'gallery',
+        'short_text',
     ];
 
     /**
@@ -101,6 +105,15 @@ class TourQuestion extends Model implements HasMedia
         return site_option('moderate_questions', false) === true && $this->status === 0;
     }
 
+    public function getShortTextAttribute()
+    {
+        return str_limit(strip_tags(html_entity_decode($this->text)), self::SHORT_TEXT_STR_LIMIT);
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->getMedia()->map->toSwiperSlide();
+    }
 
     public function scopeModerated(Builder $query)
     {

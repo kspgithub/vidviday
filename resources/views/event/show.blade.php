@@ -67,8 +67,6 @@
 
                     @if($tours->count())
                         @include('event.tours', ['tours' => $tours])
-                    @else
-                        <x-tour.popular/>
                     @endif
                 </div>
             </div>

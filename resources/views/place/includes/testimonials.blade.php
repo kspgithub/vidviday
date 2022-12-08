@@ -12,9 +12,11 @@
                 <hr>
                 <div class="spacer-xs"></div>
 
-                @foreach($place->testimonials->toTree() as $testimonial)
-                    <x-tour.testimonial :testimonial="$testimonial"/>
-                @endforeach
+                <div v-is="'testimonial-list'"
+                     :items='@json($place->testimonials->toTree())'
+                     url="{{route('place.testimonial', $place)}}"
+                ></div>
+
                 <div class="spacer-xs"></div>
                 <hr>
                 <div class="spacer-xs"></div>
