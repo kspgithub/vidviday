@@ -114,8 +114,8 @@
                         <a href="{{$order->act}}" download class="download">Акт виконаних робіт</a>
                     @endif
                     <br>
-                    @if(!empty($order->info_sheet))
-                        <a href="{{$order->info_sheet}}" download class="download">Завантажити інфо-лист</a>
+                    @if(!empty($order->info_sheet ?: $order->schedule?->info_sheet))
+                        <a href="{{$order->info_sheet ?: $order->schedule?->info_sheet}}" download class="download">Завантажити інфо-лист</a>
                     @endif
                 </div>
             </div>
