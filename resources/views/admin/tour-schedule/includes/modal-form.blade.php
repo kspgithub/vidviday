@@ -18,6 +18,11 @@
                                             autocomplete="off"
                                             label-col="col-md-4" input-col="col-md-8"/>
 
+                        <x-forms.text-group label="Час виїзду" x-bind:value="scheduleData.start_time" name="start_time"
+                                            required x-ref="startTimeRef"
+                                            autocomplete="off"
+                                            label-col="col-md-4" input-col="col-md-8"/>
+
                         <x-forms.text-group label="Дата повернення" x-bind:value="scheduleData.end_date" name="end_date"
                                             {{--                                            required x-ref="endDateRef"--}}
                                             disabled

@@ -79,6 +79,7 @@ class TourScheduleController extends Controller
             }
 
             $start = $request->input('start_date', null);
+            $start_time = $request->input('start_time', null);
             $end = $request->input('end_date', null);
 
             $startDate = Carbon::createFromFormat('d.m.Y', $start);
@@ -122,6 +123,7 @@ class TourScheduleController extends Controller
                     break;
             }
             $schedule->start_date = $start_date;
+            $schedule->start_time = $start_time ?: null;
             $schedule->end_date = $end_date;
             $schedule->save();
 

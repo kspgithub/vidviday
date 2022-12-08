@@ -21,6 +21,7 @@
                     <tr>
                         <th>{!! alpineSortLink('id', 'ID')!!}</th>
                         <th>{!! alpineSortLink('start_date', 'Дата виїзду')!!}</th>
+                        <th>{!! alpineSortLink('start_time', 'Час виїзду')!!}</th>
                         <th>{!!alpineSortLink('end_date', 'Дата повернення')!!}</th>
                         <th>{!!alpineSortLink('places', 'Ліміт місць')!!}</th>
                         <th>{!!alpineSortLink('price', 'Ціна')!!}</th>
@@ -38,6 +39,7 @@
                         <tr>
                             <td><a :href="`/admin/crm/schedules/${item.id}`" target="_blank" x-text="item.id"></a></td>
                             <td><span x-text="item.start_date"></span></td>
+                            <td><span x-text="item.start_time"></span></td>
                             <td><span x-text="item.end_date"></span></td>
                             <td><span x-text="item.places"></span></td>
                             <td class="text-right"><span x-text="item.price"></span></td>

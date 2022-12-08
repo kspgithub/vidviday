@@ -12,6 +12,7 @@ import createItem from "../composables/create-item";
 const DEFAULT_SCHEDULE = {
     id: 0,
     start_date: '',
+    start_time: '',
     places: 48,
     price: null,
     commission: null,
@@ -57,6 +58,20 @@ export default (props) => ({
 
                     const end_date = selectedDates[0] ? moment(selectedDates[0]).add(days, 'days').format('DD.MM.YYYY') : null;
                     this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
+                }
+            });
+
+            flatpickr(this.$refs.startTimeRef, {
+                locale: Ukrainian,
+                allowInput: true,
+                noCalendar: true,
+                enableTime: true,
+                timeFormat: 'hh:mm',
+                // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
+                onChange: (selectedDates) => {
+                    const start_time = selectedDates[0] ? moment(selectedDates[0]).format('hh:mm') : null;
+
+                    this.scheduleData = {...this.scheduleData, start_time};
                 }
             });
         }, 100);

@@ -37,6 +37,7 @@ class TourSchedule extends Model
         'tour_id',
         'bitrix_id',
         'start_date',
+        'start_time',
         'end_date',
         'places',
         'places_yesterday',
