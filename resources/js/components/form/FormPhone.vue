@@ -165,6 +165,11 @@ export default {
     top: 0;
     bottom: 0;
     display: flex;
+    width: 100%;
+
+    * {
+        font-size: 14px;
+    }
 
     & + input {
         padding-left: 90px;
@@ -172,16 +177,25 @@ export default {
 
     .dropdown {
         display: flex;
+        width: 100%;
 
         .dropdown-title {
             display: flex;
             align-items: center;
             padding-left: 10px;
-            width: 65px;
 
             .iti__flag {
                 margin-right: 7px;
             }
+        }
+
+        .dropdown-btn {
+            left: 78px;
+        }
+
+        .dropdown-toggle {
+            left: 0;
+            width: 100%;
         }
     }
 }
