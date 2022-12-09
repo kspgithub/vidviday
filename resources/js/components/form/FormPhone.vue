@@ -3,7 +3,7 @@
 
         <input type="hidden" :name="name" v-model="innerValue">
 
-        <i v-if="label">{{ label }} <span v-if="required">*</span></i>
+        <i v-if="label" class="phone-label">{{ label }} <span v-if="required">*</span></i>
 
         <div class="phone-codes">
 
@@ -25,7 +25,7 @@
 
         <input ref="inputRef"
                v-model="numberModel"
-               class="vue-input"
+               class="vue-input phone-input"
                @focus="onFocus"
                @blur="onBlur"
                :placeholder="placeholder"
@@ -183,6 +183,8 @@ export default {
             display: flex;
             align-items: center;
             padding-left: 10px;
+            width: 78px;
+            z-index: 4;
 
             .iti__flag {
                 margin-right: 7px;
@@ -191,6 +193,7 @@ export default {
 
         .dropdown-btn {
             left: 78px;
+            z-index: 4;
         }
 
         .dropdown-toggle {
@@ -198,5 +201,13 @@ export default {
             width: 100%;
         }
     }
+}
+
+.phone-input {
+    position: relative;
+}
+
+i.phone-label {
+    z-index: 3;
 }
 </style>

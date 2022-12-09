@@ -26,4 +26,10 @@ require('./libs/toast');
 require('./libs/sharer');
 require('./libs/moreLess');
 
-require('./vue-app');
+const { createVueApp } = require('./vue-app');
+
+const { app } = createVueApp();
+
+require('./validation/rules');
+
+window.vm = app.mount('#app');
