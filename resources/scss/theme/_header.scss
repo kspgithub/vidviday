@@ -593,6 +593,7 @@ nav {
 
     .dropdown-toggle {
         display: flex !important;
+        flex-direction: column;
     }
 
     #menu-btn,

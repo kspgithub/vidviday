@@ -77,11 +77,7 @@
                         <form-phone v-model="formData.mobile_phone"
                                     label="Мобільний телефон"
                                     name="mobile_phone"
-                                    mask="+38 (099) 999-99-99"
                         />
-
-                        <form-input v-model="formData.mobile_phone" label="Мобільний телефон" name="mobile_phone"
-                                    mask="+38 (099) 999-99-99"/>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -154,7 +150,7 @@ import Tooltip from "../common/Tooltip";
 import SvgIcon from "../svg/SvgIcon";
 import FormAvatar from "../form/FormAvatar";
 import {useForm} from "vee-validate";
-import {reactive} from "vue";
+import { reactive, ref } from "vue";
 import FormPhone from "../form/FormPhone";
 
 export default {

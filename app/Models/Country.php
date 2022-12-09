@@ -29,7 +29,10 @@ class Country extends TranslatableModel
     protected $fillable = [
         'title',
         'slug',
-        'iso'
+        'iso',
+        'phone_code',
+        'phone_mask',
+        'phone_rule',
     ];
 
     public function regions()

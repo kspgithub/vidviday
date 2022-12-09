@@ -1,33 +1,38 @@
 <template>
-    <label :data-tooltip="errorMessage"
-           :class="{active: !!innerValue || focused, invalid: errorMessage, focused}"
-    >
+    <label :data-tooltip="errorMessage" :class="{active: true || focused, invalid: errorMessage, focused}">
+
+        <input type="hidden" :name="name" v-model="innerValue">
+
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
 
         <div class="phone-codes">
 
-            <div class="dropdown">
-                <span><div class="iti__flag iti__ua"></div> +380</span>
+            <div ref="dropdownRef" class="dropdown">
+                <a class="dropdown-title">
+                    <div v-if="country" class="d-inline-block" :class="'iti__flag iti__'+country?.iso.toLocaleLowerCase()"></div> {{ country?.phone_code }}
+                </a>
                 <span class="dropdown-btn"></span>
                 <ul class="dropdown-toggle" style="display: none;">
-                    <li><a href="http://vidviday.test/profile?lang=ru">RU</a></li>
-                    <li><a href="http://vidviday.test/profile?lang=en">EN</a></li>
-                    <li><a href="http://vidviday.test/profile?lang=pl">PL</a></li>
+                    <li v-for="c in countries" @click.prevent="countryModel = c.phone_code">
+                        <a href="#">
+                            <div class="d-inline-block" :class="'iti__flag iti__'+c.iso.toLocaleLowerCase()"></div> {{ c.phone_code }} ({{ c.title }})
+                        </a>
+                    </li>
                 </ul>
-                <div class="full-size"></div>
             </div>
 
         </div>
+
         <input ref="inputRef"
-               v-model="innerValue"
+               v-model="numberModel"
                class="vue-input"
                @focus="onFocus"
                @blur="onBlur"
                :placeholder="placeholder"
                :autocomplete="autocomplete"
                :type="type"
-               :name="name"
                :id="'input-' + (id || name)"
+               :mask="getMask"
         >
         <slot/>
     </label>
@@ -35,7 +40,8 @@
 
 <script>
 import useFormField from "./composables/useFormField";
-import { ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useCountries } from "../../useCountries";
 
 export default {
     name: "FormPhone",
@@ -86,9 +92,90 @@ export default {
     setup(props, {emit}) {
         const field = useFormField(props, emit);
 
+        const dropdownRef = ref(null)
+
+        const countries = useCountries()
+
+        const rawPhone = computed(() => {
+            return field.innerValue.value.replaceAll(/[-_() ]/g, '')
+        })
+
+        const country = computed(() => {
+            return countries.find(c => rawPhone.value.startsWith(c.phone_code)) || countries[0]
+        })
+
+        const getMask = computed(() => country.value?.phone_mask || props.mask)
+
+        const phoneCode = computed(() => country.value?.phone_code)
+
+        const cleanPhone = computed(() => {
+            return rawPhone.value.replace(phoneCode.value, '')
+        })
+
+        const phoneNumber = computed(() => {
+            const replace = country.value?.phone_code + (field.innerValue.value.length > country.value?.phone_code.length ? ' ' : '')
+            return country.value?.phone_code ? field.innerValue.value.replace(replace, '') : ''
+        })
+
+        const countryModel = computed({
+            get: () => phoneCode.value,
+            set: _.debounce(value => field.innerValue.value = value),
+        })
+
+        const numberModel = computed({
+            get: () => phoneNumber.value,
+            set: _.debounce(value => field.innerValue.value = (phoneCode.value.length ? phoneCode.value+' ' : '') + value),
+        })
+
+        watch(() => country.value, (value) => {
+            Inputmask(value.phone_mask).mask(field.inputRef.value);
+        })
+
+        onMounted(() => {
+            Inputmask(getMask.value).mask(field.inputRef.value);
+        })
+
         return {
             ...field,
+            countries,
+            country,
+            rawPhone,
+            phoneCode,
+            cleanPhone,
+            phoneNumber,
+            countryModel,
+            numberModel,
+            dropdownRef,
+            getMask,
         }
     }
 }
 </script>
+
+<style lang="scss">
+.phone-codes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+
+    & + input {
+        padding-left: 90px;
+    }
+
+    .dropdown {
+        display: flex;
+
+        .dropdown-title {
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            width: 65px;
+
+            .iti__flag {
+                margin-right: 7px;
+            }
+        }
+    }
+}
+</style>

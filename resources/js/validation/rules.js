@@ -6,6 +6,8 @@ import uk from '@vee-validate/i18n/dist/locale/uk.json';
 
 import AllRules from '@vee-validate/rules';
 
+const countries = useCountries()
+
 const veeMessages = {
     ru: {
         messages: {
@@ -86,7 +88,13 @@ const customRules = {
         if (value) {
             // let phone = new PhoneNumber(value);
             // return phone.isValid();
-            return /^\+38 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(value)
+            const country = countries.find(c => value.startsWith(c.code))
+            if(country?.rule) {
+                const regex = new RegExp(country.phone_rule)
+                return regex.test(value)
+            } else {
+                return /^\+38 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(value)
+            }
         }
         return true;
     },
@@ -159,3 +167,4 @@ setLocale(document.documentElement.lang || 'uk');
 
 import moment from 'moment';
 import { i18n } from '../i18n/lang.js'
+import { useCountries } from "../useCountries";
