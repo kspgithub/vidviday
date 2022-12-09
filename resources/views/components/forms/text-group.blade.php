@@ -30,7 +30,7 @@
             {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control', 'type'=>$type]) }}
         />
         @if(!empty($help))
-            <div class="form-text">{{$help}}</div>
+            <div class="form-text">{!! Str::replace('\n','<br>',$help) !!}</div>
         @endif
         @error($name)
         <div class="invalid-feedback d-block">

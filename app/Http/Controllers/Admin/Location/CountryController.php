@@ -53,6 +53,9 @@ class CountryController extends Controller
             'title.uk' => 'required|string',
             'iso' => 'required|string|max:10|unique:countries',
             'slug' => 'required|string|max:10|unique:countries',
+            'phone_code' => 'required',
+            'phone_mask' => 'required',
+            'phone_rule' => 'required|regex:^\^\/(.*)\$',
         ]);
         // Failed
         if ($validator->fails()) {
@@ -95,6 +98,9 @@ class CountryController extends Controller
             'title.uk' => 'required|string',
             'iso' => 'required|string|max:10|unique:countries,iso,' . $country->id,
             'slug' => 'required|string|max:10|unique:countries,slug,' . $country->id,
+            'phone_code' => 'required',
+            'phone_mask' => 'required',
+            'phone_rule' => 'required|regex:/^\/(.*)\/$/',
         ]);
         // Failed
         if ($validator->fails()) {
