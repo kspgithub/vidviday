@@ -232,50 +232,7 @@ trait TourScope
         $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
 
         if($sort_by === 'date') {
-            $query->leftJoin('tour_schedules', function (JoinClause $join) {
-                $join->on('tours.id', '=', 'tour_schedules.tour_id')
-                    ->where('tour_schedules.start_date', '>=', now())
-                    ->whereNull('tour_schedules.deleted_at');
-            });
-
-            $query->leftJoin('tour_votings', function (JoinClause $join) {
-                $join->on('tours.id', '=', 'tour_votings.tour_id')
-                    ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
-            });
-
-            $query->leftJoin('tour_views', function (JoinClause $join) {
-                $join->on('tours.id', '=', 'tour_views.tour_id');
-            });
-
-            $query->select('tours.*')
-                ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
-                ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
-                ->addSelect(DB::raw('
-                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
-                        THEN (
-                            CASE WHEN COUNT(tour_votings.tour_id) > 0
-                                THEN SUBDATE("2111-01-01", INTERVAL COUNT(tour_votings.tour_id) DAY)
-                                ELSE SUBDATE("2222-01-01", INTERVAL COUNT(tour_views.tour_id) DAY)
-                            END
-                        )
-                        ELSE MIN(tour_schedules.start_date)
-                    END as date'
-                ))
-                ->addSelect(DB::raw('
-                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
-                        THEN (SELECT MAX(tours.priority) FROM tours)+1
-                        ELSE (
-                            CASE WHEN tours.priority IS NULL
-                                THEN (SELECT MAX(tours.priority) FROM tours)+1
-                                ELSE tours.priority
-                            END
-                        )
-                    END as sort_order'
-                ));
-            $query->groupBy('tours.id');
-
-            $order[] = ['by' => 'date'];
-            $order[] = ['by' => 'sort_order', 'desc'];
+            $query->orderByDate();
         }
 
         if ($sort_by === 'created') {
@@ -311,5 +268,52 @@ trait TourScope
         }], 'rating');
 
         return $query;
+    }
+
+    public function scopeOrderByDate(Builder $query)
+    {
+        $query->leftJoin('tour_schedules', function (JoinClause $join) {
+            $join->on('tours.id', '=', 'tour_schedules.tour_id')
+                ->where('tour_schedules.start_date', '>=', now())
+                ->whereNull('tour_schedules.deleted_at');
+        });
+
+        $query->leftJoin('tour_votings', function (JoinClause $join) {
+            $join->on('tours.id', '=', 'tour_votings.tour_id')
+                ->where('tour_votings.status', '=', TourVoting::STATUS_PUBLISHED);
+        });
+
+        $query->leftJoin('tour_views', function (JoinClause $join) {
+            $join->on('tours.id', '=', 'tour_views.tour_id');
+        });
+
+        $query->select('tours.*')
+            ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
+            ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
+            ->addSelect(DB::raw('
+                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
+                        THEN (
+                            CASE WHEN COUNT(tour_votings.tour_id) > 0
+                                THEN SUBDATE("2111-01-01", INTERVAL COUNT(tour_votings.tour_id) DAY)
+                                ELSE SUBDATE("2222-01-01", INTERVAL COUNT(tour_views.tour_id) DAY)
+                            END
+                        )
+                        ELSE MIN(tour_schedules.start_date)
+                    END as date'
+            ))
+            ->addSelect(DB::raw('
+                    CASE WHEN MIN(tour_schedules.start_date) IS NULL
+                        THEN (SELECT MAX(tours.priority) FROM tours)+1
+                        ELSE (
+                            CASE WHEN tours.priority IS NULL
+                                THEN (SELECT MAX(tours.priority) FROM tours)+1
+                                ELSE tours.priority
+                            END
+                        )
+                    END as sort_order'
+            ));
+        $query->groupBy('tours.id');
+        $query->orderBy('date');
+        $query->orderBy('sort_order', 'desc');
     }
 }

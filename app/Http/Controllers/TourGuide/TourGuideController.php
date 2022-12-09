@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Builder;
 
 class TourGuideController extends Controller
 {
@@ -36,14 +37,22 @@ class TourGuideController extends Controller
             },
         ]);
         $testimonials = $staff->testimonials->merge($staff->relatedTestimonials)->sortBy(fn($t) => $t->created_at);
-        $tours = $staff->tours()->with('scheduleItems', function ($q) {
-            return $q->inFuture();
-        })->withAvg('testimonials', 'rating')
-            ->withCount(['testimonials' => function ($q) {
-                return $q->moderated()
-                    ->orderBy('rating', 'desc')
-                    ->latest();
-            }])->get();
+        $tours = $staff->tours()
+            ->with('scheduleItems', function ($q) {
+                return $q->inFuture();
+            })
+            ->withAvg('testimonials', 'rating')
+            ->withCount([
+                'testimonials' => function ($q) {
+                    return $q->moderated()
+                        ->orderBy('rating', 'desc')
+                        ->latest();
+                },
+                'votings' => fn ($q) => $q->published(),
+            ])
+            ->orderByDate()
+            ->groupBy('tours_staff.staff_id')
+            ->get();
         return view('staff.guide', ['staff' => $staff, 'tours' => $tours, 'testimonials' => $testimonials]);
     }
 }
