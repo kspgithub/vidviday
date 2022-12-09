@@ -13,7 +13,7 @@
                 </a>
                 <span class="dropdown-btn"></span>
                 <ul class="dropdown-toggle" style="display: none;">
-                    <li v-for="c in countries" @click.prevent="countryModel = c.phone_code">
+                    <li v-for="c in countries" @click.prevent="selectCountry(c)">
                         <a href="#">
                             <div class="d-inline-block" :class="'iti__flag iti__'+c.iso.toLocaleLowerCase()"></div> {{ c.phone_code }} ({{ c.title }})
                         </a>
@@ -135,6 +135,12 @@ export default {
             Inputmask(getMask.value).mask(field.inputRef.value);
         })
 
+        const selectCountry = (country) => {
+            countryModel.value = country.phone_code
+
+            $(dropdownRef.value).find('.dropdown-title').click()
+        }
+
         return {
             ...field,
             countries,
@@ -147,6 +153,7 @@ export default {
             numberModel,
             dropdownRef,
             getMask,
+            selectCountry,
         }
     }
 }

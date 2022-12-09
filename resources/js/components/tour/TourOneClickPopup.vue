@@ -19,8 +19,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input :label="__('forms.phone')" name="phone" v-model="phone" id="order-phone"
-                                mask="+38 (099) 999-99-99"/>
+                    <form-phone :label="__('forms.phone')" name="phone" v-model="phone" id="order-phone"/>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -102,10 +101,11 @@ import toast from "../../libs/toast";
 import { useForm } from "vee-validate";
 import { __ } from "../../i18n/lang";
 import FormSelect from "../form/FormSelect";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "TourOneClickPopup",
-    components: {FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
+    components: {FormPhone, FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
     props: {
         tour: Object,
         schedules: Array,

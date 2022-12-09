@@ -16,8 +16,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input mask="+38 (099) 999-99-99"
-                                name="phone"
+                    <form-phone name="phone"
                                 v-model="data.phone" :label="__('forms.phone-number')"/>
                 </div>
 
@@ -92,10 +91,12 @@ import toast from "../../libs/toast";
 import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSumoSelect from '../form/FormSumoSelect.vue'
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "PopupCall",
     components: {
+        FormPhone,
         FormSumoSelect,
         VueRecaptcha,
         UtmFields,

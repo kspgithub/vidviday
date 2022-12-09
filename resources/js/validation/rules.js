@@ -88,9 +88,10 @@ const customRules = {
         if (value) {
             // let phone = new PhoneNumber(value);
             // return phone.isValid();
-            const country = countries.find(c => value.startsWith(c.code))
-            if(country?.rule) {
-                const regex = new RegExp(country.phone_rule)
+            const country = countries.find(c => value.startsWith(c.phone_code))
+            if(country?.phone_rule) {
+                const regex = new RegExp(country.phone_rule.replaceAll('\/', ''))
+                console.log(regex)
                 return regex.test(value)
             } else {
                 return /^\+38 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(value)

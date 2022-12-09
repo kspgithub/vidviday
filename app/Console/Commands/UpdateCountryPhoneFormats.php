@@ -56,7 +56,7 @@ class UpdateCountryPhoneFormats extends Command
         if($pl) {
             $pl->update([
                 'phone_code' => '+48',
-                'phone_mask' => '999-999-99-99',
+                'phone_mask' => '999-999-999',
                 'phone_rule' => '/^\+48 \d{3}-\d{3}-\d{3}$/',
             ]);
         }
@@ -64,7 +64,7 @@ class UpdateCountryPhoneFormats extends Command
         if($sk) {
             $sk->update([
                 'phone_code' => '+421',
-                'phone_mask' => '99 999-99-99',
+                'phone_mask' => '999-999-999',
                 'phone_rule' => '/^\+421 \d{3}-\d{3}-\d{3}$/',
             ]);
         }
@@ -72,7 +72,7 @@ class UpdateCountryPhoneFormats extends Command
         if($ro) {
             $ro->update([
                 'phone_code' => '+40',
-                'phone_mask' => '99 999-99-99',
+                'phone_mask' => '999-999-999',
                 'phone_rule' => '/^\+40 \d{3}-\d{3}-\d{3}$/',
             ]);
         }

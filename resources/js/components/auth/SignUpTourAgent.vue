@@ -74,14 +74,14 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.mobile_phone" name="mobile_phone"
+                <form-phone v-model="data.mobile_phone" name="mobile_phone"
                             :label="__('forms.mobile-phone')"
-                            mask="+38 (099) 999-99-99"/>
+                            />
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.work_phone" name="work_phone" :label="__('forms.work-phone')"
-                            mask="+38 (099) 999-99-99"/>
+                <form-phone v-model="data.work_phone" name="work_phone" :label="__('forms.work-phone')"
+                            />
             </div>
 
             <div class="col-md-6 col-12">
@@ -110,10 +110,11 @@ import FormInput from "../form/FormInput";
 import FormDatepicker from "../form/FormDatepicker";
 import Tooltip from "../common/Tooltip";
 import {reactive} from "vue";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "SignUpTourAgent",
-    components: {Tooltip, FormDatepicker, FormInput},
+    components: {FormPhone, Tooltip, FormDatepicker, FormInput},
     setup() {
         const data = reactive({
             first_name: '',

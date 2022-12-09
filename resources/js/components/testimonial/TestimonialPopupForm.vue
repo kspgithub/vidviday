@@ -63,8 +63,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input mask="+38 (099) 999-99-99"
-                                name="phone"
+                    <form-phone name="phone"
                                 id="testimonial_phone"
                                 v-model="data.phone"
                                 :label="__('forms.your-phone')"
@@ -207,10 +206,11 @@ import {useForm} from "vee-validate";
 import { __ } from "../../i18n/lang";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSelect from '../form/FormSelect.vue'
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "TestimonialPopupForm",
-    components: { FormSelect, VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    components: {FormPhone, FormSelect, VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         user: Object,
         captcha: Boolean,

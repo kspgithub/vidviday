@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-md-6 col-12">
-            <form-input name="phone" id="tq_phone" mask="+38 (099) 999-99-99" v-model="data.phone" :label="__('forms.phone')"/>
+            <form-phone name="phone" id="tq_phone" v-model="data.phone" :label="__('forms.phone')"/>
         </div>
 
         <div class="col-12">
@@ -53,10 +53,11 @@ import FormTextarea from "../form/FormTextarea";
 import { useForm } from 'vee-validate'
 import { VueRecaptcha } from 'vue-recaptcha'
 import { useStore } from 'vuex'
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "TourQuestionForm",
-    components: {VueRecaptcha, FormTextarea, FormInput},
+    components: {FormPhone, VueRecaptcha, FormTextarea, FormInput},
     props: {
         tour: Object,
         action: String,

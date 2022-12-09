@@ -26,9 +26,8 @@
         <div class="participant phone-number">
             <span class="h4"></span>
             <div class="form">
-                <form-input v-model="participant_phone"
+                <form-phone v-model="participant_phone"
                             name="participant_phone"
-                            mask="+38 (099) 999-99-99"
                             :label="__('order-section.participants.phone-label')"
                             rules="required|tel"
                 />
@@ -45,10 +44,11 @@ import {useStore} from "vuex";
 import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
 import {computed, getCurrentInstance, ref, watch} from "vue";
 import FormCheckbox from "../form/FormCheckbox";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "OrderTourParticipants",
-    components: {FormCheckbox, FormInput, OrderParticipant},
+    components: {FormPhone, FormCheckbox, FormInput, OrderParticipant},
     setup() {
         const store = useStore();
         const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant');

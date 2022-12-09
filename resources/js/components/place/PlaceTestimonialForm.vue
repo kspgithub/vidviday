@@ -51,8 +51,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input mask="+38 (099) 999-99-99"
-                                name="phone"
+                    <form-phone name="phone"
                                 v-model="data.phone" :label="__('forms.your-phone')"/>
                 </div>
 
@@ -159,10 +158,11 @@ import Popup from "../popup/Popup";
 import FormCustomSelect from "../form/FormCustomSelect";
 import { useStore } from "vuex";
 import FormSelect from "../form/FormSelect";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "TourTestimonialForm",
-    components: {FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: {FormPhone, FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         place: Object,
         user: Object,

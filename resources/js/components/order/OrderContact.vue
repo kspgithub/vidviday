@@ -12,8 +12,7 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.phone-number')" name="phone" id="order-phone" v-model="phone"
-                            mask="+38 (099) 999-99-99"
+                <form-phone :label="__('forms.phone-number')" name="phone" id="order-phone" v-model="phone"
                             rules="required|tel"/>
             </div>
 
@@ -38,10 +37,11 @@ import {useFormDataProperty} from "../../store/composables/useFormData";
 import {computed} from "vue";
 import {useStore} from "vuex";
 import FormInput from "../form/FormInput";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "OrderContact",
-    components: {FormInput},
+    components: {FormPhone, FormInput},
     setup() {
         const store = useStore();
         return {

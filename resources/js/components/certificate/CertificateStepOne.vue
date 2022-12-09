@@ -15,9 +15,9 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input :label="__('forms.phone-number')"
+                <form-phone :label="__('forms.phone-number')"
                             name="phone" id="order-phone" v-model="phone"
-                            mask="+38 (099) 999-99-99" rules="required|tel"/>
+                            rules="required|tel"/>
             </div>
 
             <div class="col-md-6 col-12">
@@ -159,6 +159,7 @@ import FormNumberInput from "../form/FormNumberInput";
 import FormTourAutocomplete from "../form/FormTourAutocomplete";
 import {locale} from '../../i18n'
 import CertificateTotal from "./CertificateTotal";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "CertificateStepOne",
@@ -168,7 +169,7 @@ export default {
             default: () => {},
         },
     },
-    components: {CertificateTotal, FormTourAutocomplete, FormNumberInput, FormInput},
+    components: {FormPhone, CertificateTotal, FormTourAutocomplete, FormNumberInput, FormInput},
     setup() {
         const locale = locale;
         const store = useStore();

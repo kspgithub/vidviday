@@ -43,9 +43,9 @@
             </div>
 
             <div class="col-md-6 col-12">
-                <form-input v-model="data.mobile_phone" name="mobile_phone"
+                <form-phone v-model="data.mobile_phone" name="mobile_phone"
                             :label="__('forms.mobile-phone')"
-                            mask="+38 (099) 999-99-99"/>
+                />
             </div>
 
             <div class="col-md-6 col-12">
@@ -71,10 +71,11 @@
 import FormInput from "../form/FormInput";
 import FormDatepicker from "../form/FormDatepicker";
 import {reactive} from "vue";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "SignUpTourist",
-    components: {FormDatepicker, FormInput},
+    components: {FormPhone, FormDatepicker, FormInput},
     setup() {
         const data = reactive({
             first_name: '',

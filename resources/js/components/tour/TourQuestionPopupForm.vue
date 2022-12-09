@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                    <form-input name="phone" id="tq_phone" mask="+38 (099) 999-99-99" v-model="data.phone"
+                    <form-phone name="phone" id="tq_phone" v-model="data.phone"
                                 :label="__('forms.phone')"/>
                 </div>
 
@@ -69,10 +69,11 @@ import Popup from '../popup/Popup.vue'
 import FormInput from '../form/FormInput.vue'
 import FormTextarea from '../form/FormTextarea.vue'
 import { getError } from '../../services/api.js'
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "TourQuestionPopupForm",
-    components: { VueRecaptcha, Popup, FormTextarea, FormInput },
+    components: {FormPhone, VueRecaptcha, Popup, FormTextarea, FormInput },
     props: {
         tour: Object,
         action: String,
