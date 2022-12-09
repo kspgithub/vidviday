@@ -29,12 +29,13 @@
 
                 <div class="col-md-6 col-12">
                     <div class="single-datepicker">
-                        <form-select v-model.number="schedule_id"
-                                           :options="departureOptions"
-                                           name="schedule_id"
-                                           class="datepicker-input"
-                                           :label="__('forms.select-date') + '*'"
-                                           :preselect="false"/>
+                        <div class="datepicker-input">
+                            <form-select v-model.number="schedule_id"
+                                         :options="departureOptions"
+                                         name="schedule_id"
+                                         :label="__('forms.select-date') + '*'"
+                                         :preselect="false"/>
+                        </div>
                     </div>
                 </div>
 
@@ -88,18 +89,18 @@
 
 <script>
 import Popup from "../popup/Popup";
-import {computed, ref} from "vue";
-import {useStore} from "vuex";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import FormInput from "../form/FormInput";
-import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
+import { useDebounceFormDataProperty, useFormDataProperty } from "../../store/composables/useFormData";
 import FormTextarea from "../form/FormTextarea";
 import FormNumberInput from "../form/FormNumberInput";
 import FormSelectEvent from "../form/FormSelectEvent";
 import axios from "axios";
-import {getError} from "../../services/api";
+import { getError } from "../../services/api";
 import toast from "../../libs/toast";
-import {useForm} from "vee-validate";
-import {__} from "../../i18n/lang";
+import { useForm } from "vee-validate";
+import { __ } from "../../i18n/lang";
 import FormSelect from "../form/FormSelect";
 
 export default {
@@ -130,7 +131,7 @@ export default {
             },
         });
 
-        if(user) {
+        if (user) {
             store.commit('orderTour/SET_USER', user);
         }
 

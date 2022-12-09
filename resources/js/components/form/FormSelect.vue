@@ -1,61 +1,64 @@
 <template>
-    <div ref="sumoSelectRef" v-click-outside="close" :class="{open: open}" class="SumoSelect"
-         @click.prevent="handleOpen">
+    <label :data-tooltip="errorMessage" :class="{invalid: errorMessage}">
 
-        <input :name="name" :value="modelValue" type="hidden">
+        <div ref="sumoSelectRef" v-click-outside="close" :class="{open: open}" class="SumoSelect"
+             @click.prevent="handleOpen">
 
-        <p class="CaptionCont SelectBox">
-            <span v-html="selectedText + (multiple && selected.length ? ' ('+selected.length+')' : '')"></span>
-            <label><i></i></label>
-        </p>
+            <input :name="name" :value="modelValue" type="hidden">
 
-        <div ref="optWrapperRef" class="optWrapper">
-            <ul class="options">
-                <li v-if="search">
-                    <input v-model="searchValue" ref="search" type="text" @input="searchValue = $event.target.value">
-                </li>
+            <p class="CaptionCont SelectBox">
+                <span v-html="selectedText + (multiple && selected.length ? ' ('+selected.length+')' : '')"></span>
+                <label><i></i></label>
+            </p>
 
-                <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
-                    class="opt"
-                    @click="selectAll()"
-                >
-                    <label class="checkbox">
-                        <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
-                        <span>Обрати все</span>
-                    </label>
-                </li>
+            <div ref="optWrapperRef" class="optWrapper">
+                <ul class="options">
+                    <li v-if="search">
+                        <input v-model="searchValue" ref="search" type="text"
+                               @input="searchValue = $event.target.value">
+                    </li>
 
-                <li v-if="multiple && (selected.length === (filteredOptions.length - 1))"
-                    class="opt"
-                    @click.prevent="change({value: 0}, $event)"
-                >
-                    <label class="checkbox">
-                        <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
-                        <span>Обрати все</span>
-                    </label>
-                </li>
+                    <li v-if="multiple && (selected.length !== (filteredOptions.length - 1))"
+                        class="opt"
+                        @click="selectAll()"
+                    >
+                        <label class="checkbox">
+                            <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
+                            <span>Обрати все</span>
+                        </label>
+                    </li>
 
-                <li v-for="option in filteredOptions"
-                    v-show="(!option.value && selected.length) || option.value"
-                    :class="{selected: selected.includes(option.value) }"
-                    class="opt"
-                    @click.prevent="change(option, $event)"
-                >
-                    <label v-if="multiple" class="checkbox">
-                        <input type="checkbox" :checked="selected.includes(option.value)">
-                        <span v-html="option.value === 0 ? 'Не вибрано' : option.text"/>
-                    </label>
+                    <li v-if="multiple && (selected.length === (filteredOptions.length - 1))"
+                        class="opt"
+                        @click.prevent="change({value: 0}, $event)"
+                    >
+                        <label class="checkbox">
+                            <input type="checkbox" :checked="selected.length === (filteredOptions.length - 1)">
+                            <span>Обрати все</span>
+                        </label>
+                    </li>
 
-                    <template v-else>
-                        <img v-if="option.img" :src="option.img"/>
-                        <label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
-                    </template>
+                    <li v-for="option in filteredOptions"
+                        v-show="(!option.value && selected.length) || option.value"
+                        :class="{selected: selected.includes(option.value) }"
+                        class="opt"
+                        @click.prevent="change(option, $event)"
+                    >
+                        <label v-if="multiple" class="checkbox">
+                            <input type="checkbox" :checked="selected.includes(option.value)">
+                            <span v-html="option.value === 0 ? 'Не вибрано' : option.text"/>
+                        </label>
 
-                </li>
-            </ul>
+                        <template v-else>
+                            <img v-if="option.img" :src="option.img"/>
+                            <label v-html="option.value === 0 ? 'Не вибрано' : option.text"></label>
+                        </template>
+
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-
+    </label>
 </template>
 
 <script>
@@ -81,7 +84,7 @@ export default {
     },
     emits: ['update:modelValue', 'search'],
     setup(props, {emit}) {
-        useFormField(props, emit);
+        const {errorMessage} = useFormField(props, emit);
 
         const sumoSelectRef = ref(null)
 
@@ -105,9 +108,9 @@ export default {
             let options = props.options.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
 
             if (!options.length) {
-                if(props.options.length && !props.options[0].value) {
+                if (props.options.length && !props.options[0].value) {
                     options = [props.options[0]]
-                } else if(props.placeholder) {
+                } else if (props.placeholder) {
                     options = [{
                         value: '',
                         text: props.placeholder,
@@ -238,6 +241,7 @@ export default {
         }, 300))
 
         return {
+            errorMessage,
             sumoSelectRef,
             optWrapperRef,
             selected,
