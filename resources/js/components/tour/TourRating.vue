@@ -5,7 +5,7 @@
         <i :class="rating >= 3 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
         <i :class="rating >= 4 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
         <i :class="rating >= 5 ? 'icon-star' : 'icon-star-empty'" class="select-icon icon-star"></i>
-        <span v-if="count > 0 || forceCount" class="text">{{ title }}</span>
+        <a v-if="count > 0 || forceCount" :href="url" class="text">{{ title }}</a>
     </span>
 </template>
 
@@ -23,7 +23,8 @@ export default {
             type: Number,
             default: 0
         },
-        forceCount: Boolean
+        forceCount: Boolean,
+        url: String,
     },
     setup(props) {
         const title = pluralizeValue(props.count, trans('tours-section.one_review'), trans('tours-section.two_reviews'), trans('tours-section.many_reviews'));

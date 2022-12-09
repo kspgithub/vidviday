@@ -423,7 +423,7 @@ jQuery(function ($) {
 
         if (offset && outerHeight) {
 
-            let title = $(location.hash).parents('#reviews-accordion').find('.accordion-title').first()
+            let title = (location.hash === '#reviews-accordion' ? $(location.hash) : $(location.hash).parents('#reviews-accordion')).find('.accordion-title').first()
 
             if (title && title.length && !title.hasClass('active')) {
                 setTimeout(() => {

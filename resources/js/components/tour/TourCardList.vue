@@ -22,6 +22,7 @@
                     <a :href="tour.url">{{ tourTitle }}</a>
                     <tour-rating :count="tour.testimonials_count"
                                  :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"
+                                 :url="tour.url + '#reviews-accordion'"
                                  class="d-block d-lg-block mt-20"
                                  force-count/>
                 </div>

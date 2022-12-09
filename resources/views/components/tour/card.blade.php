@@ -25,7 +25,7 @@
             @endfor
             @if($tour->testimonials_count > 0)
                 <a class="text" href="#testimonials">
-                    <span class="text">{{$tour->testimonials_count}} {{plural_form($tour->testimonials_count, ['відгук', 'відгука', 'відгуків'])}}</span>
+                    <a href="{{ $tour->url }}#reviews-accordion" class="text">{{$tour->testimonials_count}} {{plural_form($tour->testimonials_count, ['відгук', 'відгука', 'відгуків'])}}</a>
                 </a>
             @endif
         </span>
