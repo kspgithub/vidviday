@@ -3,6 +3,21 @@
            :class="{active: !!innerValue || focused, invalid: errorMessage, focused}"
     >
         <i v-if="label">{{ label }} <span v-if="required">*</span></i>
+
+        <div class="phone-codes">
+
+            <div class="dropdown">
+                <span><div class="iti__flag iti__ua"></div> +380</span>
+                <span class="dropdown-btn"></span>
+                <ul class="dropdown-toggle" style="display: none;">
+                    <li><a href="http://vidviday.test/profile?lang=ru">RU</a></li>
+                    <li><a href="http://vidviday.test/profile?lang=en">EN</a></li>
+                    <li><a href="http://vidviday.test/profile?lang=pl">PL</a></li>
+                </ul>
+                <div class="full-size"></div>
+            </div>
+
+        </div>
         <input ref="inputRef"
                v-model="innerValue"
                class="vue-input"

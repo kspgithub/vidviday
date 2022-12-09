@@ -9,13 +9,11 @@
 
         <x-forms.text-loc-group name="slug" :label="__('Slug')"
                                 :value="old('slug', $item->getTranslations('slug'))"
-                                required
                                 help="наприклад: /populyarni-turi"
         ></x-forms.text-loc-group>
 
         <x-forms.text-group name="class_name" :label="__('Class')"
                                 :value="old('class_name', $item->class_name)"
-                                required
         ></x-forms.text-group>
 
         <x-forms.select-group name="page_id" :label="__('Page')" :value="old('page_id', $item->page_id)"

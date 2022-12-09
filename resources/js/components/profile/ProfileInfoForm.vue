@@ -74,6 +74,12 @@
                     </div>
 
                     <div class="col-md-6 col-12">
+                        <form-phone v-model="formData.mobile_phone"
+                                    label="Мобільний телефон"
+                                    name="mobile_phone"
+                                    mask="+38 (099) 999-99-99"
+                        />
+
                         <form-input v-model="formData.mobile_phone" label="Мобільний телефон" name="mobile_phone"
                                     mask="+38 (099) 999-99-99"/>
                     </div>
@@ -149,10 +155,11 @@ import SvgIcon from "../svg/SvgIcon";
 import FormAvatar from "../form/FormAvatar";
 import {useForm} from "vee-validate";
 import {reactive} from "vue";
+import FormPhone from "../form/FormPhone";
 
 export default {
     name: "ProfileInfoForm",
-    components: {FormAvatar, SvgIcon, Tooltip, FormDatepicker, FormInput},
+    components: {FormPhone, FormAvatar, SvgIcon, Tooltip, FormDatepicker, FormInput},
     props: {
         action: String,
         user: Object,

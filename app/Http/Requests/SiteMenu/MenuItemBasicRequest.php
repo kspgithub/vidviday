@@ -30,7 +30,7 @@ class MenuItemBasicRequest extends FormRequest
             'title' => ['required', 'array'],
             'title.uk' => ['required', 'string'],
             'slug' => ['required', 'array'],
-            'slug.uk' => ['required', 'string'],
+//            'slug.uk' => ['required', 'string'],
             'active' => ['nullable', Rule::in(['1', '0'])],
             'parent_id' => ['nullable', 'numeric'],
             'page_id' => ['nullable', 'exists:pages,id'],

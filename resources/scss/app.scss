@@ -20,3 +20,10 @@
 .only-print {
     display: none !important;
 }
+
+.as-link {
+    cursor: pointer;
+    &:hover {
+        color: #2ab0cd;
+    }
+}

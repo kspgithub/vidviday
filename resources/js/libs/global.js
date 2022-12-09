@@ -512,6 +512,15 @@ jQuery(function ($) {
             dropdownToggle.slideDown(330);
         }
     });
+    $(document).on('click', function (e) {
+        let dropdown = $(e.target).closest('.dropdown')
+        $('.dropdown.active, .dropdown-btn.active').each(function () {
+            if(!$(this).is(dropdown)) {
+                $(this).removeClass('active');
+            }
+        });
+    });
+
     // Mobile menu layer close
     $('#header-layer-close').on('click', function () {
         addScroll();

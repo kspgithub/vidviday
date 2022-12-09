@@ -2,7 +2,7 @@
      v-is="'currency-dropdown'"
      :current='@json($current)'
 >
-    <span>{{$currentCurrencyISO}} - <span>{{$currentCurrencySymbol}}</span></span>
+    <span class="dropdown-title as-link">{{$currentCurrencyISO}} - <span>{{$currentCurrencySymbol}}</span></span>
     <span class="dropdown-btn"></span>
     <ul class="dropdown-toggle">
         @foreach($currencies as $currency)
