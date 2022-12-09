@@ -65,7 +65,7 @@ class Currency extends TranslatableModel
         $modelCurrency = $currencies[$currency] ?? null;
 
         if($currentCurrency && $modelCurrency) {
-            $currentValue = round(($value * $modelCurrency->course) / $currentCurrency->course, 2);
+            $currentValue = ceil(($value * $modelCurrency->course) / $currentCurrency->course);
 
             return $currentValue;
         }
