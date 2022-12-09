@@ -18,6 +18,7 @@ class SiteHeader extends Component
     public $tourGroups = [];
     public $contacts = [];
     public $menu = [];
+    public $popularToursUrl;
 
     /**
      * Create a new component instance.
@@ -41,6 +42,9 @@ class SiteHeader extends Component
                     'items.children.page.roles',
                 ])->first();
         });
+        $popularToursGroupId = 1;
+        $group = TourGroup::query()->find($popularToursGroupId);
+        $this->popularToursUrl = $group->url;
     }
 
 

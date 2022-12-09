@@ -713,7 +713,7 @@
 
 .search-toggle-footer {
     margin: 0 -20px;
-    padding: 12px 0;
+    padding: 15px 20px 20px;
     cursor: pointer;
     text-align: center;
     position: relative;
@@ -721,6 +721,10 @@
 
     .text {
         color: $green;
+    }
+
+    .btn-block {
+        margin-top: 10px
     }
 }
 

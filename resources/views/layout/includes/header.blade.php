@@ -5,7 +5,7 @@
         </a>
         <div class="row hidden-print">
             <div class="col-xl-6 col">
-                <div v-is="'header-search'"></div>
+                <div v-is="'header-search'" popular-tours-url="{{ $popularToursUrl }}"></div>
             </div>
 
             <div class="col-xl-6 col-10">
