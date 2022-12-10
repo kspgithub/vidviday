@@ -31,7 +31,6 @@ app.post('/render', async (req, res) => {
         const ctx = {}
         const html = await renderToString(app, ctx)
 
-        console.log(html)
         res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
         console.error(e.stack)
