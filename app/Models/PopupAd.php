@@ -43,14 +43,6 @@ class PopupAd extends Model
         'pages' => 'array',
     ];
 
-    public function imageSize()
-    {
-        return [
-            'width' => 260,
-            'height' => 260,
-        ];
-    }
-
     public function rules()
     {
         return $this->hasMany(PopupAdRule::class);
