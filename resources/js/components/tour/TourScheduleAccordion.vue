@@ -12,7 +12,7 @@
             </div>
 
             <template v-for="event in allEvents">
-                <div v-show="eventKey > 2" class="schedule-row" :class="[event.className]">
+                <div class="schedule-row" :class="[event.className]">
                     <span class="text" v-html="event.title"></span>
 
                     <div>
@@ -70,7 +70,7 @@ const store = useStore();
 
 const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
-const allEvents = ref([...(props.events)])
+const allEvents = ref([...(props.events.length ? props.events : props.tour.schedule_items || [])])
 
 const accordionItem = ref()
 
