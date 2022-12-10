@@ -10,6 +10,7 @@ use App\Services\MailNotificationService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -26,6 +27,24 @@ use Illuminate\Support\Facades\Mail;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 
+    $url = 'http:/localhost:3000/render';
+    $page['component'] = 'test-component';
+    $page['props'] = ['foo' => 'bar123'];
+
+    try {
+        $response = Http::post($url, $page)->throw()->body();
+
+        dd($response);
+
+    } catch (\Exception $e) {
+        dd($e);
+    }
+    $data = \Illuminate\Support\Facades\Http::post('http://localhost:3000/render', [
+        'query' => [
+            'component' => $component,
+            'props' => $props,
+        ]
+    ]);
     $params = [];
 
     $className = 'App\Mail\OrderCertificateMail';

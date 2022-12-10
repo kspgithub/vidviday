@@ -1,16 +1,18 @@
 <template>
-    <div class="tab active">
-        <div class="spacer-xs"></div>
-        <tour-sort-form/>
-        <div class="spacer-xs"></div>
-        <div :class="{loading: fetchRequest}">
-            <tour-card-list v-for="tour in tours" :key="'tour-'+tour.id" :tour="tour"
-                            :like-btn="!!$store.state.user.currentUser"/>
-        </div>
-        <div class="spacer-xs"></div>
-        <div v-if="currentPage < lastPage" class="text-center">
-            <a class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</a>
-        </div>
+    <div class="tab" :class="{active}">
+        <template v-if="active">
+            <div class="spacer-xs"></div>
+            <tour-sort-form/>
+            <div class="spacer-xs"></div>
+            <div :class="{loading: fetchRequest}">
+                <tour-card-list v-for="tour in tours" :key="'tour-'+tour.id" :tour="tour"
+                                :like-btn="!!$store.state.user.currentUser"/>
+            </div>
+            <div class="spacer-xs"></div>
+            <div v-if="currentPage < lastPage" class="text-center">
+                <a class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</a>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -33,6 +35,7 @@ export default {
                 }
             }
         },
+        active: Boolean,
     },
     setup() {
 

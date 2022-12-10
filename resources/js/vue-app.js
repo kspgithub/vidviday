@@ -8,13 +8,14 @@ import directives from "./directives";
 
 import globalComponents from "./components";
 
-export function createVueApp({ssrContext}) {
+export function createVueApp(options = {}) {
     const app = createApp({
         mounted() {
             window.dispatchEvent(new CustomEvent('vueMounted', {
                 detail: this,
             }))
         },
+        ...options,
     });
 
     app.use(store);
@@ -24,6 +25,13 @@ export function createVueApp({ssrContext}) {
     app.config.globalProperties.$isLocal = store.state.isLocal
 
     app.use(i18n);
+
+    app.component('test-component', {
+        template: '<div>Test me! {{$props}}</div>',
+        props: {
+            foo: {}
+        }
+    })
 
     // Register the plugin
     app.use(Lang, {

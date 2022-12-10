@@ -11,7 +11,7 @@
         "prod-app": "mix --production",
         "prod-ssr": "mix --production --mix-config=webpack.ssr.mix.js",
         "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\"",
-        "ssr": "node public/assets/ssr/ssr.js"
+        "ssr": "npm run prod-ssr && node public/assets/ssr/ssr.js"
     },
     "devDependencies": {
         "@fancyapps/ui": "^4.0.0-alpha.4",
