@@ -49,6 +49,7 @@ class VueComponent extends Component implements ServerRenderable
         try {
             $url = 'http:/localhost:3000/render';
 
+
             $html = Http::post($url, $page)->throw()->body();
 
             return $html;
