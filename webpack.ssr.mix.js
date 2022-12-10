@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
+const webpackNodeExternals = require('webpack-node-externals')
 const {resolve} = require('path');
 const ip = require('ip');
 const path = require('path');
@@ -20,11 +21,15 @@ require('laravel-mix-svg-vue');
  |
  */
 
-mix.webpackConfig({
+mix
+    .options({
+        manifest: false
+    })
+    .webpackConfig({
+        target: 'node',
+        externals: [webpackNodeExternals()],
         output: {
-            chunkFilename: mix.inProduction()
-                ? path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
-                : 'js/chunks/[name].[chunkhash].js'
+            globalObject: `typeof window !== undefined ? window : (typeof self !== 'undefined' ? self : this)`,
         },
         resolve: {
             alias: {
@@ -57,9 +62,11 @@ mix.webpackConfig({
  * *********************
  */
 mix.js('resources/js/ssr.js', path.resolve(buildPath, 'ssr.js'))
-    .vue()
-    .lang()
-    .sourceMaps(false, 'source-map')
+    .vue({
+        version: 3,
+        extractStyles: true,
+        options: {
+            optimizeSSR: true
+        }
+    })
     .disableNotifications()
-    .extract()
-    // .purgeCss()

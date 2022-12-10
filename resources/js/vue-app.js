@@ -8,7 +8,7 @@ import directives from "./directives";
 
 import globalComponents from "./components";
 
-export function createVueApp() {
+export function createVueApp({ssrContext}) {
     const app = createApp({
         mounted() {
             window.dispatchEvent(new CustomEvent('vueMounted', {
