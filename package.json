@@ -1,15 +1,17 @@
 {
     "private": true,
     "scripts": {
-        "dev-admin": "mix --mix-config=webpack.mix.admin.js",
+        "dev-admin": "mix --mix-config=webpack.admin.mix.js",
         "dev-app": "mix",
         "dev": "concurrently \"npm:dev-admin\" \"npm:dev-app\"",
-        "hot-admin": "mix watch --hot --mix-config=webpack.mix.admin.js",
+        "hot-admin": "mix watch --hot --mix-config=webpack.admin.mix.js",
         "hot-app": "mix watch --hot",
         "hot": "concurrently \"npm:hot-admin\" \"npm:hot-app\"",
-        "prod-admin": "mix --production --mix-config=webpack.mix.admin.js",
+        "prod-admin": "mix --production --mix-config=webpack.admin.mix.js",
         "prod-app": "mix --production",
-        "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\""
+        "prod-ssr": "mix --production --mix-config=webpack.ssr.mix.js",
+        "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\"",
+        "ssr": "concurrently \"npm:prod-admin\" \"npm:prod-app\""
     },
     "devDependencies": {
         "@fancyapps/ui": "^4.0.0-alpha.4",

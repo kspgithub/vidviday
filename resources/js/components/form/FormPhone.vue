@@ -41,7 +41,7 @@
 <script>
 import useFormField from "./composables/useFormField";
 import { computed, onMounted, ref, watch } from 'vue'
-import { useCountries } from "../../useCountries";
+import { useCountries } from "../../composables/useCountries";
 
 export default {
     name: "FormPhone",
