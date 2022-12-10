@@ -42,11 +42,6 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
         },
-        optimization: {
-            providedExports: false,
-            sideEffects: false,
-            usedExports: false
-        },
         module: {
             rules: [
                 {
@@ -89,7 +84,8 @@ if (mix.inProduction ()) {
  * Assets
  * *********************
  */
-mix.js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
+mix
+    .js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
     .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
     .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
     .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))

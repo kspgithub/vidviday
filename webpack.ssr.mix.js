@@ -1,8 +1,6 @@
 const mix = require('laravel-mix');
-const webpack = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals')
 const {resolve} = require('path');
-const ip = require('ip');
 const path = require('path');
 
 const buildPath = path.normalize('public/assets/ssr')
@@ -26,34 +24,17 @@ mix
         manifest: false
     })
     .webpackConfig({
+        output: {
+            globalObject: `typeof self !== 'undefined' ? self : this`,
+        },
         target: 'node',
         externals: [webpackNodeExternals()],
-        output: {
-            globalObject: `typeof window !== undefined ? window : (typeof self !== 'undefined' ? self : this)`,
-        },
         resolve: {
             alias: {
                 '@lang': resolve('./resources/lang'),
                 '@publicLang': resolve('./public/storage/lang'),
             },
         },
-        module: {
-            rules: [
-                {
-                    test: /resources[\\\/]lang.+\.(php)$/,
-                    loader: 'php-array-loader',
-                },
-            ],
-        },
-        plugins: [
-            new webpack.DefinePlugin({
-                __VUE_OPTIONS_API__: true,
-                __VUE_PROD_DEVTOOLS__: false,
-                __VUE_I18N_FULL_INSTALL__: true,
-                __VUE_I18N_LEGACY_API__: false,
-                __INTLIFY_PROD_DEVTOOLS__: false,
-            }),
-        ],
     })
 
 /**

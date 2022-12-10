@@ -1,10 +1,9 @@
-import axios from "axios"
-import express from 'express'
-import { renderToString } from 'vue/server-renderer'
+require('./ssr-bootstrap')
 
-globalThis.axios = axios
+const express = require('express')
+const { renderToString } = require('vue/server-renderer')
 
-import { createVueApp } from "./vue-app"
+const { createVueApp } = require('./vue-app')
 
 
 const port = process.env.MIX_SSR_PORT || 3000
