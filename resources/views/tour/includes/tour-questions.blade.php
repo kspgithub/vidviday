@@ -1,4 +1,3 @@
-@if(in_array('faq', $tour->active_tabs))
     <div class="accordion-item  hidden-print">
         <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                                 data-img-src="{{asset('/icon/faq.svg')}}"
@@ -25,7 +24,8 @@
                         </div>
                     </div>
 
-                    <div class="accordion-item">
+                    @if(in_array('faq', $tour->active_tabs))
+                        <div class="accordion-item">
                         <div class="accordion-title">@lang('tours-section.faq.section-tour-questions')<i></i></div>
                         <div class="accordion-inner">
                             <div class="accordion type-3">
@@ -43,6 +43,7 @@
 
                         </div>
                     </div>
+                    @endif
 
                     <div class="accordion-item">
                         <div class="accordion-title">@lang('tours-section.faq.section-ask-question')<i></i></div>
@@ -98,4 +99,3 @@
         </div>
     </div>
 
-@endif

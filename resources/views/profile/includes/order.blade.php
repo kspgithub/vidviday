@@ -110,12 +110,14 @@
                 </div>
 
                 <div class="col-6">
-                    @if(!empty($order->act))
-                        <a href="{{$order->act}}" download class="download">Акт виконаних робіт</a>
-                    @endif
-                    <br>
-                    @if(!empty($order->info_sheet ?: $order->schedule?->info_sheet))
-                        <a href="{{$order->info_sheet ?: $order->schedule?->info_sheet}}" download class="download">Завантажити інфо-лист</a>
+                    @if($order->status === \App\Models\Order::STATUS_PAYED || $order->status === \App\Models\Order::STATUS_DEPOSIT)
+                        @if(!empty($order->act))
+                            <a href="{{$order->act}}" download class="download">Акт виконаних робіт</a>
+                        @endif
+                        <br>
+                        @if(!empty($order->info_sheet ?: $order->schedule?->info_sheet))
+                            <a href="{{$order->info_sheet ?: $order->schedule?->info_sheet}}" download class="download">Завантажити інфо-лист</a>
+                        @endif
                     @endif
                 </div>
             </div>
