@@ -53,10 +53,10 @@ export const useTourCard = (tour) => {
     const currencyTitle = computed(() => store.getters['currency/title']);
     const currencyRate = computed(() => store.getters['currency/rate']);
     const currencyPrice = computed(() => {
-        return currentSchedule.value ? (currentSchedule.value.price / currencyRate.value).toFixed(0) : (tour.price / currencyRate.value).toFixed(0);
+        return currentSchedule.value ? Math.ceil(currentSchedule.value.price / currencyRate.value) : Math.ceil(tour.price / currencyRate.value);
     })
     const currencyCommission = computed(() => {
-        return currentSchedule.value ? (currentSchedule.value.commission / currencyRate.value).toFixed(0) : (tour.commission / currencyRate.value).toFixed(0);
+        return currentSchedule.value ? Math.ceil(currentSchedule.value.commission / currencyRate.value) : Math.ceil(tour.commission / currencyRate.value);
     })
     const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
