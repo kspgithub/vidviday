@@ -16,9 +16,9 @@
                     <span class="text" v-html="event.title"></span>
 
                     <div>
-                        <span class="text text-medium">{{ event.price }} {{ event.currencyTitle }}</span>
+                        <span class="text text-medium">{{ currencyPrice(event) }} {{ currencyTitle }}</span>
                         <span v-if="isTourAgent && (event.commission > 0)" class="discount">
-                            {{ event.commission }} {{ event.currencyTitle }}
+                            {{ currencyCommission(event) }} {{ currencyTitle }}
 
                             <span class="tooltip-wrap red">
                                 <span class="tooltip text text-sm light">{{ __('tours-section.commission') }}</span>
@@ -85,5 +85,15 @@ const stopWatching = watch(() => accordionItem.value?.classList || [], (classLis
             allEvents.value = [...data||[]]
         })
     }
+})
+
+const currencyIso = computed(() => store.getters['currency/iso']);
+const currencyTitle = computed(() => store.getters['currency/title']);
+const currencyRate = computed(() => store.getters['currency/rate']);
+const currencyPrice = computed(() => event => {
+    return Math.ceil(event.price / currencyRate.value);
+})
+const currencyCommission = computed(() => event => {
+    return Math.ceil(event.commission / currencyRate.value);
 })
 </script>
