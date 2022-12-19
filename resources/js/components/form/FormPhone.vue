@@ -113,7 +113,7 @@ export default {
         })
 
         const phoneNumber = computed(() => {
-            const replace = country.value?.phone_code + (field.innerValue.value.length > country.value?.phone_code.length ? ' ' : '')
+            const replace = country.value?.phone_code + (field.innerValue.value?.length > country.value?.phone_code?.length ? ' ' : '')
             return country.value?.phone_code ? field.innerValue.value.replace(replace, '') : ''
         })
 
@@ -124,7 +124,7 @@ export default {
 
         const numberModel = computed({
             get: () => phoneNumber.value,
-            set: _.debounce(value => field.innerValue.value = (phoneCode.value.length ? phoneCode.value+' ' : '') + value),
+            set: _.debounce(value => field.innerValue.value = (phoneCode.value?.length ? phoneCode.value+' ' : '') + value),
         })
 
         watch(() => country.value, (value) => {
