@@ -4,7 +4,8 @@
             <span class="h2 title text-medium">{{ __('tours-section.popup-date-title') }}</span>
         </div>
         <div class="popup-align p-0">
-            <tour-calendar v-if="popupOpen" :events="events"
+            <tour-calendar v-if="popupOpen"
+                           :events="events"
                            :view-change="false"
                            :footer="false"
                            @event-click="onClick"
