@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {computed, onMounted, onUnmounted, ref, watch} from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 //import '@fullcalendar/core/vdom' // solves problem with Vite
 import { Calendar } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/vue3/dist/FullCalendar'
@@ -27,7 +27,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import FormSelect from "../form/FormSelect";
-import {useI18nLocal} from "../../composables/useI18nLocal";
+import { useI18nLocal } from "../../composables/useI18nLocal";
 
 export default {
     name: "TourCalendar",
@@ -138,17 +138,20 @@ export default {
                     center: '',
                     right: '',
                 } : false,
-                titleFormat: function(value) {
+                titleFormat: function (value) {
                     var localeData = moment.localeData();
                     var format = localeData.longDateFormat('L')
 
-                    if(viewType.value === 'dayGridDay') {
+                    if (viewType.value === 'dayGridDay') {
                         format = format.replace(localeData._longDateFormat.L, 'D MMMM YYYY');
                     } else {
                         format = format.replace(localeData._longDateFormat.L, 'MMMM YYYY');
                     }
                     var momentTime = moment(value.date);
                     return momentTime.format(format)
+                },
+                eventContent: function (info) {
+                    return {html: `<div class="fc-event-title fc-sticky">${info.event.title}</div>`};
                 },
                 firstDay: 1,
                 contentHeight: "auto",
@@ -171,14 +174,17 @@ export default {
                 },
                 eventClick: (info) => {
                     console.log(info)
-                    emit('event-click', {
-                        id: parseInt(info.event.id),
-                        title: info.event.title,
-                        url: info.event.url,
-                    });
+                    if (info.jsEvent && !$(info.jsEvent.target).is('.tooltip-wrap') && !$(info.jsEvent.target).is('.tooltip')) {
+
+                        emit('event-click', {
+                            id: parseInt(info.event.id),
+                            title: info.event.title,
+                            url: info.event.url,
+                        });
+                    }
                 },
                 navLinkDayClick: (date) => {
-                    if(props.viewChange) {
+                    if (props.viewChange) {
                         viewType.value = 'dayGridDay'
                         calendar.value.changeView(viewType.value);
                         calendar.value.gotoDate(date);
@@ -191,8 +197,8 @@ export default {
             setTimeout(() => {
                 let calendarWrapper = $('.calendar-wrapper > .fc')
 
-                if(calendarWrapper.length) {
-                    if(calendarWrapper.find('.fc-dayGridMonth-view').length) {
+                if (calendarWrapper.length) {
+                    if (calendarWrapper.find('.fc-dayGridMonth-view').length) {
                         let width = calendarWrapper.find('.fc-view .fc-scrollgrid').width();
                         calendarWrapper.scrollLeft(width);
                     }
@@ -204,7 +210,7 @@ export default {
             calendar.value = calendarEl.value.getApi();
             calendar.value.changeView(viewType.value);
 
-            if(viewType.value === 'dayGridMonth') {
+            if (viewType.value === 'dayGridMonth') {
                 scrollToEnd()
             }
 
@@ -234,7 +240,7 @@ export default {
         onMounted(() => {
             let calendarWrapper = $('.calendar-wrapper > .fc')
 
-            if(calendarWrapper.length) {
+            if (calendarWrapper.length) {
                 // calendarWrapper[0].addEventListener('scroll', handleScroll, false)
             }
 
