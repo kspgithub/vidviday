@@ -13,13 +13,13 @@
                 <tour-tab-nav/>
                 <div class="tabs-wrap">
                     <transition name="fade">
-                        <tour-view-gallery v-if="viewType === 'gallery'"/>
+                        <tour-view-gallery v-if="viewType === 'gallery'" />
                     </transition>
                     <transition name="fade">
-                        <tour-view-list v-if="viewType === 'list'"/>
+                        <tour-view-list v-if="viewType === 'list'" />
                     </transition>
                     <transition name="fade">
-                        <tour-view-calendar v-if="viewType === 'calendar'"/>
+                        <tour-view-calendar v-if="viewType === 'calendar'" />
                     </transition>
                 </div>
             </div>

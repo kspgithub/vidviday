@@ -1,37 +1,29 @@
 <template>
-    <div class="tab" :class="{active}">
-        <template v-if="active">
-            <div class="spacer-xs"></div>
-            <tour-calendar :filter="filter"/>
-        </template>
+    <div class="tab active">
+        <div class="spacer-xs"></div>
+        <tour-calendar :filter="filter"/>
     </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import TourCalendar from './TourCalendar'
+import { useStore } from 'vuex'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 export default {
-    name: "TourViewCalendar",
+    name: 'TourViewCalendar',
     components: {
-        TourCalendar: () => import('./TourCalendar.vue')
+        TourCalendar,
     },
-    props: {
-        active: Boolean,
-    },
-    setup({props}) {
-
-        const store = useStore();
-        const filter = computed(() => store.getters['tourFilter/filterData']);
+    setup() {
+        const store = useStore()
+        const filter = computed(() => store.getters['tourFilter/filterData'])
 
         return {
             filter,
         }
-
-    }
+    },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
