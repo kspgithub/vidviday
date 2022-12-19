@@ -175,7 +175,7 @@ export default {
                 eventClick: (info) => {
                     console.log(info)
                     if (info.jsEvent && !$(info.jsEvent.target).is('.tooltip-wrap') && !$(info.jsEvent.target).is('.tooltip')) {
-
+                        info.jsEvent.preventDefault()
                         emit('event-click', {
                             id: parseInt(info.event.id),
                             title: info.event.title,
