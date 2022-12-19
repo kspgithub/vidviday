@@ -24,8 +24,6 @@
                 :auto-height="true"
                 :loop="true"
                 @swiper="setController"
-
-
             >
                 <swiper-slide v-for="tour in tours">
                     <tour-card :key="'tour-slide-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
