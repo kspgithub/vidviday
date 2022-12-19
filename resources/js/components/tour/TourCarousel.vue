@@ -22,6 +22,7 @@
                 :slides-per-group="swiperOptions.slidesPerGroup"
                 :space-between="swiperOptions.spaceBetween"
                 :auto-height="true"
+                :loop="true"
                 @swiper="setController"
 
 
