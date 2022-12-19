@@ -60,6 +60,10 @@ export default () => {
         }
     })
 
+    watch(searchText, async (newValue, oldValue) => {
+        store.commit('headerSearch/SET_REQUEST', true);
+    })
+
     const close = async () => {
         searchText.value = '';
         await search();

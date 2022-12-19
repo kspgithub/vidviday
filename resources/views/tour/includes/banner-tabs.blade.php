@@ -35,7 +35,7 @@
             </div>
             <!-- TAB #1 END -->
     @endif
-    <!-- TAB #2 -->
+    <!-- TAB #2 MAP -->
         <div class="tab {{$pictures->count() > 0 ? '' : 'active'}}">
             <div class="banner-tab-map">
                 <div class="map-wrapper hidden-map full-size"

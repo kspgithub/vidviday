@@ -146,7 +146,6 @@ export default {
 
         const popupOpen = computed(() => store.state.orderTour.popupOpen);
 
-
         const closePopup = () => {
             store.commit('orderTour/SET_POPUP_OPEN', false);
             showForm.value = true;
@@ -156,6 +155,11 @@ export default {
 
         const departureOptions = computed(() => store.getters['orderTour/departureOptions']());
 
+        // departureOptions.value.unshift({
+        //     value: '',
+        //     text: __('tours-section.date-title'),
+        // })
+        console.log('departureOptions', departureOptions.value)
 
         const submitForm = async () => {
             const result = await validate();

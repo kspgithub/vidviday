@@ -6,6 +6,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { mapOptions } from "./useGoogleMap";
+import MarkerClusterer from "@googlemaps/markerclustererplus";
 
 export default {
     name: "TourMap",
@@ -64,6 +65,14 @@ export default {
                     bounds.extend(marker.getPosition());
                     markers.value.push(marker);
                 }
+
+                const clusterImage = 'img/cluster.png'
+
+                map.value.mapmarkerClusterer = new MarkerClusterer(
+                    map.value.map,
+                    map.value.markers,
+                    {imagePath: clusterImage, gridSize: 60, minimumClusterSize: 2}
+                );
 
                 if (markers.value.length === 1) {
                     map.value.setCenter(markers.value[0].getPosition())

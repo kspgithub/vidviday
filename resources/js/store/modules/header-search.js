@@ -64,7 +64,9 @@ export default {
                     commit('SET_ACTIVE', true)
                 }
             }
-            commit('SET_REQUEST', false)
+            setTimeout(() => {
+                commit('SET_REQUEST', false)
+            }, 1000)
         },
         async initVoiceSearch({commit}) {
             if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
