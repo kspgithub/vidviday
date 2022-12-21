@@ -79,6 +79,7 @@ class ScheduleResource extends JsonResource
         return [
             'id' => $this->id,
             'start_date' => $this->start_date->format('d.m.Y'),
+            'start_time' => $this->start_time,
             'end_date' => $this->end_date->format('d.m.Y'),
             'places_total' => $this->places,
             'places_available' => $this->places_available,
