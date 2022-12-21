@@ -403,6 +403,10 @@ hr {
     padding-left: 30px;
     margin-bottom: 12px;
 
+    &.no-padding {
+        padding-left: 0;
+    }
+
     .img {
         left: 0;
         top: 1px;
