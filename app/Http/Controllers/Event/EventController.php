@@ -35,7 +35,7 @@ class EventController extends Controller
 
         $event->checkSlugLocale($slug);
 
-        $tours = $event->tours()->search()->get();
+        $tours = $event->tours()->get();
 
         $localeLinks = $event->getLocaleLinks();
 
