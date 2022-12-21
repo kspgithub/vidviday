@@ -14,7 +14,8 @@ class TestimonialAnswerRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
+//        return Auth::check();
     }
 
     /**
@@ -24,10 +25,23 @@ class TestimonialAnswerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        return Auth::check() ? [
             //
             'parent_id'=>['required', 'integer'],
             'text'=>['required', 'string'],
+            'email'=>['nullable'],
+            'phone'=>['nullable'],
+            'first_name'=>['nullable'],
+            'last_name'=>['nullable'],
+            'type'=>['nullable'],
+        ] : [
+            //
+            'parent_id'=>['required', 'integer'],
+            'text'=>['required', 'string'],
+            'email'=>['required'],
+            'phone'=>['required'],
+            'first_name'=>['required'],
+            'last_name'=>['required'],
             'type'=>['nullable'],
         ];
     }

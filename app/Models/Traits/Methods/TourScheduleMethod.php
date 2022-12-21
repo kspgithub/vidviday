@@ -83,6 +83,7 @@ trait TourScheduleMethod
             'id' => $this->id,
             'start_title' => $this->start_title,
             'start_date' => $this->start_date->format('d.m.Y'),
+            'start_time' => $this->start_time,
             'end_date' => $this->end_date->format('d.m.Y'),
             'title' => $this->title,
             'places' => $this->places,
