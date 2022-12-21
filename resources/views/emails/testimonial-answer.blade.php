@@ -23,7 +23,7 @@
 
             @if($testimonial->parent)
                 <hr>
-                <p>Ваше повідомлення: {{ $testimonial->parent->comment }}</p>
+                <p>Ваше повідомлення: {{ $testimonial->parent->text }}</p>
                 <p>Час: {{ $testimonial->parent->created_at }}</p>
                 <hr>
             @endif
@@ -31,7 +31,7 @@
             <p>Ім'я: {{ $testimonial->name }}</p>
             <p>Телефон: {{ $testimonial->phone }}</p>
             <p>Email: {{ $testimonial->email }}</p>
-            <p>Коментар: {{ $testimonial->comment }}</p>
+            <p>Коментар: {{ $testimonial->text }}</p>
             <p>Час: {{ $testimonial->created_at }}</p>
         </x-email.card>
 
