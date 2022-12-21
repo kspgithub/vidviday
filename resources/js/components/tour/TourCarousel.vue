@@ -4,6 +4,12 @@
         <div class="spacer-xs"></div>
 
         <div class="thumbs-carousel swiper-entry swiper-vue">
+        <div class="swiper-button-prev bottom" @click="prevSlide()">
+                <i></i>
+            </div>
+            <div class="swiper-button-next bottom" @click="nextSlide()">
+                <i></i>
+            </div>
             <swiper
                 :resize-observer="swiperOptions.resizeObserver"
                 :update-on-window-resize="swiperOptions.updateOnWindowResize"
@@ -29,13 +35,9 @@
                     <tour-card :key="'tour-slide-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
                 </swiper-slide>
             </swiper>
-            <div class="swiper-button-prev bottom" @click="prevSlide()">
-                <i></i>
-            </div>
+            
             <div class="swiper-pagination-placeholder"></div>
-            <div class="swiper-button-next bottom" @click="nextSlide()">
-                <i></i>
-            </div>
+            
 
         </div>
     </div>
