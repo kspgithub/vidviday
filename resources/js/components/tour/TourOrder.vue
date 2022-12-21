@@ -167,14 +167,14 @@ export default {
         const currencyRate = computed(() => store.getters['currency/rate']);
         const currencyPrice = computed(() => {
             let sum = ((price.value || 0) / currencyRate.value);
-            return (sum).toFixed(0);
+            return Math.ceil(sum);
         })
         const currencyCommission = computed(() => {
-            return (commission.value / currencyRate.value).toFixed(0);
+            return Math.ceil(commission.value / currencyRate.value);
         })
 
         const currencyAccomm = computed(() => {
-            return (accommPrice.value / currencyRate.value).toFixed(0);
+            return Math.ceil(accommPrice.value / currencyRate.value);
         })
 
         if (query.quick) {
