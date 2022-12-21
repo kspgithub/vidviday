@@ -10,6 +10,7 @@ use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\Tour;
+use App\Models\TourQuestion;
 use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
@@ -93,30 +94,58 @@ class TestimonialController extends Controller
 
     public function answer(TestimonialAnswerRequest $request)
     {
-        $parent = Testimonial::findOrFail($request->parent_id);
-        $user = current_user();
+        if($request->type === 'tour_questions') {
+            $parent = TourQuestion::findOrFail($request->parent_id);
 
-        $testimonial = new Testimonial();
-        $testimonial->model_type = $parent->model_type;
-        $testimonial->model_id = $parent->model_id;
-        $testimonial->related_type = $parent->related_type;
-        $testimonial->related_id = $parent->related_id;
-        $testimonial->name = $user->name;
-        $testimonial->email = $user->email;
-        $testimonial->avatar = $user->avatar;
-        $testimonial->parent_id = $parent->id;
-        $testimonial->text = $request->text;
-        if (site_option('moderate_testimonials', true) === false) {
-            $testimonial->status = Testimonial::STATUS_PUBLISHED;
+            $user = current_user();
+
+            $testimonial = new TourQuestion();
+            $testimonial->tour_id = $parent->tour_id;
+            $testimonial->name = $user->name;
+            $testimonial->email = $user->email;
+            $testimonial->avatar = $user->avatar;
+            $testimonial->parent_id = $parent->id;
+            $testimonial->text = $request->text;
+            if (site_option('moderate_testimonials', true) === false) {
+                $testimonial->status = Testimonial::STATUS_PUBLISHED;
+            }
+            $testimonial->save();
+            if ($request->ajax()) {
+                return response()->json([
+                    'result' => 'success',
+                    'message' => __('Thanks for your feedback!'),
+                    'testimonial' => $testimonial
+                ]);
+            }
+        } else {
+            $parent = Testimonial::findOrFail($request->parent_id);
+
+            $user = current_user();
+
+            $testimonial = new Testimonial();
+            $testimonial->model_type = $parent->model_type;
+            $testimonial->model_id = $parent->model_id;
+            $testimonial->related_type = $parent->related_type;
+            $testimonial->related_id = $parent->related_id;
+            $testimonial->name = $user->name;
+            $testimonial->email = $user->email;
+            $testimonial->avatar = $user->avatar;
+            $testimonial->parent_id = $parent->id;
+            $testimonial->text = $request->text;
+            if (site_option('moderate_testimonials', true) === false) {
+                $testimonial->status = Testimonial::STATUS_PUBLISHED;
+            }
+            $testimonial->save();
+            if ($request->ajax()) {
+                return response()->json([
+                    'result' => 'success',
+                    'message' => __('Thanks for your feedback!'),
+                    'testimonial' => $testimonial
+                ]);
+            }
         }
-        $testimonial->save();
-        if ($request->ajax()) {
-            return response()->json([
-                'result' => 'success',
-                'message' => __('Thanks for your feedback!'),
-                'testimonial' => $testimonial
-            ]);
-        }
+
+
         return back()->withFlashSuccess(__('Thanks for your feedback!'));
     }
 

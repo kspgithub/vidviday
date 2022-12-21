@@ -28,6 +28,7 @@ class TestimonialAnswerRequest extends FormRequest
             //
             'parent_id'=>['required', 'integer'],
             'text'=>['required', 'string'],
+            'type'=>['nullable'],
         ];
     }
 }

@@ -94,6 +94,7 @@
                 <div v-is="'testimonial-list'"
                      :items='@json($tour->questions->toTree())'
                      url="{{route('tour.testimonials', $tour)}}"
+                     type="tour_questions"
                 ></div>
             @endif
         </div>

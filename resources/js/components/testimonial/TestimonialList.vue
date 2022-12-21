@@ -3,7 +3,7 @@
         <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
         <hr>
-        <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" @add=""/>
+        <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" :type="type" @add="" />
         <hr>
         <div class="spacer-xs"></div>
         <div class="row">
@@ -35,7 +35,8 @@ export default {
         page: {
             type: Number,
             default: 1
-        }
+        },
+        type: String,
     },
     setup(props) {
         const store = useStore();
@@ -43,7 +44,7 @@ export default {
         store.commit('testimonials/SET_TESTIMONIALS', props.items);
         store.dispatch('user/loadProfile');
 
-        const testimonials = computed(() => store.state.testimonials.items);
+        const testimonials = props.items || computed(() => store.state.testimonials.items);
         const currentPage = computed(() => store.state.testimonials.currentPage);
         const lastPage = computed(() => store.state.testimonials.lastPage);
         const request = computed(() => store.state.testimonials.request);

@@ -26,7 +26,7 @@ export default {
     components: {FormTextarea},
     props: {
         item: Object,
-
+        type: String,
     },
     emits: ['cancel', 'success'],
     setup(props, {emit}) {

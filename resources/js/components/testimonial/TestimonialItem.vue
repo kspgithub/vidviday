@@ -98,6 +98,7 @@ export default {
             type: Number,
             default: 120,
         },
+        type: String,
     },
     setup(props, { emit }) {
         const store = useStore();
@@ -141,7 +142,12 @@ export default {
         }
 
         const onAnswerSuccess = async (text) => {
-            const response = await store.dispatch('testimonials/answer', {text: text, parent_id: props.item.id});
+            const response = await store.dispatch('testimonials/answer', {
+                text: text,
+                parent_id: props.item.id,
+                type: props.type,
+            });
+
             if (response.result === 'success') {
                 children.value = [response.testimonial, ...children.value];
                 answer.value = false;
