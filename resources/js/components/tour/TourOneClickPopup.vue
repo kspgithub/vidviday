@@ -31,6 +31,7 @@
                         <div class="datepicker-input">
                             <form-select v-model.number="schedule_id"
                                          :options="departureOptions"
+                                         :placeholder="__('forms.select-date')"
                                          name="schedule_id"
                                          :label="__('forms.select-date') + '*'"
                                          :preselect="false"/>
@@ -191,6 +192,8 @@ export default {
 
             }
         }
+
+        store.commit('orderTour/UPDATE_FORM_DATA', {schedule_id: ''});
 
         return {
             first_name: useDebounceFormDataProperty('orderTour', 'first_name'),

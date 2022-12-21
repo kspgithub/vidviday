@@ -97,11 +97,11 @@ export default {
         const countries = useCountries()
 
         const rawPhone = computed(() => {
-            return field.innerValue.value.replaceAll(/[-_() ]/g, '')
+            return field.innerValue.value?.replaceAll(/[-_() ]/g, '')
         })
 
         const country = computed(() => {
-            return countries.find(c => rawPhone.value.startsWith(c.phone_code)) || countries[0]
+            return countries.find(c => rawPhone.value?.startsWith(c.phone_code)) || countries[0]
         })
 
         const getMask = computed(() => country.value?.phone_mask || props.mask)
@@ -109,12 +109,12 @@ export default {
         const phoneCode = computed(() => country.value?.phone_code)
 
         const cleanPhone = computed(() => {
-            return rawPhone.value.replace(phoneCode.value, '')
+            return rawPhone.value?.replace(phoneCode.value, '')
         })
 
         const phoneNumber = computed(() => {
             const replace = country.value?.phone_code + (field.innerValue.value?.length > country.value?.phone_code?.length ? ' ' : '')
-            return country.value?.phone_code ? field.innerValue.value.replace(replace, '') : ''
+            return country.value?.phone_code ? field.innerValue.value?.replace(replace, '') : ''
         })
 
         const countryModel = computed({
