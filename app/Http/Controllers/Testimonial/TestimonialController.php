@@ -101,9 +101,9 @@ class TestimonialController extends Controller
 
             $testimonial = new TourQuestion();
             $testimonial->tour_id = $parent->tour_id;
-            $testimonial->name = $user->name;
-            $testimonial->email = $user->email;
-            $testimonial->avatar = $user->avatar;
+            $testimonial->name = $user->name ?? ($request->first_name . ' ' . $request->last_name);
+            $testimonial->email = $user->email ?? $request->email;
+            $testimonial->avatar = $user->avatar ?? null;
             $testimonial->parent_id = $parent->id;
             $testimonial->text = $request->text;
             if (site_option('moderate_testimonials', true) === false) {
@@ -127,9 +127,9 @@ class TestimonialController extends Controller
             $testimonial->model_id = $parent->model_id;
             $testimonial->related_type = $parent->related_type;
             $testimonial->related_id = $parent->related_id;
-            $testimonial->name = $user->name;
-            $testimonial->email = $user->email;
-            $testimonial->avatar = $user->avatar;
+            $testimonial->name = $user->name ?? ($request->first_name . ' ' . $request->last_name);
+            $testimonial->email = $user->email ?? $request->email;
+            $testimonial->avatar = $user->avatar ?? null;
             $testimonial->parent_id = $parent->id;
             $testimonial->text = $request->text;
             if (site_option('moderate_testimonials', true) === false) {
