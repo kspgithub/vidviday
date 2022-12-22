@@ -94,7 +94,10 @@ const customRules = {
                 console.log(regex)
                 return regex.test(value)
             } else {
-                return /^\+38 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(value)
+                const mask = country.phone_mask.replaceAll('9', '\\d')
+                const regex = new RegExp(`^\\${country.phone_code} ${mask}`)
+
+                return regex.test(value)
             }
         }
         return true;
