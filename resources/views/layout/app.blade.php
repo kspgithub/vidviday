@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
     window.APP_ENV = '{{app()->environment()}}';
-    window.countries = @json(App\Models\Country::all()->translate());
+    window.countries = @json(App\Models\Country::query()->orderBy('position')->orderBy('title')->get()->translate());
     window.toastsData = @json(toastData($errors));
 </script>
 

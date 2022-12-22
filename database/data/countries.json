@@ -1,0 +1,1452 @@
+[
+    {
+        "title": {
+            "en": "Afghanistan"
+        },
+        "iso": "AF",
+        "phone_code": "+93",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": {
+            "en": "Albania"
+        },
+        "iso": "AL",
+        "phone_code": "+355",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": {
+            "en": "Algeria"
+        },
+        "iso": "DZ",
+        "phone_code": "+213",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": {
+            "en": "American Samoa"
+        },
+        "iso": "AS",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Andorra",
+        "iso": "AD",
+        "phone_code": "+376",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Angola",
+        "iso": "AO",
+        "phone_code": "+244",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Anguilla",
+        "iso": "AI",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Antarctica",
+        "iso": "AQ",
+        "phone_code": "+672",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Antigua and Barbuda",
+        "iso": "AG",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Argentina",
+        "iso": "AR",
+        "phone_code": "+54",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Armenia",
+        "iso": "AM",
+        "phone_code": "+374",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Aruba",
+        "iso": "AW",
+        "phone_code": "+297",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Australia",
+        "iso": "AU",
+        "phone_code": "+61",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Austria",
+        "iso": "AT",
+        "phone_code": "+43",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Azerbaijan",
+        "iso": "AZ",
+        "phone_code": "+994",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bahamas",
+        "iso": "BS",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bahrain",
+        "iso": "BH",
+        "phone_code": "+973",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bangladesh",
+        "iso": "BD",
+        "phone_code": "+880",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Barbados",
+        "iso": "BB",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Belarus",
+        "iso": "BY",
+        "phone_code": "+375",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Belgium",
+        "iso": "BE",
+        "phone_code": "+32",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Belize",
+        "iso": "BZ",
+        "phone_code": "+501",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Benin",
+        "iso": "BJ",
+        "phone_code": "+229",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bermuda",
+        "iso": "BM",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bhutan",
+        "iso": "BT",
+        "phone_code": "+975",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bolivia",
+        "iso": "BO",
+        "phone_code": "+591",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bosnia and Herzegovina",
+        "iso": "BA",
+        "phone_code": "+387",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Botswana",
+        "iso": "BW",
+        "phone_code": "+267",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Brazil",
+        "iso": "BR",
+        "phone_code": "+55",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "British Indian Ocean Territory",
+        "iso": "IO",
+        "phone_code": "+246",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "British Virgin Islands",
+        "iso": "VG",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Brunei",
+        "iso": "BN",
+        "phone_code": "+673",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Bulgaria",
+        "iso": "BG",
+        "phone_code": "+359",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Burkina Faso",
+        "iso": "BF",
+        "phone_code": "+226",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Burundi",
+        "iso": "BI",
+        "phone_code": "+257",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cambodia",
+        "iso": "KH",
+        "phone_code": "+855",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cameroon",
+        "iso": "CM",
+        "phone_code": "+237",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Canada",
+        "iso": "CA",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cape Verde",
+        "iso": "CV",
+        "phone_code": "+238",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cayman Islands",
+        "iso": "KY",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Central African Republic",
+        "iso": "CF",
+        "phone_code": "+236",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Chad",
+        "iso": "TD",
+        "phone_code": "+235",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Chile",
+        "iso": "CL",
+        "phone_code": "+56",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "China",
+        "iso": "CN",
+        "phone_code": "+86",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Christmas Island",
+        "iso": "CX",
+        "phone_code": "+61",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cocos Islands",
+        "iso": "CC",
+        "phone_code": "+61",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Colombia",
+        "iso": "CO",
+        "phone_code": "+57",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Comoros",
+        "iso": "KM",
+        "phone_code": "+269",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cook Islands",
+        "iso": "CK",
+        "phone_code": "+682",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Costa Rica",
+        "iso": "CR",
+        "phone_code": "+506",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Croatia",
+        "iso": "HR",
+        "phone_code": "+385",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cuba",
+        "iso": "CU",
+        "phone_code": "+53",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Curacao",
+        "iso": "CW",
+        "phone_code": "+599",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Cyprus",
+        "iso": "CY",
+        "phone_code": "+357",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Czech Republic",
+        "iso": "CZ",
+        "phone_code": "+420",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Democratic Republic of the Congo",
+        "iso": "CD",
+        "phone_code": "+243",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Denmark",
+        "iso": "DK",
+        "phone_code": "+45",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Djibouti",
+        "iso": "DJ",
+        "phone_code": "+253",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Dominica",
+        "iso": "DM",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Dominican Republic",
+        "iso": "DO",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "East Timor",
+        "iso": "TL",
+        "phone_code": "+670",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ecuador",
+        "iso": "EC",
+        "phone_code": "+593",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Egypt",
+        "iso": "EG",
+        "phone_code": "+20",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "El Salvador",
+        "iso": "SV",
+        "phone_code": "+503",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Equatorial Guinea",
+        "iso": "GQ",
+        "phone_code": "+240",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Eritrea",
+        "iso": "ER",
+        "phone_code": "+291",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Estonia",
+        "iso": "EE",
+        "phone_code": "+372",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ethiopia",
+        "iso": "ET",
+        "phone_code": "+251",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Falkland Islands",
+        "iso": "FK",
+        "phone_code": "+500",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Faroe Islands",
+        "iso": "FO",
+        "phone_code": "+298",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Fiji",
+        "iso": "FJ",
+        "phone_code": "+679",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Finland",
+        "iso": "FI",
+        "phone_code": "+358",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "France",
+        "iso": "FR",
+        "phone_code": "+33",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "French Polynesia",
+        "iso": "PF",
+        "phone_code": "+689",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Gabon",
+        "iso": "GA",
+        "phone_code": "+241",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Gambia",
+        "iso": "GM",
+        "phone_code": "+220",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Georgia",
+        "iso": "GE",
+        "phone_code": "+995",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Germany",
+        "iso": "DE",
+        "phone_code": "+49",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ghana",
+        "iso": "GH",
+        "phone_code": "+233",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Gibraltar",
+        "iso": "GI",
+        "phone_code": "+350",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Greece",
+        "iso": "GR",
+        "phone_code": "+30",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Greenland",
+        "iso": "GL",
+        "phone_code": "+299",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Grenada",
+        "iso": "GD",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guam",
+        "iso": "GU",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guatemala",
+        "iso": "GT",
+        "phone_code": "+502",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guernsey",
+        "iso": "GG",
+        "phone_code": "+44",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guinea",
+        "iso": "GN",
+        "phone_code": "+224",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guinea-Bissau",
+        "iso": "GW",
+        "phone_code": "+245",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Guyana",
+        "iso": "GY",
+        "phone_code": "+592",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Haiti",
+        "iso": "HT",
+        "phone_code": "+509",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Honduras",
+        "iso": "HN",
+        "phone_code": "+504",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Hong Kong",
+        "iso": "HK",
+        "phone_code": "+852",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Hungary",
+        "iso": "HU",
+        "phone_code": "+36",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Iceland",
+        "iso": "IS",
+        "phone_code": "+354",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "India",
+        "iso": "IN",
+        "phone_code": "+91",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Indonesia",
+        "iso": "ID",
+        "phone_code": "+62",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Iran",
+        "iso": "IR",
+        "phone_code": "+98",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Iraq",
+        "iso": "IQ",
+        "phone_code": "+964",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ireland",
+        "iso": "IE",
+        "phone_code": "+353",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Isle of Man",
+        "iso": "IM",
+        "phone_code": "+44",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Israel",
+        "iso": "IL",
+        "phone_code": "+972",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Italy",
+        "iso": "IT",
+        "phone_code": "+39",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ivory Coast",
+        "iso": "CI",
+        "phone_code": "+225",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Jamaica",
+        "iso": "JM",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Japan",
+        "iso": "JP",
+        "phone_code": "+81",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Jersey",
+        "iso": "JE",
+        "phone_code": "+44",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Jordan",
+        "iso": "JO",
+        "phone_code": "+962",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kazakhstan",
+        "iso": "KZ",
+        "phone_code": "+7",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kenya",
+        "iso": "KE",
+        "phone_code": "+254",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kiribati",
+        "iso": "KI",
+        "phone_code": "+686",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kosovo",
+        "iso": "XK",
+        "phone_code": "+383",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kuwait",
+        "iso": "KW",
+        "phone_code": "+965",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Kyrgyzstan",
+        "iso": "KG",
+        "phone_code": "+996",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Laos",
+        "iso": "LA",
+        "phone_code": "+856",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Latvia",
+        "iso": "LV",
+        "phone_code": "+371",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Lebanon",
+        "iso": "LB",
+        "phone_code": "+961",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Lesotho",
+        "iso": "LS",
+        "phone_code": "+266",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Liberia",
+        "iso": "LR",
+        "phone_code": "+231",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Libya",
+        "iso": "LY",
+        "phone_code": "+218",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Liechtenstein",
+        "iso": "LI",
+        "phone_code": "+423",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Lithuania",
+        "iso": "LT",
+        "phone_code": "+370",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Luxembourg",
+        "iso": "LU",
+        "phone_code": "+352",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Macau",
+        "iso": "MO",
+        "phone_code": "+853",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Macedonia",
+        "iso": "MK",
+        "phone_code": "+389",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Madagascar",
+        "iso": "MG",
+        "phone_code": "+261",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Malawi",
+        "iso": "MW",
+        "phone_code": "+265",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Malaysia",
+        "iso": "MY",
+        "phone_code": "+60",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Maldives",
+        "iso": "MV",
+        "phone_code": "+960",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mali",
+        "iso": "ML",
+        "phone_code": "+223",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Malta",
+        "iso": "MT",
+        "phone_code": "+356",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Marshall Islands",
+        "iso": "MH",
+        "phone_code": "+692",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mauritania",
+        "iso": "MR",
+        "phone_code": "+222",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mauritius",
+        "iso": "MU",
+        "phone_code": "+230",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mayotte",
+        "iso": "YT",
+        "phone_code": "+262",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mexico",
+        "iso": "MX",
+        "phone_code": "+52",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Micronesia",
+        "iso": "FM",
+        "phone_code": "+691",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Moldova",
+        "iso": "MD",
+        "phone_code": "+373",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Monaco",
+        "iso": "MC",
+        "phone_code": "+377",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mongolia",
+        "iso": "MN",
+        "phone_code": "+976",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Montenegro",
+        "iso": "ME",
+        "phone_code": "+382",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Montserrat",
+        "iso": "MS",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Morocco",
+        "iso": "MA",
+        "phone_code": "+212",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Mozambique",
+        "iso": "MZ",
+        "phone_code": "+258",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Myanmar",
+        "iso": "MM",
+        "phone_code": "+95",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Namibia",
+        "iso": "NA",
+        "phone_code": "+264",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Nauru",
+        "iso": "NR",
+        "phone_code": "+674",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Nepal",
+        "iso": "NP",
+        "phone_code": "+977",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Netherlands",
+        "iso": "NL",
+        "phone_code": "+31",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Netherlands Antilles",
+        "iso": "AN",
+        "phone_code": "+599",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "New Caledonia",
+        "iso": "NC",
+        "phone_code": "+687",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "New Zealand",
+        "iso": "NZ",
+        "phone_code": "+64",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Nicaragua",
+        "iso": "NI",
+        "phone_code": "+505",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Niger",
+        "iso": "NE",
+        "phone_code": "+227",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Nigeria",
+        "iso": "NG",
+        "phone_code": "+234",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Niue",
+        "iso": "NU",
+        "phone_code": "+683",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "North Korea",
+        "iso": "KP",
+        "phone_code": "+850",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Northern Mariana Islands",
+        "iso": "MP",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Norway",
+        "iso": "NO",
+        "phone_code": "+47",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Oman",
+        "iso": "OM",
+        "phone_code": "+968",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Pakistan",
+        "iso": "PK",
+        "phone_code": "+92",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Palau",
+        "iso": "PW",
+        "phone_code": "+680",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Palestine",
+        "iso": "PS",
+        "phone_code": "+970",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Panama",
+        "iso": "PA",
+        "phone_code": "+507",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Papua New Guinea",
+        "iso": "PG",
+        "phone_code": "+675",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Paraguay",
+        "iso": "PY",
+        "phone_code": "+595",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Peru",
+        "iso": "PE",
+        "phone_code": "+51",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Philippines",
+        "iso": "PH",
+        "phone_code": "+63",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Pitcairn",
+        "iso": "PN",
+        "phone_code": "+64",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Poland",
+        "iso": "PL",
+        "phone_code": "+48",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Portugal",
+        "iso": "PT",
+        "phone_code": "+351",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Puerto Rico",
+        "iso": "PR",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Qatar",
+        "iso": "QA",
+        "phone_code": "+974",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Republic of the Congo",
+        "iso": "CG",
+        "phone_code": "+242",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Reunion",
+        "iso": "RE",
+        "phone_code": "+262",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Romania",
+        "iso": "RO",
+        "phone_code": "+40",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Russia",
+        "iso": "RU",
+        "phone_code": "+7",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Rwanda",
+        "iso": "RW",
+        "phone_code": "+250",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Barthelemy",
+        "iso": "BL",
+        "phone_code": "+590",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Helena",
+        "iso": "SH",
+        "phone_code": "+290",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Kitts and Nevis",
+        "iso": "KN",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Lucia",
+        "iso": "LC",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Martin",
+        "iso": "MF",
+        "phone_code": "+590",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Pierre and Miquelon",
+        "iso": "PM",
+        "phone_code": "+508",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saint Vincent and the Grenadines",
+        "iso": "VC",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Samoa",
+        "iso": "WS",
+        "phone_code": "+685",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "San Marino",
+        "iso": "SM",
+        "phone_code": "+378",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sao Tome and Principe",
+        "iso": "ST",
+        "phone_code": "+239",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Saudi Arabia",
+        "iso": "SA",
+        "phone_code": "+966",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Senegal",
+        "iso": "SN",
+        "phone_code": "+221",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Serbia",
+        "iso": "RS",
+        "phone_code": "+381",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Seychelles",
+        "iso": "SC",
+        "phone_code": "+248",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sierra Leone",
+        "iso": "SL",
+        "phone_code": "+232",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Singapore",
+        "iso": "SG",
+        "phone_code": "+65",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sint Maarten",
+        "iso": "SX",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Slovakia",
+        "iso": "SK",
+        "phone_code": "+421",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Slovenia",
+        "iso": "SI",
+        "phone_code": "+386",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Solomon Islands",
+        "iso": "SB",
+        "phone_code": "+677",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Somalia",
+        "iso": "SO",
+        "phone_code": "+252",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "South Africa",
+        "iso": "ZA",
+        "phone_code": "+27",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "South Korea",
+        "iso": "KR",
+        "phone_code": "+82",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "South Sudan",
+        "iso": "SS",
+        "phone_code": "+211",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Spain",
+        "iso": "ES",
+        "phone_code": "+34",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sri Lanka",
+        "iso": "LK",
+        "phone_code": "+94",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sudan",
+        "iso": "SD",
+        "phone_code": "+249",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Suriname",
+        "iso": "SR",
+        "phone_code": "+597",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Svalbard and Jan Mayen",
+        "iso": "SJ",
+        "phone_code": "+47",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Swaziland",
+        "iso": "SZ",
+        "phone_code": "+268",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Sweden",
+        "iso": "SE",
+        "phone_code": "+46",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Switzerland",
+        "iso": "CH",
+        "phone_code": "+41",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Syria",
+        "iso": "SY",
+        "phone_code": "+963",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Taiwan",
+        "iso": "TW",
+        "phone_code": "+886",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tajikistan",
+        "iso": "TJ",
+        "phone_code": "+992",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tanzania",
+        "iso": "TZ",
+        "phone_code": "+255",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Thailand",
+        "iso": "TH",
+        "phone_code": "+66",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Togo",
+        "iso": "TG",
+        "phone_code": "+228",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tokelau",
+        "iso": "TK",
+        "phone_code": "+690",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tonga",
+        "iso": "TO",
+        "phone_code": "+676",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Trinidad and Tobago",
+        "iso": "TT",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tunisia",
+        "iso": "TN",
+        "phone_code": "+216",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Turkey",
+        "iso": "TR",
+        "phone_code": "+90",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Turkmenistan",
+        "iso": "TM",
+        "phone_code": "+993",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Turks and Caicos Islands",
+        "iso": "TC",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Tuvalu",
+        "iso": "TV",
+        "phone_code": "+688",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "U.S. Virgin Islands",
+        "iso": "VI",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Uganda",
+        "iso": "UG",
+        "phone_code": "+256",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Ukraine",
+        "iso": "UA",
+        "phone_code": "+380",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "United Arab Emirates",
+        "iso": "AE",
+        "phone_code": "+971",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "United Kingdom",
+        "iso": "GB",
+        "phone_code": "+44",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "United States",
+        "iso": "US",
+        "phone_code": "+1",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Uruguay",
+        "iso": "UY",
+        "phone_code": "+598",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Uzbekistan",
+        "iso": "UZ",
+        "phone_code": "+998",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Vanuatu",
+        "iso": "VU",
+        "phone_code": "+678",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Vatican",
+        "iso": "VA",
+        "phone_code": "+379",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Venezuela",
+        "iso": "VE",
+        "phone_code": "+58",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Vietnam",
+        "iso": "VN",
+        "phone_code": "+84",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Wallis and Futuna",
+        "iso": "WF",
+        "phone_code": "+681",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Western Sahara",
+        "iso": "EH",
+        "phone_code": "+212",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Yemen",
+        "iso": "YE",
+        "phone_code": "+967",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": "Zambia",
+        "iso": "ZM",
+        "phone_code": "+260",
+        "phone_mask": "999-999-999"
+    },
+    {
+        "title": {
+            "en": "Zimbabwe"
+        },
+        "iso": "ZW",
+        "phone_code": "+263",
+        "phone_mask": "999-999-999"
+    }
+]

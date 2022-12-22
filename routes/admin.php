@@ -210,6 +210,7 @@ Route::resource('certificate', CertificateController::class);
 
 // LOCATION
 Route::resource('country', CountryController::class)->except('show');
+Route::post('country/sort', [CountryController::class, 'sort'])->name('country.sort');
 
 Route::resource('region', RegionController::class)->except('show');
 

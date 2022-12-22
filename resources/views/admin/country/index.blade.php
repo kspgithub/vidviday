@@ -20,18 +20,23 @@
     <x-bootstrap.card>
         <x-slot name="body">
 
-            <table class="table table-responsive table-striped table-sm">
+            <table class="table table-responsive table-striped table-sm" x-data='sortable({
+                url: "{{route('admin.country.sort')}}"
+            })'>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>@lang('title')</th>
                     <th>@lang('Iso')</th>
                     <th>Області</th>
+                    <th>Опубліковано</th>
                     <th style="width: 200px">@lang('Actions') </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody x-ref="sortableRef">
                 @foreach($countries as $country)
-                    <tr>
+                    <tr class="draggable" data-id="{{$country->id}}">
+                        <td class="handler ps-2"><i class="fa fa-bars cursor-move me-3"></i></td>
                         <td>{{$country->title}}</td>
                         <td>{{$country->iso}}</td>
                         <td>
@@ -40,6 +45,7 @@
                                 @lang('Regions')
                             </a>
                         </td>
+                        <td>@include('admin.partials.published', ['model'=>$country, 'updateUrl'=>route('admin.country.update', $country->slug)])</td>
                         <td>
                             <x-utils.edit-button :href="route('admin.country.edit', $country)" text=""/>
                             @if(current_user()->isMasterAdmin())
@@ -52,7 +58,5 @@
             </table>
         </x-slot>
     </x-bootstrap.card>
-
-    {{ $countries->links() }}
 
 @endsection
