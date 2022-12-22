@@ -317,7 +317,7 @@
 
 .thumb-price {
     display: flex;
-    padding-top: 15px;
+    padding-top: 10px;
 
     align-items: center;
     border-top: 1px solid $border;
@@ -400,6 +400,7 @@
     position: absolute;
     visibility: hidden;
     top: calc(100% - 2px);
+    min-height:92px;
     background-color: #fff;
     padding: 5px 20px 20px;
     will-change: transform;
