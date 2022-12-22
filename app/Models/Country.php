@@ -7,6 +7,7 @@ use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Traits\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class Country extends TranslatableModel
@@ -16,8 +17,16 @@ class Country extends TranslatableModel
     use HasTranslations;
     use JsonLikeScope;
     use UsePublishedScope;
+    use HasSlug;
 
     public const DEFAULT_COUNTRY_ID = 1;
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            ->saveSlugsTo('slug');
+    }
 
     public function getRouteKeyName()
     {

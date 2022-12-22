@@ -23,7 +23,7 @@ class CountryController extends Controller
     public function index()
     {
 
-        $countries = Country::query()->orderBy('position')->paginate(20);
+        $countries = Country::query()->orderBy('position')->orderBy('title')->get();
 
         return view('admin.country.index', ['countries' => $countries]);
     }

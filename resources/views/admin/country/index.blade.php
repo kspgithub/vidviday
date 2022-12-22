@@ -59,6 +59,4 @@
         </x-slot>
     </x-bootstrap.card>
 
-    {{ $countries->links() }}
-
 @endsection
