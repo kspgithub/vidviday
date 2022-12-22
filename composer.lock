@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b855b63798f6ecea9b37496797204b9c",
+    "content-hash": "38114ebe7d488aa8dd6d343f36e75f25",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -372,6 +372,69 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "daaner/turbosms",
+            "version": "1.35",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daaner/turbosms.git",
+                "reference": "7039dd40a9150cb77a4132c38086603097478bee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daaner/turbosms/zipball/7039dd40a9150cb77a4132c38086603097478bee",
+                "reference": "7039dd40a9150cb77a4132c38086603097478bee",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=7.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=3.5",
+                "phpunit/phpunit": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Daaner\\TurboSMS\\TurboSMSServiceProvider"
+                    ],
+                    "aliases": {
+                        "TurboSMS": "Daaner\\TurboSMS\\Facades\\TurboSMS"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Daaner\\TurboSMS\\": "src",
+                    "Daaner\\TurboSMS\\Tests\\": "tests/",
+                    "Daaner\\TurboSMS\\Facades\\": "src/Facades"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daan",
+                    "email": "daan@ukr.net"
+                }
+            ],
+            "description": "TurboSMS for Laravel 7+",
+            "keywords": [
+                "daaner",
+                "laravel-sms",
+                "sms",
+                "turbosms"
+            ],
+            "support": {
+                "issues": "https://github.com/daaner/turbosms/issues",
+                "source": "https://github.com/daaner/turbosms/tree/1.35"
+            },
+            "time": "2022-09-13T12:59:10+00:00"
         },
         {
             "name": "darkaonline/l5-swagger",
@@ -2549,6 +2612,63 @@
                 "source": "https://github.com/langleyfoxall/laravel-nist-password-rules/tree/v5.0.1"
             },
             "time": "2021-05-27T15:47:03+00:00"
+        },
+        {
+            "name": "laravel-notification-channels/turbosms",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-notification-channels/turbosms.git",
+                "reference": "815d0c2e0cafd49d755e70acae8b9a9489276bc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-notification-channels/turbosms/zipball/815d0c2e0cafd49d755e70acae8b9a9489276bc2",
+                "reference": "815d0c2e0cafd49d755e70acae8b9a9489276bc2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "illuminate/notifications": "~5.5 || ~6.0 || ~7.0 || ^8.0 || ^9.0",
+                "illuminate/support": "~5.5 || ~6.0 || ~7.0 || ^8.0 || ^9.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NotificationChannels\\TurboSMS\\TurboSMSServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NotificationChannels\\TurboSMS\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitalii Goncharov",
+                    "email": "1c.audit@gmail.com",
+                    "homepage": "https://github.com/gvital3230",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Turbosms notification channel for Laravel",
+            "homepage": "http://laravel-notification-channels.com/",
+            "support": {
+                "issues": "https://github.com/laravel-notification-channels/turbosms/issues",
+                "source": "https://github.com/laravel-notification-channels/turbosms/tree/1.0.4"
+            },
+            "time": "2022-03-02T14:53:19+00:00"
         },
         {
             "name": "laravel/framework",

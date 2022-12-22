@@ -6,7 +6,9 @@ use App\Models\LanguageLine;
 use App\Models\QuestionType;
 use App\Models\Tour;
 use App\Models\UserQuestion;
+use App\Notifications\TestNotification;
 use App\Services\MailNotificationService;
+use Daaner\TurboSMS\Facades\TurboSMS;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -25,47 +27,20 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
+    $quote = Inspiring::quote();
+    $this->comment($quote);
 
-    $url = 'http:/localhost:3000/render';
-    $page['component'] = 'test-component';
-    $page['props'] = ['foo' => 'bar123'];
+    $user = Auth::user() ?: \App\Models\User::query()->first();
 
-    try {
-        $response = Http::post($url, $page)->throw()->body();
+    $user->notify(new TestNotification($quote));
 
-        dd($response);
+    Notification::route('turbosms', '+380632876727')
+        ->notify(new TestNotification($quote));
 
-    } catch (\Exception $e) {
-        dd($e);
-    }
-    $data = \Illuminate\Support\Facades\Http::post('http://localhost:3000/render', [
-        'query' => [
-            'component' => $component,
-            'props' => $props,
-        ]
-    ]);
-    $params = [];
+    $balance = TurboSMS::getBalance();
 
-    $className = 'App\Mail\OrderCertificateMail';
+    $sended = TurboSMS::sendMessages('+380632876727', $quote);
 
-    $reflectionClass = new \ReflectionClass($className);
-
-    $constructorParams = $reflectionClass->getConstructor()?->getParameters() ?: [];
-
-    foreach ($constructorParams as $param) {
-        $value = '';
-        $type = $param->getType();
-
-        if(class_exists($type)) {
-            $class = app($type);
-            if($class instanceof Model) {
-                $value = $class->random();
-            }
-        }
-
-        $params[$param->getName()] = $value;
-    }
-    dd($params);
+    dd($sended);
 
 })->purpose('Display an inspiring quote');
