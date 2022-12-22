@@ -26,7 +26,7 @@ class PlaceController extends Controller
 //                ->with(['places' => fn ($q) => $q->published()->with('media')]);
 //        })->get();
 
-        $countries = Country::query()->toSelectBox();
+        $countries = Country::query()->published()->toSelectBox();
 
         $pageContent = Page::select()->where('key', 'places')->first();
 

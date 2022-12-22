@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\JsonLikeScope;
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Traits\HasSlug;
@@ -14,6 +15,7 @@ class Country extends TranslatableModel
     use UseSelectBox;
     use HasTranslations;
     use JsonLikeScope;
+    use UsePublishedScope;
 
     public const DEFAULT_COUNTRY_ID = 1;
 
@@ -33,6 +35,8 @@ class Country extends TranslatableModel
         'phone_code',
         'phone_mask',
         'phone_rule',
+        'published',
+        'position',
     ];
 
     public function regions()
@@ -48,6 +52,11 @@ class Country extends TranslatableModel
     public function cities()
     {
         return $this->hasMany(City::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
     }
 
     public function asSelectBox(

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Location;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,7 +23,7 @@ class CountryController extends Controller
     public function index()
     {
 
-        $countries = Country::paginate(20);
+        $countries = Country::query()->orderBy('position')->paginate(20);
 
         return view('admin.country.index', ['countries' => $countries]);
     }
@@ -48,14 +49,14 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), $request->has('published') ? [] : [
             'title' => 'required|array',
             'title.uk' => 'required|string',
             'iso' => 'required|string|max:10|unique:countries',
             'slug' => 'required|string|max:10|unique:countries',
             'phone_code' => 'required',
             'phone_mask' => 'required',
-            'phone_rule' => 'required|regex:^\^\/(.*)\$',
+            'phone_rule' => 'required|regex:/^\/(.*)\/$/',
         ]);
         // Failed
         if ($validator->fails()) {
@@ -89,11 +90,11 @@ class CountryController extends Controller
      * @param Request $request
      * @param Country $country
      *
-     * @return Response|RedirectResponse
+     * @return Response|RedirectResponse|JsonResponse
      */
     public function update(Request $request, Country $country)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), $request->has('published') ? [] : [
             'title' => 'required|array',
             'title.uk' => 'required|string',
             'iso' => 'required|string|max:10|unique:countries,iso,' . $country->id,
@@ -109,6 +110,10 @@ class CountryController extends Controller
         //
         $country->fill($request->all());
         $country->save();
+
+        if ($request->ajax()) {
+            return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+        }
 
         return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Updated'));
     }
@@ -128,4 +133,14 @@ class CountryController extends Controller
         return redirect()->route('admin.country.index')->withFlashSuccess(__('Record Deleted'));
     }
 
+
+    public function sort(Request $request)
+    {
+        $ids = $request->input('order', []);
+        foreach ($ids as $position => $id) {
+            Country::whereId($id)->update(['position' => $position]);
+        }
+
+        return response()->json(['result' => 'success', 'message' => __('Record Updated')]);
+    }
 }
