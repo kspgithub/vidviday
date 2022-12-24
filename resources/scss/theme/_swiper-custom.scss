@@ -549,6 +549,8 @@
     }
 }
 
+.thumbs-carousel.vac .swiper-container {top:0;}
+
 .swiper-button-lock {
     + .swiper-container {
         cursor: auto !important;

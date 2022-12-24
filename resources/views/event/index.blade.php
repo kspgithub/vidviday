@@ -71,33 +71,39 @@
                                         <div class="accordion-inner"
                                              style="display: {{$loop->first ? 'block' : 'none'}}">
 
-                                            @foreach($group->events as $event)
-                                                <div class="mb-30 border-bottom">
-                                                    @if($event->hasMedia())
-                                                        <div class="swiper-entry" v-is="'swiper-slider'"
-                                                             key="swiper-event-{{$event->id}}"
-                                                             :buttons='{{count($event->getMedia()) > 4 ? 'true' : 'false'}}'
-                                                             :media='@json($event->getMedia()->values()->map->toSwiperSlide())'
-                                                        >
-                                                        </div>
-                                                        <div class="spacer-xs"></div>
-                                                    @endif
-                                                    <div class="text text-md">
-                                                        <h2>{{$event->title}}</h2>
-                                                        <p>
-                                                            @if(!empty($event->short_text))
-                                                                {{$event->short_text}}
-                                                            @else
-                                                                {!! str_limit(strip_tags(html_entity_decode($event->text)) , 500) !!}
+                                            <div class="accordion type-2">
+                                                @foreach($group->events as $event)
+                                                    <div class="accordion-item ">
+                                                        <div class="accordion-title">{{$event->title}}<i></i></div>
+                                                        <div class="accordion-inner">
+                                                            @if($event->hasMedia())
+                                                                <div class="swiper-entry" v-is="'swiper-slider'"
+                                                                    key="swiper-event-{{$event->id}}"
+                                                                    :buttons='{{count($event->getMedia()) > 4 ? 'true' : 'false'}}'
+                                                                    :media='@json($event->getMedia()->values()->map->toSwiperSlide())'
+                                                                >
+                                                                </div>
+                                                                <div class="spacer-xs"></div>
                                                             @endif
-                                                            <a href="{{$event->url}}"
-                                                               class="btn btn-read-more text-bold">@lang('common.more')</a>
-                                                        </p>
+                                                            <div class="text text-md">
+                                                                
+                                                                <p>
+                                                                    @if(!empty($event->short_text))
+                                                                        {{$event->short_text}}
+                                                                    @else
+                                                                        {!! str_limit(strip_tags(html_entity_decode($event->text)) , 500) !!}
+                                                                    @endif
+                                                                    <a href="{{$event->url}}"
+                                                                    class="btn btn-read-more text-bold">@lang('common.more')</a>
+                                                                </p>
 
 
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+
                                         </div>
                                     </div>
                                 @endforeach

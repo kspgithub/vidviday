@@ -1,5 +1,5 @@
 @if($practice->similar_practices->count() > 0)
-    <div class="section">
+    <div class="section no-print">
         <div class="container">
             <h2 class="h1 text-center">Схожі практики</h2>
             <div class="spacer-xs"></div>
