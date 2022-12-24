@@ -93,6 +93,7 @@
                                             <span>@lang('tours-section.read-more')</span>
                                             <span>@lang('tours-section.hide-text')</span>
                                         </div>
+                                        <div class="spacer-xs"></div>
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,9 @@
     <div class="col-12">
         <span class="text-sm">
             {{ __('order-section.group.title') }}:
+            <span class="tooltip-auto">
             <tooltip><span v-html="__('order-section.group.tooltip')"></span></tooltip>
+            </span>
         </span>
 
         <div>

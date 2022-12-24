@@ -55,19 +55,17 @@
             <hr>
             <div class="spacer-xs"></div>
             <div class="relative">
-                <div class="row align-items-center">
-
+                <div class="row align-items-center " :class="{'d-b': currentStep === 3}">
                     <div class="col-4">
                         <span class="btn btn-read-more left-arrow text-bold" v-if="currentStep !== 1"
                               @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
-
-                    <div class="col-md-6 col-8 text-right" v-if="currentStep !== 3">
+                                       <div class="col-8  text-right " v-if="currentStep !== 3">
                         <span class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
                     </div>
 
-                    <div class="col-8 justify-content-end align-items-center d-flex" v-if="currentStep === 3">
-                        <form-checkbox class="small only-desktop-pad checkbox-cond" name="conditions"
+                    <div class="col-8 justify-content-end align-items-center d-flex  d-b-7" v-if="currentStep === 3">
+                        <form-checkbox class="small checkbox-cond" name="conditions"
                                        v-model="conditions" :label="__('forms.read-and-accept')"/>
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
@@ -76,6 +74,8 @@
                             {{ __('order-section.order-btn') }}
                         </button>
                     </div>
+
+                     
                 </div>
 
 

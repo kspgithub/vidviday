@@ -76,7 +76,7 @@
                     @include('corporate.includes.carousel')
                     <!-- THUMBS CAROUSEL END -->
                     </div>
-                    @include('page.includes.right-sidebar', ['button'=>['title'=>__('tours-section.order-corporate'), 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
+                    @include('corporate.includes.right-sidebar', ['button'=>['title'=>__('tours-section.order-corporate'), 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
                 </div>
             </div>
             <!-- THUMBS CAROUSEL -->

@@ -35,6 +35,13 @@
         box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
     }
 
+    .stars {
+        min-height:26px;
+    }
+    .discount {
+        margin-top:0px;
+    }
+
     .thumb-img {
         position: relative;
         padding-top: 67.54%;
@@ -362,9 +369,7 @@
         }
     }
 
-    > .discount {
-        margin-bottom: 15px;
-    }
+    
 }
 
 .discount {
@@ -452,6 +457,8 @@
     &:last-child {
         margin-bottom: 0;
     }
+
+    .discount {margin-top:0px;}
 
     .thumb-img {
         width: 31%;
