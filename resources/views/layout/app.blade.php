@@ -44,7 +44,7 @@
     @endproduction
 
 </head>
-<body class="{{$body_class ?? ''}}">
+<body class="{{$body_class ?? ''}} {{  $bodyClass ?? '' }} @if(is_tour_agent()) agent-print @endif">
 <div id="app">
     <!-- LOADER -->
     <div id="loader"></div>
