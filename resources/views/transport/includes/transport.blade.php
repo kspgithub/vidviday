@@ -1,5 +1,5 @@
 @if($transports->count() > 0)
-    <div class="thumb-wrap row only-desktop">
+    <div class="thumb-wrap row only-desktop yes-print">
         @foreach($transports as $transport)
             <div class="col-md-6 col-12">
                 <div class="img img-border img-caption">

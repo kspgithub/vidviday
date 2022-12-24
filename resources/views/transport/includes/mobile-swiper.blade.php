@@ -1,5 +1,5 @@
 @if($transports->count() > 0)
-<div class="only-pad-mobile">
+<div class="only-pad-mobile no-print">
     <div class="swiper-bbutton-prev">
         <i></i>
     </div>
