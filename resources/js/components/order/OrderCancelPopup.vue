@@ -8,7 +8,7 @@
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
-                        <span class="text">Зверніть будь ласка увагу на наші <a href="#">Умови скасування</a></span>
+                        <span class="text">Зверніть будь ласка увагу на наші <a href="/public-offer">Умови скасування</a></span>
                     </div>
                     <div class="spacer-xs"></div>
                     <form @submit.prevent="onSubmit" :action="actionURL" method="post"
@@ -16,9 +16,12 @@
                         <div class="col-12">
                             <select v-model="cause">
                                 <option value="0" selected disabled>Причина скасування*</option>
-                                <option value="1">Передумав</option>
-                                <option value="2">Дорого</option>
-                                <option value="3">Інше</option>
+                                <option value="Перенесення на іншу дату або інший тур">Перенесення на іншу дату або інший тур</option>
+                                <option value="Несприятлива погода">Несприятлива погода</option>
+                                <option value="огіршення стану здоров'я">Погіршення стану здоров'я</option>
+                                <option value="Непередбачувані особисті обставини">Непередбачувані особисті обставини</option>
+                                <option value="Не влаштували умови замовлення">Не влаштували умови замовлення</option>
+                                <option value="Ваш варіант">Ваш варіант (із можливістю заповнення)</option>
                             </select>
 
                             <label>
