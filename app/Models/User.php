@@ -88,6 +88,11 @@ class User extends Authenticatable
         'updated_at',
     ];
 
+    public function routeNotificationForTurboSMS()
+    {
+        return $this->mobile_phone;
+    }
+
     public function staffs()
     {
         return $this->hasMany(Staff::class);
