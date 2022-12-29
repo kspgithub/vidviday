@@ -32,7 +32,7 @@ return [
     'route' => 'Маршрут',
     'number-of-passengers' => 'Кількість пасажирів',
     'duration' => 'Тривалість',
-    'departure-date' => 'Дата виїзду',
+    'departure-date' => 'Місце та дата виїзду',
     'yes' => 'Так',
     'no' => 'Ні',
     'travel-agency' => 'Турфірма',

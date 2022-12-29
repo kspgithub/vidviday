@@ -2,7 +2,7 @@
     <div class="tab" :class="{active: active}">
         <order-tour-participants/>
         <hr class="my-15 my-lg-20 my-xl-40">
-        <order-accommodation v-if="tour && tour.active_tabs.indexOf('accommodation') > -1"/>
+        <order-accommodation />
     </div>
 </template>
 
