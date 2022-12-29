@@ -7,7 +7,7 @@
         <hr>
         <div class="spacer-xs"></div>
         <div class="row">
-            <div class="col-xl-6 col-12">
+            <div class="col-xl-6 col-12" v-if="type !== 'tour_questions'">
                 <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
                 <div class="spacer-xxs only-pad-mobile"></div>
             </div>

@@ -11,8 +11,8 @@
                 <span class="text-sm">{{ __('tours-section.cost') }}</span>
             </div>
 
-            <template v-for="event in allEvents">
-                <div class="schedule-row" :class="[event.className]">
+            <template v-for="(event, i) in allEvents">
+                <div v-if="i < 9" class="schedule-row" :class="[event.className]">
                     <span class="text" v-html="event.title"></span>
 
                     <div>
@@ -35,6 +35,13 @@
             </template>
 
         </div>
+
+        <template v-if="allEvents.length > 10">
+            <div class="spacer-xs"></div>
+            <div class="text-center">
+                {{ __('tours-section.see-more-schedules') }}
+            </div>
+        </template>
 
         <template v-if="allEvents.length > 3">
             <div class="spacer-xs"></div>
