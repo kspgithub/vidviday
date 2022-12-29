@@ -805,6 +805,7 @@ jQuery(function ($) {
     });
 
     $(document).on('click', '.tab-toggle .tab-caption', function () {
+
         if ($(this).parents('.vue-tabs').length > 0) return;
         var tab = $(this).closest('.tabs').find('.tab'),
             tabIndex = $(this).index(),
@@ -814,6 +815,14 @@ jQuery(function ($) {
         $('.tab-top-part').removeClass('active');
         $('.tab-top-part[data-tab="' + topTabIndex + '"]').addClass('active');
         $(this).parents('.tab-nav').removeClass('active').find('.tab-title').text($(this).find('> span').text());
+
+        let link = $(this).find('a');
+        if(link.attr('href')){
+            window.location.href = link.attr('href');
+        }
+
+
+
     });
 
     $(document).on('click', '.tab-prev', function () {

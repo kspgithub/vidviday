@@ -1,5 +1,17 @@
 <div class="bordered-box">
     @if($order->tour_id > 0)
+
+        <div class="row">
+            <div class="col-sm-6 col-12">
+                <span class="text">Номер замовлення</span>
+            </div>
+
+            <div class="col-sm-6 col-12">
+                <span class="text"><b>{{$order->order_number}}</b></span>
+            </div>
+        </div>
+
+<hr />
         <div class="row">
             <div class="col-sm-6 col-12">
                 <span class="text">Назва туру</span>
@@ -46,7 +58,83 @@
             <span class="text"><b>{{$order->places}}</b></span>
         </div>
     </div>
-    <hr>
+        <hr />
+        @if($order->offer_date)
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <span class="text">До якої дати надіслати пропозицію</span>
+                </div>
+
+                <div class="col-sm-6 col-12">
+                    <span class="text"><b>{{date_title($order->offer_date)}}</b></span>
+                </div>
+            </div>
+            <hr>
+        @endif
+
+
+        @if($order->confirmation_type > 0)
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <span class="text">Спосіб підтвердження</span>
+                </div>
+
+                <div class="col-sm-6 col-12">
+                    <span class="text"><b>{{$order->confirmation_title}}</b></span>
+                </div>
+            </div>
+            <hr>
+        @endif
+
+        @if($order->confirmation_type > 0)
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <span class="text">Спосіб оплати</span>
+                </div>
+
+                <div class="col-sm-6 col-12">
+                    <span class="text"><b>
+
+                            @switch($order->payment_type)
+                                @case(1)
+                                    >За реквизитами (фіз. лице)
+                                    @break
+                                @case(2)
+                                    За реквизитами (ФОП, Юр. лице, з ПДВ)
+                                    @break
+                                @case(3)
+                                    За реквизитами (ФОП, Юр. лице, без ПДВ)
+                                    @break
+                                @case(4)
+                                    В офісі
+                                    @break
+                                @case(5)
+                                        Онлайн оплата
+                                    @break
+                                @case(0)
+                                    Не вибрано
+                                    @break
+                            @endswitch
+
+
+                        </b></span>
+                </div>
+            </div>
+            <hr>
+        @endif
+        @if($order->confirmation_type > 0)
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <span class="text">Примітки</span>
+                </div>
+
+                <div class="col-sm-6 col-12">
+                    <span class="text"><p>{{$order->program_comment}}</p></span>
+                </div>
+            </div>
+            <hr>
+        @endif
+
     @if($order->children)
         <div class="row">
             <div class="col-sm-6 col-12">
@@ -98,18 +186,7 @@
         </div>
         <hr>
     @endif
-    @if($order->offer_date)
-        <div class="row">
-            <div class="col-sm-6 col-12">
-                <span class="text">До якої дати надіслати пропозицію</span>
-            </div>
 
-            <div class="col-sm-6 col-12">
-                <span class="text"><b>{{date_title($order->offer_date)}}</b></span>
-            </div>
-        </div>
-        <hr>
-    @endif
     @if($order->discounts)
         @foreach($order->discounts as $discount)
             <div class="row">
@@ -139,25 +216,6 @@
         </div>
         <hr>
     @endif
-    @if($order->confirmation_type > 0)
-        <div class="row">
-            <div class="col-sm-6 col-12">
-                <span class="text">Спосіб підтвердження</span>
-            </div>
 
-            <div class="col-sm-6 col-12">
-                <span class="text"><b>{{$order->confirmation_title}}</b></span>
-            </div>
-        </div>
-        <hr>
-    @endif
-    <div class="row">
-        <div class="col-sm-6 col-12">
-            <span class="text">Номер замовлення</span>
-        </div>
 
-        <div class="col-sm-6 col-12">
-            <span class="text"><b>{{$order->order_number}}</b></span>
-        </div>
-    </div>
 </div>

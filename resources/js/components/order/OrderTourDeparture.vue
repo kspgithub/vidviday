@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="text-sm text-medium title">{{ __('order-section.details.departure-date') }}*</span>
+        <span class="text-sm text-medium title">{{ __('order-section.details.departure-date') }}*</span> 
         <div class="single-datepicker">
 
             <form-select

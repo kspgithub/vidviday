@@ -3,8 +3,9 @@
         <h2 class="h3">{{ __('order-section.payment.title') }}</h2>
         <div class="spacer-xxs"></div>
         <template v-for="(paymentType, idx) in paymentTypes" :key="'payment-type-' + paymentType.value">
+
             <br v-if="idx > 0">
-            <form-radio v-model="payment_type" name="payment_type"
+            <form-radio v-if="paymentType.value !== 5"  v-model="payment_type" name="payment_type"
                         :value="paymentType.value"
                         :label="paymentType.text"
             />

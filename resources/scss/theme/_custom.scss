@@ -8554,12 +8554,15 @@ a.fc-more {
         display: inline-block;
     }
     .participant .form {
-        display: none;
+        display: block;
         padding-left: 0;
         padding-bottom: 25px;
     }
     .participant .form > .text {
         float: left;
+    }
+    participant .form{
+        display: block !important;
     }
     .participant label,
     .participant .datepicker-input {

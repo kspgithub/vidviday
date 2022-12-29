@@ -25,7 +25,7 @@
 
         <div class="participant phone-number">
             <span class="h4"></span>
-            <div class="form">
+            <div class="form" style="display: block">
                 <form-phone v-model="participant_phone"
                             name="participant_phone"
                             :label="__('order-section.participants.phone-label')"

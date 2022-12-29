@@ -276,7 +276,7 @@ class TourController extends Controller
                 'related',
             ])
             ->withCount('children')
-            ->orderBy('rating', 'desc')
+            ->orderBy('created_at', 'desc')
             ->latest();
 
         return $testimonials->paginate(10);
