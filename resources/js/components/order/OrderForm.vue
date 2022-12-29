@@ -75,7 +75,7 @@
                         </button>
                     </div>
 
-                     
+
                 </div>
 
 
@@ -213,6 +213,8 @@ export default {
         const tour_id = computed(() => store.state.orderTour.formData.tour_id);
         const formData = computed(() => store.state.orderTour.formData);
 
+        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
+
 
         const conditions = useFormDataProperty('orderTour', 'conditions');
 
@@ -245,7 +247,7 @@ export default {
                     }
                 }
             }
-            if (currentStep.value === 2 && group_type.value === 0) {
+            if (currentStep.value === 2 && group_type.value === 0 && isTourAgent.value) {
                 schema.participant_phone = 'required|tel';
             }
             if (currentStep.value === 3) {
