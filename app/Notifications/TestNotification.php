@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\TurboSMS\TurboSMSMessage;
 
-class TestNotification extends Notification implements ShouldQueue
+class TestNotification extends Notification
 {
     use Queueable;
 

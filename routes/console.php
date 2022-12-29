@@ -37,10 +37,10 @@ Artisan::command('inspire', function () {
     Notification::route('turbosms', '+380632876727')
         ->notify(new TestNotification($quote));
 
-    $balance = TurboSMS::getBalance();
+//    $balance = TurboSMS::getBalance();
 
-    $sended = TurboSMS::sendMessages('+380632876727', $quote);
+//    $sended = TurboSMS::sendMessages('+380632876727', $quote);
 
-    dd($sended);
+//    dd($sended);
 
 })->purpose('Display an inspiring quote');
