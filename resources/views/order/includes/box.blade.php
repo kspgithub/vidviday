@@ -1,4 +1,4 @@
-<div class="bordered-box">
+<div class="bordered-box suc">
     @if($order->tour_id > 0)
 
         <div class="row">

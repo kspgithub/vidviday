@@ -56,8 +56,10 @@ trait TourScheduleAttribute
                     ', ' . $start_day . ' - ' . $end_date;
             }
 
+            $start_time = $this->start_time;
+
             if($start_date === $end_date) {
-                return $start_day_name . ', ' . $start_date;
+                return $start_day_name . ', ' . $start_date . ($start_time ? ('; ' . $start_time) : '');
             } else {
                 return $start_date . ' - ' . $end_date;
             }

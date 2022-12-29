@@ -1,7 +1,7 @@
 <template>
     <div class="participant">
-        <span class="h4">Учасник <span>{{ index + 1 }}</span><i></i></span>
-        <div class="form">
+        <span class="h4" :class="{active}" @click.prevent="active = !active">Учасник <span>{{ index + 1 }}</span><i></i></span>
+        <div class="form" :class="{active}">
             <form-input :label="__('forms.last-name')" v-model="participant.last_name"
                         :name="'participants['+index+'][last_name]'"/>
             <form-input label="Ім'я" v-model="participant.first_name" :name="'participants['+index+'][first_name]'"/>
@@ -21,7 +21,7 @@
 <script>
 import FormInput from "../form/FormInput";
 import FormDatepicker from "../form/FormDatepicker";
-import {computed, reactive, watch} from "vue";
+import { computed, reactive, ref, watch } from 'vue'
 
 export default {
     name: "OrderParticipant",
@@ -49,9 +49,12 @@ export default {
             emit('delete', index);
         }
 
+        const active = ref(false)
+
         return {
             innerValue,
-            deleteItem
+            deleteItem,
+            active,
         }
     }
 }

@@ -17,6 +17,9 @@
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
+@php
+    $bodyClass = 'single-tour';
+@endphp
 
 @section('content')
     <main>

@@ -26,6 +26,54 @@
                     </div>
                 @endforeach
 
+                @if(!is_tour_agent() && isset($tourManager) && $tourManager)
+                    <div class="col-12 only-print footer-manger">
+                        <span class="text-md text-medium">@lang('tours-section.tour-manager')</span>
+                        <div class="spacer-xs"></div>
+                        <span>{{$tourManager->name}}</span>
+                        <div class="spacer-xs"></div>
+                        <div class="contact no-padding">
+                            @foreach($tourManager->phones as $phone)
+                                <a href="tel:{{clear_phone($phone)}}" class="text" target="_blank">{{$phone}}</a>
+                                <br>
+                            @endforeach
+                            @if($tourManager->email)
+                                <div class="spacer-xs"></div>
+                                <a href="mailto:{{$tourManager->email}}" class="text" target="_blank">{{$tourManager->email}}</a>
+                            @endif
+                        </div>
+                        @if($tourManager->viber)
+                            <div class="contact">
+                                <div class="img">{{svg('viber')}}</div>
+                                <a href="{{viber_link($tourManager->viber)}}" target="_blank">{{$tourManager->viber}}</a>
+                            </div>
+                        @endif
+                        @if($tourManager->telegram)
+                            <div class="contact">
+                                <div class="img">
+                                    {{svg('telegram')}}
+                                </div>
+                                <a href="{{tg_link($tourManager->telegram)}}"
+                                   target="_blank">{{$tourManager->telegram}}</a>
+                            </div>
+                        @endif
+                        @if($tourManager->whatsapp)
+                            <div class="contact">
+                                <div class="img">
+                                    {{svg('whatsapp')}}
+                                </div>
+                                <a href="{{whatsapp_link($tourManager->whatsapp)}}"
+                                   target="_blank">{{$tourManager->whatsapp}}</a>
+                            </div>
+                        @endif
+                        @if(!empty($tourManager->additional))
+                            <div>
+                                {!! $tourManager->additional !!}
+                            </div>
+                        @endif
+                    </div>
+                @endif
+
 
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <div class="accordion-item">
@@ -94,6 +142,16 @@
                                     GPS: {{$contact->lat}} , {{$contact->lng}}
                                 </a>
                             </div>
+                            <div class="only-print">
+                                <div class="contact">
+                                    <div class="img">
+                                        {{svg('plane')}}
+                                    </div>
+                                    www.vidviday.ua
+                                </div>
+                            </div>
+
+
 
                             <a href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
                                 {{__('footer-section.show-on-map')}}

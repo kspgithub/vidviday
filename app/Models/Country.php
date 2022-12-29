@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Models\Traits\Scope\JsonLikeScope;
+use App\Models\Traits\Scope\UsePublishedScope;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Traits\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
 class Country extends TranslatableModel
@@ -14,8 +16,17 @@ class Country extends TranslatableModel
     use UseSelectBox;
     use HasTranslations;
     use JsonLikeScope;
+    use UsePublishedScope;
+    use HasSlug;
 
     public const DEFAULT_COUNTRY_ID = 1;
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['title'])
+            ->saveSlugsTo('slug');
+    }
 
     public function getRouteKeyName()
     {
@@ -33,6 +44,8 @@ class Country extends TranslatableModel
         'phone_code',
         'phone_mask',
         'phone_rule',
+        'published',
+        'position',
     ];
 
     public function regions()
@@ -48,6 +61,11 @@ class Country extends TranslatableModel
     public function cities()
     {
         return $this->hasMany(City::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
     }
 
     public function asSelectBox(

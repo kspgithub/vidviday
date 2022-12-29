@@ -55,19 +55,17 @@
             <hr>
             <div class="spacer-xs"></div>
             <div class="relative">
-                <div class="row align-items-center">
-
+                <div class="row align-items-center " :class="{'d-b': currentStep === 3}">
                     <div class="col-4">
-                        <span class="btn btn-read-more left-arrow text-bold" v-if="currentStep !== 1"
+                        <span class="btn btn-read-more left-arrow text-bold"
                               @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
-
-                    <div class="col-md-6 col-8 text-right" v-if="currentStep !== 3">
+                                       <div class="col-8  text-right " v-if="currentStep !== 3">
                         <span class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
                     </div>
 
-                    <div class="col-8 justify-content-end align-items-center d-flex" v-if="currentStep === 3">
-                        <form-checkbox class="small only-desktop-pad checkbox-cond" name="conditions"
+                    <div class="col-8 justify-content-end align-items-center d-flex  d-b-7" v-if="currentStep === 3">
+                        <form-checkbox class="small checkbox-cond" name="conditions"
                                        v-model="conditions" :label="__('forms.read-and-accept')"/>
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
@@ -76,6 +74,8 @@
                             {{ __('order-section.order-btn') }}
                         </button>
                     </div>
+
+
                 </div>
 
 
@@ -106,6 +106,7 @@ export default {
         currentStep: {
             default: 1,
         },
+        prevUrl: String,
         tour: {
             default() {
                 return null;
@@ -213,6 +214,16 @@ export default {
         const tour_id = computed(() => store.state.orderTour.formData.tour_id);
         const formData = computed(() => store.state.orderTour.formData);
 
+        const user = store.state.user.currentUser
+
+        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
+
+        if(user) {
+            formData.value.first_name = user.first_name
+            formData.value.last_name = user.last_name
+            formData.value.email = user.email
+            formData.value.phone = user.phone
+        }
 
         const conditions = useFormDataProperty('orderTour', 'conditions');
 
@@ -245,7 +256,7 @@ export default {
                     }
                 }
             }
-            if (currentStep.value === 2 && group_type.value === 0) {
+            if (currentStep.value === 2 && group_type.value === 0 && isTourAgent.value) {
                 schema.participant_phone = 'required|tel';
             }
             if (currentStep.value === 3) {
@@ -292,12 +303,16 @@ export default {
         }
 
         const prevStep = async () => {
-            if (currentStep.value === 3 && group_type.value === 0 && additional.value === 0) {
-                await store.dispatch('orderTour/setStep', 1);
+            if(currentStep.value === 1) {
+                location.href = props.prevUrl
             } else {
-                await store.dispatch('orderTour/prevStep')
+                if (currentStep.value === 3 && group_type.value === 0 && additional.value === 0) {
+                    await store.dispatch('orderTour/setStep', 1);
+                } else {
+                    await store.dispatch('orderTour/prevStep')
+                }
+                scrollToEl('.h1', -110);
             }
-            scrollToEl('.h1', -110);
         }
 
         watch(currentStep, () => {

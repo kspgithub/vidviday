@@ -6,6 +6,7 @@
             <form-select
                 name="schedule_id"
                 class="datepicker-input"
+                :placeholder="__('forms.select-date')"
                 v-if="group_type === 0 && schedules.length > 0 && !request"
                 v-model.number="schedule_id" :options="departureOptions"
                 :preselect="false"
@@ -14,6 +15,7 @@
 
             <form-datepicker
                 name="start_date"
+                :placeholder="__('forms.select-date')"
                 :label="__('order-section.details.select-date')+'*'"
                 :disabled="!tour || request"
                 v-if="group_type === 1 || schedules.length === 0 || request"

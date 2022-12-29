@@ -53,9 +53,9 @@
                     <div class="text text-md">
                         {!! $pageContent->text !!}
                     </div>
-                    <div class="spacer-xs"></div>
-                    <hr>
-                    <div class="spacer-xs"></div>
+                    <div class="spacer-xs no-print"></div>
+                    <hr class=" no-print">
+                    <div class="spacer-xs no-print"></div>
 
                     <div class="tabs faqs">
                         <div class="tab-nav faq-tab-nav">

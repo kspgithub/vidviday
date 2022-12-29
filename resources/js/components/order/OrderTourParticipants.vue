@@ -23,7 +23,7 @@
             </button>
         </div>
 
-        <div class="participant phone-number">
+        <div v-if="isTourAgent" class="participant phone-number">
             <span class="h4"></span>
             <div class="form" style="display: block">
                 <form-phone v-model="participant_phone"
@@ -110,6 +110,7 @@ export default {
             }
         })
 
+        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
         return {
             isCustomerParticipant,
@@ -118,6 +119,7 @@ export default {
             updateParticipant,
             deleteParticipant,
             addParticipant,
+            isTourAgent,
         }
     }
 }

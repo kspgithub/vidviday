@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -34,6 +35,7 @@ class Staff extends TranslatableModel implements HasMedia
     use UseNormalizeMedia;
     use UserAttributes;
     use HasJsonSlug;
+    use Notifiable;
 
     public $translatable = [
         'first_name',
@@ -81,6 +83,11 @@ class Staff extends TranslatableModel implements HasMedia
         'deleted_at',
         'bitrix_id',
     ];
+
+    public function routeNotificationForTurboSMS()
+    {
+        return $this->phone;
+    }
 
     public static function toSelectBox()
     {

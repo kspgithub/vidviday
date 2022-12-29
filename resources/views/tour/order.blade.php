@@ -4,6 +4,7 @@
     <main class="order-page">
         <div v-is="'order-form'"
              action='{{route('tour.order-confirm', ['tour'=>$tour])}}'
+             :prev-url='@json(url()->previous())'
              :current-step='{{(int)request()->input('step', 1)}}'
              :clear='{{(int)request()->input('clear', 0)}}'
              :schedule-id='{{(int)request()->input('schedule', 0)}}'

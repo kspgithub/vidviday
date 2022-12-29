@@ -16,6 +16,10 @@
 <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
+@php
+$bodyClass = 'no-logo';
+
+@endphp
 
 @section('content')
     <main>
@@ -45,8 +49,9 @@
                 <!-- BANNER TABS END -->
                     <div class="spacer-xs"></div>
                     <!-- TRANSPORT CONTENT -->
-                    <div class="tour-content nn">
+                    <div class="tour-content nn trnsprt">
                         <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
+                        <div class="only-print"> <?echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?></div>
                         <div class="spacer-xs only-desktop-9"></div>
                         <div class="only-pad-mobile">
                             <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>

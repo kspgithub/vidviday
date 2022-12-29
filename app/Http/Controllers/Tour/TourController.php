@@ -202,6 +202,8 @@ class TourController extends Controller
             ->limit(2)
             ->get();
 
+        view()->share('tourManager', $tour->manager);
+
         $viewData = [
             'tour' => $tour,
             'future_events' => $future_events,

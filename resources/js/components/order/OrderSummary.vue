@@ -1,5 +1,5 @@
 <template>
-    <div class="bordered-box">
+    <div class="bordered-box b-pad">
         <div>
             <span class="text">{{ __('order-section.summary.cost-tour') }}:</span>
             <span class="text-md text-nowrap"><b>{{ format(tourPrice) }}</b> {{

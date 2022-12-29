@@ -12428,20 +12428,25 @@ nav,
 
 .swiper-button-prev.inner.vac {
     top: 100px;
-    bottom: auto;
+    bottom: auto!important;
     left: 0px !important;
 }
 
 .swiper-button-next.inner.vac {
     top: 100px;
-    bottom: auto;
+    bottom: auto!important;
     right: 0px !important;
 }
 
+.thumbs-carousel.vac .swiper-pagination {margin:0;top:auto;}
+
 .thumbs-carousel.vac {
     padding: 0 60px;
-    margin-top: -95px;
+    margin-top: 0px;
+    margin-bottom:0px;
 }
+
+
 
 .btn-book-size-d {
     font-size: 14px;
@@ -12634,13 +12639,13 @@ input[name="viber"]:-ms-input-placeholder {
     }
     .swiper-button-prev.inner.vac {
         top: auto;
-        bottom: 9px;
+        bottom: 9px!important;
         left: 0px !important;
         border: 0;
     }
     .swiper-button-next.inner.vac {
         top: auto;
-        bottom: 9px;
+        bottom: 9px!important;
         right: 0px !important;
         border: 0;
     }

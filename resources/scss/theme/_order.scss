@@ -311,7 +311,7 @@
             z-index: 3;
             opacity: 0;
             position: absolute;
-            padding-left: 45px;
+            padding-left: 45px!important;
             pointer-events: none;
             border-color: transparent;
         }
@@ -568,6 +568,10 @@
             display: none;
             padding-left: 0;
             padding-bottom: 25px;
+
+            &.active {
+                display: inline-block;
+            }
 
             > .text {
                 float: left;
