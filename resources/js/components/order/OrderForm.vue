@@ -214,8 +214,16 @@ export default {
         const tour_id = computed(() => store.state.orderTour.formData.tour_id);
         const formData = computed(() => store.state.orderTour.formData);
 
+        const user = store.state.user.currentUser
+
         const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
+        if(user) {
+            formData.value.first_name = user.first_name
+            formData.value.last_name = user.last_name
+            formData.value.email = user.email
+            formData.value.phone = user.phone
+        }
 
         const conditions = useFormDataProperty('orderTour', 'conditions');
 
