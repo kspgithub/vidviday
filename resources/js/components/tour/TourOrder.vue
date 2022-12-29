@@ -38,6 +38,7 @@
             </div>
             <div class="thumb-info">
                 <span class="thumb-info-time text">
+                    <span class="only-print">{{ __('Duration') }}: </span>
                     {{ tour.format_duration }}
                 </span>
                 <span class="thumb-info-people text" v-if="departureOptions.length > 0">

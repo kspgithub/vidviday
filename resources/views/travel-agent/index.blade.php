@@ -65,13 +65,13 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
+                    <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
                        href="{{ Auth::check() ? (Auth::user()->isTourAgent() ? route('profile.index') : route('auth.register', ['tour_agent' => 1])) : route('auth.register', ['tour_agent' => 1]) }}"
                     >{{__('tours-section.start-cooperation')}}</a>
                 </div>
                 <div class="col-xl-4 col-12">
                     <!-- THUMBS CAROUSEL -->
-                    <div class="section only-pad-mobile">
+                    <div class="section only-pad-mobile no-print">
                     @include('corporate.includes.carousel')
                     <!-- THUMBS CAROUSEL END -->
                     </div>
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <!-- THUMBS CAROUSEL -->
-            <div class="section only-desktop only">
+            <div class="section only-desktop only no-print">
                 @include('corporate.includes.carousel')
             </div>
             <!-- THUMBS CAROUSEL END -->

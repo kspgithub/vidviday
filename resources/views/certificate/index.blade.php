@@ -46,6 +46,11 @@
                 <!-- CERTIFICATE CONTENT -->
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                     <div class="spacer-xs"></div>
+                    @if(!is_tour_agent())
+                                    <div class="only-print">
+                                     <?echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>
+                                    </div>
+                                @endif
                     <div class="only-pad-mobile">
                         <x-page.social-share :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
                         <div class="spacer-xs"></div>

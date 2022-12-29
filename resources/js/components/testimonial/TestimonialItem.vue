@@ -12,7 +12,7 @@
                     <span class="text text-sm">{{ item.date }}</span>
                     <span class="text text-sm">{{ item.time }}</span>
                     <span v-if="item.on_moderation" class="text text-sm">{{__('tours-section.reviews.in-moderation')}}</span>
-                    <star-rating v-if="!item.parent_id" :value="item.rating"/>
+                    <star-rating v-if="!item.parent_id && type !== 'tour_questions'" :value="item.rating"/>
                     <span class="text" @click.prevent="showAnswerForm">{{ __('forms.reply') }}</span>
                 </div>
             </div>

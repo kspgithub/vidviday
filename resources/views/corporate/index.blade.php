@@ -37,16 +37,18 @@
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="col-xl-8 col-12">
-                    @include('page.includes.banner-tabs', [
-                            'pictures'=>$pageContent->getMedia(),
-                            'video'=>$pageContent->video
-                        ])
+                    <div class="no-print">
+                        @include('page.includes.banner-tabs', [
+                                'pictures'=>$pageContent->getMedia(),
+                                'video'=>$pageContent->video
+                            ])
+                    </div>
                     <div class="spacer-xs"></div>
                     <!-- CORPORATE CONTENT -->
                     <div class="tour-content">
                         <h1 class="h1 title autoheight">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
                         <div class="spacer-xs"></div>
-                        <div class="only-pad-mobile">
+                        <div class="only-pad-mobile  no-print">
                             <x-page.social-share :share-url="route('page.show', $pageContent->slug)"
                                                  :share-title="$pageContent->title"/>
                         </div>
@@ -54,7 +56,7 @@
                             <p>{!! $pageContent->text !!}</p>
                         </div>
                         <div class="spacer-xs"></div>
-                        <div class="only-pad-mobile">
+                        <div class="only-pad-mobile no-print">
                             <a class="btn type-1 btn-block btn-book-size"
                                href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
                             <div class="spacer-xs"></div>
@@ -65,20 +67,20 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
+                    <a class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
                        href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
                 </div>
                 <div class="col-xl-4 col-12">
                     <!-- THUMBS CAROUSEL -->
-                    <div class="section only-pad-mobile">
+                    <div class="section only-pad-mobile no-print">
                     @include('corporate.includes.carousel')
                     <!-- THUMBS CAROUSEL END -->
                     </div>
-                    @include('page.includes.right-sidebar', ['button'=>['title'=>__('tours-section.order-corporate'), 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
+                    @include('corporate.includes.right-sidebar', ['button'=>['title'=>__('tours-section.order-corporate'), 'url'=>route('order.corporate')], 'pageContent'=>$pageContent])
                 </div>
             </div>
             <!-- THUMBS CAROUSEL -->
-            <div class="section only-desktop only">
+            <div class="no-print section only-desktop only">
                 @include('corporate.includes.carousel')
             </div>
             <!-- THUMBS CAROUSEL END -->
