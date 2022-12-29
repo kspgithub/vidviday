@@ -569,6 +569,10 @@
             padding-left: 0;
             padding-bottom: 25px;
 
+            &.active {
+                display: inline-block;
+            }
+
             > .text {
                 float: left;
             }

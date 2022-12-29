@@ -20,7 +20,7 @@
                 <div class="spacer-xs"></div>
                 <div class="checkbox-wrap">
 
-                    <template v-if="corporateIncludes.includes('support')">
+                    <template v-if="corporateIncludes.includes('support') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="support" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.support') }}</span>
@@ -28,7 +28,7 @@
                         <br>
                     </template>
 
-                    <template v-if="corporateIncludes.includes('bus')">
+                    <template v-if="corporateIncludes.includes('bus') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="bus" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.bus') }}</span>
@@ -36,7 +36,7 @@
                         <br>
                     </template>
 
-                    <template v-if="corporateIncludes.includes('apartment')">
+                    <template v-if="corporateIncludes.includes('apartment') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="apartment" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.apartment') }}</span>
@@ -44,7 +44,7 @@
                         <br>
                     </template>
 
-                    <template v-if="corporateIncludes.includes('food')">
+                    <template v-if="corporateIncludes.includes('food') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="food" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.food') }}</span>
@@ -52,7 +52,7 @@
                         <br>
                     </template>
 
-                    <template v-if="corporateIncludes.includes('ticket')">
+                    <template v-if="corporateIncludes.includes('ticket') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="ticket" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.ticket') }}</span>
@@ -60,7 +60,7 @@
                         <br>
                     </template>
 
-                    <template v-if="corporateIncludes.includes('insurance')">
+                    <template v-if="corporateIncludes.includes('insurance') || program_type === 1">
                         <label class="checkbox small">
                             <input type="checkbox" value="insurance" name="price_include[]" v-model="price_include">
                             <span>{{ __('order-section.includes.insurance') }}</span>
@@ -91,12 +91,14 @@ export default {
     setup(props) {
         const store = useStore();
         const corporateIncludes = computed(() => store.getters['orderTour/tourCorporateIncludes']);
+        const program_type = useDebounceFormDataProperty('orderTour', 'program_type');
 
         return {
             group_comment: useDebounceFormDataProperty('orderTour', 'group_comment'),
             program_comment: useDebounceFormDataProperty('orderTour', 'program_comment'),
             price_include: useFormDataProperty('orderTour', 'price_include'),
             corporateIncludes,
+            program_type,
         }
     }
 }
