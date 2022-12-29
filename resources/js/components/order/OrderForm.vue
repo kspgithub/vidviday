@@ -57,7 +57,7 @@
             <div class="relative">
                 <div class="row align-items-center " :class="{'d-b': currentStep === 3}">
                     <div class="col-4">
-                        <span class="btn btn-read-more left-arrow text-bold" v-if="currentStep !== 1"
+                        <span class="btn btn-read-more left-arrow text-bold"
                               @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
                                        <div class="col-8  text-right " v-if="currentStep !== 3">
@@ -106,6 +106,7 @@ export default {
         currentStep: {
             default: 1,
         },
+        prevUrl: String,
         tour: {
             default() {
                 return null;
@@ -294,12 +295,16 @@ export default {
         }
 
         const prevStep = async () => {
-            if (currentStep.value === 3 && group_type.value === 0 && additional.value === 0) {
-                await store.dispatch('orderTour/setStep', 1);
+            if(currentStep.value === 1) {
+                location.href = props.prevUrl
             } else {
-                await store.dispatch('orderTour/prevStep')
+                if (currentStep.value === 3 && group_type.value === 0 && additional.value === 0) {
+                    await store.dispatch('orderTour/setStep', 1);
+                } else {
+                    await store.dispatch('orderTour/prevStep')
+                }
+                scrollToEl('.h1', -110);
             }
-            scrollToEl('.h1', -110);
         }
 
         watch(currentStep, () => {
