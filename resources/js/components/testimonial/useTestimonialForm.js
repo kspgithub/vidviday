@@ -4,6 +4,7 @@ import { getError } from "../../services/api";
 import toast from "../../libs/toast";
 import {useStore} from "vuex";
 import { __ } from "../../i18n/lang";
+import { scrollToEl } from '../../utils/functions'
 
 export const useTestimonialForm = (data, action) => {
 
@@ -150,7 +151,8 @@ export const useTestimonialForm = (data, action) => {
                     })
 
                     if(!parentId.value) {
-                        await store.commit('testimonials/PUSH_TESTIMONIAL', response.data.testimonial || response.data.question)
+                        const item = response.data.testimonial || response.data.question
+                        await store.commit('testimonials/PREPEND_TESTIMONIAL', item)
                     }
                 } else {
                     // toast.error(response.data.message);
