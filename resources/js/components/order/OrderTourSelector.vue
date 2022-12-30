@@ -35,6 +35,7 @@ export default {
         const store = useStore();
         const tours = ref([]);
         const tourSelectRef = ref(null);
+        const currentPage = ref(1);
 
         const tourId = computed({
             get: () => store.state.orderTour.formData.tour_id,
@@ -46,9 +47,15 @@ export default {
         });
 
         const searchTours = async (q = '') => {
-            const items = await autocompleteTours(q, q.length > 0 ? 50 : 1000);
-            tours.value = items || [];
-            tourSelectRef.value.update(tours.value);
+            const items = await autocompleteTours(q, q.length > 0 ? 50 : 1000, currentPage);
+
+            currentPage.value++;
+
+            tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, item])).values()];
+
+            if(tourSelectRef.value) {
+                tourSelectRef.value.update(tours.value);
+            }
         }
 
         searchTours();

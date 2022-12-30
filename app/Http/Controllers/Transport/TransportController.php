@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Transport;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderTransport;
-use App\Models\Page;
-use App\Models\PopupAd;
 use App\Models\Transport;
 use App\Models\TransportDuration;
 use App\Services\MailNotificationService;

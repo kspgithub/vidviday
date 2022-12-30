@@ -222,7 +222,7 @@ export default {
             formData.value.first_name = user.first_name
             formData.value.last_name = user.last_name
             formData.value.email = user.email
-            formData.value.phone = user.phone
+            formData.value.phone = user.mobile_phone
         }
 
         const conditions = useFormDataProperty('orderTour', 'conditions');

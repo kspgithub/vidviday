@@ -15,7 +15,7 @@
         "prod-app": "mix --production",
         "prod-ssr": "mix --production --mix-config=webpack.ssr.mix.js",
         "prod": "concurrently \"yarn:prod-admin\" \"yarn:prod-app\"",
-        "ssr": "npm run prod-ssr && node public/assets/ssr/ssr.js"
+        "ssr": "yarn prod-ssr && node public/assets/ssr/ssr.js"
     },
     "devDependencies": {
         "@fancyapps/ui": "^4.0.0-alpha.4",

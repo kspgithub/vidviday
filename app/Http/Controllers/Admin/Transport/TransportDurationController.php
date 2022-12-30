@@ -45,7 +45,8 @@ class TransportDurationController extends Controller
         $transportDuration = new TransportDuration();
         $transportDuration->fill($request->all());
         $transportDuration->save();
-        return redirect()->route('admin.transport_duration.edit', $transportDuration)->withFlashSuccess(__('Record Created'));
+//        return redirect()->route('admin.transport_duration.edit', $transportDuration)->withFlashSuccess(__('Record Created'));
+        return redirect()->route('admin.transport_duration.index')->withFlashSuccess(__('Record Created'));
     }
 
     /**

@@ -137,7 +137,7 @@
                                                     @foreach($chunk as $menuChildren)
                                                         @if(!$menuChildren->page || ($menuChildren->page->published && $menuChildren->page->isAvailableFor(Auth::user())))
                                                             <li class="{{$menuChildren->class_name ?? ''}}">
-                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>
+                                                                <a href="{{ Str::startsWith($menuChildren->url,'http') ? $menuChildren->url : '/' . ltrim($menuChildren->url, '/') }}">{{$menuChildren->title}}</a>
                                                             </li>
                                                         @endif
                                                     @endforeach

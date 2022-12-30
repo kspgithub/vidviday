@@ -40,7 +40,7 @@ export default {
             type: String,
             default: 'title'
         },
-        
+
     },
     emits: ['update:modelValue', 'select'],
     components: {FormAutocomplete},
@@ -61,6 +61,7 @@ export default {
         })
 
 
+        //todo: paginate tours
         const searchTours = async (q = '') => {
             const items = await autocompleteTours(q);
             let tourItems = items || [];

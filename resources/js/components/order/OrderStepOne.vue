@@ -19,7 +19,7 @@
 
                     <order-tour-departure class="col-md-6 col-12 mb-10" v-if="tourSelected || group_type === 0"/>
 
-                    <order-tour-dates class="col-12 mb-10" v-if="!tourSelected && group_type === 1"/>
+                    <order-tour-dates class="col-12 mb-10" v-if="/*!tourSelected && */group_type === 1"/>
 
                     <order-places class="col-md-6 col-12 mb-10"/>
 
@@ -91,7 +91,7 @@ export default {
         const schedules = computed(() => store.state.orderTour.schedules);
         const program_type = computed(() => store.state.orderTour.formData.program_type);
         const group_type = computed(() => store.state.orderTour.formData.group_type);
-        const showChildren = computed(() => props.tourSelected && group_type.value === 0)
+        const showChildren = computed(() => group_type.value === 0)
         const isTourAgent = computed(() => store.getters['orderTour/isTourAgent'])
 
 

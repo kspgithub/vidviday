@@ -23,8 +23,8 @@ export default {
         SET_TESTIMONIALS(state, value) {
             state.items = value;
         },
-        PUSH_TESTIMONIAL(state, value) {
-            state.items.push(value);
+        PREPEND_TESTIMONIAL(state, value) {
+            state.items.unshift(value);
         },
         SET_POPUP_OPEN(state, value) {
             state.popupOpen = value;

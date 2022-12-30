@@ -60,7 +60,7 @@ export const fetchPopularTours = async (count = 12) => {
     return [];
 }
 
-export const autocompleteTours = async (q = '', limit = 20) => {
+export const autocompleteTours = async (q = '', limit = 20, page = 1) => {
     try {
         searchRequestSource.cancel('abort');
     } catch (e) {
