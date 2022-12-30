@@ -1,17 +1,17 @@
 @extends('admin.layout.app')
 
-@section('title', __('Transport'))
+@section('title', __('Transport duration'))
 
 @section('content')
     {!! breadcrumbs([
     ['url'=>route('admin.dashboard'), 'title'=>__('Dashboard')],
-    ['url'=>route('admin.transport.index'), 'title'=>__('Transport')],
+    ['url'=>route('admin.transport_duration.index'), 'title'=>__('Transport duration')],
     ]) !!}
     <div class="d-flex justify-content-between">
-        <h1>@lang('Transport')</h1>
+        <h1>@lang('Transport duration')</h1>
 
         <div class="d-flex align-items-center">
-            <a href="{{route('admin.transport.create')}}" class="btn btn-sm btn-outline-info">
+            <a href="{{route('admin.transport_duration.create')}}" class="btn btn-sm btn-outline-info">
                 <i data-feather="plus"></i> @lang('Create')
             </a>
         </div>
