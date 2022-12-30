@@ -48,7 +48,9 @@ export default {
         const searchTours = async (q = '') => {
             const items = await autocompleteTours(q, q.length > 0 ? 50 : 1000);
             tours.value = items || [];
-            tourSelectRef.value.update(tours.value);
+            if(tourSelectRef.value) {
+                tourSelectRef.value.update(tours.value);
+            }
         }
 
         searchTours();

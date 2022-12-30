@@ -34,7 +34,7 @@ export default {
             if(active.value) {
                 let thumb = $(tooltip.value).parents('.thumb-info').first()
 
-                if(thumb) {
+                if(thumb.length) {
                     let thumbOffset = $(thumb).offset()
 
                     $(tooltip.value).css({
