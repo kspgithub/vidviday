@@ -245,7 +245,7 @@ export default {
 
         onBeforeUnmount(() => {
             //document.removeEventListener('click', onDocumentClick);
-            datepicker.value.destroy();
+            datepicker.value && datepicker.value.destroy();
         })
 
         return {
