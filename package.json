@@ -1,5 +1,9 @@
 {
     "private": true,
+    "engines": {
+        "node": ">=14.19.1",
+        "yarn": ">=1.22.19"
+    },
     "scripts": {
         "dev-admin": "mix --mix-config=webpack.admin.mix.js",
         "dev-app": "mix",
