@@ -223,7 +223,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item {{routeActiveClass('admin.transport*')}}">
-                    <a data-bs-target="#food" data-bs-toggle="collapse" class="sidebar-link">
+                    <a data-bs-target="#transport" data-bs-toggle="collapse" class="sidebar-link">
                         <i class="align-middle" data-feather="truck"></i>
                         <span class="align-middle">@lang('Transport')</span>
                     </a>

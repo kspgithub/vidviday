@@ -178,6 +178,7 @@ export default {
     .dropdown {
         display: flex;
         width: 100%;
+        z-index: 3;
 
         .dropdown-title {
             display: flex;
