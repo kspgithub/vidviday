@@ -1,16 +1,20 @@
 {
     "private": true,
+    "engines": {
+        "node": ">=14.19.1",
+        "yarn": ">=1.22.19"
+    },
     "scripts": {
         "dev-admin": "mix --mix-config=webpack.admin.mix.js",
         "dev-app": "mix",
-        "dev": "concurrently \"npm:dev-admin\" \"npm:dev-app\"",
+        "dev": "concurrently \"yarn:dev-admin\" \"yarn:dev-app\"",
         "hot-admin": "mix watch --hot --mix-config=webpack.admin.mix.js",
         "hot-app": "mix watch --hot",
-        "hot": "concurrently \"npm:hot-admin\" \"npm:hot-app\"",
+        "hot": "concurrently \"yarn:hot-admin\" \"yarn:hot-app\"",
         "prod-admin": "mix --production --mix-config=webpack.admin.mix.js",
         "prod-app": "mix --production",
         "prod-ssr": "mix --production --mix-config=webpack.ssr.mix.js",
-        "prod": "concurrently \"npm:prod-admin\" \"npm:prod-app\"",
+        "prod": "concurrently \"yarn:prod-admin\" \"yarn:prod-app\"",
         "ssr": "npm run prod-ssr && node public/assets/ssr/ssr.js"
     },
     "devDependencies": {
