@@ -9,6 +9,7 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -50,7 +51,7 @@ class Page extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? '/' . $this->slug : '';
+        return !empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '';
     }
 
 
