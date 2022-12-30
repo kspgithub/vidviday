@@ -91,7 +91,7 @@ export default {
         const schedules = computed(() => store.state.orderTour.schedules);
         const program_type = computed(() => store.state.orderTour.formData.program_type);
         const group_type = computed(() => store.state.orderTour.formData.group_type);
-        const showChildren = computed(() => props.tourSelected && group_type.value === 0)
+        const showChildren = computed(() => group_type.value === 0)
         const isTourAgent = computed(() => store.getters['orderTour/isTourAgent'])
 
 

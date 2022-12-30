@@ -141,7 +141,6 @@ class TourService extends BaseService
             }
 
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
             throw new GeneralException(__('There was a problem updating tour.'));
