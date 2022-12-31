@@ -141,7 +141,6 @@ export default (props) => ({
         }
 
         this.discountData = {...this.discountData, ...data};
-        console.log(this.discountData)
     },
     saveDiscount() {
         const id = this.discountData.id || 0;

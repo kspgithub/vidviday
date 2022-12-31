@@ -35,7 +35,6 @@ export default (order) => ({
                 middle_name: participant.middle_name || '',
                 birthday: participant.birthday || '',
             }
-            console.log(participant, this.data);
         } else {
             this.data = Object.assign({}, DEFAULT_PARTICIPANT);
         }

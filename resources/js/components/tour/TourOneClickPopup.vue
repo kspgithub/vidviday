@@ -160,7 +160,7 @@ export default {
         //     value: '',
         //     text: __('tours-section.date-title'),
         // })
-        console.log('departureOptions', departureOptions.value)
+        // console.log('departureOptions', departureOptions.value)
 
         const submitForm = async () => {
             const result = await validate();

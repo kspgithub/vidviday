@@ -79,7 +79,6 @@ export default (options) => ({
                 onChange: (selectedDates, dateStr, instance) => {
                     const start_date = selectedDates[0] ? moment(selectedDates[0]).format('DD.MM.YYYY') : null;
                     const end_date = selectedDates[1] ? moment(selectedDates[1]).format('DD.MM.YYYY') : null;
-                    console.log(start_date, end_date);
                     this.scheduleData = {...this.scheduleData, start_date: start_date, end_date: end_date};
                 }
             });

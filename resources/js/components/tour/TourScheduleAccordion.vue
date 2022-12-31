@@ -88,7 +88,7 @@ const stopWatching = watch(() => accordionItem.value?.classList || [], (classLis
         const params = {}
 
         fetchTourSchedules(props.tour?.id, params).then((data) => {
-            console.log('data', data)
+            // console.log('data', data)
             allEvents.value = [...data||[]]
         })
     }

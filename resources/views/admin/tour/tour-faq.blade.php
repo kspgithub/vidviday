@@ -37,10 +37,7 @@
 @push('after-scripts')
     <script>
         function updateActiveTabs(tab) {
-            axios.patch("{{route('admin.tour.update-tabs', [$tour, ''])}}/"+tab).then((res) => {
-                console.log(res.data)
-                toast[res.data.type](res.data.message)
-            })
+            axios.patch("{{route('admin.tour.update-tabs', [$tour, ''])}}/"+tab).then((res) => toast[res.data.type](res.data.message))
         }
     </script>
 @endpush
