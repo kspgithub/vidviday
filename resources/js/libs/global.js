@@ -430,6 +430,14 @@ jQuery(function ($) {
                     title.click()
                 }, 0)
             }
+
+            const showMoreBtn = $(location.hash).find('.show-more-btn')
+            console.log(showMoreBtn)
+            if(showMoreBtn.length) {
+                setTimeout(() => {
+                    $(showMoreBtn).click()
+                }, 0)
+            }
         }
     }
 
