@@ -68,7 +68,6 @@ export default {
     },
     mutations: {
         INIT(state, payload) {
-            console.log('payload', payload)
             state.currentStep = payload.currentStep || 1;
             state.user = payload.user || null;
             state.schedules = payload.schedules || [];

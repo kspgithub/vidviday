@@ -1163,7 +1163,6 @@ $(function() {
             });
 
             $('.custom-select').each(function () {
-                console.log("Sumo custom-select:", this)
                 if ($(this).hasClass('vue-select') || $(this).hasClass('phpdebugbar-datasets-switcher')) return;
                 let option = $(this).closest('.SumoSelect').find('.opt');
 
@@ -1181,7 +1180,7 @@ $(function() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Event: document.DOMContentLoaded')
+    // console.log('Event: document.DOMContentLoaded')
 
     if('moreLess' in window) {
 
@@ -1196,8 +1195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('vueMounted', (event) => {
 
-    console.log('========================================================')
-    console.log('=========== *** Vue Component Mounted *** ==============')
-    console.log('========================================================')
+    // console.log('========================================================')
+    // console.log('=========== *** Vue Component Mounted *** ==============')
+    // console.log('========================================================')
 
 })

@@ -105,13 +105,13 @@ export default {
         const currentUser = computed(() => store.state.user.currentUser);
         const answer = ref(false);
         const showMore = ref(false);
-        const children = ref([]);
+        const children = ref(props.item.children || []);
 
         const showAnswerForm = () => {
             answer.value = !answer.value;
             //
             // if (currentUser.value) {
-            //     answer.value = true;
+            //     // answer.value = true;
             // } else {
             //     store.commit('testimonials/SET_PARENT_ID', props.item.id)
             //     store.commit('testimonials/SET_POPUP_OPEN', true)

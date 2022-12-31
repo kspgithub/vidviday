@@ -85,7 +85,6 @@ export default {
         const orderCertificateData = localStorage.getItem('order-cretificate')
 
         if(orderCertificateData) {
-            console.log(orderCertificateData)
             store.commit('orderCertificate/SET_DATA', JSON.parse(orderCertificateData));
         }
 

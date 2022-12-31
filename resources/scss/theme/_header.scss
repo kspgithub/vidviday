@@ -1228,7 +1228,7 @@ nav {
 
     .log-in {
         &.dropdown {
-            padding-right: 0;
+            //padding-right: 0;
         }
 
         &:before {
@@ -1238,8 +1238,8 @@ nav {
     }
 
     .log-in.log-inned .img {
-        width: 20px;
-        height: 20px;
+        width: 32px;
+        height: 32px;
     }
 
     .log-inned-icon {

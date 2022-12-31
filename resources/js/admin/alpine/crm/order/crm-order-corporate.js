@@ -55,10 +55,6 @@ export default (params) => ({
                 this.order.tour_id = e.params.data.id;
             })
 
-            console.log(this.$refs.pickerInput)
-            console.log(this.$refs.startDateRef)
-            console.log(this.$refs.endDateRef)
-
             if (this.$refs.pickerInput) {
                 flatpickr(this.$refs.pickerInput, {
                     locale: Ukrainian,
@@ -250,7 +246,7 @@ export default (params) => ({
         this.order.accommodation = value;
     },
     async onFormChange(evt) {
-        console.log(evt);
+        // console.log(evt);
         this.formChanged = true;
     },
     async onSubmit(evt) {

@@ -91,7 +91,6 @@ const customRules = {
             const country = countries.find(c => value.startsWith(c.phone_code))
             if(country?.phone_rule) {
                 const regex = new RegExp(country.phone_rule.replaceAll('\/', ''))
-                console.log(regex)
                 return regex.test(value)
             } else {
                 const mask = country.phone_mask.replaceAll('9', '\\d')

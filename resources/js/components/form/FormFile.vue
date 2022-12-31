@@ -50,7 +50,7 @@ export default {
         const onChange = async () => {
             if (inputRef.value.files.length) {
                 const file = inputRef.value.files[0];
-                console.log(file);
+                // console.log(file);
                 title.value = file.name;
                 emit('update:modelValue', file);
             } else {

@@ -173,7 +173,7 @@ export default {
                     extraParams: props.filter
                 },
                 eventClick: (info) => {
-                    console.log(info)
+                    // console.log(info)
                     if (info.jsEvent && !$(info.jsEvent.target).is('.tooltip-wrap') && !$(info.jsEvent.target).is('.tooltip')) {
                         info.jsEvent.preventDefault()
                         emit('event-click', {

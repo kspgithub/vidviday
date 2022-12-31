@@ -1,7 +1,5 @@
 export function initDynamicPagination(swiper) {
 
-    console.log(swiper)
-
     const pagination = swiper.pagination
 
     if (pagination && typeof pagination.bullets !== 'undefined') {

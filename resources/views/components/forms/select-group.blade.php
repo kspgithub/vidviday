@@ -93,7 +93,7 @@
                                 @endforeach
                             };
                             let selectFilters = JSON.parse(jQuery(inputRef).attr('filters') || '{}')
-                            console.log(selectFilters)
+
                             for(let key in selectFilters) {
                                 filters[key] = selectFilters[key]
                             }

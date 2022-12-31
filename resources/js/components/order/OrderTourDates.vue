@@ -4,7 +4,7 @@
             <div class="col-12">
                 <span class="text-sm text-medium title">
                     {{
-                        program_type === 1 ? __('order-section.details.departure-place-date') : __('order-section.details.departure-date')
+                        group_type === 1 ? __('order-section.details.departure-place-date') : __('order-section.details.departure-date')
                     }}*
                 </span>
             </div>
@@ -29,7 +29,7 @@
             <div class="col-12">
                 <span class="text-sm text-medium title">
                     {{
-                        program_type === 1 ? __('order-section.details.return-place-date') : __('order-section.details.return-date')
+                        group_type === 1 ? __('order-section.details.return-place-date') : __('order-section.details.return-date')
                     }}*
                 </span>
             </div>
@@ -65,6 +65,8 @@ export default {
         const store = useStore();
         store.commit('orderTour/UPDATE_FORM_DATA', {start_date: null, end_date: null});
 
+
+        const group_type = computed(() => store.state.orderTour.formData.group_type);
 
         const program_type = computed(() => store.state.orderTour.formData.program_type);
 
@@ -113,6 +115,7 @@ export default {
         });
 
         return {
+            group_type,
             program_type,
             start_date,
             start_place,

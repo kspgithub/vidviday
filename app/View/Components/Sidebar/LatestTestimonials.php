@@ -53,6 +53,7 @@ class LatestTestimonials extends Component
             'latest__testimonials_' . $type,
             60,
             fn () => Testimonial::moderated()->when($type !== 'all', fn ($q) => $q->whereIn('model_type', $class))
+                ->whereNull('parent_id')
                 ->where('rating', '>=', 4)
                 ->orderBy('rating', 'desc')
                 ->latest()

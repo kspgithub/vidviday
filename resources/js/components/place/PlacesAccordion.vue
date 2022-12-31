@@ -126,10 +126,10 @@ export default {
             }
         },
         async loadPlace({district, place}) {
-            console.log('==============')
-            console.log(place)
-            console.log(place.value)
-            console.log('==============')
+            // console.log('==============')
+            // console.log(place)
+            // console.log(place.value)
+            // console.log('==============')
             const response = await apiClient.get('/places/find', {
                 params: {place_id: place.id || place.value},
             }).catch(error => {

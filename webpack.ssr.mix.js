@@ -52,7 +52,7 @@ mix.js('resources/js/ssr.js', path.resolve(buildPath, 'ssr.js'))
     })
     .disableNotifications()
 .then((stats) => {
-    console.log('Mix Then', stats)
+    // console.log('Mix Then', stats)
 
 
 })

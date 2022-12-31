@@ -48,7 +48,7 @@
                             <img src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}"
                                  alt="user">
                         </div>
-                        <span class="dropdown-btn only-desktop"></span>
+                        <span class="dropdown-btn"></span>
                         <ul class="dropdown-toggle">
                             @if(current_user()->isAdmin())
                                 <li>

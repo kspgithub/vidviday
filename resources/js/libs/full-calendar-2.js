@@ -163,20 +163,16 @@ jQuery(function($) {
 
 		$(event).each(function() {
 
-			console.log($(this).find('.fc-content').html());
-
 			if ($(this).find('.fc-content').html() == content) {
 				$(this).addClass('hover');
 			} else {
 				$(this).removeClass('hover');
 			}
 		});
-
-		console.log(content);
-	});
+    });
 
 	$(document).delegate('.fc-day-grid-event', 'mouseleave', function() {
-		
+
 		let event = $('.fc-day-grid-event');
 
 		$(event).each(function() {
