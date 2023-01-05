@@ -46,7 +46,7 @@ class Media extends SpatieMedia
         return [
             'id' => $this->id,
             'url' => $this->getUrl(),
-            'thumb' => $this->getUrl('thumb'),
+            'thumb' => $this->getUrl(/*'thumb'*/),
             'alt' => $alts,
             'title' => $titles,
             'published' => $this->getCustomProperty('published'),
