@@ -46,6 +46,7 @@ class Media extends SpatieMedia
         return [
             'id' => $this->id,
             'url' => $this->getUrl(),
+            //todo: Missing Thumb img on tour's pictures upload
             'thumb' => $this->getUrl(/*'thumb'*/),
             'alt' => $alts,
             'title' => $titles,
