@@ -36,7 +36,7 @@ export default (options) => ({
         const files = this.$refs.fileRef.files;
 
         if (files.length > 0) {
-            files.forEach(file => {
+            Array.from(files).forEach(file => {
                 if (typeof file === 'object') {
                     this.uploadMedia(file);
                 }
