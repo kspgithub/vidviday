@@ -162,7 +162,9 @@ export default {
         // })
         // console.log('departureOptions', departureOptions.value)
 
-        const submitForm = async () => {
+        const submitForm = async (e) => {
+            e.preventDefault()
+
             const result = await validate();
 
             if (!result.valid) {

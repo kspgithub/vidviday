@@ -69,7 +69,7 @@ export default (props) => ({
                 timeFormat: 'hh:mm',
                 // plugins: [new rangePlugin({input: this.$refs.endDateRef})],
                 onChange: (selectedDates) => {
-                    const start_time = selectedDates[0] ? moment(selectedDates[0]).format('hh:mm') : null;
+                    const start_time = selectedDates[0] ? moment(selectedDates[0]).format('HH:mm') : null;
 
                     this.scheduleData = {...this.scheduleData, start_time};
                 }
