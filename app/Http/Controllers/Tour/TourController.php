@@ -372,7 +372,6 @@ class TourController extends Controller
         $params['tour_id'] = $tour->id;
         $order = OrderService::createOrder($params);
 
-
         if ($order === false) {
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => 'Помилка при замовлені туру']);
