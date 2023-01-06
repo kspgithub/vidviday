@@ -149,7 +149,7 @@ trait TourScheduleAttribute
         $price = ceil($this->price);
 
         $title = "Ціна: {$price} грн.";
-        if (true) {
+        if (Auth::check() && (Auth::user()->isTourAgent() || Auth::user()->isAdmin())) {
             $commission = ceil($this->commission);
             $title .= " | {$commission} грн. <span class='tooltip-wrap red''><span class='tooltip text text-sm placement-center''>Комісія агента</span></span>";
         }
