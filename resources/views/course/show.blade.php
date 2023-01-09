@@ -7,25 +7,25 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <ul class="bread-crumbs">
-                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="{{ route('home') }}" itemprop="url">
-                        <span itemprop="title">{{ __("Home") }}</span>
+            <ul class="bread-crumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="{{ route('home') }}" itemprop="item">
+                        <span itemprop="name">{{ __("Home") }}</span>
                     </a>
                 </li>
                 <li>
                     <span>—</span>
                 </li>
-                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="{{ $pageContent->url }}" itemprop="url">
-                        <span itemprop="title">{{ __("Courses") }}</span>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="{{ $pageContent->url }}" itemprop="item">
+                        <span itemprop="name">{{ __("Courses") }}</span>
                     </a>
                 </li>
                 <li>
                     <span>—</span>
                 </li>
-                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span itemprop="title">{{ $course->title }}</span>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">{{ $course->title }}</span>
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->
