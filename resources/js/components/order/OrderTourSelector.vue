@@ -21,7 +21,7 @@
 
 <script>
 
-import {computed, ref} from "vue";
+import { computed, ref, toRaw } from 'vue'
 import FormAutocomplete from "../form/FormAutocomplete";
 import {autocompleteTours} from "../../services/tour-service";
 import FormCustomSelect from "../form/FormCustomSelect";
@@ -41,7 +41,9 @@ export default {
             get: () => store.state.orderTour.formData.tour_id,
             set: async (val) => {
                 const tour = tours.value.find(t => t.id === parseInt(val));
+                const discounts = [...new Map([...tour.discounts, ...tour.tourDiscounts].map((item) => [item.id, item])).values()].map(d => toRaw(d));
                 store.commit('orderTour/SET_TOUR', tour);
+                store.commit('orderTour/SET_DISCOUNTS', discounts);
                 await store.dispatch('orderTour/fetchSchedules', val || 0);
             }
         });
