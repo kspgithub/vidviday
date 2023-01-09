@@ -136,7 +136,10 @@ export default {
 
         accommodationPrice: (state, getters) => getters.selectedSchedule ? getters.selectedSchedule.accomm_price : (state.tour ? state.tour.accomm_price : 0),
         // Скидки на детей
-        childrenDiscounts: (state) => state.discounts.filter(d => d.category.includes('children')),
+        childrenDiscounts: (state) => {
+            console.log(state.discounts)
+            return state.discounts.filter(d => (d.category === 'children_young' || d.category === 'children_older' || d.category === 'children'))
+        },
         // Дети до 6 бесплатно?
         childrenYoungFree: (state, getters) => {
             return !!getters.childrenDiscounts.find(d => (d.category === 'children_young' || d.category === 'children') && d.type === 1 && d.price === 100);

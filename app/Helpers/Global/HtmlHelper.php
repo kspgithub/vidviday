@@ -105,9 +105,9 @@ if (!function_exists('breadcrumbs')) {
                 $activeClass = $key === $lastItemKey ? ' active' : '';
                 $result .= '<li class="breadcrumb-item' . $activeClass . '" itemscope itemtype = "http://data-vocabulary.org/Breadcrumb">';
                 if ($key < count($items) - 1) {
-                    $result .= '<a href="' . $item['url'] . '" itemprop="url"><span itemprop="title">' . $item['title'] . '</span></a>';
+                    $result .= '<a href="' . $item['url'] . '" itemprop="item"><span itemprop="name">' . $item['title'] . '</span></a>';
                 } else {
-                    $result .= '<link href="' . $item['url'] . '" itemprop="url" /><span itemprop="title">' . $item['title'] . '</span>';
+                    $result .= '<link href="' . $item['url'] . '" itemprop="item" /><span itemprop="name">' . $item['title'] . '</span>';
                 }
                 $result .= '</li>';
             }

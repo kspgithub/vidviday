@@ -70,6 +70,8 @@ trait TourMethods
             'guides' => $this->guides,
             'corporate_includes' => $this->corporate_includes,
             'active_tabs' => $this->active_tabs,
+            'discounts' => $this->discounts,
+            'tourDiscounts' => $this->tourDiscounts,
         ];
     }
 
