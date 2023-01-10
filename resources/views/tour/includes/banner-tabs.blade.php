@@ -38,11 +38,6 @@
     <!-- TAB #2 MAP -->
         <div class="tab {{$pictures->count() > 0 ? '' : 'active'}}">
             <div class="banner-tab-map">
-{{--                <div class="map-wrapper hidden-map full-size"--}}
-{{--                     v-is="'tour-map'"--}}
-{{--                     v-if="false"--}}
-{{--                     :places='@json($tour->places)'--}}
-{{--                ></div>--}}
                 <div id="map-canvas"
                      class="map-wrapper places-map full-size"
                      data-lat="49.822385"
@@ -57,9 +52,9 @@
                          data-lat="{{$marker->lat}}"
                          data-lng="{{$marker->lng}}"
                          data-image="{{asset('icon/marker-circle.svg')}}"
-                         data-string="<a href='{{$marker->url}}' class='info-box-title text-nowrap'>{{$marker->title}}</a>"></div>
+                         data-string="<a href='{{$marker->url}}' class='info-box-title text-nowrap'>{{$marker->title}}</a>">
+                    </div>
                 @endforeach
-            </div>
             </div>
         </div>
         <!-- TAB #2 END -->

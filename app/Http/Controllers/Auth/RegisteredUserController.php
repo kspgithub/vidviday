@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\SendSms;
 use App\Mail\RegistrationAdminEmail;
 use App\Mail\RegistrationEmail;
 use App\Models\Role;
@@ -107,40 +108,45 @@ class RegisteredUserController extends Controller
         }
 
         if ($user->isTourAgent()) {
-            // Notify staff via sms
-            $smsNotification = SmsNotification::query()->where('key', 'register-tour-agent')->first();
 
-            if ($smsNotification) {
+            try {
+                // Notify staff via sms
+                $smsNotification = SmsNotification::query()->where('key', 'register-tour-agent')->first();
 
-                $text = $smsNotification->text;
-                $replaces = config('notifications.sms.register-tour-agent.replaces');
+                if ($smsNotification) {
 
-                foreach ($replaces as $replace => $value) {
-                    [$variable, $attribute] = explode('_', $value);
-                    $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
-                }
+                    $text = $smsNotification->text;
+                    $replaces = config('notifications.sms.register-tour-agent.replaces');
 
-                $staffs = Staff::query()->whereHas('types', function ($q) {
-                    return $q->where('slug', 'travel-agencies');
-                })->get();
-
-                foreach ($staffs as $staff) {
-                    if ($staff->phone) {
-                        TurboSMS::sendMessages($staff->phone, $text);
+                    foreach ($replaces as $replace => $value) {
+                        [$variable, $attribute] = explode('_', $value);
+                        $target = $$variable;
+                        $text = Str::replace($replace, $target->{$attribute}, $text);
                     }
 
-                    if ($staff->viber) {
-                        TurboSMS::sendMessages($staff->phone, $text, 'viber');
+                    $staffs = Staff::query()->whereHas('types', function ($q) {
+                        return $q->where('slug', 'travel-agencies');
+                    })->get();
+
+                    foreach ($staffs as $staff) {
+                        if ($staff->phone) {
+                            dispatch(new SendSms($staff->phone, $text));
+                        }
+
+                        if ($staff->viber) {
+                            dispatch(new SendSms($staff->phone, $text, 'viber'));
+                        }
                     }
                 }
+            } catch (Exception $exception) {
+                Log::error($exception->getMessage(), $exception->getTrace());
+            }
 
-                if (!$user->isVerified()) {
-                    $user->sendEmailVerificationNotification();
-                }
-                if (!$user->isActive()) {
-                    Auth::logout();
-                }
+            if (!$user->isVerified()) {
+                $user->sendEmailVerificationNotification();
+            }
+            if (!$user->isActive()) {
+                Auth::logout();
             }
         }
 
