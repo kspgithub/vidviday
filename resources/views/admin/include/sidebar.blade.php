@@ -417,6 +417,21 @@
                             class="align-middle">@lang('Email templates')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.notifications*')}}">
+                    <a data-bs-target="#notifications" data-bs-toggle="collapse"
+                       class="sidebar-link {{routeActiveClass('admin.notifications*', '', 'collapsed')}}">
+                        <i class="align-middle" data-feather="message-square"></i> <span
+                            class="align-middle">@lang('Notifications')</span>
+                    </a>
+                    <ul id="notifications"
+                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.notifications*', 'show', '')}} {{routeActiveClass('admin.notifications*', 'show', '')}}"
+                        data-bs-parent="#sidebar">
+                        <li class="sidebar-item {{routeActiveClass('admin.notifications.sms')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.notifications.sms')}}">@lang('Sms')</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.contact.*')}}">
                     <a class="sidebar-link" href="{{route('admin.contact.edit')}}">
                         <i class="align-middle" data-feather="at-sign"></i> <span

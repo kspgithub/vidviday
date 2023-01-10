@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\SendSms;
 use App\Mail\RegistrationAdminEmail;
 use App\Mail\RegistrationEmail;
 use App\Models\Role;
+use App\Models\SmsNotification;
+use App\Models\Staff;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\MailNotificationService;
+use App\Services\SmsNotificationService;
 use App\Services\UserService;
+use Daaner\TurboSMS\Facades\TurboSMS;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
@@ -21,7 +26,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +38,7 @@ class RegisteredUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -49,7 +54,7 @@ class RegisteredUserController extends Controller
      */
     public function create(Request $request): View
     {
-        if($request->get('force_logout') && $request->user()) {
+        if ($request->get('force_logout') && $request->user()) {
             $redirect = route('auth.register', $request->except('force_logout'));
             $request->merge(['redirect' => $redirect]);
             $authController = app(AuthenticatedSessionController::class);
@@ -73,7 +78,7 @@ class RegisteredUserController extends Controller
         $params = $request->validated();
         $params['password'] = Hash::make($request->password);
         $role = $request->role;
-        if($role === 'tour-agent') {
+        if ($role === 'tour-agent') {
             $params['status'] = 0;
         }
         /**
@@ -94,21 +99,23 @@ class RegisteredUserController extends Controller
         try {
             Mail::to($user->email)->queue(new RegistrationEmail($user, $password));
 
-            // Notify admins
+            // Notify admins via email
             $adminEmails = MailNotificationService::getAdminNotifyEmails();
             foreach ($adminEmails as $email) {
                 Mail::to($email)->queue(new RegistrationAdminEmail($user));
             }
-
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
         }
 
-        if($user->isTourAgent()) {
-            if(!$user->isVerified()) {
+        if ($user->isTourAgent()) {
+
+            SmsNotificationService::registerTourAgent($user);
+
+            if (!$user->isVerified()) {
                 $user->sendEmailVerificationNotification();
             }
-            if(!$user->isActive()) {
+            if (!$user->isActive()) {
                 Auth::logout();
             }
         }
@@ -118,7 +125,7 @@ class RegisteredUserController extends Controller
 
     public function success()
     {
-        if(!$user = Session::get('newUser')) {
+        if (!$user = Session::get('newUser')) {
             return redirect(RouteServiceProvider::HOME);
         }
 
