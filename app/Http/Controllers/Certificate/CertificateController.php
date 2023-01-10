@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\PaymentType;
 use App\Models\PopupAd;
 use App\Services\MailNotificationService;
+use App\Services\SmsNotificationService;
 use Illuminate\Http\Request;
 
 class CertificateController extends Controller
@@ -52,6 +53,9 @@ class CertificateController extends Controller
 
         MailNotificationService::userCertificateEmail($order);
         MailNotificationService::adminCertificateEmail($order);
+
+        SmsNotificationService::orderCertificate($order);
+
         if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
             $redirectRoute = 'certificate.order.purchase';
         } else {

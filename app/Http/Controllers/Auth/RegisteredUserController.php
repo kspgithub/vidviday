@@ -13,6 +13,7 @@ use App\Models\Staff;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\MailNotificationService;
+use App\Services\SmsNotificationService;
 use App\Services\UserService;
 use Daaner\TurboSMS\Facades\TurboSMS;
 use Exception;
@@ -109,38 +110,7 @@ class RegisteredUserController extends Controller
 
         if ($user->isTourAgent()) {
 
-            try {
-                // Notify staff via sms
-                $smsNotification = SmsNotification::query()->where('key', 'register-tour-agent')->first();
-
-                if ($smsNotification) {
-
-                    $text = $smsNotification->text;
-                    $replaces = config('notifications.sms.register-tour-agent.replaces');
-
-                    foreach ($replaces as $replace => $value) {
-                        [$variable, $attribute] = explode('_', $value);
-                        $target = $$variable;
-                        $text = Str::replace($replace, $target->{$attribute}, $text);
-                    }
-
-                    $staffs = Staff::query()->whereHas('types', function ($q) {
-                        return $q->where('slug', 'travel-agencies');
-                    })->get();
-
-                    foreach ($staffs as $staff) {
-                        if ($staff->phone) {
-                            dispatch(new SendSms($staff->phone, $text));
-                        }
-
-                        if ($staff->viber) {
-                            dispatch(new SendSms($staff->phone, $text, 'viber'));
-                        }
-                    }
-                }
-            } catch (Exception $exception) {
-                Log::error($exception->getMessage(), $exception->getTrace());
-            }
+            SmsNotificationService::registerTourAgent($user);
 
             if (!$user->isVerified()) {
                 $user->sendEmailVerificationNotification();

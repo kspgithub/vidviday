@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\PaymentType;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
+use App\Services\SmsNotificationService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -55,6 +56,12 @@ class OrderController extends Controller
             $order->syncContact();
             MailNotificationService::userTourOrder($order);
             MailNotificationService::adminTourOrder($order);
+
+            if($order->group_type === Order::GROUP_CORPORATE) {
+                SmsNotificationService::orderCorporate($order);
+            } else {
+                SmsNotificationService::tourOrder($order);
+            }
 
             if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
                 $redirect_route = 'order.purchase';

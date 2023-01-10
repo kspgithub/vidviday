@@ -28,6 +28,7 @@ use App\Models\TourVoting;
 use App\Models\WrongQuery;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
+use App\Services\SmsNotificationService;
 use App\Services\TourService;
 use Exception;
 use Illuminate\Console\Scheduling\Schedule;
@@ -381,6 +382,12 @@ class TourController extends Controller
             $order->syncContact();
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
+
+            if($order->group_type === Order::GROUP_CORPORATE) {
+                SmsNotificationService::orderCorporate($order);
+            } else {
+                SmsNotificationService::tourOrder($order);
+            }
 
             if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
                 $redirect_route = 'order.purchase';

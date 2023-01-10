@@ -4,17 +4,17 @@ return [
     'sms' => [
         'order' => [
             'replaces' => [
-                'order_id' => 'order.id',
+                'order_id',
             ],
         ],
         'register-tour-agent' => [
             'replaces' => [
-                'user_id'
+                'user_id',
             ],
         ],
         'order-one-click' => [
             'replaces' => [
-                'order_id'
+                'order_id',
             ],
         ],
         'staff-testimonial' => [
@@ -33,6 +33,5 @@ return [
                 'certificate_id',
             ],
         ],
-
     ],
 ];

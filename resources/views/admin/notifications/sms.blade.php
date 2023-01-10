@@ -36,7 +36,7 @@
                                 <label class="col-md-4 col-xl-3 mb-2">Доступні змінні</label>
                                 <div class="col-md-6 mb-2">
                                     <div class="input-group mb-1">
-                                        @foreach($notification->replaces as $replace => $value)
+                                        @foreach($notification->replaces as $replace)
                                             <div id="notifications-{{ $notification->key }}-replace-{{ $replace }}" class="replace col-12">
                                                 <span class="me-1">{{'{{'}} {{ $replace }} }}</span>
                                                 <a class="copy" href="#" data-clip-copy="{{'{{'}} {{ $replace }} }}"><i data-feather="copy"></i></a>
