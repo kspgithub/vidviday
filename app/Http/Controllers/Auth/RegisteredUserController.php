@@ -7,10 +7,13 @@ use App\Http\Requests\RegisterRequest;
 use App\Mail\RegistrationAdminEmail;
 use App\Mail\RegistrationEmail;
 use App\Models\Role;
+use App\Models\SmsNotification;
+use App\Models\Staff;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\MailNotificationService;
 use App\Services\UserService;
+use Daaner\TurboSMS\Facades\TurboSMS;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
@@ -21,7 +24,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +36,7 @@ class RegisteredUserController extends Controller
     /**
      * DeactivatedUserController constructor.
      *
-     * @param  UserService  $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -49,7 +52,7 @@ class RegisteredUserController extends Controller
      */
     public function create(Request $request): View
     {
-        if($request->get('force_logout') && $request->user()) {
+        if ($request->get('force_logout') && $request->user()) {
             $redirect = route('auth.register', $request->except('force_logout'));
             $request->merge(['redirect' => $redirect]);
             $authController = app(AuthenticatedSessionController::class);
@@ -73,7 +76,7 @@ class RegisteredUserController extends Controller
         $params = $request->validated();
         $params['password'] = Hash::make($request->password);
         $role = $request->role;
-        if($role === 'tour-agent') {
+        if ($role === 'tour-agent') {
             $params['status'] = 0;
         }
         /**
@@ -94,22 +97,50 @@ class RegisteredUserController extends Controller
         try {
             Mail::to($user->email)->queue(new RegistrationEmail($user, $password));
 
-            // Notify admins
+            // Notify admins via email
             $adminEmails = MailNotificationService::getAdminNotifyEmails();
             foreach ($adminEmails as $email) {
                 Mail::to($email)->queue(new RegistrationAdminEmail($user));
             }
-
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
         }
 
-        if($user->isTourAgent()) {
-            if(!$user->isVerified()) {
-                $user->sendEmailVerificationNotification();
-            }
-            if(!$user->isActive()) {
-                Auth::logout();
+        if ($user->isTourAgent()) {
+            // Notify staff via sms
+            $smsNotification = SmsNotification::query()->where('key', 'register-tour-agent')->first();
+
+            if ($smsNotification) {
+
+                $text = $smsNotification->text;
+                $replaces = config('notifications.sms.register-tour-agent.replaces');
+
+                foreach ($replaces as $replace => $value) {
+                    [$variable, $attribute] = explode('_', $value);
+                    $target = $$variable;
+                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                }
+
+                $staffs = Staff::query()->whereHas('types', function ($q) {
+                    return $q->where('slug', 'travel-agencies');
+                })->get();
+
+                foreach ($staffs as $staff) {
+                    if ($staff->phone) {
+                        TurboSMS::sendMessages($staff->phone, $text);
+                    }
+
+                    if ($staff->viber) {
+                        TurboSMS::sendMessages($staff->phone, $text, 'viber');
+                    }
+                }
+
+                if (!$user->isVerified()) {
+                    $user->sendEmailVerificationNotification();
+                }
+                if (!$user->isActive()) {
+                    Auth::logout();
+                }
             }
         }
 
@@ -118,7 +149,7 @@ class RegisteredUserController extends Controller
 
     public function success()
     {
-        if(!$user = Session::get('newUser')) {
+        if (!$user = Session::get('newUser')) {
             return redirect(RouteServiceProvider::HOME);
         }
 

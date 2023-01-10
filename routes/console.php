@@ -14,6 +14,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,17 @@ use Illuminate\Support\Facades\Mail;
 Artisan::command('inspire', function () {
     $quote = Inspiring::quote();
     $this->comment($quote);
+
+    $user = \App\Models\User::first();
+
+    $replaces = config('notifications.sms.register-tour-agent.replaces');
+
+    foreach ($replaces as $replace => $value) {
+        [$variable, $attribute] = explode('_', $value);
+        $model = $$variable;
+        dd($model);
+        $text = Str::replace($replace, $role, $smsNotification->text);
+    }
 
     $user = Auth::user() ?: \App\Models\User::query()->first();
 
