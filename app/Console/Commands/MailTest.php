@@ -14,7 +14,7 @@ class MailTest extends Command
      *
      * @var string
      */
-    protected $signature = 'mail:test {--to=} {--message=Hello} {--subject=Hello}';
+    protected $signature = 'mail:test {--to=} {--message=Hello} {--subject=Hello} {--count=1}';
 
     /**
      * The console command description.
@@ -43,9 +43,13 @@ class MailTest extends Command
         $to = $this->option('to');
         $message = $this->option('message');
         $subject = $this->option('subject');
+        $count = (int) $this->option('count');
 
         if (!empty($to)) {
-            Mail::to($to)->queue(new CustomEmail($message, $subject));
+            while ($count > 0) {
+                $count--;
+                Mail::to($to)->queue(new CustomEmail($message, $subject));
+            }
         }
 
         return 0;

@@ -8,9 +8,11 @@ use App\Mail\UserQuestionAdminEmail;
 use App\Mail\UserQuestionEmail;
 use App\Mail\UserQuestionManagerEmail;
 use App\Mail\VacancyEmail;
+use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Models\UserQuestion;
 use App\Services\MailNotificationService;
+use App\Services\SmsNotificationService;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,6 +35,10 @@ class TestimonialObserver
             } else {
                 foreach ($adminEmails as $email) {
                     Mail::to($email)->queue(new TestimonialAdminEmail($testimonial));
+                }
+
+                if($testimonial->model_type === Staff::class) {
+                    SmsNotificationService::staffTestimonial($testimonial->model, $testimonial);
                 }
             }
 

@@ -52,7 +52,6 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        View::share('questionTypes', QuestionType::query()->published()->get());
 
         Builder::macro('random', function ($count = 1) {
             $q = $this->inRandomOrder()->limit($count);

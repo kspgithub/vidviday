@@ -44,7 +44,7 @@ class OrderObserver
 //            }
 
         // Sync order birthday if participant is customer
-        if ($order->isDirty('birthday') && $order->participants['customer']) {
+        if ($order->isDirty('birthday') && ($order->participants['customer'] ?? false)) {
             $participants = $order->participants;
             if ($participants['items'][0] ?? false) {
                 $participants['items'][0]['birthday'] = $order->birthday ? $order->birthday->format('d.m.Y') : null;
@@ -56,7 +56,7 @@ class OrderObserver
             $participants = $order->participants;
             if (
                 $participantsOriginal &&
-                $participants['customer'] && $participantsOriginal['customer'] &&
+                ($participants['customer'] ?? false) && ($participantsOriginal['customer'] ?? false) &&
                 !empty($participants['items'][0]) && !empty($participantsOriginal['items'][0]) &&
                 $participantsOriginal['items'][0]['birthday'] !== $participants['items'][0]['birthday']
             ) {

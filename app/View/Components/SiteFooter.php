@@ -5,6 +5,9 @@ namespace App\View\Components;
 use App\Models\Contact;
 use App\Models\Menu;
 use App\Models\Page;
+use App\Models\QuestionType;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
 use Storage;
 
@@ -36,6 +39,12 @@ class SiteFooter extends Component
         $img = site_option('complaints_image');
 
         $this->complaintsImage = $img ? Storage::url(site_option('complaints_image')) : null;
+
+        $questionTypes = Cache::rememberForever('question-types', function () {
+            return QuestionType::query()->published()->get();
+        });
+
+        View::share('questionTypes', $questionTypes);
     }
 
 
