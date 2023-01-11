@@ -186,7 +186,7 @@ class SmsNotificationService
                     $text = Str::replace($replace, $target->{$attribute}, $text);
                 }
 
-                $staffs = array_filter([$order->tour->manager]);
+                $staffs = array_filter([$corporate->tour->manager]);
 
                 foreach ($staffs as $staff) {
                     if ($staff->phone && $smsNotification->phone) {
@@ -224,7 +224,7 @@ class SmsNotificationService
                     $text = Str::replace($replace, $target->{$attribute}, $text);
                 }
 
-                $staffs = array_filter([$order->tour->manager]);
+                $staffs = array_filter([$certificate->tour->manager]);
 
                 foreach ($staffs as $staff) {
                     if ($staff->phone && $smsNotification->phone) {
