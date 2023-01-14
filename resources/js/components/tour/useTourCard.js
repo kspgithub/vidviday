@@ -6,7 +6,6 @@ import {useStore} from "vuex";
 
 export const useTourCard = (tour) => {
 
-
     const store = useStore();
 
     const tourTitle = useLocalizedProperty(tour, 'title');
@@ -61,6 +60,7 @@ export const useTourCard = (tour) => {
     const isTourAgent = computed(() => store.getters['user/isTourAgent']);
 
     const onlyQuick = computed(() => {
+        return !!store.state.isProd;
         return currentSchedule.value && (currentSchedule.value.places_available === 0 || (currentSchedule.value.places_available >= 2 && currentSchedule.value.places_available <= 10))
     })
 
