@@ -30,29 +30,5 @@ use Illuminate\Support\Str;
 Artisan::command('inspire', function () {
     $quote = Inspiring::quote();
     $this->comment($quote);
-
-    $user = \App\Models\User::first();
-
-    $replaces = config('notifications.sms.register-tour-agent.replaces');
-
-    foreach ($replaces as $replace => $value) {
-        [$variable, $attribute] = explode('_', $value);
-        $model = $$variable;
-        dd($model);
-        $text = Str::replace($replace, $role, $smsNotification->text);
-    }
-
-    $user = Auth::user() ?: \App\Models\User::query()->first();
-
-    $user->notify(new TestNotification($quote));
-
-    Notification::route('turbosms', '+380632876727')
-        ->notify(new TestNotification($quote));
-
-//    $balance = TurboSMS::getBalance();
-
-//    $sended = TurboSMS::sendMessages('+380632876727', $quote);
-
-//    dd($sended);
-
+    TurboSMS::sendMessages('+380632876727', $quote);
 })->purpose('Display an inspiring quote');
