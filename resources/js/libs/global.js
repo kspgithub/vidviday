@@ -428,7 +428,12 @@ jQuery(function ($) {
             if (title && title.length && !title.hasClass('active')) {
                 setTimeout(() => {
                     title.click()
-                }, 0)
+                }, 3500)
+                // setTimeout(() => {
+                //     $('html, body').animate({
+                //         scrollTop: offset.top - outerHeight
+                //     }, 500);
+                // }, 1000)
             }
         }
     }
