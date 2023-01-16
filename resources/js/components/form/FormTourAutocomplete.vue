@@ -10,7 +10,7 @@
         :title-field="optionTitle"
     >
         <option :value="0" :selected="innerValue === 0" disabled>{{ __('forms.select-from-list') }}</option>
-        <option v-for="option in tours" :value="option.id" :data-img="option.main_image">{{ option[optionTitle] }}</option>
+        <option v-for="option in tours" :value="option.id">{{ option[optionTitle] }}</option>
     </form-autocomplete>
 </template>
 
