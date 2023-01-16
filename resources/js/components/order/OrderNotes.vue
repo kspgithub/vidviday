@@ -72,7 +72,7 @@ export default {
         }
 
         const formatDate = (date) => {
-            return date ? moment(date).format('d.m.Y') : '';
+            return date ? moment(date).format('D.MM.Y') : '';
         }
 
         return {

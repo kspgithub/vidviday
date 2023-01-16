@@ -8,6 +8,7 @@ use App\Mail\OrderBrokerAdminMail;
 use App\Mail\OrderBrokerMail;
 use App\Mail\OrderCertificateAdminMail;
 use App\Mail\OrderCertificateMail;
+use App\Mail\OrderNoteEmail;
 use App\Mail\OrderStatusEmail;
 use App\Mail\OrderTransportAdminMail;
 use App\Mail\OrderTransportMail;
@@ -37,6 +38,7 @@ class EmailTemplateController extends Controller
             OrderCertificateAdminMail::class,
             OrderCertificateMail::class,
             OrderStatusEmail::class,
+            OrderNoteEmail::class,
             OrderTransportAdminMail::class,
             OrderTransportMail::class,
             OrderBrokerAdminMail::class,

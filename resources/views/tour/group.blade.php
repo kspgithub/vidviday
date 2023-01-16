@@ -24,12 +24,14 @@
                     <a href="{{ route('home') }}" itemprop="item">
                         <span itemprop="name">{{ __("Home") }}</span>
                     </a>
+                    <meta itemprop="position" content="1" />
                 </li>
                 <li>
                     <span>—</span>
                 </li>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name">{{ $group ? $group->title : __('Пошук турів') }}</span>
+                    <meta itemprop="position" content="2" />
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->
