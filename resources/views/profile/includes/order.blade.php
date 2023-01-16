@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="col-6">
-                    @if($order->status === \App\Models\Order::STATUS_PAYED || $order->status === \App\Models\Order::STATUS_DEPOSIT)
+                    @if(in_array($order->status, [Order::STATUS_PAYED,Order::STATUS_DEPOSIT,Order::STATUS_COMPLETED]))
                         @if(!empty($order->act))
                             <a href="{{$order->act}}" download class="download">Акт виконаних робіт</a>
                         @endif
@@ -132,15 +132,15 @@
                             {{ __('forms.leave-feedback') }}
                         </span>
                     @endif
-                    @if($order->status < Order::STATUS_PAYED)
+                    @if(in_array($order->status, [Order::STATUS_NEW,Order::STATUS_BOOKED,Order::STATUS_NOT_SENT,Order::STATUS_INTERESTED,Order::STATUS_RESERVE,Order::STATUS_DEPOSIT,Order::STATUS_PAYED]))
                         <span v-is="'order-cancel-btn'"
                               key="order-cancel-btn-{{$order->id}}"
                               :order='@json($order)'>Скасувати замовлення</span>
                     @endif
 
-                    @if($order->status >= Order::STATUS_PAYED && $order->status !== Order::STATUS_COMPLETED)
-                        <span class="btn type-1 disabled-btn">Скасувати замовлення</span>
-                    @endif
+{{--                    @if($order->status >= Order::STATUS_PAYED && $order->status !== Order::STATUS_COMPLETED)--}}
+{{--                        <span class="btn type-1 disabled-btn">Скасувати замовлення</span>--}}
+{{--                    @endif--}}
                 </div>
             </div>
 
