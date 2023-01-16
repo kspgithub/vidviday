@@ -10,7 +10,7 @@
         :title-field="optionTitle"
     >
         <option :value="0" :selected="innerValue === 0" disabled>{{ __('forms.select-from-list') }}</option>
-        <option v-for="option in tours" :value="option.id">{{ option[optionTitle] }}</option>
+        <option v-for="option in tours" :value="option.id" :data-img="option.main_image">{{ option[optionTitle] }}</option>
     </form-autocomplete>
 </template>
 
@@ -67,9 +67,11 @@ export default {
             let tourItems = items || [];
             if (tour.value) {
                 tourItems = [tour.value, ...tourItems.filter(it => it.id !== parseInt(tour.value.id))];
-
             }
-            tours.value = tourItems;
+            tours.value = tourItems.map(t => ({
+                ...t,
+                [props.optionTitle]: `<img src="${t.main_image}"> ${t[props.optionTitle]}`,
+            }))
             await nextTick(() => {
                 if (tourSelectRef.value) {
                     tourSelectRef.value.update(tours.value);
