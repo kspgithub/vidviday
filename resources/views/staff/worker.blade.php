@@ -11,6 +11,7 @@
                     <a href="{{ route('home') }}" itemprop="item">
                         <span itemprop="name">{{ __("Home") }}</span>
                     </a>
+                    <meta itemprop="position" content="1" />
                 </li>
                 <li>
                     <span>—</span>
@@ -19,12 +20,14 @@
                     <a href="{{ pageUrlByKey('office-workers') }}" itemprop="item">
                         <span itemprop="name">{{ __("Офісні працівники") }}</span>
                     </a>
+                    <meta itemprop="position" content="2" />
                 </li>
                 <li>
                     <span>—</span>
                 </li>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name">{{$staff->first_name}} {{$staff->last_name}}</span>
+                    <meta itemprop="position" content="3" />
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->

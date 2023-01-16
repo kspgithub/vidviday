@@ -29,12 +29,14 @@
                     <a href="{{ route('home') }}" itemprop="item">
                         <span itemprop="name">{{ __("Home") }}</span>
                     </a>
+                    <meta itemprop="position" content="1" />
                 </li>
                 <li>
                     <span>—</span>
                 </li>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name">{{ __("Blog") }}</span>
+                    <meta itemprop="position" content="2" />
                 </li>
             </ul>
 
