@@ -263,6 +263,7 @@ export default {
                 schema.conditions = () => {
                     return conditions.value === 1 ? true : 'Ви повинні прийняти умови правил бронювання.';
                 };
+                schema.payment_type = 'required';
             }
             return schema;
         });
