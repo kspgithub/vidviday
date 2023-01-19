@@ -26,10 +26,10 @@
                                     <div class="d-flex align-items-center">
                                         <input type="number" x-model="accommodationsForm[roomType.value]"
                                                class="form-control form-control-sm me-3" required>
-                                        <button type="submit" class="btn btn-sm btn-outline-success me-3">
+                                        <button  id="b40" type="submit" class="btn btn-sm btn-outline-success me-3">
                                             <i class="fa fa-save"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-secondary me-3"
+                                        <button  id="b41" class="btn btn-sm btn-outline-secondary me-3"
                                                 @click.prevent="cancelAccomm(roomType.value)">
                                             <i class="far fa-times-circle"></i>
                                         </button>

@@ -3,19 +3,19 @@
         <h2 class="h1">{{ __('order-section.order-transport') }}</h2>
         <div class="spacer-xs"></div>
         <form @submit="onSubmit" :action="action" method="POST" class="row">
-            <div class="col-md-6 col-12">
+            <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">++++
                 <form-input name="last_name" v-model="data.last_name" :label="__('forms.last-name')"/>
             </div>
 
-            <div class="col-md-6 col-12">
+            <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                 <form-input name="first_name" v-model="data.first_name" :label="__('forms.name')"/>
             </div>
 
-            <div class="col-md-6 col-12">
+            <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                 <form-input name="email" id="transport-email" v-model="data.email" :label="__('forms.email')"/>
             </div>
 
-            <div class="col-md-6 col-12">
+            <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                 <form-input name="phone" id="transport-phone" v-model="data.phone" :label="__('forms.phone')"
                             mask="+38 (999) 999-99-99"/>
             </div>
@@ -64,7 +64,7 @@
                 <form-csrf/>
                 <div class="text-sm">{{ __('forms.required-fields') }}</div>
                 <div class="spacer-xs"></div>
-                <button type="submit" :disabled="submitted" class="btn type-1">
+                <button id="b17" type="submit" :disabled="submitted" class="btn type-1">
                     {{ __('forms.write') }}
                 </button>
             </div>

@@ -706,6 +706,9 @@
 }
 
 @media (min-width: 768px) {
+    .add-to-like .text > span:first-child{
+        display: none;
+    }
 
     .right-sidebar-inner {
         &.only-mobile {
@@ -719,6 +722,9 @@
 }
 
 @media (max-width: 767px) {
+    .add-to-like .text > span:first-child{
+        display: none;
+    }
 
     .right-sidebar {
         padding: 5px 0 0;
@@ -817,4 +823,9 @@
 }
 
 @media (max-width: 575px) {
+
+    .add-to-like .text > span:first-child{
+        display: none;
+    }
+
 }

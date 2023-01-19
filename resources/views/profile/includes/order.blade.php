@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="col-6">
-                    @if($order->status === \App\Models\Order::STATUS_PAYED || $order->status === \App\Models\Order::STATUS_DEPOSIT)
+                    @if($order->status === \App\Models\Order::STATUS_PAYED || $order->status === \App\Models\Order::STATUS_DEPOSIT || $order->status === \App\Models\Order::STATUS_COMPLETED)
                         @if(!empty($order->act))
                             <a href="{{$order->act}}" download class="download">Акт виконаних робіт</a>
                         @endif
@@ -132,7 +132,7 @@
                             {{ __('forms.leave-feedback') }}
                         </span>
                     @endif
-                    @if($order->status < Order::STATUS_PAYED)
+                    @if($order->status !== Order::STATUS_CANCELED OR $order->status !== Order::STATUS_COMPLETED OR $order->status !== Order::STATUS_PENDING_CANCEL)
                         <span v-is="'order-cancel-btn'"
                               key="order-cancel-btn-{{$order->id}}"
                               :order='@json($order)'>Скасувати замовлення</span>
@@ -147,13 +147,13 @@
         </div>
 
         <div class="spacer-xs"></div>
-        @if($order->status < Order::STATUS_COMPLETED)
+
             <div v-is="'order-notes'"
                  :order='@json($order)'
                  :notes='@json($order->notes)'
             >
 
             </div>
-        @endif
+
     </div>
 </div>

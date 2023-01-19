@@ -780,8 +780,10 @@ jQuery(function ($) {
 
             $(accordion).each(function () {
 
-                $(this).addClass('active');
-                $(this).find('> .accordion-inner').slideDown(440);
+                // $(this).addClass('active');
+                // $(this).find('> .accordion-inner').slideDown(440);
+                $(this).find('.accordion-title').trigger('click');
+
             });
 
             pageScroll(parentAccordion);
@@ -791,8 +793,10 @@ jQuery(function ($) {
 
             $(accordion).each(function () {
 
-                $(this).removeClass('active');
-                $(this).find('> .accordion-inner').slideUp(440);
+                $(this).find('.accordion-title').trigger('click');
+
+                // $(this).removeClass('active');
+                // $(this).find('> .accordion-inner').slideUp(440);
             });
         }
     });

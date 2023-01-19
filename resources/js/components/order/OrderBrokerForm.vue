@@ -30,7 +30,7 @@
                 <form-csrf/>
                 <div class="text-sm">{{ __('forms.required-fields') }}</div>
                 <div class="spacer-xs"></div>
-                <button type="submit" :disabled="submitted" class="btn type-1">
+                <button id="b11" type="submit" :disabled="submitted" class="btn type-1">
                     {{ __('forms.write') }}
                 </button>
             </div>

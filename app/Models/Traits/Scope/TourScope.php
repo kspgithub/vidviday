@@ -60,6 +60,7 @@ trait TourScope
                 return $q
                     ->with('orders')
                     ->where('tour_schedules.start_date', '>=', now())
+                    ->where('tour_schedules.published', 1)
                     ->whereNull('tour_schedules.deleted_at');
             },
             'media' => function ($q) {

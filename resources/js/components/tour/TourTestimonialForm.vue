@@ -16,7 +16,7 @@
                     <span class="open-popup" @click="closePopup()"
                           data-rel="login-popup">{{ __('auth.entrance') }}</span>
                 </span>
-                <div class="img-input-wrap">
+                <div :style="[user ? { 'display': 'none' } : '']" class="img-input-wrap">
                     <div class="img-input img-input-avatar"
                          :class="{uploaded: !!selectedAvatar}"
                          @dragleave="onDragleave"
@@ -48,24 +48,24 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-12">
+                <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                     <form-input name="first_name" id="tt_first_name" v-model="data.first_name"
                                 :label="__('forms.your-name')"/>
                 </div>
 
-                <div class="col-md-6 col-12">
+                <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                     <form-input name="last_name" id="tt_last_name" v-model="data.last_name"
                                 :label="__('forms.your-last-name')"
                                 :tooltip="__('forms.required')"/>
                 </div>
 
-                <div class="col-md-6 col-12">
+                <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                     <form-phone name="phone"
                                 id="tt_phone"
                                 v-model="data.phone" :label="__('forms.your-phone')"/>
                 </div>
 
-                <div class="col-md-6 col-12">
+                <div :style="[user ? { 'display': 'none' } : '']" class="col-md-6 col-12">
                     <form-input type="email" id="tt_email" name="email" v-model="data.email"
                                 :label="__('forms.email')"/>
 
@@ -140,12 +140,12 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button  id="b35" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button  id="b37" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </template>

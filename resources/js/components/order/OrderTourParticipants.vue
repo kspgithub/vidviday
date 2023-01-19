@@ -18,7 +18,7 @@
         />
 
         <div class="text-right text-center-xs">
-            <button class="btn type-1 add-participant-btn" @click.prevent="addParticipant()">
+            <button id="b2" class="btn type-1 add-participant-btn" @click.prevent="addParticipant()">
                 {{ __('order-section.participants.add') }}
             </button>
         </div>

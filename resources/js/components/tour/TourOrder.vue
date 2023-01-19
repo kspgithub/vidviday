@@ -62,7 +62,7 @@
 
             <template v-if="nearestEvent">
 
-                <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate">
+                <button type="submit" id="b1" class="btn type-1 btn-block hidden-print" v-if="!corporate">
                     {{ __('tours-section.order-tour') }}
                 </button>
 

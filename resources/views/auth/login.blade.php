@@ -25,7 +25,7 @@
                         <span class="text open-popup"
                               data-rel="password-recovery-popup">@lang('auth.forgot-password')</span>
                         <div class="spacer-xs"></div>
-                        <button type="submit" class="btn type-1 btn-block">@lang('auth.sign-in')</button>
+                        <button  id="b42" type="submit" class="btn type-1 btn-block">@lang('auth.sign-in')</button>
                         <div class="spacer-xs"></div>
                         <div class="text-center">
                             <div class="text">або</div>
