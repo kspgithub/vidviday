@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
+        <span v-if="type !== 'tour_questions'" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
         <hr>
         <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" :type="type" @add="" />

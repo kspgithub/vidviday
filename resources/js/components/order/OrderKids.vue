@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <slide-up-down :model-value="show" :duration="300">
+        <slide-up-down :model-value="show" :duration="300" style="height: auto!important;">
             <span class="text text-medium title inline">{{ __('order-section.kids.question') }}</span>
             <form-checkbox name="children" v-model="children" :label=" __('forms.yes')"/>
             <div class="text">
@@ -85,7 +85,7 @@ export default {
                 store.commit('orderTour/UPDATE_FORM_DATA', {without_place_count: value});
             }
         });
-        
+
         return {
             without_place: useFormDataProperty('orderTour', 'without_place'),
             without_place_count: without_place_count,

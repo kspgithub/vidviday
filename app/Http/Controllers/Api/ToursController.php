@@ -93,7 +93,13 @@ class ToursController extends Controller
         if ($limit == 0) {
             $limit = 1000;
         }
-        return Tour::filter($request->all())->take($limit)->get()->map->shortInfo();
+        return Tour::filter($request->all())
+            ->with([
+                'discounts',
+                'tourDiscounts',
+            ])
+            ->take($limit)
+            ->get()->map->shortInfo();
     }
 
     /**

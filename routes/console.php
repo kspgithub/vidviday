@@ -14,6 +14,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,18 +30,5 @@ use Illuminate\Support\Facades\Mail;
 Artisan::command('inspire', function () {
     $quote = Inspiring::quote();
     $this->comment($quote);
-
-    $user = Auth::user() ?: \App\Models\User::query()->first();
-
-    $user->notify(new TestNotification($quote));
-
-    Notification::route('turbosms', '+380632876727')
-        ->notify(new TestNotification($quote));
-
-//    $balance = TurboSMS::getBalance();
-
-//    $sended = TurboSMS::sendMessages('+380632876727', $quote);
-
-//    dd($sended);
-
+    TurboSMS::sendMessages('+380632876727', $quote);
 })->purpose('Display an inspiring quote');

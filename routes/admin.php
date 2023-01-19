@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Broker\OrderBrokerController;
 use App\Http\Controllers\Admin\CRM\CrmBrokerController;
 use App\Http\Controllers\Admin\Email\EmailTemplateController;
+use App\Http\Controllers\Admin\Notifications\SmsNotificationsController;
 use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\PopupAds\PopupAdsController;
 use App\Http\Controllers\Admin\Badge\BadgeController;
@@ -346,3 +347,12 @@ Route::patch('email-templates/{template}', [EmailTemplateController::class, 'sav
 Route::resource('partner', PartnerController::class)->except(['show']);
 
 Route::get('wrong_requests', [WrongRequestsController::class, 'index'])->name('wrong_requests.index');
+
+// Notifications
+Route::group([
+    'prefix' => 'notifications',
+    'as' => 'notifications.',
+], function () {
+    Route::get('sms', [SmsNotificationsController::class, 'index'])->name('sms');
+    Route::post('sms', [SmsNotificationsController::class, 'save']);
+});

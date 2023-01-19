@@ -23,17 +23,19 @@
     <main>
         <div class="container">
             <!-- BREAD CRUMBS -->
-            <ul class="bread-crumbs">
-                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="{{ route('home') }}" itemprop="url">
-                        <span itemprop="title">{{ __("Home") }}</span>
+            <ul class="bread-crumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="{{ route('home') }}" itemprop="item">
+                        <span itemprop="name">{{ __("Home") }}</span>
                     </a>
+                    <meta itemprop="position" content="1" />
                 </li>
                 <li>
                     <span>—</span>
                 </li>
-                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span itemprop="title">@lang('Guides')</span>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">@lang('Guides')</span>
+                    <meta itemprop="position" content="2" />
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->

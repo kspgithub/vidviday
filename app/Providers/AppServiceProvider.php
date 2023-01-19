@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\AgencySubscription;
 use App\Models\Order;
+use App\Models\OrderNote;
 use App\Models\Page;
 use App\Models\QuestionType;
 use App\Models\Testimonial;
@@ -12,6 +13,7 @@ use App\Models\TourVoting;
 use App\Models\UserQuestion;
 use App\Models\UserSubscription;
 use App\Observers\AgencySubscriptionObserver;
+use App\Observers\OrderNoteObserver;
 use App\Observers\OrderObserver;
 use App\Observers\PageObserver;
 use App\Observers\TestimonialObserver;
@@ -52,7 +54,6 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        View::share('questionTypes', QuestionType::query()->published()->get());
 
         Builder::macro('random', function ($count = 1) {
             $q = $this->inRandomOrder()->limit($count);
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Observers
         Order::observe(OrderObserver::class);
+        OrderNote::observe(OrderNoteObserver::class);
         UserQuestion::observe(UserQuestionObserver::class);
         UserSubscription::observe(UserSubscriptionObserver::class);
         AgencySubscription::observe(AgencySubscriptionObserver::class);

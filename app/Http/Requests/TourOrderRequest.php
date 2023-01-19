@@ -49,7 +49,7 @@ class TourOrderRequest extends FormRequest
             'participant_phone' => ['nullable', 'string'],
             'accommodation' => ['nullable', 'array'],
 
-            'payment_type' => ['nullable', 'integer'],
+            'payment_type' => ['required_if:group_type,==,1', 'integer'],
             'confirmation_type' => ['nullable', 'integer'],
             'confirmation_email' => (int)$this->confirmation_type === 1 ? ['required', 'email'] : ['nullable'],
             'confirmation_viber' => [Rule::requiredIf((int)$this->confirmation_type === 2)],

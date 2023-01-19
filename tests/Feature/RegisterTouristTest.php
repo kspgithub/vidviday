@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Faker\Generator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
@@ -18,13 +19,15 @@ class RegisterTouristTest extends TestCase
      */
     public function test_example()
     {
+        $faker = $this->app->make(Generator::class);
+
         $user = [
             'role' => 'tourist',
-            'last_name' => 'Smith',
-            'first_name' => 'Joe',
-            'middle_name' => 'Clark',
-            'birthday' => '01.01.2000',
-            'email' => 'maksym.shekhovtsev@gmail.com',
+            'last_name' => $faker->lastName,
+            'first_name' => $faker->firstName,
+            'middle_name' =>  $faker->firstName,
+            'birthday' => $faker->date,
+            'email' => $faker->email,
             'mobile_phone' => '+38 (033) 333-33-33',
             'password' => 'passwordtest',
             'password_confirmation' => 'passwordtest'

@@ -14,7 +14,7 @@
         <div class="full-size"></div>
     </div>
 @else
-    <div class="lang" v-is="'lang-dropdown'" current-locale="{{$currentLocale}}">
+    <div class="lang {{$class}}" v-is="'lang-dropdown'" current-locale="{{$currentLocale}}">
         <span>{{strtoupper($currentLocale)}}</span>
         <div class="full-size"></div>
     </div>
