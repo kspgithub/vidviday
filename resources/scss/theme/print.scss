@@ -83,10 +83,12 @@
         }
 
         .contact {
-            padding-left: 0 !important;
+            .no-padding {
+                padding-left: 0 !important;
+            }
 
             .img {
-                display: none !important;
+                //display: none !important;
             }
         }
     }
