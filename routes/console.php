@@ -30,5 +30,9 @@ use Illuminate\Support\Str;
 Artisan::command('inspire', function () {
     $quote = Inspiring::quote();
     $this->comment($quote);
-    TurboSMS::sendMessages('+380632876727', $quote);
+
+    $user = \App\Models\User::query()->first();
+
+    $user->assignRole('tour-agent');
+
 })->purpose('Display an inspiring quote');
