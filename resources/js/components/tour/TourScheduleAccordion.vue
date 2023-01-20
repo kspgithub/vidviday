@@ -12,7 +12,7 @@
             </div>
 
             <template v-for="(event, i) in allEvents">
-                <div v-if="i < 9" class="schedule-row" :class="[event.className]">
+                <div class="schedule-row" :class="[event.className, {'d-none': i >= 9}]">
                     <span class="text" v-html="event.title"></span>
 
                     <div>
@@ -37,8 +37,8 @@
         </div>
 
         <template v-if="allEvents.length > 10">
-            <div class="spacer-xs"></div>
-            <div class="text-center">
+            <div class="spacer-xs only-print"></div>
+            <div class="text-center only-print">
                 {{ __('tours-section.see-more-schedules') }}
             </div>
         </template>
