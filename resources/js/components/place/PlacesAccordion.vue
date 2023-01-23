@@ -1,7 +1,7 @@
 <template>
     <div class="accordion-all-expand inner-not-expand">
         <div class="expand-all-button">
-            <div class="expand-all open">Розгорнути все</div>
+            <div class="expand-all open" @click="expandAll">Розгорнути все</div>
             <div class="expand-all close">Згорнути все</div>
         </div>
         <div class="accordion type-4 accordions-inner-wrap">
@@ -93,14 +93,16 @@ export default {
         },
 
         async loadRegions(country) {
-            const response = await apiClient.get('/location/regions', {
-                params: {country_id: country.value},
-            }).catch(error => {
-                console.error(error)
-            })
+            if(!(country.value in this.regions)) {
+                const response = await apiClient.get('/location/regions', {
+                    params: {country_id: country.value},
+                }).catch(error => {
+                    console.error(error)
+                })
 
-            if (response) {
-                this.regions[country.value] = response.data
+                if (response) {
+                    this.regions[country.value] = response.data
+                }
             }
         },
         async loadDistricts(region) {
@@ -142,6 +144,11 @@ export default {
                     ...response.data,
                     ...place,
                 }
+            }
+        },
+        expandAll() {
+            for(let c of this.countries) {
+                this.loadRegions(c)
             }
         },
     }
