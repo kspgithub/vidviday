@@ -16,7 +16,7 @@ class PopupMessage extends Model
         'description',
     ];
 
-    protected $translatable = [
+    public $translatable = [
         'title',
         'description',
     ];
