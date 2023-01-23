@@ -43,6 +43,11 @@
         @endif
     @endproduction
 
+    @if(is_tour_agent())
+        <style>
+            @page { size: auto;  margin: 0mm; }
+        </style>
+    @endif
 </head>
 <body class="{{$body_class ?? ''}} {{  $bodyClass ?? '' }} @if(is_tour_agent()) agent-print @endif">
 <div id="app">
