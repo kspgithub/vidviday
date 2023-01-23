@@ -69,4 +69,5 @@ return [
     'thank-you-message' => 'Дякуємо за повідомлення',
     'reply-message' => 'ми відповімо вам найближчим часом',
     'date-format' => 'ДД.ММ.РРРР',
+    'organization' => 'Організація',
 ];

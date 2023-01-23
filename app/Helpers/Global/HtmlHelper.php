@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\HtmlBlock;
+use Illuminate\Support\Str;
 
 if (!function_exists('activeClass')) {
     /**
@@ -142,7 +143,7 @@ if (!function_exists('date_title')) {
     function date_title($date)
     {
         if ($date) {
-            return $date->translatedFormat('D') . ', ' . $date->format('d.m.Y');
+            return Str::ucfirst($date->translatedFormat('D')) . ', ' . $date->format('d.m.Y');
         }
         return '';
     }

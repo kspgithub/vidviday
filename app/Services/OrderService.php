@@ -39,6 +39,7 @@ class OrderService extends BaseService
             'last_name' => $params['last_name'] ?? '',
             'phone' => $params['phone'] ?? '',
             'email' => $params['email'] ?? '',
+            'company' => $params['company'] ?? '',
             'group_type' => (int)$params['group_type'],
             'places' => (int)$params['places'],
             'tour_id' => $params['tour_id'] ?? null,

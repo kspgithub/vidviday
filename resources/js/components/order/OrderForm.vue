@@ -237,6 +237,9 @@ export default {
                     phone: 'required|tel',
                     places: 'required|min:1',
                 }
+                if (group_type.value === 1) {
+                    schema.company = 'required';
+                }
                 if (!props.tourSelected && program_type.value === 0) {
                     schema.tour_id = () => tour_id.value > 0 ? true : 'Оберіть тур';
                 }
