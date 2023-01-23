@@ -55,6 +55,7 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\OurClient\OurClientController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\Place\PlaceController;
+use App\Http\Controllers\Admin\PopupMessageController;
 use App\Http\Controllers\Admin\PriceItem\PriceItemController;
 use App\Http\Controllers\Admin\Recommendation\RecommendationController;
 use App\Http\Controllers\Admin\RedirectsController;
@@ -285,6 +286,9 @@ Route::patch('popup_ads/{popupAd}/add_rule', [PopupAdsController::class, 'addRul
 Route::delete('popup_ads/{popup_ad}/remove_rule', [PopupAdsController::class, 'removeRule'])->name('popup-ads.remove-rule');
 Route::resource('achievement', AchievementController::class)->except('show');
 Route::resource('our-client', OurClientController::class)->except('show');
+
+Route::get('popup-messages', [PopupMessageController::class, 'index'])->name('popup-messages');
+Route::post('popup-messages', [PopupMessageController::class, 'save']);
 
 // TOUR
 Route::resource('place', PlaceController::class)->except('show');

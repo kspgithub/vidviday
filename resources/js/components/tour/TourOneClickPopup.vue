@@ -2,7 +2,10 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">{{ __('tours-section.order-one-click') }}</span>
+                <span class="h2 title text-medium">{{ popupTitle }}</span>
+            </div>
+            <div v-if="popupDescription" class="text-center">
+                <span class="title text-sm">{{ popupDescription }}</span>
             </div>
             <div class="spacer-xs"></div>
             <form :action="action" method="POST" class="row">
@@ -197,6 +200,9 @@ export default {
 
         store.commit('orderTour/UPDATE_FORM_DATA', {schedule_id: ''});
 
+        const popupTitle = window.popupMessages?.one_click?.title ||  __('tours-section.order-one-click')
+        const popupDescription = window.popupMessages?.one_click?.description
+
         return {
             first_name: useDebounceFormDataProperty('orderTour', 'first_name'),
             last_name: useDebounceFormDataProperty('orderTour', 'last_name'),
@@ -213,6 +219,8 @@ export default {
             showThanks,
             request,
             submitForm,
+            popupTitle,
+            popupDescription,
         }
     }
 }

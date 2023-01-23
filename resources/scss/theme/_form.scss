@@ -273,7 +273,7 @@ textarea {
     }
 
     &.active {
-        z-index: 4;
+        z-index: 5;
 
         &:after {
             @include dropdownArrowActive($blue)

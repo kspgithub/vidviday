@@ -519,6 +519,12 @@
                         <span class="align-middle">@lang('Global settings')</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.popup-messages')}}">
+                    <a class="sidebar-link" href="{{route('admin.popup-messages')}}">
+                        <i class="align-middle" data-feather="settings"></i>
+                        <span class="align-middle">@lang('Popup messages')</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.redirects*')}}">
                     <a class="sidebar-link" href="{{route('admin.redirects.index')}}">
                         <i class="align-middle" data-feather="settings"></i>
