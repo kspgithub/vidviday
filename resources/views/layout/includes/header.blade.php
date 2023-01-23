@@ -5,9 +5,9 @@
         </a>
         <div class="only-print">
             <div class="print-header">
-                <div class="h-name">Товариство з обмеженою відповідальністю “ВІДВІДАЙ”</div>
-                <div class="h-item">ЄДРПОУ: 39091341 | Ліцензія туроператора № 272817 серія АЕ від 23.07.2014</div>
-                <div class="h-item">79019, м. Львів, вул. Замарстинівська, 34 | vidviday.com.ua@gmail.com, +38-(067)-50-88-667, +38-(063)-670-55-87 (Viber / Telegram) | www.vidviday.ua</div>
+                <div class="h-name">{{ __('header-section.print-company-title') }}</div>
+                <div class="h-item">{{ __('header-section.print-company-licence') }}</div>
+                <div class="h-item">{{ __('header-section.print-company-address') }}</div>
             </div>
         </div>
         <div class="row hidden-print">

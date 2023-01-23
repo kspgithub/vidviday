@@ -13,7 +13,7 @@
                 </a>
                 <span class="dropdown-btn"></span>
                 <ul class="dropdown-toggle" style="display: none;">
-                    <li v-for="c in countries" @click.prevent="selectCountry(c)">
+                    <li v-for="c in countries" @click.prevent="selectCountry(c)" :class="{top: !!c.published}">
                         <a href="#">
                             <div class="d-inline-block" :class="'iti__flag iti__'+c.iso.toLocaleLowerCase()"></div> {{ c.phone_code }} ({{ c.title }})
                         </a>
@@ -202,6 +202,11 @@ export default {
             width: 100%;
             height: 300px;
             overflow: auto;
+
+            li.top + li:not(.top) {
+                padding-top: 10px;
+                border-top: 1px solid #ddd;
+            }
         }
     }
 }

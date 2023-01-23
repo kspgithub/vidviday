@@ -77,7 +77,7 @@ class ProfileController extends Controller
 
         $user = current_user();
         if ($request->ajax()) {
-            return $user->tourHistory()->search()->paginate(12);
+            return $user->tourHistory()->search(false)->paginate(12);
         }
 
         return view('profile.history');
@@ -88,7 +88,7 @@ class ProfileController extends Controller
     {
         $user = current_user();
         if ($request->ajax()) {
-            return $user->tourFavourites()->search()->paginate(12);
+            return $user->tourFavourites()->search(false)->paginate(12);
         }
         return view('profile.favourites');
     }
