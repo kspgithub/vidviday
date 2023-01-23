@@ -51,6 +51,7 @@ class TourGroup extends TranslatableModel implements HasMedia
         'text',
         'slug',
         'published',
+        'video',
     ];
 
     protected $appends = [

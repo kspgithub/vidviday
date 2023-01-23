@@ -59,6 +59,23 @@
         </x-bootstrap.card>
     @endif
 
+    @if($tourGroup->id > 0)
+        <x-bootstrap.card>
+            <x-slot name="header">
+                <h3>@lang('Video')</h3>
+            </x-slot>
+            <x-slot name="body">
+
+
+                <x-forms.text-group name="video"
+                                    type="url"
+                                    :label="__('Youtube Video')"
+                                    :value="old('video', $tourGroup->video)"
+                ></x-forms.text-group>
+            </x-slot>
+        </x-bootstrap.card>
+    @endif
+
 
 </div>
 
