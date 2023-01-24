@@ -2,12 +2,12 @@
     <div class="container">
         <div class="spacer-sm"></div>
         <h1 class="h1" v-if="(schedules.length > 0 && !orderCorporate) && tourSelected ">
-            <span v-if="tour">{{ __('order-section.booking-tour') }}:</span>
+            <span v-if="tour">{{ __('order-section.booking-tour') }}:&nbsp;</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
             <template v-else>{{__('order-section.booking-tour')}}</template>
         </h1>
         <h1 class="h1" v-if="(schedules.length === 0 || orderCorporate) && tourSelected">
-            <span v-if="tour">{{ __('order-section.booking-corporate') }}: </span>
+            <span v-if="tour">{{ __('order-section.booking-corporate') }}:&nbsp;</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
             <template v-else>{{__('order-section.booking-corporate')}}</template>
         </h1>
