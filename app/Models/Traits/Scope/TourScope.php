@@ -127,7 +127,7 @@ trait TourScope
                 return $q->whereRaw('( (tours.price / currencies.course) / '.$course.' ) <= "' . $value . '"');
             })
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
-                return $q->whereHas('directions', function (Builder $sq) use ($params) {
+                return $q->inFuture()->whereHas('directions', function (Builder $sq) use ($params) {
                     $ids = array_filter(explode(',', $params['direction']));
                     $sq->whereIn('directions.id', $ids);
                 });

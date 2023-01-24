@@ -25,6 +25,10 @@
                 <form-input :label="__('forms.travel-agency')" name="company" v-model="company"/>
             </div>
 
+            <div class="col-md-6 col-12" v-if="group_type === 1">
+                <form-input :label="__('forms.organization')" name="company" v-model="company"/>
+            </div>
+
             <div class="col-md-6 col-12">
                 <form-input :label="__('forms.viber')" name="viber" v-model="viber"/>
             </div>
@@ -51,6 +55,7 @@ export default {
             phone: useFormDataProperty('orderTour', 'phone'),
             company: useFormDataProperty('orderTour', 'company'),
             viber: useFormDataProperty('orderTour', 'viber'),
+            group_type: useFormDataProperty('orderTour', 'group_type'),
             isTourAgent: computed(() => store.getters['orderTour/isTourAgent']),
         }
     }

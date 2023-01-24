@@ -16,4 +16,8 @@ return [
     'nothing-found' => 'Нічого не знайдено',
     'enter-name-of-tour' => 'Введіть назву туру',
     'all-search-results' => 'Всі результати пошуку',
+
+    'print-company-title' => 'Общество с ограниченной ответственностью “ВИДВИДАЙ”',
+    'print-company-licence' => 'ЄГРПОУ: 39091341 | Лицензия туроператора № 272817 серия АЕ с 23.07.2014',
+    'print-company-address' => '79019, г. Львов, ул. Замарстыновская, 34 | vidviday.com.ua@gmail.com, +38-(067)-50-88-667, +38-(063)-670-55-87 (Viber / Telegram) | www.vidviday.ua',
 ];

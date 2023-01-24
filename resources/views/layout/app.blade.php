@@ -43,6 +43,11 @@
         @endif
     @endproduction
 
+    @if(is_tour_agent())
+        <style>
+            @page { size: auto;  margin: 0mm; }
+        </style>
+    @endif
 </head>
 <body class="{{$body_class ?? ''}} {{  $bodyClass ?? '' }} @if(is_tour_agent()) agent-print @endif">
 <div id="app">
@@ -75,6 +80,7 @@
 <script type="text/javascript">
     window.APP_ENV = '{{app()->environment()}}';
     window.countries = @json(App\Models\Country::query()->orderBy('position')->orderBy('title')->get()->translate());
+    window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
 </script>
 

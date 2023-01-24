@@ -5,7 +5,10 @@
             <form @submit.prevent="submitForm" method="POST" action="/" class="row">
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">{{ __('common.write-email') }}</span>
+                        <span class="h2 title text-medium">{{ popupTitle }}</span>
+                    </div>
+                    <div v-if="popupDescription" class="text-center">
+                        <span class="title text-sm">{{ popupDescription }}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <input type="hidden" name="type" :value="data.type">
@@ -79,6 +82,7 @@ import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSumoSelect from '../form/FormSumoSelect.vue'
 import FormPhone from "../form/FormPhone";
+import { __ } from '../../i18n/lang'
 
 export default {
     name: "PopupEmail",
@@ -178,6 +182,9 @@ export default {
             }
         }
 
+        const popupTitle = window.popupMessages?.write_email?.title ||  __('common.write-email')
+        const popupDescription = window.popupMessages?.write_email?.description
+
         return {
             data,
             popupOpen,
@@ -190,6 +197,8 @@ export default {
             verify,
             render,
             validateForm,
+            popupTitle,
+            popupDescription,
         }
     }
 }
