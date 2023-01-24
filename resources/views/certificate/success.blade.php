@@ -29,7 +29,7 @@
                         <div class="left-sidebar-inner">
                             <x-sidebar.filter/>
 
-                            <x-sidebar.mailing/>
+
                         </div>
                     </div>
                     <!-- SIDEBAR END -->
@@ -57,6 +57,7 @@
                                    class="btn type-1">{{__('order-section.certificate.go-to-description')}}</a>
                             </div>
                         </div>
+
                     </div>
                     <!-- ORDER COMPLETE CONTENT END -->
 
@@ -70,6 +71,7 @@
                     <!-- THUMBS CAROUSEL -->
                     <x-tour.popular :model="$pageContent"/>
                     <!-- THUMBS CAROUSEL END -->
+                    <x-sidebar.mailing/>
                 </div>
             </div>
             <div class="spacer-md"></div>

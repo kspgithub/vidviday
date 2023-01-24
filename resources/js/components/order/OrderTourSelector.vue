@@ -3,6 +3,7 @@
         <span class="text text-sm">
             <b>{{ __('order-section.tour') }}*</b>
         </span>
+
         <form-autocomplete
             name="tour_id"
             :placeholder="__('order-section.tour-placeholder')"
@@ -13,7 +14,7 @@
             rules="required"
         >
             <option :value="0" :selected="tourId === 0" disabled>{{ __('order-section.tour-placeholder') }}</option>
-            <option v-for="option in tours" :value="option.id">{{ option.title }}</option>
+            <option v-for="option in tours" :data-img="option.main_image" :value="option.id"><img :src="option.main_image"  /> {{ option.title }} </option>
         </form-autocomplete>
 
     </div>
@@ -55,6 +56,9 @@ export default {
 
             tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, item])).values()];
 
+
+
+
             if(tourSelectRef.value) {
                 tourSelectRef.value.update(tours.value);
             }
@@ -67,6 +71,7 @@ export default {
             tourSelectRef,
             searchTours,
             tourId,
+
         }
     }
 }

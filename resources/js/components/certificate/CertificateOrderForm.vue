@@ -27,24 +27,24 @@
             <div class="row align-items-center">
 
                 <div class="col-6" v-if="currentStep === 1">
-                    <a :href="backUrl" class="btn btn-read-more left-arrow text-bold tab-prev w-normal">
+                    <a id="b6" :href="backUrl" class="btn btn-read-more left-arrow text-bold tab-prev w-normal">
                         {{ __('certificate-section.back-description') }}
                     </a>
                 </div>
                 <div class="col-6 text-right" v-if="currentStep === 1">
-                    <a href="#" @click.prevent="nextStep()" class="btn type-1 tab-next w-normal">
+                    <a id="b5" href="#" @click.prevent="nextStep()" class="btn type-1 tab-next w-normal">
                         {{ __('certificate-section.go-to-payment') }}
                     </a>
                 </div>
 
                 <div class="col-4" v-if="currentStep === 2">
-                    <a href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
+                    <a id="b6" href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
                         {{ __('certificate-section.back') }}
                     </a>
                 </div>
 
                 <div class="col-8 text-right" v-if="currentStep === 2">
-                    <button type="submit" class="btn type-1 w-normal">
+                    <button id="b7" type="submit" class="btn type-1 w-normal">
                         {{ __('certificate-section.send-order') }}
                     </button>
                 </div>

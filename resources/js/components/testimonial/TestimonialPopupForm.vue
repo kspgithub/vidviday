@@ -168,12 +168,12 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button id="b31" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button id="b31" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </template>

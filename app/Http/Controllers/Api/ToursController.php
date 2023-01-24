@@ -30,6 +30,8 @@ class ToursController extends Controller
 
         $query = Tour::search($future)->filter($request->validated());
 
+
+
         $prev = trim(url()->previous(), '/');
 
         if($prev === route('home')) {
@@ -60,6 +62,8 @@ class ToursController extends Controller
         $paginator = $query->paginate($request->input('per_page', 12));
 
         $result = $paginator->toArray();
+
+
 
         $result['request_title'] = TourService::searchRequestTitle($request->validated());
 

@@ -137,11 +137,11 @@
         <hr>
         <div class="row align-items-center">
             <div class="col-md-6 col-5">
-                <button type="reset" class="btn btn-read-more text-bold">Скасувати</button>
+                <button id="b31" type="reset" class="btn btn-read-more text-bold">Скасувати</button>
             </div>
 
             <div class="col-md-6 col-7 text-right">
-                <button type="submit" class="btn type-1">Зберегти зміни</button>
+                <button id="b32" type="submit" class="btn type-1">Зберегти зміни</button>
             </div>
         </div>
     </form>

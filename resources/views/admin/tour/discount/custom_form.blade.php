@@ -1,6 +1,6 @@
 <div>
 
-    {{json_encode($form)}}
+
     <x-forms.translation-switch/>
 
     <x-forms.text-loc-group wire:model="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />

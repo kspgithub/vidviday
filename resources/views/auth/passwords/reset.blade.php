@@ -30,7 +30,7 @@
                         <div class="text text-sm">@lang('auth.required-fields')</div>
                         <div class="spacer-xs"></div>
                         <div class="spacer-xs"></div>
-                        <button type="submit" class="btn type-1 btn-block">@lang('auth.recover-password')</button>
+                        <button  id="b43" type="submit" class="btn type-1 btn-block">@lang('auth.recover-password')</button>
                         <div class="spacer-xs"></div>
                         <div class="text-center">
                             <div class="text">або</div>

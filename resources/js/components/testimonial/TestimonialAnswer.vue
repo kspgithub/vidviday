@@ -16,7 +16,7 @@
 
         <template v-else>
 
-            <div class="row">
+            <div :style="[user ? { 'display': 'none' } : '']" class="row">
 
                 <div class="col-md-6 col-12">
                     <form-input name="first_name" id="tt_first_name" v-model="first_name"
