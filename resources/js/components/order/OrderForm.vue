@@ -2,12 +2,12 @@
     <div class="container">
         <div class="spacer-sm"></div>
         <h1 class="h1" v-if="(schedules.length > 0 && !orderCorporate) && tourSelected ">
-            <span v-if="tour">{{ __('order-section.booking-tour') }}:</span>
+            <span v-if="tour">{{ __('order-section.booking-tour') }}:&nbsp;</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
             <template v-else>{{__('order-section.booking-tour')}}</template>
         </h1>
         <h1 class="h1" v-if="(schedules.length === 0 || orderCorporate) && tourSelected">
-            <span v-if="tour">{{ __('order-section.booking-corporate') }}: </span>
+            <span v-if="tour">{{ __('order-section.booking-corporate') }}:&nbsp;</span>
             <a v-if="tour" :href="tour.url">{{ tour.title }}</a>
             <template v-else>{{__('order-section.booking-corporate')}}</template>
         </h1>
@@ -57,11 +57,11 @@
             <div class="relative">
                 <div class="row align-items-center " :class="{'d-b': currentStep === 3}">
                     <div class="col-4">
-                        <span class="btn btn-read-more left-arrow text-bold"
+                        <span id="b12" class="btn btn-read-more left-arrow text-bold"
                               @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
                                        <div class="col-8  text-right " v-if="currentStep !== 3">
-                        <span class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
+                        <span id="b14" class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
                     </div>
 
                     <div class="col-8 justify-content-end align-items-center d-flex  d-b-7" v-if="currentStep === 3">
@@ -70,7 +70,7 @@
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
                         </span>
-                        <button type="submit" @click="submit($event)" class="btn type-1  ms-30">
+                        <button id="b15" type="submit" @click="submit($event)" class="btn type-1  ms-30">
                             {{ __('order-section.order-btn') }}
                         </button>
                     </div>

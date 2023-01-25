@@ -26,7 +26,7 @@
             <span class="text-sm">{{ __('forms.required-fields') }}</span>
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button type="submit" class="btn type-1">{{ __('auth.register') }}</button>
+                <button id="b3" type="submit" class="btn type-1">{{ __('auth.register') }}</button>
             </div>
         </div>
         <div class="spacer-sm"></div>

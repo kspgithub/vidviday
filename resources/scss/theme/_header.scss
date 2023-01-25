@@ -1079,6 +1079,7 @@ nav {
 }
 
 @media (min-width: 768px) {
+
 }
 
 @media (max-width: 767px) {
@@ -1222,6 +1223,10 @@ nav {
     #menu-btn {
         //margin-left: 30px;
     }
+
+    .lang{
+        display: none;
+    }
 }
 
 @media (max-width: 575px) {
@@ -1257,6 +1262,9 @@ nav {
             line-height: 12px;
         }
     }
+    .lang{
+        display: none;
+    }
 }
 
 @media (max-width: 325px) {
@@ -1269,5 +1277,8 @@ nav {
                 }
             }
         }
+    }
+    .lang{
+        display: none;
     }
 }

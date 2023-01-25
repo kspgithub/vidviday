@@ -219,11 +219,13 @@ export default {
 
                 $(sumoSelectRef.value)[0].sumo.reload();
 
+
                 $(sumoSelectRef.value).each(function () {
                     let option = $(this).closest('.SumoSelect').find('.opt');
                     let label = $(this).next('.CaptionCont');
 
-                    $(label).find('span').css('margin', '-9px 0')
+                    $(label).find('span').css('margin', '-9px 0');
+
 
                     $(option).each(function () {
                         let img = $(this).closest('.SumoSelect').find('option').eq($(this).index()).data('img');
