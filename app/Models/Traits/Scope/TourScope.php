@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 trait TourScope
 {
-
     /**
      * Будущие туры
      *
@@ -118,13 +117,13 @@ trait TourScope
                 $currency = session('currency', 'UAH');
                 $value = currency_value($params['price_from'], $currency);
                 $course = currency_course();
-                return $q->whereRaw('( (tours.price / currencies.course) / '.$course.' ) >= "' . $value . '"');
+                return $q->whereRaw('( (tours.price / currencies.course) / ' . $course . ' ) >= "' . $value . '"');
             })
             ->when(!empty($params['price_to']), function (Builder $q) use ($params) {
                 $currency = session('currency', 'UAH');
                 $value = currency_value($params['price_to'], $currency);
                 $course = currency_course();
-                return $q->whereRaw('( (tours.price / currencies.course) / '.$course.' ) <= "' . $value . '"');
+                return $q->whereRaw('( (tours.price / currencies.course) / ' . $course . ' ) <= "' . $value . '"');
             })
             ->when(!empty($params['direction']), function (Builder $q) use ($params) {
                 return $q->inFuture()->whereHas('directions', function (Builder $sq) use ($params) {
@@ -232,7 +231,7 @@ trait TourScope
         $sort_by = !empty($params['sort_by']) ? $params['sort_by'] : 'date';
         $sort_dir = !empty($params['sort_dir']) && $params['sort_dir'] === 'desc' ? 'desc' : 'asc';
 
-        if($sort_by === 'date') {
+        if ($sort_by === 'date') {
             $query->orderByDate();
         }
 
@@ -275,6 +274,7 @@ trait TourScope
     {
         $query->leftJoin('tour_schedules', function (JoinClause $join) {
             $join->on('tours.id', '=', 'tour_schedules.tour_id')
+                ->where('tour_schedules.published', 1)
                 ->where('tour_schedules.start_date', '>=', now())
                 ->whereNull('tour_schedules.deleted_at');
         });
@@ -291,7 +291,8 @@ trait TourScope
         $query->select('tours.*')
             ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
             ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
-            ->addSelect(DB::raw('
+            ->addSelect(DB::raw(
+                '
                     CASE WHEN MIN(tour_schedules.start_date) IS NULL
                         THEN (
                             CASE WHEN COUNT(tour_votings.tour_id) > 0
@@ -302,7 +303,8 @@ trait TourScope
                         ELSE MIN(tour_schedules.start_date)
                     END as date'
             ))
-            ->addSelect(DB::raw('
+            ->addSelect(DB::raw(
+                '
                     CASE WHEN MIN(tour_schedules.start_date) IS NULL
                         THEN (SELECT MAX(tours.priority) FROM tours)+1
                         ELSE (
