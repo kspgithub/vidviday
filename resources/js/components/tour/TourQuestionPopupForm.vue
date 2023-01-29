@@ -70,6 +70,7 @@ import FormInput from '../form/FormInput.vue'
 import FormTextarea from '../form/FormTextarea.vue'
 import { getError } from '../../services/api.js'
 import FormPhone from "../form/FormPhone";
+import { __ } from '../../i18n/lang'
 
 export default {
     name: "TourQuestionPopupForm",
@@ -123,6 +124,10 @@ export default {
             if (response?.data?.result === 'success') {
                 closePopup();
                 if (window._functions) {
+                    await store.dispatch('userQuestion/showThanks', {
+                        title: __('popup.types.agent-subscription.thanks-title'),
+                        message: __('popup.types.agent-subscription.thanks-message'),
+                    })
                     window._functions.showPopup('thanks-popup');
                 } else {
                     toast.success(response.message);

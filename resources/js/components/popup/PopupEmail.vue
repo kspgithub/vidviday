@@ -5,10 +5,7 @@
             <form @submit.prevent="submitForm" method="POST" action="/" class="row">
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">{{ popupTitle }}</span>
-                    </div>
-                    <div v-if="popupDescription" class="text-center">
-                        <span class="title text-sm">{{ popupDescription }}</span>
+                        <span class="h2 title text-medium">{{ __('common.write-email') }}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <input type="hidden" name="type" :value="data.type">
@@ -135,8 +132,8 @@ export default {
                     if (response.data.result === 'success') {
                         closePopup();
                         await store.dispatch('userQuestion/showThanks', {
-                            title: 'Дякуємо за повідомлення',
-                            message: 'ми відповімо вам найближчим часом'
+                            title: __('popup.types.email.thanks-title'),
+                            message: __('popup.types.email.thanks-message'),
                         })
                     } else {
                         toast.error(response.data.message);
@@ -182,9 +179,6 @@ export default {
             }
         }
 
-        const popupTitle = window.popupMessages?.write_email?.title ||  __('common.write-email')
-        const popupDescription = window.popupMessages?.write_email?.description
-
         return {
             data,
             popupOpen,
@@ -197,8 +191,6 @@ export default {
             verify,
             render,
             validateForm,
-            popupTitle,
-            popupDescription,
         }
     }
 }

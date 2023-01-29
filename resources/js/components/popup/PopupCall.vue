@@ -6,10 +6,7 @@
 
                 <div class="col-12">
                     <div class="text-center">
-                        <span class="h2 title text-medium">{{ popupTitle }}</span>
-                    </div>
-                    <div v-if="popupDescription" class="text-center">
-                        <span class="title text-sm">{{ popupDescription }}</span>
+                        <span class="h2 title text-medium">{{ __('common.order-call') }}</span>
                     </div>
                     <div class="spacer-xs"></div>
                     <input type="hidden" name="type" :value="data.type">
@@ -159,8 +156,8 @@ export default {
                     if (response.data.result === 'success') {
                         closePopup();
                         await store.dispatch('userQuestion/showThanks', {
-                            title: 'Дякуємо за повідомлення',
-                            message: 'Ми передзвонимо у обраний Вами час'
+                            title: __('popup.types.recall.thanks-title'),
+                            message: __('popup.types.recall.thanks-message'),
                         })
 
                     } else {
@@ -216,9 +213,6 @@ export default {
             }
         }
 
-        const popupTitle = window.popupMessages?.order_callback?.title ||  __('common.order-call')
-        const popupDescription = window.popupMessages?.order_callback?.description
-
         return {
             data,
             errors,
@@ -233,8 +227,6 @@ export default {
             verify,
             render,
             validateForm,
-            popupTitle,
-            popupDescription,
         }
     }
 }

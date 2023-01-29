@@ -66,6 +66,7 @@ import axios from "axios";
 import {getError} from "../../services/api";
 import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
+import { __ } from '../../i18n/lang'
 
 export default {
     name: "PopupUserSubscription",
@@ -123,7 +124,8 @@ export default {
                     if (response.data.result === 'success') {
                         closePopup();
                         await store.dispatch('userQuestion/showThanks', {
-                            title: response.data.message,
+                            title: __('popup.types.user-subscription.thanks-title'),
+                            message: __('popup.types.user-subscription.thanks-message'),
                         })
                     } else {
                         toast.error(response.data.message);

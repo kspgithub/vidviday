@@ -16,4 +16,34 @@ return [
         'thank-you' => 'Дякуємо за ваш відгук',
     ],
 
+    'types' => [
+        'recall' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'Ми передзвонимо у обраний Вами час',
+        ],
+        'agent-subscription' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+        'user-subscription' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+        'email' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+        'one-click' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+        'testimonial' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+        'question' => [
+            'thanks-title' => 'Дякуємо за повідомлення',
+            'thanks-message' => 'ми відповімо вам найближчим часом',
+        ],
+    ],
 ];
