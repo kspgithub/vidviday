@@ -62,13 +62,6 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
             'G' => ['alignment' => ['wrap' => true]],
         ];
 
-        if(!is_tour_agent()) {
-            $styles[3] = ['font' => ['bold' => true]];
-            $rows = $this->collection()->count() + 2;
-            $styles[++$rows] = ['font' => ['bold' => true]];
-        }
-
-
         return $styles;
     }
 
@@ -94,9 +87,9 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
             AfterSheet::class => function (AfterSheet $event) {
                 $worksheet = $event->getSheet()->getDelegate();
 
-                if(is_tour_agent()) {
-                    $worksheet->mergeCells('A1:F2');
-                    $worksheet->setCellValue('A1', $this->title());
+                if(!is_tour_agent()) {
+//                    $worksheet->mergeCells('A1:F2');
+//                    $worksheet->setCellValue('A1', $this->title());
 
                     $rows = $this->collection()->count() + 2;
 
@@ -132,10 +125,6 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
 
     public function startCell(): string
     {
-        if(is_tour_agent()) {
-            return 'A1';
-        }
-
-        return 'A3';
+        return 'A1';
     }
 }
