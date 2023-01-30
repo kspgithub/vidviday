@@ -19,9 +19,11 @@
      data-close-on-change="{{$closeOnChange}}"
      x-data="{date: '{{$value}}'}"
 >
-    <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)</label>
+    @if($label)
+        <label for="{{$name}}" class="{{$labelCol}} col-form-label">@lang($label)</label>
+    @endif
 
-    <div class="{{$inputCol}}">
+    <div class="{{$label ? $inputCol : ''}}">
         <div class="input-group flatpicker">
             <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
             <input name="{{$name}}"

@@ -55,6 +55,7 @@ Route::group([
     Route::delete('{tour}/schedule/{schedule}', [TourScheduleController::class, 'destroy'])->name('schedule.destroy');
 
     Route::patch('{tour}/update-status', [TourController::class, 'updateStatus'])->name('update-status');
+    Route::patch('{tour}/update-export', [TourController::class, 'updateExport'])->name('update-export');
     Route::patch('{tour}/update-tabs/{tab?}', [TourController::class, 'updateActiveTabs'])->name('update-tabs');
 
     Route::get('{tour}/discounts', [TourDiscountController::class, 'index'])->name('discount.index');

@@ -35,6 +35,10 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'complaints_image', 'value' => '', 'title' => 'Complaints image', 'primary' => true, 'type' => SiteOption::TYPE_IMAGE],
             ['key' => 'menu_column_items', 'value' => 7, 'title' => 'Menu items per column', 'primary' => true, 'type' => SiteOption::TYPE_INTEGER],
             ['key' => 'working_hours', 'value' => '10:00 - 22:00', 'title' => 'Working hours', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'document_title', 'value' => '', 'title' => 'Document title', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'document_contacts', 'value' => '', 'title' => 'Document contacts', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'export_from', 'value' => '', 'title' => 'Export from', 'primary' => true, 'type' => SiteOption::TYPE_DATE],
+            ['key' => 'export_to', 'value' => '', 'title' => 'Export to', 'primary' => true, 'type' => SiteOption::TYPE_DATE],
         ];
 
         foreach ($site_options as $option) {

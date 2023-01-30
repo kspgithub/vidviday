@@ -10,6 +10,7 @@ class SiteOption extends Model
 {
     public const TYPE_STRING = 'string';
     public const TYPE_TEXT = 'text';
+    public const TYPE_DATE = 'date';
     public const TYPE_INTEGER = 'integer';
     public const TYPE_DOUBLE = 'double';
     public const TYPE_BOOLEAN = 'boolean';
