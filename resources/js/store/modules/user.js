@@ -1,4 +1,5 @@
 import {fetchProfile, fetchFavourites, toggleFavourite} from "../../services/user-service";
+import { toRaw } from 'vue'
 
 export default {
     namespaced: true,
@@ -11,7 +12,7 @@ export default {
     },
     mutations: {
         SET_PROFILE(state, value) {
-            state.currentUser = value;
+            state.currentUser = value || state.currentUser;
         },
         SET_FAVOURITES(state, value) {
             state.favourites = value;
@@ -23,7 +24,7 @@ export default {
         },
         countFavourites: state => state.favourites.length,
         isTourAgent: state => {
-            return state.currentUser && !!state.currentUser.roles.find(r => r.name === 'tour-agent');
+            return !!state.currentUser && state.currentUser.roles.find(r => r.name ===  'tour-agent');
         },
     },
     actions: {
