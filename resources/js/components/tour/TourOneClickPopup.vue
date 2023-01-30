@@ -2,10 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align" v-if="showForm">
             <div class="text-center">
-                <span class="h2 title text-medium">{{ popupTitle }}</span>
-            </div>
-            <div v-if="popupDescription" class="text-center">
-                <span class="title text-sm">{{ popupDescription }}</span>
+                <span class="h2 title text-medium">{{ __('tours-section.order-one-click') }}</span>
             </div>
             <div class="spacer-xs"></div>
             <form :action="action" method="POST" class="row">
@@ -177,9 +174,15 @@ export default {
 
                 request.value = true;
                 axios.post(props.action, Object.assign({}, data.value))
-                    .then(({data}) => {
+                    .then(async ({data}) => {
                         if (data.result === 'success') {
                             showForm.value = false;
+
+                            await store.dispatch('userQuestion/showThanks', {
+                                title: __('popup.types.one-click.thanks-title'),
+                                message: __('popup.types.one-click.thanks-message'),
+                            })
+
                             showThanks.value = true;
                         } else {
                             toast.error(data.message);
@@ -200,8 +203,7 @@ export default {
 
         store.commit('orderTour/UPDATE_FORM_DATA', {schedule_id: ''});
 
-        const popupTitle = window.popupMessages?.one_click?.title ||  __('tours-section.order-one-click')
-        const popupDescription = window.popupMessages?.one_click?.description
+        const popupTitle = __('tours-section.order-one-click')
 
         return {
             first_name: useDebounceFormDataProperty('orderTour', 'first_name'),
@@ -219,8 +221,6 @@ export default {
             showThanks,
             request,
             submitForm,
-            popupTitle,
-            popupDescription,
         }
     }
 }

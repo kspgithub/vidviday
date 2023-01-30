@@ -147,7 +147,8 @@ export const useTestimonialForm = (data, action) => {
                     closePopup();
                     await store.dispatch('testimonials/callback', response.data)
                     await store.dispatch('userQuestion/showThanks', {
-                        title: 'Дякуємо за ваш відгук'
+                        title: __('popup.types.testimonial.thanks-title'),
+                        message: __('popup.types.testimonial.thanks-message'),
                     })
 
                     if(!parentId.value) {

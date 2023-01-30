@@ -32,6 +32,11 @@
                                 <textarea name="options[{{$site_option->key}}]" rows="8"
                                           class="form-control">{!! $site_option->value !!}</textarea>
                                 @break
+                                @case('date')
+                                    <x-forms.datepicker-group name="options[{{$site_option->key}}]"
+                                                        value="{{$site_option->value}}"
+                                    />
+                                @break
                                 @case(SiteOption::TYPE_IMAGE)
                                     <x-forms.single-image-upload name="options[{{$site_option->key}}]"
                                                                  :preview="!empty($site_option->value) ? Storage::url($site_option->value) : ''"

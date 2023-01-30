@@ -97,6 +97,12 @@ class ToursTable extends DataTableComponent
                 })
                 ->sortable(),
 
+            Column::make(__('Export'), 'export')
+                ->format(function ($value, $column, $row) {
+                    return view('admin.partials.export', ['model' => $row, 'updateUrl' => route('admin.tour.update-export', $row)]);
+                })
+                ->sortable(),
+
             Column::make(__('Actions'))
                 ->format(function ($value, $column, $row) {
                     return view('admin.tour.includes.actions', ['tour' => $row]);

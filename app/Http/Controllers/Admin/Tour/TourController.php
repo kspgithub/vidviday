@@ -279,6 +279,22 @@ class TourController extends Controller
         return response()->json(['result' => 'Success']);
     }
 
+
+    /**
+     * Update export the specified resource.
+     *
+     * @param Request $request
+     * @param Tour $tour
+     *
+     * @return JsonResponse
+     */
+    public function updateExport(Request $request, Tour $tour)
+    {
+        $tour->export = (int)$request->input('export');
+        $tour->save();
+        return response()->json(['result' => 'Success']);
+    }
+
     public function updateActiveTabs(Tour $tour, $tab)
     {
         $active_tabs = $tour->active_tabs;

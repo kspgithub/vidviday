@@ -27,7 +27,22 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
      */
     public function collection()
     {
-        return TourSchedule::inFuture()->with(['tour'])->orderBy('start_date')->get()->map(function (TourSchedule $item) {
+        $from = site_option('export_from');
+        $to = site_option('export_to');
+
+        $query = TourSchedule::inFuture()->with(['tour'])
+            ->whereHas('tour', fn($q) => $q->where('export', 1))
+            ->orderBy('start_date');
+
+        if($from) {
+            $query->where('start_date', '>=', $from);
+        }
+
+        if($to) {
+            $query->where('start_date', '<=', $to);
+        }
+
+        return $query->get()->map(function (TourSchedule $item) {
             return [
                 'tour' => $item->tour->title,
                 'start_date' => date_title($item->start_date),
@@ -62,12 +77,9 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
             'G' => ['alignment' => ['wrap' => true]],
         ];
 
-        if(!is_tour_agent()) {
+        if (!is_tour_agent()) {
             $styles[3] = ['font' => ['bold' => true]];
-            $rows = $this->collection()->count() + 2;
-            $styles[++$rows] = ['font' => ['bold' => true]];
         }
-
 
         return $styles;
     }
@@ -94,26 +106,17 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
             AfterSheet::class => function (AfterSheet $event) {
                 $worksheet = $event->getSheet()->getDelegate();
 
-                if(is_tour_agent()) {
+                if(!is_tour_agent()) {
                     $worksheet->mergeCells('A1:F2');
                     $worksheet->setCellValue('A1', $this->title());
 
-                    $rows = $this->collection()->count() + 2;
-
-                    $contact = Contact::query()->first();
-
-                    $worksheet->setCellValue('A' . ++$rows, 'Контакти');
-
-                    $worksheet->setCellValue('A' . ++$rows, $contact->work_phone);
-                    $worksheet->setCellValue('A' . ++$rows, $contact->phone_1);
-                    $worksheet->setCellValue('A' . ++$rows, $contact->phone_2);
-                    $worksheet->setCellValue('A' . ++$rows, $contact->phone_3);
-                    $worksheet->setCellValue('A' . ++$rows, $contact->email);
-
-                    foreach (social_contacts($contact) as $key => $social) {
-                        $worksheet->setCellValue('A' . ++$rows, $social['href']);
-                    }
                 }
+
+                $rows = $this->collection()->count() + (is_tour_agent() ? 3 : 5);
+
+                $worksheet->setCellValue('A' . $rows, 'Контакти');
+                $worksheet->setCellValue('B' . $rows, site_option('document_contacts'));
+                $worksheet->mergeCells("B$rows:F$rows");
 
                 $worksheet->getStyle('A1:A' . $worksheet->getHighestRow())->getAlignment()->setVertical('center')->setWrapText(true);
                 $worksheet->getStyle('B1:B' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
@@ -127,15 +130,11 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
 
     public function title(): string
     {
-        return 'Розклад турів та екскурсій Україною від туроператора “ВІДВІДАЙ” (vidviday.ua)"';
+        return site_option('document_title');
     }
 
     public function startCell(): string
     {
-        if(is_tour_agent()) {
-            return 'A1';
-        }
-
-        return 'A3';
+        return is_tour_agent() ? 'A1' : 'A3';
     }
 }
