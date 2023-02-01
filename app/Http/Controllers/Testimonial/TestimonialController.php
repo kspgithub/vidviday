@@ -49,6 +49,9 @@ class TestimonialController extends Controller
 
     public function store(TestimonialRequest $request)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $testimonial = new Testimonial();
         $testimonial->model_type = Tour::class;
         $testimonial->model_id = $request->tour_id;

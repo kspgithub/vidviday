@@ -70,6 +70,9 @@ class StaffController extends Controller
 
     public function testimonial(TestimonialRequest $request, Staff $staff)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $testimonial = new Testimonial();
         $testimonial->model_type = Staff::class;
         $testimonial->model_id = $staff->id;

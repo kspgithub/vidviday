@@ -43,6 +43,9 @@ class OurClientController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $ourClient = new OurClient();
         $ourClient->fill($request->all());
         $ourClient->save();
@@ -76,6 +79,9 @@ class OurClientController extends Controller
     public function update(Request $request, OurClient $ourClient)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $ourClient->fill($request->all());
         $ourClient->save();
         if ($request->hasFile('image_upload')) {

@@ -43,6 +43,9 @@ class AchievementController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $achievement = new Achievement();
         $achievement->fill($request->all());
         $achievement->save();
@@ -74,6 +77,9 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $achievement->fill($request->all());
         $achievement->save();
         if ($request->hasFile('image_upload')) {
