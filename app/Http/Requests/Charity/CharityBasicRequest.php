@@ -42,8 +42,8 @@ class CharityBasicRequest extends FormRequest
             'short_text' => ['nullable', 'array'],
             'main_image' => ['nullable', 'string'],
             'mobile_image' => ['nullable', 'string'],
-            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
-            'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:10000'],
+            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
+            'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
         ];
     }
 }

@@ -40,7 +40,7 @@ class UploadMediaRequest extends FormRequest
             //
             'model_type'=>['required', 'string'],
             'model_id'=>['required', 'integer'],
-            'media_file'=>['required', 'file'],
+            'media_file'=>['required', 'file', 'max:500'],
             'collection'=>['nullable', 'string'],
             'title'=>['nullable', 'string'],
             'alt'=>['nullable', 'string'],

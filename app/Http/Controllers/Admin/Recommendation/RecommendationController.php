@@ -25,6 +25,9 @@ class RecommendationController extends Controller
 
     public function store(RecommendationRequest $request, Page $page)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $recommendation = new Recommendation();
         $recommendation->fill($request->validated());
         $recommendation->page_id = $page->id;
@@ -43,6 +46,9 @@ class RecommendationController extends Controller
 
     public function update(RecommendationRequest $request, Page $page, Recommendation $recommendation)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $recommendation->fill($request->validated());
         $recommendation->save();
         if ($request->hasFile('avatar_upload')) {

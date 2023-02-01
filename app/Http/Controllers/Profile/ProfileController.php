@@ -29,6 +29,9 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $user = current_user();
         $user->fill($request->validated());
         $user->save();

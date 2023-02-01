@@ -57,6 +57,9 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $staff = new Staff();
         $staff->fill($request->all());
         $staff->save();
@@ -116,6 +119,9 @@ class StaffController extends Controller
     public function update(Request $request, Staff $staff)
     {
         //
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $staff->fill($request->all());
         $staff->save();
         $staff->types()->sync($request->input('types', []));

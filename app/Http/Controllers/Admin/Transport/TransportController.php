@@ -42,6 +42,9 @@ class TransportController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $transport = new Transport();
         $transport->fill($request->all());
         $transport->save();
@@ -74,6 +77,9 @@ class TransportController extends Controller
     public function update(Request $request, Transport $transport)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $transport->fill($request->all());
         $transport->save();
         if ($request->hasFile('image_upload')) {

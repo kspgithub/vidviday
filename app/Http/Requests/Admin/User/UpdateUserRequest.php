@@ -47,7 +47,7 @@ class UpdateUserRequest extends FormRequest
             'position' => ['string', 'max:255', 'nullable'],
             'work_email' => ['email', 'max:255', 'nullable'],
             'website' => ['url', 'nullable'],
-            'avatar_upload' => ['mimes:jpg,png'],
+            'avatar_upload' => ['mimes:jpg,png', 'max:500'],
             'role' => ['required', Rule::exists('roles', 'name')],
 //            'roles' => ['sometimes', 'array'],
 //            'roles.*' => [Rule::exists('roles', 'id')->whereIn('name', $this->roles)],

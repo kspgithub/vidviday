@@ -81,6 +81,9 @@ class PlaceController extends Controller
 
     public function testimonial(TestimonialRequest $request, Place $place)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $testimonial = new Testimonial();
         $testimonial->model_type = Place::class;
         $testimonial->model_id = $place->id;
