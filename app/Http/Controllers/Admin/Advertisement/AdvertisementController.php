@@ -46,6 +46,9 @@ class AdvertisementController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $advertisement = new Advertisement();
         $advertisement->fill($request->all());
         if ($request->hasFile('image_upload')) {
@@ -78,6 +81,9 @@ class AdvertisementController extends Controller
     public function update(Request $request, Advertisement $advertisement)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $advertisement->update($request->all());
         if ($request->hasFile('image_upload')) {
             $advertisement->deleteImage();

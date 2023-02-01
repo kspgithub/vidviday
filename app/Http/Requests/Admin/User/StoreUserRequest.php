@@ -46,7 +46,7 @@ class StoreUserRequest extends FormRequest
             'position' => ['string', 'max:255', 'nullable'],
             'work_email' => ['email', 'max:255', 'nullable'],
             'website' => ['url', 'nullable'],
-            'avatar_upload' => ['mimes:jpg,png'],
+            'avatar_upload' => ['mimes:jpg,png', 'max:500'],
             'password' => ['max:100', PasswordRules::register($this->email)],
             'status' => ['required', Rule::in([User::STATUS_ACTIVE, User::STATUS_ACTIVE])],
             'email_verified' => ['integer', 'nullable'],

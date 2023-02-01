@@ -46,6 +46,9 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $banner = new Banner();
         $banner->fill($request->all());
         $banner->save();
@@ -78,6 +81,9 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $banner->fill($request->all());
         $banner->save();
         if ($request->hasFile('image_upload')) {

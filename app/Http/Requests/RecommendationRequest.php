@@ -15,7 +15,7 @@ class RecommendationRequest extends FormRequest
             'text' => ['required', 'array'],
             'text.uk' => ['required', 'string'],
             'company' => ['nullable', 'array'],
-            'avatar_upload' => ['nullable'],
+            'avatar_upload' => ['nullable', 'file', 'max:500'],
             'position' => ['nullable', 'integer'],
             'published' => ['nullable', Rule::in(['0', '1'])],
             'rating' => ['required', Rule::in(['0', '1', '2', '3', '4', '5'])],

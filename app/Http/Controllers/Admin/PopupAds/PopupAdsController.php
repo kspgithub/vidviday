@@ -61,6 +61,9 @@ class PopupAdsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $popupAd = new PopupAd();
         $popupAd->fill($request->all());
         if ($request->hasFile('image_upload')) {
@@ -100,6 +103,9 @@ class PopupAdsController extends Controller
     public function update(Request $request, PopupAd $popupAd)
     {
         //
+        $this->validate($request, [
+            'image_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $popupAd->update($request->all());
         if ($request->hasFile('image_upload')) {
             $popupAd->deleteImage();

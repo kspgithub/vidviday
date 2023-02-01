@@ -305,6 +305,9 @@ class TourController extends Controller
 
     public function testimonial(TestimonialRequest $request, Tour $tour)
     {
+        $this->validate($request, [
+            'avatar_upload' => ['nullable', 'file', 'max:500']
+        ]);
         $testimonial = new Testimonial();
         $testimonial->model_type = Tour::class;
         $testimonial->model_id = $tour->id;

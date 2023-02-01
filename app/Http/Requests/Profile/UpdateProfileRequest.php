@@ -41,7 +41,7 @@ class UpdateProfileRequest extends FormRequest
             'mobile_phone' => ['required'],
             'birthday' => ['nullable'],
             'viber' => ['nullable'],
-            'avatar_upload' => ['mimes:jpg,jpeg,png', 'max:2048'],
+            'avatar_upload' => ['mimes:jpg,jpeg,png', 'max:500'],
             'new_password' => ['nullable', 'same:password_confirmation'],
             'current_password' => ['nullable', Rule::requiredIf(!empty($this->new_password))],
             'password_confirmation' => ['nullable', Rule::requiredIf(!empty($this->new_password))],
