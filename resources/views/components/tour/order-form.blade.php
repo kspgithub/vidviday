@@ -16,7 +16,7 @@
         <span
             class="text">@lang('tours-section.price')<span>{{$nearestEvent ? $nearestEvent->price : $tour->price}}</span><i>грн</i></span>
         @if($nearestEvent && $nearestEvent->commission > 0)
-            <span class="discount">{{$nearestEvent->commission}} грн <span class="tooltip-wrap red"><span
+            <span class="discount hidden-print">{{$nearestEvent->commission}} грн <span class="tooltip-wrap red"><span
                         class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
         @endif
     </div>

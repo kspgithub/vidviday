@@ -5,7 +5,7 @@
 
         <div v-if="!isMobile" class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
-            <span class="discount" v-if="isTourAgent && commission > 0">
+            <span class="discount hidden-print" v-if="isTourAgent && commission > 0">
                 {{ currencyCommission }} {{ currencyTitle }}
                 <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
             </span>
@@ -53,7 +53,7 @@
                 <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{
                         currencyTitle
                     }}</i></span>
-                <span class="discount" v-if="isTourAgent && commission > 0">
+                <span class="discount hidden-print" v-if="isTourAgent && commission > 0">
                     {{ currencyCommission }} {{ currencyTitle }}
                     <tooltip variant="red">{{ __('tours-section.commission') }}</tooltip>
                 </span>

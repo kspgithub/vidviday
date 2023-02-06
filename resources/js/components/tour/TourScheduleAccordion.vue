@@ -17,7 +17,7 @@
 
                     <div>
                         <span class="text text-medium">{{ currencyPrice(event) }} {{ currencyTitle }}</span>
-                        <span v-if="isTourAgent && (event.commission > 0)" class="discount">
+                        <span v-if="isTourAgent && (event.commission > 0)" class="discount hidden-print">
                             {{ currencyCommission(event) }} {{ currencyTitle }}
 
                             <span class="tooltip-wrap red">
