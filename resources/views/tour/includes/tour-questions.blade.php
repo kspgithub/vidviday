@@ -1,3 +1,4 @@
+@if(count($faq_items))
     <div class="accordion-item  hidden-print">
         <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
                                                 data-img-src="{{asset('/icon/faq.svg')}}"
@@ -26,23 +27,23 @@
 
                     @if(in_array('faq', $tour->active_tabs))
                         <div class="accordion-item">
-                        <div class="accordion-title">@lang('tours-section.faq.section-tour-questions')<i></i></div>
-                        <div class="accordion-inner">
-                            <div class="accordion type-3">
-                                @foreach($tour->faq as $faq_item)
-                                    <div class="accordion-item">
-                                        <div class="accordion-title">{{$faq_item->question}}<i></i></div>
-                                        <div class="accordion-inner">
-                                            <div class="text">
-                                                <p>{{$faq_item->answer}}</p>
+                            <div class="accordion-title">@lang('tours-section.faq.section-tour-questions')<i></i></div>
+                            <div class="accordion-inner">
+                                <div class="accordion type-3">
+                                    @foreach($tour->faq as $faq_item)
+                                        <div class="accordion-item">
+                                            <div class="accordion-title">{{$faq_item->question}}<i></i></div>
+                                            <div class="accordion-inner">
+                                                <div class="text">
+                                                    <p>{{$faq_item->answer}}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
                     @endif
 
                     <div class="accordion-item">
@@ -53,21 +54,21 @@
                                 <div class="col-md-6 col-12">
                                     <label>
                                         <i>Прізвище*</i>
-                                        <input type="text" name="last_name"  rules="required">
+                                        <input type="text" name="last_name" rules="required">
                                     </label>
                                 </div>
 
                                 <div class="col-md-6 col-12">
                                     <label>
                                         <i>Ім’я*</i>
-                                        <input type="text" name="first_name"  rules="required">
+                                        <input type="text" name="first_name" rules="required">
                                     </label>
                                 </div>
 
                                 <div class="col-md-6 col-12">
                                     <label>
                                         <i>Email*</i>
-                                        <input type="email" name="email"  rules="required|email">
+                                        <input type="email" name="email" rules="required|email">
                                     </label>
                                 </div>
 
@@ -99,4 +100,4 @@
             @endif
         </div>
     </div>
-
+@endif
