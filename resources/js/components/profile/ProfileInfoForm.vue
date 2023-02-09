@@ -190,9 +190,7 @@ export default {
             email: 'required|email',
             mobile_phone: 'required|tel',
             avatar_upload: 'mimes:image/jpeg,image/png',
-            current_password: () => {
-                return formData.new_password.length === 0 ? true : 'Вкажіть поточний пароль';
-            },
+            current_password: 'required',
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation
                     ? true : 'Пароль та підтвердження паролю не співпадають';

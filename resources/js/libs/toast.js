@@ -75,6 +75,7 @@ class ToastNotification {
 document.addEventListener('DOMContentLoaded', evt => {
     if (window.toastsData) {
         window.toastsData.forEach(it => {
+            console.log(it)
             ToastNotification.show(it);
         })
     }
