@@ -324,6 +324,9 @@ if (!function_exists('toastData')) {
         if (session()->has('flash_danger')) {
             $data[] = ['type' => 'danger', 'message' => session()->get('flash_danger')];
         }
+        if (session()->has('flash_error')) {
+            $data[] = ['type' => 'danger', 'message' => session()->get('flash_error')];
+        }
         if (isset($errors) && $errors->any()) {
             foreach ($errors->all() as $message) {
                 $data[] = ['type' => 'danger', 'message' => $message];

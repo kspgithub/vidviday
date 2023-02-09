@@ -9,6 +9,7 @@ use App\Models\OrderNote;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -32,9 +33,23 @@ class ProfileController extends Controller
         $this->validate($request, [
             'avatar_upload' => ['nullable', 'file', 'max:500']
         ]);
+
         $user = current_user();
+
+        if($request->current_password) {
+            if(!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withFlashError('Неправильний пароль');
+            }
+        }
+
+        if($request->new_password) {
+            $user->password = Hash::make($request->new_password);
+        }
+
         $user->fill($request->validated());
+
         $user->save();
+
         if ($request->hasFile('avatar_upload')) {
             $user->uploadAvatar($request->file('avatar_upload'));
         }

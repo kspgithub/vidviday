@@ -137,7 +137,7 @@
         <hr>
         <div class="row align-items-center">
             <div class="col-md-6 col-5">
-                <button id="b31" type="reset" class="btn btn-read-more text-bold">Скасувати</button>
+                <button id="b31" type="reset" class="btn btn-read-more text-bold" @click.prevent="resetForm">Скасувати</button>
             </div>
 
             <div class="col-md-6 col-7 text-right">
@@ -190,9 +190,7 @@ export default {
             email: 'required|email',
             mobile_phone: 'required|tel',
             avatar_upload: 'mimes:image/jpeg,image/png',
-            current_password: () => {
-                return formData.new_password.length === 0 ? true : 'Вкажіть поточний пароль';
-            },
+            current_password: 'required',
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation
                     ? true : 'Пароль та підтвердження паролю не співпадають';
@@ -219,9 +217,28 @@ export default {
             }
         }
 
+        const resetForm = async (event) => {
+            formData.first_name = user.first_name || ''
+            formData.last_name = user.last_name || ''
+            formData.middle_name = user.middle_name || ''
+            formData.email = user.email || ''
+            formData.birthday = user.birthday || ''
+            formData.mobile_phone = user.mobile_phone || ''
+            formData.viber = user.viber || ''
+            formData.current_password = ''
+            formData.new_password = ''
+            formData.password_confirmation = ''
+            formData.company = user.company || ''
+            formData.address = user.address || ''
+            formData.website = user.website || ''
+            formData.position = user.position || ''
+            formData.work_email = user.work_email || ''
+        }
+
         return {
             formData,
             onSubmit,
+            resetForm,
         }
     }
 }

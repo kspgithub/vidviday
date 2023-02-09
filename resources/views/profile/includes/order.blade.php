@@ -1,6 +1,6 @@
 <div class="accordion-item">
     <div class="accordion-title">
-{{--        <span class="text">{{$order->created_at?->format('d.m.Y')}}</span>--}}
+        {{--        <span class="text">{{$order->created_at?->format('d.m.Y')}}</span>--}}
         <span class="h4">{{$order->tour ? $order->tour->title : 'Корпоратив'}}</span>
         <div class="calendar-header-center {{$order->status_class}}">
             <span class="text-sm">{{$order->status_text}}</span>
@@ -29,8 +29,24 @@
                 </div>
 
                 <div class="col-6">
-                    <span
-                        class="text-sm">{{$order->places}} {{plural_form($order->places, ['особа', 'особи', 'осіб'])}}</span>
+                    <div class="load-more-wrapp">
+                        <div class="show-more">
+                            <span
+                                class="text-sm">{{$order->places}} {{plural_form($order->places, ['особа', 'особи', 'осіб'])}}</span>
+                            <span
+                                class="text-sm">{{$order->places}} {{plural_form($order->places, ['особа', 'особи', 'осіб'])}}</span>
+                        </div>
+                        <div class="more-info" style="display: none;">
+                            <div class="text-sm">
+                                @foreach($order->participants['items'] ?? [] as $participant)
+                                    {{ $participant['last_name'] }} {{ $participant['first_name'] }} {{ $participant['middle_name'] }}, {{ $participant['birthday'] }}
+                                    @if(!$loop->last)
+                                        <br>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             @if($order->children)
@@ -116,7 +132,8 @@
                         @endif
                         <br>
                         @if(!empty($order->info_sheet ?: $order->schedule?->info_sheet))
-                            <a href="{{$order->info_sheet ?: $order->schedule?->info_sheet}}" download class="download">Завантажити інфо-лист</a>
+                            <a href="{{$order->info_sheet ?: $order->schedule?->info_sheet}}" download class="download">Завантажити
+                                інфо-лист</a>
                         @endif
                     @endif
                 </div>
@@ -138,9 +155,9 @@
                               :order='@json($order)'>Скасувати замовлення</span>
                     @endif
 
-{{--                    @if($order->status >= Order::STATUS_PAYED && $order->status !== Order::STATUS_COMPLETED)--}}
-{{--                        <span class="btn type-1 disabled-btn">Скасувати замовлення</span>--}}
-{{--                    @endif--}}
+                    {{--                    @if($order->status >= Order::STATUS_PAYED && $order->status !== Order::STATUS_COMPLETED)--}}
+                    {{--                        <span class="btn type-1 disabled-btn">Скасувати замовлення</span>--}}
+                    {{--                    @endif--}}
                 </div>
             </div>
 
