@@ -10,7 +10,13 @@
 
                     <input type="hidden" name="group_type" value="1">
 
-                    <order-tour-selector class="col-12  mt-5 mb-10" v-if="!tourSelected"/>
+                    <order-program-type сlass="col-12" v-if="!tourSelected"/>
+
+                    <order-tour-selector class="col-12 mt-5 mb-10"
+                                         v-if="!tourSelected && (program_type === 0)"/>
+
+                    <order-tour-plan class="col-12 mb-10"
+                                     v-if="!tourSelected && program_type === 1 "/>
 
                     <order-departure class="col-md-6 col-12"/>
 
@@ -30,11 +36,17 @@ import OrderContact from "./OrderContact";
 import OrderTourSelector from "./OrderTourSelector";
 import OrderPlaces from "./OrderPlaces";
 import OrderDeparture from "./OrderDeparture";
+import OrderProgramType from './OrderProgramType.vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import OrderTourPlan from './OrderTourPlan.vue'
 
 
 export default {
     name: "OrderStepOneCorp",
     components: {
+        OrderTourPlan,
+        OrderProgramType,
         OrderDeparture,
         OrderPlaces,
         OrderTourSelector,
@@ -56,7 +68,14 @@ export default {
         },
     },
     setup() {
-        return {}
+
+        const store = useStore();
+
+        const program_type = computed(() => store.state.orderTour.formData.program_type);
+
+        return {
+            program_type,
+        }
     }
 }
 </script>
