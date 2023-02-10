@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\BuildApp;
 use App\Models\LanguageLine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -95,5 +96,12 @@ class TranslationController extends Controller
         Artisan::call('translations:publish --skip-import');
         $return_to = $request->input('return_to', back()->getTargetUrl());
         return redirect($return_to)->withFlashSuccess(__('Переклади опубліковано'));
+    }
+
+    public function build(Request $request)
+    {
+        dispatch(new BuildApp());
+        $return_to = $request->input('return_to', back()->getTargetUrl());
+        return redirect($return_to)->withFlashSuccess(__('Відбувається зборка проекту'));
     }
 }
