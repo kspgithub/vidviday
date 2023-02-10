@@ -22,6 +22,12 @@
                                      action="{{route('admin.translation.publish')}}">
                     Опублікувати переклади
                 </x-utils.form-button>
+
+                <x-utils.form-button button-class="btn btn-sm btn-outline-primary"
+                                     action="{{route('admin.translation.build')}}">
+                    Оновити кеш
+                </x-utils.form-button>
+
             @endif
         </div>
     </div>
