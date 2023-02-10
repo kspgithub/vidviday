@@ -31,7 +31,7 @@ class BuildApp implements ShouldQueue
     public function handle()
     {
         if(app()->environment('production')) {
-            exec('source ~/.nvm/nvm.sh;cd ' . base_path() . ';npm run prod-app');
+            exec('source ~/.nvm/nvm.sh;cd ' . base_path() . ';~/.nvm/versions/node/v14.19.1/bin/npm run prod-app');
         }
 
         if(app()->environment('local')) {
