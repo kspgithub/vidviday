@@ -58,6 +58,17 @@ class TourScheduleController extends Controller
         $schedules = [];
         $corrector = 0;
 
+        $start = $request->input('start_date', null);
+        $start_time = $request->input('start_time', null);
+        $end = $request->input('end_date', null);
+
+        $totalDayNights = $tour->duration + $tour->nights;
+        if ($tour->duration > $tour->nights) {
+            $duration = floor($totalDayNights / 2);
+        } else {
+            $duration = ceil($totalDayNights / 2);
+        }
+
         for ($i = 0; $i < $records_count; $i++) {
             $schedule = new TourSchedule();
             $schedule->tour_id = $tour->id;
@@ -70,58 +81,52 @@ class TourScheduleController extends Controller
             $schedule->auto_booking = $request->input('auto_booking', false);
             $schedule->auto_limit = $request->input('auto_limit', 10);
 
-
-            $totalDayNights = $tour->duration + $tour->nights;
-            if ($tour->duration > $tour->nights) {
-                $duration = floor($totalDayNights / 2);
-            } else {
-                $duration = ceil($totalDayNights / 2);
-            }
-
-            $start = $request->input('start_date', null);
-            $start_time = $request->input('start_time', null);
-            $end = $request->input('end_date', null);
-
             $startDate = Carbon::createFromFormat('d.m.Y', $start);
-            $endDate = !empty($end) ? Carbon::createFromFormat('d.m.Y', $end) : $startDate->addDays($duration);
+            $endDate = Carbon::make($startDate)->addDays($duration);
 
             switch ($repeat) {
                 case 'daily':
-                    $start_date = $startDate->addDays($i)->format('d.m.Y');
-                    $end_date = $endDate->addDays($i)->format('d.m.Y');
+                    $startDate->addDays($i)->format('d.m.Y');
+//                    $end_date = $endDate->addDays($i)->format('d.m.Y');
                     break;
                 case 'weekly':
-                    $start_date = $startDate->addWeeks($i)->format('d.m.Y');
-                    $end_date = $endDate->addWeeks($i)->format('d.m.Y');
+                    $startDate->addWeeks($i)->format('d.m.Y');
+//                    $end_date = $endDate->addWeeks($i)->format('d.m.Y');
                     break;
                 case 'fortnightly':
-                    $start_date = $startDate->addWeeks($i * 2)->format('d.m.Y');
-                    $end_date = $endDate->addWeeks($i * 2)->format('d.m.Y');
+                    $startDate->addWeeks($i * 2)->format('d.m.Y');
+//                    $end_date = $endDate->addWeeks($i * 2)->format('d.m.Y');
                     break;
                 case 'custom':
                     $interval = $request->input('repeat_custom_interval');
                     $day_of_week = $request->input('repeat_day_of_week');
                     if ($interval === 'all') {
-                        $start_date = $startDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
-                        $end_date = $endDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
+                        $startDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
+//                        $end_date = $endDate->addWeeks($i)->addDays(-1)->next($day_of_week)->format('d.m.Y');
                     } else {
                         $interval = (int)$interval;
-                        $startDateModified = $startDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
-                        $endDateModified = $endDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
-                        while ($startDateModified->lessThan($start)) {
-                            $startDateModified = $startDateModified->addMonth()->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
-                            $endDateModified = $endDateModified->addMonth()->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
+                        $startDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
+//                        $endDateModified = $endDate->addMonths($i + $corrector)->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
+                        while ($startDate->lessThan($start)) {
+                            $startDate->addMonth()->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
+//                            $endDateModified = $endDateModified->addMonth()->startOfMonth()->addWeeks($interval - 1)->addDays(-1)->next($day_of_week);
                             $corrector++;
                         }
-                        $start_date = $startDateModified->format('d.m.Y');
-                        $end_date = $endDateModified->format('d.m.Y');
+//                        $start_date = $startDateModified->format('d.m.Y');
+//                        $end_date = $endDateModified->format('d.m.Y');
                     }
                     break;
                 default:
-                    $start_date = $startDate->format('d.m.Y');
-                    $end_date = $endDate->format('d.m.Y');
+//                    $start_date = $startDate->format('d.m.Y');
+//                    $end_date = $endDate->format('d.m.Y');
                     break;
             }
+
+            $endDate = Carbon::make($startDate)->addDays($duration);
+
+            $start_date = $startDate->format('d.m.Y');
+            $end_date = $endDate->format('d.m.Y');
+
             $schedule->start_date = $start_date;
             $schedule->start_time = $start_time ?: null;
             $schedule->end_date = $end_date;
