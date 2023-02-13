@@ -22,6 +22,7 @@ use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
 use App\Observers\UserSubscriptionObserver;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -54,7 +55,6 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-
         Builder::macro('random', function ($count = 1) {
             $q = $this->inRandomOrder()->limit($count);
             return $count === 1 ? $q->first() : $q->get();
@@ -70,5 +70,8 @@ class AppServiceProvider extends ServiceProvider
         TourVoting::observe(TourVotingObserver::class);
         Page::observe(PageObserver::class);
         Testimonial::observe(TestimonialObserver::class);
+
+        // Marcos
+        Request::macro('isAdmin', fn() => $this->segment(1) === 'admin');
     }
 }
