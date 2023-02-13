@@ -56,30 +56,13 @@
                     <input name="conditions" type="hidden" value="1"/>
 
                     <div class="text-center">
-                        <button type="submit" :disabled="request" @click="submitForm" class="btn type-1">
+                        <button type="submit" :disabled="request" @click.prevent="submitForm" class="btn type-1">
                             {{ __('forms.order') }}
                         </button>
                     </div>
                 </div>
                 <input type="hidden" name="group_type" value="0">
             </form>
-            <div class="btn-close" @click="closePopup()">
-                <span></span>
-            </div>
-        </div>
-        <div class="popup-align" v-if="showThanks">
-            <div class="img done">
-                <img src="/icon/done.svg" alt="done">
-            </div>
-            <div class="text-center">
-                <div class="spacer-xs"></div>
-                <span class="h2 title text-medium">{{ __('order-section.thanks-message') }}</span>
-                <br>
-                <span class="text">{{ __('common.recall') }}</span>
-                <br>
-                <div class="spacer-xs"></div>
-                <span class="btn type-1" @click="closePopup()">{{ __('popup.return') }}</span>
-            </div>
             <div class="btn-close" @click="closePopup()">
                 <span></span>
             </div>
@@ -142,7 +125,6 @@ export default {
         const request = ref(false);
 
         const showForm = ref(true);
-        const showThanks = ref(false);
 
 
         const popupOpen = computed(() => store.state.orderTour.popupOpen);
@@ -150,7 +132,6 @@ export default {
         const closePopup = () => {
             store.commit('orderTour/SET_POPUP_OPEN', false);
             showForm.value = true;
-            showThanks.value = false;
         }
         const maxPlaces = computed(() => store.getters['orderTour/maxPlaces']);
 
@@ -176,14 +157,13 @@ export default {
                 axios.post(props.action, Object.assign({}, data.value))
                     .then(async ({data}) => {
                         if (data.result === 'success') {
-                            showForm.value = false;
+                            closePopup()
 
                             await store.dispatch('userQuestion/showThanks', {
                                 title: __('popup.types.one-click.thanks-title'),
                                 message: __('popup.types.one-click.thanks-message'),
                             })
 
-                            showThanks.value = true;
                         } else {
                             toast.error(data.message);
                         }
@@ -218,7 +198,6 @@ export default {
             closePopup,
             departureOptions,
             showForm,
-            showThanks,
             request,
             submitForm,
         }

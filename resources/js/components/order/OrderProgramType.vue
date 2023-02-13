@@ -9,7 +9,7 @@
 
             <label class="radio">
                 <input type="radio" name="program_type" :value="1" v-model="program_type">
-                <span>{{ __('order-section.program.type-make') }}р</span>
+                <span>{{ __('order-section.program.type-make') }}</span>
             </label>
         </div>
 
