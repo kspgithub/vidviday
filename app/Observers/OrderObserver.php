@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class OrderObserver
@@ -31,8 +32,10 @@ class OrderObserver
 
     public function updating(Order $order)
     {
+        // Automatic changing order status
+        // Dont change status if request is from admin
         $forbiddenStatuses = [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED];
-        if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded() && in_array($order->status, $forbiddenStatuses)) {
+        if (!request()->isAdmin() && $order->status !== Order::STATUS_RESERVE && $order->isOverloaded() && in_array($order->status, $forbiddenStatuses)) {
             $status = in_array($order->getOriginal('status'), $forbiddenStatuses) ? Order::STATUS_RESERVE : $order->getOriginal('status');
             $order->status = $status;
         }
