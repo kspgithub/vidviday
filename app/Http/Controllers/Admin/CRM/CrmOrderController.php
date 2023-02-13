@@ -222,7 +222,7 @@ class CrmOrderController extends Controller
         //
         $params = $request->all();
         $order->fill($params);
-        if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
+        if (!$request->isAdmin() && $order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
             $order->status = Order::STATUS_RESERVE;
         }
         $order->save();
