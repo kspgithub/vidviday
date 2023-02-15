@@ -116,7 +116,7 @@
          data-client_id="{{ config('services.google.client_id') }}"
          data-login_uri="{{ route('auth.social.callback', 'google') }}"
          data-itp_support="false"
-         data-auto_select="true"
+         data-auto_select="false"
          data-auto_prompt="true"
     >
     </div>
