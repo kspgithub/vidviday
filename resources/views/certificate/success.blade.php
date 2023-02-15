@@ -29,7 +29,7 @@
                         <div class="left-sidebar-inner">
                             <x-sidebar.filter/>
 
-
+                            <x-sidebar.mailing/>
                         </div>
                     </div>
                     <!-- SIDEBAR END -->
@@ -71,7 +71,6 @@
                     <!-- THUMBS CAROUSEL -->
                     <x-tour.popular :model="$pageContent"/>
                     <!-- THUMBS CAROUSEL END -->
-                    <x-sidebar.mailing/>
                 </div>
             </div>
             <div class="spacer-md"></div>
