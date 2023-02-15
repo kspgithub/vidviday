@@ -64,6 +64,9 @@ Route::group([
         ->middleware('guest')
         ->name('social.login');
 
+    Route::post('login/{provider}', [SocialController::class, 'redirect'])
+        ->middleware('guest');
+
     Route::get('login/{provider}/callback', [SocialController::class, 'callback'])
         ->middleware('guest')
         ->name('social.callback');
