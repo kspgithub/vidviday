@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use Exception;
+use Google_Client;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -64,5 +66,30 @@ class SocialController extends Controller
             return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
         }
 
+    }
+
+    public function verify(Request $request)
+    {
+        $g_csrf_token = $request->get('g_csrf_token');
+        $credential = $request->get('credential');
+
+        $client = new Google_Client(['client_id' => config('services.google.client_id')]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $payload = $client->verifyIdToken($credential);
+
+        if ($payload) {
+            $email = $payload['email'];
+            $user = User::query()->where('email', $email)->first();
+
+            if($user) {
+                auth()->login($user);
+
+                return redirect()->route(homeRoute());
+            }
+        } else {
+            // Invalid ID token
+            return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
+        }
+
+        return redirect()->route('auth.login')->withFlashDanger(__('There was a problem connecting to :provider', ['provider' => $provider]));
     }
 }
