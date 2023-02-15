@@ -98,6 +98,7 @@ class Tour extends TranslatableModel implements HasMedia
 
     protected $casts = [
         'published' => 'bool',
+        'export' => 'bool',
         'duration' => 'int',
         'price' => 'integer',
         'commission' => 'integer',

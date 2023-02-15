@@ -290,7 +290,7 @@ class TourController extends Controller
      */
     public function updateExport(Request $request, Tour $tour)
     {
-        $tour->export = (int)$request->input('export');
+        $tour->export = (int)$request->input('published');
         $tour->save();
         return response()->json(['result' => 'Success']);
     }
