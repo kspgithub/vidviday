@@ -124,7 +124,7 @@ export default {
 
         const numberModel = computed({
             get: () => phoneNumber.value,
-            set: _.debounce(value => field.innerValue.value = (phoneCode.value?.length ? phoneCode.value+' ' : '') + value),
+            set: _.debounce(value => field.innerValue.value = (phoneCode.value?.length ? phoneCode.value+' ' : '') + value.replace(/^0(.*)$/, '$1')),
         })
 
         watch(() => country.value, (value) => {
