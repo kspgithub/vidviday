@@ -15,6 +15,6 @@ class VerifyCsrfToken extends Middleware
         //
         'crm/*',
         'purchase/service',
-        'auth/login/google',
+        'auth/login/*',
     ];
 }
