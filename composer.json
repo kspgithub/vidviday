@@ -20,6 +20,7 @@
         "fideloper/proxy": "^4.4",
         "flamix/b24-lead": "^1.5",
         "fruitcake/laravel-cors": "^3.0",
+        "google/apiclient": "^2.12.1",
         "guzzlehttp/guzzle": "^7.3",
         "jamesmills/laravel-timezone": "^1.9",
         "kalnoy/nestedset": "^6.0",
