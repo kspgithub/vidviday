@@ -84,7 +84,7 @@
     window.toastsData = @json(toastData($errors));
 </script>
 
-{{--<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>--}}
+<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places"></script>
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>
 <script src="{{ mix('js/libs/vendor.js', 'assets/app') }}" defer></script>
