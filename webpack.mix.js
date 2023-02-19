@@ -89,6 +89,7 @@ mix
     .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
     .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
     .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
+    .js('resources/js/libs/sharer.js', path.resolve(buildPath, '..', 'app/js/libs/sharer.js'))
     .js('resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
     .js('resources/js/libs/map-route.js', path.resolve(buildPath, '..', 'app/js/libs/map-route.js'))
     .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))

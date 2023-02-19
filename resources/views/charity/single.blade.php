@@ -19,7 +19,7 @@
     <script src="{{ mix('js/libs/sharer.js', 'assets/app') }}"></script>
 @endpush
 
-@section'("content")
+@section('content')
 
     <main>
         <div class="container">

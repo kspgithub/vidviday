@@ -79,7 +79,7 @@
 
 <script type="text/javascript">
     window.APP_ENV = '{{app()->environment()}}';
-    window.countries = @json(App\Models\Country::query()->orderBy('position')->orderBy('title')->get()->translate());
+    window.countries = @json(App\Models\Country::query()->where('published', 1)->orderBy('position')->orderBy('title')->pluck('iso'));
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
 </script>
@@ -89,7 +89,7 @@
         console.log('googleMapsLoaded')
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places&callback=googleMapsLoaded"></script>
+
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>
 <script src="{{ mix('js/libs/vendor.js', 'assets/app') }}" defer></script>
