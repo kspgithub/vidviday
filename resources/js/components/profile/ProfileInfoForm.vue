@@ -154,7 +154,7 @@ import Tooltip from "../common/Tooltip";
 import SvgIcon from "../svg/SvgIcon";
 import FormAvatar from "../form/FormAvatar";
 import {useForm} from "vee-validate";
-import { reactive, ref } from "vue";
+import { reactive } from 'vue'
 import FormPhone from "../form/FormPhone";
 
 export default {
@@ -165,7 +165,6 @@ export default {
         user: Object,
     },
     setup({user}) {
-
         const formData = reactive({
             first_name: user.first_name || '',
             last_name: user.last_name || '',
@@ -190,7 +189,9 @@ export default {
             email: 'required|email',
             mobile_phone: 'required|tel',
             avatar_upload: 'mimes:image/jpeg,image/png',
-            current_password: 'required',
+            current_password: () => {
+                return formData.new_password.length === 0 ? true : 'Введіть пароль';
+            },
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation
                     ? true : 'Пароль та підтвердження паролю не співпадають';
@@ -207,11 +208,12 @@ export default {
         }
 
         const {validate, errors} = useForm({
-            validationSchema: validationSchema,
+            validationSchema,
         });
 
         const onSubmit = async (event) => {
             const result = await validate();
+
             if (!result.valid) {
                 event.preventDefault();
             }
