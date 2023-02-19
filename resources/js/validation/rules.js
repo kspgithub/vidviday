@@ -86,18 +86,8 @@ const customRules = {
     },
     'tel': (value) => {
         if (value) {
-            // let phone = new PhoneNumber(value);
-            // return phone.isValid();
-            const country = countries.find(c => value.startsWith(c.phone_code))
-            if(country?.phone_rule) {
-                const regex = new RegExp(country.phone_rule.replaceAll('\/', ''))
-                return regex.test(value)
-            } else {
-                const mask = country.phone_mask.replaceAll('9', '\\d')
-                const regex = new RegExp(`^\\${country.phone_code} ${mask}`)
-
-                return regex.test(value)
-            }
+            let phone = new PhoneNumber(value);
+            return phone.isValid();
         }
         return true;
     },

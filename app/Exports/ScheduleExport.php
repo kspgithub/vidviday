@@ -114,9 +114,11 @@ class ScheduleExport implements FromCollection, WithHeadings, WithColumnFormatti
 
                 $rows = $this->collection()->count() + (is_tour_agent() ? 3 : 5);
 
-                $worksheet->setCellValue('A' . $rows, 'Контакти');
-                $worksheet->setCellValue('B' . $rows, site_option('document_contacts'));
-                $worksheet->mergeCells("B$rows:F$rows");
+                if(!is_tour_agent()) {
+                    $worksheet->setCellValue('A' . $rows, 'Контакти');
+                    $worksheet->setCellValue('B' . $rows, site_option('document_contacts'));
+                    $worksheet->mergeCells("B$rows:F$rows");
+                }
 
                 $worksheet->getStyle('A1:A' . $worksheet->getHighestRow())->getAlignment()->setVertical('center')->setWrapText(true);
                 $worksheet->getStyle('B1:B' . $worksheet->getHighestRow())->getAlignment()->setWrapText(true);
