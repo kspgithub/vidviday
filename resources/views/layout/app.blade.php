@@ -89,7 +89,7 @@
         console.log('googleMapsLoaded')
     }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places&callback=googleMapsLoaded"></script>
+
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>
 <script src="{{ mix('js/libs/vendor.js', 'assets/app') }}" defer></script>
