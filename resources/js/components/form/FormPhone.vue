@@ -85,7 +85,7 @@ export default {
                 autoHideDialCode: true,
                 autoPlaceholder: 'polite',
                 nationalMode: false,
-                preferredCountries: countries.map(c => c.iso),
+                preferredCountries: countries,
                 separateDialCode: true,
                 formatOnDisplay: true,
                 utilsScript: intlTelInputUtils,
@@ -141,15 +141,15 @@ i.phone-label {
 }
 
 .iti--allow-dropdown {
-    //width: 100%;
+    width: 100%;
     z-index: 4;
 
     * {
         font-size: 14px;
     }
 
-    .iti__country-list, .iti__flag-container {
-        //width: 100%;
+    .iti__country-list {
+        max-width: 330px;
     }
 }
 </style>
