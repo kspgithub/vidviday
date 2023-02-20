@@ -79,9 +79,7 @@ if (mix.inProduction()) {
     console.log('Admin port: ' + port)
     console.log('=====================================')
 
-    console.log(process.env.DEV_SERVER_KEY)
-
-    if (process.env.DEV_SERVER_KEY) {
+    if (process.env.DEV_SERVER_SSL && process.env.DEV_SERVER_KEY) {
         const proxy = process.env.APP_URL.replace(/^(https?:|)\/\//, '')
         mix.options({
             hmrOptions: {
