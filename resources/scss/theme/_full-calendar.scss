@@ -373,7 +373,7 @@ body .fc {
             height: 18px;
             margin-top: -10px;
             position: absolute;
-            background: center / contain url('../../svg/today.svg') no-repeat;
+            background: center / contain url('/images/today.svg') no-repeat;
         }
     }
 }
@@ -775,7 +775,7 @@ hr.fc-divider {
                 position: relative;
                 display: inline-block;
                 vertical-align: middle;
-                background: center / contain url('../../svg/no-people.svg') no-repeat;
+                background: center / contain url('/images/no-people.svg') no-repeat;
 
             }
         }
@@ -1673,11 +1673,11 @@ a {
 
     &.black,
     &.light {
-        background-image: url('../../svg/no-people.svg');
+        background-image: url('/images/no-people.svg');
     }
 
     &.red {
-        background-image: url('../../svg/discount.svg');
+        background-image: url('/images/discount.svg');
     }
 
     &.light {
@@ -2312,7 +2312,7 @@ a {
             height: 18px;
             margin-top: -10px;
             position: absolute;
-            background: center / contain url('../../svg/today.svg') no-repeat;
+            background: center / contain url('/images/today.svg') no-repeat;
         }
 
 

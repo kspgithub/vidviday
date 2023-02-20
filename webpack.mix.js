@@ -52,11 +52,6 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                     test: /resources[\\\/]lang.+\.(php)$/,
                     loader: 'php-array-loader',
                 },
-                {
-                    test: /\.svg$/,
-                    type: 'asset',
-                    loader: 'svgo-loader'
-                },
             ],
         },
         plugins: [

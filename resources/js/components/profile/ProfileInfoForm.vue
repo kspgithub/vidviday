@@ -99,10 +99,20 @@
 
 
                     <div class="col-md-6 col-12" v-if="user.provider">
-                        <a href="cabinet-user.php" class="btn type-1 btn-block btn-fb">
-                            <svg-icon icon="facebook"/>
-                            Veronika Hryhoryash
-                        </a>
+                        <template v-if="user.provider === 'google'">
+                            <a href="#" class="btn type-1 btn-block btn-google">
+                                <svg-icon icon="google"/>
+                                Google
+                            </a>
+                        </template>
+
+                        <template v-if="user.provider === 'facebook'">
+                            <a href="#" class="btn type-1 btn-block btn-fb">
+                                <svg-icon icon="facebook"/>
+                                Facebook
+                            </a>
+                        </template>
+
                     </div>
 
                     <div class="col-12">
