@@ -55,6 +55,46 @@ class QuestionTypeSeeder extends Seeder
                 'title' => array_combine($locales, array_map(fn($locale) => 'Інше', $locales)),
                 'published' => 1,
             ],
+
+            [
+                'id' => 7,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => 'Перенесення на іншу дату або інший тур', $locales)),
+                'published' => 1,
+            ],
+            [
+                'id' => 8,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => 'Несприятлива погода', $locales)),
+                'published' => 1,
+            ],
+            [
+                'id' => 9,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => "Погіршення стану здоров'я", $locales)),
+                'published' => 1,
+            ],
+            [
+                'id' => 10,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => 'Непередбачувані особисті обставини', $locales)),
+                'published' => 1,
+            ],
+
+            [
+                'id' => 11,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => 'Не влаштували умови замовлення', $locales)),
+                'published' => 1,
+            ],
+
+            [
+                'id' => 12,
+                'type' => UserQuestion::TYPE_CANCEL,
+                'title' => array_combine($locales, array_map(fn($locale) => 'Ваш варіант (із можливістю заповнення)', $locales)),
+                'published' => 1,
+            ],
+
         ];
 
         foreach ($data as $item) {
