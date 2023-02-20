@@ -48,7 +48,6 @@ Route::middleware($middleware)->group(function () {
     require base_path('routes/frontend/broker.php');
     require base_path('routes/frontend/corporate.php');
     require base_path('routes/frontend/order.php');
-    require base_path('routes/frontend/faq.php');
     require base_path('routes/frontend/testimonial.php');
     require base_path('routes/frontend/document.php');
     require base_path('routes/frontend/blog.php');

@@ -62,6 +62,10 @@ class TourController extends Controller
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
         }
 
+        if(!$group->published) {
+            abort(404);
+        }
+
         $localeLinks = $group->getLocaleLinks();
 
         $toursQuery = $group->tours()->search(false);
@@ -87,6 +91,11 @@ class TourController extends Controller
          * @var Tour $tour
          */
         $tour = Tour::findBySlugOrFail($slug, false);
+
+        if(!$tour->published) {
+            abort(404);
+        }
+
         $tour->checkSlugLocale($slug);
         $localeLinks = $tour->getLocaleLinks();
 

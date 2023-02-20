@@ -42,6 +42,11 @@ class PlaceController extends Controller
     public function show($slug)
     {
         $place = Place::findBySlugOrFail($slug, false);
+
+        if(!$place->published) {
+            abort(404);
+        }
+
         $place->checkSlugLocale($slug);
         $localeLinks = $place->getLocaleLinks();
 

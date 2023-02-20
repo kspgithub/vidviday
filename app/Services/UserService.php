@@ -362,6 +362,8 @@ class UserService extends BaseService
             'birthday' => $data['birthday'] ?? null,
             'email_verified_at' => $data['email_verified_at'] ?? null,
             'status' => $data['status'] ?? User::STATUS_ACTIVE,
+            'provider' => $data['provider'] ?? null,
+            'provider_id' => $data['provider_id'] ?? null,
         ]);
     }
 

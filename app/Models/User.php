@@ -51,6 +51,8 @@ class User extends Authenticatable
         'website',
         'bitrix_id',
         'status',
+        'provider',
+        'provider_id',
     ];
 
     /**
@@ -102,7 +104,7 @@ class User extends Authenticatable
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)

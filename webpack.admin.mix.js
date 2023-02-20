@@ -45,8 +45,6 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/admin/` : `/`)
         ],
     })
 
-mix.sourceMaps(false, 'source-map')
-
 if (mix.inProduction()) {
     // !!! Dont need to minify.
     // Laravel Mix automatically minifies js as css files in production

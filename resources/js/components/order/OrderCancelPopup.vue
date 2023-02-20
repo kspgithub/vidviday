@@ -16,12 +16,7 @@
                         <div class="col-12">
                             <select v-model="cause">
                                 <option value="0" selected disabled>Причина скасування*</option>
-                                <option value="Перенесення на іншу дату або інший тур">Перенесення на іншу дату або інший тур</option>
-                                <option value="Несприятлива погода">Несприятлива погода</option>
-                                <option value="огіршення стану здоров'я">Погіршення стану здоров'я</option>
-                                <option value="Непередбачувані особисті обставини">Непередбачувані особисті обставини</option>
-                                <option value="Не влаштували умови замовлення">Не влаштували умови замовлення</option>
-                                <option value="Ваш варіант">Ваш варіант (із можливістю заповнення)</option>
+                                <option v-for="questionType in questionTypes" :value="questionType.value">{{ questionType.title }}</option>
                             </select>
 
                             <label>
@@ -54,6 +49,9 @@ import axios from "axios";
 
 export default {
     name: "OrderCancelPopup",
+    props: {
+        questionTypes: [],
+    },
     components: {
         Popup
     },

@@ -221,7 +221,7 @@ html.overflow-menu body {
 }
 
 .map-route-wrap form label:first-child:after {
-    background-image: url('../../svg/location-target.svg');
+    background-image: url('/images/location-target.svg');
 }
 
 .map-route-wrap form label:first-child input {
@@ -233,7 +233,7 @@ html.overflow-menu body {
 }
 
 .map-route-wrap form label:last-child:after {
-    background-image: url('../../svg/location-placeholder.svg');
+    background-image: url('/images/location-placeholder.svg');
 }
 
 .map-route-wrap form label:after {
@@ -262,7 +262,7 @@ html.overflow-menu body {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: center/contain url('../../svg/no-people.svg') no-repeat;
+    background: center/contain url('/images/no-people.svg') no-repeat;
 }
 
 .icon {
@@ -300,7 +300,7 @@ html.overflow-menu body {
 }
 
 .share .icon {
-    background: center/15px url("../../svg/share.svg") no-repeat;
+    background: center/15px url("/images/share.svg") no-repeat;
 }
 
 .share .dropdown-btn {
@@ -1084,7 +1084,7 @@ label.filled i {
 }
 
 label.invalid {
-    background: #fff calc(100% - 15px) 16px/16px 16px url('../../svg/discount.svg') no-repeat;
+    background: #fff calc(100% - 15px) 16px/16px 16px url('/images/discount.svg') no-repeat;
 }
 
 label.invalid:before,
@@ -1108,7 +1108,7 @@ label .smile {
     bottom: 12px;
     position: absolute;
     pointer-events: none;
-    background: center/94% url('../../svg/smile.svg') no-repeat;
+    background: center/94% url('/images/smile.svg') no-repeat;
 }
 
 label .tooltip-wrap.light {
@@ -1180,7 +1180,7 @@ textarea {
     height: 18px;
     position: absolute;
     background: center / contain no-repeat;
-    background-image: url('../../svg/clock.svg');
+    background-image: url('/images/clock.svg');
 }
 
 .tour-content .datepicker-input:after {
@@ -1206,7 +1206,7 @@ textarea {
 }
 
 .datepicker-input:before {
-    background-image: url('../../svg/calendar.svg');
+    background-image: url('/images/calendar.svg');
 }
 
 .datepicker-input.active {
@@ -1268,7 +1268,7 @@ textarea {
 }
 
 .double-datepicker .datepicker-input.date-departure:before {
-    background-image: url('../../svg/departure-date.svg');
+    background-image: url('/images/departure-date.svg');
 }
 
 .double-datepicker .datepicker-input.date-departure .datepicker-placeholder {
@@ -1287,7 +1287,7 @@ textarea {
 }
 
 .double-datepicker .datepicker-input.date-arrival:before {
-    background-image: url('../../svg/arrival-date.svg');
+    background-image: url('/images/arrival-date.svg');
 }
 
 .double-datepicker .datepicker-input.date-arrival .datepicker-placeholder {
@@ -1367,7 +1367,7 @@ form.row > div,
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: center/contain url('../../svg/download.svg') no-repeat;
+    background: center/contain url('/images/download.svg') no-repeat;
 }
 
 .download .text-md {
@@ -1394,7 +1394,7 @@ form.row > div,
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: center/contain url('../../svg/staple.svg') no-repeat;
+    background: center/contain url('/images/staple.svg') no-repeat;
 }
 
 .add-file span {
@@ -1629,7 +1629,7 @@ form.row > div,
     content: "";
     position: absolute;
     pointer-events: none;
-    background: center/60% url('../../svg/camera.svg') no-repeat;
+    background: center/60% url('/images/camera.svg') no-repeat;
 }
 
 .img-input input {
@@ -3702,7 +3702,7 @@ button.swiper-pagination-bullet {
     width: 26px;
     height: 26px;
     position: absolute;
-    background: center/contain url('../../svg/resume.svg') no-repeat;
+    background: center/contain url('/images/resume.svg') no-repeat;
 }
 .sidebar-item.tour-voting-form .h3:before {
     top: 0;
@@ -3711,7 +3711,7 @@ button.swiper-pagination-bullet {
     width: 26px;
     height: 26px;
     position: absolute;
-    background: center/contain url('../../svg/done.svg') no-repeat;
+    background: center/contain url('/images/done.svg') no-repeat;
 }
 .sidebar-item.vacancy-form .btn {
     width: 100%;
@@ -4567,7 +4567,7 @@ button.swiper-pagination-bullet {
 }
 
 .stars.active .select-icon {
-    background-image: url('../../svg/star-icon.svg');
+    background-image: url('/images/star-icon.svg');
 }
 
 .stars.active .select-icon.active + .select-icon,
@@ -4579,7 +4579,7 @@ button.swiper-pagination-bullet {
 + .select-icon
 + .select-icon
 + .select-icon {
-    background-image: url('../../svg/star-empty-icon.svg');
+    background-image: url('/images/star-empty-icon.svg');
 }
 
 .stars.vertical-margin {
@@ -4601,11 +4601,11 @@ button.swiper-pagination-bullet {
 }
 
 .select-icon.icon-star {
-    background-image: url('../../svg/star-icon.svg');
+    background-image: url('/images/star-icon.svg');
 }
 
 .select-icon.icon-star-empty {
-    background-image: url('../../svg/star-empty-icon.svg');
+    background-image: url('/images/star-empty-icon.svg');
 }
 
 .thumb-info {
@@ -4646,7 +4646,7 @@ button.swiper-pagination-bullet {
 }
 
 .thumb-info > span.thumb-info-time:before {
-    background-image: url('../../svg/clock.svg');
+    background-image: url('/images/clock.svg');
 }
 
 .thumb-info > span.thumb-info-time:last-child {
@@ -4658,13 +4658,13 @@ button.swiper-pagination-bullet {
 }
 
 .thumb-info > span.thumb-info-people:before {
-    background-image: url('../../svg/user.svg');
+    background-image: url('/images/user.svg');
 }
 
 .thumb-info > span.thumb-info-people.no-people:after {
     content: "";
     margin-left: 15px;
-    background-image: url('../../svg/no-people.svg');
+    background-image: url('/images/no-people.svg');
 }
 
 .thumb-price {
@@ -4886,11 +4886,11 @@ button.swiper-pagination-bullet {
     }
     .rating-picker:hover .select-icon,
     .rating-picker.active:hover .select-icon {
-        background-image: url('../../svg/star-icon.svg') !important;
+        background-image: url('/images/star-icon.svg') !important;
     }
     .rating-picker .select-icon:hover,
     .rating-picker.active .select-icon:hover {
-        background-image: url('../../svg/star-icon.svg') !important;
+        background-image: url('/images/star-icon.svg') !important;
     }
     .rating-picker .select-icon:hover + .select-icon,
     .rating-picker .select-icon:hover + .select-icon + .select-icon,
@@ -4918,7 +4918,7 @@ button.swiper-pagination-bullet {
     + .select-icon
     + .select-icon
     + .select-icon {
-        background-image: url('../../svg/star-empty-icon.svg') !important;
+        background-image: url('/images/star-empty-icon.svg') !important;
     }
     .rating-picker .select-icon.active + .select-icon:hover,
     .rating-picker .select-icon.active + .select-icon + .select-icon:hover,
@@ -4946,7 +4946,7 @@ button.swiper-pagination-bullet {
     + .select-icon
     + .select-icon
     + .select-icon:hover {
-        background-image: url('../../svg/star-icon.svg') !important;
+        background-image: url('/images/star-icon.svg') !important;
     }
 }
 
@@ -5656,7 +5656,7 @@ body .fc {
     height: 18px;
     margin-top: -10px;
     position: absolute;
-    background: center/contain url('../../svg/today.svg') no-repeat;
+    background: center/contain url('/images/today.svg') no-repeat;
 }
 
 .fc-state-active,
@@ -6012,7 +6012,7 @@ hr.fc-divider {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: center/contain url('../../svg/no-people.svg') no-repeat;
+    background: center/contain url('/images/no-people.svg') no-repeat;
 }
 
 .fc-event.fc-not-end {
@@ -6862,11 +6862,11 @@ a.fc-more {
 
 .tooltip-wrap.black,
 .tooltip-wrap.light {
-    background-image: url('../../svg/no-people.svg');
+    background-image: url('/images/no-people.svg');
 }
 
 .tooltip-wrap.red {
-    background-image: url('../../svg/discount.svg');
+    background-image: url('/images/discount.svg');
 }
 
 .tooltip-wrap.light .tooltip,
@@ -8395,7 +8395,7 @@ a.fc-more {
     height: 16px;
     margin-top: -8px;
     position: absolute;
-    background: center/contain url("../../svg/check.svg") no-repeat;
+    background: center/contain url("/images/check.svg") no-repeat;
 }
 
 .participant.filled .h4 + .form {
@@ -8548,7 +8548,7 @@ a.fc-more {
         display: none;
         margin-left: 15px;
         vertical-align: middle;
-        background: center/contain url('../../svg/check.svg') no-repeat;
+        background: center/contain url('/images/check.svg') no-repeat;
     }
     .participant .h4 i.active {
         display: inline-block;
@@ -8689,7 +8689,7 @@ a.fc-more {
         display: none;
         margin-left: 15px;
         vertical-align: middle;
-        background: center/contain url('../../svg/check.svg') no-repeat;
+        background: center/contain url('/images/check.svg') no-repeat;
     }
     .participant .h4 i.active {
         display: inline-block;
@@ -11782,7 +11782,7 @@ footer .accordion-inner .spacer-xs {
     display: inline-block;
     vertical-align: middle;
     background-size: 98%;
-    background-image: url("../../svg/avatar.svg");
+    background-image: url("/images/avatar.svg");
 }
 
 .have-an-account .img-input .text {
@@ -12808,7 +12808,7 @@ input[name="viber"]:-ms-input-placeholder {
         margin: 0 0 0 10px;
         padding: 5px 33px 5px 13px;
         border-radius: 3px;
-        background: #f5f5f5 url("../../svg/imp.svg") no-repeat right 13px center;
+        background: #f5f5f5 url("/images/imp.svg") no-repeat right 13px center;
     }
     .item .item-cnt .thumb-price {
         padding: 0;

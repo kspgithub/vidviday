@@ -17,6 +17,7 @@ class QuestionTypesController extends Controller
             UserQuestion::TYPE_EMAIL => __('Email'),
             UserQuestion::TYPE_QUESTION => __('Question'),
             UserQuestion::TYPE_VACANCY => __('Vacancy'),
+            UserQuestion::TYPE_CANCEL => __('Cancel'),
         ];
 
         $questionTypes = QuestionType::query()->get();

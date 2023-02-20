@@ -59,11 +59,11 @@ DB_PASSWORD=
 ## Импорт / Публикация Переводов
 
 После добавления новых ключей в языковых файлах нужно импортировать их в БД:
-```
+```bash
 php artisan translations:import --skip-exists
 ```
 Затем опубликовать
-```
+```bash
 php artisan translations:publish --skip-import
 ```
 
@@ -99,7 +99,7 @@ php artisan translations:publish --skip-import
 Fix your code with Laravel Coding Standards.
 
 Syntax:
-```
+```bash
 $ php artisan fixer:fix [options]
 ```
 
