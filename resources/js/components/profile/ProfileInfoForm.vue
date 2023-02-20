@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <form-input v-model="formData.website" label="Веб-сторінка" name="website" />
+                                <form-input v-model="formData.website" label="Веб-сторінка" name="website"/>
                             </div>
 
                             <div class="col-md-6 col-12">
@@ -74,7 +74,8 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form-input v-model="formData.email" :label="__('forms.email')" name="email" id="profile-email"/>
+                        <form-input v-model="formData.email" :label="__('forms.email')" name="email"
+                                    id="profile-email"/>
                     </div>
 
                     <div class="col-md-6 col-12">
@@ -86,7 +87,8 @@
 
                     <div class="col-md-6 col-12">
                         <form-input v-model="formData.viber" :label="__('forms.viber')" name="viber">
-                            <tooltip v-if="user.role === 'tour-agent'">Ваш номер буде додано до турагентської <br>Вайбер-розсилки з акціями, новими
+                            <tooltip v-if="user.role === 'tour-agent'">Ваш номер буде додано до турагентської <br>Вайбер-розсилки
+                                з акціями, новими
                                 турами, даними <br>про наявність місць та іншою корисною інформацією
                             </tooltip>
                         </form-input>
@@ -115,28 +117,34 @@
 
                     </div>
 
-                    <div class="col-12">
-                        <div class="spacer-xs"></div>
-                        <span class="h4">Пароль</span>
-                    </div>
 
-                    <div class="col-md-6 col-12">
-                        <form-input v-model="formData.current_password" type="password" label="Теперішній пароль"
-                                    autocomplete="none"
-                                    name="current_password"/>
-                    </div>
+                    <template v-if="!user.provider">
 
-                    <div class="col-md-6 col-12"></div>
 
-                    <div class="col-md-6 col-12">
-                        <form-input v-model="formData.new_password" type="password" label="Новий пароль"
-                                    name="new_password"/>
-                    </div>
+                        <div class="col-12">
+                            <div class="spacer-xs"></div>
+                            <span class="h4">Пароль</span>
+                        </div>
 
-                    <div class="col-md-6 col-12">
-                        <form-input v-model="formData.password_confirmation" type="password" label="Повторіть пароль"
-                                    name="password_confirmation"/>
-                    </div>
+                        <div class="col-md-6 col-12">
+                            <form-input v-model="formData.current_password" type="password" label="Теперішній пароль"
+                                        autocomplete="none"
+                                        name="current_password"/>
+                        </div>
+
+                        <div class="col-md-6 col-12"></div>
+
+                        <div class="col-md-6 col-12">
+                            <form-input v-model="formData.new_password" type="password" label="Новий пароль"
+                                        name="new_password"/>
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <form-input v-model="formData.password_confirmation" type="password"
+                                        label="Повторіть пароль"
+                                        name="password_confirmation"/>
+                        </div>
+                    </template>
 
                     <div class="col-12">
                         <div class="text-sm">{{ __('forms.required-fields') }}</div>
@@ -147,7 +155,8 @@
         <hr>
         <div class="row align-items-center">
             <div class="col-md-6 col-5">
-                <button id="b31" type="reset" class="btn btn-read-more text-bold" @click.prevent="resetForm">Скасувати</button>
+                <button id="b31" type="reset" class="btn btn-read-more text-bold" @click.prevent="resetForm">Скасувати
+                </button>
             </div>
 
             <div class="col-md-6 col-7 text-right">
@@ -158,17 +167,17 @@
 </template>
 
 <script>
-import FormInput from "../form/FormInput";
-import FormDatepicker from "../form/FormDatepicker";
-import Tooltip from "../common/Tooltip";
-import SvgIcon from "../svg/SvgIcon";
-import FormAvatar from "../form/FormAvatar";
-import {useForm} from "vee-validate";
+import FormInput from '../form/FormInput'
+import FormDatepicker from '../form/FormDatepicker'
+import Tooltip from '../common/Tooltip'
+import SvgIcon from '../svg/SvgIcon'
+import FormAvatar from '../form/FormAvatar'
+import { useForm } from 'vee-validate'
 import { reactive } from 'vue'
-import FormPhone from "../form/FormPhone";
+import FormPhone from '../form/FormPhone'
 
 export default {
-    name: "ProfileInfoForm",
+    name: 'ProfileInfoForm',
     components: {FormPhone, FormAvatar, SvgIcon, Tooltip, FormDatepicker, FormInput},
     props: {
         action: String,
@@ -191,7 +200,7 @@ export default {
             website: user.website || '',
             position: user.position || '',
             work_email: user.work_email || '',
-        });
+        })
 
         const validationSchema = {
             first_name: 'required',
@@ -200,12 +209,12 @@ export default {
             mobile_phone: 'required|tel',
             avatar_upload: 'mimes:image/jpeg,image/png',
             current_password: () => {
-                return formData.new_password.length === 0 ? true : 'Введіть пароль';
+                return formData.new_password.length === 0 ? true : 'Введіть пароль'
             },
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation
-                    ? true : 'Пароль та підтвердження паролю не співпадають';
-            }
+                    ? true : 'Пароль та підтвердження паролю не співпадають'
+            },
         }
 
         if (user.role === 'tour-agent') {
@@ -219,13 +228,13 @@ export default {
 
         const {validate, errors} = useForm({
             validationSchema,
-        });
+        })
 
         const onSubmit = async (event) => {
-            const result = await validate();
+            const result = await validate()
 
             if (!result.valid) {
-                event.preventDefault();
+                event.preventDefault()
             }
         }
 
@@ -252,7 +261,7 @@ export default {
             onSubmit,
             resetForm,
         }
-    }
+    },
 }
 </script>
 
