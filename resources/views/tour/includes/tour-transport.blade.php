@@ -11,7 +11,7 @@
                             <div class="accordion-item">
                                 <div class="accordion-title">{{$transport->title}} <i></i></div>
                                 <div class="accordion-inner">
-                                    @if($transport->hasMedia())
+                                    @if($transport->hasMedia(filters: ['published' => true]))
                                         <div class="swiper-entry" v-is="'swiper-slider'"
                                              key="swiper-place-{{$transport->id}}"
                                              :media='@json($transport->getMedia('default', ['published' => true])->values()->map->toSwiperSlide())'

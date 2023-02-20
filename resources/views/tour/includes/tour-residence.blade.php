@@ -19,7 +19,7 @@
                                     <i></i>
                                 </div>
                                 <div class="accordion-inner" style="display: block">
-                                    <x-swiper-media :slides="$residence->getMedia()"/>
+                                    <x-swiper-media :slides="$residence->getMedia(filters: ['published' => true])"/>
 
                                     <div class="text text-md">
                                         <p>{!! $residence->text!!}</p>

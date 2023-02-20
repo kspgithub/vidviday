@@ -1,6 +1,6 @@
 @if($slides->count() > 0)
     <div class="swiper-entry" v-is="'swiper-slider'"
-         :media='@json($slides->map->toSwiperSlide())'
+         :media='@json(collect($slides->values())->map->toSwiperSlide())'
          :buttons="true"
     >
     </div>
