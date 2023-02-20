@@ -16,6 +16,7 @@ class UserQuestion extends Model
     public const TYPE_EMAIL = 1;
     public const TYPE_QUESTION = 2;
     public const TYPE_VACANCY = 3;
+    public const TYPE_CANCEL = 4;
 
     public const QUESTION_TYPES = [
         'tour' => 'Запитання що до туру',

@@ -28,6 +28,10 @@ class EventController extends Controller
     {
         $event = EventItem::findBySlugOrFail($slug, false);
 
+        if(!$event->published) {
+            abort(404);
+        }
+
         $popupAds = PopupAd::query()->forModel($event)->get();
 
         view()->share('popupAds', $popupAds);

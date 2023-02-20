@@ -41,6 +41,11 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
         },
+        optimization: {
+            providedExports: false,
+            sideEffects: false,
+            usedExports: false
+        },
         module: {
             rules: [
                 {
@@ -125,3 +130,4 @@ mix
     .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'))
     .vue()
     .lang()
+    .svgVue()

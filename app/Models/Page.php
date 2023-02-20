@@ -128,6 +128,10 @@ class Page extends TranslatableModel implements HasMedia
 
     public function isAvailableFor(User|null $user)
     {
+        if(!$this->published) {
+            return false;
+        }
+
         $roles = $this->roles->pluck('name')->toArray();
 
         if($roles) {
