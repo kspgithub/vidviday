@@ -83,7 +83,7 @@ export default {
             });
         }
 
-        onMounted(() => {
+        const buildMap = () => {
             targetPosition.value = mapLatLng({
                 lat: props.lat,
                 lng: props.lng,
@@ -110,8 +110,7 @@ export default {
 
             const userLocation = autocompletePlaces(userLocationRef.value);
 
-
-            'google' in window && google.maps.event.addListener(userLocation, 'place_changed', () => {
+            google.maps.event.addListener(userLocation, 'place_changed', () => {
                 const place = userLocation.getPlace();
 
                 map.value.panTo(targetPosition.value);
@@ -132,9 +131,16 @@ export default {
                 map.value.panTo(userPosition.value);
                 buildRoute();
 
-            });
-        })
+        });
+        }
 
+        onMounted(() => {
+            if ('google' in window && 'maps' in google) {
+                buildMap()
+            } else {
+                window.addEventListener("googleMapsLoaded", buildMap);
+            }
+        })
 
         return {
             mapRef,

@@ -1,18 +1,14 @@
-const mix = require('laravel-mix');
-const webpack = require('webpack');
-const {resolve} = require('path');
-const ip = require('ip');
-const path = require('path');
+const mix = require('laravel-mix')
+const webpack = require('webpack')
+const ip = require('ip')
+const path = require('path')
+const fs = require('fs')
 
 const buildPath = path.normalize('public/assets/app')
 
-const host = ip.address() || '0.0.0.0'
-const port = 8081
-
-
-require('laravel-vue-lang/mix');
-require('laravel-mix-svg-vue');
-require('laravel-mix-purgecss');
+require('laravel-vue-lang/mix')
+require('laravel-mix-svg-vue')
+require('laravel-mix-purgecss')
 
 /*
  |--------------------------------------------------------------------------
@@ -27,17 +23,20 @@ require('laravel-mix-purgecss');
 
 mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .setPublicPath(`public/assets/app`)
+    .extract()
+    .disableNotifications()
+    .sourceMaps(false, 'source-map')
     .webpackConfig({
         output: {
             chunkFilename: mix.inProduction()
                 ? path.normalize(`../../assets/app/js/chunks/[name].[chunkhash].js`)
-                : 'js/chunks/[name].[chunkhash].js'
+                : 'js/chunks/[name].[chunkhash].js',
         },
         resolve: {
             alias: {
-                '@': resolve('./resources/lang'),
-                '@lang': resolve('./resources/lang'),
-                '@publicLang': resolve('./public/storage/lang'),
+                '@': path.resolve('./resources/lang'),
+                '@lang': path.resolve('./resources/lang'),
+                '@publicLang': path.resolve('./public/storage/lang'),
                 'vue': 'vue/dist/vue.esm-bundler.js',
                 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
@@ -61,27 +60,55 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
         ],
     })
 
-if (!mix.inProduction ()) {
-    mix
-        .webpackConfig({
-            devServer: {host, port},
-        })
-        .options({
+if (mix.inProduction()) {
+
+    mix.version();
+} else {
+    // mix.browserSync({proxy,});
+
+    const host = ip.address() || '0.0.0.0'
+    const port = process.env.DEV_SERVER_APP_PORT || 8081
+
+    mix.options({
+        hmrOptions: {host, port},
+    })
+    mix.webpackConfig({
+        devServer: {host, port},
+    })
+
+    console.log('=====================================')
+    console.log('App host: ' + host)
+    console.log('App port: ' + port)
+    console.log('=====================================')
+
+    if (process.env.DEV_SERVER_SSL && process.env.DEV_SERVER_KEY) {
+        const proxy = process.env.APP_URL.replace(/^(https?:|)\/\//, '')
+        mix.options({
             hmrOptions: {
-                host,
+                host: proxy,
                 port,
-            }
+                https: {
+                    key: process.env.DEV_SERVER_KEY,
+                    cert: process.env.DEV_SERVER_CERT,
+                },
+            },
         })
+        mix.webpackConfig({
+            devServer: {
+                host: proxy,
+                port,
+                https: {
+                    key: process.env.DEV_SERVER_KEY,
+                    cert: process.env.DEV_SERVER_CERT,
+                },
+            },
+        })
+    }
 }
-
-if (mix.inProduction ()) {
-    mix.version ();
-}
-
 
 /**
  * *********************
- * Assets
+ * App Assets
  * *********************
  */
 mix
@@ -91,7 +118,6 @@ mix
     .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
     .js('resources/js/libs/sharer.js', path.resolve(buildPath, '..', 'app/js/libs/sharer.js'))
     .js('resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
-    .js('resources/js/libs/map-route.js', path.resolve(buildPath, '..', 'app/js/libs/map-route.js'))
     .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))
     .sass('resources/scss/theme/main.scss', path.resolve(buildPath, '..', 'app/css/theme/main.css'))
     .sass('resources/scss/theme/print.scss', path.resolve(buildPath, '..', 'app/css/theme/print.css'))
@@ -99,8 +125,3 @@ mix
     .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'))
     .vue()
     .lang()
-    .version()
-    .sourceMaps(false, 'source-map')
-    .disableNotifications()
-    .extract()
-    // .purgeCss()

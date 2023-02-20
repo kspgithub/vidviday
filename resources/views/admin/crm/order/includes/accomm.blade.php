@@ -40,6 +40,36 @@
                         </td>
                     </tr>
                 </template>
+
+                <tr x-if="order.accommodation.other">
+                    <th style="width: 300px">other</th>
+                    <td>
+                        <template x-if="!isEditable('other_text')">
+                            <div>
+                                <b x-text="order.accommodation ? order.accommodation['other_text'] || null : null"></b>
+                                <a href="#" @click.prevent="editAccomm('other_text')" class="ms-3 text-success">
+                                    <i class="fa fa-pen"></i>
+                                </a>
+                            </div>
+                        </template>
+                        <template x-if="isEditable('other_text')">
+                            <form @submit.prevent="saveAccomm('other_text')">
+                                <div class="d-flex align-items-center">
+                                    <input type="text" x-model="accommodationsForm.other_text"
+                                           class="form-control form-control-sm me-3" required>
+                                    <button  id="b40" type="submit" class="btn btn-sm btn-outline-success me-3">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button  id="b41" class="btn btn-sm btn-outline-secondary me-3"
+                                             @click.prevent="cancelAccomm('other_text')">
+                                        <i class="far fa-times-circle"></i>
+                                    </button>
+                                </div>
+
+                            </form>
+                        </template>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

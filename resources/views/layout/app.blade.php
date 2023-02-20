@@ -82,14 +82,10 @@
     window.countries = @json(App\Models\Country::query()->where('published', 1)->orderBy('position')->orderBy('title')->pluck('iso'));
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
-</script>
-
-<script>
-    function googleMapsLoaded() {
-        console.log('googleMapsLoaded')
+    window.initMap = () => {
+        window.dispatchEvent(new CustomEvent('googleMapsLoaded'))
     }
 </script>
-
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>
 <script src="{{ mix('js/libs/vendor.js', 'assets/app') }}" defer></script>

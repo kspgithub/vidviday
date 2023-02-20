@@ -62,7 +62,7 @@ class OrderService extends BaseService
 
             $schedule = TourSchedule::find($order_params['schedule_id']);
 
-            if($schedule->info_sheet) {
+            if($schedule->info_sheet ?? false) {
                 $order_params['info_sheet'] = $schedule->info_sheet;
             }
 
@@ -148,7 +148,8 @@ class OrderService extends BaseService
                             }
                         }
                         if ($key === 'other' && (int)$value === 1) {
-                            $items['other'] = $params['accommodation']['other_text'] ?? '';
+                            $items['other'] = $value;
+                            $items['other_text'] = $params['accommodation']['other_text'] ?? '';
                         }
                     }
 
@@ -181,19 +182,20 @@ class OrderService extends BaseService
             $order_params['currency'] = $tour_currency;
             $order_params['accomm_price'] = $total_accomm;
 
-            $schedule = $schedule->availableForBooking($total_places);
+            if($schedule) {
+                $schedule = $schedule->availableForBooking($total_places);
 
-            if ($schedule->isAutoBookingAvailable($total_places)) {
-                $order_params['status'] = Order::STATUS_BOOKED;
-                $order_params['auto'] = true;
+                if ($schedule->isAutoBookingAvailable($total_places)) {
+                    $order_params['status'] = Order::STATUS_BOOKED;
+                    $order_params['auto'] = true;
+                }
+
+                if (($schedule->places_available - $schedule->places_new) < $total_places) {
+                    $order_params['status'] = Order::STATUS_RESERVE;
+                }
+
+                $order_params['schedule_id'] = $schedule->id;
             }
-
-            if (($schedule->places_available - $schedule->places_new) < $total_places) {
-                $order_params['status'] = Order::STATUS_RESERVE;
-            }
-
-            $order_params['schedule_id'] = $schedule->id;
-
         }
 
         // Корпоративная группа

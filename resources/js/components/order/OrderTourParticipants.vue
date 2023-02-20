@@ -27,6 +27,7 @@
             <span class="h4"></span>
             <div class="form" style="display: block">
                 <form-phone v-model="participant_phone"
+                            ref="participantPhoneRef"
                             name="participant_phone"
                             :label="__('order-section.participants.phone-label')"
                             rules="required|tel"
@@ -38,47 +39,47 @@
 </template>
 
 <script>
-import OrderParticipant from "./OrderParticipant";
-import FormInput from "../form/FormInput";
-import {useStore} from "vuex";
-import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
-import {computed, getCurrentInstance, ref, watch} from "vue";
-import FormCheckbox from "../form/FormCheckbox";
-import FormPhone from "../form/FormPhone";
+import OrderParticipant from './OrderParticipant'
+import FormInput from '../form/FormInput'
+import { useStore } from 'vuex'
+import { useDebounceFormDataProperty, useFormDataProperty } from '../../store/composables/useFormData'
+import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
+import FormCheckbox from '../form/FormCheckbox'
+import FormPhone from '../form/FormPhone'
 
 export default {
-    name: "OrderTourParticipants",
+    name: 'OrderTourParticipants',
     components: {FormPhone, FormCheckbox, FormInput, OrderParticipant},
     setup() {
-        const store = useStore();
-        const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant');
-        const formData = computed(() => store.state.orderTour.formData);
-        const participants = computed(() => store.state.orderTour.formData.participants);
-        const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone');
+        const store = useStore()
+        const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant')
+        const formData = computed(() => store.state.orderTour.formData)
+        const participants = computed(() => store.state.orderTour.formData.participants)
+        const participant_phone = useDebounceFormDataProperty('orderTour', 'participant_phone')
 
         const vm = getCurrentInstance()
 
         // let form = vm.ctx.$.provides[Object.getOwnPropertySymbols(vm.ctx.$.provides)[1]]
 
         const updateParticipant = (data) => {
-            store.dispatch('orderTour/updateParticipant', data);
+            store.dispatch('orderTour/updateParticipant', data)
         }
 
         const prependParticipant = (data) => {
-            store.dispatch('orderTour/prependParticipant', data);
+            store.dispatch('orderTour/prependParticipant', data)
         }
 
         const deleteParticipant = (idx) => {
-            store.dispatch('orderTour/deleteParticipant', idx);
+            store.dispatch('orderTour/deleteParticipant', idx)
         }
 
         const addParticipant = () => {
-            store.dispatch('orderTour/addParticipant');
+            store.dispatch('orderTour/addParticipant')
         }
 
         const updateParticipantPhone = () => {
             store.dispatch('orderTour/updateParticipantPhone').then(() => {
-                // form.values.participant_phone = store.state.orderTour.formData.phone
+                formData.value.participant_phone = store.state.orderTour.formData.phone
             })
         }
 
@@ -90,13 +91,17 @@ export default {
                         last_name: formData.value.last_name,
                         middle_name: '',
                         birthday: '',
-
-                    }
+                    },
                 })
+
                 // form.values.participants[0]['[first_name]'] = store.state.orderTour.formData.first_name
                 // form.values.participants[0]['[last_name]'] = store.state.orderTour.formData.last_name
-                if (!participant_phone.value && !participant_phone._dirty) {
-                    updateParticipantPhone()
+                if (participantPhoneRef.value) {
+                    const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
+
+                    if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode && !participant_phone._dirty) {
+                        updateParticipantPhone()
+                    }
                 }
             } else {
                 updateParticipant({
@@ -105,12 +110,25 @@ export default {
                         last_name: '',
                         middle_name: '',
                         birthday: '',
-                    }
+                    },
                 })
             }
         })
 
-        const isTourAgent = computed(() => store.getters['user/isTourAgent']);
+        onMounted(() => {
+            if (participantPhoneRef.value) {
+
+                const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
+
+                if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode) {
+                    updateParticipantPhone()
+                }
+            }
+        })
+
+        const isTourAgent = computed(() => store.getters['user/isTourAgent'])
+
+        const participantPhoneRef = ref()
 
         return {
             isCustomerParticipant,
@@ -120,8 +138,9 @@ export default {
             deleteParticipant,
             addParticipant,
             isTourAgent,
+            participantPhoneRef,
         }
-    }
+    },
 }
 </script>
 

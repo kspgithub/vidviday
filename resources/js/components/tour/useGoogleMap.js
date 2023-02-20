@@ -76,21 +76,28 @@ export const mapStyles = [{
     "stylers": [{"lightness": "-49"}, {"saturation": "-53"}, {"gamma": "0.79"}]
 }];
 
+const mapOptions = {}
 
-export const mapOptions = 'google' in window ? {
-    center: {lat: 49.822385, lng: 24.023855},
-    zoom: 15,
-    panControl: false,
-    panControlOptions: {
-        position: google.maps.ControlPosition.LEFT_BOTTOM
-    },
-    disableDefaultUI: true,
-    scrollwheel: false,
-    zoomControl: true,
-    zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.LARGE,
-        position: google.maps.ControlPosition.LEFT_BOTTOM
-    },
-    streetViewControl: false,
-    styles: mapStyles,
-} : {};
+if ('google' in window && 'maps' in google) {
+    Object.assign(mapOptions, {
+        center: {lat: 49.822385, lng: 24.023855},
+        zoom: 15,
+        panControl: false,
+        panControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
+        disableDefaultUI: true,
+        scrollwheel: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
+        streetViewControl: false,
+        styles: mapStyles,
+    });
+}
+
+export {
+    mapOptions
+}

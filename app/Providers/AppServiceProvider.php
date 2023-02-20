@@ -6,7 +6,6 @@ use App\Models\AgencySubscription;
 use App\Models\Order;
 use App\Models\OrderNote;
 use App\Models\Page;
-use App\Models\QuestionType;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourVoting;
@@ -21,11 +20,11 @@ use App\Observers\TourObserver;
 use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
 use App\Observers\UserSubscriptionObserver;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -39,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         if ($this->app->isLocal()) {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(IdeHelperServiceProvider::class);
         }
     }
 

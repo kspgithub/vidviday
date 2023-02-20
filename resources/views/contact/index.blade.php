@@ -114,10 +114,7 @@
     </main>
 @endsection
 
-@push('before-scripts')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places&callback=googleMapsLoaded"></script>
-@endpush
-
 @push('after-scripts')
-    <script src="{{ mix('js/libs/map.js', 'assets/app') }}" defer></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.maps_key')}}&libraries=places&callback=initMap"></script>
+    <script defer src="{{ mix('js/libs/map.js', 'assets/app') }}"></script>
 @endpush
