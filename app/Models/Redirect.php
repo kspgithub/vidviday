@@ -21,6 +21,10 @@ class Redirect extends Model
         'published',
     ];
 
+    protected $casts = [
+        'published' => 'boolean',
+    ];
+
     public function scopePublished(Builder $q)
     {
         return $q->where('published', 1);

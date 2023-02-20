@@ -8,6 +8,7 @@ use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Faq\FaqController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Practice\PracticeController;
 use App\Http\Controllers\School\SchoolController;
@@ -97,6 +98,8 @@ class PageController extends Controller
                 return (new TestimonialController())->index($request);
             case 'courses':
                 return (new CourseController())->index($request);
+            case 'faq':
+                return (new FaqController())->index($request);
             default:
                 return view('page.show', []);
         }
