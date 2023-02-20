@@ -61,7 +61,7 @@ export const useTourCard = (tour) => {
 
     const onlyQuick = computed(() => {
         return !!store.state.isProd;
-        return currentSchedule.value && (currentSchedule.value.places_available === 0 || (currentSchedule.value.places_available >= 2 && currentSchedule.value.places_available <= 10))
+        // return currentSchedule.value && (currentSchedule.value.places_available === 0 || (currentSchedule.value.places_available >= 2 && currentSchedule.value.places_available <= 10))
     })
 
     const orderLink = computed(() => {

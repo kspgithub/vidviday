@@ -23,7 +23,7 @@ export default {
         const apiKey = process.env.MIX_GOOGLE_MAPS_KEY;
 
         onMounted(() => {
-            if ('google' in window) {
+            if ('google' in window && 'maps' in google) {
                 map.value = new google.maps.Map(mapRef.value, {
                     ...mapOptions,
                     center: {lat: 49.822385, lng: 24.023855},

@@ -1,7 +1,7 @@
-const mix = require('laravel-mix');
-const webpack = require('webpack');
-const { resolve } = require('path');
-const ip = require('ip');
+const mix = require('laravel-mix')
+const webpack = require('webpack')
+const {resolve} = require('path')
+const ip = require('ip')
 
 /*
  |--------------------------------------------------------------------------
@@ -14,39 +14,38 @@ const ip = require('ip');
  |
  */
 
-mix.setPublicPath(`public/assets/admin`)
-    .js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
-    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')
+mix.setResourceRoot(mix.inProduction() ? `/assets/admin/` : `/`)
+    .setPublicPath(`public/assets/admin`)
     .extract()
-    .disableNotifications();
-
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            '@lang': resolve('./resources/lang'),
-            '@publicLang': resolve('./public/storage/lang'),
-        },
-    },
-    module: {
-        rules: [
-            {
-                test: /resources[\\\/]lang.+\.(php)$/,
-                loader: 'php-array-loader',
+    .disableNotifications()
+    .sourceMaps(false, 'source-map')
+    .webpackConfig({
+        resolve: {
+            alias: {
+                '@lang': resolve('./resources/lang'),
+                '@publicLang': resolve('./public/storage/lang'),
             },
+        },
+        module: {
+            rules: [
+                {
+                    test: /resources[\\\/]lang.+\.(php)$/,
+                    loader: 'php-array-loader',
+                },
+            ],
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                __VUE_OPTIONS_API__: true,
+                __VUE_PROD_DEVTOOLS__: false,
+                __VUE_I18N_FULL_INSTALL__: true,
+                __VUE_I18N_LEGACY_API__: false,
+                __INTLIFY_PROD_DEVTOOLS__: false,
+            }),
         ],
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            __VUE_OPTIONS_API__: true,
-            __VUE_PROD_DEVTOOLS__: false,
-            __VUE_I18N_FULL_INSTALL__: true,
-            __VUE_I18N_LEGACY_API__: false,
-            __INTLIFY_PROD_DEVTOOLS__: false,
-        }),
-    ],
-});
+    })
 
-mix.sourceMaps(false, 'source-map');
+mix.sourceMaps(false, 'source-map')
 
 if (mix.inProduction()) {
     // !!! Dont need to minify.
@@ -59,32 +58,59 @@ if (mix.inProduction()) {
     //     'public/css/admin.css',
     // ]);
 
-    mix.version();
+    mix.version()
 } else {
     // Uses source-maps on development
 
     // mix.browserSync(process.env.APP_URL);
 
-
     const host = ip.address() || '0.0.0.0'
-    const port = 8082
+    const port = process.env.DEV_SERVER_ADMIN_PORT || 8082
 
     mix.options({
-        hmrOptions: {
-            host,
-            port,
-        }
+        hmrOptions: {host, port},
+    })
+    mix.webpackConfig({
+        devServer: {host, port},
     })
 
     console.log('=====================================')
     console.log('Admin host: ' + host)
+    console.log('Admin port: ' + port)
     console.log('=====================================')
 
-    mix.webpackConfig({
-        devServer: {
-            host,
-            port,
-        },
-    });
+    console.log(process.env.DEV_SERVER_KEY)
+
+    if (process.env.DEV_SERVER_KEY) {
+        const proxy = process.env.APP_URL.replace(/^(https?:|)\/\//, '')
+        mix.options({
+            hmrOptions: {
+                host: proxy,
+                port,
+                https: {
+                    key: process.env.DEV_SERVER_KEY,
+                    cert: process.env.DEV_SERVER_CERT,
+                },
+            },
+        })
+        mix.webpackConfig({
+            devServer: {
+                host: proxy,
+                port,
+                https: {
+                    key: process.env.DEV_SERVER_KEY,
+                    cert: process.env.DEV_SERVER_CERT,
+                },
+            },
+        })
+    }
 
 }
+
+/**
+ * *********************
+ * Admin Assets
+ * *********************
+ */
+mix.js('resources/js/admin/app.js', 'public/assets/admin/js/admin.js')
+    .sass('resources/scss/admin/app.scss', 'public/assets/admin/css/admin.css')

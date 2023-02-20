@@ -98,7 +98,7 @@ export default {
                 const mask = placeholder.replace(/\d/g, '9')
                 field.inputRef.value.mask = mask
                 Inputmask(mask).mask(field.inputRef.value);
-                field.innerValue.value = '+' + countryData.dialCode + fullValue.value.substr(-length)
+                field.innerValue.value = '+' + countryData.dialCode + fullValue.value?.substr(-length)
             }
 
             field.inputRef.value.addEventListener('countrychange', (e) => {
@@ -114,8 +114,9 @@ export default {
             get() {
                 if (intl.value) {
                     const countryData = intl.value.getSelectedCountryData()
+                    const getNumber = intl.value.getNumber()
                     const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    return field.innerValue.value.replaceAll(/\D+/g, '').replace(regex, '$1')
+                    return field.innerValue.value?.replaceAll(/\D+/g, '').replace(regex, '$1')
                 }
 
                 return field.innerValue.value
@@ -137,12 +138,11 @@ export default {
 
 <style lang="scss">
 i.phone-label {
-    z-index: 5;
+    z-index: 1;
 }
 
 .iti--allow-dropdown {
     width: 100%;
-    z-index: 4;
 
     * {
         font-size: 14px;
