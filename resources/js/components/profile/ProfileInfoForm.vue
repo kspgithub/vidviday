@@ -94,7 +94,7 @@
 
                     <div class="col-12" v-if="user.provider">
                         <div class="spacer-xs"></div>
-                        <span class="h4">Зареєстровано через</span>
+                        <span class="h4">{{ __('profile-section.registered_using') }}</span>
                     </div>
 
 

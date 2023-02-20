@@ -1,8 +1,8 @@
 import {createApp} from 'vue';
 import store from "./store";
 import i18n from './i18n';
-
 import {Lang} from './i18n/lang';
+import SvgVue from 'svg-vue3';
 
 import directives from "./directives";
 
@@ -26,17 +26,14 @@ export function createVueApp(options = {}) {
 
     app.use(i18n);
 
-    app.component('test-component', {
-        template: '<div>Test me! {{$props}}</div>',
-        props: {
-            foo: {}
-        }
-    })
-
     // Register the plugin
     app.use(Lang, {
         locale: document.documentElement.lang || 'uk',
         fallback: 'uk',
+    });
+
+    app.use(SvgVue, {
+
     });
 
     app.use(directives);

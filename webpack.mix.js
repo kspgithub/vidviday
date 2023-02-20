@@ -41,11 +41,21 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
         },
+        optimization: {
+            providedExports: false,
+            sideEffects: false,
+            usedExports: false
+        },
         module: {
             rules: [
                 {
                     test: /resources[\\\/]lang.+\.(php)$/,
                     loader: 'php-array-loader',
+                },
+                {
+                    test: /\.svg$/,
+                    type: 'asset',
+                    loader: 'svgo-loader'
                 },
             ],
         },
@@ -125,3 +135,4 @@ mix
     .sass('resources/scss/theme/editor.scss', path.resolve(buildPath, '..', 'app/css/theme/editor.css'))
     .vue()
     .lang()
+    .svgVue()
