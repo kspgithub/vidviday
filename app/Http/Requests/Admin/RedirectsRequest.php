@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 
 class RedirectsRequest extends FormRequest
 {
@@ -29,6 +30,20 @@ class RedirectsRequest extends FormRequest
             'redirects.*.type' => 'required',
             'redirects.*.from' => 'required|string',
             'redirects.*.to' => 'required|string',
+            'redirects.*.published' => 'required',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $entries = $this->get('redirects');
+
+        foreach ($entries as $i => $entry) {
+            $entries[$i]['published'] = $entry['published'] ?? 0;
+        }
+
+        $this->replace([
+            'redirects' => $entries,
+        ]);
     }
 }
