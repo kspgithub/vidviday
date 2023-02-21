@@ -60,7 +60,7 @@ export const fetchPopularTours = async (count = 12) => {
     return [];
 }
 
-export const autocompleteTours = async (q = '', limit = 20, page = 1) => {
+export const autocompleteTours = async (q = '', limit = 20, page = 1, params = {}) => {
     try {
         searchRequestSource.cancel('abort');
     } catch (e) {
@@ -68,7 +68,7 @@ export const autocompleteTours = async (q = '', limit = 20, page = 1) => {
     searchRequestSource = axios.CancelToken.source();
 
     const response = await apiClient.get('/tours/autocomplete', {
-        params: {q: q, limit: limit, order: 'relevant', page},
+        params: {q: q, limit: limit, order: 'relevant', page, ...params},
         cancelToken: searchRequestSource.token
     }).catch(error => {
         if (!axios.isCancel(error)) {

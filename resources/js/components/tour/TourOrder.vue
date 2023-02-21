@@ -3,7 +3,7 @@
         <input name="clear" :value="1" type="hidden">
 
 
-        <div v-if="!isMobile" class="thumb-price">
+        <div v-if="tour.order_enabled && !isMobile" class="thumb-price">
             <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{ currencyTitle }}</i></span>
             <span class="discount hidden-print" v-if="isTourAgent && commission > 0">
                 {{ currencyCommission }} {{ currencyTitle }}
@@ -36,7 +36,7 @@
                 </div>
 
             </div>
-            <div class="thumb-info">
+            <div v-if="tour.order_enabled" class="thumb-info">
                 <span class="thumb-info-time text">
                     <span class="only-print">{{ __('Duration') }}: </span>
                     {{ tour.format_duration }}
@@ -49,7 +49,7 @@
                 </span>
             </div>
 
-            <div v-if="isMobile" class="thumb-price">
+            <div v-if="isMobile && tour.order_enabled" class="thumb-price">
                 <span class="text">{{ __('tours-section.price') }}<span>{{ currencyPrice }}</span><i>{{
                         currencyTitle
                     }}</i></span>
@@ -79,7 +79,7 @@
                 </a>
             </template>
 
-            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="corporate">
+            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="tour.order_enabled && corporate">
                 {{ __('tours-section.order-corporate') }}
             </a>
 

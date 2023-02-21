@@ -100,6 +100,9 @@ class ToursController extends Controller
             ])
             ->take($limit)
             ->offset(($page - 1) * $limit)
+            ->when($request->has('corporate'), function ($q) {
+                return $q->where('order_enabled', true);
+            })
             ->get()->map->shortInfo();
     }
 

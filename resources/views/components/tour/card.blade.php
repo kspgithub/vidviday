@@ -38,28 +38,32 @@
                 </select>
             </div>
             @if($schedule->exists)
-                <div class="thumb-info">
-                <span
-                    class="thumb-info-time text">{!! $tour->format_duration !!}</span>
-                    <span class="thumb-info-people text">
-                    {{$schedule->places_available >= 10 ? '10+' : ($schedule->places_available < 2 ? '2-10' : '0')}}
-                </span>
-                    @if($schedule->places_available <= 2)
-                        <span class="thumb-info-people text">{{$schedule->places_available}}<span class="tooltip-wrap black">
-                        <span
-                            class="tooltip text text-sm light">{{$schedule->places_available === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
-                    </span></span>
-                    @endif
-                </div>
-                <div class="thumb-price">
-                <span class="text">Ціна:<span>{{currency_value($schedule->price ?: 0, $schedule->currency)}}</span>
-                    <i>{{current_currency($schedule->currency)}}</i>
-                </span>
-                    @if(is_tour_agent() && $schedule->commission > 0 && !$history)
-                        <span class="discount hidden-print">{{ceil($schedule->commission)}} грн. <span class="tooltip-wrap red"><span
-                                    class="tooltip text text-sm light">Комісія агента</span></span></span>
-                    @endif
-                </div>
+                @if($tour->order_enabled)
+                    <div class="thumb-info">
+                    <span
+                        class="thumb-info-time text">{!! $tour->format_duration !!}</span>
+                        <span class="thumb-info-people text">
+                        {{$schedule->places_available >= 10 ? '10+' : ($schedule->places_available < 2 ? '2-10' : '0')}}
+                    </span>
+                        @if($schedule->places_available <= 2)
+                            <span class="thumb-info-people text">{{$schedule->places_available}}<span class="tooltip-wrap black">
+                            <span
+                                class="tooltip text text-sm light">{{$schedule->places_available === 0 ? 'Немає місць' : 'Місця закінчуються'}}</span>
+                        </span></span>
+                        @endif
+                    </div>
+                @endif
+                @if($tour->order_enabled)
+                    <div class="thumb-price">
+                        <span class="text">Ціна:<span>{{currency_value($schedule->price ?: 0, $schedule->currency)}}</span>
+                            <i>{{current_currency($schedule->currency)}}</i>
+                        </span>
+                            @if(is_tour_agent() && $schedule->commission > 0 && !$history)
+                                <span class="discount hidden-print">{{ceil($schedule->commission)}} грн. <span class="tooltip-wrap red"><span
+                                            class="tooltip text text-sm light">Комісія агента</span></span></span>
+                            @endif
+                    </div>
+                @endif
             @endif
             <a href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</a>
         @else

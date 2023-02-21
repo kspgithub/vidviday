@@ -12,14 +12,17 @@
       :schedules='@json($schedules)'
       :nearest-event='@json($nearestEvent->id ?? 0)'
 >
-    <div class="thumb-price">
-        <span
-            class="text">@lang('tours-section.price')<span>{{$nearestEvent ? $nearestEvent->price : $tour->price}}</span><i>грн</i></span>
-        @if($nearestEvent && $nearestEvent->commission > 0)
-            <span class="discount hidden-print">{{$nearestEvent->commission}} грн <span class="tooltip-wrap red"><span
-                        class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
-        @endif
-    </div>
+
+    @if($tour->order_enabled)
+        <div class="thumb-price">
+            <span
+                class="text">@lang('tours-section.price')<span>{{$nearestEvent ? $nearestEvent->price : $tour->price}}</span><i>грн</i></span>
+            @if($nearestEvent && $nearestEvent->commission > 0)
+                <span class="discount hidden-print">{{$nearestEvent->commission}} грн <span class="tooltip-wrap red"><span
+                            class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
+            @endif
+        </div>
+    @endif
 
     <div class="{{$shareClass}}">
         <x-tour.star-rating :rating="$tour->rating" :count="$tour->testimonials_count" :trigger="true"/>

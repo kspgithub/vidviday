@@ -40,6 +40,8 @@ export default {
         const currentPage = ref(1);
         const paginate = ref(true);
 
+        const group_type = computed(() => store.state.orderTour.formData.group_type);
+
         const tourId = computed({
             get: () => store.state.orderTour.formData.tour_id,
             set: async (val) => {
@@ -52,13 +54,26 @@ export default {
         });
 
         const searchTours = async (q = '') => {
-            const items = await autocompleteTours(q, 50, currentPage.value++);
+            if (q !== '') {
+                if(currentPage.value > 1) {
+                    currentPage.value = 1
+                }
+                paginate.value = true
+            }
+
+            const items = await autocompleteTours(q, 50, currentPage.value++, {
+                ...(group_type.value === 1 ? {corporate: 1} : {})
+            });
 
             if(!items || !items.length) {
                 paginate.value = false
             }
 
-            tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, {...item, img: item.main_image}])).values()];
+            if(currentPage.value === 1 || q !== '') {
+                tours.value = [...new Map([...(items || [])].map((item) => [item.id, {...item, img: item.main_image}])).values()];
+            } else {
+                tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, {...item, img: item.main_image}])).values()];
+            }
 
             if(tourSelectRef.value) {
                 tourSelectRef.value.update(tours.value);
@@ -74,6 +89,7 @@ export default {
             tourId,
             currentPage,
             paginate,
+            group_type,
         }
     }
 }
