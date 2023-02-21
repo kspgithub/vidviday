@@ -50,7 +50,7 @@ import axios from "axios";
 export default {
     name: "OrderCancelPopup",
     props: {
-        questionTypes: [],
+        questionTypes: Array,
     },
     components: {
         Popup

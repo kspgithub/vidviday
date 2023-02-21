@@ -47,6 +47,6 @@
         @csrf
     </div>
     <div v-is="'order-cancel-popup'"
-             :question-types='@json(App\Models\QuestionType::where('type', App\Models\UserQuestion::TYPE_CANCEL)->get()->values()->map->asSelectBox())'
+             :question-types="{{ json_encode(App\Models\QuestionType::where('type', App\Models\UserQuestion::TYPE_CANCEL)->get()->values()->map->asSelectBox()) }}"
     ></div>
 @endpush
