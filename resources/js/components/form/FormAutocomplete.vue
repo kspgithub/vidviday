@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import {onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
-import useFormField from "./composables/useFormField";
+import { onBeforeUnmount, onMounted, onUnmounted, ref, watch } from 'vue'
+import useFormField from './composables/useFormField'
 
 
 export default {
-    name: "FormAutocomplete",
+    name: 'FormAutocomplete',
     props: {
         modelValue: null,
         name: {
@@ -21,10 +21,10 @@ export default {
         },
         search: {
             type: Boolean,
-            default: false
+            default: false,
         },
         searchText: {
-            default: ''
+            default: '',
         },
         placeholder: {
             default: '',
@@ -39,18 +39,22 @@ export default {
         },
         rules: {
             type: [String, Object],
-            default: ''
+            default: '',
         },
         vueSelect: {
             type: Boolean,
             default: true,
         },
+        paginate: {
+            type: Boolean,
+            default: false,
+        },
     },
     emits: ['update:modelValue', 'search'],
     setup(props, {emit}) {
-        const field = useFormField(props, emit);
-        const {inputRef} = field;
-        const sumo = ref(null);
+        const field = useFormField(props, emit)
+        const {inputRef} = field
+        const sumo = ref(null)
 
         onMounted(() => {
             sumo.value = $(inputRef.value).SumoSelect({
@@ -59,36 +63,43 @@ export default {
                 searchText: props.searchText,
                 noMatch: 'Нічого не знайдено для "{0}"',
                 floatWidth: 0,
-
-            }).sumo;
+            }).sumo
 
             if (sumo.value.ftxt) {
                 sumo.value.ftxt.on('keyup', _.debounce((evt) => {
-                    emit('search', evt.target.value);
-                }, 300));
+                    emit('search', evt.target.value)
+                }, 300))
             }
 
+            const ulOptions = $(sumo.value.optDiv).find('.options')
+
+            ulOptions.on('scroll', function (event) {
+                if (props.paginate) {
+                    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+                        emit('search')
+                    }
+                }
+            })
 
             $(inputRef.value).on('change', (evt) => {
-                emit('update:modelValue', parseInt(evt.target.value));
-            });
+                emit('update:modelValue', parseInt(evt.target.value))
+            })
         })
 
         onUnmounted(() => {
             if (sumo.value) {
-                sumo.value.unload();
+                sumo.value.unload()
             }
         })
 
         const update = (items) => {
-
             if (sumo.value) {
-                sumo.value.removeAll();
+                sumo.value.removeAll()
                 items.forEach(it => {
-                    if(it.img) {
-                        sumo.value.add(it[props.idField], '<img src="' + it.img + '">' + it[props.titleField]);
+                    if (it.img) {
+                        sumo.value.add(it[props.idField], '<img src="' + it.img + '">' + it[props.titleField])
                     } else {
-                        sumo.value.add(it[props.idField], it[props.titleField]);
+                        sumo.value.add(it[props.idField], it[props.titleField])
                     }
                 })
             }
@@ -99,7 +110,7 @@ export default {
             ...field,
             update,
         }
-    }
+    },
 
 }
 </script>

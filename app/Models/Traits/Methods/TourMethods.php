@@ -72,6 +72,7 @@ trait TourMethods
             'active_tabs' => $this->active_tabs,
             'discounts' => $this->discounts,
             'tourDiscounts' => $this->tourDiscounts,
+            'order_enabled' => $this->order_enabled,
         ];
     }
 

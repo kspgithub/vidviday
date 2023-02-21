@@ -76,6 +76,7 @@ class TourBasicRequest extends FormRequest
             'main_image_titles' => ['nullable', 'array'],
             'mobile_image_alts' => ['nullable', 'array'],
             'mobile_image_titles' => ['nullable', 'array'],
+            'order_enabled' => ['nullable', Rule::in(['1', '0'])],
         ];
 
         foreach ($this->locales as $locale) {

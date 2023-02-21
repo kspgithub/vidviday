@@ -12,6 +12,7 @@
             v-model="tourId"
             @search="searchTours"
             rules="required"
+            :paginate="paginate"
         >
             <option :value="0" :selected="tourId === 0" disabled>{{ __('order-section.tour-placeholder') }}</option>
             <option v-for="option in tours" :data-img="option.main_image" :value="option.id"><img :src="option.main_image"  /> {{ option.title }} </option>
@@ -37,6 +38,7 @@ export default {
         const tours = ref([]);
         const tourSelectRef = ref(null);
         const currentPage = ref(1);
+        const paginate = ref(true);
 
         const tourId = computed({
             get: () => store.state.orderTour.formData.tour_id,
@@ -50,14 +52,13 @@ export default {
         });
 
         const searchTours = async (q = '') => {
-            const items = await autocompleteTours(q, q.length > 0 ? 50 : 1000, currentPage);
+            const items = await autocompleteTours(q, 50, currentPage.value++);
 
-            currentPage.value++;
+            if(!items || !items.length) {
+                paginate.value = false
+            }
 
-            tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, item])).values()];
-
-
-
+            tours.value = [...new Map([...tours.value, ...(items || [])].map((item) => [item.id, {...item, img: item.main_image}])).values()];
 
             if(tourSelectRef.value) {
                 tourSelectRef.value.update(tours.value);
@@ -71,7 +72,8 @@ export default {
             tourSelectRef,
             searchTours,
             tourId,
-
+            currentPage,
+            paginate,
         }
     }
 }

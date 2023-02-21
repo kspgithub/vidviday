@@ -34,7 +34,7 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                        {{$readonly ? 'readonly' : ''}}
-                       {{ $attributes->merge(['class' => 'form-control', 'type' => $type])->except(['required', ...($wireModel->directive ? [$wireModel->directive] : '')]) }}
+                       {{ $attributes->merge(['class' => 'form-control', 'type' => $type])->except(['required', ...($wireModel->directive ? [$wireModel->directive] : [])]) }}
                        x-bind:required="{{ $attributes['required'] ? 'true' : 'false' }} && locales.includes('{{ $lang }}')"
                 @if($wireModel->value)
                     {{ $wireModel->directive }}="{{ $wireModel->value }}.{{$lang}}"

@@ -32,7 +32,7 @@
             <div class="datepicker-input" v-if="schedules.length">
                 <form-select v-model="scheduleId" :options="schedules"></form-select>
             </div>
-            <div class="thumb-info">
+            <div v-if="tour.order_enabled" class="thumb-info">
                 <span class="thumb-info-time text">
                     {{ tour.format_duration }}
                 </span>
@@ -46,7 +46,7 @@
                 </span>
 
             </div>
-            <div class="thumb-price">
+            <div v-if="tour.order_enabled" class="thumb-price">
                 <span class="text">
                     {{ __('tours-section.price') }}
                     <span>{{ currencyPrice }}</span>

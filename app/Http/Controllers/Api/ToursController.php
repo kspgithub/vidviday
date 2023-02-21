@@ -88,8 +88,8 @@ class ToursController extends Controller
      */
     public function autocomplete(Request $request)
     {
-        $q = $request->input('q', '');
         $limit = $request->input('limit', 20);
+        $page = $request->input('page', 20);
         if ($limit == 0) {
             $limit = 1000;
         }
@@ -99,6 +99,7 @@ class ToursController extends Controller
                 'tourDiscounts',
             ])
             ->take($limit)
+            ->offset(($page - 1) * $limit)
             ->get()->map->shortInfo();
     }
 

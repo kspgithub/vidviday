@@ -94,6 +94,7 @@ class Tour extends TranslatableModel implements HasMedia
         'home_disabled',
         'priority',
         'export',
+        'order_enabled',
     ];
 
     protected $casts = [
@@ -108,6 +109,7 @@ class Tour extends TranslatableModel implements HasMedia
         'corporate_includes' => 'array',
         'active_tabs' => 'array',
         'date' => 'date:d.m.Y',
+        'order_enabled' => 'boolean',
     ];
 
     protected $appends = [

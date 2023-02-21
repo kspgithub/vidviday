@@ -31,7 +31,7 @@
                           id="{{$name}}-{{$lang}}"
                           {{$readonly ? 'readonly' : ''}}
                           placeholder="{{ !empty($placeholder) ? $placeholder : ''}}"
-                          {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except(['required', ...($wireModel->directive ? [$wireModel->directive] : '')]) }}
+                          {{ $attributes->merge(['class' => $errors->has($name) ? 'form-control is-invalid' :  'form-control'])->except(['required', ...($wireModel->directive ? [$wireModel->directive] : [])]) }}
                           x-bind:required="{{ $attributes['required'] ? 'true' : 'false' }} && locales.includes('{{ $lang }}')"
                 @if($wireModel->value)
                     {{ $wireModel->directive }}="{{ $wireModel->value }}.{{$lang}}"
