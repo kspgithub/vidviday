@@ -89,7 +89,6 @@ class OrderController extends Controller
 
     public function success(Request $request, Order $order)
     {
-
         return view('order.success', ['order' => $order]);
     }
 

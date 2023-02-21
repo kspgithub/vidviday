@@ -43,6 +43,10 @@
         @endif
     @endproduction
 
+    @if($head = site_option('head'))
+        {!! $head !!}
+    @endif
+
     @if(is_tour_agent())
         <style>
             @page { size: auto;  margin: 0mm; }
@@ -50,6 +54,11 @@
     @endif
 </head>
 <body class="{{$body_class ?? ''}} {{  $bodyClass ?? '' }} @if(is_tour_agent()) agent-print @endif">
+
+@if($bodyTop = site_option('body_top'))
+    {!! $bodyTop !!}
+@endif
+
 <div id="app">
     <!-- LOADER -->
     <div id="loader"></div>
@@ -122,6 +131,11 @@
     >
     </div>
 @endguest
+
+@if($bodyBottom = site_option('body_bottom'))
+    {!! $bodyBottom !!}
+@endif
+
 </body>
 </html>
 

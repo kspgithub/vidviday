@@ -247,7 +247,7 @@ export default {
                     schema.tour_plan = 'required';
                 }
                 if (group_type.value === 0 && schedules.value.length > 0) {
-                    schema.schedule_id = 'required';
+                    // schema.schedule_id = 'required';
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
                         schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;

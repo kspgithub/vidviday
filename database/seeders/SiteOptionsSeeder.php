@@ -39,6 +39,11 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'document_contacts', 'value' => '', 'title' => 'Document contacts', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
             ['key' => 'export_from', 'value' => '', 'title' => 'Export from', 'primary' => true, 'type' => SiteOption::TYPE_DATE],
             ['key' => 'export_to', 'value' => '', 'title' => 'Export to', 'primary' => true, 'type' => SiteOption::TYPE_DATE],
+
+            ['key' => 'head', 'value' => '', 'title' => 'Head', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'body_top', 'value' => '', 'title' => 'Body top', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+            ['key' => 'body_bottom', 'value' => '', 'title' => 'Body bottom', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+
         ];
 
         foreach ($site_options as $option) {

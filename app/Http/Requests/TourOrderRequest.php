@@ -67,6 +67,7 @@ class TourOrderRequest extends FormRequest
             'price_include' => ['nullable', 'array'],
             'conditions' => ['required', Rule::in(['1'])],
             'is_tourist' => ['nullable'],
+            'offer_date' => ['nullable'],
         ];
     }
 
