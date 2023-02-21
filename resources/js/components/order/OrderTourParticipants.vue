@@ -11,6 +11,7 @@
 
         <order-participant v-for="(participant, idx) in participants"
                            :key="'participant-'+idx"
+                           :active="idx === 0"
                            :participant="participant"
                            :index="idx"
                            @update="updateParticipant"

@@ -1,7 +1,7 @@
 <template>
     <div class="participant">
-        <span class="h4" :class="{active}" @click.prevent="active = !active">Учасник <span>{{ index + 1 }}</span><i></i></span>
-        <div class="form" :class="{active}">
+        <span class="h4" :class="{active: isActive}" @click.prevent="isActive = !isActive">Учасник <span>{{ index + 1 }}</span><i></i></span>
+        <div class="form" :class="{active: isActive}">
             <form-input :label="__('forms.last-name')" v-model="participant.last_name"
                         :name="'participants['+index+'][last_name]'"/>
             <form-input label="Ім'я" v-model="participant.first_name" :name="'participants['+index+'][first_name]'"/>
@@ -29,9 +29,10 @@ export default {
     props: {
         index: Number,
         participant: Object,
+        active: Object,
     },
     emits: ['update', 'delete'],
-    setup({index, participant}, {emit}) {
+    setup({index, participant, active}, {emit}) {
 
 
         const innerValue = reactive(Object.assign({
@@ -49,12 +50,12 @@ export default {
             emit('delete', index);
         }
 
-        const active = ref(false)
+        const isActive = ref(active)
 
         return {
             innerValue,
             deleteItem,
-            active,
+            isActive,
         }
     }
 }
