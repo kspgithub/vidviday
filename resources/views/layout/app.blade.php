@@ -37,12 +37,6 @@
     <link href="{{ mix('css/app.css', 'assets/app') }}" rel="stylesheet">
     <link href="{{ mix('css/theme/print.css', 'assets/app') }}" media="print" rel="stylesheet">
 
-    @production
-        @if($ga = site_option('google_analytics'))
-            {!! $ga !!}
-        @endif
-    @endproduction
-
     @if($head = site_option('head'))
         {!! $head !!}
     @endif
@@ -112,12 +106,6 @@
         <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23103/h0l6i5.js?v11"></script>
     </div>
 </div>
-@endproduction
-
-@production
-    @if($fb = site_option('facebook_chat'))
-        {!! $fb !!}
-    @endif
 @endproduction
 
 @guest
