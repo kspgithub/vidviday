@@ -6,6 +6,7 @@ use App\Models\SiteOption;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class SiteOptionsSeeder extends Seeder
 {
@@ -30,8 +31,8 @@ class SiteOptionsSeeder extends Seeder
             ['key' => 'tour_agent_email', 'value' => 'support@vidviday.ua', 'title' => 'Email менеджера по турагентам', 'primary' => true, 'type' => SiteOption::TYPE_STRING],
             ['key' => 'certificate_email', 'value' => 'support@vidviday.ua', 'title' => 'Email менеджера по сертифікатам', 'primary' => true, 'type' => SiteOption::TYPE_STRING],
             ['key' => 'transport_email', 'value' => 'support@vidviday.ua', 'title' => 'Email менеджера по транспорту', 'primary' => true, 'type' => SiteOption::TYPE_STRING],
-            ['key' => 'google_analytics', 'value' => '', 'title' => 'Google analytics', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
-            ['key' => 'facebook_chat', 'value' => '', 'title' => 'Facebook chat', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+//            ['key' => 'google_analytics', 'value' => '', 'title' => 'Google analytics', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
+//            ['key' => 'facebook_chat', 'value' => '', 'title' => 'Facebook chat', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
             ['key' => 'complaints_image', 'value' => '', 'title' => 'Complaints image', 'primary' => true, 'type' => SiteOption::TYPE_IMAGE],
             ['key' => 'menu_column_items', 'value' => 7, 'title' => 'Menu items per column', 'primary' => true, 'type' => SiteOption::TYPE_INTEGER],
             ['key' => 'working_hours', 'value' => '10:00 - 22:00', 'title' => 'Working hours', 'primary' => true, 'type' => SiteOption::TYPE_TEXT],
@@ -53,6 +54,9 @@ class SiteOptionsSeeder extends Seeder
                 SiteOption::createOption($option['key'], $option['value'], $option['title'], $option['primary'] ?? false, $option['type'] ?? null);
             }
         }
+
+        // Delete outdated
+        SiteOption::query()->whereNotIn('key', Arr::pluck($site_options, 'key'))->delete();
 
         SiteOption::clearCache();
     }
