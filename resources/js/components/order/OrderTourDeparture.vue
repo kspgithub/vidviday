@@ -32,6 +32,7 @@ import FormDatepicker from '../form/FormDatepicker'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import FormSelect from '../form/FormSelect'
+import { __ } from '../../i18n/lang'
 
 export default {
     name: 'OrderTourDeparture',
@@ -55,7 +56,7 @@ export default {
         })
 
         const departureOptions = computed(() => {
-            return schedules.value.map((sch) => {
+            return [{id: '', start_title: __('forms.select-date')}, ...schedules.value].map((sch) => {
                 return {
                     value: sch.id,
                     text: sch.start_title,

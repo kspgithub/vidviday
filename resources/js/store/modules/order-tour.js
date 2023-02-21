@@ -350,7 +350,7 @@ export default {
             commit('SET_SCHEDULES_REQUEST', true);
             const schedules = await fetchTourSchedules(tourId);
             commit('SET_SCHEDULES', schedules || []);
-            commit('UPDATE_FORM_DATA', {schedule_id: schedules && schedules.length ? schedules[0].id : 0})
+            commit('UPDATE_FORM_DATA', {schedule_id: 0})
             commit('SET_SCHEDULES_REQUEST', false);
         }
     }
