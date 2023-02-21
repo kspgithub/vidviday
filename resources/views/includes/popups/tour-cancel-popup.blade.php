@@ -29,8 +29,8 @@
                             </label>
                         </div>
 
-                        <div class="col-12">
-                            <span class="btn type-1 btn-block">Погоджуюсь на умови скасування</span>
+                        <div class="col-12">123
+                            <span class="btn type-1 btn-block">{{ __('tours-section.cancel_agree') }}</span>
                             <div class="text text-sm">{{__('forms.required-fields')}}</div>
                         </div>
                     </form>
