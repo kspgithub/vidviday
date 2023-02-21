@@ -24,8 +24,7 @@
             </button>
         </div>
 
-        <div v-if="isTourAgent" class="participant phone-number">
-            <span class="h4"></span>
+        <div v-if="!isTourAgent" class="participant phone-number">
             <div class="form" style="display: block">
                 <form-phone v-model="participant_phone"
                             ref="participantPhoneRef"
