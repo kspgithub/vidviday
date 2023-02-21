@@ -56,7 +56,7 @@ export default {
         })
 
         const departureOptions = computed(() => {
-            return [{id: '', start_title: __('forms.select-date')}, ...schedules.value].map((sch) => {
+            return [{id: 0, start_title: __('forms.select-date')}, ...schedules.value].map((sch) => {
                 return {
                     value: sch.id,
                     text: sch.start_title,
