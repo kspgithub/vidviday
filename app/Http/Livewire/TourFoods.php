@@ -273,6 +273,11 @@ class TourFoods extends Component
         $this->model->currency = $this->form['currency'];
     }
 
+    public function afterSaveItem()
+    {
+        $this->tour->unsetRelations();
+    }
+
     public function updatedFoodId($id)
     {
         if($id) {

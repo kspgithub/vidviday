@@ -12,7 +12,7 @@
 
             <x-forms.translation-switch/>
 
-            <x-forms.text-loc-group wire:model="form.title" name="title" :label="__('Prefix')" :required-locales="$tour->locales" />
+            <x-forms.text-loc-group wire:model.defer="form.title" name="title" :label="__('Prefix')" :required-locales="$tour->locales" />
 
 
             <x-forms.html-loc-group name="title" :label="__('Title')"

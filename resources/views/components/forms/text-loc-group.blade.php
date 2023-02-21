@@ -1,14 +1,15 @@
 @props([
     'name' => '',
     'value' => '',
-    'label'=>'',
+    'label' => '',
     'placeholder' => '',
-    'type'=>'text',
-    'readonly'=>false,
-    'requiredLocales'=>['uk'],
-    'help'=>'',
-    'labelCol'=>'col-md-2',
-    'inputCol'=>'col-md-10',
+    'type' => 'text',
+    'readonly' => false,
+    'requiredLocales' => ['uk'],
+    'help' => '',
+    'labelCol' => 'col-md-2',
+    'inputCol' => 'col-md-10',
+    'wireModel' => $attributes->wire('model'),
 ])
 
 <div class="form-group row mb-3">
@@ -33,11 +34,11 @@
                        placeholder="{{ !empty($placeholder) ? $placeholder : $label }}"
                        value="{{ $value[$lang] ?? '' }}"
                        {{$readonly ? 'readonly' : ''}}
-                       {{ $attributes->merge(['class' => 'form-control', 'type'=>$type])->except(['required', 'wire:model']) }}
-                       x-bind:required="{{$attributes['required'] ? 'true' : 'false'}} && locales.includes('{{$lang}}')"
-                       @if($attributes->has('wire:model'))
-                       wire:model="{{ $attributes->get('wire:model') }}.{{$lang}}"
-                       @endif
+                       {{ $attributes->merge(['class' => 'form-control', 'type' => $type])->except(['required', ...($wireModel->directive ? [$wireModel->directive] : '')]) }}
+                       x-bind:required="{{ $attributes['required'] ? 'true' : 'false' }} && locales.includes('{{ $lang }}')"
+                @if($wireModel->value)
+                    {{ $wireModel->directive }}="{{ $wireModel->value }}.{{$lang}}"
+                @endif
                 />
                 @error($name. '.' . $lang)
                 <div class="invalid-feedback d-block">

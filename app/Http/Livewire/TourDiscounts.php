@@ -203,6 +203,8 @@ class TourDiscounts extends Component
         $this->form['start_date'] = null;
         $this->form['end_date'] = null;
 
+        $this->tour->unsetRelations();
+
         $this->dispatchBrowserEvent('DOMContentLoaded', []);
     }
 

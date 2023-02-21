@@ -18,14 +18,7 @@
 ])
 @php
     if($placeholder) {
-        if(isset($options[0]) && empty($id = ($options[0]['value'] ?? $options[0]['id']))) {
-            if(is_array($options)) {
-                array_unshift($options, ['id' => '', 'title' => $placeholder]);
-            }
-            if($options instanceof Illuminate\Support\Collection) {
-                $options->prepend(['id' => '', 'title' => $placeholder]);
-            }
-        } else {
+        if(isset($options[0]) && !empty($id = ($options[0]['value'] ?? $options[0]['id']))) {
             if(is_array($options)) {
                 array_unshift($options, ['id' => '', 'title' => $placeholder]);
             }

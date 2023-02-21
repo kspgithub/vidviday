@@ -170,6 +170,8 @@ class TourTransports extends Component
         $this->form['title'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
         $this->form['text'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
 
+        $this->tour->unsetRelations();
+
         $this->dispatchBrowserEvent('initLocation', []);
     }
 

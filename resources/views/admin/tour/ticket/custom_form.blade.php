@@ -14,9 +14,9 @@
                           :options="$regions">
     </x-forms.select-group>
 
-    <x-forms.text-loc-group wire:model="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />
+    <x-forms.text-loc-group wire:model.defer="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />
 
-    <x-forms.textarea-loc-group wire:model="form.text" name="text" :label="__('Text')"/>
+    <x-forms.textarea-loc-group wire:model.defer="form.text" name="text" :label="__('Text')"/>
 
 </div>
 

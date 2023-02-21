@@ -3,7 +3,7 @@
 
     <x-forms.translation-switch/>
 
-    <x-forms.text-loc-group wire:model="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />
+    <x-forms.text-loc-group wire:model.defer="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />
 
     <x-forms.select-group wire:model="form.type" name="type" :label="__('Type')"
                           wire:ignore
