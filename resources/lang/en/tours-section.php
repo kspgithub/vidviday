@@ -87,7 +87,7 @@ return [
     'q-and-a' => 'Questions and answers',
     'fun' => 'Hutsul fun',
     'most-popular-corporate' => 'Найпопулярніші корпоративи',
-    'departure-date' => 'Місце та дата виїзду',
+    'departure-date' => 'Дата виїзду',
     'price-description' => 'Ціни вказані без урахування знижок для дітей, учасників АТО/ООС, осіб з інвалідністю та інших пільгових категорій.',
     'all-inclusive' => 'Все включено',
     'total-sum' => 'Загальна сума',
