@@ -271,6 +271,11 @@ class TourAccommodations extends Component
         $this->model->city_id = $this->form['city_id'] === 0 ? null : $this->form['city_id'];
     }
 
+    public function afterSaveItem()
+    {
+        $this->tour->unsetRelations();
+    }
+
     public function updatedAccommodationId($id)
     {
         if($id) {

@@ -209,7 +209,7 @@ export default {
             mobile_phone: 'required|tel',
             avatar_upload: 'mimes:image/jpeg,image/png',
             current_password: () => {
-                return formData.new_password.length === 0 ? true : 'Введіть пароль'
+                return formData.new_password.length === 0 ? true : formData.current_password.length === 0 ? 'Введіть пароль' : true
             },
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation

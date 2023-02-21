@@ -196,6 +196,8 @@ class TourTickets extends Component
         $this->form['text'] = ['uk' => '', 'ru' => '', 'en' => '', 'pl' => ''];
         $this->form['region_id'] = 0;
 
+        $this->tour->unsetRelations();
+
         $this->dispatchBrowserEvent('initLocation', []);
     }
 

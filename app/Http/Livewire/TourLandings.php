@@ -191,6 +191,8 @@ class TourLandings extends Component
         $this->form['lat'] = 48.736383466532274;
         $this->form['lng'] = 31.460746106250006;
 
+        $this->tour->unsetRelations();
+
         $this->dispatchBrowserEvent('initLocation', []);
     }
 
