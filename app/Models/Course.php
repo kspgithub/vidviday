@@ -16,14 +16,15 @@ use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Course extends TranslatableModel
+class Course extends TranslatableModel implements HasMedia
 {
     use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use HasJsonSlug;
     use UseSelectBox;
-
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
 
     public $translatable = [
         'title',
@@ -66,6 +67,19 @@ class Course extends TranslatableModel
         'created_at',
         'updated_at',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('default')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+            ->singleFile();
+
+        $this->addMediaCollection('pictures')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+
+        $this->addMediaCollection('gallery')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+    }
 
     public function getSlugOptions(): SlugOptions
     {
