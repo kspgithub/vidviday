@@ -31,19 +31,22 @@
                                 <div class="d-flex align-items-center">
                                     <template x-if="['text', 'email', 'tel', 'number'].includes(attribute.type)">
                                         <input x-bind:type="attribute.type || 'text'" x-model="schedule[attribute.key]"
-                                               class="form-control form-control-sm me-3" x-bind="attribute.inputAttrs || {}">
+                                               class="form-control form-control-sm me-3"
+                                               x-bind="attribute.inputAttrs || {}">
                                     </template>
 
-                                   <template x-if="attribute.type === 'select'">
-                                       <select x-model="schedule[attribute.key]"
-                                               x-bind:name="attribute.key"
-                                               x-bind:id="attribute.id"
-                                               class="form-control"
-                                               required>
-                                           <template x-for="(option, key) in (attribute.options || [])">
-                                               <option x-bind:value="option.value" x-bind:selected="option.value == schedule[attribute.key]" x-text="option.text"></option>
-                                           </template>
-                                       </select>
+                                    <template x-if="attribute.type === 'select'">
+                                        <select x-model="schedule[attribute.key]"
+                                                x-bind:name="attribute.key"
+                                                x-bind:id="attribute.id"
+                                                class="form-control"
+                                                required>
+                                            <template x-for="(option, key) in (attribute.options || [])">
+                                                <option x-bind:value="option.value"
+                                                        x-bind:selected="option.value == schedule[attribute.key]"
+                                                        x-text="option.text"></option>
+                                            </template>
+                                        </select>
                                     </template>
 
                                     <button type="submit" class="btn btn-sm btn-outline-success me-3">

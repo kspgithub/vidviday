@@ -26,7 +26,7 @@
                               'city_id' => $form['city_id'] ?? 0,
                               'place_id' => $form['place_id'] ?? 0,
                           ]"
-                          :options="$districts" >
+                          :options="$districts">
     </x-forms.select-group>
 
     <x-forms.select-group wire:model="form.place_id" name="place_id" :label="__('Template')"
@@ -41,7 +41,7 @@
                               'city_id' => $form['city_id'] ?? 0,
                               'place_id' => $form['place_id'] ?? 0,
                           ]"
-                          :options="$places" >
+                          :options="$places">
     </x-forms.select-group>
 
     @if($form['place_id'] && $place)

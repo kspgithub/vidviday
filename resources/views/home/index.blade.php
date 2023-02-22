@@ -32,30 +32,30 @@
 
                     @include('home.includes.banner')
 
-                    <a v-bind="$buttons('goto.vacancy')" href="/" class="btn type-3 btn-more">Дізнатись Більше</a>
+                    <x-seo-button key="goto.vacancy" href="/" class="btn type-3 btn-more">Дізнатись Більше</x-seo-button>
 
-                    <div v-is="'tour-search'">
-                        <!-- MOBILE BUTTONS BAR -->
-                        @include('includes.mobile-btns-bar')
-                        <!-- MOBILE BUTTONS BAR END -->
+                        <div v-is="'tour-search'">
+                            <!-- MOBILE BUTTONS BAR -->
+                            @include('includes.mobile-btns-bar')
+                            <!-- MOBILE BUTTONS BAR END -->
 
-                        <div class="tabs">
-                            @include('home.includes.tab-nav')
-                            <div class="tabs-wrap">
-                                <!-- TAB #1 -->
-                                @include('home.includes.tab-gallery')
-                                <!-- TAB #1 END -->
+                            <div class="tabs">
+                                @include('home.includes.tab-nav')
+                                <div class="tabs-wrap">
+                                    <!-- TAB #1 -->
+                                    @include('home.includes.tab-gallery')
+                                    <!-- TAB #1 END -->
 
-                                <!-- TAB #2 -->
-                                @include('home.includes.tab-list')
-                                <!-- TAB #2 END -->
+                                    <!-- TAB #2 -->
+                                    @include('home.includes.tab-list')
+                                    <!-- TAB #2 END -->
 
-                                <!-- TAB #3 -->
-                                @include('home.includes.tab-calendar')
-                                <!-- TAB #3 END -->
+                                    <!-- TAB #3 -->
+                                    @include('home.includes.tab-calendar')
+                                    <!-- TAB #3 END -->
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="spacer-xs"></div>

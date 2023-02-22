@@ -1,6 +1,8 @@
 @extends("layout.app")
 
-@section("title") {{ "Відвідай | ". $post->title }}  @endsection
+@section("title")
+    {{ "Відвідай | ". $post->title }}
+@endsection
 
 
 @section("content")
@@ -13,7 +15,7 @@
                     <a href="{{ route('home') }}" itemprop="item">
                         <span itemprop="name">{{ __("Home") }}</span>
                     </a>
-                    <meta itemprop="position" content="1" />
+                    <meta itemprop="position" content="1"/>
                 </li>
                 <li>
                     <span>—</span>
@@ -22,14 +24,14 @@
                     <a href="{{ route('blog.index') }}" itemprop="item">
                         <span itemprop="name">{{ __("Blog") }}</span>
                     </a>
-                    <meta itemprop="position" content="2" />
+                    <meta itemprop="position" content="2"/>
                 </li>
                 <li>
                     <span>—</span>
                 </li>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name">{{ $post->title }}</span>
-                    <meta itemprop="position" content="3" />
+                    <meta itemprop="position" content="3"/>
                 </li>
             </ul>
 
@@ -37,19 +39,19 @@
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span v-bind="$buttons('tour.select')" class="btn type-5 arrow-right text-left flex">
+                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
                             <img src="{{ asset("img/preloader.png") }}"
                                  data-img-src="{{ asset("icon/filter-dark.svg") }}"
                                  alt="filter-dark">
                             {{ __("Підбір туру") }}
-                        </span>
-                        <div class="spacer-xs"></div>
+                            </x-seo-button>
+                            <div class="spacer-xs"></div>
                     </div>
                     <!-- BANNER/INFO -->
                     <div class="banner-img">
@@ -77,55 +79,56 @@
                     @endphp
 
                     @if($pictures->count() > 0 || $post->video)
-                    <div class="spacer-xs"></div>
+                        <div class="spacer-xs"></div>
 
-                    <!-- SLIDER -->
-                    <div class="row">
-                        <div class="col-lg-10 offset-lg-1 col-12">
-                            <div class="default-slider swiper-entry">
-                                <div class="swiper-container" data-options='{
+                        <!-- SLIDER -->
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1 col-12">
+                                <div class="default-slider swiper-entry">
+                                    <div class="swiper-container" data-options='{
 						            "loop": {{ $pictures->count() > 1 ? 'true' : 'false' }},
                                     "autoHeight": true,
                                     "parallax": true,
                                     "spaceBetween": 20
                                 }'>
-                                    <div class="swiper-wrapper">
+                                        <div class="swiper-wrapper">
 
-                                        @if($post->video)
-                                            <div class="swiper-slide">
-                                                <div class="img img-border">
-                                                    <div class="video"
-                                                         data-frame-src="{{youtube_embed($post->video)}}"></div>
+                                            @if($post->video)
+                                                <div class="swiper-slide">
+                                                    <div class="img img-border">
+                                                        <div class="video"
+                                                             data-frame-src="{{youtube_embed($post->video)}}"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
 
-                                        @foreach($pictures as $media)
-                                            <div class="swiper-slide">
-                                                <div class="img img-border">
-                                                    <img src="{{ asset("img/preloader.png") }}"
-                                                         data-img-src="{{ $media->getUrl('thumb') }}"
-                                                         alt="img 28"
-                                                         data-swiper-parallax="30%">
+                                            @foreach($pictures as $media)
+                                                <div class="swiper-slide">
+                                                    <div class="img img-border">
+                                                        <img src="{{ asset("img/preloader.png") }}"
+                                                             data-img-src="{{ $media->getUrl('thumb') }}"
+                                                             alt="img 28"
+                                                             data-swiper-parallax="30%">
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <span
+                                                            class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
+                                                    </div>
                                                 </div>
-                                                <div class="text-center">
-                                                    <span class="text-sm">{{ $media->custom_properties["title_".app()->getLocale()] ?? '' }}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-button-prev outside bottom-sm">
-                                    <i></i>
-                                </div>
-                                <div class="swiper-pagination only-pad-mobile relative"></div>
-                                <div class="swiper-button-next outside bottom-sm">
-                                    <i></i>
+                                    <div class="swiper-button-prev outside bottom-sm">
+                                        <i></i>
+                                    </div>
+                                    <div class="swiper-pagination only-pad-mobile relative"></div>
+                                    <div class="swiper-button-next outside bottom-sm">
+                                        <i></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                         <!-- SLIDER END -->
 
                         <div class="spacer-xs"></div>

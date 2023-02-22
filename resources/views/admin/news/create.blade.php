@@ -16,6 +16,4 @@
         @include('admin.news.includes.form')
     </x-page.edit>
 
-
-
 @endsection

@@ -58,8 +58,8 @@
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                        <span v-bind="$buttons('order.corporate')" class="btn type-1 btn-block btn-book-size open-popup calendar-init"
-                              data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</span>
+                        <x-seo-button key="order.corporate" class="btn type-1 btn-block btn-book-size open-popup calendar-init"
+                              data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</x-seo-button>
                             <div class="spacer-xs"></div>
                         </div>
                         <!-- ACCORDIONS CONTENT -->
@@ -68,8 +68,8 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <a v-bind="$buttons('order.corporate')" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
-                       href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
+                    <x-seo-button key="order.corporate" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
+                       href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</x-seo-button>
                 </div>
                 <div class="col-xl-4 col-12">
                     <!-- THUMBS CAROUSEL -->

@@ -65,11 +65,11 @@
                     </div>
                 @endif
             @endif
-            <a v-bind="$buttons('order.tour')" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</a>
+            <x-seo-button key="order.tour" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
         @else
             <div class="text">
                 <p>{{str_limit($tour->short_text, 150)}}
-                    <a v-bind="$buttons('tour.show_more')" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</a>
+                    <x-seo-button key="tour.show_more" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
                 </p>
             </div>
         @endif
@@ -78,7 +78,7 @@
     @if($mode === 'thumb')
         <div class="thumb-desc text">
             <p>{{$tour->short_text}}
-                <a v-bind="$buttons('tour.show_more')" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</a>
+                <x-seo-button key="tour.show_more" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
             </p>
         </div>
     @else
@@ -110,7 +110,7 @@
                                 class="tooltip text text-sm light">Комісія агента</span></span></span>
                 @endif
             </div>
-            <a v-bind="$buttons('order.tour')" href="{{route('tour.order', $tour->id)}}" class="btn type-1 btn-block">Замовити Тур</a>
+            <x-seo-button key="order.tour" href="{{route('tour.order', $tour->id)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
         </div>
     @endif
 </div>

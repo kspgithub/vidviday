@@ -8,18 +8,19 @@
                 <tr>
                     <th></th>
                     <th>@lang('Title')</th>
-{{--                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>--}}
+                    {{--                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>--}}
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
                 <tbody wire:sortable="updateOrder">
                 @foreach($items as $item)
-                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}" wire:key="place-{{ $item->original_id }}">
+                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}"
+                        wire:key="place-{{ $item->original_id }}">
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>
                         <td>{!! $item->title !!}</td>
-{{--                        <td>{!! $item->text !!}</td>--}}
+                        {{--                        <td>{!! $item->text !!}</td>--}}
                         <td style="width: 150px">
 
                             <a href="#" wire:click.prevent="editItem({{$item->original_id}})"

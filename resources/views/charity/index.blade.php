@@ -36,10 +36,10 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12 charity">
 
                     <div class="only-pad-mobile">
-                        <span v-bind="$buttons('tour.select')" class="btn type-5 arrow-right text-left flex">
+                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
                             <img src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             Підбір туру
-                        </span>
+                        </x-seo-button>
                         <div class="spacer-xs"></div>
                     </div>
 
@@ -70,8 +70,8 @@
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <a v-bind="$buttons('goto.charity')" href="{{ route("charity.single", ["slug" => $post->slug]) }}"
-                                           class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
+                                        <x-seo-button key="goto.charity" href="{{ route("charity.single", ["slug" => $post->slug]) }}"
+                                           class="btn btn-read-more text-bold">{{ __("Читати більше") }}</x-seo-button>
                                     </div>
                                 </div>
                             </div>

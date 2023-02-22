@@ -18,7 +18,8 @@
                                                 <div class="accordion-inner" style="display: block">
                                                     {{--                                            <div class="accordion-title">{{$foodTime->title}}<i></i></div>--}}
 
-                                                    <x-swiper-media :slides="$foodTime->getMedia(filters: ['published' => true])"/>
+                                                    <x-swiper-media
+                                                        :slides="$foodTime->getMedia(filters: ['published' => true])"/>
 
                                                     <div class="text">
                                                         {!! $foodTime->text !!}

@@ -5,15 +5,15 @@
     <!-- THUMBS -->
     <div class="thumb-wrap row">
         @foreach($tours as $tour)
-        <div class="col-lg-4 col-sm-6 col-12">
-            <x-tour.card :tour="$tour" />
-        </div>
+            <div class="col-lg-4 col-sm-6 col-12">
+                <x-tour.card :tour="$tour"/>
+            </div>
         @endforeach
 
         <div class="col-12">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <span v-bind="$buttons('tour.show_more')" class="btn type-2">Показати ще 12</span>
+                <x-seo-button key="tour.show_more" class="btn type-2">Показати ще 12</x-seo-button>
             </div>
         </div>
     </div>

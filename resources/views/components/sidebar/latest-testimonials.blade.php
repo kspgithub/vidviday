@@ -52,10 +52,10 @@
                                 </div>
 
                                 @if($testimonial->tour)
-                                    <a v-bind="$buttons('goto.tour_testimonial')" class="btn btn-read-more text-bold d-inline"
+                                    <x-seo-button key="goto.tour_testimonial" class="btn btn-read-more text-bold d-inline"
                                        href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
                                         {{__('common.more')}}
-                                    </a>
+                                    </x-seo-button>
                                 @else
                                     <div class="show-more">
                                         <span>{{__('tours-section.show-more')}}</span>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a v-bind="$buttons('testimonial.next')" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</a>
+                <x-seo-button key="testimonial.next" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</x-seo-button>
             </div>
 
         </div>

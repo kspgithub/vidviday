@@ -86,20 +86,7 @@
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
     window.initMap = () => {window.dispatchEvent(new CustomEvent('googleMapsLoaded'))}
-
-    @php
-        $seoButtons = [];
-
-        foreach (config('buttons') as $namespace => $buttons) {
-            foreach (config('buttons.' . $namespace) as $key => $value) {
-                $seoButtons[$namespace . '.' . $key] = $value;
-            }
-        }
-
-    @endphp
-
-    window.seoButtons = @json($seoButtons);
-
+    window.seoButtons = @json(app('seo-buttons'));
 </script>
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>

@@ -8,7 +8,7 @@
                           :filters="[
                               'landing_id' => $form['landing_id'] ?? 0,
                           ]"
-                          :options="$landings" >
+                          :options="$landings">
     </x-forms.select-group>
 
     @if($form['landing_id'] && $landing)
@@ -22,7 +22,7 @@
             <x-forms.html-loc-group name="description" :label="__('Description')"
                                     :value="old('description', $landing->getTranslations('description'))"/>
 
-            <x-forms.text-group wire:model="form.time" name="time" :label="__('Time')" />
+            <x-forms.text-group wire:model="form.time" name="time" :label="__('Time')"/>
 
         </div>
     @endif

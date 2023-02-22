@@ -37,7 +37,7 @@
                           :select2="true"
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
-                          :options="$foodItems" >
+                          :options="$foodItems">
     </x-forms.select-group>
 
     @if($form['food_id'] && $food)

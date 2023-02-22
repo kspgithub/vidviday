@@ -1,7 +1,7 @@
 <div>
     @include('admin.crm.order.includes.customer-card')
     @include('admin.crm.order.includes.schedule-card')
-{{--    @include('admin.crm.order.includes.basic')--}}
+    {{--    @include('admin.crm.order.includes.basic')--}}
     @include('admin.crm.order.includes.participants')
     @include('admin.crm.order.includes.accomm')
     @include('admin.crm.order.includes.agency')

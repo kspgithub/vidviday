@@ -58,7 +58,7 @@ $bodyClass = 'no-logo';
                         <div class="only-pad-mobile">
                             <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
                             <div class="spacer-xs"></div>
-                            <a v-bind="$buttons('order.transport')" class="btn type-1 btn-block" href="#transport-form">{{ __('order-section.order-bus') }}</a>
+                            <x-seo-button key="order.transport" class="btn type-1 btn-block" href="#transport-form">{{ __('order-section.order-bus') }}</x-seo-button>
                             <div class="spacer-xs"></div>
                         </div>
                         <div class="text text-md">

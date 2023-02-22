@@ -17,5 +17,4 @@
         @include('admin.page.includes.form')
     </x-page.edit>
 
-
 @endsection

@@ -38,6 +38,7 @@ export default {
         app.component('share-dropdown', lazyLoadComponent('common/ShareDropdown'));
         app.component('print-btn', lazyLoadComponent('common/PrintBtn'));
         app.component('map-route', lazyLoadComponent('common/MapRoute'));
+        app.component('seo-button', lazyLoadComponent('common/SeoButton'));
 
         app.component('testimonial-list', lazyLoadComponent('testimonial/TestimonialList'));
         app.component('testimonial-popup-form', lazyLoadComponent('testimonial/TestimonialPopupForm'));

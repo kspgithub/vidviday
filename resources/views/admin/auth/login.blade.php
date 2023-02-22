@@ -18,11 +18,13 @@
 
                     <div class="mb-3">
                         <label class="form-label">@lang('Email')</label>
-                        <input class="form-control form-control-lg" type="email" name="email" placeholder="@lang('Enter your email')" />
+                        <input class="form-control form-control-lg" type="email" name="email"
+                               placeholder="@lang('Enter your email')"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">@lang('Password')</label>
-                        <input class="form-control form-control-lg" type="password" name="password" placeholder="@lang('Enter your password')" />
+                        <input class="form-control form-control-lg" type="password" name="password"
+                               placeholder="@lang('Enter your password')"/>
                     </div>
                     <div>
                         <label class="form-check">

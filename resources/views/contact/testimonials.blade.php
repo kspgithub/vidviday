@@ -48,9 +48,9 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span v-bind="$buttons('tour.select')" class="btn type-5 arrow-right text-left flex">
+                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
                             <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/filter-dark.svg')}}"
-                                 alt="filter-dark">Підбір туру</span>
+                                 alt="filter-dark">Підбір туру</x-seo-button>
                         <div class="spacer-xs"></div>
                     </div>
                     <!-- TESTIMONIALS CONTENT -->

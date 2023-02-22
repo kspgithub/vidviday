@@ -1,6 +1,8 @@
 @extends("layout.app")
 
-@section("title") {{ "Відвідай | ". $newsSingle->title }}  @endsection
+@section("title")
+    {{ "Відвідай | ". $newsSingle->title }}
+@endsection
 
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
@@ -21,31 +23,32 @@
         <div class="container">
             <!-- BREAD CRUMBS -->
 
-               @include("news.includes.bread_crumbs", ["title" => $newsSingle->title])
+            @include("news.includes.bread_crumbs", ["title" => $newsSingle->title])
 
             <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                      @include('includes.sidebar')
+                    @include('includes.sidebar')
                     <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span v-bind="$buttons('tour.select')" class="btn type-5 arrow-right text-left flex">
-                            <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
+                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
+                            <img src="{{ asset("img/preloader.png") }}"
+                                 data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             {{ __("Підбір туру") }}
-                        </span>
+                        </x-seo-button>
                         <div class="spacer-xs"></div>
                     </div>
                     <!-- BANNER/INFO -->
                     <div class="banner-img">
                         @foreach($newsSingle->media as $media)
                             @if($media->collection_name === "main")
-                               <img src="{{ asset("img/preloader.png") }}"
-                                    data-img-src="{{ $media->getUrl('thumb') }}"
-                                    alt="banner img 11">
+                                <img src="{{ asset("img/preloader.png") }}"
+                                     data-img-src="{{ $media->getUrl('thumb') }}"
+                                     alt="banner img 11">
                             @endif
                         @endforeach
                     </div>
@@ -114,8 +117,8 @@
                         </div>
                         <!-- SLIDER END -->
                         <div class="spacer-xs"></div>
-                @endif
-                <!-- POST CONTENT -->
+                    @endif
+                    <!-- POST CONTENT -->
                     <div class="text text-md">
                         {!!  $newsSingle->text !!}
                     </div>
@@ -124,7 +127,8 @@
                     <div class="social post-social">
                         <span>{{ __('Поділитись') }}:</span>
 
-                        <div v-is="'share-dropdown'" share-url="{{url()->current()}}"  share-title="{{ $newsSingle->title }}"></div>
+                        <div v-is="'share-dropdown'" share-url="{{url()->current()}}"
+                             share-title="{{ $newsSingle->title }}"></div>
 
                         <a href="/document/document.pdf" download print class="download only-desktop only">
                             <span class="text-md text-medium">{{ __('tours-section.download-tour') }}</span>

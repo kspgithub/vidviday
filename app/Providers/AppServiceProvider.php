@@ -21,10 +21,12 @@ use App\Observers\TourVotingObserver;
 use App\Observers\UserQuestionObserver;
 use App\Observers\UserSubscriptionObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
         }
+
+        $this->app->singleton('seo-buttons', fn($app) => new Repository($app['config']->get('buttons')));
     }
 
     /**

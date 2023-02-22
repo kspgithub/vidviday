@@ -3,14 +3,15 @@
 
     <x-forms.translation-switch/>
 
-    <x-forms.text-loc-group wire:model.defer="form.title" name="title" :label="__('Title')" :required-locales="$tour->locales" />
+    <x-forms.text-loc-group wire:model.defer="form.title" name="title" :label="__('Title')"
+                            :required-locales="$tour->locales"/>
 
     <x-forms.select-group wire:model="form.type" name="type" :label="__('Type')"
                           wire:ignore
                           :select2="true"
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
-                          :options="$discountTypes" >
+                          :options="$discountTypes">
     </x-forms.select-group>
 
     <x-forms.text-group wire:model="form.price" name="price" :label="__('Price')" type="number" required/>
@@ -43,11 +44,11 @@
                           label="Обмеження за віком"></x-forms.switch-group>
 
     <x-forms.text-group wire:model="form.age_start" name="age_start" label="Вік з"
-{{--                        :value="old('age_start', $discount->age_start)"--}}
+                        {{--                        :value="old('age_start', $discount->age_start)"--}}
                         type="number"></x-forms.text-group>
 
     <x-forms.text-group wire:model="form.age_end" name="age_end" label="Вік по"
-{{--                        :value="old('age_end', $discount->age_end)"--}}
+                        {{--                        :value="old('age_end', $discount->age_end)"--}}
                         type="number"></x-forms.text-group>
 
     <x-forms.datepicker-group wire:model="form.start_date"

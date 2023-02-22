@@ -16,7 +16,7 @@
 
     <x-bootstrap.card>
         <x-slot name="body">
-            <livewire:food-table />
+            <livewire:food-table/>
         </x-slot>
     </x-bootstrap.card>
 

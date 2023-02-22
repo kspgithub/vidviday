@@ -13,6 +13,6 @@
             <span class="text">{{$specialist->testimonials_count}} відгуків</span>
         </div>
         <span class="text">Проводить <b>{{$specialist->tours_count}} турів</b></span>
-        <a v-bind="$buttons('goto.staff')" href="{{ $specialist->url }}" class="btn type-1 btn-block">Дізнатись більше</a>
+        <x-seo-button key="goto.staff" href="{{ $specialist->url }}" class="btn type-1 btn-block">Дізнатись більше</x-seo-button>
     </div>
 </div>
