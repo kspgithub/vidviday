@@ -1,9 +1,13 @@
 <?php
 
+use App\Models\SmsNotification;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * @see SmsNotification
+ */
 class CreateSmsNotificationsTable extends Migration
 {
     /**
