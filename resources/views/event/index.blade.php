@@ -95,7 +95,7 @@
                                                                     @else
                                                                         {!! str_limit(strip_tags(html_entity_decode($event->text)) , 500) !!}
                                                                     @endif
-                                                                    <a href="{{$event->url}}"
+                                                                    <a v-bind="$buttons.goto.event" href="{{$event->url}}"
                                                                     class="btn btn-read-more text-bold">@lang('common.more')</a>
                                                                 </p>
 

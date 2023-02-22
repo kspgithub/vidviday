@@ -17,7 +17,7 @@
                             <i>Email*</i>
                             <input type="text" name="email" required>
                         </label>
-                        <button type="submit" class="btn type-1 btn-block">{{__('auth.recover-password')}}</button>
+                        <button v-bind="$buttons.auth.recover" type="submit" class="btn type-1 btn-block">{{__('auth.recover-password')}}</button>
                     </form>
                     <div class="spacer-xs"></div>
                     <div class="text text-sm">{{__('auth.required-fields')}}</div>

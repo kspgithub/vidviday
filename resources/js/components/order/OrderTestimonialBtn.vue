@@ -1,5 +1,5 @@
 <template>
-    <span class="btn type-2" @click="openPopup()"><slot/></span>
+    <span v-bind="$buttons.testimonial.order" class="btn type-2" @click="openPopup()"><slot/></span>
 </template>
 
 <script>

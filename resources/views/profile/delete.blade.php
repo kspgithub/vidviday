@@ -22,7 +22,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger">Так, видалити аккаунт</button>
+                                <button v-bind="$buttons.auth.delete_account" type="submit" class="btn btn-danger">Так, видалити аккаунт</button>
                             </form>
                         </div>
                     </div>

@@ -44,12 +44,12 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <button id="b23" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <button v-bind="$buttons.order.email" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
                             </button>
                         </vue-recaptcha>
                         <template v-if="!useRecaptcha">
-                            <button id="b25" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <button v-bind="$buttons.order.email" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
                             </button>
                         </template>

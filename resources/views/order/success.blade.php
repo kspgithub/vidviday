@@ -16,7 +16,7 @@
 
                 <div class="col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
+                        <span v-bind="$buttons.tour.select" class="btn type-5 arrow-right text-left flex"><img
                                 src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">Підбір туру</span>
                     </div>
                     <div class="spacer-xs"></div>
@@ -49,7 +49,7 @@
                             <div class="text-center">
                                 <span class="text">Дякуємо, що обрали нас!</span>
                                 <div class="spacer-xs"></div>
-                                <a href="/" class="btn type-1">На головну</a>
+                                <a v-bind="$buttons.goto.home" href="/" class="btn type-1">На головну</a>
                             </div>
                         </div>
                     </div>

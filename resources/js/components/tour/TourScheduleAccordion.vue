@@ -27,6 +27,7 @@
                     </div>
 
                     <component :is="'tour-order-schedule-button'"
+                               v-bind="$buttons.tour.order_schedule"
                                :tour="tour"
                                :schedule="event"
                                class="btn type-1"/>
@@ -46,8 +47,8 @@
         <template v-if="allEvents.length > 3">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <span class="btn type-2 show-more-events">{{ __('tours-section.show-more') }}</span>
-                <span class="btn type-2 hide-more-events d-none">{{ __('tours-section.hide-more') }}</span>
+                <span v-bind="$buttons.tour.more_schedules" class="btn type-2 show-more-events">{{ __('tours-section.show-more') }}</span>
+                <span v-bind="$buttons.tour.hide_schedules" class="btn type-2 hide-more-events d-none">{{ __('tours-section.hide-more') }}</span>
             </div>
         </template>
     </div>

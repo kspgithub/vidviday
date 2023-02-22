@@ -84,7 +84,7 @@
                                         <i>Ваш коментар*</i>
                                         <textarea name="text" rules="required"></textarea>
                                     </label>
-                                    <button type="submit"
+                                    <button v-bind="$buttons.question.send" type="submit"
                                             class="btn type-1 open-popup" data-rel="thanks-popup">Надіслати
                                     </button>
                                 </div>

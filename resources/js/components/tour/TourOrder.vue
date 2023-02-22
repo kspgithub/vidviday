@@ -62,11 +62,12 @@
 
             <template v-if="nearestEvent">
 
-                <button type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate" @click="tourOrder">
+                <button v-bind="$buttons.tour.order" type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate" @click="tourOrder">
                     {{ __('tours-section.order-tour') }}
                 </button>
 
-                <span v-if="canOrderOneClick"
+                <span v-bind="$buttons.tour.order_one_click"
+                      v-if="canOrderOneClick"
                       class="btn type-2 btn-block hidden-print"
                       @click="showPopup()"
                 >{{ __('tours-section.order-one-click') }}</span>
@@ -74,12 +75,12 @@
             </template>
 
             <template v-if="!nearestEvent">
-                <a href="#tour-voting-form" class="btn type-1 btn-block only-mobile hidden-print">
+                <a v-bind="$buttons.tour.repeat" href="#tour-voting-form" class="btn type-1 btn-block only-mobile hidden-print">
                     {{ __('tours-section.repeat-tour') }}
                 </a>
             </template>
 
-            <a :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="tour.order_enabled && corporate">
+            <a v-bind="$buttons.tour.order_corporate" :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="tour.order_enabled && corporate">
                 {{ __('tours-section.order-corporate') }}
             </a>
 

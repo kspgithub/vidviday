@@ -16,7 +16,7 @@
                                        rows="3" name="text"/>
                     </div>
                     <div class="add-note-btns">
-                        <button id="b16" class="btn type-2" type="submit" :disabled="!text || request">
+                        <button v-bind="$buttons.order.notes" class="btn type-2" type="submit" :disabled="!text || request">
                             {{ __('forms.send') }}
                         </button>
                         <a class="text-sm add-note-btn-cancel" @click.prevent="showForm = false">

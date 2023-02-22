@@ -2,7 +2,9 @@ import { TranslateResult } from 'vue-i18n'
 
 declare global {
 
-    function __(key: string, named?: Record<string, unknown>): TranslateResult
+    type ReplaceProps = 'provider' | 'model'
+
+    function __(key: string, named?: Record<ReplaceProps, string>): TranslateResult
 
     interface Window {
 

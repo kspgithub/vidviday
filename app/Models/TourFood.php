@@ -24,6 +24,8 @@ class TourFood extends TranslatableModel implements HasMedia
     const TYPE_TEMPLATE = 1;
     const TYPE_CUSTOM = 2;
 
+    protected $table = 'tour_food';
+
     public $translatable = [
         'title',
         'text',

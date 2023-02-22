@@ -13,7 +13,7 @@
                 <x-sidebar.recommendation-item :item="$items->first()"/>
 
                 @if($items->count() > 1)
-                    <a href="{{$testimonialsUrl}}"
+                    <a v-bind="$buttons.common.more_recommendations" href="{{$testimonialsUrl}}"
                        class="btn type-2 btn-block show_more">{{__('tours-section.show-more')}}</a>
                     @foreach($items as $key=>$item)
                         @if($key> 0)

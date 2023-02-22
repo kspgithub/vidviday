@@ -26,6 +26,7 @@ class Food extends TranslatableModel implements HasMedia
     use UseSelectBox;
     use JsonLikeScope;
 
+    protected $table = 'food';
 
     public $translatable = [
         'title',

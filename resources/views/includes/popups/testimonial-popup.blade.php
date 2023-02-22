@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <span class="btn type-1 open-popup" data-rel="thanks-popup">{{ __('forms.leave-feedback') }}</span>
+                    <span v-bind="$buttons.testimonial.send" class="btn type-1 open-popup" data-rel="thanks-popup">{{ __('forms.leave-feedback') }}</span>
                 </div>
 
                 <div class="text-center-xs col-12">

@@ -63,7 +63,7 @@
 
                     <div class="only-pad-mobile">
                         <div class="spacer-xs"></div>
-                        <a href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
+                        <a v-bind="$buttons.order.certificate" href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
                             @lang('order-section.certificate.order')
                         </a>
                     </div>

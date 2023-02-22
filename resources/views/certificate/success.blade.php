@@ -53,7 +53,7 @@
                                 <span
                                     class="text-md">{{__('order-section.details-message')}} <b>{{$order->email}}</b></span>
                                 <div class="spacer-xs"></div>
-                                <a href="{{pageUrlByKey('certificate')}}"
+                                <a v-bind="$buttons.goto.certificate" href="{{pageUrlByKey('certificate')}}"
                                    class="btn type-1">{{__('order-section.certificate.go-to-description')}}</a>
                             </div>
                         </div>

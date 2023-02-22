@@ -23,7 +23,7 @@
                 <form-input name="email" v-model="form.email"
                             :label="__('forms.your-email')"/>
 
-                <button  id="b38" type="submit" class="btn type-1 btn-block" :disabled="submitted">
+                <button v-bind="$buttons.tour.vote" type="submit" class="btn type-1 btn-block" :disabled="submitted">
                     {{ __('tours-section.vote') }}
                 </button>
 

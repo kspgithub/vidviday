@@ -21,7 +21,7 @@
                 @endforeach
 
             </div>
-            <a href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</a>
+            <a v-bind="$buttons.news.latest" href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</a>
         </div>
     </div>
 @endif

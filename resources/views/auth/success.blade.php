@@ -18,11 +18,11 @@
                         <div class="spacer-xs"></div>
 
                         @auth
-                            <a href="{{route('profile.index')}}" class="btn type-1">@lang('auth.login-profile')</a>
+                            <a v-bind="$buttons.auth.profile" href="{{route('profile.index')}}" class="btn type-1">@lang('auth.login-profile')</a>
                         @endauth
 
                         @guest
-                            <a href="{{route('auth.login')}}" class="btn type-1">@lang('auth.login-profile')</a>
+                            <a v-bind="$buttons.auth.login" href="{{route('auth.login')}}" class="btn type-1">@lang('auth.login-profile')</a>
                         @endguest
                     </div>
                 </div>

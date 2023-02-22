@@ -3,16 +3,16 @@
     <div class="left-sidebar-inner">
 
         @env('production')
-            <a href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop" v-is="'popup-email-btn'">
+            <a v-bind="$buttons.order.tour" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop" v-is="'popup-email-btn'">
                 {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
         @endenv
 
         @env(['development', 'local'])
-            <a href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
+            <a v-bind="$buttons.order.tour" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
                 {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
         @endenv
 
-        <a href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
+        <a v-bind="$buttons.download.shedule" href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
             {{svg('excel')}} @lang('sidebar-section.download-schedules')</a>
 
         <x-sidebar.filter/>

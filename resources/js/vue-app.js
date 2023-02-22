@@ -23,6 +23,7 @@ export function createVueApp(options = {}) {
     app.config.globalProperties.$isProd = store.state.isProd
     app.config.globalProperties.$isDev = store.state.isDev
     app.config.globalProperties.$isLocal = store.state.isLocal
+    app.config.globalProperties.$buttons = window.$buttons
 
     app.use(i18n);
 
