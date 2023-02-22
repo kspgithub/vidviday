@@ -44,10 +44,11 @@ import SingUpSocial from "./SingUpSocial";
 import {useForm} from "vee-validate";
 import { getQueryParam } from '../../utils/url.js'
 import { trans } from "../../i18n/lang";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "SignUpForm",
-    components: {SingUpSocial, SignUpTourAgent, SignUpTourist},
+    components: {SeoButton, SingUpSocial, SignUpTourAgent, SignUpTourist},
     props: {
         action: String,
     },
@@ -82,9 +83,10 @@ export default {
         });
 
         const onSubmit = async (event) => {
+            event.preventDefault();
             const result = await validate();
-            if (!result.valid) {
-                event.preventDefault();
+            if (result.valid) {
+                event.target.submit()
             }
         }
 
