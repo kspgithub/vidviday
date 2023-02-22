@@ -2,7 +2,7 @@
     <div class="right-sidebar-inner">
         @isset($button)
             <div class="only-desktop mb-20">
-                <a v-bind="$buttons.common.right_sidebar_button" class="btn type-1 btn-block btn-big font-lg"
+                <a v-bind="$buttons('common.right_sidebar_button')" class="btn type-1 btn-block btn-big font-lg"
                    @if(($button['logout'] ?? false) === true)
                        onclick="event.preventDefault(); document.getElementById('header-logout-form-redirect').value = '{{$button['url']}}'; document.getElementById('header-logout-form').submit();"
                    @endif
@@ -20,7 +20,7 @@
 
             <div class="only-mobile">
                 <div class="spacer-sm"></div>
-                <a v-bind="$buttons.order.certificate" href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
+                <a v-bind="$buttons('order.certificate')" href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
                     @lang('order-section.certificate.order')
                 </a>
                 <div class="spacer-sm"></div>

@@ -34,7 +34,7 @@
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
                                 <img :src="selectedAvatar.preview" alt="img">
-                                <div v-bind="$buttons.testimonial.delete_avatar" class="btn-delete" @click="deleteAvatar()"></div>
+                                <div v-bind="$buttons('testimonial.delete_avatar')" class="btn-delete" @click="deleteAvatar()"></div>
                             </div>
 
                             <span>{{ __('forms.avatar-success') }}</span>
@@ -129,7 +129,7 @@
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
                             <img :src="sImage.preview" alt="img">
-                            <div v-bind="$buttons.testimonial.delete_image" class="btn-delete" @click.stop="deleteImage(idx)"></div>
+                            <div v-bind="$buttons('testimonial.delete_image')" class="btn-delete" @click.stop="deleteImage(idx)"></div>
                         </div>
                     </div>
                 </div>
@@ -140,12 +140,12 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button v-bind="$buttons.tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button v-bind="$buttons('tour.testimonial')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button v-bind="$buttons.tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <button v-bind="$buttons('tour.testimonial')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </button>
                     </template>

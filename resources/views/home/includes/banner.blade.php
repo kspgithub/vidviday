@@ -54,7 +54,7 @@
                                         <div class="spacer-xs"></div>
                                         <div class="text-md light">
                                             <span>{{str_limit($banner->text, 300)}}</span>
-                                            <a v-bind="$buttons.common_more_banners" href="{{$banner->url}}"
+                                            <a v-bind="$buttons('common.more_banners')" href="{{$banner->url}}"
                                                class="btn type-3 btn-more light">@lang('More')</a>
                                         </div>
                                     </div>

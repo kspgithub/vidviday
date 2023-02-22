@@ -74,13 +74,13 @@
                     <div class="only-pad-mobile">
                         <div class="row short-distance">
                             <div class="col-md-4 col-12 only-pad">
-                                <span v-bind="$buttons.tour.order" class="btn type-4 arrow-right text-left flex"><img
+                                <span v-bind="$buttons('tour.order')" class="btn type-4 arrow-right text-left flex"><img
                                         src="{{asset('img/preloader.png')}}"
                                         data-img-src="{{asset('icon/placeholder-light.svg')}}" alt="placeholder light">Замовити тур</span>
                             </div>
 
                             <div class="col-md-4 col-12 only-pad">
-                                <a v-bind="$buttons.download.schedule" href="{{route('tour.download')}}" download
+                                <a v-bind="$buttons('download.schedule')" href="{{route('tour.download')}}" download
                                    class="btn type-5 arrow-right text-left flex"><img
                                         src="{{asset('img/preloader.png')}}"
                                         data-img-src="{{asset('icon/tours-scedule-dark.svg')}}"
@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="col-md-4 col-12">
-                                <span v-bind="$buttons.tour.select" class="btn type-5 arrow-right text-left flex"><img
+                                <span v-bind="$buttons('tour.select')" class="btn type-5 arrow-right text-left flex"><img
                                         src="{{asset('img/preloader.png')}}"
                                         data-img-src="{{asset('icon/filter-dark.svg')}}"
                                         alt="filter-dark">Підбір туру</span>

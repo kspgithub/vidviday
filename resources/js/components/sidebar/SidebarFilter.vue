@@ -65,8 +65,8 @@
                              :multiple="true"
                 />
 
-                <span v-bind="$buttons.filter.clear" class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
-                <span v-bind="$buttons.filter.search" class="btn type-1" @click.prevent="submit()">{{ __('sidebar-section.filter.search') }}</span>
+                <span v-bind="$buttons('filter.clear')" class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
+                <span v-bind="$buttons('filter.search')" class="btn type-1" @click.prevent="submit()">{{ __('sidebar-section.filter.search') }}</span>
             </form>
         </div>
     </div>

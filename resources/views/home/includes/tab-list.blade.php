@@ -13,6 +13,6 @@
 
     <div class="text-center">
         <div class="spacer-xs"></div>
-        <span v-bind="$buttons.tour.show_more" class="btn type-2">@lang('tours-section.show-more-12')</span>
+        <span v-bind="$buttons('tour.show_more')" class="btn type-2">@lang('tours-section.show-more-12')</span>
     </div>
 </div>

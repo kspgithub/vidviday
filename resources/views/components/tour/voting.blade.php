@@ -29,7 +29,7 @@
                 <input type="text" name="email">
             </label>
 
-            <span v-bind="$buttons.tour.vote" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</span>
+            <span v-bind="$buttons('tour.vote')" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</span>
         </form>
     </div>
 </div>

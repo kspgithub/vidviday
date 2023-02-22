@@ -32,6 +32,8 @@
 
                     @include('home.includes.banner')
 
+                    <a v-bind="$buttons('goto.vacancy')" href="/" class="btn type-3 btn-more">Дізнатись Більше</a>
+
                     <div v-is="'tour-search'">
                         <!-- MOBILE BUTTONS BAR -->
                         @include('includes.mobile-btns-bar')

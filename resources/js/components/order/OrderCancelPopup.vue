@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button v-bind="$buttons.order.cancel" type="submit" class="btn type-1 btn-block" :disabled="request">Погоджуюсь на умови
+                            <button v-bind="$buttons('order.cancel')" type="submit" class="btn type-1 btn-block" :disabled="request">Погоджуюсь на умови
                                 скасування
                             </button>
                             <div class="text text-sm">{{__('forms.required-fields')}}</div>

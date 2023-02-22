@@ -59,13 +59,13 @@
                     {{$nearestEvent->places_available >= 10 ? '10+' : ($nearestEvent->places_available < 2 ? '2-10' : '0')}}
                 </span>
             </div>
-            <a v-bind="$buttons.order.tour" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
-            <span v-bind="$buttons.order.one_click" class="btn type-2 btn-block open-popup"
+            <a v-bind="$buttons('order.tour')" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</a>
+            <span v-bind="$buttons('order.one_click')" class="btn type-2 btn-block open-popup"
                   data-rel="one-click-popup">@lang('tours-section.order-one-click')</span>
             <div class="thumb-info">
                 <span class="thumb-info-time text">{{$tour->duration}}д / {{$tour->nights}}н</span>
             </div>
-            <a v-bind="$buttons.order.corporate" href="{{route('tour.order', $tour)}}"
+            <a v-bind="$buttons('order.corporate')" href="{{route('tour.order', $tour)}}"
                class="btn type-2 btn-block">@lang('tours-section.order-corporate')</a>
         @endif
     </div>

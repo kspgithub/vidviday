@@ -32,7 +32,7 @@
         @if($nearest_event)
             <div class="only-mobile hidden-print">
                 <a v-is="'tour-order-schedule-button'"
-                   v-bind="$buttons.tour.order"
+                   v-bind="$buttons('tour.order')"
                    href="{{route('tour.order', $tour)}}"
                    :tour='@json($tour)'
                    :schedule='@json($nearest_event)'

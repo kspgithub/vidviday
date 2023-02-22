@@ -8,11 +8,11 @@
     </div>
     <div class="bottom-part">
         <div class="subscribe-block">
-            <a v-bind="$buttons.subscribe.tourist" href="#" target="_blank"
+            <a v-bind="$buttons('subscribe.tourist')" href="#" target="_blank"
                v-is="'popup-sub-btn'"
                class="btn type-2"
                type="tourist">{{__('sidebar-section.mailing.tourist')}}</a>
-            <a v-bind="$buttons.subscribe.tour-agent" href="#"  target="_blank"
+            <a v-bind="$buttons('subscribe.tour-agent')" href="#"  target="_blank"
                v-is="'popup-sub-btn'"
                class="btn type-2"
                type="tour-agent">{{__('sidebar-section.mailing.tour-agent')}}

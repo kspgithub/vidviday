@@ -10,7 +10,7 @@
         <div class="col-12" v-if="currentPage < lastPage">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button v-bind="$buttons.profile.more-favorites" class="btn type-2" :disabled="request" @click.prevent="loadMore()">
+                <button v-bind="$buttons('profile.more-favorites')" class="btn type-2" :disabled="request" @click.prevent="loadMore()">
                     {{ __('tours-section.show-more-12') }}
                 </button>
             </div>

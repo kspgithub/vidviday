@@ -33,12 +33,12 @@
                                                @render="render"
                                                ref="recaptcha"
                                 >
-                                    <button v-bind="$buttons.subscribe.user" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                                    <button v-bind="$buttons('subscribe.tourist')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                         {{ __('forms.subscribe') }}
                                     </button>
                                 </vue-recaptcha>
                                 <template v-if="!useRecaptcha">
-                                    <button v-bind="$buttons.subscribe.user" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                                    <button v-bind="$buttons('subscribe.tourist')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                         {{ __('forms.subscribe') }}
                                     </button>
                                 </template>

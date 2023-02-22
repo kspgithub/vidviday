@@ -65,7 +65,7 @@
                                 <div class="text">
                                     <p>{{!empty($vacancy->short_text) ? $vacancy->short_text : str_limit(strip_tags(html_entity_decode($vacancy->text)), 500)}}</p>
                                 </div>
-                                <a v-bind="$buttons.goto.vacancy" href="{{$vacancy->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
+                                <a v-bind="$buttons('goto.vacancy')" href="{{$vacancy->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
                             </div>
                         @endforeach
                     </div>

@@ -45,8 +45,8 @@
         </template>
 
         <div class="text-right">
-            <span v-bind="$buttons.testimonial.cancel" class="btn type-3" @click="cancel()">{{ __('forms.cancel') }}</span>
-            <span v-bind="$buttons.testimonial.reply" class="btn type-1" @click="success()">{{ __('forms.reply') }}</span>
+            <span v-bind="$buttons('testimonial.cancel')" class="btn type-3" @click="cancel()">{{ __('forms.cancel') }}</span>
+            <span v-bind="$buttons('testimonial.reply')" class="btn type-1" @click="success()">{{ __('forms.reply') }}</span>
         </div>
     </form>
 </template>

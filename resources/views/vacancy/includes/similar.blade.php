@@ -35,7 +35,7 @@
                                     <div class="text">
                                         <p>{{!empty($similar->short_text) ? $similar->short_text : str_limit(strip_tags(html_entity_decode($similar->text)), 500)}}</p>
                                     </div>
-                                    <a v-bind="$buttons.goto.vacancy" href="{{$similar->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
+                                    <a v-bind="$buttons('goto.vacancy')" href="{{$similar->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
                                 </div>
                             </div>
                         @endforeach

@@ -70,7 +70,7 @@
     <!-- END FOOTER -->
     <div v-is="'mobile-search'"></div>
     <!-- BUTTON SCROLL TO TOP -->
-    <div v-bind="$buttons.common.go_to_top" class="btn-to-top"></div>
+    <div class="btn-to-top"></div>
 
     @include('includes.popups')
 
@@ -86,7 +86,20 @@
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
     window.initMap = () => {window.dispatchEvent(new CustomEvent('googleMapsLoaded'))}
-    window.$buttons = @json(config('buttons'))
+
+    @php
+        $seoButtons = [];
+
+        foreach (config('buttons') as $namespace => $buttons) {
+            foreach (config('buttons.' . $namespace) as $key => $value) {
+                $seoButtons[$namespace . '.' . $key] = $value;
+            }
+        }
+
+    @endphp
+
+    window.seoButtons = @json($seoButtons);
+
 </script>
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>

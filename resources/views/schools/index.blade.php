@@ -58,7 +58,7 @@
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                        <span v-bind="$buttons.order.corporate" class="btn type-1 btn-block btn-book-size open-popup calendar-init"
+                        <span v-bind="$buttons('order.corporate')" class="btn type-1 btn-block btn-book-size open-popup calendar-init"
                               data-rel="calendar-popup">{{__('tours-section.order-corporate')}}</span>
                             <div class="spacer-xs"></div>
                         </div>
@@ -68,7 +68,7 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <a v-bind="$buttons.order.corporate" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
+                    <a v-bind="$buttons('order.corporate')" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile"
                        href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</a>
                 </div>
                 <div class="col-xl-4 col-12">

@@ -57,7 +57,7 @@
                             </div>
                         @else
                             <div class="only-pad-mobile">
-                            <span v-bind="$buttons.tour.select" id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
+                            <span v-bind="$buttons('tour.select')" id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
                                 <img src="{{asset('/img/preloader.png')}}"
                                      data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
                                 @lang('tours-section.search-btn')
@@ -71,7 +71,7 @@
                                     <p>@lang('tours-section.empty-proposal')</p>
                                 </div>
                                 <div class="spacer-xs"></div>
-                                <a v-bind="$buttons.goto.home" href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</a>
+                                <a v-bind="$buttons('goto.home')" href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</a>
                                 <div class="spacer-lg"></div>
                                 <hr>
                                 <div class="spacer-xs"></div>

@@ -14,7 +14,7 @@
                             <i>Номер телефону*</i>
                             <input type="text" name="tel" required>
                         </label>
-                        <a v-bind="$buttons.auth.login" href="#" class="btn type-1 btn-block">Увійти</a>
+                        <a v-bind="$buttons('auth.login')" href="#" class="btn type-1 btn-block">Увійти</a>
                     </form>
                     <div class="spacer-xs"></div>
                     <div class="text text-sm">{{__('forms.required-fields')}}</div>

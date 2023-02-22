@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         @if($loop->last)
-                            <a v-bind="$buttons.goto.blog" href="{{pageUrlByKey('blog')}}"
+                            <a v-bind="$buttons('goto.blog')" href="{{pageUrlByKey('blog')}}"
                                class="btn type-3 btn-more text-md">{{__('footer-section.blog')}}</a>
                         @endif
                     </div>
@@ -78,7 +78,7 @@
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <div class="accordion-item">
                         <div class="accordion-title">
-                            <a v-bind="$buttons.goto.contacts" href="{{route('contacts')}}"
+                            <a v-bind="$buttons('goto.contacts')" href="{{route('contacts')}}"
                                class="btn type-3 btn-more text-md">{{__('footer-section.contacts')}}</a>
                         </div>
                         <div class="accordion-inner">
@@ -115,7 +115,7 @@
                                 @endforeach
                             </div>
 
-                            <span v-bind="$buttons.order.call" class="btn type-1"
+                            <span v-bind="$buttons('order.call')" class="btn type-1"
                                   v-is="'popup-call-btn'">{{__('footer-section.order-call')}}</span>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
 
 
 
-                            <a v-bind="$buttons.goto.map" href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
+                            <a v-bind="$buttons('goto.map')" href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
                                 {{__('footer-section.show-on-map')}}
                             </a>
                         </div>
@@ -168,7 +168,7 @@
                                 <img src="{{asset('img/preloader.png')}}" data-img-src="{{$complaintsImage}}"
                                      alt="user">
                             </div>
-                            <span v-bind="$buttons.question.send" class="btn type-2"
+                            <span v-bind="$buttons('question.send')" class="btn type-2"
                                   v-is="'popup-email-btn'">{{__('footer-section.write-message')}}</span>
                         </div>
                     </div>

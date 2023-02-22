@@ -67,6 +67,6 @@
             </div>
         @endif
         <div class="spacer-xs"></div>
-        <a v-bind="$buttons.goto.staff" href="{{ $specialist->url}}" class="btn type-1 btn-block">Дізнатись більше</a>
+        <a v-bind="$buttons('goto.staff')" href="{{ $specialist->url}}" class="btn type-1 btn-block">Дізнатись більше</a>
     </div>
 </div>
