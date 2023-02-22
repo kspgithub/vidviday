@@ -25,7 +25,7 @@ class OrderNoteEmail extends BaseTemplateEmail
     public function __construct(OrderNote $orderNote = null)
     {
         $this->orderNote = $orderNote ?: OrderNote::random();
-        $this->order = $orderNote->order;
+        $this->order = $this->orderNote->order;
     }
 
     public function getReplaces(): array

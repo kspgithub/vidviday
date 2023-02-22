@@ -60,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
 
         Builder::macro('random', function ($count = 1) {
             $q = $this->inRandomOrder()->limit($count);
-            return $count === 1 ? $q->first() : $q->get();
+            return $count === 1 ? $q->firstOrNew() : $q->get();
         });
 
         // Observers
