@@ -20,17 +20,17 @@
             </ul>
         </div>
         <div class="tabs-wrap">
-        @if($pictures->count() > 0)
-            <!-- TAB #1 -->
+            @if($pictures->count() > 0)
+                <!-- TAB #1 -->
                 <div class="tab active">
 
                     <x-tour.gallery
                         :slides="$pictures"/>
                 </div>
                 <!-- TAB #1 END -->
-        @endif
-        @if(!empty($video))
-            <!-- TAB #2 -->
+            @endif
+            @if(!empty($video))
+                <!-- TAB #2 -->
                 <div class="tab {{$pictures->count() === 0 ? 'active' : ''}}">
                     <div class="video"
                          data-frame-src="{{youtube_embed($video)}}"></div>

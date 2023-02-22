@@ -5,7 +5,7 @@
                           :select2="true"
                           :allowClear="true"
                           :placeholder="__('Не вибрано')"
-                          :options="$discounts" >
+                          :options="$discounts">
     </x-forms.select-group>
 
     @if($form['discount_id'] && $discount)

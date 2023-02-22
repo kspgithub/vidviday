@@ -33,7 +33,8 @@
                             <form @submit.prevent="saveAttribute(attribute.key)">
                                 <div class="d-flex align-items-center">
                                     <input x-bind:type="attribute.type || 'text'" x-model="customer[attribute.key]"
-                                           class="form-control form-control-sm me-3" x-bind="attribute.inputAttrs || {}">
+                                           class="form-control form-control-sm me-3"
+                                           x-bind="attribute.inputAttrs || {}">
                                     <button type="submit" class="btn btn-sm btn-outline-success me-3">
                                         <i class="fa fa-save"></i>
                                     </button>

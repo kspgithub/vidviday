@@ -155,12 +155,11 @@
         <hr>
         <div class="row align-items-center">
             <div class="col-md-6 col-5">
-                <button id="b31" type="reset" class="btn btn-read-more text-bold" @click.prevent="resetForm">Скасувати
-                </button>
+                <seo-button code="profile.cancel" type="reset" class="btn btn-read-more text-bold" @click.prevent="resetForm">Скасувати</seo-button>
             </div>
 
             <div class="col-md-6 col-7 text-right">
-                <button id="b32" type="submit" class="btn type-1">Зберегти зміни</button>
+                <seo-button code="profile.save" type="submit" class="btn type-1">Зберегти зміни</seo-button>
             </div>
         </div>
     </form>

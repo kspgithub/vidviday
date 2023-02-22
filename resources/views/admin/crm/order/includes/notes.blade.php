@@ -25,7 +25,7 @@
             @endforeach
             @if($order->notes->count() === 0)
                 <tr>
-                    <td colspan="3" >Немає записів</td>
+                    <td colspan="3">Немає записів</td>
                 </tr>
             @endif
             </tbody>

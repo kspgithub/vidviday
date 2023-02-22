@@ -16,6 +16,4 @@
         @include('admin.post.includes.form')
     </x-page.edit>
 
-
-
 @endsection

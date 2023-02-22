@@ -4,7 +4,8 @@
             <h3 class="fw-bold">Інформація про замовника</h3>
             <div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" x-model="order.is_customer" id="customer-open" @change="order.is_tour_agent = !order.is_tour_agent"/>
+                    <input class="form-check-input" type="checkbox" x-model="order.is_customer" id="customer-open"
+                           @change="order.is_tour_agent = !order.is_tour_agent"/>
                     <label class="form-check-label" for="customer-open"></label>
                 </div>
             </div>

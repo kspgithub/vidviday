@@ -26,16 +26,16 @@
         </ul>
     </div>
     <div class="tabs-wrap">
-    @if($pictures->count() > 0)
-        <!-- TAB #1 -->
+        @if($pictures->count() > 0)
+            <!-- TAB #1 -->
             <div class="tab active">
 
                 <x-tour.gallery
                     :slides="$pictures"/>
             </div>
             <!-- TAB #1 END -->
-    @endif
-    <!-- TAB #2 MAP -->
+        @endif
+        <!-- TAB #2 MAP -->
         <div class="tab {{$pictures->count() > 0 ? '' : 'active'}}">
             <div class="banner-tab-map">
                 <div id="map-canvas"
@@ -58,8 +58,8 @@
             </div>
         </div>
         <!-- TAB #2 END -->
-    @if(!empty($tour->video))
-        <!-- TAB #3 -->
+        @if(!empty($tour->video))
+            <!-- TAB #3 -->
             <div class="tab">
                 <div class="video"
                      data-frame-src="{{youtube_embed($tour->video)}}"></div>

@@ -9,13 +9,14 @@
                     <th></th>
                     <th>@lang('Title')</th>
                     <th>@lang('Text')</th>
-{{--                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>--}}
+                    {{--                    <th>@lang('Text') {{strtoupper(app()->getLocale())}}</th>--}}
                     <th>@lang('Actions')</th>
                 </tr>
                 </thead>
                 <tbody wire:sortable="updateOrder">
                 @foreach($items as $item)
-                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}" wire:key="place-{{ $item->original_id }}">
+                    <tr class="draggable" wire:sortable.item="{{ $item->original_id }}"
+                        wire:key="place-{{ $item->original_id }}">
                         <td>
                             <i class="fa fa-bars cursor-move me-3" wire:sortable.handle></i>
                         </td>

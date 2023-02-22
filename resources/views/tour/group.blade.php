@@ -6,7 +6,8 @@
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
     <meta property="og:title" content="{{ !empty($group->seo_title) ? $group->seo_title : $group->title }}">
-    <meta property="og:description" content="{{ !empty($group->seo_description) ? $group->seo_description : $group->title }}">
+    <meta property="og:description"
+          content="{{ !empty($group->seo_description) ? $group->seo_description : $group->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
     @if($pageImage = $group->getFirstMedia())
         <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
@@ -24,22 +25,22 @@
                     <a href="{{ route('home') }}" itemprop="item">
                         <span itemprop="name">{{ __("Home") }}</span>
                     </a>
-                    <meta itemprop="position" content="1" />
+                    <meta itemprop="position" content="1"/>
                 </li>
                 <li>
                     <span>—</span>
                 </li>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <span itemprop="name">{{ $group ? $group->title : __('Пошук турів') }}</span>
-                    <meta itemprop="position" content="2" />
+                    <meta itemprop="position" content="2"/>
                 </li>
             </ul>
             <!-- BREAD CRUMBS END -->
             <div class="row mobile-reverse-content">
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="col-xl-9 col-12">
@@ -77,7 +78,8 @@
                             <div class="col-xl-4 col-12">
                                 <div class="bordered-box">
                                     <div class="thumb-price text-center-sm">
-                                        <span class="text"><b>Ціна:</b> від <span>{{ceil($min_price)}}</span> до <span>{{ceil($max_price)}}</span><sup>грн</sup></span>
+                                        <span
+                                            class="text"><b>Ціна:</b> від <span>{{ceil($min_price)}}</span> до <span>{{ceil($max_price)}}</span><sup>грн</sup></span>
                                     </div>
                                     <div class="only-desktop only">
                                         <hr>

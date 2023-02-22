@@ -51,8 +51,8 @@
         <x-forms.select-group label="Тип оплати" name="payment_type" x-model="order.payment_type"
                               :options="$paymentTypes"></x-forms.select-group>
 
-{{--        <x-forms.select-group label="Статус оплати" name="payment_status" x-model="order.payment_status"--}}
-{{--                              :options="$paymentStatuses"></x-forms.select-group>--}}
+        {{--        <x-forms.select-group label="Статус оплати" name="payment_status" x-model="order.payment_status"--}}
+        {{--                              :options="$paymentStatuses"></x-forms.select-group>--}}
 
         @include('admin.crm.order.includes.discount-modal')
     </div>

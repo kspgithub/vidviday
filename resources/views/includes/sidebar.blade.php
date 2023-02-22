@@ -3,17 +3,17 @@
     <div class="left-sidebar-inner">
 
         @env('production')
-            <a href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop" v-is="'popup-email-btn'">
-                {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
+            <x-seo-button key="order.tour" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop" v-is="'popup-email-btn'">
+                {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</x-seo-button>
         @endenv
 
         @env(['development', 'local'])
-            <a href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
-                {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</a>
+            <x-seo-button key="order.tour" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
+                {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</x-seo-button>
         @endenv
 
-        <a href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
-            {{svg('excel')}} @lang('sidebar-section.download-schedules')</a>
+        <x-seo-button key="download.schedule" href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
+            {{svg('excel')}} @lang('sidebar-section.download-schedules')</x-seo-button>
 
         <x-sidebar.filter/>
 

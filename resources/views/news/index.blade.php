@@ -7,13 +7,15 @@
 @push('meta-fields')
     {{--    <meta property="fb:app_id" content="">--}}
     {{--    <meta property="og:admins" content="">--}}
-    <meta property="og:title" content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
-    <meta property="og:description" content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
+    <meta property="og:title"
+          content="{{ !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title }}">
+    <meta property="og:description"
+          content="{{ !empty($pageContent->seo_description) ? $pageContent->seo_description : $pageContent->title }}">
     <meta property="og:url" content="{{ url()->current() }}">
     @if($pageImage = $pageContent->getFirstMedia() ?: App\Models\Page::where('key', 'home')->first()?->getFirstMedia())
-<meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
+        <meta property="og:image" content="{{ $pageImage->getFullUrl() }}">
     @endif
-<meta property="og:type" content="product">
+    <meta property="og:type" content="product">
     <meta property="og:site_name" content="{{ route('home') }}">
 @endpush
 
@@ -23,24 +25,25 @@
         <div class="container">
             <!-- BREAD CRUMBS -->
 
-        @include("news.includes.bread_crumbs")
+            @include("news.includes.bread_crumbs")
 
-        <!-- BREAD CRUMBS END -->
+            <!-- BREAD CRUMBS END -->
             <div class="row">
                 <div class="order-xl-1 order-2 col-xl-3 col-12">
                     <!-- SIDEBAR -->
-                @include('includes.sidebar')
-                <!-- SIDEBAR END -->
+                    @include('includes.sidebar')
+                    <!-- SIDEBAR END -->
                 </div>
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12 news">
 
                     <div class="only-pad-mobile">
-                        <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                            <img src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
+                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
+                            <img src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}"
+                                 alt="filter-dark">
                             Підбір туру
-                        </span>
-                        <div class="spacer-xs"></div>
+                        </x-seo-button>
+                            <div class="spacer-xs"></div>
                     </div>
 
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
@@ -53,7 +56,6 @@
                     <div>
 
                         @foreach($news as $post)
-
 
                             <div class="item post">
                                 <div class="thumb-img">
@@ -70,8 +72,9 @@
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <a href="{{ route("news.single", ["slug" => $post->slug]) }}"
-                                           class="btn btn-read-more text-bold">{{ __("Читати більше") }}</a>
+                                        <x-seo-button key="goto.news"
+                                                      href="{{ route("news.single", ["slug" => $post->slug]) }}"
+                                                      class="btn btn-read-more text-bold">{{ __("Читати більше") }}</x-seo-button>
                                     </div>
                                 </div>
                             </div>

@@ -20,9 +20,12 @@ export function createVueApp(options = {}) {
 
     app.use(store);
 
-    app.config.globalProperties.$isProd = store.state.isProd
-    app.config.globalProperties.$isDev = store.state.isDev
-    app.config.globalProperties.$isLocal = store.state.isLocal
+    window.$isProd = app.config.globalProperties.$isProd = store.state.isProd
+    window.$isDev = app.config.globalProperties.$isDev = store.state.isDev
+    window.$isLocal = app.config.globalProperties.$isLocal = store.state.isLocal
+    window.$buttons = app.config.globalProperties.$buttons = (key) => {
+        return window.seoButtons[key] || {}
+    }
 
     app.use(i18n);
 
@@ -32,13 +35,19 @@ export function createVueApp(options = {}) {
         fallback: 'uk',
     });
 
-    app.use(SvgVue, {
-
-    });
+    app.use(SvgVue);
 
     app.use(directives);
 
     app.use(globalComponents);
+
+    app.mixin({
+        methods: {
+            log(...data) {
+                console.log(...data)
+            }
+        }
+    })
 
     return {
         app

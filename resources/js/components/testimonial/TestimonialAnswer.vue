@@ -45,8 +45,8 @@
         </template>
 
         <div class="text-right">
-            <span class="btn type-3" @click="cancel()">{{ __('forms.cancel') }}</span>
-            <span class="btn type-1" @click="success()">{{ __('forms.reply') }}</span>
+            <seo-button code="testimonial.cancel" class="btn type-3" @click="cancel()">{{ __('forms.cancel') }}</seo-button>
+            <seo-button code="testimonial.reply" class="btn type-1" @click="success()">{{ __('forms.reply') }}</seo-button>
         </div>
     </form>
 </template>

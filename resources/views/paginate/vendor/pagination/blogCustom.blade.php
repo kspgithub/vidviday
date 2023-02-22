@@ -8,7 +8,7 @@
 
                 @if ($paginator->onFirstPage())
 
-                    <a  class="btn btn-read-more left-arrow text-bold">{{ __("Назад") }}</a>
+                    <a class="btn btn-read-more left-arrow text-bold">{{ __("Назад") }}</a>
 
                 @else
                     <a href="{{ $paginator->previousPageUrl() }}" class="btn btn-read-more left-arrow text-bold">{{ __("Назад") }}</a>

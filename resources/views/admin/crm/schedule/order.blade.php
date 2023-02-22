@@ -16,6 +16,6 @@
 
     @include('admin.crm.order.includes.form')
     @include('admin.crm.order.includes.audit')
-{{--    @include('admin.crm.order.card')--}}
+    {{--    @include('admin.crm.order.card')--}}
 
 @endsection

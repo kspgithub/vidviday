@@ -22,7 +22,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger">Так, видалити аккаунт</button>
+                                <x-seo-button key="auth.delete_account" type="submit" class="btn btn-danger">Так, видалити аккаунт</x-seo-button>
                             </form>
                         </div>
                     </div>
