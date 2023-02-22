@@ -34,7 +34,7 @@ return [
     'i-am-tourist' => 'Я турист',
     'i-am-travel-agent' => 'Я турагент',
     'sign-in' => 'Увійти',
-    'sign-in-with' => 'Увійти за допомогою',
+    'sign-in-with' => 'Увійти за допомогою :provider',
     'have-account' => 'Уже є аккаунт?',
     'not-have-account' => 'Немає аккаунту?',
     'registration' => 'Реєстрація',

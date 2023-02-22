@@ -24,7 +24,7 @@
                        :file-size="__('3 МБ')"
                        accept="pdf,doc,docx"/>
             <utm-fields/>
-            <button  id="b39" class="btn type-1 btn-block" :disabled="submitted">
+            <button v-bind="$buttons('vacancy.send')" class="btn type-1 btn-block" :disabled="submitted">
                 {{ __('common.vacancy.send-resume') }}
             </button>
         </form>

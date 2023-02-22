@@ -32,7 +32,6 @@ isset($district) ? ['url'=>route('admin.city.index', ['district_id'=>$district->
         </x-slot>
     </x-bootstrap.card>
 
-
 @endsection
 
 

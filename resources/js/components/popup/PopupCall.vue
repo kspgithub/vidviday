@@ -58,12 +58,12 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <button id="b21" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <button v-bind="$buttons('order.call')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
                             </button>
                         </vue-recaptcha>
                         <template v-if="!useRecaptcha">
-                            <button id="b22" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <button v-bind="$buttons('order.call')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
                             </button>
                         </template>

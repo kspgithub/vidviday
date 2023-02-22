@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span v-if="type !== 'tour_questions'" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
+        <span v-if="type !== 'tour_questions'" v-bind="$buttons('testimonial.send')" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
         <div class="spacer-xs"></div>
         <hr>
         <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" :type="type" @add="" />
@@ -8,12 +8,12 @@
         <div class="spacer-xs"></div>
         <div class="row">
             <div class="col-xl-6 col-12" v-if="type !== 'tour_questions'">
-                <span class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
+                <seo-button code="testimonial.send" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</seo-button>
                 <div class="spacer-xxs only-pad-mobile"></div>
             </div>
 
             <div class="col-xl-6 col-12 text-right">
-                <span class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">
+                <span v-bind="$buttons('testimonial.show_more')" class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">
                     {{ __('common.show-more-10') }}
                 </span>
             </div>

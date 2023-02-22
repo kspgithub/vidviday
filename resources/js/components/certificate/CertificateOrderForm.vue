@@ -27,24 +27,24 @@
             <div class="row align-items-center">
 
                 <div class="col-6" v-if="currentStep === 1">
-                    <a id="b6" :href="backUrl" class="btn btn-read-more left-arrow text-bold tab-prev w-normal">
+                    <a v-bind="$buttons('goto.certificate')" :href="backUrl" class="btn btn-read-more left-arrow text-bold tab-prev w-normal">
                         {{ __('certificate-section.back-description') }}
                     </a>
                 </div>
                 <div class="col-6 text-right" v-if="currentStep === 1">
-                    <a id="b5" href="#" @click.prevent="nextStep()" class="btn type-1 tab-next w-normal">
+                    <a v-bind="$buttons('goto.payment')" href="#" @click.prevent="nextStep()" class="btn type-1 tab-next w-normal">
                         {{ __('certificate-section.go-to-payment') }}
                     </a>
                 </div>
 
                 <div class="col-4" v-if="currentStep === 2">
-                    <a id="b6" href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
+                    <a v-bind="$buttons('goto.order_back')" href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
                         {{ __('certificate-section.back') }}
                     </a>
                 </div>
 
                 <div class="col-8 text-right" v-if="currentStep === 2">
-                    <button id="b7" type="submit" class="btn type-1 w-normal">
+                    <button v-bind="$buttons('order.send')" type="submit" class="btn type-1 w-normal">
                         {{ __('certificate-section.send-order') }}
                     </button>
                 </div>

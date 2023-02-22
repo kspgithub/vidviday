@@ -1,16 +1,16 @@
 @if($similar_tours->count() > 0)
-<section class="section hidden-print">
-    <div class="container">
-        <h2 class="h1 title text-center">@lang('tours-section.similar-tours')</h2>
-        <div class="spacer-xs"></div>
-        <div class="thumbs-carousel swiper-entry">
-            <div class="swiper-button-prev bottom">
-                <i></i>
-            </div>
-            <div class="swiper-button-next bottom">
-                <i></i>
-            </div>
-            <div class="swiper-container" data-options='{
+    <section class="section hidden-print">
+        <div class="container">
+            <h2 class="h1 title text-center">@lang('tours-section.similar-tours')</h2>
+            <div class="spacer-xs"></div>
+            <div class="thumbs-carousel swiper-entry">
+                <div class="swiper-button-prev bottom">
+                    <i></i>
+                </div>
+                <div class="swiper-button-next bottom">
+                    <i></i>
+                </div>
+                <div class="swiper-container" data-options='{
 						"loop": {{ count($similar_tours) > 1 ? 'true' : 'false' }},
 						"lazy": true,
 						"speed": 900,
@@ -28,19 +28,19 @@
 							}
 						}
 					}'>
-                <div class="swiper-wrapper">
-                    @foreach($similar_tours as $similar_tour)
-                        <div class="swiper-slide">
-                            <x-tour.card :tour="$similar_tour" mode="thumb" :vue="true"/>
-                        </div>
+                    <div class="swiper-wrapper">
+                        @foreach($similar_tours as $similar_tour)
+                            <div class="swiper-slide">
+                                <x-tour.card :tour="$similar_tour" mode="thumb" :vue="true"/>
+                            </div>
 
-                    @endforeach
+                        @endforeach
+                    </div>
+
                 </div>
-
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-pagination"></div>
+            <div class="spacer-xs only-tab-mobile"></div>
         </div>
-        <div class="spacer-xs only-tab-mobile"></div>
-    </div>
-</section>
+    </section>
 @endif

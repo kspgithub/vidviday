@@ -20,8 +20,8 @@
                             </div>
                         </div>
                         @if($loop->last)
-                            <a href="{{pageUrlByKey('blog')}}"
-                               class="btn type-3 btn-more text-md">{{__('footer-section.blog')}}</a>
+                            <x-seo-button key="goto.blog" href="{{pageUrlByKey('blog')}}"
+                               class="btn type-3 btn-more text-md">{{__('footer-section.blog')}}</x-seo-button>
                         @endif
                     </div>
                 @endforeach
@@ -78,8 +78,8 @@
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <div class="accordion-item">
                         <div class="accordion-title">
-                            <a href="{{route('contacts')}}"
-                               class="btn type-3 btn-more text-md">{{__('footer-section.contacts')}}</a>
+                            <x-seo-button key="goto.contacts" href="{{route('contacts')}}"
+                               class="btn type-3 btn-more text-md">{{__('footer-section.contacts')}}</x-seo-button>
                         </div>
                         <div class="accordion-inner">
                             <div class="contact">
@@ -115,8 +115,8 @@
                                 @endforeach
                             </div>
 
-                            <span class="btn type-1"
-                                  v-is="'popup-call-btn'">{{__('footer-section.order-call')}}</span>
+                            <x-seo-button key="order.call" class="btn type-1"
+                                  v-is="'popup-call-btn'">{{__('footer-section.order-call')}}</x-seo-button>
                         </div>
                     </div>
                 </div>
@@ -153,9 +153,9 @@
 
 
 
-                            <a href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
+                            <x-seo-button key="goto.map" href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
                                 {{__('footer-section.show-on-map')}}
-                            </a>
+                            </x-seo-button>
                         </div>
                     </div>
 
@@ -168,8 +168,8 @@
                                 <img src="{{asset('img/preloader.png')}}" data-img-src="{{$complaintsImage}}"
                                      alt="user">
                             </div>
-                            <span class="btn type-2"
-                                  v-is="'popup-email-btn'">{{__('footer-section.write-message')}}</span>
+                            <x-seo-button key="question.send" class="btn type-2"
+                                  v-is="'popup-email-btn'">{{__('footer-section.write-message')}}</x-seo-button>
                         </div>
                     </div>
                 </div>

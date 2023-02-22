@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="only-pad-mobile">
-            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
+            <span v-bind="$buttons('tour.search')" class="btn type-5 arrow-right text-left flex">
                 <img alt="filter-dark" src="/icon/filter-dark.svg">{{ __('tours-section.search-btn') }}
             </span>
             <div class="spacer-xs"></div>
@@ -15,7 +15,7 @@
                 <p>{{ __('tours-section.empty-proposal') }}</p>
             </div>
             <div class="spacer-xs"></div>
-            <a class="btn type-1" href="/">{{ __('tours-section.go-home') }}</a>
+            <seo-button code="goto.home" class="btn type-1" href="/">{{ __('tours-section.go-home') }}</seo-button>
             <div class="spacer-lg"></div>
             <hr>
             <div class="spacer-xs"></div>

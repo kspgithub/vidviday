@@ -65,7 +65,7 @@
                                 <div class="text">
                                     <p>{{!empty($practice->short_text) ? $practice->short_text : str_limit(strip_tags(html_entity_decode($practice->text)), 500)}}</p>
                                 </div>
-                                <a href="{{$practice->url}}" class="btn type-3 btn-more">Дізнатись Більше</a>
+                                <x-seo-button key="goto.practice" href="{{$practice->url}}" class="btn type-3 btn-more">Дізнатись Більше</x-seo-button>
                             </div>
                         @endforeach
                     </div>

@@ -5,9 +5,11 @@
     <x-slot name="body">
         <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $tour->published)"/>
 
-        <x-forms.switch-group name="order_enabled" label="Замовлення" :active="old('order_enabled', $tour->order_enabled)"/>
+        <x-forms.switch-group name="order_enabled" label="Замовлення"
+                              :active="old('order_enabled', $tour->order_enabled)"/>
 
-        <x-forms.switch-group name="home_disabled" label="Відключити показ на головній" :active="old('home_disabled', $tour->home_disabled)"/>
+        <x-forms.switch-group name="home_disabled" label="Відключити показ на головній"
+                              :active="old('home_disabled', $tour->home_disabled)"/>
 
         <x-forms.text-group name="priority" :label="__('Priority')" :value="old('priority', $tour->priority)"
                             type="number"></x-forms.text-group>

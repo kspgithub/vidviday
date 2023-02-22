@@ -20,7 +20,7 @@
                               'region_id' => $form['region_id'] ?? 0,
                               'ticket_id' => $form['ticket_id'] ?? 0,
                           ]"
-                          :options="$tickets" >
+                          :options="$tickets">
     </x-forms.select-group>
 
     @if($form['ticket_id'] && $ticket)

@@ -11,8 +11,8 @@
             @foreach($testimonials/*->where('rating', '>=', 4)->where('parent_id', null)->take(2)*/ as $testimonial)
                 <x-tour.testimonial :testimonial="$testimonial" :short="true"/>
             @endforeach
-            <a href="#reviews-accordion"
-               class="btn type-2 btn-block">@lang('tours-section.reviews.show-all-reviews')</a>
+            <x-seo-button key="testimonial.show_all" href="#reviews-accordion"
+                          class="btn type-2 btn-block">@lang('tours-section.reviews.show-all-reviews')</x-seo-button>
         </div>
     </div>
 @endif

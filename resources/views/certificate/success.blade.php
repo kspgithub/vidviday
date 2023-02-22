@@ -53,8 +53,8 @@
                                 <span
                                     class="text-md">{{__('order-section.details-message')}} <b>{{$order->email}}</b></span>
                                 <div class="spacer-xs"></div>
-                                <a href="{{pageUrlByKey('certificate')}}"
-                                   class="btn type-1">{{__('order-section.certificate.go-to-description')}}</a>
+                                <x-seo-button key="goto.certificate" href="{{pageUrlByKey('certificate')}}"
+                                   class="btn type-1">{{__('order-section.certificate.go-to-description')}}</x-seo-button>
                             </div>
                         </div>
 

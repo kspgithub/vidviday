@@ -57,12 +57,13 @@
                             </div>
                         @else
                             <div class="only-pad-mobile">
-                            <span id="tour-selection-btn" class="btn type-5 arrow-right text-left flex">
-                                <img src="{{asset('/img/preloader.png')}}"
-                                     data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
-                                @lang('tours-section.search-btn')
-                            </span>
-                                <div class="spacer-xs"></div>
+                                <x-seo-button key="tour.select" id="tour-selection-btn"
+                                              class="btn type-5 arrow-right text-left flex">
+                                    <img src="{{asset('/img/preloader.png')}}"
+                                         data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
+                                    @lang('tours-section.search-btn')
+                                </x-seo-button>
+                                    <div class="spacer-xs"></div>
                             </div>
                             <div class="section text-center">
                                 <div class="spacer-xs"></div>
@@ -71,10 +72,11 @@
                                     <p>@lang('tours-section.empty-proposal')</p>
                                 </div>
                                 <div class="spacer-xs"></div>
-                                <a href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</a>
-                                <div class="spacer-lg"></div>
-                                <hr>
-                                <div class="spacer-xs"></div>
+                                <x-seo-button key="goto.home" href="{{route('home')}}"
+                                              class="btn type-1">@lang('tours-section.go-home')</x-seo-button>
+                                    <div class="spacer-lg"></div>
+                                    <hr>
+                                    <div class="spacer-xs"></div>
                             </div>
                             <x-tour.popular/>
                         @endif

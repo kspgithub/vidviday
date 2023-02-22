@@ -5,7 +5,7 @@
 
     <div class="tour-container">
         @foreach($tours as $tour)
-            <x-tour.card :tour="$tour" mode="item" />
+            <x-tour.card :tour="$tour" mode="item"/>
 
         @endforeach
     </div>
@@ -13,6 +13,6 @@
 
     <div class="text-center">
         <div class="spacer-xs"></div>
-        <span class="btn type-2">Показати ще 12</span>
+        <x-seo-button key="tour.show_more" class="btn type-2">Показати ще 12</x-seo-button>
     </div>
 </div>

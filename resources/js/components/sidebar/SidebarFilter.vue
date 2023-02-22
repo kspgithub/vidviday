@@ -65,8 +65,8 @@
                              :multiple="true"
                 />
 
-                <span class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</span>
-                <span class="btn type-1" @click.prevent="submit()">{{ __('sidebar-section.filter.search') }}</span>
+                <seo-button code="filter.clear" class="btn type-3" @click.prevent="clear()">{{ __('sidebar-section.filter.clear') }}</seo-button>
+                <seo-button code="filter.search" class="btn type-1" @click.prevent="submit()">{{ __('sidebar-section.filter.search') }}</seo-button>
             </form>
         </div>
     </div>

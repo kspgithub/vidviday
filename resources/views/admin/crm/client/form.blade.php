@@ -28,9 +28,9 @@
                 <template x-for="(phone, idx) in selectedClient.phone" :key="idx">
                     <div class="d-flex align-items-center mb-2">
                         <input class="form-control me-3"
-                                    x-mask="+38 (099) 999-99-99"
-                                    placeholder="+38 (___) ___-__-__"
-                                    x-model="selectedClient.phone[idx]" />
+                               x-mask="+38 (099) 999-99-99"
+                               placeholder="+38 (___) ___-__-__"
+                               x-model="selectedClient.phone[idx]"/>
                         <a href="#" class="text-danger" @click.prevent="removePhone(idx)">
                             <i class="fa fa-times"></i>
                         </a>

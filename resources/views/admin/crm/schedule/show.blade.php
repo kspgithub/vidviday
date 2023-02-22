@@ -108,7 +108,8 @@
         <div class="card">
             <div class="card-body">
                 <form method="post" @submit.prevent="uploadInfoList">
-                    <x-forms.single-file-upload name="info_sheet" :value="$schedule->info_sheet" :label="__('Info list')"/>
+                    <x-forms.single-file-upload name="info_sheet" :value="$schedule->info_sheet"
+                                                :label="__('Info list')"/>
 
                     <button type="submit" class="btn btn-primary">Зберегти</button>
                 </form>

@@ -85,9 +85,8 @@
     window.countries = @json(App\Models\Country::query()->where('published', 1)->orderBy('position')->orderBy('title')->pluck('iso'));
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
-    window.initMap = () => {
-        window.dispatchEvent(new CustomEvent('googleMapsLoaded'))
-    }
+    window.initMap = () => {window.dispatchEvent(new CustomEvent('googleMapsLoaded'))}
+    window.seoButtons = @json(app('seo-buttons'));
 </script>
 
 <script src="{{ mix('js/libs/manifest.js', 'assets/app') }}" defer></script>

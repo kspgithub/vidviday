@@ -30,7 +30,7 @@
                     <p>
                         {{ shortText }}
                     </p>
-                    <a :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
+                    <seo-button code="tour.show_more" :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</seo-button>
                 </div>
             </div>
             <div class="thumb-content">
@@ -69,7 +69,7 @@
                 </div>
 
                 <template v-if="currentSchedule">
-                    <a :href="tour.url + '/order?clear=1&schedule='+scheduleId"
+                    <a v-bind="$buttons('tour.order_schedule')" :href="tour.url + '/order?clear=1&schedule='+scheduleId"
                        class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
                 </template>
 
@@ -77,7 +77,7 @@
                     <hr>
                     <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{ tour.votings_count }}
                         {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
-                    <a :href="voteLink" class="btn type-1 btn-block">
+                    <a v-bind="$buttons('tour.vote')" :href="voteLink" class="btn type-1 btn-block">
                         {{ __('tours-section.vote') }}
                     </a>
                 </template>
