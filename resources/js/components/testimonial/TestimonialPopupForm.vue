@@ -35,7 +35,7 @@
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
                                 <img :src="selectedAvatar.preview" alt="img">
-                                <div v-bind="$buttons('testimonial.delete_avatar')" class="btn-delete" @click="deleteAvatar()"></div>
+                                <seo-button code="testimonial.delete_avatar" class="btn-delete" @click="deleteAvatar()"></seo-button>
                             </div>
 
                             <span>{{ __('forms.avatar-success') }}</span>
@@ -157,7 +157,7 @@
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
                             <img :src="sImage.preview" alt="img">
-                            <div v-bind="$buttons('testimonial.delete_image')" class="btn-delete" @click="deleteImage(idx)"></div>
+                            <seo-button code="testimonial.delete_image" class="btn-delete" @click="deleteImage(idx)"></seo-button>
                         </div>
                     </div>
                 </div>

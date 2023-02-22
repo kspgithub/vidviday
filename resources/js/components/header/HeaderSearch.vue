@@ -32,7 +32,7 @@
             <div class="search-toggle-footer disabled" v-if="searchText.length >= 3 && !request && tours.length === 0">
                 <span class="text">{{ __('header-section.nothing-found') }}</span>
 
-                <a v-bind="$buttons('forms.send_feedback')" v-if="popularToursUrl" :href="popularToursUrl" class="btn type-1 btn-block">{{ __('tours-section.popular-title') }}</a>
+                <seo-button code="forms.send_feedback" v-if="popularToursUrl" :href="popularToursUrl" class="btn type-1 btn-block">{{ __('tours-section.popular-title') }}</seo-button>
             </div>
             <div class="search-toggle-footer disabled" v-if="request">
                 <span class="text">{{ __('header-section.search-dots') }}</span>

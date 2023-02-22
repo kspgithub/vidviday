@@ -26,7 +26,7 @@
             <span class="text-sm">{{ __('forms.required-fields') }}</span>
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button v-bind="$buttons('auth.register')" type="submit" class="btn type-1">{{ __('auth.register') }}</button>
+                <seo-button code="auth.register" type="submit" class="btn type-1">{{ __('auth.register') }}</seo-button>
             </div>
         </div>
         <div class="spacer-sm"></div>

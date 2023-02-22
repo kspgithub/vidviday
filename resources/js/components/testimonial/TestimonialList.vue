@@ -8,7 +8,7 @@
         <div class="spacer-xs"></div>
         <div class="row">
             <div class="col-xl-6 col-12" v-if="type !== 'tour_questions'">
-                <span v-bind="$buttons('testimonial.send')" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
+                <seo-button code="testimonial.send" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</seo-button>
                 <div class="spacer-xxs only-pad-mobile"></div>
             </div>
 

@@ -30,7 +30,7 @@
                     <p>
                         {{ shortText }}
                     </p>
-                    <a v-bind="$buttons('tour.show_more')" :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</a>
+                    <seo-button code="tour.show_more" :href="tour.url" class="btn btn-read-more text-bold">{{ __('tours-section.more') }}</seo-button>
                 </div>
             </div>
             <div class="thumb-content">

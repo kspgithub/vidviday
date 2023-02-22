@@ -61,7 +61,7 @@
                               @click="prevStep()">{{ __('forms.back') }}</span>
                     </div>
                                        <div class="col-8  text-right " v-if="currentStep !== 3">
-                        <span v-bind="$buttons('order.next')" class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</span>
+                        <seo-button code="order.next" class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</seo-button>
                     </div>
 
                     <div class="col-8 justify-content-end align-items-center d-flex  d-b-7" v-if="currentStep === 3">

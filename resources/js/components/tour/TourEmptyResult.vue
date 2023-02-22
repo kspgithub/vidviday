@@ -15,7 +15,7 @@
                 <p>{{ __('tours-section.empty-proposal') }}</p>
             </div>
             <div class="spacer-xs"></div>
-            <a v-bind="$buttons('goto.home')" class="btn type-1" href="/">{{ __('tours-section.go-home') }}</a>
+            <seo-button code="goto.home" class="btn type-1" href="/">{{ __('tours-section.go-home') }}</seo-button>
             <div class="spacer-lg"></div>
             <hr>
             <div class="spacer-xs"></div>

@@ -1,5 +1,5 @@
 <template>
-    <span v-bind="$buttons('testimonial.order')" class="btn type-2" @click="openPopup()"><slot/></span>
+    <seo-button code="testimonial.order" class="btn type-2" @click="openPopup()"><slot/></seo-button>
 </template>
 
 <script>

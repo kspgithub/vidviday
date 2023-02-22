@@ -47,8 +47,8 @@
         <template v-if="allEvents.length > 3">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <span v-bind="$buttons('tour.more_schedules')" class="btn type-2 show-more-events">{{ __('tours-section.show-more') }}</span>
-                <span v-bind="$buttons('tour.hide_schedules')" class="btn type-2 hide-more-events d-none">{{ __('tours-section.hide-more') }}</span>
+                <seo-button code="tour.more_schedules" class="btn type-2 show-more-events">{{ __('tours-section.show-more') }}</seo-button>
+                <seo-button code="tour.hide_schedules" class="btn type-2 hide-more-events d-none">{{ __('tours-section.hide-more') }}</seo-button>
             </div>
         </template>
     </div>

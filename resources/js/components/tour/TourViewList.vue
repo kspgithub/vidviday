@@ -9,7 +9,7 @@
         </div>
         <div class="spacer-xs"></div>
         <div v-if="currentPage < lastPage" class="text-center">
-            <a v-bind="$buttons('tour.show_more')" class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</a>
+            <seo-button code="tour.show_more" class="btn type-2" @click.prevent="nextPage()">{{ __('tours-section.show-more') }} {{ perPage }}</seo-button>
         </div>
     </div>
 </template>
