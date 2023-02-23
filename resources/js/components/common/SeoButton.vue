@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" v-bind="buttonAttrs" v-on="buttonEvents">
+    <component :is="tag" v-bind="$attrs" v-on="buttonEvents">
         <slot />
     </component>
 </template>

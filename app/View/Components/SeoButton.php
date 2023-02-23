@@ -11,21 +11,21 @@ class SeoButton extends Component
 
     public string $tag;
 
-    public string $as;
-
     public string $key;
 
     public array $config;
 
-    public function __construct(string $key, ?int $id = null, bool $ssr = false, string $tag = 'button', string $as = 'button', ?string $href = null) {
+    public function __construct(string $key, ?int $id = null, ?string $href = null, string $tag = 'button') {
         $this->key = $key;
         $this->id = $id;
-        $this->tag = $ssr ? 'component' : ($href ? 'a' : $tag);
-        $this->as = $ssr ? 'seo-button' : $as;
+        $this->tag = $tag;
         $this->config = app('seo-buttons')->get($key, []);
         $this->config['id'] = $this->config['id'] ?? $key;
-        if($this->id) {
-            $this->config['id'] .= '-' . $this->id;
+        $id && $this->config['id'] .= '-' . $this->id;
+
+        if($href) {
+            $this->config['href'] = $href;
+            $this->tag = 'a';
         }
     }
 
