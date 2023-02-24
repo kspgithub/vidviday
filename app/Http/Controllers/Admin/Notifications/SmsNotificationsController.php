@@ -39,6 +39,6 @@ class SmsNotificationsController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', __('Updated'));
+        return redirect()->back()->withFlashSuccess(__('Updated'));
     }
 }

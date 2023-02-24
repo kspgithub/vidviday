@@ -26,8 +26,8 @@ class SmsNotificationsRequest extends FormRequest
         return [
             'notifications' => 'required|array',
             'notifications.*.key' => 'required|string',
-            'notifications.*.title' => 'required|string',
-            'notifications.*.text' => 'required|string',
+            'notifications.*.title' => 'required|array',
+            'notifications.*.text' => 'required|array',
             'notifications.*.phone' => 'required|boolean',
             'notifications.*.viber' => 'required|boolean',
         ];

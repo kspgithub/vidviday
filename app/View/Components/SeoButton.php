@@ -7,19 +7,26 @@ use Illuminate\View\Component;
 
 class SeoButton extends Component
 {
-    public string $tag;
+    public ?int $id;
 
-    public string $as;
+    public string $tag;
 
     public string $key;
 
     public array $config;
 
-    public function __construct(string $key, bool $ssr = false, string $tag = 'button', string $as = 'button', ?string $href = null) {
+    public function __construct(string $key, ?int $id = null, ?string $href = null, string $tag = 'button') {
         $this->key = $key;
-        $this->tag = $ssr ? 'component' : ($href ? 'a' : $tag);
-        $this->as = $ssr ? 'seo-button' : $as;
+        $this->id = $id;
+        $this->tag = $tag;
         $this->config = app('seo-buttons')->get($key, []);
+        $this->config['id'] = $this->config['id'] ?? $key;
+        $id && $this->config['id'] .= '-' . $this->id;
+
+        if($href) {
+            $this->config['href'] = $href;
+            $this->tag = 'a';
+        }
     }
 
     /**

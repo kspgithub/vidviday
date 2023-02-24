@@ -23,8 +23,13 @@ export function createVueApp(options = {}) {
     window.$isProd = app.config.globalProperties.$isProd = store.state.isProd
     window.$isDev = app.config.globalProperties.$isDev = store.state.isDev
     window.$isLocal = app.config.globalProperties.$isLocal = store.state.isLocal
-    window.$buttons = app.config.globalProperties.$buttons = (key) => {
-        return window.seoButtons[key] || {}
+    window.$buttons = app.config.globalProperties.$buttons = (key, id) => {
+        const config = _.clone(window.seoButtons[key] || {})
+        config.id = config.id || key
+        if(id) {
+            config.id += '-' + id
+        }
+        return config
     }
 
     app.use(i18n);

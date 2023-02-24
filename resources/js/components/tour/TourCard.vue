@@ -59,7 +59,7 @@
             </div>
 
             <template v-if="currentSchedule">
-                <a v-bind="$buttons('order.tour')" :href="orderLink" class="btn type-1 btn-block">
+                <a v-bind="$buttons('order.tour', tour.id)" :href="orderLink" class="btn type-1 btn-block">
                     {{ __('tours-section.order-tour') }}
                 </a>
             </template>
@@ -70,7 +70,7 @@
                     {{ __('tours-section.want-to-vote') }} -
                     <b class="wbr">{{tour.votings_count||'0'}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b>
                 </div>
-                <a v-bind="$buttons('tour.vote')" :href="voteLink" class="btn type-1 btn-block">
+                <a v-bind="$buttons('tour.vote', tour.id)" :href="voteLink" class="btn type-1 btn-block">
                     {{ __('tours-section.vote') }}
                 </a>
             </template>
