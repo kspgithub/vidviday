@@ -14,6 +14,8 @@ class SmsNotificationSeeder extends Seeder
      */
     public function run()
     {
+        SmsNotification::query()->truncate();
+
         $data = [
             [
                 'key' => 'order',

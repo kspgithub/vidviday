@@ -21,6 +21,9 @@ require('laravel-mix-purgecss')
  |
  */
 
+const host = ip.address() || '0.0.0.0'
+const port = process.env.DEV_SERVER_APP_PORT || 8081
+
 mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
     .setPublicPath(`public/assets/app`)
     .extract()
@@ -44,7 +47,7 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
         optimization: {
             providedExports: false,
             sideEffects: false,
-            usedExports: false
+            usedExports: false,
         },
         module: {
             rules: [
@@ -63,22 +66,17 @@ mix.setResourceRoot(mix.inProduction() ? `/assets/app/` : `/`)
                 __INTLIFY_PROD_DEVTOOLS__: false,
             }),
         ],
+        devServer: {host, port},
     })
 
 if (mix.inProduction()) {
 
-    mix.version();
+    mix.version()
 } else {
     // mix.browserSync({proxy,});
 
-    const host = ip.address() || '0.0.0.0'
-    const port = process.env.DEV_SERVER_APP_PORT || 8081
-
     mix.options({
         hmrOptions: {host, port},
-    })
-    mix.webpackConfig({
-        devServer: {host, port},
     })
 
     console.log('=====================================')
@@ -86,7 +84,7 @@ if (mix.inProduction()) {
     console.log('App port: ' + port)
     console.log('=====================================')
 
-    if (process.env.DEV_SERVER_SSL && process.env.DEV_SERVER_KEY) {
+    if (process.env.DEV_SERVER_SSL === true && process.env.DEV_SERVER_KEY) {
         const proxy = process.env.APP_URL.replace(/^(https?:|)\/\//, '')
         mix.options({
             hmrOptions: {
