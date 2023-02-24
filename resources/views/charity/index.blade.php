@@ -70,8 +70,8 @@
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <x-seo-button key="goto.charity" href="{{ route("charity.single", ["slug" => $post->slug]) }}"
-                                           class="btn btn-read-more text-bold">{{ __("Читати більше") }}</x-seo-button>
+                                        <x-seo-button key="goto.charity" href="{{ route('charity.single', ['slug' => $post->slug]) }}"
+                                           class="btn btn-read-more text-bold">{{ __('Читати більше') }}</x-seo-button>
                                     </div>
                                 </div>
                             </div>
