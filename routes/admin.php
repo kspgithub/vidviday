@@ -354,10 +354,8 @@ Route::resource('partner', PartnerController::class)->except(['show']);
 Route::get('wrong_requests', [WrongRequestsController::class, 'index'])->name('wrong_requests.index');
 
 // Notifications
-Route::group([
-    'prefix' => 'notifications',
-    'as' => 'notifications.',
-], function () {
-    Route::get('sms', [SmsNotificationsController::class, 'index'])->name('sms');
-    Route::post('sms', [SmsNotificationsController::class, 'save']);
-});
+Route::get('sms-notifications', [SmsNotificationsController::class, 'index'])->name('sms-notifications.index');
+Route::get('sms-notifications/{key}', [SmsNotificationsController::class, 'edit'])->name('sms-notifications.edit');
+Route::get('sms-notifications/{key}/preview', [SmsNotificationsController::class, 'preview'])->name('sms-notifications.preview');
+Route::delete('sms-notifications/{key}', [SmsNotificationsController::class, 'reset'])->name('sms-notifications.reset');
+Route::patch('sms-notifications/{key}', [SmsNotificationsController::class, 'save'])->name('sms-notifications.save');

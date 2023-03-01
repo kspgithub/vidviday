@@ -24,12 +24,10 @@ class SmsNotificationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'notifications' => 'required|array',
-            'notifications.*.key' => 'required|string',
-            'notifications.*.title' => 'required|array',
-            'notifications.*.text' => 'required|array',
-            'notifications.*.phone' => 'required|boolean',
-            'notifications.*.viber' => 'required|boolean',
+            'title' => 'required|array',
+            'text' => 'required|array',
+            'phone' => 'required|boolean',
+            'viber' => 'required|boolean',
         ];
     }
 }
