@@ -417,18 +417,18 @@
                             class="align-middle">@lang('Email templates')</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{routeActiveClass('admin.notifications*')}}">
+                <li class="sidebar-item {{routeActiveClass('admin.sms-notifications*')}}">
                     <a data-bs-target="#notifications" data-bs-toggle="collapse"
-                       class="sidebar-link {{routeActiveClass('admin.notifications*', '', 'collapsed')}}">
+                       class="sidebar-link {{routeActiveClass('admin.sms-notifications*', '', 'collapsed')}}">
                         <i class="align-middle" data-feather="message-square"></i> <span
                             class="align-middle">@lang('Notifications')</span>
                     </a>
                     <ul id="notifications"
-                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.notifications*', 'show', '')}} {{routeActiveClass('admin.notifications*', 'show', '')}}"
+                        class="sidebar-dropdown list-unstyled collapse  {{routeActiveClass('admin.sms-notifications*', 'show', '')}} {{routeActiveClass('admin.sms-notifications*', 'show', '')}}"
                         data-bs-parent="#sidebar">
-                        <li class="sidebar-item {{routeActiveClass('admin.notifications.sms')}}">
+                        <li class="sidebar-item {{routeActiveClass('admin.sms-notifications.index')}}">
                             <a class="sidebar-link"
-                               href="{{route('admin.notifications.sms')}}">@lang('Sms')</a>
+                               href="{{route('admin.sms-notifications.index')}}">@lang('Sms')</a>
                         </li>
                     </ul>
                 </li>

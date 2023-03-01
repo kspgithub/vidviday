@@ -13,31 +13,28 @@ class SmsNotificationsController extends Controller
     {
         $notifications = SmsNotification::query()->get();
 
-        $replaces = config('notifications.sms');
-
-        foreach ($notifications as $notification) {
-            $notification->replaces = $replaces[$notification->key]['replaces'] ?? [];
-        }
-
-        return view('admin.notifications.sms', ['notifications' => $notifications]);
+        return view('admin.sms-notifications.index', ['notifications' => $notifications]);
     }
 
-    public function save(SmsNotificationsRequest $request)
+    public function edit($key)
+    {
+        $locales = siteLocales();
+
+        $notification = SmsNotification::query()->where('key', $key)->firstOrFail();
+
+        return view('admin.sms-notifications.edit', [
+            'locales' => $locales,
+            'notification' => $notification,
+        ]);
+    }
+
+    public function save($key, SmsNotificationsRequest $request)
     {
         $data = $request->validated();
 
-        $notifications = SmsNotification::query()->get();
+        $notification = SmsNotification::query()->where('key', $key)->firstOrFail();
 
-        foreach ($data['notifications'] as $key => $item) {
-            /**
-             * @var $notification SmsNotification
-             */
-            $notification = $notifications->where('key', $key)->first();
-
-            if($notification) {
-                $notification->update($item);
-            }
-        }
+        $notification->update($data);
 
         return redirect()->back()->withFlashSuccess(__('Updated'));
     }
