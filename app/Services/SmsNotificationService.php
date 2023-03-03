@@ -26,10 +26,12 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.register-tour-agent.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = Staff::query()->whereHas('types', function ($q) {
@@ -66,10 +68,12 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.order.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$order->tour->manager]);
@@ -111,22 +115,16 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.order-one-click.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
-                $staffs = array_filter([$order->tour->manager]);
-
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
+                if ($order->phone && $smsNotification->phone) {
+                    dispatch(new SendSms($order->phone, $text));
                 }
             }
 
@@ -149,10 +147,12 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.staff-testimonial.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$staff]);
@@ -187,10 +187,12 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.corporate.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$corporate->tour->manager]);
@@ -225,10 +227,12 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.certificate.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$certificate->tour->manager]);
@@ -251,4 +255,6 @@ class SmsNotificationService
 
         return false;
     }
+
+
 }

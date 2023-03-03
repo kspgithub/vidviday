@@ -34,7 +34,7 @@ class SmsNotificationSeeder extends Seeder
             [
                 'key' => 'order-one-click',
                 'title' => 'Замовити в 1 клік',
-                'text' => 'Замовити в 1 клік',
+                'text' => 'Дякуємо за замовлення № {{order_id}}! Зв\'яжемося з Вами впродовж 1 робочого дня. VIDVIDAY.ua, +38-063-670-55-87',
                 'phone' => true,
                 'viber' => true,
             ],

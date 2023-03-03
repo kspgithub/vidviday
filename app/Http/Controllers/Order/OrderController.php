@@ -57,10 +57,14 @@ class OrderController extends Controller
             MailNotificationService::userTourOrder($order);
             MailNotificationService::adminTourOrder($order);
 
-            if($order->group_type === Order::GROUP_CORPORATE) {
+            if ($order->group_type === Order::GROUP_CORPORATE) {
                 SmsNotificationService::orderCorporate($order);
             } else {
                 SmsNotificationService::tourOrder($order);
+            }
+
+            if (empty($order->email)) {
+                SmsNotificationService::orderOneClick($order);
             }
 
             if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
