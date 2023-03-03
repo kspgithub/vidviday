@@ -59,6 +59,13 @@ class SmsNotificationSeeder extends Seeder
                 'phone' => true,
                 'viber' => true,
             ],
+            [
+                'key' => 'order-user',
+                'title' => 'Якщо користувач не вказав эмейл',
+                'text' => 'Дякуємо за замовлення № {{order_id}}! Зв\'яжемося з Вами впродовж 1 робочого дня. VIDVIDAY.ua, +38-063-670-55-87',
+                'phone' => true,
+                'viber' => true,
+            ],
         ];
 
         foreach ($data as $item) {

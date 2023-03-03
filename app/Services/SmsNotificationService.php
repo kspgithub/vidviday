@@ -26,25 +26,19 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.register-tour-agent.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = Staff::query()->whereHas('types', function ($q) {
                     return $q->where('slug', 'travel-agencies');
                 })->get();
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
-                }
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
             }
 
             return true;
@@ -66,36 +60,17 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.order.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
-                }
-
-                $text = Str::replace(['{{ order_id }}', '{{order_id}}'], $order->id, $text);
-
-                if (!$order->email && $order->phone && $smsNotification->phone) {
-                    dispatch(new SendSms($order->phone, $text));
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$order->tour->manager]);
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        // Фикс когда указано несколько телефонов через запятую
-                        $phones = array_filter(explode(',', $staff->phone));
-                        foreach ($phones as $phone) {
-                            $phone = trim($phone);
-                            if (!empty($phone)) {
-                                dispatch(new SendSms($phone, $text));
-                            }
-                        }
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->viber, $text, 'viber'));
-                    }
-                }
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
             }
 
             return true;
@@ -117,28 +92,48 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.order-one-click.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
-                }
-
-                $text = Str::replace(['{{ order_id }}', '{{order_id}}'], $order->id, $text);
-
-                if (!$order->email && $order->phone && $smsNotification->phone) {
-                    dispatch(new SendSms($order->phone, $text));
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$order->tour->manager]);
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
+            }
 
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
+            return true;
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage(), $exception->getTrace());
+        }
+
+        return false;
+    }
+
+    public static function userOrderNotification(Order $order)
+    {
+        try {
+            // Notify staff via sms
+            $smsNotification = SmsNotification::query()->where('key', 'order-user')->first();
+
+            if ($smsNotification) {
+
+                $text = $smsNotification->text;
+                $replaces = config('notifications.sms.order-user.replaces');
+
+                foreach ($replaces as $value) {
+                    [$variable, $attribute] = explode('_', $value);
+                    $target = $$variable;
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
+                }
+
+                if ($order->phone && $smsNotification->phone) {
+                    dispatch(new SendSms($order->phone, $text));
                 }
             }
 
@@ -161,23 +156,17 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.staff-testimonial.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$staff]);
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
-                }
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
             }
 
             return true;
@@ -199,23 +188,17 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.corporate.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$corporate->tour->manager]);
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
-                }
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
             }
 
             return true;
@@ -237,23 +220,17 @@ class SmsNotificationService
                 $text = $smsNotification->text;
                 $replaces = config('notifications.sms.certificate.replaces');
 
-                foreach ($replaces as $replace => $value) {
+                foreach ($replaces as $value) {
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
-                    $text = Str::replace($replace, $target->{$attribute}, $text);
+                    $search_text = '{{' . $value . '}}';
+                    $replace_text = $target->{$attribute};
+                    $text = Str::replace($search_text, $replace_text, $text);
                 }
 
                 $staffs = array_filter([$certificate->tour->manager]);
+                self::sendMessageToStaffs($staffs, $text, $smsNotification->phone, $smsNotification->viber);
 
-                foreach ($staffs as $staff) {
-                    if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
-                    }
-
-                    if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
-                    }
-                }
             }
 
             return true;
@@ -262,5 +239,27 @@ class SmsNotificationService
         }
 
         return false;
+    }
+
+
+    protected static function sendMessageToStaffs($staffs, $text, $sendPhone = true, $sendViber = true)
+    {
+
+        foreach ($staffs as $staff) {
+            if ($staff->phone && $sendPhone) {
+                // Фикс когда указано несколько телефонов через запятую
+                $phones = array_filter(explode(',', $staff->phone));
+                foreach ($phones as $phone) {
+                    $phone = trim($phone);
+                    if (!empty($phone)) {
+                        dispatch(new SendSms($phone, $text));
+                    }
+                }
+            }
+
+            if ($staff->viber && $sendViber) {
+                dispatch(new SendSms($staff->viber, $text, 'viber'));
+            }
+        }
     }
 }

@@ -55,14 +55,14 @@ class TourController extends Controller
             $tours = $query->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
 
-            if(!$tours->count() && ($q = $request->get('q'))) {
+            if (!$tours->count() && ($q = $request->get('q'))) {
                 TourService::handleWrongRequest($request);
             }
 
             return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
         }
 
-        if(!$group->published) {
+        if (!$group->published) {
             abort(404);
         }
 
@@ -92,7 +92,7 @@ class TourController extends Controller
          */
         $tour = Tour::findBySlugOrFail($slug, false);
 
-        if(!$tour->published) {
+        if (!$tour->published) {
             abort(404);
         }
 
@@ -160,14 +160,14 @@ class TourController extends Controller
         ]);
 
         $tour->loadCount([
-            'testimonials' => fn ($q) => $q->moderated()
-                    ->orderBy('rating', 'desc')
-                    ->latest(),
-            'relatedTestimonials' => fn ($q) => $q->moderated()
-                    ->orderBy('rating', 'desc')
-                    ->latest(),
+            'testimonials' => fn($q) => $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest(),
+            'relatedTestimonials' => fn($q) => $q->moderated()
+                ->orderBy('rating', 'desc')
+                ->latest(),
 
-            'votings' => fn ($q) => $q->published(),
+            'votings' => fn($q) => $q->published(),
         ]);
 
         $tour->loadAvg(['testimonials' => function ($q) {
@@ -194,7 +194,7 @@ class TourController extends Controller
         $pictures = $tour->getMedia('main');
         $tourPictures = $tour->getMedia('pictures', ['published' => true]);
 
-        if($tourPictures->count()) {
+        if ($tourPictures->count()) {
             $pictures = $pictures->merge($tourPictures);
         }
 
@@ -395,15 +395,21 @@ class TourController extends Controller
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
 
-            if($order->group_type === Order::GROUP_CORPORATE) {
+            if ($order->group_type === Order::GROUP_CORPORATE) {
                 SmsNotificationService::orderCorporate($order);
             } else {
-                if($request->has('program_type')) {
+                if ($request->has('program_type')) {
                     SmsNotificationService::tourOrder($order);
                 } else {
                     SmsNotificationService::orderOneClick($order);
                 }
+
             }
+
+            if (empty($order->email) && !empty($order->phone)) {
+                SmsNotificationService::userOrderNotification($order);
+            }
+
 
             if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
                 $redirect_route = 'order.purchase';
