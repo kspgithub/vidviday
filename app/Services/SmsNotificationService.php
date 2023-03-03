@@ -76,11 +76,18 @@ class SmsNotificationService
 
                 foreach ($staffs as $staff) {
                     if ($staff->phone && $smsNotification->phone) {
-                        dispatch(new SendSms($staff->phone, $text));
+                        // Фикс когда указано несколько телефонов через запятую
+                        $phones = array_filter(explode(',', $staff->phone));
+                        foreach ($phones as $phone) {
+                            $phone = trim($phone);
+                            if (!empty($phone)) {
+                                dispatch(new SendSms($phone, $text));
+                            }
+                        }
                     }
 
                     if ($staff->viber && $smsNotification->viber) {
-                        dispatch(new SendSms($staff->phone, $text, 'viber'));
+                        dispatch(new SendSms($staff->viber, $text, 'viber'));
                     }
                 }
             }

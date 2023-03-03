@@ -6,7 +6,7 @@ use App\Models\Traits\Scope\JsonLikeScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-class SmsNotification extends Model
+class SmsNotification extends TranslatableModel
 {
     use HasTranslations;
     use JsonLikeScope;
