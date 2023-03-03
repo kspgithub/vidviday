@@ -72,6 +72,12 @@ class SmsNotificationService
                     $text = Str::replace($replace, $target->{$attribute}, $text);
                 }
 
+                $text = Str::replace(['{{ order_id }}', '{{order_id}}'], $order->id, $text);
+
+                if (!$order->email && $order->phone && $smsNotification->phone) {
+                    dispatch(new SendSms($order->phone, $text));
+                }
+
                 $staffs = array_filter([$order->tour->manager]);
 
                 foreach ($staffs as $staff) {
@@ -115,6 +121,12 @@ class SmsNotificationService
                     [$variable, $attribute] = explode('_', $value);
                     $target = $$variable;
                     $text = Str::replace($replace, $target->{$attribute}, $text);
+                }
+
+                $text = Str::replace(['{{ order_id }}', '{{order_id}}'], $order->id, $text);
+
+                if (!$order->email && $order->phone && $smsNotification->phone) {
+                    dispatch(new SendSms($order->phone, $text));
                 }
 
                 $staffs = array_filter([$order->tour->manager]);
