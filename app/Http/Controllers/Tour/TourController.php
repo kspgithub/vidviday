@@ -398,7 +398,11 @@ class TourController extends Controller
             if($order->group_type === Order::GROUP_CORPORATE) {
                 SmsNotificationService::orderCorporate($order);
             } else {
-                SmsNotificationService::tourOrder($order);
+                if($request->has('program_type')) {
+                    SmsNotificationService::tourOrder($order);
+                } else {
+                    SmsNotificationService::orderOneClick($order);
+                }
             }
 
             if ((int)$order->payment_type === PaymentType::TYPE_ONLINE) {
