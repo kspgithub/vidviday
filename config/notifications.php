@@ -17,6 +17,11 @@ return [
                 'order_id',
             ],
         ],
+        'order-user' => [
+            'replaces' => [
+                'order_id',
+            ],
+        ],
         'staff-testimonial' => [
             'replaces' => [
                 'staff_id',
