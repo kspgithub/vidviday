@@ -395,16 +395,16 @@ class TourController extends Controller
             MailNotificationService::adminTourOrder($order);
             MailNotificationService::userTourOrder($order);
 
-//            if ($order->group_type === Order::GROUP_CORPORATE) {
-//                SmsNotificationService::orderCorporate($order);
-//            } else {
-//                if ($request->has('program_type')) {
-//                    SmsNotificationService::tourOrder($order);
-//                } else {
-//                    SmsNotificationService::orderOneClick($order);
-//                }
-//
-//            }
+            if ($order->group_type === Order::GROUP_CORPORATE) {
+                SmsNotificationService::orderCorporate($order);
+            } else {
+                if ($request->has('program_type')) {
+                    SmsNotificationService::tourOrder($order);
+                } else {
+                    SmsNotificationService::orderOneClick($order);
+                }
+
+            }
 
             if (empty($order->email) && !empty($order->phone)) {
                 SmsNotificationService::userOrderNotification($order);
