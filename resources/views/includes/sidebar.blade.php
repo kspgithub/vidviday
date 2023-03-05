@@ -26,7 +26,7 @@
                 <div class="bg" data-bg-src="{{asset('/img/gift-certificate.jpg')}}"
                      style="background-image: url('{{asset('/img/preloader.png')}}');"></div>
                 <div class="gift-icon">
-                    <img src="{{asset('/icon/gift.svg')}}" alt="gift">
+                    <img loading="lazy" data-img-src="{{asset('/icon/gift.svg')}}" alt="gift">
                 </div>
                 <div class="title h3 light">@lang('sidebar-section.gift-certificate')</div>
                 <a href="{{pageUrlByKey('certificate')}}" class="full-size"></a>

@@ -14,7 +14,7 @@
                 <li v-for="place in places" :key="'hsp-'+place.id">
                     <a :href="place.url">
                         <span class="img">
-                            <img :src="place.main_image" :alt="place.title">
+                            <img :data-img-src="place.main_image" :alt="place.title">
                         </span>
                         <span class="text">{{ place.title }}</span>
                     </a>
@@ -22,7 +22,7 @@
                 <li v-for="tour in tours" :key="'hst-'+tour.id">
                     <a :href="tour.url">
                         <span class="img">
-                        <img :src="tour.main_image" :alt="tour.title">
+                        <img :data-img-src="tour.main_image" :alt="tour.title">
                     </span>
                         <span class="text">{{ tour.title }}</span>
                     </a>

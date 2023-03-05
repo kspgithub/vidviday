@@ -37,7 +37,7 @@
 
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
-                            <img src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
+                            <img loading="lazy" src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             Підбір туру
                         </x-seo-button>
                         <div class="spacer-xs"></div>
@@ -57,7 +57,7 @@
 
                             <div class="item post">
                                 <div class="thumb-img">
-                                    <img src="{{ asset("img/preloader.png") }}"
+                                    <img loading="lazy" src="{{ asset("img/preloader.png") }}"
                                          data-img-src="{{ $post->main_image_url }}"
                                          alt="img 25">
                                     <a href="{{ route("charity.single", ["slug" => $post->slug]) }}"

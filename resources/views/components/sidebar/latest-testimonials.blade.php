@@ -3,7 +3,7 @@
     <div class="sidebar-item p-0 no-print">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
                      alt="reviews">
                 <span>{{$title}}</span>
             </div>
@@ -15,7 +15,7 @@
                         <div class="review-header">
                             <div class="review-img">
                                 @if($testimonial->avatar || empty($testimonial->initials))
-                                    <img src="{{asset('/img/preloader.png')}}"
+                                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                          data-img-src="{{$testimonial->avatar_url}}"
                                          alt="user">
                                 @else

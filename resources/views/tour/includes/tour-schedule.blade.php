@@ -2,7 +2,7 @@
     <div class="accordion-item">
         <div class="accordion-title">
         <span>
-            <img src="{{asset('/img/preloader.png')}}"
+            <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                  data-img-src="{{asset('/icon/schedule.svg')}}"
                  alt="schedule"/>
         </span>

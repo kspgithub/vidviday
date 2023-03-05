@@ -2,7 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()" :class="{active: recording}">
         <div class="popup-align">
             <div class="img mic-icon" @click="startRecording()">
-                <img src="/icon/big-mic.svg" alt="big mic">
+                <img data-img-src="/icon/big-mic.svg" alt="big mic">
             </div>
             <div class="text-center">
                 <span class="h2 title text-medium">

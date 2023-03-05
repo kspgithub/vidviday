@@ -1,7 +1,7 @@
 @if(count($future_events))
     <div class="accordion-item  hidden-print">
         <div class="accordion-title">
-        <span><img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/calculator.svg')}}"
+        <span><img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/calculator.svg')}}"
                    alt="calculator"></span>
             @lang('tours-section.tour-calc') <i></i>
         </div>

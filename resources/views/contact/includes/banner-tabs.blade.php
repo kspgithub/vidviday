@@ -4,7 +4,7 @@
             <span class="tab-title"></span>
             <ul class="tab-toggle">
                 <li class="tab-caption active">
-                    <img src="{{asset('img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}"
                          data-img-src="{{asset('icon/photo.svg')}}"
                          alt="placeholder light">{{__('common.photos')}}
                 </li>

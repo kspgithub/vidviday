@@ -3,7 +3,7 @@
         @foreach($transports as $transport)
             <div class="col-md-6 col-12">
                 <div class="img img-border img-caption">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{$transport->image_url}}"
                          alt="img 16">
                     <div class="img-caption-title">

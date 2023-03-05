@@ -2,7 +2,7 @@
 <div class="review {{$hidden ? 'hidden' : ''}}">
     <div class="review-header">
         <div class="review-img">
-            <img src="{{$item->avatar_url}}" data-img-src="{{$item->avatar_url}}" alt="user">
+            <img loading="lazy" data-img-src="{{$item->avatar_url}}" data-img-src="{{$item->avatar_url}}" alt="user">
         </div>
         <div class="review-title">
             <span class="h4">{{$item->name}}</span>

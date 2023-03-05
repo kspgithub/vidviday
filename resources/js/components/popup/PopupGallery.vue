@@ -8,7 +8,7 @@
                 <div class="swiper-container swiper-vue" ref="swiperRef">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(slide, idx) in media">
-                            <img :src="slide.url" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
+                            <img :data-img-src="slide.url" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
                             <div class="swiper-lazy-preloader"></div>
                             <span class="text-md text-medium">{{ slide.title }}</span>
                         </div>

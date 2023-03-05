@@ -1,7 +1,7 @@
 @if($tour->planItems->count() > 0)
     <div class="accordion-item active">
         <div class="accordion-title">
-    <span><img src="{{asset('/img/preloader.png')}}"
+    <span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
                data-img-src="{{asset('/icon/plan.svg')}}"
                alt="plan"></span>@lang('tours-section.tour-plan')<i></i></div>
         <div class="accordion-inner" style="display: block;">

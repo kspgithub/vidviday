@@ -6,10 +6,10 @@
 								<span class="tab-title"></span>
 								<ul class="tab-toggle">
                                     @if ( !empty($staff->media))
-									<li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/photo.svg" alt="placeholder light">Фото</li>
+									<li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/photo.svg" alt="placeholder light">Фото</li>
                                     @endif
                                     @if ( !empty($staff->video))
-									<li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg" alt="video">Відео</li>
+									<li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg" alt="video">Відео</li>
                                     @endif
                                 </ul>
 							</div>
@@ -27,7 +27,7 @@
 											<div class="swiper-container" data-options='{"autoHeight": true, "parallax": true, "speed": 900}'>
 												<div class="swiper-wrapper lightbox-wrap">
 													<div class="swiper-slide">
-                                                        <img src="{{ $pageContent->media ?? asset('/img/no-image.png') }}"
+                                                        <img loading="lazy" src="{{ $pageContent->media ?? asset('/img/no-image.png') }}"
                                                              alt="{{$pageContent->seo_h1 ?? $pageContent->title}}"
                                                              data-swiper-parallax="30%">
 														<a href="{{ $pageContent->media ?? asset('/img/no-image.png') }}" class="lightbox full-size" data-caption="{{$pageContent->seo_h1 ?? $pageContent->title}}">

@@ -109,6 +109,8 @@ jQuery(function ($) {
 
                         lazyImg.src = lazyImg.dataset.imgSrc;
                         observer.unobserve(lazyImg)
+                        console.log('isIntersecting')
+                        console.log(lazyImg.dataset)
                     }
                 })
             }, {

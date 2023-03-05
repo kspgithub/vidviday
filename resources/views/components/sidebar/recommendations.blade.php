@@ -2,7 +2,7 @@
     <div class="sidebar-item testimonials">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
                      alt="reviews">
                 <span>{{ __("Нас рекомендують") }}</span>
             </div>

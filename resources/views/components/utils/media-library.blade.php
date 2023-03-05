@@ -32,7 +32,7 @@
 
                 <div class="media-item img-thumbnail" x-bind:id="'media-item-'+idx" x-bind:data-id="item.id"
                      x-bind:class="{error: !!item.error}">
-                    <img x-bind:src="item.thumb" x-bind:alt="item.alt[locale] || ''"
+                    <img loading="lazy" x-bind:src="item.thumb" x-bind:alt="item.alt[locale] || ''"
                          x-bind:title="item.title[locale] || ''">
                     <div x-show="item.loader" class="spinner-border text-warning" role="status"></div>
                     <template x-if="item.id">

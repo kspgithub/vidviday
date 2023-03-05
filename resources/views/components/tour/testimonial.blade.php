@@ -8,7 +8,7 @@
         <div class="review-header">
             <div class="review-img">
                 @if(!empty($testimonial->avatar))
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{$testimonial->avatar_url}}" alt="user">
                 @else
                     <span class="full-size h4">{{$testimonial->initials}}</span>

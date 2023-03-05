@@ -2,7 +2,7 @@
     <popup size="size-1" :active="popupOpen" @hide="closePopup()">
         <div class="popup-align">
             <div class="img done">
-                <img src="/icon/done.svg" alt="done">
+                <img data-img-src="/icon/done.svg" alt="done">
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>

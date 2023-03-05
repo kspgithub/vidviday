@@ -1,6 +1,6 @@
 @if(count($tour->group_tour_includes))
     <div class="accordion-item">
-        <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
+        <div class="accordion-title"><span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                                 data-img-src="{{asset('/icon/wallet.svg')}}"
                                                 alt="wallet"></span>@lang('tours-section.finances')<i></i></div>
         <div class="accordion-inner">

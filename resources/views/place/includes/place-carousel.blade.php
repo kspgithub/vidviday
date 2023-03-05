@@ -9,7 +9,7 @@
         <div class="swiper-wrapper lightbox-wrap">
             <div class="swiper-slide">
                 <div class="img zoom">
-                    <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/img_2.jpg')}}" alt="img 2" class="swiper-lazy">
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/img_2.jpg')}}" alt="img 2" class="swiper-lazy">
                     <div class="swiper-lazy-preloader"></div>
                     <div class="full-size open-popup" data-rel="gallery-popup"></div>
                 </div>
@@ -17,7 +17,7 @@
 
             <div class="swiper-slide">
                 <div class="img zoom">
-                    <img src="{{asset('img/preloader.png')}}" data-src="{{asset('img/img_3.jpg')}}" alt="img 3" class="swiper-lazy">
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/img_3.jpg')}}" alt="img 3" class="swiper-lazy">
                     <div class="swiper-lazy-preloader"></div>
                     <div class="full-size open-popup" data-rel="gallery-popup"></div>
                 </div>

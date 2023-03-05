@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-xl-8 offset-xl-2 col-12">
                             <div class="img done">
-                                <img src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
+                                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
                             </div>
                             <div class="spacer-xs"></div>
                             <h1 class="h2 text-center">Ми отримали Ваше замовлення</h1>
