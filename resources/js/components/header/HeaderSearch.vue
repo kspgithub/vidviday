@@ -70,10 +70,12 @@
 
 <script>
 import useSearch from "./useSearch";
+import SeoButton from '../common/SeoButton.vue'
 
 
 export default {
     name: "HeaderSearch",
+    components: {SeoButton},
     props: {
         popularToursUrl: String
     },

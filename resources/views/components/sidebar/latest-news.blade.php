@@ -21,7 +21,7 @@
                 @endforeach
 
             </div>
-            <x-seo-button key="news.latest" href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</x-seo-button>
+            <x-seo-button :code="'news.latest'" href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</x-seo-button>
         </div>
     </div>
 @endif

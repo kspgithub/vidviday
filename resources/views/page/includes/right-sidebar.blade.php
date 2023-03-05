@@ -2,7 +2,7 @@
     <div class="right-sidebar-inner">
         @isset($button)
             <div class="only-desktop mb-20">
-                <x-seo-button key="common.right_sidebar_button" class="btn type-1 btn-block btn-big font-lg"
+                <x-seo-button :code="'common.right_sidebar_button'" class="btn type-1 btn-block btn-big font-lg"
                               @if(($button['logout'] ?? false) === true)
                                   onclick="event.preventDefault(); document.getElementById('header-logout-form-redirect').value = '{{$button['url']}}'; document.getElementById('header-logout-form').submit();"
                               @endif
@@ -20,7 +20,7 @@
 
         <div class="only-mobile">
             <div class="spacer-sm"></div>
-            <x-seo-button key="order.certificate" href="{{route('certificate.order')}}"
+            <x-seo-button :code="'order.certificate'" href="{{route('certificate.order')}}"
                           class="btn type-1 btn-block btn-book-size">
                 @lang('order-section.certificate.order')
                 </x-seo-button>

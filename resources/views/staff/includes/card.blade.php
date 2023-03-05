@@ -67,6 +67,6 @@
             </div>
         @endif
         <div class="spacer-xs"></div>
-        <x-seo-button key="goto.staff" href="{{ $specialist->url}}" class="btn type-1 btn-block">Дізнатись більше</x-seo-button>
+        <x-seo-button :code="'goto.staff'" href="{{ $specialist->url}}" class="btn type-1 btn-block">Дізнатись більше</x-seo-button>
     </div>
 </div>

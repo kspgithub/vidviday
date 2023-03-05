@@ -16,9 +16,9 @@
                                        rows="3" name="text"/>
                     </div>
                     <div class="add-note-btns">
-                        <button v-bind="$buttons('order.notes')" class="btn type-2" type="submit" :disabled="!text || request">
+                        <seo-button code="order.notes" class="btn type-2" type="submit" :disabled="!text || request">
                             {{ __('forms.send') }}
-                        </button>
+                        </seo-button>
                         <a class="text-sm add-note-btn-cancel" @click.prevent="showForm = false">
                             <b class="text-bold">{{ __('forms.cancel-alt') }}</b>
                         </a>
@@ -43,10 +43,11 @@ import SlideUpDown from "../common/SlideUpDown";
 import axios from "axios";
 import moment from "moment";
 import MoreText from "../common/MoreText";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "OrderNotes",
-    components: {MoreText, SlideUpDown, FormTextarea, ShowMoreText},
+    components: {SeoButton, MoreText, SlideUpDown, FormTextarea, ShowMoreText},
     props: {
         action: String,
         order: Object,

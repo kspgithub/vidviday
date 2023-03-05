@@ -13,6 +13,6 @@
 
     <div class="text-center">
         <div class="spacer-xs"></div>
-        <x-seo-button key="tour.show_more" class="btn type-2">@lang('tours-section.show-more-12')</x-seo-button>
+        <x-seo-button :code="'tour.show_more'" class="btn type-2">@lang('tours-section.show-more-12')</x-seo-button>
     </div>
 </div>

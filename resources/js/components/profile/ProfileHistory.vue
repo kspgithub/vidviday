@@ -10,9 +10,9 @@
         <div class="col-12" v-if="currentPage < lastPage">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <button v-bind="$buttons('profile.more-history')" class="btn type-2" :disabled="request" @click.prevent="loadMore()">
+                <seo-button code="profile.more-history" class="btn type-2" :disabled="request" @click.prevent="loadMore()">
                     {{ __('tours-section.show-more-12') }}
-                </button>
+                </seo-button>
             </div>
         </div>
     </div>
@@ -22,10 +22,11 @@
 import {ref} from "vue";
 import TourCard from "../tour/TourCard";
 import axios from "axios";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "ProfileFavourites",
-    components: {TourCard},
+    components: {SeoButton, TourCard},
     setup() {
         const request = ref(false);
         const tours = ref([]);

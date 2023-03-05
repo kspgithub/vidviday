@@ -140,14 +140,14 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button v-bind="$buttons('tour.testimonial')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <seo-button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
-                        </button>
+                        </seo-button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button v-bind="$buttons('tour.testimonial')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <seo-button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
-                        </button>
+                        </seo-button>
                     </template>
                 </div>
 
@@ -182,10 +182,13 @@ import { __ } from '../../i18n/lang.js'
 import FormAutocomplete from '../form/FormAutocomplete.vue'
 import { fetchGuides } from '../../services/tour-service.js'
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourTestimonialForm",
-    components: {FormPhone, FormAutocomplete, FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    components: {
+        SeoButton,
+        FormPhone, FormAutocomplete, FormSelect, VueRecaptcha, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         tour: Object,
         user: Object,

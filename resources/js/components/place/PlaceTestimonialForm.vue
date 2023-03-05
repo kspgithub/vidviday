@@ -111,9 +111,9 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button v-bind="$buttons('testimonial.place')" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
+                    <seo-button code="testimonial.place" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
-                    </button>
+                    </seo-button>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -159,10 +159,11 @@ import FormCustomSelect from "../form/FormCustomSelect";
 import { useStore } from "vuex";
 import FormSelect from "../form/FormSelect";
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourTestimonialForm",
-    components: {FormPhone, FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: {SeoButton, FormPhone, FormSelect, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         place: Object,
         user: Object,

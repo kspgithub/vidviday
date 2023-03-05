@@ -52,7 +52,7 @@
                                 </div>
 
                                 @if($testimonial->tour)
-                                    <x-seo-button key="goto.tour_testimonial" class="btn btn-read-more text-bold d-inline"
+                                    <x-seo-button :code="'goto.tour_testimonial'" class="btn btn-read-more text-bold d-inline"
                                        href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
                                         {{__('common.more')}}
                                     </x-seo-button>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 @endforeach
-                <x-seo-button key="testimonial.next" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</x-seo-button>
+                <x-seo-button :code="'testimonial.next'" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</x-seo-button>
             </div>
 
         </div>

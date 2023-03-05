@@ -70,9 +70,10 @@
                     {{ __('tours-section.want-to-vote') }} -
                     <b class="wbr">{{tour.votings_count||'0'}} {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b>
                 </div>
-                <a v-bind="$buttons('tour.vote', tour.id)" :href="voteLink" class="btn type-1 btn-block">
-                    {{ __('tours-section.vote') }}
-                </a>
+                <seo-button code="tour.vote"
+                            :href="voteLink"
+                            class="btn type-1 btn-block"
+                >{{ __('tours-section.vote') }}</seo-button>
             </template>
         </div>
 
@@ -94,10 +95,11 @@ import Tooltip from "../common/Tooltip";
 import SvgIcon from "../svg/SvgIcon";
 import {useStore} from "vuex";
 import {computed} from "vue";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourCard",
-    components: {SvgIcon, Tooltip, FormSelect, TourBadge, TourRating},
+    components: {SeoButton, SvgIcon, Tooltip, FormSelect, TourBadge, TourRating},
     props: {
         tour: {
             type: Object,

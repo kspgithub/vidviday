@@ -56,7 +56,7 @@
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
-                        <x-seo-button key="auth.start_cooperation" class="btn type-1 btn-block btn-book-size"
+                        <x-seo-button :code="'auth.start_cooperation'" class="btn type-1 btn-block btn-book-size"
                             href="{{ Auth::check() ? (Auth::user()->isTourAgent() ? route('profile.index') : route('auth.register', ['tour_agent' => 1])) : route('auth.register', ['tour_agent' => 1]) }}"
                         >{{__('tours-section.start-cooperation')}}</x-seo-button>
                             <div class="spacer-xs"></div>
@@ -67,7 +67,7 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <x-seo-button key="auth.start_cooperation" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
+                    <x-seo-button :code="'auth.start_cooperation'" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
                        href="{{ Auth::check() ? (Auth::user()->isTourAgent() ? route('profile.index') : route('auth.register', ['tour_agent' => 1])) : route('auth.register', ['tour_agent' => 1]) }}"
                     >{{__('tours-section.start-cooperation')}}</x-seo-button>
                 </div>

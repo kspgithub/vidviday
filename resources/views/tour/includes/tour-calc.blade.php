@@ -9,7 +9,7 @@
             <form action="/" class="calc-form"
                   v-is="'tour-calc'"
                   :tour='@json($tour->shortInfo())'
-                  :future-events='@json($future_events)'
+                  :future-events='@json($future_events->map->shortInfo())'
                   :price-items='@json($price_items)'
 
             >

@@ -14,7 +14,7 @@
                             <i>Номер телефону*</i>
                             <input type="text" name="tel" required>
                         </label>
-                        <x-seo-button key="auth.login" href="#" class="btn type-1 btn-block">Увійти</x-seo-button>
+                        <x-seo-button :code="'auth.login'" href="#" class="btn type-1 btn-block">Увійти</x-seo-button>
                     </form>
                     <div class="spacer-xs"></div>
                     <div class="text text-sm">{{__('forms.required-fields')}}</div>

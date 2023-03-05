@@ -24,7 +24,7 @@
 
                 <div class="col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex"><img
+                        <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
                                 src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">{{__('sidebar-section.filter.tour-search')}}</x-seo-button>
                     </div>
                     <div class="spacer-xs"></div>

@@ -36,7 +36,7 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12 charity">
 
                     <div class="only-pad-mobile">
-                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
+                        <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
                             <img src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             Підбір туру
                         </x-seo-button>
@@ -70,7 +70,7 @@
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <x-seo-button key="goto.charity" href="{{ route('charity.single', ['slug' => $post->slug]) }}"
+                                        <x-seo-button :code="'goto.charity'" href="{{ route('charity.single', ['slug' => $post->slug]) }}"
                                            class="btn btn-read-more text-bold">{{ __('Читати більше') }}</x-seo-button>
                                     </div>
                                 </div>

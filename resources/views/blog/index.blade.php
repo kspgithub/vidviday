@@ -52,7 +52,7 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12 news">
                     <div class="only-pad-mobile">
-                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex"><img
+                        <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
                                 src="{{ __("img/preloader.png") }}" data-img-src="{{ asset("icon/filter-dark.svg") }}"
                                 alt="filter-dark">@lang('tours-section.search-btn')</x-seo-button>
                             <div class="spacer-xs"></div>
@@ -82,7 +82,7 @@
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
-                                        <x-seo-button key="blog.read_more"
+                                        <x-seo-button :code="'blog.read_more'"
                                                       href="{{ route("blog.post", ['slug' => $post->slug]) }}"
                                                       class="btn btn-read-more text-bold">{{ __("Read more") }}</x-seo-button>
                                     </div>

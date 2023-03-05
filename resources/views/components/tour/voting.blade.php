@@ -29,7 +29,7 @@
                 <input type="text" name="email">
             </label>
 
-            <x-seo-button key="tour.vote" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</x-seo-button>
+            <x-seo-button :code="'tour.vote'" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</x-seo-button>
         </form>
     </div>
 </div>

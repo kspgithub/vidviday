@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="only-pad-mobile">
-            <span v-bind="$buttons('tour.search')" class="btn type-5 arrow-right text-left flex">
+            <seo-button code="tour.search"
+                        tag="span"
+                        class="btn type-5 arrow-right text-left flex"
+            >
                 <img alt="filter-dark" src="/icon/filter-dark.svg">{{ __('tours-section.search-btn') }}
-            </span>
+            </seo-button>
             <div class="spacer-xs"></div>
         </div>
         <div class="section text-center">
@@ -30,10 +33,11 @@
 import TourSlider from "./TourCarousel";
 import {computed} from "vue";
 import {useStore} from "vuex";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourEmptyResult",
-    components: {TourSlider},
+    components: {SeoButton, TourSlider},
     setup() {
         const store = useStore();
         const popularTours = computed(() => store.state.tourFilter.popularTours);

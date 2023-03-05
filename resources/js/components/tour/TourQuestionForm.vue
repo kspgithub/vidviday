@@ -30,14 +30,14 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <button v-bind="$buttons('tour.send_question')" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
                     {{ __('forms.send') }}
-                </button>
+                </seo-button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <button v-bind="$buttons('tour.send_question')" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
                     {{ __('forms.send') }}
-                </button>
+                </seo-button>
             </template>
 
         </div>
@@ -54,10 +54,11 @@ import { useForm } from 'vee-validate'
 import { VueRecaptcha } from 'vue-recaptcha'
 import { useStore } from 'vuex'
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourQuestionForm",
-    components: {FormPhone, VueRecaptcha, FormTextarea, FormInput},
+    components: {SeoButton, FormPhone, VueRecaptcha, FormTextarea, FormInput},
     props: {
         tour: Object,
         action: String,

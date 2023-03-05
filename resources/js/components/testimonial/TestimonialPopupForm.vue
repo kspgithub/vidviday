@@ -99,7 +99,7 @@
                         <option :value="0" :selected="data.tour_id === 0" disabled>
                             {{ __('forms.select-from-list') }}
                         </option>
-                        <option v-if="tour" :value="tour.id" :selected="data.tour_id === tour.id" :data-img="tour.img">
+                        <option v-if="tour" :value="tour.id" :selected="data.tour_id === tour.id" :data-img="tour.main_image">
                             {{ tour.title }}
                         </option>
                         <option v-for="option in tours" :value="option.id" :data-img="option.img">{{ option.title }}</option>
@@ -168,14 +168,14 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button v-bind="$buttons('testimonial.send')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
-                        </button>
+                        </seo-button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button v-bind="$buttons('testimonial.send')" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
                             {{ __('forms.leave-feedback') }}
-                        </button>
+                        </seo-button>
                     </template>
                 </div>
 
@@ -207,10 +207,13 @@ import { __ } from "../../i18n/lang";
 import { VueRecaptcha } from 'vue-recaptcha'
 import FormSelect from '../form/FormSelect.vue'
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TestimonialPopupForm",
-    components: {FormPhone, FormSelect, VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
+    components: {
+        SeoButton,
+        FormPhone, FormSelect, VueRecaptcha, FormAutocomplete, FormCustomSelect, Popup, FormTextarea, FormInput, FormStarRating },
     props: {
         user: Object,
         captcha: Boolean,

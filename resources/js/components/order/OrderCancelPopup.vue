@@ -26,9 +26,13 @@
                         </div>
 
                         <div class="col-12">
-                            <button v-bind="$buttons('order.cancel')" type="submit" class="btn type-1 btn-block" :disabled="request">Погоджуюсь на умови
-                                скасування
-                            </button>
+                            <seo-button code="order.cancel"
+                                        type="submit"
+                                        class="btn type-1 btn-block"
+                                        :disabled="request"
+                            >
+                                {{ __('Погоджуюсь на умови скасування') }}
+                            </seo-button>
                             <div class="text text-sm">{{__('forms.required-fields')}}</div>
                         </div>
                     </form>
@@ -46,6 +50,7 @@ import Popup from "../popup/Popup";
 import {useStore} from "vuex";
 import {computed, ref} from "vue";
 import axios from "axios";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "OrderCancelPopup",
@@ -53,6 +58,7 @@ export default {
         questionTypes: Array,
     },
     components: {
+        SeoButton,
         Popup
     },
     setup() {

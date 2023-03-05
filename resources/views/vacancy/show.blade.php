@@ -56,7 +56,7 @@
                     {{--CV--}}
                     <div class="only-pad-mobile">
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="vacancy.send" href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</x-seo-button>
+                        <x-seo-button :code="'vacancy.send'" href="#vacancy-form" class="btn type-1 btn-block">{{ __('common.vacancy.send-resume') }}</x-seo-button>
                     </div>
 
                     <div class="spacer-xs"></div>

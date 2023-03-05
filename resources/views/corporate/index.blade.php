@@ -59,7 +59,7 @@
                         </div>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile no-print">
-                            <x-seo-button key="order.corporate" class="btn type-1 btn-block btn-book-size"
+                            <x-seo-button :code="'order.corporate'" class="btn type-1 btn-block btn-book-size"
                                href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</x-seo-button>
                             <div class="spacer-xs"></div>
                         </div>
@@ -69,7 +69,7 @@
                     </div>
                     <!-- CORPORATE CONTENT END -->
                     <div class="spacer-xs only-pad-mobile"></div>
-                    <x-seo-button key="order.corporate" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
+                    <x-seo-button :code="'order.corporate'" class="btn font-lg type-1 btn-block btn-book-size  only-pad-mobile no-print"
                        href="{{route('order.corporate')}}">{{__('tours-section.order-corporate')}}</x-seo-button>
                 </div>
                 <div class="col-xl-4 col-12">

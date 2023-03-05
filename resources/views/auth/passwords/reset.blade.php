@@ -30,14 +30,14 @@
                         <div class="text text-sm">@lang('auth.required-fields')</div>
                         <div class="spacer-xs"></div>
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="auth.recover" type="submit"
+                        <x-seo-button :code="'auth.recover'" type="submit"
                                       class="btn type-1 btn-block">@lang('auth.recover-password')</x-seo-button>
                         <div class="spacer-xs"></div>
                         <div class="text-center">
                             <div class="text">або</div>
                         </div>
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="auth.login_facebook" href="{{route('auth.social.login', 'facebook')}}"
+                        <x-seo-button :code="'auth.login_facebook'" href="{{route('auth.social.login', 'facebook')}}"
                                       class="btn type-1 btn-block btn-fb">
                             <svg width="8" height="16" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -46,7 +46,7 @@
                             {{ __('auth.sign-in-with', ['provider' => 'Facebook']) }}
                         </x-seo-button>
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="auth.login_google" href="{{route('auth.social.login', 'google')}}"
+                        <x-seo-button :code="'auth.login_google'" href="{{route('auth.social.login', 'google')}}"
                                       class="btn type-1 btn-block btn-google">
                             <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                 <path

@@ -35,7 +35,7 @@
                     <a href="{{phone_link($contact->phone_3)}}">{{$contact->phone_3}}</a>
                 </div>
 
-                <x-seo-button key="order.call" class="btn type-2" v-is="'popup-call-btn'">{{__('common.order-call')}}</x-seo-button>
+                <x-seo-button :code="'order.call'" class="btn type-2" v-is="'popup-call-btn'">{{__('common.order-call')}}</x-seo-button>
             </div>
 
             <div class="contacts-block">

@@ -13,7 +13,7 @@
                 <x-sidebar.recommendation-item :item="$items->first()"/>
 
                 @if($items->count() > 1)
-                    <x-seo-button key="common.more_recommendations" href="{{$testimonialsUrl}}"
+                    <x-seo-button :code="'common.more_recommendations'" href="{{$testimonialsUrl}}"
                        class="btn type-2 btn-block show_more">{{__('tours-section.show-more')}}</x-seo-button>
                     @foreach($items as $key=>$item)
                         @if($key> 0)

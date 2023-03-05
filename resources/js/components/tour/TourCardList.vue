@@ -69,17 +69,17 @@
                 </div>
 
                 <template v-if="currentSchedule">
-                    <a v-bind="$buttons('tour.order_schedule')" :href="tour.url + '/order?clear=1&schedule='+scheduleId"
-                       class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</a>
+                    <seo-button code="tour.order_schedule" :href="tour.url + '/order?clear=1&schedule='+scheduleId"
+                       class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</seo-button>
                 </template>
 
                 <template v-else>
                     <hr>
                     <div class="text text-center">{{ __('tours-section.want-to-vote') }} - <b>{{ tour.votings_count }}
                         {{ $lang().choice('tours-section.persons', tour.votings_count) }}</b></div>
-                    <a v-bind="$buttons('tour.vote')" :href="voteLink" class="btn type-1 btn-block">
+                    <seo-button code="tour.vote" :href="voteLink" class="btn type-1 btn-block">
                         {{ __('tours-section.vote') }}
-                    </a>
+                    </seo-button>
                 </template>
             </div>
         </div>
@@ -93,10 +93,11 @@ import TourRating from "./TourRating";
 import { useTourCard } from "./useTourCard";
 import FormSelect from "../form/FormSelect";
 import Tooltip from "../common/Tooltip";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourCardList",
-    components: {Tooltip, FormSelect, TourRating, TourBadge},
+    components: {SeoButton, Tooltip, FormSelect, TourRating, TourBadge},
     props: {
         tour: {
             type: Object,

@@ -19,9 +19,9 @@
         />
 
         <div class="text-right text-center-xs">
-            <button v-bind="$buttons('order.add-participant')" class="btn type-1 add-participant-btn" @click.prevent="addParticipant()">
+            <seo-button code="order.add-participant" class="btn type-1 add-participant-btn" @click.prevent="addParticipant()">
                 {{ __('order-section.participants.add') }}
-            </button>
+            </seo-button>
         </div>
 
         <div v-if="!isTourAgent" class="participant phone-number">
@@ -46,10 +46,11 @@ import { useDebounceFormDataProperty, useFormDataProperty } from '../../store/co
 import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
 import FormCheckbox from '../form/FormCheckbox'
 import FormPhone from '../form/FormPhone'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: 'OrderTourParticipants',
-    components: {FormPhone, FormCheckbox, FormInput, OrderParticipant},
+    components: {SeoButton, FormPhone, FormCheckbox, FormInput, OrderParticipant},
     setup() {
         const store = useStore()
         const isCustomerParticipant = useFormDataProperty('orderTour', 'isCustomerParticipant')

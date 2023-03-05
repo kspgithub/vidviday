@@ -57,10 +57,11 @@ import {computed, ref} from "vue";
 import FormTextarea from "../form/FormTextarea";
 import FormInput from "../form/FormInput";
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TestimonialAnswer",
-    components: {FormPhone, FormInput, FormTextarea},
+    components: {SeoButton, FormPhone, FormInput, FormTextarea},
     props: {
         item: Object,
         type: String,

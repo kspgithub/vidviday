@@ -16,7 +16,7 @@
 
                 <div class="col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex"><img
+                        <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
                                 src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">Підбір туру</x-seo-button>
                     </div>
                     <div class="spacer-xs"></div>
@@ -49,7 +49,7 @@
                             <div class="text-center">
                                 <span class="text">Дякуємо, що обрали нас!</span>
                                 <div class="spacer-xs"></div>
-                                <x-seo-button key="goto.home" href="/" class="btn type-1">На головну</x-seo-button>
+                                <x-seo-button :code="'goto.home'" href="/" class="btn type-1">На головну</x-seo-button>
                             </div>
                         </div>
                     </div>

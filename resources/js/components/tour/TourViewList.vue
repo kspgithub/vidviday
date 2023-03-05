@@ -18,10 +18,11 @@
 import TourSortForm from "./TourSortForm";
 import TourCardList from "./TourCardList";
 import useTourView from "./useTourView";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourViewList",
-    components: {TourCardList, TourSortForm},
+    components: {SeoButton, TourCardList, TourSortForm},
     props: {
         tour: {
             type: Object,

@@ -11,7 +11,7 @@
         </div>
 
         <component :is="'tour-schedule-accordion'"
-                   :tour='@json($tour)'
+                   :tour='@json($tour->shortInfo())'
         />
     </div>
 @endif
