@@ -39,7 +39,7 @@ export default {
         const buttonEvents = computed(() => ({
             click: (e) => {
                 // e.preventDefault()
-                // emit('click', e)
+                emit('click', e)
                 console.log(`Event:SeoButton[${buttonAttrs.value.id}]:click`)
             },
         }))
