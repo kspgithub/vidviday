@@ -8,7 +8,7 @@
                         Контакти
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img src="{{url(asset('icon/tel.png'))}}" alt="tel"
+                        <img loading="lazy" data-img-src="{{url(asset('icon/tel.png'))}}" alt="tel"
                              style="max-width: 18px; position: absolute; top: 5px; left: 0;">
                         <a href="tel:+380322553655"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">+38
@@ -16,7 +16,7 @@
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone"
+                        <img loading="lazy" data-img-src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone"
                              style="max-width: 18px; position: absolute; top: 5px; left: 0;">
                         <a href="tel:+380964813670"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">+38
@@ -32,7 +32,7 @@
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img src="{{url(asset('icon/email.png'))}}" alt="email"
+                        <img loading="lazy" data-img-src="{{url(asset('icon/email.png'))}}" alt="email"
                              style="max-width: 18px; position: absolute; top: 6px; left: 0;">
                         <a href="mailto:vidviday.com.ua@gmail.com"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">vidviday.com.ua@gmail.com</a>
@@ -41,31 +41,31 @@
                     <div style="margin-top: 30px;">
                         <a href="skype:username?call"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/skype.png'))}}" alt="skype"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/skype.png'))}}" alt="skype"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.viber.com/"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/viber.png'))}}" alt="viber"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/viber.png'))}}" alt="viber"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://telegram.org/"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/telegram.png'))}}" alt="telegram"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/telegram.png'))}}" alt="telegram"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.whatsapp.com/"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/whatsapp.png'))}}" alt="whatsapp"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/whatsapp.png'))}}" alt="whatsapp"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.messenger.com/"
                            style="position: relative; display: inline-block; vertical-align: middle;">
-                            <img src="{{url(asset('icon/messenger.png'))}}" alt="messenger"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/messenger.png'))}}" alt="messenger"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
                     </div>
@@ -79,14 +79,14 @@
                         Адреса
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img src="{{url(asset('icon/placeholder.png'))}}" alt="placeholder"
+                        <img loading="lazy" data-img-src="{{url(asset('icon/placeholder.png'))}}" alt="placeholder"
                              style="max-width: 18px; position: absolute; top: 2px; left: 0;">
                         <span
                             style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">Львів, вул. Замарстинівська, 34</span>
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img src="{{url(asset('icon/location.png'))}}" alt="location"
+                        <img loading="lazy" data-img-src="{{url(asset('icon/location.png'))}}" alt="location"
                              style="max-width: 18px; position: absolute; top: 3px; left: 0;">
                         <a href="geo:49.850562,24.026892"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">GPS:
@@ -103,32 +103,32 @@
                     <div style="margin-top: 30px;">
                         <a href="https://www.facebook.com/vidviday" target="_blank"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/facebook.png'))}}" alt="facebook"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/facebook.png'))}}" alt="facebook"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.instagram.com/vidviday/" target="_blank"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/instagram.png'))}}" alt="instagram"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/instagram.png'))}}" alt="instagram"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.youtube.com/user/vidviday" target="_blank"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/youtube.png'))}}" alt="youtube"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/youtube.png'))}}" alt="youtube"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://telegram.org/" target="_blank"
                            style="position: relative; display: inline-block; vertical-align: middle; margin-right: 10px;">
-                            <img src="{{url(asset('icon/telegram.png'))}}" alt="telegram"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/telegram.png'))}}" alt="telegram"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
 
                         <a href="https://www.tripadvisor.com/Attraction_Review-g295377-d14176633-Reviews-Vidviday-Lviv_Lviv_Oblast.html"
                            target="_blank"
                            style="position: relative; display: inline-block; vertical-align: middle;">
-                            <img src="{{url(asset('icon/tripadvisor.png'))}}" alt="tripadvisor"
+                            <img loading="lazy" data-img-src="{{url(asset('icon/tripadvisor.png'))}}" alt="tripadvisor"
                                  style="display: block; max-width: 22px; max-height: 22px;">
                         </a>
                     </div>

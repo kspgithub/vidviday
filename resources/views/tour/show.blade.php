@@ -92,6 +92,7 @@
                                 <div class="right-sidebar">
                                     <div class="right-sidebar-inner only-mobile">
                                         <x-tour.order-form :tour="$tour"
+                                                           :schedules="$future_events->map->shortInfo()"
                                                            :nearest-event="$nearest_event"
                                                            :shareClass="'only-desktop'"
                                                            :spacerClass="'spacer-xs only-desktop'"
@@ -182,7 +183,7 @@
 
     <div v-is="'tour-one-click-popup'"
          :tour='@json($tour->shortInfo())'
-         :schedules='@json($future_events)'
+         :schedules='@json($future_events->map->shortInfo())'
          action='{{route('tour.order-confirm', $tour)}}'
     >
         @csrf

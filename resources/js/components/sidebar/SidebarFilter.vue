@@ -82,10 +82,11 @@ import FormSelect from "../form/FormSelect";
 import * as urlUtils from "../../utils/url";
 import FormAutocomplete from '../form/FormAutocomplete.vue'
 import {fetchPlaces} from '../../services/places-service'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "SidebarFilter",
-    components: {FormAutocomplete, FormSelect, FormRange, FormDoublePicker},
+    components: {SeoButton, FormAutocomplete, FormSelect, FormRange, FormDoublePicker},
     props: {
         options: {
             type: Object,

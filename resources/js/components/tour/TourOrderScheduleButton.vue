@@ -11,9 +11,9 @@ import {useStore} from "vuex";
 export default {
     name: "TourOrderScheduleButton",
     props: {
-        tour: Object,
+        tourId: [Number, String],
         corporate: Boolean,
-        schedule: Object,
+        scheduleId: [Number, String],
     },
     setup(props) {
         const store = useStore();
@@ -36,7 +36,7 @@ export default {
             }
         }
 
-        const orderLink = '/tour/' + props.tour.id + '/order?schedule=' + props.schedule.id
+        const orderLink = '/tour/' + props.tourId + '/order?schedule=' + props.scheduleId
 
         return {
             showPopup,

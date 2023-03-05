@@ -19,7 +19,7 @@
                                         </div>
                                         <div class="spacer-xs"></div>
                                     @endif
-                                    {{--                        <img src="{{$transport->image_url}}" alt="{{$transport->image_alt}}" style="width: 50%;">--}}
+                                    {{--                        <img loading="lazy" data-img-src="{{$transport->image_url}}" alt="{{$transport->image_alt}}" style="width: 50%;">--}}
 
                                     <div class="text text-md">
                                         <p>{!! $transport->text!!}</p>

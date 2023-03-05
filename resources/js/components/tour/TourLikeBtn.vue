@@ -21,13 +21,13 @@ import {useStore} from "vuex";
 export default {
     name: "TourLikeBtn",
     props: {
-        tour: Object,
+        tourId: [Number, String],
     },
     setup({tour}) {
         const store = useStore();
-        const inFavourites = computed(() => store.getters['user/inFavourites'](tour ? tour.id : 0));
+        const inFavourites = computed(() => store.getters['user/inFavourites'](tour ? tourId : 0));
         const toggleFavourite = async () => {
-            await store.dispatch('user/toggleFavourite', tour.id);
+            await store.dispatch('user/toggleFavourite', tourId);
         }
         return {
             inFavourites,

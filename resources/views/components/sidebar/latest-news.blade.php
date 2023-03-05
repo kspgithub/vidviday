@@ -2,7 +2,7 @@
     <div class="sidebar-item only-desktop">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}"
                      alt="mailing">
                 <span>{{ __("sidebar-section.news") }}</span>
             </div>
@@ -21,7 +21,7 @@
                 @endforeach
 
             </div>
-            <x-seo-button key="news.latest" href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</x-seo-button>
+            <x-seo-button :code="'news.latest'" href="{{ route('news.index') }}" class="btn type-2">{{ __("sidebar-section.all-news") }}</x-seo-button>
         </div>
     </div>
 @endif

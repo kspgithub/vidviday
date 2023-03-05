@@ -57,8 +57,11 @@
             <div class="relative">
                 <div class="row align-items-center " :class="{'d-b': currentStep === 3}">
                     <div class="col-4">
-                        <span v-bind="$buttons('order.back')" class="btn btn-read-more left-arrow text-bold"
-                              @click="prevStep()">{{ __('forms.back') }}</span>
+                        <seo-button code="order.back"
+                                    tag="span"
+                                    class="btn btn-read-more left-arrow text-bold"
+                                    @click="prevStep()"
+                        >{{ __('forms.back') }}</seo-button>
                     </div>
                                        <div class="col-8  text-right " v-if="currentStep !== 3">
                         <seo-button code="order.next" class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</seo-button>
@@ -70,9 +73,9 @@
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
                         </span>
-                        <button v-bind="$buttons('order.send')" type="submit" @click="submit($event)" class="btn type-1  ms-30">
+                        <seo-button code="order.send" type="submit" @click="submit($event)" class="btn type-1  ms-30">
                             {{ __('order-section.order-btn') }}
-                        </button>
+                        </seo-button>
                     </div>
 
 
@@ -97,10 +100,11 @@ import * as UrlUtils from "../../utils/url";
 import {scrollToEl} from "../../utils/functions";
 import OrderStepTwoCorp from "./OrderStepTwoCorp";
 import OrderStepOneCorp from "./OrderStepOneCorp";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "OrderForm",
-    components: {OrderStepOneCorp, OrderStepTwoCorp, FormCheckbox, OrderStepThree, OrderStepTwo, OrderStepOne},
+    components: {SeoButton, OrderStepOneCorp, OrderStepTwoCorp, FormCheckbox, OrderStepThree, OrderStepTwo, OrderStepOne},
     props: {
         action: String,
         currentStep: {

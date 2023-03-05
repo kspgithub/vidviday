@@ -1,7 +1,7 @@
 @if(count($tour->groupTourAccommodations))
     @if(true || in_array('accommodation', $tour->active_tabs))
         <div class="accordion-item">
-            <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
+            <div class="accordion-title"><span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                                     data-img-src="{{asset('/icon/keys.svg')}}"
                                                     alt="keys"></span>@lang('tours-section.accommodation')<i></i></div>
             <div class="accordion-inner">

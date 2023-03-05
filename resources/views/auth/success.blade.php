@@ -7,7 +7,7 @@
             <div class="vertical-align">
                 <div>
                     <div class="img done">
-                        <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/done.svg')}}" alt="done">
+                        <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/done.svg')}}" alt="done">
                     </div>
                     <div class="spacer-xs"></div>
                     <div class="text-center">
@@ -18,12 +18,12 @@
                         <div class="spacer-xs"></div>
 
                         @auth
-                            <x-seo-button key="auth.profile" href="{{route('profile.index')}}"
+                            <x-seo-button :code="'auth.profile'" href="{{route('profile.index')}}"
                                           class="btn type-1">@lang('auth.login-profile')</x-seo-button>
                         @endauth
 
                         @guest
-                            <x-seo-button key="auth.login" href="{{route('auth.login')}}"
+                            <x-seo-button :code="'auth.login'" href="{{route('auth.login')}}"
                                           class="btn type-1">@lang('auth.login-profile')</x-seo-button>
                         @endguest
                     </div>

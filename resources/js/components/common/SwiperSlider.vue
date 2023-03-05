@@ -10,7 +10,7 @@
             <div class="swiper-wrapper lightbox-wrap">
                 <div class="swiper-slide" v-for="(slide, idx) in media">
                     <div class="img zoom">
-                        <img :src="slide.thumb"
+                        <img :data-img-src="slide.thumb"
                              :title="slide.title"
                              :alt="slide.alt"
                              class="swiper-lazy">

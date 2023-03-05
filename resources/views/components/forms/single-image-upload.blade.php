@@ -28,7 +28,7 @@
 
     <div class="{{$inputCol}}" for="{{$name}}">
         <label class="img-thumbnail-wrp" for="{{$name}}">
-            <img src="{{!empty($preview) ? $preview : '/img/no-image.png'}}" alt="{{__($label)}}" style="{{$imgstyle}}"
+            <img loading="lazy" src="{{!empty($preview) ? $preview : '/img/no-image.png'}}" alt="{{__($label)}}" style="{{$imgstyle}}"
                  class="img-thumbnail mb-3">
             <a href="#" class="clear-image text-danger {{empty($value) ? 'd-none' : ''}}"
                title="@lang('Clear image')"><i data-feather="x"></i></a>

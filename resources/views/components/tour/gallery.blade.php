@@ -15,8 +15,8 @@
             <div class="swiper-wrapper">
                 @foreach($slides as $i => $slide)
                     <div class="swiper-slide">
-                        <img src="{{asset('/img/preloader.png')}}"
-                             data-src="{{$slide->getFullUrl()}}"
+                        <img loading="lazy" src="{{asset('/img/preloader.png')}}"
+                             data-img-src="{{$slide->getFullUrl()}}"
                              alt="{{$slide->alt}}" data-swiper-parallax="30%"
                              class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>

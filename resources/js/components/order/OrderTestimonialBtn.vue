@@ -4,9 +4,11 @@
 
 <script>
 import {useStore} from "vuex";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "OrderTestimonialBtn",
+    components: {SeoButton},
     props: {
         url: String,
         tour: Object,

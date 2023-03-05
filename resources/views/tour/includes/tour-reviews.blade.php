@@ -1,7 +1,7 @@
 <div class="accordion-item hidden-print root-item" id="reviews-accordion">
     <div class="accordion-title">
         <span>
-            <img src="{{asset('/img/preloader.png')}}"
+            <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                  data-img-src="{{asset('/icon/rating.svg')}}"
                  alt="rating">
         </span>

@@ -23,9 +23,9 @@
                 <form-input name="email" v-model="form.email"
                             :label="__('forms.your-email')"/>
 
-                <button v-bind="$buttons('tour.vote')" type="submit" class="btn type-1 btn-block" :disabled="submitted">
+                <seo-button code="tour.vote" type="submit" class="btn type-1 btn-block" :disabled="submitted">
                     {{ __('tours-section.vote') }}
-                </button>
+                </seo-button>
 
             </form>
         </div>
@@ -37,10 +37,11 @@ import { useStore } from 'vuex'
 import { computed, reactive, ref } from 'vue'
 import { getError } from '../../services/api.js'
 import FormInput from '../form/FormInput.vue'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: 'TourVotingForm',
-    components: { FormInput },
+    components: {SeoButton, FormInput },
     props: {
         tour: Object,
     },

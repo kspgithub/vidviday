@@ -3,7 +3,7 @@
     <div class="sidebar-item p-0 no-print">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/reviews.svg')}}"
                      alt="reviews">
                 <span>{{$title}}</span>
             </div>
@@ -15,7 +15,7 @@
                         <div class="review-header">
                             <div class="review-img">
                                 @if($testimonial->avatar || empty($testimonial->initials))
-                                    <img src="{{asset('/img/preloader.png')}}"
+                                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                          data-img-src="{{$testimonial->avatar_url}}"
                                          alt="user">
                                 @else
@@ -52,7 +52,7 @@
                                 </div>
 
                                 @if($testimonial->tour)
-                                    <x-seo-button key="goto.tour_testimonial" class="btn btn-read-more text-bold d-inline"
+                                    <x-seo-button :code="'goto.tour_testimonial'" class="btn btn-read-more text-bold d-inline"
                                        href="{{$testimonial->tour->url}}#testimonial-{{$testimonial->id}}">
                                         {{__('common.more')}}
                                     </x-seo-button>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 @endforeach
-                <x-seo-button key="testimonial.next" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</x-seo-button>
+                <x-seo-button :code="'testimonial.next'" href="{{$btnUrl}}" class="btn type-2 btn-block">{{$btnText}}</x-seo-button>
             </div>
 
         </div>

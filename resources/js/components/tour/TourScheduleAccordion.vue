@@ -26,11 +26,12 @@
                         </span>
                     </div>
 
-                    <component :is="'tour-order-schedule-button'"
-                               v-bind="$buttons('tour.order_schedule')"
-                               :tour="tour"
-                               :schedule="event"
-                               class="btn type-1"/>
+                    <seo-button code="tour.order_schedule"
+                                :is="'tour-order-schedule-button'"
+                                :tour-id="tour.id"
+                                :schedule-id="event.id"
+                                class="btn type-1"
+                    ></seo-button>
 
                 </div>
             </template>
@@ -47,17 +48,22 @@
         <template v-if="allEvents.length > 3">
             <div class="spacer-xs"></div>
             <div class="text-center">
-                <seo-button code="tour.more_schedules" class="btn type-2 show-more-events">{{ __('tours-section.show-more') }}</seo-button>
-                <seo-button code="tour.hide_schedules" class="btn type-2 hide-more-events d-none">{{ __('tours-section.hide-more') }}</seo-button>
+                <seo-button code="tour.more_schedules" class="btn type-2 show-more-events">
+                    {{ __('tours-section.show-more') }}
+                </seo-button>
+                <seo-button code="tour.hide_schedules" class="btn type-2 hide-more-events d-none">
+                    {{ __('tours-section.hide-more') }}
+                </seo-button>
             </div>
         </template>
     </div>
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
-import { useStore } from "vuex";
-import { fetchTourSchedules } from "../../services/tour-service";
+import { computed, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { fetchTourSchedules } from '../../services/tour-service'
+import SeoButton from '../common/SeoButton.vue'
 
 const props = defineProps({
     tour: {
@@ -74,34 +80,34 @@ const props = defineProps({
     },
 })
 
-const store = useStore();
+const store = useStore()
 
-const isTourAgent = computed(() => store.getters['user/isTourAgent']);
+const isTourAgent = computed(() => store.getters['user/isTourAgent'])
 
 const allEvents = ref([...(props.events.length ? props.events : props.tour.schedule_items || [])])
 
 const accordionItem = ref()
 
 const stopWatching = watch(() => accordionItem.value?.classList || [], (classList) => {
-    if(classList.contains('active')) {
+    if (classList.contains('active')) {
         stopWatching()
 
         const params = {}
 
         fetchTourSchedules(props.tour?.id, params).then((data) => {
             // console.log('data', data)
-            allEvents.value = [...data||[]]
+            allEvents.value = [...data || []]
         })
     }
 })
 
-const currencyIso = computed(() => store.getters['currency/iso']);
-const currencyTitle = computed(() => store.getters['currency/title']);
-const currencyRate = computed(() => store.getters['currency/rate']);
+const currencyIso = computed(() => store.getters['currency/iso'])
+const currencyTitle = computed(() => store.getters['currency/title'])
+const currencyRate = computed(() => store.getters['currency/rate'])
 const currencyPrice = computed(() => event => {
-    return Math.ceil(event.price / currencyRate.value);
+    return Math.ceil(event.price / currencyRate.value)
 })
 const currencyCommission = computed(() => event => {
-    return Math.ceil(event.commission / currencyRate.value);
+    return Math.ceil(event.commission / currencyRate.value)
 })
 </script>

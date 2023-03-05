@@ -105,7 +105,7 @@
                         <!-- BANNER/INFO END -->
                         <div class="only-pad-mobile">
                             <div class="spacer-xs"></div>
-                            <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex"><img
+                            <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
                                     src="{{asset('img/preloader.png')}}"
                                     data-img-src="{{asset('icon/filter-dark.svg')}}"
                                     alt="filter-dark">Підбір туру</x-seo-button>
@@ -162,8 +162,8 @@
                                 </div>
                             @else
                                 <div class="only-pad-mobile">
-                            <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
-                                <img src="{{asset('/img/preloader.png')}}"
+                            <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
+                                <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                      data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
                                 @lang('tours-section.search-btn')
                             </x-seo-button>
@@ -176,7 +176,7 @@
                                         <p>@lang('tours-section.empty-proposal')</p>
                                     </div>
                                     <div class="spacer-xs"></div>
-                                    <x-seo-button key="goto.home" href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</x-seo-button>
+                                    <x-seo-button :code="'goto.home'" href="{{route('home')}}" class="btn type-1">@lang('tours-section.go-home')</x-seo-button>
                                     <div class="spacer-lg"></div>
                                     <hr>
                                     <div class="spacer-xs"></div>

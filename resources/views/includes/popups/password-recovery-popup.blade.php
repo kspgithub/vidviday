@@ -17,7 +17,7 @@
                             <i>Email*</i>
                             <input type="text" name="email" required>
                         </label>
-                        <x-seo-button key="auth.recover" type="submit" class="btn type-1 btn-block">{{__('auth.recover-password')}}</x-seo-button>
+                        <x-seo-button :code="'auth.recover'" type="submit" class="btn type-1 btn-block">{{__('auth.recover-password')}}</x-seo-button>
                     </form>
                     <div class="spacer-xs"></div>
                     <div class="text text-sm">{{__('auth.required-fields')}}</div>

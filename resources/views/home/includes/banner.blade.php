@@ -35,8 +35,8 @@
                         <div class="swiper-wrapper">
                             @foreach($banners as $banner)
                                 <div class="swiper-slide">
-                                    <img src="{{asset('img/preloader.png')}}"
-                                         data-src="{{$banner->image_url}}"
+                                    <img loading="lazy" src="{{asset('img/preloader.png')}}"
+                                         data-img-src="{{$banner->image_url}}"
                                          title="{{$banner->image_title ?? $banner->title}}"
                                          alt="{{$banner->image_alt ?? $banner->title}}"
                                          data-swiper-parallax="30%"
@@ -54,7 +54,7 @@
                                             <div class="spacer-xs"></div>
                                             <div class="text-md light">
                                                 <span>{{str_limit($banner->text, 300)}}</span>
-                                                <x-seo-button key="common.more_banners" href="{{$banner->url}}"
+                                                <x-seo-button :code="'common.more_banners'" href="{{$banner->url}}"
                                                               class="btn type-3 btn-more light">@lang('More')</x-seo-button>
                                             </div>
                                         </div>

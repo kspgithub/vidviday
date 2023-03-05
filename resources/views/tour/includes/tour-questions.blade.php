@@ -1,6 +1,6 @@
 @if(count($faq_items))
     <div class="accordion-item  hidden-print">
-        <div class="accordion-title"><span><img src="{{asset('/img/preloader.png')}}"
+        <div class="accordion-title"><span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                                 data-img-src="{{asset('/icon/faq.svg')}}"
                                                 alt="faq"></span>@lang('tours-section.q-and-a')<i></i>
         </div>
@@ -84,7 +84,7 @@
                                         <i>Ваш коментар*</i>
                                         <textarea name="text" rules="required"></textarea>
                                     </label>
-                                    <x-seo-button key="question.send" type="submit"
+                                    <x-seo-button :code="'question.send'" type="submit"
                                                   class="btn type-1 open-popup" data-rel="thanks-popup">Надіслати
                                     </x-seo-button>
                                 </div>

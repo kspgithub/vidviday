@@ -1,7 +1,7 @@
 <div {{$attributes->merge(['class'=> $mode])}}
      @if($vue)
      v-is="'tour-card'"
-     :tour="{{ json_encode($tour) }}"
+     :tour='@json($tour->shortInfo())'
      {{ Auth::check() ? 'like-btn' : '' }}
      :history="{{$history ? 'true' : 'false'}}"
     @endif
@@ -10,7 +10,7 @@
         @foreach($tour->badges as $key=>$badge)
             <div class="label label-{{$key}}" style="background-color: {{$badge->color}}">{{$badge->title}}</div>
         @endforeach
-        <img src="{{asset('img/preloader.png')}}"
+        <img loading="lazy" src="{{asset('img/preloader.png')}}"
              data-img-src="{{$tour->main_image}}"
              alt="{{ $tour->title }}">
         <a href="{{$tour->url}}" class="full-size"></a>
@@ -65,11 +65,11 @@
                     </div>
                 @endif
             @endif
-            <x-seo-button key="order.tour" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
+            <x-seo-button :code="'order.tour'" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
         @else
             <div class="text">
                 <p>{{str_limit($tour->short_text, 150)}}
-                    <x-seo-button key="tour.show_more" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
+                    <x-seo-button :code="'tour.show_more'" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
                 </p>
             </div>
         @endif
@@ -78,7 +78,7 @@
     @if($mode === 'thumb')
         <div class="thumb-desc text">
             <p>{{$tour->short_text}}
-                <x-seo-button key="tour.show_more" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
+                <x-seo-button :code="'tour.show_more'" href="{{$tour->url}}" class="btn btn-read-more text-bold">Більше</x-seo-button>
             </p>
         </div>
     @else
@@ -110,7 +110,7 @@
                                 class="tooltip text text-sm light">Комісія агента</span></span></span>
                 @endif
             </div>
-            <x-seo-button key="order.tour" href="{{route('tour.order', $tour->id)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
+            <x-seo-button :code="'order.tour'" href="{{route('tour.order', $tour->id)}}" class="btn type-1 btn-block">Замовити Тур</x-seo-button>
         </div>
     @endif
 </div>

@@ -1,6 +1,10 @@
 <template>
     <div>
-        <span v-if="type !== 'tour_questions'" v-bind="$buttons('testimonial.send')" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</span>
+        <seo-button code="testimonial.send"
+                    v-if="type !== 'tour_questions'"
+                    class="btn type-1 btn-block-sm"
+                    @click="showPopup()"
+        >{{ __('forms.leave-feedback') }}</seo-button>
         <div class="spacer-xs"></div>
         <hr>
         <testimonial-item v-for="item in testimonials" :item="item" :key="'tm-'+item.id" :type="type" @add="" />
@@ -13,9 +17,13 @@
             </div>
 
             <div class="col-xl-6 col-12 text-right">
-                <span v-bind="$buttons('testimonial.show_more')" class="btn type-2 btn-block-sm btn-block-xs" v-if="currentPage < lastPage" @click="loadMore()">
+                <seo-button code="testimonial.show_more"
+                            v-if="currentPage < lastPage" @click="loadMore()"
+                            tag="span"
+                            class="btn type-2 btn-block-sm btn-block-xs"
+                >
                     {{ __('common.show-more-10') }}
-                </span>
+                </seo-button>
             </div>
         </div>
     </div>
@@ -25,10 +33,11 @@
 import TestimonialItem from "./TestimonialItem";
 import {computed, ref} from "vue";
 import {useStore} from "vuex";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TestimonialList",
-    components: {TestimonialItem},
+    components: {SeoButton, TestimonialItem},
     props: {
         url: String,
         items: Array,

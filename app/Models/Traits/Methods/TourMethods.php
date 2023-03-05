@@ -49,8 +49,8 @@ trait TourMethods
             'title' => $this->title,
             'price_title' => json_prepare($price_title),
             'full_title' => json_prepare($full_title),
+            'short_text' => $this->short_text,
             'price' => $this->price,
-            'pprice' => $this->pprice,
             'commission' => $this->commission,
             'accomm_price' => $this->accomm_price,
             'currency' => $this->currency,
@@ -73,6 +73,7 @@ trait TourMethods
             'discounts' => $this->discounts,
             'tourDiscounts' => $this->tourDiscounts,
             'order_enabled' => $this->order_enabled,
+            'schedule_items' => $this->scheduleItems->map->shortInfo(),
         ];
     }
 

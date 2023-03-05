@@ -64,9 +64,9 @@
                 <form-csrf/>
                 <div class="text-sm">{{ __('forms.required-fields') }}</div>
                 <div class="spacer-xs"></div>
-                <button v-bind="$buttons('order.transport')" type="submit" :disabled="submitted" class="btn type-1">
+                <seo-button code="order.transport" type="submit" :disabled="submitted" class="btn type-1">
                     {{ __('forms.write') }}
-                </button>
+                </seo-button>
             </div>
         </form>
     </div>
@@ -88,10 +88,13 @@ import toast from "../../libs/toast";
 import FormDatepicker from "../form/FormDatepicker";
 import {__} from "../../i18n/lang";
 import moment from 'moment/moment.js'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "OrderTransportForm",
-    components: {FormDatepicker, FormCsrf, FormTextarea, FormSumoSelect, FormSelect, FormDateRangePicker, FormInput},
+    components: {
+        SeoButton,
+        FormDatepicker, FormCsrf, FormTextarea, FormSumoSelect, FormSelect, FormDateRangePicker, FormInput},
     props: {
         action: {
             type: String,

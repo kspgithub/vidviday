@@ -44,14 +44,14 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <button v-bind="$buttons('order.email')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <seo-button code="order.email" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
-                            </button>
+                            </seo-button>
                         </vue-recaptcha>
                         <template v-if="!useRecaptcha">
-                            <button v-bind="$buttons('order.email')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <seo-button code="order.email" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
-                            </button>
+                            </seo-button>
                         </template>
                     </div>
                 </div>
@@ -80,10 +80,12 @@ import { VueRecaptcha } from 'vue-recaptcha'
 import FormSumoSelect from '../form/FormSumoSelect.vue'
 import FormPhone from "../form/FormPhone";
 import { __ } from '../../i18n/lang'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "PopupEmail",
     components: {
+        SeoButton,
         FormPhone,
         FormSumoSelect,
         VueRecaptcha, UtmFields, FormTextarea, FormDatepicker, FormCustomSelect, FormSelect, FormInput, Popup},

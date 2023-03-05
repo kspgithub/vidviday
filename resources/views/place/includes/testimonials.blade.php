@@ -5,7 +5,7 @@
         <div id="testimonials" class="accordion-title">Відгуки ({{$place->testimonials->count()}})<i></i></div>
         <div class="accordion-inner">
             <div></div>
-            <x-seo-button key="testimonial.send" class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
+            <x-seo-button :code="'testimonial.send'" class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
                   :parent='0'>{{ __('forms.leave-feedback') }}</x-seo-button>
             <div class="spacer-xs"></div>
             @if($place->testimonials->count() > 0)
@@ -20,7 +20,7 @@
                 <div class="spacer-xs"></div>
                 <hr>
                 <div class="spacer-xs"></div>
-                <x-seo-button key="testimonial.send" class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
+                <x-seo-button :code="'testimonial.send'" class="btn btn-block-sm type-1" v-is="'open-testimonial-form'"
                       :parent='0'>{{ __('forms.leave-feedback') }}</x-seo-button>
             @endif
         </div>

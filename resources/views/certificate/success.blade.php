@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-xl-8 offset-xl-2 col-12">
                             <div class="img done">
-                                <img src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
+                                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
                             </div>
                             <div class="spacer-xs"></div>
                             <h1 class="h2 text-center">@lang('order-section.certificate.success')</h1>
@@ -53,7 +53,7 @@
                                 <span
                                     class="text-md">{{__('order-section.details-message')}} <b>{{$order->email}}</b></span>
                                 <div class="spacer-xs"></div>
-                                <x-seo-button key="goto.certificate" href="{{pageUrlByKey('certificate')}}"
+                                <x-seo-button :code="'goto.certificate'" href="{{pageUrlByKey('certificate')}}"
                                    class="btn type-1">{{__('order-section.certificate.go-to-description')}}</x-seo-button>
                             </div>
                         </div>

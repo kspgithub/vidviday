@@ -27,26 +27,33 @@
             <div class="row align-items-center">
 
                 <div class="col-6" v-if="currentStep === 1">
-                    <a v-bind="$buttons('goto.certificate')" :href="backUrl" class="btn btn-read-more left-arrow text-bold tab-prev w-normal">
+                    <seo-button code="goto.certificate"
+                                :href="backUrl"
+                                class="btn btn-read-more left-arrow text-bold tab-prev w-normal"
+                    >
                         {{ __('certificate-section.back-description') }}
-                    </a>
+                    </seo-button>
                 </div>
                 <div class="col-6 text-right" v-if="currentStep === 1">
-                    <a v-bind="$buttons('goto.payment')" href="#" @click.prevent="nextStep()" class="btn type-1 tab-next w-normal">
+                    <seo-button code="goto.payment"
+                                href="#"
+                                @click.prevent="nextStep()"
+                                class="btn type-1 tab-next w-normal"
+                    >
                         {{ __('certificate-section.go-to-payment') }}
-                    </a>
+                    </seo-button>
                 </div>
 
                 <div class="col-4" v-if="currentStep === 2">
-                    <a v-bind="$buttons('goto.order_back')" href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
+                    <seo-button code="goto.order_back" href="#" @click.prevent="prevStep()" class="btn btn-read-more left-arrow text-bold tab-prev">
                         {{ __('certificate-section.back') }}
-                    </a>
+                    </seo-button>
                 </div>
 
                 <div class="col-8 text-right" v-if="currentStep === 2">
-                    <button v-bind="$buttons('order.send')" type="submit" class="btn type-1 w-normal">
+                    <seo-button code="order.send" type="submit" class="btn type-1 w-normal">
                         {{ __('certificate-section.send-order') }}
-                    </button>
+                    </seo-button>
                 </div>
             </div>
 
@@ -66,10 +73,11 @@ import CertificateStepOne from "./CertificateStepOne";
 import CertificateStepTwo from "./CertificateStepTwo";
 import {required} from "@vee-validate/rules";
 import {__} from "../../i18n/lang";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "CertificateOrderForm",
-    components: {CertificateStepTwo, CertificateStepOne},
+    components: {SeoButton, CertificateStepTwo, CertificateStepOne},
     props: {
         action: String,
         packings: Array,

@@ -4,14 +4,14 @@
         <ul class="tab-toggle">
             @if($pictures->count() > 0)
                 <li class="tab-caption active">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{asset('/icon/photo.svg')}}"
                          alt="placeholder light">@lang('tours-section.banner-tabs.section-photo')
                 </li>
             @endif
             @if(!empty($video))
                 <li class="tab-caption">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{asset('/icon/video.svg')}}"
                          alt="video">@lang('tours-section.banner-tabs.section-video')
                 </li>

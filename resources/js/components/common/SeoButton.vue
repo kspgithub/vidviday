@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" v-bind="$attrs" v-on="buttonEvents">
+    <component :is="tag" v-bind="buttonAttrs" v-on="buttonEvents">
         <slot />
     </component>
 </template>
@@ -18,11 +18,15 @@ export default {
             type: String,
             required: true,
         },
+        id: {
+            type: String,
+            required: false,
+        },
     },
     setup(props, {attrs, emit}) {
         const config = ref(window.$buttons(props.code))
 
-        config.value = window.$buttons(props.code)
+        config.value = window.$buttons(props.code, props.id)
 
         const buttonAttrs = computed(() => ({
             ...attrs,
@@ -36,7 +40,7 @@ export default {
             click: (e) => {
                 // e.preventDefault()
                 // emit('click', e)
-                // console.log(`Event:SeoButton[${buttonAttrs.value.id}]:click`)
+                console.log(`Event:SeoButton[${buttonAttrs.value.id}]:click`)
             },
         }))
 

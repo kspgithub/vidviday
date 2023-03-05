@@ -9,7 +9,7 @@
              :clear='{{(int)request()->input('clear', 0)}}'
              :schedule-id='{{(int)request()->input('schedule', 0)}}'
              :tour='@json($tour->shortInfo())'
-             :schedules='@json($schedules)'
+             :schedules='@json(collect($schedules)->map(fn($item) => is_array($item) ? $item : $item->shortInfo()))'
              :discounts='@json($discounts)'
              :user='@json(auth()->check() ? current_user()->basicInfo() : null)'
              :rooms='@json($room_types)'
