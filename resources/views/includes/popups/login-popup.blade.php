@@ -23,13 +23,13 @@
                         <span class="text open-popup"
                               data-rel="password-recovery-popup">{{__('auth.forgot-password')}}</span>
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="auth.login" type="submit"
+                        <x-seo-button :code="'auth.login'" type="submit"
                                       class="btn type-1 btn-block">{{__('auth.sign-in')}}</x-seo-button>
                         <div class="text-center">
                             <div class="text">{{__('auth.or')}}</div>
                         </div>
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="auth.login_facebook" href="{{route('auth.social.login', 'facebook')}}"
+                        <x-seo-button :code="'auth.login_facebook'" href="{{route('auth.social.login', 'facebook')}}"
                                       class="btn type-1 btn-block btn-fb">
                             <svg width="8" height="16" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -38,7 +38,7 @@
                             {{ __('auth.sign-in-with', ['provider' => 'Facebook']) }}
                         </x-seo-button>
 
-                        <x-seo-button key="auth.login_google" href="{{route('auth.social.login', 'google')}}"
+                        <x-seo-button :code="'auth.login_google'" href="{{route('auth.social.login', 'google')}}"
                                       class="btn type-1 btn-block btn-google">
                             <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                 <path

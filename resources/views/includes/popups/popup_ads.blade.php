@@ -10,7 +10,7 @@
                     <a href="{{ $popupAd->url }}">
 
                         <div class="img">
-                            <img src="{{asset('img/preloader.png')}}" data-img-src="{{$popupAd->image_url}}" alt="done">
+                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{$popupAd->image_url}}" alt="done">
                         </div>
 
                         <div class="spacer-xs"></div>

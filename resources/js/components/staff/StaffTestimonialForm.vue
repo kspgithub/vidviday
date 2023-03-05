@@ -35,7 +35,7 @@
 
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
-                                <img :src="selectedAvatar.preview" alt="img">
+                                <img :data-img-src="selectedAvatar.preview" alt="img">
                                 <seo-button code="profile.delete_avatar" class="btn-delete" @click="deleteAvatar()"></seo-button>
                             </div>
 
@@ -105,16 +105,16 @@
                         </div>
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
-                            <img :src="sImage.preview" alt="img">
+                            <img :data-img-src="sImage.preview" alt="img">
                             <seo-button code="testimonial.delete_image" class="btn-delete" @click="deleteImage(idx)"></seo-button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <button v-bind="$buttons('testimonial.send')" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
+                    <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
-                    </button>
+                    </seo-button>
                 </div>
 
                 <div class="text-center-xs col-12">
@@ -129,7 +129,7 @@
 
         <div class="popup-align" v-if="showThanks">
             <div class="img done">
-                <img src="/icon/done.svg" alt="done">
+                <img data-img-src="/icon/done.svg" alt="done">
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>
@@ -162,10 +162,11 @@ import FormCustomSelect from "../form/FormCustomSelect";
 import { useStore } from "vuex";
 import FormSelect from "../form/FormSelect";
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "StaffTestimonialForm",
-    components: {FormPhone, FormSelect, Popup, FormTextarea, FormInput, FormStarRating},
+    components: {SeoButton, FormPhone, FormSelect, Popup, FormTextarea, FormInput, FormStarRating},
     props: {
         type: String,
         staff: Object,

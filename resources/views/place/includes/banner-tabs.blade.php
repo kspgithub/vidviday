@@ -4,19 +4,19 @@
         <ul class="tab-toggle">
             @if($pictures->count() > 0)
                 <li class="tab-caption active">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{asset('/icon/photo.svg')}}"
                          alt="placeholder light">Фото
                 </li>
             @endif
             <li class="tab-caption {{$pictures->count() > 0 ? '' : 'active'}}">
-                <img src="{{asset('/img/preloader.png')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                      data-img-src="{{asset('/icon/placeholder-light.svg')}}"
                      alt="placeholder light">Мапа
             </li>
             @if(!empty($place->video))
                 <li class="tab-caption">
-                    <img src="{{asset('/img/preloader.png')}}"
+                    <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                          data-img-src="{{asset('/icon/video.svg')}}"
                          alt="video">Відео
                 </li>

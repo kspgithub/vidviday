@@ -62,6 +62,7 @@ trait TourRelationship
         return $this->belongsToMany(Place::class, 'tours_places', 'tour_id', 'place_id')
             ->orderByPivot('position');
     }
+
     public function tourPlaces()
     {
         return $this->hasMany(TourPlace::class)->orderBy('position');

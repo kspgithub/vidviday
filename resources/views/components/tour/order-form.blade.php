@@ -1,3 +1,4 @@
+@php use Illuminate\Database\Eloquent\Model;use Illuminate\Support\Collection; @endphp
 @props([
     'tour'=> new \App\Models\Tour(),
     'schedules'=> [],
@@ -9,8 +10,9 @@
 <form action="{{route('tour.order', $tour)}}"
       v-is="'tour-order'"
       :tour='@json($tour->shortInfo())'
-      :schedules='@json($schedules)'
+      :schedules='@json(collect($schedules)->map(fn($item) => is_array($item) ? $item : $item->shortInfo()))'
       :nearest-event='@json($nearestEvent->id ?? 0)'
+      :corporate="{{(!app()->environment('production') && !count($schedules)) ? 'true' : 'false'}}"
 >
 
     @if($tour->order_enabled)
@@ -18,7 +20,8 @@
             <span
                 class="text">@lang('tours-section.price')<span>{{$nearestEvent ? $nearestEvent->price : $tour->price}}</span><i>грн</i></span>
             @if($nearestEvent && $nearestEvent->commission > 0)
-                <span class="discount hidden-print">{{$nearestEvent->commission}} грн <span class="tooltip-wrap red"><span
+                <span class="discount hidden-print">{{$nearestEvent->commission}} грн <span
+                        class="tooltip-wrap red"><span
                             class="tooltip text text-sm light">@lang('tours-section.commission')</span></span></span>
             @endif
         </div>
@@ -27,14 +30,13 @@
     <div class="{{$shareClass}}">
         <x-tour.star-rating :rating="$tour->rating" :count="$tour->testimonials_count" :trigger="true"/>
 
-        <x-tour.share :tour="$tour"/>
+        <x-tour.share/>
 
         <x-tour.like-btn :tour="$tour"/>
 
     </div>
 
     <div class="{{$spacerClass}}"></div>
-
 
     <div class="sidebar-item">
         @if($nearestEvent)
@@ -59,14 +61,15 @@
                     {{$nearestEvent->places_available >= 10 ? '10+' : ($nearestEvent->places_available < 2 ? '2-10' : '0')}}
                 </span>
             </div>
-            <x-seo-button key="order.tour" href="{{route('tour.order', $tour)}}" class="btn type-1 btn-block">@lang('tours-section.order-tour')</x-seo-button>
-            <x-seo-button key="order.one_click" class="btn type-2 btn-block open-popup"
-                  data-rel="one-click-popup">@lang('tours-section.order-one-click')</x-seo-button>
+            <x-seo-button :code="'order.tour'" href="{{route('tour.order', $tour)}}"
+                          class="btn type-1 btn-block">@lang('tours-section.order-tour')</x-seo-button>
+            <x-seo-button :code="'order.one_click'" class="btn type-2 btn-block open-popup"
+                          data-rel="one-click-popup">@lang('tours-section.order-one-click')</x-seo-button>
             <div class="thumb-info">
                 <span class="thumb-info-time text">{{$tour->duration}}д / {{$tour->nights}}н</span>
             </div>
-            <x-seo-button key="order.corporate" href="{{route('tour.order', $tour)}}"
-               class="btn type-2 btn-block">@lang('tours-section.order-corporate')</x-seo-button>
+            <x-seo-button :code="'order.corporate'" href="{{route('tour.order', $tour)}}"
+                          class="btn type-2 btn-block">@lang('tours-section.order-corporate')</x-seo-button>
         @endif
     </div>
 </form>

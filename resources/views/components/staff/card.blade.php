@@ -9,7 +9,7 @@
         </div>
     @endif
     <div class="zoom centered">
-        <img src="{{asset('img/preloader.png')}}"
+        <img loading="lazy" src="{{asset('img/preloader.png')}}"
              data-img-src="{{ $specialist->avatar_url ?? asset('img/no-image.png') }}"
              alt="{{$specialist->first_name}} {{$specialist->last_name}}">
         <a href="{{ $specialist->url }}" class="full-size"></a>
@@ -39,7 +39,7 @@
         @if(!empty($specialist->skype))
             <div class="contact">
                 <div class="img">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/skype.svg')}}" alt="skype">
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/skype.svg')}}" alt="skype">
                 </div>
                 <a href="skype:{{$specialist->skype}}?call">{{$specialist->skype}}</a>
             </div>
@@ -47,7 +47,7 @@
         @if(!empty($specialist->viber))
             <div class="contact">
                 <div class="img">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/viber.svg')}}" alt="viber">
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/viber.svg')}}" alt="viber">
                 </div>
                 <a href="viber:{{$specialist->viber}}">{{$specialist->viber}}</a>
             </div>
@@ -55,7 +55,7 @@
         @if(!empty($specialist->whatsapp))
             <div class="contact">
                 <div class="img">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/whatsapp.svg')}}"
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/whatsapp.svg')}}"
                          alt="whatsapp">
                 </div>
                 <a href="https://wa.me/{{clear_phone($specialist->whatsapp)}}">{{$specialist->whatsapp}}</a>
@@ -64,14 +64,14 @@
         @if(!empty($specialist->telegram))
             <div class="contact">
                 <div class="img">
-                    <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/telegram.svg')}}"
+                    <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/telegram.svg')}}"
                          alt="telegram">
                 </div>
                 <a href="https://t.me/{{str_replace('@', '', $specialist->telegram)}}">{{'@'.str_replace('@', '', $specialist->telegram)}}</a>
             </div>
         @endif
         <div class="spacer-xs"></div>
-        <x-seo-button key="goto.staff" href="{{ $specialist->url }}" class="btn type-1 btn-block">Дізнатись більше</x-seo-button>
+        <x-seo-button :code="'goto.staff'" href="{{ $specialist->url }}" class="btn type-1 btn-block">Дізнатись більше</x-seo-button>
     </div>
 </div>
 

@@ -91,7 +91,7 @@ trait TourScheduleAttribute
     public function getPlacesBookedAttribute()
     {
         $total = 0;
-        $orders = $this->orders->whereIn('status', [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED])->all();
+        $orders = $this->orders->whereIn('status', [Order::STATUS_BOOKED, Order::STATUS_DEPOSIT, Order::STATUS_PAYED, Order::STATUS_COMPLETED]);
         /**
          * @var Order $order
          */

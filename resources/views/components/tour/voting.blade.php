@@ -5,7 +5,7 @@
 <div class="sidebar-item testimonials vote">
     <div class="top-part b-border">
         <div class="title h3 title-icon">
-            <img src="{{ asset('img/preloader.png') }}" data-img-src="icon/done.svg" alt="done">
+            <img loading="lazy" src="{{ asset('img/preloader.png') }}" data-img-src="icon/done.svg" alt="done">
             <span>@lang('tours-section.voting')</span>
         </div>
         <div class="spacer-xs"></div>
@@ -29,7 +29,7 @@
                 <input type="text" name="email">
             </label>
 
-            <x-seo-button key="tour.vote" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</x-seo-button>
+            <x-seo-button :code="'tour.vote'" class="btn type-1 btn-block open-popup" data-rel="thanks-popup">@lang('tours-section.vote')</x-seo-button>
         </form>
     </div>
 </div>

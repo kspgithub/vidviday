@@ -44,14 +44,14 @@
                                                @render="render"
                                                ref="recaptcha"
                                 >
-                                    <button v-bind="$buttons('subscribe.tour_agent')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                                    <seo-button code="subscribe.tour_agent" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                         {{ __('forms.subscribe') }}
-                                    </button>
+                                    </seo-button>
                                 </vue-recaptcha>
                                 <template v-if="!useRecaptcha">
-                                    <button v-bind="$buttons('subscribe.tour_agent')" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                                    <seo-button code="subscribe.tour_agent" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                         {{ __('forms.subscribe') }}
-                                    </button>
+                                    </seo-button>
                                 </template>
                             </div>
                         </div>
@@ -79,10 +79,11 @@ import {getError} from "../../services/api";
 import UtmFields from "../common/UtmFields";
 import { VueRecaptcha } from 'vue-recaptcha'
 import { __ } from '../../i18n/lang'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "PopupAgentSubscription",
-    components: { VueRecaptcha, UtmFields, FormCsrf, FormInput, Popup },
+    components: {SeoButton, VueRecaptcha, UtmFields, FormCsrf, FormInput, Popup },
     props: {
         action: String,
     },

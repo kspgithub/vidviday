@@ -63,7 +63,7 @@
 
                     <div class="only-pad-mobile">
                         <div class="spacer-xs"></div>
-                        <x-seo-button key="order.certificate" href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
+                        <x-seo-button :code="'order.certificate'" href="{{route('certificate.order')}}" class="btn type-1 btn-block btn-book-size">
                             @lang('order-section.certificate.order')
                         </x-seo-button>
                     </div>

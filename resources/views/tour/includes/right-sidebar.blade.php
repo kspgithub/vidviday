@@ -5,6 +5,7 @@
             <form action="{{route('tour.order', $tour)}}"
                   v-is="'tour-order'"
                   :tour='@json($tour->shortInfo())'
+                  :schedules='@json($future_events->map->shortInfo())'
                   :nearest-event='@json($nearest_event->id ?? 0)'
                   :corporate="{{(!app()->environment('production') && !$future_events->count()) ? 'true' : 'false'}}"
             ></form>
@@ -18,7 +19,9 @@
         @endif
 
         @if(!$nearest_event)
-            <div v-is="'tour-voting-form'" :tour='@json($tour->shortInfo())'></div>
+            <div v-is="'tour-voting-form'"
+                 :tour='@json($tour->shortInfo())'
+            ></div>
         @endif
 
         <div class="sidebar-item only-desktop hidden-print">
@@ -31,13 +34,13 @@
 
         @if($nearest_event)
             <div class="only-mobile hidden-print">
-                <a v-is="'tour-order-schedule-button'"
-                   v-bind="$buttons('tour.order')"
-                   href="{{route('tour.order', $tour)}}"
-                   :tour='@json($tour)'
-                   :schedule='@json($nearest_event)'
-                   class="btn type-1 btn-block"
-                ></a>
+                <x-seo-button :code="'tour.order'"
+                              v-is="'tour-order-schedule-button'"
+                              href="{{route('tour.order', $tour)}}"
+                              tour-id="{{ $tour->id }}"
+                              schedule-id="{{ $nearest_event->id }}"
+                              class="btn type-1 btn-block"
+                ></x-seo-button>
             </div>
         @endif
     </div>

@@ -24,9 +24,9 @@
                        :file-size="__('3 МБ')"
                        accept="pdf,doc,docx"/>
             <utm-fields/>
-            <button v-bind="$buttons('vacancy.send')" class="btn type-1 btn-block" :disabled="submitted">
+            <seo-button code="vacancy.send" class="btn type-1 btn-block" :disabled="submitted">
                 {{ __('common.vacancy.send-resume') }}
-            </button>
+            </seo-button>
         </form>
     </div>
 </template>
@@ -43,10 +43,11 @@ import {useStore} from "vuex";
 import axios from "axios";
 import {getError} from "../../services/api";
 import toast from "../../libs/toast";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "VacancyForm",
-    components: {UtmFields, FormFile, FormTextarea, FormInput, FormCsrf},
+    components: {SeoButton, UtmFields, FormFile, FormTextarea, FormInput, FormCsrf},
     props: {
         action: {
             type: String,

@@ -5,9 +5,9 @@
             <div class="tabs-nav">
                 <span class="tab-title"></span>
                 <ul class="tab-toggle">
-                    <li class="tab-caption active"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
+                    <li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
 
-                    <li class="tab-caption"><img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
+                    <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
                 </ul>
             </div>
             <div class="tabs-wrap">
@@ -26,7 +26,7 @@
                                 <div class="swiper-wrapper lightbox-wrap">
                                     <div class="swiper-slide">
                                         @if ( !empty($pageContent->media))
-                                            <img src="{{ $pageContent->media ?? asset('img/no-image.png') }}"
+                                            <img loading="lazy" src="{{ $pageContent->media ?? asset('img/no-image.png') }}"
                                                  alt="{{$pageContent->seo_h1 ?? $pageContent->title}}"
                                                  data-swiper-parallax="30%">
                                             <a href="{{ $pageContent->media ?? asset('img/no-image.png') }}"

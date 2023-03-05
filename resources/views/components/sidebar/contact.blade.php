@@ -4,7 +4,7 @@
 <div class="sidebar-item notice">
     <div class="top-part">
         <div class="title h3 light title-icon">
-            <img src="/icon/ring.svg" data-img-src="/icon/ring.svg" alt="ring">
+            <img loading="lazy" data-img-src="/icon/ring.svg" data-img-src="/icon/ring.svg" alt="ring">
             {{ __('footer-section.contacts') }}
         </div>
     </div>
@@ -51,7 +51,7 @@
             </div>
         @endif
         @if(!empty($staff->avatar))
-            <img class="manager-avatar"
+            <img loading="lazy" class="manager-avatar"
                  src="{{$staff->avatar_url}}" data-img-src="{{$staff->avatar_url}}"
                  alt="{{$staff->name}}">
         @endif

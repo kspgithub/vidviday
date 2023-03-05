@@ -136,6 +136,7 @@ class TourController extends Controller
             'manager',
             'manager.types',
             'landings',
+            'scheduleItems.orders',
             'questions' => function ($q) {
                 return $q->moderated();
             },
@@ -158,6 +159,10 @@ class TourController extends Controller
 //                return $q;
 //            },
         ]);
+
+        foreach ($tour->scheduleItems as $scheduleItem) {
+            $scheduleItem->tour = $tour;
+        }
 
         $tour->loadCount([
             'testimonials' => fn($q) => $q->moderated()

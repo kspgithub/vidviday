@@ -104,7 +104,7 @@ const MediaLibrary = function (selector) {
         divEl.id = 'media-item-' + media.id;
         divEl.dataset.id = media.id;
         divEl.setAttribute('data-id', media.id);
-        divEl.innerHTML = `<img src="${media.thumb}" alt=""><a href="#" class="delete-media-item"><i class="fas fa-times"></i></a>
+        divEl.innerHTML = `<img data-img-src="${media.thumb}" alt=""><a href="#" class="delete-media-item"><i class="fas fa-times"></i></a>
         <a href="${media.url}" class="show-media-item" target="_blank" data-fancybox="${mediaCollection}"><i class="fas fa-eye"></i></a>
         <span class="handler fas fa-bars"></span>
         <input class="edit-media-title" value="Change image title" />
@@ -123,7 +123,7 @@ const MediaLibrary = function (selector) {
 
         reader.onload = (pe) => {
             const src = pe.target.result;
-            divEl.innerHTML = `<img src="${src}" alt=""><div class="spinner-border text-warning" role="status"></div>`;
+            divEl.innerHTML = `<img data-img-src="${src}" alt=""><div class="spinner-border text-warning" role="status"></div>`;
             sortableEl.appendChild(divEl);
         }
         reader.readAsDataURL(file);

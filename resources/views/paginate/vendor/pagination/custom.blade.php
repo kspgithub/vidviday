@@ -6,12 +6,12 @@
 
             @if ($paginator->onFirstPage())
                 <li class="disabled">
-                    <a class="left_side-navigation__button"><img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt=""></a>
+                    <a class="left_side-navigation__button"><img loading="lazy" src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt=""></a>
                 </li>
             @else
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="left_side-navigation__button">
-                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                        <img loading="lazy" src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
                     </a>
                 </li>
             @endif
@@ -42,14 +42,14 @@
             @if ($paginator->hasMorePages())
                 <li>
                     <a href="{{ $paginator->nextPageUrl() }}" rel="next"  class="left_side-navigation__button">
-                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                        <img loading="lazy" src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
                     </a>
                 </li>
             @else
                 <li class="disabled">
 
                     <a class="disabled left_side-navigation__button">
-                        <img src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
+                        <img loading="lazy" src="{{ asset('img/arrow-down-sign-to-navigate.svg') }}" alt="">
                     </a>
                 </li>
             @endif

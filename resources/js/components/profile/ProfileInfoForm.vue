@@ -174,10 +174,11 @@ import FormAvatar from '../form/FormAvatar'
 import { useForm } from 'vee-validate'
 import { reactive } from 'vue'
 import FormPhone from '../form/FormPhone'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: 'ProfileInfoForm',
-    components: {FormPhone, FormAvatar, SvgIcon, Tooltip, FormDatepicker, FormInput},
+    components: {SeoButton, FormPhone, FormAvatar, SvgIcon, Tooltip, FormDatepicker, FormInput},
     props: {
         action: String,
         user: Object,

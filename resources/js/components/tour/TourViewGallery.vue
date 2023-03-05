@@ -11,9 +11,9 @@
             <div v-if="currentPage < lastPage" class="col-12">
                 <div class="spacer-xs"></div>
                 <div class="text-center">
-                    <a v-bind="$buttons('tour.show_more')" class="btn type-2" @click.prevent="nextPage()">
+                    <seo-button code="tour.show_more" class="btn type-2" @click.prevent="nextPage()">
                         {{ __('tours-section.show-more') }} {{ perPage }}
-                    </a>
+                    </seo-button>
                 </div>
             </div>
         </div>
@@ -25,10 +25,11 @@ import TourSortForm from "./TourSortForm";
 import TourCard from "./TourCard";
 
 import useTourView from "./useTourView";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourViewGallery",
-    components: {TourCard, TourSortForm},
+    components: {SeoButton, TourCard, TourSortForm},
     setup() {
 
         return {

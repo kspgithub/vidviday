@@ -13,7 +13,7 @@
         <div class="sidebar-item notice">
 
             <div class="top-part">
-                <div class="title h3 light title-icon"><img src="{{ asset("img/preloader.png") }}"
+                <div class="title h3 light title-icon"><img loading="lazy" src="{{ asset("img/preloader.png") }}"
                                                             data-img-src="{{ asset("icon/ring.svg") }}"
                                                             alt="ring">{{ __("Контакти") }}</div>
             </div>
@@ -33,7 +33,7 @@
                     <div class="spacer-xs"></div>
                     <a href="mailto:vidviday.vasylyna@gmail.com" class="text">vidviday.vasylyna@gmail.com</a>
                 </div>
-                <img src="{{ asset("img/preloader.png") }}" data-img-src="img/transport-manager.png"
+                <img loading="lazy" src="{{ asset("img/preloader.png") }}" data-img-src="img/transport-manager.png"
                      alt="transport manager">
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="sidebar-item testimonials">
             <div class="top-part b-border">
                 <div class="title h3 title-icon">
-                    <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset("icon/reviews.svg") }}"
+                    <img loading="lazy" src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset("icon/reviews.svg") }}"
                          alt="reviews">
                     <span>{{ __("Нас рекомендують") }}</span>
                 </div>
@@ -51,7 +51,7 @@
                     <div class="review">
                         <div class="review-header">
                             <div class="review-img">
-                                <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset("img/user.jpg") }}"
+                                <img loading="lazy" src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset("img/user.jpg") }}"
                                      alt="user">
                             </div>
                             <div class="review-title">
@@ -101,7 +101,7 @@
                                     <div class="review">
                                         <div class="review-header">
                                             <div class="review-img">
-                                                <img src="{{ asset('img/preloader.png') }}"
+                                                <img loading="lazy" src="{{ asset('img/preloader.png') }}"
                                                      data-img-src="{{ asset('img/user.jpg') }}" alt="user">
                                             </div>
                                             <div class="review-title">
@@ -141,7 +141,7 @@
                                     <div class="review">
                                         <div class="review-header">
                                             <div class="review-img">
-                                                <img src="{{ asset('img/preloader.png') }}"
+                                                <img loading="lazy" src="{{ asset('img/preloader.png') }}"
                                                      data-img-src="{{ asset('img/user.jpg') }}" alt="user">
                                             </div>
                                             <div class="review-title">

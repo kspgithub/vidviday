@@ -4,7 +4,7 @@
     @if(!empty($staff->email))
         <div class="contact">
             <div class="img">
-                <img src="/img/preloader.png" data-img-src="/icon/mail.svg" alt="mail">
+                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/mail.svg" alt="mail">
             </div>
             <a href="mailto:vidviday.transport@gmail.com">{{$staff->email}}</a>
         </div>
@@ -12,7 +12,7 @@
     @if(!empty($staff->phones))
         <div class="contact">
             <div class="img">
-                <img src="/img/preloader.png" data-img-src="/icon/smartphone.svg" alt="smartphone">
+                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/smartphone.svg" alt="smartphone">
             </div>
             @foreach($staff->phones as $phone)
                 <a href="tel:{{clear_phone($phone)}}">{{$phone}}</a>
@@ -26,7 +26,7 @@
     @if(!empty($staff->viber))
         <div class="contact">
             <div class="img">
-                <img src="/img/preloader.png" data-img-src="/icon/viber.svg" alt="viber">
+                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/viber.svg" alt="viber">
             </div>
             <a title="Встановіть Viber для ПК"
                href="viber://chat?number=+{{clear_phone($staff->viber)}}">{{$staff->viber}}</a>

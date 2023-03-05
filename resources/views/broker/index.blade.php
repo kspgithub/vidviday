@@ -53,7 +53,7 @@
                         <div class="only-pad-mobile">
                             <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
                             <div class="spacer-xs"></div>
-                            <x-seo-button key="order.consult" class="btn type-1 btn-block" href="#broker-form">{{ __('order-section.order-consult') }}</x-seo-button>
+                            <x-seo-button :code="'order.consult'" class="btn type-1 btn-block" href="#broker-form">{{ __('order-section.order-consult') }}</x-seo-button>
                             <div class="spacer-xs"></div>
                         </div>
                         <div class="text text-md">

@@ -56,9 +56,9 @@
                     <input name="conditions" type="hidden" value="1"/>
 
                     <div class="text-center">
-                        <button v-bind="$buttons('tour.order_one_click')" type="submit" :disabled="request" @click.prevent="submitForm" class="btn type-1">
+                        <seo-button code="tour.order_one_click" type="submit" :disabled="request" @click.prevent="submitForm" class="btn type-1">
                             {{ __('forms.order') }}
-                        </button>
+                        </seo-button>
                     </div>
                 </div>
                 <input type="hidden" name="group_type" value="0">
@@ -86,10 +86,11 @@ import { useForm } from "vee-validate";
 import { __ } from "../../i18n/lang";
 import FormSelect from "../form/FormSelect";
 import FormPhone from "../form/FormPhone";
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourOneClickPopup",
-    components: {FormPhone, FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
+    components: {SeoButton, FormPhone, FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
     props: {
         tour: Object,
         schedules: Array,

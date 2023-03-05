@@ -4,7 +4,7 @@
     <div class="popup-container size-1">
         <div class="popup-align">
             <div class="img done">
-                <img src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/done.svg')}}" alt="done">
+                <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/done.svg')}}" alt="done">
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>

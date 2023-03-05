@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         @if($loop->last)
-                            <x-seo-button key="goto.blog" href="{{pageUrlByKey('blog')}}"
+                            <x-seo-button :code="'goto.blog'" href="{{pageUrlByKey('blog')}}"
                                class="btn type-3 btn-more text-md">{{__('footer-section.blog')}}</x-seo-button>
                         @endif
                     </div>
@@ -78,7 +78,7 @@
                 <div class="col-xl-3 offset-xl-0 col-lg-8 offset-lg-2 col-12">
                     <div class="accordion-item">
                         <div class="accordion-title">
-                            <x-seo-button key="goto.contacts" href="{{route('contacts')}}"
+                            <x-seo-button :code="'goto.contacts'" href="{{route('contacts')}}"
                                class="btn type-3 btn-more text-md">{{__('footer-section.contacts')}}</x-seo-button>
                         </div>
                         <div class="accordion-inner">
@@ -115,7 +115,7 @@
                                 @endforeach
                             </div>
 
-                            <x-seo-button key="order.call" class="btn type-1"
+                            <x-seo-button :code="'order.call'" class="btn type-1"
                                   v-is="'popup-call-btn'">{{__('footer-section.order-call')}}</x-seo-button>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
 
 
 
-                            <x-seo-button key="goto.map" href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
+                            <x-seo-button :code="'goto.map'" href="{{$showOnMapUrl}}" class="btn type-3 btn-more text-md text-uppercase hidden-print">
                                 {{__('footer-section.show-on-map')}}
                             </x-seo-button>
                         </div>
@@ -165,10 +165,10 @@
                         </div>
                         <div class="accordion-inner">
                             <div class="img">
-                                <img src="{{asset('img/preloader.png')}}" data-img-src="{{$complaintsImage}}"
+                                <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{$complaintsImage}}"
                                      alt="user">
                             </div>
-                            <x-seo-button key="question.send" class="btn type-2"
+                            <x-seo-button :code="'question.send'" class="btn type-2"
                                   v-is="'popup-email-btn'">{{__('footer-section.write-message')}}</x-seo-button>
                         </div>
                     </div>

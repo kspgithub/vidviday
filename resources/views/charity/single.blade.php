@@ -37,8 +37,8 @@
 
                 <div class="order-xl-2 order-1 col-xl-9 col-12">
                     <div class="only-pad-mobile">
-                        <x-seo-button key="tour.select" class="btn type-5 arrow-right text-left flex">
-                            <img src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
+                        <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
+                            <img loading="lazy" src="{{ asset("img/preloader.png") }}" data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             {{ __("Підбір туру") }}
                         </x-seo-button>
                         <div class="spacer-xs"></div>
@@ -47,7 +47,7 @@
                     <div class="banner-img">
                         @foreach($charitySingle->media as $media)
                             @if($media->collection_name === "main")
-                               <img src="{{ asset("img/preloader.png") }}"
+                               <img loading="lazy" src="{{ asset("img/preloader.png") }}"
                                     data-img-src="{{ asset('storage/media/charity/'.$media->id.'/'.$media->file_name) }}"
                                     alt="banner img 11">
                             @endif
