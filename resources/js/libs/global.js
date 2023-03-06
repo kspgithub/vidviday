@@ -102,17 +102,13 @@ jQuery(function ($) {
             observer = new IntersectionObserver((entries, observer) => {
 
                 entries.forEach(entry => {
-
                     if (entry.isIntersecting) {
-
                         let lazyImg = entry.target
-
                         lazyImg.src = lazyImg.dataset.src;
                         observer.unobserve(lazyImg)
-                        console.log('isIntersecting')
-                        console.log(lazyImg.dataset)
                     }
                 })
+
             }, {
                 rootMargin: '0px',
                 threshold: 0.1
@@ -191,7 +187,7 @@ jQuery(function ($) {
 
                     if (entry.isIntersecting) {
                         let lazyFrame = entry.target,
-                            frameSrc = lazyFrame.dataset.frameSrc;
+                            frameSrc = lazyFrame.dataset.src;
 
                         frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
                         lazyFrame.innerHTML = frameMarkup;
