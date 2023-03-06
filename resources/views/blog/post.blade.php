@@ -47,7 +47,7 @@
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
                             <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                 data-img-src="{{ asset("icon/filter-dark.svg") }}"
+                                 data-src="{{ asset("icon/filter-dark.svg") }}"
                                  alt="filter-dark">
                             {{ __("Підбір туру") }}
                             </x-seo-button>
@@ -58,7 +58,7 @@
                         @foreach($post->media as $media)
                             @if($media->collection_name === "main")
                                 <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                     data-img-src="{{ $media->getUrl('normal') }}"
+                                     data-src="{{ $media->getUrl('normal') }}"
                                      alt="banner img 11">
                             @endif
                         @endforeach
@@ -106,7 +106,7 @@
                                                 <div class="swiper-slide">
                                                     <div class="img img-border">
                                                         <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                                             data-img-src="{{ $media->getUrl('thumb') }}"
+                                                             data-src="{{ $media->getUrl('thumb') }}"
                                                              alt="img 28"
                                                              data-swiper-parallax="30%">
                                                     </div>

@@ -6,10 +6,10 @@
 								<span class="tab-title"></span>
 								<ul class="tab-toggle">
                                     @if ( !empty($staff->media))
-									<li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/photo.svg" alt="placeholder light">Фото</li>
+									<li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="icon/photo.svg" alt="placeholder light">Фото</li>
                                     @endif
                                     @if ( !empty($staff->video))
-									<li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg" alt="video">Відео</li>
+									<li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="icon/video.svg" alt="video">Відео</li>
                                     @endif
                                 </ul>
 							</div>

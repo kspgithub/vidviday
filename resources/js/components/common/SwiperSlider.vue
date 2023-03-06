@@ -10,10 +10,7 @@
             <div class="swiper-wrapper lightbox-wrap">
                 <div class="swiper-slide" v-for="(slide, idx) in media">
                     <div class="img zoom">
-                        <img :data-img-src="slide.thumb"
-                             :title="slide.title"
-                             :alt="slide.alt"
-                             class="swiper-lazy">
+                        <img class="swiper-lazy" v-bind="imgAttrs(slide, idx)">
                         <div class="swiper-lazy-preloader"></div>
                         <div class="full-size" @click="showPopup(idx)"></div>
                     </div>
@@ -28,11 +25,11 @@
 <script>
 
 
-import {onMounted, reactive, ref} from "vue";
-import {useStore} from "vuex";
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
-    name: "SwiperSlider",
+    name: 'SwiperSlider',
 
     props: {
         media: Array,
@@ -40,21 +37,21 @@ export default {
             type: Object,
             default() {
                 return {}
-            }
+            },
         },
         buttons: {
             type: Boolean,
             default: false,
-        }
+        },
     },
     setup(props) {
-        const store = useStore();
-        const swiper = ref();
-        const swiperRef = ref();
-        const paginationRef = ref();
-        const nextRef = ref();
-        const prevRef = ref();
-        const slider = ref();
+        const store = useStore()
+        const swiper = ref()
+        const swiperRef = ref()
+        const paginationRef = ref()
+        const nextRef = ref()
+        const prevRef = ref()
+        const slider = ref()
 
         const options = ref(Object.assign({
             loop: false,
@@ -81,7 +78,7 @@ export default {
                 768: {
                     slidesPerView: 3,
                     spaceBetween: 15,
-                }
+                },
             },
             pagination: {
                 clickable: true,
@@ -93,26 +90,26 @@ export default {
                 nextEl: nextRef,
                 prevEl: prevRef,
             },
-        }, props.options));
+        }, props.options))
 
         const setController = (instance) => {
-            swiper.value = instance;
+            swiper.value = instance
         }
 
         const hidePopup = () => {
-            store.commit('popupGallery/SET_ACTIVE', false);
+            store.commit('popupGallery/SET_ACTIVE', false)
         }
 
         const showPopup = (index) => {
-            store.commit('popupGallery/SET_MEDIA', props.media);
-            store.commit('popupGallery/SET_CURRENT_SLIDE', index);
-            store.commit('popupGallery/SET_ACTIVE', true);
+            store.commit('popupGallery/SET_MEDIA', props.media)
+            store.commit('popupGallery/SET_CURRENT_SLIDE', index)
+            store.commit('popupGallery/SET_ACTIVE', true)
         }
 
         var observerHandler = (e) => {
             // console.log('observerUpdate', e)
             // Update on parent node change
-            if(e.target.contains(swiperRef.value) && e.attributeName === 'style' && e.target.style.display !== 'none') {
+            if (e.target.contains(swiperRef.value) && e.attributeName === 'style' && e.target.style.display !== 'none') {
                 initDynamicPagination()
             }
         }
@@ -122,26 +119,26 @@ export default {
 
             const pagination = swiper.value.pagination
 
-            if(pagination && typeof pagination.bullets !== 'undefined') {
+            if (pagination && typeof pagination.bullets !== 'undefined') {
 
                 const bullets = Object.values(pagination.bullets).filter(bullet => bullet instanceof Element)
 
-                if(bullets.length) {
+                if (bullets.length) {
                     swiper.value.off('observerUpdate', observerHandler)
                 }
 
                 const totalBullets = bullets.length
 
-                if(totalBullets > 5) {
+                if (totalBullets > 5) {
                     const maxIndex = totalBullets - 1
                     const activeIndex = bullets.findIndex((bullet, i) => bullet.classList.contains('swiper-pagination-bullet-active'))
 
-                    const visibleIndexes = [activeIndex];
+                    const visibleIndexes = [activeIndex]
 
-                    for(let i = 1; i < 3; i++) {
-                        let index, currentIndex = activeIndex + i;
+                    for (let i = 1; i < 3; i++) {
+                        let index, currentIndex = activeIndex + i
 
-                        if(currentIndex >= maxIndex) {
+                        if (currentIndex >= maxIndex) {
                             index = currentIndex - maxIndex
                         } else {
                             index = currentIndex
@@ -149,10 +146,10 @@ export default {
                         visibleIndexes.push(index)
                     }
 
-                    for(let i = 1; i < 3; i++) {
-                        let index, currentIndex = activeIndex - i;
+                    for (let i = 1; i < 3; i++) {
+                        let index, currentIndex = activeIndex - i
 
-                        if(currentIndex < 0) {
+                        if (currentIndex < 0) {
                             index = maxIndex + currentIndex + 1
                         } else {
                             index = currentIndex
@@ -161,7 +158,7 @@ export default {
                     }
 
                     $(bullets).each((index, bullet) => {
-                        if(visibleIndexes.includes(index)) {
+                        if (visibleIndexes.includes(index)) {
                             $(bullet).addClass('visible').show()
                         } else {
                             $(bullet).removeClass('visible').hide()
@@ -175,15 +172,15 @@ export default {
 
         onMounted(() => {
 
-            swiper.value = new window.Swiper(swiperRef.value, options.value);
+            swiper.value = new window.Swiper(swiperRef.value, options.value)
 
             slider.value = $(swiperRef.value).closest('.swiper-entry')
 
             swiper.value.on('slideChangeTransitionStart', () => {
                 if (slider.value.hasClass('popup-gallery-slider')) {
                     let customFraction = slider.value.closest('.popup-align').find('.pagination-fraction .text-bold'),
-                        activeSlideIndex = slider.value.find('.swiper-slide-active').index();
-                    $(customFraction).html(activeSlideIndex + 1);
+                        activeSlideIndex = slider.value.find('.swiper-slide-active').index()
+                    $(customFraction).html(activeSlideIndex + 1)
                 }
             })
 
@@ -193,17 +190,35 @@ export default {
 
             const isVisible = $(swiperRef.value).is(':visible')
 
-            if(isVisible) {
+            if (isVisible) {
                 initDynamicPagination()
             } else {
-                if(swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
+                if (swiper.value.pagination && typeof swiper.value.pagination.bullets !== 'undefined') {
                     swiper.value.on('observerUpdate', observerHandler)
                 }
             }
 
-        });
+        })
+
+        const imgAttrs = computed(() => (slide, idx) => {
+            const attrs = {
+                alt: slide.alt,
+                title: slide.title,
+            }
+
+            const isLazy = idx > options.value.slidesPerView
+
+            attrs[isLazy ? 'data-src' : 'src'] = slide['thumb']
+
+            if(isLazy) {
+                attrs['loading'] = 'lazy'
+            }
+
+            return attrs
+        })
 
         return {
+            imgAttrs,
             swiperRef,
             paginationRef,
             nextRef,
@@ -212,10 +227,6 @@ export default {
             showPopup,
             hidePopup,
         }
-    }
+    },
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -60,7 +60,7 @@
                                 <x-seo-button :code="'tour.select'" id="tour-selection-btn"
                                               class="btn type-5 arrow-right text-left flex">
                                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                                         data-img-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
+                                         data-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
                                     @lang('tours-section.search-btn')
                                 </x-seo-button>
                                     <div class="spacer-xs"></div>

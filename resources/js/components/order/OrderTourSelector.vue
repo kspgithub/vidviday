@@ -15,7 +15,7 @@
             :paginate="paginate"
         >
             <option :value="0" :selected="tourId === 0" disabled>{{ __('order-section.tour-placeholder') }}</option>
-            <option v-for="option in tours" :data-img="option.main_image" :value="option.id"><img :data-img-src="option.main_image"  /> {{ option.title }} </option>
+            <option v-for="option in tours" :data-img="option.main_image" :value="option.id"><img :data-src="option.main_image"  /> {{ option.title }} </option>
         </form-autocomplete>
 
     </div>

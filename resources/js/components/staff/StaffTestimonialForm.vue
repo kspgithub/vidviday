@@ -35,7 +35,7 @@
 
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
-                                <img :data-img-src="selectedAvatar.preview" alt="img">
+                                <img :data-src="selectedAvatar.preview" alt="img">
                                 <seo-button code="profile.delete_avatar" class="btn-delete" @click="deleteAvatar()"></seo-button>
                             </div>
 
@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
-                            <img :data-img-src="sImage.preview" alt="img">
+                            <img :data-src="sImage.preview" alt="img">
                             <seo-button code="testimonial.delete_image" class="btn-delete" @click="deleteImage(idx)"></seo-button>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
 
         <div class="popup-align" v-if="showThanks">
             <div class="img done">
-                <img data-img-src="/icon/done.svg" alt="done">
+                <img data-src="/icon/done.svg" alt="done">
             </div>
             <div class="text-center">
                 <div class="spacer-xs"></div>

@@ -11,7 +11,7 @@
             <div class="label label-{{$key}}" style="background-color: {{$badge->color}}">{{$badge->title}}</div>
         @endforeach
         <img loading="lazy" src="{{asset('img/preloader.png')}}"
-             data-img-src="{{$tour->main_image}}"
+             data-src="{{$tour->main_image}}"
              alt="{{ $tour->title }}">
         <a href="{{$tour->url}}" class="full-size"></a>
     </div>

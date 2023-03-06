@@ -5,9 +5,9 @@
             <div class="tabs-nav">
                 <span class="tab-title"></span>
                 <ul class="tab-toggle">
-                    <li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
+                    <li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/photo.svg')}}" alt="placeholder light">Фото</li>
 
-                    <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
+                    <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/video.svg')}}" alt="video">Відео</li>
                 </ul>
             </div>
             <div class="tabs-wrap">

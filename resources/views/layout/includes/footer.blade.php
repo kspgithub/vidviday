@@ -165,7 +165,7 @@
                         </div>
                         <div class="accordion-inner">
                             <div class="img">
-                                <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{$complaintsImage}}"
+                                <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{$complaintsImage}}"
                                      alt="user">
                             </div>
                             <x-seo-button :code="'question.send'" class="btn type-2"

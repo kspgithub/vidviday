@@ -27,7 +27,6 @@
     @include('layout.includes.grid')
     <!-- Styles -->
     @stack('before-styles', false)
-    @livewireStyles
 
     <link href="{{ mix('css/theme/main.css', 'assets/app') }}" rel="stylesheet">
 
@@ -43,7 +42,10 @@
 
     @if(is_tour_agent())
         <style>
-            @page { size: auto;  margin: 0mm; }
+            @page {
+                size: auto;
+                margin: 0mm;
+            }
         </style>
     @endif
 </head>
@@ -78,14 +80,15 @@
 </div>
 
 @stack('before-scripts', false)
-@livewireScripts
 
 <script type="text/javascript">
-    window.APP_ENV = '{{app()->environment()}}';
+    window.APP_ENV = '{{app()->environment()}}'
     window.countries = @json(App\Models\Country::query()->where('published', 1)->orderBy('position')->orderBy('title')->pluck('iso'));
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
     window.toastsData = @json(toastData($errors));
-    window.initMap = () => {window.dispatchEvent(new CustomEvent('googleMapsLoaded'))};
+    window.initMap = () => {
+        window.dispatchEvent(new CustomEvent('googleMapsLoaded'))
+    }
     window.seoButtons = @json(app('seo-buttons')->all());
 </script>
 
@@ -96,27 +99,31 @@
 @stack('after-scripts', false)
 
 @production
-<div style="display: none">
-    <div id="mailerlite-tourist">
-        <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23099/a1x1b5.js?v12"></script>
-    </div>
+    <div style="display: none">
+        <div id="mailerlite-tourist">
+            <script type="application/javascript"
+                    src="https://app.mailerlite.com/data/webforms/23099/a1x1b5.js?v12"></script>
+        </div>
 
-    <div id="mailerlite-agent">
-        <script type="application/javascript" src="https://app.mailerlite.com/data/webforms/23103/h0l6i5.js?v11"></script>
+        <div id="mailerlite-agent">
+            <script type="application/javascript"
+                    src="https://app.mailerlite.com/data/webforms/23103/h0l6i5.js?v11"></script>
+        </div>
     </div>
-</div>
 @endproduction
 
 @guest
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-         data-client_id="{{ config('services.google.client_id') }}"
-         data-login_uri="{{ route('auth.social.verify', 'google') }}"
-         data-itp_support="false"
-         data-auto_select="false"
-         data-auto_prompt="true"
-    >
-    </div>
+    @if(config('services.google.autologin'))
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <div id="g_id_onload"
+             data-client_id="{{ config('services.google.client_id') }}"
+             data-login_uri="{{ route('auth.social.verify', 'google') }}"
+             data-itp_support="false"
+             data-auto_select="false"
+             data-auto_prompt="true"
+        >
+        </div>
+    @endif
 @endguest
 
 @if($bodyBottom = site_option('body_bottom'))

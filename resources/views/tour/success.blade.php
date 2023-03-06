@@ -17,7 +17,7 @@
                 <div class="col-xl-9 col-12">
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
-                                src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}"
+                                src="/img/preloader.png" data-src="{{ asset('icon/filter-dark.svg') }}"
                                 alt="filter-dark">Підбір туру</x-seo-button>
                     </div>
                     <div class="spacer-xs"></div>
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-xl-8 offset-xl-2 col-12">
                             <div class="img done">
-                                <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/done.svg" alt="done">
+                                <img loading="lazy" src="/img/preloader.png" data-src="/icon/done.svg" alt="done">
                             </div>
                             <div class="spacer-xs"></div>
                             <h1 class="h2 text-center">Ми отримали Ваше замовлення</h1>

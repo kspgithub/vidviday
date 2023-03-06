@@ -1,7 +1,7 @@
 <template>
     <div class="img-input-wrap">
         <div class="img">
-            <img :data-img-src="preview" class="profile-avatar" alt="Avatar">
+            <img :data-src="preview" class="profile-avatar" alt="Avatar">
         </div>
         <label class="img-input avatar btn type-2">
             Змінити фото

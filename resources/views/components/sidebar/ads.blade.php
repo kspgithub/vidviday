@@ -3,7 +3,7 @@
         <div class="top-part">
             <div class="h3 light title-icon">
                 <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                     data-img-src="{{asset('/icon/info.svg')}}"
+                     data-src="{{asset('/icon/info.svg')}}"
                      alt="@lang('idebar-section.ads')">
                 @lang('sidebar-section.ads')
             </div>
@@ -15,7 +15,7 @@
             @if(!empty($advertisement->image))
                 <a href="{{ $advertisement->url }}">
                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{$advertisement->image_url}}"
+                         data-src="{{$advertisement->image_url}}"
                          alt="{{$advertisement->title}}">
                 </a>
             @endif

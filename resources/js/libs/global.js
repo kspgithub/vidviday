@@ -98,7 +98,7 @@ jQuery(function ($) {
     // Lazy loadings for images, backgrounds adn videos
     function lazyLoadImg() {
 
-        let img = document.querySelectorAll('[data-img-src]'),
+        let img = document.querySelectorAll('[data-src]'),
             observer = new IntersectionObserver((entries, observer) => {
 
                 entries.forEach(entry => {
@@ -107,7 +107,7 @@ jQuery(function ($) {
 
                         let lazyImg = entry.target
 
-                        lazyImg.src = lazyImg.dataset.imgSrc;
+                        lazyImg.src = lazyImg.dataset.src;
                         observer.unobserve(lazyImg)
                         console.log('isIntersecting')
                         console.log(lazyImg.dataset)

@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="Vidviay">
+            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="Vidviay">
         </a>
         <div class="only-print">
             <div class="print-header">
@@ -45,7 +45,7 @@
                             <span v-is="'profile-in-favourites'"></span>
                         </a>
                         <div class="img" v-is="'user-avatar'" :user='@json(current_user())'>
-                            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{current_user()->avatar_url}}"
+                            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{current_user()->avatar_url}}"
                                  alt="user">
                         </div>
                         <span class="dropdown-btn"></span>

@@ -1,7 +1,7 @@
 <div class="img img-border img-caption style-2">
     <div class="zoom centered">
         <img loading="lazy" src="{{asset('img/preloader.png')}}"
-             data-img-src="{{ $specialist->avatar_url ?? asset('img/no-image.png') }}"
+             data-src="{{ $specialist->avatar_url ?? asset('img/no-image.png') }}"
              alt="{{$specialist->first_name}} {{$specialist->last_name}}">
         <a href="{{ $specialist->url }}" class="full-size"></a>
     </div>

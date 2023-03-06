@@ -1,20 +1,23 @@
 .gm-style-iw, .gm-style-iw-tc::after {
-    background-color: #333333!important;
+    background-color: #333333 !important;
     color: white;
 }
+
 .gm-style-iw {
-    top: 5px!important;
+    top: 5px !important;
 }
 
 .gm-style-iw-d {
-    overflow: auto!important;
-    padding: 12px 20px!important;
+    overflow: auto !important;
+    padding: 12px 20px !important;
 }
+
 .gm-style-iw.gm-style-iw-c {
-    padding: 0!important;
+    padding: 0 !important;
 }
+
 .gm-style-iw button > span {
-    background-color: #fff!important;
+    background-color: #fff !important;
 }
 
 .only-print {
@@ -23,6 +26,7 @@
 
 .as-link {
     cursor: pointer;
+
     &:hover {
         color: #2ab0cd;
     }

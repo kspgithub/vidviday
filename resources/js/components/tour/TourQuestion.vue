@@ -3,7 +3,7 @@
         <div class="review-header">
             <div class="review-img">
                 <img src="/img/preloader.png"
-                     data-img-src="/img/user.jpg" alt="user">
+                     data-src="/img/user.jpg" alt="user">
             </div>
             <div class="review-title">
                 <span class="h4">Григоряш Вероніка</span>

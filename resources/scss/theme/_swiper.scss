@@ -60,6 +60,7 @@
 .swiper-slide-invisible-blank {
     visibility: hidden;
 }
+
 /* Auto Height */
 .swiper-container-autoheight,
 .swiper-container-autoheight .swiper-slide {
@@ -70,6 +71,7 @@
     align-items: flex-start;
     transition-property: transform, height;
 }
+
 /* 3D Effects */
 .swiper-container-3d {
     perspective: 1200px;
@@ -113,6 +115,7 @@
 .swiper-container-3d .swiper-slide-shadow-bottom {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
 }
+
 /* IE10 Windows Phone 8 Fixes */
 .swiper-container-wp8-horizontal,
 .swiper-container-wp8-horizontal > .swiper-wrapper {
@@ -194,6 +197,7 @@
 .swiper-pagination.swiper-pagination-hidden {
     opacity: 0;
 }
+
 /* Common Styles */
 .swiper-pagination-fraction,
 .swiper-pagination-custom,
@@ -202,6 +206,7 @@
     left: 0;
     width: 100%;
 }
+
 /* Bullets */
 .swiper-pagination-bullets-dynamic {
     overflow: hidden;
@@ -305,6 +310,7 @@ button.swiper-pagination-bullet {
 .swiper-container-horizontal.swiper-container-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
     transition: 200ms transform, 200ms right;
 }
+
 /* Progress */
 .swiper-pagination-progressbar {
     background: rgba(0, 0, 0, 0.25);
@@ -369,6 +375,7 @@ button.swiper-pagination-bullet {
 .swiper-pagination-lock {
     //display: none;
 }
+
 /* Scrollbar */
 .swiper-scrollbar {
     border-radius: 10px;
@@ -432,6 +439,7 @@ button.swiper-pagination-bullet {
 .swiper-slide-zoomed {
     cursor: move;
 }
+
 /* Preloader */
 .swiper-lazy-preloader {
     width: 42px;
@@ -472,6 +480,7 @@ button.swiper-pagination-bullet {
         transform: rotate(360deg);
     }
 }
+
 /* a11y */
 .swiper-container .swiper-notification {
     position: absolute;

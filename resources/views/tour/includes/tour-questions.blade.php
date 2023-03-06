@@ -1,7 +1,7 @@
 @if(count($faq_items))
     <div class="accordion-item  hidden-print">
         <div class="accordion-title"><span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                                                data-img-src="{{asset('/icon/faq.svg')}}"
+                                                data-src="{{asset('/icon/faq.svg')}}"
                                                 alt="faq"></span>@lang('tours-section.q-and-a')<i></i>
         </div>
         <div class="accordion-inner">

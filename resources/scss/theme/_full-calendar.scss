@@ -831,7 +831,7 @@ hr.fc-divider {
 }
 
 .fc .fc-scrollgrid {
-    border-right-width: 1px!important;
+    border-right-width: 1px !important;
 }
 
 .fc-ltr .fc-h-event .fc-start-resizer,
@@ -1987,7 +1987,7 @@ a {
         position: absolute;
         top: -10px;
 
-        .fc-toolbar-chunk{
+        .fc-toolbar-chunk {
             display: flex;
         }
     }
@@ -2112,7 +2112,7 @@ a {
             position: absolute;
             top: -60px;
 
-            .fc-toolbar-chunk{
+            .fc-toolbar-chunk {
                 display: flex;
             }
         }
@@ -2163,7 +2163,7 @@ a {
 .fc {
 
     .fc-col-header, .fc-daygrid-body, .fc-scrollgrid-sync-table {
-        width: 100%!important;
+        width: 100% !important;
     }
 
     .fc-toolbar {
