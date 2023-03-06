@@ -6,14 +6,14 @@
                 @if($pictures->count() > 0)
                     <li class="tab-caption active">
                         <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                             data-img-src="{{asset('/icon/photo.svg')}}"
+                             data-src="{{asset('/icon/photo.svg')}}"
                              alt="placeholder light">Фото
                     </li>
                 @endif
                 @if(!empty($video))
                     <li class="tab-caption {{$pictures->count() === 0 ? 'active' : ''}}">
                         <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                             data-img-src="{{asset('/icon/video.svg')}}"
+                             data-src="{{asset('/icon/video.svg')}}"
                              alt="video">Відео
                     </li>
                 @endif

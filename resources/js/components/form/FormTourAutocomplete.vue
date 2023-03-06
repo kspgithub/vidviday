@@ -70,7 +70,7 @@ export default {
             }
             tours.value = tourItems.map(t => ({
                 ...t,
-                [props.optionTitle]: `<img data-img-src="${t.main_image}"> ${t[props.optionTitle]}`,
+                [props.optionTitle]: `<img data-src="${t.main_image}"> ${t[props.optionTitle]}`,
             }))
             await nextTick(() => {
                 if (tourSelectRef.value) {

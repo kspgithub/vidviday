@@ -10,7 +10,7 @@
             <div class="review-img">
                 @if(!empty($testimonial->avatar))
                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{$testimonial->avatar_url}}" alt="user">
+                         data-src="{{$testimonial->avatar_url}}" alt="user">
                 @else
                     <span class="full-size h4">{{$testimonial->initials}}</span>
                 @endif
@@ -41,7 +41,7 @@
     <form action="/" class="new-review d-none">
         <input type="hidden" name="parent_id" value="{{$testimonial->id}}">
         <div class="review-img">
-            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('img/user.jpg')}}" alt="user">
+            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('img/user.jpg')}}" alt="user">
         </div>
         <label>
             <i>Залиште коментар</i>

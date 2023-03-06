@@ -36,7 +36,7 @@
                             @foreach($banners as $banner)
                                 <div class="swiper-slide">
                                     <img loading="lazy" src="{{asset('img/preloader.png')}}"
-                                         data-img-src="{{$banner->image_url}}"
+                                         data-src="{{$banner->image_url}}"
                                          title="{{$banner->image_title ?? $banner->title}}"
                                          alt="{{$banner->image_alt ?? $banner->title}}"
                                          data-swiper-parallax="30%"

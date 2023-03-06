@@ -2,7 +2,7 @@
     @if(true || in_array('food', $tour->active_tabs))
         <div class="accordion-item">
             <div class="accordion-title"><span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                                                    data-img-src="{{asset('/icon/meal.svg')}}"
+                                                    data-src="{{asset('/icon/meal.svg')}}"
                                                     alt="meal"></span>@lang('tours-section.food')<i></i></div>
             <div class="accordion-inner">
                 <div class="accordion type-2">

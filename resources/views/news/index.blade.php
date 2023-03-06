@@ -39,7 +39,7 @@
 
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
-                            <img loading="lazy" src="/img/preloader.png" data-img-src="{{ asset('icon/filter-dark.svg') }}"
+                            <img loading="lazy" src="/img/preloader.png" data-src="{{ asset('icon/filter-dark.svg') }}"
                                  alt="filter-dark">
                             Підбір туру
                         </x-seo-button>
@@ -60,7 +60,7 @@
                             <div class="item post">
                                 <div class="thumb-img">
                                     <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                         data-img-src="{{ $post->main_image_url }}"
+                                         data-src="{{ $post->main_image_url }}"
                                          alt="img 25">
                                     <a href="{{ route("news.single", ["slug" => $post->slug]) }}"
                                        class="full-size"></a>

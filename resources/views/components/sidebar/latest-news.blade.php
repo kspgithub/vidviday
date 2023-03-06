@@ -2,7 +2,7 @@
     <div class="sidebar-item only-desktop">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/mailing.svg')}}"
+                <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{asset('/icon/mailing.svg')}}"
                      alt="mailing">
                 <span>{{ __("sidebar-section.news") }}</span>
             </div>

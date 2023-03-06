@@ -2,7 +2,7 @@
     <div class="accordion-title">
         <span>
             <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                 data-img-src="{{asset('/icon/rating.svg')}}"
+                 data-src="{{asset('/icon/rating.svg')}}"
                  alt="rating">
         </span>
         @lang('tours-section.reviews.title')

@@ -8,11 +8,11 @@
                 <ul class="tab-toggle">
                     @if ( !empty($staff->media))
                         <li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}"
-                                                            data-img-src="icon/photo.svg" alt="placeholder light">Фото
+                                                            data-src="icon/photo.svg" alt="placeholder light">Фото
                         </li>
                     @endif
                     @if ( !empty($staff->video))
-                        <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg"
+                        <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="icon/video.svg"
                                                      alt="video">Відео
                         </li>
                     @endif
@@ -34,7 +34,7 @@
                                 <div class="swiper-wrapper lightbox-wrap">
                                     <div class="swiper-slide">
                                         <img loading="lazy" src="{{asset('img/preloader.png')}}"
-                                             data-img-src="{{ $staff->avatar ?? asset('img/no-image.png') }}"
+                                             data-src="{{ $staff->avatar ?? asset('img/no-image.png') }}"
                                              alt="{{$staff->first_name}} {{$staff->last_name}}"
                                              data-swiper-parallax="30%" class="swiper-lazy">
                                         <div class="swiper-lazy-preloader"></div>
@@ -45,7 +45,7 @@
 
                                     <div class="swiper-slide">
                                         <img loading="lazy" src="{{asset('img/preloader.png')}}"
-                                             data-img-src="{{ $staff->media ?? asset('img/no-image.png') }}"
+                                             data-src="{{ $staff->media ?? asset('img/no-image.png') }}"
                                              alt="{{$staff->first_name}} {{$staff->last_name}}"
                                              data-swiper-parallax="30%" class="swiper-lazy">
                                         <div class="swiper-lazy-preloader"></div>

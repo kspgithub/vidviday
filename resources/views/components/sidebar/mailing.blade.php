@@ -1,7 +1,7 @@
 <div class="sidebar-item">
     <div class="top-part b-border">
         <div class="title h3 title-icon">
-            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-img-src="{{asset('/icon/email.svg')}}"
+            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{asset('/icon/email.svg')}}"
                  alt="mailing">
             <span>{{__('sidebar-section.mailing.title')}}</span>
         </div>

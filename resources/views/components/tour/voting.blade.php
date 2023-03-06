@@ -5,7 +5,7 @@
 <div class="sidebar-item testimonials vote">
     <div class="top-part b-border">
         <div class="title h3 title-icon">
-            <img loading="lazy" src="{{ asset('img/preloader.png') }}" data-img-src="icon/done.svg" alt="done">
+            <img loading="lazy" src="{{ asset('img/preloader.png') }}" data-src="icon/done.svg" alt="done">
             <span>@lang('tours-section.voting')</span>
         </div>
         <div class="spacer-xs"></div>

@@ -53,7 +53,7 @@
                 <div class="order-xl-2 order-1 col-xl-9 col-12 news">
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
-                                src="{{ __("img/preloader.png") }}" data-img-src="{{ asset("icon/filter-dark.svg") }}"
+                                src="{{ __("img/preloader.png") }}" data-src="{{ asset("icon/filter-dark.svg") }}"
                                 alt="filter-dark">@lang('tours-section.search-btn')</x-seo-button>
                             <div class="spacer-xs"></div>
                     </div>
@@ -70,7 +70,7 @@
 
                                 <div class="thumb-img">
                                     <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                         data-img-src="{{ $post->main_image_url }}"
+                                         data-src="{{ $post->main_image_url }}"
                                          alt="img 25">
                                     <a href="{{ route("blog.post", ['slug' => $post->slug]) }}"
                                        class="full-size"></a>

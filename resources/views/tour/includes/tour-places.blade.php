@@ -2,8 +2,8 @@
     @if(true || in_array('places', $tour->active_tabs))
         <div class="accordion-item">
             <div class="accordion-title">
-        <span><img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                   data-img-src="{{asset('/icon/places.svg')}}"
+        <span><img loading="lazy" src="{{asset('img/preloader.png')}}"
+                   data-src="{{asset('icon/places.svg')}}"
                    alt="places"></span>@lang('tours-section.places')<i></i>
             </div>
             <div class="accordion-inner">

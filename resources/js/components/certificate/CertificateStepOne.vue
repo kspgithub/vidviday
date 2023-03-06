@@ -131,7 +131,7 @@
 
                         <span>
                             {{ packing.title[locale] || packing.title['uk'] }}
-                            <div class="img-ic"><img :data-img-src="packing.icon" alt=""></div>
+                            <div class="img-ic"><img :data-src="packing.icon" alt=""></div>
                             <div class="cina">{{ __('certificate-section.price') }}: {{
                                     packing.price
                                 }} {{ __('certificate-section.uah') }}</div>

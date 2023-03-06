@@ -2,118 +2,125 @@
 /* CONTACTS */
 /*//////////*/
 .contact-text {
-	margin-bottom: 10px;
-	a {
-		color: $text;
-		text-decoration: none;
-		&:before {
-			display: none;
-		}
-	}
+    margin-bottom: 10px;
+
+    a {
+        color: $text;
+        text-decoration: none;
+
+        &:before {
+            display: none;
+        }
+    }
 }
 
 .contact-img {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 
 .contact-form {
-	.btn {
-		margin-top: 40px;
-	}
+    .btn {
+        margin-top: 40px;
+    }
 }
 
 .map-wrapper {
-	height: 665px;
+    height: 665px;
 }
 
 .marker-label {
-	margin-top: -120px!important;
-	margin-left: 50px!important;
-	width: 300px;
-	cursor: default!important;
+    margin-top: -120px !important;
+    margin-left: 50px !important;
+    width: 300px;
+    cursor: default !important;
 }
 
 .marker-label-content {
-	font-size: 18px;
-	line-height: 23px;
+    font-size: 18px;
+    line-height: 23px;
 }
 
 .marker-label-link {
-	margin-top: 30px;
-	a {
-		font-size: 20px;
-		text-decoration: underline;
-	}
-	img {
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		margin-right: 10px;
-		vertical-align: middle;
-	}
+    margin-top: 30px;
+
+    a {
+        font-size: 20px;
+        text-decoration: underline;
+    }
+
+    img {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
 }
 
 .contact-img-row {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 /*///////*/
 /* HOVER */
 /*///////*/
 @media (min-width: 1200px) {
-	
-	.contact-text {
-		a {
-			&:hover {
-				color: $blue;
-			}
-		}
-	}
+
+    .contact-text {
+        a {
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
 }
+
 /*###############*/
 /* MEDIA QUERIES */
 /*###############*/
 @media (max-width: 1199px) {
 
-	.map-wrapper {
-		height: 580px;
-	}
+    .map-wrapper {
+        height: 580px;
+    }
 }
 
 @media (max-width: 991px) {
 
-	.contact-form {
-		margin-top: 40px;
-		.btn {
-			margin-top: 25px;
-		}
-	}
+    .contact-form {
+        margin-top: 40px;
+
+        .btn {
+            margin-top: 25px;
+        }
+    }
 }
 
 @media (max-width: 767px) {
 
-	.contact-form {
-		.btn {
-			margin-top: 0;
-			display: block;
-			width: 100%;
-		}
-	}
+    .contact-form {
+        .btn {
+            margin-top: 0;
+            display: block;
+            width: 100%;
+        }
+    }
 
-	.map-wrapper {
-		height: 360px;
-	}
+    .map-wrapper {
+        height: 360px;
+    }
 }
 
 @media (max-width: 575px) {
 
-	.contact-img-row {
-		> div[class*=col] {
-			margin-bottom: 16px;
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-	}
+    .contact-img-row {
+        > div[class*=col] {
+            margin-bottom: 16px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
 }

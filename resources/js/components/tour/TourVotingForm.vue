@@ -2,7 +2,7 @@
     <div id="tour-voting-form" class="sidebar-item testimonials vote">
         <div class="top-part b-border">
             <div class="title h3 title-icon">
-                <img src="/img/preloader.png" data-img-src="icon/done.svg" alt="done">
+                <img src="/img/preloader.png" data-src="icon/done.svg" alt="done">
                 <span>{{ __('tours-section.voting') }}</span>
             </div>
             <div class="spacer-xs"></div>
