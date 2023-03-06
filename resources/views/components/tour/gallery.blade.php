@@ -15,9 +15,11 @@
             <div class="swiper-wrapper">
                 @foreach($slides as $i => $slide)
                     <div class="swiper-slide">
-                        <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                             data-img-src="{{$slide->getFullUrl()}}"
-                             alt="{{$slide->alt}}" data-swiper-parallax="30%"
+                        <img {{ !!$i ? 'loading="lazy"' : '' }}
+                             {{ !!$i ? 'src=' . asset('/img/preloader.png') : 'src=' . $slide->getFullUrl() . '"' }}
+                             {{ !!$i ? 'data-src=' . $slide->getFullUrl() : '' }}
+                             alt="{{$slide->alt}}"
+                             data-swiper-parallax="30%"
                              class="swiper-lazy">
                         <div class="swiper-lazy-preloader"></div>
                         <div class="full-size">

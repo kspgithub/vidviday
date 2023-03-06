@@ -1,6 +1,6 @@
 <template>
     <div class="img">
-        <img :data-img-src="user.avatar_url" alt="user">
+        <img :data-src="user.avatar_url" alt="user">
     </div>
 </template>
 

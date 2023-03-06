@@ -1095,8 +1095,7 @@ label.invalid:after {
 label.invalid input,
 label.invalid textarea,
 select.invalid,
-select.invalid .SumoSelect
-{
+select.invalid .SumoSelect {
     border-color: #cf2020;
 }
 
@@ -3704,6 +3703,7 @@ button.swiper-pagination-bullet {
     position: absolute;
     background: center/contain url('/images/resume.svg') no-repeat;
 }
+
 .sidebar-item.tour-voting-form .h3:before {
     top: 0;
     left: 0;
@@ -3713,6 +3713,7 @@ button.swiper-pagination-bullet {
     position: absolute;
     background: center/contain url('/images/done.svg') no-repeat;
 }
+
 .sidebar-item.vacancy-form .btn {
     width: 100%;
 }
@@ -8254,9 +8255,11 @@ a.fc-more {
 .datepicker-input.active .datepicker-placeholder {
     //color: transparent;
 }
+
 .single-datepicker .datepicker-input .datepicker-placeholder input {
     padding: 12px 15px 10px;
 }
+
 .participant {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -8561,7 +8564,7 @@ a.fc-more {
     .participant .form > .text {
         float: left;
     }
-    participant .form{
+    participant .form {
         display: block !important;
     }
     .participant label,
@@ -10940,7 +10943,7 @@ footer .accordion-inner .spacer-xs {
 }
 
 .SumoSelect > .optWrapper > .options li label.checkbox span {
-    display: unset!important;
+    display: unset !important;
 }
 
 .SumoSelect > .optWrapper > .options li label {
@@ -11089,7 +11092,7 @@ footer .accordion-inner .spacer-xs {
 }
 
 .SumoSelect.open {
-    z-index: 75!important;
+    z-index: 75 !important;
 }
 
 .SumoSelect.open .search-txt {
@@ -12428,24 +12431,26 @@ nav,
 
 .swiper-button-prev.inner.vac {
     top: 100px;
-    bottom: auto!important;
+    bottom: auto !important;
     left: 0px !important;
 }
 
 .swiper-button-next.inner.vac {
     top: 100px;
-    bottom: auto!important;
+    bottom: auto !important;
     right: 0px !important;
 }
 
-.thumbs-carousel.vac .swiper-pagination {margin:0;top:auto;}
+.thumbs-carousel.vac .swiper-pagination {
+    margin: 0;
+    top: auto;
+}
 
 .thumbs-carousel.vac {
     padding: 0 60px;
     margin-top: 0px;
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
-
 
 
 .btn-book-size-d {
@@ -12639,13 +12644,13 @@ input[name="viber"]:-ms-input-placeholder {
     }
     .swiper-button-prev.inner.vac {
         top: auto;
-        bottom: 9px!important;
+        bottom: 9px !important;
         left: 0px !important;
         border: 0;
     }
     .swiper-button-next.inner.vac {
         top: auto;
-        bottom: 9px!important;
+        bottom: 9px !important;
         right: 0px !important;
         border: 0;
     }
@@ -13092,13 +13097,12 @@ input[name="viber"]:-ms-input-placeholder {
 }
 
 // Fix tooltip
-label, .datepicker-placeholder
-{
+label, .datepicker-placeholder {
     &:after {
-        left: 100%!important;
-        transform: translateX(-100%)!important;
-        margin: 0 20px!important;
-        display: block!important;
+        left: 100% !important;
+        transform: translateX(-100%) !important;
+        margin: 0 20px !important;
+        display: block !important;
     }
 }
 
@@ -13131,14 +13135,14 @@ label, .datepicker-placeholder
 
 .popup-content {
     .swiper-slide {
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
 
         @media (max-width: 768px) {
-            flex-direction: column-reverse!important;
+            flex-direction: column-reverse !important;
 
             .text-md {
-                position: relative!important;
+                position: relative !important;
             }
         }
     }

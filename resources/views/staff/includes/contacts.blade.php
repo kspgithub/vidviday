@@ -24,7 +24,7 @@
                 @if(!empty($staff->skype))
                     <div class="contact">
                         <div class="img">
-                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/skype.svg')}}"
+                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/skype.svg')}}"
                                  alt="skype">
                         </div>
                         <a href="skype:{{$staff->skype}}?call">{{$staff->skype}}</a>
@@ -33,7 +33,7 @@
                 @if(!empty($staff->viber))
                     <div class="contact">
                         <div class="img">
-                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/viber.svg')}}"
+                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/viber.svg')}}"
                                  alt="viber">
                         </div>
                         <a href="viber:{{$staff->viber}}">{{$staff->viber}}</a>
@@ -42,7 +42,7 @@
                 @if(!empty($staff->whatsapp))
                     <div class="contact">
                         <div class="img">
-                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/whatsapp.svg')}}"
+                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/whatsapp.svg')}}"
                                  alt="whatsapp">
                         </div>
                         <a href="https://wa.me/{{clear_phone($staff->whatsapp)}}">{{$staff->whatsapp}}</a>
@@ -51,7 +51,7 @@
                 @if(!empty($staff->telegram))
                     <div class="contact">
                         <div class="img">
-                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{asset('icon/telegram.svg')}}"
+                            <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/telegram.svg')}}"
                                  alt="telegram">
                         </div>
                         <a href="https://t.me/{{str_replace('@', '', $staff->telegram)}}">{{'@'.str_replace('@', '', $staff->telegram)}}</a>

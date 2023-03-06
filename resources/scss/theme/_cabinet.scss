@@ -2,50 +2,61 @@
 /* CABINET */
 /*/////////*/
 #content-block {
-	&.cabinet-page {
-		padding-top: 50px;
-	}
+    &.cabinet-page {
+        padding-top: 50px;
+    }
 }
 
 .cabinet-page {
-	overflow: visible;
-	.tab-toggle {
-		padding-top: 10px;
-		border-bottom: none;
-	}
-	.tab {
-		padding: 30px 60px;
-		border-radius: 10px;
-		background-color: #fff;
-		.h2 {
-			font-size: 22px;
-			font-weight: 500;
-			line-height: 24px;
-			& + .text {
-				margin-top: 10px;
-			}
-		}
-		.h4 {
-			display: block;
-			margin-bottom: 14px;
-		}
-		hr {
-			margin: 35px -60px;
-		}
-		.btn-read-more {
-			font-size: 12px;
-			&:after {
-				display: none;
-			}
-		}
-		.align-items-center {
-			align-items: center;
-		}
-		.img-input-wrap {
-			display: flex;
-			align-items: center;
-			.img,
-			.loaded-img {
+    overflow: visible;
+
+    .tab-toggle {
+        padding-top: 10px;
+        border-bottom: none;
+    }
+
+    .tab {
+        padding: 30px 60px;
+        border-radius: 10px;
+        background-color: #fff;
+
+        .h2 {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 24px;
+
+            & + .text {
+                margin-top: 10px;
+            }
+        }
+
+        .h4 {
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        hr {
+            margin: 35px -60px;
+        }
+
+        .btn-read-more {
+            font-size: 12px;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .img-input-wrap {
+            display: flex;
+            align-items: center;
+
+            .img,
+            .loaded-img {
                 width: 80px;
                 height: 80px;
                 border-radius: 10px;
@@ -57,127 +68,149 @@
                 }
 
             }
-			.img {
-				float: left;
-				overflow: hidden;
-			}
-			.loaded-img {
-				margin-bottom: 0;
-				margin-left: 20px;
-			}
-			.img-input {
-				width: auto;
-				height: auto;
-			}
-			.btn {
-				margin-left: 20px;
-				margin-bottom: 0;
-			}
-		}
-	}
-	.accordion {
-		&.type-1 {
-			.accordion-title {
-				display: flex;
-				padding-left: 0;
-				align-items: center;
-				.text,
-				.h4,
-				.calendar-header-center,
-				.calendar-header-center .text-sm {
-					top: auto;
-					left: auto;
-					right: auto;
-					width: auto;
-					height: auto;
-					position: relative;
-					display: inline-block;
-					vertical-align: middle;
-				}
-				.text {
-					margin-right: 40px;
-				}
-				.h4 {
-					margin-bottom: 0;
-				}
-				.calendar-header-center {
-					min-width: 120px;
-					margin-left: auto;
-					margin-right: 70px;
-					&.waiting {
-						.text-sm {
-							&:before {
-								background-color: $pink;
-							}
-						}
-					}
-					&.paid {
-						.text-sm {
-							&:before {
-								background-color: $olive;
-							}
-						}
-					}
-					&.canceled {
-						.text-sm {
-							&:before {
-								background-color: $border;
-							}
-						}
-					}
-				}
-				.download {
-					margin-right: 20px;
-				}
-			}
-			.more-info {
-				padding-left: 0;
-				.text-sm {
-					line-height: 22px;
-				}
-			}
-		}
-	}
+
+            .img {
+                float: left;
+                overflow: hidden;
+            }
+
+            .loaded-img {
+                margin-bottom: 0;
+                margin-left: 20px;
+            }
+
+            .img-input {
+                width: auto;
+                height: auto;
+            }
+
+            .btn {
+                margin-left: 20px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .accordion {
+        &.type-1 {
+            .accordion-title {
+                display: flex;
+                padding-left: 0;
+                align-items: center;
+
+                .text,
+                .h4,
+                .calendar-header-center,
+                .calendar-header-center .text-sm {
+                    top: auto;
+                    left: auto;
+                    right: auto;
+                    width: auto;
+                    height: auto;
+                    position: relative;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                .text {
+                    margin-right: 40px;
+                }
+
+                .h4 {
+                    margin-bottom: 0;
+                }
+
+                .calendar-header-center {
+                    min-width: 120px;
+                    margin-left: auto;
+                    margin-right: 70px;
+
+                    &.waiting {
+                        .text-sm {
+                            &:before {
+                                background-color: $pink;
+                            }
+                        }
+                    }
+
+                    &.paid {
+                        .text-sm {
+                            &:before {
+                                background-color: $olive;
+                            }
+                        }
+                    }
+
+                    &.canceled {
+                        .text-sm {
+                            &:before {
+                                background-color: $border;
+                            }
+                        }
+                    }
+                }
+
+                .download {
+                    margin-right: 20px;
+                }
+            }
+
+            .more-info {
+                padding-left: 0;
+
+                .text-sm {
+                    line-height: 22px;
+                }
+            }
+        }
+    }
 }
 
 .history {
-	padding: 0 20px 10px;
-	border-radius: 5px;
-	background-color: $footer;
-	.row {
-		padding: 10px 0;
-		position: relative;
-		&:after {
-			bottom: 0;
-			left: 15px;
-			right: 15px;
-			content: '';
-			height: 1px;
-			position: absolute;
-			background-color: $border;
-		}
-		&:last-child {
-			&:after {
-				display: none;
-			}
-		}
-		> div {
-			&:last-child {
-				.text {
-					color: $title;
-				}
-			}
-		}
-	}
-	.download {
-		margin-bottom: 10px;
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-	.btn {
-		margin-top: 15px;
-	}
+    padding: 0 20px 10px;
+    border-radius: 5px;
+    background-color: $footer;
+
+    .row {
+        padding: 10px 0;
+        position: relative;
+
+        &:after {
+            bottom: 0;
+            left: 15px;
+            right: 15px;
+            content: '';
+            height: 1px;
+            position: absolute;
+            background-color: $border;
+        }
+
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
+
+        > div {
+            &:last-child {
+                .text {
+                    color: $title;
+                }
+            }
+        }
+    }
+
+    .download {
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .btn {
+        margin-top: 15px;
+    }
 }
 
 .delete-account {
@@ -192,10 +225,11 @@
 }
 
 .additional-block {
-	border-radius: 5px;
-	padding: 10px 20px 30px;
-	background-color: $footer;
-	> div {
+    border-radius: 5px;
+    padding: 10px 20px 30px;
+    background-color: $footer;
+
+    > div {
         display: flex;
         margin-bottom: 10px;
         padding-bottom: 10px;
@@ -234,27 +268,28 @@
 }
 
 .add-note-toggle {
-	display: none;
+    display: none;
 }
 
 .add-note-btns {
-	font-size: 0;
-	> span {
-		display: inline-block;
-		vertical-align: middle;
-	}
+    font-size: 0;
+
+    > span {
+        display: inline-block;
+        vertical-align: middle;
+    }
 }
 
 .add-note-btn,
 .add-note-btn-cancel,
 .cancel-tour-btn {
-	color: $title;
-	cursor: pointer;
-	text-transform: uppercase;
+    color: $title;
+    cursor: pointer;
+    text-transform: uppercase;
 }
 
 .add-note-btn-cancel {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 /*///////*/
@@ -262,26 +297,26 @@
 /*///////*/
 @media (min-width: 1200px) {
 
-	.cabinet-page {
-		.accordion {
-			&.type-1 {
-				.accordion-title {
-					&:hover {
-						.h4 {
-							color: $blue;
-						}
-					}
-				}
-			}
-		}
-	}
+    .cabinet-page {
+        .accordion {
+            &.type-1 {
+                .accordion-title {
+                    &:hover {
+                        .h4 {
+                            color: $blue;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	.delete-account,
-	.add-note-btn .text-bold {
-		&:hover {
-			color: $green;
-		}
-	}
+    .delete-account,
+    .add-note-btn .text-bold {
+        &:hover {
+            color: $green;
+        }
+    }
 }
 
 /*///////////////*/
@@ -298,89 +333,102 @@
 
 @media (min-width: 1200px) {
 
-	.cabinet-page {
-		background-color: $footer;
-		.tab-nav {
-			top: 110px;
-			position: sticky;
-		}
-		.tab-caption {
-			display: block;
-			margin-right: 0;
-			text-align: left;
-			margin-bottom: 20px;
-			&:last-child {
-				margin-bottom: 0;
-			}
-			&:before {
-				display: none;
-			}
-			svg {
-				max-width: 20px;
-				max-height: 20px;
-			}
-			a {
-				width: 100%;
-				display: block;
-			}
-			&.active {
-				color: $blue;
-			}
-		}
-	}
+    .cabinet-page {
+        background-color: $footer;
+
+        .tab-nav {
+            top: 110px;
+            position: sticky;
+        }
+
+        .tab-caption {
+            display: block;
+            margin-right: 0;
+            text-align: left;
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:before {
+                display: none;
+            }
+
+            svg {
+                max-width: 20px;
+                max-height: 20px;
+            }
+
+            a {
+                width: 100%;
+                display: block;
+            }
+
+            &.active {
+                color: $blue;
+            }
+        }
+    }
 }
 
 @media (max-width: 1199px) {
 
-	.cabinet-page {
-		overflow: hidden;
-	}
+    .cabinet-page {
+        overflow: hidden;
+    }
 
-	.cabinet-page .tab-nav,
-	.faq-tab-nav {
-		display: flex;
-		align-items: center;
-		white-space: nowrap;
-		overflow: auto;
-		&::-webkit-scrollbar {
-			width: 2px;
-			height: 2px;
-		}
-		&::-webkit-scrollbar-track {
-			background-color: transparent;
-		}
-		&::-webkit-scrollbar-thumb {
-			background-color: $grey;
-		}
-		+ .spacer-xs {
-			display: none;
-		}
-		.delete-account {
-			color: $text;
-			margin-left: 40px;
-			margin-bottom: 10px;
-		}
-		.tab-toggle {
-			display: block !important;
-		}
-	}
+    .cabinet-page .tab-nav,
+    .faq-tab-nav {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        overflow: auto;
 
-	.add-note-btn .text-bold {
-		color: $title;
-		font-size: 14px;
-		font-weight: 700;
-		line-height: 24px;
-		letter-spacing: .1em;
-		text-transform: uppercase;
-	}
+        &::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+        }
 
-	.cabinet-page {
-		.tab-caption {
-			a {
-				pointer-events: none;
-			}
-		}
-	}
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $grey;
+        }
+
+        + .spacer-xs {
+            display: none;
+        }
+
+        .delete-account {
+            color: $text;
+            margin-left: 40px;
+            margin-bottom: 10px;
+        }
+
+        .tab-toggle {
+            display: block !important;
+        }
+    }
+
+    .add-note-btn .text-bold {
+        color: $title;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    .cabinet-page {
+        .tab-caption {
+            a {
+                pointer-events: none;
+            }
+        }
+    }
 }
 
 @media (min-width: 992px) {
@@ -388,91 +436,102 @@
 
 @media (max-width: 991px) {
 
-	.cabinet-page {
-		.tab {
-			padding: 30px 0;
-		}
-		.accordion {
-			&.type-1 {
-				> .accordion-item {
-					&.active,
-					&:not(.active) {
-						> .accordion-inner {
-							padding: 0 0 30px;
-							.history {
-								padding: 0 20px;
-							}
-						}
-					}
-				}
-				.accordion-title {
-					.calendar-header-center {
-						margin-right: 15px;
-						margin-left: auto;
-					}
-				}
-			}
-		}
-	}
+    .cabinet-page {
+        .tab {
+            padding: 30px 0;
+        }
 
-	.faq-tab-nav {
-		margin-bottom: 30px;
-	}
+        .accordion {
+            &.type-1 {
+                > .accordion-item {
+                    &.active,
+                    &:not(.active) {
+                        > .accordion-inner {
+                            padding: 0 0 30px;
+
+                            .history {
+                                padding: 0 20px;
+                            }
+                        }
+                    }
+                }
+
+                .accordion-title {
+                    .calendar-header-center {
+                        margin-right: 15px;
+                        margin-left: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .faq-tab-nav {
+        margin-bottom: 30px;
+    }
 }
 
 @media (max-width: 767px) {
 
-	.cabinet-page {
-		.delete-account {
-			margin-left: 20px;
-		}
-		.accordion {
-			&.type-1 {
-				.accordion-title {
-					padding-top: 60px;
-					padding-right: 35px;
-					padding-bottom: 15px;
-					> .text,
-					.calendar-header-center,
-					.download {
-						top: 0;
-						position: absolute;
-					}
-					> .text {
-						top: 20px;
-						left: 0;
-						margin-right: 0;
-					}
-					.calendar-header-center {
-						top: 16px;
-						left: 85px;
-						> .text-sm {
-							bottom: auto;
-						}
-					}
-					.download {
-						top: 15px;
-						right: 50px;
-						margin-right: 0;
-					}
-					> i {
-						top: 16px;
-						right: 0;
-					}
-				}
-				.accordion-item.active,
-				.accordion-item:not(.active) {
-					.accordion-inner {
-						.history,
-						.additional-block {
-							padding: 0;
-							background-color: transparent;
-						}
-					}
-				}
-			}
-		}
-	}
+    .cabinet-page {
+        .delete-account {
+            margin-left: 20px;
+        }
+
+        .accordion {
+            &.type-1 {
+                .accordion-title {
+                    padding-top: 60px;
+                    padding-right: 35px;
+                    padding-bottom: 15px;
+
+                    > .text,
+                    .calendar-header-center,
+                    .download {
+                        top: 0;
+                        position: absolute;
+                    }
+
+                    > .text {
+                        top: 20px;
+                        left: 0;
+                        margin-right: 0;
+                    }
+
+                    .calendar-header-center {
+                        top: 16px;
+                        left: 85px;
+
+                        > .text-sm {
+                            bottom: auto;
+                        }
+                    }
+
+                    .download {
+                        top: 15px;
+                        right: 50px;
+                        margin-right: 0;
+                    }
+
+                    > i {
+                        top: 16px;
+                        right: 0;
+                    }
+                }
+
+                .accordion-item.active,
+                .accordion-item:not(.active) {
+                    .accordion-inner {
+                        .history,
+                        .additional-block {
+                            padding: 0;
+                            background-color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 575px) {

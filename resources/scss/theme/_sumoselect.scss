@@ -2,73 +2,85 @@
 /* SUMOSELECT */
 /*############*/
 .touch-screen {
-	.CaptionCont.SelectBox {
-		pointer-events: none;
-	}
+    .CaptionCont.SelectBox {
+        pointer-events: none;
+    }
 }
 
 .SumoSelect {
-	z-index: 1;
-	outline: none;
-	position: relative;
-	margin-bottom: 20px;
-	p {
-		margin: 0;
-	}
-	.hidden {
-		display: none;
-	}
-	/* Filtering style */
-	.search-txt{
-		display: none;
-		outline: none;
-	}
-	.no-match {
-		display: none;
-		padding: 6px;
-	}
-	label {
-		margin-bottom: 0;
-	}
-	> .optWrapper > .options  li.opt label,
-	> .CaptionCont,
-	.select-all > label {
-		user-select: none;
-	}
-	> .CaptionCont {
-		z-index: 3;
-		height: 48px;
-		cursor: pointer;
-		position: relative;
-		border-radius: 5px;
-		background-color: #fff;
-		padding: 12px 15px 10px;
-		border: 1px solid $border;
-		&:after {
-			@include dropdownArrow($text);
-			@include dropdownArrowRight(15px);
-		}
-		> span {
-			color: $text;
-			display: block;
-			cursor: pointer;
-			font-size: 14px;
-			overflow: hidden;
-			line-height: 22px;
-			padding-right: 15px;
-			white-space: nowrap;
-			letter-spacing: 0.5px;
-			text-overflow: ellipsis;
-            margin: 0!important;
-			&.placeholder {
-				font-style: normal;
-			}
-		}
-		> label {
-			display: none;
-		}
-	}
-	> .optWrapper {
+    z-index: 1;
+    outline: none;
+    position: relative;
+    margin-bottom: 20px;
+
+    p {
+        margin: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* Filtering style */
+    .search-txt {
+        display: none;
+        outline: none;
+    }
+
+    .no-match {
+        display: none;
+        padding: 6px;
+    }
+
+    label {
+        margin-bottom: 0;
+    }
+
+    > .optWrapper > .options li.opt label,
+    > .CaptionCont,
+    .select-all > label {
+        user-select: none;
+    }
+
+    > .CaptionCont {
+        z-index: 3;
+        height: 48px;
+        cursor: pointer;
+        position: relative;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 12px 15px 10px;
+        border: 1px solid $border;
+
+        &:after {
+            @include dropdownArrow($text);
+            @include dropdownArrowRight(15px);
+        }
+
+        > span {
+            color: $text;
+            display: block;
+            cursor: pointer;
+            font-size: 14px;
+            overflow: hidden;
+            line-height: 22px;
+            padding-right: 15px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-overflow: ellipsis;
+            margin: 0 !important;
+
+            &.placeholder {
+                font-style: normal;
+            }
+        }
+
+        > label {
+            display: none;
+        }
+    }
+
+    > .optWrapper {
         top: -4px;
         left: -4px;
         right: -4px;
@@ -89,274 +101,315 @@
             display: block;
             padding: 0;
             margin: 0;
-		}
-		> .options {
-			overflow-y: auto;
-			overflow-x: hidden;
-			max-height: 210px;
+        }
 
-			&::-webkit-scrollbar {
-				width: 2px;
-				height: 2px;
-			}
-			&::-webkit-scrollbar-track {
-				background-color: transparent;
-			}
-			&::-webkit-scrollbar-thumb {
-				background-color: $blue;
-			}
-			/*Set the height of pop up here (only for desktop mode)*/
-			li {
-				cursor: pointer;
-				/* &:first-child {
-					display: none;
-				} */
-				span {
-					display: none;
-				}
-				label {
-					color: $text;
-					display: block;
-					cursor: pointer;
-					font-size: 14px;
-					overflow: hidden;
-					line-height: 22px;
-					white-space: nowrap;
-					letter-spacing: 0.5px;
-					text-overflow: ellipsis;
-				}
-				&.opt {
-					position: relative;
-					padding: 6px 15px;
-					&:last-child {
-						border-bottom: none;
-					}
-					&.disabled {
-						display: none;
-					}
-					&.selected {
-						label {
-							color: $blue;
-						}
-					}
-				}
-				&.group {
-					> label {
-						cursor: default;
-						padding: 8px 6px;
-						font-weight: bold;
-					}
-					&.disabled {
-						* {
-							filter: alpha(opacity=50);
-							opacity: .5;
-						}
-						> label {
-							opacity: .5;
-						}
-					}
-				}
-				&.optGroup {
-					padding-left: 5px;
-					text-decoration: underline;
-				}
-			}
-			li ul li.opt {
-				padding-left: 22px;
-			}
-		}
-		&.multiple {
-			> .options {
-				li {
-					&.opt {
-						padding-left: 35px;
-						cursor: pointer;
-					}
-					ul li.opt {
-						padding-left: 50px;
-					}
-				}
-			}
-			> .MultiControls > p {
-				display: inline-block;
-				cursor: pointer;
-				padding: 12px;
-				width: 50%;
-				box-sizing: border-box;
-				text-align: center;
-				&.btnOk {
-					border-right: 1px solid #DBDBDB;
-				}
-			}
-			&.isFloating {
-				padding-bottom: 43px;
-				> .MultiControls {
-					display: block;
-					margin-top: 5px;
-					position: absolute;
-					bottom: 0;
-					width: 100%;
-				}
-				> .options li.opt {
-					padding-left: 35px;
-				}
-			}
-			&.okCancelInMulti {
-				> .MultiControls {
-					display: block;
-					> p {
-						padding: 6px;
-					}
-				}
-			}
-		}
-		&.isFloating {
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			width: 90%;
-			bottom: 0;
-			margin: auto;
-			max-height: 90%;
-			> .options {
-				max-height: 100%;
-				li {
-					&.opt {
-						padding: 12px 6px;
-					}
-				}
-			}
-		}
-		> .MultiControls {
-			display: none;
-			border-top: 1px solid #ddd;
-			background-color: #fff;
-		}
-	}
-	.select-all {
-		position: relative;
-		border-bottom: 1px solid #ddd;
-		background-color: #fff;
-		padding: 8px 0 3px 35px;
-		height: 20px;
-		cursor: pointer;
-		&.partial > span i {
-			background-color: #ccc;
-		}
-	}
-	&:not(.open) {
-		transition: z-index .35s ease-in-out;
-	}
-	&.open {
-		z-index: 71;
-		.search-txt {
-			top: 0;
-			left: 0;
-			margin: 0;
-			width: 100%;
-			border: none;
-			padding: 5px 8px;
-			position: absolute;
-			display: inline-block;
-			box-sizing: border-box;
-		}
-		> .search > span,
-		> .search > label {
-			visibility: hidden;
-		}
-		> .optWrapper {
-			opacity: 1;
-			transform: none;
-			visibility: visible;
-			&.up {
-				top: auto;
-				bottom: 100%;
-				margin-bottom: 5px;
-			}
-		}
-		> .CaptionCont {
-			&:after {
-				@include dropdownArrowActive($blue)
-			}
-		}
-	}
-	&.disabled {
-		opacity: .7;
-		cursor: not-allowed;
-		> .CaptionCont{
-			border-color: #ccc;
-		}
-	}
+        > .options {
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 210px;
+
+            &::-webkit-scrollbar {
+                width: 2px;
+                height: 2px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: $blue;
+            }
+
+            /*Set the height of pop up here (only for desktop mode)*/
+            li {
+                cursor: pointer;
+                /* &:first-child {
+                    display: none;
+                } */
+                span {
+                    display: none;
+                }
+
+                label {
+                    color: $text;
+                    display: block;
+                    cursor: pointer;
+                    font-size: 14px;
+                    overflow: hidden;
+                    line-height: 22px;
+                    white-space: nowrap;
+                    letter-spacing: 0.5px;
+                    text-overflow: ellipsis;
+                }
+
+                &.opt {
+                    position: relative;
+                    padding: 6px 15px;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &.disabled {
+                        display: none;
+                    }
+
+                    &.selected {
+                        label {
+                            color: $blue;
+                        }
+                    }
+                }
+
+                &.group {
+                    > label {
+                        cursor: default;
+                        padding: 8px 6px;
+                        font-weight: bold;
+                    }
+
+                    &.disabled {
+                        * {
+                            filter: alpha(opacity=50);
+                            opacity: .5;
+                        }
+
+                        > label {
+                            opacity: .5;
+                        }
+                    }
+                }
+
+                &.optGroup {
+                    padding-left: 5px;
+                    text-decoration: underline;
+                }
+            }
+
+            li ul li.opt {
+                padding-left: 22px;
+            }
+        }
+
+        &.multiple {
+            > .options {
+                li {
+                    &.opt {
+                        padding-left: 35px;
+                        cursor: pointer;
+                    }
+
+                    ul li.opt {
+                        padding-left: 50px;
+                    }
+                }
+            }
+
+            > .MultiControls > p {
+                display: inline-block;
+                cursor: pointer;
+                padding: 12px;
+                width: 50%;
+                box-sizing: border-box;
+                text-align: center;
+
+                &.btnOk {
+                    border-right: 1px solid #DBDBDB;
+                }
+            }
+
+            &.isFloating {
+                padding-bottom: 43px;
+
+                > .MultiControls {
+                    display: block;
+                    margin-top: 5px;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                }
+
+                > .options li.opt {
+                    padding-left: 35px;
+                }
+            }
+
+            &.okCancelInMulti {
+                > .MultiControls {
+                    display: block;
+
+                    > p {
+                        padding: 6px;
+                    }
+                }
+            }
+        }
+
+        &.isFloating {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 90%;
+            bottom: 0;
+            margin: auto;
+            max-height: 90%;
+
+            > .options {
+                max-height: 100%;
+
+                li {
+                    &.opt {
+                        padding: 12px 6px;
+                    }
+                }
+            }
+        }
+
+        > .MultiControls {
+            display: none;
+            border-top: 1px solid #ddd;
+            background-color: #fff;
+        }
+    }
+
+    .select-all {
+        position: relative;
+        border-bottom: 1px solid #ddd;
+        background-color: #fff;
+        padding: 8px 0 3px 35px;
+        height: 20px;
+        cursor: pointer;
+
+        &.partial > span i {
+            background-color: #ccc;
+        }
+    }
+
+    &:not(.open) {
+        transition: z-index .35s ease-in-out;
+    }
+
+    &.open {
+        z-index: 71;
+
+        .search-txt {
+            top: 0;
+            left: 0;
+            margin: 0;
+            width: 100%;
+            border: none;
+            padding: 5px 8px;
+            position: absolute;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        > .search > span,
+        > .search > label {
+            visibility: hidden;
+        }
+
+        > .optWrapper {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+
+            &.up {
+                top: auto;
+                bottom: 100%;
+                margin-bottom: 5px;
+            }
+        }
+
+        > .CaptionCont {
+            &:after {
+                @include dropdownArrowActive($blue)
+            }
+        }
+    }
+
+    &.disabled {
+        opacity: .7;
+        cursor: not-allowed;
+
+        > .CaptionCont {
+            border-color: #ccc;
+        }
+    }
 }
+
 /* .SelectBox {padding: 5px 8px;} */
 .sumoStopScroll {
-	overflow:hidden;
+    overflow: hidden;
 }
+
 /*this is applied on that hidden select. DO NOT USE display:none; or visiblity:hidden; and Do not override any of these properties. */
 .SelectClass,
 .SumoUnder {
-	top: 0;
-	left: 0;
-	right: 0;
-	opacity: 0;
-	width: 100%;
-	height: 100%;
-	border: none;
-	position: absolute;
-	box-sizing: border-box;
-	filter: alpha(opacity=0);
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    box-sizing: border-box;
+    filter: alpha(opacity=0);
 }
 
 .SelectClass {
-	z-index: 1;
+    z-index: 1;
 }
 
 .SumoSelect > .optWrapper > .options li.opt.sel,
 .SumoSelect .select-all.sel {
-	background-color: #a1c0e4;
+    background-color: #a1c0e4;
 }
 
 .SumoSelect > .optWrapper.multiple > .options li.opt span,
 .SumoSelect .select-all > span {
-	top: 0;
-	bottom: 0;
-	width: 30px;
-	display: block;
-	margin-left: -35px;
-	position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    display: block;
+    margin-left: -35px;
+    position: absolute;
 }
 
 .SumoSelect > .optWrapper.multiple > .options li.opt span i,
 .SumoSelect .select-all > span i {
-	position: absolute;
-	margin: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: 14px;
-	height: 14px;
-	border: 1px solid #AEAEAE;
-	background-color: #fff;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #AEAEAE;
+    background-color: #fff;
 }
+
 .SumoSelect > .optWrapper > .options li.opt.selected {
-	color: #ff6b02;
+    color: #ff6b02;
 }
 
 .SumoSelect > .optWrapper.multiple > .options li.opt.selected span i,
 .SumoSelect .select-all.selected > span i,
-.SumoSelect .select-all.partial > span i{
-	background-color: rgb(17, 169, 17);
-	border-color: transparent;
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAABMSURBVAiZfc0xDkAAFIPhd2Kr1WRjcAExuIgzGUTIZ/AkImjSofnbNBAfHvzAHjOKNzhiQ42IDFXCDivaaxAJd0xYshT3QqBxqnxeHvhunpu23xnmAAAAAElFTkSuQmCC');
-	background-repeat: no-repeat;
-	background-position: center center;
+.SumoSelect .select-all.partial > span i {
+    background-color: rgb(17, 169, 17);
+    border-color: transparent;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAABMSURBVAiZfc0xDkAAFIPhd2Kr1WRjcAExuIgzGUTIZ/AkImjSofnbNBAfHvzAHjOKNzhiQ42IDFXCDivaaxAJd0xYshT3QqBxqnxeHvhunpu23xnmAAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .SumoSelect .select-all > label,
 .SumoSelect .select-all > span i {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .custom-select {
@@ -385,17 +438,20 @@
                     display: inline-block;
                     vertical-align: middle;
                 }
+
                 img {
                     max-width: 40px;
                     border-radius: 5px;
                     margin-right: 10px;
                 }
-                label {}
+
+                label {
+                }
             }
         }
     }
 
-	& + .CaptionCont {
+    & + .CaptionCont {
         img,
         label {
             max-width: 40px;
@@ -407,34 +463,38 @@
         }
 
         & + .optWrapper {
-			.opt {
-				img,
-				label {
-					display: inline-block;
-					vertical-align: middle;
-				}
-				img {
-					max-width: 40px;
-					border-radius: 5px;
-					margin-right: 10px;
-				}
-				label {}
-			}
-		}
-	}
+            .opt {
+                img,
+                label {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                img {
+                    max-width: 40px;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                }
+
+                label {
+                }
+            }
+        }
+    }
 }
+
 /*#######*/
 /* HOVER */
 /*#######*/
 @media (min-width: 1200px) {
 
-	.SumoSelect > .optWrapper > .options li.opt:hover label {
-		color: $blue;
-	}
+    .SumoSelect > .optWrapper > .options li.opt:hover label {
+        color: $blue;
+    }
 
-	.CaptionCont {
-		&:hover {
-			border-color: $blue;
-		}
-	}
+    .CaptionCont {
+        &:hover {
+            border-color: $blue;
+        }
+    }
 }

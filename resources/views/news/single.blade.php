@@ -37,7 +37,7 @@
                     <div class="only-pad-mobile">
                         <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex">
                             <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                 data-img-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
+                                 data-src="{{ asset('icon/filter-dark.svg') }}" alt="filter-dark">
                             {{ __("Підбір туру") }}
                         </x-seo-button>
                         <div class="spacer-xs"></div>
@@ -47,7 +47,7 @@
                         @foreach($newsSingle->media as $media)
                             @if($media->collection_name === "main")
                                 <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                     data-img-src="{{ $media->getUrl('thumb') }}"
+                                     data-src="{{ $media->getUrl('thumb') }}"
                                      alt="banner img 11">
                             @endif
                         @endforeach

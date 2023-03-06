@@ -5,21 +5,21 @@
             @if($pictures->count() > 0)
                 <li class="tab-caption active">
                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{asset('/icon/photo.svg')}}"
+                         data-src="{{asset('/icon/photo.svg')}}"
                          alt="placeholder light">@lang('tours-section.banner-tabs.section-photo')
                 </li>
             @endif
             @if($tour->show_map)
                 <li class="tab-caption {{$pictures->count() > 0 ? '' : 'active'}}">
                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{asset('/icon/placeholder-light.svg')}}"
+                         data-src="{{asset('/icon/placeholder-light.svg')}}"
                          alt="placeholder light">@lang('tours-section.banner-tabs.section-map')
                 </li>
             @endif
             @if(!empty($tour->video))
                 <li class="tab-caption">
                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                         data-img-src="{{asset('/icon/video.svg')}}"
+                         data-src="{{asset('/icon/video.svg')}}"
                          alt="video">@lang('tours-section.banner-tabs.section-video')
                 </li>
             @endif

@@ -2,92 +2,105 @@
 /* REGISTRATION */
 /*##############*/
 .registration-page {
-	.h1 {
-		margin-bottom: 10px;
-		span {
-			color: $blue;
-		}
-		& + .text {
-			color: $title;
-		}
-	}
-	.tab-toggle {
-		font-size: 0;
-		border: none;
-	}
-	.tab-caption {
-		margin: 0;
-		color: $text;
-		font-size: 14px;
-		text-align: left;
-		font-weight: 500;
-		line-height: 24px;
-		padding: 8px 30px;
-		border-radius: 5px;
-		margin-right: -2px;
-		border: 2px solid $border;
-		&:before {
-			display: none;
-		}
-		&:first-child {
-			border-radius: 5px 0 0 5px;
-		}
-		&:last-child {
-			margin-right: 0;
-			border-radius: 0 5px 5px 0;
-		}
-		span {
-			width: 24px;
-			height: 24px;
-			color: $text;
-			font-size: 12px;
-			line-height: 22px;
-			text-align: center;
-			border-radius: 50%;
-			margin-right: 15px;
-			border: 1px solid #fff;
-			background-color: #fff;
-		}
-		&.active {
-			z-index: 1;
-			color: $blue;
-			border-color: $blue;
-		}
-	}
+    .h1 {
+        margin-bottom: 10px;
+
+        span {
+            color: $blue;
+        }
+
+        & + .text {
+            color: $title;
+        }
+    }
+
+    .tab-toggle {
+        font-size: 0;
+        border: none;
+    }
+
+    .tab-caption {
+        margin: 0;
+        color: $text;
+        font-size: 14px;
+        text-align: left;
+        font-weight: 500;
+        line-height: 24px;
+        padding: 8px 30px;
+        border-radius: 5px;
+        margin-right: -2px;
+        border: 2px solid $border;
+
+        &:before {
+            display: none;
+        }
+
+        &:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        span {
+            width: 24px;
+            height: 24px;
+            color: $text;
+            font-size: 12px;
+            line-height: 22px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 1px solid #fff;
+            background-color: #fff;
+        }
+
+        &.active {
+            z-index: 1;
+            color: $blue;
+            border-color: $blue;
+        }
+    }
 }
 
 .or {
-	position: relative;
-	text-align: center;
-	&:before {
-		top: 50%;
-		left: 0;
-		right: 0;
-		content: '';
-		height: 1px;
-		position: absolute;
-		background-color: $border;
-	}
-	span {
-		padding: 0 10px;
-		position: relative;
-		display: inline-block;
-		background-color: #fff;
-	}
+    position: relative;
+    text-align: center;
+
+    &:before {
+        top: 50%;
+        left: 0;
+        right: 0;
+        content: '';
+        height: 1px;
+        position: absolute;
+        background-color: $border;
+    }
+
+    span {
+        padding: 0 10px;
+        position: relative;
+        display: inline-block;
+        background-color: #fff;
+    }
 }
+
 /*#######*/
 /* HOVER */
 /*#######*/
 @media (min-width: 1200px) {
 
-	.registration-page {
-		.tab-caption {
-			&:hover {
-				color: $blue;
-			}
-		}
-	}
+    .registration-page {
+        .tab-caption {
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
 }
+
 /*###############*/
 /* MEDIA QUERIES */
 /*###############*/

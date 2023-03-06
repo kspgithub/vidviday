@@ -7,11 +7,11 @@
                 <ul class="tab-toggle">
                     @if ( !empty($place->media))
                         <li class="tab-caption active"><img loading="lazy" src="{{asset('img/preloader.png')}}"
-                                                            data-img-src="icon/photo.svg" alt="placeholder light">Фото
+                                                            data-src="icon/photo.svg" alt="placeholder light">Фото
                         </li>
                     @endif
                     @if ( !empty($place->video))
-                        <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="icon/video.svg"
+                        <li class="tab-caption"><img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="icon/video.svg"
                                                      alt="video">Відео
                         </li>
                     @endif
@@ -33,7 +33,7 @@
                                  data-options='{"autoHeight": true, "parallax": true, "speed": 900, "lazy": true}'>
                                 <div class="swiper-wrapper lightbox-wrap">
                                     <div class="swiper-slide">
-                                        <img loading="lazy" src="{{asset('img/preloader.png')}}" data-img-src="{{ $places->media }}"
+                                        <img loading="lazy" src="{{asset('img/preloader.png')}}" data-src="{{ $places->media }}"
                                              alt="banner img 2" data-swiper-parallax="30%" class="swiper-lazy">
                                         <div class="swiper-lazy-preloader"></div>
                                         <div class="full-size">

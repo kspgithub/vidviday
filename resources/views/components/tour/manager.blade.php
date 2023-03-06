@@ -6,7 +6,7 @@
         <div class="top-part">
             <div class="title h3 light title-icon">
                 <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                     data-img-src="{{asset('/icon/headphones.svg')}}"
+                     data-src="{{asset('/icon/headphones.svg')}}"
                      alt="headphones">
                 @lang('tours-section.tour-manager')
             </div>
@@ -55,7 +55,7 @@
             @endif
             @if(!empty($manager->avatar))
                 <img loading="lazy" class="manager-avatar"
-                     src="{{$manager->avatar_url}}" data-img-src="{{$manager->avatar_url}}"
+                     src="{{$manager->avatar_url}}" data-src="{{$manager->avatar_url}}"
                      alt="{{$manager->name}}">
             @endif
         </div>

@@ -3,7 +3,7 @@
         <div class="accordion-title">
         <span>
             <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                 data-img-src="{{asset('/icon/schedule.svg')}}"
+                 data-src="{{asset('/icon/schedule.svg')}}"
                  alt="schedule"/>
         </span>
             @lang('tours-section.schedule')

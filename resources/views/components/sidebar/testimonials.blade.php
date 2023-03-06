@@ -1,7 +1,7 @@
 <div class="sidebar-item testimonials">
     <div class="top-part b-border">
         <div class="title h3 title-icon">
-            <img loading="lazy" src="/img/preloader.png" data-img-src="/icon/reviews.svg" alt="reviews">
+            <img loading="lazy" src="/img/preloader.png" data-src="/icon/reviews.svg" alt="reviews">
             <span>Нас рекомендують</span>
         </div>
     </div>

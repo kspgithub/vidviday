@@ -136,7 +136,10 @@ class TourController extends Controller
             'manager',
             'manager.types',
             'landings',
-            'scheduleItems.orders',
+//            'scheduleItems.orders',
+            'scheduleItems' => fn($q) => $q->inFuture()
+                ->filter()
+                ->with('orders'),
             'questions' => function ($q) {
                 return $q->moderated();
             },

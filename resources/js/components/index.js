@@ -2,7 +2,7 @@
 
 import { defineAsyncComponent } from "vue";
 
-const lazyLoad = false;
+const lazyLoad = true;
 
 export default {
     install: (app) => {
