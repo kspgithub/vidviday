@@ -15,9 +15,13 @@
             <div class="swiper-wrapper">
                 @foreach($slides as $i => $slide)
                     <div class="swiper-slide">
-                        <img {{ !!$i ? 'loading="lazy"' : '' }}
-                             {{ !!$i ? 'src=' . asset('/img/preloader.png') : 'src=' . $slide->getFullUrl() . '"' }}
-                             {{ !!$i ? 'data-src=' . $slide->getFullUrl() : '' }}
+                        <img
+                            @if($loop->first)
+                                src="{{ $slide->getFullUrl() }}"
+                            @else
+                                src="{{ asset('/img/preloader.png') }}"
+                                data-src="{{ $slide->getFullUrl() }}"
+                            @endif
                              alt="{{$slide->alt}}"
                              data-swiper-parallax="30%"
                              class="swiper-lazy">
