@@ -1,6 +1,7 @@
 <div x-data='crmOrderList({
         params: @json(request()->all()),
         statuses: @json($statuses),
+        abolition_types: @json($abolitionTypes),
     })'>
     <div class="row mb-3">
         <div class="col-auto">
@@ -14,6 +15,19 @@
                 @endforeach
             </select>
         </div>
+        <template x-if="status == '{{ \App\Models\Order::STATUS_CANCELED }}'">
+            <div class="col-auto">
+                <select x-model="abolition_cause"
+                        class="form-control form-control-sm"
+                        @change.debounce="filterChange()"
+                >
+                    <option value="">Причина скасування</option>
+                    @foreach($abolitionTypes as $id => $type)
+                        <option value="{{$id}}">{{$type}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </template>
         @if(!current_user()->isTourManager())
             <div class="col-auto">
                 <select x-model="manager_id"

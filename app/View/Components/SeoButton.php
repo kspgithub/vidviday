@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 
 class SeoButton extends Component
 {
-    public ?int $id;
+    public int|string|null $id;
 
     public string $tag;
 
@@ -15,7 +15,7 @@ class SeoButton extends Component
 
     public array $config;
 
-    public function __construct(string $code, ?int $id = null, ?string $href = null, string $tag = 'button') {
+    public function __construct(string $code, int|string|null $id = null, ?string $href = null, string $tag = 'button') {
         $this->code = $code;
         $this->id = $id;
         $this->tag = $tag;

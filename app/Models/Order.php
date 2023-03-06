@@ -118,7 +118,7 @@ class Order extends TranslatableModel implements Auditable, Purchasable
         'discounts' => 'array',
         'participants' => 'array',
         'accommodation' => 'array',
-        'abolition' => 'array',
+        'abolition' => 'json',
         'price_include' => 'array',
         'children' => 'boolean',
         'without_place' => 'boolean',

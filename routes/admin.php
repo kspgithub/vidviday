@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Achievement\AchievementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Broker\OrderBrokerController;
 use App\Http\Controllers\Admin\CRM\CrmBrokerController;
+use App\Http\Controllers\Admin\CRM\CrmCanceledOrderController;
 use App\Http\Controllers\Admin\Email\EmailTemplateController;
 use App\Http\Controllers\Admin\Notifications\SmsNotificationsController;
 use App\Http\Controllers\Admin\Partner\PartnerController;
@@ -336,6 +337,9 @@ Route::group([
 
     Route::get('order/{order}/audits', [CrmOrderController::class, 'audits'])->name('order.audits');
     Route::get('order/count', [CrmOrderController::class, 'count'])->name('order.count');
+
+    Route::get('order/{order}/cancel', [CrmOrderController::class, 'cancel'])->name('order.cancel');
+    Route::get('canceled-orders', [CrmCanceledOrderController::class, 'index'])->name('canceled-orders');
 
     Route::resource('order', CrmOrderController::class);
     Route::resource('corporate', CrmCorporateController::class)->parameters([
