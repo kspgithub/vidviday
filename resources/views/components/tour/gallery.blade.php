@@ -19,9 +19,9 @@
                             @if($loop->first)
                                 src="{{ $slide->getFullUrl() }}"
                             @else
-                                src="{{ asset('/img/preloader.png') }}"
-                                data-src="{{ $slide->getFullUrl() }}"
-                            @endif
+                                 src="{{ asset('/img/preloader.png') }}"
+                                 data-src="{{ $slide->getFullUrl() }}"
+                             @endif
                              alt="{{$slide->alt}}"
                              data-swiper-parallax="30%"
                              class="swiper-lazy">
