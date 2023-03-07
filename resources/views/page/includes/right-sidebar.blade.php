@@ -1,11 +1,12 @@
 <div class="right-sidebar">
     <div class="right-sidebar-inner">
         @isset($button)
+            @php
+                $onclick = ($button['logout'] ?? false) === true ?'event.preventDefault(); document.getElementById(\'header-logout-form-redirect\').value = '.$button['url'].'; document.getElementById(\'header-logout-form\').submit();' : '';
+            @endphp
             <div class="only-desktop mb-20">
                 <x-seo-button :code="'common.right_sidebar_button'" class="btn type-1 btn-block btn-big font-lg"
-                              @if(($button['logout'] ?? false) === true)
-                                  onclick="event.preventDefault(); document.getElementById('header-logout-form-redirect').value = '{{$button['url']}}'; document.getElementById('header-logout-form').submit();"
-                              @endif
+                              onclick="{{$onclick}}"
                               href="{{$button['url']}}">{{$button['title']}}</x-seo-button>
             </div>
         @endisset
@@ -23,8 +24,8 @@
             <x-seo-button :code="'order.certificate'" href="{{route('certificate.order')}}"
                           class="btn type-1 btn-block btn-book-size">
                 @lang('order-section.certificate.order')
-                </x-seo-button>
-                <div class="spacer-sm"></div>
+            </x-seo-button>
+            <div class="spacer-sm"></div>
         </div>
 
         @if(in_array('contacts', $pageContent->sidebar_items ?? []) && $pageContent->contact)
