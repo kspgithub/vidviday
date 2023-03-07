@@ -14,12 +14,14 @@ export default (options) => ({
     links: [],
     items: [],
     statuses: options.statuses || [],
+    abolition_types: options.abolition_types || [],
     current_page: parseInt(options.params.page) || 1,
     sort: options.params.order || 'created_at:desc',
     dates: options.params.dates || '',
     manager_id: parseInt(options.params.manager_id) || 0,
     tour_id: parseInt(options.params.tour_id) || 0,
     status: options.params.status || '',
+    abolition_cause: options.params.abolition_cause || '',
     init() {
         this.loadItems(false);
         if (this.$refs.datesRef) {

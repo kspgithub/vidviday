@@ -36,6 +36,7 @@ Route::middleware($middleware)->group(function () {
 
     Route::get('currency/{currency}', [CurrencyController::class, 'change'])->name('currency.change');
 
+    require base_path('routes/frontend/calendar.php');
     require base_path('routes/frontend/profile.php');
     require base_path('routes/frontend/tour.php');
     require base_path('routes/frontend/staff.php');

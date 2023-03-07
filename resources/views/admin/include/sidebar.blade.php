@@ -324,6 +324,13 @@
                         <x-alp.new-order-tours/>
                     </a>
                 </li>
+                <li class="sidebar-item {{routeActiveClass('admin.crm.canceled-orders*')}}">
+                    <a class="sidebar-link" href="{{route('admin.crm.canceled-orders')}}">
+                        <i class="align-middle" data-feather="x-circle"></i>
+                        <span class="align-middle">Скасовані</span>
+                        <x-alp.canceled-order-tours/>
+                    </a>
+                </li>
                 <li class="sidebar-item {{routeActiveClass('admin.crm.corporate*')}}">
                     <a class="sidebar-link" href="{{route('admin.crm.corporate.index')}}">
                         <i class="align-middle" data-feather="shopping-cart"></i>
