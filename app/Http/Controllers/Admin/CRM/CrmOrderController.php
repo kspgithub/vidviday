@@ -7,9 +7,12 @@ use App\Models\AccommodationType;
 use App\Models\Currency;
 use App\Models\Order;
 use App\Models\PaymentType;
+use App\Models\QuestionType;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourSchedule;
+use App\Models\UserQuestion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
 
@@ -50,9 +53,14 @@ class CrmOrderController extends Controller
             $tours = Tour::toSelectBox();
         }
 
+        $abolitionTypes = QuestionType::query()->where('type', UserQuestion::TYPE_CANCEL)
+            ->published()
+            ->pluck('title', 'id');
+
         return view('admin.crm.order.index', [
             'managers' => $managers,
             'statuses' => $statuses,
+            'abolitionTypes' => $abolitionTypes,
             'tours' => $tours,
         ]);
     }
@@ -142,16 +150,19 @@ class CrmOrderController extends Controller
 
         $tour = $order->tour;
         $schedules = $tour ? $tour->scheduleItems()->get()->map->shortInfo() : [];
-        $schedule = $order->schedule ? (object)$order->schedule->asCrmSchedule() : null;
+        $schedule = $order->schedule ? (object) $order->schedule->asCrmSchedule() : null;
         $audits = [];
         $discounts = $tour && $tour->discounts ? $tour->discounts->map->asAlpineData() : [];
 
         $roomTypes = AccommodationType::toSelectBox();
 
-
         if (empty($order->utm_data)) {
             $order->utm_data = ['customer_source' => '', 'customer_device' => ''];
         }
+
+        $abolitionTypes = QuestionType::query()->where('type', UserQuestion::TYPE_CANCEL)
+            ->published()
+            ->pluck('title', 'id');
 
         return view('admin.crm.order.show', [
             'tour' => $tour ? $tour->shortInfo() : null,
@@ -162,6 +173,7 @@ class CrmOrderController extends Controller
             'statuses' => $statuses,
             'schedules' => $schedules,
             'audits' => $audits,
+            'abolitionTypes' => $abolitionTypes,
         ]);
     }
 
@@ -242,10 +254,28 @@ class CrmOrderController extends Controller
     {
         //
         $status = array_filter(explode('|', $request->input('status', 'new')));
-        $group_type = (int)$request->input('group_type', 0);
-        $query = Order::where('group_type', $group_type)->whereIn('status', $status);
+        $query = Order::whereIn('status', $status);
+        $group_type = (int) $request->input('group_type', null);
+
+        if (!is_null($group_type)) {
+            $query->where('group_type', $group_type);
+        }
         if (current_user()->isTourManager() && $group_type === 0) {
             $query->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
+        }
+
+        if (in_array(Order::STATUS_CANCELED, $status)) {
+            $abolitionTypes = QuestionType::query()->where('type', UserQuestion::TYPE_CANCEL)
+                ->published()
+                ->pluck('id');
+
+            $query->whereNotNull('abolition');
+
+            $query->where(function (Builder $q) use ($abolitionTypes) {
+                foreach ($abolitionTypes as $type) {
+                    $q->orWhereJsonContains('abolition->cause', $type);
+                }
+            });
         }
 
         return $query->count();
@@ -278,5 +308,13 @@ class CrmOrderController extends Controller
         });
 
         return $paginator;
+    }
+
+    public function cancel(Order $order)
+    {
+        $order->status = Order::STATUS_CANCELED;
+        $order->save();
+
+        return redirect()->back()->withFlashSuccess(__('Record Updated'));
     }
 }

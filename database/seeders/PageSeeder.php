@@ -21,8 +21,8 @@ class PageSeeder extends Seeder
     public function run()
     {
         //
-        $this->disableForeignKeys();
-        $this->truncate('pages');
+//        $this->disableForeignKeys();
+//        $this->truncate('pages');
         $ukFaker = FakerFactory::create('uk_UA');
         $ruFaker = FakerFactory::create('ru_RU');
         $enFaker = FakerFactory::create('en_US');
@@ -425,30 +425,40 @@ class PageSeeder extends Seeder
                     'pl' => $plFaker->realText(500),
                 ],
             ],
+            [
+                'title' => ['uk' => 'Календар', 'ru' => 'Календарь', 'en' => 'Calendar', 'pl' => 'Calendar'],
+                'seo_h1' => ['uk' => 'Календар', 'ru' => 'Календарь', 'en' => 'Calendar', 'pl' => 'Calendar'],
+                'key' => 'calendar',
+                'main' => 1,
+                'published' => 1,
+                'text' => [
+                    'uk' => $ukFaker->realText(500),
+                    'ru' => $ruFaker->realText(500),
+                    'en' => $enFaker->realText(500),
+                    'pl' => $plFaker->realText(500),
+                ],
+            ],
         ];
+
+        $existingPages = Page::query()->get();
 
         foreach ($pages as $page) {
             $images = $page['images'] ?? [];
             unset($page['images']);
 
-            if (Page::where('key', $page['key'])->count() === 0) {
+            if(!$existingPages->where('key', $page['key'])->count()) {
                 $page['slug'] = ['en' => $page['key'], 'uk' => $page['key'], 'ru' => $page['key'], 'pl' => $page['key']];
                 $pageModel = Page::factory()->createOne($page);
-            } else {
-                $page['slug'] = ['en' => $page['key'], 'uk' => $page['key'], 'ru' => $page['key'], 'pl' => $page['key']];
-                $pageModel = Page::where('key', $page['key'])->first();
-                $pageModel->fill($page);
-                $pageModel->save();
-            }
 
-            if (!empty($images)) {
-                foreach ($images as $image) {
-                    $pageModel->addMediaFromUrl($image);
+                if (!empty($images)) {
+                    foreach ($images as $image) {
+                        $pageModel->addMediaFromUrl($image);
+                    }
                 }
             }
+
         }
 
-
-        $this->enableForeignKeys();
+//        $this->enableForeignKeys();
     }
 }
