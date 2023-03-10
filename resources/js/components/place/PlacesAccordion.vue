@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="expand-all-button">
+        <div v-if="expand" class="expand-all-button">
             <div class="expand-all open">Розгорнути все</div>
             <div class="expand-all close">Згорнути все</div>
         </div>
