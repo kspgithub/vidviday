@@ -17,6 +17,10 @@
 
         <x-sidebar.filter/>
 
+        <x-seo-button :code="'goto.calendar'" href="{{route('calendar.index')}}" class="btn type-4 arrow-right only-desktop">
+            {{svg('sidebar-tour')}} @lang('tours-section.tours-calendar')
+        </x-seo-button>
+
         <div class="spacer-xl only-mobile"></div>
 
         <x-sidebar.ads/>

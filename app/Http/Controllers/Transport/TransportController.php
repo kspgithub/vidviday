@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class TransportController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         //
         $transports = Transport::published()->get();

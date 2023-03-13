@@ -1540,6 +1540,11 @@ a {
 .calendar-wrapper {
     position: relative;
 
+    .view-change {
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
     .SumoSelect {
         margin-bottom: 0;
         margin-left: 10px;

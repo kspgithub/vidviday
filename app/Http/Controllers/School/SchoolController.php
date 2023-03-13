@@ -8,10 +8,11 @@ use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Services\TourService;
+use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
         $pageContent = Page::published()->where('key', 'schools')->firstOrFail();

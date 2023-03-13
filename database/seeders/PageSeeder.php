@@ -155,7 +155,6 @@ class PageSeeder extends Seeder
                 ],
                 'video' => 'https://www.youtube.com/embed/BMQQQynlrn4',
                 'key' => 'vacancies',
-                //'images' => [url('/img/banner-img_14.jpg')],
                 'main' => 1,
                 'published' => 1,
                 'sidebar' => 1,
@@ -443,18 +442,10 @@ class PageSeeder extends Seeder
         $existingPages = Page::query()->get();
 
         foreach ($pages as $page) {
-            $images = $page['images'] ?? [];
-            unset($page['images']);
 
             if(!$existingPages->where('key', $page['key'])->count()) {
                 $page['slug'] = ['en' => $page['key'], 'uk' => $page['key'], 'ru' => $page['key'], 'pl' => $page['key']];
                 $pageModel = Page::factory()->createOne($page);
-
-                if (!empty($images)) {
-                    foreach ($images as $image) {
-                        $pageModel->addMediaFromUrl($image);
-                    }
-                }
             }
 
         }

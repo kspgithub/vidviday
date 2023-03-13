@@ -28,7 +28,7 @@ class Regulations extends Component
     {
         //
         $this->model = $model;
-        $this->h1 = $h1;
+        $this->h1 = $h1 ?: $model?->seo_h1 ?: '';
     }
 
     protected function injectHtmlBlocks()
@@ -51,8 +51,6 @@ class Regulations extends Component
             }
         }
         $this->seoText = (string)$text;
-
-
     }
 
     /**

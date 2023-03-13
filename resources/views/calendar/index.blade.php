@@ -54,7 +54,7 @@
                     </div>
                     <div class="spacer-xs"></div>
                     <a href="#" class="hide calendar-init"></a>
-                    <x-tour.calendar/>
+                    <div v-is="'tour-view-calendar'"></div>
                 </div>
             </div>
             <div class="spacer-lg"></div>
@@ -64,11 +64,3 @@
         <!-- SEO TEXT END -->
     </main>
 @endsection
-
-@push('after-scripts')
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            $('.calendar-init').click()
-        })
-    </script>
-@endpush

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $pageContent = Page::query()->where('key', 'faq')->first();
         $faqGroups = FaqItem::getBySections([FaqItem::SECTION_TOURIST, FaqItem::SECTION_CORPORATE, FaqItem::SECTION_TOUR_AGENT]);
