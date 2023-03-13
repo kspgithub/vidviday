@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <seo-button code="testimonial.place" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
+                    <seo-button code="testimonial.place" type="submit" :disabled="invalid || request" @click.prevent="submitForm" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
                     </seo-button>
                 </div>

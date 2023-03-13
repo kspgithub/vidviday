@@ -59,9 +59,9 @@
             </div>
 
             <template v-if="currentSchedule">
-                <a v-bind="$buttons('order.tour', tour.id)" :href="orderLink" class="btn type-1 btn-block">
+                <seo-button code="tour.order" :id="tour.id" :href="orderLink" class="btn type-1 btn-block">
                     {{ __('tours-section.order-tour') }}
-                </a>
+                </seo-button>
             </template>
 
             <template v-else>

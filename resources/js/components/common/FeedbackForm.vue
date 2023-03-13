@@ -15,12 +15,12 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click="validateForm">
+                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
                     {{ __('forms.send-message') }}
                 </seo-button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click="validateForm">
+                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
                     {{ __('forms.send-message') }}
                 </seo-button>
             </template>

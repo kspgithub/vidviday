@@ -57,8 +57,8 @@
                             </div>
                         @else
                             <div class="only-pad-mobile">
-                                <x-seo-button :code="'tour.select'" id="tour-selection-btn"
-                                              class="btn type-5 arrow-right text-left flex">
+                                <x-seo-button :code="'tour.select'"
+                                              class="tour-selection-btn btn type-5 arrow-right text-left flex">
                                     <img loading="lazy" src="{{asset('/img/preloader.png')}}"
                                          data-src="{{asset('/icon/filter-dark.svg')}}" alt="filter-dark">
                                     @lang('tours-section.search-btn')

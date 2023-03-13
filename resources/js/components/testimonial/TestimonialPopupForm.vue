@@ -35,7 +35,7 @@
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
                                 <img :data-src="selectedAvatar.preview" alt="img">
-                                <seo-button code="testimonial.delete_avatar" class="btn-delete" @click="deleteAvatar()"></seo-button>
+                                <seo-button code="testimonial.delete_avatar" class="btn-delete" @click.prevent="deleteAvatar()"></seo-button>
                             </div>
 
                             <span>{{ __('forms.avatar-success') }}</span>
@@ -168,7 +168,7 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
+                        <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" class="btn type-1" @click.prevent="validateForm">
                             {{ __('forms.leave-feedback') }}
                         </seo-button>
                     </vue-recaptcha>

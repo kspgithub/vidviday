@@ -62,27 +62,39 @@
 
             <template v-if="nearestEvent">
 
-                <button v-bind="$buttons('tour.order', tour.id)" type="submit" class="btn type-1 btn-block hidden-print" v-if="!corporate" @click="tourOrder">
+                <seo-button code="tour.order" :id="tour.id"
+                            type="submit"
+                            class="btn type-1 btn-block hidden-print"
+                            v-if="!corporate"
+                            @click.prevent="tourOrder"
+                >
                     {{ __('tours-section.order-tour') }}
-                </button>
+                </seo-button>
 
-                <span v-bind="$buttons('tour.order_one_click', tour.id)"
+                <seo-button tag="span" code="tour.order_one_click" :id="tour.id"
                       v-if="canOrderOneClick"
                       class="btn type-2 btn-block hidden-print"
-                      @click="showPopup()"
-                >{{ __('tours-section.order-one-click') }}</span>
+                      @click.prevent="showPopup()"
+                >{{ __('tours-section.order-one-click') }}</seo-button>
 
             </template>
 
             <template v-if="!nearestEvent">
-                <a v-bind="$buttons('tour.repeat', tour.id)" href="#tour-voting-form" class="btn type-1 btn-block only-mobile hidden-print">
+                <seo-button code="tour.repeat" :id="tour.id"
+                            href="#tour-voting-form"
+                            class="btn type-1 btn-block only-mobile hidden-print"
+                >
                     {{ __('tours-section.repeat-tour') }}
-                </a>
+                </seo-button>
             </template>
 
-            <a v-bind="$buttons('tour.order_corporate', tour.id)" :href="`/tour/${tour.id}/order`" class="btn type-2 btn-block  hidden-print" v-if="tour.order_enabled && corporate">
+            <seo-button code="tour.repeat" :id="tour.id"
+                        :href="`/tour/${tour.id}/order`"
+                        class="btn type-2 btn-block  hidden-print"
+                        v-if="tour.order_enabled && corporate"
+            >
                 {{ __('tours-section.order-corporate') }}
-            </a>
+            </seo-button>
 
         </div>
     </form>
@@ -98,10 +110,11 @@ import Tooltip from "../common/Tooltip";
 import { useStore } from "vuex";
 import { useFormDataProperty } from "../../store/composables/useFormData";
 import * as urlUtils from '../../utils/url.js'
+import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourOrder",
-    components: {Tooltip, FormSelectEvent, TourLikeBtn, ShareDropdown, TourRating},
+    components: { SeoButton, Tooltip, FormSelectEvent, TourLikeBtn, ShareDropdown, TourRating},
     props: {
         tour: Object,
         corporate: Boolean,

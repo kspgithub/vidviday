@@ -30,12 +30,12 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">
                     {{ __('forms.send') }}
                 </seo-button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click="validateForm">
+                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">
                     {{ __('forms.send') }}
                 </seo-button>
             </template>
