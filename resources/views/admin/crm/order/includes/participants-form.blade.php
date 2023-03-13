@@ -1,8 +1,57 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h3 class="mb-3"><strong>Учасники туру</strong></h3>
-        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"
-                            x-mask="+38 (999) 999-99-99" placeholder="+38 (___) ___-__-__"/>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Телефон</th>
+                        <th>Комментарий</th>
+                        <th style="width: 200px">Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <template x-for="(participant_contact, idx) in participant_contacts">
+                        <tr>
+                            <td>
+                                <input type="text" :name="`participant_contacts[${idx}][phone]`"
+                                        class="form-control form-control-sm"
+                                        x-model="participant_contact.phone">
+                            </td>
+                            <td>
+                                <input type="text" :name="`participant_contacts[${idx}][comment]`"
+                                        class="form-control form-control-sm"
+                                        x-model="participant_contact.comment">
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-danger"
+                                    @click.prevent="removeParticipantContact(idx)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </template>
+
+
+                    <tr>
+                        <td class="border-0 pt-4">
+                            <input type="text" class="form-control form-control-sm" x-model="participant_contactsData.phone"
+                                    placeholder="Телефон">
+                        </td>
+                        <td class="border-0 pt-4">
+                            <input type="text" class="form-control form-control-sm" x-model="participant_contactsData.comment"
+                                    placeholder="Комментарий">
+                        </td>
+                        <td class="border-0 pt-4">
+                            <button type="submit" @click.prevent="addParticipantContact()" class="btn btn-sm btn-primary">
+                                Додати телефон
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <x-forms.switch-group id="cust-part"
                               x-model="isCustomerParticipant"
