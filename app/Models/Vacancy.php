@@ -107,7 +107,7 @@ class Vacancy extends TranslatableModel implements HasMedia
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('vacancy.show', $slug) : '';
+        return url(!empty($slug) ? route('vacancy.show', $slug) : '');
     }
 
     public function getSimilarVacanciesAttribute()

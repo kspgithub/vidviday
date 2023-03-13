@@ -5,7 +5,18 @@ return [
             'paths' => [
                 '*' => [
                     'disallow' => [
-                        ''
+                        '/cgi-bin/',
+                        '/wp-admin/',
+                        '/?',
+                        '*?s=',
+                        '*&s=',
+                        '/search',
+                        '/author/',
+                        '*/embed$',
+                        '*/page/',
+                        '*/xmlrpc.php',
+                        '*utm*=',
+                        '*openstat=',
                     ],
                     'allow' => []
                 ],
@@ -13,6 +24,30 @@ return [
             'sitemaps' => [
                 'sitemap.xml'
             ]
-        ]
+        ],
+        'local' => [
+            'paths' => [
+                '*' => [
+                    'disallow' => [
+                        '/cgi-bin/',
+                        '/wp-admin/',
+                        '/?',
+                        '*?s=',
+                        '*&s=',
+                        '/search',
+                        '/author/',
+                        '*/embed$',
+                        '*/page/',
+                        '*/xmlrpc.php',
+                        '*utm*=',
+                        '*openstat=',
+                    ],
+                    'allow' => []
+                ],
+            ],
+            'sitemaps' => [
+                'sitemap.xml'
+            ]
+        ],
     ]
 ];

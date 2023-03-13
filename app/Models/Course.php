@@ -98,7 +98,7 @@ class Course extends TranslatableModel implements HasMedia
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('course.show', $slug) : '';
+        return url(!empty($slug) ? route('course.show', $slug) : '');
     }
 
     public function getSimilarCoursesAttribute()

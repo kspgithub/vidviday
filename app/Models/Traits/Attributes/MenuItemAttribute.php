@@ -13,6 +13,6 @@ trait MenuItemAttribute
 
     public function getUrlAttribute()
     {
-        return $this->page->url ?? $this->slug;
+        return $this->page->url ?? url($this->slug);
     }
 }

@@ -83,7 +83,7 @@ class Practice extends TranslatableModel
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('practice.show', $slug) : route('practice.show', $this->id);
+        return url(!empty($slug) ? route('practice.show', $slug) : route('practice.show', $this->id));
     }
 
     public function getSimilarPracticesAttribute()
