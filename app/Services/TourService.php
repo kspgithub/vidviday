@@ -295,7 +295,7 @@ class TourService extends BaseService
 
     public static function getByIds(array $ids = [], $locale = 'uk')
     {
-        return Tour::search(false)
+        return Tour::search(['future' => false])
             ->whereJsonContains('locales', $locale)
             ->whereIn('id', $ids)->get();
     }
@@ -305,7 +305,7 @@ class TourService extends BaseService
         $type = $model instanceof Model ? get_class($model) : (class_exists($model) ? $model : null);
         $id = $model instanceof Model ? $model->id : null;
 
-        $query = Tour::search(false)
+        $query = Tour::search(['future' => false])
             ->whereJsonContains('locales', $locale)
             ->join('popular_tours', 'popular_tours.tour_id', '=', 'tours.id')
             ->where('popular_tours.published', 1)
