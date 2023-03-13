@@ -9,9 +9,10 @@ export default (params) => ({
         ...params.order,
         participants: {
             items: params.order?.participants?.items || [],
-            participant_phone: params.order?.participants?.participant_phone || '',
+            /* participant_phone: params.order?.participants?.participant_phone || '', */
             customer: params.order?.participants?.customer || false,
         },
+        participant_contacts: params.order?.participant_contacts || [],
     },
     formChanged: false,
     roomTypes: params.roomTypes || [],
@@ -23,6 +24,10 @@ export default (params) => ({
         last_name: '',
         middle_name: '',
         birthday: '',
+    },
+    participant_contactsData: {
+        phone: '',
+        comment: '',
     },
     discountIdx: null,
     discountData: {
@@ -97,12 +102,28 @@ export default (params) => ({
     get isCustomerParticipant() {
         return !!this.order.participants.customer;
     },
-    get participantPhone() {
-        return this.order.participants ? this.order.participants.participant_phone : '';
+    get participant_contacts() {
+        return this.order.participant_contacts ? this.order.participant_contacts : [];
     },
-    set participantPhone(value) {
+    set participant_contacts(value) {
         this.formChanged = true;
-        this.order.participants.participant_phone = value;
+        this.order.participant_contacts = value;
+    },
+    addParticipantContact() {
+        if (this.participant_contactsData.phone) {
+            this.order.participant_contacts.push({...this.participant_contactsData});
+            this.participant_contactsData = {
+                phone: '',
+                comment: '',
+            }
+        }
+
+    },
+    removeParticipantContact(idx) {
+        swalConfirm(() => {
+            this.order.participant_contacts.splice(idx, 1);
+        });
+
     },
     get participants() {
         return this.order.participants ? this.order.participants.items : [];

@@ -29,7 +29,7 @@ const DEFAULT_VALUES = {
         other: 0,
         other_text: '',
     },
-    participant_phone: '',
+    participant_contacts: [],
     payment_type: 0,
     confirmation_type: 1,
     confirmation_email: '',
@@ -239,6 +239,7 @@ export default {
         },
         maxPlaces: (state, getters) => state.formData.group_type === 1 ? 999 : (getters.selectedSchedule ? getters.selectedSchedule.places : 100),
         participants: (state) => state.formData.participants || [],
+        participant_contacts: (state) => state.formData.participant_contacts || [],
         oneClickData: state => {
             return {
                 first_name: state.formData.first_name,
@@ -343,8 +344,23 @@ export default {
             items.splice(idx, 1);
             commit('UPDATE_FORM_DATA', {participants: items});
         },
-        updateParticipantPhone({commit, state}) {
-            commit('UPDATE_FORM_DATA', {participant_phone: state.formData.phone});
+        addParticipantContact({commit, state}) {
+            const items = state.formData.participant_contacts || [];
+            items.push({
+                phone:'',
+                comment:'',
+            });
+            commit('UPDATE_FORM_DATA', {participant_contacts: items});
+        },
+        updateParticipantContact({commit, state}, payload) {
+            const items = state.formData.participant_contacts || [];
+            items[payload.idx] = payload.data;
+            commit('UPDATE_FORM_DATA', {participant_contacts: items});
+        },
+        deleteParticipantContact({commit, state}, idx) {
+            const items = state.formData.participant_contacts || [];
+            items.splice(idx, 1);
+            commit('UPDATE_FORM_DATA', {participant_contacts: items});
         },
         async fetchSchedules({commit}, tourId) {
             commit('SET_SCHEDULES_REQUEST', true);

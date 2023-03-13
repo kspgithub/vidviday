@@ -62,8 +62,8 @@ class OrderForm extends Component
         $this->participants = !empty($this->order->participants) && !empty($this->order->participants['items'])
             ? $this->order->participants['items'] : [];
 
-        $this->participantPhone = !empty($this->order->participants) && !empty($this->order->participants['participant_phone'])
-            ? $this->order->participants['participant_phone'] : '';
+        $this->participant_contacts = !empty($this->order->participant_contacts)
+            ? $this->order->participant_contacts : [];
 
         $this->priceInclude = $this->order->price_include ?? [];
 
@@ -184,6 +184,23 @@ class OrderForm extends Component
         unset($this->participants[$index]);
     }
 
+    public function addParticipantContact()
+    {
+        $this->participant_contacts[] = [
+            'phone' => $this->participant_contactsPhone ?? '',
+            'comment' => $this->participant_contactsComment ?? '',
+        ];
+        $this->participantFirstName = '';
+        $this->participantLastName = '';
+        $this->participantMiddleName = '';
+        $this->participantBirthday = '';
+    }
+
+    public function removeParticipant($index)
+    {
+        unset($this->participants[$index]);
+    }
+
 
     public function save()
     {
@@ -191,8 +208,8 @@ class OrderForm extends Component
 
         $this->order->participants = [
             'items' => $this->participants,
-            'participant_phone' => $this->participantPhone,
         ];
+        $this->order->participant_contacts = $this->participant_contacts;
         $this->order->price_include = $this->priceInclude;
         $this->order->accommodation = $this->accommodation;
         $this->order->discounts = $this->discounts;

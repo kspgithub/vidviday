@@ -37,13 +37,17 @@ export default (options) => ({
     accommodation: {...rooms},
     participants: {
         items: [],
-        participant_phone: '',
     },
+    participant_contacts: [],
     participantData: {
         first_name: '',
         last_name: '',
         middle_name: '',
         birthday: '',
+    },
+    participant_contactsData: {
+        phone: '',
+        comment: '',
     },
     agencyData: {
         title: '',
@@ -253,7 +257,6 @@ export default (options) => ({
         if (!this.participants) {
             this.participants = {
                 items: [],
-                participant_phone: '',
                 customer: value,
             }
         } else {
@@ -306,9 +309,14 @@ export default (options) => ({
                     birthday: '',
                 }, p);
             }) : [],
-            participant_phone: order.participants && order.participants.participant_phone ? order.participants.participant_phone : '',
             customer: order.participants && order.participants.customer,
         };
+        this.participant_contacts = order.participant_contacts  ? order.participant_contacts.map(p => {
+            return Object.assign({
+                phone: '',
+                comment: '',
+            }, p);
+        }) : [],
         this.participantsModal.show();
     },
     cancelParticipants() {
@@ -330,7 +338,6 @@ export default (options) => ({
         if (!this.participants) {
             this.participants = {
                 items: [],
-                participant_phone: '',
             }
         }
         if (this.participantData.first_name) {

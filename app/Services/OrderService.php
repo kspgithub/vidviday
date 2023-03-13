@@ -133,8 +133,9 @@ class OrderService extends BaseService
                     'without_place' => $order_params['without_place'] ?? 0,
                     'without_place_count' => $order_params['without_place_count'] ?? 0,
                     'items' => $params['participants'] ?? [],
-                    'participant_phone' => $params['participant_phone'] ?? '',
                 ];
+
+                $order_params['participant_contacts'] = $params['participant_contacts'] ?? [];
 
                 if (isset($params['accommodation'])) {
                     $items = [];

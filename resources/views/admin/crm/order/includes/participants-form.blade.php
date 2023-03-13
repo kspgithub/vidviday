@@ -1,13 +1,87 @@
 <x-bootstrap.card>
     <x-slot name="body">
         <h3 class="mb-3"><strong>Учасники туру</strong></h3>
-        <x-forms.text-group name="participantPhone" x-model="participantPhone" label="Телефон учасника"
-                            x-mask="+38 (999) 999-99-99" placeholder="+38 (___) ___-__-__"/>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Телефон</th>
+                        <th>Комментарий</th>
+                        <th style="width: 200px">Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <x-forms.switch-group id="cust-part"
-                              x-model="isCustomerParticipant"
-                              label="Замовник є учасником туру"
-        />
+                    <template x-if="isCustomerParticipant && !order.is_tour_agent">
+                        <tr>
+                            <td>
+                                <input type="text" :name="`participant_contacts[0][phone]`"
+                                        class="form-control form-control-sm"
+                                        x-bind:value="order.phone"
+                                        readonly>
+                            </td>
+                            <td>
+                                <input type="text" :name="`participant_contacts[0][comment]`"
+                                        class="form-control form-control-sm"
+                                        value="Замовник"
+                                        readonly>
+                            </td>
+                        </tr>
+                    </template>
+
+                    <template x-for="(participant_contact, idx) in participant_contacts">
+                        <template x-if="!(idx == 0 && isCustomerParticipant)">
+                            <tr>
+                                <td>
+                                    <input type="text" :name="`participant_contacts[${idx}][phone]`"
+                                            class="form-control form-control-sm"
+                                            x-model="participant_contact.phone"
+                                            placeholder="+38 (___) ___-__-__"
+                                            x-mask="+38 (999) 999-99-99"
+                                            type="tel">
+                                </td>
+                                <td>
+                                    <input type="text" :name="`participant_contacts[${idx}][comment]`"
+                                            class="form-control form-control-sm"
+                                            x-model="participant_contact.comment">
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-outline-danger"
+                                        @click.prevent="removeParticipantContact(idx)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+
+
+                    <tr>
+                        <td class="border-0 pt-4">
+                            <input type="text" class="form-control form-control-sm" x-model="participant_contactsData.phone"
+                                    placeholder="+38 (___) ___-__-__"
+                                    x-mask="+38 (999) 999-99-99">
+                        </td>
+                        <td class="border-0 pt-4">
+                            <input type="text" class="form-control form-control-sm" x-model="participant_contactsData.comment"
+                                    placeholder="Комментарий">
+                        </td>
+                        <td class="border-0 pt-4">
+                            <button type="submit" @click.prevent="addParticipantContact()" class="btn btn-sm btn-primary">
+                                Додати телефон
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div x-show="!order.is_tour_agent">
+            <x-forms.switch-group id="cust-part"
+                                x-model="isCustomerParticipant"
+                                label="Замовник є учасником туру"
+                                
+            />
+        </div>
         <input type="hidden" :name="`participants[customer]`" :value="isCustomerParticipant ? 1 : 0">
         <div class="table-responsive">
             <table class="table table-sm">
@@ -21,7 +95,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <template x-if="isCustomerParticipant">
+                <template x-if="isCustomerParticipant && !order.is_tour_agent">
                     <tr>
                         <td>
                             <input type="text" class="form-control form-control-sm" x-bind:value="order.last_name"

@@ -52,9 +52,10 @@
 
                     <form-textarea v-model="comment" name="comment" id="order-comment"
                                    :label="__('forms.order-comment')"/>
-
-                    <input name="conditions" type="hidden" value="1"/>
-
+                    <div class="text-center">
+                        <form-checkbox-one-click class="small checkbox-cond" name="conditions"
+                                       v-model="conditions" :label="__('forms.read-and-accept')"/>
+                    </div>
                     <div class="text-center">
                         <seo-button code="tour.order_one_click" type="submit" :disabled="request" @click.prevent="submitForm" class="btn type-1">
                             {{ __('forms.order') }}
@@ -77,6 +78,7 @@ import { useStore } from "vuex";
 import FormInput from "../form/FormInput";
 import { useDebounceFormDataProperty, useFormDataProperty } from "../../store/composables/useFormData";
 import FormTextarea from "../form/FormTextarea";
+import FormCheckboxOneClick from "../form/FormCheckboxOneClick.vue";
 import FormNumberInput from "../form/FormNumberInput";
 import FormSelectEvent from "../form/FormSelectEvent";
 import axios from "axios";
@@ -90,7 +92,7 @@ import SeoButton from '../common/SeoButton.vue'
 
 export default {
     name: "TourOneClickPopup",
-    components: {SeoButton, FormPhone, FormSelect, FormSelectEvent, FormNumberInput, FormTextarea, FormInput, Popup},
+    components: {SeoButton, FormPhone, FormSelect, FormSelectEvent, FormCheckboxOneClick, FormNumberInput, FormTextarea, FormInput, Popup},
     props: {
         tour: Object,
         schedules: Array,
@@ -99,7 +101,8 @@ export default {
     setup(props) {
         const store = useStore();
         const data = computed(() => store.getters['orderTour/oneClickData']);
-        const user = store.state.user.currentUser
+        const user = store.state.user.currentUser;
+        const conditions = useFormDataProperty('orderTour', 'conditions');
 
         const {validate, errors} = useForm({
             validationSchema: {
@@ -107,6 +110,9 @@ export default {
                 last_name: 'required',
                 // email: 'required|email',
                 phone: 'required|tel',
+                conditions: () => {
+                    return conditions.value === 1 ? true : __('validation.terms-condition')
+                },
                 places: () => {
                     return data.value.places > 0 ? true : __('validation.min-place-1')
                 },
@@ -150,7 +156,6 @@ export default {
             const result = await validate();
 
             if (!result.valid) {
-                event.preventDefault();
                 console.log(errors);
             } else {
 
@@ -194,6 +199,7 @@ export default {
             comment: useDebounceFormDataProperty('orderTour', 'comment'),
             places: useDebounceFormDataProperty('orderTour', 'places'),
             schedule_id: useDebounceFormDataProperty('orderTour', 'schedule_id'),
+            conditions: useFormDataProperty('orderTour', 'conditions'),
             maxPlaces,
             popupOpen,
             closePopup,
