@@ -71,13 +71,13 @@ class PageController extends Controller
             case 'home':
                 return redirect('/?lang=' . getLocale(), 301);
             case 'guides':
-                return (new TourGuideController())->index();
+                return (new TourGuideController())->index($request);
             case 'office-workers':
-                return (new StaffController())->index();
+                return (new StaffController())->index($request);
             case 'certificate':
-                return (new CertificateController())->index();
+                return (new CertificateController())->index($request);
             case 'events':
-                return (new EventController())->index();
+                return (new EventController())->index($request);
             case 'transport':
                 return (new TransportController())->index($request);
             case 'broker':
@@ -100,6 +100,8 @@ class PageController extends Controller
                 return (new CourseController())->index($request);
             case 'faq':
                 return (new FaqController())->index($request);
+            case 'calendar':
+                return (new CalendarController())->index($request);
             default:
                 return view('page.show', []);
         }

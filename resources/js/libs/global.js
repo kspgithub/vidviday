@@ -58,6 +58,9 @@ jQuery(function ($) {
         is_Chrome = navigator.userAgent.indexOf('Chrome') >= 0 && navigator.userAgent.indexOf('Edge') < 0,
         isTouchScreen = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i);
 
+    if(location.hash === '#_=_') {
+        location.href = location.href.replace(location.hash, '')
+    }
 
     /*###############################*/
     /* 02 FUNCTION ON DOCUMENT READY */

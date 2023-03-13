@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
-use App\Models\Direction;
 use App\Models\EventGroup;
 use App\Models\EventItem;
-use App\Models\Page;
 use App\Models\PopupAd;
-
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
         $eventGroups = EventGroup::whereHas('events', function ($q) {

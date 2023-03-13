@@ -69,6 +69,7 @@ return [
     'gallery' => 'Галерея',
     'list' => 'Список',
     'calendar' => 'Календар',
+    'tours-calendar' => 'Календар турів',
     'show-tours' => 'Показати тури',
     'sort-by' => 'Сортувати',
     'available' => 'Доступно',

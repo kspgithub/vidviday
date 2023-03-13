@@ -14,7 +14,7 @@ class TravelAgentController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         $pageContent = view()->shared('pageContent', Page::published()
             ->where('key', 'for-travel-agents')->firstOrFail());
