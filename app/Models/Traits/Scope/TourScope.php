@@ -51,7 +51,7 @@ trait TourScope
 
     public function scopeSearch(Builder $query, $params = [])
     {
-        if ($params['future'] ?? false) {
+        if (($params['future'] ?? false) == 1) {
             $query->inFuture();
         }
 
@@ -62,13 +62,11 @@ trait TourScope
 
                 return $q
                     ->with('orders')
-                    ->when($dateFrom, function (Builder $q) use ($dateFrom) {
-                        return $q->whereDate('start_date', '>=', $dateFrom);
-                    })
+                    ->whereDate('tour_schedules.start_date', '>=', $dateFrom)
                     ->when($dateTo, function (Builder $q) use ($dateTo) {
-                        return $q->whereDate('start_date', '<=', $dateTo);
+                        return $q->whereDate('tour_schedules.start_date', '<=', $dateTo);
                     })
-                    ->where('published', 1)
+                    ->where('tour_schedules.published', 1)
                     ->whereNull('tour_schedules.deleted_at');
             },
             'media' => function ($q) {
