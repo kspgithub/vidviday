@@ -60,11 +60,11 @@
                         <seo-button code="order.back"
                                     tag="span"
                                     class="btn btn-read-more left-arrow text-bold"
-                                    @click="prevStep()"
+                                    @click.prevent="prevStep()"
                         >{{ __('forms.back') }}</seo-button>
                     </div>
                                        <div class="col-8  text-right " v-if="currentStep !== 3">
-                        <seo-button code="order.next" class="btn type-1 tab-next" @click="nextStep()">{{ __('forms.next-step') }}</seo-button>
+                        <seo-button code="order.next" class="btn type-1 tab-next" @click.prevent="nextStep()">{{ __('forms.next-step') }}</seo-button>
                     </div>
 
                     <div class="col-8 justify-content-end align-items-center d-flex  d-b-7" v-if="currentStep === 3">
@@ -73,7 +73,7 @@
                         <span class="text">
                             <a href="/terms" target="_blank">&nbsp;{{ __('order-section.booking-rules') }}</a>
                         </span>
-                        <seo-button code="order.send" type="submit" @click="submit($event)" class="btn type-1  ms-30">
+                        <seo-button code="order.send" type="submit" @click.prevent="submit($event)" class="btn type-1  ms-30">
                             {{ __('order-section.order-btn') }}
                         </seo-button>
                     </div>
@@ -263,7 +263,7 @@ export default {
                     }
                 }
             }
-            if (currentStep.value === 2 && group_type.value === 0 && isTourAgent.value) {
+            if (currentStep.value === 2 && group_type.value === 0 && !isTourAgent.value) {
                 schema.participant_phone = 'required|tel';
             }
             if (currentStep.value === 3) {
@@ -292,6 +292,8 @@ export default {
 
         const nextStep = async () => {
             const result = await validate();
+            console.log('nextStep')
+            console.log(result)
             if (result.valid) {
                 if (currentStep.value === 1 && group_type.value === 0) {
                     await store.dispatch('orderTour/setParticipants');
