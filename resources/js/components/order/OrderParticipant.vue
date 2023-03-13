@@ -29,7 +29,7 @@ export default {
     props: {
         index: Number,
         participant: Object,
-        active: Object,
+        active: Boolean,
     },
     emits: ['update', 'delete'],
     setup({index, participant, active}, {emit}) {
