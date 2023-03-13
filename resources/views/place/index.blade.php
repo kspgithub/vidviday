@@ -74,7 +74,7 @@
                     <!-- BANNER/INFO END -->
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
-                        <x-seo-button :code="'tour.select'" id="tour-selection-btn" class="btn type-5 arrow-right text-left flex"><img
+                        <x-seo-button :code="'tour.select'" class="tour-selection-btn btn type-5 arrow-right text-left flex"><img
                                 src="{{asset('img/preloader.png')}}" data-src="{{asset('icon/filter-dark.svg')}}"
                                 alt="filter-dark">Підбір туру</x-seo-button>
                         <div class="spacer-xs"></div>

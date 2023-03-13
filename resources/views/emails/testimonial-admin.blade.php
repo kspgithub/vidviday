@@ -23,7 +23,7 @@
             <p>Ім'я: {{ $testimonial->name }}</p>
             <p>Телефон: {{ $testimonial->phone }}</p>
             <p>Email: {{ $testimonial->email }}</p>
-            <p>Коментар: {{ $testimonial->comment }}</p>
+            <p>Коментар: {{ $testimonial->text }}</p>
         </x-email.card>
 
         <x-email.thanks>Дякуємо за те, що обрали нас!</x-email.thanks>

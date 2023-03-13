@@ -1,5 +1,5 @@
 <template>
-    <seo-button code="testimonial.order" class="btn type-2" @click="openPopup()"><slot/></seo-button>
+    <seo-button code="testimonial.order" class="btn type-2" @click.prevent="openPopup()"><slot/></seo-button>
 </template>
 
 <script>

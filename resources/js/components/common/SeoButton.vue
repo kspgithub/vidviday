@@ -19,7 +19,7 @@ export default {
             required: true,
         },
         id: {
-            type: String,
+            type: [String, Number],
             required: false,
         },
     },

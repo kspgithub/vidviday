@@ -33,8 +33,10 @@ class StaffController extends Controller
             },
             'tours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
-                    return $q->inFuture();
-                })->withAvg('testimonials', 'rating')
+                    return $q->with('orders')->inFuture();
+                })
+                    ->with('media')
+                    ->withAvg('testimonials', 'rating')
                     ->withCount([
                         'testimonials' => function ($q) {
                             return $q->moderated()
@@ -46,8 +48,10 @@ class StaffController extends Controller
             },
             'manageTours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
-                    return $q->inFuture();
-                })->withAvg('testimonials', 'rating')
+                    return $q->with('orders')->inFuture();
+                })
+                    ->with('media')
+                    ->withAvg('testimonials', 'rating')
                     ->withCount([
                         'testimonials' => function ($q) {
                             return $q->moderated()

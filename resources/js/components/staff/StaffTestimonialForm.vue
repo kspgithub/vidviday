@@ -36,7 +36,7 @@
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
                                 <img :data-src="selectedAvatar.preview" alt="img">
-                                <seo-button code="profile.delete_avatar" class="btn-delete" @click="deleteAvatar()"></seo-button>
+                                <seo-button code="profile.delete_avatar" class="btn-delete" @click.prevent="deleteAvatar()"></seo-button>
                             </div>
 
                             <span>{{ __('forms.avatar-success') }}</span>
@@ -106,13 +106,13 @@
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
                             <img :data-src="sImage.preview" alt="img">
-                            <seo-button code="testimonial.delete_image" class="btn-delete" @click="deleteImage(idx)"></seo-button>
+                            <seo-button code="testimonial.delete_image" class="btn-delete" @click.prevent="deleteImage(idx)"></seo-button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-12 text-right text-center-xs">
-                    <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" @click="submitForm" class="btn type-1">
+                    <seo-button code="testimonial.send" type="submit" :disabled="invalid || request" @click.prevent="submitForm" class="btn type-1">
                         {{ __('forms.leave-feedback') }}
                     </seo-button>
                 </div>

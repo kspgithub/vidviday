@@ -598,7 +598,7 @@ jQuery(function ($) {
     });
 
     // Tour selection dropdown
-    $(document).on('click', '#tour-selection-btn', function () {
+    $(document).on('click', '.tour-selection-btn', function () {
         removeScroll();
         headerLayerOpen();
         tourSelectionOpen();

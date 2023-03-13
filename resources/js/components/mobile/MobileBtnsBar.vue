@@ -35,8 +35,7 @@
             <div class="col-md-4 col-12">
                 <seo-button code="tour.search"
                             tag="span"
-                            id="tour-selection-btn"
-                            class="btn type-5 arrow-right text-left flex"
+                            class="tour-selection-btn btn type-5 arrow-right text-left flex"
                 >
                     <img alt="filter-dark" src="/icon/filter-dark.svg">
                     {{ __('sidebar-section.filter.tour-search') }}

@@ -3,7 +3,7 @@
         <seo-button code="testimonial.send"
                     v-if="type !== 'tour_questions'"
                     class="btn type-1 btn-block-sm"
-                    @click="showPopup()"
+                    @click.prevent="showPopup()"
         >{{ __('forms.leave-feedback') }}</seo-button>
         <div class="spacer-xs"></div>
         <hr>
@@ -12,13 +12,14 @@
         <div class="spacer-xs"></div>
         <div class="row">
             <div class="col-xl-6 col-12" v-if="type !== 'tour_questions'">
-                <seo-button code="testimonial.send" class="btn type-1 btn-block-sm" @click="showPopup()">{{ __('forms.leave-feedback') }}</seo-button>
+                <seo-button code="testimonial.send" class="btn type-1 btn-block-sm" @click.prevent="showPopup()">{{ __('forms.leave-feedback') }}</seo-button>
                 <div class="spacer-xxs only-pad-mobile"></div>
             </div>
 
             <div class="col-xl-6 col-12 text-right">
                 <seo-button code="testimonial.show_more"
-                            v-if="currentPage < lastPage" @click="loadMore()"
+                            v-if="currentPage < lastPage"
+                            @click.prevent="loadMore()"
                             tag="span"
                             class="btn type-2 btn-block-sm btn-block-xs"
                 >
