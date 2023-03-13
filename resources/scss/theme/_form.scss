@@ -153,6 +153,22 @@ label {
         }
     }
 
+    &.checkbox {
+        padding-right: 25px;
+        &.invalid{
+            background: #fff calc(100% - 5px) 6px/16px 16px url("/images/discount.svg") no-repeat;
+
+            &:before {
+                right: 8px;
+                bottom: calc(100% - 3px);
+            }
+        
+            &:after {
+                bottom: 100%;
+            }
+        }
+    }
+
     .smile {
         right: 15px;
         content: '';

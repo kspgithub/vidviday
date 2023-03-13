@@ -11,12 +11,16 @@ export default (order) => ({
     order: order,
     editIndex: null,
     participants: order.participants ? order.participants.items || [] : [],
-    participantPhone: order.participants ? order.participants.participant_phone || '' : '',
+    participant_contacts: order.participant_contacts ? order.participant_contacts || [] : [],
     data: {
         first_name: '',
         last_name: '',
         middle_name: '',
         birthday: '',
+    },
+    data_contacts:{
+        phone: '',
+        comment:'',
     },
     get modal() {
         return bootstrap.Modal.getOrCreateInstance(document.getElementById('edit-participant-modal'));
@@ -75,13 +79,13 @@ export default (order) => ({
             axios.patch(`/admin/order/${this.order.id}`, {
                 participants: {
                     items: this.participants,
-                    participant_phone: this.participantPhone,
-                }
+                },
+                participant_contacts: this.participant_contacts,
             })
                 .then(({data: response}) => {
                     this.order = response.model;
                     this.participants = response.model.participants.items;
-                    this.participantPhone = response.model.participants.participant_phone;
+                    this.participant_contacts = response.model.participant_contacts;
                     toast.success(response.message);
                 })
                 .catch(error => {

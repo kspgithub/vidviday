@@ -83,6 +83,7 @@ class Order extends TranslatableModel implements Auditable, Purchasable
         'viber',
         'places',
         'comment',
+        'participant_contacts',
         'participants',
         'accommodation',
         'abolition',
@@ -117,6 +118,7 @@ class Order extends TranslatableModel implements Auditable, Purchasable
     protected $casts = [
         'discounts' => 'array',
         'participants' => 'array',
+        'participant_contacts' => 'array',
         'accommodation' => 'array',
         'abolition' => 'json',
         'price_include' => 'array',
