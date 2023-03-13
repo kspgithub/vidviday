@@ -184,21 +184,24 @@ export default (params) => ({
         return !!this.order.participants.customer;
     },
     set isCustomerParticipant(value) {
-        if(value) {
-            this.order.participants.items.unshift({
-                first_name: this.order.first_name || '',
-                last_name: this.order.last_name || '',
-                middle_name: this.order.middle_name || '',
-                birthday: this.order.birthday || '',
-            })
-            this.order.participant_contacts.push({
-                phone: this.order.phone,
-                comment: 'Замовник',
-            })
-        } else {
-            this.order.participants.items.shift()
+        if(!this.order.is_tour_agent){
+            if(value) {
+                this.order.participants.items.unshift({
+                    first_name: this.order.first_name || '',
+                    last_name: this.order.last_name || '',
+                    middle_name: this.order.middle_name || '',
+                    birthday: this.order.birthday || '',
+                });
+                this.order.participant_contacts.unshift({
+                    phone: this.order.phone,
+                    comment: 'Замовник',
+                });
+            } else {
+                this.order.participants.items.shift();
+                this.order.participant_contacts.shift();
+            }
+            this.order.participants.customer = value ;
         }
-        this.order.participants.customer = value
     },
     get participant_contacts() {
         return this.order.participant_contacts ? this.order.participant_contacts : [];
