@@ -67,7 +67,7 @@
             </transition>
             <div class="w-100"></div>
             <transition name="fade">
-                <div class="col-md-8 col-12" v-if="type === 'tour'" key="type-tour">
+                <div class="col-12" v-if="type === 'tour'" key="type-tour">
 
                     <form-tour-autocomplete v-model="tour_id" :tour="tour" @select="selectTour"
                                             option-title="price_title"/>

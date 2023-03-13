@@ -3,9 +3,7 @@
         <div class="col-lg-4 col-12">
             <span class="text text-sm title"><b>{{ __('order-section.offer-date') }}*</b></span>
             <div class="single-datepicker">
-                <form-datepicker
-                    :placeholder="__('forms.select-date')"
-                    name="offer_date" v-model="offer_date" rules="required"/>
+                <form-datepicker name="offer_date" v-model="offer_date" rules="required"/>
             </div>
         </div>
     </div>

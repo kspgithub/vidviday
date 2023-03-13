@@ -61,6 +61,7 @@ return [
     'gallery' => 'Gallery',
     'list' => 'List',
     'calendar' => 'Calendar',
+    'tours-calendar' => 'Tours calendar',
     'show-tours' => 'Show tours',
     'sort-by' => 'Sort by',
     'available' => 'Available',

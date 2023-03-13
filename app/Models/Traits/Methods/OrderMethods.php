@@ -13,6 +13,7 @@ trait OrderMethods
     public function getParticipantsComment()
     {
         $data = $this->participants;
+        $contacts = $this->participant_contacts;
         $comment = '';
         if (!empty($data['items'])) {
             foreach ($data['items'] as $item) {
@@ -24,10 +25,18 @@ trait OrderMethods
             $comment .= "\n";
         }
 
-        if (!empty($data['participant_phone'])) {
-            $phone = $data['participant_phone'];
-
-            $comment .= "Телефон одного з учасників: $phone\n";
+        if (!empty($contacts)) {
+            $comment .= "Контактні дані:\n";
+            foreach ($contacts as $contact) {
+                $phone = $contact['phone'];
+                $messanger = $contact['comment'] ?? '';
+                $comment .= $phone;
+                if(!empty($messanger)){
+                    $comment .= " ($messanger) ";
+                }
+                $comment .= "\n";
+            }
+            
         }
         return trim($comment);
     }
@@ -157,7 +166,6 @@ trait OrderMethods
                 'without_place' => $order_params['without_place'] ?? 0,
                 'without_place_count' => $order_params['without_place_count'] ?? 0,
                 'items' => $params['participants'] ?? [],
-                'participant_phone' => $params['participant_phone'] ?? '',
             ];
 
             if (isset($params['accommodation'])) {

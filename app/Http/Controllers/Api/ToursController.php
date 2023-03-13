@@ -26,11 +26,7 @@ class ToursController extends Controller
      */
     public function index(SearchToursRequest $request)
     {
-        $future = (int)$request->input('future', 1) !== 0;
-
-        $query = Tour::search($future)->filter($request->validated());
-
-
+        $query = Tour::search($request->validated())->filter($request->validated());
 
         $prev = trim(url()->previous(), '/');
 

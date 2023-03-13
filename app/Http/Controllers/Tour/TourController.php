@@ -51,7 +51,7 @@ class TourController extends Controller
     public function index(Request $request, TourGroup $group)
     {
         if (!$group->exists) {
-            $query = Tour::search(false)->filter($request->all());
+            $query = Tour::search(['future' => false])->filter($request->all());
             $tours = $query->paginate($request->input('per_page', 12));
             $request_title = TourService::searchRequestTitle($request->all());
 

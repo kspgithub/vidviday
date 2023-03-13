@@ -116,9 +116,6 @@ if (mix.inProduction()) {
  */
 mix
     .js('resources/js/app.js', path.resolve(buildPath, 'js/app.js'))
-    .js('resources/js/libs/calendar.js', path.resolve(buildPath, '..', 'app/js/libs/calendar.js'))
-    .js('resources/js/libs/markerclusterer.js', path.resolve(buildPath, '..', 'app/js/libs/markerclusterer.js'))
-    .js('resources/js/libs/infobox.js', path.resolve(buildPath, '..', 'app/js/libs/infobox.js'))
     .js('resources/js/libs/sharer.js', path.resolve(buildPath, '..', 'app/js/libs/sharer.js'))
     .js('resources/js/libs/map.js', path.resolve(buildPath, '..', 'app/js/libs/map.js'))
     .sass('resources/scss/app.scss', path.resolve(buildPath, 'css/app.css'))

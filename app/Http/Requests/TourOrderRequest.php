@@ -47,7 +47,7 @@ class TourOrderRequest extends FormRequest
             'additional' => ['nullable', Rule::in(['0', '1'])],
             'program_type' => ['nullable', Rule::in(['0', '1'])],
             'participants' => ['nullable', 'array'],
-            'participant_phone' => ['nullable', 'string'],
+            'participant_contacts' => ['nullable', 'array'],
             'accommodation' => ['nullable', 'array'],
 
             'payment_type' => ['required_if:group_type,==,1', 'integer'],

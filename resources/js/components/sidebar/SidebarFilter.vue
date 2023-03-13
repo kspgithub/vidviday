@@ -160,11 +160,17 @@ export default {
                 q,
                 place: place.value,
             });
-            places.value = [options.places[0], ...(items?.results || [])];
+            places.value = [options.places[0]];
+
+            if(items.results) {
+                for (let i in items.results) {
+                    places.value.push(items.results[i])
+                }
+            }
 
             await nextTick(() => {
                 if (placeSelectRef.value) {
-                    placeSelectRef.value.update(places.value);
+                    // placeSelectRef.value.update(places.value);
                 }
             })
         }

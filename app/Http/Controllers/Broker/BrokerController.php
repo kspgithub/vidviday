@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class BrokerController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         //
         $pageContent = Page::published()->where('key', 'broker')->firstOrFail();

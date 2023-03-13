@@ -225,7 +225,7 @@ class Staff extends TranslatableModel implements HasMedia
         } else {
             $prefix = '/office-worker';
         }
-        return !empty($this->slug) ? url($prefix . '/' . $this->slug) : '';
+        return url(!empty($this->slug) ? url($prefix . '/' . $this->slug) : '');
     }
 
     public function getAllToursAttribute()

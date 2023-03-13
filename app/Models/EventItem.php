@@ -112,7 +112,7 @@ class EventItem extends TranslatableModel implements HasMedia
     {
         $slug = $this->slug;
 //        return !empty($slug) ? route('events.show', $slug) : '';
-        return !empty($slug) ? '/' . $slug : '';
+        return url(!empty($slug) ? '/' . $slug : '');
     }
 
     public function asSelectBox()
