@@ -14,8 +14,25 @@ class AddParticipantsContactsToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->text('participant_contacts')->after('participants');
+            $table->text('participant_contacts')->nullable()->after('participants');
         });
+
+        $orders =  DB::table('orders')->whereNotNull('participants')->get();
+
+        foreach($orders as $order){
+            $item = json_decode($order->participants);
+            $participant_contacts = [];
+            if (!empty($item->participant_phone)){
+
+                $participant_contacts[] = [
+                    "phone" => $item->participant_phone,
+                    "comment" => '',
+                ];
+
+                $participant_contacts = json_encode($participant_contacts);
+                DB::table('orders')->where('id', $order->id)->update(['participant_contacts' => $participant_contacts]);
+            }
+        }
     }
 
     /**
