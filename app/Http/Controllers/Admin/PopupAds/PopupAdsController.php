@@ -66,6 +66,7 @@ class PopupAdsController extends Controller
         ]);
         $popupAd = new PopupAd();
         $popupAd->fill($request->all());
+        $popupAd->save();
         if ($request->hasFile('image_upload')) {
             $popupAd->deleteImage();
             $popupAd->uploadImage($request->file('image_upload'));
