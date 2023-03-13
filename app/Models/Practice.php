@@ -16,14 +16,16 @@ use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Practice extends TranslatableModel
+class Practice extends TranslatableModel implements HasMedia
 {
-    use HasFactory;
     use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use HasJsonSlug;
     use UseSelectBox;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
     public $translatable = [
         'title',
         'text',
