@@ -48,9 +48,9 @@
                                     @endif
                                     <div class="full-size">
                                         <div>
-                                            <h2 class="h1 title light">
+                                            <span class="h1 title light">
                                                 <a href="{{$banner->url}}">{{$banner->title}}</a>
-                                            </h2>
+                                            </span>
                                             <div class="spacer-xs"></div>
                                             <div class="text-md light">
                                                 <span>{{str_limit($banner->text, 300)}}</span>
