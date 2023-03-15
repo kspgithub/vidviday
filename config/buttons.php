@@ -81,6 +81,7 @@ return [
     'goto.map' => ['id' => 'goto.map'],
     'goto.course' => ['id' => 'goto.course'],
     'goto.practice' => ['id' => 'goto.practice'],
+    'goto.calendar' => ['id' => 'goto.calendar'],
 
 
     /*

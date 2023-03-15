@@ -18,7 +18,7 @@ class CertificateController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         $faqItems = FaqItem::published()->where('section', FaqItem::SECTION_CERTIFICATE)->orderBy('sort_order')->get();
 

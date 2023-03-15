@@ -16,14 +16,16 @@ use App\Models\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Practice extends TranslatableModel
+class Practice extends TranslatableModel implements HasMedia
 {
-    use HasFactory;
     use HasTranslatableSlug;
     use HasTranslations;
     use UsePublishedScope;
     use HasJsonSlug;
     use UseSelectBox;
+    use InteractsWithMedia;
+    use UseNormalizeMedia;
+
     public $translatable = [
         'title',
         'text',
@@ -83,7 +85,7 @@ class Practice extends TranslatableModel
     public function getUrlAttribute()
     {
         $slug = $this->slug;
-        return !empty($slug) ? route('practice.show', $slug) : route('practice.show', $this->id);
+        return url(!empty($slug) ? route('practice.show', $slug) : route('practice.show', $this->id));
     }
 
     public function getSimilarPracticesAttribute()

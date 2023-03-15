@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" v-bind="buttonAttrs" v-on="buttonEvents">
+    <component :is="getTag" v-bind="buttonAttrs" v-on="buttonEvents">
         <slot />
     </component>
 </template>
@@ -12,14 +12,14 @@ export default {
     props: {
         tag: {
             type: String,
-            default: 'button',
+            required: false,
         },
         code: {
             type: String,
             required: true,
         },
         id: {
-            type: String,
+            type: [String, Number],
             required: false,
         },
     },
@@ -36,6 +36,8 @@ export default {
             }
         }))
 
+        const getTag = computed(() => props.tag || (attrs.href ? 'a' : 'button'))
+
         const buttonEvents = computed(() => ({
             click: (e) => {
                 // e.preventDefault()
@@ -48,6 +50,7 @@ export default {
             config,
             buttonAttrs,
             buttonEvents,
+            getTag,
         }
     }
 }

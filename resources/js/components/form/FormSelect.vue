@@ -93,6 +93,7 @@ export default {
         const open = ref(false);
 
         const searchValue = ref('');
+        const ooptions = ref(props.options);
 
         const selected = computed(() => {
             const value = String(JSON.parse(JSON.stringify(props.modelValue)))
@@ -105,7 +106,7 @@ export default {
 
             const selectedValue = value.split(',').filter(id => !!id);
 
-            let options = props.options.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
+            let options = ooptions.value.filter(o => props.multiple ? selectedValue.includes(toRaw(o).value) : toRaw(o).value == props.modelValue);
 
             if (!options.length) {
                 if (props.options.length && !props.options[0].value) {
@@ -176,7 +177,7 @@ export default {
         })
 
         const filteredOptions = computed(() => {
-            return props.options.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
+            return ooptions.value.filter((o, i) => i === 0 || o.text.toLowerCase().indexOf(searchValue.value.toLowerCase()) > -1)
         })
 
         const selectAllClicked = ref(false)
@@ -187,7 +188,7 @@ export default {
             close()
 
             let options = []
-            for (let option of props.options) {
+            for (let option of ooptions.value) {
                 if (option.value)
                     options.push(option.value)
             }
@@ -214,6 +215,7 @@ export default {
         }
 
         const update = (items) => {
+            ooptions.value = items
 
             if ($(sumoSelectRef.value)[0].sumo) {
 

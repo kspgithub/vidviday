@@ -12,7 +12,7 @@ class PracticeController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practices = Practice::published()->orderBy('created_at', 'desc')->paginate(20);

@@ -67,6 +67,7 @@ export default {
         app.component('tour-order', lazyLoadComponent('tour/TourOrder'));
         app.component('tour-one-click-popup', lazyLoadComponent('tour/TourOneClickPopup'));
         app.component('tour-calendar-popup', lazyLoadComponent('tour/TourCalendarPopup'));
+        app.component('tour-view-calendar', lazyLoadComponent('tour/TourViewCalendar'));
         app.component('tour-like-btn', lazyLoadComponent('tour/TourLikeBtn'));
         app.component('tour-voting-form', lazyLoadComponent('tour/TourVotingForm'));
         app.component('tour-order-schedule-button', lazyLoadComponent('tour/TourOrderScheduleButton'));

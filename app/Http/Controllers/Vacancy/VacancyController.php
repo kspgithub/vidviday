@@ -12,7 +12,7 @@ class VacancyController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancies = Vacancy::published()->orderBy('created_at', 'desc')->paginate(20);

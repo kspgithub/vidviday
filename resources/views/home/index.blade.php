@@ -32,9 +32,7 @@
 
                     @include('home.includes.banner')
 
-                    <x-seo-button :code="'goto.vacancy'" href="/" class="btn type-3 btn-more">Дізнатись Більше</x-seo-button>
-
-                        <div v-is="'tour-search'">
+                    <div v-is="'tour-search'">
                             <!-- MOBILE BUTTONS BAR -->
                             @include('includes.mobile-btns-bar')
                             <!-- MOBILE BUTTONS BAR END -->

@@ -7,10 +7,11 @@ use App\Models\PopupAd;
 use App\Models\Staff;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class TourGuideController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
         $specialists = Staff::published()->whereHas('types', function ($q) {

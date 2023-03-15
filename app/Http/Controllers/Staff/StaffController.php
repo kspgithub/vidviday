@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Place\TestimonialRequest;
-use App\Models\PopupAd;
 use App\Models\Staff;
-use App\Models\StaffType;
-use App\Models\Page;
 use App\Models\Testimonial;
 use App\Models\Tour;
-
+use Illuminate\Http\Request;
 
 class StaffController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         //
         $specialists = Staff::published()->whereHas('types', function ($q) {
@@ -36,8 +33,10 @@ class StaffController extends Controller
             },
             'tours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
-                    return $q->inFuture();
-                })->withAvg('testimonials', 'rating')
+                    return $q->with('orders')->inFuture();
+                })
+                    ->with('media')
+                    ->withAvg('testimonials', 'rating')
                     ->withCount([
                         'testimonials' => function ($q) {
                             return $q->moderated()
@@ -49,8 +48,10 @@ class StaffController extends Controller
             },
             'manageTours' => function ($q) {
                 return $q->with('scheduleItems', function ($q) {
-                    return $q->inFuture();
-                })->withAvg('testimonials', 'rating')
+                    return $q->with('orders')->inFuture();
+                })
+                    ->with('media')
+                    ->withAvg('testimonials', 'rating')
                     ->withCount([
                         'testimonials' => function ($q) {
                             return $q->moderated()

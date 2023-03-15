@@ -11,7 +11,7 @@ class CourseController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         $pageContent = Page::published()->where('key', 'courses')->firstOrFail();
         $courses = Course::published()->orderBy('created_at', 'desc')->paginate(20);

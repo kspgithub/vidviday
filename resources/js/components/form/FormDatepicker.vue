@@ -12,7 +12,7 @@
                    :value="innerValue"
                    type="text"
                    class="dr"
-                   :placeholder="placeholder">
+                   :placeholder="getPlaceholder">
             <span v-show="!open" v-html="displayLabel"></span>
         </div>
         <div class="datepicker-toggle">
@@ -48,7 +48,8 @@ export default {
         },
         placeholder: {
             type: String,
-            default: 'DD.MM.YYYY' // http://t1m0n.name/air-datepicker/docs/index-ru.html#sub-section-9
+            required: false,
+            // default: 'DD.MM.YYYY' // http://t1m0n.name/air-datepicker/docs/index-ru.html#sub-section-9
         },
         minDate: {
             type: String,
@@ -81,6 +82,10 @@ export default {
         const pickerInput = ref(null);
         const datepicker = ref(null);
         const open = ref(false);
+
+        const getPlaceholder = computed(() => {
+            return props.placeholder || __('forms.date-format')
+        })
 
         const displayLabel = computed(() => {
             return !innerValue.value
@@ -183,7 +188,7 @@ export default {
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
             $(pickerInput.value).inputmask({
-                placeholder: props.placeholder,
+                placeholder: getPlaceholder.value,
                 mask: "q9.w9.9999",
                 clearMaskOnLostFocus: true,
                 definitions: {
@@ -249,6 +254,7 @@ export default {
         })
 
         return {
+            getPlaceholder,
             pickerRef,
             pickerEl,
             pickerInput,

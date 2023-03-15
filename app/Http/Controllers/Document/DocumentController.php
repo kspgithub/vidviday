@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //
         $documents = Document::all();
