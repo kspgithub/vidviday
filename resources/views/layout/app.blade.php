@@ -11,6 +11,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
+    @if(!allowIndex())
+        <meta name="robots" content="noindex,follow">
+    @endif
+
     <title>@yield('title', config('app.name', 'Vidviday'))</title>
     <meta name="keywords" content="@yield('seo_keywords', config('app.name', 'Vidviday'))">
     <meta name="description" content="@yield('seo_description',  config('app.name', 'Vidviday'))">

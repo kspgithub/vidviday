@@ -3,10 +3,10 @@
         <h3>@lang('Basic Information')</h3>
     </x-slot>
     <x-slot name="body">
-        <x-forms.switch-group name="published" label="Опублікований" :active="old('published', $tour->published)"/>
+        <x-forms.switch-group name="published" label="Опублікований" :active="$tour->exists ? old('published', $tour->published) : true"/>
 
         <x-forms.switch-group name="order_enabled" label="Замовлення"
-                              :active="old('order_enabled', $tour->order_enabled)"/>
+                              :active="$tour->exists ? old('order_enabled', $tour->order_enabled) : true"/>
 
         <x-forms.switch-group name="home_disabled" label="Відключити показ на головній"
                               :active="old('home_disabled', $tour->home_disabled)"/>
