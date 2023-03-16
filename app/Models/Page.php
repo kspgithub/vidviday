@@ -51,7 +51,7 @@ class Page extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return url(!empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '');
+        return !empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '';
     }
 
 
