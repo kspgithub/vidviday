@@ -216,3 +216,17 @@ if (!function_exists('mail_link')) {
         return 'mailto:' . $contact;
     }
 }
+
+if (!function_exists('allowIndex')) {
+    function allowIndex()
+    {
+        if(
+            in_array('order', request()->segments())
+            || request()->routeIs('*order*')
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+}
