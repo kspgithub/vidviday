@@ -12,7 +12,7 @@
 						"autoHeight": true,
 						"slidesPerView": 2,
 						"slidesPerGroup": 2,
-						"spaceBetween": 30,
+						"spaceBetween": 20,
 						"breakpoints": {
 							"768": {
 								"slidesPerView": 3,
