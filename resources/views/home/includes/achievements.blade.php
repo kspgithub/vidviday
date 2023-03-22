@@ -20,7 +20,8 @@
 							},
 							"1200": {
 								"slidesPerView": 4,
-								"slidesPerGroup": 4
+								"slidesPerGroup": 4,
+                                "spaceBetween": 0
 							}
 						}
 					}'>
