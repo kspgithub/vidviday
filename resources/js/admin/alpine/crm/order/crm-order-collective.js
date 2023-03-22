@@ -150,7 +150,7 @@ export default (params) => ({
             jQuery(tourSelectBox).on('select2:select', (e) => {
                 this.order.tour_id = e.params.data.id;
                 this.tour = e.params.data;
-                this.tourDiscounts = e.params.data.discounts || [];
+                /* this.tourDiscounts = e.params.data.discounts || []; */
                 this.order.schedule_id = null;
                 this.loadSchedules();
             })
