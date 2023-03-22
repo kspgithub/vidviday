@@ -66,7 +66,7 @@
                             type="submit"
                             class="btn type-1 btn-block hidden-print"
                             v-if="!corporate"
-                            @click.prevent="tourOrder"
+                            @click="tourOrder"
                 >
                     {{ __('tours-section.order-tour') }}
                 </seo-button>

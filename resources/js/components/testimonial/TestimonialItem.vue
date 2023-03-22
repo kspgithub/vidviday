@@ -53,6 +53,7 @@
             <div class="spacer-xs" v-if="item.gallery && item.gallery.length > 0"></div>
             <swiper-slider :key="'swp-'+item.id" class="swiper-entry" :media="item.gallery"
                            v-if="item.gallery.length > 0" :buttons="false"
+                           img-att="url"
                            :options="{
                                slidesPerView: 3,
                                spaceBetween: 15,

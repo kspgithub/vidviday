@@ -43,6 +43,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        imgAtt: {
+            type: String,
+            default: 'thumb',
+        },
     },
     setup(props) {
         const store = useStore()
@@ -208,7 +212,7 @@ export default {
 
             const isLazy = idx > options.value.slidesPerView
 
-            attrs[isLazy ? 'data-src' : 'src'] = slide['thumb']
+            attrs[isLazy ? 'data-src' : 'src'] = slide[props.imgAtt]
 
             if(isLazy) {
                 attrs['loading'] = 'lazy'
