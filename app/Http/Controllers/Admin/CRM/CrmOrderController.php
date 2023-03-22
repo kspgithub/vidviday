@@ -15,6 +15,7 @@ use App\Models\UserQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
+use App\Models\Discount;
 
 class CrmOrderController extends Controller
 {
@@ -81,10 +82,13 @@ class CrmOrderController extends Controller
             if ($schedule) {
                 $order->tour_id = $schedule->tour_id;
                 $order->schedule_id = $schedule->id;
-                $discounts = $schedule->tour->discounts->map->asAlpineData()->all();
+                /* $discounts = $schedule->tour->discounts->map->asAlpineData()->all(); */
                 $tour = $schedule->tour->shortInfo();
             }
         }
+
+        $ds = Discount::all();
+        $discounts = $ds->map->asAlpineData();
 
         if (current_user()->isDutyManager()) {
             $statuses = arrayToSelectBox(Order::dutyStatuses());
