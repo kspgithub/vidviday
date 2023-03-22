@@ -62,18 +62,18 @@
                                     <img loading="lazy" src="{{ asset("img/preloader.png") }}"
                                          data-src="{{ $post->main_image_url }}"
                                          alt="img 25">
-                                    <a href="{{ route("news.single", ["slug" => $post->slug]) }}"
+                                    <a href="{{ route('news.single', ['slug' => $post->slug]) }}"
                                        class="full-size"></a>
                                 </div>
                                 <div class="thumb-content">
                                     <div class="title h3">
-                                        <a href="{{ route("news.single", ["slug" => $post->slug]) }}">{{ $post->title }}</a>
+                                        <a href="{{ route('news.single', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                     </div>
                                     <span class="text text-sm">{{ $post->created_at?->format("d.m.Y") }}</span>
                                     <div class="text">
                                         <p>{{ $post->short_text }}</p>
                                         <x-seo-button :code="'goto.news'"
-                                                      href="{{ route("news.single", ["slug" => $post->slug]) }}"
+                                                      href="{{ route('news.single', ['slug' => $post->slug]) }}"
                                                       class="btn btn-read-more text-bold">{{ __("Читати більше") }}</x-seo-button>
                                     </div>
                                 </div>

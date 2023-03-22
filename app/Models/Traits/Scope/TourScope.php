@@ -296,8 +296,8 @@ trait TourScope
         });
 
         $query->select('tours.*')
-            ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
-            ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
+//            ->addSelect(DB::raw('COUNT(tour_votings.tour_id) as votings_count'))
+//            ->addSelect(DB::raw('COUNT(tour_views.tour_id) as views_count'))
             ->addSelect(DB::raw(
                 '
                     CASE WHEN MIN(tour_schedules.start_date) IS NULL

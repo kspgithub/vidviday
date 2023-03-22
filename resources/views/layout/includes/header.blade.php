@@ -128,7 +128,7 @@
                             @if(!$menuItem->page || ($menuItem->page->published && $menuItem->page->isAvailableFor(Auth::user())))
                                 @if($menuItem->children->count() > 0)
                                     <li class="dropdown {{$menuItem->class_name ?? ''}}">
-                                        <a href="/{{ltrim($menuItem->url, '/')}}"
+                                        <a href="{{ Str::startsWith($menuItem->url,'http') ? $menuItem->url : '/' . ltrim($menuItem->url, '/') }}"
                                            class="dropdown-title">{{$menuItem->title}}</a>
                                         <span class="dropdown-btn"></span>
                                         <div class="dropdown-toggle">
