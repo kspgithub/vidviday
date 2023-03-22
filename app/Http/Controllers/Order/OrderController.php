@@ -75,6 +75,7 @@ class OrderController extends Controller
                 $redirect_route = 'order.purchase';
             } else {
                 $redirect_route = 'order.success';
+                $order = $order->url; 
             }
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);
@@ -95,11 +96,17 @@ class OrderController extends Controller
         return view('order.purchase', ['wizard' => $wizard, 'order' => $order, 'type' => 'tour']);
     }
 
-    public function success(Request $request, Order $order)
+   /*  public function success(Request $request, Order $order)
     {
         return view('order.success', ['order' => $order]);
     }
+ */
 
+    public function success($url)
+    {
+        $order = Order::where('url', $url)->firstOrFail();
+        return view('order.success', ['order' => $order]);
+    }
 
     public function cancel(Request $request, $id)
     {
