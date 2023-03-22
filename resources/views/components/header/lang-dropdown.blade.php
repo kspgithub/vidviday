@@ -6,7 +6,7 @@
             @foreach($localeLinks as  $language=>$url)
                 @if($language !== $currentLocale)
                     <li>
-                        <a href="{{$url}}">{{strtoupper($language)}}</a>
+                        <a hreflang="{{strtolower($language)}}" href="{{$url}}">{{strtoupper($language)}}</a>
                     </li>
                 @endif
             @endforeach

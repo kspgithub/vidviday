@@ -5,7 +5,7 @@ use App\Http\Controllers\Tour\TourController;
 Route::group([
     'as' => 'tour.',
 ], function () {
-    Route::get('tour/order/{order}/success', [TourController::class, 'orderSuccess'])->name('order-success');
+    Route::get('tour/order/{url}/success', [TourController::class, 'orderSuccess'])->name('order-success');
 
     Route::get('tours/download', [TourController::class, 'download'])->name('download');
     Route::get('tours/{group?}', [TourController::class, 'index'])->name('index');
