@@ -10,6 +10,7 @@ use App\Models\TourSchedule;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class OrderService extends BaseService
 {
@@ -232,6 +233,8 @@ class OrderService extends BaseService
             }
             $order_params['payment_type'] = $params['payment_type'] ?? 0;
         }
+
+        $order_params['url'] = md5($order->id . Str::random(10));
 
         DB::beginTransaction();
 

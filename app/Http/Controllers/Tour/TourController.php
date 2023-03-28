@@ -423,6 +423,7 @@ class TourController extends Controller
                 $redirect_route = 'order.purchase';
             } else {
                 $redirect_route = 'order.success';
+                $order = $order->url; 
             }
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);

@@ -169,5 +169,6 @@ class Order extends TranslatableModel implements Auditable, Purchasable
         'admin_comment',
         'agency_data',
         'utm_data',
+        'url',
     ];
 }

@@ -287,16 +287,19 @@
                                 <td>
                                     <input type="text" class="form-control form-control-sm text-right mw-80px w-80px"
                                            @blur="updateOrder(order.id, {payment_fop: order.payment_fop})"
+                                           @click="if ($event.target.value == 0) $event.target.value = ''"
                                            x-model.debounce.500ms="order.payment_fop" placeholder="0">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm text-right mw-80px w-80px"
                                            @blur="updateOrder(order.id, {payment_tov: order.payment_tov})"
+                                           @click="if ($event.target.value == 0) $event.target.value = ''"
                                            x-model.debounce.500ms="order.payment_tov" placeholder="0">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm text-right mw-80px w-80px"
                                            @blur="updateOrder(order.id, {payment_office: order.payment_office})"
+                                           @click="if ($event.target.value == 0) $event.target.value = ''"
                                            x-model.debounce.500ms="order.payment_office" placeholder="0">
                                 </td>
                                 <td class="text-right text-nowrap">
