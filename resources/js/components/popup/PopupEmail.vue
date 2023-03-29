@@ -44,14 +44,14 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <seo-button code="order.email" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
+                            <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
-                            </seo-button>
+                            </button>
                         </vue-recaptcha>
                         <template v-if="!useRecaptcha">
-                            <seo-button code="order.email" type="submit" class="btn type-1" :disabled="request" @click.prevent="validateForm">
+                            <button type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('forms.send') }}
-                            </seo-button>
+                            </button>
                         </template>
                     </div>
                 </div>
