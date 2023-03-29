@@ -234,13 +234,14 @@ class OrderService extends BaseService
             $order_params['payment_type'] = $params['payment_type'] ?? 0;
         }
 
-        $order_params['url'] = md5($order->id . Str::random(10));
 
         DB::beginTransaction();
 
         try {
             $order = new Order();
             $order->fill($order_params);
+            $order->save();
+            $order->url = md5($order->id . Str::random(10));
             $order->save();
         } catch (Exception $e) {
             Log::error($e->getMessage(), $e->getTrace());
