@@ -109,13 +109,13 @@ trait TourScheduleMethod
         return $this->shortInfo(['admin_comment', 'duty_comment', 'places', 'auto_booking', 'auto_limit', 'manager']);
     }
 
-    public function asCalendarEvent($event_click = 'url')
+    public function asCalendarEvent($event_click = 'url', $locale = 'uk')
     {
         $json = json_encode($this->shortInfo());
 
         $data = [
             'id' => $this->id,
-            'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->title,
+            'title' => $event_click !== 'url' ? $this->getPriceTitleAttribute() : $this->tour->translate('title', $locale),
             'start' => $this->start_date->format('Y-m-d'),
             'end' => $this->end_date->addDays(($this->tour->duration + $this->tour->nights) <= 2 ? 0 : 1)->format('Y-m-d'),
             'className' => $this->places_available >= 10 ? 'have-a-lot' : ($this->places_available >= 2 ? 'still-have' : 'no-have'),
