@@ -58,14 +58,14 @@
                                        @render="render"
                                        ref="recaptcha"
                         >
-                            <seo-button code="order.call" type="submit" class="btn type-1" :disabled="request" @click.prevent="validateForm">
+                            <button id="b21" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
-                            </seo-button>
+                            </button>
                         </vue-recaptcha>
                         <template v-if="!useRecaptcha">
-                            <seo-button code="order.call" type="submit" class="btn type-1" :disabled="request" @click.prevent="validateForm">
+                            <button id="b22" type="submit" class="btn type-1" :disabled="request" @click="validateForm">
                                 {{ __('common.order-call') }}
-                            </seo-button>
+                            </button>
                         </template>
                     </div>
                 </div>
