@@ -26,13 +26,10 @@
                         </span>
                     </div>
 
-                    <seo-button code="tour.order_schedule"
-                                :is="'tour-order-schedule-button'"
-                                :tour-id="tour.id"
-                                :schedule-id="event.id"
-                                class="btn type-1"
-                    ></seo-button>
-
+                    <component :is="'tour-order-schedule-button'"
+                               :tour="tour"
+                               :schedule="event"
+                               class="btn type-1"/>
                 </div>
             </template>
 
