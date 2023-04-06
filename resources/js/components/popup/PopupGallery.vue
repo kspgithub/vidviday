@@ -8,7 +8,7 @@
                 <div class="swiper-container swiper-vue" ref="swiperRef">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(slide, idx) in media">
-                            <img :data-src="slide.url" :title="slide.title" :alt="slide.alt" class="swiper-lazy">
+                            <img :data-src="slide.url" :title="slide.title" :alt="slide.alt" @load="onImageLoad" class="swiper-lazy">
                             <div class="swiper-lazy-preloader"></div>
                             <span class="text-md text-medium">{{ slide.title }}</span>
                         </div>
@@ -137,6 +137,8 @@ export default {
 
             });
 
+            swiper.height = 80; 
+
             slider.value = $(swiperRef.value).closest('.swiper-entry')
 
             swiper.value.on('slideChangeTransitionStart', () => {
@@ -168,6 +170,10 @@ export default {
             store.commit('popupGallery/SET_ACTIVE', false);
         }
 
+        const onImageLoad = () => {
+            swiper.value.update();
+        };
+
         return {
             swiperRef,
             paginationRef,
@@ -180,6 +186,8 @@ export default {
             hide,
             visible,
             media,
+
+            onImageLoad,
         }
     }
 }
