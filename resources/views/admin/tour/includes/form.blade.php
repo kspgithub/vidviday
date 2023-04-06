@@ -59,6 +59,37 @@
         <x-forms.select-group name="currency" :label="__('Currency')" :value="old('currency', $tour->currency)"
                               :options="$currencies" type="number"></x-forms.select-group>
 
+        <div class="form-group row mb-3 align-items-center">
+            <div class="m-0 col-md-2 col-form-label">
+                <span class="form-check-label">
+                    Змінити для всіх актуальних виїздів:
+                            </span>
+            </div>
+            <div class="m-0 col-md-10">
+                <div class="form-check form-switch form-check-inline mb-3 me-4">
+                    <input class="form-check-input" name="price_for_all_schedules" type="checkbox" >
+                    <label class="form-check-label" for="price_for_all_schedules">
+                        Ціну туру
+                    </label>
+                </div>
+        
+                <div class="form-check form-switch form-check-inline mb-3 me-4">
+                    <input class="form-check-input" name="commission_for_all_schedules" type="checkbox" >
+                    <label class="form-check-label" for="commission_for_all_schedules">
+                        Турагентська комісія
+                    </label>
+                </div>
+        
+                <div class="form-check form-switch form-check-inline mb-3 me-4">
+                    <input class="form-check-input" name="accomm_price_for_all_schedules" type="checkbox" >
+                    <label class="form-check-label" for="accomm_price_for_all_schedules">
+                        Оплата за 1-місне поселення
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+
         @php
             $main_image_alts = [];
             $main_image_titles = [];

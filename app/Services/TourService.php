@@ -140,6 +140,19 @@ class TourService extends BaseService
                 $tour->planItems()->updateOrCreate(['tour_id' => $tour->id], $plan);
             }
 
+            /* Цена для всех выездов */
+            if (array_key_exists('price_for_all_schedules', $params) && array_key_exists('price', $params)) {
+                $tour->scheduleItems()->update(['price' => $params['price']]);
+            }
+            /* Комиссия для всех выездов */
+            if (array_key_exists('commission_for_all_schedules', $params) && array_key_exists('commission', $params)) {
+                $tour->scheduleItems()->update(['commission' => $params['commission']]);
+            }
+            /* Цена за поселение для всех выездов */
+            if (array_key_exists('accomm_price_for_all_schedules', $params) && array_key_exists('accomm_price', $params)) {
+                $tour->scheduleItems()->update(['accomm_price' => $params['accomm_price']]);
+            }
+
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage(), $e->getTrace());
