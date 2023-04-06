@@ -27,8 +27,8 @@
                     </div>
 
                     <component :is="'tour-order-schedule-button'"
-                               :tour="tour"
-                               :schedule="event"
+                               :tour-id="tour.id"
+                               :schedule-id="event.id"
                                class="btn type-1"/>
                 </div>
             </template>
