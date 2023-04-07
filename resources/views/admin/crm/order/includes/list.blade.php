@@ -5,6 +5,13 @@
     })'>
     <div class="row mb-3">
         <div class="col-auto">
+            <input x-model="order_id"
+                    class="form-control form-control-sm"
+                    @change.debounce="filterChange()"
+                    placeholder="ID заказа"
+            />
+        </div>
+        <div class="col-auto">
             <select x-model="status"
                     class="form-control form-control-sm"
                     @change.debounce="filterChange()"
@@ -52,20 +59,87 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="col-auto">
+            <input x-model="places"
+                    class="form-control form-control-sm"
+                    @change.debounce="filterChange()"
+                    placeholder="Осіб"
+            />
+        </div>
+        
+    </div>
+    <div class="row mb-3">
+        <div class="col-auto">
+            <div class="me-2">Дата виїзду</div>
+        </div>
+        <div class="col-auto">
+            <select x-model="dates__interval" class="form-control form-control-sm" @change.debounce="changeDatesType">
+                <option value="0">Точная дата</option>
+                <option value="1">Интервал</option>
+            </select>
+        </div>
         <div class="col-auto">
             <div class="d-flex align-items-center">
-                <div class="me-2">Дата виїзду</div>
                 <div>
-                    <input x-model="dates" type="search"
-                           class="form-control form-control-sm"
-                           @input.debounce="filterChange()"
-                           x-ref="datesRef">
+                    <input x-model="dates" type="search" class="form-control form-control-sm"
+                        @input.debounce="filterChange()" x-ref="datesRef">
                 </div>
                 <a href="#" x-show="dates" @click.prevent="clearDates()" class="text-danger ms-2">
                     <i class="fa fa-times"></i>
                 </a>
             </div>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-auto">
+            <div class="me-2">Дата замовлення</div>
+        </div>
+        <div class="col-auto">
+            <select x-model="created_dates__interval" class="form-control form-control-sm"
+                @change.debounce="changeCreatedDatesType()">
+                <option value="0">Точная дата</option>
+                <option value="1">Интервал</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <div class="d-flex align-items-center">
+                <div>
+                    <input x-model="created_dates" type="search" class="form-control form-control-sm"
+                        @input.debounce="filterChange()" x-ref="created_datesRef">
+                </div>
+                <a href="#" x-show="created_dates" @click.prevent="clearCreatedDates()" class="text-danger ms-2">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <div class="row mb-3">
+        <div class="col-auto">
+            <div class="me-2">Турист (Контактна особа)</div>
+        </div>
+        <div class="col-auto">
+            <input x-model="contact"
+                    class="form-control form-control-sm"
+                    @change.debounce="filterChange()"
+                    placeholder="Ім'я"
+            />
+        </div>
+        <div class="col-auto">
+            <input x-model="phone"
+                    class="form-control form-control-sm"
+                    @change.debounce="filterChange()"
+                    placeholder="Телефон"
+            />
+        </div>
+        <div class="col-auto">
+            <input x-model="email"
+                    class="form-control form-control-sm"
+                    @change.debounce="filterChange()"
+                    placeholder="Email"
+            />
         </div>
     </div>
 

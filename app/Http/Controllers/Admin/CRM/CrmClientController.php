@@ -16,13 +16,25 @@ class CrmClientController extends Controller
     {
         if ($request->ajax()) {
             $query = BitrixContact::query();
-            $search = $request->input('q', '');
 
-            if (!empty($search)) {
-                $query
-                    ->whereRaw("CONCAT_WS(' ', last_name, first_name) LIKE '%$search%'")
-                    ->orWhereRaw("phone LIKE '%$search%'")
-                    ->orWhereRaw("email LIKE '%$search%'");
+            $contact = $request->input('contact', '');
+            if (!empty($contact)) {
+                $query->whereRaw("CONCAT_WS(' ', last_name, first_name) LIKE '%$contact%'");
+            }
+            
+            $phone = $request->input('phone', '');
+            if (!empty($phone)) {
+                $query->whereRaw("JSON_CONTAINS(phone, '\"$phone\"', '$')");
+            }
+            
+            $email = $request->input('email', '');
+            if (!empty($email)) {
+                $query->whereRaw("JSON_CONTAINS(email, '\"$email\"', '$')");
+            }
+            
+            $bitrix_id = $request->input('bitrix_id', 0);
+            if (!empty($bitrix_id)) {
+                $query->where('bitrix_id', $bitrix_id);
             }
 
             $order = explode(':', $request->input('order', 'bitrix_id:asc'));

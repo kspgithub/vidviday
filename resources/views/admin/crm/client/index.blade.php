@@ -22,8 +22,38 @@
         </a>
 
         <div x-show="!edit && !create">
-            <div class="mb-3">
-                <input type="search" class="form-control" x-model.debounce.500ms="search" placeholder="Пошук..."/>
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <div class="me-2">Клієнт</div>
+                </div>
+                <div class="col-auto">
+                    <input x-model.debounce.500ms="bitrix_id"
+                            class="form-control form-control-sm"
+                            
+                            placeholder="Bitrix ID"
+                    />
+                </div>
+                <div class="col-auto">
+                    <input x-model.debounce.500ms="contact"
+                            class="form-control form-control-sm"
+                            
+                            placeholder="Ім'я"
+                    />
+                </div>
+                <div class="col-auto">
+                    <input x-model.debounce.500ms="phone"
+                            class="form-control form-control-sm"
+                            
+                            placeholder="Телефон"
+                    />
+                </div>
+                <div class="col-auto">
+                    <input x-model.debounce.500ms="email"
+                            class="form-control form-control-sm"
+                           
+                            placeholder="Email"
+                    />
+                </div>
             </div>
 
             <div class="card">
