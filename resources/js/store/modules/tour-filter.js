@@ -1,5 +1,6 @@
 import { fetchTours, fetchPopularTours } from "../../services/tour-service";
 import * as urlUtils from "../../utils/url";
+import {useI18n} from "vue-i18n";
 
 export default {
     namespaced: true,
@@ -175,6 +176,7 @@ export default {
                 subject: state.formData.subject,
                 place: state.formData.place,
                 landing: state.formData.landing,
+                locales: useI18n({useScope: 'global'}).locale.value,
             }
         }
     },
