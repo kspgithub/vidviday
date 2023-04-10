@@ -7,7 +7,8 @@ import * as UrlUtils from "../../../../utils/url";
 let cancelTokenSource = null;
 
 Ukrainian.rangeSeparator = '-';
-
+let picker;
+let createdPicker;
 
 export default (options) => ({
     loading: false,
@@ -34,8 +35,8 @@ export default (options) => ({
     init() {
         this.loadItems(false);
         if (this.$refs.datesRef) {
-            const mode = this.dates__interval ? 'range' : 'single';
-            const picker = flatpickr(this.$refs.datesRef, {
+            const mode = this.dates__interval == 1 ? 'range' : 'single';
+            picker = flatpickr(this.$refs.datesRef, {
                 mode: mode,
                 locale: Ukrainian,
                 dateFormat: 'd.m.Y',
@@ -44,8 +45,8 @@ export default (options) => ({
         }
 
         if (this.$refs.created_datesRef) {
-            const mode = this.created_dates__interval ? 'range' : 'single';
-            const createdPicker = flatpickr(this.$refs.created_datesRef, {
+            const mode = this.created_dates__interval == 1 ? 'range' : 'single';
+            createdPicker = flatpickr(this.$refs.created_datesRef, {
                 mode: mode,
                 locale: Ukrainian,
                 dateFormat: 'd.m.Y',
@@ -75,22 +76,12 @@ export default (options) => ({
         this.loadItems();
     },
     changeDatesType(){
-        mode = this.dates__interval ? 'range' : 'single';
-        const picker = flatpickr(this.$refs.datesRef, {
-            mode: mode,
-            locale: Ukrainian,
-            dateFormat: 'd.m.Y',
-            defaultDate: this.dates,
-        });
+        const mode = this.dates__interval == 1 ? 'range' : 'single';
+        picker.set('mode', mode);
     },
     changeCreatedDatesType(){
-        mode = this.created_dates__interval ? 'range' : 'single';
-        const createdPicker = flatpickr(this.$refs.created_datesRef, {
-            mode: mode,
-            locale: Ukrainian,
-            dateFormat: 'd.m.Y',
-            defaultDate: this.created_dates,
-        });
+        const mode = this.created_dates__interval == 1 ? 'range' : 'single';
+        createdPicker.set('mode', mode);
     },
 
     get filterData() {
