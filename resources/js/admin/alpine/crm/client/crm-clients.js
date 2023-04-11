@@ -10,13 +10,28 @@ export default (options) => ({
     edit: false,
     create: false,
     loader: false,
-    search: options.params.q || '',
+    contact: options.params.contact || '',
+    phone: options.params.phone || '',
+    email: options.params.email || '',
+    bitrix_id:  options.params.bitrix_id || '',
     sort: options.params.order || 'bitrix_id:asc',
     current_page: parseInt(options.params.page) || 1,
     selectedClient: null,
     init() {
         this.loadClients(false);
-        this.$watch('search', () => {
+        this.$watch('contact', () => {
+            this.current_page = 1;
+            this.loadClients(true)
+        });
+        this.$watch('phone', () => {
+            this.current_page = 1;
+            this.loadClients(true)
+        });
+        this.$watch('email', () => {
+            this.current_page = 1;
+            this.loadClients(true)
+        });
+        this.$watch('bitrix_id', () => {
             this.current_page = 1;
             this.loadClients(true)
         })
@@ -28,13 +43,16 @@ export default (options) => ({
         cancelTokenSource = axios.CancelToken.source();
         this.loader = true;
         const params = {
-            q: this.search,
+            contact: this.contact,
+            phone: this.phone.replace(/[\s()-]+/g, ''),
+            email: this.email,
+            bitrix_id:  this.bitrix_id,
             order: this.sort,
             page: this.current_page,
         };
 
         if (updateUrl) {
-            const updateParams = UrlUtils.filterParams(params, {q: '', order: 'bitrix_id:asc', page: 1});
+            const updateParams = UrlUtils.filterParams(params, {contact: '',phone: '', email: '', bitrix_id:'', order: 'bitrix_id:asc', page: 1});
             UrlUtils.updateUrl(document.location.pathname, updateParams, false);
         }
 
