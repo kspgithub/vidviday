@@ -251,7 +251,9 @@ export default {
                     schema.tour_plan = 'required';
                 }
                 if (group_type.value === 0 && schedules.value.length > 0) {
-                    // schema.schedule_id = 'required';
+                    schema.schedule_id = () => {
+                        return formData.value.schedule_id > 0 ? true : 'Оберіть дату виїзду';
+                    };
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
                         schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;
@@ -270,7 +272,9 @@ export default {
                 schema.conditions = () => {
                     return conditions.value === 1 ? true : 'Ви повинні прийняти умови правил бронювання.';
                 };
-                schema.payment_type = 'required';
+                schema.payment_type = () => {
+                    return !!formData.value.payment_type;
+                };
             }
             return schema;
         });
@@ -283,8 +287,9 @@ export default {
         const submit = async (event) => {
             const result = await validate();
             if (result.valid) {
-
+                event.target.form.submit()
             } else {
+                console.log(formData.value);
                 console.log(errors.value);
                 event.preventDefault();
             }
