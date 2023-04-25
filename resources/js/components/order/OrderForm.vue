@@ -257,11 +257,14 @@ export default {
                 } else {
                     if (!props.tourSelected && group_type.value === 1) {
                         schema.start_date = () => !formData.value.start_date ? 'Оберіть дату виїзду' : true;
-                        // schema.start_place = 'required';
-                        schema.end_date = () => !formData.value.start_date ? 'Оберіть дату повернення' : true;
-                        // schema.end_place = 'required';
+                        schema.start_place = () => !formData.value.start_place ? 'Оберіть місце виїзду' : true;
+                        schema.end_date = () => !formData.value.end_date ? 'Оберіть дату повернення' : true;
+                        schema.end_place = () => !formData.value.end_place ? 'Оберіть місце повернення' : true;
                     } else {
                         schema.start_date = 'required';
+                        schema.end_date = 'required';
+                        schema.start_place = 'required';
+                        schema.end_place = 'required';
                     }
                 }
             }
