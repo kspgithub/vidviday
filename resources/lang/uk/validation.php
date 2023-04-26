@@ -165,6 +165,7 @@ return [
         'end_date' => 'Дата повернення',
         'company' => 'Компанія',
         'confirmation_email' => 'Email',
+        'conditions' => 'Умови',
     ],
     'select-tour' => 'Оберіть тур',
     'select-certificate-type' => 'Оберіть тип сертифікату',
