@@ -262,9 +262,9 @@ export default {
                         schema.end_place = () => !formData.value.end_place ? 'Оберіть місце повернення' : true;
                     } else {
                         schema.start_date = 'required';
-                        schema.end_date = 'required';
-                        schema.start_place = 'required';
-                        schema.end_place = 'required';
+                        // schema.end_date = 'required';
+                        // schema.start_place = 'required';
+                        // schema.end_place = 'required';
                     }
                 }
             }
