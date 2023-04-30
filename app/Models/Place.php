@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -97,7 +98,7 @@ class Place extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        return url(!empty($this->slug) ? '/' . $this->slug : '');
+        return $this->slug !== '' ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '';
     }
 
 
@@ -177,5 +178,14 @@ class Place extends TranslatableModel implements HasMedia
 
         // TODO: Заменить на no image
         return $media === null ? asset('img/no-image.png') : $media->getUrl('thumb');
+    }
+
+    public function isAvailableFor(User|null $user)
+    {
+        if(!$this->published) {
+            return false;
+        }
+
+        return true;
     }
 }
