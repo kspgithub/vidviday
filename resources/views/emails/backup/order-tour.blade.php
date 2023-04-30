@@ -213,6 +213,6 @@
         </table>
         <!-- TABLE END -->
 
-        <x-email.thanks>>Дякуємо за те, що обрали нас!</x-email.thanks>
+        <x-email.thanks>Дякуємо за те, що обрали нас!</x-email.thanks>
     </div>
 @endsection

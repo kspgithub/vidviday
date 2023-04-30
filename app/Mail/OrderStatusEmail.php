@@ -31,6 +31,11 @@ class OrderStatusEmail extends BaseTemplateEmail
     {
         return [
             'order_id' => $this->order->id,
+            'departure_date' => fn() => $this->order->start_date?->format('d.m.Y'),
+            'tour_name' => $this->order->tour->title ?? ' Корпоративний тур',
+            'first_name' => $this->order->first_name,
+            'last_name' => $this->order->last_name,
+            'status' => $this->order->status_text,
         ];
     }
 }

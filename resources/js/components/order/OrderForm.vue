@@ -268,7 +268,7 @@ export default {
                     }
                 }
             }
-            if (currentStep.value === 2 && group_type.value === 0 && !isTourAgent.value) {
+            if (currentStep.value === 2 && group_type.value === 0 && isTourAgent.value) {
                 schema.participant_phone = 'required|tel';
             }
             if (currentStep.value === 3) {

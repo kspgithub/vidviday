@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin\SiteMenu;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SiteMenu\MenuItemBasicRequest;
+use App\Models\EventItem;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\Page;
+use App\Models\Place;
+use App\Models\TourGroup;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -47,11 +50,17 @@ class MenuItemController extends Controller
         $item->side = MenuItem::SIDE_LEFT;
 
         $pages = Page::toSelectBox();
+        $categories = TourGroup::toSelectBox();
+        $places = Place::toSelectBox();
+        $events = EventItem::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
         return view("admin.site-menu.menu-item.create", [
             "item" => $item,
             "menu" => $menu,
             'pages' => $pages,
+            'categories' => $categories,
+            'places' => $places,
+            'events' => $events,
             "sides" => $sides,
         ]);
     }
@@ -69,6 +78,30 @@ class MenuItemController extends Controller
         $item->menu_id = $menu->id;
         $item->parent_id = $request->input('parent_id', 0);
         $item->side = $request->input('side', MenuItem::SIDE_LEFT);
+
+        $model_id = $request->page_id ?: $request->tour_group_id ?: $request->place_id ?: $request->event_item_id ?: null;
+
+        if($model_id) {
+
+            if ($request->page_id) {
+                $type = Page::class;
+            }
+
+            if ($request->tour_group_id) {
+                $type = TourGroup::class;
+            }
+
+            if ($request->place_id) {
+                $type = Place::class;
+            }
+
+            if ($request->event_item_id) {
+                $type = EventItem::class;
+            }
+
+            $item->model_type = $type;
+            $item->model_id = $model_id;
+        }
 
         $item->fill($request->validated());
         $item->save();
@@ -88,10 +121,16 @@ class MenuItemController extends Controller
     public function edit(MenuItem $item)
     {
         $pages = Page::toSelectBox();
+        $categories = TourGroup::toSelectBox();
+        $places = Place::toSelectBox();
+        $events = EventItem::toSelectBox();
         $sides = arrayToSelectBox(MenuItem::sides());
         return view('admin.site-menu.menu-item.edit', [
             'item' => $item,
             'pages' => $pages,
+            'categories' => $categories,
+            'places' => $places,
+            'events' => $events,
             "sides" => $sides,
         ]);
     }
@@ -109,6 +148,30 @@ class MenuItemController extends Controller
      */
     public function update(MenuItemBasicRequest $request, MenuItem $item)
     {
+        $model_id = $request->page_id ?: $request->tour_group_id ?: $request->place_id ?: $request->event_item_id ?: null;
+
+        if($model_id) {
+
+            if ($request->page_id) {
+                $type = Page::class;
+            }
+
+            if ($request->tour_group_id) {
+                $type = TourGroup::class;
+            }
+
+            if ($request->place_id) {
+                $type = Place::class;
+            }
+
+            if ($request->event_item_id) {
+                $type = EventItem::class;
+            }
+
+            $item->model_type = $type;
+            $item->model_id = $model_id;
+        }
+
         $item->fill($request->validated());
         $item->save();
         return redirect()->route('admin.site-menu.index')->withFlashSuccess(__('Record Updated'));

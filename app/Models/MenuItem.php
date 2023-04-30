@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Traits\HasSlug;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
@@ -45,12 +46,12 @@ class MenuItem extends TranslatableModel
         'slug',
     ];
 
-
     protected $fillable = [
         'title',
         'slug',
         'parent_id',
-        'page_id',
+        'model_id',
+        'model_type',
         'menu_id',
         'position',
         'side',
@@ -62,6 +63,10 @@ class MenuItem extends TranslatableModel
         'published' => 'boolean',
     ];
 
+    public function getUrlAttribute()
+    {
+        return $this->model?->url ?: (!empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '');
+    }
 
     public function menu()
     {
@@ -78,8 +83,8 @@ class MenuItem extends TranslatableModel
         return $this->belongsTo(MenuItem::class, 'parent_id');
     }
 
-    public function page()
+    public function model()
     {
-        return $this->belongsTo(Page::class, 'page_id');
+        return $this->morphTo();
     }
 }
