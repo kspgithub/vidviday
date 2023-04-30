@@ -15,6 +15,6 @@ trait MenuItemAttribute
 
     public function getUrlAttribute()
     {
-        return $this->model?->url ?: url(!empty($this->slug) ? Str::startsWith($this->slug, 'http') ? $this->slug : ('/' . $this->slug) : '');
+        return $this->model?->url ?: (!empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '');
     }
 }
