@@ -63,11 +63,6 @@ class MenuItem extends TranslatableModel
         'published' => 'boolean',
     ];
 
-    public function getUrlAttribute()
-    {
-        return $this->model?->url ?: (!empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '');
-    }
-
     public function menu()
     {
         return $this->belongsTo(Menu::class);
