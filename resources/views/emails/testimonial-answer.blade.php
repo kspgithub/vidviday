@@ -9,15 +9,15 @@
         <x-email.card>
             @if($testimonial->guide)
                 <p>
-                    @lang('Guide'): <a href="{{url($testimonial->guide->url)}}">{{$testimonial->guide->name}}</a>
+                    @lang('Guide'): <a href="{{asset($testimonial->guide->url)}}">{{$testimonial->guide->name}}</a>
                 </p>
             @elseif($testimonial->tour)
                 <p>
-                    @lang('Tour'): <a href="{{url($testimonial->tour->url)}}">{{$testimonial->tour->title}}</a>
+                    @lang('Tour'): <a href="{{asset($testimonial->tour->url)}}">{{$testimonial->tour->title}}</a>
                 </p>
             @elseif($testimonial->place)
                 <p>
-                    @lang('Place'): <a href="{{url($testimonial->place->url)}}">{{$testimonial->place->title}}</a>
+                    @lang('Place'): <a href="{{asset($testimonial->place->url)}}">{{$testimonial->place->title}}</a>
                 </p>
             @endif
 

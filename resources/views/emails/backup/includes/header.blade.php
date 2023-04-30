@@ -2,7 +2,7 @@
     <table style="border-collapse: collapse; border: 0 none; margin: 0; width: 100%">
         <tr>
             <td style="width: 50%; vertical-align: middle; padding: 0;">
-                <a href="{{url('/')}}">
+                <a href="{{asset('/')}}">
                     <img loading="lazy" src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="logo"
                          style="display: block; width: 100%; max-width: 150px">
                 </a>
