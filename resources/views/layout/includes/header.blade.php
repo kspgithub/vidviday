@@ -1,7 +1,9 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            {{--            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="Vidviay">--}}
+            <img src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}"
+                 alt="Vidviay"
+            >
         </a>
         <div class="only-print">
             <div class="print-header">

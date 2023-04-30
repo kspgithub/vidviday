@@ -5,7 +5,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="shortcut icon" href="{{url(asset('img/favicon.ico'))}}">
+    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     <title>Відвідай</title>
     <style>
         .header {

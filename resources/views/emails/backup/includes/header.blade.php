@@ -3,7 +3,7 @@
         <tr>
             <td style="width: 50%; vertical-align: middle; padding: 0;">
                 <a href="{{url('/')}}">
-                    <img loading="lazy" src="{{url(asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png'))}}" alt="logo"
+                    <img loading="lazy" src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="logo"
                          style="display: block; width: 100%; max-width: 150px">
                 </a>
             </td>
@@ -11,7 +11,7 @@
                 <span style="position: relative; padding-left: 55px; min-height: 40px; display: inline-block;">
                     <i
                         style="left: 0; top: 0; width: 40px; height: 40px; position: absolute; border-radius: 50%; text-align: center; border: 1px solid #E9E9E9; ">
-                        <img loading="lazy" data-src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone"
+                        <img loading="lazy" data-src="{{asset('icon/smartphone.png')}}" alt="smartphone"
                              style="display: inline-block; margin-top: 10px;">
                     </i>
                     <a href="tel:+380322553655"
