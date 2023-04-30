@@ -29,8 +29,6 @@ trait UserAttributes
 
     public function getMobilePhoneAttribute($phone)
     {
-        $phone = '+' . ltrim('+' . $phone, '+');
-
-        return $phone;
+        return '+' . ltrim('+' . $phone, '+');
     }
 }
