@@ -75,10 +75,12 @@ class EmailTemplateController extends Controller
                     'exists' => true,
                 ];
             } else {
+                $mailableSubject = $mailableClass::$subjectKey;
+
                 $templates[] = [
                     'mailable' => $mailable,
                     'view' => $mailableClass::$viewKey,
-                    'subject' => $mailableClass::$subjectKey,
+                    'subject' => __($mailableSubject),
                     'exists' => false,
                     'updated_at' => null,
                 ];

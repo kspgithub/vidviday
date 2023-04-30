@@ -12,51 +12,75 @@ return [
     ],
 
     'order-certificate' => [
-        'subject' => 'Нове замовлення сертифікату на Vidviday.ua',
+        'subject' => 'Сертифікат | {{ order_id }} | {{ last_name }}',
     ],
 
     'order-certificate-admin' => [
-        'subject' => 'Нове замовлення сертифікату на Vidviday.ua',
+        'subject' => 'Сертифікат | {{ order_id }} | {{ last_name }}',
+    ],
+
+    'order-broker' => [
+        'subject' => 'Консультація | {{ order_id }} | {{ last_name }}',
+    ],
+
+    'order-broker-admin' => [
+        'subject' => 'Консультація | {{ order_id }} | {{ last_name }}',
     ],
 
     'order-status' => [
-        'subject' => 'Замовлення туру',
+        'subject' => 'Замовлення | {{ order_id }} | {{ status }}',
+    ],
+
+    'order-status-admin' => [
+        'subject' => 'Замовлення | {{ order_id }} | {{ status }}',
+    ],
+
+    'order-note' => [
+        'subject' => 'Замовлення | {{ order_id }} | {{ note }}',
+    ],
+
+    'order-note-admin' => [
+        'subject' => 'Замовлення | {{ order_id }} | {{ note }}',
     ],
 
     'order-transport' => [
-        'subject' => 'Нове замовлення транспорту на Vidviday.ua',
+        'subject' => 'Транспорт | {{ order_id }} | {{ last_name }}',
     ],
 
     'order-transport-admin' => [
-        'subject' => 'Нове замовлення транспорту на Vidviday.ua',
+        'subject' => 'Транспорт | {{ order_id }} | {{ last_name }}',
     ],
 
     'order-tour' => [
-        'subject' => 'Нове замовлення на Vidviday.ua',
+        'subject' => 'Замовлення | {{ departure_date }} | {{ tour_name }} | {{ last_name }} | {{ order_id }}',
     ],
 
     'order-tour-admin' => [
-        'subject' => 'Нове замовлення на Vidviday.ua',
+        'subject' => 'Замовлення | {{ departure_date }} | {{ tour_name }} | {{ last_name }} | {{ order_id }}',
     ],
 
     'user-question' => [
-        'subject' => 'Нове питання від користувача',
+        'subject' => 'Питання | {{ question_id }} | {{ parent_id }} | {{ tour }}',
     ],
 
     'user-question-admin' => [
-        'subject' => 'Нове питання від користувача',
+        'subject' => 'Питання | {{ question_id }} | {{ parent_id }} | {{ tour }}',
     ],
 
     'vacancy' => [
-        'subject' => 'Новий відгук на вакансію на Vidviday.ua',
+        'subject' => 'Вакансія | {{ question_id }} | {{ vacancy }}',
+    ],
+
+    'vacancy-admin' => [
+        'subject' => 'Вакансія | {{ question_id }} | {{ vacancy }}',
     ],
 
     'testimonial-admin' => [
-        'subject' => 'Новий відгук',
+        'subject' => 'Відгук | {{ testimonial_id }} | {{ parent_id }} | {{ context }}',
     ],
 
     'testimonial-answer' => [
-        'subject' => 'Нова відповідь на відгук',
+        'subject' => 'Відгук | {{ testimonial_id }} | {{ parent_id }} | {{ context }}',
     ],
 
 ];
