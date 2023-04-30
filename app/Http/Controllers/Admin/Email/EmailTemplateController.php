@@ -228,11 +228,13 @@ class EmailTemplateController extends Controller
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
 
+            $html = Blade::render($html, $mailableClass->buildViewData());
+
             $html = $cssToInlineStyles->convert($html);
 
             $html = htmlspecialchars_decode($html);
 
-            return Blade::render($html, $mailableClass->buildViewData());
+            return $html;
         } else {
             $html = $mailableClass->render();
 
