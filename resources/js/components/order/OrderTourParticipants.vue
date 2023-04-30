@@ -100,7 +100,9 @@ export default {
                 if (participantPhoneRef.value) {
                     const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
 
-                    if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode && !participant_phone._dirty) {
+                    let val = participant_phone.value + ''
+
+                    if (val?.replaceAll(/\D+/g, '') === countryDialCode && !participant_phone._dirty) {
                         updateParticipantPhone()
                     }
                 }
@@ -121,7 +123,9 @@ export default {
 
                 const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
 
-                if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode) {
+                let val = participant_phone.value + ''
+
+                if (val?.replaceAll(/\D+/g, '') === countryDialCode) {
                     updateParticipantPhone()
                 }
             }

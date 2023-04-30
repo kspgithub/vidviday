@@ -112,23 +112,39 @@ export default {
 
         const fullValue = computed({
             get() {
+                let val = field.innerValue.value + ''
+
                 if (intl.value) {
                     const countryData = intl.value.getSelectedCountryData()
                     const placeholder = field.inputRef.value.placeholder
                     const length = placeholder.replaceAll(/\D+/g, '').length
-                    const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    return field.innerValue.value?.replaceAll(/\D+/g, '').replace(regex, '$1').substr(-length)
+
+                    val = val?.replaceAll(/\D+/g, '')
+
+                    if(countryData.dialCode) {
+                        const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
+                        val = val?.replace(regex, '$1')
+                    }
+                    val = val?.substr(-length)
                 }
 
-                return field.innerValue.value?.substr(-length)
+                return val?.substr(-length)
             },
             set(value) {
                 if (intl.value) {
                     const countryData = intl.value.getSelectedCountryData()
                     const placeholder = field.inputRef.value.placeholder
                     const length = placeholder.replaceAll(/\D+/g, '').length
-                    const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    field.innerValue.value = '+' + countryData.dialCode + value?.replace(regex, '$1').substr(-length)
+                    console.log(field.innerValue.value)
+                    console.log(value)
+
+
+                    if(countryData.dialCode) {
+                        const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
+                        value = value?.replace(regex, '$1')?.substr(-length)
+                    }
+
+                    field.innerValue.value = '+' + (countryData.dialCode ? countryData.dialCode : '') + value
                 }
             },
         })
