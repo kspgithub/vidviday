@@ -120,7 +120,7 @@ export default {
                     return field.innerValue.value?.replaceAll(/\D+/g, '').replace(regex, '$1').substr(-length)
                 }
 
-                return field.innerValue.value.substr(-length)
+                return field.innerValue.value?.substr(-length)
             },
             set(value) {
                 if (intl.value) {
@@ -128,7 +128,7 @@ export default {
                     const placeholder = field.inputRef.value.placeholder
                     const length = placeholder.replaceAll(/\D+/g, '').length
                     const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    field.innerValue.value = '+' + countryData.dialCode + value.replace(regex, '$1').substr(-length)
+                    field.innerValue.value = '+' + countryData.dialCode + value?.replace(regex, '$1').substr(-length)
                 }
             },
         })
