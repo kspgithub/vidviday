@@ -9,7 +9,7 @@
                         {{__('footer-section.contacts')}}
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img data-src="{{url(asset('icon/tel.png'))}}" alt="tel"
+                        <img src="{{url(asset('icon/tel.png'))}}" alt="tel"
                              style="max-width: 18px; position: absolute; top: 5px; left: 0;">
                         <a href="{{phone_link($contact->work_phone)}}"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">
@@ -18,7 +18,7 @@
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img data-src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone"
+                        <img src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone"
                              style="max-width: 18px; position: absolute; top: 5px; left: 0;">
                         <a href="{{phone_link($contact->phone_1)}}"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">
@@ -37,7 +37,7 @@
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img data-src="{{url(asset('icon/email.png'))}}" alt="email"
+                        <img src="{{url(asset('icon/email.png'))}}" alt="email"
                              style="max-width: 18px; position: absolute; top: 6px; left: 0;">
                         <a href="{{mail_link($contact->email)}}"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">{{$contact->email}}</a>
@@ -64,14 +64,14 @@
                         {{__('footer-section.address')}}
                     </div>
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img data-src="{{url(asset('icon/placeholder.png'))}}" alt="placeholder"
+                        <img src="{{url(asset('icon/placeholder.png'))}}" alt="placeholder"
                              style="max-width: 18px; position: absolute; top: 2px; left: 0;">
                         <span
                             style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">{{$contact->address}}</span>
                     </div>
 
                     <div style="position: relative; padding-left: 30px; margin-bottom: 12px;">
-                        <img data-src="{{url(asset('icon/location.png'))}}" alt="location"
+                        <img src="{{url(asset('icon/location.png'))}}" alt="location"
                              style="max-width: 18px; position: absolute; top: 3px; left: 0;">
                         <a href="geo:{{$contact->lat}},{{$contact->lng}}"
                            style="font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 24px; text-decoration: none; color: #626262;">

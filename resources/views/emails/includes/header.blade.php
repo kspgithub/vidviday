@@ -11,7 +11,7 @@
 
         <span style="position: relative; padding-left: 55px; min-height: 40px; display: inline-block;">
             <div class="tel-icon">
-                <img data-src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone" style="display: inline-block">
+                <img src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone" style="display: inline-block">
             </div>
 
             @foreach($contacts as $phone)
