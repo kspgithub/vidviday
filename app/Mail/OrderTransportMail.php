@@ -21,6 +21,9 @@ class OrderTransportMail extends BaseTemplateEmail
     {
         return [
             'order_id' => $this->order->id,
+            'tour_name' => $this->order->tour->title ?? 'Корпоративний тур',
+            'first_name' => $this->order->first_name,
+            'last_name' => $this->order->last_name,
         ];
     }
 }

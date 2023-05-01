@@ -54,12 +54,12 @@ class BaseTemplateEmail extends Mailable
         } else {
             $mail->subject(trans(static::$subjectKey));
             $mail->view(static::$viewKey);
-            $html = Blade::render($mail->buildView(), $mail->buildViewData());
+            $html = $mail->render();
         }
 
-        $cssToInlineStyles = new CssToInlineStyles();
+//        $cssToInlineStyles = new CssToInlineStyles();
 
-        $html = $cssToInlineStyles->convert($html);
+//        $html = $cssToInlineStyles->convert($html);
 
         $mail->html($html);
 
