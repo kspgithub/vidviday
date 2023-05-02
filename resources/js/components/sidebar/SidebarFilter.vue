@@ -140,6 +140,7 @@ export default {
             if (path === '/' || $('.error:contains(404)').length ) {
                 document.location.href = urlUtils.makeUrl('/tours', query);
             } else {
+                query.page = 1;
                 urlUtils.updateUrl(path, query, true);
                 await store.dispatch('tourFilter/fetchTours', query);
             }
