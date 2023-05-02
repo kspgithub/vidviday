@@ -15,12 +15,23 @@ export const useTourView = () => {
 
     const nextPage = async () => {
         if (fetchRequest.value || currentPage.value >= lastPage.value) return;
-        const currentPos = document.documentElement.scrollTop
-        await store.dispatch('tourFilter/fetchTours', Object.assign(params.value, {page: currentPage.value + 1}));
-        nextTick(() => {
-            document.documentElement.scrollTop = currentPos
-        })
-    }
+        const currentPos = document.documentElement.scrollTop;
+        const newPage = currentPage.value + 1;
+        const newParams = new URLSearchParams(window.location.search);
+        newParams.set("page", newPage);
+        history.pushState({}, "", "?" + newParams.toString());
+        await store.dispatch("tourFilter/fetchTours", Object.assign(params.value, { page: newPage }));
+    };
+
+    const prevPage = async () => {
+        if (fetchRequest.value || currentPage.value == 1) return;
+        const currentPos = document.documentElement.scrollTop;
+        const newPage = currentPage.value - 1;
+        const newParams = new URLSearchParams(window.location.search);
+        newParams.set("page", newPage);
+        history.pushState({}, "", "?" + newParams.toString());
+        await store.dispatch("tourFilter/fetchTours", Object.assign(params.value, { page: newPage }));
+    };
 
     return {
         fetchRequest,
@@ -29,6 +40,7 @@ export const useTourView = () => {
         lastPage,
         perPage,
         nextPage,
+        prevPage,
     }
 }
 

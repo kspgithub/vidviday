@@ -31,7 +31,7 @@
 
 <script>
 import TourTabNav from "./TourTabNav";
-import {computed, onMounted, onUnmounted, ref} from 'vue'
+import {computed, onMounted, onUnmounted, ref,  watch} from 'vue'
 import {useStore} from "vuex";
 import TourViewGallery from "./TourViewGallery";
 import TourViewList from "./TourViewList";
@@ -41,6 +41,7 @@ import * as urlUtils from '../../utils/url';
 import MobileBtnsBar from "../mobile/MobileBtnsBar";
 import Spinner from "../spinner";
 import TourRequestTitle from "./TourRequestTitle";
+import { useMeta } from 'vue-meta';
 
 export default {
     name: "TourSearch",
@@ -64,6 +65,10 @@ export default {
             after: async (action, state) => {
                 if (action.type === 'tourFilter/initFilter') {
                     const query = urlUtils.filterParams(params.value, defaultParams.value);
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const pageParam = urlParams.get("page");
+                    query.page = pageParam ? parseInt(pageParam) : 1;
                     await store.dispatch('tourFilter/fetchTours', {
                         ...query,
                         ...(props.inFuture === false ? {future: 0} : {}),
@@ -100,8 +105,26 @@ export default {
         store.dispatch('tourFilter/fetchPopularTours');
 
 
+        const updateCanonical = () => {
+            const currentPage = store.state.tourFilter.pagination.currentPage;
+            const canonical = currentPage === 1 ? window.location.pathname : `${window.location.pathname}?page=${currentPage}`;
+
+            meta.value = [
+                {
+                    hid: 'canonical',
+                    rel: 'canonical',
+                    href: canonical,
+                },
+            ];
+        };
+
+        watch(() => store.state.tourFilter.pagination.currentPage,() => {
+            updateCanonical();
+        });
+
         onUnmounted(() => {
             unsubscribe();
+            updateCanonical();
         })
 
         return {
