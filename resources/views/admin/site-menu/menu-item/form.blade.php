@@ -5,10 +5,12 @@
 
         <x-forms.text-loc-group name="title" :label="__('Title')"
                                 :value="old('title', $item->getTranslations('title'))"
+                                {{-- x-model="pageName" --}}
                                 required></x-forms.text-loc-group>
 
         <x-forms.text-loc-group name="slug" :label="__('Slug')"
                                 :value="old('slug', $item->getTranslations('slug'))"
+                                {{-- x-model="pageLink" --}}
                                 help="наприклад: /populyarni-turi"
         ></x-forms.text-loc-group>
 
@@ -18,6 +20,8 @@
 
         <x-forms.select-group name="page_id" :label="__('Page')" :value="old('page_id', $item->page_id)"
                               :options="$pages"
+                              @change="loadPageData()"
+                              x-model="selectedPage"
         >
             <option value="">Не вибрано</option>
         </x-forms.select-group>

@@ -23,7 +23,9 @@
                  :back-url="route('admin.site-menu.index')"
                  :title="__('Create')"
     >
-        @include('admin.site-menu.menu-item.form')
+        <div x-data="menuItemEditor()">
+            @include('admin.site-menu.menu-item.form')
+        </div>
     </x-page.edit>
 
 @endsection
