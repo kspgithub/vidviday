@@ -156,6 +156,23 @@
             </table>
         </div>
 
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <textarea class="form-control" x-model="multiplyParticipants"></textarea>
+                    </tr>
+                    <tr>
+                        <td class="border-0 pt-4">
+                            <button type="submit" @click.prevent="addMultiplyParticipant()" class="btn btn-sm btn-primary">
+                                Додати учасников
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
 
     </x-slot>
 </x-bootstrap.card>

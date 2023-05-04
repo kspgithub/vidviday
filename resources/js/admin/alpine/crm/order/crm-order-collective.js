@@ -35,6 +35,7 @@ export default (params) => ({
         phone: '',
         comment: '',
     },
+    multiplyParticipants: '',
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
@@ -232,6 +233,15 @@ export default (params) => ({
     addParticipant() {
         this.order.participants.items.push({"last_name":null,"first_name":null,"middle_name":null,"birthday":null})
     },
+
+    addMultiplyParticipant() {
+        const lines = this.multiplyParticipants.split('\n');
+        lines.map(line => {
+            const parts = line.split(' ');
+            this.order.participants.items.push({"last_name":parts[0],"first_name":parts[1],"middle_name":parts[2],"birthday":parts[3]})
+        });
+    },
+
     removeParticipant(idx) {
         swalConfirm(() => {
             this.order.participants.items.splice(idx, 1);
