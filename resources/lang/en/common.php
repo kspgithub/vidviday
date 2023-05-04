@@ -40,4 +40,8 @@ return [
         'form-sub-title' => 'Надішліть нам своє резюме і ми обов’язково розглянемо вашу кандидатуру',
     ],
     'write-email' => 'Написати листа',
+    'call-us' => 'Call Us',
+    'write-us' => 'Message Us',
+    'your-location' => 'Your location',
+    'know-more' => 'Know more',
 ];

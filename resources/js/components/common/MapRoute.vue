@@ -11,7 +11,7 @@
         <form action="/" class="build-route">
             <label>
                 <!-- <i>Ваше місце розташування</i> -->
-                <input type="text" name="user-location" ref="userLocationRef" placeholder="Ваше місце розташування">
+                <input type="text" name="user-location" ref="userLocationRef" :placeholder="__('common.your-location')">
             </label>
 
             <label>
