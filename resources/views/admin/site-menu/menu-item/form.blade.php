@@ -18,10 +18,32 @@
                                 :value="old('class_name', $item->class_name)"
         ></x-forms.text-group>
 
-        <x-forms.select-group name="page_id" :label="__('Page')" :value="old('page_id', $item->page_id)"
+        <x-forms.select-group name="page_id" :label="__('Page')"
+                              :value="old('page_id', $item->model_type === App\Models\Page::class ? $item->model_id : null)"
                               :options="$pages"
                               @change="loadPageData()"
                               x-model="selectedPage"
+        >
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+
+        <x-forms.select-group name="tour_group_id" :label="__('Category')"
+                              :value="old('tour_group_id', $item->model_type === App\Models\TourGroup::class ? $item->model_id : null)"
+                              :options="$categories"
+        >
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+
+        <x-forms.select-group name="place_id" :label="__('Place')"
+                              :value="old('place_id', $item->model_type === App\Models\Place::class ? $item->model_id : null)"
+                              :options="$places"
+        >
+            <option value="">Не вибрано</option>
+        </x-forms.select-group>
+
+        <x-forms.select-group name="event_item_id" :label="__('Event')"
+                              :value="old('event_item_id', $item->model_type === App\Models\EventItem::class ? $item->model_id : null)"
+                              :options="$events"
         >
             <option value="">Не вибрано</option>
         </x-forms.select-group>

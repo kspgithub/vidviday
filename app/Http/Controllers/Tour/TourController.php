@@ -175,7 +175,7 @@ class TourController extends Controller
                 ->orderBy('rating', 'desc')
                 ->latest(),
 
-            'votings' => fn($q) => $q->published(),
+            'votings' => fn($q) => $q->published()->where('status', TourVoting::STATUS_PUBLISHED),
         ]);
 
         $tour->loadAvg(['testimonials' => function ($q) {
@@ -423,7 +423,7 @@ class TourController extends Controller
                 $redirect_route = 'order.purchase';
             } else {
                 $redirect_route = 'order.success';
-                $order = $order->url; 
+                $order = $order->url;
             }
             if ($request->ajax()) {
                 return response()->json(['result' => 'success', 'redirect_url' => route($redirect_route, $order)]);

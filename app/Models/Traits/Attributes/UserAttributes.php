@@ -26,4 +26,9 @@ trait UserAttributes
     {
         return implode(', ', $this->roles->map(fn ($role) => __(ucfirst(str_replace('-', ' ', $role->name))))->toArray());
     }
+
+    public function getMobilePhoneAttribute($phone)
+    {
+        return '+' . ltrim('+' . $phone, '+');
+    }
 }

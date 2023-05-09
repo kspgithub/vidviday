@@ -112,23 +112,27 @@ export default {
 
         const fullValue = computed({
             get() {
+                const val = field.innerValue.value + ''
+
                 if (intl.value) {
                     const countryData = intl.value.getSelectedCountryData()
                     const placeholder = field.inputRef.value.placeholder
                     const length = placeholder.replaceAll(/\D+/g, '').length
                     const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    return field.innerValue.value?.replaceAll(/\D+/g, '').replace(regex, '$1').substr(-length)
+                    return val?.replaceAll(/\D+/g, '').replace(regex, '$1').substr(-length)
                 }
 
-                return field.innerValue.value.substr(-length)
+                return val?.substr(-length)
             },
             set(value) {
+                const val = value + ''
+
                 if (intl.value) {
                     const countryData = intl.value.getSelectedCountryData()
                     const placeholder = field.inputRef.value.placeholder
                     const length = placeholder.replaceAll(/\D+/g, '').length
                     const regex = new RegExp('^' + countryData.dialCode + '(.*)$')
-                    field.innerValue.value = '+' + countryData.dialCode + value.replace(regex, '$1').substr(-length)
+                    field.innerValue.value = '+' + countryData.dialCode + val?.replace(regex, '$1').substr(-length)
                 }
             },
         })

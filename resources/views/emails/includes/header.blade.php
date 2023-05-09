@@ -3,15 +3,17 @@
 @endphp
 
 <div class="header">
-    <a href="{{url('/')}}" class="logo">
-        <img loading="lazy" src="{{url(asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png'))}}" alt="logo"style="display: block; width: 100%; max-width: 150px">
+    <a href="{{asset('/')}}" class="logo">
+        <img src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}"
+             alt="logo"
+             style="display: block; width: 100%; max-width: 150px">
     </a>
 
     <div style="display: inline-block; position: relative; padding-left: 55px;">
 
         <span style="position: relative; padding-left: 55px; min-height: 40px; display: inline-block;">
             <div class="tel-icon">
-                <img loading="lazy" data-src="{{url(asset('icon/smartphone.png'))}}" alt="smartphone" style="display: inline-block">
+                <img src="{{asset('icon/smartphone.png')}}" alt="smartphone" style="display: inline-block">
             </div>
 
             @foreach($contacts as $phone)

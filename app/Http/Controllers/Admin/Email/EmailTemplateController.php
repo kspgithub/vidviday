@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use ReflectionException;
+use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailTemplateController extends Controller
 {
@@ -74,10 +75,12 @@ class EmailTemplateController extends Controller
                     'exists' => true,
                 ];
             } else {
+                $mailableSubject = $mailableClass::$subjectKey;
+
                 $templates[] = [
                     'mailable' => $mailable,
                     'view' => $mailableClass::$viewKey,
-                    'subject' => $mailableClass::$subjectKey,
+                    'subject' => __($mailableSubject),
                     'exists' => false,
                     'updated_at' => null,
                 ];
@@ -214,6 +217,8 @@ class EmailTemplateController extends Controller
 
         $locale = app()->getLocale();
 
+        $cssToInlineStyles = new CssToInlineStyles();
+
         if($template) {
             $subject = $template->getTranslation('subject', $locale);
             $html = $template->getTranslation('html', $locale);
@@ -225,11 +230,19 @@ class EmailTemplateController extends Controller
                 $html = str_replace($replaceFrom, $replaceTo, $html);
             }
 
-            return Blade::render($html, $mailableClass->buildViewData());
+            $html = Blade::render($html, $mailableClass->buildViewData());
+
+            $html = $cssToInlineStyles->convert($html);
+
+            $html = htmlspecialchars_decode($html);
+
+            return $html;
         } else {
+            $html = $mailableClass->render();
 
+            $html = $cssToInlineStyles->convert($html);
 
-            return $mailableClass->render();
+            return $html;
         }
     }
 }

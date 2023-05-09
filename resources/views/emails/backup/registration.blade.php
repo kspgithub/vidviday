@@ -8,7 +8,7 @@
         </div>
         <!-- TABLE -->
         <x-email.card>
-            <p>Дякуємо за реєстрацію на сайті <a href="{{url('/')}}">vidviday.ua</a>.</p>
+            <p>Дякуємо за реєстрацію на сайті <a href="{{asset('/')}}">vidviday.ua</a>.</p>
             <div style="font-weight: 500; font-size: 20px; margin: 30px 0 5px;">Ваші реєстраційні данні</div>
             <div style="margin-bottom: 5px;">
                 @lang('First Name'): <b style="color: #323232">{{$user->first_name}}</b>
@@ -72,10 +72,10 @@
             <hr style="margin: 15px 0">
 
             <div style="padding: 30px 20px; text-align: center;">
-                <x-email.btn href="{{url('/')}}">Перейти на сайт</x-email.btn>
+                <x-email.btn href="{{asset('/')}}">Перейти на сайт</x-email.btn>
             </div>
         </x-email.card>
- 
+
 
     </div>
     <!-- TABLE END -->
