@@ -8,7 +8,7 @@ export default (params) => ({
     order: {
         ...params.order,
         participants: {
-            items: params.order?.participants?.items || [],
+            items: params.order?.participants?.items || [{"last_name":null,"first_name":null,"middle_name":null,"birthday":null}],
             /* participant_phone: params.order?.participants?.participant_phone || '', */
             customer: params.order?.participants?.customer || false,
         },
@@ -29,12 +29,15 @@ export default (params) => ({
         phone: '',
         comment: '',
     },
+    multiplyParticipants: '',
     discountIdx: null,
     discountData: {
         title: '',
         value: 0,
     },
     init() {
+        this.order.participants.items.push({"last_name":null,"first_name":null,"middle_name":null,"birthday":null})
+        this.order.participant_contacts.push({"phone":null,"comment":null})
         this.$watch('order', () => {
             this.formChanged = true;
         });
@@ -102,6 +105,24 @@ export default (params) => ({
     get isCustomerParticipant() {
         return !!this.order.participants.customer;
     },
+    set isCustomerParticipant(value) {
+        if(value) {
+            this.order.participants.items.unshift({
+                first_name: this.order.first_name || '',
+                last_name: this.order.last_name || '',
+                middle_name: this.order.middle_name || '',
+                birthday: this.order.birthday || '',
+            });
+            this.order.participant_contacts.unshift({
+                phone: this.order.phone,
+                comment: 'Замовник',
+            });
+        } else {
+            this.order.participants.items.splice(0, 1);
+            this.order.participant_contacts.splice(0, 1);
+        }
+        this.order.participants.customer = value;
+    },
     get participant_contacts() {
         return this.order.participant_contacts ? this.order.participant_contacts : [];
     },
@@ -110,14 +131,7 @@ export default (params) => ({
         this.order.participant_contacts = value;
     },
     addParticipantContact() {
-        if (this.participant_contactsData.phone) {
-            this.order.participant_contacts.push({...this.participant_contactsData});
-            this.participant_contactsData = {
-                phone: '',
-                comment: '',
-            }
-        }
-
+        this.order.participant_contacts.push({"phone":null,"comment":null})
     },
     removeParticipantContact(idx) {
         swalConfirm(() => {
@@ -125,6 +139,9 @@ export default (params) => ({
         });
 
     },
+
+
+
     get participants() {
         return this.order.participants ? this.order.participants.items : [];
     },
@@ -133,16 +150,15 @@ export default (params) => ({
         this.order.participants.items = value;
     },
     addParticipant() {
-        if (this.participantData.first_name) {
-            this.order.participants.items.push({...this.participantData});
-            this.participantData = {
-                first_name: '',
-                last_name: '',
-                middle_name: '',
-                birthday: '',
-            }
-        }
+        this.order.participants.items.push({"last_name":null,"first_name":null,"middle_name":null,"birthday":null})
+    },
 
+    addMultiplyParticipant() {
+        const lines = this.multiplyParticipants.split('\n');
+        lines.map(line => {
+            const parts = line.split(' ');
+            this.order.participants.items.push({"last_name":parts[0],"first_name":parts[1],"middle_name":parts[2],"birthday":parts[3]})
+        });
     },
     removeParticipant(idx) {
         swalConfirm(() => {
@@ -150,6 +166,9 @@ export default (params) => ({
         });
 
     },
+
+
+
     get tourDiscounts() {
         return this.tour?.discounts || [];
     },
