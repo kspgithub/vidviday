@@ -101,7 +101,7 @@ export default (params) => ({
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
 
-            if(!order.participants) {
+            /* if(!order.participants) {
                 order.participants = {
                     items: [{"last_name":null,"first_name":null,"middle_name":null,"birthday":null}],
                     customer: false,
@@ -110,7 +110,7 @@ export default (params) => ({
 
             if(!order.participant_contacts) {
                 order.participant_contacts = [{"phone":null,"comment":null}];
-            }
+            } */
 
             for (let i in order.participants.items) {
                 if(order.participants.items[i].first_name)
@@ -202,8 +202,8 @@ export default (params) => ({
                 comment: 'Замовник',
             });
         } else {
-            this.order.participants.items.shift();
-            this.order.participant_contacts.shift();
+            this.order.participants.items.splice(0, 1);
+            this.order.participant_contacts.splice(0, 1);
         }
         this.order.participants.customer = value;
     },
