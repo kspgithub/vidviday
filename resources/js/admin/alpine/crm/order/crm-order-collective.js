@@ -14,7 +14,7 @@ export default (params) => ({
     order: {
         ...params.order,
         participants: {
-            items: params.order?.participants?.items || [],
+            items: params.order?.participants?.items || [{"last_name":null,"first_name":null,"middle_name":null,"birthday":null}],
             customer: params.order?.participants?.customer == 0 ? false : true ,
         },
         participant_contacts: params.order?.participant_contacts || [],
@@ -35,6 +35,7 @@ export default (params) => ({
         phone: '',
         comment: '',
     },
+    multiplyParticipants: '',
     discountIdx: null,
     discountData: {...DEFAULT_DISCOUNT},
     tourDiscounts: params.availableDiscounts || [],
@@ -86,6 +87,8 @@ export default (params) => ({
                 this.participant_contactsData.comment = data.comment.ucWords()
         })
 
+        this.order.participants.items.push({"last_name":null,"first_name":null,"middle_name":null,"birthday":null})
+        this.order.participant_contacts.push({"phone":null,"comment":null})
         this.$watch('order', (order) => {
             this.formChanged = true;
 
@@ -98,16 +101,16 @@ export default (params) => ({
             if(order.middle_name)
                 this.order.middle_name = order.middle_name.ucWords()
 
-            if(!order.participants) {
+            /* if(!order.participants) {
                 order.participants = {
-                    items: [],
+                    items: [{"last_name":null,"first_name":null,"middle_name":null,"birthday":null}],
                     customer: false,
                 }
             }
 
             if(!order.participant_contacts) {
-                order.participant_contacts = [];
-            }
+                order.participant_contacts = [{"phone":null,"comment":null}];
+            } */
 
             for (let i in order.participants.items) {
                 if(order.participants.items[i].first_name)
@@ -120,7 +123,7 @@ export default (params) => ({
 
             for (let i in order.participant_contacts) {
                 if(order.participant_contacts[i].phone)
-                    this.order.participant_contacts[i].phone = order.participant_contacts[i].phone.ucWords()
+                    this.order.participant_contacts[i].phone = order.participant_contacts[i].phone
                 if(order.participant_contacts[i].comment)
                     this.order.participant_contacts[i].comment = order.participant_contacts[i].comment.ucWords()
             }
@@ -199,8 +202,8 @@ export default (params) => ({
                 comment: 'Замовник',
             });
         } else {
-            this.order.participants.items.shift();
-            this.order.participant_contacts.shift();
+            this.order.participants.items.splice(0, 1);
+            this.order.participant_contacts.splice(0, 1);
         }
         this.order.participants.customer = value;
     },
@@ -212,14 +215,7 @@ export default (params) => ({
         this.order.participant_contacts = value;
     },
     addParticipantContact() {
-        if (this.participant_contactsData.phone) {
-            this.order.participant_contacts.push({...this.participant_contactsData});
-            this.participant_contactsData = {
-                phone: '',
-                comment: '',
-            }
-        }
-
+        this.order.participant_contacts.push({"phone":null,"comment":null})
     },
     removeParticipantContact(idx) {
         swalConfirm(() => {
@@ -235,17 +231,17 @@ export default (params) => ({
         this.order.participants.items = value;
     },
     addParticipant() {
-        if (this.participantData.first_name) {
-            this.order.participants.items.push({...this.participantData});
-            this.participantData = {
-                first_name: '',
-                last_name: '',
-                middle_name: '',
-                birthday: '',
-            }
-        }
-
+        this.order.participants.items.push({"last_name":null,"first_name":null,"middle_name":null,"birthday":null})
     },
+
+    addMultiplyParticipant() {
+        const lines = this.multiplyParticipants.split('\n');
+        lines.map(line => {
+            const parts = line.split(' ');
+            this.order.participants.items.push({"last_name":parts[0],"first_name":parts[1],"middle_name":parts[2],"birthday":parts[3]})
+        });
+    },
+
     removeParticipant(idx) {
         swalConfirm(() => {
             this.order.participants.items.splice(idx, 1);

@@ -27,6 +27,21 @@ trait TourScope
         });
     }
 
+    /**
+     * Туры без расписания
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeUnavailable(Builder $query)
+    {
+        return $query->whereDoesntHave('scheduleItems', function (Builder $q) {
+            return $q
+                ->whereDate('tour_schedules.start_date', '>=', now())
+                ->whereNull('tour_schedules.deleted_at');
+        });
+    }
+
 
     public function scopeAutocomplete(Builder $query, $search = '')
     {

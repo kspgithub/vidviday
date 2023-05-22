@@ -25,7 +25,9 @@
                                           onchange="updateActiveTabs('faq')"
                                           :active="in_array('faq', $tour->active_tabs ?: [])"/>
 
+                    <div x-data="translatable()">
                     <livewire:tour-faq-table :tour="$tour"/>
+                    </div>
                 </x-slot>
             </x-bootstrap.card>
         </div>

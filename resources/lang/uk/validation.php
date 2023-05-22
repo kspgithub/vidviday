@@ -156,7 +156,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'first_name' => 'Ім\'я',
+        'last_name' => 'Прізвище',
+        'start_place' => 'Місце виїзду',
+        'start_date' => 'Дата виїзду',
+        'end_place' => 'Місце повернення',
+        'end_date' => 'Дата повернення',
+        'company' => 'Компанія',
+        'confirmation_email' => 'Email',
+        'conditions' => 'Умови',
+    ],
     'select-tour' => 'Оберіть тур',
     'select-certificate-type' => 'Оберіть тип сертифікату',
     'select-certificate-format' => 'Оберіть формат сертифікату',
