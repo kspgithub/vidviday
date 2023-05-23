@@ -12,7 +12,6 @@ import tourSchedules from './tour/tour-schedules';
 import tourFinance from './tour/tour-finance';
 import tourLanding from './tour/tour-landing';
 import menuEditor from './menu/menu-editor';
-import menuItemEditor from './menu/menu-item-editor';
 import menuList from './menu/menu-list';
 import menuItem from './menu/menu-item';
 import crmClients from './crm/client/crm-clients';
@@ -80,7 +79,6 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('tourSchedules', tourSchedules);
     Alpine.data('tourLanding', tourLanding);
     Alpine.data('menuEditor', menuEditor);
-    Alpine.data('menuItemEditor', menuItemEditor);
     Alpine.data('menuList', menuList);
     Alpine.data('menuItem', menuItem);
     Alpine.data('tourFinance', tourFinance);

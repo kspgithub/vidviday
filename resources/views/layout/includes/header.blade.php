@@ -1,9 +1,7 @@
 <header>
     <div class="container">
         <a href="/" id="logo">
-            <img src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}"
-                 alt="Vidviay"
-            >
+            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{asset(in_array(app()->getLocale(), ['en', 'pl']) ? '/img/logo_en.png' : '/img/logo.png')}}" alt="Vidviay">
         </a>
         <div class="only-print">
             <div class="print-header">
@@ -47,8 +45,7 @@
                             <span v-is="'profile-in-favourites'"></span>
                         </a>
                         <div class="img" v-is="'user-avatar'" :user='@json(current_user())'>
-                            <img loading="lazy" src="{{asset('/img/preloader.png')}}"
-                                 data-src="{{current_user()->avatar_url}}"
+                            <img loading="lazy" src="{{asset('/img/preloader.png')}}" data-src="{{current_user()->avatar_url}}"
                                  alt="user">
                         </div>
                         <span class="dropdown-btn"></span>
@@ -128,49 +125,44 @@
                     </div>
                     <ul>
                         @foreach($menu->items as $menuItem)
-                            @if($menuItem->id == 80)
-                            @endif
-
-                            @if(!$menuItem->model || ($menuItem->model->published && $menuItem->model->isAvailableFor(Auth::user())))
-
+                            @if(!$menuItem->page || ($menuItem->page->published && $menuItem->page->isAvailableFor(Auth::user())))
                                 @if($menuItem->children->count() > 0)
                                     <li class="dropdown {{$menuItem->class_name ?? ''}}">
-                                        <a href="{{ $menuItem->url }}"
+                                        <a href="{{ Str::startsWith($menuItem->url,'http') ? $menuItem->url : '/' . ltrim($menuItem->url, '/') }}"
                                            class="dropdown-title">{{$menuItem->title}}</a>
                                         <span class="dropdown-btn"></span>
                                         <div class="dropdown-toggle">
                                             @foreach($menuItem->children->chunk(site_option('menu_column_items', 7)) as $chunk)
                                                 <ul>
                                                     @foreach($chunk as $menuChildren)
-                                                        @if(!$menuChildren->model || ($menuChildren->model->published && $menuChildren->model->isAvailableFor(Auth::user())))
+                                                        @if(!$menuChildren->page || ($menuChildren->page->published && $menuChildren->page->isAvailableFor(Auth::user())))
                                                             <li class="{{$menuChildren->class_name ?? ''}}">
-                                                                <a href="{{ $menuChildren->url }}"
-                                                                >{{$menuChildren->title}}</a>
+                                                                <a href="{{ Str::startsWith($menuChildren->url,'http') ? $menuChildren->url : '/' . ltrim($menuChildren->url, '/') }}">{{$menuChildren->title}}</a>
                                                             </li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
                                             @endforeach
-                                            {{--                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )--}}
-                                            {{--                                                <ul>--}}
-                                            {{--                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)--}}
-                                            {{--                                                        <li class="{{$menuChildren->class_name ?? ''}}">--}}
-                                            {{--                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
-                                            {{--                                                        </li>--}}
-                                            {{--                                                    @endforeach--}}
-                                            {{--                                                </ul>--}}
-                                            {{--                                            @endif--}}
-                                            {{--                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )--}}
-                                            {{--                                                <ul>--}}
-                                            {{--                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)--}}
-                                            {{--                                                        @if(!$menuChildren->model || $menuChildren->model->published)--}}
-                                            {{--                                                            <li class="{{$menuChildren->class_name ?? ''}}">--}}
-                                            {{--                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
-                                            {{--                                                            </li>--}}
-                                            {{--                                                        @endif--}}
-                                            {{--                                                    @endforeach--}}
-                                            {{--                                                </ul>--}}
-                                            {{--                                            @endif--}}
+{{--                                            @if($menuItem->children->where('side', '=', 'left')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'left') as $menuChildren)--}}
+{{--                                                        <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                            <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                        </li>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
+{{--                                            @if($menuItem->children->where('side', '=', 'right')->count() > 0 )--}}
+{{--                                                <ul>--}}
+{{--                                                    @foreach($menuItem->children->where('side', '=', 'right') as $menuChildren)--}}
+{{--                                                        @if(!$menuChildren->page || $menuChildren->page->published)--}}
+{{--                                                            <li class="{{$menuChildren->class_name ?? ''}}">--}}
+{{--                                                                <a href="/{{ltrim($menuChildren->url, '/')}}">{{$menuChildren->title}}</a>--}}
+{{--                                                            </li>--}}
+{{--                                                        @endif--}}
+{{--                                                    @endforeach--}}
+{{--                                                </ul>--}}
+{{--                                            @endif--}}
                                         </div>
                                     </li>
                                 @else
@@ -183,10 +175,10 @@
                                             @endenv
 
                                             @env(['local', 'development'])
-                                                <a href="{{ $menuItem->url }}">{{$menuItem->title}}</a>
+                                                <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
                                             @endenv
                                         @else
-                                            <a href="{{ $menuItem->url }}">{{$menuItem->title}}</a>
+                                            <a href="/{{ltrim($menuItem->url, '/')}}">{{$menuItem->title}}</a>
                                         @endif
                                     </li>
                                 @endif

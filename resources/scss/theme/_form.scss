@@ -777,13 +777,6 @@ form,
         background: center / 60% url('/images/avatar.svg') no-repeat;
     }
 
-    &.doc {
-        border: none;
-        width: 30px;
-        height: 30px;
-        margin-bottom: 0;
-    }
-
     &.doc:after {
         background: center / 60% url('/images/staple.svg') no-repeat;
     }
@@ -791,7 +784,6 @@ form,
     input {
         width: 100%;
         height: 100%;
-        padding: 0;
     }
 
     .tooltip,
@@ -847,13 +839,6 @@ form,
         }
 
     }
-}
-
-.add-img {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 10px;
 }
 
 .loaded-img {

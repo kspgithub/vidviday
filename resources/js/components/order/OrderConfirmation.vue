@@ -40,11 +40,6 @@ export default {
     components: {FormInput, FormRadio},
     setup() {
         const store = useStore();
-
-        store.state.orderTour.formData.confirmation_email = store.state.orderTour.formData.email
-        store.state.orderTour.formData.confirmation_viber = store.state.orderTour.formData.viber
-        store.state.orderTour.formData.confirmation_phone = store.state.orderTour.formData.phone
-
         const confirmationTypes = computed(() => store.state.orderTour.confirmationTypes);
         const confirmation_type = useFormDataProperty('orderTour', 'confirmation_type');
         const email = useDebounceFormDataProperty('orderTour', 'confirmation_email');

@@ -23,9 +23,7 @@
                  :back-url="route('admin.site-menu.index')" :edit="true"
                  :title="__('Edit').': '.$item->title"
     >
-        <div x-data="menuItemEditor()">
-            @include('admin.site-menu.menu-item.form')
-        </div>
+        @include('admin.site-menu.menu-item.form')
     </x-page.edit>
 
 @endsection

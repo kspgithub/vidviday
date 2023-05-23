@@ -126,10 +126,9 @@ class TourGroup extends TranslatableModel implements HasMedia
         return Str::slug($slugString, $this->slugOptions->slugSeparator, $this->slugOptions->slugLanguage);
     }
 
-
     public function getUrlAttribute()
     {
-        return !empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '';
+        return url(!empty($this->slug) ? '/' . $this->slug : '');
     }
 
     public function asSelectBox()
@@ -140,12 +139,4 @@ class TourGroup extends TranslatableModel implements HasMedia
         ];
     }
 
-    public function isAvailableFor(User|null $user)
-    {
-        if(!$this->published) {
-            return false;
-        }
-
-        return true;
-    }
 }

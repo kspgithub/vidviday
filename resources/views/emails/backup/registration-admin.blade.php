@@ -9,7 +9,7 @@
         <x-email.card>
             <p>
                 Нова реєстрація {{$user->isTourAgent() ? 'турагента':'користувача'}} на сайті
-                <a href="{{asset('/')}}">vidviday.ua</a>.
+                <a href="{{url('/')}}">vidviday.ua</a>.
             </p>
             <div style="font-weight: 500; font-size: 20px; margin: 30px 0 5px;">Реєстраційні данні</div>
             <div style="margin-bottom: 5px;">
@@ -72,7 +72,7 @@
             <hr style="margin: 15px 0">
 
             <div style="padding: 30px 20px; text-align: center;">
-                <x-email.btn href="{{asset('/')}}">Перейти на сайт</x-email.btn>
+                <x-email.btn href="{{url('/')}}">Перейти на сайт</x-email.btn>
             </div>
         </x-email.card>
 

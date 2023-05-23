@@ -4,8 +4,6 @@
 namespace App\Models\Traits\Attributes;
 
 
-use Illuminate\Support\Str;
-
 trait MenuItemAttribute
 {
     public function getParentMenuAttribute()
@@ -15,6 +13,6 @@ trait MenuItemAttribute
 
     public function getUrlAttribute()
     {
-        return $this->model?->url ?: (!empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '');
+        return $this->page->url ?? url($this->slug);
     }
 }

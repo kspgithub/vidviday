@@ -46,9 +46,7 @@ class TourCorporateIncludesController extends Controller
 
     public function save(Request $request, Tour $tour)
     {
-        $data = $request->get('corporate_includes', []);
-
-        $tour->update(['corporate_includes' => $data]);
+        $tour->update($request->all());
 
         return redirect()->route('admin.tour.corporate_includes.index', $tour)->withFlashSuccess(__('Record Updated'));
     }

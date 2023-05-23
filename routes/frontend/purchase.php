@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Purchase\PurchaseController;
 
 Route::group([
@@ -7,6 +8,6 @@ Route::group([
 ], function () {
 
 
-    Route::match(['get', 'post'],'purchase/service', [PurchaseController::class, 'service'])->name('service');
+    Route::post('purchase/service', [PurchaseController::class, 'service'])->name('service');
 
 });

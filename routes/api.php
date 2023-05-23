@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TicketsController;
 use App\Http\Controllers\Api\ToursController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\PageController;
 use App\Models\HtmlBlock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -135,11 +134,3 @@ Route::group([
 ], function () {
     Route::get('/', [PageTypesController::class, 'index'])->name('index');
 });
-
-Route::group([
-    'as' => 'page.',
-    'prefix' => 'page',
-], function () {
-    Route::get('/', [PageController::class, 'get'])->name('get');
-});
-

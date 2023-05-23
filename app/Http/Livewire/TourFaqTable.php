@@ -24,14 +24,14 @@ class TourFaqTable extends Component
      */
     public $tour;
 
-    public $question = [];
+    public $question = '';
 
-    public $answer = [];
+    public $answer = '';
 
 
     protected $rules = [
-        'question.*' => ['required'],
-        'answer.*' => ['required'],
+        'question' => ['required'],
+        'answer' => ['required'],
     ];
 
     public function mount(Tour $tour): void
@@ -71,10 +71,8 @@ class TourFaqTable extends Component
 
     public function afterModelInit()
     {
-        foreach (siteLocales() as $lang) {
-            $this->question[$lang] = $this->model->getTranslation('question', $lang) ?? '';
-            $this->answer[$lang] = $this->model->getTranslation('answer', $lang) ?? '';
-        }
+        $this->question = $this->model->question ?? '';
+        $this->answer = $this->model->answer ?? '';
     }
 
     public function query(): Builder|Relation

@@ -41,7 +41,6 @@ class OrderForm extends Component
 
 
     public $participants = [];
-    public $participant_contacts = [];
 
 
     public $participantPhone = '';
@@ -197,9 +196,9 @@ class OrderForm extends Component
         $this->participantBirthday = '';
     }
 
-    public function removeParticipantContact($index)
+    public function removeParticipant($index)
     {
-        unset($this->participant_contacts[$index]);
+        unset($this->participants[$index]);
     }
 
 

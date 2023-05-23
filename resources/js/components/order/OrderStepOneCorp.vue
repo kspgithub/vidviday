@@ -18,11 +18,7 @@
                     <order-tour-plan class="col-12 mb-10"
                                      v-if="!tourSelected && program_type === 1 "/>
 
-                    
-
-                    <order-departure class="col-md-6 col-12" v-if="!tourSelected && (program_type === 0)"/>
-
-                    <order-tour-dates class="col-12 mb-10" v-if="!tourSelected && program_type === 1 "/>
+                    <order-departure class="col-md-6 col-12"/>
 
                     <order-places class="col-12 mb-10"/>
 
@@ -38,7 +34,6 @@
 
 import OrderContact from "./OrderContact";
 import OrderTourSelector from "./OrderTourSelector";
-import OrderTourDates from "./OrderTourDates";
 import OrderPlaces from "./OrderPlaces";
 import OrderDeparture from "./OrderDeparture";
 import OrderProgramType from './OrderProgramType.vue'
@@ -53,7 +48,6 @@ export default {
         OrderTourPlan,
         OrderProgramType,
         OrderDeparture,
-        OrderTourDates,
         OrderPlaces,
         OrderTourSelector,
         OrderContact,

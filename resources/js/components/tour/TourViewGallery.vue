@@ -8,20 +8,12 @@
                 <tour-card :key="'tour-'+tour.id" :tour="tour" :like-btn="!!$store.state.user.currentUser"/>
             </div>
 
-            <div class="col-12">
+            <div v-if="currentPage < lastPage" class="col-12">
                 <div class="spacer-xs"></div>
                 <div class="text-center">
-                    <div class="pagination">
-                        <seo-button code="tour.show_less" class="btn type-2" @click.prevent="prevPage()" :disabled="currentPage === 1">
-                            &laquo; 
-                        </seo-button>
-                        <span class="pagination-info">
-                            Сторінка {{ currentPage }} из {{ lastPage }}
-                        </span>
-                        <seo-button code="tour.show_more" class="btn type-2" @click.prevent="nextPage();" :disabled="currentPage === lastPage">
-                            &raquo;
-                        </seo-button>
-                    </div>
+                    <seo-button code="tour.show_more" class="btn type-2" @click.prevent="nextPage()">
+                        {{ __('tours-section.show-more') }} {{ perPage }}
+                    </seo-button>
                 </div>
             </div>
         </div>
@@ -48,14 +40,5 @@ export default {
 </script>
 
 <style scoped>
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.pagination-info {
-  font-size: 14px;
-  margin: 5px;
-}
 </style>

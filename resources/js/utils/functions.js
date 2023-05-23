@@ -131,14 +131,7 @@ export const scrollToEl = (selector, offset = 0) => {
     const el = document.querySelector(selector);
     if (el) {
         if (offset !== 0) {
-            let top = el.getBoundingClientRect().top
-            if(!top) {
-                top = el.parentNode.getBoundingClientRect().top
-            }
-            const y = top + window.scrollY + offset;
-            console.log(window.scrollY)
-            console.log(top)
-            console.log(y)
+            const y = el.getBoundingClientRect().top + window.pageYOffset + offset;
             window.scrollTo({top: y, behavior: 'smooth'});
         } else {
             el.scrollIntoView({

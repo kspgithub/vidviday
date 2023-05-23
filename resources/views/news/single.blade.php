@@ -47,7 +47,7 @@
                         @foreach($newsSingle->media as $media)
                             @if($media->collection_name === "main")
                                 <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                     data-src="{{ $media->originalUrl }}"
+                                     data-src="{{ $media->getUrl('thumb') }}"
                                      alt="banner img 11">
                             @endif
                         @endforeach

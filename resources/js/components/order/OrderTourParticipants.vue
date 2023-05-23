@@ -24,7 +24,7 @@
             </seo-button>
         </div>
 
-        <div v-if="isTourAgent" class="participant phone-number">
+        <div v-if="!isTourAgent" class="participant phone-number">
             <div class="form" style="display: block">
                 <form-phone v-model="participant_phone"
                             ref="participantPhoneRef"
@@ -100,9 +100,7 @@ export default {
                 if (participantPhoneRef.value) {
                     const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
 
-                    let val = participant_phone.value + ''
-
-                    if (val?.replaceAll(/\D+/g, '') === countryDialCode && !participant_phone._dirty) {
+                    if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode && !participant_phone._dirty) {
                         updateParticipantPhone()
                     }
                 }
@@ -123,9 +121,7 @@ export default {
 
                 const countryDialCode = participantPhoneRef.value.intl.getSelectedCountryData().dialCode
 
-                let val = participant_phone.value + ''
-
-                if (val?.replaceAll(/\D+/g, '') === countryDialCode) {
+                if (participant_phone.value.replaceAll(/\D+/g, '') === countryDialCode) {
                     updateParticipantPhone()
                 }
             }

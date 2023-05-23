@@ -58,7 +58,7 @@ trait TourMethods
             'testimonials_count' => $this->testimonials_count ?? 0,
             'related_testimonials_count' => $this->related_testimonials_count ?? 0,
             'testimonials_avg_rating' => $this->testimonials_avg_rating ?? 0,
-            'votings_count' => $this->votings()->where('status', TourVoting::STATUS_PUBLISHED)->count(),
+            'votings_count' => $this->votings->filter(fn($q) => $q->where('status', TourVoting::STATUS_PUBLISHED))->count(),
             'duration' => $this->duration,
             'nights' => $this->nights,
             'time' => $this->nights,

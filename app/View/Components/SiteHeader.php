@@ -35,9 +35,11 @@ class SiteHeader extends Component
             return Menu::whereSlug('header')
                 ->with([
                     'items' => fn ($q) => $q->published()->where('parent_id', 0),
-                    'items.model' => fn ($q) => $q->select(['id', 'slug', 'published']),
+                    'items.page' => fn ($q) => $q->select(['id', 'slug', 'published']),
+                    'items.page.roles',
                     'items.children' => fn ($q) => $q->published(),
-                    'items.children.model' => fn ($q) => $q->select(['id', 'slug', 'published']),
+                    'items.children.page' => fn ($q) => $q->select(['id', 'slug', 'published']),
+                    'items.children.page.roles',
                 ])->first();
         });
         $popularToursGroupId = 1;

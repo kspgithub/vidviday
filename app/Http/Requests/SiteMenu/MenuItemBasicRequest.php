@@ -34,9 +34,6 @@ class MenuItemBasicRequest extends FormRequest
             'active' => ['nullable', Rule::in(['1', '0'])],
             'parent_id' => ['nullable', 'numeric'],
             'page_id' => ['nullable', 'exists:pages,id'],
-            'tour_group_id' => ['nullable', 'exists:pages,id'],
-            'place_id' => ['nullable', 'exists:place,id'],
-            'event_item_id' => ['nullable', 'exists:event_items,id'],
             'side' => ['nullable', Rule::in([MenuItem::SIDE_LEFT, MenuItem::SIDE_RIGHT])],
         ];
     }

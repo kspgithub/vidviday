@@ -176,7 +176,6 @@ return [
     'tour.search' => ['id' => 'tour.search'],
     'tour.select' => ['id' => 'tour.select'],
     'tour.show_more' => ['id' => 'tour.show_more'],
-    'tour.show_less' => ['id' => 'tour.show_less'],
     'tour.vote' => ['id' => 'tour.vote'],
     'tour.order' => ['id' => 'tour.order'],
 

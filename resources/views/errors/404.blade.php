@@ -54,7 +54,6 @@
                     <x-tour.popular />
                     <!-- THUMBS CAROUSEL END -->
 
-                    <div class="whitespace-fix"></div>
 
                 </div>
             </div>

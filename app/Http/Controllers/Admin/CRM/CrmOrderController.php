@@ -120,27 +120,11 @@ class CrmOrderController extends Controller
     {
         //
         $order = new Order();
-
-        $params = $request->all();
-
-        foreach($params['participants']['items'] as $key => $participant){
-            if (empty($participant['first_name'])){
-                unset($params['participants']['items'][$key]);
-            }
-        }
-
-        foreach($params['participant_contacts'] as $key => $participant){
-            if (empty($participant['phone'])){
-                unset($params['participant_contacts'][$key]);
-            }
-        }
-        
-        $order->fill($params);
+        $order->fill($request->all());
 
         if ($order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
             $order->status = Order::STATUS_RESERVE;
         }
-
         $order->save();
         $order->syncContact();
 
@@ -253,19 +237,6 @@ class CrmOrderController extends Controller
     {
         //
         $params = $request->all();
-
-        foreach($params['participants']['items'] as $key => $participant){
-            if (empty($participant['first_name'])){
-                unset($params['participants']['items'][$key]);
-            }
-        }
-
-        foreach($params['participant_contacts'] as $key => $participant){
-            if (empty($participant['phone'])){
-                unset($params['participant_contacts'][$key]);
-            }
-        }
-
         $order->fill($params);
         if (!$request->isAdmin() && $order->status !== Order::STATUS_RESERVE && $order->isOverloaded()) {
             $order->status = Order::STATUS_RESERVE;

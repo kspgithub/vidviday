@@ -21,7 +21,6 @@ class OrderCertificateMail extends BaseTemplateEmail
     {
         return [
             'order_id' => $this->order->id,
-            'last_name' => $this->order->last_name,
         ];
     }
 }

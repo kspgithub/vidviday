@@ -32,7 +32,6 @@ class TourOrderEmail extends BaseTemplateEmail
             'tour_name' => $this->order->tour->title ?? ' Корпоративний тур',
             'first_name' => $this->order->first_name,
             'last_name' => $this->order->last_name,
-            'status' => $this->order->status_text,
         ];
     }
 }

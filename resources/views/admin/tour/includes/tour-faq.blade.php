@@ -30,27 +30,12 @@
         <button type="button" class="btn btn-primary me-2"
                 wire:click.prevent="addItem()">@lang('Create Record')</button>
     @endif
-    
     @if($edit)
-        <div x-data="translatable()">
-            <div class="d-flex align-items-center">
-                @foreach(siteLocales() as $lang)
-                    <a href="#" x-on:click.prevent="trans_locale = '{{ $lang }}'"
-                    :class="{['btn-primary']: trans_locale === '{{ $lang }}'}"
-                    :disabled="trans_locale === '{{ $lang }}'"
-                    class="btn btn-md btn-default">{{strtoupper($lang)}}</a>
-                @endforeach
-            </div>
-
-            @foreach(siteLocales() as $lang)
-                <div data-lang="{{$lang}}" x-show="trans_locale == '{{ $lang }}' || trans_expanded" >
-                        <x-forms.textarea-group wire:model="question.{{$lang}}" :label="__('Question')"/>
-                        <x-forms.textarea-group wire:model="answer.{{$lang}}" :label="__('Answer')"/>
-                </div>
-            @endforeach
-
+        <div>
+            <x-forms.textarea-group wire:model="question" :label="__('Question')"/>
+            <x-forms.textarea-group wire:model="answer" :label="__('Answer')"/>
             <button type="button" class="btn btn-primary me-2"
-                            wire:click.prevent="saveItem()">@lang('Save')</button>
+                    wire:click.prevent="saveItem()">@lang('Save')</button>
             <button type="button" class="btn btn-secondary"
                     wire:click.prevent="cancelEdit()">@lang('Cancel')</button>
         </div>

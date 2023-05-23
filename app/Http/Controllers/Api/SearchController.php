@@ -8,7 +8,6 @@ use App\Models\Tour;
 use App\Models\WrongQuery;
 use App\Services\TourService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class SearchController extends Controller
 {
@@ -20,23 +19,10 @@ class SearchController extends Controller
 
 
         $places = Place::autocomplete($q)->take($limitPlaces)->get()->map->shortInfo();
-
         if ($places->count() === 0) {
             $limitTours += $limitPlaces;
         }
-
-        /**
-         * @var Collection $tours
-         */
-        $tours = Tour::filter($request->all())->inFuture()->take(1)->get()->map->shortInfo();
-
-        if ($tours->count() < $limitTours) {
-            $itemsLeft = $limitTours - $tours->count();
-
-            $otherTours = Tour::filter($request->all())->unavailable()->take($itemsLeft)->get()->map->shortInfo();
-
-            $tours = $tours->merge($otherTours);
-        }
+        $tours = Tour::filter($request->all())->inFuture()->take($limitTours)->get()->map->shortInfo();
 
         if(!$tours->count() && !$places->count()) {
             TourService::handleWrongRequest($request);

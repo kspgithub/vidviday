@@ -91,7 +91,6 @@
         "webpack-node-externals": "^3.0.0"
     },
     "dependencies": {
-        "concurrently": "^7.5.0",
-        "vue-meta": "^2.4.0"
+        "concurrently": "^7.5.0"
     }
 }

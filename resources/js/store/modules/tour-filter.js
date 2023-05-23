@@ -257,11 +257,11 @@ export default {
             const response = await fetchTours(params);
 
             if (response) {
-               /*  if (params && params.page > 1) {
+                if (params && params.page > 1) {
                     commit('ADD_TOURS', response.data);
-                } else { */
+                } else {
                     commit('SET_TOURS', response.data);
-               /*  } */
+                }
 
                 commit('SET_PAGINATION', {
                     current_page: parseInt(response.current_page),

@@ -30,7 +30,6 @@ const DEFAULT_VALUES = {
         other_text: '',
     },
     participant_contacts: [],
-    participant_phone: [],
     payment_type: 0,
     confirmation_type: 1,
     confirmation_email: '',
@@ -357,9 +356,6 @@ export default {
             const items = state.formData.participant_contacts || [];
             items[payload.idx] = payload.data;
             commit('UPDATE_FORM_DATA', {participant_contacts: items});
-        },
-        updateParticipantPhone({commit, state}, payload) {
-            commit('UPDATE_FORM_DATA', {participant_phone: state.formData.participant_phone});
         },
         deleteParticipantContact({commit, state}, idx) {
             const items = state.formData.participant_contacts || [];
