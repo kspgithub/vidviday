@@ -11,6 +11,7 @@ use App\Models\Traits\UseNormalizeMedia;
 use App\Models\Traits\UseSelectBox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -110,9 +111,7 @@ class EventItem extends TranslatableModel implements HasMedia
 
     public function getUrlAttribute()
     {
-        $slug = $this->slug;
-//        return !empty($slug) ? route('events.show', $slug) : '';
-        return url(!empty($slug) ? '/' . $slug : '');
+        return !empty($this->slug) ? Str::startsWith($this->slug, 'http',) ? $this->slug : ('/' . $this->slug) : '';
     }
 
     public function asSelectBox()
@@ -121,5 +120,14 @@ class EventItem extends TranslatableModel implements HasMedia
             'id' => $this->id,
             'text' => $this->title,
         ];
+    }
+
+    public function isAvailableFor(User|null $user)
+    {
+        if(!$this->published) {
+            return false;
+        }
+
+        return true;
     }
 }

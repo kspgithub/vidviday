@@ -7,7 +7,7 @@
             <div class="swiper-entry popup-gallery-slider">
                 <div class="swiper-container swiper-vue" ref="swiperRef">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="(slide, idx) in media">
+                        <div class="swiper-slide" v-for="(slide, idx) in media" :key="slide.id">
                             <img :data-src="slide.url" :title="slide.title" :alt="slide.alt" @load="onImageLoad" class="swiper-lazy">
                             <div class="swiper-lazy-preloader"></div>
                             <span class="text-md text-medium">{{ slide.title }}</span>
@@ -163,6 +163,7 @@ export default {
         })
 
         watch(visible, () => {
+            swiper.value.update();
             setTimeout(() => initDynamicPagination(), 250)
         })
 

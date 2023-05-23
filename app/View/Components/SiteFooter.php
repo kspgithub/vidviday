@@ -29,8 +29,8 @@ class SiteFooter extends Component
         // TODO: Кеширование
         $this->contact = Contact::first();
         $this->menu = Menu::whereSlug('footer')->with([
-            'items' => fn ($q) => $q->with('page:id,slug,published')->published()->where('parent_id', 0),
-            'items.children' => fn ($q) => $q->with('page:id,slug,published')->published()
+            'items' => fn ($q) => $q->with('model:id,slug,published')->published()->where('parent_id', 0),
+            'items.children' => fn ($q) => $q->with('model:id,slug,published')->published()
         ])->first();
 
         $pageContacts = Page::query()->where('key', 'our-contacts')->first();

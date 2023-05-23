@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
             <div class="contacts-block">
-                <span class="text-md">Телефонуйте</span>
+                <span class="text-md">{{__('common.call-us')}}</span>
                 <div class="contact">
                     <div class="img">
                         {{svg('tel')}}
@@ -39,7 +39,7 @@
             </div>
 
             <div class="contacts-block">
-                <span class="text-md">Пишіть</span>
+                <span class="text-md">{{__('common.write-us')}}</span>
                 <div class="contact">
                     <div class="img">
                         {{svg('mail')}}

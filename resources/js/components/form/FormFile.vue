@@ -1,5 +1,5 @@
 <template>
-    <div class="img-input-wrap text-center-xs">
+    <div class="img-input-wrap text-center-xs add-img">
         <div class="img-input doc tooltip-wrap">
             <div class="tooltip"><span class="text-medium">{{ fileTooltip }}:</span>
                 <div class="text text-sm">
