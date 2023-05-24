@@ -176,15 +176,13 @@
                                 @else
                                     <li class="{{$menuItem->class_name ?? ''}}">
                                         @if($menuItem->class_name === 'only-pad-mobile')
-                                            @env(['production'])
+                                           {{--  @env(['production'])
                                                 <span v-is="'popup-email-btn'">
                                                     {{ $menuItem->title }}
                                                 </span>
-                                            @endenv
+                                            @endenv --}}
 
-                                            @env(['local', 'development'])
-                                                <a href="{{ $menuItem->url }}">{{$menuItem->title}}</a>
-                                            @endenv
+                                            <a href="{{ $menuItem->url }}">{{$menuItem->title}}</a>
                                         @else
                                             <a href="{{ $menuItem->url }}">{{$menuItem->title}}</a>
                                         @endif
