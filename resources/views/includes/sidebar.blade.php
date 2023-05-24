@@ -2,15 +2,15 @@
 
     <div class="left-sidebar-inner">
 
-        @env('production')
+       {{--  @env('production')
             <x-seo-button :code="'order.tour'" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop" v-is="'popup-email-btn'">
                 {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</x-seo-button>
-        @endenv
+        @endenv --}}
 
-        @env(['development', 'local'])
-            <x-seo-button :code="'order.tour'" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
-                {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</x-seo-button>
-        @endenv
+        
+        <x-seo-button :code="'order.tour'" href="{{route('order.index', ['clear'=>1])}}" class="btn type-4 arrow-right only-desktop">
+            {{svg('sidebar-tour')}} @lang('sidebar-section.order-tour')</x-seo-button>
+       
 
         <x-seo-button :code="'download.schedule'" href="{{route('tour.download')}}" download class="btn type-5 arrow-right only-desktop">
             {{svg('excel')}} @lang('sidebar-section.download-schedules')</x-seo-button>
