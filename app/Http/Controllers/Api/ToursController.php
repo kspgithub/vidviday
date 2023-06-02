@@ -33,7 +33,6 @@ class ToursController extends Controller
 
         if($prev === route('home')) {
             $query->where('home_disabled', '!=', true);
-            $query->inFuture();
         }
 
         $query->withCount([
