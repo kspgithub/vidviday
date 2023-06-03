@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Request;
+@endphp
 @extends('layout.app')
 
 @section('title', !empty($pageContent->seo_title) ? $pageContent->seo_title : $pageContent->title)
@@ -48,6 +51,9 @@
                     ])
                     <!-- BANNER TABS END -->
                     <h1 class="h1 title">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
+                    <span class="only-print">
+                        <span class="print-page-slug">{{ Request::url() }}</span>
+                    </span>
                     <div class="spacer-xs"></div>
                     <div class="only-pad-mobile">
                         <x-page.social-share :share-url="route('page.show', $pageContent->slug)"
