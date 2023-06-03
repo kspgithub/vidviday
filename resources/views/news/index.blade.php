@@ -60,7 +60,8 @@
                             <div class="item post">
                                 <div class="thumb-img">
                                     <img loading="lazy" src="{{ asset("img/preloader.png") }}"
-                                         data-src="{{ $post->main_image_url }}"
+                                         data-srcm="{{ $post->mobile_image_url }}"
+                                         data-src="{{ $post->main_image_url }}" 
                                          alt="img 25">
                                     <a href="{{ route('news.single', ['slug' => $post->slug]) }}"
                                        class="full-size"></a>
