@@ -172,6 +172,7 @@ export default {
                     url: props.url,
                     extraParams: props.filter
                 },
+                initialDate: null,
                 eventClick: (info) => {
                     // console.log(info)
                     if (info.jsEvent && !$(info.jsEvent.target).is('.tooltip-wrap') && !$(info.jsEvent.target).is('.tooltip')) {
@@ -188,6 +189,16 @@ export default {
                         viewType.value = 'dayGridDay'
                         calendar.value.changeView(viewType.value);
                         calendar.value.gotoDate(date);
+                    }
+                },
+                setInitialDate(events) {
+                    if (events.length > 0) {
+                        const minDate = new Date(Math.min(...events.map(event => new Date(event.start))));
+                        const year = minDate.getFullYear();
+                        const month = minDate.getMonth() + 1;
+                        const day = 1; // Устанавливаем первое число месяца
+
+                        this.initialDate = `${year}-${(month).toString().padStart(2, '0')}-01`;
                     }
                 },
             }, props.options)
@@ -225,6 +236,8 @@ export default {
             calendar.value.changeView(viewType.value);
 
             calendarOptions.value.events.extraParams = props.filter;
+            calendarOptions.value.setInitialDate(calendarOptions.value.events);
+            calendar.value.gotoDate(calendarOptions.value.initialDate);
 
             scrollToEnd()
         })
@@ -243,8 +256,6 @@ export default {
             if (calendarWrapper.length) {
                 // calendarWrapper[0].addEventListener('scroll', handleScroll, false)
             }
-
-
         })
 
         return {
