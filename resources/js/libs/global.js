@@ -107,7 +107,13 @@ jQuery(function ($) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         let lazyImg = entry.target
-                        lazyImg.src = lazyImg.dataset.src || lazyImg.src;
+
+                        if(winWidth < 480){
+                            lazyImg.src = lazyImg.dataset.srcm || lazyImg.dataset.src || lazyImg.src;
+                        } else {
+                            lazyImg.src = lazyImg.dataset.src || lazyImg.src;
+                        }
+
                         observer.unobserve(lazyImg)
                     }
                 })

@@ -254,15 +254,14 @@ export default {
                 params.place = state.place.id
             }
 
+            if(window.location.pathname === '/'){
+                params.future = 1
+            }
+
             const response = await fetchTours(params);
 
             if (response) {
-               /*  if (params && params.page > 1) {
-                    commit('ADD_TOURS', response.data);
-                } else { */
-                    commit('SET_TOURS', response.data);
-               /*  } */
-
+                commit('SET_TOURS', response.data);
                 commit('SET_PAGINATION', {
                     current_page: parseInt(response.current_page),
                     per_page: parseInt(response.per_page),
