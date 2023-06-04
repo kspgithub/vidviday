@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 /**
@@ -56,6 +58,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->input('export', 0) == 1) {
+            return Excel::download(new UsersExport(), 'users.xlsx');
+        }
+
         return view('admin.user.index');
     }
 

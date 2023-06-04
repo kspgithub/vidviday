@@ -196,7 +196,6 @@ export default {
                         const minDate = new Date(Math.min(...events.map(event => new Date(event.start))));
                         const year = minDate.getFullYear();
                         const month = minDate.getMonth() + 1;
-                        const day = 1; // Устанавливаем первое число месяца
 
                         this.initialDate = `${year}-${(month).toString().padStart(2, '0')}-01`;
                     }
