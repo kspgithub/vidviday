@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
-                            <img :data-src="sImage.preview" alt="img">
+                            <img :src="sImage.preview" alt="img">
                             <seo-button code="testimonial.delete_image" class="btn-delete" @click.prevent="deleteImage(idx)"></seo-button>
                         </div>
                     </div>
