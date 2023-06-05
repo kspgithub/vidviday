@@ -2219,10 +2219,10 @@ a {
     .fc-daygrid-day {
         &.fc-day-today {
 
-            background: transparent;
+            background: transparent !important;
 
             .fc-daygrid-day-top {
-                opacity: 1;
+                opacity: 1 !important;
             }
 
             .fc-daygrid-day-number {
