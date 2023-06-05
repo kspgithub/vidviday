@@ -2376,7 +2376,8 @@ a {
 
 .fc-theme-standard {
     .fc-scrollgrid {
-        border-left: 0 none;
+        border-left: none !important;
+        border-right: none !important;
     }
 }
 
