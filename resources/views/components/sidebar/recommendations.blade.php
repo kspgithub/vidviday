@@ -13,10 +13,15 @@
                 <x-sidebar.recommendation-item :item="$items->first()"/>
 
                 @if($items->count() > 1)
+                    <div class="divider"></div>
+                    <x-sidebar.recommendation-item :item="$items->skip(1)->first()"/>
+                @endif
+
+                @if($items->count() > 2)
                     <x-seo-button :code="'common.more_recommendations'" href="{{$testimonialsUrl}}"
                        class="btn type-2 btn-block show_more">{{__('tours-section.show-more')}}</x-seo-button>
                     @foreach($items as $key=>$item)
-                        @if($key> 0)
+                        @if($key > 1)
                             <div class="divider d-none"></div>
                             <x-sidebar.recommendation-item :item="$item" :hidden="true"/>
                         @endif
