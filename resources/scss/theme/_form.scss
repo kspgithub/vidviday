@@ -796,7 +796,7 @@ form,
 
     .tooltip,
     .tooltip:before {
-        background-color: #fff;
+        background-color: #323232;
         box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
     }
 
@@ -804,19 +804,21 @@ form,
         bottom: calc(100% + 15px);
 
         .text-medium {
-            color: $title;
+            color: #fff;
             display: inline-block;
             margin-bottom: 5px;
         }
 
         .text {
+            color: #fff;
+
             ul {
                 li {
                     margin-bottom: 5px;
                     padding-left: 10px;
 
                     &:before {
-                        background-color: $text;
+                        background-color: #fff;
                     }
                 }
             }
