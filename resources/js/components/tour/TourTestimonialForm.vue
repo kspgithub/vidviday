@@ -33,7 +33,7 @@
 
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
-                                <img :data-src="selectedAvatar.preview" alt="img">
+                                <img :src="selectedAvatar.preview" alt="img">
                                 <seo-button code="testimonial.delete_avatar" class="btn-delete" @click.prevent="deleteAvatar()"></seo-button>
                             </div>
 

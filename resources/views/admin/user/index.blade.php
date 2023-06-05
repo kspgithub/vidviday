@@ -12,16 +12,14 @@
         <h1>@lang('User Management')</h1>
 
         <div>
+            <a href="{{route('admin.user.index', array_merge(request()->all(), ['export'=>1]))}}"
+                target="_blank" class="btn btn-outline-success">
+                <i class="far fa-file-excel"></i> Експортувати в Excel
+            </a>
             <a href="{{route('admin.user.create')}}" class="btn btn-sm btn-outline-info"><i
                     data-feather="user-plus"></i> @lang('Create User')</a>
         </div>
 
-        
-        <a href="{{route('admin.user.index', array_merge(request()->all(), ['export'=>1]))}}"
-            target="_blank" class="btn btn-outline-success">
-            <i class="far fa-file-excel"></i> Експортувати в Excel
-        </a>
-        
     </div>
 
     @include('admin.user.includes.tabs')
