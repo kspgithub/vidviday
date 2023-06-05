@@ -236,7 +236,9 @@ export default {
 
             calendarOptions.value.events.extraParams = props.filter;
             calendarOptions.value.setInitialDate(calendarOptions.value.events);
-            calendar.value.gotoDate(calendarOptions.value.initialDate);
+            if(!!calendarOptions.value.initialDate){
+                calendar.value.gotoDate(calendarOptions.value.initialDate);
+            }
 
             scrollToEnd()
         })

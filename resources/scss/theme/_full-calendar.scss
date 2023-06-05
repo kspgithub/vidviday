@@ -2231,6 +2231,16 @@ a {
                 background-color: #FFB947;
             }
         }
+
+        &.fc-day-future {
+            background: transparent;
+            .fc-daygrid-day-top {
+                opacity: 1 !important;
+            }
+            .fc-daygrid-day-number {
+                color: #000;
+            }
+        }
     }
 
     .fc-daygrid-body-unbalanced {
