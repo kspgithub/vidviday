@@ -30,7 +30,7 @@
 
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
-                                <img :data-src="selectedAvatar.preview" alt="img">
+                                <img :src="selectedAvatar.preview" alt="img">
                                 <div class="btn-delete" @click="deleteAvatar()"></div>
                             </div>
 
@@ -104,7 +104,7 @@
                         </div>
 
                         <div class="loaded-img" v-for="(sImage, idx) in selectedImages">
-                            <img :data-src="sImage.preview" alt="img">
+                            <img :src="sImage.preview" alt="img">
                             <div class="btn-delete" @click="deleteImage(idx)"></div>
                         </div>
                     </div>
