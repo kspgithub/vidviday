@@ -123,7 +123,7 @@ class Page extends TranslatableModel implements HasMedia
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'page_role', 'page_id', 'role_id');
     }
 
     public function isAvailableFor(User|null $user)
