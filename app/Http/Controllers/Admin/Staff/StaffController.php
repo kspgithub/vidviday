@@ -65,17 +65,19 @@ class StaffController extends Controller
         $staff->save();
         $staff->types()->sync($request->input('types', []));
         $staff->tours()->sync($request->input('tours', []));
-        // Set tour manager_id
-        // todo: ??? sync with $staff->manageTours ???
-        $staff->manageTours()->each(function (Tour $tour) {
-            $tour->manager_id = null;
-            $tour->save();
-        });
-        $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
-        foreach ($tours as $tour) {
-            $tour->manager_id = $staff->id;
-            $tour->save();
+
+        if(in_array(1, $staff->types()->get()->toArray())){
+            $staff->manageTours()->each(function (Tour $tour) {
+                $tour->manager_id = null;
+                $tour->save();
+            });
+            $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
+            foreach ($tours as $tour) {
+                $tour->manager_id = $staff->id;
+                $tour->save();
+            }
         }
+        
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
@@ -128,15 +130,19 @@ class StaffController extends Controller
         $staff->tours()->sync($request->input('tours', []));
         // Set tour manager_id
         // todo: ??? sync with $staff->manageTours ???
-        $staff->manageTours()->each(function (Tour $tour) {
-            $tour->manager_id = null;
-            $tour->save();
-        });
-        $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
-        foreach ($tours as $tour) {
-            $tour->manager_id = $staff->id;
-            $tour->save();
+
+        if(in_array(1, $staff->types()->get()->toArray())){
+            $staff->manageTours()->each(function (Tour $tour) {
+                $tour->manager_id = null;
+                $tour->save();
+            });
+            $tours = Tour::query()->whereIn('id', $request->input('tours', []))->get();
+            foreach ($tours as $tour) {
+                $tour->manager_id = $staff->id;
+                $tour->save();
+            }
         }
+
         if ($request->hasFile('avatar_upload')) {
             $staff->uploadAvatar($request->file('avatar_upload'));
         }
