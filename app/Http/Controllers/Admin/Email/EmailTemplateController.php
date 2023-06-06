@@ -233,10 +233,10 @@ class EmailTemplateController extends Controller
             $html = Blade::render($html, $mailableClass->buildViewData());
 
             $html = $cssToInlineStyles->convert($html);
-
+            $subject .= $html;
             $html = htmlspecialchars_decode($html);
 
-            return $html;
+            return $subject;
         } else {
             $html = $mailableClass->render();
 
