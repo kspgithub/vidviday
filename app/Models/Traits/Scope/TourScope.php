@@ -22,7 +22,13 @@ trait TourScope
     {
         return $query->whereHas('scheduleItems', function (Builder $q) {
             return $q
-                ->whereDate('tour_schedules.start_date', '>=', now())
+                ->where(function ($query) {
+                    $query->whereDate('tour_schedules.start_date', '>=', now())
+                        ->where(function ($query) {
+                            $query->whereTime('tour_schedules.start_time', '>', now())
+                                ->orWhereDate('tour_schedules.start_date', '>', now());
+                        });
+                })
                 ->whereNull('tour_schedules.deleted_at');
         });
     }
@@ -72,12 +78,21 @@ trait TourScope
 
         $query->published()->with([
             'scheduleItems' => function (HasMany $q) use($params) {
-                $dateFrom = !empty($params['date_from']) ? Carbon::createFromFormat('d.m.Y', $params['date_from']) : now();
+                if(!empty($params['date_from']) ){
+                    $dateFrom = Carbon::createFromFormat('d.m.Y', $params['date_from']); 
+                } else{
+                    $dateFrom = now();
+                    $timeFrom = now();
+                } 
                 $dateTo = !empty($params['date_to']) ? Carbon::createFromFormat('d.m.Y', $params['date_to']) : null;
 
                 return $q
                     ->with('orders')
                     ->whereDate('tour_schedules.start_date', '>=', $dateFrom)
+                    ->when($timeFrom, function (Builder $q) use ($timeFrom,$dateFrom) {
+                        return $q->whereTime('tour_schedules.start_time', '>', $timeFrom)
+                                ->orWhereDate('tour_schedules.start_date', '>', $dateFrom);
+                    })
                     ->when($dateTo, function (Builder $q) use ($dateTo) {
                         return $q->whereDate('tour_schedules.start_date', '<=', $dateTo);
                     })
