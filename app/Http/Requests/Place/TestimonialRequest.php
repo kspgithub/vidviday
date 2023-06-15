@@ -37,7 +37,7 @@ class TestimonialRequest extends FormRequest
             'tour_id' => ['nullable', 'integer'],
             'rating' => ['nullable', 'integer'],
             'avatar_upload' => ['nullable', 'image', 'max:500'],
-            'images_upload.*' => ['nullable', 'image', 'max:500'],
+            'images_upload.*' => ['nullable', 'image', 'max:3000'],
         ];
     }
 }
