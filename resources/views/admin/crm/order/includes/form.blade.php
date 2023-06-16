@@ -19,10 +19,10 @@
             @method('PATCH')
         @endif
         <input type="hidden" name="group_type" value="0">
+        @include('admin.crm.order.includes.abolition-card')
         @include('admin.crm.order.includes.customer-form')
         @include('admin.crm.order.includes.agency-form')
         @include('admin.crm.order.includes.schedule-form')
-        @include('admin.crm.order.includes.abolition-card')
         @include('admin.crm.order.includes.participants-form')
         @include('admin.crm.order.includes.accomm-form')
         @include('admin.crm.order.includes.finance-form')

@@ -2,8 +2,8 @@
     <div class="tab" :class="{active: active}">
         <div class="row">
             <div class="col-lg-9 col-md-7 col-12">
-                <order-payment-selector/>
-                <template v-if="group_type !== 1">
+                <order-payment-selector name="payment_type" rules="required"/>
+                <template v-if="group_type === 1">
                     <order-offer-date/>
                     <div class="spacer-xs"></div>
                 </template>
@@ -12,7 +12,7 @@
                     <div class="col-lg-5 col-12">
                         <order-confirmation/>
 
-                        <order-act v-if="group_type === 0"/>
+                        <order-act />
 
                         <order-comment/>
 

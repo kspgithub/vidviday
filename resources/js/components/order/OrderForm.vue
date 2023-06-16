@@ -276,7 +276,7 @@ export default {
                     return conditions.value === 1 ? true : 'Ви повинні прийняти умови правил бронювання.';
                 };
                 schema.payment_type = () => {
-                    return !!formData.value.payment_type;
+                    return !formData.value.payment_type ? 'Оберіть форму оплати' : true;
                 };
             }
             return schema;

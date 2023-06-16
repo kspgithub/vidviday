@@ -18,6 +18,7 @@ class OrderObserver
         $order->commission = $order->commission ?: 0;
 
         if ($order->participants['customer'] ?? false) {
+            $order->middle_name = $order->participants['items'][0]['middle_name'] ?? null;
             $order->birthday = $order->participants['items'][0]['birthday'] ?? null;
         }
     }

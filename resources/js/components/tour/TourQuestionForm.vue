@@ -30,14 +30,10 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">
-                    {{ __('forms.send') }}
-                </seo-button>
+                <button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <seo-button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">
-                    {{ __('forms.send') }}
-                </seo-button>
+                <button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
             </template>
 
         </div>
@@ -55,6 +51,7 @@ import { VueRecaptcha } from 'vue-recaptcha'
 import { useStore } from 'vuex'
 import FormPhone from "../form/FormPhone";
 import SeoButton from '../common/SeoButton.vue'
+import axios from "axios";
 
 export default {
     name: "TourQuestionForm",

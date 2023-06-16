@@ -1,5 +1,8 @@
 @extends('layout.app')
 @section('title', 'Замовлення туру')
+@section('head')
+    <meta name=“robots” content=“noindex,follow”>
+@endsection
 @section('content')
     <main class="order-page">
         <div class="container">

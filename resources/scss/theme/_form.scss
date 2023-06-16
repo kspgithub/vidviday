@@ -93,6 +93,26 @@ label {
         transform: translateX(-50%);
     }
 
+    &.label_title {
+        width: max-content;
+
+        &.invalid {
+            background: #fff calc(100%) 4px/16px 16px url("/images/discount.svg") no-repeat;
+        }
+
+        &:before {
+            bottom: calc(100% - 1px);
+            right: 4px;
+        }
+        &:after {
+            bottom: calc(100% + 3px);
+        }
+
+        h2 {
+            padding-right: 25px;
+        }
+    }
+
     i {
         top: 8px;
         left: 10px;
