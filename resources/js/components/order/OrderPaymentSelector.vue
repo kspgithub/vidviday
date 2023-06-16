@@ -8,6 +8,7 @@
             <form-radio v-if="paymentType.value !== 5"  v-model="payment_type"
                         :value="paymentType.value"
                         :label="paymentType.text"
+                        name="payment_type"
             />
         </template>
         <div class="spacer-xs"></div>
