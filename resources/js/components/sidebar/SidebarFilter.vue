@@ -42,7 +42,7 @@
                              :multiple="true"
                 />
 
-                <form-select v-model="place"
+                <form-select-place v-model="place"
                              ref="placeSelectRef"
                              :options="places"
                              name="place"
@@ -83,10 +83,11 @@ import * as urlUtils from "../../utils/url";
 import FormAutocomplete from '../form/FormAutocomplete.vue'
 import {fetchPlaces} from '../../services/places-service'
 import SeoButton from '../common/SeoButton.vue'
+import FormSelectPlace from "../form/FormSelectPlace.vue";
 
 export default {
     name: "SidebarFilter",
-    components: {SeoButton, FormAutocomplete, FormSelect, FormRange, FormDoublePicker},
+    components: {SeoButton, FormAutocomplete, FormSelect, FormRange, FormDoublePicker, FormSelectPlace},
     props: {
         options: {
             type: Object,
@@ -171,7 +172,7 @@ export default {
 
             await nextTick(() => {
                 if (placeSelectRef.value) {
-                    // placeSelectRef.value.update(places.value);
+                    placeSelectRef.value.update(places.value);
                 }
             })
         }
