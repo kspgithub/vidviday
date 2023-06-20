@@ -188,7 +188,6 @@ export default {
             datepicker.value = $(pickerEl.value).datepicker().data('datepicker');
 
             $(pickerInput.value).inputmask({
-                placeholder: getPlaceholder.value,
                 mask: "q9.w9.9999",
                 clearMaskOnLostFocus: true,
                 definitions: {

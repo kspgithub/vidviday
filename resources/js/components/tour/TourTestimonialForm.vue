@@ -140,10 +140,10 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1 recap" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1 no-recap" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </template>
                 </div>
 
@@ -212,8 +212,10 @@ export default {
             'g-recaptcha-response': '',
         });
 
-        const {validate, errors} = useForm({
-            validationSchema: {
+        let validationSchema;
+
+        if(props.user == null){
+            validationSchema =  {
                 first_name: 'required',
                 last_name: 'required',
                 phone: 'required|tel',
@@ -221,7 +223,14 @@ export default {
                 text: 'required|max:5000',
                 rating: 'required|numeric|min_value:1',
             }
-        })
+        } else {
+            validationSchema = {
+                text: 'required|max:5000',
+                rating: 'required|numeric|min_value:1',
+            }
+        }
+
+        const {validate, errors} = useForm({ validationSchema })
 
         const testimonialForm = useTestimonialForm(data, props.action)
 
