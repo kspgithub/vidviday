@@ -30,10 +30,10 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
+                <button code="tour.send_question_1" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <button code="tour.send_question" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
+                <button code="tour.send_question_1" type="submit" class="btn type-1" :disabled="submitted" @click.prevent="validateForm">{{ __('forms.send') }}</button>
             </template>
 
         </div>
@@ -50,12 +50,11 @@ import { useForm } from 'vee-validate'
 import { VueRecaptcha } from 'vue-recaptcha'
 import { useStore } from 'vuex'
 import FormPhone from "../form/FormPhone";
-import SeoButton from '../common/SeoButton.vue'
 import axios from "axios";
 
 export default {
     name: "TourQuestionForm",
-    components: {SeoButton, FormPhone, VueRecaptcha, FormTextarea, FormInput},
+    components: { FormPhone, VueRecaptcha, FormTextarea, FormInput},
     props: {
         tour: Object,
         action: String,
@@ -141,7 +140,7 @@ export default {
                 if (!result.valid) {
                     return false
                 } else {
-                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                    onSubmit()
                 }
             }
         }

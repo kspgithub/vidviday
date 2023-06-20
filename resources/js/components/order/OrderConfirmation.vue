@@ -31,35 +31,52 @@
 <script>
 import {useDebounceFormDataProperty, useFormDataProperty} from "../../store/composables/useFormData";
 import {useStore} from "vuex";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import FormRadio from "../form/FormRadio";
 import FormInput from "../form/FormInput";
 
 export default {
-    name: "OrderConfirmation",
-    components: {FormInput, FormRadio},
-    setup() {
-        const store = useStore();
+  name: "OrderConfirmation",
+  components: { FormInput, FormRadio },
+  setup() {
+    const store = useStore();
 
-        store.state.orderTour.formData.confirmation_email = store.state.orderTour.formData.email
-        store.state.orderTour.formData.confirmation_viber = store.state.orderTour.formData.viber
-        store.state.orderTour.formData.confirmation_phone = store.state.orderTour.formData.phone
+    const email = ref(store.state.orderTour.formData.email);
+    const viber = ref(store.state.orderTour.formData.viber);
+    const phone = ref(store.state.orderTour.formData.phone);
 
-        const confirmationTypes = computed(() => store.state.orderTour.confirmationTypes);
-        const confirmation_type = useFormDataProperty('orderTour', 'confirmation_type');
-        const email = useDebounceFormDataProperty('orderTour', 'confirmation_email');
-        const viber = useDebounceFormDataProperty('orderTour', 'confirmation_viber');
-        const phone = useDebounceFormDataProperty('orderTour', 'confirmation_phone');
+    watch(
+      () => store.state.orderTour.formData,
+      (newValue) => {
+        email.value = newValue.email;
+        viber.value = newValue.viber;
+        phone.value = newValue.phone;
+      }
+    );
 
-        return {
-            email,
-            viber,
-            phone,
-            confirmationTypes,
-            confirmation_type,
-        }
-    }
-}
+    watch(email, (newValue) => {
+      store.state.orderTour.formData.confirmation_email = newValue;
+    });
+    watch(viber, (newValue) => {
+      store.state.orderTour.formData.confirmation_viber = newValue;
+    });
+    watch(phone, (newValue) => {
+      store.state.orderTour.formData.confirmation_phone = newValue;
+    });
+
+    const confirmationTypes = computed(() => store.state.orderTour.confirmationTypes);
+    const confirmation_type = useFormDataProperty("orderTour", "confirmation_type");
+
+    return {
+      email,
+      viber,
+      phone,
+      confirmationTypes,
+      confirmation_type,
+    };
+  },
+};
+
 </script>
 
 <style scoped>
