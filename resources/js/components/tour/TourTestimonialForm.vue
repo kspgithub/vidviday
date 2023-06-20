@@ -140,10 +140,10 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1 recap" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1 no-recap" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </template>
                 </div>
 
