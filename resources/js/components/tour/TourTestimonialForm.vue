@@ -201,6 +201,32 @@ export default {
         const recaptcha = ref(null);
         const guideSelectRef = ref(null);
 
+        let dataReactive;
+
+        if(props.user == null){
+            dataReactive =  {
+                first_name: '',
+                last_name: '',
+                phone: '',
+                email: '',
+                rating: 5,
+                guide_id: 0,
+                text: '',
+                'g-recaptcha-response': '',
+            }
+        } else {
+            dataReactive = {
+                first_name: props.user.first_name ? props.user.first_name : 'Iм’я',
+                last_name: props.user.last_name ? props.user.last_name : 'Прізвище',
+                phone: props.user.mobile_phone ? props.user.mobile_phone : 'Телефон',
+                email: props.user.email ? props.user.email : 'Email',
+                rating: 5,
+                guide_id: 0,
+                text: '',
+                'g-recaptcha-response': '',
+            }
+        }
+
         const data = reactive({
             first_name: props.user && props.user.first_name ? props.user.first_name : '',
             last_name: props.user && props.user.last_name ? props.user.last_name : '',
