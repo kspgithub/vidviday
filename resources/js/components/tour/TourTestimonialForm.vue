@@ -212,26 +212,28 @@ export default {
             'g-recaptcha-response': '',
         });
 
-        let validationSchema;
+        if(props.user){
+            if(props.user.first_name == null){
+                data.first_name = '-';
+            }
+            if(props.user.last_name == null){
+                data.last_name = '-';
+            }
+            if(props.user.mobile_phone == null || props.user.mobile_phone == '+' || data.phone == '+undefined'){
+                data.phone = '+380501234567';
+            }
+            if(props.user.email == null){
+                data.email = 'noemail@noemail.com';
+            }
+        }
 
-        if(props.user == null){
-            validationSchema =  {
-                first_name: 'required',
-                last_name: 'required',
-                phone: 'required|tel',
-                email: 'required|email',
-                text: 'required|max:5000',
-                rating: 'required|numeric|min_value:1',
-            }
-        } else {
-            validationSchema = {
-                first_name: '',
-                last_name: '',
-                phone: '',
-                email: '',
-                text: 'required|max:5000',
-                rating: 'required|numeric|min_value:1',
-            }
+        const validationSchema =  {
+            first_name: 'required',
+            last_name: 'required',
+            phone: 'required|tel',
+            email: 'required|email',
+            text: 'required|max:5000',
+            rating: 'required|numeric|min_value:1',
         }
 
         const {validate, errors} = useForm({ validationSchema })
