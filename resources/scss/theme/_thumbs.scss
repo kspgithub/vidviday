@@ -188,6 +188,14 @@
     }
 }
 
+.post {
+    .thumb-content{
+        .title{
+            min-height: auto;
+        }
+    }
+}
+
 .stars {
     .text {
         margin-left: 10px;
@@ -1062,6 +1070,7 @@
                 position: absolute;
                 -webkit-line-clamp: 2;
                 width: 132%;
+                min-height: auto;
             }
 
             .stars {

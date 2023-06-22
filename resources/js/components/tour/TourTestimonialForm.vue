@@ -33,7 +33,7 @@
 
                         <div class="text" v-if="selectedAvatar">
                             <div class="loaded-img">
-                                <img :data-src="selectedAvatar.preview" alt="img">
+                                <img :src="selectedAvatar.preview" alt="img">
                                 <seo-button code="testimonial.delete_avatar" class="btn-delete" @click.prevent="deleteAvatar()"></seo-button>
                             </div>
 
@@ -140,14 +140,10 @@
                                    @render="render"
                                    ref="recaptcha"
                     >
-                        <seo-button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
-                            {{ __('forms.leave-feedback') }}
-                        </seo-button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </vue-recaptcha>
                     <template v-if="!useRecaptcha">
-                        <seo-button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm">
-                            {{ __('forms.leave-feedback') }}
-                        </seo-button>
+                        <button code="tour.testimonial" type="submit" :disabled="invalid || request" class="btn type-1" @click="validateForm"> {{ __('forms.leave-feedback') }}</button>
                     </template>
                 </div>
 
@@ -216,16 +212,31 @@ export default {
             'g-recaptcha-response': '',
         });
 
-        const {validate, errors} = useForm({
-            validationSchema: {
-                first_name: 'required',
-                last_name: 'required',
-                phone: 'required|tel',
-                email: 'required|email',
-                text: 'required|max:5000',
-                rating: 'required|numeric|min_value:1',
+        if(props.user){
+            if(props.user.first_name == null){
+                data.first_name = '-';
             }
-        })
+            if(props.user.last_name == null){
+                data.last_name = '-';
+            }
+            if(props.user.mobile_phone == null || props.user.mobile_phone == '+' || data.phone == '+undefined'){
+                data.phone = '+380501234567';
+            }
+            if(props.user.email == null){
+                data.email = 'noemail@noemail.com';
+            }
+        }
+
+        const validationSchema =  {
+            first_name: 'required',
+            last_name: 'required',
+            phone: 'required|tel',
+            email: 'required|email',
+            text: 'required|max:5000',
+            rating: 'required|numeric|min_value:1',
+        }
+
+        const {validate, errors} = useForm({ validationSchema })
 
         const testimonialForm = useTestimonialForm(data, props.action)
 

@@ -7,15 +7,16 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
-                    <th style="width: 300px">Приина</th>
-                    <td>
+                    <th style="width: 500px">Приина</th>
+                    <th >Коментар</th>
+                </tr>
+                <tr>
+                    
+                    <td style="width: 500px">
                         <div>
                             <b>{{ $abolitionTypes[$order->abolition['cause']] ?? 'unknown' }}</b>
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <th style="width: 300px">Коментар</th>
                     <td>
                         <div>
                             <b>{{ $order->abolition['comment'] }}</b>

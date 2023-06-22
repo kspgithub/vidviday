@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\SearchEventsRequest;
 use App\Http\Requests\Tour\SearchToursRequest;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Staff;
 use App\Models\Tour;
 use App\Models\TourSchedule;

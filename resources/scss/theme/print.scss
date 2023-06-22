@@ -348,10 +348,10 @@
         display: none !important;
     }
     .agent-print footer {
-        display: none !important;
+        display: block !important;
     }
     .agent-print header {
-        display: none !important;
+        display: block !important;
     }
     .agent-print .right-sidebar .sidebar-item.notice {
         display: none !important;
@@ -364,6 +364,7 @@
         padding: 15px 0;
         border-bottom: 1px solid #000;
         height: auto;
+        margin-bottom: 20px;
     }
     header #logo {
         margin: 0 60px 0 0 !important;
@@ -407,6 +408,19 @@
     }
     .vacancy-form.sidebar-item {
         display: none !important;
+    }
+    .right-sidebar {
+        display: none !important;
+    }
+    .load-more-wrapp{
+        display: none !important;
+    }
+    .spacer-lg{
+        display: none !important;
+    }
+    .print-page-slug {
+        font-size: 17px;
+        font-weight: 500;
     }
 
 

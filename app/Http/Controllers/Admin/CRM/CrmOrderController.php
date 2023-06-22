@@ -236,6 +236,11 @@ class CrmOrderController extends Controller
         if (empty($order->utm_data)) {
             $order->utm_data = ['customer_source' => '', 'customer_device' => ''];
         }
+
+        $abolitionTypes = QuestionType::query()->where('type', UserQuestion::TYPE_CANCEL)
+        ->published()
+        ->pluck('title', 'id');
+        
         return view('admin.crm.order.edit', [
             'statuses' => $statuses,
             'currencies' => $currencies,
@@ -246,6 +251,7 @@ class CrmOrderController extends Controller
             'tour' => $tour,
             'schedule' => $schedule,
             'availableDiscounts' => $discounts,
+            'abolitionTypes' => $abolitionTypes,
         ]);
     }
 

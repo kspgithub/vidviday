@@ -20,9 +20,9 @@
 
                     
 
-                    <order-departure class="col-md-6 col-12" v-if="!tourSelected && (program_type === 0)"/>
+                   <!--  <order-departure class="col-md-6 col-12" v-if="!tourSelected && (program_type === 0)"/> -->
 
-                    <order-tour-dates class="col-12 mb-10" v-if="!tourSelected && program_type === 1 "/>
+                    <order-tour-dates class="col-12 mb-10" />
 
                     <order-places class="col-12 mb-10"/>
 
