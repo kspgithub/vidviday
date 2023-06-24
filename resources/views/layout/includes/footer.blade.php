@@ -182,7 +182,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-4 col-12">
-                    <div class="text-sm">© {{date('Y').' '.__('footer-section.license')}}</div>
+                    <div class="payment-systems">
+                        <img src="{{asset('/img/visa.svg')}}" alt="VISA">
+                        <img src="{{asset('/img/mc.svg')}}" alt="Master Card">
+                    </div>
                 </div>
 
                 <div class="col-xl-4 col-12">
@@ -210,6 +213,10 @@
                         @endforeach
 
                     </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="text-sm text-center">© {{date('Y').' '.__('footer-section.license')}}</div>
                 </div>
             </div>
         </div>

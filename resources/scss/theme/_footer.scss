@@ -107,6 +107,25 @@ footer {
             margin-right: 0;
         }
     }
+
+    .row {
+        > div {
+            &:last-child {
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+.payment-systems {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center; 
+
+    img {
+        height: 20px;
+    }
 }
 
 .contacts-block {
@@ -268,15 +287,20 @@ footer {
         .row {
             > div {
                 &:first-child {
-                    order: 3;
-                }
-
-                &:nth-child(2) {
                     order: 2;
                 }
 
-                &:last-child {
+                &:nth-child(2) {
+                    order: 3;
+                }
+
+                &:nth-child(3) {
                     order: 1;
+                }
+
+                &:last-child {
+                    order: 4;
+                    margin-top: unset;
                 }
             }
         }
@@ -311,6 +335,11 @@ footer {
                     display: none;
                 }
             }
+        }
+
+        .payment-systems {
+            margin-bottom: 20px;
+            justify-content: center;
         }
     }
 }
