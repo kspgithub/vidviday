@@ -19,7 +19,6 @@
             <span class="h3">
                 <a href="{{ $specialist->url }}">{{$specialist->first_name}} {{$specialist->last_name}}</a>
             </span>
-            <div class="text">{{$specialist->testimonials_count}} відгуків</div>
             <div class="text">{{$specialist->position}}</div>
         </div>
         <hr>
