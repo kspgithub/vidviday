@@ -56,7 +56,7 @@ class TestimonialController extends Controller
         $testimonial->model_type = Tour::class;
         $testimonial->model_id = $request->tour_id;
         $testimonial->fill($request->validated());
-        $testimonial->name = $request->last_name . ' ' . $request->first_name;
+        $testimonial->name = $request->first_name . ' ' . $request->last_name;
         $user = current_user();
 
         if ((int)$request->guide_id > 0) {
