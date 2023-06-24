@@ -90,6 +90,7 @@
 
                 <div class="col-xl-4 col-12">
                     <!-- SIDEBAR -->
+                    <div class="spacer-lg only-pad-mobile"></div>
                     <x-page.right-sidebar :page-content="$pageContent"></x-page.right-sidebar>
 
                     <!-- SIDEBAR END -->
