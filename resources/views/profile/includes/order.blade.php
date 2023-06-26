@@ -1,7 +1,7 @@
-<div class="accordion-item">
+<div class="accordion-item {{$order->status_class}}">
     <div class="accordion-title">
         {{--        <span class="text">{{$order->created_at?->format('d.m.Y')}}</span>--}}
-        <span class="h4">{{$order->tour ? $order->tour->title : 'Корпоратив'}}</span>
+        <span class="h4">{{$order->tour ? $order->tour->title : 'Корпоратив'}} <span class="order-history__date">{{$order->event_title}}</span></span>
         <div class="calendar-header-center {{$order->status_class}}">
             <span class="text-sm">{{$order->status_text}}</span>
         </div>
