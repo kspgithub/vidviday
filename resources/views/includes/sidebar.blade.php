@@ -21,8 +21,6 @@
             {{svg('sidebar-tour')}} @lang('tours-section.tours-calendar')
         </x-seo-button>
 
-        <div class="spacer-xl only-mobile"></div>
-
         <x-sidebar.ads/>
 
         <div class="sidebar-item overflow-hidden no-border">

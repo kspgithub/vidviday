@@ -70,9 +70,6 @@
             border-top: 1px solid #E9E9E9;
         }
 
-        .footer td {
-            width: 50%;
-        }
 
         @media (max-width: 767px) {
 

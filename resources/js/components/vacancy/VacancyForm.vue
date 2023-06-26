@@ -8,14 +8,14 @@
         <div class="spacer-xs"></div>
         <form @submit="onSubmit" :action="action" method="POST">
             <form-csrf/>
-            <form-input name="first_name" v-model="data.first_name" :label="__('forms.your-name')"/>
-            <form-input name="last_name" v-model="data.last_name" :label="__('forms.your-last-name')"/>
+            <form-input name="first_name" v-model="data.first_name" :label="__('forms.your-name')+'*'"/>
+            <form-input name="last_name" v-model="data.last_name" :label="__('forms.your-last-name')+'*'"/>
             <form-input name="phone" id="vacancy_phone" v-model="data.phone"
-                        :label="__('forms.your-phone')"
+                        :label="__('forms.your-phone')+'*'"
                         mask="+38 (999) 999-99-99"
             />
             <form-input name="email" id="vacancy_email" v-model="data.email"
-                        :label="__('forms.email')"/>
+                        :label="__('forms.email')+'*'"/>
             <form-textarea name="comment" id="vacancy_comment" v-model="data.comment"
                            :label="__('forms.your-comment')"/>
             <form-file name="attachment" v-model="data.attachment"
@@ -27,6 +27,11 @@
             <seo-button code="vacancy.send" class="btn type-1 btn-block" :disabled="submitted">
                 {{ __('common.vacancy.send-resume') }}
             </seo-button>
+
+            <div class="text-center-xs">
+                <div class="spacer-xs"></div>
+                <span class="text-sm">* обов’язкове для заповнення поле</span>
+            </div>
         </form>
     </div>
 </template>
