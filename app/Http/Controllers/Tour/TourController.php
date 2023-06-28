@@ -470,9 +470,9 @@ class TourController extends Controller
 
     public function download()
     {
-        $filename = strval(date("Y.m.d")." - Vidviday - tours.xlsx");
+        $filename = strval(date("Y.m.d")."-Vidviday-tours.xlsx");
 
-        return Excel::download(new ScheduleExport(), $filename);
+        return Excel::download(new ScheduleExport(),"tours.xlsx");
 
     }
 }
