@@ -75,7 +75,7 @@
 
                                 <div class="only-pad-mobile hidden-print">
 
-                                    <x-tour.star-rating :rating="$tour->rating"
+                                    <x-tour.star-rating :rating="intval($tour->rating != 0 ? $tour->rating : $tour->testimonials_avg_rating)"
                                                         :count="$tour->testimonials_count"
                                                         :trigger="true"
                                     />
