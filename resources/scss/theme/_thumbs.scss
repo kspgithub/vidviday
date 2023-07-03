@@ -1154,10 +1154,20 @@
         font-size: 12px;
     }
 
-    .thumb .thumb-img .label,
+    .thumb .thumb-img .label:first-child,
     .like {
         top: 8px;
     }
+    .thumb .thumb-img .label:nth-child(2) {
+        top: 36px;
+    }
+    .thumb .thumb-img .label:nth-child(3) {
+        top: 64px;
+    }
+    .thumb .thumb-img .label:nth-child(4) {
+        top: 92px;
+    }
+
 
     .like {
         left: 0;
