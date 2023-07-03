@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\Menu;
 use App\Models\Page;
 use App\Models\QuestionType;
+use App\Models\BeWithUs;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
@@ -18,6 +19,7 @@ class SiteFooter extends Component
     public $menu = [];
     public $showOnMapUrl;
     public $complaintsImage;
+    public $socialLinks;
 
     /**
      * Create a new component instance.
@@ -39,6 +41,8 @@ class SiteFooter extends Component
         $img = site_option('complaints_image');
 
         $this->complaintsImage = $img ? Storage::url(site_option('complaints_image')) : null;
+
+        $this->socialLinks = BeWithUs::get();
 
         $questionTypes = Cache::rememberForever('question-types', function () {
             return QuestionType::query()->published()->get();

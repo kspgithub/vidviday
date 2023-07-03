@@ -206,10 +206,12 @@
                     <div class="social style-1 text-right">
                         <span>{{__('footer-section.be-with-us')}}</span>
 
-                        @foreach(config('contacts.social-links') as $social)
-                            <a href="{{$social['href']}}" target="_blank">
-                                {{svg($social['svg-icon'])}}
-                            </a>
+                        @foreach($socialLinks as $social)
+                            @if (!empty($social['url']))
+                                <a href="{{$social['url']}}" target="_blank">
+                                    {{svg($social['icon'])}}
+                                </a>
+                            @endif 
                         @endforeach
 
                     </div>
