@@ -41,8 +41,8 @@ class EventItemBasicRequest extends FormRequest
             'end_date'=>['nullable', 'date_format:Y-m-d'],
             'main_image'=>['nullable', 'string'],
             'mobile_image'=>['nullable', 'string'],
-            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
-            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
+            'main_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:3000'],
+            'mobile_image_upload'=>['nullable', 'mimes:jpeg,jpg,png,gif', 'max:3000'],
         ];
     }
 }

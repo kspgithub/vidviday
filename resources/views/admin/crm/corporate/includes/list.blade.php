@@ -76,7 +76,7 @@
                     <template x-for="order in items" :key="'ord-'+order.id">
                         <tr x-bind:class="'order-row-'+order.status">
                             <td>
-                                <a :href="`/admin/crm/${order.id}/show`" x-text="order.id" target="_blank"></a>
+                                <a :href="`/admin/crm/corporate/${order.id}`" x-text="order.id" target="_blank"></a>
                             </td>
                             <td>
                                 <span x-text="statusText(order.status)"></span>
