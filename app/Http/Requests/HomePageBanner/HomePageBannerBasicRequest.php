@@ -33,7 +33,7 @@ class HomePageBannerBasicRequest extends FormRequest
             'price' => ['nullable', 'integer'],
             'currency' => ['required', Rule::in(Currency::isoNames())],
             'main_image' => ['nullable', 'string'],
-            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
+            'main_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:3000'],
         ];
     }
 }
