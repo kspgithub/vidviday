@@ -10,7 +10,9 @@ trait UserRelationship
 
     public function orders()
     {
-        return $this->hasMany(Order::class, 'user_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Order::class, 'user_id')
+                    ->orderByRaw("FIELD(status, 'new', 'booked','not-sent', 'interested','reserve','deposit','payed', 'completed','pending-cancel', 'canceled')")
+                    ->orderBy('start_date', 'desc');
     }
 
 

@@ -33,8 +33,8 @@ class DocumentBasicRequest extends FormRequest
             'published' => ['nullable', Rule::in(['1', '0'])],
             'image' => ['nullable', 'string'],
             'file' => ['nullable', 'string'],
-            'image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:500'],
-            'file_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif,pdf,doc,docx', 'max:500'],
+            'image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:3000'],
+            'file_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif,pdf,doc,docx', 'max:3000'],
         ];
     }
 }

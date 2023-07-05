@@ -97,7 +97,7 @@
         </x-bootstrap.card>
     @endif
 
-    @if($page->id > 0)
+    @if($page->id > 0 && !in_array($page->id, $excludeGallery))
         <x-bootstrap.card>
             <x-slot name="header">
                 <h3>@lang('Gallery')</h3>

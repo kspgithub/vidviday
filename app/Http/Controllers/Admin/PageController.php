@@ -104,10 +104,13 @@ class PageController extends Controller
         $managers = Staff::all()->map->asSelectBox();
         $roles = Role::toSelectBox();
 
+        $excludeGallery = array(3, 4, 13, 11, 8, 9, 22, 2, 1, 19, 31, 16, 20);
+
         return view('admin.page.edit', [
             'page' => $page,
             'managers' => $managers,
             'roles' => $roles,
+            'excludeGallery' => $excludeGallery,
         ]);
     }
 

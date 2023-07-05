@@ -279,6 +279,12 @@
         cursor: default !important;
         opacity: .7;
     }
+
+    &.tour-selection-mobile {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 20px;
+    }
 }
 
 .btn-lg {

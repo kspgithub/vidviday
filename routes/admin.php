@@ -85,6 +85,7 @@ use App\Http\Controllers\Admin\Vacancy\VacancyController;
 use App\Http\Controllers\Admin\Practice\PracticeController;
 use App\Http\Controllers\Admin\Course\CourseController;
 use App\Http\Controllers\Admin\WrongRequestsController;
+use App\Http\Controllers\Admin\BeWithUsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -363,3 +364,9 @@ Route::get('sms-notifications/{key}', [SmsNotificationsController::class, 'edit'
 Route::get('sms-notifications/{key}/preview', [SmsNotificationsController::class, 'preview'])->name('sms-notifications.preview');
 Route::delete('sms-notifications/{key}', [SmsNotificationsController::class, 'reset'])->name('sms-notifications.reset');
 Route::patch('sms-notifications/{key}', [SmsNotificationsController::class, 'save'])->name('sms-notifications.save');
+
+// Be With Us
+Route::get('bewithus', [BeWithUsController::class, 'index'])->name('bewithus.edit');
+Route::patch('bewithus', [BeWithUsController::class, 'update'])->name('bewithus.update');
+/* Route::delete('bewithus/{bewithus}', [BeWithUsController::class, 'destroy'])->name('bewithus.destroy'); */
+/* Route::post('bewithus', [BeWithUsController::class, 'store'])->name('bewithus.store'); */

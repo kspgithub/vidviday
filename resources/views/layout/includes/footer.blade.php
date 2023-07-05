@@ -182,7 +182,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-4 col-12">
-                    <div class="text-sm">© {{date('Y').' '.__('footer-section.license')}}</div>
+                    <div class="payment-systems">
+                        <img src="{{asset('/img/visa.svg')}}" alt="VISA">
+                        <img src="{{asset('/img/mc.svg')}}" alt="Master Card">
+                    </div>
                 </div>
 
                 <div class="col-xl-4 col-12">
@@ -203,13 +206,19 @@
                     <div class="social style-1 text-right">
                         <span>{{__('footer-section.be-with-us')}}</span>
 
-                        @foreach(config('contacts.social-links') as $social)
-                            <a href="{{$social['href']}}" target="_blank">
-                                {{svg($social['svg-icon'])}}
-                            </a>
+                        @foreach($socialLinks as $social)
+                            @if (!empty($social['url']))
+                                <a href="{{$social['url']}}" target="_blank">
+                                    {{svg($social['icon'])}}
+                                </a>
+                            @endif 
                         @endforeach
 
                     </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="text-sm text-center">© {{date('Y').' '.__('footer-section.license')}}</div>
                 </div>
             </div>
         </div>

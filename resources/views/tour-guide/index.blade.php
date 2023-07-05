@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="col-md-4 col-12">
-                                <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex"><img
+                                <x-seo-button :code="'tour.select'" class="btn type-5 arrow-right text-left flex tour-selection-mobile"><img
                                         src="{{asset('img/preloader.png')}}"
                                         data-src="{{asset('icon/filter-dark.svg')}}"
                                         alt="filter-dark">Підбір туру</x-seo-button>

@@ -147,11 +147,13 @@ trait TourScheduleAttribute
     public function getPriceTitleAttribute()
     {
         $price = ceil($this->price);
+        $currency = __('common.currency.uah');
+        $priceTitle = __('Price');
 
-        $title = "Ціна: {$price} грн.";
+        $title = "{$priceTitle}: {$price} {$currency}.";
         if (Auth::check() && (Auth::user()->isTourAgent() || Auth::user()->isAdmin())) {
             $commission = ceil($this->commission);
-            $title .= " | {$commission} грн. <span class='tooltip-wrap red''><span class='tooltip text text-sm placement-center''>Комісія агента</span></span>";
+            $title .= " | {$commission} {$currency}. <span class='tooltip-wrap red''><span class='tooltip text text-sm placement-center''>Комісія агента</span></span>";
         }
         return $title;
     }
