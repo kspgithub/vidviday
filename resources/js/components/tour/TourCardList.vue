@@ -69,7 +69,7 @@
                 </div>
 
                 <template v-if="currentSchedule">
-                    <seo-button code="tour.order_schedule" :href="tour.url + '/order?clear=1&schedule='+scheduleId"
+                    <seo-button code="tour.order_schedule" :href="'/tour/'+tour.id + '/order?clear=1&schedule='+scheduleId"
                        class="btn type-1 btn-block">{{ __('tours-section.order-tour') }}</seo-button>
                 </template>
 
