@@ -513,10 +513,16 @@
                             class="align-middle">@lang('Партнеры')</span>
                     </a>
                 </li>
-               <li class="sidebar-item {{routeActiveClass('admin.bewithus.*')}}">
+                <li class="sidebar-item {{routeActiveClass('admin.bewithus.*')}}">
                     <a class="sidebar-link" href="{{route('admin.bewithus.edit')}}">
                         <i class="align-middle" data-feather="rss"></i> <span
                             class="align-middle">@lang('Будьте з нами')</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{routeActiveClass('admin.visual-options.*')}}">
+                    <a class="sidebar-link" href="{{route('admin.visual-options.index')}}">
+                        <i class="align-middle" data-feather="rss"></i> <span
+                            class="align-middle">@lang('Налаштування відображення')</span>
                     </a>
                 </li>
             @endif

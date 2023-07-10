@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VacancySeeder::class);
         $this->call(PackingSeeder::class);
         $this->call(DocumentsSeeder::class);
+        $this->call(VisualOptionsSeeder::class);
 
 
         // Last

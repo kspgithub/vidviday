@@ -86,6 +86,7 @@ use App\Http\Controllers\Admin\Practice\PracticeController;
 use App\Http\Controllers\Admin\Course\CourseController;
 use App\Http\Controllers\Admin\WrongRequestsController;
 use App\Http\Controllers\Admin\BeWithUsController;
+use App\Http\Controllers\Admin\VisualOptionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -265,6 +266,10 @@ Route::patch('contacts', [ContactsController::class, 'update'])->name('contact.u
 // SITE OPTIONS
 Route::get('site-options', [SiteOptionsController::class, 'index'])->name('site-options.index');
 Route::patch('site-options', [SiteOptionsController::class, 'update'])->name('site-options.update');
+
+// VISUAL OPTIONS
+Route::get('visual-options', [VisualOptionsController::class, 'index'])->name('visual-options.index');
+Route::patch('visual-options', [VisualOptionsController::class, 'update'])->name('visual-options.update');
 
 // REDIRECTS
 Route::get('redirects', [RedirectsController::class, 'index'])->name('redirects.index');

@@ -19,8 +19,6 @@ class SiteOptionsSeeder extends Seeder
      */
     public function run()
     {
-        //
-//        $this->truncate('site_options');
 
         $site_options = [
             ['key' => 'moderate_testimonials', 'value' => true, 'title' => 'Модерация відгуків', 'primary' => true, 'type' => SiteOption::TYPE_BOOLEAN],

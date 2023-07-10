@@ -64,4 +64,12 @@ class PopupAd extends Model
             ->where('popup_ad_rules.model_type', $model::class)
             ->whereIn('popup_ad_rules.model_id', [$model->id, 0]);
     }
+
+    public function imageSize()
+    {
+        return [
+            'width' => 1000,
+            'height' => 1000,
+        ];
+    }
 }

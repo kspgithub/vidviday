@@ -25,7 +25,7 @@
 
         <div class="sidebar-item overflow-hidden no-border">
             <div class="gift-certificate">
-                <div class="bg" data-bg-src="{{asset('/img/gift-certificate.jpg')}}"
+                <div class="bg" data-bg-src="{{asset($giftImage)}}"
                      style="background-image: url('{{asset('/img/preloader.png')}}');"></div>
                 <div class="gift-icon">
                     <img loading="lazy" data-src="{{asset('/icon/gift.svg')}}" alt="gift">

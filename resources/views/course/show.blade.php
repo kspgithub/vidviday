@@ -75,8 +75,8 @@
                     <!-- SIDEBAR -->
                     <x-page.right-sidebar :pageContent="$pageContent">
                         <div class="sidebar-item" id="vacancy-form" v-is="'vacancy-form'"
-                             form-title="{{ __('common.course.form-title-single') }}"
-                             form-sub-title="{{ __('common.course.form-sub-title-single') }}"
+                             form-title="{{ __('common.vacancy.form-title-single') }}"
+                             form-sub-title="{{ __('common.vacancy.form-sub-title-single') }}"
                         ></div>
                     </x-page.right-sidebar>
                     <!-- SIDEBAR END -->

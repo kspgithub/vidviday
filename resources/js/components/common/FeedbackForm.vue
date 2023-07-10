@@ -15,14 +15,14 @@
                            @render="render"
                            ref="recaptcha"
             >
-                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
+                <button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
                     {{ __('forms.send-message') }}
-                </seo-button>
+                </button>
             </vue-recaptcha>
             <template v-if="!useRecaptcha">
-                <seo-button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
+                <button code="forms.send_feedback" type="submit" class="btn type-2 btn-block" :disabled="request" @click.prevent="validateForm">
                     {{ __('forms.send-message') }}
-                </seo-button>
+                </button>
             </template>
 
         </form>
@@ -86,6 +86,7 @@ export default {
                             title: __('forms.thank-you-message'),
                             message: __('forms.reply-message')
                         })
+                        request.value = false;
                     } else {
                         toast.error(response.data.message);
                         request.value = false;
@@ -127,7 +128,7 @@ export default {
                 if (!result.valid) {
                     return false
                 } else {
-                    e.target.dispatchEvent(new e.constructor(e.type, e))
+                    submitForm(e);
                 }
             }
         }
