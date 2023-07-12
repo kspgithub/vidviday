@@ -14,6 +14,8 @@ use App\Models\TourSchedule;
 use App\Services\TourService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\VisualOption;
+use Storage;
 
 class HomeController extends Controller
 {
@@ -30,12 +32,15 @@ class HomeController extends Controller
         $pageContent = Page::where('key', 'home')->first();
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         return view('home.index', [
             'pageContent' => $pageContent,
             'tours' => $tours,
             'banners' => $banners,
             'achievements' => $achievements,
             'popupAds' => $popupAds,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
