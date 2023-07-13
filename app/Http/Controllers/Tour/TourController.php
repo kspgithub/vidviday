@@ -26,6 +26,7 @@ use App\Models\TourQuestion;
 use App\Models\TourSchedule;
 use App\Models\TourVoting;
 use App\Models\WrongQuery;
+use App\Models\VisualOption;
 use App\Services\MailNotificationService;
 use App\Services\OrderService;
 use App\Services\SmsNotificationService;
@@ -100,8 +101,10 @@ class TourController extends Controller
         $localeLinks = $tour->getLocaleLinks();
 
         $popupAds = PopupAd::query()->forModel($tour)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         view()->share('popupAds', $popupAds);
+        view()->share('giftImage', $giftImage);
 
         $tour->loadMissing([
             'directions',

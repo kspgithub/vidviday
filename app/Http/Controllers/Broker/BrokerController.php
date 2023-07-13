@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\PopupAd;
 use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
 
 class BrokerController extends Controller
 {
@@ -19,9 +20,12 @@ class BrokerController extends Controller
 
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
 
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         return view('broker.index', [
             'pageContent' => $pageContent,
             'popupAds' => $popupAds,
+            'giftImage' => $giftImage,
         ]);
     }
 

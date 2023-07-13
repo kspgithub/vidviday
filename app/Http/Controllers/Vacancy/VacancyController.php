@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
 
 class VacancyController extends Controller
 {
@@ -17,11 +18,13 @@ class VacancyController extends Controller
         $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancies = Vacancy::published()->orderBy('created_at', 'desc')->paginate(20);
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         return view('vacancy.index', [
             'pageContent'=>$pageContent,
             'vacancies'=>$vacancies,
             'popupAds'=>$popupAds,
+            'giftImage'=>$giftImage,
         ]);
     }
 
@@ -30,11 +33,13 @@ class VacancyController extends Controller
         $pageContent = Page::published()->where('key', 'vacancies')->firstOrFail();
         $vacancy = Vacancy::findBySlugOrFail($slug);
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         return view('vacancy.show', [
             'pageContent'=>$pageContent,
             'vacancy'=>$vacancy,
             'popupAds'=>$popupAds,
+            'giftImage'=>$giftImage,
         ]);
     }
 }
