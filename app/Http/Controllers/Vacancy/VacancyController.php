@@ -8,6 +8,7 @@ use App\Models\PopupAd;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\VisualOption;
+use Storage;
 
 class VacancyController extends Controller
 {
@@ -24,7 +25,7 @@ class VacancyController extends Controller
             'pageContent'=>$pageContent,
             'vacancies'=>$vacancies,
             'popupAds'=>$popupAds,
-            'giftImage'=>$giftImage,
+            'giftImage'=> $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
@@ -39,7 +40,7 @@ class VacancyController extends Controller
             'pageContent'=>$pageContent,
             'vacancy'=>$vacancy,
             'popupAds'=>$popupAds,
-            'giftImage'=>$giftImage,
+            'giftImage'=> $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 }

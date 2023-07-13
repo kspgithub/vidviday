@@ -40,6 +40,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Storage;
 
 
 class TourController extends Controller
@@ -68,6 +69,7 @@ class TourController extends Controller
         }
 
         $localeLinks = $group->getLocaleLinks();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         $toursQuery = $group->tours()->search(false);
 
@@ -82,6 +84,7 @@ class TourController extends Controller
             'min_price' => $min_price,
             'max_price' => $max_price,
             'localeLinks' => $localeLinks,
+            'giftImage'=> $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
@@ -104,7 +107,7 @@ class TourController extends Controller
         $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         view()->share('popupAds', $popupAds);
-        view()->share('giftImage', $giftImage);
+        view()->share('giftImage', $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg');
 
         $tour->loadMissing([
             'directions',

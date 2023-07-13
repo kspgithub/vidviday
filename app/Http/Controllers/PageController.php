@@ -28,6 +28,7 @@ use App\Models\TourGroup;
 use App\Models\VisualOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Storage;
 
 class PageController extends Controller
 {
@@ -67,7 +68,7 @@ class PageController extends Controller
         // todo: pageContent, localeLinks & popupAds are shared to View. No need to fetch it again in certain page controller. (e.g. TourGuideController:19)
         View::share('pageContent', $pageContent);
         View::share('localeLinks', $localeLinks);
-        View::share('popupAds', $popupAds);
+        View::share('popupAds', $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg');
         View::share('giftImage', $giftImage);
         
 

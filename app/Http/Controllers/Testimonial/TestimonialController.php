@@ -13,6 +13,7 @@ use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Http\Request;
 use App\Models\VisualOption;
+use Storage;
 
 class TestimonialController extends Controller
 {
@@ -45,7 +46,7 @@ class TestimonialController extends Controller
             'pageContent' => $pageContent,
             'testimonials' => $testimonials,
             'popupAds' => $popupAds,
-            'giftImage' => $giftImage,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 

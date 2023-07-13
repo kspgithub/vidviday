@@ -8,6 +8,7 @@ use App\Models\PopupAd;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use App\Models\VisualOption;
+use Storage;
 
 class PracticeController extends Controller
 {
@@ -24,7 +25,7 @@ class PracticeController extends Controller
             'pageContent'=>$pageContent,
             'practices'=>$practices,
             'popupAds' => $popupAds,
-            'giftImage' => $giftImage,
+            'giftImage' =>  $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
@@ -36,9 +37,11 @@ class PracticeController extends Controller
         } else {
             $practice = Practice::findBySlugOrFail($slug);
         }
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
         return view('practice.show', [
             'pageContent'=>$pageContent,
             'practice'=>$practice,
+            'giftImage' =>  $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
