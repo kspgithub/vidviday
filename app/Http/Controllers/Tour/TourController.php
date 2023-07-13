@@ -52,6 +52,8 @@ class TourController extends Controller
      */
     public function index(Request $request, TourGroup $group)
     {
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         if (!$group->exists) {
             $query = Tour::search(['future' => false])->filter($request->all());
             $tours = $query->paginate($request->input('per_page', 12));
@@ -61,7 +63,7 @@ class TourController extends Controller
                 TourService::handleWrongRequest($request);
             }
 
-            return view('tour.index', ['tours' => $tours, 'request_title' => $request_title]);
+            return view('tour.index', ['tours' => $tours, 'request_title' => $request_title,'giftImage'=> $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',]);
         }
 
         if (!$group->published) {
@@ -69,7 +71,6 @@ class TourController extends Controller
         }
 
         $localeLinks = $group->getLocaleLinks();
-        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         $toursQuery = $group->tours()->search(false);
 
