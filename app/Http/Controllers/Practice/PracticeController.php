@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\Practice;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
 
 class PracticeController extends Controller
 {
@@ -17,11 +18,13 @@ class PracticeController extends Controller
         $pageContent = Page::published()->where('key', 'practice')->firstOrFail();
         $practices = Practice::published()->orderBy('created_at', 'desc')->paginate(20);
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         return view('practice.index', [
             'pageContent'=>$pageContent,
             'practices'=>$practices,
             'popupAds' => $popupAds,
+            'giftImage' => $giftImage,
         ]);
     }
 

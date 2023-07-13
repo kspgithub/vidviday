@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\EventGroup;
 use App\Models\EventItem;
 use App\Models\PopupAd;
+use App\Models\VisualOption;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -39,6 +40,8 @@ class EventController extends Controller
         $tours = $event->tours()->get();
 
         $localeLinks = $event->getLocaleLinks();
+
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         return view('event.show', [
             'event' => $event,
