@@ -12,6 +12,7 @@ use App\Models\Testimonial;
 use App\Models\Tour;
 use App\Models\TourQuestion;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
 
 class TestimonialController extends Controller
 {
@@ -38,11 +39,13 @@ class TestimonialController extends Controller
         $pageContent = Page::query()->where('key', 'testimonials')->first();
 
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         return view('contact.testimonials', [
             'pageContent' => $pageContent,
             'testimonials' => $testimonials,
             'popupAds' => $popupAds,
+            'giftImage' => $giftImage,
         ]);
     }
 

@@ -25,6 +25,7 @@ use App\Models\Place;
 use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Models\TourGroup;
+use App\Models\VisualOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -61,11 +62,14 @@ class PageController extends Controller
         $localeLinks = $pageContent->getLocaleLinks();
 
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         // todo: pageContent, localeLinks & popupAds are shared to View. No need to fetch it again in certain page controller. (e.g. TourGuideController:19)
         View::share('pageContent', $pageContent);
         View::share('localeLinks', $localeLinks);
         View::share('popupAds', $popupAds);
+        View::share('giftImage', $giftImage);
+        
 
         switch ($pageContent->key) {
             case 'home':
