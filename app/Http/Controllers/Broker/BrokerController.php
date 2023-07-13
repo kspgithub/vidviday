@@ -9,6 +9,7 @@ use App\Models\PopupAd;
 use App\Services\MailNotificationService;
 use Illuminate\Http\Request;
 use App\Models\VisualOption;
+use Storage;
 
 class BrokerController extends Controller
 {
@@ -25,7 +26,7 @@ class BrokerController extends Controller
         return view('broker.index', [
             'pageContent' => $pageContent,
             'popupAds' => $popupAds,
-            'giftImage' => $giftImage,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 

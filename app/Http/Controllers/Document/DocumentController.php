@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\PopupAd;
 use App\Models\VisualOption;
 use Illuminate\Http\Request;
+use Storage;
 
 class DocumentController extends Controller
 {
@@ -24,7 +25,7 @@ class DocumentController extends Controller
                 'documents' => $documents,
                 'pageContent' => $pageContent,
                 'popupAds' => $popupAds,
-                'giftImage' => $giftImage,
+                'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
             ]);
     }
 
