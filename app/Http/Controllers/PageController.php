@@ -35,6 +35,9 @@ class PageController extends Controller
     //
     public function show(Request $request, $slug)
     {
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+        View::share('giftImage', $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg');
+
         if (EventItem::existBySlug($slug, false)) {
             return (new EventController())->show($slug);
         }
@@ -63,13 +66,11 @@ class PageController extends Controller
         $localeLinks = $pageContent->getLocaleLinks();
 
         $popupAds = PopupAd::query()->forModel($pageContent)->get();
-        $giftImage = VisualOption::where('key', 'gift_image')->first();
 
         // todo: pageContent, localeLinks & popupAds are shared to View. No need to fetch it again in certain page controller. (e.g. TourGuideController:19)
         View::share('pageContent', $pageContent);
         View::share('localeLinks', $localeLinks);
-        View::share('popupAds', $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg');
-        View::share('giftImage', $giftImage);
+        View::share('popupAds', $popupAds);
         
 
         switch ($pageContent->key) {
