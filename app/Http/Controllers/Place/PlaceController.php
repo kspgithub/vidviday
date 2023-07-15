@@ -14,6 +14,8 @@ use App\Models\Badge;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
+use Storage;
 
 class PlaceController extends Controller
 {
@@ -32,10 +34,13 @@ class PlaceController extends Controller
 
         $markers = Place::query()->published()->get()->map->asMapMarker();
 
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         return view('place.index', [
             'countries' => $countries,
             'pageContent' => $pageContent,
             'markers' => $markers,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
@@ -74,12 +79,15 @@ class PlaceController extends Controller
         $price_from = $place->tours()->published()->min('price');
         $price_to = $place->tours()->published()->max('price');
 
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         return view('place.show', [
             'localeLinks' => $localeLinks,
             'place' => $place,
             'tours' => $tours,
             'price_from' => $price_from,
             'price_to' => $price_to,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
