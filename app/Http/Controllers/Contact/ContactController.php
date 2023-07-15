@@ -11,6 +11,8 @@ use App\Models\Page;
 use App\Models\Testimonial;
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use App\Models\VisualOption;
+use Storage;
 
 class ContactController extends Controller
 {
@@ -24,11 +26,14 @@ class ContactController extends Controller
 
         $specAgencies = $contact->manager_agency_items;
 
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+
         return view('contact.index', [
             'contact' => $contact,
             'pageContent' => $pageContent,
             'specCorporate' => $specCorporate,
-            'specAgencies' => $specAgencies
+            'specAgencies' => $specAgencies,
+            'giftImage' => $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg',
         ]);
     }
 
