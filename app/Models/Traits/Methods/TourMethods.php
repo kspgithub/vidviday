@@ -64,6 +64,7 @@ trait TourMethods
             'time' => $this->nights,
             'format_duration' => $this->format_duration,
             'main_image' => $this->main_image,
+            'mobile_image' => $this->mobile_image,
             'slug' => $this->slug,
             'url' => $this->url,
             'tour_manager' => $this->tour_manager ? $this->tour_manager->shortInfo() : null,
