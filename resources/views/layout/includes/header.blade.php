@@ -76,7 +76,7 @@
                             </li>
 
                             <li>
-                                <a href="#">{{__('header-section.info-letters')}}</a>
+                                <a href="{{route('profile.orders')}}">{{__('header-section.info-letters')}}</a>
                             </li>
 
                             <li>
