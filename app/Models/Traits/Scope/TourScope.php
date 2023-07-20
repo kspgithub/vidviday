@@ -79,7 +79,8 @@ trait TourScope
         $query->published()->with([
             'scheduleItems' => function (HasMany $q) use($params) {
                 if(!empty($params['date_from']) ){
-                    $dateFrom = Carbon::createFromFormat('d.m.Y', $params['date_from']); 
+                    $dateFrom = Carbon::createFromFormat('d.m.Y', $params['date_from']);
+                    $timeFrom = "7:00";
                 } else{
                     $dateFrom = now();
                     $timeFrom = now();
