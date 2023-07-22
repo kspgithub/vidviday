@@ -75,6 +75,7 @@
 
                                             <div class="accordion type-2">
                                                 @foreach($group->events as $event)
+                                                @if($event->published == 1)
                                                     <div class="accordion-item ">
                                                         <div class="accordion-title">{{$event->title}}<i></i></div>
                                                         <div class="accordion-inner">
@@ -103,6 +104,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                @endif
                                                 @endforeach
                                             </div>
 
