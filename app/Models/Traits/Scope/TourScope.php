@@ -276,6 +276,9 @@ trait TourScope
         if ($sort_by === 'created') {
             $order[] = ['by' => 'created_at'];
         }
+        if ($sort_by === 'price') {
+            $order[] = ['by' => 'price'];
+        }
         if ($sort_by === 'rating') {
             $order[] = ['by' => 'testimonials_avg_rating'];
         }
