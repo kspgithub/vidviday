@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\VisualOption;
+use Storage;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -76,5 +79,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Marcos
         Request::macro('isAdmin', fn() => $this->segment(1) === 'admin');
+
+        $giftImage = VisualOption::where('key', 'gift_image')->first();
+        $giftImageUrl = $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg';
+        View::share('giftImage', asset($giftImageUrl));
     }
 }
