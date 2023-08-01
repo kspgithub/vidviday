@@ -25,19 +25,14 @@ use App\Models\Place;
 use App\Models\PopupAd;
 use App\Models\Tour;
 use App\Models\TourGroup;
-use App\Models\VisualOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Storage;
 
 class PageController extends Controller
 {
     //
     public function show(Request $request, $slug)
     {
-        $giftImage = VisualOption::where('key', 'gift_image')->first();
-        View::share('giftImage', $giftImage->value ? Storage::url($giftImage->value) : '/img/gift-certificate.jpg');
-
         if (EventItem::existBySlug($slug, false)) {
             return (new EventController())->show($slug);
         }

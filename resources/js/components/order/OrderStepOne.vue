@@ -23,12 +23,11 @@
 
                     <order-places class="col-md-6 col-12 mb-10"/>
 
-                    <order-kids class="col-12" :show="showChildren"/>
+                    <order-kids class="col-12" v-if="showChildren"/>
 
                     <transition name="fade">
                         <order-total class="col-12" v-if="group_type === 0"/>
                     </transition>
-
 
                     <order-contact class="col-12 mt-15 mt-xl-40"/>
 

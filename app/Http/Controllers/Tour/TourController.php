@@ -143,31 +143,12 @@ class TourController extends Controller
             'manager',
             'manager.types',
             'landings',
-//            'scheduleItems.orders',
             'scheduleItems' => fn($q) => $q->inFuture()
                 ->filter()
                 ->with('orders'),
             'questions' => function ($q) {
                 return $q->moderated();
             },
-//            'votings' => function ($q) {
-//                $ip = request()->ip();
-//                $user = request()->user();
-//
-//                $q->where('ip', $ip);
-//
-//                if($user && $user->id) {
-//                    $q->orWhere('user_id', $user->id);
-//                }
-//                if($user && $user->email) {
-//                    $q->orWhere('email', $user->email);
-//                }
-//                if($user && $user->phone) {
-//                    $q->orWhere('phone', $user->phone);
-//                }
-//
-//                return $q;
-//            },
         ]);
 
         foreach ($tour->scheduleItems as $scheduleItem) {
@@ -185,11 +166,30 @@ class TourController extends Controller
             'votings' => fn($q) => $q->published()->where('status', TourVoting::STATUS_PUBLISHED),
         ]);
 
-        $tour->loadAvg(['testimonials' => function ($q) {
-            return $q->moderated()
-                ->orderBy('rating', 'desc')
-                ->latest();
-        }], 'rating');
+        $tour->load([
+            'testimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            },
+            'relatedTestimonials' => function ($q) {
+                return $q->moderated()
+                    ->orderBy('rating', 'desc')
+                    ->latest();
+            },
+        ]);
+        
+        if($tour->testimonials_count > 0) {
+            if($tour->related_testimonials_count > 0) {
+                $tour->rating = ($tour->testimonials->avg('rating') + $tour->relatedTestimonials->avg('rating')) / 2;
+            } else {
+                $tour->rating = $tour->testimonials->avg('rating');
+            }
+        } elseif ($tour->related_testimonials_count > 0) {
+            $tour->rating = $tour->relatedTestimonials->avg('rating');
+        } else {
+            $tour->rating = 0;
+        }
 
         $future_events = $tour->schedulesForBooking();
 
@@ -240,12 +240,6 @@ class TourController extends Controller
             'pictures' => $pictures,
             'testimonials' => $testimonials,
         ];
-
-
-//        if ((int)request()->input('print', 0) === 1) {
-//            $pdf = PDF::loadView('tour.show', $viewData);
-//            return $pdf->download($tour->slug . '.pdf');
-//        }
 
         return view('tour.show', $viewData);
     }
