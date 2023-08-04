@@ -28,6 +28,7 @@ import {useI18nLocal} from "../../composables/useI18nLocal";
 import moment from "moment";
 import {useField} from "vee-validate";
 import { __ } from '../../i18n/lang.js'
+import {useStore} from "vuex";
 
 export default {
     name: "FormDatepicker",
@@ -72,6 +73,7 @@ export default {
     emits: ['update:modelValue', 'onSelect'],
     setup(props, {emit}) {
         const {locale} = useI18nLocal();
+        const store = useStore();
 
         const {errorMessage, value: innerValue} = useField(props.name, props.rules, {
             initialValue: props.modelValue
@@ -98,7 +100,6 @@ export default {
         });
 
         const filled = computed(() => !!props.modelValue);
-
         const startDate = computed(() => props.modelValue ? moment(props.modelValue, props.valueFormat.toUpperCase()).toDate() : '');
         const minDate = computed(() => props.minDate ? moment(props.minDate, props.valueFormat.toUpperCase()).toDate() : '');
         const maxDate = computed(() => props.maxDate ? moment(props.maxDate, props.valueFormat.toUpperCase()).toDate() : '');
@@ -181,6 +182,8 @@ export default {
                     innerValue.value = formattedDate;
                     emit('update:modelValue', formattedDate);
                     emit('onSelect', {formattedDate, date, ins});
+                    store.commit('userQuestion/SET_POPUP_CALL_DATE', formattedDate);
+                    store.dispatch('userQuestion/calculateCallTimes');
                 },
             });
 

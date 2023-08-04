@@ -1,6 +1,6 @@
 <x-utils.view-button :href="route('admin.user.show', $user)" text="" />
 
-@if (current_user()->isMasterAdmin())
+@if (current_user()->isAdmin())
 
 
     @if($user->trashed())

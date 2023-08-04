@@ -10,7 +10,7 @@
 
 <script>
 import {useRequiredFormGroup} from "./composables/useFormField";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useField} from "vee-validate";
 
 export default {
@@ -43,6 +43,22 @@ export default {
             initialValue: props.modelValue ? props.modelValue : (props.multiple ? [] : '')
         });
 
+        watch(() => props.options, () => {
+            $(selectRef.value)[0].sumo.removeAll()
+            let previousVal = $(selectRef.value).val()
+            props.options.forEach(function(element, key) {
+                $(selectRef.value)[0].sumo.add(element.value)
+                if(element.value == value.value) {
+                    $(selectRef.value)[0].sumo.selectItem(key + 1);
+                }
+            })
+            if(previousVal) {
+                $(selectRef.value)[0].sumo.remove(0);
+            }
+            if(!value.value) {
+                $(selectRef.value)[0].sumo.caption.html(required ? props.label + ' *' : props.label)
+            }
+        });
 
         onMounted(() => {
             $(selectRef.value).SumoSelect({
