@@ -108,7 +108,7 @@ export default {
             validationSchema: {
                 first_name: 'required',
                 last_name: 'required',
-                // email: 'required|email',
+                email: 'required|email',
                 phone: 'required|tel',
                 conditions: () => {
                     return conditions.value === 1 ? true : __('validation.terms-condition')

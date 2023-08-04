@@ -175,6 +175,7 @@ import { useForm } from 'vee-validate'
 import { reactive } from 'vue'
 import FormPhone from '../form/FormPhone'
 import SeoButton from '../common/SeoButton.vue'
+import { __ } from "../../i18n/lang";
 
 export default {
     name: 'ProfileInfoForm',
@@ -213,7 +214,7 @@ export default {
             },
             password_confirmation: () => {
                 return formData.new_password.length === 0 || formData.new_password === formData.password_confirmation
-                    ? true : 'Пароль та підтвердження паролю не співпадають'
+                    ? true : __('auth.password-confirm-fail')
             },
         }
 

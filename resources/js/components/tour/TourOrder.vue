@@ -13,7 +13,7 @@
 
         <div class="only-desktop hidden-print">
             <tour-rating :rating="parseFloat(tour.rating || tour.testimonials_avg_rating)"
-                         :count="tour.testimonials_count"
+                         :count="tour.testimonials_count + tour.related_testimonials_count"
                          :url="tour.url + '#reviews-accordion'"
                          force-count
             />

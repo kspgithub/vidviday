@@ -196,7 +196,7 @@ jQuery(function ($) {
 
                     if (entry.isIntersecting) {
                         let lazyFrame = entry.target,
-                            frameSrc = lazyFrame.dataset.src;
+                            frameSrc = lazyFrame.dataset.frameSrc;
 
                         frameMarkup = '<iframe src="' + frameSrc + '?modestbranding=1&rel=0" allowfullscreen allow="autoplay"></iframe>';
                         lazyFrame.innerHTML = frameMarkup;
