@@ -34,7 +34,7 @@
 
                 <div class="col-md-6 col-12">
                     <div class="single-datepicker">
-                        <form-datepicker name="call_date" v-model="data.call_date" required :label="__('common.call-date')"/>
+                        <form-datepicker :minDate="minDate" name="call_date" v-model="data.call_date" required :label="__('common.call-date')"/>
                     </div>
                 </div>
 
@@ -116,8 +116,10 @@ export default {
     },
     setup(props) {
         const store = useStore();
+        store.dispatch('userQuestion/calculateCallTimes');
         const popupOpen = computed(() => store.state.userQuestion.popupCallOpen);
         const request = computed(() => store.state.userQuestion.request);
+        const callTimes = computed(() => store.state.userQuestion.popupCallTimes);
         const recaptcha = ref(null);
         const closePopup = () => store.commit('userQuestion/SET_POPUP_CALL_OPEN', false);
         const user = store.state.user.currentUser
@@ -173,6 +175,7 @@ export default {
 
         const useRecaptcha = String(process.env.MIX_INVISIBLE_RECAPTCHA_ENABLED) === 'true'
         const sitekey = process.env.MIX_INVISIBLE_RECAPTCHA_SITEKEY
+        const minDate = new Date()
 
         const verify = (e) => {
             data['g-recaptcha-response'] = e
@@ -207,14 +210,6 @@ export default {
             }
         }
 
-        const callTimes = ref(props.timeOptions || [])
-
-        if(!callTimes.value.length){
-            for(let time = 11; time <= 20; time++) {
-                callTimes.value.push({text: `${time}:00`, value: `${time}:00`})
-            }
-        }
-
         return {
             data,
             errors,
@@ -229,6 +224,7 @@ export default {
             verify,
             render,
             validateForm,
+            minDate
         }
     }
 }

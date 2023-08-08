@@ -33,7 +33,7 @@
                 <img loading="lazy" src="/img/preloader.png" data-src="/icon/viber.svg" alt="viber">
             </div>
             <a title="Встановіть Viber для ПК"
-               href="viber://chat?number=+{{clear_phone($staff->viber)}}">{{$staff->viber}}</a>
+               href="viber://chat?number={{clear_phone($staff->viber)}}">{{$staff->viber}}</a>
         </div>
     @endif
     <div class="spacer-sm"></div>
