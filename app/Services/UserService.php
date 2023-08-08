@@ -175,6 +175,8 @@ class UserService extends BaseService
     {
         DB::beginTransaction();
 
+        var_dump($data);
+
         try {
             if (empty($data['avatar']) && !empty($user->avatar)) {
                 $user->deleteAvatar();

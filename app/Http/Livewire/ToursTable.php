@@ -49,7 +49,7 @@ class ToursTable extends DataTableComponent
         }, 'questions', 'testimonials']);
 
         if (current_user()->isTourManager()) {
-            $query->whereHas('manager', fn ($sq) => $sq->where('user_id', current_user()->id));
+            $query->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id));
         }
 
         $locales = (array) $this->getFilter('locale') ?? [];

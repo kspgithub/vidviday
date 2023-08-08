@@ -16,6 +16,11 @@ trait UserAttributes
         return $this->roles ? $this->roles->first()?->name : '';
     }
 
+    public function getRoleIDAttribute()
+    {
+        return $this->roles ? $this->roles->first()?->id : null;
+    }
+
     public function getInitialsAttribute()
     {
         $initials = Str::upper(Str::substr($this->last_name, 0, 1) . Str::substr($this->first_name, 0, 1));

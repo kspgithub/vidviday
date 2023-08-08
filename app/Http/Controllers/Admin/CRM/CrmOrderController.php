@@ -27,7 +27,7 @@ class CrmOrderController extends Controller
                 ->with(['tour', 'tour.manager', 'schedule']);
 
             if (current_user()->isTourManager()) {
-                $orderQ->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
+                $orderQ->whereHas('tour', fn ($sq) => $sq->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id)));
             }
 
             $orderQ->filter($request);
@@ -49,7 +49,7 @@ class CrmOrderController extends Controller
         $managers = Staff::onlyTourManagers()->get()->map->asSelectBox();
         $statuses = arrayToSelectBox(Order::statuses());
         if (current_user()->isTourManager()) {
-            $tours = Tour::query()->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id))->toSelectBox();
+            $tours = Tour::query()->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id))->toSelectBox();
         } else {
             $tours = Tour::toSelectBox();
         }
@@ -300,7 +300,7 @@ class CrmOrderController extends Controller
             $query->where('group_type', $group_type);
         }
         if (current_user()->isTourManager() && $group_type === 0) {
-            $query->whereHas('tour', fn($sq) => $sq->whereHas('manager', fn($ssq) => $ssq->where('user_id', current_user()->id)));
+            $query->whereHas('tour', fn ($sq) => $sq->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id)));
         }
 
         if (in_array(Order::STATUS_CANCELED, $status)) {
