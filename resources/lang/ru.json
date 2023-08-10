@@ -220,5 +220,6 @@
     "Transport durations": "Продолжительности",
     "Guide": "Гид",
     "Priority": "Пріорітет",
-    "Notifications": "Сповіщення"
+    "Notifications": "Сповіщення",
+    "You cannot add more than three priority news" : "Нельзя добавить больше трёх приоритетных новостей"
 }
