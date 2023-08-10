@@ -2,7 +2,7 @@
     <div class="tab-nav">
         <ul class="tab-toggle">
             <li :class="{active: viewType === 'gallery'}" class="tab-caption"
-                @click.prevent.stop="viewType = 'gallery'">
+                @click.prevent.stop="setTab('gallery')">
                 <svg fill="none" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M8 1a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V1zM8 9a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V9zM0 9a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H1a1 1 0 01-1-1V9zM0 1a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H1a1 1 0 01-1-1V1z"/>
@@ -11,7 +11,7 @@
             </li>
 
             <li :class="{active: viewType === 'list'}" class="tab-caption only-desktop"
-                @click.prevent.stop="viewType = 'list'">
+                @click.prevent.stop="setTab('list')">
                 <svg fill="none" height="12" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M4 1a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM0 1a1 1 0 112 0 1 1 0 01-2 0zM4 6a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM0 6a1 1 0 112 0 1 1 0 01-2 0zM4 11a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM0 11a1 1 0 112 0 1 1 0 01-2 0z"/>
@@ -20,7 +20,7 @@
             </li>
 
             <li :class="{active: viewType === 'calendar'}" class="tab-caption"
-                @click.prevent.stop="viewType = 'calendar'">
+                @click.prevent.stop="setTab('calendar')">
                 <svg fill="none" height="17" width="15" xmlns="http://www.w3.org/2000/svg">
                     <rect height="13.5" rx="1.25" stroke-width="1.5" width="13.5" x=".75" y="2.75"/>
                     <path
@@ -33,12 +33,13 @@
 </template>
 
 <script>
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
 import {useStore} from "vuex";
 
 export default {
     name: "TourTabNav",
     setup() {
+        const queryParams = new URLSearchParams(window.location.search);
         const store = useStore();
         const viewType = computed({
             get() {
@@ -48,8 +49,20 @@ export default {
                 return store.commit('tourFilter/SET_VIEW_TYPE', value);
             }
         })
+
+        const setTab = (tab) => {
+            queryParams.set('tab', tab);
+            history.replaceState(null, null, "?"+queryParams.toString());
+            viewType.value = tab;
+        };
+
+        onMounted(() => {
+            if(queryParams.get("tab") != null ) viewType.value = queryParams.get("tab");
+        })
+
         return {
             viewType,
+            setTab
         }
     }
 }
