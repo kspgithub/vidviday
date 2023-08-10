@@ -17,3 +17,4 @@ Route::group([
     Route::get('delete-account', [ProfileController::class, 'deleteAccount'])->name('delete.ask');
     Route::delete('delete-account', [ProfileController::class, 'confirmDelete'])->name('delete.confirm');
 });
+Route::get('successfully-deleted', [ProfileController::class, 'successfullyDeleted'])->name('delete.successfully-deleted');
