@@ -49,7 +49,7 @@ class PasswordResetLinkController extends Controller
         }
 
         return $status == Password::RESET_LINK_SENT
-                    ? back()->withFlashSuccess(__('auth.password-recovery-message'))->with('status', __($status))
+                    ? back()->withPopup('password-recovery-success')->with('status', __($status))
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
     }
