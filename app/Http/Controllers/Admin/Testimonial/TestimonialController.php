@@ -13,6 +13,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\File;
+
 class TestimonialController extends Controller
 {
     //
@@ -25,6 +27,11 @@ class TestimonialController extends Controller
     public function questions()
     {
         return view('admin.testimonial.questions');
+    }
+
+    public function resume()
+    {
+        return view('admin.testimonial.resume');
     }
 
     public function userQuestions()
@@ -76,6 +83,14 @@ class TestimonialController extends Controller
     /**
      * @return View
      */
+    public function editResume(UserQuestion $question)
+    {
+        return view('admin.testimonial.edit-resume', ['testimonial' => $question]);
+    }
+
+    /**
+     * @return View
+     */
     public function editUserQuestion(UserQuestion $testimonial)
     {
         return view('admin.testimonial.edit-user-question', ['testimonial' => $testimonial]);
@@ -94,6 +109,14 @@ class TestimonialController extends Controller
         $testimonial->save();
 
         return redirect()->route('admin.testimonial.questions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
+    }
+
+    public function updateResume(Request $request, UserQuestion $question)
+    {
+        $question->fill($request->all());
+        $question->save();
+
+        return redirect()->route('admin.testimonial.resume.edit', $question)->withFlashSuccess(__('Резюме оновлено'));
     }
 
     /**
