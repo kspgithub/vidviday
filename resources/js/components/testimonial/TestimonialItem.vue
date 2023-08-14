@@ -23,6 +23,9 @@
                 <p v-else-if="!item.parent_id && item.tour">
                     Тур: <a :href="item.tour.url">{{ item.tour.title }}</a>
                 </p>
+                <p v-else-if="!item.parent_id && !item.tour && item.place">
+                    Місце: <a :href="item.place.url">{{ item.place.title }}</a>
+                </p>
                 <div class="seo-text load-more-wrapp p-0 m-0">
                     <template v-if="item.short_text.length >= (textMaxLength + 3)">
                         <div class="less-info">

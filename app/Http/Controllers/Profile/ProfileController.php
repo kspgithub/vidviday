@@ -128,6 +128,6 @@ class ProfileController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->withFlashSuccess(__('Account Deleted'));
+        return redirect()->route('home')->withPopup('profile-delete');
     }
 }

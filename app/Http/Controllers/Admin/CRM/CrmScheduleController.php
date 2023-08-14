@@ -25,9 +25,9 @@ class CrmScheduleController extends Controller
         if ($request->ajax()) {
             $query = TourSchedule::query()->with(['tour', 'tour.manager', 'orders']);
 
-//            if (current_user()->isTourManager()) {
-//                $query->whereHas('tour', fn ($sq) => $sq->whereHas('manager', fn ($ssq) => $ssq->where('user_id', current_user()->id)));
-//            }
+            if (current_user()->isTourManager()) {
+                $query->whereHas('tour', fn ($sq) => $sq->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id)));
+            }
 
             $tab = $request->input('tab', 'recruited');
             $query->tab($tab);

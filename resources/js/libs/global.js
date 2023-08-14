@@ -699,6 +699,20 @@ jQuery(function ($) {
         _functions.openPopup('.popup-content[data-rel="' + target + '"]');
     }
 
+    if (window.popupData) {
+        window.popupData.forEach(it => {
+            function openPopup() {
+                if(!$(`.popup-content[data-rel*="-popup"].active`).length) {
+                    _functions.showPopup(`${it}-popup`);
+                } else {
+                    _functions.openPopup(`${it}-popup`);
+                }
+            }
+
+            openPopup();
+        });
+    }
+
     $(document).on('click', '.open-popup', function (e) {
         e.preventDefault();
         headerLayerClose();

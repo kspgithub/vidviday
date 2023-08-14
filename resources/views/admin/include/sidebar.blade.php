@@ -386,6 +386,10 @@
                             <a class="sidebar-link"
                                href="{{route('admin.testimonial.questions')}}">@lang('Questions')</a>
                         </li>
+                        <li class="sidebar-item {{routeActiveClass('admin.testimonial.resume')}}">
+                            <a class="sidebar-link"
+                               href="{{route('admin.testimonial.resume')}}">@lang('Resume')</a>
+                        </li>
                         <li class="sidebar-item {{routeActiveClass('admin.testimonial.user_questions')}}">
                             <a class="sidebar-link"
                                href="{{route('admin.testimonial.user_questions')}}">@lang('User Questions')</a>

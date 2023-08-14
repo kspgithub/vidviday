@@ -89,6 +89,7 @@
     window.APP_ENV = '{{app()->environment()}}'
     window.countries = @json(App\Models\Country::query()->where('published', 1)->orderBy('position')->orderBy('title')->pluck('iso'));
     window.popupMessages = @json(App\Models\PopupMessage::query()->get()->translate()->keyBy('type'));
+    window.popupData = @json(popupData($errors));
     window.toastsData = @json(toastData($errors));
     window.initMap = () => {
         window.dispatchEvent(new CustomEvent('googleMapsLoaded'))
