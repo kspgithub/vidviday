@@ -1,6 +1,7 @@
 import axios from "axios";
 import handleError from "../../composables/handle-error";
 import moment from "moment";
+import * as jsondiffpatch from "jsondiffpatch"; 
 
 export default (orderId) => ({
     orderId: orderId,
@@ -48,17 +49,60 @@ export default (orderId) => ({
                 const newValue = item.new_values[key];
                 if (item.old_values[key]) {
                     const oldValue = item.old_values[key];
-                    html += `${key}: ${oldValue} => ${newValue}`;
+
+                    if (this.isValidJSON(oldValue)){
+                        const oldValueJSON = JSON.parse(oldValue);
+                        const newValueJSON = JSON.parse(newValue);
+
+                        const diff = jsondiffpatch.formatters.html.format(jsondiffpatch.diff(oldValueJSON, newValueJSON), oldValueJSON);
+
+                        html += `<div class="audit-changes">
+                                    <div class="audit-key">${key}:</div>
+                                    <div>${diff}</div>
+                                </div>`;
+                    } else {
+                        html += `<div class="audit-changes">
+                                    <div class="audit-key">${key}:</div>
+                                    <div class="audit-old">${oldValue}</div>  
+                                    <div class="audit-new">${newValue}</div>
+                                </div>`;
+                    }
+                    
                 } else {
-                    html += `${key}: ${newValue}`;
+                    if (this.isValidJSON(newValue)){
+                        const newValueJSON = JSON.parse(newValue);
+                        const diff = jsondiffpatch.formatters.html.format(jsondiffpatch.diff('', newValueJSON));
+                        html += `<div class="audit-changes">
+                                    <div class="audit-key">${key}:</div>
+                                    <div>${diff}</div>
+                                </div>`;
+                    } else {
+                        html += `<div class="audit-changes">
+                                    <div class="audit-key">${key}:</div>
+                                    <div class="audit-new">${newValue}</div>
+                                </div>`;
+                    }
                 }
 
                 fields.push(html);
             }
 
-            html += fields.join(', ');
+            html += fields.join(' ');
         }
 
         return html;
+    },
+    isValidJSON(str) {
+
+        if(!isNaN(str) && !isNaN(parseFloat(str))){
+            return false;
+        }
+
+        try {
+            JSON.parse(str);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 });
