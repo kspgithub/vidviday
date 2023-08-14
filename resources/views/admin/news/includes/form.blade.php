@@ -24,6 +24,9 @@
             <x-forms.switch-group name="published" :label="__('Published')"
                                   :active="$news->exists ? $news->published : true"></x-forms.switch-group>
 
+            <x-forms.switch-group name="priority" :label="__('Priority')"
+                                  :active="$news->exists ? $news->priority : true"></x-forms.switch-group>
+
             <x-forms.single-image-upload name="main_image"
                                          :preview="!empty($news->main_image) ? $news->main_image_url : ''"
                                          :value="$news->main_image"
@@ -44,7 +47,6 @@
                                       :label="__('Created At')"
                                       :value="old('created_at', $news->created_at?->format('d.m.Y'))"
             />
-
         </x-slot>
     </x-bootstrap.card>
 

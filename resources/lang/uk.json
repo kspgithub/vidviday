@@ -565,7 +565,8 @@
     "Wrong requests": "Помилкові запити",
     "Transport duration": "Тривалість",
     "Transport durations": "Тривалості",
-    "Priority": "Пріорітет",
+    "Priority": "Пріоритет",
     "Notifications": "Сповіщення",
+    "You cannot add more than three priority news" : "Не можна додати більше трьох пріоритетних новин",
     "Resume": "Резюме"
 }

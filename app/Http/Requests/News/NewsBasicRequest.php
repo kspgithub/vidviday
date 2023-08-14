@@ -5,6 +5,7 @@ namespace App\Http\Requests\News;
 use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\CountPriorityNewsRule;
 
 class NewsBasicRequest extends FormRequest
 {
@@ -46,6 +47,7 @@ class NewsBasicRequest extends FormRequest
             'mobile_image_upload' => ['nullable', 'mimes:jpeg,jpg,png,gif', 'max:3000'],
             'created_at' => ['nullable'],
             'video' => ['nullable'],
+            'priority' => ['nullable', Rule::in(['1', '0']), new CountPriorityNewsRule]
         ];
     }
 }

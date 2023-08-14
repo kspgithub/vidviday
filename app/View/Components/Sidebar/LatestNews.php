@@ -15,8 +15,7 @@ class LatestNews extends Component
      */
     public function __construct()
     {
-        //
-        $this->news =  News::published()->latest()->take(3)->get();
+        $this->news = News::published()->orderBy('priority', 'desc')->orderBy('created_at', 'desc')->take(3)->get();
     }
 
     /**

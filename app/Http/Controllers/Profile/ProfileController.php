@@ -10,6 +10,8 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use App\Providers\RouteServiceProvider;
 
 class ProfileController extends Controller
 {
@@ -128,6 +130,18 @@ class ProfileController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->withPopup('profile-delete');
+        Session::put('deletedUser', true);
+
+        return redirect()->route('delete.successfully-deleted');
+    }
+
+    public function successfullyDeleted(Request $request) {
+        if (!Session::get('deletedUser')) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        Session::put('deletedUser', false);
+
+        return view('profile.successfully-deleted');
     }
 }

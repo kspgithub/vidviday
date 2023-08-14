@@ -52,6 +52,7 @@ class News extends TranslatableModel implements HasMedia
         'published',
         'created_at',
         'video',
+        'priority'
     ];
 
     protected $appends = [
