@@ -53,7 +53,7 @@
                         </div>
                         <span class="dropdown-btn"></span>
                         <ul class="dropdown-toggle">
-                            @if(current_user()->isAdmin())
+                            @if(current_user()->isAdmin() || current_user()->isTourManager())
                                 <li>
                                     <a href="{{route('admin.dashboard')}}">{{__('header-section.administration')}}</a>
                                 </li>

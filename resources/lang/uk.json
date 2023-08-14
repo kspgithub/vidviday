@@ -567,5 +567,6 @@
     "Transport durations": "Тривалості",
     "Priority": "Пріоритет",
     "Notifications": "Сповіщення",
-    "You cannot add more than three priority news" : "Не можна додати більше трьох пріоритетних новин"
+    "You cannot add more than three priority news" : "Не можна додати більше трьох пріоритетних новин",
+    "Resume": "Резюме"
 }

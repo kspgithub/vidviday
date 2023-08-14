@@ -27,7 +27,7 @@
                         <x-forms.select-group
                             name="role"
                             label="Основна роль"
-                            :value="old('role') ?? $user->role"
+                            :value="$user->role_id"
                             required
                             x-on:change="role = $event.target.value"
                             :options="\App\Models\Role::toSelectBox()"
