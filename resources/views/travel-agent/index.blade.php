@@ -47,6 +47,9 @@
                     <!-- CORPORATE CONTENT -->
                     <div class="tour-content">
                         <h1 class="h1 title autoheight">{{$pageContent->seo_h1 ?? $pageContent->title}}</h1>
+                        <span class="only-print">
+                            <span class="print-page-slug">{{ Request::url() }}</span>
+                        </span>
                         <div class="spacer-xs"></div>
                         <div class="only-pad-mobile">
                             <x-page.social-share  :share-url="route('page.show', $pageContent->slug)" :share-title="$pageContent->title"/>
