@@ -13,6 +13,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\TestimonialsImport;
+
 use Illuminate\Support\Facades\File;
 
 class TestimonialController extends Controller
@@ -163,4 +166,14 @@ class TestimonialController extends Controller
 
         return redirect()->route('admin.testimonial.agency_subscriptions.edit', $testimonial)->withFlashSuccess(__('Відгук оновлено'));
     }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+
+        Excel::import(new TestimonialsImport, $file);
+
+        return response()->json(['message' => 'Отзывы успешно импортированы']);
+    }
+
 }

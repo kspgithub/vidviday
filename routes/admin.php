@@ -244,6 +244,7 @@ Route::group([
 
 // TESTIMONIALS AND QUESTIONS
 Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial.index');
+Route::post('testimonials/import', [TestimonialController::class, 'import'])->name('testimonials.import');
 Route::get('testimonials/{testimonial}', [TestimonialController::class, 'edit'])->name('testimonial.edit');
 Route::patch('testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('testimonial.update');
 
