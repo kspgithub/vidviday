@@ -66,6 +66,7 @@ class PageController extends Controller
         View::share('pageContent', $pageContent);
         View::share('localeLinks', $localeLinks);
         View::share('popupAds', $popupAds);
+        View::share('body_class', $pageContent->key);
         
 
         switch ($pageContent->key) {

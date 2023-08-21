@@ -336,6 +336,17 @@ if (!function_exists('toastData')) {
     }
 }
 
+if (!function_exists('popupData')) {
+    function popupData($errors = null)
+    {
+        $data = [];
+        if (session()->has('popup')) {
+            $data[] = session()->get('popup');
+        }
+        return $data;
+    }
+}
+
 if (!function_exists('currency_options')) {
     function currency_options()
     {

@@ -21,6 +21,10 @@ class CrmCorporateController extends Controller
             $orderQ = Order::query()->where('group_type', Order::GROUP_CORPORATE)
                 ->filter($request)->with(['tour', 'tour.manager', 'schedule']);
 
+            if (current_user()->isTourManager()) {
+                $orderQ->whereHas('tour', fn ($sq) => $sq->whereHas('staff', fn ($ssq) => $ssq->where('id', current_user()->staffs->first()->id)));
+            }
+
             $paginator = $orderQ->paginate(20);
             $paginator->getCollection()->transform(function ($val) {
                 $val->makeVisible([

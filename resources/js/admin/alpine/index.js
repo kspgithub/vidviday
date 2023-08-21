@@ -45,6 +45,7 @@ import placeList from './place/place-list';
 import pageForm from './page/page-form';
 import contactManagers from './contacts/managers';
 
+import storeTestimonials from './crm/crm-testimonials';
 import storeEmail from './stores/store-email';
 import storeUser from './stores/store-user';
 
@@ -66,6 +67,7 @@ document.addEventListener('alpine:init', () => {
     // Stores
     Alpine.store('crmEmail', storeEmail);
     Alpine.store('crmUser', storeUser);
+    Alpine.data('crmTestimonials', storeTestimonials);
 
     // Components
     Alpine.data('sortable', sortable);

@@ -72,6 +72,7 @@ class TestimonialsTable extends DataTableComponent
     {
         $status = $this->getFilter('status');
         $type = $this->getFilter('type');
+        $imported = $this->getFilter('imported');
 
         return Testimonial::query()
             ->with(['model', 'user'])
@@ -86,6 +87,9 @@ class TestimonialsTable extends DataTableComponent
             })
             ->when(!is_null($status) && $status !== '', function ($query) use ($status) {
                 return $query->where('status', $status);
+            })->orderBy('created_at', 'desc')
+            ->when(!is_null($imported) && $imported !== '', function ($query) use ($imported) {
+                return $query->where('imported', $imported);
             })->orderBy('created_at', 'desc');
     }
 
@@ -133,7 +137,7 @@ class TestimonialsTable extends DataTableComponent
 
             Column::make(__('Status'))
                 ->format(function ($value, $column, $row) {
-                    return view('admin.tour.includes.questions-status', ['model' => $row]);
+                    return view('admin.testimonial.includes.testimonial-status', ['model' => $row]);
                 }),
 
             Column::make(__('Actions'))
@@ -245,6 +249,12 @@ class TestimonialsTable extends DataTableComponent
                     0 => __('New'),
                     1 => __('Published'),
                     2 => __('Blocked'),
+                ]),
+            'imported' => Filter::make('Imported')
+                ->select([
+                    '' => __('Any'),
+                    0 => 'NO',
+                    1 => 'YES',
                 ]),
         ];
     }

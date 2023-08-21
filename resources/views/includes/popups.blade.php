@@ -14,6 +14,7 @@
     @endguest()
 
     @include('includes.popups.popup_ads')
+    @include('includes.popups.profile-delete-popup')
 
     @stack('popups', false)
 

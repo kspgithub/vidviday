@@ -92,6 +92,7 @@
     },
     "dependencies": {
         "concurrently": "^7.5.0",
+        "jsondiffpatch": "^0.4.1",
         "vue-meta": "^2.4.0"
     }
 }

@@ -16,7 +16,7 @@
         <h1>@lang('FAQ')</h1>
 
         <div class="d-flex align-items-center">
-            @if(current_user()->isMasterAdmin())
+            @if(current_user()->isAdmin())
                 <a href="{{route('admin.faqitem.create', $section)}}" class="btn btn-sm btn-outline-info"><i
                         data-feather="plus"></i> Додати питання</a>
             @endif

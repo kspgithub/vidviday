@@ -423,5 +423,23 @@
         font-weight: 500;
     }
 
+    body.for-travel-agents,
+    body.about {
+        .right-sidebar {
+            display: block !important;
+        }
+        .right-sidebar-inner .bordered-box {
+            display: none !important;
+        }
+        &.agent-print {
+            .right-sidebar .sidebar-item.notice {
+                display: block !important;
+            }
+        }
+        .review-img {
+            display: none !important;
+        }
+    }
+
 
 }
